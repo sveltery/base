@@ -11,14 +11,14 @@ for (const reference of [false, true]) {
   for (const scenario of ['cancel', 'controlled']) test(`${framework}: ${scenario} canceled deferral lifecycle (intentional upstream correction)`, async ({ page }) => {
     await setup(page, reference, scenario);
     await page.getByRole('button', { name: 'Close', exact: true }).click();
+    await expect(page.getByRole('dialog')).toBeVisible();
+    expect(JSON.parse(await page.getByTestId('calls').innerText()).at(-1)).toMatchObject({ canceled: true });
+    await page.getByRole('button', { name: 'Close', exact: true }).click();
     if (reference) {
       // Pinned React shares this defect. Svelte intentionally enforces request-local cancellation.
       await expect(page.getByRole('dialog')).toHaveAttribute('data-closed', '');
       await command(page, 'unmount');
     }
-    await expect(page.getByRole('dialog')).toBeVisible();
-    expect(JSON.parse(await page.getByTestId('calls').innerText()).at(-1)).toMatchObject({ canceled: true });
-    await page.getByRole('button', { name: 'Close', exact: true }).click();
     await expect(page.getByRole('dialog')).toHaveCount(0);
     await expect(page.getByTestId('completed')).toHaveText('[true,false]');
     await expect(page.locator('#regression-trigger')).toBeFocused();
