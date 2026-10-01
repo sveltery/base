@@ -23,7 +23,9 @@ export function getButtonProps(external: Props, disabled: boolean, focusableWhen
   const resolved = mergeProps({
     'data-disabled': disabled ? '' : undefined,
     onclick(event: MouseEvent) { if (disabled) { event.preventDefault(); return; } consumer.onclick?.(event); },
-    onmousedown(event: MouseEvent) { if (!disabled) consumer.onmousedown?.(event); },
+    // Uncredited upstream correction: a chorded mouse press can produce
+    // mousedown without pointerdown. Cancel disabled default focus here too.
+    onmousedown(event: MouseEvent) { if (disabled) { event.preventDefault(); return; } consumer.onmousedown?.(event); },
     onpointerdown(event: PointerEvent) { if (disabled) { event.preventDefault(); return; } consumer.onpointerdown?.(event); },
     onkeydown(event: KeyEvent) {
       if (disabled) { if (focusableWhenDisabled && event.key !== 'Tab') event.preventDefault(); return; }

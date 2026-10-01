@@ -62,3 +62,7 @@ for (const scenario of ['custom-disabled', 'native-focusable']) it(`supplement: 
   const event = new MouseEvent('mousedown', { bubbles: true, cancelable: true, button: 0, buttons: 3 });
   expect(button.dispatchEvent(event)).toBe(false); expect(event.defaultPrevented).toBe(true); await tick(); expect(calls().mouse).toBe(0);
 });
+it('supplement: enabled mousedown retains browser default and invokes the consumer', async () => {
+  const button = await setup('custom'); const event = new MouseEvent('mousedown', { bubbles: true, cancelable: true });
+  expect(button.dispatchEvent(event)).toBe(true); expect(event.defaultPrevented).toBe(false); await tick(); expect(calls().mouse).toBe(1);
+});

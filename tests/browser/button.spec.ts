@@ -98,7 +98,9 @@ for (const reference of [false, true]) for (const scenario of ['custom-disabled'
     node.addEventListener('mousedown', event => {
       node.dataset.mousedownTrusted = String(event.isTrusted);
       node.dataset.mousedownButton = String(event.button);
-      queueMicrotask(() => { node.dataset.mousedownPrevented = String(event.defaultPrevented); });
+      // Trusted input can run microtasks between listeners; sample after the
+      // full dispatch, including delegated handlers and the browser default.
+      setTimeout(() => { node.dataset.mousedownPrevented = String(event.defaultPrevented); }, 0);
     }, { capture: true });
   });
   const box = await button.boundingBox(); expect(box).not.toBeNull();
