@@ -22,7 +22,7 @@
 <main data-hydrated={hydrated} {@attach commands}>
   <button id="before">Before</button>
   <Dialog.Root modal={scenario === 'trap' ? 'trap-focus' : false} disablePointerDismissal={scenario === 'disabled'} bind:actions onOpenChange={change}>
-    <Dialog.Trigger id="nonmodal-a">Trigger A</Dialog.Trigger>
+    <Dialog.Trigger id="nonmodal-a" onfocusout={scenario === 'stop-blur' ? (event: FocusEvent) => event.stopPropagation() : undefined}>Trigger A</Dialog.Trigger>
     {#if scenario === 'multiple'}<Dialog.Trigger id="nonmodal-b">Trigger B</Dialog.Trigger>{/if}
     {#if visible}<Dialog.Portal keepMounted={scenario === 'keep'}>
       <Dialog.Popup initialFocus={scenario === 'entry' ? false : undefined} style="position:relative;z-index:1">

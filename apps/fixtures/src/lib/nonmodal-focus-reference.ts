@@ -18,7 +18,7 @@ export function mountNonmodalFocusReference(node: HTMLElement, scenario: string)
       const event = details.event as FocusEvent;
       setRequests(previous => [...previous, { open, reason: details.reason, trigger: details.trigger?.id ?? null, type: event.type, target: (event.target as HTMLElement | null)?.id || null, related: (event.relatedTarget as HTMLElement | null)?.id || null, guard: (event.target as HTMLElement | null)?.dataset?.type ?? null, relatedGuard: (event.relatedTarget as HTMLElement | null)?.dataset?.type ?? null, trusted: event.isTrusted }]);
     } },
-      h(Dialog.Trigger, { id: 'nonmodal-a' }, 'Trigger A'),
+      h(Dialog.Trigger, { id: 'nonmodal-a', onBlur: scenario === 'stop-blur' ? event => event.stopPropagation() : undefined }, 'Trigger A'),
       scenario === 'multiple' ? h(Dialog.Trigger, { id: 'nonmodal-b' }, 'Trigger B') : null,
       visible ? h(Dialog.Portal, { keepMounted: scenario === 'keep' }, h(Dialog.Popup, { initialFocus: scenario === 'entry' ? false : undefined, style: { position: 'relative', zIndex: 1 } },
         h('input', { id: 'first', 'aria-label': 'First', tabIndex: 0 }),

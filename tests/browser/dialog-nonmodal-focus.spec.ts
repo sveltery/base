@@ -118,4 +118,9 @@ for (const reference of [false, true]) {
     expect((await requests(page)).at(-1)).toMatchObject({ open: false, reason: 'focus-out', trigger: 'nonmodal-a', type: 'focusin' });
     await expect(page.locator('[data-base-ui-focus-guard]')).toHaveCount(0);
   });
+  test(`${framework}: consumer focusout stopPropagation preserves native owner dismissal`, async ({ page }) => {
+    await setup(page, reference, 'stop-blur'); await page.locator('#nonmodal-a').focus(); await page.locator('#after').focus();
+    await expect(page.getByRole('dialog')).toHaveCount(0); await expect(page.locator('#after')).toBeFocused();
+    expect((await requests(page)).at(-1)).toMatchObject({ open: false, reason: 'focus-out', type: 'focusout', target: 'nonmodal-a', related: 'after' });
+  });
 }

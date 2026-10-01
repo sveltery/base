@@ -22,7 +22,7 @@ for (const reference of [false, true]) {
     element('end').focus(); await settle();
     expect(document.querySelector('[role=dialog]')).not.toBeNull(); expect(requests()).toHaveLength(1);
   });
-  for (const scenario of ['ordinary', 'entry', 'disabled']) it(`${framework}: owning Trigger focusout uses native target/relatedTarget (${scenario})`, async () => {
+  for (const scenario of ['ordinary', 'entry', 'disabled', 'stop-blur']) it(`${framework}: owning Trigger focusout uses native target/relatedTarget (${scenario})`, async () => {
     await setup(reference, scenario); element('nonmodal-a').focus(); element('after').focus(); await settle();
     expect(!!document.querySelector('[role=dialog]')).toBe(scenario === 'disabled');
     if (scenario === 'disabled') expect(requests()).toHaveLength(1);
