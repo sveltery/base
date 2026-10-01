@@ -1,6 +1,7 @@
 import { afterEach, expect, it, vi } from 'vitest';
 import { flushSync, mount, unmount } from 'svelte';
 import Fixture from './ToastPortalFixture.svelte';
+import BrowserFixture from '../../../../apps/fixtures/src/lib/ToastPortalFixture.svelte';
 import type { ToastPortalProps } from '../../src/lib/toast/types.js';
 const cleanups: (() => Promise<void>)[] = [];
 afterEach(async () => { for (const cleanup of cleanups.splice(0)) await cleanup(); document.body.replaceChildren(); });
@@ -52,4 +53,16 @@ it('uses a raw generated ID until explicit props override or remove it', () => {
   const { component } = setup(); expect(portal().id).not.toBe(''); expect(portal().id.startsWith('base-ui-')).toBe(false);
   component.setId('explicit'); flushSync(); expect(portal().id).toBe('explicit');
   component.setId(undefined); flushSync(); expect(portal().hasAttribute('id')).toBe(false);
+});
+it('retains ref resolution when a parent derived container and native props rerender together', () => {
+  const host = document.createElement('main'); document.body.append(host);
+  const component = mount(BrowserFixture, { target: host, props: { scenario: 'ref-null' } });
+  cleanups.push(() => unmount(component)); flushSync();
+  const root = () => document.querySelector('[data-testid="root"]')!;
+  expect(root().parentNode).toBe(document.body);
+  [...host.querySelectorAll('button')].find(node => node.textContent === 'mutate same ref')!.click(); flushSync();
+  expect(root().parentNode).toBe(document.body);
+  expect(root().getAttribute('data-mode')).toBe('mutated');
+  [...host.querySelectorAll('button')].find(node => node.textContent === 'resolve ref')!.click(); flushSync();
+  expect(root().parentNode).toBe(host.querySelector('#target-a'));
 });
