@@ -335,3 +335,47 @@ test('supplement: empty Viewport tracks owner-window focus for subsequent timed 
     await expect(page.getByTestId('root')).toHaveCount(0);
   }
 });
+
+// Intentional upstream correction: overlapping pause conditions remain additive.
+test('supplement: timers wait for both hover and keyboard focus to end', async ({ page }) => {
+  for (const firstExit of ['hover', 'focus']) {
+    await page.goto('/toast?case=add');
+    await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+    const start = new Date('2026-01-01T00:00:00Z');
+    await page.clock.install({ time: start }); await page.clock.pauseAt(start);
+    await click(page, 'add'); await page.getByTestId('viewport').hover();
+    await page.keyboard.press('F6'); await expect(page.getByTestId('viewport')).toBeFocused();
+    await page.clock.runFor(1000);
+    const add = page.getByRole('button', { name: 'add', exact: true });
+    if (firstExit === 'hover') await page.mouse.move(900, 700); else await add.focus();
+    await page.evaluate(() => { window.dispatchEvent(new Event('blur')); window.dispatchEvent(new Event('focus')); });
+    await page.clock.runFor(10000); await expect(page.getByTestId('root')).toHaveCount(1);
+    if (firstExit === 'hover') await add.focus(); else await page.mouse.move(900, 700);
+    await page.clock.runFor(4999); await expect(page.getByTestId('root')).toHaveCount(1);
+    await page.clock.runFor(2); await page.clock.runFor(32);
+    await expect(page.getByTestId('root')).toHaveCount(0);
+  }
+});
+
+// Real alternate owner document starts unfocused; no prior blur event is sent.
+test('supplement: an already unfocused owner document pauses its first toast', async ({ page }) => {
+  await page.goto('/toast?case=add');
+  await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+  await page.getByRole('button', { name: 'add', exact: true }).focus();
+  const start = new Date('2026-01-01T00:00:00Z');
+  await page.clock.install({ time: start }); await page.clock.pauseAt(start);
+  await page.evaluate(() => {
+    const iframe = document.createElement('iframe');
+    iframe.id = 'toast-owner-frame'; iframe.src = '/toast?case=add'; document.body.appendChild(iframe);
+  });
+  const frame = page.frameLocator('#toast-owner-frame');
+  await expect(frame.locator('main')).toHaveAttribute('data-hydrated', 'true');
+  expect(await frame.locator('body').evaluate(node => node.ownerDocument.hasFocus())).toBe(false);
+  await frame.getByRole('button', { name: 'add', exact: true }).evaluate((button: HTMLButtonElement) => button.click());
+  await page.clock.runFor(10000); await expect(frame.getByTestId('root')).toHaveCount(1);
+  await frame.getByRole('button', { name: 'add', exact: true }).focus();
+  expect(await frame.locator('body').evaluate(node => node.ownerDocument.hasFocus())).toBe(true);
+  await page.clock.runFor(4999); await expect(frame.getByTestId('root')).toHaveCount(1);
+  await page.clock.runFor(2); await page.clock.runFor(32);
+  await expect(frame.getByTestId('root')).toHaveCount(0);
+});

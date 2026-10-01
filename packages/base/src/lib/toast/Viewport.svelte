@@ -18,6 +18,14 @@
   const hasTransitioningToasts = $derived(snapshot.toasts.some(toast => toast.transitionStatus === 'ending'));
   const highPriorityToasts = $derived(snapshot.toasts.filter(toast => toast.priority === 'high'));
   const hiddenStyle = 'border:0;clip:rect(0,0,0,0);height:1px;margin:-1px;overflow:hidden;padding:0;position:fixed;white-space:nowrap;width:1px;top:0;left:0';
+  function resumeTimersIfAllowed() {
+    if (!selectors.expandedOrOutOfFocus(store.state)) store.resumeTimers();
+  }
+  function syncWindowFocus(node: HTMLElement) {
+    store.set('isWindowFocused', node.ownerDocument.hasFocus());
+    if (selectors.expandedOrOutOfFocus(store.state)) store.pauseTimers();
+    else store.resumeTimers();
+  }
   function restoreFocus() { store.state.prevFocusElement?.focus({ preventScroll: true }); }
   function closeFocus(toastId?: string) {
     const state = store.state;
@@ -58,6 +66,7 @@
   function attach(node: HTMLElement) {
     viewport = node;
     store.set('viewport', node);
+    syncWindowFocus(node);
     const unregister = store.setCloseFocusHandler(closeFocus);
     return () => {
       unregister();
@@ -81,20 +90,21 @@
     }
     function focus(event: FocusEvent) {
       if (event.relatedTarget) return;
-      const target = getTarget(event);
-      if (target === win || !contains(node, target) || !isFocusVisible(activeElement(doc))) store.resumeTimers();
       win!.clearTimeout(focusTimeout);
       focusTimeout = win!.setTimeout(() => {
         focusTimeout = undefined;
         store.set('isWindowFocused', true);
         // An immediate add after focus can create a paused timer before this
         // publication. Resume it only when current interaction permits it.
-        if (!selectors.expandedOrOutOfFocus(store.state)) store.resumeTimers();
+        resumeTimersIfAllowed();
       }, 0);
     }
     // Window focus remains observable while the mounted Viewport is empty.
     win.addEventListener('blur', blur, true);
     win.addEventListener('focus', focus, true);
+    // Attachment and effect installation are separate commits; reconcile any
+    // focus change that happened before these listeners were installed.
+    untrack(() => syncWindowFocus(node));
     return () => {
       win.clearTimeout(focusTimeout);
       if (focusTimeout !== undefined && store.state.viewport === node) store.set('isWindowFocused', true);
@@ -119,8 +129,8 @@
     }
     function pointerdown(event: PointerEvent) {
       if (event.pointerType !== 'touch' || contains(store.state.viewport, getTarget(event))) return;
-      store.resumeTimers();
       store.update({ hovering: false, focused: false });
+      resumeTimersIfAllowed();
     }
     win.addEventListener('keydown', keydown);
     doc.addEventListener('pointerdown', pointerdown, true);
@@ -131,8 +141,8 @@
   });
   function flushMouseLeave() {
     if (store.state.toasts.some(toast => toast.transitionStatus === 'ending') || touchActive || !markedReadyForMouseLeave) return;
-    if (store.state.isWindowFocused) store.resumeTimers();
     store.set('hovering', false);
+    resumeTimersIfAllowed();
     markedReadyForMouseLeave = false;
   }
   $effect(() => { void hasTransitioningToasts; untrack(flushMouseLeave); });
@@ -155,7 +165,7 @@
   function blur(event: FocusEvent) {
     if (!store.state.focused || contains(store.state.viewport, event.relatedTarget)) return;
     store.set('focused', false);
-    if (store.state.isWindowFocused) store.resumeTimers();
+    resumeTimersIfAllowed();
   }
   function keydown(event: KeyboardEvent) {
     if (event.key === 'Tab' && event.shiftKey && getTarget(event) === store.state.viewport) {

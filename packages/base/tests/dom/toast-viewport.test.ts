@@ -6,7 +6,7 @@ import { flushSync, mount, tick, unmount } from 'svelte';
 import Fixture from './ToastViewportFixture.svelte';
 import { createToastManager } from '../../src/lib/toast/createToastManager.js';
 const mounted: ReturnType<typeof mount>[] = [];
-beforeEach(() => { vi.useFakeTimers(); });
+beforeEach(() => { vi.useFakeTimers(); vi.spyOn(document, 'hasFocus').mockReturnValue(true); });
 afterEach(async () => {
   for (const component of mounted.splice(0)) await unmount(component);
   document.body.replaceChildren(); vi.restoreAllMocks(); vi.useRealTimers();
@@ -356,5 +356,37 @@ it.each([false, true])('tracks real owner-window focus while empty (previous toa
   dispatch('blur'); flushSync();
   await add(); await advance(10000); expect(root()).not.toBe(null);
   dispatch('focus'); await advance(4999); expect(root()).not.toBe(null);
+  await advance(2); expect(root()).toBe(null);
+});
+
+it.each(['hover', 'focus'])('keeps timers paused until both hover and focus end (first exit=%s)', async firstExit => { // intentional upstream correction, no parity credit
+  await render(); await add(); mouse('mouseenter'); key(button(), 'F6');
+  await advance(1000);
+  if (firstExit === 'hover') mouse('mouseleave'); else button().focus();
+  await advance(10000); expect(root()).not.toBe(null);
+  if (firstExit === 'hover') button().focus(); else mouse('mouseleave');
+  await advance(4999); expect(root()).not.toBe(null);
+  await advance(2); expect(root()).toBe(null);
+});
+it('starts paused when the owner document is already blurred at mount', async () => { // intentional upstream correction, no parity credit
+  vi.mocked(document.hasFocus).mockReturnValue(false);
+  await render(); expect(button().getAttribute('data-window-focused')).toBe('false');
+  await add(); await advance(10000); expect(root()).not.toBe(null);
+  const event = new FocusEvent('focus');
+  Object.defineProperty(event, 'composedPath', { value: () => [window] });
+  window.dispatchEvent(event);
+  await advance(4999); expect(root()).not.toBe(null);
+  await advance(2); expect(root()).toBe(null);
+});
+it('outside touch clears interactions without resuming a blurred owner window', async () => { // intentional upstream correction, no parity credit
+  await render(); await add(); mouse('mouseenter');
+  const event = new FocusEvent('blur');
+  Object.defineProperty(event, 'composedPath', { value: () => [window] });
+  window.dispatchEvent(event); pointer(document.body, 'touch');
+  await advance(10000); expect(root()).not.toBe(null);
+  const focusEvent = new FocusEvent('focus');
+  Object.defineProperty(focusEvent, 'composedPath', { value: () => [window] });
+  window.dispatchEvent(focusEvent);
+  await advance(4999); expect(root()).not.toBe(null);
   await advance(2); expect(root()).toBe(null);
 });
