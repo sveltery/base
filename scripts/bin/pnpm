@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+set -euo pipefail
+exec corepack "pnpm@${SVELTERY_PNPM_VERSION:?Source scripts/toolchain.sh first}" "$@"

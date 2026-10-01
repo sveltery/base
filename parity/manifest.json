@@ -1,0 +1,4446 @@
+{
+  "upstream": {
+    "repository": "https://github.com/mui/base-ui",
+    "tag": "v1.8.0",
+    "commit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c"
+  },
+  "inventoryScope": "Named test declarations in parity/sources.json, including multiline conditional declarations and interpolated-template names counted once, plus three exact event-detail type assertions. Parameterized .each/.for expansion and shared conformance helpers are excluded; this is not a full catalog inventory.",
+  "approvedDeviations": [],
+  "cases": [
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 6,
+      "name": "merges event handlers",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 30,
+      "name": "merges multiple event handlers",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 55,
+      "name": "merges undefined event handlers",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 78,
+      "name": "makes a lone synthetic event handler preventable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 96,
+      "name": "makes a first-position synthetic event handler preventable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 116,
+      "name": "makes a first-position synthetic event handler preventable in mergePropsN",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 136,
+      "name": "makes a lone obscure synthetic event handler preventable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 154,
+      "name": "merges styles",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 169,
+      "name": "merges styles with undefined",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 182,
+      "name": "does not merge styles if both are undefined",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 190,
+      "name": "merges classNames with rightmost first",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 202,
+      "name": "merges multiple classNames",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 218,
+      "name": "merges classNames with undefined",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 229,
+      "name": "does not merge classNames if both are undefined",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 237,
+      "name": "does not prevent internal handler if event.preventBaseUIHandler() is not called",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 256,
+      "name": "prevents internal handler if event.preventBaseUIHandler() is called",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 283,
+      "name": "prevents handlers merged after event.preventBaseUIHandler() is called",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 311,
+      "name": "handles non-standard event handlers without error",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 333,
+      "name": "forwards all arguments for a lone non-standard event handler",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 349,
+      "name": "forwards all arguments for merged non-standard event handlers",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 374,
+      "name": "forwards additional arguments for synthetic event handlers",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 400,
+      "name": "merges internal props so that the ones defined first override the ones defined later",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 414,
+      "name": "sets baseUIHandlerPrevented to true after calling preventBaseUIHandler()",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 435,
+      "name": "calls the props getter with the props defined after it",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 458,
+      "name": "calls the props getter with merged props defined after it",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 486,
+      "name": "calls the props getter with an empty object if no props are defined after it",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 499,
+      "name": "does not mutate a reused object returned by the first props getter",
+      "status": "passing",
+      "port": "packages/base/tests/merge-props.upstream.test.ts",
+      "verification": "2026-10-01: bash scripts/verify.sh on Node 24.21.0 / pnpm 12.6.0"
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 514,
+      "name": "accepts the result of the props getter",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 532,
+      "name": "does not automatically prevent handlers that are manually called by getter handlers",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.test.ts",
+      "line": 565,
+      "name": "allows props getter handlers to check baseUIHandlerPrevented manually",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/utils/src/useControlled.test.tsx",
+      "line": 30,
+      "name": "works correctly when is not controlled",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/utils/src/useControlled.test.tsx",
+      "line": 51,
+      "name": "works correctly when is controlled",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/utils/src/useControlled.test.tsx",
+      "line": 64,
+      "name": "warns when switching from uncontrolled to controlled",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/utils/src/useControlled.test.tsx",
+      "line": 77,
+      "name": "warns and falls back to the default when switching from controlled to uncontrolled",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/utils/src/useControlled.test.tsx",
+      "line": 120,
+      "name": "warns when changed after initial rendering",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/utils/src/useControlled.test.tsx",
+      "line": 134,
+      "name": "does not warn when controlled",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/utils/src/useControlled.test.tsx",
+      "line": 150,
+      "name": "does not warn when NaN",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/utils/src/useControlled.test.tsx",
+      "line": 156,
+      "name": "does not warn when an array",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/utils/src/useControlled.test.tsx",
+      "line": 171,
+      "name": "does not throw when defaultValue has React elements",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/utils/src/useControlled.test.tsx",
+      "line": 188,
+      "name": "does not throw when defaultValue has function",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/utils/src/useControlled.test.tsx",
+      "line": 207,
+      "name": "does not throw when defaultValue has bigint",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/utils/src/useControlled.test.tsx",
+      "line": 222,
+      "name": "should warn only when defaultValue changes",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/utils/src/useControlled.test.tsx",
+      "line": 244,
+      "name": "should warn only when defaultValue has functions/components and changes",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/utils/src/useControlled.test.tsx",
+      "line": 280,
+      "name": "should not fail on null values",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/backdrop/DialogBackdrop.test.tsx",
+      "line": 21,
+      "name": "has role=\"presentation\"",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/backdrop/DialogBackdrop.test.tsx",
+      "line": 32,
+      "name": "renders only the root backdrop by default",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/backdrop/DialogBackdrop.test.tsx",
+      "line": 60,
+      "name": "always renders by default when not nested",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/backdrop/DialogBackdrop.test.tsx",
+      "line": 73,
+      "name": "renders only the root backdrop with multiple nesting levels",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/backdrop/DialogBackdrop.test.tsx",
+      "line": 111,
+      "name": "always renders when true",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/close/DialogClose.test.tsx",
+      "line": 25,
+      "name": "disables the button",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/close/DialogClose.test.tsx",
+      "line": 55,
+      "name": "custom element",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/close/DialogClose.test.tsx",
+      "line": 89,
+      "name": "closes the dialog when undefined is passed to the `onClick` prop",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/close/DialogClose.test.tsx",
+      "line": 118,
+      "name": "does not close the dialog when the Base UI click handler is prevented",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/close/DialogClose.test.tsx",
+      "line": 137,
+      "name": "does not request another close when clicked after the dialog has closed",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 22,
+      "name": "throws a descriptive error when rendered outside <Dialog.Root>",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 35,
+      "name": "should keep the dialog mounted when keepMounted=true",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 49,
+      "name": "should not keep the dialog mounted when keepMounted=${keepMounted}",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 64,
+      "name": "should focus the first focusable element within the popup",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 92,
+      "name": "should focus the element provided to `initialFocus` as a ref when open",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 127,
+      "name": "should focus the element provided to `initialFocus` as a function when open",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 165,
+      "name": "should support element-returning function and no-op via false/void for initialFocus",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 207,
+      "name": "passes the latest interaction type to initialFocus after reopening",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 240,
+      "name": "focuses the popup itself rather than inner content when opened by touch",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 263,
+      "name": "should not move focus when initialFocus is false",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 287,
+      "name": "should default focus when initialFocus returns true",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 310,
+      "name": "uses default behavior when initialFocus returns null",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 333,
+      "name": "should not call initialFocus function when closing the dialog",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 384,
+      "name": "keeps initial focus working when the popup is wrapped by a display: contents ancestor",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 410,
+      "name": "keeps trap-focus tab cycling inside the popup when wrapped by a display: contents ancestor",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 455,
+      "name": "should focus the trigger by default when closed",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 483,
+      "name": "should focus the element provided to the prop when closed",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 520,
+      "name": "should support function returning element for finalFocus when closed",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 548,
+      "name": "should not move focus when finalFocus is false",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 574,
+      "name": "should move focus to the trigger when finalFocus returns true",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 600,
+      "name": "should support element-returning function and default via true + no-op via void for finalFocus based on closeType",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 646,
+      "name": "respects finalFocus when initialFocus points outside the popup",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 682,
+      "name": "moves final focus to trigger if initialFocus points outside the popup and finalFocus is not specified",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 718,
+      "name": "uses default behavior when finalFocus returns null",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 746,
+      "name": "provides the number of open nested dialogs as a CSS variable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 808,
+      "name": "decrements the count when an open nested dialog is unmounted",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 861,
+      "name": "does not change the count when a closed nested dialog is unmounted",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 902,
+      "name": "increments for nested alert dialog and decrements on close (cross-type)",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 942,
+      "name": "adds the `nested` and `nested-dialog-open` style hooks if a dialog has a parent dialog",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
+      "line": 972,
+      "name": "adds the `nested` and `nested-dialog-open` style hooks if a dialog has a parent alert dialog",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/portal/DialogPortal.test.tsx",
+      "line": 17,
+      "name": "throws a descriptive error when a portaled part is rendered without <Dialog.Portal>",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/portal/DialogPortal.test.tsx",
+      "line": 35,
+      "name": "should not throw \"Maximum update depth exceeded\" when Suspense boundary is outside Portal",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 19,
+      "name": "hydrates a detached trigger from the stable fallback store",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 43,
+      "name": "keeps the server snapshot stable when the root closes before a delayed trigger hydrates",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 99,
+      "name": "opens from a descendant layout effect on initial mount",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 126,
+      "name": "opens with a payload from a descendant layout effect on initial mount",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 159,
+      "name": "closes from a descendant layout effect on an initially open root",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 186,
+      "name": "ignores imperative handle calls made before a root is attached",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 230,
+      "name": "does not warn for a detached payload open in production",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 249,
+      "name": "ignores imperative handle calls made after the root is detached",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 325,
+      "name": "does not attach a replacement root store from an abandoned transition render",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 412,
+      "name": "attaches a fresh root store when the handle prop changes to a previously dirtied handle",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 490,
+      "name": "keeps a handle-backed dialog open and controllable across handle swaps on a live root",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 549,
+      "name": "attaches and detaches a handle when the prop toggles on a live root",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 612,
+      "name": "registers a detached trigger declared after the root",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 641,
+      "name": "associates the requested trigger when opened by id in the same commit a root attaches",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 700,
+      "name": "does not warn when one root replaces another during a route transition",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 738,
+      "name": "keeps the newer root attached after the older root unmounts",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 775,
+      "name": "restores control to the previous root when a newer overlapping root detaches",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 820,
+      "name": "keeps the root attached through Strict Mode effect replay",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 845,
+      "name": "warns when a handle stays attached to more than one mounted root",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 871,
+      "name": "resolves a trigger still registered to the previous root during a transient overlap",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 939,
+      "name": "opens the dialog with any trigger",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 987,
+      "name": "sets the payload and renders content based on its value",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 1020,
+      "name": "reuses the popup DOM node when switching triggers",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 1048,
+      "name": "synchronizes ARIA attributes on the active trigger",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 1078,
+      "name": "synchronizes ARIA attributes in controlled mode",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 1100,
+      "name": "sets the payload when opening programmatically with a controlled triggerId",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 1157,
+      "name": "keeps the payload reactive",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 1274,
+      "name": "opens the dialog with any trigger",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 1323,
+      "name": "attaches fresh root state when the root remounts after being unmounted while open",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 1389,
+      "name": "resets stale payload when a handle-backed root remounts",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 1444,
+      "name": "notifies persistent detached triggers after attaching fresh root state on remount",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 1518,
+      "name": "resets stale controlled open state when a handle-backed root remounts uncontrolled",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 1579,
+      "name": "does not warn when a handle-backed root remounts controlled after being uncontrolled",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 1646,
+      "name": "keeps detached triggers clickable when reparented (remove wrappers)",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 1664,
+      "name": "keeps detached triggers clickable when reparented (add wrappers)",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 1682,
+      "name": "keeps detached triggers clickable during Fast Refresh-like handle recreation",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 1711,
+      "name": "keeps ARIA controls in sync when a detached handle is recreated while open",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 1746,
+      "name": "keeps detached triggers clickable when reparented during Fast Refresh-like handle recreation",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 1764,
+      "name": "sets the payload and renders content based on its value",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 1802,
+      "name": "reuses the popup DOM node when switching triggers",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 1835,
+      "name": "keeps the payload reactive",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 1891,
+      "name": "closes a non-modal dialog with Escape from an inactive detached trigger",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 1921,
+      "name": "opens and closes the dialog",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 1955,
+      "name": "associates an imperative open-by-id with a persistent detached trigger after the root remounts",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 2028,
+      "name": "stops resolving a handle-A trigger after the root switches to handle B",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 2088,
+      "name": "sets the payload assosiated with the trigger",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx",
+      "line": 2129,
+      "name": "sets the payload programmatically",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 42,
+      "name": "ignores a native click whose pointerdown opened the dialog",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 170,
+      "name": "reports nested drawer counts before passive effects",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 239,
+      "name": "keeps trigger ownership when another trigger mounts while open",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 280,
+      "name": "rewires dismiss interactions after closing and reopening",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 306,
+      "name": "ARIA attributes",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 333,
+      "name": "keeps accessible names and descriptions in sync when label parts change",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 389,
+      "name": "calls onOpenChange with the new open state",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 411,
+      "name": "calls onOpenChange with the reason for change when clicked on trigger and close button",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 431,
+      "name": "reports no trigger when closing with an initial trigger id that is not mounted",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 459,
+      "name": "calls onOpenChange with the reason for change when pressed Esc while the dialog is open",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 472,
+      "name": "calls onOpenChange with the reason for change when user clicks backdrop while the modal dialog is open",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 485,
+      "name": "calls onOpenChange with the reason for change when user clicks outside while the non-modal dialog is open",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 501,
+      "name": "detects clicks on user backdrop",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 518,
+      "name": "does not change open state on non-main button clicks",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 535,
+      "name": "cancel() prevents opening while uncontrolled",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 555,
+      "name": "emits a single internal openchange when closing on Escape",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 582,
+      "name": "does not emit internal openchange when an Escape close is canceled",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 622,
+      "name": "${expectDismissed ? 'closes' : 'does not close'} the dialog when clicking outside if disablePointerDismissal=${disablePointerDismissal}",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 649,
+      "name": "uses intentional outside press with user backdrop (mouse): closes on click, not on mousedown",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 672,
+      "name": "uses intentional outside press with internal backdrop (modal=true): closes on click, not on mousedown",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 694,
+      "name": "closing via intentional outside press with user backdrop (modal=true): works when portaled into a shadow DOM",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 717,
+      "name": "closing via outside press: works when clicking another element inside the same shadow root",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 754,
+      "name": "closing via outside press: works when clicking outside the shadow root",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 786,
+      "name": "closing via outside press: works for a modal dialog when clicking outside the shadow root",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 819,
+      "name": "waits for the exit transition to finish before unmounting",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 865,
+      "name": "makes other interactive elements on the page inert when a modal dialog is open",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 871,
+      "name": "does not make other interactive elements on the page inert when a non-modal dialog is open",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 877,
+      "name": "should render an internal backdrop when `true`",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 902,
+      "name": "should not render an internal backdrop when `false`",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 925,
+      "name": "does not dismiss previous modal dialog when clicking new modal dialog",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 968,
+      "name": "dismisses non-nested dialogs one by one",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 1035,
+      "name": "should not dismiss the dialog when dismissing outside a nested modal menu",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 1093,
+      "name": "should not dismiss the dialog when dismissing outside a nested select popup",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 1151,
+      "name": "should not close the parent menu when Escape is pressed in a nested dialog",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 1196,
+      "name": "unmounts the dialog when the `unmount` method is called",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 1237,
+      "name": "moves focus to the popup when a focused child is removed on pointerdown and outside press still dismisses",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 1274,
+      "name": "dismisses on first outside click after NumberField scrub interaction (pointer lock path)",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 1319,
+      "name": "is called on close when there is no exit animation defined",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 1345,
+      "name": "is called on close when the exit animation finishes",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 1399,
+      "name": "is called on open when there is no enter animation defined",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 1425,
+      "name": "is called on open when the enter animation finishes",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 1473,
+      "name": "waits for a restarted enter animation to finish",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 1544,
+      "name": "does not get called on open when dismissed during the enter animation",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 1612,
+      "name": "does not get called on mount when not open",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 1622,
+      "name": "does not close on a right-button outside press",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 1706,
+      "name": "closes a non-modal dialog without a backdrop",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 1710,
+      "name": "closes a trap-focus dialog without a backdrop",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 1714,
+      "name": "does not close when another touch is still active on touchend",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 1755,
+      "name": "does not close when two touches are lifted simultaneously on touchend",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 1797,
+      "name": "does not close when multiple touches move past the drag dismissal threshold",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 1833,
+      "name": "closes as soon as a single touch moves past the drag dismissal threshold",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 1915,
+      "name": "keeps the page locked until it takes over, and unlocks on close",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 1969,
+      "name": "locks immediately when an external <body> lock cannot affect the page",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 1999,
+      "name": "returns focus to the menu trigger when a detached dialog trigger unmounts",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 2058,
+      "name": "keeps focus trapped when dialog content contains a non-scrollable scroll area",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 2106,
+      "name": "returns focus into the dialog when a close confirmation opened by an outside press closes",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 2178,
+      "name": "does not leak a non-modal popup field into an unrelated dialog return focus",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/trigger/DialogTrigger.test.tsx",
+      "line": 22,
+      "name": "throws a descriptive error without a root or handle",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/trigger/DialogTrigger.test.tsx",
+      "line": 35,
+      "name": "disables the dialog",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/trigger/DialogTrigger.test.tsx",
+      "line": 59,
+      "name": "custom element",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/viewport/DialogViewport.test.tsx",
+      "line": 24,
+      "name": "renders only when the dialog is mounted by default",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/viewport/DialogViewport.test.tsx",
+      "line": 49,
+      "name": "stays mounted when used within a keepMounted portal",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/content/DrawerContent.test.tsx",
+      "line": 24,
+      "name": "does not add public swipe-ignore attributes",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/indent/DrawerIndent.test.tsx",
+      "line": 28,
+      "name": "sets data-active when any drawer is open",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/indent-background/DrawerIndentBackground.test.tsx",
+      "line": 26,
+      "name": "sets data-active when any drawer is open",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/popup/DrawerPopup.test.tsx",
+      "line": 46,
+      "name": "warns in development when not rendered within a viewport",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/popup/DrawerPopup.test.tsx",
+      "line": 68,
+      "name": "warns without relying on React owner-stack support",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/popup/DrawerPopup.test.tsx",
+      "line": 97,
+      "name": "defaults initial focus to the popup element",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/popup/DrawerPopup.test.tsx",
+      "line": 124,
+      "name": "leaves focus on the trigger when initial focus is disabled",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/popup/DrawerPopup.test.tsx",
+      "line": 145,
+      "name": "stops composite navigation keys from escaping the popup",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/popup/DrawerPopup.test.tsx",
+      "line": 170,
+      "name": "applies a negative snap point offset to upward drawers",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/popup/DrawerPopup.test.tsx",
+      "line": 197,
+      "name": "keeps the last measured popup height while nested content stretches it",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/popup/DrawerPopup.test.tsx",
+      "line": 242,
+      "name": "does not throw when a popup render function produces no element",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/popup/DrawerPopup.test.tsx",
+      "line": 257,
+      "name": "ignores a queued measurement after the popup unmounts",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/popup/DrawerPopup.test.tsx",
+      "line": 301,
+      "name": "includes border size in frontmost height CSS variable for nested drawers",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/popup/DrawerPopup.test.tsx",
+      "line": 343,
+      "name": "reports nested presence and frontmost height before passive effects",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/popup/DrawerPopup.test.tsx",
+      "line": 449,
+      "name": "does not treat dialogs inside nested drawers as nested drawers",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/popup/DrawerPopup.test.tsx",
+      "line": 512,
+      "name": "does not treat alert dialogs inside nested drawers as nested drawers",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/popup/DrawerPopup.test.tsx",
+      "line": 578,
+      "name": "clears parent nested drawer state as soon as a nested drawer closes",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/popup/DrawerPopup.test.tsx",
+      "line": 624,
+      "name": "clears parent nested drawer state when a nested drawer starts closing before unmount",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/popup/DrawerPopup.test.tsx",
+      "line": 695,
+      "name": "keeps a fixed height applied while a nested drawer closes",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/popup/DrawerPopup.test.tsx",
+      "line": 815,
+      "name": "restores a fixed height before nested state when reopening a nested drawer",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/provider/DrawerProvider.test.tsx",
+      "line": 70,
+      "name": "stays active until every open drawer is closed or removed",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/provider/DrawerProvider.test.tsx",
+      "line": 88,
+      "name": "ignores redundant registry updates without disturbing active state",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/provider/DrawerProvider.test.tsx",
+      "line": 112,
+      "name": "does not retain closed drawer registrations",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/provider/DrawerProvider.test.tsx",
+      "line": 128,
+      "name": "synchronizes and restores visual state on Drawer.Indent",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/provider/DrawerProvider.test.tsx",
+      "line": 153,
+      "name": "allows indent parts to render without a provider",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 576,
+      "name": "uses a size-based swipe threshold",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 613,
+      "name": "supports detached triggers with handles",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 655,
+      "name": "supports imperative actions with handles",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 709,
+      "name": "attaches fresh root state when a handle-backed root remounts",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 799,
+      "name": "synchronizes trigger aria-controls with the popup id",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 822,
+      "name": "resets the active snap point when closing",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 834,
+      "name": "resets to the default snap point when provided",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 848,
+      "name": "provides event details when snap point changes",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 863,
+      "name": "does not reset snap point when a close is canceled",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 875,
+      "name": "honors canceled snap point changes and falls back from invalid uncontrolled values",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 909,
+      "name": "normalizes invalid nested swipe progress without notifying for duplicate values",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 936,
+      "name": "throws a descriptive error when the root context is missing",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1045,
+      "name": "clears swipe-dismiss styles when swipe close is canceled",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1073,
+      "name": "does not dismiss a controlled drawer via swipe when open is always true",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1113,
+      "name": "does not restore snap point when a controlled swipe close is accepted by the parent",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1135,
+      "name": "restores snap point and swipe offsets when swipe close is canceled",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1162,
+      "name": "damps active snap point overshoot after the swipe direction is established",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1230,
+      "name": "allows dragging past a snap point when snapToSequentialPoints is enabled",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1257,
+      "name": "advances to the next snap point on fast flicks when snapToSequentialPoints is enabled",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1284,
+      "name": "keeps the drawer open on low-velocity swipes near a snap point",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1311,
+      "name": "keeps the drawer open when the release velocity reverses during an upward swipe",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1347,
+      "name": "chooses the nearest sequential snap point on a slow drag",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1368,
+      "name": "advances a sequential snap point toward dismissal",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1389,
+      "name": "dismisses past the final sequential snap point",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1410,
+      "name": "dismisses when a slow snap-point drag ends closer to closed",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1431,
+      "name": "dismisses from upward snap points using upward velocity",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1452,
+      "name": "opens from a controlled null snap point",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1473,
+      "name": "dismisses from a controlled null snap point",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1494,
+      "name": "keeps the first sequential snap point on a fast opening flick",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1515,
+      "name": "keeps the current snap point after a sub-threshold drag",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1536,
+      "name": "dismisses a non-sequential snap point when closed is nearest",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1557,
+      "name": "finishes a controlled accepted dismissal while kept mounted",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1583,
+      "name": "restores a snap point when a controlled parent rejects dismissal",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1613,
+      "name": "closes an uncontrolled drawer after a slow long drag",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1644,
+      "name": "closes when CloseWatcher emits a close event",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerSnapPoints.test.tsx",
+      "line": 56,
+      "name": "resolves supported units, filters invalid values, clamps heights, and keeps the last duplicate",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerSnapPoints.test.tsx",
+      "line": 97,
+      "name": "uses fractional and pixel snap points and resolves null or invalid active values as closed",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerSnapPoints.test.tsx",
+      "line": 116,
+      "name": "produces no resolved snap point when the list is empty",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerSnapPoints.test.tsx",
+      "line": 123,
+      "name": "resolves a single snap point without a deduplication pass",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/useDrawerSnapPoints.test.ts",
+      "line": 5,
+      "name": "returns the raw movement when the drag does not overshoot the open edge",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/useDrawerSnapPoints.test.ts",
+      "line": 10,
+      "name": "returns the raw movement at the open edge (nextOffset === 0)",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/useDrawerSnapPoints.test.ts",
+      "line": 14,
+      "name": "damps the movement with a square root once the drag overshoots the open edge",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/useDrawerSnapPoints.test.ts",
+      "line": 21,
+      "name": "returns the closest value and keeps the first value on ties",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/useDrawerSnapPoints.test.ts",
+      "line": 26,
+      "name": "returns -1 when there are no values",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 305,
+      "name": "opens the drawer when swiped in the open direction",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 321,
+      "name": "does not open when the swipe direction never locks to the open direction",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 338,
+      "name": "prevents default pointer down for non-touch swipes",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 357,
+      "name": "does not open the drawer when disabled",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 371,
+      "name": "respects custom swipeDirection",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 385,
+      "name": "synchronizes overshoot styles across the popup, backdrop, and provider indent",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 463,
+      "name": "opens from the rendered transform distance in either horizontal direction",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 506,
+      "name": "omits frontmost height when an opening drawer has no measured height",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 541,
+      "name": "does not apply or close swipe state when a controlled parent rejects opening",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 579,
+      "name": "cancels an active opening gesture when the swipe area becomes disabled",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 697,
+      "name": "keeps the drawer open when the release click follows a mid-gesture disable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 761,
+      "name": "does not prevent a non-cancelable pointer start",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 795,
+      "name": "ignores compatibility touch pointer gestures with real displacement",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 832,
+      "name": "works before a generated swipe area id is available",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 851,
+      "name": "registers the swipe area once a generated id becomes available",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 886,
+      "name": "follows a swipe area id change",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 910,
+      "name": "opens the drawer when swiped with touch events",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 930,
+      "name": "applies data-swiping during an active swipe gesture",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 948,
+      "name": "re-enables outside press dismissal after opening by swipe",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 979,
+      "name": "re-enables outside press dismissal for a touch outside press after opening by swipe",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 1057,
+      "name": "suppresses a trusted release click that arrives without a preceding pointerdown",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 1128,
+      "name": "allows a later click-only activation to dismiss after a swipe",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 1159,
+      "name": "allows a later pointerless virtual click to dismiss when the release has no click",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 1193,
+      "name": "re-enables outside press dismissal after an interrupted swipe-open gesture",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 1264,
+      "name": "re-enables outside press dismissal after a context menu interrupts swipe-open",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 1338,
+      "name": "uses a size-based swipe threshold by default",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 1373,
+      "name": "keeps the swipe-area movement on the popup when re-grabbed during close",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 1468,
+      "name": "opens on a quick flick whose only move is already released (buttons: 0)",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 1517,
+      "name": "commits a released-move quick flick exactly once when a real pointerup trails it",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 1577,
+      "name": "opens on a quick flick that lands its whole travel in a single touch move",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 1610,
+      "name": "does not open on an in-place press-release without movement",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 1657,
+      "name": "does not open a horizontal drawer on a stationary pointer move",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 55,
+      "name": "clears text selection on swipe start",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 108,
+      "name": "preserves text selection outside the popup when a swipe starts",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 158,
+      "name": "does not clear text selection on touch swipe start",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 211,
+      "name": "starts touch swipes from interactive elements",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 251,
+      "name": "uses shadow-root hit testing for touch swipe targets",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 317,
+      "name": "starts a swipe inside a shadow root using real hit testing",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 369,
+      "name": "clears the backdrop data-swiping attribute when the drawer unmounts mid-swipe",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 412,
+      "name": "uses the event target for non-keyboard touch scroll arbitration",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 480,
+      "name": "allows clicks on non-interactive elements without data-base-ui-swipe-ignore",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 536,
+      "name": "does not start touch swipes from elements with data-base-ui-swipe-ignore",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 592,
+      "name": "does not prevent native touch scrolling in portaled descendants",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 643,
+      "name": "allows touch gestures on a portaled combobox popup without starting drawer swipe",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 741,
+      "name": "still allows touch swipes from elements with legacy data-swipe-ignore",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 803,
+      "name": "does not start non-touch swipes from Drawer.Content",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 843,
+      "name": "does not jump when touch starts outside the popup and then enters it",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 893,
+      "name": "dismisses when touch starts outside the popup, then continues swiping down inside it",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 964,
+      "name": "treats pen interactions on Drawer.Content as non-touch swipes",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 1033,
+      "name": "does not mark nested drawers as swiping until movement passes the threshold",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 1108,
+      "name": "clears nested swiping when a nested drawer swipe is reversed before release",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 1191,
+      "name": "prevents touchmove at scroll top when swiping down on scrollable content",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 1239,
+      "name": "prevents touchmove at scroll bottom when swiping up on scrollable content",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 1291,
+      "name": "prevents touchmove when a scrollable ancestor wraps the popup at the top",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 1347,
+      "name": "starts a swipe away from the page scroll edge when the body is a scroll container",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 1426,
+      "name": "prevents touchmove when there is no scroll container",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 1473,
+      "name": "does not block touchmove on native range inputs",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 1514,
+      "name": "does not block touchmove on slider thumb range inputs",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 1562,
+      "name": "does not start swiping when adjusting input selection handles",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 1616,
+      "name": "does not start swiping when adjusting textarea selection handles",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 1670,
+      "name": "does not start swiping when adjusting contenteditable selection handles",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 1737,
+      "name": "does not start swiping when adjusting regular text selection handles",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 1801,
+      "name": "allows touchmove when scrolling down from scroll top",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 1849,
+      "name": "does not start an opposite-direction swipe from scroll bottom for down drawers with snap points",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 1895,
+      "name": "keeps damped snap-point styles when a duplicate-coordinate pointermove arrives",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 1986,
+      "name": "does not start an opposite-direction swipe from scroll right edge for right drawers",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 2032,
+      "name": "starts swipe-to-dismiss after a scrollable container reaches the dismiss edge",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 2100,
+      "name": "dismisses from a top-edge scroll container with a touch swipe down",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 2171,
+      "name": "dismisses from a bottom-edge scroll container with a touch swipe up",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 2242,
+      "name": "dismisses from a left-edge horizontal scroll container with a touch swipe right",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 2313,
+      "name": "dismisses from a right-edge horizontal scroll container with a touch swipe left",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 2384,
+      "name": "allows horizontal swipe dismiss from a vertical scroll container",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 2436,
+      "name": "does not prevent a sub-slop first touchmove over cross-axis scrollable content",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 2487,
+      "name": "claims the gesture once the drawer axis passes the slop over cross-axis scrollable content",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 2535,
+      "name": "yields the gesture when the browser commits to a native cross-axis scroll",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 2592,
+      "name": "keeps tracking the finger when a claimed drag returns inside the slop",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 2650,
+      "name": "keeps driving a claimed drag through a non-cancelable touchmove",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 2717,
+      "name": "does not lock vertical swipe after minor cross-axis jitter in down drawers",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 2778,
+      "name": "does not hijack cross-axis gestures from mixed-axis scroll containers",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 2836,
+      "name": "does not block vertical scrolling in right drawers when only vertical overflow exists",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 2882,
+      "name": "does not block vertical scrolling in left drawers when only vertical overflow exists",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 2928,
+      "name": "does not block horizontal scrolling in down drawers when only horizontal overflow exists",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 2974,
+      "name": "does not block horizontal scrolling in up drawers when only horizontal overflow exists",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 3020,
+      "name": "toggles data-swiping on the backdrop while swiping",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 3078,
+      "name": "cancels pointer drags and ignores compatibility touch pointer cancellation",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 3130,
+      "name": "ignores touchstart when there is no active touch",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 3146,
+      "name": "uses regular horizontal dismissal when snap points are configured",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 3217,
+      "name": "does not dismiss from a fast swipe that was never attributed to the snap point axis",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 3308,
+      "name": "navigates snap points from a drag that was never attributed to the swipe axis",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 3384,
+      "name": "clears nested swipe state after an unattributed snap point gesture",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 3460,
+      "name": "clears nested swipe state after an attributed drag settles on a snap point",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 3559,
+      "name": "does not dismiss from an unattributed fast swipe with snapToSequentialPoints",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 3648,
+      "name": "does not start swipe dismissal when closing the snap point is canceled",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 3750,
+      "name": "settles on the nearest snap point when an unattributed drag ends past the last snap point",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 3837,
+      "name": "settles on the nearest snap point when an unattributed drag ends past the last snap point with snapToSequentialPoints",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 3925,
+      "name": "keeps the resting snap point progress when a press never starts a swipe",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 3971,
+      "name": "does not resolve snap points before the popup has a measurable height",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 4042,
+      "name": "falls back to regular dismissal when all snap points are invalid",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 4108,
+      "name": "ends swipe drag when the primary mouse button is released mid-gesture",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 4180,
+      "name": "ignores swipe input until a popup is mounted",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 4224,
+      "name": "cleans up when the popup unmounts during an active swipe",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 4293,
+      "name": "does not start pointer swipes while a closed drawer remains mounted",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 4354,
+      "name": "clears a selection whose endpoints are popup elements",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 4392,
+      "name": "preserves an expanded touch selection whose focus endpoint is in the popup",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 4433,
+      "name": "falls back to the viewport when a touch event has no element target",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 4469,
+      "name": "ignores compatibility touch pointer gestures with real displacement",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 4519,
+      "name": "publishes and clears swipe progress through Drawer.Provider",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 4594,
+      "name": "publishes resting snap progress before descendant layout effects",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 4671,
+      "name": "clears kept-mounted swipe state before descendant layout effects on reopen",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 4728,
+      "name": "clears nested progress before descendant layout effects when the child closes",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 4813,
+      "name": "clears provider and backdrop swipe state during layout teardown",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 4907,
+      "name": "leaves pinch-zoom touchmove to the browser",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 4939,
+      "name": "prevents page scrolling for a non-overflowing touch scroll container",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 4982,
+      "name": "keeps a claimed scroll-edge swipe moving through non-cancelable events",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 5032,
+      "name": "does not claim a stationary touch in overflowing content",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 151,
+      "name": "adds scroll slack and centers the focused input while the visual viewport is reduced",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 269,
+      "name": "adds scroll slack to a light-DOM scroller for an input inside a shadow root",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 372,
+      "name": "adds keyboard scroll slack to a potential scroll ancestor for textareas",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 457,
+      "name": "adds keyboard scroll slack to the scroll container, not an overflowing textarea",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 542,
+      "name": "sets the keyboard inset CSS variable for a focused input without a scroll target",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 595,
+      "name": "captures focusin targets through a shadow root",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 635,
+      "name": "keeps the keyboard inset when focus moves directly to another keyboard input",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 692,
+      "name": "does not add keyboard scroll slack by default",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 739,
+      "name": "restores keyboard scroll slack when the drawer closes",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 834,
+      "name": "does not add keyboard scroll slack while pinch-zoomed",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 884,
+      "name": "focuses an unfocused keyboard input on touchend without page scroll",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 966,
+      "name": "preserves native taps on picker inputs",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 1014,
+      "name": "preserves native taps that lift over a neighboring interactive element",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 1069,
+      "name": "resolves the lift point through the shadow root when the drawer renders in one",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 1133,
+      "name": "preserves native taps on disabled inputs",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 1178,
+      "name": "preserves native taps on disabled textareas",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 1223,
+      "name": "preserves native taps on a disabled labelled control",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 1272,
+      "name": "focuses a keyboard input with data-base-ui-swipe-ignore without starting drawer swipe",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 1330,
+      "name": "does not focus a keyboard input on touchend without touchstart",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 1369,
+      "name": "does not focus a keyboard input after touchcancel",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 1427,
+      "name": "does not focus a keyboard input while a nested drawer is open",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 1489,
+      "name": "preserves native taps on an already-focused keyboard input",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 1550,
+      "name": "refocuses an already-focused keyboard input when the keyboard viewport is closed",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 1612,
+      "name": "overrides the incoming field geometry when focus moves without a tap while the keyboard is open",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 1673,
+      "name": "centers a field focused without a tap inside the scrollable body",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 1783,
+      "name": "does not restart a progressing or settled reduced-motion alignment scroll",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 1906,
+      "name": "re-issues the alignment scroll when a delayed realign pass finds it stalled",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 2009,
+      "name": "stops pending realignment once the user starts scrolling while geometry is changing",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 2128,
+      "name": "clears keyboard state when a tapped input redirects focus away",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 2190,
+      "name": "clears keyboard state when a tapped input blurs itself",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 2291,
+      "name": "defers the alignment scroll until the destination stops moving",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 2385,
+      "name": "eventually aligns when geometry never settles",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 2459,
+      "name": "realigns a tapped field in the scrollable body when the keyboard is already open for a field outside it",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 2579,
+      "name": "does not blur and re-focus for focus changes while the keyboard is closed",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 2630,
+      "name": "restores the page scroll position when a modal drawer page scrolls while the keyboard is open",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 2682,
+      "name": "does not restore the page scroll position for a non-modal drawer",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 2731,
+      "name": "does not treat a small visual viewport reduction as the software keyboard",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 2786,
+      "name": "computes the keyboard inset from a non-zero visual viewport offset",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 2827,
+      "name": "focuses the labelled control when a label is tapped",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 2879,
+      "name": "focuses a contentEditable element on touchend",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 2921,
+      "name": "focuses the editing host when tapping a nested element inside a contentEditable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 2967,
+      "name": "probes nearby points to resolve a keyboard input retargeted on touchend",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 3016,
+      "name": "does not focus a keyboard input when the touch moves past the tap threshold",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 3079,
+      "name": "restores the previous scroll slack when focus moves to a different scroll container",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 3168,
+      "name": "does not steal a tap that lands on an interactive element near a keyboard input",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 3218,
+      "name": "preserves native taps on keyboard inputs while pinch-zoomed",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 3270,
+      "name": "restores slack from a removed scroll container before adjusting a new one",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 3348,
+      "name": "clears inset and slack when the focused field is removed",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 3404,
+      "name": "captures an initially focused input without attempting an unnecessary page restore",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 3441,
+      "name": "ignores a directly captured touch target while a closed drawer remains mounted",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 3493,
+      "name": "does not focus a lift-point target outside the drawer",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 3529,
+      "name": "falls back to the touch target when point lookup misses",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 3562,
+      "name": "uses the remaining touch and MouseEvent fallback for keyboard taps",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 3610,
+      "name": "ignores a keyboard tap whose native target is not an element",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 3644,
+      "name": "ignores touchend without a lift coordinate",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 3676,
+      "name": "does not align inputs when visualViewport is unavailable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/action/ToastAction.test.tsx",
+      "line": 30,
+      "name": "performs an action when clicked",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/action/ToastAction.test.tsx",
+      "line": 47,
+      "name": "does not render if it has no children",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/action/ToastAction.test.tsx",
+      "line": 82,
+      "name": "renders content passed through the render prop",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/action/ToastAction.test.tsx",
+      "line": 96,
+      "name": "does not render a childless render prop when there is no action content",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/action/ToastAction.test.tsx",
+      "line": 110,
+      "name": "renders the toast action content through a childless render prop",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/arrow/ToastArrow.test.tsx",
+      "line": 26,
+      "name": "mirrors the resolved side of its positioner",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/arrow/ToastArrow.test.tsx",
+      "line": 72,
+      "name": "throws a descriptive error when rendered outside <Toast.Positioner>",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/close/ToastClose.test.tsx",
+      "line": 30,
+      "name": "closes the toast when clicked",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/content/ToastContent.test.tsx",
+      "line": 56,
+      "name": "marks content behind the frontmost toast with data-behind",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/content/ToastContent.test.tsx",
+      "line": 72,
+      "name": "reflects the expanded state when the viewport is hovered",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/createToastManager.test.tsx",
+      "line": 15,
+      "name": "adds a toast",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/createToastManager.test.tsx",
+      "line": 53,
+      "name": "returns a toast id",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/createToastManager.test.tsx",
+      "line": 63,
+      "name": "upserts a toast when adding with an existing id",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/createToastManager.test.tsx",
+      "line": 131,
+      "name": "adds a toast with the loading state that is updated with the success state",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/createToastManager.test.tsx",
+      "line": 177,
+      "name": "does not inherit a loading timeout when success does not specify one",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/createToastManager.test.tsx",
+      "line": 231,
+      "name": "adds a toast with the loading state that is updated with the error state",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/createToastManager.test.tsx",
+      "line": 275,
+      "name": "does not reopen a dismissed promise toast when it resolves",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/createToastManager.test.tsx",
+      "line": 324,
+      "name": "updates a toast",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/createToastManager.test.tsx",
+      "line": 372,
+      "name": "derives the update from the current toast when given a function",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/createToastManager.test.tsx",
+      "line": 419,
+      "name": "resets the auto-dismiss timer when updating with the same timeout value",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/createToastManager.test.tsx",
+      "line": 474,
+      "name": "resets the auto-dismiss timer when updating from 0 to a timeout, then updating with the same timeout again",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/createToastManager.test.tsx",
+      "line": 540,
+      "name": "auto-dismisses when updating timeout from 0 to a positive value",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/createToastManager.test.tsx",
+      "line": 589,
+      "name": "schedules a timer when updating a loading toast to a non-loading type",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/createToastManager.test.tsx",
+      "line": 642,
+      "name": "does not clear the auto-dismiss timer when updated twice before a re-render",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/createToastManager.test.tsx",
+      "line": 700,
+      "name": "closes a toast",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/createToastManager.test.tsx",
+      "line": 746,
+      "name": "closes all toasts",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/createToastManager.test.tsx",
+      "line": 790,
+      "name": "does not call onClose when closing toasts that are already ending",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/description/ToastDescription.test.tsx",
+      "line": 28,
+      "name": "adds aria-describedby to the root element",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/description/ToastDescription.test.tsx",
+      "line": 49,
+      "name": "does not render if it has no children",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/description/ToastDescription.test.tsx",
+      "line": 75,
+      "name": "renders the description by default",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/description/ToastDescription.test.tsx",
+      "line": 93,
+      "name": "renders content passed through the render prop",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/description/ToastDescription.test.tsx",
+      "line": 107,
+      "name": "wires aria-describedby to a description rendered through the render prop",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/description/ToastDescription.test.tsx",
+      "line": 123,
+      "name": "renders the toast description through a childless render prop",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/positioner/ToastPositioner.test.tsx",
+      "line": 42,
+      "name": "positions an anchored toast against its anchor element",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/positioner/ToastPositioner.test.tsx",
+      "line": 87,
+      "name": "falls back to the viewport when no anchor is provided",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/positioner/ToastPositioner.test.tsx",
+      "line": 106,
+      "name": "lets positioner props override the ones carried on the toast",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/positioner/ToastPositioner.test.tsx",
+      "line": 139,
+      "name": "keeps the DOM index while a toast animates out",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/positioner/ToastPositioner.test.tsx",
+      "line": 172,
+      "name": "throws a descriptive error when rendered outside <Toast.Provider>",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/provider/ToastProvider.test.tsx",
+      "line": 14,
+      "name": "syncs a changed timeout before descendant layout effects",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/provider/ToastProvider.test.tsx",
+      "line": 50,
+      "name": "syncs a changed limit before descendant layout effects",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/provider/ToastProvider.test.tsx",
+      "line": 102,
+      "name": "does not sync provider props from an abandoned render",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 91,
+      "name": "maps the active swipe direction to its data attribute",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 97,
+      "name": "sets the vertical offset CSS variable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 112,
+      "name": "keeps dynamic title and description ids synchronized with mounted label parts",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 172,
+      "name": "recalculates height when content mutates",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 254,
+      "name": "clears the starting state and restores the height when re-adding an ending toast",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 326,
+      "name": "registers an active toast after its root remounts",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 398,
+      "name": "keeps stacking intact when re-adding an ending toast among other toasts",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 485,
+      "name": "clears swipe state when re-adding a swipe-dismissed toast",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 564,
+      "name": "clears swipe state when a retained root is reused for another toast",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 648,
+      "name": "moves focus to the next toast when closing in an index-keyed list",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 715,
+      "name": "closes when pressing escape",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 737,
+      "name": "ignores Escape when focus is in portaled content",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 865,
+      "name": "closes toast when swiping in the specified direction beyond threshold",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 887,
+      "name": "locks to a single axis on the first move of a two-axis swipe",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 940,
+      "name": "does not close toast when swiping in the specified direction below threshold",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 960,
+      "name": "does not close toast when swiping in a non-specified direction",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 981,
+      "name": "up + right",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 1012,
+      "name": "right + left",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 1043,
+      "name": "up + down",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 1075,
+      "name": "cancels a vertical swipe when the pointer changes its mind",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 1122,
+      "name": "cancels a horizontal swipe when the pointer changes its mind",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 1165,
+      "name": "locks the gesture to the horizontal axis when it starts sideways",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 1206,
+      "name": "locks the gesture to the vertical axis when it starts upright",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 1245,
+      "name": "does not start a swipe from a non-primary pointer button",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 1269,
+      "name": "applies [data-swiping] attribute when swiping",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 1288,
+      "name": "dismisses toast when swiped down with downward swipe direction",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 1306,
+      "name": "dismisses toast when swiped left with leftward swipe direction",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 1324,
+      "name": "dismisses toast when swiped right with rightward swipe direction",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 1342,
+      "name": "allows swiping in multiple directions when specified",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 1369,
+      "name": "does not dismiss when swiped in non-specified direction",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 1394,
+      "name": "does not dismiss when swipe distance is below threshold",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 1414,
+      "name": "prevents native touchmove only during an active touch swipe",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 1454,
+      "name": "does not start swiping from elements with the data-base-ui-swipe-ignore attribute",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 1475,
+      "name": "does not start swiping from elements with the legacy data-swipe-ignore attribute",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 1496,
+      "name": "ignores swipe gestures when toast is anchored",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 1555,
+      "name": "resets drag state after releasing a far swipe even when the release lands on the document",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 1588,
+      "name": "resets drag state after a document pointercancel",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 1616,
+      "name": "works correctly when toast objects are recreated (not referentially equal)",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 1685,
+      "name": "correctly calculates indices for multiple toasts with recreated objects",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/store.test.ts",
+      "line": 40,
+      "name": "keeps toast metadata synchronized after mutations",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/store.test.ts",
+      "line": 67,
+      "name": "ignores height recalculations while a toast is transitioning out",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/store.test.ts",
+      "line": 86,
+      "name": "ignores mutations that target an unknown toast",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/store.test.ts",
+      "line": 98,
+      "name": "replaces custom data wholesale when updating a toast",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/store.test.ts",
+      "line": 112,
+      "name": "derives the update from the current toast when given a function",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/store.test.ts",
+      "line": 125,
+      "name": "passes a toast without custom data to the updater",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/store.test.ts",
+      "line": 137,
+      "name": "stores a function passed as custom data instead of calling it",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/store.test.ts",
+      "line": 145,
+      "name": "does not call the updater for a missing or ending toast",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/store.test.ts",
+      "line": 157,
+      "name": "keeps a toast added from inside an updater",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/store.test.ts",
+      "line": 169,
+      "name": "keeps a toast closed from inside its updater closed",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/store.test.ts",
+      "line": 180,
+      "name": "stores a function as the value when re-adding a toast under an existing id",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/store.test.ts",
+      "line": 190,
+      "name": "replaces custom data when re-adding a toast under an existing id",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/store.test.ts",
+      "line": 201,
+      "name": "stores a function passed as custom data on a promise toast",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/store.test.ts",
+      "line": 217,
+      "name": "does not invoke onRemove for a toast that is no longer in the store",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/store.test.ts",
+      "line": 230,
+      "name": "recomputes limited flags when the limit changes",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/store.test.ts",
+      "line": 251,
+      "name": "re-pauses timers after the last toast is closed and a new one is added",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/store.test.ts",
+      "line": 273,
+      "name": "re-pauses timers after all toasts are closed and a new one is added",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/store.test.ts",
+      "line": 290,
+      "name": "re-pauses timers after the last active toast closes while ending toasts remain",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/store.test.ts",
+      "line": 308,
+      "name": "re-pauses timers after the last timed toast closes while untimed toasts remain",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/store.test.ts",
+      "line": 325,
+      "name": "keeps a rescheduled timer paused while expanded, and runs it once collapsed",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/store.test.ts",
+      "line": 350,
+      "name": "does not extend the remaining time across repeated pause/resume cycles",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/store.test.ts",
+      "line": 372,
+      "name": "restarts the full delay when the clock jumped past the timeout before pausing",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/store.test.ts",
+      "line": 391,
+      "name": "re-pauses timers after the last timed toast becomes untimed",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/store.test.ts",
+      "line": 407,
+      "name": "accumulates active time across hover cycles so the toast still dismisses",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/title/ToastTitle.test.tsx",
+      "line": 29,
+      "name": "throws a descriptive error when rendered outside <Toast.Root>",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/title/ToastTitle.test.tsx",
+      "line": 49,
+      "name": "adds aria-labelledby to the root element",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/title/ToastTitle.test.tsx",
+      "line": 70,
+      "name": "does not render if it has no children",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/title/ToastTitle.test.tsx",
+      "line": 96,
+      "name": "renders the title by default",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/title/ToastTitle.test.tsx",
+      "line": 114,
+      "name": "renders content passed through the render prop",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/title/ToastTitle.test.tsx",
+      "line": 128,
+      "name": "renders content passed through a render function",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/title/ToastTitle.test.tsx",
+      "line": 142,
+      "name": "wires aria-labelledby to a title rendered through the render prop",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/title/ToastTitle.test.tsx",
+      "line": 158,
+      "name": "does not render a childless render prop when there is no content",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/title/ToastTitle.test.tsx",
+      "line": 172,
+      "name": "renders a numeric zero child",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/title/ToastTitle.test.tsx",
+      "line": 186,
+      "name": "does not render when a render function returns no element",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/title/ToastTitle.test.tsx",
+      "line": 201,
+      "name": "clears aria-labelledby from the root when the title content is removed",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/title/ToastTitle.test.tsx",
+      "line": 229,
+      "name": "does not let an older title cleanup clear a newer title",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/title/ToastTitle.test.tsx",
+      "line": 263,
+      "name": "renders the toast title through a childless render prop",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 21,
+      "name": "adds a toast to the viewport that auto-dismisses after 5s by default",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 56,
+      "name": "keeps multiple providers isolated when one provider updates",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 118,
+      "name": "replaces a closing toast when adding again with the same id",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 182,
+      "name": "does not call onRemove when replacing an ending toast",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 244,
+      "name": "calls onRemove once after replacing an ending toast and later removing the replacement",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 317,
+      "name": "ignores transitionStatus when upserting an existing toast",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 371,
+      "name": "increments updateKey when adding again with the same id",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 411,
+      "name": "dismisses the toast after the specified timeout",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 438,
+      "name": "renders the title",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 481,
+      "name": "renders the description",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 524,
+      "name": "renders the type",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 558,
+      "name": "calls onClose when the toast is closed",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 609,
+      "name": "calls onClose when the toast auto-dismisses",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 650,
+      "name": "calls onRemove when the toast is removed",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 703,
+      "name": "applies correct ARIA attributes for high priority toasts",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 757,
+      "name": "displays success state as description after promise resolves",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 801,
+      "name": "displays error state as description after promise rejects",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 847,
+      "name": "passes data when success is a function",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 889,
+      "name": "accepts a function that returns full options for the success state",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 940,
+      "name": "passes data when error is a function",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 984,
+      "name": "supports custom options",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 1028,
+      "name": "does not reopen a dismissed promise toast when it resolves",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 1076,
+      "name": "auto-dismisses success toast after default timeout when promise resolves",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 1124,
+      "name": "auto-dismisses error toast after default timeout when promise rejects",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 1173,
+      "name": "uses custom timeout from success options when promise resolves",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 1224,
+      "name": "uses custom timeout from error options when promise rejects",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 1277,
+      "name": "uses provider timeout when no custom timeout is specified",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 1322,
+      "name": "does not inherit a loading timeout when success does not specify one",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 1369,
+      "name": "does not auto-dismiss when timeout is set to 0",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 1417,
+      "name": "pauses timers when hovering over toast",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 1490,
+      "name": "updates the toast",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 1538,
+      "name": "increments updateKey when updating a toast",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 1589,
+      "name": "auto-dismisses when timeout changes from 0 to a positive value",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 1635,
+      "name": "schedules a timer when updating a loading toast to a non-loading type",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 1697,
+      "name": "closes a toast",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 1743,
+      "name": "closes all toasts",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 1794,
+      "name": "applies a changed timeout to toasts added afterwards",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 1853,
+      "name": "marks toasts as limited when the limit is exceeded",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 1878,
+      "name": "unmarks toasts as limited when the limit is not exceeded",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 1907,
+      "name": "preserves limited state when upserting a limited toast",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 1965,
+      "name": "recomputes limited toasts when the limit prop changes",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 2043,
+      "name": "toasts in dialogs are accessible and not aria-hidden",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/useToastManager.test.tsx",
+      "line": 2069,
+      "name": "high priority toasts in dialogs have correct accessibility structure",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/utils/isRenderableNode.test.ts",
+      "line": 6,
+      "name": "treats renderable primitives as content",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/utils/isRenderableNode.test.ts",
+      "line": 13,
+      "name": "treats non-rendering values as empty",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/utils/isRenderableNode.test.ts",
+      "line": 21,
+      "name": "recurses into arrays",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/utils/isRenderableNode.test.ts",
+      "line": 31,
+      "name": "requires an element whose children are renderable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 19,
+      "name": "sets the measured frontmost toast height CSS variable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 38,
+      "name": "rebinds owner-document listeners once across empty store cycles",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 141,
+      "name": "throws a descriptive error when rendered outside <Toast.Provider>",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 153,
+      "name": "gets focused when F6 is pressed",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 171,
+      "name": "focuses first toast upon tab after viewport is focused",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 190,
+      "name": "returns focus to previous element when pressing shift+Tab on first toast",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 210,
+      "name": "returns focus to previous element when pressing shift+Tab on last toast",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 237,
+      "name": "removes expanded on mouseleave when focus-visible not inside",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 260,
+      "name": "keeps expanded on mouseleave when focus-visible is inside",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 284,
+      "name": "keeps expanded during an active touch swipe even if mouseleave fires",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 342,
+      "name": "keeps expanded when a touch swipe is canceled without leaving the viewport",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 394,
+      "name": "collapses after a touch swipe is canceled if mouseleave already fired",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 449,
+      "name": "pauses timers when hovering",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 469,
+      "name": "resumes timers when not hovering",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 497,
+      "name": "pauses timers when the viewport is focused",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 517,
+      "name": "restores focus and resumes timers on shift+Tab out of the focused viewport",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 547,
+      "name": "keeps timers paused when shift+Tab returns focus inside the viewport",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 580,
+      "name": "keeps the viewport focused when Tab is pressed without shift",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 606,
+      "name": "collapses and resumes timers on a touch outside the viewport",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 635,
+      "name": "stays expanded on a touch inside the viewport",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 659,
+      "name": "ignores a mouse pointerdown outside the viewport",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 684,
+      "name": "resumes timers when the viewport is blurred",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 708,
+      "name": "resumes timers when the window regains focus",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 774,
+      "name": "keeps timers paused on mouseleave while the window is blurred",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 823,
+      "name": "keeps timers paused on viewport blur while the window is blurred",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 869,
+      "name": "collapses a deferred mouseleave after a closing toast is removed while blurred",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 961,
+      "name": "skips toasts animating out when tabbing into the viewport",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 998,
+      "name": "returns focus when no toast can receive focus",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 1023,
+      "name": "returns focus to the trigger when every toast is closed",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 1052,
+      "name": "moves focus past toasts animating out when one is closed",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 1098,
+      "name": "leaves focus alone when it is outside the viewport",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/internals/createBaseUIEventDetails.spec.ts",
+      "line": 6,
+      "name": "exact increment reason type",
+      "status": "passing",
+      "port": "packages/base/tests/event-details.types.ts",
+      "verification": "2026-10-01: bash scripts/verify.sh on Node 24.21.0 / pnpm 12.6.0"
+    },
+    {
+      "source": "packages/react/src/internals/createBaseUIEventDetails.spec.ts",
+      "line": 9,
+      "name": "exact keyboard reason type",
+      "status": "passing",
+      "port": "packages/base/tests/event-details.types.ts",
+      "verification": "2026-10-01: bash scripts/verify.sh on Node 24.21.0 / pnpm 12.6.0"
+    },
+    {
+      "source": "packages/react/src/internals/createBaseUIEventDetails.spec.ts",
+      "line": 12,
+      "name": "invalid reason rejected",
+      "status": "passing",
+      "port": "packages/base/tests/event-details.types.ts",
+      "verification": "2026-10-01: bash scripts/verify.sh on Node 24.21.0 / pnpm 12.6.0"
+    }
+  ]
+}
