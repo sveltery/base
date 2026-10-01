@@ -1,6 +1,6 @@
 # Foundation architecture and handoff
 
-This is a bootstrap checkpoint, not the completed Dialog milestone. The runtime package lives in `packages/base`; `apps/fixtures` is a small SvelteKit app. Runtime imports must not depend on SvelteKit or React. `@sveltejs/package` emits the distribution and declaration files. Publication is disabled (`private: true`) while the API remains under review. Original Sveltery code is MIT licensed; upstream-derived materials retain their original MIT notices.
+The foundation checkpoint now has a [contained Dialog draft](dialog-first-slice.md); the complete Dialog milestone remains pending. The runtime package lives in `packages/base`; `apps/fixtures` is a small SvelteKit app. Runtime imports must not depend on SvelteKit or React. `@sveltejs/package` emits the distribution and declaration files. Publication is disabled (`private: true`) while the API remains under review. Original Sveltery code is MIT licensed; upstream-derived materials retain their original MIT notices.
 
 Reference upstream: mui/base-ui v1.8.0, tag object `5af893738de5c4513f8a315ffc54b979c165d1b5`, commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. See [the source inventory](upstream-contracts.md).
 
@@ -24,4 +24,4 @@ These are proposals, not approved exceptions: lowercase DOM event props (`onclic
 4. Run actual Chromium hydration/focus/tab/escape/outside-press/nesting/removal/animation tests plus SSR, typecheck, build and tarball consumers. Compile success alone cannot prove these behaviors.
 5. Use Drawer snap/cancellation/swipe and Toast timer/pause/focus/presence probes from the upstream inventory before broad catalog work.
 
-Keep foundation checks green. Report failing, unported, and approved-deviation cases separately. Do not hide pending parity behind skipped tests or assert complete compatibility from local regressions. Dialog, Drawer, and Toast currently have no Svelte implementation or browser acceptance evidence.
+Keep foundation checks green. Report failing, unported, and approved-deviation cases separately. Do not hide pending parity behind skipped tests or assert complete compatibility from local regressions. The contained Dialog draft has Svelte parts and supplemental DOM/SSR execution, with passing hosted secured Chromium evidence for contained probes; local browser startup remains blocked. Drawer and Toast remain unimplemented.

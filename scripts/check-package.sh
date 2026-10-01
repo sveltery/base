@@ -22,4 +22,27 @@ const metadata = JSON.parse(await readFile(new URL('./node_modules/@sveltery/bas
 assert.equal(metadata.license, 'MIT');
 console.log('Isolated tarball consumer: PASS');
 JS
-node "$consumer_dir/check.mjs"
+# Svelte is an actual package peer; resolve it without registry/publishing in this isolated consumer.
+ln -s "$sveltery_repo_root/packages/base/node_modules/svelte" "$consumer_dir/node_modules/svelte"
+cat > "$consumer_dir/DialogConsumer.svelte" <<'SVELTE'
+<script>
+  import { Dialog } from '@sveltery/base';
+  import * as Parts from '@sveltery/base/dialog';
+</script>
+<Dialog.Root><Dialog.Trigger>First</Dialog.Trigger><Dialog.Title>First title</Dialog.Title><Dialog.Description>First description</Dialog.Description><Dialog.Portal><Dialog.Popup>Client portal</Dialog.Popup></Dialog.Portal></Dialog.Root>
+<Parts.Root><Parts.Trigger>Second</Parts.Trigger><Parts.Title>Second title</Parts.Title></Parts.Root>
+SVELTE
+cat >> "$consumer_dir/check.mjs" <<'JS'
+const { render } = await import('svelte/server');
+const { default: Consumer } = await import('./DialogConsumer.svelte');
+const output = render(Consumer);
+assert.equal((output.body.match(/aria-haspopup="dialog"/g) ?? []).length, 2);
+const ids = [...output.body.matchAll(/ id="([^"]+)"/g)].map(match => match[1]);
+assert.equal(ids.length, 5);
+assert.equal(new Set(ids).size, ids.length);
+assert(ids.every(id => id.startsWith('base-ui-')));
+assert(!output.body.includes('data-base-ui-portal'));
+assert(!output.body.includes('role="dialog"'));
+console.log('Isolated tarball Dialog SSR consumer / unique generated IDs: PASS');
+JS
+node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$consumer_dir/check.mjs"

@@ -64,9 +64,37 @@ jobs:
         run: pnpm check
       - name: Runtime tests
         run: pnpm test
+      - name: Svelte DOM wiring
+        run: pnpm --filter @sveltery/base test:dom
       - name: Fixture SSR and client build
         run: pnpm --filter @sveltery/fixtures build
       - name: Packaged runtime boundary
-        run: node scripts/check-runtime.mjs
+        run: node --import ./scripts/svelte-ssr-loader.mjs scripts/check-runtime.mjs
       - name: Isolated tarball consumer and license
         run: bash scripts/check-package.sh
+  dialog-browser:
+    name: Dialog browser
+    # Officially supported Playwright image; its default policy permits Chromium sandbox startup.
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+        with:
+          version: 12.6.0
+          run_install: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Frozen workspace install
+        run: bash scripts/bootstrap.sh
+      - name: Build actual Dialog library
+        run: pnpm --filter @sveltery/base build
+      - name: Install official Chromium and OS dependencies
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Real React and Svelte Dialog acceptance
+        run: pnpm test:browser

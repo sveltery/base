@@ -36,7 +36,7 @@ export default [
     },
   },
   {
-    files: ['**/*.svelte'],
+    files: ['**/*.svelte', '**/*.svelte.ts'],
     languageOptions: { parserOptions: { parser: ts.parser } },
   },
   // Existing mergeProps preserves the upstream no-op branch; remove when that port is revised.
