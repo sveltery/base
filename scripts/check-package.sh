@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
+source scripts/toolchain.sh
 consumer_dir="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-consumer.XXXXXX")"
 trap 'rm -rf "$consumer_dir"' EXIT
 pnpm --filter @sveltery/base pack --pack-destination "$consumer_dir"

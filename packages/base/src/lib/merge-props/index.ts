@@ -10,9 +10,15 @@ function isHandler(key: string, value: unknown): value is Handler {
   return /^on[a-zA-Z]/u.test(key) && (typeof value === 'function');
 }
 function isNativeEvent(value: unknown): value is Event {
-  // Structural detection supports events from other windows without a global realm check.
-  return value !== null && typeof value === 'object' && 'preventDefault' in value &&
-    typeof value.preventDefault === 'function' && 'target' in value;
+  if (value === null || typeof value !== 'object' || typeof Event === 'undefined') return false;
+  // The native getter checks the Event brand across windows without trusting payload fields.
+  // Calling the getter directly also avoids invoking a custom object's own `type` getter.
+  try {
+    const getType = Object.getOwnPropertyDescriptor(Event.prototype, 'type')?.get;
+    return typeof getType?.call(value) === 'string';
+  } catch {
+    return false;
+  }
 }
 function wrap(handler: Handler, previous?: Handler): Handler {
   return (...args) => {

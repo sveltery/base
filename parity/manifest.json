@@ -4,7 +4,7 @@
     "tag": "v1.8.0",
     "commit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c"
   },
-  "inventoryScope": "Literal test declarations in selected merge, controlled, Dialog, Drawer and Toast source files. Parameterized/dynamic declarations and shared conformance helpers need manual expansion; this is not a full catalog inventory.",
+  "inventoryScope": "Named test declarations in parity/sources.json, including multiline conditional declarations and interpolated-template names counted once, plus three exact event-detail type assertions. Parameterized .each/.for expansion and shared conformance helpers are excluded; this is not a full catalog inventory.",
   "approvedDeviations": [],
   "cases": [
     {
@@ -941,6 +941,13 @@
     },
     {
       "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 42,
+      "name": "ignores a native click whose pointerdown opened the dialog",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
       "line": 170,
       "name": "reports nested drawer counts before passive effects",
       "status": "unported",
@@ -1304,6 +1311,34 @@
       "port": null
     },
     {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 1999,
+      "name": "returns focus to the menu trigger when a detached dialog trigger unmounts",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 2058,
+      "name": "keeps focus trapped when dialog content contains a non-scrollable scroll area",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 2106,
+      "name": "returns focus into the dialog when a close confirmation opened by an outside press closes",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
+      "line": 2178,
+      "name": "does not leak a non-modal popup field into an unrelated dialog return focus",
+      "status": "unported",
+      "port": null
+    },
+    {
       "source": "packages/react/src/dialog/trigger/DialogTrigger.test.tsx",
       "line": 22,
       "name": "throws a descriptive error without a root or handle",
@@ -1424,6 +1459,13 @@
     },
     {
       "source": "packages/react/src/drawer/popup/DrawerPopup.test.tsx",
+      "line": 301,
+      "name": "includes border size in frontmost height CSS variable for nested drawers",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/popup/DrawerPopup.test.tsx",
       "line": 343,
       "name": "reports nested presence and frontmost height before passive effects",
       "status": "unported",
@@ -1452,8 +1494,22 @@
     },
     {
       "source": "packages/react/src/drawer/popup/DrawerPopup.test.tsx",
+      "line": 624,
+      "name": "clears parent nested drawer state when a nested drawer starts closing before unmount",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/popup/DrawerPopup.test.tsx",
       "line": 695,
       "name": "keeps a fixed height applied while a nested drawer closes",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/popup/DrawerPopup.test.tsx",
+      "line": 815,
+      "name": "restores a fixed height before nested state when reopening a nested drawer",
       "status": "unported",
       "port": null
     },
@@ -1585,8 +1641,57 @@
     },
     {
       "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1073,
+      "name": "does not dismiss a controlled drawer via swipe when open is always true",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1113,
+      "name": "does not restore snap point when a controlled swipe close is accepted by the parent",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1135,
+      "name": "restores snap point and swipe offsets when swipe close is canceled",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1162,
+      "name": "damps active snap point overshoot after the swipe direction is established",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1230,
+      "name": "allows dragging past a snap point when snapToSequentialPoints is enabled",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1257,
+      "name": "advances to the next snap point on fast flicks when snapToSequentialPoints is enabled",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
       "line": 1284,
       "name": "keeps the drawer open on low-velocity swipes near a snap point",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1311,
+      "name": "keeps the drawer open when the release velocity reverses during an upward swipe",
       "status": "unported",
       "port": null
     },
@@ -1664,6 +1769,13 @@
       "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
       "line": 1557,
       "name": "finishes a controlled accepted dismissal while kept mounted",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/root/DrawerRoot.test.tsx",
+      "line": 1583,
+      "name": "restores a snap point when a controlled parent rejects dismissal",
       "status": "unported",
       "port": null
     },
@@ -1886,6 +1998,13 @@
     },
     {
       "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 1057,
+      "name": "suppresses a trusted release click that arrives without a preceding pointerdown",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
       "line": 1128,
       "name": "allows a later click-only activation to dismiss after a swipe",
       "status": "unported",
@@ -1916,6 +2035,13 @@
       "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
       "line": 1338,
       "name": "uses a size-based swipe threshold by default",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/swipe-area/DrawerSwipeArea.test.tsx",
+      "line": 1373,
+      "name": "keeps the swipe-area movement on the popup when re-grabbed during close",
       "status": "unported",
       "port": null
     },
@@ -2033,6 +2159,13 @@
     },
     {
       "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 643,
+      "name": "allows touch gestures on a portaled combobox popup without starting drawer swipe",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
       "line": 741,
       "name": "still allows touch swipes from elements with legacy data-swipe-ignore",
       "status": "unported",
@@ -2098,6 +2231,13 @@
       "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
       "line": 1291,
       "name": "prevents touchmove when a scrollable ancestor wraps the popup at the top",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 1347,
+      "name": "starts a swipe away from the page scroll edge when the body is a scroll container",
       "status": "unported",
       "port": null
     },
@@ -2259,6 +2399,41 @@
       "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
       "line": 2717,
       "name": "does not lock vertical swipe after minor cross-axis jitter in down drawers",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 2778,
+      "name": "does not hijack cross-axis gestures from mixed-axis scroll containers",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 2836,
+      "name": "does not block vertical scrolling in right drawers when only vertical overflow exists",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 2882,
+      "name": "does not block vertical scrolling in left drawers when only vertical overflow exists",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 2928,
+      "name": "does not block horizontal scrolling in down drawers when only horizontal overflow exists",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/viewport/DrawerViewport.test.tsx",
+      "line": 2974,
+      "name": "does not block horizontal scrolling in up drawers when only horizontal overflow exists",
       "status": "unported",
       "port": null
     },
@@ -2488,8 +2663,50 @@
     },
     {
       "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 151,
+      "name": "adds scroll slack and centers the focused input while the visual viewport is reduced",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 269,
+      "name": "adds scroll slack to a light-DOM scroller for an input inside a shadow root",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 372,
+      "name": "adds keyboard scroll slack to a potential scroll ancestor for textareas",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 457,
+      "name": "adds keyboard scroll slack to the scroll container, not an overflowing textarea",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 542,
+      "name": "sets the keyboard inset CSS variable for a focused input without a scroll target",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
       "line": 595,
       "name": "captures focusin targets through a shadow root",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 635,
+      "name": "keeps the keyboard inset when focus moves directly to another keyboard input",
       "status": "unported",
       "port": null
     },
@@ -2516,8 +2733,29 @@
     },
     {
       "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 884,
+      "name": "focuses an unfocused keyboard input on touchend without page scroll",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
       "line": 966,
       "name": "preserves native taps on picker inputs",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 1014,
+      "name": "preserves native taps that lift over a neighboring interactive element",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 1069,
+      "name": "resolves the lift point through the shadow root when the drawer renders in one",
       "status": "unported",
       "port": null
     },
@@ -2539,6 +2777,13 @@
       "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
       "line": 1223,
       "name": "preserves native taps on a disabled labelled control",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 1272,
+      "name": "focuses a keyboard input with data-base-ui-swipe-ignore without starting drawer swipe",
       "status": "unported",
       "port": null
     },
@@ -2572,6 +2817,48 @@
     },
     {
       "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 1550,
+      "name": "refocuses an already-focused keyboard input when the keyboard viewport is closed",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 1612,
+      "name": "overrides the incoming field geometry when focus moves without a tap while the keyboard is open",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 1673,
+      "name": "centers a field focused without a tap inside the scrollable body",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 1783,
+      "name": "does not restart a progressing or settled reduced-motion alignment scroll",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 1906,
+      "name": "re-issues the alignment scroll when a delayed realign pass finds it stalled",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 2009,
+      "name": "stops pending realignment once the user starts scrolling while geometry is changing",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
       "line": 2128,
       "name": "clears keyboard state when a tapped input redirects focus away",
       "status": "unported",
@@ -2600,6 +2887,48 @@
     },
     {
       "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 2459,
+      "name": "realigns a tapped field in the scrollable body when the keyboard is already open for a field outside it",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 2579,
+      "name": "does not blur and re-focus for focus changes while the keyboard is closed",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 2630,
+      "name": "restores the page scroll position when a modal drawer page scrolls while the keyboard is open",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 2682,
+      "name": "does not restore the page scroll position for a non-modal drawer",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 2731,
+      "name": "does not treat a small visual viewport reduction as the software keyboard",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 2786,
+      "name": "computes the keyboard inset from a non-zero visual viewport offset",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
       "line": 2827,
       "name": "focuses the labelled control when a label is tapped",
       "status": "unported",
@@ -2614,6 +2943,41 @@
     },
     {
       "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 2921,
+      "name": "focuses the editing host when tapping a nested element inside a contentEditable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 2967,
+      "name": "probes nearby points to resolve a keyboard input retargeted on touchend",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 3016,
+      "name": "does not focus a keyboard input when the touch moves past the tap threshold",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 3079,
+      "name": "restores the previous scroll slack when focus moves to a different scroll container",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 3168,
+      "name": "does not steal a tap that lands on an interactive element near a keyboard input",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
       "line": 3218,
       "name": "preserves native taps on keyboard inputs while pinch-zoomed",
       "status": "unported",
@@ -2621,8 +2985,29 @@
     },
     {
       "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 3270,
+      "name": "restores slack from a removed scroll container before adjusting a new one",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
       "line": 3348,
       "name": "clears inset and slack when the focused field is removed",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 3404,
+      "name": "captures an initially focused input without attempting an unnecessary page restore",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 3441,
+      "name": "ignores a directly captured touch target while a closed drawer remains mounted",
       "status": "unported",
       "port": null
     },
@@ -2637,6 +3022,13 @@
       "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
       "line": 3529,
       "name": "falls back to the touch target when point lookup misses",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.test.tsx",
+      "line": 3562,
+      "name": "uses the remaining touch and MouseEvent fallback for keyboard taps",
       "status": "unported",
       "port": null
     },
@@ -2978,6 +3370,13 @@
     },
     {
       "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 254,
+      "name": "clears the starting state and restores the height when re-adding an ending toast",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
       "line": 326,
       "name": "registers an active toast after its root remounts",
       "status": "unported",
@@ -2985,8 +3384,29 @@
     },
     {
       "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 398,
+      "name": "keeps stacking intact when re-adding an ending toast among other toasts",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
       "line": 485,
       "name": "clears swipe state when re-adding a swipe-dismissed toast",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 564,
+      "name": "clears swipe state when a retained root is reused for another toast",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
+      "line": 648,
+      "name": "moves focus to the next toast when closing in an index-keyed list",
       "status": "unported",
       "port": null
     },
@@ -3790,6 +4210,13 @@
     },
     {
       "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 38,
+      "name": "rebinds owner-document listeners once across empty store cycles",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
       "line": 141,
       "name": "throws a descriptive error when rendered outside <Toast.Provider>",
       "status": "unported",
@@ -3932,6 +4359,27 @@
       "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
       "line": 708,
       "name": "resumes timers when the window regains focus",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 774,
+      "name": "keeps timers paused on mouseleave while the window is blurred",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 823,
+      "name": "keeps timers paused on viewport blur while the window is blurred",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+      "line": 869,
+      "name": "collapses a deferred mouseleave after a closing toast is removed while blurred",
       "status": "unported",
       "port": null
     },

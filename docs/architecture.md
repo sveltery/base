@@ -10,7 +10,7 @@ Portal and focus logic must support nested roots, cleanup, explicit containers, 
 
 ## Current implementation
 
-Event detail creation and reason constants are derived from upstream with MIT notices. Native prop/event merging is a draft behavioral adaptation. Eight new local regression tests cover selected behavior; they are **not** upstream test ports. Three upstream event-detail type assertions and one reused-getter runtime regression are ported with unchanged assertions and an exact equality helper. Native merge callbacks recognize native DOM events rather than React synthetic events. Full public typing and composition remain pending.
+Event detail creation and reason constants are derived from upstream with MIT notices. Native prop/event merging is a draft behavioral adaptation. Ten new local regression tests cover selected behavior; they are **not** upstream test ports. Three upstream event-detail type assertions and one reused-getter runtime regression are ported with unchanged assertions and an exact equality helper. Native merge callbacks use an Event brand check rather than trusting custom payload fields; mutable and frozen custom callback objects retain ordinary callback chaining. Full public typing, browser validation, and composition remain pending.
 
 ## Svelte adaptations proposed for review
 

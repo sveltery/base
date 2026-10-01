@@ -10,7 +10,9 @@ bash scripts/bootstrap.sh
 bash scripts/verify.sh
 ```
 
-Bootstrap runs a frozen-lockfile install. With Corepack, the `packageManager` field selects pnpm. If pnpm is already provided, it must match 12.6.0. Verification packages the library, checks TypeScript/Svelte, runs unit tests, builds SSR/client fixtures, checks runtime import boundaries, and imports root/subpath exports from a locally packed tarball in an isolated consumer directory. It does not publish or deploy.
+Bootstrap runs a frozen-lockfile install. Bootstrap, verification, and the standalone tarball check share `scripts/toolchain.sh`: they use a matching pnpm from PATH, or select the exact `packageManager` version through Corepack when pnpm is missing or mismatched. The selected launcher remains on PATH for nested package scripts. Tool caches default to the ignored repository `.checks` directory so restricted home directories do not block setup; explicitly supplied `COREPACK_HOME`, `XDG_CACHE_HOME`, and `XDG_DATA_HOME` are respected. No global tool installation or environment configuration is changed.
+
+Verification runs the inventory-parser/toolchain regressions, packages the library, checks TypeScript/Svelte, runs unit tests, builds SSR/client fixtures, checks runtime import boundaries, and imports root/subpath exports from a locally packed tarball in an isolated consumer directory. It does not publish or deploy. The source inventory also has an explicit pinned-upstream check; see [parity inventory](../parity/README.md).
 
 Network: npm registry and GitHub are needed for setup and immutable upstream references. pnpm 12 may also check registry metadata when executing scripts, so normal development commands require registry access. Future browser tests need Playwright's browser download hosts and a Chromium-compatible Linux image. Disk cache persistence is useful but not required. No paid service is required.
 

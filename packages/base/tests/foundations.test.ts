@@ -45,6 +45,32 @@ describe('mergeProps (new Sveltery regression coverage; upstream ports pending)'
     (props.onclick as (event: Event) => void)(new Event('click', { cancelable: true }));
     expect(called).toBe(true);
   });
+  it('runs all custom-payload callbacks without adding event cancellation methods', () => {
+    const log: string[] = [];
+    const payload = { target: 'custom model', preventDefault() {} };
+    const props = mergeProps(
+      { onChange: () => { log.push('internal'); } },
+      { onChange: (value: typeof payload & Partial<PreventableEvent>) => {
+        log.push('external');
+        value.preventBaseUIHandler?.();
+        return 42;
+      } },
+    );
+    expect((props.onChange as (value: typeof payload) => unknown)(payload)).toBe(42);
+    expect(log).toEqual(['external', 'internal']);
+    expect(Object.hasOwn(payload, 'preventBaseUIHandler')).toBe(false);
+    expect(Object.hasOwn(payload, 'baseUIHandlerPrevented')).toBe(false);
+  });
+  it('accepts frozen custom payloads that resemble native events', () => {
+    const log: string[] = [];
+    const payload = Object.freeze({ target: 'custom model', preventDefault() {} });
+    const props = mergeProps(
+      { onChange: (value: unknown) => { expect(value).toBe(payload); log.push('internal'); } },
+      { onChange: (value: unknown) => { expect(value).toBe(payload); log.push('external'); } },
+    );
+    expect(() => (props.onChange as (value: unknown) => void)(payload)).not.toThrow();
+    expect(log).toEqual(['external', 'internal']);
+  });
   it('concatenates class in right-to-left order, merges style and overwrites ordinary props', () => {
     expect(mergeProps({ class: 'internal', style: { color: 'blue', display: 'block' }, id: 'old' }, { class: 'external', style: { color: 'red' }, id: 'new' })).toEqual({ class: 'external internal', style: { color: 'red', display: 'block' }, id: 'new' });
   });
