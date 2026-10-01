@@ -44,7 +44,12 @@
       flushSync();
       const owner = store.state.viewport;
       const active = owner && activeElement(owner.ownerDocument);
-      if (!owner || !contains(owner, active) || !isFocusVisible(active)) return;
+      if (!owner || owner !== node || !owner.isConnected) return;
+      // Missing animation APIs complete the exit during this flush. The browser
+      // then falls back to body, but a connected outside focus target chosen by
+      // consumer work must still win over successor focus.
+      const exitedToBody = active === owner.ownerDocument.body && current && !current.isConnected;
+      if (!exitedToBody && (!contains(owner, active) || !isFocusVisible(active))) return;
       nextToast = findNextToast();
     }
     if (nextToast) nextToast.ref?.focus();

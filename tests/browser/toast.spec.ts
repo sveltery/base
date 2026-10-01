@@ -267,7 +267,7 @@ for (const reference of [false, true]) test(`supplement: ${reference ? 'React re
 
 // Local regression only: no additional upstream declaration credit.
 test('supplement: every close channel focuses a newly un-limited successor synchronously', async ({ page }) => {
-  for (const channel of ['manager', 'facade', 'native', 'timer']) {
+  for (const channel of ['manager', 'facade', 'native', 'timer', 'no-animation']) {
     await page.goto('/toast?case=lifecycle-limit');
     await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
     if (channel === 'timer') {
@@ -296,7 +296,10 @@ test('supplement: every close channel focuses a newly un-limited successor synch
       });
       await expect(page.getByTestId('lifecycle')).toHaveAttribute('data-focus-after-close', `root-${successorId}`);
     } else {
-      await closeNow(page, channel, currentId);
+      if (channel === 'no-animation') await page.locator(`#root-${currentId}`).evaluate(node => {
+        Object.defineProperty(node, 'getAnimations', { value: undefined });
+      });
+      await closeNow(page, channel === 'no-animation' ? 'facade' : channel, currentId);
       await expect(page.getByTestId('synchronous-focus')).toHaveText(`root-${successorId}`);
     }
     await expect(successor).not.toHaveAttribute('inert');

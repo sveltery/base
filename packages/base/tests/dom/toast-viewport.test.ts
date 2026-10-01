@@ -299,17 +299,40 @@ it('stale Viewport teardown preserves the replacement registration and listeners
   manager.close(); expect(document.activeElement).toBe(button());
 });
 
-it('commits a newly un-limited successor before synchronous close focus', async () => { // local regression, no parity credit
+it.each([false, true])('commits a newly un-limited successor before synchronous close focus (animations=%s)', async animations => { // local regression, no parity credit
   const manager = createToastManager(); await render({ toastManager: manager, timeout: 0, limit: 1 });
   manager.add({ id: 'older', title: 'Older' }); manager.add({ id: 'newer', title: 'Newer' }); await tick();
   const roots = [...document.querySelectorAll<HTMLElement>('[data-testid="root"]')];
   const [newer, older] = roots;
   expect(older.hasAttribute('inert')).toBe(true);
-  Object.defineProperty(newer, 'getAnimations', { value: () => [{ finished: new Promise<void>(() => {}) }] });
+  if (animations) Object.defineProperty(newer, 'getAnimations', { value: () => [{ finished: new Promise<void>(() => {}) }] });
   const focus = vi.spyOn(older, 'focus').mockImplementation(() => {
     expect(older.hasAttribute('inert')).toBe(false);
   });
   button().focus(); key(button(), 'F6'); newer.focus();
   manager.close('newer');
   expect(focus).toHaveBeenCalledTimes(1);
+});
+it('preserves outside focus chosen during a synchronous no-animation exit flush', async () => { // local regression, no parity credit
+  const manager = createToastManager(); await render({ toastManager: manager, timeout: 0, limit: 1 });
+  const outside = document.createElement('button'); document.body.appendChild(outside);
+  manager.add({ id: 'older', title: 'Older' });
+  manager.add({ id: 'newer', title: 'Newer', onRemove: () => outside.focus() }); await tick();
+  const [newer, older] = [...document.querySelectorAll<HTMLElement>('[data-testid="root"]')];
+  button().focus(); key(button(), 'F6'); newer.focus();
+  manager.close('newer');
+  expect(older.hasAttribute('inert')).toBe(false);
+  expect(document.activeElement).toBe(outside);
+});
+
+it('does not focus stale successor refs after the viewport disconnects during exit flush', async () => { // local regression, no parity credit
+  const manager = createToastManager(); await render({ toastManager: manager, timeout: 0, limit: 1 });
+  manager.add({ id: 'older', title: 'Older' });
+  manager.add({ id: 'newer', title: 'Newer', onRemove: () => get('viewport').remove() }); await tick();
+  const [newer, older] = [...document.querySelectorAll<HTMLElement>('[data-testid="root"]')];
+  const focus = vi.spyOn(older, 'focus');
+  button().focus(); key(button(), 'F6'); newer.focus();
+  manager.close('newer');
+  expect(older.isConnected).toBe(false);
+  expect(focus).not.toHaveBeenCalled();
 });
