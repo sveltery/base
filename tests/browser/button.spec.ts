@@ -68,12 +68,13 @@ for (const reference of [false, true]) {
     }
     expect(errors).toEqual([]);
   });
-  for (const scenario of ['default', 'submit', 'reset']) test(`supplement: ${framework} Button native ${scenario} form behavior`, async ({ page }) => {
+  for (const scenario of ['default', 'submit', 'reset', 'undefined-type']) test(`supplement: ${framework} Button native ${scenario} form behavior`, async ({ page }) => {
     const button = await setup(page, scenario, reference);
-    await expect(button).toHaveAttribute('type', scenario === 'default' ? 'button' : scenario);
+    if (scenario === 'undefined-type') await expect(button).not.toHaveAttribute('type');
+    else await expect(button).toHaveAttribute('type', scenario === 'default' ? 'button' : scenario);
     if (scenario === 'reset') await page.getByRole('textbox', { name: 'Reset field' }).fill('changed');
     await button.focus(); await page.keyboard.press('Enter'); await page.keyboard.press('Space');
-    expect((await calls(page)).click).toBe(2); expect((await calls(page)).submit).toBe(scenario === 'submit' ? 2 : 0); expect((await calls(page)).reset).toBe(scenario === 'reset' ? 2 : 0);
+    expect((await calls(page)).click).toBe(2); expect((await calls(page)).submit).toBe(['submit', 'undefined-type'].includes(scenario) ? 2 : 0); expect((await calls(page)).reset).toBe(scenario === 'reset' ? 2 : 0);
     if (scenario === 'reset') await expect(page.getByRole('textbox', { name: 'Reset field' })).toHaveValue('initial');
   });
   test(`supplement: ${framework} Button ignores ordinary descendant keyboard activation`, async ({ page }) => {

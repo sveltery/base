@@ -12,7 +12,7 @@
   const custom = $derived(['link', 'custom', 'modifier', 'custom-disabled', 'custom-focusable', 'cancel-base', 'cancel-enter', 'cancel-space', 'space-order', 'enter-order', 'focus-blur', 'descendant', 'render-cancel', 'click-cancel', 'attachment'].includes(scenario));
   const disabled = $derived(['native-disabled', 'custom-disabled'].includes(scenario) || ['native-focusable', 'custom-focusable', 'hover', 'focus-blur'].includes(scenario) || becameDisabled);
   const focusable = $derived(scenario.includes('focusable') || ['hover', 'becomes-disabled', 'focus-blur'].includes(scenario));
-  const type = $derived(scenario === 'submit' || scenario === 'reset' ? scenario : undefined);
+  const typeProps = $derived(scenario === 'submit' || scenario === 'reset' ? { type: scenario } : scenario === 'undefined-type' ? { type: undefined } : scenario === 'null-type' ? { type: null } : {});
   export function snapshot() { return { calls: { ...calls }, ref }; }
   function count(channel: string) { calls = { ...calls, [channel]: calls[channel] + 1 }; }
   function clicked(event: MouseEvent) {
@@ -43,7 +43,7 @@
   <div onclick={() => count('ancestor')}>
     <form onsubmit={event => { event.preventDefault(); count('submit'); }} onreset={() => count('reset')}>
       {#if scenario === 'reset'}<input aria-label="Reset field" value="initial" />{/if}
-      <Button id="tested-button" {disabled} focusableWhenDisabled={focusable} nativeButton={!custom} render={custom ? replacement : undefined} {type} bind:ref
+      <Button id="tested-button" {disabled} focusableWhenDisabled={focusable} nativeButton={!custom} render={custom ? replacement : undefined} {...typeProps} bind:ref
         {@attach scenario === 'attachment' ? attached : () => {}}
         class={state => state.disabled ? 'disabled-class' : 'enabled-class'} style={state => `opacity:${state.disabled ? 0.5 : 1}`}
         onclick={clicked} onmousedown={() => count('mouse')} onpointerdown={() => count('pointer')}

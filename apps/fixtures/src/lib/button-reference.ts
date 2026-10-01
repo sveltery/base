@@ -17,7 +17,7 @@ export function mountButtonReference(node: HTMLElement, scenario: string) {
           scenario === 'reset' ? h('input', { 'aria-label': 'Reset field', defaultValue: 'initial' }) : null,
           h(Button, {
             id: 'tested-button', disabled, focusableWhenDisabled: focusable, nativeButton: !custom,
-            type: scenario === 'submit' || scenario === 'reset' ? scenario : undefined,
+            ...(scenario === 'submit' || scenario === 'reset' ? { type: scenario } : scenario === 'undefined-type' ? { type: undefined } : {}),
             render: scenario === 'link' ? h('a', { href: '#target' }) : custom ? h('span', {
               onClick: (event: React.MouseEvent & { preventBaseUIHandler(): void }) => { count('render'); if (scenario === 'render-cancel') event.preventBaseUIHandler(); }, onClickCapture: () => count('capture'),
             }) : undefined,

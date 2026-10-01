@@ -52,3 +52,8 @@ it('supplement: class/style callbacks track state without replacing a focused DO
   const button = await setup('becomes-disabled'); button.focus(); expect(button.className).toBe('enabled-class'); expect(button.style.opacity).toBe('1');
   button.click(); await tick(); expect(document.getElementById('tested-button')).toBe(button); expect(button.className).toBe('disabled-class'); expect(button.style.opacity).toBe('0.5'); expect(document.activeElement).toBe(button);
 });
+for (const scenario of ['undefined-type', 'null-type']) it(`supplement: omitted native type defaults to button; explicit ${scenario} removes type`, async () => {
+  const omitted = await setup('default'); expect(omitted.getAttribute('type')).toBe('button');
+  await unmount(mounted.pop()!);
+  const explicit = await setup(scenario); expect(explicit.hasAttribute('type')).toBe(false); expect((explicit as HTMLButtonElement).type).toBe('submit');
+});
