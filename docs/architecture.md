@@ -1,6 +1,6 @@
 # Foundation architecture and handoff
 
-This is a bootstrap checkpoint, not the completed Dialog milestone. The runtime package lives in `packages/base`; `apps/fixtures` is a small SvelteKit app. Runtime imports must not depend on SvelteKit or React. `@sveltejs/package` emits the distribution and declaration files. Publication is disabled (`private: true`) while the API and original project license remain under review.
+This is a bootstrap checkpoint, not the completed Dialog milestone. The runtime package lives in `packages/base`; `apps/fixtures` is a small SvelteKit app. Runtime imports must not depend on SvelteKit or React. `@sveltejs/package` emits the distribution and declaration files. Publication is disabled (`private: true`) while the API remains under review. Original Sveltery code is MIT licensed; upstream-derived materials retain their original MIT notices.
 
 Reference upstream: mui/base-ui v1.8.0, tag object `5af893738de5c4513f8a315ffc54b979c165d1b5`, commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. See [the source inventory](upstream-contracts.md).
 
