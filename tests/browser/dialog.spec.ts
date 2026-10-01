@@ -189,7 +189,9 @@ test('Svelte nested outside click closes child only', async ({ page }) => {
 test('Svelte cleanup removes portals, lock, labels and registrations across remount', async ({ page }) => {
   const errors = await start(page, '/dialog', '?nested');
   await page.locator('#trigger').click(); await page.getByRole('button', { name: 'Child open' }).click();
-  await page.getByRole('button', { name: 'Mount toggle' }).evaluate((button: HTMLButtonElement) => button.click());
+  // This programmatic owner control is correctly outside the modal accessibility tree.
+  await expect(page.getByRole('button', { name: 'Mount toggle' })).toHaveCount(0);
+  await page.getByRole('button', { name: 'Mount toggle', includeHidden: true }).evaluate((button: HTMLButtonElement) => button.click());
   await expect(page.locator('[data-base-ui-portal]')).toHaveCount(0);
   expect(await page.evaluate(() => document.documentElement.style.overflow)).toBe('');
   await page.getByRole('button', { name: 'Mount toggle' }).click(); await page.locator('#trigger').click();
@@ -235,9 +237,10 @@ test('Svelte initial-open hydration and label lifecycle without console errors',
   const title = page.getByRole('heading', { name: 'Dialog title' });
   const id = await title.getAttribute('id');
   await expect(page.getByRole('dialog')).toHaveAttribute('aria-labelledby', id!);
-  await page.getByRole('button', { name: 'Title ID' }).evaluate((button: HTMLButtonElement) => button.click());
+  await expect(page.getByRole('button', { name: 'Title ID' })).toHaveCount(0);
+  await page.getByRole('button', { name: 'Title ID', includeHidden: true }).evaluate((button: HTMLButtonElement) => button.click());
   await expect(page.getByRole('dialog')).toHaveAttribute('aria-labelledby', 'replacement-title');
-  await page.getByRole('button', { name: 'Title toggle' }).evaluate((button: HTMLButtonElement) => button.click());
+  await page.getByRole('button', { name: 'Title toggle', includeHidden: true }).evaluate((button: HTMLButtonElement) => button.click());
   await expect(page.getByRole('dialog')).not.toHaveAttribute('aria-labelledby');
   expect(errors).toEqual([]);
 });
@@ -285,7 +288,8 @@ test('audit: imperative unmount cancels a pending keepMounted exit completion', 
 test('audit: parent modality change preserves child Escape ownership', async ({ page }) => {
   await start(page, '/dialog', '?nested'); await page.locator('#trigger').click();
   await page.getByRole('button', { name: 'Child open' }).click();
-  await page.getByRole('button', { name: 'Modality toggle' }).evaluate((button: HTMLButtonElement) => button.click());
+  await expect(page.getByRole('button', { name: 'Modality toggle' })).toHaveCount(0);
+  await page.getByRole('button', { name: 'Modality toggle', includeHidden: true }).evaluate((button: HTMLButtonElement) => button.click());
   await page.keyboard.press('Escape'); await expect(page.getByTestId('child-popup')).toHaveCount(0);
   await expect(page.getByTestId('popup')).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.style.overflow)).toBe('');
