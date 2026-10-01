@@ -69,13 +69,18 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
     const details = controller.request(false, 'escape-key', event);
     if (!details.isPropagationAllowed) event.stopPropagation();
   }
+  let beforeModalGuard: HTMLElement | null = null;
+  let afterModalGuard: HTMLElement | null = null;
   function tab(event: KeyboardEvent) {
     if (event.key !== 'Tab' || !controller.open || !topmost() || controller.modal === false) return;
     const list = tabbables(node);
     const current = activeElement(document);
     if (!list.length) { event.preventDefault(); node.focus(); }
-    else if (event.shiftKey && (current === list[0] || !list.includes(current!))) { event.preventDefault(); list.at(-1)!.focus(); }
-    else if (!event.shiftKey && (current === list.at(-1) || !list.includes(current!))) { event.preventDefault(); list[0].focus(); }
+    // Native media have multiple internal controls with the same retargeted
+    // active element. Let their own Tab sequence reach the adjacent guard.
+    else if (current?.matches('audio[controls],video[controls]') && list.includes(current)) return;
+    else if (event.shiftKey && (current === list[0] || !list.includes(current!))) { event.preventDefault(); (beforeModalGuard ?? list.at(-1)!).focus(); }
+    else if (!event.shiftKey && (current === list.at(-1) || !list.includes(current!))) { event.preventDefault(); (afterModalGuard ?? list[0]).focus(); }
   }
   let pressStartedOutside = false;
   function down(event: PointerEvent | MouseEvent) {
@@ -137,10 +142,43 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
       return () => { const index = stack.indexOf(controller); if (index !== -1) stack.splice(index, 1); };
     });
     $effect(() => {
+      if (!controller.open || controller.modal === false) return;
+      function guard(direction: 1 | -1) {
+        const element = document.createElement('span');
+        element.tabIndex = 0;
+        // Pinned FocusGuard exposes role-button guards on Apple WebKit so
+        // VoiceOver's virtual cursor can trigger the focus trap.
+        const platform = (window.navigator as Navigator & { userAgentData?: { platform?: string } }).userAgentData?.platform ?? window.navigator.platform;
+        const apple = /^mac|^i(os$|p)/i.test(platform);
+        if (apple && window.CSS?.supports?.('-webkit-backdrop-filter:none')) element.setAttribute('role', 'button');
+        else element.setAttribute('aria-hidden', 'true');
+        element.setAttribute('data-base-ui-focus-guard', '');
+        element.dataset.type = 'inside';
+        element.style.cssText = 'border:0;clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:fixed;white-space:nowrap;width:1px;top:0;left:0';
+        element.addEventListener('focusin', () => {
+          if (!controller.open || !topmost()) return;
+          const list = tabbables(node);
+          // Like pinned FloatingFocusManager, use native candidate focus. An
+          // implicit details summary cannot be focused by details.focus().
+          (direction === 1 ? list[0] : list.at(-1))?.focus({ preventScroll: true });
+        });
+        focusManager.guards.add(element);
+        return element;
+      }
+      const before = guard(-1);
+      const after = guard(1);
+      beforeModalGuard = before; afterModalGuard = after;
+      node.before(before); node.after(after);
+      return () => {
+        beforeModalGuard = null; afterModalGuard = null;
+        for (const element of [before, after]) { focusManager.guards.delete(element); element.remove(); }
+      };
+    });
+    $effect(() => {
       if (controller.open && controller.modal === true) return lockScroll(document);
     });
     $effect(() => {
-      if (controller.open) return isolateDialog(node, controller.modal !== false);
+      if (controller.open) return isolateDialog(node, controller.modal !== false, [...focusManager.guards]);
     });
     $effect(() => {
       const open = controller.open;

@@ -31,18 +31,52 @@ function children(node: Element | ShadowRoot): Element[] {
   }
   return [...node.children];
 }
+// Candidate and filtering rules ported from floating-ui-react/utils/tabbable.ts.
+const candidateSelector = 'a[href],button,input,select,textarea,summary,details,iframe,object,embed,[tabindex],[contenteditable]:not([contenteditable="false"]),audio[controls],video[controls]';
+function detailsSummary(details: Element): Element | undefined {
+  return [...details.children].find(child => child.localName === 'summary');
+}
+function isCandidate(element: Element): boolean {
+  return element.matches(candidateSelector)
+    && (element.localName !== 'summary' || (element.parentElement?.localName === 'details' && detailsSummary(element.parentElement) === element))
+    && (element.localName !== 'details' || !detailsSummary(element))
+    && (element.localName !== 'input' || (element as HTMLInputElement).type !== 'hidden');
+}
+function isFocusable(element: Element): boolean {
+  if (!element.isConnected || element.matches(':disabled')) return false;
+  for (let current: Element | null = element; current; current = parent(current)) {
+    if (current.matches('[hidden],[inert]')) return false;
+    const ancestor = current !== element;
+    if (ancestor && current.localName === 'details' && !(current as HTMLDetailsElement).open) {
+      const summary = detailsSummary(current);
+      if (!summary || !contains(summary, element)) return false;
+    }
+    // Slots have no box. Ancestors may use display:contents or have visibility
+    // overridden by descendants; only a candidate's own visibility is decisive.
+    if (current.localName === 'slot') continue;
+    const styles = current.ownerDocument.defaultView!.getComputedStyle(current);
+    if (ancestor) {
+      if (styles.display === 'none') return false;
+    } else {
+      if (styles.visibility === 'hidden' || styles.visibility === 'collapse') return false;
+      if (typeof current.checkVisibility === 'function') {
+        if (!current.checkVisibility()) return false;
+      } else if (styles.display === 'none' || styles.display === 'contents') return false;
+    }
+  }
+  return true;
+}
+function tabIndex(element: HTMLElement): number {
+  // Match the pinned helper, including explicit negative values for these
+  // native candidates. Other elements retain their actual negative tab index.
+  if (element.tabIndex < 0 && (element.localName === 'details' || element.localName === 'audio' || element.localName === 'video' || element.isContentEditable)) return 0;
+  return element.tabIndex;
+}
 export function tabbables(node: HTMLElement | ShadowRoot): HTMLElement[] {
   const candidates: HTMLElement[] = [];
   function walk(container: Element | ShadowRoot) {
     for (const element of children(container)) {
-      if (element.matches('button,input,select,textarea,a[href],[tabindex],[contenteditable="true"]')) {
-        const candidate = element as HTMLElement;
-        let hidden = false;
-        for (let ancestor: Element | null = element; ancestor; ancestor = parent(ancestor)) {
-          if (ancestor.matches('[hidden],[inert]')) { hidden = true; break; }
-        }
-        if (!hidden && !element.matches(':disabled') && candidate.getClientRects().length > 0 && element.ownerDocument.defaultView!.getComputedStyle(element).visibility !== 'hidden') candidates.push(candidate);
-      }
+      if (isCandidate(element) && isFocusable(element)) candidates.push(element as HTMLElement);
       walk(element);
     }
   }
@@ -51,7 +85,7 @@ export function tabbables(node: HTMLElement | ShadowRoot): HTMLElement[] {
   // Compare names directly, retaining form AND tree-root ownership across shadow boundaries.
   // Resolve that owner from focusable candidates before excluding negative tabindex values.
   return candidates.filter(element => {
-    if (element.tabIndex < 0) return false;
+    if (tabIndex(element) < 0) return false;
     if (element.tagName !== 'INPUT') return true;
     const input = element as HTMLInputElement;
     if (input.type !== 'radio' || !input.name) return true;
