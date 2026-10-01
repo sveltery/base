@@ -22,13 +22,13 @@ Supplements cover body, parent, element, ShadowRoot, explicit null versus null r
 
 ## Differences and incomplete scope
 
-Only the five accepted framework substitutions apply: className→class; React render elements/functions→Svelte snippets; React refs→Svelte bindings/attachments; synthetic→native event props; CSS objects→CSS strings. Ordinary `container`, `id`, native props, defaults and semantics retain their names. State remains empty. Generated ID bytes follow Svelte's SSR-stable ID generator rather than React's bytes, within the existing framework ID relationship contract. The compatibility register [T-03](../../docs/upstream-differences.md#t-03-standalone-toast-portal-framework-substitutions) records this scope and its decision status. No intentional behavioral fix is introduced.
+Only the five accepted framework substitutions apply: className→class; React render elements/functions→Svelte snippets; React refs→Svelte bindings/attachments; synthetic→native event props; CSS objects→CSS strings. Ordinary `container`, `id`, native props, defaults and semantics retain their names. State remains empty. Generated ID bytes follow Svelte's SSR-stable ID generator rather than React's bytes, within the existing framework ID relationship contract. The compatibility register [T-03](../../docs/upstream-differences.md#t-03-standalone-toast-portal-framework-substitutions) records this scope and its decision status. No intentional behavioral fix is introduced. Independent source review reproduced one local fidelity gap: an HTMLElement with a custom current property was misclassified as a ref. A failing DOM regression and paired element-current probe now cover it; owner-document Node recognition restores pinned isNode behavior. This is a fidelity repair, not a shared upstream defect or intentional difference.
 
 This is a prerequisite, not a pinned shadcn Base Toaster implementation. Swipe/default gesture behavior, anchored Positioner/Arrow geometry, remaining Toast parts' replacement rendering and complete Toast/native accessibility conformance remain incomplete. Deferred issues [#18](https://github.com/sveltery/base/issues/18), [#19](https://github.com/sveltery/base/issues/19) and [#21](https://github.com/sveltery/base/issues/21) remain unchanged. Existing Dialog/Button/Toast behavior is retained.
 
 ## Execution
 
-Tests-first commits `60098dd` / `369b233` precede implementation; the SSR export assertion failed with undefined Portal before the export existed. Five focused DOM supplements and one SSR case pass locally. Existing package-consumer checks now exercise root/subpath Portal identity and SSR omission. Local system Chromium aborts before component interaction with an unconfigured SUID sandbox helper. That startup failure is not passing browser evidence; no sandbox or system policy was changed. Secured browser evidence and final-head review remain pending until recorded in the PR and ledger.
+Tests-first commits `60098dd` / `369b233` precede implementation; the SSR export assertion failed with undefined Portal before the export existed. Six focused DOM supplements and one SSR case pass locally. Existing package-consumer checks now exercise root/subpath Portal identity and SSR omission. Local system Chromium aborts before component interaction with an unconfigured SUID sandbox helper. That startup failure is not passing browser evidence; no sandbox or system policy was changed. Secured browser evidence and final-head review remain pending until recorded in the PR and ledger.
 
 Reproduction uses the frozen repository toolchain:
 
@@ -42,4 +42,4 @@ node scripts/parity-inventory.mjs --upstream /path/to/base-ui --check
 pnpm exec playwright test tests/browser/toast-portal.spec.ts
 ```
 
-The existing hosted CI discovers this browser spec with secured Chromium and zero retries. Exact final-head independent GPT6.1Sol high review, configured automatic review and all three CI checks are required. Draft-only PR; parent owns merge.
+The existing hosted CI discovers this browser spec with secured Chromium and zero retries. Exact final-head independent GPT6.1Sol high review, configured automatic review and all three CI checks are required. [Draft PR #22](https://github.com/sveltery/base/pull/22); parent owns merge.

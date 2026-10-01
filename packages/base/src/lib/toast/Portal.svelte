@@ -15,6 +15,9 @@
     portalNode = node;
     return () => { if (portalNode === node) portalNode = null; };
   }
+  function isContainerNode(value: NonNullable<ToastPortalProps['container']>): value is HTMLElement | ShadowRoot {
+    return 'ownerDocument' in value && value instanceof (value.ownerDocument.defaultView?.Node ?? Node);
+  }
   // Like the pinned hook, resolve a ref only when its object (or parent) changes.
   // Explicit null waits; a null ref.current instead uses the parent/body fallback.
   // Effects do not execute during SSR. Mount the whole replacement subtree so
@@ -23,8 +26,8 @@
     const containerProp = container;
     const parentNode = parent?.node;
     if (containerProp === null) return null;
-    return (containerProp && ('current' in containerProp
-      ? untrack(() => containerProp.current) : containerProp)) ?? parentNode ?? document.body;
+    return (containerProp && (isContainerNode(containerProp)
+      ? containerProp : untrack(() => containerProp.current))) ?? parentNode ?? document.body;
   });
   $effect(() => {
     const target = destination;
