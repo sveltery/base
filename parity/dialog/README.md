@@ -1,5 +1,7 @@
 # Dialog test-first handoff
 
+Current initialFocus work is tracked separately in [the leaf-port execution overlay](initial-focus-ports.md). It covers P:92/287/310/333 and describes the exact-head acceptance gate and four-record credit; the source inventory below remains byte-exact provenance. The original handoff and contracts below are preserved.
+
 This branch prepares Dialog behavior contracts against React Base UI **v1.8.0 / `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`**, originating at foundation **`377419099d869fcf1d03463dbd52ea3384c4009e`** and rebased onto final foundation **`c3230bf07318f9494c9ae9aabe11f5e32f7c2a3a`**. All Dialog behavior remains **unported**. The parent assigns implementation and harness work after review.
 
 Read [scenarios.md](scenarios.md) first. It specifies real fixture topology, ordered operations, exact observation requirements and implementation acceptance gates for state/control/cancel, event ordering/composition, focus/Tab/Escape/return, portals, outside press/nesting, presence/cleanup and SSR hydration. It distinguishes source-derived supplemental gates from upstream leaf assertions, and lists the unported remainder without substituting mocks or broad skips.

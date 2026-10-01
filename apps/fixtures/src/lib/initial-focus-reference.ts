@@ -15,7 +15,7 @@ export function mountInitialFocusReference(node: HTMLElement, scenario: string) 
       h(Dialog.Root, { modal: false },
         h(Dialog.Trigger, null, 'Open'),
         h(Dialog.Portal, null,
-          h(Dialog.Popup, { 'data-testid': 'dialog', initialFocus },
+          h(Dialog.Popup, { ...{ 'data-testid': 'dialog' }, initialFocus },
             h('input', { 'data-testid': 'input-1' }),
             scenario === 'ref' || scenario === 'count' ? h('input', { 'data-testid': 'input-2', ref: input2Ref }) : null,
             scenario === 'ref' ? h('input', { 'data-testid': 'input-3' }) : null,
