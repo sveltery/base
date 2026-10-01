@@ -1,5 +1,7 @@
 # Dialog test-first handoff
 
+Current initialFocus credit is recorded in [the shared manifest](../manifest.json) and [leaf-port fixture/assertion record](initial-focus-ports.md): P:92/287/310/333 are complete passing ports, leaving 171 unported declarations / 367 unported candidate records out of 175/371. The shared aggregate is 8 passing / 625 unported out of 633, including these four Dialog ports. The source inventory remains byte-exact provenance with its original status placeholders. The original handoff below is historical; its all-unported counts describe that earlier checkpoint, not current execution status. The scenario contracts remain preserved.
+
 This branch prepares Dialog behavior contracts against React Base UI **v1.8.0 / `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`**, originating at foundation **`377419099d869fcf1d03463dbd52ea3384c4009e`** and rebased onto final foundation **`c3230bf07318f9494c9ae9aabe11f5e32f7c2a3a`**. All Dialog behavior remains **unported**. The parent assigns implementation and harness work after review.
 
 Read [scenarios.md](scenarios.md) first. It specifies real fixture topology, ordered operations, exact observation requirements and implementation acceptance gates for state/control/cancel, event ordering/composition, focus/Tab/Escape/return, portals, outside press/nesting, presence/cleanup and SSR hydration. It distinguishes source-derived supplemental gates from upstream leaf assertions, and lists the unported remainder without substituting mocks or broad skips.
