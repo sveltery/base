@@ -22,6 +22,7 @@
   const external = Toast.createToastManager();
   onMount(() => { if (scenario === 'element-current') Object.assign(targetA!, { current: null }); shadow = host!.attachShadow({ mode: 'open' }); hydrated = true; });
   const container = $derived.by(() => {
+    if (scenario === 'element-current' && !hydrated) return null;
     if (mode === 'null' || scenario === 'null' && mode === 'initial') return null;
     if (mode === 'a' || ['element', 'element-current'].includes(scenario) && mode === 'initial') return targetA ?? null;
     if (mode === 'b') return targetB ?? null;

@@ -23,7 +23,8 @@ export function mountToastPortalReference(node: HTMLElement, scenario: string) {
     useEffect(() => { if (scenario === 'element-current') Object.assign(targetA.current!, { current: null }); setShadow(host.current!.attachShadow({ mode: 'open' })); setHydrated(true); }, []);
     useEffect(() => { setRefs({ tag: refA.current?.tagName, testid: refA.current?.getAttribute('data-testid'), renderTag: refB.current?.tagName, renderTestid: refB.current?.getAttribute('data-testid'), same: !!refA.current && refA.current === refB.current }); }, [mode, mounted, hydrated]);
     let container;
-    if (mode === 'null' || scenario === 'null' && mode === 'initial') container = null;
+    if (scenario === 'element-current' && !hydrated) container = null;
+    else if (mode === 'null' || scenario === 'null' && mode === 'initial') container = null;
     else if (mode === 'a' || ['element', 'element-current'].includes(scenario) && mode === 'initial') container = targetA.current;
     else if (mode === 'b') container = targetB.current;
     else if (scenario === 'shadow') container = shadow ?? null;

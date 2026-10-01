@@ -48,3 +48,8 @@ it('treats a native container carrying a current property as a node, not a ref o
   const destination = Object.assign(document.createElement('div'), { current: null }); document.body.append(destination);
   setup(destination); expect(portal().parentNode).toBe(destination);
 });
+it('uses a raw generated ID until explicit props override or remove it', () => {
+  const { component } = setup(); expect(portal().id).not.toBe(''); expect(portal().id.startsWith('base-ui-')).toBe(false);
+  component.setId('explicit'); flushSync(); expect(portal().id).toBe('explicit');
+  component.setId(undefined); flushSync(); expect(portal().hasAttribute('id')).toBe(false);
+});

@@ -64,6 +64,7 @@ for (const reference of [false, true]) {
     }
     await expect(root).toHaveAttribute('data-base-ui-portal', '');
     await expect(root).toHaveAttribute('id', /.+/);
+    await expect(root).not.toHaveAttribute('id', /^base-ui-/);
     await click(page, 'add toast'); await expect(root.getByText('Portal toast', { exact: true })).toHaveCount(1);
     if (scenario !== 'shadow') {
       await root.evaluate(node => { (window as Window & { oldPortal?: Element }).oldPortal = node; });

@@ -9,10 +9,11 @@
   let renderRef = $state<HTMLElement | null>(null);
   let shown = $state(true);
   let id = $state<string>();
+  let managedId = $state(false);
   let label = $state('Initial');
   const attachments = { [createAttachmentKey()]: (node: HTMLElement) => attached(node) };
   export function setContainer(value: ToastPortalProps['container']) { container = value; }
-  export function setId(value: string) { id = value; }
+  export function setId(value?: string) { managedId = true; id = value; }
   export function setLabel(value: string) { label = value; }
   export function remove() { shown = false; }
   export function getRefs() { return [ref, renderRef]; }
@@ -21,5 +22,5 @@
   <section data-testid="wrapper"><div {...props} bind:this={renderRef}></div></section>
 {/snippet}
 {#if shown}
-  <Toast.Portal {container} {id} bind:ref render={custom ? replacement : undefined} data-testid="portal" class={() => 'portal-class'} style="color: green" {...attachments}><span data-testid="child">{label}</span></Toast.Portal>
+  <Toast.Portal {container} {...(managedId ? { id } : {})} bind:ref render={custom ? replacement : undefined} data-testid="portal" class={() => 'portal-class'} style="color: green" {...attachments}><span data-testid="child">{label}</span></Toast.Portal>
 {/if}
