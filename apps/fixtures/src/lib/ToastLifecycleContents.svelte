@@ -11,6 +11,8 @@
   let closeSuccessorOnFocus = false;
   let immediateFocusedExit = $state(false);
   let showViewport = $state(true);
+  let viewportKey = $state(0);
+  let noExitAnimation = $state(false);
   function addNestedClose(mode: 'focused' | 'immediate' | 'unfocused' | 'all') {
     immediateFocusedExit = mode === 'immediate';
     add('a', 'Oldest'); add('b', 'Focused'); add('c', 'Middle');
@@ -69,13 +71,18 @@
     return () => { delete host.closeToastNow; delete host.closeAndReplace; };
   }
 </script>
-<section class="lifecycle" data-testid="lifecycle" {@attach attach}>
+<section class="lifecycle" data-testid="lifecycle" data-no-exit-animation={noExitAnimation ? '' : undefined} {@attach attach}>
   <button id="outside">outside</button>
+  <button onclick={() => noExitAnimation = true}>disable exit animation</button>
   <button onclick={() => { add('a', 'A'); add('b', 'B'); add('c', 'C'); }}>add three</button>
   <button onclick={() => add('save', 'Saving…')}>add save</button>
   <button onclick={() => add('save', 'Saved')}>replace save</button>
   <button onclick={() => facade.update('save', { title: 'A notification with updated text that wraps across several lines in a narrow toast Root. '.repeat(3) })}>update save layout</button>
   <button onclick={() => add('timer', 'Timer', 50, true)}>add timer</button>
+  <button onclick={() => main.querySelector<HTMLElement>('[data-testid="viewport"]')?.blur()}>blur viewport</button>
+  <button onclick={() => { main.querySelector<HTMLElement>('[data-testid="viewport"]')?.blur(); showViewport = false; }}>blur and hide viewport</button>
+  <button onclick={() => { const node = main.querySelector<HTMLElement>('[data-testid="viewport"]'); node?.blur(); flushSync(); node?.querySelector<HTMLElement>('[data-testid="root"]')?.focus(); }}>blur then focus root</button>
+  <button onclick={() => { main.querySelector<HTMLElement>('[data-testid="viewport"]')?.blur(); viewportKey += 1; flushSync(); main.querySelector<HTMLElement>('[data-testid="viewport"]')?.focus(); }}>blur and replace viewport</button>
   <button onclick={() => showViewport = false}>hide viewport</button>
   <button onclick={() => showViewport = true}>show viewport</button>
   <button onclick={() => facade.add({ id: 'classes', title: 'Classes', timeout: 0,
@@ -98,7 +105,7 @@
   <button onclick={() => addFocusCascade(true)}>add focus replacement</button>
   <button onclick={() => add('callback', 'Closing', 0, false, () => add('fresh', 'Fresh'))}>add callback sibling</button>
   <button onclick={() => add('callback', 'Old', 0, false, () => add('callback', 'Fresh', 50))}>add callback replacement</button>
-  {#if showViewport}<Toast.Viewport data-testid="viewport">
+  {#key viewportKey}{#if showViewport}<Toast.Viewport data-testid="viewport">
     {#each facade.toasts as toast, index (indexKeys ? index : toast.id)}
       <Toast.Root {toast} swipeDirection={[]} id={`root-${toast.id}`} data-testid="root" data-toast-id={toast.id} style={narrowRoots ? 'width:180px' : undefined} data-immediate-exit={immediateFocusedExit && toast.id === 'b' ? '' : undefined}
         onfocus={() => { if (closeSuccessorOnFocus && toast.id === 'b') { closeSuccessorOnFocus = false; facade.close('b'); } }}>
@@ -107,7 +114,7 @@
         <Toast.Close aria-label={`close ${toast.id}`} />
       </Toast.Root>
     {/each}
-  </Toast.Viewport>{/if}
+  </Toast.Viewport>{/if}{/key}
   <output data-testid="close-observations">{JSON.stringify(closed)}</output>
   <output data-testid="remove-observations">{JSON.stringify(removed)}</output>
   <output data-testid="synchronous-focus">{synchronousFocus}</output>
@@ -115,5 +122,6 @@
 <style>
   :global(.lifecycle [data-ending-style]) { animation: toast-exit 10s linear; }
   :global(.lifecycle [data-ending-style][data-immediate-exit]) { animation: none; }
+  :global(.lifecycle[data-no-exit-animation] [data-ending-style]) { animation: none; }
   @keyframes -global-toast-exit { from { opacity: 1; } to { opacity: 0; } }
 </style>

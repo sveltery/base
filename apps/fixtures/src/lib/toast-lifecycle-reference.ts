@@ -11,6 +11,8 @@ export function mountToastLifecycleReference(node: HTMLElement, scenario: string
     const facade = Toast.useToastManager();
     const main = useRef<HTMLElement>(null);
     const [showViewport, setShowViewport] = useState(true);
+    const [viewportKey, setViewportKey] = useState(0);
+    const [noExitAnimation, setNoExitAnimation] = useState(false);
     const [closed, setClosed] = useState<string[]>([]);
     const [synchronous, setSynchronous] = useState('');
     const [replacements, setReplacements] = useState(false);
@@ -25,10 +27,11 @@ export function mountToastLifecycleReference(node: HTMLElement, scenario: string
       };
       return () => { delete host.closeToastNow; };
     }, [facade]);
-    return h('section', { ref: main, 'data-testid': 'lifecycle', className: 'react-lifecycle' },
-      h('style', null, '.react-lifecycle [data-ending-style]{animation:reference-toast-exit 10s linear}@keyframes reference-toast-exit{from{opacity:1}to{opacity:0}}'),
+    return h('section', { ref: main, 'data-testid': 'lifecycle', 'data-no-exit-animation': noExitAnimation ? '' : undefined, className: 'react-lifecycle' },
+      h('style', null, '.react-lifecycle [data-ending-style]{animation:reference-toast-exit 10s linear}.react-lifecycle[data-no-exit-animation] [data-ending-style]{animation:none}@keyframes reference-toast-exit{from{opacity:1}to{opacity:0}}'),
       h('button', { id: 'outside' }, 'outside'),
-      h('button', { onClick: () => { add('a', 'Oldest'); add('b', 'Focused'); add('c', 'Middle'); } }, 'add three'),
+      h('button', { onClick: () => setNoExitAnimation(true) }, 'disable exit animation'),
+      h('button', { onClick: () => { add('a', 'A'); add('b', 'B'); add('c', 'C'); } }, 'add three'),
       h('button', { onClick: () => add('save', 'Saving…') }, 'add save'),
       h('button', { onClick: () => facade.update('save', { title: 'A notification with updated text that wraps across several lines in a narrow toast Root. '.repeat(3) }) }, 'update save layout'),
       h('button', { onClick: () => {
@@ -41,9 +44,13 @@ export function mountToastLifecycleReference(node: HTMLElement, scenario: string
         } });
       } }, 'add descendant replacement'),
       h('button', { onClick: () => add('timer', 'Timer', 50) }, 'add timer'),
+      h('button', { onClick: () => main.current?.querySelector<HTMLElement>('[data-testid=viewport]')?.blur() }, 'blur viewport'),
+      h('button', { onClick: () => { main.current?.querySelector<HTMLElement>('[data-testid=viewport]')?.blur(); setShowViewport(false); } }, 'blur and hide viewport'),
+      h('button', { onClick: () => { const viewport = main.current?.querySelector<HTMLElement>('[data-testid=viewport]'); viewport?.blur(); flushSync(() => {}); viewport?.querySelector<HTMLElement>('[data-testid=root]')?.focus(); } }, 'blur then focus root'),
+      h('button', { onClick: () => { main.current?.querySelector<HTMLElement>('[data-testid=viewport]')?.blur(); flushSync(() => setViewportKey(value => value + 1)); main.current?.querySelector<HTMLElement>('[data-testid=viewport]')?.focus(); } }, 'blur and replace viewport'),
       h('button', { onClick: () => setShowViewport(false) }, 'hide viewport'),
       h('button', { onClick: () => setShowViewport(true) }, 'show viewport'),
-      showViewport ? h(Toast.Viewport, { ...testId('viewport'), style: { display: 'flex', flexDirection: 'column', width: 320 } },
+      showViewport ? h(Toast.Viewport, { key: viewportKey, ...testId('viewport'), style: { display: 'flex', flexDirection: 'column', width: 320 } },
         facade.toasts.map((toast, index) => h(Toast.Root, {
           key: scenario === 'lifecycle-index' ? index : toast.id, toast, swipeDirection: [], id: `root-${toast.id}`,
           ...testId('root'), style: { width: scenario === 'lifecycle-geometry' ? 180 : undefined, padding: 8, border: '1px solid #999' },

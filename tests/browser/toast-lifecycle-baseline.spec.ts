@@ -35,6 +35,7 @@ for (const reference of [false, true]) test(`baseline: delayed index-slot remova
   await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
   await click(page, 'add nested focused close'); await page.keyboard.press('F6'); await page.locator('#root-b').focus();
   await close(page, 'd'); await expect(page.locator('#root-c')).toBeFocused(); await page.locator('#root-a').focus();
+  await expect(page.locator('#root-a')).toBeFocused();
   const oldRoot = await page.locator('#root-a').elementHandle();
   if (!oldRoot) throw new Error('Expected oldest Root before physical exit.');
   await expect.poll(() => page.locator('#root-b').evaluate(node => node.getAnimations().length)).toBe(1);
@@ -73,10 +74,8 @@ for (const reference of [false, true]) {
   test(`baseline: inert successor close records native focus (${label})`, async ({ page }) => {
     await page.goto(`/${reference ? 'toast-reference' : 'toast'}?case=lifecycle-limit`);
     await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true'); await click(page, 'add three');
-    await page.keyboard.press('F6'); await page.locator('#root-c').focus();
-    await page.locator('#root-c').evaluate(node => {
-      (node as HTMLElement).style.animation = 'none';
-    });
+    await page.keyboard.press('F6'); await page.locator('#root-c').focus(); await expect(page.locator('#root-c')).toBeFocused();
+    await click(page, 'disable exit animation');
     await close(page, 'c');
     console.info(`native inert close ${label}: synchronous=${await page.getByTestId('synchronous-focus').innerText()}; active=${await page.evaluate(() => document.activeElement?.id || 'BODY')}`);
     await expect(page.locator('#root-b')).not.toHaveAttribute('inert');
@@ -84,3 +83,39 @@ for (const reference of [false, true]) {
     expect(await page.evaluate(() => document.activeElement === document.body)).toBe(true);
   });
 }
+
+for (const reference of [false, true]) for (const detach of [false, true]) test(`adapter boundary: explicit Viewport blur followed by detach=${detach} (${reference ? 'React' : 'Svelte'})`, async ({ page }) => {
+  await page.goto(`/${reference ? 'toast-reference' : 'toast'}?case=lifecycle`);
+  await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+  const start = new Date('2026-01-01T00:00:00Z'); await page.clock.install({ time: start }); await page.clock.pauseAt(start);
+  await click(page, 'add timer'); await page.keyboard.press('F6'); await expect(page.getByTestId('viewport')).toBeFocused();
+  await click(page, detach ? 'blur and hide viewport' : 'blur viewport');
+  if (detach) await expect(page.getByTestId('viewport')).toHaveCount(0);
+  await page.clock.runFor(100);
+  // Explicitly documented, uncredited Svelte event-timing boundary. The common
+  // connected-Viewport case still preserves pinned timer behavior.
+  expect(JSON.parse(await page.getByTestId('close-observations').innerText())).toHaveLength(!reference && detach ? 0 : 1);
+});
+
+for (const reference of [false, true]) for (const interaction of ['hover', 'focus', 'replace']) test(`adapter ownership: committed blur then ${interaction} preserves the existing timer (${reference ? 'React' : 'Svelte'})`, async ({ page }) => {
+  await page.goto(`/${reference ? 'toast-reference' : 'toast'}?case=lifecycle`);
+  await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+  const start = new Date('2026-01-01T00:00:00Z'); await page.clock.install({ time: start }); await page.clock.pauseAt(start);
+  await click(page, 'add timer'); await page.keyboard.press('F6'); await expect(page.getByTestId('viewport')).toBeFocused();
+  const oldViewport = await page.getByTestId('viewport').elementHandle();
+  if (!oldViewport) throw new Error('Expected Viewport before interaction.');
+  if (interaction === 'hover') await page.getByTestId('viewport').evaluate(node => {
+    (node as HTMLElement).blur();
+    // React synthesizes mouseenter from mouseover; Svelte owns native mouseenter.
+    node.dispatchEvent(new MouseEvent('mouseover', { bubbles: true, relatedTarget: null }));
+    node.dispatchEvent(new MouseEvent('mouseenter'));
+  });
+  else await click(page, interaction === 'focus' ? 'blur then focus root' : 'blur and replace viewport');
+  if (interaction === 'focus') await expect(page.getByTestId('root')).toBeFocused();
+  if (interaction === 'replace') {
+    expect(await oldViewport.evaluate(node => node.isConnected)).toBe(false);
+    await expect(page.getByTestId('viewport')).toBeFocused();
+  }
+  await page.clock.runFor(100); await expect(page.getByTestId('close-observations')).toHaveText('[]');
+  await expect(page.getByTestId('root')).not.toHaveAttribute('data-ending-style');
+});

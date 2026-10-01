@@ -257,3 +257,55 @@ it('stale Viewport teardown preserves the replacement registration and listeners
   button().focus(); key(button(), 'F6'); expect(document.activeElement).toBe(get('viewport')); get('root').focus();
   manager.close(); expect(document.activeElement).toBe(button());
 });
+
+it('preserves deferred window-focus publication across empty listener cleanup', async () => { // supplemental pinned hook-lifecycle parity, no declaration credit
+  const listeners = vi.spyOn(window, 'addEventListener');
+  const manager = createToastManager(); let store!: import('../../src/lib/toast/store.js').ToastStore;
+  await render({ toastManager: manager, timeout: 0, onStore: (value: typeof store) => { store = value; } }); await add();
+  const blur = listeners.mock.calls.find(([type]) => type === 'blur')![1] as EventListener;
+  const focus = listeners.mock.calls.find(([type]) => type === 'focus')![1] as EventListener;
+  const event = (type: string, listener: EventListener) => {
+    const value = new FocusEvent(type); Object.defineProperty(value, 'composedPath', { value: () => [window] }); listener(value);
+  };
+  event('blur', blur); expect(store.state.isWindowFocused).toBe(false);
+  event('focus', focus); manager.close(); flushSync();
+  expect(store.state.toasts).toHaveLength(0); expect(store.state.isWindowFocused).toBe(false);
+  await advance(0); expect(store.state.isWindowFocused).toBe(true);
+});
+
+it('ignores native focusout from a Viewport after its registration detaches', async () => { // supplemental native event-lifetime parity, no declaration credit
+  const remove = Element.prototype.remove;
+  vi.spyOn(Element.prototype, 'remove').mockImplementation(function (this: Element) {
+    const active = document.activeElement;
+    if (active instanceof HTMLElement && this.contains(active)) active.blur();
+    remove.call(this);
+  });
+  const manager = createToastManager(); let store!: import('../../src/lib/toast/store.js').ToastStore;
+  await render({ toastManager: manager, timeout: 0, onStore: (value: typeof store) => { store = value; } });
+  manager.add({ id: 'timed', title: 'Timed', timeout: 50 }); await tick(); key(button(), 'F6');
+  expect(document.activeElement).toBe(get('viewport')); expect(store.state.focused).toBe(true);
+  (mounted[mounted.length - 1] as { removeViewport(): void }).removeViewport(); flushSync();
+  expect(store.state.viewport).toBe(null); expect(store.state.focused).toBe(true);
+  manager.add({ id: 'new', title: 'New', timeout: 50 }); await advance(100);
+  expect(store.state.toasts.every(toast => toast.transitionStatus !== 'ending')).toBe(true);
+});
+
+it('releases explicit blur from a still-connected Viewport', async () => { // supplemental native event-lifetime parity, no declaration credit
+  const manager = createToastManager(); let store!: import('../../src/lib/toast/store.js').ToastStore;
+  await render({ toastManager: manager, timeout: 0, onStore: (value: typeof store) => { store = value; } }); await add();
+  key(button(), 'F6'); expect(store.state.focused).toBe(true);
+  get('viewport').blur(); await tick();
+  expect(store.state.viewport?.isConnected).toBe(true); expect(store.state.focused).toBe(false);
+});
+
+it.each(['hover', 'focus'])('settles explicit blur before a later same-turn interaction (%s)', async interaction => { // supplemental native event order, no declaration credit
+  const manager = createToastManager(); let store!: import('../../src/lib/toast/store.js').ToastStore;
+  await render({ toastManager: manager, timeout: 0, onStore: (value: typeof store) => { store = value; } });
+  manager.add({ id: 'timed', title: 'Timed', timeout: 50 }); await tick();
+  key(button(), 'F6'); get('viewport').blur();
+  if (interaction === 'hover') mouse('mouseenter'); else get('root').focus();
+  await tick();
+  expect(store.state.focused).toBe(interaction === 'focus'); expect(store.state.hovering).toBe(interaction === 'hover');
+  await advance(100);
+  expect(store.state.toasts.every(toast => toast.transitionStatus !== 'ending')).toBe(true);
+});

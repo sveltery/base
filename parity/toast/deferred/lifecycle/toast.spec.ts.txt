@@ -582,4 +582,3 @@ for (const interaction of ['hover', 'focus']) test(`supplement: conditional View
   await expect(page.getByTestId('viewport')).toHaveCount(1);
   await expect(page.getByTestId('viewport')).not.toHaveAttribute('data-expanded');
 });
-

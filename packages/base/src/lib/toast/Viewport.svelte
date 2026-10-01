@@ -1,6 +1,6 @@
 <script lang="ts">
   // Derived from mui/base-ui at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, see ../../../THIRD_PARTY_NOTICES.md.
-  import { untrack } from 'svelte';
+  import { onDestroy, untrack } from 'svelte';
   import { provider } from './context.js';
   import { selectors } from './store.js';
   import { activeElement, contains, getTarget, isFocusVisible } from './viewport-focus.js';
@@ -12,12 +12,21 @@
   let handlingFocusGuard = false;
   let markedReadyForMouseLeave = false;
   let touchActive = false;
+  let focusEventVersion = 0;
+  let pendingBlur: { node: HTMLElement; source: Node | null; release: () => void } | undefined;
+  let focusTimeout: { win: Window; id: number } | undefined;
+  onDestroy(() => { pendingBlur = undefined; if (focusTimeout) focusTimeout.win.clearTimeout(focusTimeout.id); });
   const snapshot = $derived(store.getSnapshot());
   const expanded = $derived(selectors.expanded(snapshot));
   const isEmpty = $derived(selectors.isEmpty(snapshot));
   const hasTransitioningToasts = $derived(snapshot.toasts.some(toast => toast.transitionStatus === 'ending'));
   const highPriorityToasts = $derived(snapshot.toasts.filter(toast => toast.priority === 'high'));
   const hiddenStyle = 'border:0;clip:rect(0,0,0,0);height:1px;margin:-1px;overflow:hidden;padding:0;position:fixed;white-space:nowrap;width:1px;top:0;left:0';
+  function settlePendingBlur() {
+    const pending = pendingBlur;
+    pendingBlur = undefined;
+    if (pending?.node.isConnected && pending.source?.isConnected) pending.release();
+  }
   function restoreFocus() { store.state.prevFocusElement?.focus({ preventScroll: true }); }
   function closeFocus(toastId?: string) {
     const state = store.state;
@@ -54,8 +63,9 @@
     const doc = node.ownerDocument;
     const win = doc.defaultView;
     if (!win) return;
-    let focusTimeout: number | undefined;
     function keydown(event: KeyboardEvent) {
+    settlePendingBlur();
+      settlePendingBlur();
       if (event.key === 'F6' && getTarget(event) !== node) {
         event.preventDefault();
         store.set('prevFocusElement', activeElement(doc) as HTMLElement | null);
@@ -65,18 +75,23 @@
       }
     }
     function blur(event: FocusEvent) {
+    settlePendingBlur();
+      settlePendingBlur();
       if (getTarget(event) !== win) return;
       store.set('isWindowFocused', false);
       store.pauseTimers();
     }
     function focus(event: FocusEvent) {
+      settlePendingBlur();
       if (event.relatedTarget) return;
       const target = getTarget(event);
       if (target === win || !contains(node, target) || !isFocusVisible(activeElement(doc))) store.resumeTimers();
-      win!.clearTimeout(focusTimeout);
-      focusTimeout = win!.setTimeout(() => store.set('isWindowFocused', true), 0);
+      if (focusTimeout) focusTimeout.win.clearTimeout(focusTimeout.id);
+      const id = win!.setTimeout(() => { focusTimeout = undefined; store.set('isWindowFocused', true); }, 0);
+      focusTimeout = { win: win!, id };
     }
     function pointerdown(event: PointerEvent) {
+      settlePendingBlur();
       if (event.pointerType !== 'touch' || contains(store.state.viewport, getTarget(event))) return;
       store.resumeTimers();
       store.update({ hovering: false, focused: false });
@@ -86,7 +101,6 @@
     win.addEventListener('focus', focus, true);
     doc.addEventListener('pointerdown', pointerdown, true);
     return () => {
-      win.clearTimeout(focusTimeout);
       win.removeEventListener('keydown', keydown);
       win.removeEventListener('blur', blur, true);
       win.removeEventListener('focus', focus, true);
@@ -101,15 +115,21 @@
   }
   $effect(() => { void hasTransitioningToasts; untrack(flushMouseLeave); });
   function mouseEnter() {
+    settlePendingBlur();
     store.pauseTimers(); store.set('hovering', true); markedReadyForMouseLeave = false;
   }
-  function mouseLeave() { markedReadyForMouseLeave = true; flushMouseLeave(); }
-  function pointerDown(event: PointerEvent) { if (event.pointerType === 'touch') touchActive = true; }
+  function mouseLeave() {
+    settlePendingBlur(); markedReadyForMouseLeave = true; flushMouseLeave(); }
+  function pointerDown(event: PointerEvent) {
+    settlePendingBlur(); if (event.pointerType === 'touch') touchActive = true; }
   function pointerEnd(event: PointerEvent) {
+    settlePendingBlur();
     if (event.pointerType !== 'touch') return;
     touchActive = false; flushMouseLeave();
   }
   function focus() {
+    settlePendingBlur();
+    focusEventVersion += 1;
     if (handlingFocusGuard) { handlingFocusGuard = false; return; }
     if (store.state.focused || !store.state.viewport) return;
     if (isFocusVisible(activeElement(store.state.viewport.ownerDocument))) {
@@ -117,16 +137,35 @@
     }
   }
   function blur(event: FocusEvent) {
-    if (!store.state.focused || contains(store.state.viewport, event.relatedTarget)) return;
-    store.set('focused', false);
-    if (store.state.isWindowFocused) store.resumeTimers();
+    settlePendingBlur();
+    const version = ++focusEventVersion;
+    const node = viewport;
+    const registration = store.getCloseFocusRegistration();
+    if (!node || !registration || store.state.viewport !== node || !store.state.focused || contains(node, event.relatedTarget)) return;
+    const release = () => {
+      if (focusEventVersion !== version || viewport !== node || store.state.viewport !== node || store.getCloseFocusRegistration() !== registration) return;
+      store.set('focused', false);
+      if (store.state.isWindowFocused) store.resumeTimers();
+    };
+    if (event.relatedTarget !== null) { release(); return; }
+    const source = getTarget(event) as Node | null;
+    // Native removal dispatches focusout before disconnecting its source.
+    // React suppresses that event during commit. Settle null-target releases
+    // after this turn so only a still-mounted source can release the pause.
+    const pending = { node, source, release };
+    pendingBlur = pending;
+    node.ownerDocument.defaultView?.queueMicrotask(() => {
+      if (pendingBlur === pending) settlePendingBlur();
+    });
   }
   function keydown(event: KeyboardEvent) {
+    settlePendingBlur();
     if (event.key === 'Tab' && event.shiftKey && getTarget(event) === store.state.viewport) {
       event.preventDefault(); restoreFocus();
     }
   }
   function focusGuard(event: FocusEvent) {
+    settlePendingBlur();
     handlingFocusGuard = true;
     const first = event.relatedTarget === store.state.viewport
       ? store.state.toasts.find(toast => toast.transitionStatus !== 'ending' && !toast.limited)
