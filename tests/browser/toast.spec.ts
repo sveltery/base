@@ -501,3 +501,31 @@ for (const indexKeys of [false, true]) test(`supplement: committed same-ID repla
   await expect(page.getByRole('alert')).toHaveCount(0);
   await page.clock.runFor(100); await expect(page.locator('#root-callback')).not.toHaveAttribute('data-ending-style');
 });
+
+for (const replace of [false, true]) test(`supplement: explicit native consumer blur cancels close focus recovery (replacement=${replace})`, async ({ page }) => {
+  await page.goto('/toast?case=lifecycle');
+  await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+  await page.locator('#outside').focus(); await click(page, replace ? 'add replacement blur' : 'add callback blur');
+  await page.keyboard.press('F6'); await page.locator(replace ? '#root-callback' : '#root-d').focus();
+  await closeNow(page, 'manager', replace ? 'callback' : 'd');
+  await expect(page.getByTestId('synchronous-focus')).toHaveText('');
+  expect(await page.evaluate(() => document.activeElement === document.body)).toBe(true);
+  await expect(page.getByTestId('viewport')).not.toHaveAttribute('data-expanded');
+});
+
+test('supplement: frontmost height tracks live measured Roots throughout animated exits', async ({ page }) => {
+  await page.goto('/toast?case=lifecycle');
+  await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+  await click(page, 'add three');
+  for (const [closing, next] of [['c', 'b'], ['b', 'a']]) {
+    await closeNow(page, 'manager', closing);
+    await expect(page.locator(`#root-${closing}`)).toHaveAttribute('data-ending-style');
+    const height = await page.locator(`#root-${next}`).evaluate(node => (node as HTMLElement).offsetHeight);
+    expect(height).toBeGreaterThan(0);
+    await expect(page.getByTestId('viewport')).toHaveCSS('--toast-frontmost-height', `${height}px`);
+  }
+  await closeNow(page, 'manager', 'a');
+  await expect(page.locator('#root-a')).toHaveAttribute('data-ending-style');
+  expect(await page.getByTestId('viewport').evaluate(node => (node as HTMLElement).style.getPropertyValue('--toast-frontmost-height'))).toBe('');
+  await expect(page.getByTestId('root')).toHaveCount(3);
+});

@@ -22,6 +22,19 @@
       }
     });
   }
+  function addConsumerBlur(replace: boolean) {
+    if (replace) {
+      add('callback', 'Old', 0, false, () => {
+        add('callback', 'Fresh', 50); flushSync();
+        const root = main.querySelector<HTMLElement>('#root-callback'); root?.focus(); root?.blur();
+      });
+    } else {
+      facade.add({ id: 'a', title: 'Oldest', timeout: 0, onRemove: () => (main.ownerDocument.activeElement as HTMLElement)?.blur() });
+      add('c', 'Middle'); add('d', 'Newest', 0, false, () => {
+        facade.close('a'); (main.ownerDocument.activeElement as HTMLElement)?.blur();
+      });
+    }
+  }
   function addDescendantReplacement() {
     facade.add({ id: 'callback', title: 'Old', timeout: 0, actionProps: { children: 'Act' }, onClose: () => {
       facade.add({ id: 'callback', title: 'Fresh', timeout: 50, priority: 'high' }); flushSync();
@@ -67,6 +80,8 @@
   <button onclick={() => addNestedClose('immediate')}>add nested immediate close</button>
   <button onclick={() => addNestedClose('unfocused')}>add nested unfocused close</button>
   <button onclick={() => addNestedClose('all')}>add nested close all</button>
+  <button onclick={() => addConsumerBlur(false)}>add callback blur</button>
+  <button onclick={() => addConsumerBlur(true)}>add replacement blur</button>
   <button onclick={addDescendantReplacement}>add descendant replacement</button>
   <button onclick={() => addFocusCascade(false)}>add focus cascade</button>
   <button onclick={() => addFocusCascade(true)}>add focus replacement</button>

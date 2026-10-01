@@ -98,7 +98,7 @@ export const selectors = {
   prevFocusElement: (state: State) => state.prevFocusElement,
 };
 
-type CloseFocusOwner = { toastId: string; node: HTMLElement; active: Element; lifecycle: object };
+type CloseFocusOwner = { toastId: string; node: HTMLElement; active: Element; releaseVersion: number; lifecycle: object };
 type CloseFocusIntent = {
   toastId?: string;
   closeAll: boolean;

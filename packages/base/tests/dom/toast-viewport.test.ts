@@ -492,17 +492,17 @@ it.each([false, true])('resumes callback additions after an inside prior target 
 
 it.each(['onClose', 'onRemove'].flatMap(phase => [false, true].map(animations => ({ phase, animations }))))('selects the focused toast successor after a nested callback close ($phase, animations=$animations)', async ({ phase, animations }) => { // local regression, no parity credit
   const manager = createToastManager(); await render({ toastManager: manager, timeout: 0, limit: 4 });
-  let focused!: HTMLElement;
+  const focused = { node: null as HTMLElement | null };
   for (const id of ['oldest', 'focused', 'middle']) manager.add({ id, title: id });
   manager.add({ id: 'newest', title: 'newest',
     onClose: () => { if (phase === 'onClose') manager.close('focused'); },
-    onRemove: () => { if (phase === 'onRemove') { focused.focus(); manager.close('focused'); } },
+    onRemove: () => { if (phase === 'onRemove') { focused.node!.focus(); manager.close('focused'); } },
   }); await tick();
-  const [newest, middle, target, oldest] = [...document.querySelectorAll<HTMLElement>('[data-testid="root"]')]; focused = target;
-  for (const node of phase === 'onClose' ? [newest, middle, ...(animations ? [focused] : []), oldest] : [middle, ...(animations ? [focused] : []), oldest]) {
+  const [newest, middle, target, oldest] = [...document.querySelectorAll<HTMLElement>('[data-testid="root"]')]; focused.node = target;
+  for (const node of phase === 'onClose' ? [newest, middle, ...(animations ? [target] : []), oldest] : [middle, ...(animations ? [target] : []), oldest]) {
     Object.defineProperty(node, 'getAnimations', { value: () => [{ finished: new Promise<void>(() => {}) }] });
   }
-  button().focus(); key(button(), 'F6'); (phase === 'onClose' ? focused : newest).focus(); manager.close('newest');
+  button().focus(); key(button(), 'F6'); (phase === 'onClose' ? target : newest).focus(); manager.close('newest');
   expect(document.activeElement).toBe(oldest);
 });
 it('restores prior focus when a single-close callback requests close-all and adds a fresh toast', async () => { // local regression, no parity credit
@@ -586,4 +586,70 @@ it('settles a successor directly removed by its focus listener using that succes
   next.addEventListener('focus', () => store.removeToast('next'), { once: true });
   button().focus(); key(button(), 'F6'); closing.focus(); manager.close('closing');
   expect(document.activeElement).toBe(oldest);
+});
+
+it('preserves an explicit consumer blur during an unrelated nested immediate removal', async () => { // local regression, no parity credit
+  const manager = createToastManager(); await render({ toastManager: manager, timeout: 0 });
+  manager.add({ id: 'oldest', title: 'Oldest', onRemove: () => (document.activeElement as HTMLElement).blur() });
+  manager.add({ id: 'middle', title: 'Middle' }); manager.add({ id: 'newest', title: 'Newest', onClose: () => manager.close('oldest') }); await tick();
+  const [newest, middle] = [...document.querySelectorAll<HTMLElement>('[data-testid="root"]')];
+  for (const node of [newest, middle]) Object.defineProperty(node, 'getAnimations', { value: () => [{ finished: new Promise<void>(() => {}) }] });
+  button().focus(); key(button(), 'F6'); newest.focus(); manager.close('newest');
+  expect(document.activeElement).toBe(document.body); expect(get('viewport').hasAttribute('data-expanded')).toBe(false);
+});
+it('preserves an explicit consumer blur after committing a same-ID replacement', async () => { // local regression, no parity credit
+  const manager = createToastManager(); await render({ toastManager: manager, timeout: 0 });
+  manager.add({ id: 'replace', title: 'Old', onClose: () => {
+    manager.add({ id: 'replace', title: 'Fresh', timeout: 50 }); flushSync();
+    get('root').focus(); get('root').blur();
+  } }); await tick();
+  button().focus(); key(button(), 'F6'); get('root').focus(); manager.close('replace');
+  expect(document.activeElement).toBe(document.body);
+  await advance(51); expect(root()).toBe(null);
+});
+
+it('recovers silent replacement loss after the consumer leaves and returns to the focused origin', async () => { // local regression, no parity credit
+  const manager = createToastManager(); await render({ toastManager: manager, timeout: 0 });
+  manager.add({ id: 'replace', title: 'Old' }); manager.add({ id: 'newest', title: 'Newest' }); await tick();
+  const focused = [...document.querySelectorAll<HTMLElement>('[data-testid="root"]')].find(node => node.textContent?.includes('Old'))!;
+  manager.update('replace', { onClose: () => {
+    button().focus(); focused.focus(); manager.add({ id: 'replace', title: 'Fresh', timeout: 50, priority: 'high' }); flushSync();
+  } });
+  button().focus(); key(button(), 'F6'); focused.focus(); manager.close('replace');
+  expect(document.activeElement).toBe(get('root')); expect(get('root').textContent).toContain('Fresh');
+  await tick(); expect(document.querySelector('[role="alert"]')).toBe(null);
+  await advance(100); expect(get('root').hasAttribute('data-ending-style')).toBe(false);
+});
+
+it.each(['retain', 'outside', 'blur'])('preserves live toast focus across a delayed index-keyed sibling exit (%s)', async behavior => { // local regression, no parity credit
+  const manager = createToastManager(); await render({ toastManager: manager, timeout: 0, limit: 4, indexKeys: true });
+  const outside = document.createElement('button'); document.body.appendChild(outside);
+  for (const id of ['oldest', 'focused', 'middle']) manager.add({ id, title: id, onRemove: () => {
+    if (id === 'focused' && behavior === 'outside') outside.focus();
+    if (id === 'focused' && behavior === 'blur') (document.activeElement as HTMLElement).blur();
+  } });
+  manager.add({ id: 'newest', title: 'Newest', onClose: () => manager.close('focused') }); await tick();
+  const [newest, middle, focused, oldest] = [...document.querySelectorAll<HTMLElement>('[data-testid="root"]')];
+  let finish!: () => void; const finished = new Promise<void>(resolve => { finish = resolve; });
+  Object.defineProperty(focused, 'getAnimations', { value: () => [{ finished }] });
+  for (const node of [newest, middle, oldest]) Object.defineProperty(node, 'getAnimations', { value: () => [{ finished: new Promise<void>(() => {}) }] });
+  button().focus(); key(button(), 'F6'); focused.focus(); manager.close('newest');
+  expect(document.activeElement).toBe(oldest); await advance(20); finish(); await Promise.resolve(); await tick(); await Promise.resolve(); await tick();
+  const freshOldest = [...document.querySelectorAll<HTMLElement>('[data-testid="root"]')].find(node => node.textContent?.includes('oldest'))!;
+  expect(oldest.isConnected).toBe(false);
+  expect(document.activeElement).toBe(behavior === 'retain' ? freshOldest : behavior === 'outside' ? outside : document.body);
+});
+
+it('keeps the active frontmost measured height while newer Roots finish animated exits', async () => { // intentional upstream correction, no parity credit
+  vi.spyOn(HTMLElement.prototype, 'offsetHeight', 'get').mockImplementation(function (this: HTMLElement) {
+    return this.textContent?.includes('newest') ? 64 : this.textContent?.includes('middle') ? 48 : 32;
+  });
+  const manager = createToastManager(); await render({ toastManager: manager, timeout: 0 });
+  for (const id of ['oldest', 'middle', 'newest']) manager.add({ id, title: id }); await tick();
+  for (const node of document.querySelectorAll('[data-testid="root"]')) Object.defineProperty(node, 'getAnimations', { value: () => [{ finished: new Promise<void>(() => {}) }] });
+  const height = () => get('viewport').style.getPropertyValue('--toast-frontmost-height');
+  expect(height()).toBe('64px'); manager.close('newest'); await tick(); expect(height()).toBe('48px');
+  manager.close('middle'); await tick(); expect(height()).toBe('32px');
+  manager.close('oldest'); await tick(); expect(height()).toBe('');
+  expect(document.querySelectorAll('[data-testid="root"]')).toHaveLength(3);
 });

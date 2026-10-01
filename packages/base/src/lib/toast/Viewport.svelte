@@ -12,11 +12,15 @@
   let handlingFocusGuard = false;
   let markedReadyForMouseLeave = false;
   let touchActive = false;
+  let focusReleaseVersion = 0;
+  let focusReturnVersion = -1;
+  let pendingFocusRebind: { toastId: string; root: HTMLElement; active: NonNullable<ReturnType<typeof activeElement>>; lifecycle: object; registration: object; releaseVersion: number } | undefined;
   const snapshot = $derived(store.getSnapshot());
   const toasts = $derived(snapshot.toasts);
   const expanded = $derived(selectors.expanded(snapshot));
   const isEmpty = $derived(selectors.isEmpty(snapshot));
   const hasTransitioningToasts = $derived(snapshot.toasts.some(toast => toast.transitionStatus === 'ending'));
+  const frontmostHeight = $derived(snapshot.toasts.find(toast => toast.transitionStatus !== 'ending')?.height);
   const highPriorityToasts = $derived(snapshot.toasts.filter(toast => toast.priority === 'high'));
   const hiddenStyle = 'border:0;clip:rect(0,0,0,0);height:1px;margin:-1px;overflow:hidden;padding:0;position:fixed;white-space:nowrap;width:1px;top:0;left:0';
   function resumeTimersIfAllowed() {
@@ -36,7 +40,7 @@
     const toast = store.state.toasts.find(item =>
       (toastId === undefined || item.id === toastId) && contains(item.ref ?? null, active));
     const lifecycle = toast && store.getLifecycle(toast.id);
-    if (toast?.ref && active && lifecycle) return { toastId: toast.id, node: toast.ref, active, lifecycle };
+    if (toast?.ref && active && lifecycle) return { toastId: toast.id, node: toast.ref, active, releaseVersion: focusReleaseVersion, lifecycle };
   }
   function closeFocus(toastId?: string) {
     const node = store.state.viewport;
@@ -61,7 +65,7 @@
       closeAll = outerCloseAll || intent.closeAll;
       if (intent !== observedIntent) {
         const owner = intent.owner;
-        if (owner?.registration === registration && owner.node.ownerDocument === doc && owner !== selectedOwner) {
+        if (owner && owner.registration === registration && owner.node.ownerDocument === doc && owner !== selectedOwner) {
           toastId = owner.toastId;
           selectedOwner = owner;
           selectionOrder = intent.order;
@@ -72,10 +76,11 @@
       }
     }
     readIntent();
-    const ownedExit = current === doc.body && selectedOwner && (!selectedOwner.active.isConnected
+    const ownedExit = current === doc.body && selectedOwner && (selectedOwner.releaseVersion === focusReleaseVersion || focusReturnVersion === focusReleaseVersion) && (!selectedOwner.active.isConnected
       || store.getLifecycle(selectedOwner.toastId) !== selectedOwner.lifecycle);
     if (!ownedExit && (!contains(node, current) || !isFocusVisible(current))) { reconcileFocus(); return; }
-    let previousFocus = ownedExit ? selectedOwner.active : current;
+    let previousFocus = ownedExit && selectedOwner ? selectedOwner.active : current;
+    let previousReleaseVersion = selectedOwner?.releaseVersion ?? focusReleaseVersion;
     while (true) {
       readIntent();
       // A single close must not displace focus from another live toast. Read
@@ -87,14 +92,19 @@
       // Callbacks can add Roots, replace a lifecycle, or rebind index-keyed
       // Roots. Commit before selecting refs, including un-limited successors.
       const beforeCommit = activeElement(doc);
-      const ownedBeforeCommit = contains(node, beforeCommit) && isFocusVisible(beforeCommit);
+      if (contains(node, beforeCommit) && isFocusVisible(beforeCommit)) {
+        previousFocus = beforeCommit;
+        previousReleaseVersion = focusReleaseVersion;
+      }
       flushSync();
       if (store.getCloseFocusRegistration() !== registration || store.state.viewport !== node || !node.isConnected) return;
       readIntent();
       const active = activeElement(doc);
       // No-animation exits can remove the focused Root without blur. A
       // consumer-selected outside element still owns focus after the commit.
-      const exitedToBody = active === doc.body && (ownedBeforeCommit || (previousFocus && !previousFocus.isConnected));
+      const exitedToBody = active === doc.body && (previousReleaseVersion === focusReleaseVersion || focusReturnVersion === focusReleaseVersion)
+        && ((previousFocus && !previousFocus.isConnected) || (selectedOwner
+          && (selectedOwner.releaseVersion === focusReleaseVersion || focusReturnVersion === focusReleaseVersion) && store.getLifecycle(selectedOwner.toastId) !== selectedOwner.lifecycle));
       if (!exitedToBody && (!contains(node, active) || !isFocusVisible(active))) { reconcileFocus(); return; }
       if (closeAll || toastId === undefined) { restoreFocus(); reconcileFocus(); return; }
       const toasts = store.state.toasts;
@@ -120,6 +130,7 @@
       const target = nextToast.ref;
       const lifecycle = store.getLifecycle(nextToast.id);
       const intent = store.getCloseFocusIntent();
+      const targetReleaseVersion = focusReleaseVersion;
       target?.focus();
       if (store.getCloseFocusRegistration() !== registration || store.state.viewport !== node || !node.isConnected) return;
       const freshIntent = store.getCloseFocusIntent();
@@ -132,6 +143,7 @@
           selectionOrder = toasts.map(toast => toast.id);
         }
         previousFocus = target;
+        previousReleaseVersion = targetReleaseVersion;
         continue;
       }
       // A same-ID Root may already be active, so focus() need not emit focusin.
@@ -151,10 +163,44 @@
       if (viewport === node) viewport = null;
     };
   }
+  $effect.pre(() => {
+    const node = viewport;
+    void toasts;
+    untrack(() => {
+      if (!node || store.state.viewport !== node || !node.isConnected) return;
+      const active = activeElement(node.ownerDocument);
+      const toast = store.state.toasts.find(item => item.transitionStatus !== 'ending' && contains(item.ref ?? null, active));
+      const lifecycle = toast && store.getLifecycle(toast.id);
+      const registration = store.getCloseFocusRegistration();
+      if (toast?.ref && active && isFocusVisible(active) && lifecycle && registration) {
+        // An index-keyed sibling exit can destroy a still-live toast's old DOM
+        // slot. Preserve that toast's identity across this rendering commit.
+        const captured = { toastId: toast.id, root: toast.ref, active, lifecycle, registration, releaseVersion: focusReleaseVersion };
+        pendingFocusRebind = captured;
+        // Ref registration can finish later in the same commit. Omission of a
+        // Root must not keep an old focus claim for a future rendering commit.
+        node.ownerDocument.defaultView?.queueMicrotask(() => {
+          if (pendingFocusRebind === captured) pendingFocusRebind = undefined;
+        });
+      }
+    });
+  });
   $effect(() => {
     const node = viewport;
     void toasts;
     untrack(() => {
+      const pending = pendingFocusRebind;
+      pendingFocusRebind = undefined;
+      const fresh = pending && selectors.toast(store.state, pending.toastId);
+      if (node?.isConnected && store.state.viewport === node && pending
+        && store.getCloseFocusRegistration() === pending.registration
+        && store.getLifecycle(pending.toastId) === pending.lifecycle
+        && fresh && fresh.transitionStatus !== 'ending' && pending.active.ownerDocument === node.ownerDocument
+        && !pending.active.isConnected && focusReleaseVersion === pending.releaseVersion
+        && activeElement(node.ownerDocument) === node.ownerDocument.body) {
+        if (fresh.ref && fresh.ref !== pending.root && fresh.ref.isConnected) fresh.ref.focus();
+        else if (!fresh.ref?.isConnected) pendingFocusRebind = pending;
+      }
       // Removing a focused Root need not dispatch blur. Surviving callback
       // additions must not retain that Root's focus pause after physical exit.
       if (node?.isConnected && store.state.viewport === node && store.getCloseFocusRegistration()
@@ -245,6 +291,8 @@
     touchActive = false; flushMouseLeave();
   }
   function focus() {
+    const active = store.state.viewport && activeElement(store.state.viewport.ownerDocument);
+    if (contains(store.state.viewport, active) && isFocusVisible(active)) focusReturnVersion = focusReleaseVersion;
     if (handlingFocusGuard) { handlingFocusGuard = false; return; }
     if (store.state.focused || !store.state.viewport) return;
     if (isFocusVisible(activeElement(store.state.viewport.ownerDocument))) {
@@ -252,6 +300,7 @@
     }
   }
   function blur(event: FocusEvent) {
+    if (!contains(store.state.viewport, event.relatedTarget)) focusReleaseVersion += 1;
     if (!store.state.focused || contains(store.state.viewport, event.relatedTarget)) return;
     store.set('focused', false);
     resumeTimersIfAllowed();
@@ -277,7 +326,7 @@
   {/if}
 {/snippet}
 {@render guard()}
-<Element {props} bind:ref {attach} state={{ expanded }} internal={{ tabindex: -1, role: 'region', 'aria-live': 'polite', 'aria-atomic': false, 'aria-relevant': 'additions text', 'aria-label': 'Notifications', 'data-expanded': expanded ? '' : undefined, onmouseenter: mouseEnter, onmousemove: mouseEnter, onmouseleave: mouseLeave, onfocusin: focus, onfocusout: blur, onkeydown: keydown, onclick: focus, onpointerdown: pointerDown, onpointerup: pointerEnd, onpointercancel: pointerEnd, style: { '--toast-frontmost-height': snapshot.toasts[0]?.height ? `${snapshot.toasts[0].height}px` : undefined } }}>
+<Element {props} bind:ref {attach} state={{ expanded }} internal={{ tabindex: -1, role: 'region', 'aria-live': 'polite', 'aria-atomic': false, 'aria-relevant': 'additions text', 'aria-label': 'Notifications', 'data-expanded': expanded ? '' : undefined, onmouseenter: mouseEnter, onmousemove: mouseEnter, onmouseleave: mouseLeave, onfocusin: focus, onfocusout: blur, onkeydown: keydown, onclick: focus, onpointerdown: pointerDown, onpointerup: pointerEnd, onpointercancel: pointerEnd, style: { '--toast-frontmost-height': frontmostHeight ? `${frontmostHeight}px` : undefined } }}>
   {@render guard()}
   {@render children?.()}
   {@render guard()}
