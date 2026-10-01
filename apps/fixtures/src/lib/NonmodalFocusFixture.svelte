@@ -27,6 +27,12 @@
     {#if visible}<Dialog.Portal keepMounted={scenario === 'keep'}>
       <Dialog.Popup initialFocus={scenario === 'entry' ? false : undefined} style="position:relative;z-index:1">
         <input id="first" aria-label="First" tabindex="0" />
+        {#if scenario === 'nested'}
+          <Dialog.Root>
+            <Dialog.Trigger id="child-trigger">Child</Dialog.Trigger>
+            <Dialog.Portal><Dialog.Popup style="position:relative;z-index:2"><input id="child-first" aria-label="Child first" /><Dialog.Close>Child close</Dialog.Close></Dialog.Popup></Dialog.Portal>
+          </Dialog.Root>
+        {/if}
         <button id="last" tabindex="0">Last</button>
       </Dialog.Popup>
     </Dialog.Portal>{/if}

@@ -21,7 +21,9 @@ export function mountNonmodalFocusReference(node: HTMLElement, scenario: string)
       h(Dialog.Trigger, { id: 'nonmodal-a' }, 'Trigger A'),
       scenario === 'multiple' ? h(Dialog.Trigger, { id: 'nonmodal-b' }, 'Trigger B') : null,
       visible ? h(Dialog.Portal, { keepMounted: scenario === 'keep' }, h(Dialog.Popup, { initialFocus: scenario === 'entry' ? false : undefined, style: { position: 'relative', zIndex: 1 } },
-        h('input', { id: 'first', 'aria-label': 'First', tabIndex: 0 }), h('button', { id: 'last', tabIndex: 0 }, 'Last'))) : null),
+        h('input', { id: 'first', 'aria-label': 'First', tabIndex: 0 }),
+        scenario === 'nested' ? h(Dialog.Root, null, h(Dialog.Trigger, { id: 'child-trigger' }, 'Child'), h(Dialog.Portal, null, h(Dialog.Popup, { style: { position: 'relative', zIndex: 2 } }, h('input', { id: 'child-first', 'aria-label': 'Child first' }), h(Dialog.Close, null, 'Child close')))) : null,
+        h('button', { id: 'last', tabIndex: 0 }, 'Last'))) : null),
     h('button', { id: 'after' }, 'After'), h('button', { id: 'end' }, 'End'),
     h('output', { 'data-testid': 'requests' }, JSON.stringify(requests)));
   }

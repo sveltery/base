@@ -95,4 +95,18 @@ for (const reference of [false, true]) {
     await page.locator('#after').focus();
     await expect(page.getByRole('dialog')).toBeVisible(); expect(await requests(page)).toHaveLength(1);
   });
+  test(`${framework}: nested modal traps, returns to parent, and preserves parent guard order`, async ({ page }) => {
+    await setup(page, reference, 'nested'); await page.locator('#child-trigger').click();
+    await expect(page.locator('#child-first')).toBeFocused();
+    await page.keyboard.press('Shift+Tab'); await expect(page.getByRole('button', { name: 'Child close' })).toBeFocused();
+    await page.keyboard.press('Tab'); await expect(page.locator('#child-first')).toBeFocused();
+    expect(await requests(page)).toHaveLength(1);
+    await page.keyboard.press('Escape'); await expect(page.locator('#child-trigger')).toBeFocused();
+    await expect(page.getByRole('dialog')).toHaveCount(1); expect(await requests(page)).toHaveLength(1);
+    expect(await page.evaluate(() => document.documentElement.style.overflow)).toBe('');
+    await page.keyboard.press('Tab'); await expect(page.locator('#last')).toBeFocused();
+    await page.keyboard.press('Tab'); await expect(page.locator('#after')).toBeFocused();
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(page.locator('[data-base-ui-focus-guard]')).toHaveCount(0);
+  });
 }
