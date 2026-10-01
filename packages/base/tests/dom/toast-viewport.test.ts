@@ -372,6 +372,7 @@ it('starts paused when the owner document is already blurred at mount', async ()
   vi.mocked(document.hasFocus).mockReturnValue(false);
   await render(); expect(button().getAttribute('data-window-focused')).toBe('false');
   await add(); await advance(10000); expect(root()).not.toBe(null);
+  vi.mocked(document.hasFocus).mockReturnValue(true);
   const event = new FocusEvent('focus');
   Object.defineProperty(event, 'composedPath', { value: () => [window] });
   window.dispatchEvent(event);
@@ -387,6 +388,17 @@ it('outside touch clears interactions without resuming a blurred owner window', 
   const focusEvent = new FocusEvent('focus');
   Object.defineProperty(focusEvent, 'composedPath', { value: () => [window] });
   window.dispatchEvent(focusEvent);
+  await advance(4999); expect(root()).not.toBe(null);
+  await advance(2); expect(root()).toBe(null);
+});
+it('descendant focus cannot resume timers while the owner document remains blurred', async () => { // intentional upstream correction, no parity credit
+  vi.mocked(document.hasFocus).mockReturnValue(false);
+  await render(); await add(); button().focus();
+  await advance(10000); expect(document.hasFocus()).toBe(false); expect(root()).not.toBe(null);
+  vi.mocked(document.hasFocus).mockReturnValue(true);
+  const event = new FocusEvent('focus');
+  Object.defineProperty(event, 'composedPath', { value: () => [window] });
+  window.dispatchEvent(event);
   await advance(4999); expect(root()).not.toBe(null);
   await advance(2); expect(root()).toBe(null);
 });

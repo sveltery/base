@@ -93,10 +93,9 @@
       win!.clearTimeout(focusTimeout);
       focusTimeout = win!.setTimeout(() => {
         focusTimeout = undefined;
-        store.set('isWindowFocused', true);
-        // An immediate add after focus can create a paused timer before this
-        // publication. Resume it only when current interaction permits it.
-        resumeTimersIfAllowed();
+        // Captured descendant focus does not establish owner-window focus.
+        // Re-read the document before publishing and resuming immediate adds.
+        syncWindowFocus(node!);
       }, 0);
     }
     // Window focus remains observable while the mounted Viewport is empty.
@@ -107,7 +106,7 @@
     untrack(() => syncWindowFocus(node));
     return () => {
       win.clearTimeout(focusTimeout);
-      if (focusTimeout !== undefined && store.state.viewport === node) store.set('isWindowFocused', true);
+      if (focusTimeout !== undefined && store.state.viewport === node) syncWindowFocus(node);
       win.removeEventListener('blur', blur, true);
       win.removeEventListener('focus', focus, true);
     };

@@ -372,6 +372,8 @@ test('supplement: an already unfocused owner document pauses its first toast', a
   await expect(frame.locator('main')).toHaveAttribute('data-hydrated', 'true');
   expect(await frame.locator('body').evaluate(node => node.ownerDocument.hasFocus())).toBe(false);
   await frame.getByRole('button', { name: 'add', exact: true }).evaluate((button: HTMLButtonElement) => button.click());
+  await frame.getByTestId('root').evaluate(node => node.dispatchEvent(new FocusEvent('focus')));
+  expect(await frame.locator('body').evaluate(node => node.ownerDocument.hasFocus())).toBe(false);
   await page.clock.runFor(10000); await expect(frame.getByTestId('root')).toHaveCount(1);
   await frame.getByRole('button', { name: 'add', exact: true }).focus();
   expect(await frame.locator('body').evaluate(node => node.ownerDocument.hasFocus())).toBe(true);
