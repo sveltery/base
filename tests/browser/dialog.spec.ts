@@ -213,7 +213,8 @@ test('Svelte exit transition remains accessible, then hides; reopen cancels stal
   await page.keyboard.press('Escape');
   await expect(page.getByRole('dialog')).toHaveCount(1);
   await expect(page.getByTestId('popup')).toHaveAttribute('data-ending-style', '');
-  await page.locator('#trigger').click();
+  await expect(page.locator('#trigger')).toBeFocused();
+  await page.keyboard.press('Enter');
   await expect(page.getByTestId('popup')).toHaveAttribute('data-open', '');
   await expect(page.getByRole('dialog')).toBeVisible();
   await page.waitForTimeout(250); // Past stale exit duration; observation is deliberately negative.
