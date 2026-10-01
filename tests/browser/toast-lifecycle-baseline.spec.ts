@@ -84,7 +84,7 @@ for (const reference of [false, true]) {
   });
 }
 
-for (const reference of [false, true]) for (const detach of [false, true]) test(`adapter boundary: explicit Viewport blur followed by detach=${detach} (${reference ? 'React' : 'Svelte'})`, async ({ page }) => {
+for (const reference of [false, true]) for (const detach of [false, true]) test(`native parity: explicit Viewport blur followed by detach=${detach} (${reference ? 'React' : 'Svelte'})`, async ({ page }) => {
   await page.goto(`/${reference ? 'toast-reference' : 'toast'}?case=lifecycle`);
   await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
   const start = new Date('2026-01-01T00:00:00Z'); await page.clock.install({ time: start }); await page.clock.pauseAt(start);
@@ -92,9 +92,9 @@ for (const reference of [false, true]) for (const detach of [false, true]) test(
   await click(page, detach ? 'blur and hide viewport' : 'blur viewport');
   if (detach) await expect(page.getByTestId('viewport')).toHaveCount(0);
   await page.clock.runFor(100);
-  // Explicitly documented, uncredited Svelte event-timing boundary. The common
-  // connected-Viewport case still preserves pinned timer behavior.
-  expect(JSON.parse(await page.getByTestId('close-observations').innerText())).toHaveLength(!reference && detach ? 0 : 1);
+  // Native Chromium settles the explicit release in both frameworks, including
+  // same-turn detach. The JSdom timing boundary is recorded separately in #21.
+  expect(JSON.parse(await page.getByTestId('close-observations').innerText())).toHaveLength(1);
 });
 
 for (const reference of [false, true]) for (const interaction of ['hover', 'focus', 'replace']) test(`adapter ownership: committed blur then ${interaction} preserves the existing timer (${reference ? 'React' : 'Svelte'})`, async ({ page }) => {
