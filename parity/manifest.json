@@ -3454,9 +3454,9 @@
         "apps/fixtures/src/lib/toast-reference.ts"
       ],
       "evidence": {
-        "testedCommit": "0c04b5cf324c60f0b163bfe42ae4fe50791a1a10",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/36900863429",
-        "browserJob": 110499637074,
+        "testedCommit": "af43156b20e4eab89cec132cdadce4363dd2cdc1",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36903797393",
+        "browserJob": 110509166640,
         "executions": [
           "M:15 Svelte Toast manager-add",
           "M:15 React reference Toast manager-add"
@@ -3501,9 +3501,9 @@
         "apps/fixtures/src/lib/toast-reference.ts"
       ],
       "evidence": {
-        "testedCommit": "0c04b5cf324c60f0b163bfe42ae4fe50791a1a10",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/36900863429",
-        "browserJob": 110499637074,
+        "testedCommit": "af43156b20e4eab89cec132cdadce4363dd2cdc1",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36903797393",
+        "browserJob": 110509166640,
         "executions": [
           "M:63 Svelte Toast manager-upsert",
           "M:63 React reference Toast manager-upsert"
@@ -3737,9 +3737,9 @@
         "apps/fixtures/src/lib/toast-reference.ts"
       ],
       "evidence": {
-        "testedCommit": "0c04b5cf324c60f0b163bfe42ae4fe50791a1a10",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/36900863429",
-        "browserJob": 110499637074,
+        "testedCommit": "af43156b20e4eab89cec132cdadce4363dd2cdc1",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36903797393",
+        "browserJob": 110509166640,
         "executions": [
           "R:97 Svelte Toast offset",
           "R:97 React reference Toast offset"
@@ -3781,9 +3781,9 @@
         "apps/fixtures/src/lib/toast-reference.ts"
       ],
       "evidence": {
-        "testedCommit": "0c04b5cf324c60f0b163bfe42ae4fe50791a1a10",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/36900863429",
-        "browserJob": 110499637074,
+        "testedCommit": "af43156b20e4eab89cec132cdadce4363dd2cdc1",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36903797393",
+        "browserJob": 110509166640,
         "executions": [
           "R:112 Svelte Toast labels",
           "R:112 React reference Toast labels"
@@ -4326,9 +4326,9 @@
         "apps/fixtures/src/lib/toast-reference.ts"
       ],
       "evidence": {
-        "testedCommit": "0c04b5cf324c60f0b163bfe42ae4fe50791a1a10",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/36900863429",
-        "browserJob": 110499637074,
+        "testedCommit": "af43156b20e4eab89cec132cdadce4363dd2cdc1",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36903797393",
+        "browserJob": 110509166640,
         "executions": [
           "U:21 Svelte Toast add",
           "U:21 React reference Toast add"
@@ -4363,9 +4363,9 @@
         "apps/fixtures/src/lib/toast-reference.ts"
       ],
       "evidence": {
-        "testedCommit": "0c04b5cf324c60f0b163bfe42ae4fe50791a1a10",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/36900863429",
-        "browserJob": 110499637074,
+        "testedCommit": "af43156b20e4eab89cec132cdadce4363dd2cdc1",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36903797393",
+        "browserJob": 110509166640,
         "executions": [
           "U:56 Svelte Toast isolation",
           "U:56 React reference Toast isolation"
@@ -4621,9 +4621,9 @@
         "apps/fixtures/src/lib/toast-reference.ts"
       ],
       "evidence": {
-        "testedCommit": "0c04b5cf324c60f0b163bfe42ae4fe50791a1a10",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/36900863429",
-        "browserJob": 110499637074,
+        "testedCommit": "af43156b20e4eab89cec132cdadce4363dd2cdc1",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36903797393",
+        "browserJob": 110509166640,
         "executions": [
           "U:1697 Svelte Toast close",
           "U:1697 React reference Toast close"
@@ -4655,9 +4655,9 @@
         "apps/fixtures/src/lib/toast-reference.ts"
       ],
       "evidence": {
-        "testedCommit": "0c04b5cf324c60f0b163bfe42ae4fe50791a1a10",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/36900863429",
-        "browserJob": 110499637074,
+        "testedCommit": "af43156b20e4eab89cec132cdadce4363dd2cdc1",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36903797393",
+        "browserJob": 110509166640,
         "executions": [
           "U:1743 Svelte Toast close-all",
           "U:1743 React reference Toast close-all"
@@ -4689,9 +4689,9 @@
         "apps/fixtures/src/lib/toast-reference.ts"
       ],
       "evidence": {
-        "testedCommit": "0c04b5cf324c60f0b163bfe42ae4fe50791a1a10",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/36900863429",
-        "browserJob": 110499637074,
+        "testedCommit": "af43156b20e4eab89cec132cdadce4363dd2cdc1",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36903797393",
+        "browserJob": 110509166640,
         "executions": [
           "U:1794 Svelte Toast timeout-sync",
           "U:1794 React reference Toast timeout-sync"
@@ -4725,9 +4725,9 @@
         "apps/fixtures/src/lib/toast-reference.ts"
       ],
       "evidence": {
-        "testedCommit": "0c04b5cf324c60f0b163bfe42ae4fe50791a1a10",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/36900863429",
-        "browserJob": 110499637074,
+        "testedCommit": "af43156b20e4eab89cec132cdadce4363dd2cdc1",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36903797393",
+        "browserJob": 110509166640,
         "executions": [
           "U:1853 Svelte Toast limit",
           "U:1853 React reference Toast limit"
@@ -4761,9 +4761,9 @@
         "apps/fixtures/src/lib/toast-reference.ts"
       ],
       "evidence": {
-        "testedCommit": "0c04b5cf324c60f0b163bfe42ae4fe50791a1a10",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/36900863429",
-        "browserJob": 110499637074,
+        "testedCommit": "af43156b20e4eab89cec132cdadce4363dd2cdc1",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36903797393",
+        "browserJob": 110509166640,
         "executions": [
           "U:1878 Svelte Toast unlimit",
           "U:1878 React reference Toast unlimit"
@@ -4798,9 +4798,9 @@
         "apps/fixtures/src/lib/toast-reference.ts"
       ],
       "evidence": {
-        "testedCommit": "0c04b5cf324c60f0b163bfe42ae4fe50791a1a10",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/36900863429",
-        "browserJob": 110499637074,
+        "testedCommit": "af43156b20e4eab89cec132cdadce4363dd2cdc1",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36903797393",
+        "browserJob": 110509166640,
         "executions": [
           "U:1907 Svelte Toast limited-upsert",
           "U:1907 React reference Toast limited-upsert"
@@ -4834,9 +4834,9 @@
         "apps/fixtures/src/lib/toast-reference.ts"
       ],
       "evidence": {
-        "testedCommit": "0c04b5cf324c60f0b163bfe42ae4fe50791a1a10",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/36900863429",
-        "browserJob": 110499637074,
+        "testedCommit": "af43156b20e4eab89cec132cdadce4363dd2cdc1",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36903797393",
+        "browserJob": 110509166640,
         "executions": [
           "U:1965 Svelte Toast limit-sync",
           "U:1965 React reference Toast limit-sync"
