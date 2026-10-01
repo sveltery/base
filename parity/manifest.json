@@ -355,36 +355,173 @@
       "source": "packages/react/src/dialog/close/DialogClose.test.tsx",
       "line": 25,
       "name": "disables the button",
-      "status": "unported",
-      "port": null
+      "status": "passing",
+      "port": "tests/browser/dialog-state.spec.ts",
+      "scenario": "native",
+      "sourceId": "packages/react/src/dialog/close/DialogClose.test.tsx:25",
+      "sourceBodySha256": "e594bcc6d395906c30aa225705d41759f5197d176f349ee58c26856806953c44",
+      "assertionLines": [
+        39,
+        44,
+        45,
+        48,
+        49,
+        52
+      ],
+      "adaptations": "parity/dialog/state-ports.md",
+      "fixtures": [
+        "apps/fixtures/src/lib/StateFixture.svelte",
+        "apps/fixtures/src/lib/state-reference.ts"
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "evidence": {
+        "executions": [
+          "C:25 Svelte state native variant 1",
+          "C:25 React reference state native variant 1"
+        ],
+        "testedCommit": "82b420ecfc3bbdd1d337825b20814b25b4a9a5d5",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36852954863",
+        "browserJob": 110338666844
+      },
+      "verification": "Complete source declaration and all fixture variants; secured Chromium paired React/Svelte execution on 82b420ecfc3bbdd1d337825b20814b25b4a9a5d5, CI run 36852954863. No source assertions removed; supplemental probes earn no declaration credit."
     },
     {
       "source": "packages/react/src/dialog/close/DialogClose.test.tsx",
       "line": 55,
       "name": "custom element",
-      "status": "unported",
-      "port": null
+      "status": "passing",
+      "port": "tests/browser/dialog-state.spec.ts",
+      "scenario": "custom",
+      "sourceId": "packages/react/src/dialog/close/DialogClose.test.tsx:55",
+      "sourceBodySha256": "4cd83ee20b8d07d8658f398d061937c5678da8bcb71a6fcade183f4882fc80bc",
+      "assertionLines": [
+        71,
+        76,
+        77,
+        80,
+        81,
+        82,
+        85
+      ],
+      "adaptations": "parity/dialog/state-ports.md",
+      "fixtures": [
+        "apps/fixtures/src/lib/StateFixture.svelte",
+        "apps/fixtures/src/lib/state-reference.ts"
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "evidence": {
+        "executions": [
+          "C:55 Svelte state custom variant 1",
+          "C:55 React reference state custom variant 1"
+        ],
+        "testedCommit": "82b420ecfc3bbdd1d337825b20814b25b4a9a5d5",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36852954863",
+        "browserJob": 110338666844
+      },
+      "verification": "Complete source declaration and all fixture variants; secured Chromium paired React/Svelte execution on 82b420ecfc3bbdd1d337825b20814b25b4a9a5d5, CI run 36852954863. No source assertions removed; supplemental probes earn no declaration credit."
     },
     {
       "source": "packages/react/src/dialog/close/DialogClose.test.tsx",
       "line": 89,
       "name": "closes the dialog when undefined is passed to the `onClick` prop",
-      "status": "unported",
-      "port": null
+      "status": "passing",
+      "port": "tests/browser/dialog-state.spec.ts",
+      "scenario": "undefined",
+      "sourceId": "packages/react/src/dialog/close/DialogClose.test.tsx:89",
+      "sourceBodySha256": "f4732d08d260fe2998499f984accaf225038315e16b2bef1d2ebbf6dbe8a2008",
+      "assertionLines": [
+        103,
+        108,
+        109,
+        114,
+        115
+      ],
+      "adaptations": "parity/dialog/state-ports.md",
+      "fixtures": [
+        "apps/fixtures/src/lib/StateFixture.svelte",
+        "apps/fixtures/src/lib/state-reference.ts"
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "evidence": {
+        "executions": [
+          "C:89 Svelte state undefined variant 1",
+          "C:89 React reference state undefined variant 1"
+        ],
+        "testedCommit": "82b420ecfc3bbdd1d337825b20814b25b4a9a5d5",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36852954863",
+        "browserJob": 110338666844
+      },
+      "verification": "Complete source declaration and all fixture variants; secured Chromium paired React/Svelte execution on 82b420ecfc3bbdd1d337825b20814b25b4a9a5d5, CI run 36852954863. No source assertions removed; supplemental probes earn no declaration credit."
     },
     {
       "source": "packages/react/src/dialog/close/DialogClose.test.tsx",
       "line": 118,
       "name": "does not close the dialog when the Base UI click handler is prevented",
-      "status": "unported",
-      "port": null
+      "status": "passing",
+      "port": "tests/browser/dialog-state.spec.ts",
+      "scenario": "prevent",
+      "sourceId": "packages/react/src/dialog/close/DialogClose.test.tsx:118",
+      "sourceBodySha256": "e1224c6266eff8b688757eeec4c4de15348d8b82afc464c93214ff52dd23813c",
+      "assertionLines": [
+        133,
+        134
+      ],
+      "adaptations": "parity/dialog/state-ports.md",
+      "fixtures": [
+        "apps/fixtures/src/lib/StateFixture.svelte",
+        "apps/fixtures/src/lib/state-reference.ts"
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "evidence": {
+        "executions": [
+          "C:118 Svelte state prevent variant 1",
+          "C:118 React reference state prevent variant 1"
+        ],
+        "testedCommit": "82b420ecfc3bbdd1d337825b20814b25b4a9a5d5",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36852954863",
+        "browserJob": 110338666844
+      },
+      "verification": "Complete source declaration and all fixture variants; secured Chromium paired React/Svelte execution on 82b420ecfc3bbdd1d337825b20814b25b4a9a5d5, CI run 36852954863. No source assertions removed; supplemental probes earn no declaration credit."
     },
     {
       "source": "packages/react/src/dialog/close/DialogClose.test.tsx",
       "line": 137,
       "name": "does not request another close when clicked after the dialog has closed",
-      "status": "unported",
-      "port": null
+      "status": "passing",
+      "port": "tests/browser/dialog-state.spec.ts",
+      "scenario": "closed",
+      "sourceId": "packages/react/src/dialog/close/DialogClose.test.tsx:137",
+      "sourceBodySha256": "0a3e2a75fcbfff202a961c7fd78227ddede21495e3eab1badc7452e695b2cefa",
+      "assertionLines": [
+        153,
+        154
+      ],
+      "adaptations": "parity/dialog/state-ports.md",
+      "fixtures": [
+        "apps/fixtures/src/lib/StateFixture.svelte",
+        "apps/fixtures/src/lib/state-reference.ts"
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "evidence": {
+        "executions": [
+          "C:137 Svelte state closed variant 1",
+          "C:137 React reference state closed variant 1"
+        ],
+        "testedCommit": "82b420ecfc3bbdd1d337825b20814b25b4a9a5d5",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36852954863",
+        "browserJob": 110338666844
+      },
+      "verification": "Complete source declaration and all fixture variants; secured Chromium paired React/Svelte execution on 82b420ecfc3bbdd1d337825b20814b25b4a9a5d5, CI run 36852954863. No source assertions removed; supplemental probes earn no declaration credit."
     },
     {
       "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
@@ -1044,8 +1181,36 @@
       "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
       "line": 239,
       "name": "keeps trigger ownership when another trigger mounts while open",
-      "status": "unported",
-      "port": null
+      "status": "passing",
+      "port": "tests/browser/dialog-state.spec.ts",
+      "scenario": "ownership",
+      "sourceId": "packages/react/src/dialog/root/DialogRoot.test.tsx:239",
+      "sourceBodySha256": "cebe4fd53127fd791feb829dd8228939558e4e64bd4a2a65eab9d8658bae750d",
+      "assertionLines": [
+        264,
+        269,
+        270,
+        271,
+        272
+      ],
+      "adaptations": "parity/dialog/state-ports.md",
+      "fixtures": [
+        "apps/fixtures/src/lib/StateFixture.svelte",
+        "apps/fixtures/src/lib/state-reference.ts"
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "evidence": {
+        "executions": [
+          "R:239 Svelte state ownership variant 1",
+          "R:239 React reference state ownership variant 1"
+        ],
+        "testedCommit": "82b420ecfc3bbdd1d337825b20814b25b4a9a5d5",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36852954863",
+        "browserJob": 110338666844
+      },
+      "verification": "Complete source declaration and all fixture variants; secured Chromium paired React/Svelte execution on 82b420ecfc3bbdd1d337825b20814b25b4a9a5d5, CI run 36852954863. No source assertions removed; supplemental probes earn no declaration credit."
     },
     {
       "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
@@ -1086,8 +1251,62 @@
       "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",
       "line": 431,
       "name": "reports no trigger when closing with an initial trigger id that is not mounted",
-      "status": "unported",
-      "port": null
+      "status": "passing",
+      "port": "tests/browser/dialog-state.spec.ts",
+      "scenario": "missing",
+      "sourceId": "packages/react/src/dialog/root/DialogRoot.test.tsx:431",
+      "sourceBodySha256": "b8fef38a680c30ff38b6bf919153bb3faf5f6607850c703f37bd1c11223ffc1a",
+      "assertionLines": [
+        453,
+        454,
+        455,
+        456
+      ],
+      "adaptations": "parity/dialog/state-ports.md",
+      "fixtures": [
+        "apps/fixtures/src/lib/StateFixture.svelte",
+        "apps/fixtures/src/lib/state-reference.ts"
+      ],
+      "fixtureVariants": [
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "contained triggers",
+            "Component": {
+              "source": "ContainedTriggerDialog"
+            }
+          }
+        },
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "detached triggers",
+            "Component": {
+              "source": "DetachedTriggerDialog"
+            }
+          }
+        },
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "multiple detached triggers",
+            "Component": {
+              "source": "MultipleDetachedTriggersDialog"
+            }
+          }
+        }
+      ],
+      "evidence": {
+        "executions": [
+          "R:431 Svelte state missing variant 1",
+          "R:431 Svelte state missing variant 2",
+          "R:431 Svelte state missing variant 3",
+          "R:431 React reference state missing variant 1",
+          "R:431 React reference state missing variant 2",
+          "R:431 React reference state missing variant 3"
+        ],
+        "testedCommit": "82b420ecfc3bbdd1d337825b20814b25b4a9a5d5",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36852954863",
+        "browserJob": 110338666844
+      },
+      "verification": "Complete source declaration and all fixture variants; secured Chromium paired React/Svelte execution on 82b420ecfc3bbdd1d337825b20814b25b4a9a5d5, CI run 36852954863. No source assertions removed; supplemental probes earn no declaration credit."
     },
     {
       "source": "packages/react/src/dialog/root/DialogRoot.test.tsx",

@@ -2,7 +2,7 @@
 
 Pinned source: Base UI v1.8.0, `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. MIT attribution: [UPSTREAM_LICENSE](UPSTREAM_LICENSE). Baseline: main `f451bf305642f887cb8d4040006456220a38b8ca`.
 
-Selected declarations: R:239/431 and C:25/55/89/118/137, where R is `packages/react/src/dialog/root/DialogRoot.test.tsx` and C is `packages/react/src/dialog/close/DialogClose.test.tsx`. Browser execution and exact-head independent review are pending. These seven declarations confer no new passing credit until hosted secured Chromium succeeds.
+Selected declarations: R:239/431 and C:25/55/89/118/137, where R is `packages/react/src/dialog/root/DialogRoot.test.tsx` and C is `packages/react/src/dialog/close/DialogClose.test.tsx`. All eighteen paired state-port executions and three supplements passed hosted secured Chromium in [CI run 36852954863](https://github.com/sveltery/base/actions/runs/36852954863), tested commit `82b420ecfc3bbdd1d337825b20814b25b4a9a5d5`, browser job 110338666844. Exact final-head independent review and all CI checks remain merge gates.
 
 | Source | Complete fixture and ordered assertion mapping |
 | --- | --- |
@@ -22,8 +22,24 @@ The [DOM companions](../../packages/base/tests/dom/state.test.ts) mount the same
 
 Existing four initialFocus ports and all 37 prior supplemental browser executions remain intact. The complete browser suite now collects 66 tests: prior 45 + eighteen state port executions + three controlled/cancellation supplements. No disabled tests, runtime changes, new parts, detached handles, Viewport, dependencies, lockfile or security changes are introduced.
 
-Current shared credit remains **8 passing ports / 625 unported** out of 633; Dialog remains **4 complete ports / 171 unported declarations** and **4 complete ports / 367 unported candidate records** out of 175/371. Seven source mappings will be reconciled centrally after execution; the immutable Dialog trace retains its original provenance placeholders. The inventories overlap and must not be added together.
+Current shared credit is **15 passing ports / 618 unported** out of 633; Dialog has **11 complete ports / 164 unported declarations** and **13 complete ports / 358 unported candidate records** out of 175/371. The seven new complete source mappings add seven declarations / nine expanded records and are traced centrally; the immutable Dialog trace retains its original provenance placeholders. The inventories overlap and must not be added together.
 
 The first hosted run at `899d32e` exposed adapter errors: partial button-name matching, unpositioned modal popups underneath the internal backdrop, and pointer-based external fixture controls adding outside-press requests. The adapters now use an exact Trigger 2 locator, popup stacking CSS, and programmatic owner controls and direct action invocation. Source assertions and runtime behavior were retained.
 
 The second hosted run passed 63/66 executions, revealing that React also routes synthetic external button clicks through outside dismissal. R:431 now invokes actions directly through a cleanup-managed host function in both adapters, with no synthetic event and no extra focusable button. The three source callback-count assertions remain unchanged.
+
+
+Reproduce with Node 24.x and pinned pnpm 12.6.0:
+
+```sh
+bash scripts/bootstrap.sh
+node parity/dialog/inventory.mjs /workspace/base-ui --check
+node scripts/parity-inventory.mjs --upstream /workspace/base-ui --check
+bash scripts/verify.sh
+bash .github/standards/check.sh
+# Hosted Ubuntu 22.04 job installs official Chromium; sandbox=true, retries=0.
+# After sourcing scripts/toolchain.sh, run the browser suite with an available secured browser:
+pnpm test:browser
+```
+
+Local verification passes 13 script/SSR/consistency tests, 19 runtime tests and 35 DOM tests, TypeScript/Svelte with zero errors/warnings, fixture SSR/client builds, runtime boundaries and isolated tarball consumption. Both source audits pass; the Dialog inventory remains byte-identical. Initial ports were committed in `899d32e` before adapter corrections; no runtime fixes were required. The exact reconciled head must pass all three hosted checks and independent Sol/high review before the authorized guarded merge. Remaining gaps include detached handles and their Root variants, Viewport, remaining focus/composition/nesting/presence/portal assertions, and all Drawer/Toast ports. No approved deviations are introduced. [PR #6](https://github.com/sveltery/base/pull/6) records final review and CI evidence.
