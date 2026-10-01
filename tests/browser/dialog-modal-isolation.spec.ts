@@ -36,7 +36,11 @@ for (const reference of [false, true]) {
     await expect(page.getByRole('button', { name: 'Open first', exact: true })).toBeFocused();
   });
   test(`${framework}: true/trap-focus/false mode changes synchronize isolation`, async ({ page }) => {
-    await setup(page); await page.getByTestId('first').focus();
+    await setup(page);
+    // Visibility precedes the delayed initial-focus frame. Settle that work
+    // before selecting Popup focus that modal-mode changes must preserve.
+    await expect(page.getByRole('button', { name: 'Close first', exact: true })).toBeFocused();
+    await page.getByTestId('first').focus();
     for (const mode of ['false', 'trap-focus', 'true', 'false']) {
       await command(page, mode);
       await expect(page.getByRole('button', { name: 'Outside', exact: true })).toHaveCount(mode === 'false' ? 1 : 0);

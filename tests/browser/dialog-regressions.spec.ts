@@ -24,7 +24,11 @@ for (const reference of [false, true]) {
     await expect(page.locator('#regression-trigger')).toBeFocused();
   });
   test(`${framework}: accepted deferral waits for imperative unmount`, async ({ page }) => {
-    await setup(page, reference, 'defer'); await command(page, 'close');
+    await setup(page, reference, 'defer');
+    // Visibility precedes opening completion; this case tests deferring a
+    // completed opening rather than interrupting its pending frame.
+    await expect(page.getByTestId('completed')).toHaveText('[true]');
+    await command(page, 'close');
     await expect(page.getByRole('dialog')).toHaveAttribute('data-closed', '');
     await command(page, 'unmount'); await expect(page.getByRole('dialog')).toHaveCount(0);
     await expect(page.getByTestId('completed')).toHaveText('[true,false]');
