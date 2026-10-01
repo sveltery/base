@@ -1,0 +1,13 @@
+{
+  "name": "sveltery-base-workspace",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.6.0",
+  "engines": { "node": ">=24 <25" },
+  "scripts": {
+    "check": "pnpm -r check",
+    "test": "pnpm --filter @sveltery/base test",
+    "build": "pnpm --filter @sveltery/base build && pnpm --filter @sveltery/fixtures build",
+    "verify": "bash scripts/verify.sh"
+  }
+}
