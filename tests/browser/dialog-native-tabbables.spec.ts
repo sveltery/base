@@ -87,3 +87,15 @@ for (const reference of [false, true]) {
     await expect(page.getByRole('button', { name: 'Open native dialog' })).toBeFocused();
   });
 }
+
+test('Svelte: controlled media outside the popup preserves modal Tab recovery', async ({ page }) => {
+  await setup(page, 'summary-only', false);
+  await page.evaluate(() => {
+    const audio = document.createElement('audio'); audio.id = 'outside-media'; audio.controls = true; audio.tabIndex = 0;
+    document.body.append(audio);
+  });
+  const outside = page.locator('#outside-media'); await outside.focus(); await expect(outside).toBeFocused();
+  await tabTo(page, 'native-close');
+  await outside.focus(); await tabTo(page, 'native-summary', true);
+  await expect(page.getByRole('dialog')).toBeVisible();
+});

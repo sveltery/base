@@ -78,7 +78,7 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
     if (!list.length) { event.preventDefault(); node.focus(); }
     // Native media have multiple internal controls with the same retargeted
     // active element. Let their own Tab sequence reach the adjacent guard.
-    else if (current?.matches('audio[controls],video[controls]')) return;
+    else if (current?.matches('audio[controls],video[controls]') && list.includes(current)) return;
     else if (event.shiftKey && (current === list[0] || !list.includes(current!))) { event.preventDefault(); (beforeModalGuard ?? list.at(-1)!).focus(); }
     else if (!event.shiftKey && (current === list.at(-1) || !list.includes(current!))) { event.preventDefault(); (afterModalGuard ?? list[0]).focus(); }
   }
@@ -146,10 +146,15 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
       function guard(direction: 1 | -1) {
         const element = document.createElement('span');
         element.tabIndex = 0;
-        element.setAttribute('aria-hidden', 'true');
+        // Pinned FocusGuard exposes role-button guards on Apple WebKit so
+        // VoiceOver's virtual cursor can trigger the focus trap.
+        const platform = (window.navigator as Navigator & { userAgentData?: { platform?: string } }).userAgentData?.platform ?? window.navigator.platform;
+        const apple = /^mac|^i(os$|p)/i.test(platform);
+        if (apple && window.CSS?.supports?.('-webkit-backdrop-filter:none')) element.setAttribute('role', 'button');
+        else element.setAttribute('aria-hidden', 'true');
         element.setAttribute('data-base-ui-focus-guard', '');
         element.dataset.type = 'inside';
-        element.style.cssText = 'border:0;clip:rect(0,0,0,0);height:1px;margin:-1px;overflow:hidden;padding:0;position:fixed;white-space:nowrap;width:1px;top:0;left:0';
+        element.style.cssText = 'border:0;clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:fixed;white-space:nowrap;width:1px;top:0;left:0';
         element.addEventListener('focusin', () => {
           if (!controller.open || !topmost()) return;
           const list = tabbables(node);
@@ -173,7 +178,7 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
       if (controller.open && controller.modal === true) return lockScroll(document);
     });
     $effect(() => {
-      if (controller.open) return isolateDialog(node, controller.modal !== false);
+      if (controller.open) return isolateDialog(node, controller.modal !== false, [...focusManager.guards]);
     });
     $effect(() => {
       const open = controller.open;

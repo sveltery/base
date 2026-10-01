@@ -29,6 +29,10 @@ it('reproduces Close followed by an open details summary wrapping Tab prematurel
   expect(after.hasAttribute('data-base-ui-focus-guard')).toBe(true);
   before.focus(); expect(document.activeElement).toBe(document.getElementById('native-summary'));
   after.focus(); expect(document.activeElement).toBe(close);
+  const outsideMedia = document.createElement('audio'); outsideMedia.controls = true; outsideMedia.tabIndex = 0;
+  document.body.append(outsideMedia); outsideMedia.focus();
+  const outsideTab = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true }); outsideMedia.dispatchEvent(outsideTab);
+  expect(outsideTab.defaultPrevented).toBe(true); expect(document.activeElement).toBe(close);
 });
 it('keeps only first direct summary, its closed descendants, and summaryless details', () => {
   const host = fixture('<details tabindex="0"><summary id="first"><button id="summary-child">Child</button></summary><summary id="second" tabindex="0">Second</summary><button id="hidden">Hidden</button><div><summary id="nested" tabindex="0">Nested</summary></div></details><summary id="orphan" tabindex="0">Orphan</summary><details id="implicit"></details>');
@@ -53,4 +57,31 @@ it('preserves composed details filtering through shadow roots, slots and radio r
   expect(tabbables(host).map(element => element.id)).toEqual(['shadow-summary', 'slotted', 'closed-child', 'shadow-radio', 'light-radio']);
   root.querySelector('summary')!.setAttribute('inert', '');
   expect(tabbables(host).map(element => element.id)).toEqual(['closed-child', 'shadow-radio', 'light-radio']);
+});
+
+it('keeps Apple WebKit modal guards exposed for the pinned VoiceOver cursor path', async () => {
+  // Platform branch diagnostic; this does not simulate a live screen reader.
+  const platform = Object.getOwnPropertyDescriptor(window.navigator, 'platform');
+  const css = Object.getOwnPropertyDescriptor(window, 'CSS');
+  Object.defineProperty(window.navigator, 'platform', { configurable: true, value: 'MacIntel' });
+  Object.defineProperty(window, 'CSS', { configurable: true, value: { supports: (query: string) => query === '-webkit-backdrop-filter:none' } });
+  try {
+    const target = document.createElement('div'); document.body.append(target);
+    const component = mount(Fixture, { target, props: { scenario: 'details' } }); cleanup.push(() => unmount(component));
+    await tick(); document.querySelector<HTMLButtonElement>('button')!.click(); await tick();
+    await new Promise(resolve => setTimeout(resolve, 60));
+    const guards = [...document.querySelectorAll<HTMLElement>('[data-base-ui-focus-guard]')];
+    expect(guards).toHaveLength(2);
+    for (const guard of guards) {
+      expect(guard.getAttribute('role')).toBe('button');
+      expect(guard.closest('[aria-hidden="true"]')).toBeNull();
+    }
+    guards[1].focus(); expect(document.activeElement).toBe(document.getElementById('native-close'));
+    document.getElementById('native-close')!.click(); await tick();
+    await new Promise(resolve => setTimeout(resolve, 60));
+    expect(document.querySelectorAll('[data-base-ui-focus-guard]')).toHaveLength(0);
+  } finally {
+    if (platform) Object.defineProperty(window.navigator, 'platform', platform); else Reflect.deleteProperty(window.navigator, 'platform');
+    if (css) Object.defineProperty(window, 'CSS', css); else Reflect.deleteProperty(window, 'CSS');
+  }
 });
