@@ -481,9 +481,9 @@
   ],
   "status": "passing-execution-uncredited",
   "evidence": {
-    "testedCommit": "68feaa1e1842e5345e455cdc575af59b2b44078e",
-    "workflowRun": "https://github.com/sveltery/base/actions/runs/36896190352",
-    "job": 110483666430,
+    "testedCommit": "0c04b5cf324c60f0b163bfe42ae4fe50791a1a10",
+    "workflowRun": "https://github.com/sveltery/base/actions/runs/36900863429",
+    "job": 110499637346,
     "command": "pnpm --filter @sveltery/base test:dom",
     "sharedCredit": 0
   }

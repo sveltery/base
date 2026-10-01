@@ -61,7 +61,7 @@ test('shared Toast credit includes only the thirteen complete hosted paired decl
   assert.ok(read('parity/README.md').includes('28 passing ports / 605 unported'));
   assert.ok(read('parity/README.md').includes('13 complete ports / 183 unported declarations'));
   assert.ok(read('parity/toast/rendering-interface.md').includes('28 passing ports / 605 unported'));
-  assert.equal(record.evidence.toastTests, 35);
+  assert.equal(record.evidence.toastTests, 36);
   assert.equal(record.evidence.baselineCommit, 'de6b35688d23c818dd240e9b73eee6bce53e0490');
   assert.equal(record.evidence.baselineBrowserTests, 189);
   assert.equal(record.evidence.browserTests, record.evidence.baselineBrowserTests + record.evidence.toastTests);
