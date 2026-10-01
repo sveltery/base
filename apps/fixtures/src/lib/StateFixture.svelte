@@ -45,7 +45,7 @@
       <Dialog.Trigger id="state-trigger">Open</Dialog.Trigger>
     {/if}
     <Dialog.Portal keepMounted={scenario === 'closed'}>
-      <Dialog.Popup>
+      <Dialog.Popup style="position:relative;z-index:1">
         {#if scenario === 'ownership'}
           <button onclick={() => { secondTrigger = true; }}>Mount trigger 2</button>
         {:else if scenario === 'missing'}Dialog

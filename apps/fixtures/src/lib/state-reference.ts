@@ -22,7 +22,7 @@ export function mountStateReference(node: HTMLElement, scenario: string) {
       scenario === 'ownership' ? h(Dialog.Trigger, { id: 'trigger-1' }, 'Trigger 1') : !['missing', 'prevent', 'closed'].includes(scenario) ? h(Dialog.Trigger, { id: 'state-trigger' }, 'Open') : null,
       scenario === 'ownership' && secondTrigger ? h(Dialog.Trigger, { id: 'trigger-2' }, 'Trigger 2') : null,
       h(Dialog.Portal, { keepMounted: scenario === 'closed' },
-        h(Dialog.Popup, null,
+        h(Dialog.Popup, { style: { position: 'relative', zIndex: 1 } },
           scenario === 'ownership' ? h('button', { onClick: () => setSecondTrigger(true) }, 'Mount trigger 2') :
           scenario === 'missing' ? 'Dialog' :
           h(Dialog.Close, {

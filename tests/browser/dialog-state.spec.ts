@@ -5,6 +5,7 @@ const cases = [
   ['C', 25, 'native'], ['C', 55, 'custom'], ['C', 89, 'undefined'],
   ['C', 118, 'prevent'], ['C', 137, 'closed'],
 ] as const;
+async function control(page: Page, name: string) { await page.getByRole('button', { name, exact: true }).evaluate((button: HTMLButtonElement) => button.click()); }
 async function calls(page: Page) { return JSON.parse(await page.getByTestId('calls').innerText()) as { open: boolean; reason: string; trigger: string | null; triggerIsUndefined: boolean }[]; }
 for (const reference of [false, true]) {
   for (const [part, line, scenario] of cases) {
@@ -23,14 +24,14 @@ for (const reference of [false, true]) {
           const controls = await first.getAttribute('aria-controls');
           expect(controls).toBe(await popup.getAttribute('id')); // :264
           await page.getByRole('button', { name: 'Mount trigger 2' }).click();
-          const second = page.getByRole('button', { name: 'Trigger 2' });
+          const second = page.getByRole('button', { name: 'Trigger 2', exact: true });
           await expect(first).toHaveAttribute('aria-expanded', 'true'); // :269
           expect(await first.getAttribute('aria-controls')).toBe(controls); // :270
           await expect(second).toHaveAttribute('aria-expanded', 'false'); // :271
           await expect(second).not.toHaveAttribute('aria-controls'); // :272
         } else if (scenario === 'missing') {
           await expect(popup).toBeVisible();
-          await page.getByRole('button', { name: 'Imperative close' }).click();
+          await control(page, 'Imperative close');
           const requests = await calls(page);
           expect(requests).toHaveLength(1); // :453
           expect(requests[0].open).toBe(false); // :454
@@ -83,12 +84,12 @@ test('supplement: controlled external updates and callback order/reasons survive
   await page.getByRole('button', { name: 'Open', exact: true }).click();
   await expect(popup).toHaveCount(0);
   await expect(page.getByTestId('owner')).toHaveText('false');
-  await page.getByRole('button', { name: 'Owner open' }).click();
+  await control(page, 'Owner open');
   await expect(popup).toBeVisible();
   await page.getByRole('button', { name: 'Close', exact: true }).click();
   await expect(popup).toBeVisible();
   await expect(page.getByTestId('owner')).toHaveText('true');
-  await page.getByRole('button', { name: 'Owner close' }).click();
+  await control(page, 'Owner close');
   await expect(popup).toHaveCount(0);
   expect((await calls(page)).map(({ open, reason }) => [open, reason])).toEqual([[true, 'trigger-press'], [false, 'close-press']]);
   expect(JSON.parse(await page.getByTestId('order').innerText())).toEqual([
@@ -97,12 +98,12 @@ test('supplement: controlled external updates and callback order/reasons survive
     { channel: 'consumer', open: false, before: 'true', reason: 'close-press', canceled: false },
     { channel: 'internal', open: false, before: 'true', reason: 'close-press', canceled: false },
   ]);
-  await page.getByRole('button', { name: 'Owner open' }).click();
+  await control(page, 'Owner open');
   await expect(popup).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(popup).toBeVisible();
   expect((await calls(page)).at(-1)?.reason).toBe('escape-key');
-  await page.getByRole('button', { name: 'Owner close' }).click();
+  await control(page, 'Owner close');
   await expect(popup).toHaveCount(0);
 });
 
@@ -113,12 +114,12 @@ for (const initiallyOpen of [false, true]) test(`supplement: canceled ${initiall
   // Establish matching internal/owner state before testing cancellation.
   if (initiallyOpen) {
     await page.getByRole('button', { name: 'Open', exact: true }).click();
-    await page.getByRole('button', { name: 'Owner open' }).click();
+    await control(page, 'Owner open');
     await expect(popup).toBeVisible();
   }
   const beforeCalls = (await calls(page)).length;
   const beforeOrder = JSON.parse(await page.getByTestId('order').innerText()).length;
-  await page.getByRole('button', { name: 'Toggle cancel' }).click();
+  await control(page, 'Toggle cancel');
   if (initiallyOpen) await page.keyboard.press('Escape');
   else await page.getByRole('button', { name: 'Open', exact: true }).click();
   await expect(page.getByTestId('owner')).toHaveText(String(initiallyOpen));
@@ -127,10 +128,10 @@ for (const initiallyOpen of [false, true]) test(`supplement: canceled ${initiall
     { channel: 'consumer', open: !initiallyOpen, before: String(initiallyOpen), reason: initiallyOpen ? 'escape-key' : 'trigger-press', canceled: true },
   ]);
   // Releasing the held input exposes internal state; cancellation must not have changed it.
-  await page.getByRole('button', { name: 'Release control' }).click();
+  await control(page, 'Release control');
   if (initiallyOpen) await expect(popup).toBeVisible();
   else await expect(popup).toHaveCount(0);
-  await page.getByRole('button', { name: 'Toggle cancel' }).click();
+  await control(page, 'Toggle cancel');
   if (initiallyOpen) await page.keyboard.press('Escape');
   else await page.getByRole('button', { name: 'Open', exact: true }).click();
   if (initiallyOpen) await expect(popup).toHaveCount(0);
