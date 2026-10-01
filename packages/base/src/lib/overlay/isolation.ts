@@ -33,7 +33,7 @@ function outside(body: HTMLElement, targets: Element[]) {
 }
 
 /** Claim existing outside DOM until this popup closes or its attachment is removed. */
-export function isolateDialog(popup: HTMLElement, modal: boolean) {
+export function isolateDialog(popup: HTMLElement, modal: boolean, focusGuards: HTMLElement[] = []) {
   const document = popup.ownerDocument;
   const ownership = documents.get(document) ?? { 'aria-hidden': new Map(), 'data-base-ui-inert': new Map() };
   documents.set(document, ownership);
@@ -56,7 +56,7 @@ export function isolateDialog(popup: HTMLElement, modal: boolean) {
   }
   // Live regions and their ancestors remain exposed to assistive technology.
   // The marker is intentionally independent; it is not the native inert attribute.
-  if (modal) claim('aria-hidden', [...inside, ...document.body.querySelectorAll('[aria-live]')]);
+  if (modal) claim('aria-hidden', [...inside, ...focusGuards, ...document.body.querySelectorAll('[aria-live]')]);
   claim('data-base-ui-inert', inside);
   let released = false;
   return () => {
