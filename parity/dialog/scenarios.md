@@ -1,5 +1,7 @@
 # Dialog scenario contracts
 
+Current leaf execution credit is recorded in [the shared manifest](../manifest.json) and [initialFocus fixture/assertion record](initial-focus-ports.md): P:92/287/310/333 are complete ports. The original grouped scenario specifications below retain their historical status; a group containing additional unported leaves gains no complete-scenario credit from this subset.
+
 Status of **every Dialog scenario below: `unported`**. These are fixture and assertion specifications, not executed components or a parity claim. The only executable cases in this change exercise existing merge/event-details utilities; see [README](README.md). Source-derived supplements are explicitly distinguished from upstream test ports.
 
 Reference: React Base UI v1.8.0, commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. The [inventory](upstream-inventory.json) contains exact upstream test names, suite paths, source lines, parameter values, assertion excerpts, fixture calls and supporting helper definitions. Its immutable links resolve the complete test body. MIT attribution: [UPSTREAM_LICENSE](UPSTREAM_LICENSE).

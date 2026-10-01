@@ -2,7 +2,7 @@
 
 Source: Base UI **v1.8.0**, commit **`47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`**, [DialogPopup.test.tsx](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/dialog/popup/DialogPopup.test.tsx). Derived fixtures and assertions retain the [MIT notice](UPSTREAM_LICENSE). Base: main `a0a2c655e591feac6dca06697e484e7fd624a074`.
 
-This is an execution overlay on the byte-exact [source inventory](upstream-inventory.json). The source tracer remains unchanged and regenerates its original `unported`/`port=null` candidates; the parent-owned shared manifest is unchanged. Credit these four entries only after all three CI jobs pass on the independently reviewed PR head. [PR #5](https://github.com/sveltery/base/pull/5) records that exact-head evidence and review. There are no approved behavioral deviations.
+This is the fixture/assertion record for four passing entries in the [shared manifest](../manifest.json). The byte-exact [source inventory](upstream-inventory.json) and its tracer remain unchanged, retaining their original `unported`/`port=null` provenance placeholders. Current credit is read from the shared manifest: these four entries are supported by [CI run 36849776857](https://github.com/sveltery/base/actions/runs/36849776857) at `a4a8d12733662bdf34db49de145d053960b68527`, with all three jobs passing, **45/45 secured Chromium executions**, and independent gpt-6.1-sol/high review on that same commit. The test/fixture implementation is unchanged by central reconciliation. [PR #5](https://github.com/sveltery/base/pull/5) records final-head CI and independent review before merge. There are no approved behavioral deviations.
 
 | Declaration / single variant | Complete source fixture | Ordered retained assertions |
 | --- | --- | --- |
@@ -11,7 +11,7 @@ This is an execution overlay on the byte-exact [source inventory](upstream-inven
 | P:310 / Popup | Same topology as P:287; callback returns null | User click Open; input-1 focused (:329) |
 | P:333 / Popup | Nonmodal closed Root, Trigger, Portal, Popup with stable element-returning callback; input-1, input-2 ref, actual Dialog.Close | User click Open; input-2 focused (:367); callback count exactly 1 (:370); user click Close; Trigger focused (:376); callback count still exactly 1 (:379) |
 
-All four declarations have `parameterAxes=[]`, `variants=[{}]`, `appliesTo=['Popup']`, no source conditions and no upstream guards. Each browser test executes separately in React and Svelte: **eight executions**, covering **four declarations / four expanded records**, not eight credited records. Source inventory totals remain **175 declarations / 371 candidate records**; once accepted, the overlay gives **4 complete ports / 171 unported declarations** and **4 complete ports / 367 unported candidate records**. Source conditions/guards on the remaining candidates still apply; this is not a whole-library passing-test denominator.
+All four declarations have `parameterAxes=[]`, `variants=[{}]`, `appliesTo=['Popup']`, no source conditions and no upstream guards. Each browser test executes separately in React and Svelte: **eight executions**, covering **four declarations / four expanded records**, not eight credited records. Source inventory totals remain **175 declarations / 371 candidate records**; current execution totals are **4 complete ports / 171 unported declarations** and **4 complete ports / 367 unported candidate records**. The shared inventory is **8 passing ports / 625 unported** out of 633 declarations/type assertions, including these four Dialog ports and the four foundation ports. The scoped inventories overlap and must not be added together. Source conditions/guards on the remaining candidates still apply; this is not a whole-library passing-test denominator.
 
 ## Fixture and assertion adaptations
 
@@ -30,6 +30,7 @@ Reproduce with Node 24.x / pnpm 12.6.0:
 ```sh
 bash scripts/bootstrap.sh
 node parity/dialog/inventory.mjs /workspace/base-ui-upstream --check
+node scripts/parity-inventory.mjs --upstream /workspace/base-ui-upstream --check
 bash scripts/verify.sh
 bash .github/standards/check.sh
 pnpm exec playwright test --list

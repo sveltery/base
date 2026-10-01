@@ -418,8 +418,29 @@
       "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
       "line": 92,
       "name": "should focus the element provided to `initialFocus` as a ref when open",
-      "status": "unported",
-      "port": null
+      "status": "passing",
+      "port": "tests/browser/dialog-initial-focus.spec.ts",
+      "verification": "2026-10-01: secured Chromium CI run 36849776857 at a4a8d12733662bdf34db49de145d053960b68527; 45/45 browser executions, zero retries/skips; all three CI jobs pass; independent gpt-6.1-sol/high exact-head review found no blockers. Final PR #5 reconciliation head must also pass CI and review before merge.",
+      "sourceId": "packages/react/src/dialog/popup/DialogPopup.test.tsx:92",
+      "sourceBodySha256": "818fc2f8848c4792c0cf8c033ee444e11f5620d4c9ca79a1e2ca68f0087fe45e",
+      "assertionLines": [
+        123
+      ],
+      "scenario": "ref",
+      "fixtures": [
+        "apps/fixtures/src/lib/InitialFocusFixture.svelte",
+        "apps/fixtures/src/lib/initial-focus-reference.ts"
+      ],
+      "adaptations": "parity/dialog/initial-focus-ports.md",
+      "evidence": {
+        "testedCommit": "a4a8d12733662bdf34db49de145d053960b68527",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36849776857",
+        "browserJob": 110328406891,
+        "executions": [
+          "P:92 Svelte initialFocus ref",
+          "P:92 React reference initialFocus ref"
+        ]
+      }
     },
     {
       "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
@@ -460,22 +481,88 @@
       "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
       "line": 287,
       "name": "should default focus when initialFocus returns true",
-      "status": "unported",
-      "port": null
+      "status": "passing",
+      "port": "tests/browser/dialog-initial-focus.spec.ts",
+      "verification": "2026-10-01: secured Chromium CI run 36849776857 at a4a8d12733662bdf34db49de145d053960b68527; 45/45 browser executions, zero retries/skips; all three CI jobs pass; independent gpt-6.1-sol/high exact-head review found no blockers. Final PR #5 reconciliation head must also pass CI and review before merge.",
+      "sourceId": "packages/react/src/dialog/popup/DialogPopup.test.tsx:287",
+      "sourceBodySha256": "ddf716685291f989d55aa7604878fc20c81af8874223520f0d2521c7f90e3779",
+      "assertionLines": [
+        306
+      ],
+      "scenario": "true",
+      "fixtures": [
+        "apps/fixtures/src/lib/InitialFocusFixture.svelte",
+        "apps/fixtures/src/lib/initial-focus-reference.ts"
+      ],
+      "adaptations": "parity/dialog/initial-focus-ports.md",
+      "evidence": {
+        "testedCommit": "a4a8d12733662bdf34db49de145d053960b68527",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36849776857",
+        "browserJob": 110328406891,
+        "executions": [
+          "P:287 Svelte initialFocus true",
+          "P:287 React reference initialFocus true"
+        ]
+      }
     },
     {
       "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
       "line": 310,
       "name": "uses default behavior when initialFocus returns null",
-      "status": "unported",
-      "port": null
+      "status": "passing",
+      "port": "tests/browser/dialog-initial-focus.spec.ts",
+      "verification": "2026-10-01: secured Chromium CI run 36849776857 at a4a8d12733662bdf34db49de145d053960b68527; 45/45 browser executions, zero retries/skips; all three CI jobs pass; independent gpt-6.1-sol/high exact-head review found no blockers. Final PR #5 reconciliation head must also pass CI and review before merge.",
+      "sourceId": "packages/react/src/dialog/popup/DialogPopup.test.tsx:310",
+      "sourceBodySha256": "b0dd64383ef07b449dae29e680327d91777ec9f8070d144ea0765fc48b78c405",
+      "assertionLines": [
+        329
+      ],
+      "scenario": "null",
+      "fixtures": [
+        "apps/fixtures/src/lib/InitialFocusFixture.svelte",
+        "apps/fixtures/src/lib/initial-focus-reference.ts"
+      ],
+      "adaptations": "parity/dialog/initial-focus-ports.md",
+      "evidence": {
+        "testedCommit": "a4a8d12733662bdf34db49de145d053960b68527",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36849776857",
+        "browserJob": 110328406891,
+        "executions": [
+          "P:310 Svelte initialFocus null",
+          "P:310 React reference initialFocus null"
+        ]
+      }
     },
     {
       "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
       "line": 333,
       "name": "should not call initialFocus function when closing the dialog",
-      "status": "unported",
-      "port": null
+      "status": "passing",
+      "port": "tests/browser/dialog-initial-focus.spec.ts",
+      "verification": "2026-10-01: secured Chromium CI run 36849776857 at a4a8d12733662bdf34db49de145d053960b68527; 45/45 browser executions, zero retries/skips; all three CI jobs pass; independent gpt-6.1-sol/high exact-head review found no blockers. Final PR #5 reconciliation head must also pass CI and review before merge.",
+      "sourceId": "packages/react/src/dialog/popup/DialogPopup.test.tsx:333",
+      "sourceBodySha256": "f478fde24b4a1ce601df887238f87900e30cc8d5a0363d2a2ce9a06af2e93916",
+      "assertionLines": [
+        367,
+        370,
+        376,
+        379
+      ],
+      "scenario": "count",
+      "fixtures": [
+        "apps/fixtures/src/lib/InitialFocusFixture.svelte",
+        "apps/fixtures/src/lib/initial-focus-reference.ts"
+      ],
+      "adaptations": "parity/dialog/initial-focus-ports.md",
+      "evidence": {
+        "testedCommit": "a4a8d12733662bdf34db49de145d053960b68527",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36849776857",
+        "browserJob": 110328406891,
+        "executions": [
+          "P:333 Svelte initialFocus count",
+          "P:333 React reference initialFocus count"
+        ]
+      }
     },
     {
       "source": "packages/react/src/dialog/popup/DialogPopup.test.tsx",
