@@ -1,0 +1,19 @@
+{
+  "name": "sveltery-project-standards",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.6.0",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "eslint": "10.11.0",
+    "eslint-plugin-svelte": "3.23.0",
+    "globals": "17.12.0",
+    "prettier": "3.9.9",
+    "svelte": "5.57.1",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.71.0"
+  }
+}
