@@ -88,3 +88,33 @@ for (const reference of [false, true]) {
 test('supplement: Svelte Button render attachments and bound DOM ref survive hydration', async ({ page }) => {
   const button = await setup(page, 'attachment', false); await expect(button).toHaveAttribute('data-consumer-attached'); await expect(page.getByTestId('ref')).toHaveText('tested-button'); expect((await calls(page)).attached).toBe(1);
 });
+// Supplemental upstream correction: chorded left mousedown has no new pointerdown.
+// Pointer Events §4.1.1.1: https://www.w3.org/TR/pointerevents3/#chorded-button-interactions
+for (const reference of [false, true]) for (const scenario of ['custom-disabled', 'native-focusable']) test(`supplement: ${reference ? 'React reference' : 'Svelte'} Button disabled chorded mouse fallback ${scenario}`, async ({ page }) => {
+  const button = await setup(page, scenario, reference);
+  await button.evaluate(node => {
+    node.dataset.pointerdowns = '0';
+    node.addEventListener('pointerdown', () => { node.dataset.pointerdowns = String(Number(node.dataset.pointerdowns) + 1); }, { capture: true });
+    node.addEventListener('mousedown', event => {
+      node.dataset.mousedownTrusted = String(event.isTrusted);
+      node.dataset.mousedownButton = String(event.button);
+      queueMicrotask(() => { node.dataset.mousedownPrevented = String(event.defaultPrevented); });
+    }, { capture: true });
+  });
+  const box = await button.boundingBox(); expect(box).not.toBeNull();
+  // Hold a secondary button outside, then press primary on the host. Chromium
+  // generates trusted mousedown for the additional press without pointerdown.
+  await page.mouse.move(700, 500); await page.mouse.down({ button: 'right' });
+  try {
+    await page.mouse.move(box!.x + box!.width / 2, box!.y + box!.height / 2);
+    await page.mouse.down({ button: 'left' });
+    await expect(button).toHaveAttribute('data-pointerdowns', '0');
+    await expect(button).toHaveAttribute('data-mousedown-trusted', 'true');
+    await expect(button).toHaveAttribute('data-mousedown-button', '0');
+    // The pinned React reference retains its observed gap; it earns no parity
+    // credit for this supplemental correction. Svelte cancels the fallback.
+    if (reference) await expect(button).toBeFocused(); else await expect(button).not.toBeFocused();
+    await expect(button).toHaveAttribute('data-mousedown-prevented', String(!reference));
+    expect((await calls(page)).mouse).toBe(0);
+  } finally { await page.mouse.up({ button: 'left' }); await page.mouse.up({ button: 'right' }); }
+});
