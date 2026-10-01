@@ -71,7 +71,7 @@
       "part": "V",
       "port": "packages/base/tests/dom/toast-viewport.test.ts",
       "status": "executed-uncredited",
-      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence.",
+      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence. Review regression correction: window blur/focus listeners remain attached for the mounted Viewport lifetime, including empty stores. Source assertions 113/114 observe zero empty-transition removals and 126/127 retain one registration; keydown/pointerdown still rebind once per nonempty cycle. This explicit lifecycle adaptation receives no shared credit.",
       "upstreamGuards": [
         "it.skipIf(!isJSDOM)"
       ],

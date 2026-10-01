@@ -308,3 +308,30 @@ test('supplement: every close channel focuses a newly un-limited successor synch
     expect(observations).toEqual([{ id: currentId, active: `root-${currentId}`, count: channel === 'timer' ? 2 : 4 }]);
   }
 });
+
+// Local regression only: window listeners must survive an empty Viewport.
+test('supplement: empty Viewport tracks owner-window focus for subsequent timed toasts', async ({ page }) => {
+  for (const previousToast of [false, true]) {
+    await page.goto('/toast?case=close-all');
+    await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+    const start = new Date('2026-01-01T00:00:00Z');
+    await page.clock.install({ time: start }); await page.clock.pauseAt(start);
+    if (previousToast) await click(page, 'add');
+    await page.evaluate(() => window.dispatchEvent(new Event('blur')));
+    if (previousToast) { await click(page, 'close'); await page.clock.runFor(32); }
+    await expect(page.getByTestId('root')).toHaveCount(0);
+    await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+    // Add before the delayed focus publication; its timer must also resume.
+    await click(page, 'add');
+    await page.clock.runFor(4999); await expect(page.getByTestId('root')).toHaveCount(1);
+    await page.clock.runFor(2); await page.clock.runFor(32);
+    await expect(page.getByTestId('root')).toHaveCount(0);
+    await page.evaluate(() => window.dispatchEvent(new Event('blur')));
+    await click(page, 'add'); await page.clock.runFor(10000);
+    await expect(page.getByTestId('root')).toHaveCount(1);
+    await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+    await page.clock.runFor(4999); await expect(page.getByTestId('root')).toHaveCount(1);
+    await page.clock.runFor(2); await page.clock.runFor(32);
+    await expect(page.getByTestId('root')).toHaveCount(0);
+  }
+});

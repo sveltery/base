@@ -40,7 +40,7 @@ function ownerWindowEvent(type: 'focus' | 'blur', listener: EventListener) {
 it('gets focused when F6 is pressed', async () => { // upstream V:153
   await render(); await add(); key(button(), 'F6'); expect(document.activeElement).toBe(get('viewport'));
 });
-it('rebinds owner-document listeners once across empty store cycles', async () => { // upstream V:38
+it('retains owner-window focus listeners and rebinds interactions across empty store cycles', async () => { // upstream V:38
   const iframe = document.createElement('iframe'); document.body.appendChild(iframe);
   const iframeWindow = iframe.contentWindow;
   const iframeDocument = iframe.contentDocument;
@@ -68,13 +68,13 @@ it('rebinds owner-document listeners once across empty store cycles', async () =
     manager.close(); await tick();
     expect(root(iframeDocument)).toBe(null);
     expect(removeWindowListener.mock.calls.filter(([type]) => type === 'keydown')).toHaveLength(1);
-    expect(removeWindowListener.mock.calls.filter(([type]) => type === 'blur')).toHaveLength(1);
-    expect(removeWindowListener.mock.calls.filter(([type]) => type === 'focus')).toHaveLength(1);
+    expect(removeWindowListener.mock.calls.filter(([type]) => type === 'blur')).toHaveLength(0);
+    expect(removeWindowListener.mock.calls.filter(([type]) => type === 'focus')).toHaveLength(0);
     expect(removeDocumentListener.mock.calls.filter(([type]) => type === 'pointerdown')).toHaveLength(1);
     await add(iframeDocument); expect(root(iframeDocument)).not.toBe(null);
     expect(addWindowListener.mock.calls.filter(([type]) => type === 'keydown')).toHaveLength(2);
-    expect(addWindowListener.mock.calls.filter(([type]) => type === 'blur')).toHaveLength(2);
-    expect(addWindowListener.mock.calls.filter(([type]) => type === 'focus')).toHaveLength(2);
+    expect(addWindowListener.mock.calls.filter(([type]) => type === 'blur')).toHaveLength(1);
+    expect(addWindowListener.mock.calls.filter(([type]) => type === 'focus')).toHaveLength(1);
     expect(addDocumentListener.mock.calls.filter(([type]) => type === 'pointerdown')).toHaveLength(2);
   } finally {
     addWindowListener.mockRestore(); removeWindowListener.mockRestore();
@@ -215,7 +215,7 @@ it('cleans listeners and pending owner-window focus work when unmounted', async 
   expect(vi.getTimerCount()).toBe(0);
 });
 
-it('retains an observed window focus when an empty transition cancels its delayed publication', async () => {
+it('retains observed window focus across an empty transition and immediate add', async () => {
   const spy = vi.spyOn(window, 'addEventListener');
   const manager = createToastManager();
   await render({ toastManager: manager }); await add();
@@ -335,4 +335,26 @@ it('does not focus stale successor refs after the viewport disconnects during ex
   manager.close('newer');
   expect(older.isConnected).toBe(false);
   expect(focus).not.toHaveBeenCalled();
+});
+
+it.each([false, true])('tracks real owner-window focus while empty (previous toast=%s)', async previousToast => { // local regression, no parity credit
+  const manager = createToastManager(); await render({ toastManager: manager });
+  if (previousToast) { await add(); }
+  const dispatch = (type: 'blur' | 'focus') => {
+    const event = new FocusEvent(type);
+    Object.defineProperty(event, 'composedPath', { value: () => [window] });
+    window.dispatchEvent(event);
+  };
+  dispatch('blur'); flushSync();
+  if (previousToast) { manager.close(); flushSync(); }
+  expect(root()).toBe(null);
+  expect(button().getAttribute('data-window-focused')).toBe('false');
+  dispatch('focus'); await advance(0);
+  expect(button().getAttribute('data-window-focused')).toBe('true');
+  await add(); await advance(4999); expect(root()).not.toBe(null);
+  await advance(2); expect(root()).toBe(null);
+  dispatch('blur'); flushSync();
+  await add(); await advance(10000); expect(root()).not.toBe(null);
+  dispatch('focus'); await advance(4999); expect(root()).not.toBe(null);
+  await advance(2); expect(root()).toBe(null);
 });
