@@ -1,0 +1,165 @@
+diff --git a/packages/base/src/lib/toast/Description.svelte b/packages/base/src/lib/toast/Description.svelte
+index 6c829c7..1b40579 100644
+--- a/packages/base/src/lib/toast/Description.svelte
++++ b/packages/base/src/lib/toast/Description.svelte
+@@ -5,11 +5,14 @@
+   import { root } from './root-context.js';
+   import { isRenderableContent } from './content.js';
+   import type { ToastDescriptionProps } from './types.js';
++  import { onDestroy, untrack } from 'svelte';
+   let { children, id, ref = $bindable(null), ...props }: ToastDescriptionProps = $props();
+   const controller = root();
+-  const generated = $props.id();
+-  const resolvedId = $derived(id ?? `base-ui-${generated}`);
++  const generated = controller.allocateLabelId('description');
++  const resolvedId = $derived(id ?? generated);
+   const content = $derived(children ?? controller.toast.description);
++  const unregister = untrack(() => isRenderableContent(content) ? controller.setDescriptionId(resolvedId) : undefined);
++  onDestroy(() => unregister?.());
+   $effect(() => {
+     if (isRenderableContent(content)) return controller.setDescriptionId(resolvedId);
+   });
+diff --git a/packages/base/src/lib/toast/Root.svelte b/packages/base/src/lib/toast/Root.svelte
+index e41fb3d..a8fb79f 100644
+--- a/packages/base/src/lib/toast/Root.svelte
++++ b/packages/base/src/lib/toast/Root.svelte
+@@ -1,9 +1,9 @@
+ <script lang="ts">
+   // Derived from Base UI v1.8.0 ToastRoot; MIT, see ../../../THIRD_PARTY_NOTICES.md.
+-  import { flushSync, setContext, untrack } from 'svelte';
+-  import Element from '../dialog/Element.svelte';
++  import { flushSync, untrack } from 'svelte';
++  import RootElement from './RootElement.svelte';
+   import { provider } from './context.js';
+-  import { ROOT, type ToastRootContext } from './root-context.js';
++  import type { ToastRootContext } from './root-context.js';
+   import { selectors } from './store.js';
+   import { afterAnimations } from './animations.js';
+   import { activeElement, contains } from './viewport-focus.js';
+@@ -12,8 +12,10 @@
+   let { toast, swipeDirection, children, ref = $bindable(null), ...props }: ToastRootProps = $props();
+   const store = provider().store;
+   let node = $state<HTMLElement | null>(null);
+-  let title = $state.raw<{ id: string | undefined }>();
+-  let description = $state.raw<{ id: string | undefined }>();
++  let titleId = $state<string>();
++  let descriptionId = $state<string>();
++  const generated = $props.id();
++  const idPrefix = `base-ui-${generated}`;
+   let registeredId: string | undefined;
+   let registeredLifecycle: object | undefined;
+   let measuredUpdateKey: number | undefined;
+@@ -39,23 +41,12 @@
+     const update = () => store.updateToastInternal(toast.id, { ref: node, height, transitionStatus: undefined });
+     if (flush) flushSync(update); else update();
+   }
+-  const context: ToastRootContext = {
++  const context: Pick<ToastRootContext, 'toast' | 'expanded' | 'visibleIndex' | 'recalculateHeight'> = {
+     get toast() { return toast; },
+     get expanded() { return expanded; },
+     get visibleIndex() { return visibleIndex; },
+-    get titleId() { return title?.id; },
+-    get descriptionId() { return description?.id; },
+-    setTitleId(id) {
+-      const registration = { id }; title = registration;
+-      return () => { if (title === registration) title = undefined; };
+-    },
+-    setDescriptionId(id) {
+-      const registration = { id }; description = registration;
+-      return () => { if (description === registration) description = undefined; };
+-    },
+     recalculateHeight,
+   };
+-  setContext(ROOT, context);
+   function attach(element: HTMLElement) {
+     node = element;
+     return () => {
+@@ -85,7 +76,7 @@
+   const rootState = $derived({ transitionStatus: toast.transitionStatus, expanded, limited: !!toast.limited,
+     type: toast.type, swiping: false as const, swipeDirection: undefined });
+   const internal = $derived({ role: toast.priority === 'high' ? 'alertdialog' : 'dialog', tabindex: 0,
+-    'aria-modal': false, 'aria-labelledby': title?.id, 'aria-describedby': description?.id,
++    'aria-modal': false,
+     'aria-hidden': toast.priority === 'high' && !focused ? true : undefined, inert: toast.limited ? true : undefined,
+     'data-starting-style': toast.transitionStatus === 'starting' ? '' : undefined,
+     'data-ending-style': toast.transitionStatus === 'ending' ? '' : undefined,
+@@ -99,4 +90,4 @@
+     },
+   });
+ </script>
+-<Element {internal} {props} state={rootState} {children} bind:ref {attach}/>
++<RootElement controller={context} {idPrefix} bind:titleId bind:descriptionId internal={{ ...internal, 'aria-labelledby': titleId, 'aria-describedby': descriptionId }} {props} state={rootState} {children} bind:ref {attach}/>
+diff --git a/packages/base/src/lib/toast/Title.svelte b/packages/base/src/lib/toast/Title.svelte
+index 785dd03..e05455c 100644
+--- a/packages/base/src/lib/toast/Title.svelte
++++ b/packages/base/src/lib/toast/Title.svelte
+@@ -5,11 +5,14 @@
+   import { root } from './root-context.js';
+   import { isRenderableContent } from './content.js';
+   import type { ToastTitleProps } from './types.js';
++  import { onDestroy, untrack } from 'svelte';
+   let { children, id, ref = $bindable(null), ...props }: ToastTitleProps = $props();
+   const controller = root();
+-  const generated = $props.id();
+-  const resolvedId = $derived(id ?? `base-ui-${generated}`);
++  const generated = controller.allocateLabelId('title');
++  const resolvedId = $derived(id ?? generated);
+   const content = $derived(children ?? controller.toast.title);
++  const unregister = untrack(() => isRenderableContent(content) ? controller.setTitleId(resolvedId) : undefined);
++  onDestroy(() => unregister?.());
+   $effect(() => {
+     if (isRenderableContent(content)) return controller.setTitleId(resolvedId);
+   });
+diff --git a/packages/base/src/lib/toast/root-context.ts b/packages/base/src/lib/toast/root-context.ts
+index 52975af..451eeb4 100644
+--- a/packages/base/src/lib/toast/root-context.ts
++++ b/packages/base/src/lib/toast/root-context.ts
+@@ -8,6 +8,7 @@ export interface ToastRootContext {
+   readonly visibleIndex: number;
+   readonly titleId: string | undefined;
+   readonly descriptionId: string | undefined;
++  allocateLabelId(part: 'title' | 'description'): string;
+   setTitleId(id?: string): () => void;
+   setDescriptionId(id?: string): () => void;
+   recalculateHeight(flush?: boolean): void;
+diff --git a/packages/base/tests/toast-provider-ssr.test.ts b/packages/base/tests/toast-provider-ssr.test.ts
+index f3ba094..db8c360 100644
+--- a/packages/base/tests/toast-provider-ssr.test.ts
++++ b/packages/base/tests/toast-provider-ssr.test.ts
+@@ -3,6 +3,7 @@ import { render } from 'svelte/server';
+ import Fixture from './dom/ToastProviderFixture.svelte';
+ import { createToastManager } from '../src/lib/toast/createToastManager';
+ import type { ToastProviderContext } from '../src/lib/toast/context';
++import Labels from './dom/ToastSsrLabelsFixture.svelte';
+ 
+ it('creates isolated Provider stores for SSR requests and never attaches a manager during rendering', () => {
+   const manager = createToastManager();
+@@ -23,3 +24,28 @@ it('creates isolated Provider stores for SSR requests and never attaches a manag
+     expect(facade.toasts).toEqual([]);
+   });
+ });
++
++it.each([
++  { explicit: false, duplicate: false }, { explicit: true, duplicate: false }, { explicit: false, duplicate: true },
++])('SSR labels name their own Root with unique stable IDs before hydration (%j)', props => {
++  const { body } = render(Labels, { props });
++  const roots = [...body.matchAll(/<div\b[^>]*role="dialog"[^>]*>([\s\S]*?)<\/div>/g)];
++  expect(roots).toHaveLength(2);
++  const ids = [...body.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
++  expect(new Set(ids).size).toBe(ids.length);
++  roots.forEach((root, index) => {
++    const labelled = root[0].match(/aria-labelledby="([^"]+)"/)?.[1];
++    const described = root[0].match(/aria-describedby="([^"]+)"/)?.[1];
++    const titleIds = [...root[1].matchAll(/<h2\b[^>]*\bid="([^"]+)"/g)].map(match => match[1]);
++    const descriptionId = root[1].match(/<p\b[^>]*\bid="([^"]+)"/)?.[1];
++    expect(labelled).toBe(titleIds.at(-1)); expect(labelled).toBeDefined();
++    expect(described).toBe(descriptionId); expect(described).toBeDefined();
++    if (props.explicit) { expect(labelled).toBe(`title-${index}`); expect(described).toBe(`description-${index}`); }
++  });
++});
++
++it.each([{ showTitle: false, showDescription: false }, { empty: true }])('SSR omits relationships for absent or suppressed label parts (%j)', props => {
++  const { body } = render(Labels, { props });
++  expect(body).not.toContain('aria-labelledby'); expect(body).not.toContain('aria-describedby');
++  expect(body).not.toContain('<h2'); expect(body).not.toContain('<p ');
++});

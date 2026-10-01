@@ -2,10 +2,12 @@
 import { createElement as h, Fragment, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Toast } from '@base-ui/react/toast';
+import { mountToastLifecycleReference } from './toast-lifecycle-reference.js';
 
 const testId = (value: string) => ({ 'data-testid': value });
 
 export function mountToastReference(node: HTMLElement, scenario: string) {
+  if (scenario.startsWith('lifecycle')) return mountToastLifecycleReference(node, scenario);
   const external = Toast.createToastManager();
   function ProviderContents({ label, title }: { label: string; title: string }) {
     const manager = Toast.useToastManager();

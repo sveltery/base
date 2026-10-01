@@ -1,0 +1,32 @@
+import { execFileSync } from 'node:child_process';
+import { pathToFileURL } from 'node:url';
+import { resolve } from 'node:path';
+import { expect, it, vi } from 'vitest';
+import { hydrate, tick, unmount } from 'svelte';
+import Fixture from './ToastSsrLabelsFixture.svelte';
+
+it.each([{ explicit: false, duplicate: false }, { explicit: true, duplicate: false }, { explicit: false, duplicate: true }])('preserves settled SSR label IDs and relationships through hydration (%j)', async props => {
+  const loader = resolve('../../scripts/svelte-ssr-loader.mjs');
+  const fixture = pathToFileURL(resolve('tests/dom/ToastSsrLabelsFixture.svelte')).href;
+  const code = `import { render } from 'svelte/server'; import Fixture from ${JSON.stringify(fixture)}; process.stdout.write(render(Fixture, { props: ${JSON.stringify(props)} }).body);`;
+  const markup = execFileSync(process.execPath, ['--import', loader, '--input-type=module', '-e', code], {
+    encoding: 'utf8',
+  });
+  const target = document.createElement('section'); document.body.appendChild(target); target.innerHTML = markup;
+  const relationships = () => [...target.querySelectorAll('[role="dialog"]')].map(root => ({
+    labelled: root.getAttribute('aria-labelledby'), described: root.getAttribute('aria-describedby'),
+    titles: [...root.querySelectorAll('h2')].map(title => title.id), description: root.querySelector('p')!.id,
+  }));
+  const before = relationships();
+  expect(before).toHaveLength(2);
+  for (const root of before) { expect(root.labelled).toBe(root.titles.at(-1)); expect(root.described).toBe(root.description); }
+  const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+  let component: ReturnType<typeof hydrate> | undefined;
+  try {
+    component = hydrate(Fixture, { target, props }); await tick();
+    expect(relationships()).toEqual(before);
+    expect(warn.mock.calls.filter(args => /hydration|ownership/i.test(args.join(' ')))).toEqual([]);
+  } finally {
+    if (component) await unmount(component); target.remove(); warn.mockRestore();
+  }
+});

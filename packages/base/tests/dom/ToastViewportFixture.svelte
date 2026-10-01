@@ -7,10 +7,13 @@
   import type { ToastStore } from '../../src/lib/toast/store.js';
   let { indexKeys = false, onStore, toastManager, timeout = 5000, limit = 3, showFirstViewport = false }: { toastManager?: ToastManager; timeout?: number; limit?: number; showFirstViewport?: boolean; indexKeys?: boolean; onStore?: (store: ToastStore) => void } = $props();
   let firstViewportRemoved = $state(false);
+  let viewportRemoved = $state(false);
   export function removeFirstViewport() { firstViewportRemoved = true; }
+  export function removeViewport() { viewportRemoved = true; }
+  export function restoreViewport() { viewportRemoved = false; }
 </script>
 <Provider {toastManager} {timeout} {limit}>
   {#if showFirstViewport && !firstViewportRemoved}<Viewport data-testid="first-viewport" />{/if}
-  <Viewport data-testid="viewport"><List {indexKeys} /></Viewport>
+  {#if !viewportRemoved}<Viewport data-testid="viewport"><List {indexKeys} /></Viewport>{/if}
   <Button {onStore} />
 </Provider>

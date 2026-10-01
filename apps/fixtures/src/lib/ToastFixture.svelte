@@ -12,8 +12,8 @@
   onMount(() => { hydrated = true; });
 </script>
 <main data-hydrated={hydrated}>
-  {#if scenario === 'lifecycle' || scenario === 'lifecycle-limit' || scenario === 'lifecycle-index'}
-    <Toast.Provider toastManager={manager} limit={scenario === 'lifecycle-limit' ? 1 : 3}><ToastLifecycleContents external={manager} indexKeys={scenario === 'lifecycle-index'} /></Toast.Provider>
+  {#if scenario === 'lifecycle' || scenario === 'lifecycle-limit' || scenario === 'lifecycle-index' || scenario === 'lifecycle-geometry'}
+    <Toast.Provider toastManager={manager} limit={scenario === 'lifecycle-limit' ? 1 : 3}><ToastLifecycleContents external={manager} indexKeys={scenario === 'lifecycle-index'} narrowRoots={scenario === 'lifecycle-geometry'} /></Toast.Provider>
   {:else if scenario === 'isolation'}
     <Toast.Provider><ToastProviderContents label="first" title="First toast" /></Toast.Provider>
     <Toast.Provider><ToastProviderContents label="second" title="Second toast" /></Toast.Provider>

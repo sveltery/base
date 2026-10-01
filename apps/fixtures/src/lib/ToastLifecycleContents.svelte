@@ -2,7 +2,7 @@
   import { flushSync } from 'svelte';
   import { Toast } from '@sveltery/base';
   import type { ToastManager } from '@sveltery/base/toast';
-  let { external, indexKeys = false }: { external: ToastManager; indexKeys?: boolean } = $props();
+  let { external, indexKeys = false, narrowRoots = false }: { external: ToastManager; indexKeys?: boolean; narrowRoots?: boolean } = $props();
   const facade = Toast.getToastManager();
   let closed = $state<{ id: string; active: string | null; count: number }[]>([]);
   let removed = $state<{ id: string; present: boolean; title: string | null }[]>([]);
@@ -10,6 +10,7 @@
   let main: HTMLElement;
   let closeSuccessorOnFocus = false;
   let immediateFocusedExit = $state(false);
+  let showViewport = $state(true);
   function addNestedClose(mode: 'focused' | 'immediate' | 'unfocused' | 'all') {
     immediateFocusedExit = mode === 'immediate';
     add('a', 'Oldest'); add('b', 'Focused'); add('c', 'Middle');
@@ -35,8 +36,10 @@
       });
     }
   }
-  function addDescendantReplacement() {
+  function addDescendantReplacement(withSibling = false) {
+    if (withSibling) facade.add({ id: 'sibling', title: 'Sibling', timeout: 0, onRemove: () => {} });
     facade.add({ id: 'callback', title: 'Old', timeout: 0, actionProps: { children: 'Act' }, onClose: () => {
+      if (withSibling) facade.close('sibling');
       facade.add({ id: 'callback', title: 'Fresh', timeout: 50, priority: 'high' }); flushSync();
     } });
   }
@@ -73,6 +76,8 @@
   <button onclick={() => add('save', 'Saved')}>replace save</button>
   <button onclick={() => facade.update('save', { title: 'A notification with updated text that wraps across several lines in a narrow toast Root. '.repeat(3) })}>update save layout</button>
   <button onclick={() => add('timer', 'Timer', 50, true)}>add timer</button>
+  <button onclick={() => showViewport = false}>hide viewport</button>
+  <button onclick={() => showViewport = true}>show viewport</button>
   <button onclick={() => facade.add({ id: 'classes', title: 'Classes', timeout: 0,
     actionProps: { children: 'Act', class: { selected: true, hidden: false } } })}>add class action</button>
   <button onclick={() => facade.update('classes', { actionProps: { children: 'Act', class: ['manager', ['selected', false], { hidden: false }] } })}>array action class</button>
@@ -83,21 +88,26 @@
   <button onclick={() => addNestedClose('all')}>add nested close all</button>
   <button onclick={() => addConsumerBlur(false)}>add callback blur</button>
   <button onclick={() => addConsumerBlur(true)}>add replacement blur</button>
-  <button onclick={addDescendantReplacement}>add descendant replacement</button>
+  <button onclick={() => addDescendantReplacement()}>add descendant replacement</button>
+  <button onclick={() => addDescendantReplacement(true)}>add descendant replacement with sibling</button>
+  <button onclick={() => {
+    immediateFocusedExit = true; add('a', 'Older');
+    facade.add({ id: 'b', title: 'Closing', timeout: 0, onRemove: () => (main.ownerDocument.activeElement as HTMLElement).blur() });
+  }}>add removal blur</button>
   <button onclick={() => addFocusCascade(false)}>add focus cascade</button>
   <button onclick={() => addFocusCascade(true)}>add focus replacement</button>
   <button onclick={() => add('callback', 'Closing', 0, false, () => add('fresh', 'Fresh'))}>add callback sibling</button>
   <button onclick={() => add('callback', 'Old', 0, false, () => add('callback', 'Fresh', 50))}>add callback replacement</button>
-  <Toast.Viewport data-testid="viewport">
+  {#if showViewport}<Toast.Viewport data-testid="viewport">
     {#each facade.toasts as toast, index (indexKeys ? index : toast.id)}
-      <Toast.Root {toast} swipeDirection={[]} id={`root-${toast.id}`} data-testid="root" data-toast-id={toast.id} data-immediate-exit={immediateFocusedExit && toast.id === 'b' ? '' : undefined}
+      <Toast.Root {toast} swipeDirection={[]} id={`root-${toast.id}`} data-testid="root" data-toast-id={toast.id} style={narrowRoots ? 'width:180px' : undefined} data-immediate-exit={immediateFocusedExit && toast.id === 'b' ? '' : undefined}
         onfocus={() => { if (closeSuccessorOnFocus && toast.id === 'b') { closeSuccessorOnFocus = false; facade.close('b'); } }}>
         <Toast.Title />
         <Toast.Action class="own" data-testid="action" />
         <Toast.Close aria-label={`close ${toast.id}`} />
       </Toast.Root>
     {/each}
-  </Toast.Viewport>
+  </Toast.Viewport>{/if}
   <output data-testid="close-observations">{JSON.stringify(closed)}</output>
   <output data-testid="remove-observations">{JSON.stringify(removed)}</output>
   <output data-testid="synchronous-focus">{synchronousFocus}</output>

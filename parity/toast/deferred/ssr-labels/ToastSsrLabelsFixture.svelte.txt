@@ -1,0 +1,17 @@
+<script lang="ts">
+  import * as Toast from '../../src/lib/toast/index.js';
+  let { showTitle = true, showDescription = true, explicit = false, duplicate = false, empty = false }: {
+    showTitle?: boolean; showDescription?: boolean; explicit?: boolean; duplicate?: boolean; empty?: boolean;
+  } = $props();
+</script>
+{#each [0, 1] as provider (provider)}
+  <Toast.Provider>
+    <Toast.Viewport>
+      <Toast.Root toast={{ id: `toast-${provider}`, title: empty ? null : 'Title', description: empty ? false : 'Description' }} swipeDirection={[]} data-provider={provider}>
+        {#if showTitle}<Toast.Title id={explicit ? `title-${provider}` : undefined} />{/if}
+        {#if duplicate}<Toast.Title>Second title</Toast.Title>{/if}
+        {#if showDescription}<Toast.Description id={explicit ? `description-${provider}` : undefined} />{/if}
+      </Toast.Root>
+    </Toast.Viewport>
+  </Toast.Provider>
+{/each}
