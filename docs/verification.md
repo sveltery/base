@@ -1,4 +1,6 @@
-# Bootstrap verification evidence
+# Bootstrap verification evidence (historical checkpoint)
+
+This page preserves the initial bootstrap results, warnings, counts, and environment limitations. It is historical evidence, not a current readiness report. For current implementation and limits, see the [contained Dialog slice](dialog-first-slice.md); for current scoped port counts, see the [parity inventory](../parity/README.md) and its [manifest](../parity/manifest.json). Read [exact-commit CI](ci.md) for current check results and browser execution counts, which differ from upstream parity credit.
 
 Initial checkpoint verified on macOS arm64, Node 24.21.0 and pnpm 12.6.0, 2026-10-01. Foundation QA fixes verified on Linux x86_64, Node 24.19.0 and pnpm 12.6.0 on the same date. The Linux run used a fresh source copy with no installed dependencies or populated tool cache, starting with default pnpm 11.19.0 on PATH; unchanged bootstrap and verification entrypoints selected the pinned version themselves.
 
@@ -18,7 +20,7 @@ Initial checkpoint verified on macOS arm64, Node 24.21.0 and pnpm 12.6.0, 2026-1
 | Hydration, keyboard focus, nesting, cleanup, geometry and exit animations | NOT RUN |
 | Fresh Linux/cloud bootstrap execution with default pnpm 11 | PASS: frozen install plus complete verification selected pnpm 12.6.0 without an external launcher |
 
-`parity/manifest.json` has 633 scoped named test declarations/type assertions: 4 passing ports, 629 unported, 0 failing executed ports, 0 approved deviations. Multiline conditional declarations are included, and interpolated-template names are counted once. The scope excludes parameterized expansion and shared conformance helpers; this count is not a whole-library parity denominator. Test results do not establish Dialog or complete foundation compatibility.
+At this bootstrap checkpoint, `parity/manifest.json` had 633 scoped named test declarations/type assertions: 4 passing ports, 629 unported, 0 failing executed ports, 0 approved deviations. Multiline conditional declarations are included, and interpolated-template names are counted once. The scope excludes parameterized expansion and shared conformance helpers; this count is not a whole-library parity denominator. Test results do not establish Dialog or complete foundation compatibility.
 
 Independent source review caught first-getter mutation, initial undefined style/empty class changes, and weakened type equality; these were corrected. A tarball consumption check caught extensionless ESM imports; these were corrected. Fresh Linux review then caught custom callback payloads misclassified as DOM events, 64 omitted multiline inventory declarations, and verification losing bootstrap's Corepack fallback. These have focused regressions and fixes. Public `mergeProps` typing, real-browser event validation, and Svelte composition need further ports/review before an API guarantee.
 
