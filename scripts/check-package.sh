@@ -12,7 +12,14 @@ cmp LICENSE "$consumer_dir/node_modules/@sveltery/base/LICENSE"
 cat > "$consumer_dir/check.mjs" <<'JS'
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { createChangeEventDetails } from '@sveltery/base';
+import { createChangeEventDetails, Toast } from '@sveltery/base';
+import { createToastManager } from '@sveltery/base/toast';
+assert.equal(Toast.createToastManager, createToastManager);
+const toastManager = createToastManager();
+assert.equal(toastManager.add({ id: 'tarball', data: { value: 1 } }), 'tarball');
+const unattachedPromise = Promise.resolve('unchanged');
+assert.equal(toastManager.promise(unattachedPromise, { loading: 'Loading', success: 'Done', error: 'Failed' }), unattachedPromise);
+assert.equal('toasts' in toastManager, false);
 import { mergeProps } from '@sveltery/base/merge-props';
 assert.equal(mergeProps({ id: 'before' }, { id: 'after' }).id, 'after');
 const details = createChangeEventDetails('none');
