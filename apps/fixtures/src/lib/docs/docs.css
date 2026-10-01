@@ -404,13 +404,20 @@
   position: fixed;
   top: 8px;
   left: 12px;
-  transform: translateY(-200%);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
   z-index: 60;
-  padding: 10px 18px;
   background: white;
 }
 .docs-skip:focus {
-  transform: none;
+  clip-path: none;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  padding: 10px 18px;
 }
 @media (min-width: 1450px) {
   .docs-grid {

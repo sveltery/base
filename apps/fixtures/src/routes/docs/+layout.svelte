@@ -1,10 +1,12 @@
 <script lang="ts">
   import { base, resolve } from '$app/paths';
-  import { tick } from 'svelte';
+  import { onMount, tick } from 'svelte';
   import { page } from '$app/state';
   import { docs, groups } from '../../lib/docs/content.js';
   import '../../lib/docs/docs.css';
   let { children } = $props();
+  let hydrated = $state(false);
+  onMount(() => { hydrated = true; });
   let query = $state('');
   let menuOpen = $state(false);
   let searchInput: HTMLInputElement;
@@ -23,7 +25,7 @@
   }
 </script>
 <svelte:window onkeydown={shortcut} />
-<div class="sveltery-docs">
+<div class="sveltery-docs" data-hydrated={hydrated}>
   <a class="docs-skip" href="#docs-content">Skip to content</a>
   <header class="docs-header">
     <a class="docs-brand" href={resolve('/docs')} aria-label="Sveltery Base overview"><span class="docs-logo" aria-hidden="true">s↗</span><strong>sveltery<span> / base</span></strong></a>

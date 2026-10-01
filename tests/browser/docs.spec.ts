@@ -24,6 +24,10 @@ test('docs routes render on the server with credits and no popup DOM', async ({
 
 test('docs keyboard search, navigation and skip link', async ({ page }) => {
   await page.goto('/docs');
+  await expect(page.locator('.sveltery-docs')).toHaveAttribute(
+    'data-hydrated',
+    'true',
+  );
   await page.keyboard.press('Tab');
   await expect(
     page.getByRole('link', { name: 'Skip to content' }),
@@ -55,6 +59,10 @@ test('live Dialog retains naming, trapped keyboard focus and return focus', asyn
   page,
 }) => {
   await page.goto('/docs/components/dialog');
+  await expect(page.locator('.sveltery-docs')).toHaveAttribute(
+    'data-hydrated',
+    'true',
+  );
   const trigger = page.getByRole('button', { name: 'Explore a dialog' });
   await trigger.focus();
   await page.keyboard.press('Enter');
@@ -82,6 +90,10 @@ test('responsive docs and visual smoke artifacts', async ({
   page.on('pageerror', (error) => faults.push(error.message));
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/docs');
+  await expect(page.locator('.sveltery-docs')).toHaveAttribute(
+    'data-hydrated',
+    'true',
+  );
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     'Build on a thoughtful base.',
   );
@@ -93,6 +105,10 @@ test('responsive docs and visual smoke artifacts', async ({
   });
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/docs/components/dialog');
+  await expect(page.locator('.sveltery-docs')).toHaveAttribute(
+    'data-hydrated',
+    'true',
+  );
   await expect(
     page.getByRole('navigation', { name: 'Documentation' }),
   ).not.toBeVisible();
@@ -112,7 +128,7 @@ test('responsive docs and visual smoke artifacts', async ({
     ),
   ).toBe(true);
   const mobile = testInfo.outputPath('docs-mobile-dialog.png');
-  await page.screenshot({ path: mobile, fullPage: true });
+  await page.screenshot({ path: mobile });
   await testInfo.attach('docs-mobile-dialog', {
     path: mobile,
     contentType: 'image/png',
