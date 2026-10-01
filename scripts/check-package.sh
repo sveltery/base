@@ -52,6 +52,27 @@ assert(!output.body.includes('data-base-ui-portal'));
 assert(!output.body.includes('role="dialog"'));
 console.log('Isolated tarball Dialog SSR consumer / unique generated IDs: PASS');
 JS
+cat > "$consumer_dir/ToastConsumer.svelte" <<'SVELTE'
+<script>
+  import { Toast } from '@sveltery/base';
+  import * as Parts from '@sveltery/base/toast';
+</script>
+<Toast.Provider><Toast.Viewport><Toast.Root toast={{ id: 'first', title: 'First', description: 'Details' }} swipeDirection={[]}><Toast.Content><Toast.Title/><Toast.Description/><Toast.Close>Close</Toast.Close></Toast.Content></Toast.Root></Toast.Viewport></Toast.Provider>
+<Parts.Provider><Parts.Viewport><Parts.Root toast={{ id: 'second', title: 'Second' }} swipeDirection={[]}><Parts.Title/></Parts.Root></Parts.Viewport></Parts.Provider>
+SVELTE
+cat >> "$consumer_dir/check.mjs" <<'JS'
+const { default: ToastConsumer } = await import('./ToastConsumer.svelte');
+const toastOutput = render(ToastConsumer);
+assert.equal((toastOutput.body.match(/role="region"/g) ?? []).length, 2);
+assert.equal((toastOutput.body.match(/role="dialog"/g) ?? []).length, 2);
+assert.equal((toastOutput.body.match(/aria-live="polite"/g) ?? []).length, 2);
+const toastIds = [...toastOutput.body.matchAll(/ id="([^"]+)"/g)].map(match => match[1]);
+assert.equal(toastIds.length, 3);
+assert.equal(new Set(toastIds).size, 3);
+assert(toastIds.every(id => id.startsWith('base-ui-')));
+assert.equal(typeof Toast.getToastManager, 'function');
+console.log('Isolated tarball Toast SSR consumer / both entries / unique label IDs: PASS');
+JS
 cat > "$consumer_dir/ButtonConsumer.svelte" <<'SVELTE'
 <script>
   import { Button } from '@sveltery/base';

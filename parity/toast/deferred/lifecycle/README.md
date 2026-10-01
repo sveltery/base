@@ -1,0 +1,7 @@
+# Deferred lifecycle improvements
+
+Tracked in [#19](https://github.com/sveltery/base/issues/19). These source/test snapshots retain the proposed improvements and all their desired-behavior assertions for future work. They are not executed parity tests, passing evidence, or declaration credit. The bounded port restores the pinned React scan, per-close focus invocation, array-head height and interaction/listener policies.
+
+React 1.8.0 / React 19.3.0 / JSdom 30.1.1 executions showed nested close selection ending on c, same-ID Action removal losing focus to BODY, and conditional Viewport removal retaining its timer pause. A separate index-key isolate first explicitly focused oldest a, then completed b's exit: a's old node disconnected and focus became BODY. The unmodified nested scenario retained c throughout. Native paired probes in `tests/browser/toast-lifecycle-baseline.spec.ts` separately characterize these limitations; their final hosted evidence is recorded in PR #16.
+
+The snapshots include inherited core behavior, necessary Svelte adapters and existing port assertions for context. Their entire contents are not a proposal to change upstream. Source assertions remain executed in their normal files, including the original V:38 listener detach/rebind counts. Improvements to combined pause policy, empty window listeners, owner-focus sampling, unrelated live focus, callback additions, focus reentrancy and replacement selection need separately reviewed paired reproductions before future implementation.

@@ -1,5 +1,7 @@
 # Contained Dialog state ports
 
+Current shared inventory after the bounded Toast rendering ports: **28 passing ports / 605 unported**. Historical Dialog execution details below retain their original checkpoint context.
+
 Pinned source: Base UI v1.8.0, `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. MIT attribution: [UPSTREAM_LICENSE](UPSTREAM_LICENSE). Baseline: main `f451bf305642f887cb8d4040006456220a38b8ca`.
 
 Selected declarations: R:239/431 and C:25/55/89/118/137, where R is `packages/react/src/dialog/root/DialogRoot.test.tsx` and C is `packages/react/src/dialog/close/DialogClose.test.tsx`. All eighteen paired state-port executions and three supplements passed hosted secured Chromium in [CI run 36852954863](https://github.com/sveltery/base/actions/runs/36852954863), tested commit `82b420ecfc3bbdd1d337825b20814b25b4a9a5d5`, browser job 110338666844. Exact final-head independent review and all CI checks remain merge gates.

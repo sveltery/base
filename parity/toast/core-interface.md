@@ -1,5 +1,7 @@
 # Manager core handoff
 
+Historical core-only handoff; the subsequent bounded rendered surface and ownership contract are in [rendering-interface.md](rendering-interface.md). Original core credits are not retroactively expanded.
+
 Base: main `318020c3476523e11802d9f4b1ada96369f1641a` (PR #10). Authority: Base UI v1.8.0 `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, especially `createToastManager.ts`, `store.ts`, `useToastManager.ts`. No AGENTS.md exists in this checkout/workspace; CONTRIBUTING.md and the established parity rules apply.
 
 This slice ships actual manager/core code. It includes no Toast Provider/context accessor/rendered part or shared-overlay edit. The parent owns DOM coordination and shared manifest reconciliation. **All 196 Toast declaration placeholders remain unported; shared totals remain 15 passing / 618 unported.** The 25 retained complete cases now also execute against the actual library; their reference-only prerequisites remain independently recorded and earn zero runtime credit. This record establishes core execution evidence without claiming component/Provider parity or promoting the immutable trace.

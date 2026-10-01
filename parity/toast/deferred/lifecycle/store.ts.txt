@@ -98,14 +98,25 @@ export const selectors = {
   prevFocusElement: (state: State) => state.prevFocusElement,
 };
 
+type CloseFocusOwner = { toastId: string; node: HTMLElement; active: Element; releaseVersion: number; lifecycle: object };
+type CloseFocusIntent = {
+  toastId?: string;
+  closeAll: boolean;
+  order: readonly string[];
+  owner?: CloseFocusOwner & { registration: object };
+};
+
 export class ToastStore {
   private snapshot: State;
   private readonly listeners = new Set<() => void>();
   private readonly track = createSubscriber((update) => this.subscribe(update));
   private readonly generateId = createIdGenerator();
   private managerCleanup: (() => void) | undefined;
-  private closeFocusRegistration: { handler: (toastId?: string) => void } | undefined;
+  private closeFocusRegistration: { handler: (toastId?: string) => void; capture?: (toastId?: string) => CloseFocusOwner | undefined } | undefined;
   private disposed = false;
+  private closeDepth = 0;
+  private lifecycleCallbackVersion = 0;
+  private closeFocusIntent: CloseFocusIntent = { closeAll: false, order: [] };
 
   private readonly lifecycles = new Map<string, object>();
   private readonly removingLifecycles = new Set<object>();
@@ -162,9 +173,9 @@ export class ToastStore {
   }
 
   /** Viewport-owned DOM work runs after every onClose callback, synchronously. */
-  setCloseFocusHandler(handler: (toastId?: string) => void): () => void {
+  setCloseFocusHandler(handler: (toastId?: string) => void, capture?: (toastId?: string) => CloseFocusOwner | undefined): () => void {
     if (this.disposed) return () => {};
-    const registration = { handler };
+    const registration = { handler, capture };
     this.closeFocusRegistration = registration;
     return () => {
       if (this.closeFocusRegistration === registration) this.closeFocusRegistration = undefined;
@@ -175,6 +186,10 @@ export class ToastStore {
   getCloseFocusRegistration(): object | undefined {
     return this.disposed ? undefined : this.closeFocusRegistration;
   }
+
+  /** New nested requests retain their policy through recursive close callbacks. */
+  getCloseFocusIntent(): Readonly<CloseFocusIntent> { return this.closeFocusIntent; }
+  getLifecycleCallbackVersion(): number { return this.lifecycleCallbackVersion; }
 
   /** Final Provider teardown. No callbacks fire and pending settlements cannot write. */
   dispose = () => {
@@ -232,7 +247,10 @@ export class ToastStore {
     try {
       // Match upstream: the callback can still read the toast, and a thrown
       // callback prevents removal. Only recursive removal of this lifecycle is blocked.
-      if (!skipOnRemove) toast.onRemove?.();
+      if (!skipOnRemove && toast.onRemove) {
+        this.lifecycleCallbackVersion += 1;
+        toast.onRemove();
+      }
       // The callback may dispose, add other toasts, or replace this ending ID.
       // Re-read state and remove only the lifecycle whose callback just ran.
       if (this.disposed || this.lifecycles.get(toastId) !== lifecycle) return;
@@ -391,23 +409,40 @@ export class ToastStore {
       this.clearTimer(toastId);
     }
 
-    const endingToasts = toasts.map((item) =>
-      closeAll || item.id === toastId
-        ? { ...item, transitionStatus: 'ending' as const, height: 0 }
-        : item,
-    );
-    const newToasts = applyLimited(endingToasts, limit);
-    this.setToasts(newToasts, !newToasts.some((toast) => toast.transitionStatus !== 'ending'));
+    const registration = this.closeFocusRegistration;
+    const owner = registration?.capture?.(toastId);
+    const previousIntent = this.closeFocusIntent;
+    this.closeFocusIntent = {
+      toastId: this.closeDepth === 0 ? toastId : previousIntent.toastId,
+      order: this.closeDepth === 0 || owner ? toasts.map(toast => toast.id) : previousIntent.order,
+      closeAll: closeAll || (this.closeDepth > 0 && previousIntent.closeAll),
+      owner: owner && registration ? { ...owner, registration }
+        : this.closeDepth > 0 ? previousIntent.owner : undefined,
+    };
+    this.closeDepth += 1;
+    try {
+      const endingToasts = toasts.map((item) =>
+        closeAll || item.id === toastId
+          ? { ...item, transitionStatus: 'ending' as const, height: 0 }
+          : item,
+      );
+      const newToasts = applyLimited(endingToasts, limit);
+      this.setToasts(newToasts, !newToasts.some((toast) => toast.transitionStatus !== 'ending'));
 
-    toastsToClose.forEach((toast) => {
-      if (toast.transitionStatus !== 'ending') {
-        toast.onClose?.();
-      }
-    });
-
-    // Callbacks may replace the viewport, move focus, add toasts, or dispose.
-    // Read the current registration only after the complete callback loop.
-    if (!this.disposed) this.closeFocusRegistration?.handler(toastId);
+      toastsToClose.forEach((toast) => {
+        if (toast.transitionStatus !== 'ending') {
+          if (toast.onClose) {
+            this.lifecycleCallbackVersion += 1;
+            toast.onClose();
+          }
+        }
+      });
+      // Retain transaction ownership through the rendering commit as well:
+      // onRemove may close another toast while Viewport flushes pending Roots.
+      if (!this.disposed && this.closeDepth === 1) this.closeFocusRegistration?.handler(toastId);
+    } finally {
+      this.closeDepth -= 1;
+    }
   };
 
   promiseToast = <Value, Data extends object>(

@@ -1,0 +1,340 @@
+{
+  "upstream": {
+    "repository": "https://github.com/mui/base-ui",
+    "tag": "v1.8.0",
+    "commit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+    "license": "MIT",
+    "notice": "UPSTREAM_LICENSE"
+  },
+  "scope": "13 complete declaration ports with paired React/Svelte secured hosted browser assertions. Source trace placeholders remain immutable; supplements and other DOM/core evidence earn no additional shared credit.",
+  "status": "passing-hosted-browser",
+  "port": "tests/browser/toast.spec.ts",
+  "adaptations": "parity/toast/rendering-ports.md",
+  "fixtures": [
+    "apps/fixtures/src/lib/ToastFixture.svelte",
+    "apps/fixtures/src/lib/ToastContents.svelte",
+    "apps/fixtures/src/lib/ToastProviderContents.svelte",
+    "apps/fixtures/src/lib/toast-reference.ts"
+  ],
+  "cases": [
+    {
+      "sourceId": "packages/react/src/toast/createToastManager.test.tsx:15",
+      "title": "adds a toast",
+      "sourceBodySha256": "bca37bd40b2c7547f7ba3d5484ae1662612ecebb54e737bf436fff3a121c27df",
+      "assertionLines": [
+        41,
+        46,
+        50
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "scenario": "manager-add",
+      "executions": [
+        "M:15 Svelte Toast manager-add",
+        "M:15 React reference Toast manager-add"
+      ],
+      "status": "passing",
+      "upstreamGuards": [
+        "describe.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
+    },
+    {
+      "sourceId": "packages/react/src/toast/createToastManager.test.tsx:63",
+      "title": "upserts a toast when adding with an existing id",
+      "sourceBodySha256": "bf4dad26c89b54a50cbfa3ea8d60284a36f84e984b607875509bd06c5052c600",
+      "assertionLines": [
+        110,
+        111,
+        117,
+        118,
+        119,
+        120,
+        123,
+        126
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "scenario": "manager-upsert",
+      "executions": [
+        "M:63 Svelte Toast manager-upsert",
+        "M:63 React reference Toast manager-upsert"
+      ],
+      "status": "passing",
+      "upstreamGuards": [
+        "describe.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
+    },
+    {
+      "sourceId": "packages/react/src/toast/useToastManager.test.tsx:21",
+      "title": "adds a toast to the viewport that auto-dismisses after 5s by default",
+      "sourceBodySha256": "79f0b7bc3e63d10a7e891d6cc268616d6f1eb002633aa7ba64aa6b93f0ecfcd2",
+      "assertionLines": [
+        49,
+        53
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "scenario": "add",
+      "executions": [
+        "U:21 Svelte Toast add",
+        "U:21 React reference Toast add"
+      ],
+      "status": "passing",
+      "upstreamGuards": [
+        "describe.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
+    },
+    {
+      "sourceId": "packages/react/src/toast/useToastManager.test.tsx:56",
+      "title": "keeps multiple providers isolated when one provider updates",
+      "sourceBodySha256": "869f7ad92b72031588d42c2b397f6da871524910aacb4e7d14c95367dbb73e65",
+      "assertionLines": [
+        108,
+        109,
+        113,
+        114,
+        115
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "scenario": "isolation",
+      "executions": [
+        "U:56 Svelte Toast isolation",
+        "U:56 React reference Toast isolation"
+      ],
+      "status": "passing",
+      "upstreamGuards": [
+        "describe.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
+    },
+    {
+      "sourceId": "packages/react/src/toast/useToastManager.test.tsx:1697",
+      "title": "closes a toast",
+      "sourceBodySha256": "0a27beb1f2a1a968c76084081e057e219f2fe643cd294a6d0767b3cb454614b5",
+      "assertionLines": [
+        1735,
+        1740
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "scenario": "close",
+      "executions": [
+        "U:1697 Svelte Toast close",
+        "U:1697 React reference Toast close"
+      ],
+      "status": "passing",
+      "upstreamGuards": [
+        "describe.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
+    },
+    {
+      "sourceId": "packages/react/src/toast/useToastManager.test.tsx:1743",
+      "title": "closes all toasts",
+      "sourceBodySha256": "455eb7b67e9248004e547e657887ba8819a177cf8b9d9290cf6ea34022ea8ae3",
+      "assertionLines": [
+        1780,
+        1785
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "scenario": "close-all",
+      "executions": [
+        "U:1743 Svelte Toast close-all",
+        "U:1743 React reference Toast close-all"
+      ],
+      "status": "passing",
+      "upstreamGuards": [
+        "describe.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
+    },
+    {
+      "sourceId": "packages/react/src/toast/useToastManager.test.tsx:1794",
+      "title": "applies a changed timeout to toasts added afterwards",
+      "sourceBodySha256": "157f0ccd19f4181fc90f4bcda1dbcf6974b3290b9a6b145e2bfdb12eae9a2a78",
+      "assertionLines": [
+        1818,
+        1821
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "scenario": "timeout-sync",
+      "executions": [
+        "U:1794 Svelte Toast timeout-sync",
+        "U:1794 React reference Toast timeout-sync"
+      ],
+      "status": "passing",
+      "upstreamGuards": [
+        "describe.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
+    },
+    {
+      "sourceId": "packages/react/src/toast/useToastManager.test.tsx:1853",
+      "title": "marks toasts as limited when the limit is exceeded",
+      "sourceBodySha256": "b4140682d1c2e484357ac9510561957d39beac467da3a71da05612c452cb6802",
+      "assertionLines": [
+        1866,
+        1870,
+        1874,
+        1875
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "scenario": "limit",
+      "executions": [
+        "U:1853 Svelte Toast limit",
+        "U:1853 React reference Toast limit"
+      ],
+      "status": "passing",
+      "upstreamGuards": [
+        "describe.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
+    },
+    {
+      "sourceId": "packages/react/src/toast/useToastManager.test.tsx:1878",
+      "title": "unmarks toasts as limited when the limit is not exceeded",
+      "sourceBodySha256": "992ca2fe26b369d8e385d39adc0138128990ac059901b1153582fb742c4c725f",
+      "assertionLines": [
+        1891,
+        1895,
+        1899,
+        1904
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "scenario": "unlimit",
+      "executions": [
+        "U:1878 Svelte Toast unlimit",
+        "U:1878 React reference Toast unlimit"
+      ],
+      "status": "passing",
+      "upstreamGuards": [
+        "describe.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
+    },
+    {
+      "sourceId": "packages/react/src/toast/useToastManager.test.tsx:1907",
+      "title": "preserves limited state when upserting a limited toast",
+      "sourceBodySha256": "0aafcd16f198fbc75787b684191f66b75c995e51a7d51afe41ed8b32a3d9d44f",
+      "assertionLines": [
+        1953,
+        1956,
+        1957,
+        1961,
+        1962
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "scenario": "limited-upsert",
+      "executions": [
+        "U:1907 Svelte Toast limited-upsert",
+        "U:1907 React reference Toast limited-upsert"
+      ],
+      "status": "passing",
+      "upstreamGuards": [
+        "describe.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
+    },
+    {
+      "sourceId": "packages/react/src/toast/useToastManager.test.tsx:1965",
+      "title": "recomputes limited toasts when the limit prop changes",
+      "sourceBodySha256": "764df80a6a63c3c50b6303da6af6f590438064c99e07da9c5088826eab7b4c1a",
+      "assertionLines": [
+        1985,
+        1986,
+        1990,
+        1994
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "scenario": "limit-sync",
+      "executions": [
+        "U:1965 Svelte Toast limit-sync",
+        "U:1965 React reference Toast limit-sync"
+      ],
+      "status": "passing",
+      "upstreamGuards": [
+        "describe.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
+    },
+    {
+      "sourceId": "packages/react/src/toast/root/ToastRoot.test.tsx:97",
+      "title": "sets the vertical offset CSS variable",
+      "sourceBodySha256": "acd95f2af0e8b30072e1467c2f1269f17656931b08d33a6df2294b7ca1f88b51",
+      "assertionLines": [
+        109
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "scenario": "offset",
+      "executions": [
+        "R:97 Svelte Toast offset",
+        "R:97 React reference Toast offset"
+      ],
+      "status": "passing",
+      "upstreamGuards": [],
+      "sourceConditions": []
+    },
+    {
+      "sourceId": "packages/react/src/toast/root/ToastRoot.test.tsx:112",
+      "title": "keeps dynamic title and description ids synchronized with mounted label parts",
+      "sourceBodySha256": "ba7dca7e331f18df084e26a3fe2b58965e403649e34fdbc4a748947b54e75144",
+      "assertionLines": [
+        152,
+        153,
+        156,
+        157,
+        158,
+        159,
+        162,
+        163,
+        166,
+        167,
+        168,
+        169
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "scenario": "labels",
+      "executions": [
+        "R:112 Svelte Toast labels",
+        "R:112 React reference Toast labels"
+      ],
+      "status": "passing",
+      "upstreamGuards": [],
+      "sourceConditions": []
+    }
+  ],
+  "evidence": {
+    "testedCommit": "899601feba876871e6389de7f9b6f6dde92639be",
+    "workflowRun": "https://github.com/sveltery/base/actions/runs/36905558079",
+    "browserJob": 110515087325,
+    "browserTests": 228,
+    "toastTests": 39,
+    "baselineCommit": "de6b35688d23c818dd240e9b73eee6bce53e0490",
+    "baselineBrowserTests": 189
+  }
+}

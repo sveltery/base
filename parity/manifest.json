@@ -3433,8 +3433,36 @@
       "source": "packages/react/src/toast/createToastManager.test.tsx",
       "line": 15,
       "name": "adds a toast",
-      "status": "unported",
-      "port": null
+      "status": "passing",
+      "port": "tests/browser/toast.spec.ts",
+      "sourceId": "packages/react/src/toast/createToastManager.test.tsx:15",
+      "sourceBodySha256": "bca37bd40b2c7547f7ba3d5484ae1662612ecebb54e737bf436fff3a121c27df",
+      "assertionLines": [
+        41,
+        46,
+        50
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "scenario": "manager-add",
+      "adaptations": "parity/toast/rendering-ports.md",
+      "fixtures": [
+        "apps/fixtures/src/lib/ToastFixture.svelte",
+        "apps/fixtures/src/lib/ToastContents.svelte",
+        "apps/fixtures/src/lib/ToastProviderContents.svelte",
+        "apps/fixtures/src/lib/toast-reference.ts"
+      ],
+      "evidence": {
+        "testedCommit": "899601feba876871e6389de7f9b6f6dde92639be",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36905558079",
+        "browserJob": 110515087325,
+        "executions": [
+          "M:15 Svelte Toast manager-add",
+          "M:15 React reference Toast manager-add"
+        ]
+      },
+      "verification": "Complete paired secured Chromium source assertions passed at 68feaa1e1842e5345e455cdc575af59b2b44078e, CI run36896190352; final-head checks/review remain merge gates."
     },
     {
       "source": "packages/react/src/toast/createToastManager.test.tsx",
@@ -3447,8 +3475,41 @@
       "source": "packages/react/src/toast/createToastManager.test.tsx",
       "line": 63,
       "name": "upserts a toast when adding with an existing id",
-      "status": "unported",
-      "port": null
+      "status": "passing",
+      "port": "tests/browser/toast.spec.ts",
+      "sourceId": "packages/react/src/toast/createToastManager.test.tsx:63",
+      "sourceBodySha256": "bf4dad26c89b54a50cbfa3ea8d60284a36f84e984b607875509bd06c5052c600",
+      "assertionLines": [
+        110,
+        111,
+        117,
+        118,
+        119,
+        120,
+        123,
+        126
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "scenario": "manager-upsert",
+      "adaptations": "parity/toast/rendering-ports.md",
+      "fixtures": [
+        "apps/fixtures/src/lib/ToastFixture.svelte",
+        "apps/fixtures/src/lib/ToastContents.svelte",
+        "apps/fixtures/src/lib/ToastProviderContents.svelte",
+        "apps/fixtures/src/lib/toast-reference.ts"
+      ],
+      "evidence": {
+        "testedCommit": "899601feba876871e6389de7f9b6f6dde92639be",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36905558079",
+        "browserJob": 110515087325,
+        "executions": [
+          "M:63 Svelte Toast manager-upsert",
+          "M:63 React reference Toast manager-upsert"
+        ]
+      },
+      "verification": "Complete paired secured Chromium source assertions passed at 68feaa1e1842e5345e455cdc575af59b2b44078e, CI run36896190352; final-head checks/review remain merge gates."
     },
     {
       "source": "packages/react/src/toast/createToastManager.test.tsx",
@@ -3657,15 +3718,78 @@
       "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
       "line": 97,
       "name": "sets the vertical offset CSS variable",
-      "status": "unported",
-      "port": null
+      "status": "passing",
+      "port": "tests/browser/toast.spec.ts",
+      "sourceId": "packages/react/src/toast/root/ToastRoot.test.tsx:97",
+      "sourceBodySha256": "acd95f2af0e8b30072e1467c2f1269f17656931b08d33a6df2294b7ca1f88b51",
+      "assertionLines": [
+        109
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "scenario": "offset",
+      "adaptations": "parity/toast/rendering-ports.md",
+      "fixtures": [
+        "apps/fixtures/src/lib/ToastFixture.svelte",
+        "apps/fixtures/src/lib/ToastContents.svelte",
+        "apps/fixtures/src/lib/ToastProviderContents.svelte",
+        "apps/fixtures/src/lib/toast-reference.ts"
+      ],
+      "evidence": {
+        "testedCommit": "899601feba876871e6389de7f9b6f6dde92639be",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36905558079",
+        "browserJob": 110515087325,
+        "executions": [
+          "R:97 Svelte Toast offset",
+          "R:97 React reference Toast offset"
+        ]
+      },
+      "verification": "Complete paired secured Chromium source assertions passed at 68feaa1e1842e5345e455cdc575af59b2b44078e, CI run36896190352; final-head checks/review remain merge gates."
     },
     {
       "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
       "line": 112,
       "name": "keeps dynamic title and description ids synchronized with mounted label parts",
-      "status": "unported",
-      "port": null
+      "status": "passing",
+      "port": "tests/browser/toast.spec.ts",
+      "sourceId": "packages/react/src/toast/root/ToastRoot.test.tsx:112",
+      "sourceBodySha256": "ba7dca7e331f18df084e26a3fe2b58965e403649e34fdbc4a748947b54e75144",
+      "assertionLines": [
+        152,
+        153,
+        156,
+        157,
+        158,
+        159,
+        162,
+        163,
+        166,
+        167,
+        168,
+        169
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "scenario": "labels",
+      "adaptations": "parity/toast/rendering-ports.md",
+      "fixtures": [
+        "apps/fixtures/src/lib/ToastFixture.svelte",
+        "apps/fixtures/src/lib/ToastContents.svelte",
+        "apps/fixtures/src/lib/ToastProviderContents.svelte",
+        "apps/fixtures/src/lib/toast-reference.ts"
+      ],
+      "evidence": {
+        "testedCommit": "899601feba876871e6389de7f9b6f6dde92639be",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36905558079",
+        "browserJob": 110515087325,
+        "executions": [
+          "R:112 Svelte Toast labels",
+          "R:112 React reference Toast labels"
+        ]
+      },
+      "verification": "Complete paired secured Chromium source assertions passed at 68feaa1e1842e5345e455cdc575af59b2b44078e, CI run36896190352; final-head checks/review remain merge gates."
     },
     {
       "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
@@ -4182,15 +4306,72 @@
       "source": "packages/react/src/toast/useToastManager.test.tsx",
       "line": 21,
       "name": "adds a toast to the viewport that auto-dismisses after 5s by default",
-      "status": "unported",
-      "port": null
+      "status": "passing",
+      "port": "tests/browser/toast.spec.ts",
+      "sourceId": "packages/react/src/toast/useToastManager.test.tsx:21",
+      "sourceBodySha256": "79f0b7bc3e63d10a7e891d6cc268616d6f1eb002633aa7ba64aa6b93f0ecfcd2",
+      "assertionLines": [
+        49,
+        53
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "scenario": "add",
+      "adaptations": "parity/toast/rendering-ports.md",
+      "fixtures": [
+        "apps/fixtures/src/lib/ToastFixture.svelte",
+        "apps/fixtures/src/lib/ToastContents.svelte",
+        "apps/fixtures/src/lib/ToastProviderContents.svelte",
+        "apps/fixtures/src/lib/toast-reference.ts"
+      ],
+      "evidence": {
+        "testedCommit": "899601feba876871e6389de7f9b6f6dde92639be",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36905558079",
+        "browserJob": 110515087325,
+        "executions": [
+          "U:21 Svelte Toast add",
+          "U:21 React reference Toast add"
+        ]
+      },
+      "verification": "Complete paired secured Chromium source assertions passed at 68feaa1e1842e5345e455cdc575af59b2b44078e, CI run36896190352; final-head checks/review remain merge gates."
     },
     {
       "source": "packages/react/src/toast/useToastManager.test.tsx",
       "line": 56,
       "name": "keeps multiple providers isolated when one provider updates",
-      "status": "unported",
-      "port": null
+      "status": "passing",
+      "port": "tests/browser/toast.spec.ts",
+      "sourceId": "packages/react/src/toast/useToastManager.test.tsx:56",
+      "sourceBodySha256": "869f7ad92b72031588d42c2b397f6da871524910aacb4e7d14c95367dbb73e65",
+      "assertionLines": [
+        108,
+        109,
+        113,
+        114,
+        115
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "scenario": "isolation",
+      "adaptations": "parity/toast/rendering-ports.md",
+      "fixtures": [
+        "apps/fixtures/src/lib/ToastFixture.svelte",
+        "apps/fixtures/src/lib/ToastContents.svelte",
+        "apps/fixtures/src/lib/ToastProviderContents.svelte",
+        "apps/fixtures/src/lib/toast-reference.ts"
+      ],
+      "evidence": {
+        "testedCommit": "899601feba876871e6389de7f9b6f6dde92639be",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36905558079",
+        "browserJob": 110515087325,
+        "executions": [
+          "U:56 Svelte Toast isolation",
+          "U:56 React reference Toast isolation"
+        ]
+      },
+      "verification": "Complete paired secured Chromium source assertions passed at 68feaa1e1842e5345e455cdc575af59b2b44078e, CI run36896190352; final-head checks/review remain merge gates."
     },
     {
       "source": "packages/react/src/toast/useToastManager.test.tsx",
@@ -4420,50 +4601,248 @@
       "source": "packages/react/src/toast/useToastManager.test.tsx",
       "line": 1697,
       "name": "closes a toast",
-      "status": "unported",
-      "port": null
+      "status": "passing",
+      "port": "tests/browser/toast.spec.ts",
+      "sourceId": "packages/react/src/toast/useToastManager.test.tsx:1697",
+      "sourceBodySha256": "0a27beb1f2a1a968c76084081e057e219f2fe643cd294a6d0767b3cb454614b5",
+      "assertionLines": [
+        1735,
+        1740
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "scenario": "close",
+      "adaptations": "parity/toast/rendering-ports.md",
+      "fixtures": [
+        "apps/fixtures/src/lib/ToastFixture.svelte",
+        "apps/fixtures/src/lib/ToastContents.svelte",
+        "apps/fixtures/src/lib/ToastProviderContents.svelte",
+        "apps/fixtures/src/lib/toast-reference.ts"
+      ],
+      "evidence": {
+        "testedCommit": "899601feba876871e6389de7f9b6f6dde92639be",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36905558079",
+        "browserJob": 110515087325,
+        "executions": [
+          "U:1697 Svelte Toast close",
+          "U:1697 React reference Toast close"
+        ]
+      },
+      "verification": "Complete paired secured Chromium source assertions passed at 68feaa1e1842e5345e455cdc575af59b2b44078e, CI run36896190352; final-head checks/review remain merge gates."
     },
     {
       "source": "packages/react/src/toast/useToastManager.test.tsx",
       "line": 1743,
       "name": "closes all toasts",
-      "status": "unported",
-      "port": null
+      "status": "passing",
+      "port": "tests/browser/toast.spec.ts",
+      "sourceId": "packages/react/src/toast/useToastManager.test.tsx:1743",
+      "sourceBodySha256": "455eb7b67e9248004e547e657887ba8819a177cf8b9d9290cf6ea34022ea8ae3",
+      "assertionLines": [
+        1780,
+        1785
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "scenario": "close-all",
+      "adaptations": "parity/toast/rendering-ports.md",
+      "fixtures": [
+        "apps/fixtures/src/lib/ToastFixture.svelte",
+        "apps/fixtures/src/lib/ToastContents.svelte",
+        "apps/fixtures/src/lib/ToastProviderContents.svelte",
+        "apps/fixtures/src/lib/toast-reference.ts"
+      ],
+      "evidence": {
+        "testedCommit": "899601feba876871e6389de7f9b6f6dde92639be",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36905558079",
+        "browserJob": 110515087325,
+        "executions": [
+          "U:1743 Svelte Toast close-all",
+          "U:1743 React reference Toast close-all"
+        ]
+      },
+      "verification": "Complete paired secured Chromium source assertions passed at 68feaa1e1842e5345e455cdc575af59b2b44078e, CI run36896190352; final-head checks/review remain merge gates."
     },
     {
       "source": "packages/react/src/toast/useToastManager.test.tsx",
       "line": 1794,
       "name": "applies a changed timeout to toasts added afterwards",
-      "status": "unported",
-      "port": null
+      "status": "passing",
+      "port": "tests/browser/toast.spec.ts",
+      "sourceId": "packages/react/src/toast/useToastManager.test.tsx:1794",
+      "sourceBodySha256": "157f0ccd19f4181fc90f4bcda1dbcf6974b3290b9a6b145e2bfdb12eae9a2a78",
+      "assertionLines": [
+        1818,
+        1821
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "scenario": "timeout-sync",
+      "adaptations": "parity/toast/rendering-ports.md",
+      "fixtures": [
+        "apps/fixtures/src/lib/ToastFixture.svelte",
+        "apps/fixtures/src/lib/ToastContents.svelte",
+        "apps/fixtures/src/lib/ToastProviderContents.svelte",
+        "apps/fixtures/src/lib/toast-reference.ts"
+      ],
+      "evidence": {
+        "testedCommit": "899601feba876871e6389de7f9b6f6dde92639be",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36905558079",
+        "browserJob": 110515087325,
+        "executions": [
+          "U:1794 Svelte Toast timeout-sync",
+          "U:1794 React reference Toast timeout-sync"
+        ]
+      },
+      "verification": "Complete paired secured Chromium source assertions passed at 68feaa1e1842e5345e455cdc575af59b2b44078e, CI run36896190352; final-head checks/review remain merge gates."
     },
     {
       "source": "packages/react/src/toast/useToastManager.test.tsx",
       "line": 1853,
       "name": "marks toasts as limited when the limit is exceeded",
-      "status": "unported",
-      "port": null
+      "status": "passing",
+      "port": "tests/browser/toast.spec.ts",
+      "sourceId": "packages/react/src/toast/useToastManager.test.tsx:1853",
+      "sourceBodySha256": "b4140682d1c2e484357ac9510561957d39beac467da3a71da05612c452cb6802",
+      "assertionLines": [
+        1866,
+        1870,
+        1874,
+        1875
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "scenario": "limit",
+      "adaptations": "parity/toast/rendering-ports.md",
+      "fixtures": [
+        "apps/fixtures/src/lib/ToastFixture.svelte",
+        "apps/fixtures/src/lib/ToastContents.svelte",
+        "apps/fixtures/src/lib/ToastProviderContents.svelte",
+        "apps/fixtures/src/lib/toast-reference.ts"
+      ],
+      "evidence": {
+        "testedCommit": "899601feba876871e6389de7f9b6f6dde92639be",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36905558079",
+        "browserJob": 110515087325,
+        "executions": [
+          "U:1853 Svelte Toast limit",
+          "U:1853 React reference Toast limit"
+        ]
+      },
+      "verification": "Complete paired secured Chromium source assertions passed at 68feaa1e1842e5345e455cdc575af59b2b44078e, CI run36896190352; final-head checks/review remain merge gates."
     },
     {
       "source": "packages/react/src/toast/useToastManager.test.tsx",
       "line": 1878,
       "name": "unmarks toasts as limited when the limit is not exceeded",
-      "status": "unported",
-      "port": null
+      "status": "passing",
+      "port": "tests/browser/toast.spec.ts",
+      "sourceId": "packages/react/src/toast/useToastManager.test.tsx:1878",
+      "sourceBodySha256": "992ca2fe26b369d8e385d39adc0138128990ac059901b1153582fb742c4c725f",
+      "assertionLines": [
+        1891,
+        1895,
+        1899,
+        1904
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "scenario": "unlimit",
+      "adaptations": "parity/toast/rendering-ports.md",
+      "fixtures": [
+        "apps/fixtures/src/lib/ToastFixture.svelte",
+        "apps/fixtures/src/lib/ToastContents.svelte",
+        "apps/fixtures/src/lib/ToastProviderContents.svelte",
+        "apps/fixtures/src/lib/toast-reference.ts"
+      ],
+      "evidence": {
+        "testedCommit": "899601feba876871e6389de7f9b6f6dde92639be",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36905558079",
+        "browserJob": 110515087325,
+        "executions": [
+          "U:1878 Svelte Toast unlimit",
+          "U:1878 React reference Toast unlimit"
+        ]
+      },
+      "verification": "Complete paired secured Chromium source assertions passed at 68feaa1e1842e5345e455cdc575af59b2b44078e, CI run36896190352; final-head checks/review remain merge gates."
     },
     {
       "source": "packages/react/src/toast/useToastManager.test.tsx",
       "line": 1907,
       "name": "preserves limited state when upserting a limited toast",
-      "status": "unported",
-      "port": null
+      "status": "passing",
+      "port": "tests/browser/toast.spec.ts",
+      "sourceId": "packages/react/src/toast/useToastManager.test.tsx:1907",
+      "sourceBodySha256": "0aafcd16f198fbc75787b684191f66b75c995e51a7d51afe41ed8b32a3d9d44f",
+      "assertionLines": [
+        1953,
+        1956,
+        1957,
+        1961,
+        1962
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "scenario": "limited-upsert",
+      "adaptations": "parity/toast/rendering-ports.md",
+      "fixtures": [
+        "apps/fixtures/src/lib/ToastFixture.svelte",
+        "apps/fixtures/src/lib/ToastContents.svelte",
+        "apps/fixtures/src/lib/ToastProviderContents.svelte",
+        "apps/fixtures/src/lib/toast-reference.ts"
+      ],
+      "evidence": {
+        "testedCommit": "899601feba876871e6389de7f9b6f6dde92639be",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36905558079",
+        "browserJob": 110515087325,
+        "executions": [
+          "U:1907 Svelte Toast limited-upsert",
+          "U:1907 React reference Toast limited-upsert"
+        ]
+      },
+      "verification": "Complete paired secured Chromium source assertions passed at 68feaa1e1842e5345e455cdc575af59b2b44078e, CI run36896190352; final-head checks/review remain merge gates."
     },
     {
       "source": "packages/react/src/toast/useToastManager.test.tsx",
       "line": 1965,
       "name": "recomputes limited toasts when the limit prop changes",
-      "status": "unported",
-      "port": null
+      "status": "passing",
+      "port": "tests/browser/toast.spec.ts",
+      "sourceId": "packages/react/src/toast/useToastManager.test.tsx:1965",
+      "sourceBodySha256": "764df80a6a63c3c50b6303da6af6f590438064c99e07da9c5088826eab7b4c1a",
+      "assertionLines": [
+        1985,
+        1986,
+        1990,
+        1994
+      ],
+      "fixtureVariants": [
+        {}
+      ],
+      "scenario": "limit-sync",
+      "adaptations": "parity/toast/rendering-ports.md",
+      "fixtures": [
+        "apps/fixtures/src/lib/ToastFixture.svelte",
+        "apps/fixtures/src/lib/ToastContents.svelte",
+        "apps/fixtures/src/lib/ToastProviderContents.svelte",
+        "apps/fixtures/src/lib/toast-reference.ts"
+      ],
+      "evidence": {
+        "testedCommit": "899601feba876871e6389de7f9b6f6dde92639be",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36905558079",
+        "browserJob": 110515087325,
+        "executions": [
+          "U:1965 Svelte Toast limit-sync",
+          "U:1965 React reference Toast limit-sync"
+        ]
+      },
+      "verification": "Complete paired secured Chromium source assertions passed at 68feaa1e1842e5345e455cdc575af59b2b44078e, CI run36896190352; final-head checks/review remain merge gates."
     },
     {
       "source": "packages/react/src/toast/useToastManager.test.tsx",
