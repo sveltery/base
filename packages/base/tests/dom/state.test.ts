@@ -25,7 +25,7 @@ for (const scenario of ['ownership', 'missing', 'native', 'custom', 'undefined',
     expect(button('Trigger 2').getAttribute('aria-expanded')).toBe('false');
     expect(button('Trigger 2').hasAttribute('aria-controls')).toBe(false);
   } else if (scenario === 'missing') {
-    await click('Imperative close');
+    (document.querySelector('main') as HTMLElement & { closeDialog: () => void }).closeDialog(); await settle();
     expect(calls()).toHaveLength(1);
     expect(calls()[0].open).toBe(false);
     expect(calls()[0].reason).toBe('imperative-action');

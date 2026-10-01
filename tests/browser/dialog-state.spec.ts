@@ -31,7 +31,7 @@ for (const reference of [false, true]) {
           await expect(second).not.toHaveAttribute('aria-controls'); // :272
         } else if (scenario === 'missing') {
           await expect(popup).toBeVisible();
-          await control(page, 'Imperative close');
+          await page.locator('main').evaluate((node: HTMLElement & { closeDialog: () => void }) => node.closeDialog());
           const requests = await calls(page);
           expect(requests).toHaveLength(1); // :453
           expect(requests[0].open).toBe(false); // :454

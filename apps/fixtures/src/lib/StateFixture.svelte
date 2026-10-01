@@ -22,16 +22,20 @@
     calls.push({ open, reason: details.reason, trigger: details.trigger?.id ?? null, triggerIsUndefined: details.trigger === undefined });
     if (scenario === 'controlled') observe('consumer', open, details);
   }
+  function attachActions(node: HTMLElement) {
+    const host = node as HTMLElement & { closeDialog?: () => void };
+    host.closeDialog = () => actions?.close();
+    return () => { delete host.closeDialog; };
+  }
   onMount(() => { hydrated = true; });
 </script>
-<main data-hydrated={hydrated}>
+<main data-hydrated={hydrated} {@attach attachActions}>
   {#if scenario === 'controlled'}
     <button onclick={() => { owner = true; }}>Owner open</button>
     <button onclick={() => { owner = false; }}>Owner close</button>
     <button onclick={() => { cancel = !cancel; }}>Toggle cancel</button>
     <button onclick={() => { controlled = false; }}>Release control</button>
   {/if}
-  {#if scenario === 'missing'}<button onclick={() => actions?.close()}>Imperative close</button>{/if}
   <Dialog.Root modal={scenario === 'native' || scenario === 'custom' || scenario === 'undefined' ? true : false}
     defaultOpen={scenario === 'missing' || scenario === 'prevent'}
     defaultTriggerId={scenario === 'missing' ? 'missing-trigger' : undefined}

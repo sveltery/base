@@ -9,8 +9,12 @@ export function mountStateReference(node: HTMLElement, scenario: string) {
     const actions = useRef<Dialog.Root.Actions>(null);
     const [calls, setCalls] = useState<{ open: boolean; reason: string; trigger: string | null; triggerIsUndefined: boolean }[]>([]);
     const [clicks, setClicks] = useState(0);
-    return h('main', { 'data-hydrated': 'true' },
-      scenario === 'missing' ? h('button', { onClick: () => actions.current?.close() }, 'Imperative close') : null,
+    return h('main', { 'data-hydrated': 'true', ref: node => {
+      if (!node) return;
+      const host = node as HTMLElement & { closeDialog?: () => void };
+      host.closeDialog = () => actions.current?.close();
+      return () => { delete host.closeDialog; };
+    } },
       h(Dialog.Root, {
         modal: ['native', 'custom', 'undefined'].includes(scenario),
         defaultOpen: scenario === 'missing' || scenario === 'prevent',
