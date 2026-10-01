@@ -36,7 +36,7 @@
       target,
       context,
       props: {
-        internal: { id: `base-ui-${generated}`, 'data-base-ui-portal': '' },
+        internal: { id: generated, 'data-base-ui-portal': '' },
         get props() { return props; },
         get render() { return render; },
         get ref() { return ref; },
