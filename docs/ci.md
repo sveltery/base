@@ -6,7 +6,7 @@
 
 Jobs use Ubuntu 24.04, Node 24.x and pnpm 12.6.0. GitHub Actions are pinned to full commit SHAs; version comments identify the reviewed releases. Update pins in a reviewed PR. All jobs have `contents: read` permissions, a 15-minute timeout and cancellation of older runs for the same PR/ref. Checkout does not persist credentials. There are no secrets, deployments, writable tokens or `pull_request_target` code execution.
 
-No browser job is included at this checkpoint. Add one only with a real component harness, installed browser dependencies and non-empty behavior assertions. Component changes still need browser evidence; a green foundation workflow alone does not establish browser parity.
+The contained Dialog draft adds `Dialog browser`, which installs official Chromium plus OS dependencies and runs real React/Svelte fixtures through 31 non-skipped acceptance probes. The Playwright configuration explicitly enables the Chromium sandbox. Local saved-environment startup is blocked; the job must actually pass before claiming browser evidence. A green `Standards` or `Verification` check alone does not establish browser parity. This change does not add the browser check to branch protection.
 
 ## Proposed main-branch protection
 

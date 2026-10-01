@@ -61,6 +61,8 @@ Portal emits no SSR DOM; body/parent-container relocation happens after mount. T
 
 ## Evidence and gates
 
+Executed commands, exact environment blockers and independent review are recorded in [implementation verification](../parity/dialog/implementation-verification.md).
+
 | Area | Runnable evidence | Current result / limitation |
 | --- | --- | --- |
 | State, cancellation, native identity, composition | [actual Svelte DOM regressions](../packages/base/tests/dom/dialog.test.ts), [public type assertions](../packages/base/tests/dialog.types.ts) | Supplemental jsdom execution; not browser parity. Includes held controlled updates/reopen, callback pre-change DOM observations, canceled open/close with zero internal dispatch, actual Trigger/Close prevention and custom keyboard click composition. |

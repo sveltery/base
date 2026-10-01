@@ -25,8 +25,8 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
   let preventReturnFocus = false;
   let pointerDown = false;
   let generation = 0;
-  const frames = new Set<number>();
-  const frame = (callback: () => void) => { const id = window.requestAnimationFrame(() => { frames.delete(id); callback(); }); frames.add(id); };
+  const frames: number[] = [];
+  const frame = (callback: () => void) => { const id = window.requestAnimationFrame(() => { frames.splice(frames.indexOf(id), 1); callback(); }); frames.push(id); };
   const topmost = () => stacks.get(document)?.at(-1) === controller && controller.nestedCount === 0;
   const isInside = (event: Event) => event.composedPath().includes(node);
   function escape(event: KeyboardEvent) {
@@ -132,7 +132,7 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
   }
   return () => {
     disposed = true; generation++;
-    frames.forEach(id => window.cancelAnimationFrame(id)); frames.clear();
+    frames.forEach(id => window.cancelAnimationFrame(id)); frames.length = 0;
     stop(); observer.disconnect();
     document.removeEventListener('keydown', escape); document.removeEventListener('keydown', tab);
     document.removeEventListener('pointerdown', down, true); document.removeEventListener('mousedown', down, true);

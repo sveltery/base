@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { untrack } from 'svelte';
+  import { untrack, type Snippet } from 'svelte';
   import * as Dialog from '../../src/lib/dialog/index.js';
   import type { Actions, ChangeEventDetails } from '../../src/lib/dialog/types.js';
   let { log, controlled = false, initial = false, keep = false, cancel = '', nested = false, prevent = false, custom = false, preventKey = false, preventClose = false }: { log: (channel: string, open?: boolean, details?: ChangeEventDetails) => void; controlled?: boolean; initial?: boolean; keep?: boolean; cancel?: string; nested?: boolean; prevent?: boolean; custom?: boolean; preventKey?: boolean; preventClose?: boolean } = $props();
@@ -15,7 +15,7 @@
   export function close() { actions?.close(); }
   export function unmountPopup() { actions?.unmount(); }
 </script>
-  {#snippet customTrigger(props: Record<string | symbol, unknown>, state: { disabled: boolean; open?: boolean })}<span {...props} data-custom-open={state.open}>Open</span>{/snippet}
+  {#snippet customTrigger(props: Record<string | symbol, unknown>, state: { disabled: boolean; open?: boolean }, children: Snippet | undefined)}<span {...props} data-custom-open={state.open}>{@render children?.()}</span>{/snippet}
 {#if visible}
 <Dialog.Root open={controlled ? owner : undefined} defaultOpen={initial} bind:actions onOpenChange={(open, details) => { log('consumer', open, details); if (cancel === (open ? 'open' : 'close')) details.cancel(); if (cancel === 'defer' && !open) details.preventUnmountOnClose(); }} onInternalOpenChange={(open, details) => log('internal', open, details)} onOpenChangeComplete={open => log('complete', open)}>
   <Dialog.Trigger id="opener" nativeButton={!custom} render={custom ? customTrigger : undefined} onclick={event => { log('click'); if (prevent) event.preventBaseUIHandler(); }} onkeydown={event => { if (preventKey) event.preventDefault(); }}>Open</Dialog.Trigger>

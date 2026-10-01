@@ -120,6 +120,7 @@ it('controlled owner can reopen after a completed close', async () => {
 it('custom keyboard activation composes a generated click and preserves modifiers', async () => {
   const { log } = setup({ custom: true }); await settle();
   const trigger = document.getElementById('opener')!;
+  expect(trigger.textContent).toContain('Open');
   trigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true, shiftKey: true })); await settle();
   expect(document.querySelector('[role=dialog]')).not.toBeNull();
   expect(log.slice(0, 3).map(x => x.channel)).toEqual(['click', 'consumer', 'internal']);

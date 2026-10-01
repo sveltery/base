@@ -5,7 +5,7 @@ async function scan(directory) {
   for (const item of await readdir(directory, { withFileTypes: true })) {
     const path = `${directory}/${item.name}`;
     if (item.isDirectory()) await scan(path);
-    else if (item.name.endsWith('.js')) {
+    else if ((item.name.endsWith('.js') || item.name.endsWith('.svelte'))) {
       assert(!/from\s*['"](?:\$app\/|@sveltejs\/kit|react(?:\/|['"]))/u.test(await readFile(path, 'utf8')), `Framework infrastructure import in ${path}`);
     }
   }
