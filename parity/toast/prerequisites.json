@@ -1,6 +1,6 @@
 {
   "upstreamCommit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
-  "scope": "Executed test-only framework-neutral adaptations. No Svelte Toast runtime/API or DOM credit. Shared parity manifest remains unchanged until parent reconciliation.",
+  "scope": "Reference-only execution: test-only adaptations of pinned upstream algorithms under parity/toast, not actual Sveltery Toast runtime code. Every Sveltery Toast contract remains unported; shared parity manifest and credits remain unchanged.",
   "verification": {
     "runtimeCommand": "pnpm --filter @sveltery/base test",
     "typesCommand": "pnpm check",
@@ -358,5 +358,7 @@
       "packages/react/src/toast/provider/ToastProvider.tsx"
     ]
   },
-  "unported": "Every component leaf, useToastManager spec, shared conformance helper and all plans/fixtures in scenarios.md remain unported. Inventory statuses never change."
+  "unported": "Every component leaf, useToastManager spec, shared conformance helper and all plans/fixtures in scenarios.md remain unported. Inventory statuses never change.",
+  "executionTarget": "pinned-upstream-reference-adaptation-only",
+  "svelteryRuntimePortCredit": 0
 }

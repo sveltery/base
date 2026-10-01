@@ -1,4 +1,4 @@
-// Tests protect source credit: a reduced body/helper cannot silently retain a complete prerequisite credit.
+// Tests protect complete reference assertions; reference execution earns zero Sveltery port credit.
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
@@ -36,7 +36,9 @@ test('Toast provenance placeholders stay immutable and parameterized swipe varia
   assert.ok(realSwipe.upstreamGuards.some(guard => guard === 'describe.skipIf(isJSDOM)'));
 });
 
-test('every credited pure leaf retains the complete source body, assertions and metadata helpers', () => {
+test('every reference prerequisite retains the complete source body, assertions and metadata helpers', () => {
+  assert.equal(ledger.executionTarget, 'pinned-upstream-reference-adaptation-only');
+  assert.equal(ledger.svelteryRuntimePortCredit, 0);
   assert.equal(ledger.cases.length, 25);
   for (const entry of ledger.cases) {
     const upstream = inventory.declarations.find(item => item.id === entry.id);

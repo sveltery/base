@@ -2,7 +2,7 @@
 
 Foundation: main `e79368ed8668fbfcbdceeaa8cb6152cf04e85cde`. Source pin: Base UI v1.8.0 `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. Saved cloud environment: Node 24.19.0, repository-selected pnpm 12.6.0, existing frozen workspace and standards lockfiles. No AGENTS.md was present. The upstream checkout lives outside the repository and the tracer reads pinned Git objects.
 
-Execution is **pure prerequisite evidence only**: the unchanged complete 24 store test bodies/helpers, manager ID leaf M:53, full manager data typing spec, and six separately labelled source-derived supplements. No Svelte Toast runtime, DOM mounting, browser parity, public export, shared overlay or package/lock/CI changes are delivered. Shared parity totals/credits remain unchanged. [prerequisites.json](prerequisites.json) is the execution ledger; the source inventory retains every unported placeholder.
+Execution is **reference-only prerequisite evidence with zero Sveltery port credit**. Tests import the pinned-source test-only adaptations under `parity/toast/`, not actual Sveltery Toast runtime code. All 196 Sveltery Toast declaration contracts remain unported. Reference execution covers: the unchanged complete 24 store test bodies/helpers, manager ID leaf M:53, full manager data typing spec, and six separately labelled source-derived supplements. No Svelte Toast runtime, DOM mounting, browser parity, public export, shared overlay or package/lock/CI changes are delivered. Shared parity totals/credits remain unchanged. [prerequisites.json](prerequisites.json) is the execution ledger; the source inventory retains every unported placeholder.
 
 Local verification passed:
 
