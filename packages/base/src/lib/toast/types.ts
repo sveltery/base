@@ -1,7 +1,8 @@
 // Derived from mui/base-ui at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, see ../../../THIRD_PARTY_NOTICES.md.
 /* eslint-disable @typescript-eslint/no-explicit-any -- Preserve pinned data defaults and rejection callback typing. */
 import type { Snippet } from 'svelte';
-import type { HTMLButtonAttributes } from 'svelte/elements';
+import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
+import type { ToastManager } from './createToastManager.js';
 import type { PreventableEvent } from '../merge-props/index.js';
 
 /** Svelte content contract; rendering and label registration belong to the parts slice. */
@@ -49,3 +50,47 @@ export interface ToastManagerFacade<Data extends object = any> {
   update: <T extends Data = Data>(id: string, updates: ToastManagerUpdateOptions<T> | ((previous: ToastObject<T>) => ToastManagerUpdateOptions<T>)) => void;
   promise: <Value, T extends Data = Data>(promise: Promise<Value>, options: ToastManagerPromiseOptions<Value, T>) => Promise<Value>;
 }
+
+export interface ToastProviderProps {
+  children?: Snippet;
+  timeout?: number;
+  limit?: number;
+  toastManager?: ToastManager;
+}
+export interface ToastRootState {
+  transitionStatus: 'starting' | 'ending' | undefined;
+  expanded: boolean;
+  limited: boolean;
+  type: string | undefined;
+  swiping: false;
+  swipeDirection: undefined;
+}
+export interface ToastViewportState { expanded: boolean }
+export interface ToastContentState { expanded: boolean; behind: boolean }
+export interface ToastLabelState { type: string | undefined }
+type PreventableHandlers<Props> = {
+  [Key in keyof Props]: Key extends `on:${string}` ? Props[Key] : Key extends `on${string}`
+    ? NonNullable<Props[Key]> extends (event: infer E) => infer Result
+      ? E extends Event ? ((event: E & PreventableEvent) => Result) | Extract<Props[Key], null | undefined> : Props[Key]
+      : Props[Key]
+    : Props[Key];
+};
+/** Native-element slice: Svelte children/refs/class/style; replacement rendering is deferred. */
+export type ToastElementProps<State, NativeProps = HTMLAttributes<HTMLElement>, Content = Snippet> =
+  Omit<PreventableHandlers<NativeProps>, 'class' | 'style' | 'children'> & {
+    children?: Content;
+    class?: string | ((state: State) => string | undefined);
+    style?: string | ((state: State) => string | undefined);
+    ref?: HTMLElement | null;
+  };
+export type ToastRootProps = ToastElementProps<ToastRootState> & {
+  toast: ToastObject;
+  /** This bounded slice requires the upstream gesture opt-out explicitly. */
+  swipeDirection: [];
+};
+export type ToastViewportProps = ToastElementProps<ToastViewportState>;
+export type ToastContentProps = ToastElementProps<ToastContentState>;
+export type ToastTitleProps = ToastElementProps<ToastLabelState, HTMLAttributes<HTMLHeadingElement>, ToastContent>;
+export type ToastDescriptionProps = ToastElementProps<ToastLabelState, HTMLAttributes<HTMLParagraphElement>, ToastContent>;
+export type ToastActionComponentProps = ToastElementProps<ToastLabelState, HTMLButtonAttributes, ToastContent>;
+export type ToastCloseProps = ToastActionComponentProps;

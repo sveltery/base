@@ -1,5 +1,7 @@
 # First slice and assertion plan
 
+The bounded inline implementation and selected evidence now live in [rendering-interface.md](rendering-interface.md) and [rendering-ports.md](rendering-ports.md). The larger matrix below remains a plan: selected assertions do not certify entire scenarios or integration parity.
+
 Actual pure manager/core execution is now described in [core-interface.md](core-interface.md), including the implemented subscription/facade handoff and retained complete cases. This plan does not confer any component or shared manifest credit; all rendered fixtures below remain pending.
 
 Status: **all proposed fixtures/tests here are unported**. Existing execution is restricted to [prerequisites.json](prerequisites.json). Fixture paths below are assignments, not files already delivered. Source abbreviations denote files under pinned `packages/react/src/toast/`: S=store.test.ts, M=createToastManager.test.tsx, U=useToastManager.test.tsx, P=provider/ToastProvider.test.tsx, R=root/ToastRoot.test.tsx, V=viewport/ToastViewport.test.tsx; T/D/A/C are their Title/Description/Action/Close test files. Look up every ID in [upstream-inventory.json](upstream-inventory.json) for its **entire** callback hash, direct assertions, fixture calls and support helpers. Complete source leaves earn credit only after all their positive, negative, intermediate and parameter assertions execute. Source-derived supplements below earn none.

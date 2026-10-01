@@ -104,6 +104,7 @@ export class ToastStore {
   private readonly track = createSubscriber((update) => this.subscribe(update));
   private readonly generateId = createIdGenerator();
   private managerCleanup: (() => void) | undefined;
+  private closeFocusRegistration: { handler: (toastId?: string) => void } | undefined;
   private disposed = false;
   private readonly lifecycles = new Map<string, object>();
   private readonly removingLifecycles = new Set<object>();
@@ -151,11 +152,22 @@ export class ToastStore {
   /** Capture at Root mount; stale exit completion must not remove a replacement. */
   getLifecycle(id: string): object | undefined { return this.lifecycles.get(id); }
 
+  /** Viewport-owned DOM work runs after every onClose callback, synchronously. */
+  setCloseFocusHandler(handler: (toastId?: string) => void): () => void {
+    if (this.disposed) return () => {};
+    const registration = { handler };
+    this.closeFocusRegistration = registration;
+    return () => {
+      if (this.closeFocusRegistration === registration) this.closeFocusRegistration = undefined;
+    };
+  }
+
   /** Final Provider teardown. No callbacks fire and pending settlements cannot write. */
   dispose = () => {
     if (this.disposed) return;
     this.disposed = true;
     this.managerCleanup?.();
+    this.closeFocusRegistration = undefined;
     this.clearTimers();
     this.listeners.clear();
     this.lifecycles.clear();
@@ -379,7 +391,9 @@ export class ToastStore {
       }
     });
 
-    // DOM focus transfer is delegated to the Provider/Root adapter in the parts slice.
+    // Callbacks may replace the viewport, move focus, add toasts, or dispose.
+    // Read the current registration only after the complete callback loop.
+    if (!this.disposed) this.closeFocusRegistration?.handler(toastId);
   };
 
   promiseToast = <Value, Data extends object>(

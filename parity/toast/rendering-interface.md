@@ -1,0 +1,36 @@
+# Bounded inline rendering foundation
+
+Base: verified main `ed9a00305c9c000625127c5122bec0499a2ed8d8` (core PR #11). Authority: Base UI v1.8.0 `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`; derived implementation and assertions retain MIT attribution. No checkout/workspace AGENTS.md or .agents skill files are present. CONTRIBUTING.md applies.
+
+This slice exports `Provider`, `Viewport`, `Root`, `Content`, `Title`, `Description`, native `Action`/`Close`, `getToastManager`, and the existing `createToastManager`. It is a reviewable inline rendering foundation. It does not establish full Toast or Sonner replacement readiness. The parent owns UI readiness and merge coordination.
+
+## Ownership and observable behavior
+
+Provider creates one store and stable facade during initialization. Pre effects synchronize committed timeout/limit inputs before descendant pre/mount adds and replace manager subscriptions with attachment-specific cleanup. Destruction disposes timers, subscriptions and registrations without lifecycle callbacks. Server rendering never attaches managers or accesses browser globals; Providers/requests have independent state. Facade getters track the live store without copied-state effects. Destructured toast arrays remain ordinary snapshots.
+
+Root derives metadata directly from the store and renders the supplied toast, including spread clones and index-keyed list rebinding. It registers the actual node and measures natural height. Content owns owner-window ResizeObserver/MutationObserver and disconnects both; observer updates flush synchronously, while ending entries reject height/ref/status writes. Root exposes pinned roles, labels, native inert limits, priority visibility, state attributes and stack/zero-swipe CSS variables. High-priority announcements use separate atomic alerts while unfocused; structural checks establish no assistive-technology speech claim.
+
+Exit observation waits an owner-window frame for real animations, waits for finished promises and rechecks cancellation replacements. Each observation captures an opaque lifecycle token and aborts its own frame/completion on invalidation/unmount. An old animation cannot remove an ending-ID replacement, including when the keyed Root remains. onRemove runs while the toast and DOM Root remain present, before removal publication. onClose runs after ending publication; callback ordering is preserved.
+
+Viewport owns its registration, window F6/focus/blur listeners, document outside-touch listener, delayed owner-window focus work and guards. Empty transitions/unmount clean up listeners and pending work. Hover/focus-visible/window pause, deferred mouseleave during exit/touch and pointer-end routing follow pinned caller policy. F6 enters Notifications; guards enter non-ending/non-limited Roots; Shift+Tab returns prior focus; Root Escape only closes when composed active focus is contained in that Root. Scoped Toast focus helpers do not change shared Dialog focus.
+
+Internal `setCloseFocusHandler` returns registration-specific cleanup, even for identical callback registrations. Store timer, external-manager and facade closes invoke the current registration synchronously **after the complete onClose loop**. Viewport reads fresh state and its current owner document's active/focus-visible element; callbacks may move focus, add/replace toasts, replace registrations or dispose. No tick/effect approximation owns close focus. Disposal or a thrown onClose prevents focus work. The next-then-previous non-ending scan preserves upstream behavior, including its lack of a limited-entry filter on close.
+
+## Public adaptations, case by case
+
+| Surface | Adaptation and limit |
+| --- | --- |
+| Context | `getToastManager<Data>()` during component initialization replaces the React hook and returns one stable live facade. |
+| Provider | Svelte children/pre effects replace React children/layout synchronization. React Suspense P:102 remains unported. |
+| Root gestures | Public type requires `swipeDirection={[]}`, the upstream opt-out. Default down/right gestures are deferred. |
+| Native parts | Lowercase native events with preventBaseUIHandler; Svelte class/string style (optionally state functions), snippets and bind:ref HTMLElement. React render/ref/className and nativeButton=false replacement contracts are deferred. |
+| Content/labels | Explicit children override title/description; actionProps children precede Action children. Null/boolean/empty strings suppress labels/actions; zero renders. SSR-stable component IDs replace React IDs; effects register labels like upstream layout effects. Arbitrary empty-output snippets and broad ReactNode/render conformance remain unported. |
+| Accessibility | Selected inline region/dialog/alertdialog/alert, inert and dynamic-label behavior is verified. WebKit VoiceOver guard-role workaround and AT speech are deferred. |
+| Presence | Owner-window animations/Svelte flushing replace React hooks. Missing animation API completes promptly. Token protection preserves replacement callbacks/order. |
+| Placement | Inline fixtures only. Portal, Positioner/Arrow, anchored options, shadow portal targets and modal Dialog/Toast integration are deferred. Shared overlay files are untouched. |
+
+## Evidence and gates
+
+[Rendering ports](rendering-ports.md) and JSON preserve source IDs/body hashes/assertion mappings separately from new regressions. Provider, native parts and Viewport DOM ports are additional execution evidence, not automatic shared credit. Existing 25 core full-body cases remain independently recorded in [core-interface.md](core-interface.md); this PR does not silently promote them. The Toast source trace remains byte-identical with all 196 original unported placeholders. Supplements and implementation coverage never add declarations.
+
+Local frozen bootstrap/full verification covers scripts/types/runtime/DOM/builds/package consumption, SSR isolation and browser-global-free imports. Local secured Chromium cannot start because the environment sandbox helper is unavailable; no security setting changes. Hosted secured Chromium, exact final-head independent review, latest automatic Codex review and all CI checks remain merge gates. No publication, release, deployment or security/grants changes belong to this slice.
