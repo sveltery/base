@@ -52,6 +52,20 @@ for (const reference of [false, true]) {
     const host = await setup(scenario, reference); popup()!.focus(); host.removeDialogPart(); await settle();
     expect(returns()).toBe(1); expect(document.activeElement).toBe(document.body);
   });
+  it(`${framework}: default return restores focus after open Portal removal`, async () => {
+    const host = await setup('default-detach', reference); popup()!.focus(); host.removeDialogPart(); await settle();
+    expect(popup()).toBeNull(); expect(document.activeElement).toBe(document.getElementById('focus-a'));
+    expect(returns()).toBe(0);
+  });
+  for (const scenario of ['external-focus', 'boolean-external-focus', 'explicit-external-focus']) it(`${framework}: ${scenario} respects the final-focus ownership policy`, async () => {
+    const host = await setup(scenario, reference); popup()!.focus();
+    const outside = document.getElementById('outside')!; outside.focus(); await settle();
+    expect(popup()).not.toBeNull(); expect(requests()).toHaveLength(1);
+    host.removeDialogPart(); await settle();
+    expect(popup()).toBeNull();
+    expect(document.activeElement).toBe(scenario === 'explicit-external-focus' ? document.getElementById('focus-a') : outside);
+    expect(returns()).toBe(scenario === 'explicit-external-focus' ? 1 : 0);
+  });
 }
 it('Svelte: checked radio is the sole group stop and forward Tab is contained', async () => {
   const prior = HTMLElement.prototype.getClientRects;
@@ -73,4 +87,9 @@ it('radio discovery separates forms and unnamed radios and chooses first only wh
   expect(tabbables(host).map(input => input.id)).toEqual(['a', 'c', 'e', 'f']);
   host.querySelector<HTMLInputElement>('#b')!.checked = true;
   expect(tabbables(host).map(input => input.id)).toEqual(['b', 'c', 'e', 'f']);
+  host.querySelector<HTMLInputElement>('#b')!.tabIndex = -1;
+  expect(tabbables(host).map(input => input.id)).toEqual(['c', 'e', 'f']);
+  host.querySelector<HTMLInputElement>('#b')!.checked = false;
+  host.querySelector<HTMLInputElement>('#a')!.tabIndex = -1;
+  expect(tabbables(host).map(input => input.id)).toEqual(['c', 'e', 'f']);
 });

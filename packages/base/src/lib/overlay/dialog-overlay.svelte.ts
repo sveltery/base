@@ -24,10 +24,17 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
   let focusedInside = false;
   let preventReturnFocus = false;
   let returnedFocus = false;
-  function returnFocus() {
+  function returnFocus(detaching = false) {
     if (returnedFocus) return;
     returnedFocus = true;
-    if (!preventReturnFocus) focus(options().finalFocus, controller.closeMethod, () => controller.retainedTrigger?.isConnected ? controller.retainedTrigger : controller.trigger ?? controller.previousFocus);
+    const target = options().finalFocus;
+    // Conditional removal must respect focus already placed outside by the owner.
+    // Explicit targets/callbacks intentionally override this default-return guard.
+    if (detaching && (target === undefined || typeof target === 'boolean')) {
+      const current = activeElement(document);
+      if (current && current !== document.body && !node.contains(current)) return;
+    }
+    if (!preventReturnFocus) focus(target, controller.closeMethod, () => controller.retainedTrigger?.isConnected ? controller.retainedTrigger : controller.trigger ?? controller.previousFocus);
   }
   let pointerDown = false;
   let composing = false;
@@ -166,7 +173,7 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
     document.removeEventListener('click', click, true);
     document.removeEventListener('pointerup', up, true); document.removeEventListener('mouseup', up, true); document.removeEventListener('focusin', focusIn);
     // A conditional Portal/Popup removal can destroy this attachment without a close edge.
-    if (observed && previousOpen) returnFocus();
+    if (observed && previousOpen) returnFocus(true);
     if (controller.popup === node) controller.popup = null;
   };
 }

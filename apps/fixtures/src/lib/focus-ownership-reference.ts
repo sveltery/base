@@ -19,16 +19,16 @@ export function mountFocusOwnershipReference(node: HTMLElement, scenario: string
       return () => { delete host.removeDialogPart; delete host.closeDialog; delete host.closeAndRemove; };
     } },
     h('button', { id: 'outside' }, 'Outside'),
-    h(Dialog.Root, { modal: scenario !== 'triggers' && scenario !== 'focus-out', actionsRef: actions, onOpenChange: (open, details) => setRequests(previous => [...previous, { open, reason: details.reason, trigger: details.trigger?.id ?? null }]) },
+    h(Dialog.Root, { modal: scenario !== 'triggers' && !scenario.endsWith('external-focus'), disablePointerDismissal: scenario.endsWith('external-focus'), actionsRef: actions, onOpenChange: (open, details) => setRequests(previous => [...previous, { open, reason: details.reason, trigger: details.trigger?.id ?? null }]) },
       h(Dialog.Trigger, { id: 'focus-a' }, h('span', null, 'Trigger A')),
       h(Dialog.Trigger, { id: 'focus-b' }, h('span', null, 'Trigger B')),
-      portalVisible ? h(Dialog.Portal, null, popupVisible ? h(Dialog.Popup, { style: { position: 'relative', zIndex: 1 }, finalFocus: () => {
+      portalVisible ? h(Dialog.Portal, null, popupVisible ? h(Dialog.Popup, { style: { position: 'relative', zIndex: 1 }, finalFocus: scenario === 'external-focus' || scenario === 'default-detach' ? undefined : scenario === 'boolean-external-focus' ? true : () => {
         setReturns(value => value + 1);
         if (scenario === 'final-false') return false;
         if (scenario === 'final-none') return undefined;
         return document.getElementById('focus-a');
-      } }, scenario === 'radio' || scenario === 'radio-empty' ? [
-        h('input', { key: 'first', id: 'radio-first', 'aria-label': 'First radio', type: 'radio', name: "choice'quoted", defaultChecked: scenario === 'radio' }),
+      } }, scenario.startsWith('radio') ? [
+        h('input', { key: 'first', id: 'radio-first', 'aria-label': 'First radio', type: 'radio', name: "choice'quoted", tabIndex: scenario.endsWith('negative') ? -1 : undefined, defaultChecked: scenario === 'radio' || scenario === 'radio-negative' }),
         h('input', { key: 'second', id: 'radio-second', 'aria-label': 'Second radio', type: 'radio', name: "choice'quoted" }),
       ] : [h('input', { key: 'inside', 'aria-label': 'Inside' }), h(Dialog.Close, { key: 'close' }, 'Close')]) : null) : null),
     h('output', { 'data-testid': 'requests' }, JSON.stringify(requests)),

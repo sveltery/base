@@ -44,6 +44,21 @@ for (const reference of [false, true]) {
     await expect(page.getByTestId('returns')).toHaveText('1');
     expect(await page.evaluate(() => document.activeElement === document.body)).toBe(true);
   });
+  test(`${framework}: default return restores focus on open Portal removal`, async ({ page }) => {
+    await setup(page, 'default-detach', reference); await page.getByRole('dialog').focus();
+    await page.locator('main').evaluate((host: Commands) => host.removeDialogPart());
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(page.getByRole('button', { name: 'Trigger A' })).toBeFocused();
+  });
+  for (const scenario of ['external-focus', 'boolean-external-focus', 'explicit-external-focus']) test(`${framework}: ${scenario} respects the final-focus ownership policy`, async ({ page }) => {
+    await setup(page, scenario, reference); await page.getByRole('dialog').focus();
+    const outside = page.getByRole('button', { name: 'Outside' }); await outside.focus();
+    await expect(page.getByRole('dialog')).toBeVisible();
+    expect(await requests(page)).toHaveLength(1);
+    await page.locator('main').evaluate((host: Commands) => host.removeDialogPart());
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(scenario === 'explicit-external-focus' ? page.getByRole('button', { name: 'Trigger A' }) : outside).toBeFocused();
+  });
   for (const scenario of ['radio', 'radio-empty']) test(`${framework}: trusted Tab remains inside a single named radio group (${scenario})`, async ({ page }) => {
     await setup(page, scenario, reference);
     const first = page.getByRole('radio', { name: 'First radio' });
@@ -55,6 +70,13 @@ for (const reference of [false, true]) {
       for (const key of ['Tab', 'Shift+Tab']) { await page.keyboard.press(key); await expect(second).toBeFocused(); }
     }
     await expect(page.getByRole('dialog')).toBeVisible();
+    expect(await requests(page)).toEqual([{ open: true, reason: 'trigger-press', trigger: 'focus-a' }]);
+  });
+  for (const scenario of ['radio-negative', 'radio-empty-negative']) test(`${framework}: negative tabindex on the group owner leaves no radio tab stop (${scenario})`, async ({ page }) => {
+    await setup(page, scenario, reference);
+    const popup = page.getByRole('dialog'); await popup.focus();
+    for (const key of ['Tab', 'Shift+Tab']) { await page.keyboard.press(key); await expect(popup).toBeFocused(); }
+    await expect(popup).toBeVisible();
     expect(await requests(page)).toEqual([{ open: true, reason: 'trigger-press', trigger: 'focus-a' }]);
   });
 }
