@@ -35,3 +35,16 @@ function eventTypes(details: ChangeEventDetails) {
   if (details.reason === 'outside-press') { const event: MouseEvent | PointerEvent | TouchEvent = details.event; void event; }
 }
 void [root, invalidRoot, invalidOpen, trigger, nativeButton, popupHandlers, invalidButton, invalidPointer, invalidStyle, eventTypes, apiEquality];
+// ShadowRoot container/ref and disabled render replacement remain typed public APIs.
+type Portal = ComponentProps<typeof Dialog.Portal>;
+type Close = ComponentProps<typeof Dialog.Close>;
+function shadowAPI(shadowRoot: ShadowRoot) {
+  const direct: Portal = { container: shadowRoot };
+  const ref: Portal = { container: { current: shadowRoot }, keepMounted: true };
+  const waiting: Portal = { container: null };
+  const close: Close = { nativeButton: false, disabled: true, onclick(event) { event.preventDefault(); event.preventBaseUIHandler(); } };
+  // @ts-expect-error A Document cannot be used as a Portal target.
+  const invalid: Portal = { container: shadowRoot.ownerDocument };
+  void [direct, ref, waiting, close, invalid];
+}
+void shadowAPI;

@@ -6,7 +6,8 @@
   let { children, render, disabled = false, nativeButton = true, ref = $bindable(null), ...props }: ButtonProps = $props();
   const controller = root();
   function activate(event: MouseEvent | KeyboardEvent) {
-    if (disabled || !controller.open) return;
+    if (disabled) { event.preventDefault(); return; }
+    if (!controller.open) return;
     controller.closeMethod = event.type.startsWith('key') || (event instanceof MouseEvent && event.detail === 0) ? 'keyboard' : 'mouse';
     controller.request(false, 'close-press', event);
   }
