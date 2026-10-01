@@ -98,16 +98,24 @@ export const selectors = {
   prevFocusElement: (state: State) => state.prevFocusElement,
 };
 
+type CloseFocusOwner = { toastId: string; node: HTMLElement; active: Element; lifecycle: object };
+type CloseFocusIntent = {
+  toastId?: string;
+  closeAll: boolean;
+  order: readonly string[];
+  owner?: CloseFocusOwner & { registration: object };
+};
+
 export class ToastStore {
   private snapshot: State;
   private readonly listeners = new Set<() => void>();
   private readonly track = createSubscriber((update) => this.subscribe(update));
   private readonly generateId = createIdGenerator();
   private managerCleanup: (() => void) | undefined;
-  private closeFocusRegistration: { handler: (toastId?: string) => void } | undefined;
+  private closeFocusRegistration: { handler: (toastId?: string) => void; capture?: (toastId?: string) => CloseFocusOwner | undefined } | undefined;
   private disposed = false;
   private closeDepth = 0;
-  private closeFocusIntent: { toastId?: string } = {};
+  private closeFocusIntent: CloseFocusIntent = { closeAll: false, order: [] };
 
   private readonly lifecycles = new Map<string, object>();
   private readonly removingLifecycles = new Set<object>();
@@ -164,9 +172,9 @@ export class ToastStore {
   }
 
   /** Viewport-owned DOM work runs after every onClose callback, synchronously. */
-  setCloseFocusHandler(handler: (toastId?: string) => void): () => void {
+  setCloseFocusHandler(handler: (toastId?: string) => void, capture?: (toastId?: string) => CloseFocusOwner | undefined): () => void {
     if (this.disposed) return () => {};
-    const registration = { handler };
+    const registration = { handler, capture };
     this.closeFocusRegistration = registration;
     return () => {
       if (this.closeFocusRegistration === registration) this.closeFocusRegistration = undefined;
@@ -179,7 +187,7 @@ export class ToastStore {
   }
 
   /** New nested requests retain their policy through recursive close callbacks. */
-  getCloseFocusIntent(): Readonly<{ toastId?: string }> { return this.closeFocusIntent; }
+  getCloseFocusIntent(): Readonly<CloseFocusIntent> { return this.closeFocusIntent; }
 
   /** Final Provider teardown. No callbacks fire and pending settlements cannot write. */
   dispose = () => {
@@ -396,7 +404,16 @@ export class ToastStore {
       this.clearTimer(toastId);
     }
 
-    if (this.closeDepth <= 1) this.closeFocusIntent = { toastId };
+    const registration = this.closeFocusRegistration;
+    const owner = registration?.capture?.(toastId);
+    const previousIntent = this.closeFocusIntent;
+    this.closeFocusIntent = {
+      toastId: this.closeDepth === 0 ? toastId : previousIntent.toastId,
+      order: this.closeDepth === 0 || owner ? toasts.map(toast => toast.id) : previousIntent.order,
+      closeAll: closeAll || (this.closeDepth > 0 && previousIntent.closeAll),
+      owner: owner && registration ? { ...owner, registration }
+        : this.closeDepth > 0 ? previousIntent.owner : undefined,
+    };
     this.closeDepth += 1;
     try {
       const endingToasts = toasts.map((item) =>

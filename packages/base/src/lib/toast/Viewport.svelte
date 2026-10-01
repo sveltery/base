@@ -28,6 +28,16 @@
     else store.resumeTimers();
   }
   function restoreFocus() { store.state.prevFocusElement?.focus({ preventScroll: true }); }
+  function captureCloseFocus(toastId?: string) {
+    const node = store.state.viewport;
+    if (!node) return;
+    const active = activeElement(node.ownerDocument);
+    if (!contains(node, active) || !isFocusVisible(active)) return;
+    const toast = store.state.toasts.find(item =>
+      (toastId === undefined || item.id === toastId) && contains(item.ref ?? null, active));
+    const lifecycle = toast && store.getLifecycle(toast.id);
+    if (toast?.ref && active && lifecycle) return { toastId: toast.id, node: toast.ref, active, lifecycle };
+  }
   function closeFocus(toastId?: string) {
     const node = store.state.viewport;
     const registration = store.getCloseFocusRegistration();
@@ -41,26 +51,52 @@
       if (selectors.expandedOrOutOfFocus(store.state)) store.pauseTimers();
       else store.resumeTimers();
     };
-    if (!contains(node, current) || !isFocusVisible(current)) { reconcileFocus(); return; }
-    const closeAll = toastId === undefined;
-    let previousFocus = current;
+    const outerCloseAll = toastId === undefined;
+    let observedIntent: ReturnType<typeof store.getCloseFocusIntent> | undefined;
+    let closeAll = outerCloseAll;
+    let selectionOrder: readonly string[] = [];
+    let selectedOwner: ReturnType<typeof store.getCloseFocusIntent>['owner'];
+    function readIntent() {
+      const intent = store.getCloseFocusIntent();
+      closeAll = outerCloseAll || intent.closeAll;
+      if (intent !== observedIntent) {
+        const owner = intent.owner;
+        if (owner?.registration === registration && owner.node.ownerDocument === doc && owner !== selectedOwner) {
+          toastId = owner.toastId;
+          selectedOwner = owner;
+          selectionOrder = intent.order;
+        } else if (!observedIntent) {
+          selectionOrder = intent.order;
+        }
+        observedIntent = intent;
+      }
+    }
+    readIntent();
+    const ownedExit = current === doc.body && selectedOwner && (!selectedOwner.active.isConnected
+      || store.getLifecycle(selectedOwner.toastId) !== selectedOwner.lifecycle);
+    if (!ownedExit && (!contains(node, current) || !isFocusVisible(current))) { reconcileFocus(); return; }
+    let previousFocus = ownedExit ? selectedOwner.active : current;
     while (true) {
+      readIntent();
       // A single close must not displace focus from another live toast. Read
       // before our commit can rebind an index-keyed closing Root's DOM slot.
-      if (toastId !== undefined && store.state.toasts.some(toast =>
+      if (!closeAll && toastId !== undefined && store.state.toasts.some(toast =>
         toast.id !== toastId && toast.transitionStatus !== 'ending' && contains(toast.ref ?? null, activeElement(doc)))) {
         reconcileFocus(); return;
       }
       // Callbacks can add Roots, replace a lifecycle, or rebind index-keyed
       // Roots. Commit before selecting refs, including un-limited successors.
+      const beforeCommit = activeElement(doc);
+      const ownedBeforeCommit = contains(node, beforeCommit) && isFocusVisible(beforeCommit);
       flushSync();
       if (store.getCloseFocusRegistration() !== registration || store.state.viewport !== node || !node.isConnected) return;
+      readIntent();
       const active = activeElement(doc);
       // No-animation exits can remove the focused Root without blur. A
       // consumer-selected outside element still owns focus after the commit.
-      const exitedToBody = active === doc.body && previousFocus && !previousFocus.isConnected;
+      const exitedToBody = active === doc.body && (ownedBeforeCommit || (previousFocus && !previousFocus.isConnected));
       if (!exitedToBody && (!contains(node, active) || !isFocusVisible(active))) { reconcileFocus(); return; }
-      if (toastId === undefined) { restoreFocus(); reconcileFocus(); return; }
+      if (closeAll || toastId === undefined) { restoreFocus(); reconcileFocus(); return; }
       const toasts = store.state.toasts;
       const currentIndex = selectors.toastIndex(store.state, toastId);
       const scan = (from: number, step: number) => {
@@ -71,8 +107,15 @@
       };
       // A fresh same-ID lifecycle occupies the closing toast's own slot.
       const replacement = toasts[currentIndex];
+      const originIndex = selectionOrder.indexOf(toastId);
+      const neighbors = originIndex < 0 ? [] : [
+        ...selectionOrder.slice(originIndex + 1), ...selectionOrder.slice(0, originIndex).reverse(),
+      ];
+      const survivingNeighbor = neighbors.map(id => selectors.toast(store.state, id))
+        .find(toast => toast && toast.transitionStatus !== 'ending');
       const nextToast = replacement && replacement.transitionStatus !== 'ending'
-        ? replacement : scan(currentIndex + 1, 1) ?? scan(currentIndex - 1, -1);
+        ? replacement : currentIndex >= 0 ? scan(currentIndex + 1, 1) ?? scan(currentIndex - 1, -1)
+          : survivingNeighbor ?? scan(0, 1);
       if (!nextToast) { restoreFocus(); reconcileFocus(); return; }
       const target = nextToast.ref;
       const lifecycle = store.getLifecycle(nextToast.id);
@@ -84,7 +127,10 @@
       if (target && (freshIntent !== intent || !fresh || fresh.transitionStatus === 'ending' || store.getLifecycle(nextToast.id) !== lifecycle || fresh.ref !== target)) {
         // A focus listener can close/replace this successor within the outer
         // transaction. Drain that transition before returning focus ownership.
-        toastId = closeAll ? undefined : freshIntent !== intent ? freshIntent.toastId : nextToast.id;
+        if (freshIntent === intent) {
+          toastId = nextToast.id;
+          selectionOrder = toasts.map(toast => toast.id);
+        }
         previousFocus = target;
         continue;
       }
@@ -98,7 +144,7 @@
     viewport = node;
     store.set('viewport', node);
     syncWindowFocus(node);
-    const unregister = store.setCloseFocusHandler(closeFocus);
+    const unregister = store.setCloseFocusHandler(closeFocus, captureCloseFocus);
     return () => {
       unregister();
       if (store.state.viewport === node) store.set('viewport', null);

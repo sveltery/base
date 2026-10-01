@@ -471,3 +471,33 @@ test('supplement: native Action preserves supported object and nested array clas
   await click(page, 'array action class');
   await expect(page.getByTestId('action')).toHaveClass('own manager selected');
 });
+
+for (const indexKeys of [false, true]) test(`supplement: initial nested close callbacks retain the focused origin and close-all policy (index keys=${indexKeys})`, async ({ page }) => {
+  for (const mode of ['focused', 'immediate', 'unfocused', 'all']) {
+    await page.goto(`/toast?case=${indexKeys ? 'lifecycle-index' : 'lifecycle'}`);
+    await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+    await page.locator('#outside').focus();
+    await click(page, `add nested ${mode === 'all' ? 'close all' : `${mode} close`}`);
+    await page.keyboard.press('F6');
+    if (mode !== 'unfocused') await page.locator(mode === 'all' ? '#root-d' : '#root-b').focus();
+    await closeNow(page, 'manager', 'd');
+    const expected = mode === 'all' ? 'outside' : mode === 'unfocused' ? 'root-c' : 'root-a';
+    await expect(page.getByTestId('synchronous-focus')).toHaveText(expected);
+    await expect(page.locator(`#${expected}`)).toBeFocused();
+    if (mode === 'all') await expect(page.locator('#root-fresh')).toHaveCount(1);
+  }
+});
+for (const indexKeys of [false, true]) test(`supplement: committed same-ID replacement recovers removed native Action focus (index keys=${indexKeys})`, async ({ page }) => {
+  await page.goto(`/toast?case=${indexKeys ? 'lifecycle-index' : 'lifecycle'}`);
+  await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+  const start = new Date('2026-01-01T00:00:00Z');
+  await page.clock.install({ time: start }); await page.clock.pauseAt(start);
+  await page.locator('#outside').focus(); await click(page, 'add descendant replacement');
+  await page.keyboard.press('F6'); await page.getByTestId('action').focus();
+  await closeNow(page, 'facade', 'callback');
+  await expect(page.getByTestId('synchronous-focus')).toHaveText('root-callback');
+  await expect(page.locator('#root-callback')).toBeFocused();
+  await expect(page.locator('#root-callback h2')).toHaveText('Fresh');
+  await expect(page.getByRole('alert')).toHaveCount(0);
+  await page.clock.runFor(100); await expect(page.locator('#root-callback')).not.toHaveAttribute('data-ending-style');
+});
