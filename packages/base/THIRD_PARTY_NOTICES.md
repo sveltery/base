@@ -1,6 +1,6 @@
 # Third-party notices
 
-Event detail utilities, reason constants, selected test bodies/type assertions, and type-equality helpers are derived from mui/base-ui v1.8.0, commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. Native merge behavior references upstream merge-props code and is covered by this notice. Dialog accessibility isolation references upstream FloatingFocusManager and markOthers traversal/attribute ownership behavior; its Svelte-native implementation is also covered by this notice. Source: https://github.com/mui/base-ui/tree/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals
+Event detail utilities, reason constants, selected test bodies/type assertions, and type-equality helpers are derived from mui/base-ui v1.8.0, commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. Composed focus traversal, native tabbable candidate/filter rules, details visibility, and default tab-index normalization derive from upstream floating-ui-react/utils/tabbable.ts and utils/shadowDom.ts at the same pin. Native merge behavior references upstream merge-props code and is covered by this notice. Dialog accessibility isolation references upstream FloatingFocusManager and markOthers traversal/attribute ownership behavior; its Svelte-native implementation is also covered by this notice. Source: https://github.com/mui/base-ui/tree/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals
 
 MIT License
 
