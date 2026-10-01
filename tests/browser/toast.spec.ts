@@ -1,4 +1,32 @@
 import { test, expect, type Page } from '@playwright/test';
+// Native detach/inert focus events differ from jsdom; retain diagnostics only on failure.
+test.beforeEach(async ({ page }, info) => {
+  if (!/every close channel|initial nested close|committed same-ID/.test(info.title)) return;
+  await page.addInitScript(() => {
+    const host = window as Window & { toastFocusTrace?: unknown[] };
+    const trace = host.toastFocusTrace = [];
+    for (const type of ['focusin', 'focusout']) document.addEventListener(type, event => {
+      const focus = event as FocusEvent;
+      const node = focus.target as HTMLElement;
+      trace.push({ type, target: node.id || node.tagName, connected: node.isConnected,
+        active: document.activeElement?.id || document.activeElement?.tagName,
+        related: (focus.relatedTarget as HTMLElement | null)?.id, stack: new Error().stack });
+    }, true);
+    const remove = Element.prototype.remove;
+    Element.prototype.remove = function () {
+      trace.push({ type: 'remove-before', target: this.id || this.tagName,
+        active: document.activeElement?.id || document.activeElement?.tagName,
+        containsActive: this.contains(document.activeElement) });
+      remove.call(this);
+      trace.push({ type: 'remove-after', active: document.activeElement?.id || document.activeElement?.tagName });
+    };
+  });
+});
+test.afterEach(async ({ page }, info) => {
+  if (info.status === info.expectedStatus || !/every close channel|initial nested close|committed same-ID/.test(info.title)) return;
+  console.log('Native Toast focus trace:', JSON.stringify(await page.evaluate(() =>
+    (window as Window & { toastFocusTrace?: unknown[] }).toastFocusTrace)));
+});
 // Complete pinned Base UI v1.8.0 leaves, adapted for real Chromium. MIT: parity/toast/UPSTREAM_LICENSE.
 // Full source assertion/provenance mapping: parity/toast/rendering-ports.json and rendering-ports.md.
 const cases = [
@@ -528,4 +556,19 @@ test('supplement: frontmost height tracks live measured Roots throughout animate
   await expect(page.locator('#root-a')).toHaveAttribute('data-ending-style');
   expect(await page.getByTestId('viewport').evaluate(node => (node as HTMLElement).style.getPropertyValue('--toast-frontmost-height'))).toBe('');
   await expect(page.getByTestId('root')).toHaveCount(3);
+});
+
+test('supplement: in-place updates without Content remeasure native Root and stack geometry', async ({ page }) => {
+  await page.goto('/toast?case=lifecycle');
+  await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+  await click(page, 'add three'); await click(page, 'add save');
+  const root = page.locator('#root-save');
+  await root.evaluate(node => { (node as HTMLElement).style.width = '180px'; });
+  const before = await root.evaluate(node => (node as HTMLElement).offsetHeight);
+  await click(page, 'update save layout');
+  const height = await root.evaluate(node => (node as HTMLElement).offsetHeight);
+  expect(height).toBeGreaterThan(before);
+  await expect(root).toHaveCSS('--toast-height', `${height}px`);
+  await expect(page.locator('#root-c')).toHaveCSS('--toast-offset-y', `${height}px`);
+  await expect(page.getByTestId('viewport')).toHaveCSS('--toast-frontmost-height', `${height}px`);
 });

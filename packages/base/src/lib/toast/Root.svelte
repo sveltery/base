@@ -16,6 +16,7 @@
   let description = $state.raw<{ id: string | undefined }>();
   let registeredId: string | undefined;
   let registeredLifecycle: object | undefined;
+  let measuredUpdateKey: number | undefined;
   const snapshot = $derived(store.getSnapshot());
   const expanded = $derived(selectors.expanded(snapshot));
   const focused = $derived(snapshot.focused);
@@ -71,11 +72,13 @@
     const id = toast.id;
     const status = toast.transitionStatus;
     const token = lifecycle;
+    const updateKey = toast.updateKey;
     if (!element || !token) return;
     if (status === 'ending') {
       return untrack(() => afterAnimations(element, () => store.removeToast(id, false, token)));
     }
-    if (status === 'starting' || untrack(() => selectors.toast(store.getSnapshot(), id)?.ref) !== element) {
+    if (status === 'starting' || updateKey !== measuredUpdateKey || untrack(() => selectors.toast(store.getSnapshot(), id)?.ref) !== element) {
+      measuredUpdateKey = updateKey;
       untrack(recalculateHeight);
     }
   });

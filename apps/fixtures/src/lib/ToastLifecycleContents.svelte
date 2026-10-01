@@ -71,6 +71,7 @@
   <button onclick={() => { add('a', 'A'); add('b', 'B'); add('c', 'C'); }}>add three</button>
   <button onclick={() => add('save', 'Saving…')}>add save</button>
   <button onclick={() => add('save', 'Saved')}>replace save</button>
+  <button onclick={() => facade.update('save', { title: 'A notification with updated text that wraps across several lines in a narrow toast Root. '.repeat(3) })}>update save layout</button>
   <button onclick={() => add('timer', 'Timer', 50, true)}>add timer</button>
   <button onclick={() => facade.add({ id: 'classes', title: 'Classes', timeout: 0,
     actionProps: { children: 'Act', class: { selected: true, hidden: false } } })}>add class action</button>

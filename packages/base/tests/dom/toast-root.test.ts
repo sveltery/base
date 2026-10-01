@@ -4,16 +4,38 @@ import Fixture from './ToastRootFixture.svelte';
 import type { ToastProviderContext } from '../../src/lib/toast/context';
 
 const mounted: ReturnType<typeof mount>[] = [];
-function setup(indexKeys = false) {
+function setup(indexKeys = false, withContent = true) {
   let context!: ToastProviderContext;
   const target = document.createElement('section'); document.body.append(target);
-  mounted.push(mount(Fixture, { target, props: { capture: value => { context = value; }, indexKeys } }));
+  mounted.push(mount(Fixture, { target, props: { capture: value => { context = value; }, indexKeys, withContent } }));
   flushSync();
   return context;
 }
 afterEach(async () => {
   for (const component of mounted.splice(0)) await unmount(component);
   document.body.replaceChildren(); vi.restoreAllMocks();
+});
+
+it('remeasures in-place updates without Content and publishes fresh stack and viewport geometry', () => {
+  vi.spyOn(HTMLElement.prototype, 'offsetHeight', 'get').mockImplementation(function (this: HTMLElement) {
+    return this.textContent?.includes('Tall') ? 80 : 24;
+  });
+  const context = setup(false, false);
+  context.manager.add({ id: 'older', title: 'Older' });
+  context.manager.add({ id: 'newest', title: 'Short' }); flushSync();
+  const newest = document.querySelector<HTMLElement>('[data-toast=newest]')!;
+  const older = document.querySelector<HTMLElement>('[data-toast=older]')!;
+  const viewport = document.querySelector<HTMLElement>('[role=region]')!;
+  expect(context.manager.toasts[0].height).toBe(24);
+  context.manager.update('newest', { title: 'Tall' }); flushSync();
+  expect(newest.textContent).toContain('Tall');
+  expect(context.manager.toasts[0].height).toBe(80);
+  expect(newest.style.getPropertyValue('--toast-height')).toBe('80px');
+  expect(older.style.getPropertyValue('--toast-offset-y')).toBe('80px');
+  expect(viewport.style.getPropertyValue('--toast-frontmost-height')).toBe('80px');
+  context.manager.update('newest', { title: 'Short again' }); flushSync();
+  expect(context.manager.toasts[0].height).toBe(24);
+  expect(viewport.style.getPropertyValue('--toast-frontmost-height')).toBe('24px');
 });
 
 it('renders priority, registered labels, inert limits and removes only after exit completion', async () => {
