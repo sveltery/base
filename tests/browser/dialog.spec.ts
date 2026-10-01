@@ -55,7 +55,7 @@ for (const route of ['/dialog', '/reference']) {
     await expect(page.getByRole('dialog')).toBeVisible();
     expect((await consumer(page)).map(x => [x.open, x.reason])).toEqual([[true, 'trigger-press'], [false, 'escape-key']]);
     // Programmatic host control avoids an outside-press request while probing ownership.
-    await page.getByRole('button', { name: 'Owner toggle' }).evaluate((button: HTMLButtonElement) => button.click());
+    await page.getByRole('button', { name: 'Owner toggle', includeHidden: true }).evaluate((button: HTMLButtonElement) => button.click());
     await expect(page.getByRole('dialog')).toHaveCount(0);
   });
   test(`${route}: modal Tab wraps in both directions`, async ({ page }) => {
