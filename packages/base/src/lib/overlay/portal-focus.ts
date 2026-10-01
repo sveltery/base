@@ -1,12 +1,19 @@
 // Behavior reference: Base UI v1.8.0 FloatingPortal/FloatingFocusManager/tabbable (47b40521).
 // MIT; see THIRD_PARTY_NOTICES.md. Guards belong to one Portal/Popup pair, never a document registry.
 import type { PortalFocusManager } from '../dialog/context.js';
-import { activeElement, tabbables } from './focus.js';
+import { activeElement, contains, tabbables } from './focus.js';
 
 /** Bridge the logical Portal position and the relocated Popup with native focus guards. */
 export function preserveTabOrder(portal: HTMLElement, position: Comment, manager: PortalFocusManager) {
   const document = portal.ownerDocument;
   const saved = new Map<HTMLElement, string | null>();
+  let insideTransfer: HTMLElement | null = null;
+  function focusOutside(target: HTMLElement) {
+    // relatedTarget is retargeted to the shadow host at an outside guard. Mark
+    // only this synchronous owned transfer, never every element in that host.
+    insideTransfer = target;
+    try { target.focus(); } finally { insideTransfer = null; }
+  }
   function restore() {
     for (const [element, value] of saved) {
       if (value === null) element.removeAttribute('tabindex');
@@ -15,7 +22,7 @@ export function preserveTabOrder(portal: HTMLElement, position: Comment, manager
     saved.clear();
   }
   function focusBoundary(event: FocusEvent) {
-    if (!event.relatedTarget || portal.contains(event.relatedTarget as Node)) return;
+    if (!event.relatedTarget || contains(portal, event.relatedTarget as Node)) return;
     if (event.type === 'focusin') restore();
     else for (const element of tabbables(portal)) {
       if (!saved.has(element)) saved.set(element, element.getAttribute('tabindex'));
@@ -37,7 +44,7 @@ export function preserveTabOrder(portal: HTMLElement, position: Comment, manager
     element.addEventListener('focusin', handle);
     return element;
   }
-  const fromOutside = (event: FocusEvent) => !event.relatedTarget || !portal.contains(event.relatedTarget as Node);
+  const fromOutside = (event: FocusEvent) => event.currentTarget !== insideTransfer && (!event.relatedTarget || !contains(portal, event.relatedTarget as Node));
   const beforeOutside = guard('outside', event => {
     if (fromOutside(event)) beforeInside.focus();
     else adjacent(-1)?.focus();
@@ -52,13 +59,13 @@ export function preserveTabOrder(portal: HTMLElement, position: Comment, manager
   const beforeInside = guard('inside', event => {
     manager.setPreventReturnFocus(false);
     if (fromOutside(event)) adjacent(1)?.focus();
-    else beforeOutside.focus();
+    else focusOutside(beforeOutside);
   });
   const afterInside = guard('inside', event => {
     if (fromOutside(event)) adjacent(-1)?.focus();
     else {
       manager.setPreventReturnFocus(true);
-      afterOutside.focus();
+      focusOutside(afterOutside);
     }
   });
   position.before(beforeOutside);

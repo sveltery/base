@@ -43,16 +43,19 @@ export class DialogController {
   get titleId() { return [...this.labels.values()].at(-1)?.(); }
   get descriptionId() { return [...this.descriptions.values()].at(-1)?.(); }
   request(next: boolean, reason: ChangeReason, event?: Event, trigger?: HTMLElement) {
+    // Keep the decision local until callbacks accept this request. Retained details
+    // cannot change a later request's lifecycle, and canceled requests commit nothing.
+    let deferUnmount = false;
     const details = createChangeEventDetails(reason, event as never, trigger ?? (!next ? this.trigger : undefined), {
-      preventUnmountOnClose: () => { this.deferred = true; },
+      preventUnmountOnClose: () => { deferUnmount = true; },
     }) as ChangeEventDetails;
     this.props().onOpenChange?.(next, details);
     if (details.isCanceled) return details;
     this.props().onInternalOpenChange?.(next, details);
+    this.deferred = !next && deferUnmount;
     if (next) {
       this.activeId = trigger?.id ?? this.activeId;
       this.retainedTrigger = trigger ?? this.trigger ?? null;
-      this.deferred = false;
     } else {
       this.retainedTrigger = this.trigger ?? this.retainedTrigger;
     }
