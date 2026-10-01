@@ -42,13 +42,14 @@ for (const reference of [false, true]) {
     for (const id of ['editable-empty', 'editable-true', 'editable-plain', 'native-close']) await tabTo(page, id);
     for (const id of ['editable-plain', 'editable-true', 'editable-empty', 'native-close']) await tabTo(page, id, true);
   });
-  test(`${framework}: implicit details summary preserves pinned native entry and reverse-focus behavior`, async ({ page }) => {
+  test(`${framework}: implicit details summary preserves native entry and pinned reverse-focus limitation`, async ({ page }) => {
     await setup(page, 'summaryless', reference);
     await tabTo(page, 'summaryless'); await tabTo(page, 'native-close');
     // Native Tab reaches Chromium's implicit summary, but details.focus() does
-    // not focus that internal node. Pinned reverse wrapping attempts it and
-    // leaves Close active. Preserve this observed limitation in both frameworks.
-    await page.keyboard.press('Shift+Tab'); await expect(page.locator('#native-close')).toBeFocused();
+    // not focus that internal node. Pinned reverse wrapping leaves its guard
+    // focused. Record the observed limitation without claiming full wrapping.
+    await page.keyboard.press('Shift+Tab');
+    await expect.poll(() => page.evaluate(() => document.activeElement?.hasAttribute('data-base-ui-focus-guard'))).toBe(true);
     await expect(page.getByRole('dialog')).toBeVisible();
   });
   test(`${framework}: embedded frame is reached after Close without premature wrapping`, async ({ page }) => {
@@ -57,9 +58,31 @@ for (const reference of [false, true]) {
     await expect.poll(() => page.evaluate(() => document.activeElement?.id)).toBe('native-iframe');
     await expect(page.frameLocator('#native-iframe').getByRole('button', { name: 'Frame button' })).toBeFocused();
   });
+  test(`${framework}: Tab leaving a terminal iframe wraps to Close in the owning document`, async ({ page }) => {
+    await setup(page, 'iframe-only', reference);
+    const inside = page.frameLocator('#native-iframe').getByRole('button', { name: 'Frame button' });
+    for (let cycle = 0; cycle < 2; cycle++) {
+      await page.keyboard.press('Tab'); await expect(inside).toBeFocused();
+      // This keydown belongs to the child document. The parent's native guard
+      // must catch focus when traversal leaves the frame, without frame access.
+      await tabTo(page, 'native-close');
+    }
+    await page.keyboard.press('Tab'); await expect(inside).toBeFocused();
+    await tabTo(page, 'native-close', true);
+    await expect(page.getByRole('dialog')).toBeVisible();
+  });
   for (const scenario of ['audio', 'video']) test(`${framework}: native ${scenario} controls remain reachable at the boundary`, async ({ page }) => {
     await setup(page, scenario, reference);
     await tabTo(page, 'native-media');
+    // Chromium may expose several internal media controls. Every stop stays
+    // in the player until native traversal reaches the modal boundary guard.
+    for (let stop = 0; stop < 12; stop++) {
+      await page.keyboard.press('Tab');
+      await expect.poll(() => page.evaluate(() => ['native-media', 'native-close'].includes(document.activeElement?.id ?? ''))).toBe(true);
+      if (await page.locator('#native-close').evaluate(element => element === document.activeElement)) break;
+    }
+    await expect(page.locator('#native-close')).toBeFocused();
+    await tabTo(page, 'native-media', true);
     await page.keyboard.press('Escape'); await expect(page.getByRole('dialog')).toHaveCount(0);
     await expect(page.getByRole('button', { name: 'Open native dialog' })).toBeFocused();
   });

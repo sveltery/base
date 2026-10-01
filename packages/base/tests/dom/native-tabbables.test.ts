@@ -22,6 +22,13 @@ it('reproduces Close followed by an open details summary wrapping Tab prematurel
   const event = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true }); close.dispatchEvent(event);
   expect(event.defaultPrevented).toBe(false);
   expect(tabbables(popup).map(element => element.id)).toEqual(['native-close', 'native-summary']);
+  // Focus guards own destinations, including arrivals from child documents.
+  const before = popup.previousElementSibling as HTMLElement;
+  const after = popup.nextElementSibling as HTMLElement;
+  expect(before.hasAttribute('data-base-ui-focus-guard')).toBe(true);
+  expect(after.hasAttribute('data-base-ui-focus-guard')).toBe(true);
+  before.focus(); expect(document.activeElement).toBe(document.getElementById('native-summary'));
+  after.focus(); expect(document.activeElement).toBe(close);
 });
 it('keeps only first direct summary, its closed descendants, and summaryless details', () => {
   const host = fixture('<details tabindex="0"><summary id="first"><button id="summary-child">Child</button></summary><summary id="second" tabindex="0">Second</summary><button id="hidden">Hidden</button><div><summary id="nested" tabindex="0">Nested</summary></div></details><summary id="orphan" tabindex="0">Orphan</summary><details id="implicit"></details>');
