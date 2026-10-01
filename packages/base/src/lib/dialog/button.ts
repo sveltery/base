@@ -7,7 +7,11 @@ export function buttonKeys(disabled: () => boolean, native: () => boolean) {
   };
   return {
     onkeydown(event: KeyboardEvent) {
-      if (disabled() || native() || event.target !== event.currentTarget || event.defaultPrevented) return;
+      if (native() || event.target !== event.currentTarget || event.defaultPrevented) return;
+      if (disabled()) {
+        if (event.key === ' ' || event.key === 'Enter') event.preventDefault();
+        return;
+      }
       const node = event.currentTarget as HTMLElement;
       const link = node.tagName === 'A' && node.hasAttribute('href');
       if (event.key === ' ') event.preventDefault();

@@ -3,7 +3,7 @@ import { SvelteSet } from 'svelte/reactivity';
 import type { DialogController } from '../dialog/controller.svelte.js';
 import type { FocusTarget, InteractionType } from '../dialog/types.js';
 import type { PortalContext } from '../dialog/context.js';
-import { activeElement, tabbables } from './focus.js';
+import { activeElement, contains, tabbables } from './focus.js';
 import { lockScroll } from './scroll-lock.js';
 import { isolateDialog } from './isolation.js';
 const stacks = new WeakMap<Document, DialogController[]>();
@@ -35,7 +35,7 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
     // Explicit targets/callbacks intentionally override this default-return guard.
     if (detaching && (target === undefined || typeof target === 'boolean')) {
       const current = activeElement(document);
-      if (current && current !== document.body && !node.contains(current)) return;
+      if (current && current !== document.body && !contains(node, current)) return;
     }
     if (!preventReturnFocus) focus(target, controller.closeMethod, () => controller.retainedTrigger?.isConnected ? controller.retainedTrigger : controller.trigger ?? controller.previousFocus);
   }
@@ -101,7 +101,7 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
     if (!event.composedPath().includes(controller.trigger!)) return;
     const related = event.relatedTarget as Node | null;
     queueMicrotask(() => {
-      if (!related || pointerDown || related === controller.previousFocus || node.contains(related) || portalContext.node?.contains(related) || [...controller.triggers.values()].some(trigger => trigger.contains(related)) || focusManager.guards.has(related as HTMLElement)) return;
+      if (!related || contains(node, activeElement(document)) || contains(portalContext.node, activeElement(document)) || pointerDown || related === controller.previousFocus || contains(node, related) || contains(portalContext.node, related) || [...controller.triggers.values()].some(trigger => contains(trigger, related)) || focusManager.guards.has(related as HTMLElement)) return;
       for (let parent = controller.parent; parent; parent = parent.parent) if (related === parent.popup || related === parent.trigger) return;
       closeOnFocusOut(event);
     });
@@ -162,7 +162,7 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
           frame(() => {
             if (disposed || token !== generation || !controller.open) return;
             focus(options().initialFocus, controller.method, () => controller.method === 'touch' ? node : tabbables(node)[0] ?? node);
-            focusedInside = node.contains(activeElement(document));
+            focusedInside = contains(node, activeElement(document));
             // Resolve starting style before removing it so the browser can establish an enter transition.
             window.getComputedStyle(node).getPropertyValue('opacity');
             controller.starting = false;
