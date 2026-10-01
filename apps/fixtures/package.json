@@ -8,11 +8,18 @@
     "build": "vite build",
     "preview": "vite preview --host 0.0.0.0"
   },
-  "dependencies": { "@sveltery/base": "workspace:*" },
+  "dependencies": {
+    "@sveltery/base": "workspace:*"
+  },
   "devDependencies": {
+    "@base-ui/react": "1.8.0",
     "@sveltejs/adapter-auto": "7.0.1",
     "@sveltejs/kit": "2.70.3",
     "@sveltejs/vite-plugin-svelte": "7.3.1",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
     "svelte": "5.57.1",
     "svelte-check": "4.7.6",
     "typescript": "5.9.3",

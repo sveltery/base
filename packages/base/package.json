@@ -18,6 +18,11 @@
     "./merge-props": {
       "types": "./dist/merge-props/index.d.ts",
       "default": "./dist/merge-props/index.js"
+    },
+    "./dialog": {
+      "types": "./dist/dialog/index.d.ts",
+      "svelte": "./dist/dialog/index.js",
+      "default": "./dist/dialog/index.js"
     }
   },
   "svelte": "./dist/index.js",

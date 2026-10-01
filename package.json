@@ -12,5 +12,8 @@
     "build": "pnpm --filter @sveltery/base build && pnpm --filter @sveltery/fixtures build",
     "verify": "bash scripts/verify.sh"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "1.63.0"
+  }
 }
