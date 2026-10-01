@@ -16,8 +16,10 @@ const invalidRoot: Root = { modal: 'yes' };
 // @ts-expect-error Controlled open is boolean.
 const invalidOpen: Root = { open: 'true' };
 const trigger: Trigger = { nativeButton: false, onclick(event) { event.preventBaseUIHandler(); event.preventDefault(); } };
+// @ts-expect-error CSS object conversion is unsupported; use a CSS string.
+const invalidStyle: Trigger = { style: { width: 20 } };
 function eventTypes(details: ChangeEventDetails) {
   if (details.reason === 'escape-key') { const event: KeyboardEvent = details.event; void event; }
   if (details.reason === 'outside-press') { const event: MouseEvent | PointerEvent | TouchEvent = details.event; void event; }
 }
-void [root, invalidRoot, invalidOpen, trigger, eventTypes, apiEquality];
+void [root, invalidRoot, invalidOpen, trigger, invalidStyle, eventTypes, apiEquality];

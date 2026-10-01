@@ -143,3 +143,62 @@ it('Close composition can prevent its actual internal handler', async () => {
   expect(log.filter(x => x.channel === 'consumer')).toHaveLength(1);
   expect(log.filter(x => x.channel === 'close-click')).toHaveLength(1);
 });
+
+it('controlled owner reopen resets close deferral for the new cycle', async () => {
+  const { component, log } = setup({ controlled: true, cancel: 'defer' }); await settle();
+  component.setOpen(true); await settle(); escape(); component.setOpen(false); await settle();
+  expect(document.querySelector('[role=dialog]')).not.toBeNull();
+  component.setOpen(true); await settle(); component.stopDeferring(); escape(); component.setOpen(false); await settle();
+  expect(document.querySelector('[role=dialog]')).toBeNull();
+  expect(log.filter(x => x.channel === 'complete' && x.open === false)).toHaveLength(1);
+});
+for (const flushClose of [false, true]) it(`imperative deferred unmount invalidates a queued keepMounted completion (flush=${flushClose})`, async () => {
+  const { component, log } = setup({ keep: true, cancel: 'defer' }); await settle(); click('opener'); await settle();
+  escape(); if (flushClose) await tick(); component.unmountPopup(); await settle();
+  expect(document.querySelector<HTMLElement>('[role=dialog]')!.hidden).toBe(true);
+  expect(log.filter(x => x.channel === 'complete' && x.open === false)).toHaveLength(1);
+});
+it('changing parent modality preserves nested topmost order and lock ownership', async () => {
+  const { component, log } = setup({ nested: true }); await settle(); click('opener'); await settle(); click('child-opener'); await settle();
+  component.setModal('trap-focus'); await settle();
+  expect(document.documentElement.style.overflow).toBe('hidden');
+  escape(); await settle();
+  expect(document.querySelector('[data-testid=child]')).toBeNull();
+  expect(document.querySelector('[role=dialog]')).not.toBeNull();
+  expect(log.filter(x => x.channel === 'consumer')).toHaveLength(1);
+  expect(document.documentElement.style.overflow).toBe('');
+  component.setModal(true); await settle(); expect(document.documentElement.style.overflow).toBe('hidden');
+  escape(); await settle(); expect(document.querySelector('[role=dialog]')).toBeNull();
+});
+it('Escape preserves IME composition and dismisses after composition settles', async () => {
+  const { log } = setup(); await settle(); click('opener'); await settle();
+  const target = document.getElementById('closer')!;
+  target.dispatchEvent(new CompositionEvent('compositionstart', { bubbles: true })); escape(); await settle();
+  expect(document.querySelector('[role=dialog]')).not.toBeNull();
+  target.dispatchEvent(new CompositionEvent('compositionend', { bubbles: true }));
+  escape(); // Same-turn Safari ordering: compositionend can precede the IME Escape.
+  await settle(); expect(document.querySelector('[role=dialog]')).not.toBeNull();
+  document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', isComposing: true, bubbles: true })); await settle();
+  expect(log.filter(x => x.channel === 'consumer')).toHaveLength(1);
+  escape(); await settle(); expect(document.querySelector('[role=dialog]')).toBeNull();
+});
+it('popup completion ignores infinite descendant animations', async () => {
+  const { log } = setup({ keep: true }); await settle(); click('opener'); await settle();
+  const popup = document.querySelector<HTMLElement>('[role=dialog]')!;
+  const calls: unknown[] = [];
+  Object.defineProperty(popup, 'getAnimations', { value: (options?: GetAnimationsOptions) => {
+    calls.push(options);
+    return options?.subtree ? [{ playState: 'running', finished: new Promise(() => {}) }] : [];
+  } });
+  escape(); await settle(); expect(popup.hidden).toBe(true);
+  expect(calls).toEqual([undefined]);
+  expect(log.filter(x => x.channel === 'complete' && x.open === false)).toHaveLength(1);
+});
+it('consumer attachments reach actual replacement nodes and clean up alongside refs', async () => {
+  const { component, log } = setup({ attachConsumer: true, custom: true }); await settle();
+  expect(document.getElementById('opener')!.dataset.consumerAttached).toBe('');
+  expect(log.filter(x => x.channel === 'attached')).toHaveLength(1);
+  click('opener'); await settle(); expect(log.filter(x => x.channel === 'attached')).toHaveLength(1);
+  component.remove(); await settle(); expect(log.filter(x => x.channel === 'detached')).toHaveLength(1);
+  expect(document.documentElement.style.overflow).toBe('');
+});

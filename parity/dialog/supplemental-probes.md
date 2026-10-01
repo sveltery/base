@@ -1,0 +1,24 @@
+# Contained Dialog supplemental probe traceability
+
+These tests are narrower, separately authored supplements. **They do not port or earn credit for any of the original 175 declarations / 371 records.** Linked scenario IDs identify related source requirements, not claims that every assertion, fixture variant or dependency ran. Original [scenario contracts](scenarios.md) and inventory remain unchanged. Browser probes live in [dialog.spec.ts](../../tests/browser/dialog.spec.ts); mounted synthetic-DOM regressions live in [dialog.test.ts](../../packages/base/tests/dom/dialog.test.ts).
+
+| Probe title/group | Related scenario/source context | Exercised subset and remaining gap |
+| --- | --- | --- |
+| `/dialog` and `/reference`: uncontrolled reason sequence; canceled open/close; controlled requests | state-01/02/03/05/10; order-01 | Real contained Root/Trigger/Popup/Close, callback reasons/counts and held ownership. No detached or payload fixtures. |
+| Shared modal Tab wrap; uncontrolled focus/Escape/return | focus-01/06/14 | Ordinary modal default first/last Tab and trigger return. No display:contents, ScrollArea or cross-type source fixtures. |
+| Shared outside press click timing/right button | outside-02/04 | Trusted mouse on contained modal backdrop and right-button negative. No first-opening-click guard, shadow or touch variants. |
+| Shared keepMounted | presence-01 | Hidden DOM remains after close; source Viewport variants unimplemented. |
+| Svelte accepted change ordering/native identity; prevention | order-01/02; state-07 | Actual Trigger/Close and native identity/cancellation. DOM suite observes pre-change ARIA and canceled zero internal dispatch. Observation hook is an explicit draft adaptation. |
+| Svelte disabled native/custom; custom snippet | state-08; composition remainder | Actual native button/span activation and ref forwarding. Not full eight-part render/class/ref/helper conformance. |
+| Svelte focus options | focus-02/04/06/07 | Selected conditional/false/element-returning initial/final callbacks. Not all ref/true/null/touch/count source cases. |
+| Svelte nested count/dismissal/outside; cleanup/remount | nested-02/04; cleanup-03 | Real Dialog child/grandchild and lock cleanup. No Menu/Select/AlertDialog/Drawer equivalence. |
+| Svelte deferred unmount; exit/reopen | presence-02/03/06 | Real CSS opacity exit and imperative action; stale exit suppression. No complete animation replacement/count source variants. |
+| Svelte initial hydration/labels; two Roots SSR IDs | ssr-04 | Actual SSR-generated IDs, hydration and label updates/removal. Does not port detached/suspended ssr-01/02 or React Suspense ssr-03. |
+| DOM shorthand/longhand scroll restoration | cleanup-01/03 | Own lock restores earlier inline properties. No asynchronous third-party unlock samples. |
+| Audit: controlled owner reopen clears deferral | order-01; presence-03/06; pinned DialogStore/popupStoreUtils | New effective-open cycle clears previous close deferral; following ordinary close completes once. Source-derived lifecycle supplement. |
+| Audit: imperative unmount cancels pending completion | presence-03/04/06; pinned popupStoreUtils/useAnimationsFinished | keepMounted CSS exit cannot issue a duplicate false completion after imperative unmount. DOM additionally checks queued pre-frame completion. |
+| Audit: parent modality change preserves child Escape ownership | nested-02; focus-14 | Open parent modality changes without reordering child; child closes first and owns remaining lock. Not full sibling/cross-type routing. |
+| Audit: composing Escape | pinned [useDismiss.ts](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/hooks/useDismiss.ts#L204) | Injected composition lifecycle events suppress the trusted Escape close request; next settled Escape closes. DOM covers synthetic same-turn compositionend and native isComposing. This does not certify real OS IME or WebKit behavior. |
+| Audit: attachment cleanup / infinite descendant animation (native and snippet) | composition remainder; presence-04; pinned [useAnimationsFinished.ts](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/useAnimationsFinished.ts#L99) | Actual consumer attachment mount/cleanup on native and replacement node; real infinite descendant animation does not block own-popup completion. DOM models getAnimations options. No full React ref-array or all-animation parity claim. |
+
+Public type checks also reject consumer CSS objects explicitly; only CSS strings or state callbacks returning strings are supported. Shared React fixtures use pinned real `@base-ui/react@1.8.0`; Svelte probes use actual library parts. No surrogate components, assertion weakening, blanket skips or runtime browser-security changes are used.

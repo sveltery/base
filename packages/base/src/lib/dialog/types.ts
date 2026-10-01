@@ -12,7 +12,7 @@ export type ElementProps<State = Record<string, never>> = Omit<HTMLAttributes<HT
   children?: Snippet;
   render?: Snippet<[Record<string | symbol, unknown>, State, Snippet | undefined]>;
   class?: string | ((state: State) => string | undefined);
-  style?: string | Record<string, string | number | undefined> | ((state: State) => string | Record<string, string | number | undefined> | undefined);
+  style?: string | ((state: State) => string | undefined);
   ref?: HTMLElement | null;
   onclick?: (event: MouseEvent & PreventableEvent) => void;
   onkeydown?: (event: KeyboardEvent & PreventableEvent) => void;

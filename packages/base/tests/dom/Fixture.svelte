@@ -2,7 +2,12 @@
   import { untrack, type Snippet } from 'svelte';
   import * as Dialog from '../../src/lib/dialog/index.js';
   import type { Actions, ChangeEventDetails } from '../../src/lib/dialog/types.js';
-  let { log, controlled = false, initial = false, keep = false, cancel = '', nested = false, prevent = false, custom = false, preventKey = false, preventClose = false }: { log: (channel: string, open?: boolean, details?: ChangeEventDetails) => void; controlled?: boolean; initial?: boolean; keep?: boolean; cancel?: string; nested?: boolean; prevent?: boolean; custom?: boolean; preventKey?: boolean; preventClose?: boolean } = $props();
+  let { log, controlled = false, initial = false, keep = false, cancel = '', nested = false, prevent = false, custom = false, preventKey = false, preventClose = false, attachConsumer = false }: { log: (channel: string, open?: boolean, details?: ChangeEventDetails) => void; controlled?: boolean; initial?: boolean; keep?: boolean; cancel?: string; nested?: boolean; prevent?: boolean; custom?: boolean; preventKey?: boolean; preventClose?: boolean; attachConsumer?: boolean } = $props();
+  let modal = $state<boolean | 'trap-focus'>(true);
+  let defer = $state(untrack(() => cancel === 'defer'));
+  function consumerAttachment(node: HTMLElement) { if (!attachConsumer) return; log('attached'); node.dataset.consumerAttached = ''; return () => log('detached'); }
+  export function setModal(value: boolean | 'trap-focus') { modal = value; }
+  export function stopDeferring() { defer = false; }
   let owner = $state(untrack(() => initial));
   let visible = $state(true);
   let label = $state(true);
@@ -17,8 +22,8 @@
 </script>
   {#snippet customTrigger(props: Record<string | symbol, unknown>, state: { disabled: boolean; open?: boolean }, children: Snippet | undefined)}<span {...props} data-custom-open={state.open}>{@render children?.()}</span>{/snippet}
 {#if visible}
-<Dialog.Root open={controlled ? owner : undefined} defaultOpen={initial} bind:actions onOpenChange={(open, details) => { log('consumer', open, details); if (cancel === (open ? 'open' : 'close')) details.cancel(); if (cancel === 'defer' && !open) details.preventUnmountOnClose(); }} onInternalOpenChange={(open, details) => log('internal', open, details)} onOpenChangeComplete={open => log('complete', open)}>
-  <Dialog.Trigger id="opener" nativeButton={!custom} render={custom ? customTrigger : undefined} onclick={event => { log('click'); if (prevent) event.preventBaseUIHandler(); }} onkeydown={event => { if (preventKey) event.preventDefault(); }}>Open</Dialog.Trigger>
+<Dialog.Root {modal} open={controlled ? owner : undefined} defaultOpen={initial} bind:actions onOpenChange={(open, details) => { log('consumer', open, details); if (cancel === (open ? 'open' : 'close')) details.cancel(); if (defer && !open) details.preventUnmountOnClose(); }} onInternalOpenChange={(open, details) => log('internal', open, details)} onOpenChangeComplete={open => log('complete', open)}>
+  <Dialog.Trigger {@attach consumerAttachment} id="opener" nativeButton={!custom} render={custom ? customTrigger : undefined} onclick={event => { log('click'); if (prevent) event.preventBaseUIHandler(); }} onkeydown={event => { if (preventKey) event.preventDefault(); }}>Open</Dialog.Trigger>
   <Dialog.Portal keepMounted={keep}>
     <Dialog.Backdrop data-testid="backdrop"/>
     <Dialog.Popup>

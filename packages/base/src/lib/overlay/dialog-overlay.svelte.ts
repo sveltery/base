@@ -24,13 +24,18 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
   let focusedInside = false;
   let preventReturnFocus = false;
   let pointerDown = false;
+  let composing = false;
+  let compositionTimer: number | undefined;
+  function compositionStart() { window.clearTimeout(compositionTimer); composing = true; }
+  function compositionEnd() { compositionTimer = window.setTimeout(() => { composing = false; }, /AppleWebKit/.test(window.navigator.userAgent) && !/Chrome|Chromium|Edg/.test(window.navigator.userAgent) ? 5 : 0); }
   let generation = 0;
+  let cycleVersion = controller.completionVersion;
   const frames: number[] = [];
   const frame = (callback: () => void) => { const id = window.requestAnimationFrame(() => { frames.splice(frames.indexOf(id), 1); callback(); }); frames.push(id); };
   const topmost = () => stacks.get(document)?.at(-1) === controller && controller.nestedCount === 0;
   const isInside = (event: Event) => event.composedPath().includes(node);
   function escape(event: KeyboardEvent) {
-    if (event.key !== 'Escape' || !controller.open || !topmost()) return;
+    if (event.key !== 'Escape' || event.isComposing || composing || !controller.open || !topmost()) return;
     controller.closeMethod = 'keyboard';
     const details = controller.request(false, 'escape-key', event);
     if (!details.isPropagationAllowed) event.stopPropagation();
@@ -70,6 +75,8 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
     if (controller.open && topmost() && focusedInside && activeElement(document) === document.body) node.focus({ preventScroll: true });
   });
   document.addEventListener('keydown', escape);
+  document.addEventListener('compositionstart', compositionStart);
+  document.addEventListener('compositionend', compositionEnd);
   document.addEventListener('keydown', tab);
   document.addEventListener('pointerdown', down, true);
   document.addEventListener('mousedown', down, true);
@@ -81,12 +88,13 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
   const stop = $effect.root(() => {
     $effect(() => {
       const open = controller.open;
-      const modal = controller.modal;
       if (!open) return;
       const stack = stacks.get(document) ?? [];
       stack.push(controller); stacks.set(document, stack);
-      const unlock = modal === true ? lockScroll(document) : () => {};
-      return () => { const index = stack.indexOf(controller); if (index !== -1) stack.splice(index, 1); unlock(); };
+      return () => { const index = stack.indexOf(controller); if (index !== -1) stack.splice(index, 1); };
+    });
+    $effect(() => {
+      if (controller.open && controller.modal === true) return lockScroll(document);
     });
     $effect(() => {
       const open = controller.open;
@@ -97,6 +105,9 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
         observed = true; previousOpen = open;
         const token = ++generation;
         if (open) {
+          controller.beginOpenCycle();
+          const completionVersion = controller.completionVersion;
+          cycleVersion = completionVersion;
           controller.presence = true;
           controller.starting = !initiallyOpen;
           controller.previousFocus = activeElement(document);
@@ -108,33 +119,38 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
             // Resolve starting style before removing it so the browser can establish an enter transition.
             window.getComputedStyle(node).getPropertyValue('opacity');
             controller.starting = false;
-            frame(() => { void finish(true, token); });
+            frame(() => { void finish(true, token, completionVersion); });
           });
         } else if (controller.mounted || controller.retainedTrigger || controller.previousFocus) {
-          controller.presence = true;
           if (!preventReturnFocus) focus(options().finalFocus, controller.closeMethod, () => controller.retainedTrigger?.isConnected ? controller.retainedTrigger : controller.trigger ?? controller.previousFocus);
-          frame(() => { void finish(false, token); });
+          // An imperative unmount may precede this DOM effect in the same turn.
+          if (controller.completionVersion !== cycleVersion) return;
+          controller.presence = true;
+          const completionVersion = controller.completionVersion;
+          frame(() => { void finish(false, token, completionVersion); });
         }
       });
     });
   });
-  async function finish(open: boolean, token: number) {
+  async function finish(open: boolean, token: number, completionVersion: number) {
     // Reinspect after canceled/replaced animations; never complete a stale generation.
-    while (!disposed && token === generation) {
-      const animations = node.getAnimations?.({ subtree: true }).filter(a => a.playState !== 'finished' && a.playState !== 'idle') ?? [];
+    while (!disposed && token === generation && completionVersion === controller.completionVersion) {
+      const animations = node.getAnimations?.().filter(a => a.playState !== 'finished' && a.playState !== 'idle') ?? [];
       if (!animations.length) break;
       await Promise.allSettled(animations.map(a => a.finished));
     }
-    if (disposed || token !== generation || controller.open !== open) return;
+    if (disposed || token !== generation || completionVersion !== controller.completionVersion || controller.open !== open) return;
     controller.starting = false;
     if (!open) { if (!controller.deferred) controller.unmount(); }
     else controller.props().onOpenChangeComplete?.(true);
   }
   return () => {
     disposed = true; generation++;
+    window.clearTimeout(compositionTimer);
     frames.forEach(id => window.cancelAnimationFrame(id)); frames.length = 0;
     stop(); observer.disconnect();
     document.removeEventListener('keydown', escape); document.removeEventListener('keydown', tab);
+    document.removeEventListener('compositionstart', compositionStart); document.removeEventListener('compositionend', compositionEnd);
     document.removeEventListener('pointerdown', down, true); document.removeEventListener('mousedown', down, true);
     document.removeEventListener('click', click, true);
     document.removeEventListener('pointerup', up, true); document.removeEventListener('mouseup', up, true); document.removeEventListener('focusin', focusIn);

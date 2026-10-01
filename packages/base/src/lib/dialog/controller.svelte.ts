@@ -8,6 +8,7 @@ export class DialogController {
   presence = $state(false);
   get exiting() { return !this.open && this.presence; }
   deferred = $state(false);
+  completionVersion = 0;
   starting = $state(false);
   readonly generatedPopupId: string;
   popupIdSource: (() => string) | undefined = $state.raw(undefined);
@@ -59,9 +60,11 @@ export class DialogController {
     return details;
   }
   unmount() {
+    this.completionVersion++;
     this.presence = false; this.deferred = false;
     this.activeId = null; this.retainedTrigger = null;
     this.props().onOpenChangeComplete?.(false);
   }
+  beginOpenCycle() { this.deferred = false; this.completionVersion++; }
   destroy() { this.parent?.children.delete(this); }
 }

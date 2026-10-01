@@ -258,3 +258,55 @@ test('Svelte two Roots preserve generated SSR IDs through hydration', async ({ p
   await expect(page.getByRole('dialog')).toHaveAttribute('aria-labelledby', ids[4]);
   expect(errors).toEqual([]);
 });
+
+test('audit: controlled owner reopen clears a previous deferred close', async ({ page }) => {
+  await start(page, '/dialog', '?mode=held&cancel=defer');
+  const owner = page.getByRole('button', { name: 'Owner toggle', includeHidden: true });
+  await owner.evaluate((button: HTMLButtonElement) => button.click());
+  await expect(page.getByRole('dialog')).toBeVisible(); await page.keyboard.press('Escape');
+  await owner.evaluate((button: HTMLButtonElement) => button.click());
+  await expect(page.getByTestId('popup')).toHaveAttribute('data-closed', '');
+  await owner.evaluate((button: HTMLButtonElement) => button.click());
+  await expect(page.getByTestId('popup')).toHaveAttribute('data-open', '');
+  await page.getByRole('button', { name: 'Stop deferring', includeHidden: true }).evaluate((button: HTMLButtonElement) => button.click());
+  await page.keyboard.press('Escape'); await owner.evaluate((button: HTMLButtonElement) => button.click());
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  expect((await logs(page)).filter(x => x.channel === 'complete' && x.open === false)).toHaveLength(1);
+});
+test('audit: imperative unmount cancels a pending keepMounted exit completion', async ({ page }) => {
+  await start(page, '/dialog', '?keep&animate&cancel=defer');
+  await page.locator('#trigger').click(); await expect(page.getByRole('dialog')).toBeVisible();
+  await page.waitForFunction(() => JSON.parse(document.querySelector('[data-testid=log]')!.textContent!).some((x: any) => x.channel === 'complete' && x.open));
+  await page.keyboard.press('Escape'); await expect(page.getByTestId('popup')).toHaveAttribute('data-ending-style', '');
+  await page.getByRole('button', { name: 'Imperative unmount' }).evaluate((button: HTMLButtonElement) => button.click());
+  await expect(page.getByTestId('popup')).toBeHidden(); await page.waitForTimeout(250);
+  expect((await logs(page)).filter(x => x.channel === 'complete' && x.open === false)).toHaveLength(1);
+});
+test('audit: parent modality change preserves child Escape ownership', async ({ page }) => {
+  await start(page, '/dialog', '?nested'); await page.locator('#trigger').click();
+  await page.getByRole('button', { name: 'Child open' }).click();
+  await page.getByRole('button', { name: 'Modality toggle' }).evaluate((button: HTMLButtonElement) => button.click());
+  await page.keyboard.press('Escape'); await expect(page.getByTestId('child-popup')).toHaveCount(0);
+  await expect(page.getByTestId('popup')).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.style.overflow)).toBe('');
+  await page.keyboard.press('Escape'); await expect(page.getByRole('dialog')).toHaveCount(0);
+});
+test('audit: composing Escape leaves popup open without a close request', async ({ page }) => {
+  await start(page); await page.locator('#trigger').click();
+  await page.getByRole('textbox', { name: 'first', exact: true }).dispatchEvent('compositionstart');
+  await page.keyboard.press('Escape'); await expect(page.getByRole('dialog')).toBeVisible();
+  expect(await consumer(page)).toHaveLength(1);
+  await page.getByRole('textbox', { name: 'first', exact: true }).dispatchEvent('compositionend');
+  await page.waitForTimeout(10); await page.keyboard.press('Escape'); await expect(page.getByRole('dialog')).toHaveCount(0);
+});
+for (const custom of [false, true]) test(`audit: consumer attachment cleanup and infinite descendant animation (${custom ? 'snippet' : 'native'})`, async ({ page }) => {
+  await start(page, '/dialog', '?audit' + (custom ? '&custom' : ''));
+  await expect(page.locator('#trigger')).toHaveAttribute('data-consumer-attached', '');
+  await page.locator('#trigger').click(); await expect(page.getByTestId('spinner')).toBeVisible();
+  await page.waitForFunction(() => JSON.parse(document.querySelector('[data-testid=log]')!.textContent!).some((x: any) => x.channel === 'complete' && x.open));
+  await page.keyboard.press('Escape'); await expect(page.getByRole('dialog')).toHaveCount(0);
+  expect((await logs(page)).filter(x => x.channel === 'complete' && x.open === false)).toHaveLength(1);
+  expect((await logs(page)).filter(x => x.channel === 'attached')).toHaveLength(1);
+  await page.getByRole('button', { name: 'Mount toggle' }).click();
+  expect((await logs(page)).filter(x => x.channel === 'detached')).toHaveLength(1);
+});
