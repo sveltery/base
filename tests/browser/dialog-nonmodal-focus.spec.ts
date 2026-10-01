@@ -18,6 +18,7 @@ for (const reference of [false, true]) {
     await page.keyboard.press('Tab'); await expect(page.locator('#after')).toBeFocused();
     await expect(page.getByRole('dialog')).toHaveCount(0);
     expect((await requests(page)).map(x => [x.open, x.reason, x.trigger])).toEqual([[true, 'trigger-press', 'nonmodal-a'], [false, 'focus-out', 'nonmodal-a']]);
+    expect((await requests(page)).at(-1)).toMatchObject({ type: 'focusin', guard: 'outside', relatedGuard: 'inside', trusted: true });
     await page.keyboard.press('Tab'); await expect(page.locator('#end')).toBeFocused();
     await expect(page.locator('[data-base-ui-focus-guard]')).toHaveCount(0);
   });

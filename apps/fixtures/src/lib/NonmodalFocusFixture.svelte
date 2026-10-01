@@ -7,10 +7,10 @@
   let hydrated = $state(false);
   let visible = $state(true);
   let actions = $state<Actions | null>(null);
-  let requests = $state<{ open: boolean; reason: string; trigger: string | null; type: string; target: string | null; related: string | null }[]>([]);
+  let requests = $state<{ open: boolean; reason: string; trigger: string | null; type: string; target: string | null; related: string | null; guard: string | null; relatedGuard: string | null; trusted: boolean }[]>([]);
   function change(open: boolean, details: ChangeEventDetails) {
     const event = details.event as FocusEvent;
-    requests.push({ open, reason: details.reason, trigger: details.trigger?.id ?? null, type: event.type, target: (event.target as HTMLElement | null)?.id || null, related: (event.relatedTarget as HTMLElement | null)?.id || null });
+    requests.push({ open, reason: details.reason, trigger: details.trigger?.id ?? null, type: event.type, target: (event.target as HTMLElement | null)?.id || null, related: (event.relatedTarget as HTMLElement | null)?.id || null, guard: (event.target as HTMLElement | null)?.dataset?.type ?? null, relatedGuard: (event.relatedTarget as HTMLElement | null)?.dataset?.type ?? null, trusted: event.isTrusted });
   }
   function commands(node: HTMLElement) {
     const host = node as HTMLElement & { nonmodalCommand?: (command: string) => void };

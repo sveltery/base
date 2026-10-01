@@ -6,7 +6,7 @@ export function mountNonmodalFocusReference(node: HTMLElement, scenario: string)
   function Fixture() {
     const [visible, setVisible] = useState(true);
     const actions = useRef<Dialog.Root.Actions>(null);
-    const [requests, setRequests] = useState<{ open: boolean; reason: string; trigger: string | null; type: string; target: string | null; related: string | null }[]>([]);
+    const [requests, setRequests] = useState<{ open: boolean; reason: string; trigger: string | null; type: string; target: string | null; related: string | null; guard: string | null; relatedGuard: string | null; trusted: boolean }[]>([]);
     return h('main', { 'data-hydrated': 'true', ref: node => {
       if (!node) return;
       const host = node as HTMLElement & { nonmodalCommand?: (command: string) => void };
@@ -16,7 +16,7 @@ export function mountNonmodalFocusReference(node: HTMLElement, scenario: string)
     h('button', { id: 'before' }, 'Before'),
     h(Dialog.Root, { modal: scenario === 'trap' ? 'trap-focus' : false, disablePointerDismissal: scenario === 'disabled', actionsRef: actions, onOpenChange: (open, details) => {
       const event = details.event as FocusEvent;
-      setRequests(previous => [...previous, { open, reason: details.reason, trigger: details.trigger?.id ?? null, type: event.type, target: (event.target as HTMLElement | null)?.id || null, related: (event.relatedTarget as HTMLElement | null)?.id || null }]);
+      setRequests(previous => [...previous, { open, reason: details.reason, trigger: details.trigger?.id ?? null, type: event.type, target: (event.target as HTMLElement | null)?.id || null, related: (event.relatedTarget as HTMLElement | null)?.id || null, guard: (event.target as HTMLElement | null)?.dataset?.type ?? null, relatedGuard: (event.relatedTarget as HTMLElement | null)?.dataset?.type ?? null, trusted: event.isTrusted }]);
     } },
       h(Dialog.Trigger, { id: 'nonmodal-a' }, 'Trigger A'),
       scenario === 'multiple' ? h(Dialog.Trigger, { id: 'nonmodal-b' }, 'Trigger B') : null,
