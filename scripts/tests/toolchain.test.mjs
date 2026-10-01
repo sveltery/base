@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { mkdtempSync, mkdirSync, writeFileSync, symlinkSync, readFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, symlinkSync, readFileSync, rmSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -28,7 +28,7 @@ function run({ version, corepackVersion, bootstrap = false }) {
       env: { ...process.env, PATH: bin, SVELTERY_TEST_LOG: log,
         COREPACK_HOME: join(scratch, 'corepack'), XDG_CACHE_HOME: join(scratch, 'cache'), XDG_DATA_HOME: join(scratch, 'data') },
     });
-    return { ...result, calls: result.status === 0 ? readFileSync(log, 'utf8').trim().split('\n') : [] };
+    return { ...result, calls: existsSync(log) ? readFileSync(log, 'utf8').trim().split('\n') : [] };
   } finally {
     rmSync(scratch, { recursive: true, force: true });
   }
@@ -56,10 +56,12 @@ test('rejects mismatched pnpm without Corepack before running commands', () => {
   const result = run({ version: '11.19.0', bootstrap: true });
   assert.equal(result.status, 1);
   assert.match(result.stderr, /Install pnpm 12\.6\.0 or provide Corepack/);
+  assert.deepEqual(result.calls, []);
 });
 
 test('rejects a fallback that fails to select the pinned version', () => {
   const result = run({ version: '11.19.0', corepackVersion: '12.8.1', bootstrap: true });
   assert.equal(result.status, 1);
   assert.match(result.stderr, /Could not select pinned pnpm 12\.6\.0/);
+  assert.deepEqual(result.calls, []);
 });
