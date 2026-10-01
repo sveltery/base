@@ -1,6 +1,6 @@
 # Dialog contained-first draft
 
-This implements `Dialog.Root`, `Trigger`, `Portal`, `Backdrop`, `Popup`, `Title`, `Description`, and `Close` for a bounded, contained Svelte 5 slice. Import the namespace from `@sveltery/base` or parts from `@sveltery/base/dialog`. The package remains private and experimental. **Browser acceptance is blocked; complete Dialog compatibility is not claimed.**
+This implements `Dialog.Root`, `Trigger`, `Portal`, `Backdrop`, `Popup`, `Title`, `Description`, and `Close` for a bounded, contained Svelte 5 slice. Import the namespace from `@sveltery/base` or parts from `@sveltery/base/dialog`. The package remains private and experimental. **The 31 contained browser probes pass in secured Chromium CI; complete Dialog compatibility is not claimed.**
 
 Reference: [Base UI v1.8.0](https://github.com/mui/base-ui/tree/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/dialog), commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. The unchanged [scenario contracts](../parity/dialog/scenarios.md) and [175 declarations / 371 variant records](../parity/dialog/upstream-inventory.json) remain **unported**. Tests in this draft are separately identified source-derived supplements and local wiring regressions; no upstream leaf earns credit from a narrower contained fixture. No approved deviations are introduced.
 
@@ -66,9 +66,9 @@ Executed commands, exact environment blockers and independent review are recorde
 | Area | Runnable evidence | Current result / limitation |
 | --- | --- | --- |
 | State, cancellation, native identity, composition | [actual Svelte DOM regressions](../packages/base/tests/dom/dialog.test.ts), [public type assertions](../packages/base/tests/dialog.types.ts) | Supplemental jsdom execution; not browser parity. Includes held controlled updates/reopen, callback pre-change DOM observations, canceled open/close with zero internal dispatch, actual Trigger/Close prevention and custom keyboard click composition. |
-| SSR and consumer package | [tarball consumer](../scripts/check-package.sh), [test-only SSR compiler loader](../scripts/svelte-ssr-loader.mjs) | Actual packed root/subpath parts render server-side without document access; generated IDs are unique across two Roots; portals absent on server. Real hydration needs Chromium. |
-| Focus, trusted input, nested dismissal, transitions and hydration | [31 browser probes](../tests/browser/dialog.spec.ts), [secured Playwright config](../playwright.config.ts) | Authored and collected, **blocked before browser startup**. Shared probes run real pinned React Base UI and real Svelte parts; no surrogate Dialog. Focus/Tab/trusted pointer/transition/hydration results are not certified. |
-| Nesting, labels, cleanup, scroll styles | Actual Svelte DOM regressions | Tests execute contained nested parts, one-Escape ownership, descendant count cleanup, label ID updates/removal, deferred completion/unmount, lock reference counts and restoration of prior shorthand/longhands. Layout-dependent claims remain blocked. |
+| SSR and consumer package | [tarball consumer](../scripts/check-package.sh), [test-only SSR compiler loader](../scripts/svelte-ssr-loader.mjs) | Actual packed root/subpath parts render server-side without document access; generated IDs are unique across two Roots; portals absent on server. The Chromium suite checks the server-generated IDs and label relationships through hydration. |
+| Focus, trusted input, nested dismissal, transitions and hydration | [31 browser probes](../tests/browser/dialog.spec.ts), [secured Playwright config](../playwright.config.ts) | **31/31 pass in secured Chromium CI**: 7 shared probes for each real pinned React Base UI and Svelte implementation, plus 17 Svelte supplements. This certifies only the exercised contained cases, not the original full inventory. |
+| Nesting, labels, cleanup, scroll styles | Actual Svelte DOM regressions | Tests execute contained nested parts, one-Escape ownership, descendant count cleanup, label ID updates/removal, deferred completion/unmount, lock reference counts and restoration of prior shorthand/longhands. Browser probes also exercise contained nesting, lock cleanup and stale exit completion; broader layout-dependent variants remain unported. |
 
 Fixture routes: `/dialog` (Svelte), `/reference` (real `@base-ui/react@1.8.0`), `/dialog-ssr` (two Roots with server-rendered IDs). React/reference dependencies are fixture-only; none enter the library runtime. Official `@playwright/test`, `playwright`, and `playwright-core` resolve to exact **1.63.0** through the committed lockfile. `chromiumSandbox: true` is explicit; retries are zero and no blanket skips exist.
 
@@ -78,7 +78,7 @@ Before a complete Dialog milestone, retain all original assertions/variants and 
 
 The document-wide stack is a contained-first ownership mechanism, not certified sibling/cross-type Floating UI equivalence. Composed paths and owner-document access are used, but full shadow DOM fixture parity remains unported. No behavior in this list should be hidden by weakening an upstream assertion or replacing its real dependency.
 
-## Browser environment blocker
+## Local browser environment blockers
 
 On the saved Linux environment, official install action:
 
@@ -90,4 +90,4 @@ attempted `https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-li
 
 A secured launch using `DIALOG_CHROMIUM_PATH=/usr/bin/chromium pnpm test:browser` fails before the fixture interaction with **SIGABRT**, `setuid_sandbox_host.cc:166`: `/usr/lib/chromium/chrome-sandbox` must be owned by root and mode 4755. The existing helper is mode 4755, owned by nobody. No sandbox-disabling flags or security changes were made. Read-only managed browser lookup also reported the Orbit launcher requires `ORBIT_OS=true` and `BROWSER_HEADLESS=false`; no managed browser was available.
 
-Parent/environment owner must provision a browser with its sandbox working or authorize the exact official CDN host and provide a supported sandbox route. Then run `pnpm test:browser` and fix any runtime/test failures before accepting this slice's browser gates.
+These local blockers remain. The separate Ubuntu 22.04 CI job downloaded official Chromium and passed all 31 probes with sandboxing enabled, zero retries and no policy changes: [successful run at `088fd76`](https://github.com/sveltery/base/actions/runs/36844887195). Local reruns still require a supported secured browser or authorized official CDN access plus a working sandbox.
