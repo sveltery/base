@@ -448,7 +448,8 @@ test('supplement: physical exit clears an inside prior-focus pause while other e
   const start = new Date('2026-01-01T00:00:00Z');
   await page.clock.install({ time: start }); await page.clock.pauseAt(start);
   await click(page, 'add three'); await click(page, 'add exiting prior target');
-  const prior = page.getByRole('button', { name: 'close old', exact: true });
+  // Close is initially aria-hidden until expansion/focus; retain its native DOM target.
+  const prior = page.locator('#root-old button[aria-label="close old"]');
   await prior.focus(); await page.keyboard.press('F6'); await page.keyboard.press('Tab');
   await expect(page.locator('#root-old')).toBeFocused();
   await closeNow(page, 'manager'); await expect(prior).toBeFocused();
