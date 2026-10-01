@@ -17,7 +17,7 @@
         38
       ],
       "scenario": "link",
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/button.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/ButtonFixture.svelte",
@@ -26,7 +26,13 @@
       "executions": [
         "B:17 Svelte Button link",
         "B:17 React reference Button link"
-      ]
+      ],
+      "evidence": {
+        "testedCommit": "8013385cbbbdf5aacf8a674d0eda635112ca8d12",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36910966934",
+        "browserJob": 110533226918
+      },
+      "verification": "Complete source declaration/assertions; both real React and Svelte secured Chromium executions passed. Supplemental form and composition probes receive no source-declaration credit."
     },
     {
       "sourceId": "packages/react/src/button/Button.test.tsx:42",
@@ -42,7 +48,7 @@
         75
       ],
       "scenario": "custom",
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/button.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/ButtonFixture.svelte",
@@ -51,7 +57,13 @@
       "executions": [
         "B:42 Svelte Button custom",
         "B:42 React reference Button custom"
-      ]
+      ],
+      "evidence": {
+        "testedCommit": "8013385cbbbdf5aacf8a674d0eda635112ca8d12",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36910966934",
+        "browserJob": 110533226918
+      },
+      "verification": "Complete source declaration/assertions; both real React and Svelte secured Chromium executions passed. Supplemental form and composition probes receive no source-declaration credit."
     },
     {
       "sourceId": "packages/react/src/button/Button.test.tsx:78",
@@ -62,7 +74,7 @@
         95
       ],
       "scenario": "modifier",
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/button.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/ButtonFixture.svelte",
@@ -71,7 +83,13 @@
       "executions": [
         "B:78 Svelte Button modifier",
         "B:78 React reference Button modifier"
-      ]
+      ],
+      "evidence": {
+        "testedCommit": "8013385cbbbdf5aacf8a674d0eda635112ca8d12",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36910966934",
+        "browserJob": 110533226918
+      },
+      "verification": "Complete source declaration/assertions; both real React and Svelte secured Chromium executions passed. Supplemental form and composition probes receive no source-declaration credit."
     },
     {
       "sourceId": "packages/react/src/button/Button.test.tsx:100",
@@ -87,7 +105,7 @@
         132
       ],
       "scenario": "native-disabled",
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/button.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/ButtonFixture.svelte",
@@ -96,7 +114,13 @@
       "executions": [
         "B:100 Svelte Button native-disabled",
         "B:100 React reference Button native-disabled"
-      ]
+      ],
+      "evidence": {
+        "testedCommit": "8013385cbbbdf5aacf8a674d0eda635112ca8d12",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36910966934",
+        "browserJob": 110533226918
+      },
+      "verification": "Complete source declaration/assertions; both real React and Svelte secured Chromium executions passed. Supplemental form and composition probes receive no source-declaration credit."
     },
     {
       "sourceId": "packages/react/src/button/Button.test.tsx:135",
@@ -113,7 +137,7 @@
         170
       ],
       "scenario": "custom-disabled",
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/button.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/ButtonFixture.svelte",
@@ -122,7 +146,13 @@
       "executions": [
         "B:135 Svelte Button custom-disabled",
         "B:135 React reference Button custom-disabled"
-      ]
+      ],
+      "evidence": {
+        "testedCommit": "8013385cbbbdf5aacf8a674d0eda635112ca8d12",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36910966934",
+        "browserJob": 110533226918
+      },
+      "verification": "Complete source declaration/assertions; both real React and Svelte secured Chromium executions passed. Supplemental form and composition probes receive no source-declaration credit."
     },
     {
       "sourceId": "packages/react/src/button/Button.test.tsx:175",
@@ -139,7 +169,7 @@
         209
       ],
       "scenario": "native-focusable",
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/button.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/ButtonFixture.svelte",
@@ -148,7 +178,13 @@
       "executions": [
         "B:175 Svelte Button native-focusable",
         "B:175 React reference Button native-focusable"
-      ]
+      ],
+      "evidence": {
+        "testedCommit": "8013385cbbbdf5aacf8a674d0eda635112ca8d12",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36910966934",
+        "browserJob": 110533226918
+      },
+      "verification": "Complete source declaration/assertions; both real React and Svelte secured Chromium executions passed. Supplemental form and composition probes receive no source-declaration credit."
     },
     {
       "sourceId": "packages/react/src/button/Button.test.tsx:212",
@@ -161,7 +197,7 @@
         239
       ],
       "scenario": "hover",
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/button.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/ButtonFixture.svelte",
@@ -170,7 +206,13 @@
       "executions": [
         "B:212 Svelte Button hover",
         "B:212 React reference Button hover"
-      ]
+      ],
+      "evidence": {
+        "testedCommit": "8013385cbbbdf5aacf8a674d0eda635112ca8d12",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36910966934",
+        "browserJob": 110533226918
+      },
+      "verification": "Complete source declaration/assertions; both real React and Svelte secured Chromium executions passed. Supplemental form and composition probes receive no source-declaration credit."
     },
     {
       "sourceId": "packages/react/src/button/Button.test.tsx:243",
@@ -184,7 +226,7 @@
         281
       ],
       "scenario": "becomes-disabled",
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/button.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/ButtonFixture.svelte",
@@ -193,7 +235,13 @@
       "executions": [
         "B:243 Svelte Button becomes-disabled",
         "B:243 React reference Button becomes-disabled"
-      ]
+      ],
+      "evidence": {
+        "testedCommit": "8013385cbbbdf5aacf8a674d0eda635112ca8d12",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36910966934",
+        "browserJob": 110533226918
+      },
+      "verification": "Complete source declaration/assertions; both real React and Svelte secured Chromium executions passed. Supplemental form and composition probes receive no source-declaration credit."
     },
     {
       "sourceId": "packages/react/src/button/Button.test.tsx:284",
@@ -210,7 +258,7 @@
         320
       ],
       "scenario": "custom-focusable",
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/button.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/ButtonFixture.svelte",
@@ -219,7 +267,13 @@
       "executions": [
         "B:284 Svelte Button custom-focusable",
         "B:284 React reference Button custom-focusable"
-      ]
+      ],
+      "evidence": {
+        "testedCommit": "8013385cbbbdf5aacf8a674d0eda635112ca8d12",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36910966934",
+        "browserJob": 110533226918
+      },
+      "verification": "Complete source declaration/assertions; both real React and Svelte secured Chromium executions passed. Supplemental form and composition probes receive no source-declaration credit."
     },
     {
       "sourceId": "packages/react/src/internals/use-button/useButton.test.tsx:281",
@@ -232,7 +286,7 @@
         307
       ],
       "scenario": "space-order",
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/button.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/ButtonFixture.svelte",
@@ -241,7 +295,13 @@
       "executions": [
         "U:281 Svelte Button space-order",
         "U:281 React reference Button space-order"
-      ]
+      ],
+      "evidence": {
+        "testedCommit": "8013385cbbbdf5aacf8a674d0eda635112ca8d12",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36910966934",
+        "browserJob": 110533226918
+      },
+      "verification": "Complete source declaration/assertions; both real React and Svelte secured Chromium executions passed. Supplemental form and composition probes receive no source-declaration credit."
     },
     {
       "sourceId": "packages/react/src/internals/use-button/useButton.test.tsx:596",
@@ -252,7 +312,7 @@
         631
       ],
       "scenario": "cancel-base",
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/button.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/ButtonFixture.svelte",
@@ -261,7 +321,13 @@
       "executions": [
         "U:596 Svelte Button cancel-base",
         "U:596 React reference Button cancel-base"
-      ]
+      ],
+      "evidence": {
+        "testedCommit": "8013385cbbbdf5aacf8a674d0eda635112ca8d12",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36910966934",
+        "browserJob": 110533226918
+      },
+      "verification": "Complete source declaration/assertions; both real React and Svelte secured Chromium executions passed. Supplemental form and composition probes receive no source-declaration credit."
     },
     {
       "sourceId": "packages/react/src/internals/use-button/useButton.test.tsx:634",
@@ -271,7 +337,7 @@
         658
       ],
       "scenario": "cancel-enter",
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/button.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/ButtonFixture.svelte",
@@ -280,7 +346,13 @@
       "executions": [
         "U:634 Svelte Button cancel-enter",
         "U:634 React reference Button cancel-enter"
-      ]
+      ],
+      "evidence": {
+        "testedCommit": "8013385cbbbdf5aacf8a674d0eda635112ca8d12",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36910966934",
+        "browserJob": 110533226918
+      },
+      "verification": "Complete source declaration/assertions; both real React and Svelte secured Chromium executions passed. Supplemental form and composition probes receive no source-declaration credit."
     },
     {
       "sourceId": "packages/react/src/internals/use-button/useButton.test.tsx:661",
@@ -290,7 +362,7 @@
         685
       ],
       "scenario": "cancel-space",
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/button.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/ButtonFixture.svelte",
@@ -299,7 +371,13 @@
       "executions": [
         "U:661 Svelte Button cancel-space",
         "U:661 React reference Button cancel-space"
-      ]
+      ],
+      "evidence": {
+        "testedCommit": "8013385cbbbdf5aacf8a674d0eda635112ca8d12",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36910966934",
+        "browserJob": 110533226918
+      },
+      "verification": "Complete source declaration/assertions; both real React and Svelte secured Chromium executions passed. Supplemental form and composition probes receive no source-declaration credit."
     },
     {
       "sourceId": "packages/react/src/internals/use-button/useButton.test.tsx:786",
@@ -311,7 +389,7 @@
         806
       ],
       "scenario": "enter-order",
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/button.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/ButtonFixture.svelte",
@@ -320,7 +398,13 @@
       "executions": [
         "U:786 Svelte Button enter-order",
         "U:786 React reference Button enter-order"
-      ]
+      ],
+      "evidence": {
+        "testedCommit": "8013385cbbbdf5aacf8a674d0eda635112ca8d12",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36910966934",
+        "browserJob": 110533226918
+      },
+      "verification": "Complete source declaration/assertions; both real React and Svelte secured Chromium executions passed. Supplemental form and composition probes receive no source-declaration credit."
     },
     {
       "sourceId": "packages/react/src/internals/use-button/useButton.test.tsx:169",
@@ -342,7 +426,7 @@
         222
       ],
       "scenario": "focus-blur",
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/button.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/ButtonFixture.svelte",
@@ -351,7 +435,13 @@
       "executions": [
         "U:169 Svelte Button focus-blur",
         "U:169 React reference Button focus-blur"
-      ]
+      ],
+      "evidence": {
+        "testedCommit": "8013385cbbbdf5aacf8a674d0eda635112ca8d12",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36910966934",
+        "browserJob": 110533226918
+      },
+      "verification": "Complete source declaration/assertions; both real React and Svelte secured Chromium executions passed. Supplemental form and composition probes receive no source-declaration credit."
     }
   ]
 }
