@@ -8,9 +8,11 @@ The first implementation step is composition plus state and overlay ownership, t
 
 Portal and focus logic must support nested roots, cleanup, explicit containers, and shadow roots. Use owner document/window and composed event paths. Focus trap, nonmodal tab order, outside press ownership, scroll lock, and presence completion belong in reusable DOM primitives. Do not transplant React hooks or a SvelteKit-specific portal into the package.
 
-## Current implementation
+## Initial foundation implementation (historical checkpoint)
 
-Event detail creation and reason constants are derived from upstream with MIT notices. Native prop/event merging is a draft behavioral adaptation. Ten new local regression tests cover selected behavior; they are **not** upstream test ports. Three upstream event-detail type assertions and one reused-getter runtime regression are ported with unchanged assertions and an exact equality helper. Native merge callbacks use an Event brand check rather than trusting custom payload fields; mutable and frozen custom callback objects retain ordinary callback chaining. Full public typing, browser validation, and composition remain pending.
+This section records the bootstrap implementation, rather than current repository readiness. For the current implemented Dialog surface and its explicit limits, read the [contained Dialog slice](dialog-first-slice.md). The [parity inventory](../parity/README.md) and [manifest](../parity/manifest.json) are authoritative for current scoped port counts; use [exact-commit CI](ci.md) for execution results.
+
+At that checkpoint, event detail creation and reason constants are derived from upstream with MIT notices. Native prop/event merging is a draft behavioral adaptation. Ten new local regression tests cover selected behavior; they are **not** upstream test ports. Three upstream event-detail type assertions and one reused-getter runtime regression are ported with unchanged assertions and an exact equality helper. Native merge callbacks use an Event brand check rather than trusting custom payload fields; mutable and frozen custom callback objects retain ordinary callback chaining. At that checkpoint, full public typing, browser validation, and composition remained pending.
 
 ## Svelte adaptations proposed for review
 
