@@ -3,5 +3,7 @@
   import ToastRootList from './ToastRootList.svelte';
   import type { ToastProviderContext } from '../../src/lib/toast/context.js';
   let { capture, indexKeys = false }: { capture: (context: ToastProviderContext) => void; indexKeys?: boolean } = $props();
+  let showRoots = $state(true);
+  export function hideRoots() { showRoots = false; }
 </script>
-<Provider timeout={0}><ToastRootList {capture} {indexKeys}/></Provider>
+<Provider timeout={0}><ToastRootList {capture} {indexKeys} {showRoots}/></Provider>

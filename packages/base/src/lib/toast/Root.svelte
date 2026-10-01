@@ -14,6 +14,8 @@
   let node = $state<HTMLElement | null>(null);
   let title = $state.raw<{ id: string | undefined }>();
   let description = $state.raw<{ id: string | undefined }>();
+  let registeredId: string | undefined;
+  let registeredLifecycle: object | undefined;
   const snapshot = $derived(store.getSnapshot());
   const expanded = $derived(selectors.expanded(snapshot));
   const focused = $derived(snapshot.focused);
@@ -24,6 +26,11 @@
 
   function recalculateHeight(flush = false) {
     if (!node) return;
+    if (registeredId !== undefined && registeredId !== toast.id) {
+      store.clearToastRef(registeredId, node, registeredLifecycle);
+    }
+    registeredId = toast.id;
+    registeredLifecycle = store.getLifecycle(toast.id);
     const previousHeight = node.style.height;
     node.style.height = 'auto';
     const height = node.offsetHeight;
@@ -52,8 +59,7 @@
     node = element;
     return () => {
       if (node === element) node = null;
-      const current = selectors.toast(store.getSnapshot(), toast.id);
-      if (current?.ref === element) store.updateToastInternal(toast.id, { ref: null });
+      if (registeredId !== undefined) store.clearToastRef(registeredId, element, registeredLifecycle);
     };
   }
   $effect(() => {

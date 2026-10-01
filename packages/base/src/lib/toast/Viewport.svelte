@@ -66,6 +66,8 @@
     }
     function blur(event: FocusEvent) {
       if (getTarget(event) !== win) return;
+      win!.clearTimeout(focusTimeout);
+      focusTimeout = undefined;
       store.set('isWindowFocused', false);
       store.pauseTimers();
     }
@@ -74,7 +76,7 @@
       const target = getTarget(event);
       if (target === win || !contains(node, target) || !isFocusVisible(activeElement(doc))) store.resumeTimers();
       win!.clearTimeout(focusTimeout);
-      focusTimeout = win!.setTimeout(() => store.set('isWindowFocused', true), 0);
+      focusTimeout = win!.setTimeout(() => { focusTimeout = undefined; store.set('isWindowFocused', true); }, 0);
     }
     function pointerdown(event: PointerEvent) {
       if (event.pointerType !== 'touch' || contains(store.state.viewport, getTarget(event))) return;
@@ -87,6 +89,10 @@
     doc.addEventListener('pointerdown', pointerdown, true);
     return () => {
       win.clearTimeout(focusTimeout);
+      // A real focus event already occurred. Empty-store cleanup must not lose it
+      // or the next add would incorrectly create a paused timer. A later blur
+      // cancels this pending focus before reaching this cleanup.
+      if (focusTimeout !== undefined && store.state.viewport === node) store.set('isWindowFocused', true);
       win.removeEventListener('keydown', keydown);
       win.removeEventListener('blur', blur, true);
       win.removeEventListener('focus', focus, true);

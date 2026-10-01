@@ -30,6 +30,12 @@ function endPointer(target: EventTarget, type: 'pointerup' | 'pointercancel') {
   target.dispatchEvent(event); flushSync();
 }
 async function advance(ms: number) { await vi.advanceTimersByTimeAsync(ms); await tick(); }
+function ownerWindowEvent(type: 'focus' | 'blur', listener: EventListener) {
+  const event = new FocusEvent(type);
+  // As in the pinned JSdom owner-window tests, retain the exact owner-window target.
+  Object.defineProperty(event, 'composedPath', { value: () => [window] });
+  listener(event);
+}
 
 it('gets focused when F6 is pressed', async () => { // upstream V:153
   await render(); await add(); key(button(), 'F6'); expect(document.activeElement).toBe(get('viewport'));
@@ -207,6 +213,41 @@ it('cleans listeners and pending owner-window focus work when unmounted', async 
   for (const type of ['keydown', 'blur', 'focus']) expect(removeListener.mock.calls.filter(([name]) => name === type)).toHaveLength(1);
   expect(removePointer.mock.calls.filter(([name, , capture]) => name === 'pointerdown' && capture === true)).toHaveLength(1);
   expect(vi.getTimerCount()).toBe(0);
+});
+
+it('retains an observed window focus when an empty transition cancels its delayed publication', async () => {
+  const spy = vi.spyOn(window, 'addEventListener');
+  const manager = createToastManager();
+  await render({ toastManager: manager }); await add();
+  const blur = spy.mock.calls.find(call => call[0] === 'blur' && call[2] === true)![1] as EventListener;
+  const focus = spy.mock.calls.find(call => call[0] === 'focus' && call[2] === true)![1] as EventListener;
+  ownerWindowEvent('blur', blur);
+  flushSync(); expect(button().getAttribute('data-window-focused')).toBe('false');
+  ownerWindowEvent('focus', focus);
+  manager.close(); flushSync();
+  await add();
+  await advance(4999); expect(root()).not.toBe(null);
+  await advance(2); expect(root()).toBe(null);
+});
+
+it('a later window blur cancels pending focus before empty-store cleanup', async () => {
+  const spy = vi.spyOn(window, 'addEventListener');
+  const manager = createToastManager();
+  await render({ toastManager: manager }); await add();
+  const blur = spy.mock.calls.find(call => call[0] === 'blur' && call[2] === true)![1] as EventListener;
+  const focus = spy.mock.calls.find(call => call[0] === 'focus' && call[2] === true)![1] as EventListener;
+  ownerWindowEvent('blur', blur);
+  ownerWindowEvent('focus', focus);
+  ownerWindowEvent('blur', blur);
+  flushSync(); expect(button().getAttribute('data-window-focused')).toBe('false');
+  manager.close(); flushSync();
+  expect(button().getAttribute('data-window-focused')).toBe('false');
+  await add();
+  expect(button().getAttribute('data-window-focused')).toBe('false');
+  await advance(5001); expect(root()).not.toBe(null);
+  const freshFocus = spy.mock.calls.filter(call => call[0] === 'focus' && call[2] === true).at(-1)![1] as EventListener;
+  ownerWindowEvent('focus', freshFocus);
+  await advance(5001); expect(root()).toBe(null);
 });
 for (const type of ['pointerup', 'pointercancel'] as const) it(`flushes deferred mouseleave on touch ${type}`, async () => { // source-drawn supplement, no parity credit
   await render(); await add(); mouse('mouseenter'); pointer(get('root'), 'touch'); mouse('mouseleave');

@@ -152,6 +152,14 @@ export class ToastStore {
   /** Capture at Root mount; stale exit completion must not remove a replacement. */
   getLifecycle(id: string): object | undefined { return this.lifecycles.get(id); }
 
+  /** Unregister only this node/lifecycle, including while ending rejects ordinary writes. */
+  clearToastRef(id: string, node: HTMLElement, expectedLifecycle?: object) {
+    if (this.disposed || (expectedLifecycle && this.lifecycles.get(id) !== expectedLifecycle)) return;
+    const toast = selectors.toast(this.state, id);
+    if (toast?.ref !== node) return;
+    this.setToasts(this.state.toasts.map(item => item.id === id ? { ...item, ref: null } : item));
+  }
+
   /** Viewport-owned DOM work runs after every onClose callback, synchronously. */
   setCloseFocusHandler(handler: (toastId?: string) => void): () => void {
     if (this.disposed) return () => {};

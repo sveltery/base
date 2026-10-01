@@ -83,3 +83,22 @@ for (const indexKeys of [false, true]) it(`rejects stale exits after ending-ID r
   expect(context.manager.toasts.find(toast => toast.id === 'replace')!.ref).toBe(replacement);
   expect(context.manager.toasts.find(toast => toast.id === 'sibling')!.ref).toBe(document.querySelector('[data-toast=sibling]'));
 });
+
+it('unregisters an ending Root node on conditional unmount while retaining its lifecycle and exit status', async () => {
+  const context = setup();
+  const remove = vi.fn();
+  context.manager.add({ id: 'ending', title: 'Ending', onRemove: remove }); flushSync();
+  const node = document.querySelector<HTMLElement>('[data-toast=ending]')!;
+  Object.defineProperty(node, 'getAnimations', { value: () => [{ finished: new Promise<void>(() => {}) }] });
+  const lifecycle = context.store.getLifecycle('ending');
+  context.manager.close('ending'); flushSync();
+  expect(context.manager.toasts[0].ref).toBe(node);
+  (mounted[mounted.length - 1] as { hideRoots(): void }).hideRoots(); flushSync();
+  await tick();
+  expect(node.isConnected).toBe(false);
+  expect(context.manager.toasts[0].ref).toBeNull();
+  expect(context.manager.toasts[0].transitionStatus).toBe('ending');
+  expect(context.manager.toasts[0].height).toBe(0);
+  expect(context.store.getLifecycle('ending')).toBe(lifecycle);
+  expect(remove).not.toHaveBeenCalled();
+});

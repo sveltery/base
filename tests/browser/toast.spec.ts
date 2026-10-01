@@ -154,7 +154,9 @@ for (const channel of ['manager', 'facade']) test(`supplement: ${channel} close-
   await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
   await page.locator('#outside').focus();
   await click(page, 'add three');
-  await page.locator('#root-c').focus();
+  await page.keyboard.press('F6');
+  await page.keyboard.press('Tab');
+  await expect(page.locator('#root-c')).toBeFocused();
   await closeNow(page, channel);
   expect(JSON.parse(await page.getByTestId('close-observations').innerText())).toEqual([
     { id: 'c', active: 'root-c', count: 3 }, { id: 'b', active: 'root-c', count: 3 }, { id: 'a', active: 'root-c', count: 3 },
@@ -169,6 +171,9 @@ test('supplement: timer close reads focus moved by onClose before returning', as
   await page.clock.install();
   await page.locator('#outside').focus();
   await click(page, 'add timer');
+  await page.keyboard.press('F6');
+  await page.keyboard.press('Shift+Tab');
+  await expect(page.locator('#outside')).toBeFocused();
   await page.clock.runFor(50);
   expect(JSON.parse(await page.getByTestId('close-observations').innerText())).toEqual([{ id: 'timer', active: 'root-timer', count: 1 }]);
   await expect(page.locator('#outside')).toBeFocused();
