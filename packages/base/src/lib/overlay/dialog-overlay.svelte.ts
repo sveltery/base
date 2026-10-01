@@ -23,6 +23,19 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
   controller.everMounted = true;
   let focusedInside = false;
   let preventReturnFocus = false;
+  let returnedFocus = false;
+  function returnFocus(detaching = false) {
+    if (returnedFocus) return;
+    returnedFocus = true;
+    const target = options().finalFocus;
+    // Conditional removal must respect focus already placed outside by the owner.
+    // Explicit targets/callbacks intentionally override this default-return guard.
+    if (detaching && (target === undefined || typeof target === 'boolean')) {
+      const current = activeElement(document);
+      if (current && current !== document.body && !node.contains(current)) return;
+    }
+    if (!preventReturnFocus) focus(target, controller.closeMethod, () => controller.retainedTrigger?.isConnected ? controller.retainedTrigger : controller.trigger ?? controller.previousFocus);
+  }
   let pointerDown = false;
   let composing = false;
   let compositionTimer: number | undefined;
@@ -34,6 +47,10 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
   const frame = (callback: () => void) => { const id = window.requestAnimationFrame(() => { frames.splice(frames.indexOf(id), 1); callback(); }); frames.push(id); };
   const topmost = () => stacks.get(document)?.at(-1) === controller && controller.nestedCount === 0;
   const isInside = (event: Event) => event.composedPath().includes(node);
+  const isTrigger = (event: Event) => {
+    const path = event.composedPath();
+    return [...controller.triggers.values()].some(trigger => path.includes(trigger));
+  };
   function escape(event: KeyboardEvent) {
     if (event.key !== 'Escape' || event.isComposing || composing || !controller.open || !topmost()) return;
     controller.closeMethod = 'keyboard';
@@ -51,11 +68,11 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
   let pressStartedOutside = false;
   function down(event: PointerEvent | MouseEvent) {
     pointerDown = true;
-    pressStartedOutside = controller.open && topmost() && event.button === 0 && !isInside(event) && !event.composedPath().includes(controller.trigger!);
+    pressStartedOutside = controller.open && topmost() && event.button === 0 && !isInside(event) && !isTrigger(event);
     if (pressStartedOutside && controller.modal === 'trap-focus' && !controller.backdrop && !controller.internalBackdrop) dismiss(event);
   }
   function dismiss(event: PointerEvent | MouseEvent) {
-    if (!controller.open || !topmost() || controller.props().disablePointerDismissal || event.button !== 0 || isInside(event) || event.composedPath().includes(controller.trigger!)) return;
+    if (!controller.open || !topmost() || controller.props().disablePointerDismissal || event.button !== 0 || isInside(event) || isTrigger(event)) return;
     const target = event.composedPath()[0];
     if (controller.modal && (controller.backdrop || controller.internalBackdrop) && target !== controller.backdrop && target !== controller.internalBackdrop) return;
     controller.closeMethod = 'mouse';
@@ -65,7 +82,7 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
   function click(event: MouseEvent) { if (pressStartedOutside) dismiss(event); pressStartedOutside = false; pointerDown = false; }
   function focusIn(event: FocusEvent) {
     if (isInside(event)) focusedInside = true;
-    else if (controller.open && topmost() && controller.modal === false && !controller.props().disablePointerDismissal && focusedInside && !pointerDown && !event.composedPath().includes(controller.trigger!)) {
+    else if (controller.open && topmost() && controller.modal === false && !controller.props().disablePointerDismissal && focusedInside && !pointerDown && !isTrigger(event)) {
       preventReturnFocus = true;
       const details = controller.request(false, 'focus-out', event);
       if (details.isCanceled) preventReturnFocus = false;
@@ -112,6 +129,7 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
           controller.starting = !initiallyOpen;
           controller.previousFocus = activeElement(document);
           preventReturnFocus = false;
+          returnedFocus = false;
           frame(() => {
             if (disposed || token !== generation || !controller.open) return;
             focus(options().initialFocus, controller.method, () => controller.method === 'touch' ? node : tabbables(node)[0] ?? node);
@@ -122,7 +140,7 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
             frame(() => { void finish(true, token, completionVersion); });
           });
         } else if (controller.mounted || controller.retainedTrigger || controller.previousFocus) {
-          if (!preventReturnFocus) focus(options().finalFocus, controller.closeMethod, () => controller.retainedTrigger?.isConnected ? controller.retainedTrigger : controller.trigger ?? controller.previousFocus);
+          returnFocus();
           // An imperative unmount may precede this DOM effect in the same turn.
           if (controller.completionVersion !== cycleVersion) return;
           controller.presence = true;
@@ -154,6 +172,8 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
     document.removeEventListener('pointerdown', down, true); document.removeEventListener('mousedown', down, true);
     document.removeEventListener('click', click, true);
     document.removeEventListener('pointerup', up, true); document.removeEventListener('mouseup', up, true); document.removeEventListener('focusin', focusIn);
+    // A conditional Portal/Popup removal can destroy this attachment without a close edge.
+    if (observed && previousOpen) returnFocus(true);
     if (controller.popup === node) controller.popup = null;
   };
 }

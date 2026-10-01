@@ -16,10 +16,22 @@ const invalidRoot: Root = { modal: 'yes' };
 // @ts-expect-error Controlled open is boolean.
 const invalidOpen: Root = { open: 'true' };
 const trigger: Trigger = { nativeButton: false, onclick(event) { event.preventBaseUIHandler(); event.preventDefault(); } };
+const nativeButton: Trigger = { name: 'intent', value: 'confirm', form: 'checkout', formaction: '/confirm', formmethod: 'post', formnovalidate: true,
+  onclick(event) { const button: HTMLButtonElement = event.currentTarget; button.form?.requestSubmit(); event.preventBaseUIHandler(); },
+  onpointerdown(event) { const pointer: PointerEvent = event; const button: HTMLButtonElement = event.currentTarget; event.preventBaseUIHandler(); void [pointer, button]; },
+  onfocus(event) { const focus: FocusEvent = event; const button: HTMLButtonElement = event.currentTarget; event.preventBaseUIHandler(); void [focus, button]; },
+  onwheel(event) { const wheel: WheelEvent = event; event.preventBaseUIHandler(); void wheel; },
+  onpointerdowncapture(event) { event.preventBaseUIHandler(); const button: HTMLButtonElement = event.currentTarget; void button; },
+};
+const popupHandlers: Popup = { onpointerdown(event) { const element: HTMLElement = event.currentTarget; event.preventBaseUIHandler(); void element; }, onanimationend(event) { const animation: AnimationEvent = event; event.preventBaseUIHandler(); void animation; } };
+// @ts-expect-error Native button type remains constrained.
+const invalidButton: Trigger = { type: 'link' };
+// @ts-expect-error Native pointer handlers must retain PointerEvent inference.
+const invalidPointer: Trigger = { onpointerdown(event: KeyboardEvent) { void event; } };
 // @ts-expect-error CSS object conversion is unsupported; use a CSS string.
 const invalidStyle: Trigger = { style: { width: 20 } };
 function eventTypes(details: ChangeEventDetails) {
   if (details.reason === 'escape-key') { const event: KeyboardEvent = details.event; void event; }
   if (details.reason === 'outside-press') { const event: MouseEvent | PointerEvent | TouchEvent = details.event; void event; }
 }
-void [root, invalidRoot, invalidOpen, trigger, invalidStyle, eventTypes, apiEquality];
+void [root, invalidRoot, invalidOpen, trigger, nativeButton, popupHandlers, invalidButton, invalidPointer, invalidStyle, eventTypes, apiEquality];
