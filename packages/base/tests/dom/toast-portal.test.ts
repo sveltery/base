@@ -44,3 +44,7 @@ it('supports a ShadowRoot and cleans relocated content on root teardown', async 
   const { component } = setup(shadow); const node = shadow.querySelector('[data-testid="portal"]')!; expect(node.textContent).toBe('Initial');
   await unmount(component); cleanups.pop(); expect(shadow.querySelector('[data-testid="portal"]')).toBeNull();
 });
+it('treats a native container carrying a current property as a node, not a ref object', () => {
+  const destination = Object.assign(document.createElement('div'), { current: null }); document.body.append(destination);
+  setup(destination); expect(portal().parentNode).toBe(destination);
+});

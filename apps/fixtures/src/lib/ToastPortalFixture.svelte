@@ -20,10 +20,10 @@
   let attachmentNode = $state<HTMLElement | null>(null);
   const attachmentProps = { [attachmentKey]: (node: HTMLElement) => { attachmentNode = node; return () => { attachmentNode = null; }; } };
   const external = Toast.createToastManager();
-  onMount(() => { shadow = host!.attachShadow({ mode: 'open' }); hydrated = true; });
+  onMount(() => { if (scenario === 'element-current') Object.assign(targetA!, { current: null }); shadow = host!.attachShadow({ mode: 'open' }); hydrated = true; });
   const container = $derived.by(() => {
     if (mode === 'null' || scenario === 'null' && mode === 'initial') return null;
-    if (mode === 'a' || scenario === 'element' && mode === 'initial') return targetA ?? null;
+    if (mode === 'a' || ['element', 'element-current'].includes(scenario) && mode === 'initial') return targetA ?? null;
     if (mode === 'b') return targetB ?? null;
     if (scenario === 'shadow') return shadow ?? null;
     if (scenario === 'ref' || scenario === 'ref-null') return mode === 'ref-a' ? { current: targetA ?? null } : objectRef;
@@ -52,7 +52,7 @@
   <button onclick={() => mode = 'remove-id'}>remove id</button><button onclick={() => mode = 'update'}>update props</button><button onclick={() => mounted = false}>remove</button>
   <button onclick={() => external.add({ id: 'portal-toast', title: 'Portal toast', timeout: 0 })}>add toast</button>
   <output data-testid="events">{JSON.stringify(calls)}</output>
-  <output data-testid="refs">{JSON.stringify({ present: !!ref, renderPresent: !!renderRef, tag: ref?.tagName, testid: ref?.getAttribute('data-testid'), renderTag: renderRef?.tagName, renderTestid: renderRef?.getAttribute('data-testid'), same: !!ref && ref === renderRef, attached: !!ref && ref === attachmentNode })}</output>
+  <output data-testid="refs">{JSON.stringify({ instanceofDiv: hydrated && ref instanceof HTMLDivElement, present: !!ref, renderPresent: !!renderRef, tag: ref?.tagName, testid: ref?.getAttribute('data-testid'), renderTag: renderRef?.tagName, renderTestid: renderRef?.getAttribute('data-testid'), same: !!ref && ref === renderRef, attached: !!ref && ref === attachmentNode })}</output>
   <Toast.Provider toastManager={external}>
     {#if mounted}
       {#if scenario === 'modal-outside'}

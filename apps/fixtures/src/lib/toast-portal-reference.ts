@@ -20,11 +20,11 @@ export function mountToastPortalReference(node: HTMLElement, scenario: string) {
     const objectRef = useRef<HTMLElement | ShadowRoot | null>(null);
     const refA = useRef<HTMLDivElement | null>(null); const refB = useRef<HTMLDivElement | null>(null);
     const [refs, setRefs] = useState({});
-    useEffect(() => { setShadow(host.current!.attachShadow({ mode: 'open' })); setHydrated(true); }, []);
+    useEffect(() => { if (scenario === 'element-current') Object.assign(targetA.current!, { current: null }); setShadow(host.current!.attachShadow({ mode: 'open' })); setHydrated(true); }, []);
     useEffect(() => { setRefs({ tag: refA.current?.tagName, testid: refA.current?.getAttribute('data-testid'), renderTag: refB.current?.tagName, renderTestid: refB.current?.getAttribute('data-testid'), same: !!refA.current && refA.current === refB.current }); }, [mode, mounted, hydrated]);
     let container;
     if (mode === 'null' || scenario === 'null' && mode === 'initial') container = null;
-    else if (mode === 'a' || scenario === 'element' && mode === 'initial') container = targetA.current;
+    else if (mode === 'a' || ['element', 'element-current'].includes(scenario) && mode === 'initial') container = targetA.current;
     else if (mode === 'b') container = targetB.current;
     else if (scenario === 'shadow') container = shadow ?? null;
     else if (scenario === 'ref' || scenario === 'ref-null') container = mode === 'ref-a' ? { current: targetA.current } : objectRef;
@@ -53,7 +53,7 @@ export function mountToastPortalReference(node: HTMLElement, scenario: string) {
       h('button', { onClick: () => { objectRef.current = targetA.current; setMode('mutated'); } }, 'mutate same ref'),
       h('button', { onClick: () => setMounted(false) }, 'remove'), h('button', { onClick: () => external.add({ id: 'portal-toast', title: 'Portal toast', timeout: 0 }) }, 'add toast'),
       h('output', { 'data-testid': 'events' }, JSON.stringify(calls)),
-      h('output', { 'data-testid': 'refs', ref: (output: HTMLOutputElement | null) => { if (output) Object.assign(output, { readPortalRefs: () => ({ present: !!refA.current, renderPresent: !!refB.current, tag: refA.current?.tagName, testid: refA.current?.getAttribute('data-testid'), renderTag: refB.current?.tagName, renderTestid: refB.current?.getAttribute('data-testid'), same: !!refA.current && refA.current === refB.current }) }); } }, JSON.stringify(refs)),
+      h('output', { 'data-testid': 'refs', ref: (output: HTMLOutputElement | null) => { if (output) Object.assign(output, { readPortalRefs: () => ({ instanceofDiv: refA.current instanceof HTMLDivElement, present: !!refA.current, renderPresent: !!refB.current, tag: refA.current?.tagName, testid: refA.current?.getAttribute('data-testid'), renderTag: refB.current?.tagName, renderTestid: refB.current?.getAttribute('data-testid'), same: !!refA.current && refA.current === refB.current }) }); } }, JSON.stringify(refs)),
       h(Toast.Provider, { toastManager: external }, mounted ? scenario === 'modal-outside'
         ? h('div', null, h(Toast.Portal, { id: undefined, ...testId('root') }, h(Contents)), h(Dialog.Root, null, h(Dialog.Trigger, null, 'Open dialog'), h(Dialog.Portal, { id: undefined, ...testId('dialog-portal') }, h(Dialog.Popup, null, h(Dialog.Title, null, 'Dialog title'), h('button', null, 'Dialog control')))))
         : scenario === 'dialog' || scenario === 'dialog-ref-null'

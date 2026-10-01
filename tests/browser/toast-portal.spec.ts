@@ -13,7 +13,7 @@ const helpers = [
 ] as const;
 async function readRefs(page: Page) {
   return page.getByTestId('refs').evaluate(node => {
-    const output = node as HTMLElement & { readPortalRefs?: () => { present?: boolean; renderPresent?: boolean; tag?: string; testid?: string; renderTag?: string; renderTestid?: string; same?: boolean } };
+    const output = node as HTMLElement & { readPortalRefs?: () => { instanceofDiv?: boolean; present?: boolean; renderPresent?: boolean; tag?: string; testid?: string; renderTag?: string; renderTestid?: string; same?: boolean } };
     return output.readPortalRefs?.() ?? JSON.parse(node.textContent!);
   });
 }
@@ -36,7 +36,7 @@ for (const reference of [false, true]) {
     } else if (scenario.includes('style')) {
       await expect(root).toHaveAttribute('style'); expect(await root.getAttribute('style')).toContain('color: green');
     } else if (scenario === 'ref') {
-      await expect.poll(async () => (await readRefs(page)).tag).toBe('DIV');
+      await expect.poll(async () => (await readRefs(page)).instanceofDiv).toBe(true);
     } else if (scenario === 'class') {
       await expect(page.locator('.test-class')).toHaveCount(1);
     } else if (scenario.includes('class')) {
@@ -52,11 +52,11 @@ for (const reference of [false, true]) {
     }
     expect(errors).toEqual([]);
   });
-  for (const scenario of ['default', 'null', 'ref-null', 'element', 'shadow']) test(`supplement: Toast Portal ${framework} ${scenario} placement/update/cleanup`, async ({ page }) => {
+  for (const scenario of ['default', 'null', 'ref-null', 'element', 'element-current', 'shadow']) test(`supplement: Toast Portal ${framework} ${scenario} placement/update/cleanup`, async ({ page }) => {
     const errors = await setup(page, scenario);
     const root = page.getByTestId('root');
     if (scenario === 'null') { await expect(root).toHaveCount(0); await click(page, 'target a'); }
-    else if (scenario === 'element') expect(await root.evaluate(node => node.parentElement?.id)).toBe('target-a');
+    else if (['element', 'element-current'].includes(scenario)) expect(await root.evaluate(node => node.parentElement?.id)).toBe('target-a');
     else {
       await expect(root).toHaveCount(1);
       expect(await root.evaluate(node => node.parentNode === (document.querySelector('#shadow-host')?.shadowRoot ?? document.body))).toBe(scenario === 'shadow');
