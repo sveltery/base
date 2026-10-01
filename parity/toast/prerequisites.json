@@ -1,0 +1,364 @@
+{
+  "upstreamCommit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "scope": "Reference-only execution: test-only adaptations of pinned upstream algorithms under parity/toast, not actual Sveltery Toast runtime code. Every Sveltery Toast contract remains unported; shared parity manifest and credits remain unchanged.",
+  "verification": {
+    "runtimeCommand": "pnpm --filter @sveltery/base test",
+    "typesCommand": "pnpm check",
+    "sourceCommand": "node parity/toast/inventory.mjs /path/to/upstream --check",
+    "ci": "Read the draft PR exact final head checks; verification record in verification.md."
+  },
+  "cases": [
+    {
+      "id": "packages/react/src/toast/createToastManager.test.tsx:53",
+      "name": "returns a toast id",
+      "sourceBodySha256": "1f80be81e2ebde26005aaada587c27e39cabecd07a30febf9ea2a9f23156f915",
+      "assertionLines": [
+        60
+      ],
+      "status": "passing",
+      "evidenceScope": "pure-prerequisite",
+      "test": "packages/base/tests/toast-manager-prerequisites.test.ts",
+      "adapter": "Toast.createToastManager import mapped to test-only createToastManager; no Provider/DOM fixture required by this leaf."
+    },
+    {
+      "id": "packages/react/src/toast/store.test.ts:40",
+      "name": "keeps toast metadata synchronized after mutations",
+      "sourceBodySha256": "27e3604ce044c2533ec8213cd791ed8802cf9584a78c5708273110c37ea28f2d",
+      "assertionLines": [
+        56
+      ],
+      "status": "passing",
+      "evidenceScope": "pure-prerequisite",
+      "test": "packages/base/tests/toast-store-prerequisites.test.ts",
+      "adapter": "ReactStore replaced with synchronous immutable set/update; Timeout uses native timers; focus transfer and touch DOM handler excluded. All source test bodies and both helper bodies unchanged; viewport remains null in every fixture."
+    },
+    {
+      "id": "packages/react/src/toast/store.test.ts:67",
+      "name": "ignores height recalculations while a toast is transitioning out",
+      "sourceBodySha256": "fcd55218646caf3946bbe5f2eaa7ad5f944f5dd9d50f8abeb4c7fc0af99a53af",
+      "assertionLines": [
+        71,
+        79,
+        80,
+        83
+      ],
+      "status": "passing",
+      "evidenceScope": "pure-prerequisite",
+      "test": "packages/base/tests/toast-store-prerequisites.test.ts",
+      "adapter": "ReactStore replaced with synchronous immutable set/update; Timeout uses native timers; focus transfer and touch DOM handler excluded. All source test bodies and both helper bodies unchanged; viewport remains null in every fixture."
+    },
+    {
+      "id": "packages/react/src/toast/store.test.ts:86",
+      "name": "ignores mutations that target an unknown toast",
+      "sourceBodySha256": "65cb67a09c30433aa21b57d9222a8a7c9b15feee96298a9099477561b531ca25",
+      "assertionLines": [
+        94,
+        95
+      ],
+      "status": "passing",
+      "evidenceScope": "pure-prerequisite",
+      "test": "packages/base/tests/toast-store-prerequisites.test.ts",
+      "adapter": "ReactStore replaced with synchronous immutable set/update; Timeout uses native timers; focus transfer and touch DOM handler excluded. All source test bodies and both helper bodies unchanged; viewport remains null in every fixture."
+    },
+    {
+      "id": "packages/react/src/toast/store.test.ts:98",
+      "name": "replaces custom data wholesale when updating a toast",
+      "sourceBodySha256": "f908e43234236c848e8040ea1087496e4c91277de90efcdd6bde107033ca0282",
+      "assertionLines": [
+        103,
+        106,
+        109
+      ],
+      "status": "passing",
+      "evidenceScope": "pure-prerequisite",
+      "test": "packages/base/tests/toast-store-prerequisites.test.ts",
+      "adapter": "ReactStore replaced with synchronous immutable set/update; Timeout uses native timers; focus transfer and touch DOM handler excluded. All source test bodies and both helper bodies unchanged; viewport remains null in every fixture."
+    },
+    {
+      "id": "packages/react/src/toast/store.test.ts:112",
+      "name": "derives the update from the current toast when given a function",
+      "sourceBodySha256": "2e105984faa7a58043ffdd3a640b2c8163ed21b05f1b509f5812348bea108012",
+      "assertionLines": [
+        120,
+        121,
+        122
+      ],
+      "status": "passing",
+      "evidenceScope": "pure-prerequisite",
+      "test": "packages/base/tests/toast-store-prerequisites.test.ts",
+      "adapter": "ReactStore replaced with synchronous immutable set/update; Timeout uses native timers; focus transfer and touch DOM handler excluded. All source test bodies and both helper bodies unchanged; viewport remains null in every fixture."
+    },
+    {
+      "id": "packages/react/src/toast/store.test.ts:125",
+      "name": "passes a toast without custom data to the updater",
+      "sourceBodySha256": "9a8cc5fac5700709833ba1ad50ef0b701814b6d691815e6a5240b73df3d4a915",
+      "assertionLines": [
+        130,
+        132,
+        133,
+        134
+      ],
+      "status": "passing",
+      "evidenceScope": "pure-prerequisite",
+      "test": "packages/base/tests/toast-store-prerequisites.test.ts",
+      "adapter": "ReactStore replaced with synchronous immutable set/update; Timeout uses native timers; focus transfer and touch DOM handler excluded. All source test bodies and both helper bodies unchanged; viewport remains null in every fixture."
+    },
+    {
+      "id": "packages/react/src/toast/store.test.ts:137",
+      "name": "stores a function passed as custom data instead of calling it",
+      "sourceBodySha256": "82c48ff29737d7550a568593e71f05c0224d86efe6290faa43d9d9a725c55881",
+      "assertionLines": [
+        142
+      ],
+      "status": "passing",
+      "evidenceScope": "pure-prerequisite",
+      "test": "packages/base/tests/toast-store-prerequisites.test.ts",
+      "adapter": "ReactStore replaced with synchronous immutable set/update; Timeout uses native timers; focus transfer and touch DOM handler excluded. All source test bodies and both helper bodies unchanged; viewport remains null in every fixture."
+    },
+    {
+      "id": "packages/react/src/toast/store.test.ts:145",
+      "name": "does not call the updater for a missing or ending toast",
+      "sourceBodySha256": "08376104d9aa45e8652da852c3bbe02860143ff6453de73c38be712f236aed53",
+      "assertionLines": [
+        148,
+        153,
+        154
+      ],
+      "status": "passing",
+      "evidenceScope": "pure-prerequisite",
+      "test": "packages/base/tests/toast-store-prerequisites.test.ts",
+      "adapter": "ReactStore replaced with synchronous immutable set/update; Timeout uses native timers; focus transfer and touch DOM handler excluded. All source test bodies and both helper bodies unchanged; viewport remains null in every fixture."
+    },
+    {
+      "id": "packages/react/src/toast/store.test.ts:157",
+      "name": "keeps a toast added from inside an updater",
+      "sourceBodySha256": "d9ab63cc834c34e99f4c7b422197bdeb824c1ad312b50c4671334b681a971ba2",
+      "assertionLines": [
+        164,
+        165
+      ],
+      "status": "passing",
+      "evidenceScope": "pure-prerequisite",
+      "test": "packages/base/tests/toast-store-prerequisites.test.ts",
+      "adapter": "ReactStore replaced with synchronous immutable set/update; Timeout uses native timers; focus transfer and touch DOM handler excluded. All source test bodies and both helper bodies unchanged; viewport remains null in every fixture."
+    },
+    {
+      "id": "packages/react/src/toast/store.test.ts:169",
+      "name": "keeps a toast closed from inside its updater closed",
+      "sourceBodySha256": "abd31fcd5ee10068cec139eab4bbd631aa7de9172ef922c7123fe49904991aa4",
+      "assertionLines": [
+        176,
+        177
+      ],
+      "status": "passing",
+      "evidenceScope": "pure-prerequisite",
+      "test": "packages/base/tests/toast-store-prerequisites.test.ts",
+      "adapter": "ReactStore replaced with synchronous immutable set/update; Timeout uses native timers; focus transfer and touch DOM handler excluded. All source test bodies and both helper bodies unchanged; viewport remains null in every fixture."
+    },
+    {
+      "id": "packages/react/src/toast/store.test.ts:180",
+      "name": "stores a function as the value when re-adding a toast under an existing id",
+      "sourceBodySha256": "fb5096e22220789c67d0c302befd85f735d64633b8579166ced1cfd901ce3179",
+      "assertionLines": [
+        187
+      ],
+      "status": "passing",
+      "evidenceScope": "pure-prerequisite",
+      "test": "packages/base/tests/toast-store-prerequisites.test.ts",
+      "adapter": "ReactStore replaced with synchronous immutable set/update; Timeout uses native timers; focus transfer and touch DOM handler excluded. All source test bodies and both helper bodies unchanged; viewport remains null in every fixture."
+    },
+    {
+      "id": "packages/react/src/toast/store.test.ts:190",
+      "name": "replaces custom data when re-adding a toast under an existing id",
+      "sourceBodySha256": "dd6e6e15a35354b6a86c534e4f8753f7197f6b839f98e54c4b508e9e3af1909c",
+      "assertionLines": [
+        195,
+        198
+      ],
+      "status": "passing",
+      "evidenceScope": "pure-prerequisite",
+      "test": "packages/base/tests/toast-store-prerequisites.test.ts",
+      "adapter": "ReactStore replaced with synchronous immutable set/update; Timeout uses native timers; focus transfer and touch DOM handler excluded. All source test bodies and both helper bodies unchanged; viewport remains null in every fixture."
+    },
+    {
+      "id": "packages/react/src/toast/store.test.ts:201",
+      "name": "stores a function passed as custom data on a promise toast",
+      "sourceBodySha256": "611a5c7de4f05e982fcc8bdcc53ccf26fbeb8dd7d5a80b7a82085399f3486104",
+      "assertionLines": [
+        211,
+        214
+      ],
+      "status": "passing",
+      "evidenceScope": "pure-prerequisite",
+      "test": "packages/base/tests/toast-store-prerequisites.test.ts",
+      "adapter": "ReactStore replaced with synchronous immutable set/update; Timeout uses native timers; focus transfer and touch DOM handler excluded. All source test bodies and both helper bodies unchanged; viewport remains null in every fixture."
+    },
+    {
+      "id": "packages/react/src/toast/store.test.ts:217",
+      "name": "does not invoke onRemove for a toast that is no longer in the store",
+      "sourceBodySha256": "b9a0df783022700d0c119d24ed33e339813e735959eb06bdb93ef8178ef8db0e",
+      "assertionLines": [
+        222,
+        226
+      ],
+      "status": "passing",
+      "evidenceScope": "pure-prerequisite",
+      "test": "packages/base/tests/toast-store-prerequisites.test.ts",
+      "adapter": "ReactStore replaced with synchronous immutable set/update; Timeout uses native timers; focus transfer and touch DOM handler excluded. All source test bodies and both helper bodies unchanged; viewport remains null in every fixture."
+    },
+    {
+      "id": "packages/react/src/toast/store.test.ts:230",
+      "name": "recomputes limited flags when the limit changes",
+      "sourceBodySha256": "5460fd77f86497e0dd2b8d1b3a237d58719b12256b9e619c5429cc80c563999a",
+      "assertionLines": [
+        235,
+        236,
+        237,
+        240,
+        241,
+        242
+      ],
+      "status": "passing",
+      "evidenceScope": "pure-prerequisite",
+      "test": "packages/base/tests/toast-store-prerequisites.test.ts",
+      "adapter": "ReactStore replaced with synchronous immutable set/update; Timeout uses native timers; focus transfer and touch DOM handler excluded. All source test bodies and both helper bodies unchanged; viewport remains null in every fixture."
+    },
+    {
+      "id": "packages/react/src/toast/store.test.ts:251",
+      "name": "re-pauses timers after the last toast is closed and a new one is added",
+      "sourceBodySha256": "10657e9bee68c2a99637768f1858815cee99099c3b7a27827c08e723b430c0ba",
+      "assertionLines": [
+        270
+      ],
+      "status": "passing",
+      "evidenceScope": "pure-prerequisite",
+      "test": "packages/base/tests/toast-store-prerequisites.test.ts",
+      "adapter": "ReactStore replaced with synchronous immutable set/update; Timeout uses native timers; focus transfer and touch DOM handler excluded. All source test bodies and both helper bodies unchanged; viewport remains null in every fixture."
+    },
+    {
+      "id": "packages/react/src/toast/store.test.ts:273",
+      "name": "re-pauses timers after all toasts are closed and a new one is added",
+      "sourceBodySha256": "c93943e303ddaea00743434b65e6b963fc230a79feb861ed318af2577e28c84f",
+      "assertionLines": [
+        287
+      ],
+      "status": "passing",
+      "evidenceScope": "pure-prerequisite",
+      "test": "packages/base/tests/toast-store-prerequisites.test.ts",
+      "adapter": "ReactStore replaced with synchronous immutable set/update; Timeout uses native timers; focus transfer and touch DOM handler excluded. All source test bodies and both helper bodies unchanged; viewport remains null in every fixture."
+    },
+    {
+      "id": "packages/react/src/toast/store.test.ts:290",
+      "name": "re-pauses timers after the last active toast closes while ending toasts remain",
+      "sourceBodySha256": "dac5bbba66ef777e790a5969b5ffc80d68859d778643ccaab55ee748f0044a83",
+      "assertionLines": [
+        305
+      ],
+      "status": "passing",
+      "evidenceScope": "pure-prerequisite",
+      "test": "packages/base/tests/toast-store-prerequisites.test.ts",
+      "adapter": "ReactStore replaced with synchronous immutable set/update; Timeout uses native timers; focus transfer and touch DOM handler excluded. All source test bodies and both helper bodies unchanged; viewport remains null in every fixture."
+    },
+    {
+      "id": "packages/react/src/toast/store.test.ts:308",
+      "name": "re-pauses timers after the last timed toast closes while untimed toasts remain",
+      "sourceBodySha256": "2c6c823bdd888bba8f9eef3ece6004e77f59e5d3104964227da52eed8df97bf5",
+      "assertionLines": [
+        322
+      ],
+      "status": "passing",
+      "evidenceScope": "pure-prerequisite",
+      "test": "packages/base/tests/toast-store-prerequisites.test.ts",
+      "adapter": "ReactStore replaced with synchronous immutable set/update; Timeout uses native timers; focus transfer and touch DOM handler excluded. All source test bodies and both helper bodies unchanged; viewport remains null in every fixture."
+    },
+    {
+      "id": "packages/react/src/toast/store.test.ts:325",
+      "name": "keeps a rescheduled timer paused while expanded, and runs it once collapsed",
+      "sourceBodySha256": "8d108267e8731a316d7d5914ed9be9da04fa746588ed1a25c2e7dbce61fd5a57",
+      "assertionLines": [
+        340,
+        347
+      ],
+      "status": "passing",
+      "evidenceScope": "pure-prerequisite",
+      "test": "packages/base/tests/toast-store-prerequisites.test.ts",
+      "adapter": "ReactStore replaced with synchronous immutable set/update; Timeout uses native timers; focus transfer and touch DOM handler excluded. All source test bodies and both helper bodies unchanged; viewport remains null in every fixture."
+    },
+    {
+      "id": "packages/react/src/toast/store.test.ts:350",
+      "name": "does not extend the remaining time across repeated pause/resume cycles",
+      "sourceBodySha256": "c8cf62f1c9014942d6ec91fa4947ce970e3dc7787cf1cd3b452ac8a33b9d2b2d",
+      "assertionLines": [
+        366,
+        369
+      ],
+      "status": "passing",
+      "evidenceScope": "pure-prerequisite",
+      "test": "packages/base/tests/toast-store-prerequisites.test.ts",
+      "adapter": "ReactStore replaced with synchronous immutable set/update; Timeout uses native timers; focus transfer and touch DOM handler excluded. All source test bodies and both helper bodies unchanged; viewport remains null in every fixture."
+    },
+    {
+      "id": "packages/react/src/toast/store.test.ts:372",
+      "name": "restarts the full delay when the clock jumped past the timeout before pausing",
+      "sourceBodySha256": "314de4dd630d18223aa9baab6f8b96128f69ea05290b6a5347359b77132e545e",
+      "assertionLines": [
+        385,
+        388
+      ],
+      "status": "passing",
+      "evidenceScope": "pure-prerequisite",
+      "test": "packages/base/tests/toast-store-prerequisites.test.ts",
+      "adapter": "ReactStore replaced with synchronous immutable set/update; Timeout uses native timers; focus transfer and touch DOM handler excluded. All source test bodies and both helper bodies unchanged; viewport remains null in every fixture."
+    },
+    {
+      "id": "packages/react/src/toast/store.test.ts:391",
+      "name": "re-pauses timers after the last timed toast becomes untimed",
+      "sourceBodySha256": "b50cd2bd35bc8edafa3d216e1242721d4a7216dd4472a548a5970ae97b13fac7",
+      "assertionLines": [
+        404
+      ],
+      "status": "passing",
+      "evidenceScope": "pure-prerequisite",
+      "test": "packages/base/tests/toast-store-prerequisites.test.ts",
+      "adapter": "ReactStore replaced with synchronous immutable set/update; Timeout uses native timers; focus transfer and touch DOM handler excluded. All source test bodies and both helper bodies unchanged; viewport remains null in every fixture."
+    },
+    {
+      "id": "packages/react/src/toast/store.test.ts:407",
+      "name": "accumulates active time across hover cycles so the toast still dismisses",
+      "sourceBodySha256": "8d9b9000711e8997b9e0115ed706004fa8c6cafe9dd8f177ed755a333604ebfc",
+      "assertionLines": [
+        415,
+        420,
+        425
+      ],
+      "status": "passing",
+      "evidenceScope": "pure-prerequisite",
+      "test": "packages/base/tests/toast-store-prerequisites.test.ts",
+      "adapter": "ReactStore replaced with synchronous immutable set/update; Timeout uses native timers; focus transfer and touch DOM handler excluded. All source test bodies and both helper bodies unchanged; viewport remains null in every fixture."
+    }
+  ],
+  "typeSpecs": [
+    {
+      "source": "packages/react/src/toast/createToastManager.spec.tsx",
+      "sourceSha256": "c4da3c789f667d9912afac9fbf915018da7947949c4c0ec5652acaa625789d61",
+      "status": "passing",
+      "evidenceScope": "pure-prerequisite",
+      "test": "packages/base/tests/toast-manager-prerequisites.types.ts",
+      "adapter": "Only imports changed. Exact expectType helper retained. Opaque content/ref/action/positioner fields are explicitly outside this data/result typing credit."
+    }
+  ],
+  "supplements": {
+    "test": "packages/base/tests/toast-manager-prerequisites.test.ts",
+    "count": 6,
+    "status": "passing",
+    "parityCredit": 0,
+    "source": [
+      "packages/react/src/toast/createToastManager.ts",
+      "packages/react/src/toast/store.ts",
+      "packages/react/src/toast/provider/ToastProvider.tsx"
+    ]
+  },
+  "unported": "Every component leaf, useToastManager spec, shared conformance helper and all plans/fixtures in scenarios.md remain unported. Inventory statuses never change.",
+  "executionTarget": "pinned-upstream-reference-adaptation-only",
+  "svelteryRuntimePortCredit": 0
+}
