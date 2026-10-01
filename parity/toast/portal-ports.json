@@ -1,0 +1,318 @@
+{
+  "upstream": {
+    "repository": "https://github.com/mui/base-ui",
+    "commit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+    "license": "MIT",
+    "notice": "UPSTREAM_LICENSE"
+  },
+  "scope": "Standalone Toast.Portal conformance invocation and its 15 helper cases. Zero ordinary declaration credit; immutable inventory and shared manifest unchanged.",
+  "invocation": {
+    "source": "packages/react/src/toast/portal/ToastPortal.test.tsx:9",
+    "refInstanceof": "HTMLDivElement",
+    "only": [
+      "propsSpread",
+      "refForwarding",
+      "renderProp",
+      "className"
+    ],
+    "skip": [],
+    "wrappingAllowed": true,
+    "testRenderPropWith": "div",
+    "button": false
+  },
+  "sources": {
+    "packages/react/test/conformanceTests/propForwarding.tsx": "82043f827f31e0ad21dfb359598af51c7299a2139b20be958d07ac6313372733",
+    "packages/react/test/conformanceTests/refForwarding.tsx": "3fff79d221c972d29f9909dfefbfa7f4bd16ab761960d795c01368e524c7fef0",
+    "packages/react/test/conformanceTests/renderProp.tsx": "9f2094949667daaecdfeff914c231295d79ca9e3699ba754637a5c31d6eab225",
+    "packages/react/test/conformanceTests/className.tsx": "ea73ff821ec5660ee854392d0744a87cc38ede0d8c14a3c5070ea08408a599bb",
+    "packages/react/src/toast/portal/ToastPortal.tsx": "f95ea2f7e75a44bb791f6dc7bcafa5e4de2c5580f86deb0cfc1a98b449fd302e",
+    "packages/react/src/toast/portal/ToastPortal.test.tsx": "8cbcb2b03b3f7c7d6badb166b66218c690232d9f8aca552992bfd31139e53256",
+    "packages/react/src/utils/FloatingPortalLite.tsx": "ae9b969cfe006137d663b44f86d5f2338ee86be975ee093f06cd5ebb78101162",
+    "packages/react/src/floating-ui-react/components/FloatingPortal.tsx": "602600ea7e232bec066b961eddc5dce4bb654a88694a902e369e0e3ca6b2e13c",
+    "packages/react/test/describeConformance.tsx": "316678dd7c2637e23c1f02e536974dae67d41bd8c7241c67c6e8c7461b74a184"
+  },
+  "helpers": [
+    {
+      "sourceId": "packages/react/test/conformanceTests/propForwarding.tsx:23",
+      "title": "forwards custom props to the default element",
+      "sourceBodySha256": "f10745bd517c756a614eea85f8da48489fdb3a655dcc3e2c264149dcb7830007",
+      "assertionLines": [
+        34,
+        35
+      ],
+      "scenario": "props-default",
+      "sourceConditions": [],
+      "status": "pending-secured-browser",
+      "executions": [
+        "Svelte",
+        "React reference"
+      ]
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/propForwarding.tsx:38",
+      "title": "forwards custom props to the customized element defined with a function",
+      "sourceBodySha256": "106a35c9331408706b0862a8561a27a635f7e091bc093f976ba9da8300ef2d95",
+      "assertionLines": [
+        57,
+        58
+      ],
+      "scenario": "props-function",
+      "sourceConditions": [],
+      "status": "pending-secured-browser",
+      "executions": [
+        "Svelte",
+        "React reference"
+      ]
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/propForwarding.tsx:61",
+      "title": "forwards custom props to the customized element defined using JSX",
+      "sourceBodySha256": "5d9b710ea93d26812acce02129f0abd79535ccf831707a884d341853be238c59",
+      "assertionLines": [
+        78,
+        79
+      ],
+      "scenario": "props-element",
+      "sourceConditions": [],
+      "status": "pending-secured-browser",
+      "executions": [
+        "Svelte",
+        "React reference"
+      ]
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/propForwarding.tsx:82",
+      "title": "forwards the custom `style` attribute defined on the component",
+      "sourceBodySha256": "5deef79231ef81b48fbd2222d25c9442edc2206f50a6af0d390e56aa73096379",
+      "assertionLines": [
+        93,
+        94
+      ],
+      "scenario": "props-style",
+      "sourceConditions": [],
+      "status": "pending-secured-browser",
+      "executions": [
+        "Svelte",
+        "React reference"
+      ]
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/propForwarding.tsx:97",
+      "title": "forwards the custom `style` attribute defined on the render function",
+      "sourceBodySha256": "b48b8077f94e362e33672125845f3fb4b73692f41a789d756d48bbb2fac41356",
+      "assertionLines": [
+        110,
+        111
+      ],
+      "scenario": "props-style-function",
+      "sourceConditions": [],
+      "status": "pending-secured-browser",
+      "executions": [
+        "Svelte",
+        "React reference"
+      ]
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/propForwarding.tsx:114",
+      "title": "forwards the custom `style` attribute defined on the render function",
+      "sourceBodySha256": "1d025680202f92419106d47a6447ff1be91f1b0304239de33ccccb8fe4b27832",
+      "assertionLines": [
+        125,
+        126
+      ],
+      "scenario": "props-style-element",
+      "sourceConditions": [],
+      "status": "pending-secured-browser",
+      "executions": [
+        "Svelte",
+        "React reference"
+      ]
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/refForwarding.tsx:32",
+      "title": "attaches the ref",
+      "sourceBodySha256": "6d9bf4ccf2494856acc19380dbec93551476f896bea4123b5e0ceeba41ec66e6",
+      "assertionLines": [
+        36
+      ],
+      "scenario": "ref",
+      "sourceConditions": [],
+      "status": "pending-secured-browser",
+      "executions": [
+        "Svelte",
+        "React reference"
+      ]
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/renderProp.tsx:41",
+      "title": "renders a customized root element with a function",
+      "sourceBodySha256": "af2f43094c5097373aa0325387d734e5e29533dc461db06281b196a2738f8018",
+      "assertionLines": [
+        55,
+        57,
+        58
+      ],
+      "scenario": "render-function",
+      "sourceConditions": [
+        "wrappingAllowed=true",
+        "Element=div",
+        "button=false"
+      ],
+      "status": "pending-secured-browser",
+      "executions": [
+        "Svelte",
+        "React reference"
+      ]
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/renderProp.tsx:61",
+      "title": "renders a customized root element with an element",
+      "sourceBodySha256": "0a02417dee9b3a57a92a3d7bfc9f167d2addf93ea22406326b9613d8c4ff7394",
+      "assertionLines": [
+        72,
+        74,
+        75
+      ],
+      "scenario": "render-element",
+      "sourceConditions": [
+        "wrappingAllowed=true",
+        "Element=div",
+        "button=false"
+      ],
+      "status": "pending-secured-browser",
+      "executions": [
+        "Svelte",
+        "React reference"
+      ]
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/renderProp.tsx:78",
+      "title": "renders a customized root element with an element",
+      "sourceBodySha256": "5f724b1c23401d534982d943c19f8e1e476c901930c3db75d07b569024c45b12",
+      "assertionLines": [
+        87,
+        89
+      ],
+      "scenario": "render-empty-element",
+      "sourceConditions": [
+        "wrappingAllowed=true",
+        "Element=div",
+        "button=false"
+      ],
+      "status": "pending-secured-browser",
+      "executions": [
+        "Svelte",
+        "React reference"
+      ]
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/renderProp.tsx:93",
+      "title": "should pass the ref to the custom component",
+      "sourceBodySha256": "38f5afb0d9c7ebcf8d4808557b2290ae9d2c6d046e1a78431fce3f08c8153d7d",
+      "assertionLines": [
+        111,
+        112
+      ],
+      "scenario": "render-ref",
+      "sourceConditions": [
+        "wrappingAllowed=true",
+        "Element=div",
+        "button=false"
+      ],
+      "status": "pending-secured-browser",
+      "executions": [
+        "Svelte",
+        "React reference"
+      ]
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/renderProp.tsx:115",
+      "title": "should merge the rendering element ref with the custom component ref",
+      "sourceBodySha256": "59febbf168761eb8ef1ce913894f8685422dd242e06fe05abc8bfd9ee10b0e6a",
+      "assertionLines": [
+        138,
+        139,
+        140,
+        141,
+        142,
+        143
+      ],
+      "scenario": "render-merge-ref",
+      "sourceConditions": [
+        "wrappingAllowed=true",
+        "Element=div",
+        "button=false"
+      ],
+      "status": "pending-secured-browser",
+      "executions": [
+        "Svelte",
+        "React reference"
+      ]
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/renderProp.tsx:146",
+      "title": "should merge the rendering element className with the custom component className",
+      "sourceBodySha256": "642aef7b86d368a44e5da111d25051f7fe7b977284e9e5298643d6fa74fa4ef3",
+      "assertionLines": [
+        159,
+        160
+      ],
+      "scenario": "render-class",
+      "sourceConditions": [
+        "wrappingAllowed=true",
+        "Element=div",
+        "button=false"
+      ],
+      "status": "pending-secured-browser",
+      "executions": [
+        "Svelte",
+        "React reference"
+      ]
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/renderProp.tsx:163",
+      "title": "should merge the rendering element resolved className with the custom component className",
+      "sourceBodySha256": "183629d6d2e39830b2b1794eab09c0d2bd337859ad41c144db9169bddf0dbad1",
+      "assertionLines": [
+        176,
+        177
+      ],
+      "scenario": "render-class-resolved",
+      "sourceConditions": [
+        "wrappingAllowed=true",
+        "Element=div",
+        "button=false"
+      ],
+      "status": "pending-secured-browser",
+      "executions": [
+        "Svelte",
+        "React reference"
+      ]
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/className.tsx:20",
+      "title": "should apply the className when passed as a string",
+      "sourceBodySha256": "8703b57df58e06fe07ae61eece51e1c95a64794b3271fd00cfd5cbec99371f7e",
+      "assertionLines": [
+        22
+      ],
+      "scenario": "class",
+      "sourceConditions": [],
+      "status": "pending-secured-browser",
+      "executions": [
+        "Svelte",
+        "React reference"
+      ]
+    }
+  ],
+  "evidence": {
+    "browser": "tests/browser/toast-portal.spec.ts",
+    "svelteFixture": "apps/fixtures/src/lib/ToastPortalFixture.svelte",
+    "reactFixture": "apps/fixtures/src/lib/toast-portal-reference.ts",
+    "dom": "packages/base/tests/dom/toast-portal.test.ts",
+    "ssr": "packages/base/tests/toast-portal-ssr.test.ts",
+    "ordinaryDeclarationCredit": 0,
+    "status": "pending-secured-browser",
+    "run": null
+  }
+}

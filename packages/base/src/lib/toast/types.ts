@@ -94,3 +94,9 @@ export type ToastTitleProps = ToastElementProps<ToastLabelState, HTMLAttributes<
 export type ToastDescriptionProps = ToastElementProps<ToastLabelState, HTMLAttributes<HTMLParagraphElement>, ToastContent>;
 export type ToastActionComponentProps = ToastElementProps<ToastLabelState, HTMLButtonAttributes, ToastContent>;
 export type ToastCloseProps = ToastActionComponentProps;
+
+/** Standalone lightweight portal; empty upstream state, native props and replacement composition. */
+export type ToastPortalState = Record<string, never>;
+export type ToastPortalProps = import('../dialog/types.js').ElementProps<ToastPortalState, HTMLAttributes<HTMLDivElement>> & {
+  container?: HTMLElement | ShadowRoot | { current: HTMLElement | ShadowRoot | null } | null;
+};

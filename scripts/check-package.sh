@@ -13,7 +13,8 @@ cat > "$consumer_dir/check.mjs" <<'JS'
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { createChangeEventDetails, Toast } from '@sveltery/base';
-import { createToastManager } from '@sveltery/base/toast';
+import { createToastManager, Portal } from '@sveltery/base/toast';
+assert.equal(Toast.Portal, Portal);
 assert.equal(Toast.createToastManager, createToastManager);
 const toastManager = createToastManager();
 assert.equal(toastManager.add({ id: 'tarball', data: { value: 1 } }), 'tarball');
@@ -59,6 +60,8 @@ cat > "$consumer_dir/ToastConsumer.svelte" <<'SVELTE'
 </script>
 <Toast.Provider><Toast.Viewport><Toast.Root toast={{ id: 'first', title: 'First', description: 'Details' }} swipeDirection={[]}><Toast.Content><Toast.Title/><Toast.Description/><Toast.Close>Close</Toast.Close></Toast.Content></Toast.Root></Toast.Viewport></Toast.Provider>
 <Parts.Provider><Parts.Viewport><Parts.Root toast={{ id: 'second', title: 'Second' }} swipeDirection={[]}><Parts.Title/></Parts.Root></Parts.Viewport></Parts.Provider>
+<Toast.Portal><span>Root portal child</span></Toast.Portal>
+<Parts.Portal container={null}><span>Subpath portal child</span></Parts.Portal>
 SVELTE
 cat >> "$consumer_dir/check.mjs" <<'JS'
 const { default: ToastConsumer } = await import('./ToastConsumer.svelte');
@@ -71,6 +74,8 @@ assert.equal(toastIds.length, 3);
 assert.equal(new Set(toastIds).size, 3);
 assert(toastIds.every(id => id.startsWith('base-ui-')));
 assert.equal(typeof Toast.getToastManager, 'function');
+assert(!toastOutput.body.includes('data-base-ui-portal'));
+assert(!toastOutput.body.includes('portal child'));
 console.log('Isolated tarball Toast SSR consumer / both entries / unique label IDs: PASS');
 JS
 cat > "$consumer_dir/ButtonConsumer.svelte" <<'SVELTE'
