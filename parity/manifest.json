@@ -3454,15 +3454,15 @@
         "apps/fixtures/src/lib/toast-reference.ts"
       ],
       "evidence": {
-        "testedCommit": "607798b545ce3e537b8a7e592e2dfa010ee5f779",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/36893115204",
-        "browserJob": 110473481479,
+        "testedCommit": "68feaa1e1842e5345e455cdc575af59b2b44078e",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36896190352",
+        "browserJob": 110483666838,
         "executions": [
           "M:15 Svelte Toast manager-add",
           "M:15 React reference Toast manager-add"
         ]
       },
-      "verification": "Complete paired secured Chromium source assertions passed at 607798b545ce3e537b8a7e592e2dfa010ee5f779, CI run36893115204; final-head checks/review remain merge gates."
+      "verification": "Complete paired secured Chromium source assertions passed at 68feaa1e1842e5345e455cdc575af59b2b44078e, CI run36896190352; final-head checks/review remain merge gates."
     },
     {
       "source": "packages/react/src/toast/createToastManager.test.tsx",
@@ -3501,15 +3501,15 @@
         "apps/fixtures/src/lib/toast-reference.ts"
       ],
       "evidence": {
-        "testedCommit": "607798b545ce3e537b8a7e592e2dfa010ee5f779",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/36893115204",
-        "browserJob": 110473481479,
+        "testedCommit": "68feaa1e1842e5345e455cdc575af59b2b44078e",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36896190352",
+        "browserJob": 110483666838,
         "executions": [
           "M:63 Svelte Toast manager-upsert",
           "M:63 React reference Toast manager-upsert"
         ]
       },
-      "verification": "Complete paired secured Chromium source assertions passed at 607798b545ce3e537b8a7e592e2dfa010ee5f779, CI run36893115204; final-head checks/review remain merge gates."
+      "verification": "Complete paired secured Chromium source assertions passed at 68feaa1e1842e5345e455cdc575af59b2b44078e, CI run36896190352; final-head checks/review remain merge gates."
     },
     {
       "source": "packages/react/src/toast/createToastManager.test.tsx",
@@ -3737,15 +3737,15 @@
         "apps/fixtures/src/lib/toast-reference.ts"
       ],
       "evidence": {
-        "testedCommit": "607798b545ce3e537b8a7e592e2dfa010ee5f779",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/36893115204",
-        "browserJob": 110473481479,
+        "testedCommit": "68feaa1e1842e5345e455cdc575af59b2b44078e",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36896190352",
+        "browserJob": 110483666838,
         "executions": [
           "R:97 Svelte Toast offset",
           "R:97 React reference Toast offset"
         ]
       },
-      "verification": "Complete paired secured Chromium source assertions passed at 607798b545ce3e537b8a7e592e2dfa010ee5f779, CI run36893115204; final-head checks/review remain merge gates."
+      "verification": "Complete paired secured Chromium source assertions passed at 68feaa1e1842e5345e455cdc575af59b2b44078e, CI run36896190352; final-head checks/review remain merge gates."
     },
     {
       "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
@@ -3781,15 +3781,15 @@
         "apps/fixtures/src/lib/toast-reference.ts"
       ],
       "evidence": {
-        "testedCommit": "607798b545ce3e537b8a7e592e2dfa010ee5f779",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/36893115204",
-        "browserJob": 110473481479,
+        "testedCommit": "68feaa1e1842e5345e455cdc575af59b2b44078e",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36896190352",
+        "browserJob": 110483666838,
         "executions": [
           "R:112 Svelte Toast labels",
           "R:112 React reference Toast labels"
         ]
       },
-      "verification": "Complete paired secured Chromium source assertions passed at 607798b545ce3e537b8a7e592e2dfa010ee5f779, CI run36893115204; final-head checks/review remain merge gates."
+      "verification": "Complete paired secured Chromium source assertions passed at 68feaa1e1842e5345e455cdc575af59b2b44078e, CI run36896190352; final-head checks/review remain merge gates."
     },
     {
       "source": "packages/react/src/toast/root/ToastRoot.test.tsx",
@@ -4326,15 +4326,15 @@
         "apps/fixtures/src/lib/toast-reference.ts"
       ],
       "evidence": {
-        "testedCommit": "607798b545ce3e537b8a7e592e2dfa010ee5f779",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/36893115204",
-        "browserJob": 110473481479,
+        "testedCommit": "68feaa1e1842e5345e455cdc575af59b2b44078e",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36896190352",
+        "browserJob": 110483666838,
         "executions": [
           "U:21 Svelte Toast add",
           "U:21 React reference Toast add"
         ]
       },
-      "verification": "Complete paired secured Chromium source assertions passed at 607798b545ce3e537b8a7e592e2dfa010ee5f779, CI run36893115204; final-head checks/review remain merge gates."
+      "verification": "Complete paired secured Chromium source assertions passed at 68feaa1e1842e5345e455cdc575af59b2b44078e, CI run36896190352; final-head checks/review remain merge gates."
     },
     {
       "source": "packages/react/src/toast/useToastManager.test.tsx",
@@ -4363,15 +4363,15 @@
         "apps/fixtures/src/lib/toast-reference.ts"
       ],
       "evidence": {
-        "testedCommit": "607798b545ce3e537b8a7e592e2dfa010ee5f779",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/36893115204",
-        "browserJob": 110473481479,
+        "testedCommit": "68feaa1e1842e5345e455cdc575af59b2b44078e",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36896190352",
+        "browserJob": 110483666838,
         "executions": [
           "U:56 Svelte Toast isolation",
           "U:56 React reference Toast isolation"
         ]
       },
-      "verification": "Complete paired secured Chromium source assertions passed at 607798b545ce3e537b8a7e592e2dfa010ee5f779, CI run36893115204; final-head checks/review remain merge gates."
+      "verification": "Complete paired secured Chromium source assertions passed at 68feaa1e1842e5345e455cdc575af59b2b44078e, CI run36896190352; final-head checks/review remain merge gates."
     },
     {
       "source": "packages/react/src/toast/useToastManager.test.tsx",
@@ -4621,15 +4621,15 @@
         "apps/fixtures/src/lib/toast-reference.ts"
       ],
       "evidence": {
-        "testedCommit": "607798b545ce3e537b8a7e592e2dfa010ee5f779",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/36893115204",
-        "browserJob": 110473481479,
+        "testedCommit": "68feaa1e1842e5345e455cdc575af59b2b44078e",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36896190352",
+        "browserJob": 110483666838,
         "executions": [
           "U:1697 Svelte Toast close",
           "U:1697 React reference Toast close"
         ]
       },
-      "verification": "Complete paired secured Chromium source assertions passed at 607798b545ce3e537b8a7e592e2dfa010ee5f779, CI run36893115204; final-head checks/review remain merge gates."
+      "verification": "Complete paired secured Chromium source assertions passed at 68feaa1e1842e5345e455cdc575af59b2b44078e, CI run36896190352; final-head checks/review remain merge gates."
     },
     {
       "source": "packages/react/src/toast/useToastManager.test.tsx",
@@ -4655,15 +4655,15 @@
         "apps/fixtures/src/lib/toast-reference.ts"
       ],
       "evidence": {
-        "testedCommit": "607798b545ce3e537b8a7e592e2dfa010ee5f779",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/36893115204",
-        "browserJob": 110473481479,
+        "testedCommit": "68feaa1e1842e5345e455cdc575af59b2b44078e",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36896190352",
+        "browserJob": 110483666838,
         "executions": [
           "U:1743 Svelte Toast close-all",
           "U:1743 React reference Toast close-all"
         ]
       },
-      "verification": "Complete paired secured Chromium source assertions passed at 607798b545ce3e537b8a7e592e2dfa010ee5f779, CI run36893115204; final-head checks/review remain merge gates."
+      "verification": "Complete paired secured Chromium source assertions passed at 68feaa1e1842e5345e455cdc575af59b2b44078e, CI run36896190352; final-head checks/review remain merge gates."
     },
     {
       "source": "packages/react/src/toast/useToastManager.test.tsx",
@@ -4689,15 +4689,15 @@
         "apps/fixtures/src/lib/toast-reference.ts"
       ],
       "evidence": {
-        "testedCommit": "607798b545ce3e537b8a7e592e2dfa010ee5f779",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/36893115204",
-        "browserJob": 110473481479,
+        "testedCommit": "68feaa1e1842e5345e455cdc575af59b2b44078e",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36896190352",
+        "browserJob": 110483666838,
         "executions": [
           "U:1794 Svelte Toast timeout-sync",
           "U:1794 React reference Toast timeout-sync"
         ]
       },
-      "verification": "Complete paired secured Chromium source assertions passed at 607798b545ce3e537b8a7e592e2dfa010ee5f779, CI run36893115204; final-head checks/review remain merge gates."
+      "verification": "Complete paired secured Chromium source assertions passed at 68feaa1e1842e5345e455cdc575af59b2b44078e, CI run36896190352; final-head checks/review remain merge gates."
     },
     {
       "source": "packages/react/src/toast/useToastManager.test.tsx",
@@ -4725,15 +4725,15 @@
         "apps/fixtures/src/lib/toast-reference.ts"
       ],
       "evidence": {
-        "testedCommit": "607798b545ce3e537b8a7e592e2dfa010ee5f779",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/36893115204",
-        "browserJob": 110473481479,
+        "testedCommit": "68feaa1e1842e5345e455cdc575af59b2b44078e",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36896190352",
+        "browserJob": 110483666838,
         "executions": [
           "U:1853 Svelte Toast limit",
           "U:1853 React reference Toast limit"
         ]
       },
-      "verification": "Complete paired secured Chromium source assertions passed at 607798b545ce3e537b8a7e592e2dfa010ee5f779, CI run36893115204; final-head checks/review remain merge gates."
+      "verification": "Complete paired secured Chromium source assertions passed at 68feaa1e1842e5345e455cdc575af59b2b44078e, CI run36896190352; final-head checks/review remain merge gates."
     },
     {
       "source": "packages/react/src/toast/useToastManager.test.tsx",
@@ -4761,15 +4761,15 @@
         "apps/fixtures/src/lib/toast-reference.ts"
       ],
       "evidence": {
-        "testedCommit": "607798b545ce3e537b8a7e592e2dfa010ee5f779",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/36893115204",
-        "browserJob": 110473481479,
+        "testedCommit": "68feaa1e1842e5345e455cdc575af59b2b44078e",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36896190352",
+        "browserJob": 110483666838,
         "executions": [
           "U:1878 Svelte Toast unlimit",
           "U:1878 React reference Toast unlimit"
         ]
       },
-      "verification": "Complete paired secured Chromium source assertions passed at 607798b545ce3e537b8a7e592e2dfa010ee5f779, CI run36893115204; final-head checks/review remain merge gates."
+      "verification": "Complete paired secured Chromium source assertions passed at 68feaa1e1842e5345e455cdc575af59b2b44078e, CI run36896190352; final-head checks/review remain merge gates."
     },
     {
       "source": "packages/react/src/toast/useToastManager.test.tsx",
@@ -4798,15 +4798,15 @@
         "apps/fixtures/src/lib/toast-reference.ts"
       ],
       "evidence": {
-        "testedCommit": "607798b545ce3e537b8a7e592e2dfa010ee5f779",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/36893115204",
-        "browserJob": 110473481479,
+        "testedCommit": "68feaa1e1842e5345e455cdc575af59b2b44078e",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36896190352",
+        "browserJob": 110483666838,
         "executions": [
           "U:1907 Svelte Toast limited-upsert",
           "U:1907 React reference Toast limited-upsert"
         ]
       },
-      "verification": "Complete paired secured Chromium source assertions passed at 607798b545ce3e537b8a7e592e2dfa010ee5f779, CI run36893115204; final-head checks/review remain merge gates."
+      "verification": "Complete paired secured Chromium source assertions passed at 68feaa1e1842e5345e455cdc575af59b2b44078e, CI run36896190352; final-head checks/review remain merge gates."
     },
     {
       "source": "packages/react/src/toast/useToastManager.test.tsx",
@@ -4834,15 +4834,15 @@
         "apps/fixtures/src/lib/toast-reference.ts"
       ],
       "evidence": {
-        "testedCommit": "607798b545ce3e537b8a7e592e2dfa010ee5f779",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/36893115204",
-        "browserJob": 110473481479,
+        "testedCommit": "68feaa1e1842e5345e455cdc575af59b2b44078e",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36896190352",
+        "browserJob": 110483666838,
         "executions": [
           "U:1965 Svelte Toast limit-sync",
           "U:1965 React reference Toast limit-sync"
         ]
       },
-      "verification": "Complete paired secured Chromium source assertions passed at 607798b545ce3e537b8a7e592e2dfa010ee5f779, CI run36893115204; final-head checks/review remain merge gates."
+      "verification": "Complete paired secured Chromium source assertions passed at 68feaa1e1842e5345e455cdc575af59b2b44078e, CI run36896190352; final-head checks/review remain merge gates."
     },
     {
       "source": "packages/react/src/toast/useToastManager.test.tsx",
