@@ -7,7 +7,14 @@ export function root(optional = false): DialogController {
   if (!value && !optional) throw new Error('Base UI: DialogRootContext is missing. Dialog parts must be placed within <Dialog.Root>.');
   return value;
 }
-export interface PortalContext { readonly keepMounted: boolean; node: HTMLElement | null }
+export interface PortalFocusManager {
+  node: HTMLElement;
+  guards: Set<HTMLElement>;
+  reference(): HTMLElement | null | undefined;
+  setPreventReturnFocus(value: boolean): void;
+  closeOnFocusOut(event: FocusEvent): void;
+}
+export interface PortalContext { readonly keepMounted: boolean; node: HTMLElement | null; focusManager: PortalFocusManager | null }
 export function portal(): PortalContext {
   const value = getContext<PortalContext>(PORTAL);
   if (!value) throw new Error('Base UI: <Dialog.Portal> is missing.');

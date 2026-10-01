@@ -6,13 +6,13 @@
   import type { ElementProps, FocusTarget, PopupState } from './types.js';
   let { children, render, initialFocus, finalFocus, id, ref = $bindable(null), ...props }: ElementProps<PopupState> & { initialFocus?: FocusTarget; finalFocus?: FocusTarget } = $props();
   const controller = root();
-  portal();
+  const portalContext = portal();
   const generatedId = controller.generatedPopupId;
   const resolvedId = $derived(id ?? generatedId);
   const popupIdSource = () => resolvedId;
   controller.popupIdSource = popupIdSource;
   onDestroy(() => { if (controller.popupIdSource === popupIdSource) controller.popupIdSource = undefined; });
-  function attach(node: HTMLElement) { return attachOverlay(node, controller, () => ({ initialFocus, finalFocus })); }
+  function attach(node: HTMLElement) { return attachOverlay(node, controller, () => ({ initialFocus, finalFocus }), portalContext); }
   const internal = $derived({ id: resolvedId, role: 'dialog', tabindex: -1, hidden: !controller.mounted,
     'aria-labelledby': controller.titleId, 'aria-describedby': controller.descriptionId,
     'data-open': controller.open ? '' : undefined, 'data-closed': !controller.open ? '' : undefined,

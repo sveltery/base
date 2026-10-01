@@ -1,6 +1,8 @@
 import { untrack } from 'svelte';
+import { SvelteSet } from 'svelte/reactivity';
 import type { DialogController } from '../dialog/controller.svelte.js';
 import type { FocusTarget, InteractionType } from '../dialog/types.js';
+import type { PortalContext } from '../dialog/context.js';
 import { activeElement, tabbables } from './focus.js';
 import { lockScroll } from './scroll-lock.js';
 import { isolateDialog } from './isolation.js';
@@ -12,7 +14,7 @@ function focus(target: FocusTarget | undefined, method: InteractionType, fallbac
   element?.focus({ preventScroll: true });
 }
 /** External DOM synchronization only: native listeners, focus, scroll locks and animation completion. */
-export function attachOverlay(node: HTMLElement, controller: DialogController, options: () => { initialFocus?: FocusTarget; finalFocus?: FocusTarget }) {
+export function attachOverlay(node: HTMLElement, controller: DialogController, options: () => { initialFocus?: FocusTarget; finalFocus?: FocusTarget }, portalContext: PortalContext) {
   const document = node.ownerDocument;
   const window = document.defaultView!;
   controller.popup = node;
@@ -52,6 +54,15 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
     const path = event.composedPath();
     return [...controller.triggers.values()].some(trigger => path.includes(trigger));
   };
+  function closeOnFocusOut(event: FocusEvent) {
+    if (disposed || !controller.open || !topmost() || controller.modal !== false || controller.props().disablePointerDismissal) return;
+    preventReturnFocus = true;
+    controller.closeMethod = 'keyboard';
+    const details = controller.request(false, 'focus-out', event);
+    if (details.isCanceled) preventReturnFocus = false;
+  }
+  const focusManager = { node, guards: new SvelteSet<HTMLElement>(), reference: () => controller.trigger, setPreventReturnFocus: (value: boolean) => { if (!controller.props().disablePointerDismissal) preventReturnFocus = value; }, closeOnFocusOut };
+  portalContext.focusManager = focusManager;
   function escape(event: KeyboardEvent) {
     if (event.key !== 'Escape' || event.isComposing || composing || !controller.open || !topmost()) return;
     controller.closeMethod = 'keyboard';
@@ -83,11 +94,17 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
   function click(event: MouseEvent) { if (pressStartedOutside) dismiss(event); pressStartedOutside = false; pointerDown = false; }
   function focusIn(event: FocusEvent) {
     if (isInside(event)) focusedInside = true;
-    else if (controller.open && topmost() && controller.modal === false && !controller.props().disablePointerDismissal && focusedInside && !pointerDown && !isTrigger(event)) {
-      preventReturnFocus = true;
-      const details = controller.request(false, 'focus-out', event);
-      if (details.isCanceled) preventReturnFocus = false;
-    }
+  }
+  function focusOut(event: FocusEvent) {
+    // Upstream listens to the owning reference's focusout. Popup capture marks
+    // programmatic movement in the logical tree; owned guards handle Tab exits.
+    if (!event.composedPath().includes(controller.trigger!)) return;
+    const related = event.relatedTarget as Node | null;
+    queueMicrotask(() => {
+      if (!related || pointerDown || related === controller.previousFocus || node.contains(related) || portalContext.node?.contains(related) || [...controller.triggers.values()].some(trigger => trigger.contains(related)) || focusManager.guards.has(related as HTMLElement)) return;
+      for (let parent = controller.parent; parent; parent = parent.parent) if (related === parent.popup || related === parent.trigger) return;
+      closeOnFocusOut(event);
+    });
   }
   const observer = new window.MutationObserver(() => {
     if (controller.open && topmost() && focusedInside && activeElement(document) === document.body) node.focus({ preventScroll: true });
@@ -104,6 +121,14 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
   document.addEventListener('focusin', focusIn);
   observer.observe(node, { subtree: true, childList: true });
   const stop = $effect.root(() => {
+    $effect(() => {
+      const trigger = controller.trigger;
+      if (!trigger) return;
+      // Match the native reference listener: consumer propagation control at
+      // an ancestor must not suppress the owning Trigger's focusout handling.
+      trigger.addEventListener('focusout', focusOut);
+      return () => { trigger.removeEventListener('focusout', focusOut); };
+    });
     $effect(() => {
       const open = controller.open;
       if (!open) return;
@@ -176,6 +201,7 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
     document.removeEventListener('pointerdown', down, true); document.removeEventListener('mousedown', down, true);
     document.removeEventListener('click', click, true);
     document.removeEventListener('pointerup', up, true); document.removeEventListener('mouseup', up, true); document.removeEventListener('focusin', focusIn);
+    if (portalContext.focusManager === focusManager) portalContext.focusManager = null;
     // A conditional Portal/Popup removal can destroy this attachment without a close edge.
     if (observed && previousOpen) returnFocus(true);
     if (controller.popup === node) controller.popup = null;
