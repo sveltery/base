@@ -4,6 +4,7 @@
 // Complete eligible leaves are named by immutable source ID. Shared conformance,
 // replacement render and non-native button leaves remain unported.
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import { createAttachmentKey } from 'svelte/attachments';
 import { flushSync, mount, unmount } from 'svelte';
 import Fixture from './ToastPartsFixture.svelte';
 
@@ -153,4 +154,22 @@ describe('Toast native parts supplements (zero upstream declaration credit)', ()
     const component = setup({mode:'content'}); expect(observeResize).toHaveBeenCalledWith(getTestId('content')); expect(observeMutation).toHaveBeenCalledWith(getTestId('content'),{childList:true,subtree:true,characterData:true});
     component.removeContent(); flushSync(); expect(disconnectResize).toHaveBeenCalledTimes(1); expect(disconnectMutation).toHaveBeenCalledTimes(1); vi.unstubAllGlobals();
   });
+});
+
+it('preserves Action and Close attachments from part and manager props with cleanup', async () => { // local regression, no parity credit
+  const action = vi.fn(() => vi.fn());
+  const close = vi.fn(() => vi.fn());
+  const managerAction = vi.fn(() => vi.fn());
+  const component = setup({ mode: 'buttons', actionAttachment: action, closeAttachment: close });
+  component.setToast({ id: 'test', actionProps: { children: 'Manager action', [createAttachmentKey()]: managerAction } });
+  flushSync();
+  expect(action).toHaveBeenCalledWith(getTestId('action'));
+  expect(close).toHaveBeenCalledWith(getTestId('close'));
+  expect(managerAction).toHaveBeenCalledWith(getTestId('action'));
+  await unmount(component);
+  mounted.splice(mounted.indexOf(component), 1);
+  for (const attachment of [action, close, managerAction]) {
+    expect(attachment).toHaveBeenCalledTimes(1);
+    expect(attachment.mock.results[0].value).toHaveBeenCalledTimes(1);
+  }
 });

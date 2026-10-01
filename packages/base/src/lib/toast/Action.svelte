@@ -1,10 +1,9 @@
 <script lang="ts">
   // Derived from Base UI v1.8.0 Toast parts; MIT, see ../../../THIRD_PARTY_NOTICES.md.
   import Element from '../dialog/Element.svelte';
-  import { mergeProps } from '../merge-props/index.js';
   import RenderContent from './RenderContent.svelte';
   import { isRenderableContent } from './content.js';
-  import { nativeButtonProps } from './native-button.js';
+  import { mergeButtonProps, nativeButtonProps } from './native-button.js';
   import { root } from './root-context.js';
   import type { ToastActionComponentProps } from './types.js';
   let { children, disabled = false, class: classProp, style: styleProp, ref = $bindable(null), ...props }: ToastActionComponentProps = $props();
@@ -14,7 +13,7 @@
   const merged = $derived.by(() => {
     const { children: _children, ...actionProps } = controller.toast.actionProps ?? {};
     void _children;
-    const mergedProps = nativeButtonProps(mergeProps(props, actionProps), Boolean(disabled));
+    const mergedProps = nativeButtonProps(mergeButtonProps(props, actionProps), Boolean(disabled));
     const className = typeof classProp === 'function' ? classProp(state) : classProp;
     const style = typeof styleProp === 'function' ? styleProp(state) : styleProp;
     return {

@@ -1,6 +1,6 @@
 <script lang="ts">
   // Derived from mui/base-ui at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, see ../../../THIRD_PARTY_NOTICES.md.
-  import { untrack } from 'svelte';
+  import { flushSync, untrack } from 'svelte';
   import { provider } from './context.js';
   import { selectors } from './store.js';
   import { activeElement, contains, getTarget, isFocusVisible } from './viewport-focus.js';
@@ -26,15 +26,27 @@
     const current = activeElement(node.ownerDocument);
     if (!contains(node, current) || !isFocusVisible(current)) return;
     if (toastId === undefined) { restoreFocus(); return; }
-    const toasts = store.state.toasts;
-    const currentIndex = selectors.toastIndex(store.state, toastId);
-    const scan = (from: number, step: number) => {
-      for (let index = from; index >= 0 && index < toasts.length; index += step) {
-        if (toasts[index].transitionStatus !== 'ending') return toasts[index];
-      }
-      return null;
+    const findNextToast = () => {
+      const toasts = store.state.toasts;
+      const currentIndex = selectors.toastIndex(store.state, toastId);
+      const scan = (from: number, step: number) => {
+        for (let index = from; index >= 0 && index < toasts.length; index += step) {
+          if (toasts[index].transitionStatus !== 'ending') return toasts[index];
+        }
+        return null;
+      };
+      return scan(currentIndex + 1, 1) ?? scan(currentIndex - 1, -1);
     };
-    const nextToast = scan(currentIndex + 1, 1) ?? scan(currentIndex - 1, -1);
+    let nextToast = findNextToast();
+    if (nextToast?.ref?.hasAttribute('inert') && !nextToast.limited) {
+      // The complete onClose loop already ran. Commit the newly un-limited
+      // successor before focus, then re-read ownership, focus and candidates.
+      flushSync();
+      const owner = store.state.viewport;
+      const active = owner && activeElement(owner.ownerDocument);
+      if (!owner || !contains(owner, active) || !isFocusVisible(active)) return;
+      nextToast = findNextToast();
+    }
     if (nextToast) nextToast.ref?.focus();
     else restoreFocus();
   }

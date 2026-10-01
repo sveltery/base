@@ -264,3 +264,44 @@ for (const reference of [false, true]) test(`supplement: ${reference ? 'React re
   await page.clock.runFor(32);
   await expect(page.getByTestId('root')).toHaveCount(0);
 });
+
+// Local regression only: no additional upstream declaration credit.
+test('supplement: every close channel focuses a newly un-limited successor synchronously', async ({ page }) => {
+  for (const channel of ['manager', 'facade', 'native', 'timer']) {
+    await page.goto('/toast?case=lifecycle-limit');
+    await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+    if (channel === 'timer') {
+      const start = new Date('2026-01-01T00:00:00Z');
+      await page.clock.install({ time: start }); await page.clock.pauseAt(start);
+    }
+    await page.locator('#outside').focus();
+    await click(page, 'add save');
+    if (channel === 'timer') await click(page, 'add timer');
+    else await click(page, 'add three');
+    const currentId = channel === 'timer' ? 'timer' : 'c';
+    const successorId = channel === 'timer' ? 'save' : 'b';
+    const successor = page.locator(`#root-${successorId}`);
+    await expect(successor).toHaveAttribute('inert');
+    await page.keyboard.press('F6'); await page.keyboard.press('Tab');
+    await expect(page.locator(`#root-${currentId}`)).toBeFocused();
+    if (channel === 'timer') {
+      // Timer resumes outside; onClose puts focus in the closing Root.
+      await page.keyboard.press('Shift+Tab');
+      await expect(page.locator('#outside')).toBeFocused();
+      await page.clock.runFor(50);
+    } else if (channel === 'native') {
+      await page.locator(`#root-${currentId} button`).evaluate((button: HTMLButtonElement) => {
+        button.click();
+        button.closest('section')!.setAttribute('data-focus-after-close', button.ownerDocument.activeElement?.id ?? '');
+      });
+      await expect(page.getByTestId('lifecycle')).toHaveAttribute('data-focus-after-close', `root-${successorId}`);
+    } else {
+      await closeNow(page, channel, currentId);
+      await expect(page.getByTestId('synchronous-focus')).toHaveText(`root-${successorId}`);
+    }
+    await expect(successor).not.toHaveAttribute('inert');
+    await expect(successor).toBeFocused();
+    const observations = JSON.parse(await page.getByTestId('close-observations').innerText());
+    expect(observations).toEqual([{ id: currentId, active: `root-${currentId}`, count: channel === 'timer' ? 2 : 4 }]);
+  }
+});

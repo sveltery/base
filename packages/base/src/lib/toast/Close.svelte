@@ -1,9 +1,8 @@
 <script lang="ts">
   // Derived from Base UI v1.8.0 Toast parts; MIT, see ../../../THIRD_PARTY_NOTICES.md.
   import Element from '../dialog/Element.svelte';
-  import { mergeProps } from '../merge-props/index.js';
   import RenderContent from './RenderContent.svelte';
-  import { nativeButtonProps } from './native-button.js';
+  import { mergeButtonProps, nativeButtonProps } from './native-button.js';
   import { root } from './root-context.js';
   import { provider } from './context.js';
   import type { ToastCloseProps } from './types.js';
@@ -12,7 +11,7 @@
   const { store } = provider();
   let hasFocus = $state(false);
   const buttonState = $derived({ type: controller.toast.type });
-  const merged = $derived(nativeButtonProps(mergeProps({
+  const merged = $derived(nativeButtonProps(mergeButtonProps({
     'aria-hidden': !controller.expanded && !hasFocus,
     'data-type': buttonState.type,
     onclick: () => store.closeToast(controller.toast.id),

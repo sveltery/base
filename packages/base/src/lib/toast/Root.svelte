@@ -83,7 +83,7 @@
     type: toast.type, swiping: false as const, swipeDirection: undefined });
   const internal = $derived({ role: toast.priority === 'high' ? 'alertdialog' : 'dialog', tabindex: 0,
     'aria-modal': false, 'aria-labelledby': title?.id, 'aria-describedby': description?.id,
-    'aria-hidden': toast.priority === 'high' && !focused ? true : undefined, inert: !!toast.limited,
+    'aria-hidden': toast.priority === 'high' && !focused ? true : undefined, inert: toast.limited ? true : undefined,
     'data-starting-style': toast.transitionStatus === 'starting' ? '' : undefined,
     'data-ending-style': toast.transitionStatus === 'ending' ? '' : undefined,
     'data-expanded': expanded ? '' : undefined, 'data-limited': toast.limited ? '' : undefined,

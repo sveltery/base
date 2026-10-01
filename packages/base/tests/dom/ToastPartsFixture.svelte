@@ -1,11 +1,13 @@
 <script lang="ts">
   import * as Toast from '../../src/lib/toast/index.js';
+  import type { Attachment } from 'svelte/attachments';
   import { untrack } from 'svelte';
   import type { ToastContent, ToastManagerAddOptions, ToastManagerFacade, ToastObject } from '../../src/lib/toast/types.js';
   import type { PreventableEvent } from '../../src/lib/merge-props/index.js';
   import ToastPartsList from './ToastPartsList.svelte';
-  let { mode = 'list', options, initialTitle = 'Toast title', initialDescription = 'Toast description', log = () => {}, preventClose = false, disabled = false }: {
+  let { mode = 'list', options, initialTitle = 'Toast title', initialDescription = 'Toast description', log = () => {}, preventClose = false, disabled = false, actionAttachment, closeAttachment }: {
     mode?: string; options?: ToastManagerAddOptions<object>; initialTitle?: ToastContent; initialDescription?: ToastContent;
+    actionAttachment?: Attachment<HTMLButtonElement>; closeAttachment?: Attachment<HTMLButtonElement>;
     log?: (channel: string) => void; preventClose?: boolean; disabled?: boolean;
   } = $props();
   let title = $state<ToastContent>(untrack(() => initialTitle));
@@ -42,8 +44,8 @@
           <Toast.Description data-testid="description"><strong>Snippet description</strong></Toast.Description>
           <Toast.Action data-testid="action"><span>Snippet action</span></Toast.Action>
         {:else if mode === 'buttons'}
-          <Toast.Action data-testid="action" class={state => `own-${state.type}`} style="color:red" onclick={event => { log('action-part'); if (preventClose) event.preventBaseUIHandler(); }} {disabled}>Own action</Toast.Action>
-          <Toast.Close data-testid="close" aria-label="close-press" onclick={closeClick} {disabled} />
+          <Toast.Action {@attach actionAttachment} data-testid="action" class={state => `own-${state.type}`} style="color:red" onclick={event => { log('action-part'); if (preventClose) event.preventBaseUIHandler(); }} {disabled}>Own action</Toast.Action>
+          <Toast.Close {@attach closeAttachment} data-testid="close" aria-label="close-press" onclick={closeClick} {disabled} />
         {:else}
           <Toast.Title data-testid="title" children={title} id={labelId} />
           <Toast.Description data-testid="description" children={description} />

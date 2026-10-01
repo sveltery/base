@@ -12,8 +12,8 @@
   onMount(() => { hydrated = true; });
 </script>
 <main data-hydrated={hydrated}>
-  {#if scenario === 'lifecycle'}
-    <Toast.Provider toastManager={manager}><ToastLifecycleContents external={manager} /></Toast.Provider>
+  {#if scenario === 'lifecycle' || scenario === 'lifecycle-limit'}
+    <Toast.Provider toastManager={manager} limit={scenario === 'lifecycle-limit' ? 1 : 3}><ToastLifecycleContents external={manager} /></Toast.Provider>
   {:else if scenario === 'isolation'}
     <Toast.Provider><ToastProviderContents label="first" title="First toast" /></Toast.Provider>
     <Toast.Provider><ToastProviderContents label="second" title="Second toast" /></Toast.Provider>

@@ -298,3 +298,18 @@ it('stale Viewport teardown preserves the replacement registration and listeners
   button().focus(); key(button(), 'F6'); expect(document.activeElement).toBe(get('viewport')); get('root').focus();
   manager.close(); expect(document.activeElement).toBe(button());
 });
+
+it('commits a newly un-limited successor before synchronous close focus', async () => { // local regression, no parity credit
+  const manager = createToastManager(); await render({ toastManager: manager, timeout: 0, limit: 1 });
+  manager.add({ id: 'older', title: 'Older' }); manager.add({ id: 'newer', title: 'Newer' }); await tick();
+  const roots = [...document.querySelectorAll<HTMLElement>('[data-testid="root"]')];
+  const [newer, older] = roots;
+  expect(older.hasAttribute('inert')).toBe(true);
+  Object.defineProperty(newer, 'getAnimations', { value: () => [{ finished: new Promise<void>(() => {}) }] });
+  const focus = vi.spyOn(older, 'focus').mockImplementation(() => {
+    expect(older.hasAttribute('inert')).toBe(false);
+  });
+  button().focus(); key(button(), 'F6'); newer.focus();
+  manager.close('newer');
+  expect(focus).toHaveBeenCalledTimes(1);
+});
