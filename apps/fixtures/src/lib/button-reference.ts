@@ -9,7 +9,7 @@ export function mountButtonReference(node: HTMLElement, scenario: string) {
     const [clicks, setClicks] = useState<{ shiftKey: boolean; ctrlKey: boolean; altKey: boolean; metaKey: boolean; detail: number; type: string }[]>([]);
     const count = (channel: string) => setCalls(previous => ({ ...previous, [channel]: previous[channel] + 1 }));
     const custom = ['link', 'custom', 'modifier', 'custom-disabled', 'custom-focusable', 'cancel-base', 'cancel-enter', 'cancel-space', 'space-order', 'enter-order', 'focus-blur', 'descendant', 'render-cancel', 'click-cancel'].includes(scenario);
-    const disabled = scenario.includes('disabled') || ['native-focusable', 'custom-focusable', 'hover', 'focus-blur'].includes(scenario) || becameDisabled;
+    const disabled = ['native-disabled', 'custom-disabled'].includes(scenario) || ['native-focusable', 'custom-focusable', 'hover', 'focus-blur'].includes(scenario) || becameDisabled;
     const focusable = scenario.includes('focusable') || ['hover', 'becomes-disabled', 'focus-blur'].includes(scenario);
     return h('main', { 'data-hydrated': 'true' },
       h('div', { onClick: () => count('ancestor') },

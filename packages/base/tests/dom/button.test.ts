@@ -42,3 +42,13 @@ for (const scenario of ['cancel-base', 'cancel-enter', 'cancel-space']) it(`U:59
   if (scenario !== 'cancel-space') { key(button, 'keydown', 'Enter'); await tick(); expect(calls().click).toBe(0); }
   if (scenario !== 'cancel-enter') { key(button, 'keydown', ' '); key(button, 'keyup', ' '); await tick(); expect(calls().click).toBe(0); }
 });
+it('supplement: replacement retains consumer attachment and DOM ref', async () => {
+  const button = await setup('attachment'); expect(button.hasAttribute('data-consumer-attached')).toBe(true); expect(calls().attached).toBe(1); expect(document.querySelector('[data-testid=ref]')!.textContent).toBe('tested-button');
+  const component = mounted.pop()!;
+  const snapshot = (component as unknown as { snapshot(): { calls: Record<string, number>; ref: HTMLElement | null } }).snapshot;
+  await unmount(component); await tick(); expect(snapshot().calls.detached).toBe(1); expect(snapshot().ref).toBeNull();
+});
+it('supplement: class/style callbacks track state without replacing a focused DOM host', async () => {
+  const button = await setup('becomes-disabled'); button.focus(); expect(button.className).toBe('enabled-class'); expect(button.style.opacity).toBe('1');
+  button.click(); await tick(); expect(document.getElementById('tested-button')).toBe(button); expect(button.className).toBe('disabled-class'); expect(button.style.opacity).toBe('0.5'); expect(document.activeElement).toBe(button);
+});

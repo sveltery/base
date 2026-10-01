@@ -27,6 +27,11 @@
     "./toast": {
       "types": "./dist/toast/index.d.ts",
       "default": "./dist/toast/index.js"
+    },
+    "./button": {
+      "types": "./dist/button/index.d.ts",
+      "svelte": "./dist/button/index.js",
+      "default": "./dist/button/index.js"
     }
   },
   "svelte": "./dist/index.js",
