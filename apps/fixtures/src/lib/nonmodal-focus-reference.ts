@@ -24,7 +24,7 @@ export function mountNonmodalFocusReference(node: HTMLElement, scenario: string)
         h('input', { id: 'first', 'aria-label': 'First', tabIndex: 0 }),
         scenario === 'nested' ? h(Dialog.Root, null, h(Dialog.Trigger, { id: 'child-trigger' }, 'Child'), h(Dialog.Portal, null, h(Dialog.Popup, { style: { position: 'relative', zIndex: 2 } }, h('input', { id: 'child-first', 'aria-label': 'Child first' }), h(Dialog.Close, null, 'Child close')))) : null,
         h('button', { id: 'last', tabIndex: 0 }, 'Last'))) : null),
-    h('button', { id: 'after' }, 'After'), h('button', { id: 'end' }, 'End'),
+    scenario !== 'edge' ? h('button', { id: 'after' }, 'After') : null, scenario !== 'edge' ? h('button', { id: 'end' }, 'End') : null,
     h('output', { 'data-testid': 'requests' }, JSON.stringify(requests)));
   }
   const root = createRoot(node); root.render(h(Fixture)); return () => root.unmount();

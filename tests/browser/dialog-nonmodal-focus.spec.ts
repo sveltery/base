@@ -109,4 +109,12 @@ for (const reference of [false, true]) {
     await expect(page.getByRole('dialog')).toHaveCount(0);
     await expect(page.locator('[data-base-ui-focus-guard]')).toHaveCount(0);
   });
+  test(`${framework}: forward document edge falls back to the owning Trigger`, async ({ page }) => {
+    await setup(page, reference, 'edge');
+    await page.keyboard.press('Tab'); await expect(page.locator('#last')).toBeFocused();
+    await page.keyboard.press('Tab'); await expect(page.locator('#nonmodal-a')).toBeFocused();
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    expect((await requests(page)).at(-1)).toMatchObject({ open: false, reason: 'focus-out', trigger: 'nonmodal-a', type: 'focusin' });
+    await expect(page.locator('[data-base-ui-focus-guard]')).toHaveCount(0);
+  });
 }

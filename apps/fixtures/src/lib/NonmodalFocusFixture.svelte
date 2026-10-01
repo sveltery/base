@@ -37,7 +37,6 @@
       </Dialog.Popup>
     </Dialog.Portal>{/if}
   </Dialog.Root>
-  <button id="after">After</button>
-  <button id="end">End</button>
+  {#if scenario !== 'edge'}<button id="after">After</button><button id="end">End</button>{/if}
   <output data-testid="requests">{JSON.stringify(requests)}</output>
 </main>
