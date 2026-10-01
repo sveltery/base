@@ -13,6 +13,7 @@
   let markedReadyForMouseLeave = false;
   let touchActive = false;
   const snapshot = $derived(store.getSnapshot());
+  const toasts = $derived(snapshot.toasts);
   const expanded = $derived(selectors.expanded(snapshot));
   const isEmpty = $derived(selectors.isEmpty(snapshot));
   const hasTransitioningToasts = $derived(snapshot.toasts.some(toast => toast.transitionStatus === 'ending'));
@@ -34,23 +35,32 @@
     const doc = node.ownerDocument;
     const current = activeElement(doc);
     const reconcileFocus = () => {
+      if (store.getCloseFocusRegistration() !== registration || store.state.viewport !== node || !node.isConnected) return;
       const focused = contains(node, activeElement(doc)) && isFocusVisible(activeElement(doc));
       store.set('focused', focused);
       if (selectors.expandedOrOutOfFocus(store.state)) store.pauseTimers();
       else store.resumeTimers();
     };
     if (!contains(node, current) || !isFocusVisible(current)) { reconcileFocus(); return; }
-    // Callbacks can add Roots, replace a lifecycle, or rebind index-keyed Roots.
-    // Commit once before selecting refs, including successors newly un-limited.
-    flushSync();
-    if (store.getCloseFocusRegistration() !== registration || store.state.viewport !== node || !node.isConnected) return;
-    const active = activeElement(doc);
-    // Synchronous no-animation exits can remove the focused Root without blur.
-    // A consumer-selected outside element still owns focus after this commit.
-    const exitedToBody = active === doc.body && current && !current.isConnected;
-    if (!exitedToBody && (!contains(node, active) || !isFocusVisible(active))) { reconcileFocus(); return; }
-    if (toastId === undefined) restoreFocus();
-    else {
+    const closeAll = toastId === undefined;
+    let previousFocus = current;
+    while (true) {
+      // A single close must not displace focus from another live toast. Read
+      // before our commit can rebind an index-keyed closing Root's DOM slot.
+      if (toastId !== undefined && store.state.toasts.some(toast =>
+        toast.id !== toastId && toast.transitionStatus !== 'ending' && contains(toast.ref ?? null, activeElement(doc)))) {
+        reconcileFocus(); return;
+      }
+      // Callbacks can add Roots, replace a lifecycle, or rebind index-keyed
+      // Roots. Commit before selecting refs, including un-limited successors.
+      flushSync();
+      if (store.getCloseFocusRegistration() !== registration || store.state.viewport !== node || !node.isConnected) return;
+      const active = activeElement(doc);
+      // No-animation exits can remove the focused Root without blur. A
+      // consumer-selected outside element still owns focus after the commit.
+      const exitedToBody = active === doc.body && previousFocus && !previousFocus.isConnected;
+      if (!exitedToBody && (!contains(node, active) || !isFocusVisible(active))) { reconcileFocus(); return; }
+      if (toastId === undefined) { restoreFocus(); reconcileFocus(); return; }
       const toasts = store.state.toasts;
       const currentIndex = selectors.toastIndex(store.state, toastId);
       const scan = (from: number, step: number) => {
@@ -61,14 +71,29 @@
       };
       // A fresh same-ID lifecycle occupies the closing toast's own slot.
       const replacement = toasts[currentIndex];
-      const nextToast = replacement?.transitionStatus !== 'ending' && replacement
+      const nextToast = replacement && replacement.transitionStatus !== 'ending'
         ? replacement : scan(currentIndex + 1, 1) ?? scan(currentIndex - 1, -1);
-      if (nextToast) nextToast.ref?.focus();
-      else restoreFocus();
+      if (!nextToast) { restoreFocus(); reconcileFocus(); return; }
+      const target = nextToast.ref;
+      const lifecycle = store.getLifecycle(nextToast.id);
+      const intent = store.getCloseFocusIntent();
+      target?.focus();
+      if (store.getCloseFocusRegistration() !== registration || store.state.viewport !== node || !node.isConnected) return;
+      const freshIntent = store.getCloseFocusIntent();
+      const fresh = selectors.toast(store.state, nextToast.id);
+      if (target && (freshIntent !== intent || !fresh || fresh.transitionStatus === 'ending' || store.getLifecycle(nextToast.id) !== lifecycle || fresh.ref !== target)) {
+        // A focus listener can close/replace this successor within the outer
+        // transaction. Drain that transition before returning focus ownership.
+        toastId = closeAll ? undefined : freshIntent !== intent ? freshIntent.toastId : nextToast.id;
+        previousFocus = target;
+        continue;
+      }
+      // A same-ID Root may already be active, so focus() need not emit focusin.
+      reconcileFocus();
+      return;
     }
-    // A same-ID Root may already be active, so focus() need not emit focusin.
-    if (store.getCloseFocusRegistration() === registration && store.state.viewport === node && node.isConnected) reconcileFocus();
   }
+
   function attach(node: HTMLElement) {
     viewport = node;
     store.set('viewport', node);
@@ -80,6 +105,19 @@
       if (viewport === node) viewport = null;
     };
   }
+  $effect(() => {
+    const node = viewport;
+    void toasts;
+    untrack(() => {
+      // Removing a focused Root need not dispatch blur. Surviving callback
+      // additions must not retain that Root's focus pause after physical exit.
+      if (node?.isConnected && store.state.viewport === node && store.getCloseFocusRegistration()
+        && store.state.focused && !contains(node, activeElement(node.ownerDocument))) {
+        store.set('focused', false);
+        resumeTimersIfAllowed();
+      }
+    });
+  });
   $effect(() => {
     const node = viewport;
     if (!node) return;

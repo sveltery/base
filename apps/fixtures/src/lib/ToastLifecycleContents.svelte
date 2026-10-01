@@ -7,6 +7,13 @@
   let removed = $state<{ id: string; present: boolean; title: string | null }[]>([]);
   let synchronousFocus = $state<string | null>(null);
   let main: HTMLElement;
+  let closeSuccessorOnFocus = false;
+  function addFocusCascade(replace: boolean) {
+    closeSuccessorOnFocus = true;
+    add('a', 'Oldest');
+    add('b', 'Next', 0, false, replace ? () => add('b', 'Fresh', 50) : undefined);
+    add('c', 'Closing');
+  }
   function add(id: string, title: string, timeout = 0, focusInCallback = false, callback?: () => void) {
     facade.add({ id, title, timeout, onClose() {
       if (focusInCallback) main.querySelector<HTMLElement>(`[data-toast-id="${id}"]`)?.focus();
@@ -33,11 +40,15 @@
   <button onclick={() => add('save', 'Saving…')}>add save</button>
   <button onclick={() => add('save', 'Saved')}>replace save</button>
   <button onclick={() => add('timer', 'Timer', 50, true)}>add timer</button>
+  <button onclick={() => add('old', 'Old', 0, false, () => add('fresh', 'Fresh', 50))}>add exiting prior target</button>
+  <button onclick={() => addFocusCascade(false)}>add focus cascade</button>
+  <button onclick={() => addFocusCascade(true)}>add focus replacement</button>
   <button onclick={() => add('callback', 'Closing', 0, false, () => add('fresh', 'Fresh'))}>add callback sibling</button>
   <button onclick={() => add('callback', 'Old', 0, false, () => add('callback', 'Fresh', 50))}>add callback replacement</button>
   <Toast.Viewport data-testid="viewport">
     {#each facade.toasts as toast, index (indexKeys ? index : toast.id)}
-      <Toast.Root {toast} swipeDirection={[]} id={`root-${toast.id}`} data-testid="root" data-toast-id={toast.id}>
+      <Toast.Root {toast} swipeDirection={[]} id={`root-${toast.id}`} data-testid="root" data-toast-id={toast.id}
+        onfocus={() => { if (closeSuccessorOnFocus && toast.id === 'b') { closeSuccessorOnFocus = false; facade.close('b'); } }}>
         <Toast.Title />
         <Toast.Close aria-label={`close ${toast.id}`} />
       </Toast.Root>

@@ -432,3 +432,60 @@ it('aborts close focus when an exit callback disposes the still-connected owner'
   const focus = vi.spyOn(older, 'focus'); button().focus(); key(button(), 'F6'); closing.focus(); manager.close('closing');
   expect(get('viewport').isConnected).toBe(true); expect(focus).not.toHaveBeenCalled();
 });
+
+it.each(['close', 'replace', 'outside', 'dispose'])('settles a successor closing itself on focus (callback=%s)', async behavior => { // local regression, no parity credit
+  const manager = createToastManager(); let store: import('../../src/lib/toast/store.js').ToastStore;
+  await render({ toastManager: manager, timeout: 0, onStore: (value: typeof store) => { store = value; } });
+  const callbacks: string[] = [];
+  for (const id of ['oldest', 'next', 'closing']) manager.add({ id, title: id, onClose: () => { callbacks.push(id); } }); await tick();
+  const [closing, next, oldest] = [...document.querySelectorAll<HTMLElement>('[data-testid="root"]')];
+  for (const node of [closing, next, oldest]) Object.defineProperty(node, 'getAnimations', { value: () => [{ finished: new Promise<void>(() => {}) }] });
+  const outside = document.createElement('button'); document.body.appendChild(outside);
+  if (behavior === 'replace') manager.update('next', { onClose: () => { callbacks.push('next'); manager.add({ id: 'next', title: 'Fresh', timeout: 50 }); } });
+  next.addEventListener('focus', () => { manager.close('next'); if (behavior === 'outside') outside.focus(); if (behavior === 'dispose') store.dispose(); }, { once: true });
+  button().focus(); key(button(), 'F6'); closing.focus(); manager.close('closing');
+  expect(document.activeElement).toBe(behavior === 'replace' || behavior === 'dispose' ? next : behavior === 'outside' ? outside : oldest);
+  expect(callbacks).toEqual(['closing', 'next']);
+  if (behavior === 'replace') {
+    expect(next.textContent).toContain('Fresh'); await advance(100);
+    expect(next.hasAttribute('data-ending-style')).toBe(false);
+  }
+});
+
+it('retains a focus-triggered close-all policy through recursive callback closes and additions', async () => { // local regression, no parity credit
+  const manager = createToastManager(); await render({ toastManager: manager, timeout: 0 });
+  manager.add({ id: 'oldest', title: 'Oldest', onClose: () => {
+    manager.add({ id: 'fresh', title: 'Fresh' }); manager.close('oldest');
+  } });
+  manager.add({ id: 'next', title: 'Next' }); manager.add({ id: 'closing', title: 'Closing' }); await tick();
+  const [closing, next, oldest] = [...document.querySelectorAll<HTMLElement>('[data-testid="root"]')];
+  for (const node of [closing, next, oldest]) Object.defineProperty(node, 'getAnimations', { value: () => [{ finished: new Promise<void>(() => {}) }] });
+  next.addEventListener('focus', () => manager.close(), { once: true });
+  button().focus(); key(button(), 'F6'); closing.focus(); manager.close('closing');
+  expect(document.activeElement).toBe(button());
+  expect([...document.querySelectorAll('[data-testid="root"]')].some(node => node.textContent?.includes('Fresh'))).toBe(true);
+});
+
+it('preserves focus in a live toast when a different ID closes', async () => { // local regression, no parity credit
+  const manager = createToastManager(); await render({ toastManager: manager, timeout: 0 });
+  for (const id of ['oldest', 'middle', 'newest']) manager.add({ id, title: id }); await tick();
+  const newest = get('root'); button().focus(); key(button(), 'F6'); newest.focus();
+  const focus = vi.spyOn(newest, 'focus'); manager.close('middle');
+  expect(document.activeElement).toBe(newest); expect(focus).not.toHaveBeenCalled();
+});
+it.each([false, true])('resumes callback additions after an inside prior target exits (other ending=%s)', async otherEnding => { // local regression, no parity credit
+  const manager = createToastManager(); await render({ toastManager: manager, timeout: 0 });
+  if (otherEnding) manager.add({ id: 'other', title: 'Other' });
+  manager.add({ id: 'old', title: 'Old', onClose: () => manager.add({ id: 'fresh', title: 'Fresh', timeout: 50 }) }); await tick();
+  const old = get('root'); const close = old.querySelector<HTMLButtonElement>('button')!;
+  let finish!: () => void; const finished = new Promise<void>(resolve => { finish = resolve; });
+  Object.defineProperty(old, 'getAnimations', { value: () => [{ finished }] });
+  if (otherEnding) Object.defineProperty(document.querySelectorAll('[data-testid="root"]')[1], 'getAnimations', { value: () => [{ finished: new Promise<void>(() => {}) }] });
+  close.focus(); key(close, 'F6'); old.focus(); manager.close();
+  expect(document.activeElement).toBe(close);
+  await advance(20); finish(); await Promise.resolve(); await tick(); await Promise.resolve(); await tick();
+  expect(old.isConnected).toBe(false); expect(document.activeElement).toBe(document.body);
+  expect(get('viewport').hasAttribute('data-expanded')).toBe(false);
+  await advance(51); expect(document.querySelectorAll('[data-testid="root"]')).toHaveLength(otherEnding ? 1 : 0);
+  if (otherEnding) expect(root()?.textContent).toContain('Other');
+});

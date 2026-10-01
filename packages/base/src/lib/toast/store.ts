@@ -107,6 +107,8 @@ export class ToastStore {
   private closeFocusRegistration: { handler: (toastId?: string) => void } | undefined;
   private disposed = false;
   private closeDepth = 0;
+  private closeFocusIntent: { toastId?: string } = {};
+
   private readonly lifecycles = new Map<string, object>();
   private readonly removingLifecycles = new Set<object>();
 
@@ -175,6 +177,9 @@ export class ToastStore {
   getCloseFocusRegistration(): object | undefined {
     return this.disposed ? undefined : this.closeFocusRegistration;
   }
+
+  /** New nested requests retain their policy through recursive close callbacks. */
+  getCloseFocusIntent(): Readonly<{ toastId?: string }> { return this.closeFocusIntent; }
 
   /** Final Provider teardown. No callbacks fire and pending settlements cannot write. */
   dispose = () => {
@@ -391,6 +396,7 @@ export class ToastStore {
       this.clearTimer(toastId);
     }
 
+    if (this.closeDepth <= 1) this.closeFocusIntent = { toastId };
     this.closeDepth += 1;
     try {
       const endingToasts = toasts.map((item) =>

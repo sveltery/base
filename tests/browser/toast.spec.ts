@@ -409,3 +409,55 @@ for (const indexKeys of [false, true]) test(`supplement: callback additions and 
   await page.locator('#outside').focus(); await page.clock.runFor(51);
   await expect(page.locator('#root-callback')).toHaveAttribute('data-ending-style');
 });
+
+for (const replace of [false, true]) test(`supplement: native focus-triggered successor close settles synchronously (replacement=${replace})`, async ({ page }) => {
+  await page.goto('/toast?case=lifecycle');
+  await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+  const start = new Date('2026-01-01T00:00:00Z');
+  await page.clock.install({ time: start }); await page.clock.pauseAt(start);
+  await page.locator('#outside').focus(); await click(page, replace ? 'add focus replacement' : 'add focus cascade');
+  await page.keyboard.press('F6'); await page.keyboard.press('Tab');
+  await expect(page.locator('#root-c')).toBeFocused();
+  await closeNow(page, 'manager', 'c');
+  await expect(page.getByTestId('synchronous-focus')).toHaveText(replace ? 'root-b' : 'root-a');
+  await expect(page.locator(replace ? '#root-b' : '#root-a')).toBeFocused();
+  await expect(page.locator('#root-c')).toHaveAttribute('data-ending-style');
+  if (replace) {
+    await expect(page.locator('#root-b h2')).toHaveText('Fresh');
+    await page.clock.runFor(100);
+    await expect(page.locator('#root-b')).not.toHaveAttribute('data-ending-style');
+  } else await expect(page.locator('#root-b')).toHaveAttribute('data-ending-style');
+});
+
+test('supplement: external closes preserve native focus in another live toast', async ({ page }) => {
+  await page.goto('/toast?case=lifecycle');
+  await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+  await page.locator('#outside').focus(); await click(page, 'add three');
+  await page.keyboard.press('F6'); await page.keyboard.press('Tab');
+  await expect(page.locator('#root-c')).toBeFocused();
+  for (const [channel, id] of [['manager', 'b'], ['facade', 'a']]) {
+    await closeNow(page, channel!, id);
+    await expect(page.getByTestId('synchronous-focus')).toHaveText('root-c');
+    await expect(page.locator('#root-c')).toBeFocused();
+  }
+});
+
+test('supplement: physical exit clears an inside prior-focus pause while other exits remain', async ({ page }) => {
+  await page.goto('/toast?case=lifecycle');
+  await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+  const start = new Date('2026-01-01T00:00:00Z');
+  await page.clock.install({ time: start }); await page.clock.pauseAt(start);
+  await click(page, 'add three'); await click(page, 'add exiting prior target');
+  const prior = page.getByRole('button', { name: 'close old', exact: true });
+  await prior.focus(); await page.keyboard.press('F6'); await page.keyboard.press('Tab');
+  await expect(page.locator('#root-old')).toBeFocused();
+  await closeNow(page, 'manager'); await expect(prior).toBeFocused();
+  await page.clock.runFor(32);
+  await page.locator('#root-old').evaluate(node => node.getAnimations().forEach(animation => animation.finish()));
+  await expect(page.locator('#root-old')).toHaveCount(0);
+  expect(await page.evaluate(() => document.activeElement === document.body)).toBe(true);
+  await expect(page.getByTestId('viewport')).not.toHaveAttribute('data-expanded');
+  await expect(page.locator('#root-c')).toHaveAttribute('data-ending-style');
+  await page.clock.runFor(51);
+  await expect(page.locator('#root-fresh')).toHaveAttribute('data-ending-style');
+});
