@@ -47,7 +47,7 @@ for (const reference of [false, true]) {
     await setup(page, reference, 'trap');
     await page.keyboard.press('Shift+Tab'); await expect(page.locator('#last')).toBeFocused();
     await page.keyboard.press('Tab'); await expect(page.locator('#first')).toBeFocused();
-    await expect(page.locator('#after')).toHaveAttribute('aria-hidden', 'true');
+    expect(await page.locator('#after').evaluate(node => !!node.closest('[aria-hidden="true"]'))).toBe(true);
     expect(await page.evaluate(() => document.documentElement.style.overflow)).toBe('');
     await page.locator('#after').click(); await expect(page.getByRole('dialog')).toHaveCount(0);
     expect((await requests(page)).at(-1)?.reason).toBe('outside-press');
@@ -75,16 +75,24 @@ for (const reference of [false, true]) {
     await expect(page.locator('[data-base-ui-focus-guard]')).toHaveCount(0);
     await expect(page.locator('[data-tabindex]')).toHaveCount(0);
   });
-  // Record source-sensitive programmatic behavior before deriving final assertions from real React.
-  test(`${framework}: programmatic focus comparison`, async ({ page }) => {
+  test(`${framework}: programmatic Popup exit preserves the tree; owner Trigger exit dismisses`, async ({ page }) => {
     await setup(page, reference);
     await page.locator('#after').focus();
-    await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
-    console.log(`${framework} popup-to-outside`, JSON.stringify(await requests(page)), await page.getByRole('dialog').count());
-    if (await page.getByRole('dialog').count()) {
-      await page.locator('#nonmodal-a').focus(); await page.locator('#after').focus();
-      await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
-      console.log(`${framework} trigger-to-outside`, JSON.stringify(await requests(page)), await page.getByRole('dialog').count());
-    }
+    await expect(page.getByRole('dialog')).toBeVisible();
+    await page.locator('#end').focus();
+    await expect(page.getByRole('dialog')).toBeVisible(); expect(await requests(page)).toHaveLength(1);
+    await page.locator('#nonmodal-a').focus(); await page.locator('#after').focus();
+    await expect(page.getByRole('dialog')).toHaveCount(0); await expect(page.locator('#after')).toBeFocused();
+    expect((await requests(page)).at(-1)).toMatchObject({ open: false, reason: 'focus-out', type: 'focusout', target: 'nonmodal-a', related: 'after' });
+  });
+  for (const target of ['first', 'nonmodal-a']) test(`${framework}: null relatedTarget alone does not dismiss (${target})`, async ({ page }) => {
+    await setup(page, reference); await page.locator(`#${target}`).focus(); await page.locator(`#${target}`).evaluate(node => (node as HTMLElement).blur());
+    await expect(page.getByRole('dialog')).toBeVisible(); expect(await requests(page)).toHaveLength(1);
+  });
+  test(`${framework}: inactive Trigger is inside without gaining the owner focusout listener`, async ({ page }) => {
+    await setup(page, reference, 'multiple'); await page.locator('#nonmodal-b').focus();
+    await expect(page.getByRole('dialog')).toBeVisible(); expect(await requests(page)).toHaveLength(1);
+    await page.locator('#after').focus();
+    await expect(page.getByRole('dialog')).toBeVisible(); expect(await requests(page)).toHaveLength(1);
   });
 }
