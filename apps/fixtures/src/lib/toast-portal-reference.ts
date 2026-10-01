@@ -38,7 +38,7 @@ export function mountToastPortalReference(node: HTMLElement, scenario: string) {
       const Type = wrapped ? Wrapper : 'div';
       const extras = wrapped ? { 'data-test-value': 'source-value' } : renderProps;
       const mergedRef = (el: HTMLDivElement | null) => { refB.current = el; };
-      render = scenario.endsWith('element') || scenario === 'render-merge-ref' || scenario.includes('class')
+      render = scenario.endsWith('element') || scenario === 'events' || scenario === 'render-merge-ref' || scenario.includes('class')
         ? h(Type, { ...extras, ref: mergedRef })
         : (props) => h(Type, { ...props, ...extras });
     }

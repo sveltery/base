@@ -22,12 +22,17 @@
   // Explicit null waits; a null ref.current instead uses the parent/body fallback.
   // Effects do not execute during SSR. Mount the whole replacement subtree so
   // wrapping render snippets stay in the destination alongside the actual node.
+  // Svelte can reevaluate a derived prop getter during unrelated parent updates.
+  // Match the hook's dependency identity check before reading mutable ref.current.
+  let resolution: { container: ToastPortalProps['container']; parent: HTMLElement | null | undefined; destination: HTMLElement | ShadowRoot | null } | undefined;
   const destination = $derived.by(() => {
     const containerProp = container;
     const parentNode = parent?.node;
-    if (containerProp === null) return null;
-    return (containerProp && (isContainerNode(containerProp)
+    if (resolution && resolution.container === containerProp && resolution.parent === parentNode) return resolution.destination;
+    const target = containerProp === null ? null : (containerProp && (isContainerNode(containerProp)
       ? containerProp : untrack(() => containerProp.current))) ?? parentNode ?? document.body;
+    resolution = { container: containerProp, parent: parentNode, destination: target };
+    return target;
   });
   $effect(() => {
     const target = destination;
