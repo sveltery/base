@@ -25,7 +25,7 @@ export function preserveTabOrder(portal: HTMLElement, position: Comment, manager
   function adjacent(direction: 1 | -1) {
     const list = tabbables(document.body);
     const index = list.indexOf(activeElement(document)!);
-    return list[index === -1 ? direction === 1 ? 0 : list.length - 1 : index + direction];
+    return list[index === -1 ? direction === 1 ? 0 : list.length - 1 : index + direction] ?? manager.reference();
   }
   function guard(type: 'inside' | 'outside', handle: (event: FocusEvent) => void) {
     const element = document.createElement('span');

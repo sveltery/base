@@ -10,6 +10,7 @@ export function root(optional = false): DialogController {
 export interface PortalFocusManager {
   node: HTMLElement;
   guards: Set<HTMLElement>;
+  reference(): HTMLElement | null | undefined;
   setPreventReturnFocus(value: boolean): void;
   closeOnFocusOut(event: FocusEvent): void;
 }

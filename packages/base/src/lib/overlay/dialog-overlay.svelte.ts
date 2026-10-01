@@ -61,7 +61,7 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
     const details = controller.request(false, 'focus-out', event);
     if (details.isCanceled) preventReturnFocus = false;
   }
-  const focusManager = { node, guards: new SvelteSet<HTMLElement>(), setPreventReturnFocus: (value: boolean) => { if (!controller.props().disablePointerDismissal) preventReturnFocus = value; }, closeOnFocusOut };
+  const focusManager = { node, guards: new SvelteSet<HTMLElement>(), reference: () => controller.trigger, setPreventReturnFocus: (value: boolean) => { if (!controller.props().disablePointerDismissal) preventReturnFocus = value; }, closeOnFocusOut };
   portalContext.focusManager = focusManager;
   function escape(event: KeyboardEvent) {
     if (event.key !== 'Escape' || event.isComposing || composing || !controller.open || !topmost()) return;
