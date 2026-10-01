@@ -119,9 +119,16 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
   document.addEventListener('pointerup', up, true);
   document.addEventListener('mouseup', up, true);
   document.addEventListener('focusin', focusIn);
-  document.addEventListener('focusout', focusOut);
   observer.observe(node, { subtree: true, childList: true });
   const stop = $effect.root(() => {
+    $effect(() => {
+      const trigger = controller.trigger;
+      if (!trigger) return;
+      // Match the native reference listener: consumer propagation control at
+      // an ancestor must not suppress the owning Trigger's focusout handling.
+      trigger.addEventListener('focusout', focusOut);
+      return () => { trigger.removeEventListener('focusout', focusOut); };
+    });
     $effect(() => {
       const open = controller.open;
       if (!open) return;
@@ -194,7 +201,6 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
     document.removeEventListener('pointerdown', down, true); document.removeEventListener('mousedown', down, true);
     document.removeEventListener('click', click, true);
     document.removeEventListener('pointerup', up, true); document.removeEventListener('mouseup', up, true); document.removeEventListener('focusin', focusIn);
-    document.removeEventListener('focusout', focusOut);
     if (portalContext.focusManager === focusManager) portalContext.focusManager = null;
     // A conditional Portal/Popup removal can destroy this attachment without a close edge.
     if (observed && previousOpen) returnFocus(true);
