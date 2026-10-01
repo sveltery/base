@@ -281,9 +281,8 @@ it('reads consumer focus changes synchronously after onClose', async () => { // 
 });
 it('reads a sibling added by onClose before synchronously transferring focus', async () => { // local regression, no parity credit
   const manager = createToastManager(); await render({ toastManager: manager, timeout: 0 });
-    manager.add({ id: 'focus', title: 'Focus', onClose: () => {
-    // A callback can commit a sibling before close focus management reads state.
-    flushSync(() => manager.add({ id: 'sibling', title: 'Sibling' }));
+  manager.add({ id: 'focus', title: 'Focus', onClose: () => {
+    manager.add({ id: 'sibling', title: 'Sibling' });
   } }); await tick(); button().focus(); key(button(), 'F6'); get('root').focus();
   Object.defineProperty(get('root'), 'getAnimations', { value: () => [{ finished: new Promise<void>(() => {}) }] });
   manager.close('focus');
@@ -401,4 +400,35 @@ it('descendant focus cannot resume timers while the owner document remains blurr
   window.dispatchEvent(event);
   await advance(4999); expect(root()).not.toBe(null);
   await advance(2); expect(root()).toBe(null);
+});
+
+it.each([false, true])('commits callback additions before selecting refs (index keys=%s)', async indexKeys => { // local regression, no parity credit
+  const manager = createToastManager(); await render({ toastManager: manager, timeout: 0, indexKeys });
+  manager.add({ id: 'older', title: 'Older' });
+  manager.add({ id: 'closing', title: 'Closing', onClose: () => manager.add({ id: 'fresh', title: 'Fresh' }) }); await tick();
+  const closing = get('root');
+  for (const node of document.querySelectorAll('[data-testid="root"]')) {
+    Object.defineProperty(node, 'getAnimations', { value: () => [{ finished: new Promise<void>(() => {}) }] });
+  }
+  button().focus(); key(button(), 'F6'); closing.focus(); manager.close('closing'); flushSync();
+  const older = [...document.querySelectorAll<HTMLElement>('[data-testid="root"]')].find(node => node.textContent?.includes('Older'))!;
+  expect(document.activeElement).toBe(older);
+});
+it.each([false, true])('keeps a same-ID callback replacement focused and its timer paused (index keys=%s)', async indexKeys => { // local regression, no parity credit
+  const manager = createToastManager(); await render({ toastManager: manager, indexKeys });
+  manager.add({ id: 'replace', title: 'Old', onClose: () => manager.add({ id: 'replace', title: 'Fresh', timeout: 50, priority: 'high' }) }); await tick();
+  button().focus(); key(button(), 'F6'); get('root').focus(); manager.close('replace'); flushSync();
+  expect(get('root').textContent).toContain('Fresh'); expect(document.activeElement).toBe(get('root'));
+  expect(get('viewport').hasAttribute('data-expanded')).toBe(true);
+  expect(document.querySelector('[role="alert"]')).toBe(null);
+  await advance(100); expect(root()).not.toBe(null);
+  button().focus(); await advance(51); expect(root()).toBe(null);
+});
+it('aborts close focus when an exit callback disposes the still-connected owner', async () => { // local regression, no parity credit
+  const manager = createToastManager(); let store: import('../../src/lib/toast/store.js').ToastStore;
+  await render({ toastManager: manager, timeout: 0, limit: 1, onStore: (value: typeof store) => { store = value; } });
+  manager.add({ id: 'older', title: 'Older' }); manager.add({ id: 'closing', title: 'Closing', onRemove: () => store.dispose() }); await tick();
+  const [closing, older] = [...document.querySelectorAll<HTMLElement>('[data-testid="root"]')];
+  const focus = vi.spyOn(older, 'focus'); button().focus(); key(button(), 'F6'); closing.focus(); manager.close('closing');
+  expect(get('viewport').isConnected).toBe(true); expect(focus).not.toHaveBeenCalled();
 });

@@ -28,13 +28,29 @@
   }
   function restoreFocus() { store.state.prevFocusElement?.focus({ preventScroll: true }); }
   function closeFocus(toastId?: string) {
-    const state = store.state;
-    const node = state.viewport;
-    if (!node) return;
-    const current = activeElement(node.ownerDocument);
-    if (!contains(node, current) || !isFocusVisible(current)) return;
-    if (toastId === undefined) { restoreFocus(); return; }
-    const findNextToast = () => {
+    const node = store.state.viewport;
+    const registration = store.getCloseFocusRegistration();
+    if (!node || !registration) return;
+    const doc = node.ownerDocument;
+    const current = activeElement(doc);
+    const reconcileFocus = () => {
+      const focused = contains(node, activeElement(doc)) && isFocusVisible(activeElement(doc));
+      store.set('focused', focused);
+      if (selectors.expandedOrOutOfFocus(store.state)) store.pauseTimers();
+      else store.resumeTimers();
+    };
+    if (!contains(node, current) || !isFocusVisible(current)) { reconcileFocus(); return; }
+    // Callbacks can add Roots, replace a lifecycle, or rebind index-keyed Roots.
+    // Commit once before selecting refs, including successors newly un-limited.
+    flushSync();
+    if (store.getCloseFocusRegistration() !== registration || store.state.viewport !== node || !node.isConnected) return;
+    const active = activeElement(doc);
+    // Synchronous no-animation exits can remove the focused Root without blur.
+    // A consumer-selected outside element still owns focus after this commit.
+    const exitedToBody = active === doc.body && current && !current.isConnected;
+    if (!exitedToBody && (!contains(node, active) || !isFocusVisible(active))) { reconcileFocus(); return; }
+    if (toastId === undefined) restoreFocus();
+    else {
       const toasts = store.state.toasts;
       const currentIndex = selectors.toastIndex(store.state, toastId);
       const scan = (from: number, step: number) => {
@@ -43,25 +59,15 @@
         }
         return null;
       };
-      return scan(currentIndex + 1, 1) ?? scan(currentIndex - 1, -1);
-    };
-    let nextToast = findNextToast();
-    if (nextToast?.ref?.hasAttribute('inert') && !nextToast.limited) {
-      // The complete onClose loop already ran. Commit the newly un-limited
-      // successor before focus, then re-read ownership, focus and candidates.
-      flushSync();
-      const owner = store.state.viewport;
-      const active = owner && activeElement(owner.ownerDocument);
-      if (!owner || owner !== node || !owner.isConnected) return;
-      // Missing animation APIs complete the exit during this flush. The browser
-      // then falls back to body, but a connected outside focus target chosen by
-      // consumer work must still win over successor focus.
-      const exitedToBody = active === owner.ownerDocument.body && current && !current.isConnected;
-      if (!exitedToBody && (!contains(owner, active) || !isFocusVisible(active))) return;
-      nextToast = findNextToast();
+      // A fresh same-ID lifecycle occupies the closing toast's own slot.
+      const replacement = toasts[currentIndex];
+      const nextToast = replacement?.transitionStatus !== 'ending' && replacement
+        ? replacement : scan(currentIndex + 1, 1) ?? scan(currentIndex - 1, -1);
+      if (nextToast) nextToast.ref?.focus();
+      else restoreFocus();
     }
-    if (nextToast) nextToast.ref?.focus();
-    else restoreFocus();
+    // A same-ID Root may already be active, so focus() need not emit focusin.
+    if (store.getCloseFocusRegistration() === registration && store.state.viewport === node && node.isConnected) reconcileFocus();
   }
   function attach(node: HTMLElement) {
     viewport = node;

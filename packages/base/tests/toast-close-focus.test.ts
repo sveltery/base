@@ -61,3 +61,14 @@ it('does not focus after callback teardown or an interrupted onClose loop', () =
   store.closeToast();
   expect(focus).not.toHaveBeenCalled();
 });
+
+it('defers nested close focus until the outer complete callback loop and retains close-all policy', () => {
+  const store = new ToastStore(); const observations: string[] = [];
+  store.setCloseFocusHandler(id => observations.push(`focus:${id ?? 'all'}`));
+  store.addToast({ id: 'older', timeout: 0, onClose: () => observations.push('older') });
+  store.addToast({ id: 'newer', timeout: 0, onClose: () => {
+    observations.push('newer:start'); store.closeToast('newer'); observations.push('newer:end');
+  } });
+  store.closeToast();
+  expect(observations).toEqual(['newer:start', 'newer:end', 'older', 'focus:all']); store.dispose();
+});

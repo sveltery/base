@@ -106,6 +106,7 @@ export class ToastStore {
   private managerCleanup: (() => void) | undefined;
   private closeFocusRegistration: { handler: (toastId?: string) => void } | undefined;
   private disposed = false;
+  private closeDepth = 0;
   private readonly lifecycles = new Map<string, object>();
   private readonly removingLifecycles = new Set<object>();
 
@@ -168,6 +169,11 @@ export class ToastStore {
     return () => {
       if (this.closeFocusRegistration === registration) this.closeFocusRegistration = undefined;
     };
+  }
+
+  /** Opaque ownership token for revalidating synchronous Viewport commits. */
+  getCloseFocusRegistration(): object | undefined {
+    return this.disposed ? undefined : this.closeFocusRegistration;
   }
 
   /** Final Provider teardown. No callbacks fire and pending settlements cannot write. */
@@ -385,23 +391,27 @@ export class ToastStore {
       this.clearTimer(toastId);
     }
 
-    const endingToasts = toasts.map((item) =>
-      closeAll || item.id === toastId
-        ? { ...item, transitionStatus: 'ending' as const, height: 0 }
-        : item,
-    );
-    const newToasts = applyLimited(endingToasts, limit);
-    this.setToasts(newToasts, !newToasts.some((toast) => toast.transitionStatus !== 'ending'));
+    this.closeDepth += 1;
+    try {
+      const endingToasts = toasts.map((item) =>
+        closeAll || item.id === toastId
+          ? { ...item, transitionStatus: 'ending' as const, height: 0 }
+          : item,
+      );
+      const newToasts = applyLimited(endingToasts, limit);
+      this.setToasts(newToasts, !newToasts.some((toast) => toast.transitionStatus !== 'ending'));
 
-    toastsToClose.forEach((toast) => {
-      if (toast.transitionStatus !== 'ending') {
-        toast.onClose?.();
-      }
-    });
-
-    // Callbacks may replace the viewport, move focus, add toasts, or dispose.
-    // Read the current registration only after the complete callback loop.
-    if (!this.disposed) this.closeFocusRegistration?.handler(toastId);
+      toastsToClose.forEach((toast) => {
+        if (toast.transitionStatus !== 'ending') {
+          toast.onClose?.();
+        }
+      });
+      // Retain transaction ownership through the rendering commit as well:
+      // onRemove may close another toast while Viewport flushes pending Roots.
+      if (!this.disposed && this.closeDepth === 1) this.closeFocusRegistration?.handler(toastId);
+    } finally {
+      this.closeDepth -= 1;
+    }
   };
 
   promiseToast = <Value, Data extends object>(

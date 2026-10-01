@@ -6,9 +6,10 @@
   import Description from '../../src/lib/toast/Description.svelte';
   import Close from '../../src/lib/toast/Close.svelte';
   import Action from '../../src/lib/toast/Action.svelte';
+  let { indexKeys = false }: { indexKeys?: boolean } = $props();
   const manager = getToastManager();
 </script>
-{#each manager.toasts as toast (toast.id)}
+{#each manager.toasts as toast, index (indexKeys ? index : toast.id)}
   <Root {toast} swipeDirection={[]} data-testid="root">
     <Title data-testid="title" />
     <Description data-testid="description" />

@@ -1,15 +1,16 @@
 <script lang="ts">
   import { Toast } from '@sveltery/base';
   import type { ToastManager } from '@sveltery/base/toast';
-  let { external }: { external: ToastManager } = $props();
+  let { external, indexKeys = false }: { external: ToastManager; indexKeys?: boolean } = $props();
   const facade = Toast.getToastManager();
   let closed = $state<{ id: string; active: string | null; count: number }[]>([]);
   let removed = $state<{ id: string; present: boolean; title: string | null }[]>([]);
   let synchronousFocus = $state<string | null>(null);
   let main: HTMLElement;
-  function add(id: string, title: string, timeout = 0, focusInCallback = false) {
+  function add(id: string, title: string, timeout = 0, focusInCallback = false, callback?: () => void) {
     facade.add({ id, title, timeout, onClose() {
       if (focusInCallback) main.querySelector<HTMLElement>(`[data-toast-id="${id}"]`)?.focus();
+      callback?.();
       closed.push({ id, active: main.ownerDocument.activeElement?.id ?? null, count: facade.toasts.length });
     }, onRemove() {
       const root = main.querySelector<HTMLElement>(`[data-toast-id="${id}"]`);
@@ -32,8 +33,10 @@
   <button onclick={() => add('save', 'Saving…')}>add save</button>
   <button onclick={() => add('save', 'Saved')}>replace save</button>
   <button onclick={() => add('timer', 'Timer', 50, true)}>add timer</button>
+  <button onclick={() => add('callback', 'Closing', 0, false, () => add('fresh', 'Fresh'))}>add callback sibling</button>
+  <button onclick={() => add('callback', 'Old', 0, false, () => add('callback', 'Fresh', 50))}>add callback replacement</button>
   <Toast.Viewport data-testid="viewport">
-    {#each facade.toasts as toast (toast.id)}
+    {#each facade.toasts as toast, index (indexKeys ? index : toast.id)}
       <Toast.Root {toast} swipeDirection={[]} id={`root-${toast.id}`} data-testid="root" data-toast-id={toast.id}>
         <Toast.Title />
         <Toast.Close aria-label={`close ${toast.id}`} />

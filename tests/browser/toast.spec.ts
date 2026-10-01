@@ -381,3 +381,31 @@ test('supplement: an already unfocused owner document pauses its first toast', a
   await page.clock.runFor(2); await page.clock.runFor(32);
   await expect(frame.getByTestId('root')).toHaveCount(0);
 });
+
+for (const indexKeys of [false, true]) test(`supplement: callback additions and same-ID replacements commit synchronous focus (index keys=${indexKeys})`, async ({ page }) => {
+  const url = `/toast?case=${indexKeys ? 'lifecycle-index' : 'lifecycle'}`;
+  await page.goto(url);
+  await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+  await page.locator('#outside').focus();
+  await click(page, 'add callback sibling');
+  await page.keyboard.press('F6'); await page.keyboard.press('Tab');
+  await expect(page.locator('#root-callback')).toBeFocused();
+  await closeNow(page, 'manager', 'callback');
+  await expect(page.getByTestId('synchronous-focus')).toHaveText('root-fresh');
+  await expect(page.locator('#root-fresh')).toBeFocused();
+  await page.goto(url);
+  await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+  const start = new Date('2026-01-01T00:00:00Z');
+  await page.clock.install({ time: start }); await page.clock.pauseAt(start);
+  await page.locator('#outside').focus(); await click(page, 'add callback replacement');
+  await page.keyboard.press('F6'); await page.keyboard.press('Tab');
+  await expect(page.locator('#root-callback')).toBeFocused();
+  await closeNow(page, 'facade', 'callback');
+  await expect(page.getByTestId('synchronous-focus')).toHaveText('root-callback');
+  await expect(page.locator('#root-callback h2')).toHaveText('Fresh');
+  await expect(page.locator('#root-callback')).toBeFocused();
+  await expect(page.getByTestId('viewport')).toHaveAttribute('data-expanded');
+  await page.clock.runFor(100); await expect(page.locator('#root-callback')).not.toHaveAttribute('data-ending-style');
+  await page.locator('#outside').focus(); await page.clock.runFor(51);
+  await expect(page.locator('#root-callback')).toHaveAttribute('data-ending-style');
+});
