@@ -1,5 +1,7 @@
 # Popup initialFocus leaf ports
 
+Current shared inventory after the bounded Toast rendering ports: **28 passing ports / 605 unported**. Historical Dialog execution details below retain their original checkpoint context.
+
 Source: Base UI **v1.8.0**, commit **`47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`**, [DialogPopup.test.tsx](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/dialog/popup/DialogPopup.test.tsx). Derived fixtures and assertions retain the [MIT notice](UPSTREAM_LICENSE). Base: main `a0a2c655e591feac6dca06697e484e7fd624a074`.
 
 This is the fixture/assertion record for four passing entries in the [shared manifest](../manifest.json). The byte-exact [source inventory](upstream-inventory.json) and its tracer remain unchanged, retaining their original `unported`/`port=null` provenance placeholders. Current credit is read from the shared manifest: these four entries are supported by [CI run 36849776857](https://github.com/sveltery/base/actions/runs/36849776857) at `a4a8d12733662bdf34db49de145d053960b68527`, with all three jobs passing, **45/45 secured Chromium executions**, and independent gpt-6.1-sol/high review on that same commit. The test/fixture implementation is unchanged by central reconciliation. [PR #5](https://github.com/sveltery/base/pull/5) records final-head CI and independent review before merge. There are no approved behavioral deviations.

@@ -7,7 +7,7 @@
     "notice": "UPSTREAM_LICENSE"
   },
   "scope": "13 complete native Title/Description/Action/Close declaration ports; shared conformance and render-prop leaves remain unported. Immutable source trace untouched; no browser acceptance implied by jsdom evidence.",
-  "status": "passed-local-pending-exact-head-hosted-execution",
+  "status": "passing-execution-uncredited",
   "adaptations": "parity/toast/parts-ports.md",
   "fixtures": [
     "packages/base/tests/dom/ToastPartsFixture.svelte",
@@ -30,7 +30,9 @@
         "status": "passed-local",
         "command": "pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/toast-parts.test.ts"
       },
-      "status": "pending-exact-head-hosted-execution"
+      "status": "executed-uncredited",
+      "upstreamGuards": [],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/action/ToastAction.test.tsx:47",
@@ -48,7 +50,9 @@
         "status": "passed-local",
         "command": "pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/toast-parts.test.ts"
       },
-      "status": "pending-exact-head-hosted-execution"
+      "status": "executed-uncredited",
+      "upstreamGuards": [],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/close/ToastClose.test.tsx:30",
@@ -67,7 +71,9 @@
         "status": "passed-local",
         "command": "pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/toast-parts.test.ts"
       },
-      "status": "pending-exact-head-hosted-execution"
+      "status": "executed-uncredited",
+      "upstreamGuards": [],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/description/ToastDescription.test.tsx:28",
@@ -86,7 +92,9 @@
         "status": "passed-local",
         "command": "pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/toast-parts.test.ts"
       },
-      "status": "pending-exact-head-hosted-execution"
+      "status": "executed-uncredited",
+      "upstreamGuards": [],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/description/ToastDescription.test.tsx:49",
@@ -104,7 +112,9 @@
         "status": "passed-local",
         "command": "pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/toast-parts.test.ts"
       },
-      "status": "pending-exact-head-hosted-execution"
+      "status": "executed-uncredited",
+      "upstreamGuards": [],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/description/ToastDescription.test.tsx:75",
@@ -123,7 +133,9 @@
         "status": "passed-local",
         "command": "pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/toast-parts.test.ts"
       },
-      "status": "pending-exact-head-hosted-execution"
+      "status": "executed-uncredited",
+      "upstreamGuards": [],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/title/ToastTitle.test.tsx:29",
@@ -141,7 +153,9 @@
         "status": "passed-local",
         "command": "pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/toast-parts.test.ts"
       },
-      "status": "pending-exact-head-hosted-execution"
+      "status": "executed-uncredited",
+      "upstreamGuards": [],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/title/ToastTitle.test.tsx:49",
@@ -160,7 +174,9 @@
         "status": "passed-local",
         "command": "pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/toast-parts.test.ts"
       },
-      "status": "pending-exact-head-hosted-execution"
+      "status": "executed-uncredited",
+      "upstreamGuards": [],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/title/ToastTitle.test.tsx:70",
@@ -178,7 +194,9 @@
         "status": "passed-local",
         "command": "pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/toast-parts.test.ts"
       },
-      "status": "pending-exact-head-hosted-execution"
+      "status": "executed-uncredited",
+      "upstreamGuards": [],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/title/ToastTitle.test.tsx:96",
@@ -197,7 +215,9 @@
         "status": "passed-local",
         "command": "pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/toast-parts.test.ts"
       },
-      "status": "pending-exact-head-hosted-execution"
+      "status": "executed-uncredited",
+      "upstreamGuards": [],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/title/ToastTitle.test.tsx:172",
@@ -215,7 +235,9 @@
         "status": "passed-local",
         "command": "pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/toast-parts.test.ts"
       },
-      "status": "pending-exact-head-hosted-execution"
+      "status": "executed-uncredited",
+      "upstreamGuards": [],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/title/ToastTitle.test.tsx:201",
@@ -235,7 +257,9 @@
         "status": "passed-local",
         "command": "pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/toast-parts.test.ts"
       },
-      "status": "pending-exact-head-hosted-execution"
+      "status": "executed-uncredited",
+      "upstreamGuards": [],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/title/ToastTitle.test.tsx:229",
@@ -255,7 +279,16 @@
         "status": "passed-local",
         "command": "pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/toast-parts.test.ts"
       },
-      "status": "pending-exact-head-hosted-execution"
+      "status": "executed-uncredited",
+      "upstreamGuards": [],
+      "sourceConditions": []
     }
-  ]
+  ],
+  "evidence": {
+    "testedCommit": "607798b545ce3e537b8a7e592e2dfa010ee5f779",
+    "workflowRun": "https://github.com/sveltery/base/actions/runs/36893115204",
+    "job": 110473481673,
+    "command": "pnpm --filter @sveltery/base test:dom",
+    "sharedCredit": 0
+  }
 }

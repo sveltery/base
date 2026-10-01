@@ -17,6 +17,8 @@ test('rendering evidence preserves complete pinned provenance without crediting 
       assert.equal(entry.sourceBodySha256, original.bodySha256);
       assert.deepEqual(entry.assertionLines, original.assertions.map(item => item.line));
       assert.deepEqual(entry.fixtureVariants, original.variants);
+      assert.deepEqual(entry.upstreamGuards, original.upstreamGuards);
+      assert.deepEqual(entry.sourceConditions, original.sourceConditions);
       assert.equal(original.status, 'unported');
       assert.equal(original.port, null);
       const port = entry.port ?? entry.execution?.port ?? record.port;
@@ -38,4 +40,27 @@ test('the context manager retains the full pinned data type spec with only its i
   assert.equal(actual.slice(actual.indexOf('type ToastPayload')), original.text.slice(original.text.indexOf('type ToastPayload')));
   assert.ok(actual.includes('getToastManager as useToastManager'));
   assert.equal((actual.match(/@ts-expect-error/g) ?? []).length, 4);
+});
+
+test('shared Toast credit includes only the thirteen complete hosted paired declarations', () => {
+  const manifest = JSON.parse(read('parity/manifest.json'));
+  const record = JSON.parse(read('parity/toast/rendering-ports.json'));
+  const credited = manifest.cases.filter(item => item.source.includes('/toast/') && item.status === 'passing');
+  assert.equal(credited.length, 13);
+  assert.deepEqual(new Set(credited.map(item => item.sourceId)), new Set(record.cases.map(item => item.sourceId)));
+  for (const item of credited) {
+    const entry = record.cases.find(candidate => candidate.sourceId === item.sourceId);
+    assert.equal(item.port, record.port);
+    assert.equal(item.sourceBodySha256, entry.sourceBodySha256);
+    assert.deepEqual(item.assertionLines, entry.assertionLines);
+    assert.deepEqual(item.evidence.executions, entry.executions);
+    assert.match(item.evidence.testedCommit, /^[0-9a-f]{40}$/);
+    assert.match(item.evidence.workflowRun, /^https:\/\/github\.com\/sveltery\/base\/actions\/runs\/\d+$/);
+    assert.ok(Number.isSafeInteger(item.evidence.browserJob));
+  }
+  assert.ok(read('parity/README.md').includes('28 passing ports / 605 unported'));
+  assert.ok(read('parity/README.md').includes('13 complete ports / 183 unported declarations'));
+  assert.ok(read('parity/toast/rendering-interface.md').includes('28 passing ports / 605 unported'));
+  assert.equal(record.evidence.toastTests, 35);
+  assert.equal(record.evidence.browserTests, 203);
 });

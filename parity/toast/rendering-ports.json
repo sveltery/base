@@ -6,8 +6,8 @@
     "license": "MIT",
     "notice": "UPSTREAM_LICENSE"
   },
-  "scope": "13 complete declaration candidates; paired actual React/Svelte browser assertions. Source trace placeholders remain immutable. No passing credit until exact-head hosted execution.",
-  "status": "pending-hosted-execution",
+  "scope": "13 complete declaration ports with paired React/Svelte secured hosted browser assertions. Source trace placeholders remain immutable; supplements and other DOM/core evidence earn no additional shared credit.",
+  "status": "passing-hosted-browser",
   "port": "tests/browser/toast.spec.ts",
   "adaptations": "parity/toast/rendering-ports.md",
   "fixtures": [
@@ -34,7 +34,11 @@
         "M:15 Svelte Toast manager-add",
         "M:15 React reference Toast manager-add"
       ],
-      "status": "pending-hosted-execution"
+      "status": "passing",
+      "upstreamGuards": [
+        "describe.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/createToastManager.test.tsx:63",
@@ -58,7 +62,11 @@
         "M:63 Svelte Toast manager-upsert",
         "M:63 React reference Toast manager-upsert"
       ],
-      "status": "pending-hosted-execution"
+      "status": "passing",
+      "upstreamGuards": [
+        "describe.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/useToastManager.test.tsx:21",
@@ -76,7 +84,11 @@
         "U:21 Svelte Toast add",
         "U:21 React reference Toast add"
       ],
-      "status": "pending-hosted-execution"
+      "status": "passing",
+      "upstreamGuards": [
+        "describe.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/useToastManager.test.tsx:56",
@@ -97,7 +109,11 @@
         "U:56 Svelte Toast isolation",
         "U:56 React reference Toast isolation"
       ],
-      "status": "pending-hosted-execution"
+      "status": "passing",
+      "upstreamGuards": [
+        "describe.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/useToastManager.test.tsx:1697",
@@ -115,7 +131,11 @@
         "U:1697 Svelte Toast close",
         "U:1697 React reference Toast close"
       ],
-      "status": "pending-hosted-execution"
+      "status": "passing",
+      "upstreamGuards": [
+        "describe.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/useToastManager.test.tsx:1743",
@@ -133,7 +153,11 @@
         "U:1743 Svelte Toast close-all",
         "U:1743 React reference Toast close-all"
       ],
-      "status": "pending-hosted-execution"
+      "status": "passing",
+      "upstreamGuards": [
+        "describe.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/useToastManager.test.tsx:1794",
@@ -151,7 +175,11 @@
         "U:1794 Svelte Toast timeout-sync",
         "U:1794 React reference Toast timeout-sync"
       ],
-      "status": "pending-hosted-execution"
+      "status": "passing",
+      "upstreamGuards": [
+        "describe.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/useToastManager.test.tsx:1853",
@@ -171,7 +199,11 @@
         "U:1853 Svelte Toast limit",
         "U:1853 React reference Toast limit"
       ],
-      "status": "pending-hosted-execution"
+      "status": "passing",
+      "upstreamGuards": [
+        "describe.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/useToastManager.test.tsx:1878",
@@ -191,7 +223,11 @@
         "U:1878 Svelte Toast unlimit",
         "U:1878 React reference Toast unlimit"
       ],
-      "status": "pending-hosted-execution"
+      "status": "passing",
+      "upstreamGuards": [
+        "describe.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/useToastManager.test.tsx:1907",
@@ -212,7 +248,11 @@
         "U:1907 Svelte Toast limited-upsert",
         "U:1907 React reference Toast limited-upsert"
       ],
-      "status": "pending-hosted-execution"
+      "status": "passing",
+      "upstreamGuards": [
+        "describe.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/useToastManager.test.tsx:1965",
@@ -232,7 +272,11 @@
         "U:1965 Svelte Toast limit-sync",
         "U:1965 React reference Toast limit-sync"
       ],
-      "status": "pending-hosted-execution"
+      "status": "passing",
+      "upstreamGuards": [
+        "describe.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/root/ToastRoot.test.tsx:97",
@@ -249,7 +293,9 @@
         "R:97 Svelte Toast offset",
         "R:97 React reference Toast offset"
       ],
-      "status": "pending-hosted-execution"
+      "status": "passing",
+      "upstreamGuards": [],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/root/ToastRoot.test.tsx:112",
@@ -277,7 +323,16 @@
         "R:112 Svelte Toast labels",
         "R:112 React reference Toast labels"
       ],
-      "status": "pending-hosted-execution"
+      "status": "passing",
+      "upstreamGuards": [],
+      "sourceConditions": []
     }
-  ]
+  ],
+  "evidence": {
+    "testedCommit": "607798b545ce3e537b8a7e592e2dfa010ee5f779",
+    "workflowRun": "https://github.com/sveltery/base/actions/runs/36893115204",
+    "browserJob": 110473481479,
+    "browserTests": 203,
+    "toastTests": 35
+  }
 }

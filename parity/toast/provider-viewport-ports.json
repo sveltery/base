@@ -21,8 +21,10 @@
       ],
       "part": "P",
       "port": "packages/base/tests/dom/toast-provider.test.ts",
-      "status": "executed-local-uncredited",
-      "adaptations": "Committed Svelte pre/mount effects replace React layout effects; Suspense leaf is excluded."
+      "status": "executed-uncredited",
+      "adaptations": "Committed Svelte pre/mount effects replace React layout effects; Suspense leaf is excluded.",
+      "upstreamGuards": [],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/provider/ToastProvider.test.tsx:50",
@@ -36,8 +38,10 @@
       ],
       "part": "P",
       "port": "packages/base/tests/dom/toast-provider.test.ts",
-      "status": "executed-local-uncredited",
-      "adaptations": "Committed Svelte pre/mount effects replace React layout effects; Suspense leaf is excluded."
+      "status": "executed-uncredited",
+      "adaptations": "Committed Svelte pre/mount effects replace React layout effects; Suspense leaf is excluded.",
+      "upstreamGuards": [],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/viewport/ToastViewport.test.tsx:38",
@@ -66,8 +70,12 @@
       ],
       "part": "V",
       "port": "packages/base/tests/dom/toast-viewport.test.ts",
-      "status": "executed-local-uncredited",
-      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence."
+      "status": "executed-uncredited",
+      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence.",
+      "upstreamGuards": [
+        "it.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/viewport/ToastViewport.test.tsx:153",
@@ -81,8 +89,10 @@
       ],
       "part": "V",
       "port": "packages/base/tests/dom/toast-viewport.test.ts",
-      "status": "executed-local-uncredited",
-      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence."
+      "status": "executed-uncredited",
+      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence.",
+      "upstreamGuards": [],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/viewport/ToastViewport.test.tsx:237",
@@ -97,8 +107,10 @@
       ],
       "part": "V",
       "port": "packages/base/tests/dom/toast-viewport.test.ts",
-      "status": "executed-local-uncredited",
-      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence."
+      "status": "executed-uncredited",
+      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence.",
+      "upstreamGuards": [],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/viewport/ToastViewport.test.tsx:260",
@@ -113,8 +125,10 @@
       ],
       "part": "V",
       "port": "packages/base/tests/dom/toast-viewport.test.ts",
-      "status": "executed-local-uncredited",
-      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence."
+      "status": "executed-uncredited",
+      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence.",
+      "upstreamGuards": [],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/viewport/ToastViewport.test.tsx:449",
@@ -128,8 +142,10 @@
       ],
       "part": "V",
       "port": "packages/base/tests/dom/toast-viewport.test.ts",
-      "status": "executed-local-uncredited",
-      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence."
+      "status": "executed-uncredited",
+      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence.",
+      "upstreamGuards": [],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/viewport/ToastViewport.test.tsx:469",
@@ -144,8 +160,10 @@
       ],
       "part": "V",
       "port": "packages/base/tests/dom/toast-viewport.test.ts",
-      "status": "executed-local-uncredited",
-      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence."
+      "status": "executed-uncredited",
+      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence.",
+      "upstreamGuards": [],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/viewport/ToastViewport.test.tsx:497",
@@ -159,8 +177,10 @@
       ],
       "part": "V",
       "port": "packages/base/tests/dom/toast-viewport.test.ts",
-      "status": "executed-local-uncredited",
-      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence."
+      "status": "executed-uncredited",
+      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence.",
+      "upstreamGuards": [],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/viewport/ToastViewport.test.tsx:517",
@@ -177,8 +197,10 @@
       ],
       "part": "V",
       "port": "packages/base/tests/dom/toast-viewport.test.ts",
-      "status": "executed-local-uncredited",
-      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence."
+      "status": "executed-uncredited",
+      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence.",
+      "upstreamGuards": [],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/viewport/ToastViewport.test.tsx:547",
@@ -194,8 +216,10 @@
       ],
       "part": "V",
       "port": "packages/base/tests/dom/toast-viewport.test.ts",
-      "status": "executed-local-uncredited",
-      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence."
+      "status": "executed-uncredited",
+      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence.",
+      "upstreamGuards": [],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/viewport/ToastViewport.test.tsx:580",
@@ -210,8 +234,10 @@
       ],
       "part": "V",
       "port": "packages/base/tests/dom/toast-viewport.test.ts",
-      "status": "executed-local-uncredited",
-      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence."
+      "status": "executed-uncredited",
+      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence.",
+      "upstreamGuards": [],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/viewport/ToastViewport.test.tsx:606",
@@ -228,8 +254,10 @@
       ],
       "part": "V",
       "port": "packages/base/tests/dom/toast-viewport.test.ts",
-      "status": "executed-local-uncredited",
-      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence."
+      "status": "executed-uncredited",
+      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence.",
+      "upstreamGuards": [],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/viewport/ToastViewport.test.tsx:635",
@@ -244,8 +272,10 @@
       ],
       "part": "V",
       "port": "packages/base/tests/dom/toast-viewport.test.ts",
-      "status": "executed-local-uncredited",
-      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence."
+      "status": "executed-uncredited",
+      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence.",
+      "upstreamGuards": [],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/viewport/ToastViewport.test.tsx:659",
@@ -260,8 +290,10 @@
       ],
       "part": "V",
       "port": "packages/base/tests/dom/toast-viewport.test.ts",
-      "status": "executed-local-uncredited",
-      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence."
+      "status": "executed-uncredited",
+      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence.",
+      "upstreamGuards": [],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/viewport/ToastViewport.test.tsx:684",
@@ -275,8 +307,12 @@
       ],
       "part": "V",
       "port": "packages/base/tests/dom/toast-viewport.test.ts",
-      "status": "executed-local-uncredited",
-      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence."
+      "status": "executed-uncredited",
+      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence.",
+      "upstreamGuards": [
+        "it.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/viewport/ToastViewport.test.tsx:708",
@@ -295,8 +331,12 @@
       ],
       "part": "V",
       "port": "packages/base/tests/dom/toast-viewport.test.ts",
-      "status": "executed-local-uncredited",
-      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence."
+      "status": "executed-uncredited",
+      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence.",
+      "upstreamGuards": [
+        "it.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/viewport/ToastViewport.test.tsx:774",
@@ -310,8 +350,12 @@
       ],
       "part": "V",
       "port": "packages/base/tests/dom/toast-viewport.test.ts",
-      "status": "executed-local-uncredited",
-      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence."
+      "status": "executed-uncredited",
+      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence.",
+      "upstreamGuards": [
+        "it.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/viewport/ToastViewport.test.tsx:823",
@@ -326,8 +370,12 @@
       ],
       "part": "V",
       "port": "packages/base/tests/dom/toast-viewport.test.ts",
-      "status": "executed-local-uncredited",
-      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence."
+      "status": "executed-uncredited",
+      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence.",
+      "upstreamGuards": [
+        "it.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/viewport/ToastViewport.test.tsx:961",
@@ -342,8 +390,12 @@
       ],
       "part": "V",
       "port": "packages/base/tests/dom/toast-viewport.test.ts",
-      "status": "executed-local-uncredited",
-      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence."
+      "status": "executed-uncredited",
+      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence.",
+      "upstreamGuards": [
+        "it.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/viewport/ToastViewport.test.tsx:998",
@@ -358,8 +410,12 @@
       ],
       "part": "V",
       "port": "packages/base/tests/dom/toast-viewport.test.ts",
-      "status": "executed-local-uncredited",
-      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence."
+      "status": "executed-uncredited",
+      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence.",
+      "upstreamGuards": [
+        "it.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/viewport/ToastViewport.test.tsx:1023",
@@ -374,8 +430,12 @@
       ],
       "part": "V",
       "port": "packages/base/tests/dom/toast-viewport.test.ts",
-      "status": "executed-local-uncredited",
-      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence."
+      "status": "executed-uncredited",
+      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence.",
+      "upstreamGuards": [
+        "it.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/viewport/ToastViewport.test.tsx:1052",
@@ -392,8 +452,12 @@
       ],
       "part": "V",
       "port": "packages/base/tests/dom/toast-viewport.test.ts",
-      "status": "executed-local-uncredited",
-      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence."
+      "status": "executed-uncredited",
+      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence.",
+      "upstreamGuards": [
+        "it.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
     },
     {
       "sourceId": "packages/react/src/toast/viewport/ToastViewport.test.tsx:1098",
@@ -407,8 +471,20 @@
       ],
       "part": "V",
       "port": "packages/base/tests/dom/toast-viewport.test.ts",
-      "status": "executed-local-uncredited",
-      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence."
+      "status": "executed-uncredited",
+      "adaptations": "Native events/owner-document inline mount and explicit focus guard dispatch; real Tab traversal is separate browser evidence.",
+      "upstreamGuards": [
+        "it.skipIf(!isJSDOM)"
+      ],
+      "sourceConditions": []
     }
-  ]
+  ],
+  "status": "passing-execution-uncredited",
+  "evidence": {
+    "testedCommit": "607798b545ce3e537b8a7e592e2dfa010ee5f779",
+    "workflowRun": "https://github.com/sveltery/base/actions/runs/36893115204",
+    "job": 110473481673,
+    "command": "pnpm --filter @sveltery/base test:dom",
+    "sharedCredit": 0
+  }
 }
