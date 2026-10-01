@@ -73,4 +73,21 @@ assert(toastIds.every(id => id.startsWith('base-ui-')));
 assert.equal(typeof Toast.getToastManager, 'function');
 console.log('Isolated tarball Toast SSR consumer / both entries / unique label IDs: PASS');
 JS
+cat > "$consumer_dir/ButtonConsumer.svelte" <<'SVELTE'
+<script>
+  import { Button } from '@sveltery/base';
+  import { Button as SubpathButton } from '@sveltery/base/button';
+</script>
+<Button>Action</Button><SubpathButton disabled focusableWhenDisabled type="submit">Submit</SubpathButton>
+SVELTE
+cat >> "$consumer_dir/check.mjs" <<'JS'
+const { default: ButtonConsumer } = await import('./ButtonConsumer.svelte');
+const buttons = render(ButtonConsumer).body;
+assert.match(buttons, /type="button"/);
+assert.match(buttons, /type="submit"/);
+assert.match(buttons, /aria-disabled="true"/);
+assert.match(buttons, /data-disabled/);
+assert(!/<button[^>]* disabled/.test(buttons));
+console.log('Isolated tarball Button root/subpath SSR consumer: PASS');
+JS
 node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$consumer_dir/check.mjs"

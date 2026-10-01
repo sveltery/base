@@ -462,3 +462,12 @@ test('supplement: physical exit clears an inside prior-focus pause while other e
   await page.clock.runFor(51);
   await expect(page.locator('#root-fresh')).toHaveAttribute('data-ending-style');
 });
+
+test('supplement: native Action preserves supported object and nested array classes', async ({ page }) => {
+  await page.goto('/toast?case=lifecycle');
+  await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+  await click(page, 'add class action');
+  await expect(page.getByTestId('action')).toHaveClass('own selected');
+  await click(page, 'array action class');
+  await expect(page.getByTestId('action')).toHaveClass('own manager selected');
+});

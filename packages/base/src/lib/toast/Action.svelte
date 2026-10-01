@@ -18,7 +18,8 @@
     const style = typeof styleProp === 'function' ? styleProp(state) : styleProp;
     return {
       ...mergedProps,
-      class: [className, mergedProps.class].filter(Boolean).join(' ') || undefined,
+      // Keep native ClassValue intact for Svelte's class attribute normalization.
+      class: className || mergedProps.class ? [className, mergedProps.class] : undefined,
       style: [mergedProps.style, style].filter(Boolean).join(';') || undefined,
     };
   });

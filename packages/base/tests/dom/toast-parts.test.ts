@@ -173,3 +173,13 @@ it('preserves Action and Close attachments from part and manager props with clea
     expect(attachment.mock.results[0].value).toHaveBeenCalledTimes(1);
   }
 });
+
+it.each([
+  [{ selected: true, hidden: false }, 'own-success selected'],
+  [['manager', ['selected', false], { hidden: false }], 'own-success manager selected'],
+])('preserves manager-provided Svelte ClassValue classes (%j)', (classes, expected) => { // local regression, no parity credit
+  const component = setup({ mode: 'buttons' });
+  component.setToast({ id: 'test', type: 'success', actionProps: { children: 'Act', class: classes } }); flushSync();
+  expect(getTestId('action').className).toBe(expected);
+  expect(getTestId('action').classList.contains('hidden')).toBe(false);
+});

@@ -40,6 +40,9 @@
   <button onclick={() => add('save', 'Saving…')}>add save</button>
   <button onclick={() => add('save', 'Saved')}>replace save</button>
   <button onclick={() => add('timer', 'Timer', 50, true)}>add timer</button>
+  <button onclick={() => facade.add({ id: 'classes', title: 'Classes', timeout: 0,
+    actionProps: { children: 'Act', class: { selected: true, hidden: false } } })}>add class action</button>
+  <button onclick={() => facade.update('classes', { actionProps: { children: 'Act', class: ['manager', ['selected', false], { hidden: false }] } })}>array action class</button>
   <button onclick={() => add('old', 'Old', 0, false, () => add('fresh', 'Fresh', 50))}>add exiting prior target</button>
   <button onclick={() => addFocusCascade(false)}>add focus cascade</button>
   <button onclick={() => addFocusCascade(true)}>add focus replacement</button>
@@ -50,6 +53,7 @@
       <Toast.Root {toast} swipeDirection={[]} id={`root-${toast.id}`} data-testid="root" data-toast-id={toast.id}
         onfocus={() => { if (closeSuccessorOnFocus && toast.id === 'b') { closeSuccessorOnFocus = false; facade.close('b'); } }}>
         <Toast.Title />
+        <Toast.Action class="own" data-testid="action" />
         <Toast.Close aria-label={`close ${toast.id}`} />
       </Toast.Root>
     {/each}
