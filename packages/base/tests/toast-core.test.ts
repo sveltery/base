@@ -125,18 +125,115 @@ describe('actual Toast core subscription and ownership regressions (no upstream 
     expect(onRemove).toHaveBeenCalledTimes(5);
   });
 
-  it('removes before onRemove, retains callback additions and clears active timer ownership', () => {
+  it('runs onRemove before removal publication, prevents recursive removal and retains callback additions', () => {
     vi.useFakeTimers();
     const store = setup();
+    const order: string[] = [];
     const onRemove = vi.fn(() => {
-      expect(selectors.toast(store.state, 'a')).toBeUndefined();
+      expect(selectors.toast(store.state, 'a')?.title).toBe('Original');
+      order.push('onRemove:a');
       store.removeToast('a');
       store.addToast({ id: 'b', timeout: 0 });
     });
-    store.addToast({ id: 'a', timeout: 100, onRemove });
+    store.addToast({ id: 'a', title: 'Original', timeout: 100, onRemove });
+    store.subscribe(() => order.push(`snapshot:${store.state.toasts.map(toast => toast.id).join(',')}`));
     store.removeToast('a');
+    expect(order).toEqual(['onRemove:a', 'snapshot:b,a', 'snapshot:b']);
     expect(onRemove).toHaveBeenCalledTimes(1);
     expect(store.state.toasts.map(toast => toast.id)).toEqual(['b']);
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
+  it('propagates onRemove exceptions without removal or timer changes and permits a later retry', () => {
+    vi.useFakeTimers();
+    const store = setup();
+    const failure = new Error('onRemove failed');
+    const onRemove = vi.fn().mockImplementationOnce(() => {
+      store.removeToast('a', true);
+      throw failure;
+    });
+    store.addToast({ id: 'a', timeout: 100, onRemove });
+    const snapshot = store.getSnapshot();
+    const lifecycle = store.getLifecycle('a');
+    const observer = vi.fn();
+    store.subscribe(observer);
+    expect(() => store.removeToast('a')).toThrow(failure);
+    expect(store.getSnapshot()).toBe(snapshot);
+    expect(store.getLifecycle('a')).toBe(lifecycle);
+    expect(observer).not.toHaveBeenCalled();
+    expect(vi.getTimerCount()).toBe(1);
+    store.removeToast('a');
+    expect(onRemove).toHaveBeenCalledTimes(2);
+    expect(store.state.toasts).toHaveLength(0);
+    expect(observer).toHaveBeenCalledTimes(1);
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
+  it('preserves a callback replacement of the ending ID and its timer', () => {
+    vi.useFakeTimers();
+    const store = setup();
+    const onRemove = vi.fn(() => store.addToast({ id: 'a', title: 'Replacement', timeout: 200 }));
+    store.addToast({ id: 'a', title: 'Original', timeout: 100, onRemove });
+    const lifecycle = store.getLifecycle('a');
+    store.closeToast('a');
+    const observer = vi.fn();
+    store.subscribe(observer);
+    store.removeToast('a', false, lifecycle);
+    expect(onRemove).toHaveBeenCalledTimes(1);
+    expect(observer).toHaveBeenCalledTimes(1);
+    expect(store.getLifecycle('a')).not.toBe(lifecycle);
+    expect(selectors.toast(store.state, 'a')?.title).toBe('Replacement');
+    expect(vi.getTimerCount()).toBe(1);
+    store.removeToast('a', false, lifecycle);
+    vi.advanceTimersByTime(199);
+    expect(selectors.toast(store.state, 'a')?.transitionStatus).not.toBe('ending');
+    vi.advanceTimersByTime(1);
+    expect(selectors.toast(store.state, 'a')?.transitionStatus).toBe('ending');
+  });
+
+  it('allows removal of a replacement lifecycle while the old lifecycle callback is running', () => {
+    const store = setup();
+    const replacementRemove = vi.fn(() => {
+      expect(selectors.toast(store.state, 'a')?.title).toBe('Replacement');
+      store.removeToast('a');
+    });
+    const originalRemove = vi.fn(() => {
+      store.addToast({ id: 'a', title: 'Replacement', timeout: 0, onRemove: replacementRemove });
+      store.removeToast('a');
+    });
+    store.addToast({ id: 'a', title: 'Original', timeout: 0, onRemove: originalRemove });
+    store.closeToast('a');
+    store.removeToast('a');
+    expect(originalRemove).toHaveBeenCalledTimes(1);
+    expect(replacementRemove).toHaveBeenCalledTimes(1);
+    expect(store.state.toasts).toHaveLength(0);
+  });
+
+  it('retains sibling removals and additions made by onRemove', () => {
+    const store = setup();
+    const siblingRemove = vi.fn();
+    store.addToast({ id: 'c', timeout: 0, onRemove: siblingRemove });
+    store.addToast({ id: 'a', timeout: 0, onRemove: () => {
+      store.removeToast('c');
+      store.addToast({ id: 'b', timeout: 0 });
+    } });
+    store.removeToast('a');
+    expect(siblingRemove).toHaveBeenCalledTimes(1);
+    expect(store.state.toasts.map(toast => toast.id)).toEqual(['b']);
+  });
+
+  it('does not publish removal when onRemove disposes the store', () => {
+    vi.useFakeTimers();
+    const store = setup();
+    const onRemove = vi.fn(() => store.dispose());
+    store.addToast({ id: 'a', timeout: 100, onRemove });
+    const snapshot = store.getSnapshot();
+    const observer = vi.fn();
+    store.subscribe(observer);
+    store.removeToast('a');
+    expect(onRemove).toHaveBeenCalledTimes(1);
+    expect(store.getSnapshot()).toBe(snapshot);
+    expect(observer).not.toHaveBeenCalled();
     expect(vi.getTimerCount()).toBe(0);
   });
 

@@ -106,6 +106,7 @@ export class ToastStore {
   private managerCleanup: (() => void) | undefined;
   private disposed = false;
   private readonly lifecycles = new Map<string, object>();
+  private readonly removingLifecycles = new Set<object>();
 
   /** Snapshots are immutable by convention. Do not mutate their arrays or metadata. */
   get state() { return this.getSnapshot(); }
@@ -158,6 +159,7 @@ export class ToastStore {
     this.clearTimers();
     this.listeners.clear();
     this.lifecycles.clear();
+    this.removingLifecycles.clear();
   };
   private timers = new Map<string, TimerInfo>();
 
@@ -196,15 +198,24 @@ export class ToastStore {
   disposeEffect = () => this.dispose;
 
   removeToast(toastId: string, skipOnRemove: boolean = false, expectedLifecycle?: object) {
-    if (this.disposed || (expectedLifecycle && this.lifecycles.get(toastId) !== expectedLifecycle)) return;
+    const lifecycle = this.lifecycles.get(toastId);
+    if (this.disposed || !lifecycle || (expectedLifecycle && lifecycle !== expectedLifecycle) || this.removingLifecycles.has(lifecycle)) return;
     const toast = selectors.toast(this.state, toastId);
     if (!toast) return;
-    this.clearTimer(toastId);
-    this.lifecycles.delete(toastId);
-    // Commit removal before callback so recursive removals run exactly once and
-    // callback additions are retained. Upstream invokes onRemove before removal.
-    this.setToasts(this.state.toasts.filter((item) => item.id !== toastId));
-    if (!skipOnRemove) toast.onRemove?.();
+    this.removingLifecycles.add(lifecycle);
+    try {
+      // Match upstream: the callback can still read the toast, and a thrown
+      // callback prevents removal. Only recursive removal of this lifecycle is blocked.
+      if (!skipOnRemove) toast.onRemove?.();
+      // The callback may dispose, add other toasts, or replace this ending ID.
+      // Re-read state and remove only the lifecycle whose callback just ran.
+      if (this.disposed || this.lifecycles.get(toastId) !== lifecycle) return;
+      this.clearTimer(toastId);
+      this.lifecycles.delete(toastId);
+      this.setToasts(this.state.toasts.filter((item) => item.id !== toastId));
+    } finally {
+      this.removingLifecycles.delete(lifecycle);
+    }
   }
 
   addToast = <Data extends object>(toast: ToastManagerAddOptions<Data>): string => {
