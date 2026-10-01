@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { resolve } from '$app/paths';
+  import { base, resolve } from '$app/paths';
   import { tick } from 'svelte';
   import { page } from '$app/state';
   import { docs, groups } from '../../lib/docs/content.js';
@@ -8,13 +8,18 @@
   let query = $state('');
   let menuOpen = $state(false);
   let searchInput: HTMLInputElement;
-  const current = $derived(docs.find(doc => '/docs' + (doc.slug ? '/' + doc.slug : '') === page.url.pathname.replace(/\/$/, '')));
+  let menuButton: HTMLButtonElement;
+  const current = $derived(docs.find(doc => '/docs' + (doc.slug ? '/' + doc.slug : '') === page.url.pathname.slice(base.length).replace(/\/$/, '')));
   const matches = $derived(docs.filter(doc => (doc.title + ' ' + doc.description + ' ' + doc.group).toLowerCase().includes(query.trim().toLowerCase())));
   async function shortcut(event: KeyboardEvent) {
     if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
       event.preventDefault(); menuOpen = true; await tick(); searchInput?.focus();
     }
-    if (event.key === 'Escape') { query = ''; menuOpen = false; }
+    if (event.key === 'Escape') {
+      const returnToMenu = menuOpen && menuButton?.offsetParent !== null && document.activeElement && searchInput?.closest('aside')?.contains(document.activeElement);
+      query = ''; menuOpen = false;
+      if (returnToMenu) { await tick(); menuButton?.focus(); }
+    }
   }
 </script>
 <svelte:window onkeydown={shortcut} />
@@ -22,7 +27,7 @@
   <a class="docs-skip" href="#docs-content">Skip to content</a>
   <header class="docs-header">
     <a class="docs-brand" href={resolve('/docs')} aria-label="Sveltery Base overview"><span class="docs-logo" aria-hidden="true">s↗</span><strong>sveltery<span> / base</span></strong></a>
-    <div class="docs-header-links"><span class="docs-version">Svelte 5 · early preview</span><a href="https://github.com/sveltery/base">GitHub ↗</a><button class="docs-menu" aria-expanded={menuOpen} aria-controls="docs-navigation" onclick={() => menuOpen = !menuOpen}>Browse docs</button></div>
+    <div class="docs-header-links"><span class="docs-version">Svelte 5 · early preview</span><a href="https://github.com/sveltery/base">GitHub ↗</a><button bind:this={menuButton} class="docs-menu" aria-expanded={menuOpen} aria-controls="docs-navigation" onclick={() => menuOpen = !menuOpen}>Browse docs</button></div>
   </header>
   <div class="docs-grid">
     <aside id="docs-navigation" class:docs-menu-open={menuOpen} class="docs-sidebar">

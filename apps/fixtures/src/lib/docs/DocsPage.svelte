@@ -58,6 +58,9 @@
         <!-- svelte-ignore a11y_no_noninteractive_tabindex (Keyboard access to horizontally scrollable code) -->
         <pre tabindex="0" aria-label="Shared Dialog type declarations"><code>{api.types}</code></pre></details>
     {/if}
-    {#if section.links}<div class="docs-links">{#each section.links as link (link.href)}<a href={linkHref(link.href)}>{link.label}</a>{/each}</div>{/if}
+    {#if section.links}<div class="docs-links">{#each section.links as link (link.href)}
+      <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -- linkHref resolves local docs links and preserves external URLs. -->
+      <a href={linkHref(link.href)}>{link.label}</a>
+    {/each}</div>{/if}
   </section>
 {/each}
