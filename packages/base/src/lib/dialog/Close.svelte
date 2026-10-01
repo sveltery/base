@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { buttonKeys } from './button.js';
   import Element from './Element.svelte';
   import { root } from './context.js';
   import type { ButtonProps } from './types.js';
@@ -10,11 +11,10 @@
     controller.request(false, 'close-press', event);
   }
   const internal = $derived({ type: nativeButton ? 'button' : undefined, disabled: nativeButton ? disabled : undefined,
-    role: nativeButton ? undefined : 'button', tabindex: nativeButton ? undefined : 0,
+    role: nativeButton ? undefined : 'button', tabindex: nativeButton ? undefined : disabled ? -1 : 0,
     'aria-disabled': !nativeButton && disabled ? true : undefined, 'data-disabled': disabled ? '' : undefined,
     onclick: activate,
-    onkeydown: (e: KeyboardEvent) => { if (!nativeButton && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); if (e.key === 'Enter') activate(e); } },
-    onkeyup: (e: KeyboardEvent) => { if (!nativeButton && e.key === ' ') { e.preventDefault(); activate(e); } },
+    ...buttonKeys(() => disabled, () => nativeButton),
   });
 </script>
 <Element tag="button" {internal} {props} state={{ disabled }} {render} {children} bind:ref/>

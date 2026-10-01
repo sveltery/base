@@ -1,18 +1,18 @@
 <script lang="ts">
+  import { onDestroy } from 'svelte';
   import Element from './Element.svelte';
   import { portal, root } from './context.js';
-  import { attachOverlay } from '../overlay/dialog-overlay.js';
+  import { attachOverlay } from '../overlay/dialog-overlay.svelte.js';
   import type { ElementProps, FocusTarget, PopupState } from './types.js';
   let { children, render, initialFocus, finalFocus, id, ref = $bindable(null), ...props }: ElementProps<PopupState> & { initialFocus?: FocusTarget; finalFocus?: FocusTarget } = $props();
   const controller = root();
   portal();
-  const generatedId = controller.popupId;
+  const generatedId = controller.generatedPopupId;
   const resolvedId = $derived(id ?? generatedId);
-  function attach(node: HTMLElement) {
-    const stop = $effect.root(() => { $effect(() => { controller.popupId = resolvedId; }); });
-    const cleanup = attachOverlay(node, controller, () => ({ initialFocus, finalFocus }));
-    return () => { stop(); cleanup(); };
-  }
+  const popupIdSource = () => resolvedId;
+  controller.popupIdSource = popupIdSource;
+  onDestroy(() => { if (controller.popupIdSource === popupIdSource) controller.popupIdSource = undefined; });
+  function attach(node: HTMLElement) { return attachOverlay(node, controller, () => ({ initialFocus, finalFocus })); }
   const internal = $derived({ id: resolvedId, role: 'dialog', tabindex: -1, hidden: !controller.mounted,
     'aria-labelledby': controller.titleId, 'aria-describedby': controller.descriptionId,
     'data-open': controller.open ? '' : undefined, 'data-closed': !controller.open ? '' : undefined,

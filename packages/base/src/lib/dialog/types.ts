@@ -10,7 +10,7 @@ export interface Actions { close(): void; unmount(): void }
 export interface PopupState { open: boolean; nested: boolean; nestedDialogOpen: boolean; transitionStatus: 'starting' | 'ending' | undefined }
 export type ElementProps<State = Record<string, never>> = Omit<HTMLAttributes<HTMLElement>, 'class' | 'style' | 'children' | 'onclick' | 'onkeydown' | 'onkeyup'> & {
   children?: Snippet;
-  render?: Snippet<[Record<string | symbol, unknown>, State]>;
+  render?: Snippet<[Record<string | symbol, unknown>, State, Snippet | undefined]>;
   class?: string | ((state: State) => string | undefined);
   style?: string | Record<string, string | number | undefined> | ((state: State) => string | Record<string, string | number | undefined> | undefined);
   ref?: HTMLElement | null;

@@ -1,16 +1,16 @@
-<script lang="ts">
+<script lang="ts" generics="State">
   import { createAttachmentKey } from 'svelte/attachments';
-  import type { Snippet } from 'svelte';
+  import { untrack, type Snippet } from 'svelte';
   import { mergeProps } from '../merge-props/index.js';
-  let { tag = 'div', internal = {}, props = {}, state = {}, render, children, ref = $bindable(null), attach }: {
-    tag?: string; internal?: Record<string, unknown>; props?: Record<string, unknown>; state?: any;
-    render?: Snippet<[Record<string | symbol, unknown>, any]>; children?: Snippet;
+  let { tag = 'div', internal = {}, props = {}, state = {} as State, render, children, ref = $bindable(null), attach }: {
+    tag?: string; internal?: Record<string, unknown>; props?: Record<string, unknown>; state?: State;
+    render?: Snippet<[Record<string | symbol, unknown>, State, Snippet | undefined]>; children?: Snippet;
     ref?: HTMLElement | null; attach?: (node: HTMLElement) => void | (() => void);
   } = $props();
   const attachmentKey = createAttachmentKey();
   function attachment(node: HTMLElement) {
     ref = node;
-    const cleanup = attach?.(node);
+    const cleanup = untrack(() => attach?.(node));
     return () => { cleanup?.(); if (ref === node) ref = null; };
   }
   function resolveStyle(value: unknown): string | undefined {
@@ -23,12 +23,12 @@
     const resolved = { ...rest, class: typeof classProp === 'function' ? classProp(state) : classProp, style: typeof styleProp === 'function' ? styleProp(state) : styleProp };
     const result = mergeProps(internal, resolved);
     // Svelte's style attribute is a CSS string, unlike React's object representation.
-    result.style = resolveStyle(result.style);
+    result.style = typeof resolved.style === 'string' ? [resolveStyle(internal.style), resolved.style].filter(Boolean).join(';') : resolveStyle(result.style);
     return { ...result, [attachmentKey]: attachment };
   });
 </script>
 {#if render}
-  {@render render(merged, state)}
+  {@render render(merged, state, children)}
 {:else}
   <svelte:element this={tag} {...merged}>{@render children?.()}</svelte:element>
 {/if}

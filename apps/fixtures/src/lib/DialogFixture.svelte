@@ -2,19 +2,20 @@
   import { Dialog } from '@sveltery/base';
   import type { Actions, ChangeEventDetails } from '@sveltery/base/dialog';
   import type { PreventableEvent } from '@sveltery/base/merge-props';
-  import { onMount } from 'svelte';
+  import { onMount, untrack } from 'svelte';
   let { mode = 'uncontrolled', modal = true, initial = false, keep = false, cancel = '', prevent = false, custom = false, focus = 'default', animate = false, nested = false, disabled = false }: { mode?: string; modal?: boolean | 'trap-focus'; initial?: boolean; keep?: boolean; cancel?: string; prevent?: boolean; custom?: boolean; focus?: string; animate?: boolean; nested?: boolean; disabled?: boolean } = $props();
-  let open = $state(initial);
+  let open = $state(untrack(() => initial));
   let visible = $state(true);
   let title = $state(true);
   let titleId = $state<string | undefined>(undefined);
   let actions = $state<Actions | null>(null);
   let finalInput: HTMLInputElement;
-  let secondInput: HTMLInputElement;
+  let secondInput = $state<HTMLInputElement | null>(null);
   let hydrated = $state(false);
   let log = $state<{ channel: string; open?: boolean; reason?: string; trigger?: string; event?: string; before?: boolean }[]>([]);
   function change(next: boolean, details: ChangeEventDetails) {
-    log.push({ channel: 'consumer', open: next, reason: details.reason, trigger: details.trigger?.id, event: details.event.type, before: open });
+    (window as Window & { dialogEvent?: Event }).dialogEvent = details.event;
+    log.push({ channel: 'consumer', open: next, reason: details.reason, trigger: details.trigger?.id, event: details.event.type, before: details.trigger ? details.trigger.getAttribute('aria-expanded') === 'true' : !!document.querySelector('[data-testid=popup][data-open]') });
     if (cancel === (next ? 'open' : 'close')) details.cancel();
     if (cancel === 'defer' && !next) details.preventUnmountOnClose();
     if (mode === 'controlled' && !details.isCanceled) open = next;

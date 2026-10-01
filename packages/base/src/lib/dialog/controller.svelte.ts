@@ -9,7 +9,9 @@ export class DialogController {
   get exiting() { return !this.open && this.presence; }
   deferred = $state(false);
   starting = $state(false);
-  popupId: string = $state('');
+  readonly generatedPopupId: string;
+  popupIdSource: (() => string) | undefined = $state.raw(undefined);
+  get popupId() { return this.popupIdSource?.() ?? this.generatedPopupId; }
   popup: HTMLElement | null = null;
   backdrop: HTMLElement | null = null;
   internalBackdrop: HTMLElement | null = null;
@@ -17,6 +19,8 @@ export class DialogController {
   labels = new SvelteMap<object, () => string>();
   descriptions = new SvelteMap<object, () => string>();
   children = new SvelteMap<DialogController, true>();
+  readonly initialOpen: boolean;
+  everMounted = false;
   method: InteractionType = 'mouse';
   closeMethod: InteractionType = 'mouse';
   previousFocus: HTMLElement | null = null;
@@ -24,7 +28,8 @@ export class DialogController {
   constructor(readonly props: () => RootProps, id: string, readonly parent?: DialogController) {
     this.internalOpen = props().defaultOpen ?? false;
     this.activeId = props().defaultTriggerId ?? null;
-    this.popupId = id;
+    this.generatedPopupId = id;
+    this.initialOpen = this.open;
     parent?.children.set(this, true);
   }
   get open() { return this.props().open ?? this.internalOpen; }
@@ -52,6 +57,11 @@ export class DialogController {
     }
     this.internalOpen = next;
     return details;
+  }
+  unmount() {
+    this.presence = false; this.deferred = false;
+    this.activeId = null; this.retainedTrigger = null;
+    this.props().onOpenChangeComplete?.(false);
   }
   destroy() { this.parent?.children.delete(this); }
 }

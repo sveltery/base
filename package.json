@@ -10,7 +10,8 @@
     "check": "pnpm -r check",
     "test": "pnpm --filter @sveltery/base test",
     "build": "pnpm --filter @sveltery/base build && pnpm --filter @sveltery/fixtures build",
-    "verify": "bash scripts/verify.sh"
+    "verify": "bash scripts/verify.sh",
+    "test:browser": "playwright test"
   },
   "license": "MIT",
   "devDependencies": {

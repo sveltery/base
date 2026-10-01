@@ -15,8 +15,8 @@ export function mountReference(node: HTMLElement, params: URLSearchParams) {
       },
       h(Dialog.Trigger, { id: 'trigger' }, 'Open'),
       h(Dialog.Portal, { keepMounted: params.has('keep') },
-        h(Dialog.Backdrop, { 'data-testid': 'backdrop', style: { position: 'fixed', inset: 0 } }),
-        h(Dialog.Popup, { 'data-testid': 'popup', style: { position: 'fixed', left: 200, top: 80, width: 300, background: 'white' } },
+        h(Dialog.Backdrop, { ...{ 'data-testid': 'backdrop' }, style: { position: 'fixed', inset: 0 } }),
+        h(Dialog.Popup, { ...{ 'data-testid': 'popup' }, style: { position: 'fixed', left: 200, top: 80, width: 300, background: 'white' } },
           h(Dialog.Title, null, 'Dialog title'), h(Dialog.Description, null, 'Dialog description'),
           h('input', { 'aria-label': 'first' }), h('input', { 'aria-label': 'second' }), h(Dialog.Close, null, 'Close')))),
       h('input', { 'aria-label': 'after' }), h('output', { 'data-testid': 'log' }, JSON.stringify(log)));

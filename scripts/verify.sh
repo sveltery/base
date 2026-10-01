@@ -6,6 +6,7 @@ node --test scripts/tests/*.test.mjs
 pnpm --filter @sveltery/base build
 pnpm check
 pnpm test
+pnpm --filter @sveltery/base test:dom
 pnpm --filter @sveltery/fixtures build
-node scripts/check-runtime.mjs
+node --import ./scripts/svelte-ssr-loader.mjs scripts/check-runtime.mjs
 bash scripts/check-package.sh

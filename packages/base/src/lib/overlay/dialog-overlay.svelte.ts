@@ -7,7 +7,7 @@ const stacks = new WeakMap<Document, DialogController[]>();
 function focus(target: FocusTarget | undefined, method: InteractionType, fallback: () => HTMLElement | null | undefined) {
   const result = typeof target === 'function' ? target(method) : target;
   if (result === false || (typeof target === 'function' && result === undefined)) return;
-  const element = result && typeof result === 'object' ? ('current' in result ? result.current : result) : fallback();
+  const element = result && typeof result === 'object' ? ('current' in result ? result.current ?? fallback() : result) : fallback();
   element?.focus({ preventScroll: true });
 }
 /** External DOM synchronization only: native listeners, focus, scroll locks and animation completion. */
@@ -19,10 +19,13 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
   let disposed = false;
   let previousOpen = false;
   let observed = false;
+  const initialMount = !controller.everMounted && controller.initialOpen;
+  controller.everMounted = true;
   let focusedInside = false;
-  let closeTarget: FocusTarget | undefined;
+  let preventReturnFocus = false;
+  let pointerDown = false;
   let generation = 0;
-  let frames = new Set<number>();
+  const frames = new Set<number>();
   const frame = (callback: () => void) => { const id = window.requestAnimationFrame(() => { frames.delete(id); callback(); }); frames.add(id); };
   const topmost = () => stacks.get(document)?.at(-1) === controller && controller.nestedCount === 0;
   const isInside = (event: Event) => event.composedPath().includes(node);
@@ -42,6 +45,7 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
   }
   let pressStartedOutside = false;
   function down(event: PointerEvent | MouseEvent) {
+    pointerDown = true;
     pressStartedOutside = controller.open && topmost() && event.button === 0 && !isInside(event) && !event.composedPath().includes(controller.trigger!);
     if (pressStartedOutside && controller.modal === 'trap-focus' && !controller.backdrop && !controller.internalBackdrop) dismiss(event);
   }
@@ -52,11 +56,14 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
     controller.closeMethod = 'mouse';
     controller.request(false, 'outside-press', event);
   }
-  function click(event: MouseEvent) { if (pressStartedOutside) dismiss(event); pressStartedOutside = false; }
+  function up() { frame(() => { pointerDown = false; }); }
+  function click(event: MouseEvent) { if (pressStartedOutside) dismiss(event); pressStartedOutside = false; pointerDown = false; }
   function focusIn(event: FocusEvent) {
     if (isInside(event)) focusedInside = true;
-    else if (controller.open && topmost() && controller.modal === false && !controller.props().disablePointerDismissal && focusedInside && !event.composedPath().includes(controller.trigger!)) {
-      controller.request(false, 'focus-out', event);
+    else if (controller.open && topmost() && controller.modal === false && !controller.props().disablePointerDismissal && focusedInside && !pointerDown && !event.composedPath().includes(controller.trigger!)) {
+      preventReturnFocus = true;
+      const details = controller.request(false, 'focus-out', event);
+      if (details.isCanceled) preventReturnFocus = false;
     }
   }
   const observer = new window.MutationObserver(() => {
@@ -67,6 +74,8 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
   document.addEventListener('pointerdown', down, true);
   document.addEventListener('mousedown', down, true);
   document.addEventListener('click', click, true);
+  document.addEventListener('pointerup', up, true);
+  document.addEventListener('mouseup', up, true);
   document.addEventListener('focusin', focusIn);
   observer.observe(node, { subtree: true, childList: true });
   const stop = $effect.root(() => {
@@ -84,24 +93,26 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
       // Reads unrelated to open are intentionally untracked: prop updates don't replay focus entry.
       untrack(() => {
         if (observed && open === previousOpen) return;
-        const initiallyOpen = !observed && open;
+        const initiallyOpen = !observed && open && initialMount;
         observed = true; previousOpen = open;
         const token = ++generation;
         if (open) {
           controller.presence = true;
           controller.starting = !initiallyOpen;
           controller.previousFocus = activeElement(document);
-          closeTarget = options().finalFocus;
+          preventReturnFocus = false;
           frame(() => {
             if (disposed || token !== generation || !controller.open) return;
             focus(options().initialFocus, controller.method, () => controller.method === 'touch' ? node : tabbables(node)[0] ?? node);
             focusedInside = node.contains(activeElement(document));
+            // Resolve starting style before removing it so the browser can establish an enter transition.
+            window.getComputedStyle(node).getPropertyValue('opacity');
             controller.starting = false;
             frame(() => { void finish(true, token); });
           });
         } else if (controller.mounted || controller.retainedTrigger || controller.previousFocus) {
           controller.presence = true;
-          focus(closeTarget, controller.closeMethod, () => controller.retainedTrigger?.isConnected ? controller.retainedTrigger : controller.trigger ?? controller.previousFocus);
+          if (!preventReturnFocus) focus(options().finalFocus, controller.closeMethod, () => controller.retainedTrigger?.isConnected ? controller.retainedTrigger : controller.trigger ?? controller.previousFocus);
           frame(() => { void finish(false, token); });
         }
       });
@@ -116,8 +127,8 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
     }
     if (disposed || token !== generation || controller.open !== open) return;
     controller.starting = false;
-    if (!open) { controller.presence = false; controller.retainedTrigger = null; }
-    controller.props().onOpenChangeComplete?.(open);
+    if (!open) { if (!controller.deferred) controller.unmount(); }
+    else controller.props().onOpenChangeComplete?.(true);
   }
   return () => {
     disposed = true; generation++;
@@ -125,7 +136,8 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
     stop(); observer.disconnect();
     document.removeEventListener('keydown', escape); document.removeEventListener('keydown', tab);
     document.removeEventListener('pointerdown', down, true); document.removeEventListener('mousedown', down, true);
-    document.removeEventListener('click', click, true); document.removeEventListener('focusin', focusIn);
+    document.removeEventListener('click', click, true);
+    document.removeEventListener('pointerup', up, true); document.removeEventListener('mouseup', up, true); document.removeEventListener('focusin', focusIn);
     if (controller.popup === node) controller.popup = null;
   };
 }
