@@ -74,6 +74,8 @@ Fixture routes: `/dialog` (Svelte), `/reference` (real `@base-ui/react@1.8.0`), 
 
 ## Unimplemented or unverified behavior
 
+The [modal isolation supplement](../parity/dialog/modal-isolation.md) adds bounded outside accessibility isolation, preserving live regions and native inert attributes, with per-document overlapping ownership. Its paired tests cover ordinary, sequential nested/body-portal and sibling Dialog cases plus mode changes and conditional cleanup. These supplements add no upstream leaf credit. Read its explicit limits before treating this as full screen-reader isolation or cross-component accessibility support.
+
 Before a complete Dialog milestone, retain all original assertions/variants and implement: Viewport; detached handles/payloads/remount/reparent/overlap; full eight-part ref/render/class conformance; nonmodal body-portal logical Tab order/focus guards; full modal screen-reader isolation and outside interaction routing; deep shadow-root tabbable traversal; touch movement/multitouch dismissal; cross-type Menu/Select/AlertDialog/Drawer/ScrollArea/NumberField cases; scrollbar/third-party lock resilience under asynchronous unlock; all animation replacement/count cases; suspended detached hydration; explicit/late portal target relocation acceptance; forced unmount while open. Single-popup-per-Root and consumer CSS objects being unsupported are current draft restrictions.
 
 The document-wide stack is a contained-first ownership mechanism, not certified sibling/cross-type Floating UI equivalence. Composed paths and owner-document access are used, but full shadow DOM fixture parity remains unported. No behavior in this list should be hidden by weakening an upstream assertion or replacing its real dependency.

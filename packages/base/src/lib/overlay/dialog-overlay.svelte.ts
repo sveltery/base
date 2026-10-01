@@ -3,6 +3,7 @@ import type { DialogController } from '../dialog/controller.svelte.js';
 import type { FocusTarget, InteractionType } from '../dialog/types.js';
 import { activeElement, tabbables } from './focus.js';
 import { lockScroll } from './scroll-lock.js';
+import { isolateDialog } from './isolation.js';
 const stacks = new WeakMap<Document, DialogController[]>();
 function focus(target: FocusTarget | undefined, method: InteractionType, fallback: () => HTMLElement | null | undefined) {
   const result = typeof target === 'function' ? target(method) : target;
@@ -112,6 +113,9 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
     });
     $effect(() => {
       if (controller.open && controller.modal === true) return lockScroll(document);
+    });
+    $effect(() => {
+      if (controller.open) return isolateDialog(node, controller.modal !== false);
     });
     $effect(() => {
       const open = controller.open;
