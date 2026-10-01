@@ -11,6 +11,11 @@ async function click(page: Page, name: string) {
   // Source fireEvent.click does not focus or move the pointer into Viewport. Preserve that event channel.
   await page.getByRole('button', { name, exact: true }).evaluate((button: HTMLButtonElement) => button.click());
 }
+async function advance(page: Page, milliseconds: number) {
+  await page.clock.runFor(milliseconds);
+  // Upstream JSdom fixtures remove immediately. Browser exit observers own one animation frame.
+  if (await page.locator('[data-ending-style]').count()) await page.clock.runFor(32);
+}
 for (const reference of [false, true]) for (const [part, line, scenario] of cases) {
   test(`${part}:${line} ${reference ? 'React reference' : 'Svelte'} Toast ${scenario}`, async ({ page }) => {
     const errors: string[] = [];
@@ -18,29 +23,31 @@ for (const reference of [false, true]) for (const [part, line, scenario] of case
     await page.goto(`/${reference ? 'toast-reference' : 'toast'}?case=${scenario}`);
     await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
     // Install after hydration so framework scheduling remains real; source clock boundaries retain timer/Date behavior.
-    await page.clock.install();
+    const start = new Date('2026-01-01T00:00:00Z');
+    await page.clock.install({ time: start });
+    await page.clock.pauseAt(start);
     const root = page.getByTestId('root');
     const title = page.getByTestId('title');
     if (scenario === 'manager-add') {
       await expect(title).toHaveCount(0);
       await click(page, 'add');
       await expect(title).toHaveCount(1);
-      await page.clock.runFor(5000);
+      await advance(page, 5000);
       await expect(title).toHaveCount(0);
     } else if (scenario === 'manager-upsert') {
       await click(page, 'add');
       await expect(title).toHaveText('Saving…');
       await expect(root).toHaveCount(1);
-      await page.clock.runFor(900);
+      await advance(page, 900);
       await click(page, 'upsert');
       const ids = JSON.parse(await page.getByTestId('ids').innerText());
       expect(ids[0]).toBe('save');
       expect(ids[1]).toBe(ids[0]);
       await expect(title).toHaveText('Saved');
       await expect(root).toHaveCount(1);
-      await page.clock.runFor(200);
+      await advance(page, 200);
       await expect(title).toHaveCount(1);
-      await page.clock.runFor(800);
+      await advance(page, 800);
       await expect(title).toHaveCount(0);
     } else if (scenario === 'isolation') {
       await click(page, 'add first'); await click(page, 'add second');
@@ -54,12 +61,13 @@ for (const reference of [false, true]) for (const [part, line, scenario] of case
       for (let index = 0; index < (scenario === 'close-all' ? 5 : 1); index += 1) await click(page, 'add');
       await expect(root).toHaveCount(scenario === 'close-all' ? 5 : 1);
       await click(page, 'close');
+      await advance(page, 0);
       await expect(root).toHaveCount(0);
     } else if (scenario === 'timeout-sync') {
       await click(page, 'timeout 1000'); await click(page, 'add');
-      await page.clock.runFor(999);
+      await advance(page, 999);
       await expect(root).toHaveCount(1);
-      await page.clock.runFor(2);
+      await advance(page, 2);
       await expect(root).toHaveCount(0);
     } else if (scenario === 'limit' || scenario === 'unlimit') {
       await click(page, 'add');
@@ -70,7 +78,7 @@ for (const reference of [false, true]) for (const [part, line, scenario] of case
       await click(page, 'add');
       await expect(page.getByTestId('toast-3')).not.toHaveAttribute('data-limited');
       if (scenario === 'limit') await expect(first).toHaveAttribute('data-limited');
-      else { await page.getByTestId('close-toast-3').evaluate((button: HTMLButtonElement) => button.click()); await expect(first).not.toHaveAttribute('data-limited'); }
+      else { await page.getByTestId('close-toast-3').evaluate((button: HTMLButtonElement) => button.click()); await advance(page, 0); await expect(first).not.toHaveAttribute('data-limited'); }
     } else if (scenario === 'limited-upsert') {
       await click(page, 'add save');
       await expect(page.getByTestId('Saving…')).not.toHaveAttribute('data-limited');
@@ -106,7 +114,7 @@ for (const reference of [false, true]) for (const [part, line, scenario] of case
       if (scenario === 'offset') await page.getByRole('button', { name: 'add', exact: true }).click();
       else await click(page, 'add');
       if (scenario === 'offset') expect(await root.evaluate(node => (node as HTMLElement).style.getPropertyValue('--toast-offset-y'))).not.toBe('');
-      else { await expect(root).toHaveCount(1); await page.clock.runFor(5000); await expect(root).toHaveCount(0); }
+      else { await expect(root).toHaveCount(1); await advance(page, 5000); await expect(root).toHaveCount(0); }
     }
     expect(errors).toEqual([]);
   });
