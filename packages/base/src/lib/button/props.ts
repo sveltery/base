@@ -11,7 +11,7 @@ function dispatchClick(target: HTMLElement, event: KeyboardEvent) {
 }
 /** Pure per-render prop resolver. No DOM state is copied into reactive state. */
 export function getButtonProps(external: Props, disabled: boolean, focusableWhenDisabled: boolean, native: boolean): Props {
-  const { onclick, onmousedown, onpointerdown, onkeydown, onkeyup, type, ...other } = mergeProps(external);
+  const { onclick, onmousedown, onpointerdown, onkeydown, onkeyup, ...other } = mergeProps(external);
   const consumer = { onclick, onmousedown, onpointerdown, onkeydown, onkeyup } as {
     onclick?: (event: MouseEvent) => void; onmousedown?: (event: MouseEvent) => void;
     onpointerdown?: (event: PointerEvent) => void; onkeydown?: (event: KeyEvent) => void; onkeyup?: (event: KeyEvent) => void;
@@ -45,7 +45,7 @@ export function getButtonProps(external: Props, disabled: boolean, focusableWhen
       // cannot cancel a later non-native Space keyup.
       event.preventBaseUIHandler(); dispatchClick(event.currentTarget as HTMLElement, event);
     },
-  }, native ? { type: type ?? 'button' } : { role: 'button', ...(type === undefined ? {} : { type }) }, focus, other);
+  }, native ? { type: 'button' } : { role: 'button' }, focus, other);
   // mergeProps composes string keys; attachments remain enumerable symbol props.
   const symbols = Object.fromEntries(Object.getOwnPropertySymbols(external).filter(key => Object.prototype.propertyIsEnumerable.call(external, key)).map(key => [key, external[key]]));
   return { ...resolved, ...symbols };

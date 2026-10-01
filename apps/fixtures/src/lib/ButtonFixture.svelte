@@ -2,6 +2,7 @@
   // Base UI v1.8.0 Button declarations and non-composite useButton ports. MIT: parity/button/UPSTREAM_LICENSE.
   import { onMount, untrack, type Snippet } from 'svelte';
   import Button from '../../../../packages/base/src/lib/button/Button.svelte';
+  import type { ButtonProps } from '../../../../packages/base/src/lib/button/types.js';
   import { mergeProps } from '../../../../packages/base/src/lib/merge-props/index.js';
   let { scenario = 'custom' }: { scenario?: string } = $props();
   let hydrated = $state(false);
@@ -12,7 +13,7 @@
   const custom = $derived(['link', 'custom', 'modifier', 'custom-disabled', 'custom-focusable', 'cancel-base', 'cancel-enter', 'cancel-space', 'space-order', 'enter-order', 'focus-blur', 'descendant', 'render-cancel', 'click-cancel', 'attachment'].includes(scenario));
   const disabled = $derived(['native-disabled', 'custom-disabled'].includes(scenario) || ['native-focusable', 'custom-focusable', 'hover', 'focus-blur'].includes(scenario) || becameDisabled);
   const focusable = $derived(scenario.includes('focusable') || ['hover', 'becomes-disabled', 'focus-blur'].includes(scenario));
-  const typeProps = $derived(scenario === 'submit' || scenario === 'reset' ? { type: scenario } : scenario === 'undefined-type' ? { type: undefined } : scenario === 'null-type' ? { type: null } : {});
+  const typeProps: Pick<ButtonProps, 'type'> = $derived(scenario === 'submit' || scenario === 'reset' ? { type: scenario } : scenario === 'undefined-type' ? { type: undefined } : scenario === 'null-type' ? { type: null } : {});
   export function snapshot() { return { calls: { ...calls }, ref }; }
   function count(channel: string) { calls = { ...calls, [channel]: calls[channel] + 1 }; }
   function clicked(event: MouseEvent) {
