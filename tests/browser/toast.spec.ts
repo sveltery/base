@@ -168,7 +168,9 @@ for (const channel of ['manager', 'facade']) test(`supplement: ${channel} close-
 test('supplement: timer close reads focus moved by onClose before returning', async ({ page }) => {
   await page.goto('/toast?case=lifecycle');
   await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
-  await page.clock.install();
+  const start = new Date('2026-01-01T00:00:00Z');
+  await page.clock.install({ time: start });
+  await page.clock.pauseAt(start);
   await page.locator('#outside').focus();
   await click(page, 'add timer');
   await page.keyboard.press('F6');
