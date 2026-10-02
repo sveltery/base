@@ -1,0 +1,263 @@
+{
+  "upstream": {
+    "repository": "https://github.com/mui/base-ui",
+    "commit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+    "source": "packages/react/src/index.ts",
+    "sourceSha256": "bdc94b38f7d1ab96c528b46d28b87db4e20caaf65629acec6ffd9b5f16bb90ed"
+  },
+  "scope": "Every non-type export module in the pinned root index; module existence is distinct from complete component or assertion parity.",
+  "modules": [
+    {
+      "upstreamModule": "accordion",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "alert-dialog",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "autocomplete",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "avatar",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "button",
+      "status": "bounded",
+      "localExport": "Button",
+      "evidence": "parity/button/README.md"
+    },
+    {
+      "upstreamModule": "checkbox",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "checkbox-group",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "collapsible",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "combobox",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "context-menu",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "csp-provider",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "dialog",
+      "status": "bounded",
+      "localExport": "Dialog",
+      "evidence": "docs/dialog-first-slice.md"
+    },
+    {
+      "upstreamModule": "direction-provider",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "drawer",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "field",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "fieldset",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "form",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "input",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "menu",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "menubar",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "merge-props",
+      "status": "bounded",
+      "localExport": "mergeProps / mergePropsN",
+      "evidence": "docs/upstream-contracts.md"
+    },
+    {
+      "upstreamModule": "meter",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "navigation-menu",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "number-field",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "otp-field",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "popover",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "preview-card",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "progress",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "radio",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "radio-group",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "scroll-area",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "select",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "separator",
+      "status": "bounded",
+      "localExport": "Separator",
+      "evidence": "parity/separator/README.md"
+    },
+    {
+      "upstreamModule": "slider",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "switch",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "tabs",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "toast",
+      "status": "bounded",
+      "localExport": "Toast",
+      "evidence": "parity/toast/rendering-interface.md"
+    },
+    {
+      "upstreamModule": "toggle",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "toggle-group",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "toolbar",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "tooltip",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    },
+    {
+      "upstreamModule": "use-render",
+      "status": "unimplemented",
+      "localExport": null,
+      "evidence": null
+    }
+  ]
+}

@@ -5,3 +5,5 @@ export * as Dialog from './dialog/index.js';
 export * as Toast from './toast/index.js';
 export { Button } from './button/index.js';
 export type { ButtonProps, ButtonState } from './button/index.js';
+export { Separator } from './separator/index.js';
+export type { SeparatorProps, SeparatorState } from './separator/index.js';

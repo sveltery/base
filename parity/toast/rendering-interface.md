@@ -35,7 +35,7 @@ V:38's original listener-removal counts 1 and subsequent addition counts 2 are r
 
 ## Evidence and gates
 
-[Rendering ports](rendering-ports.md) and JSON preserve source IDs/body hashes/assertion mappings. Thirteen complete paired declarations mean 13 React and 13 Svelte executions, not 26 pairs. Shared totals remain **28 passing ports / 605 unported**; Toast remains **13 complete ports / 183 unported**. Existing 25 core cases remain independently recorded; the 196-entry original Toast source trace remains immutable. Supplements and deferred tests add no declaration credit.
+[Rendering ports](rendering-ports.md) and JSON preserve source IDs/body hashes/assertion mappings. Thirteen complete paired declarations mean 13 React and 13 Svelte executions, not 26 pairs. Shared totals remain **30 passing ports / 605 unported**; Toast remains **13 complete ports / 183 unported**. Existing 25 core cases remain independently recorded; the 196-entry original Toast source trace remains immutable. Supplements and deferred tests add no declaration credit.
 
 Historical checkpoints remain historical: `5cff52410b02b7f470284602197e0b8637870961` passed CI 36907251281 with 228 browser tests; `2ac48450abe329a4ea11c2a87fbdf6a3d37567d9` passed CI 36915171178 with 234. Superseded combined head af07cdcd804fc75561fa2c782297cf915026d9ec failed CI 36922628425, 287/291 browser tests. Diagnostic 5ffe61185259f9c813c978eed6a88863fc1d2aa1 failed CI 36923831531, 287/292. Neither grants final clearance.
 

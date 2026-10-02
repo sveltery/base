@@ -55,7 +55,13 @@ The [2026-10-02 audit change record](audit-fixes.md) compares main `cdd1c4f3bef7
 
 Decision status: the user approved implementing these audit findings on 2026-10-02 at 01:25 UTC: "Ok. All these findings are good. Fix them" (source conversation `01a0f8d2-3e91-7455-b184-d3a30c452008`). Implementation landed in [PR #23](https://github.com/sveltery/base/pull/23) at merge `e4779c4f4d4632c4ff9d175676aaf289cde259db`. The [final core acceptance](audit-fixes.md#final-core-acceptance) records exact-head independent review, passing hosted CI/browser execution, completed automatic review and post-merge CI. This decision covers the bounded fixes, not previously recorded differences, deferred shared defects or the pending remote-form investigation. Supplemental regressions add no upstream declaration credit. [Dialog](dialog-first-slice.md), [Button](../parity/button/README.md) and [Toast](../parity/toast/rendering-interface.md) link this record. Optional fixture/tooling modernization is a separate change.
 
-## Adaptations and incomplete scope
+## S-01: standalone Separator framework substitutions
+
+Source: pinned [Separator.tsx](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/separator/Separator.tsx), its ordinary role/orientation tests and shared render/conformance helpers at `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. React uses className, render elements/functions, forwarded refs, synthetic events and style objects. Svelte uses class, replacement snippets with explicit supplied-prop/attachment spreads, bind:ref/attachments, native events and CSS strings. Native div/role/orientation defaults, rightmost native overrides and orientation state remain the reference behavior. Framework-generated ref timing and the approved initially undefined ref contract follow A-01.
+
+Rationale: implement standalone Separator with the accepted five framework API substitutions from T-01. Evidence and limits are in [Separator documentation](separator.md) and [the assertion record](../parity/separator/README.md), including source hashes, paired candidates, DOM/SSR and replacement/ref cleanup probes. Conformance helpers are counted separately from its two ordinary declarations. Decision status: proposed implementation in [PR #25](https://github.com/sveltery/base/pull/25); the five applicable substitutions are accepted, and no additional behavioral difference acceptance or complete compatibility is claimed. Final-head secured Chromium, independent review, automatic review and CI remain required.
+
+## Remaining scope
 
 Framework/API substitutions remain documented in [pinned contracts](upstream-contracts.md), [Dialog slice](dialog-first-slice.md) and [Button adaptations](../parity/button/README.md): native events and prevention channels, string CSS, snippets/attachments, bindable refs and Svelte state/ID relationships. These are distinct from the behavioral corrections above.
 

@@ -51,6 +51,24 @@ export function locateTypeAssertion(assertion, text) {
   return matches[0];
 }
 
+/** Explicitly inventory a dynamic test-name source site without counting its expansions. */
+export function locateDynamicTestDeclaration(declaration, text) {
+  const tree = ts.createSourceFile(declaration.source, text, ts.ScriptTarget.Latest, true);
+  const matches = [];
+  function visit(node) {
+    if (ts.isCallExpression(node) && node.expression.getText(tree) === declaration.callee &&
+        node.arguments.length > 1 && ts.isIdentifier(node.arguments[0]) &&
+        node.arguments[0].text === declaration.argument) {
+      matches.push({ source: declaration.source,
+        line: tree.getLineAndCharacterOfPosition(node.getStart(tree)).line + 1, name: declaration.name });
+    }
+    ts.forEachChild(node, visit);
+  }
+  visit(tree);
+  if (matches.length !== 1) throw new Error(`Expected one pinned dynamic declaration: ${declaration.name}; found ${matches.length}`);
+  return matches[0];
+}
+
 export function reconcileCases(previous, declarations) {
   const key = (item) => JSON.stringify([item.source, item.line, item.name]);
   const preserved = new Map(previous.map((item) => [key(item), item]));
@@ -85,6 +103,7 @@ function main(args) {
   // Read immutable Git objects rather than the upstream working tree or current branch.
   const readSource = (source) => execFileSync('git', ['-C', upstream, 'show', `${pinned}:${source}`], { encoding: 'utf8' });
   const declarations = sources.testFiles.flatMap((source) => extractTestDeclarations(source, readSource(source)));
+  declarations.push(...(sources.dynamicTestDeclarations ?? []).map((declaration) => locateDynamicTestDeclaration(declaration, readSource(declaration.source))));
   declarations.push(...sources.typeAssertions.map((assertion) => locateTypeAssertion(assertion, readSource(assertion.source))));
   manifest.cases = reconcileCases(manifest.cases, declarations);
   const output = `${JSON.stringify(manifest, null, 2)}\n`;

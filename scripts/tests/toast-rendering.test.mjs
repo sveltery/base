@@ -58,9 +58,11 @@ test('shared Toast credit includes only the thirteen complete hosted paired decl
     assert.match(item.evidence.workflowRun, /^https:\/\/github\.com\/sveltery\/base\/actions\/runs\/\d+$/);
     assert.ok(Number.isSafeInteger(item.evidence.browserJob));
   }
-  assert.ok(read('parity/README.md').includes('28 passing ports / 605 unported'));
+  const passing = manifest.cases.filter(item => item.status === 'passing').length;
+  const aggregate = `${passing} passing ports / ${manifest.cases.length - passing} unported`;
+  assert.ok(read('parity/README.md').includes(aggregate));
   assert.ok(read('parity/README.md').includes('13 complete ports / 183 unported declarations'));
-  assert.ok(read('parity/toast/rendering-interface.md').includes('28 passing ports / 605 unported'));
+  assert.ok(read('parity/toast/rendering-interface.md').includes(aggregate));
   assert.equal(record.evidence.toastTests, 39);
   assert.equal(record.evidence.baselineCommit, 'de6b35688d23c818dd240e9b73eee6bce53e0490');
   assert.equal(record.evidence.baselineBrowserTests, 189);

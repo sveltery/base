@@ -28,6 +28,11 @@
       "types": "./dist/toast/index.d.ts",
       "default": "./dist/toast/index.js"
     },
+    "./separator": {
+      "types": "./dist/separator/index.d.ts",
+      "svelte": "./dist/separator/index.js",
+      "default": "./dist/separator/index.js"
+    },
     "./button": {
       "types": "./dist/button/index.d.ts",
       "svelte": "./dist/button/index.js",
