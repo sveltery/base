@@ -32,7 +32,13 @@ export function mountInputCheckedReference(target: HTMLElement, scenario: string
             if (scenario.includes('rewrite')) { setChecked(!next); if (radio) setFirst(next); }
             if (!scenario.includes('reassociate')) setCalls(previous => [...previous, { value, checked: next, reason: details.reason, type: details.event.type, canceled: details.isCanceled, defaultPrevented: details.event.defaultPrevented, trusted: details.event.isTrusted }]);
           },
-          render: props => h('input', { ...props, key: alternate ? 'replacement' : 'initial', 'data-host': alternate ? 'replacement' : 'initial', onChange: (event: React.ChangeEvent<HTMLInputElement>) => { append('render'); props.onChange?.(event); if (scenario.includes('after-props-read')) { setChecked(event.currentTarget.checked); setFirst(!event.currentTarget.checked); append('after'); } } }),
+          render: props => h('input', { ...props, key: alternate ? 'replacement' : 'initial', 'data-host': alternate ? 'replacement' : 'initial', onChange: (event: React.ChangeEvent<HTMLInputElement>) => {
+            append('render'); props.onChange?.(event);
+            if (scenario.includes('after-props-read')) { setChecked(event.currentTarget.checked); setFirst(!event.currentTarget.checked); }
+            if (scenario.includes('after-props-read') || scenario.includes('replacement-stop')) append('after');
+            if (scenario.includes('stop-immediate')) event.nativeEvent.stopImmediatePropagation();
+            else if (scenario.includes('stop-propagation')) event.stopPropagation();
+          } }),
         }), h('button', { type: 'reset' }, 'Reset')),
       h('form', { id: 'other-form', 'data-testid': 'other-form' }, h(Input, { type: 'radio', name: 'choice', value: 'other', checked: true, ...{ 'data-testid': 'other' } })),
       h('button', { onClick: () => { setChecked(!checked); if (radio) setFirst(checked); } }, 'Programmatic'),

@@ -16,6 +16,11 @@ pnpm --dir "$input_checked_consumer" --ignore-workspace install --ignore-scripts
 pnpm --dir "$input_checked_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
 test -f "$input_checked_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
 cmp LICENSE "$input_checked_consumer/node_modules/@sveltery/base/LICENSE"
+node --input-type=module - "$input_checked_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md" "$sveltery_repo_root/parity/input/checked/REACT_LICENSE" <<'JS'
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+assert(readFileSync(process.argv[2], 'utf8').includes(readFileSync(process.argv[3], 'utf8').trim()));
+JS
 cat > "$input_checked_consumer/Consumer.svelte" <<'SVELTE'
 <script lang="ts">
   import { Input, type InputProps, type InputChangeEventDetails } from '@sveltery/base';

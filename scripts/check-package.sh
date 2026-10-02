@@ -169,6 +169,9 @@ console.log('Isolated tarball Input root/subpath SSR consumer: PASS');
 JS
 node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$consumer_dir/input-check.mjs"
 
+# Installed public checked Input root/subpath, SSR and strict component type consumer.
+bash "$sveltery_repo_root/scripts/check-input-checked-package.sh"
+
 bash "$sveltery_repo_root/scripts/check-progress-package.sh" --public
 
 # Isolated public Collapsible root/subpath, SSR and component type consumer.

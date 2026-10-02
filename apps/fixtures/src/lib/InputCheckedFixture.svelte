@@ -34,7 +34,13 @@
       onclick={event => { append('consumer'); if (scenario.includes('prevent-base')) event.preventBaseUIHandler(); if (scenario.includes('prevent-default') || scenario.includes('cancel-click')) event.preventDefault(); if (scenario.includes('reset-in-input')) event.currentTarget.form?.reset(); if (scenario.includes('reassociate')) event.currentTarget.setAttribute('form', 'other-form'); }}
       onValueChange={changed}>
       {#snippet render(props)}
-        {const rendered = $derived(scenario.includes('after-props-read') ? { ...props, onclick(event: MouseEvent) { append('render'); (props.onclick as ((event: MouseEvent) => void) | undefined)?.(event); checked = (event.currentTarget as HTMLInputElement).checked; first = !checked; append('after'); } } : mergeProps(props, { onclick: () => append('render') }))}
+        {const rendered = $derived(scenario.includes('after-props-read') || scenario.includes('replacement-stop') ? { ...props, onclick(event: MouseEvent) {
+          append('render'); (props.onclick as ((event: MouseEvent) => void) | undefined)?.(event);
+          if (scenario.includes('after-props-read')) { checked = (event.currentTarget as HTMLInputElement).checked; first = !checked; }
+          append('after');
+          if (scenario.includes('stop-immediate')) event.stopImmediatePropagation();
+          else if (scenario.includes('stop-propagation')) event.stopPropagation();
+        } } : mergeProps(props, { onclick: () => append('render') }))}
         {#if alternate}<input {...rendered} data-host="replacement" />
         {:else}<input {...rendered} data-host="initial" />{/if}
       {/snippet}

@@ -21,11 +21,13 @@ for (const native of [true, false]) {
     await expect(page.getByTestId('checkbox')).toBeChecked();
     await expect(page.getByTestId('first')).not.toBeChecked(); await expect(page.getByTestId('second')).not.toBeChecked();
   });
-  test(`${framework} canceled descriptor reset keeps current checked`, async ({ page }) => {
+  test(`${framework} canceled descriptor reset retains Kit checkbox fallback behavior`, async ({ page }) => {
     await page.goto(`/input-checked-remote?canceled-reset${native ? '&native' : ''}`); await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
     await page.getByTestId('checkbox').click(); await page.getByTestId('second').click();
     await page.getByRole('button', { name: 'Reset', exact: true }).click();
-    await expect(page.getByTestId('checkbox')).not.toBeChecked(); await expect(page.getByTestId('second')).toBeChecked();
-    await expect(page.getByTestId('owner')).toHaveText('{"enabled":false,"choice":"second"}');
+    // Kit snapshots unchecked FormData without this boolean key, then its descriptor
+    // falls back to initial checked=true. The actual native comparator does the same.
+    await expect(page.getByTestId('checkbox')).toBeChecked(); await expect(page.getByTestId('second')).toBeChecked();
+    await expect(page.getByTestId('owner')).toHaveText('{"choice":"second"}');
   });
 }

@@ -1,0 +1,42 @@
+name: Input checked browser
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: input-checked-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  input-checked-browser:
+    name: Input checked browser
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    env:
+      CI: 'true'
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320
+        with:
+          version: 12.6.0
+          run_install: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Frozen workspace install
+        run: bash scripts/bootstrap.sh
+      - name: Build actual component library
+        run: pnpm --filter @sveltery/base build
+      - name: Install official Chromium and OS dependencies
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Paired exact-pin checked and genuine Kit descriptor witnesses
+        run: pnpm exec playwright test tests/browser/input-checked.spec.ts tests/browser/input-checked-remote.spec.ts
