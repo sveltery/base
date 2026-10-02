@@ -16,6 +16,7 @@
     else manager.add({ title: scenario === 'manager-add' ? 'title' : 'test', ...(scenario === 'basic-parts' ? { description: 'description', actionProps: { children: 'action' } } : {}) });
   }
 </script>
+{const showDetailParts = $derived(!limited && scenario !== 'close' && scenario !== 'close-all')}
 {#if scenario === 'labels'}
   <button onclick={() => { mode = 'explicit'; }}>explicit</button>
   <button onclick={() => { mode = 'none'; }}>none</button>
@@ -33,9 +34,9 @@
     {#each facade.toasts as toast (toast.id)}
       <Toast.Root {toast} swipeDirection={[]} data-testid={limited ? String(toast.title) : 'root'}>
         {#if !limited || scenario === 'limited-upsert'}<Toast.Title data-testid="title" />{/if}
-        {#if !limited && scenario !== 'close' && scenario !== 'close-all'}<Toast.Description data-testid="description" />{/if}
+        {#if showDetailParts}<Toast.Description data-testid="description" />{/if}
         {#if scenario !== 'close' && scenario !== 'close-all' && scenario !== 'limited-upsert'}<Toast.Close data-testid={limited ? `close-${toast.title}` : 'close'} aria-label="close-press" />{/if}
-        {#if !limited && scenario !== 'close' && scenario !== 'close-all'}<Toast.Action data-testid="action" />{/if}
+        {#if showDetailParts}<Toast.Action data-testid="action" />{/if}
       </Toast.Root>
     {/each}
   {/if}
