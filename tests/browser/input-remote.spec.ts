@@ -28,7 +28,9 @@ for (const native of [true, false]) {
     const input = page.getByRole('textbox', { name: 'Email', exact: true }); await input.fill('reject@example.com');
     await page.getByRole('button', { name: 'Validate', exact: true }).click(); await expect(page.getByTestId('issues')).toContainText('Email rejected by server');
     const events = await page.getByTestId('events').textContent(); await page.getByRole('button', { name: 'Reset', exact: true }).click();
-    await expect(input).toHaveValue(canceled ? 'reject@example.com' : 'seed@example.com'); await expect(page.getByTestId('remote-value')).toHaveText(canceled ? 'reject@example.com' : 'seed@example.com');
+    await expect(input).toHaveValue(canceled ? 'reject@example.com' : 'seed@example.com'); await expect(page.getByTestId('remote-value')).toHaveText('reject@example.com');
+    // Trusted reset activation checkpoints Kit's await tick before native reset's default action.
+    // The native comparator retains remote owner while DOM uses its native reset default.
     // Kit clears issues even for a canceled reset, matching its actual native comparator.
     await expect(page.getByTestId('issues')).toHaveText('[]'); await expect(page.getByTestId('events')).toHaveText(events ?? '[]');
   });

@@ -4,7 +4,7 @@ import { mount, tick, unmount } from 'svelte';
 import Fixture from './InputNativeFixture.svelte';
 const mounted: ReturnType<typeof mount>[] = [];
 afterEach(async () => { for (const component of mounted.splice(0)) await unmount(component); document.body.replaceChildren(); });
-async function setup(props: { value?: string; defaultValue?: string; canceled?: boolean }) {
+async function setup(props: { value?: string; defaultValue?: string; canceled?: boolean; resetOnInput?: boolean }) {
   const target = document.createElement('section'); document.body.append(target);
   mounted.push(mount(Fixture, { target, props })); await tick();
   return { input: target.querySelector('input')!, form: target.querySelector('form')! };
@@ -14,6 +14,12 @@ it('native spread: controlled value alone has no invented default, and reset cha
   expect(input.value).toBe('owner'); expect(input.defaultValue).toBe('');
   input.value = 'edit'; form.reset(); await tick();
   expect(input.value).toBe(''); expect(input.defaultValue).toBe('');
+});
+for (const canceled of [false, true]) it(`native controlled spread preserves same-dispatch reset semantics (canceled=${canceled})`, async () => {
+  const { input } = await setup({ value: 'owner', defaultValue: 'seed', resetOnInput: true, canceled });
+  input.value = 'edit'; input.dispatchEvent(new InputEvent('input', { bubbles: true }));
+  expect(input.value).toBe(canceled ? 'edit' : 'seed');
+  await tick(); await tick(); expect(input.value).toBe(canceled ? 'edit' : 'seed');
 });
 it('native spread: explicit defaultValue remains the reset baseline alongside value', async () => {
   const { input, form } = await setup({ value: 'owner', defaultValue: 'seed' });

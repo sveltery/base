@@ -46,7 +46,7 @@
       "sourceConditions": [],
       "sourceCallbackSha256": "f10745bd517c756a614eea85f8da48489fdb3a655dcc3e2c264149dcb7830007",
       "inactiveAssertionLines": [],
-      "status": "ported-pending-browser-verification-uncredited",
+      "status": "passing-secured-browser-uncredited",
       "port": "tests/browser/input-conformance.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/InputConformanceFixture.svelte",
@@ -69,7 +69,7 @@
       "sourceConditions": [],
       "sourceCallbackSha256": "106a35c9331408706b0862a8561a27a635f7e091bc093f976ba9da8300ef2d95",
       "inactiveAssertionLines": [],
-      "status": "ported-pending-browser-verification-uncredited",
+      "status": "passing-secured-browser-uncredited",
       "port": "tests/browser/input-conformance.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/InputConformanceFixture.svelte",
@@ -92,7 +92,7 @@
       "sourceConditions": [],
       "sourceCallbackSha256": "5d9b710ea93d26812acce02129f0abd79535ccf831707a884d341853be238c59",
       "inactiveAssertionLines": [],
-      "status": "ported-pending-browser-verification-uncredited",
+      "status": "passing-secured-browser-uncredited",
       "port": "tests/browser/input-conformance.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/InputConformanceFixture.svelte",
@@ -115,7 +115,7 @@
       "sourceConditions": [],
       "sourceCallbackSha256": "5deef79231ef81b48fbd2222d25c9442edc2206f50a6af0d390e56aa73096379",
       "inactiveAssertionLines": [],
-      "status": "ported-pending-browser-verification-uncredited",
+      "status": "passing-secured-browser-uncredited",
       "port": "tests/browser/input-conformance.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/InputConformanceFixture.svelte",
@@ -138,7 +138,7 @@
       "sourceConditions": [],
       "sourceCallbackSha256": "b48b8077f94e362e33672125845f3fb4b73692f41a789d756d48bbb2fac41356",
       "inactiveAssertionLines": [],
-      "status": "ported-pending-browser-verification-uncredited",
+      "status": "passing-secured-browser-uncredited",
       "port": "tests/browser/input-conformance.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/InputConformanceFixture.svelte",
@@ -161,7 +161,7 @@
       "sourceConditions": [],
       "sourceCallbackSha256": "1d025680202f92419106d47a6447ff1be91f1b0304239de33ccccb8fe4b27832",
       "inactiveAssertionLines": [],
-      "status": "ported-pending-browser-verification-uncredited",
+      "status": "passing-secured-browser-uncredited",
       "port": "tests/browser/input-conformance.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/InputConformanceFixture.svelte",
@@ -183,7 +183,7 @@
       "sourceConditions": [],
       "sourceCallbackSha256": "6d9bf4ccf2494856acc19380dbec93551476f896bea4123b5e0ceeba41ec66e6",
       "inactiveAssertionLines": [],
-      "status": "ported-pending-browser-verification-uncredited",
+      "status": "passing-secured-browser-uncredited",
       "port": "tests/browser/input-conformance.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/InputConformanceFixture.svelte",
@@ -211,7 +211,7 @@
       ],
       "sourceCallbackSha256": "af2f43094c5097373aa0325387d734e5e29533dc461db06281b196a2738f8018",
       "inactiveAssertionLines": [],
-      "status": "ported-pending-browser-verification-uncredited",
+      "status": "passing-secured-browser-uncredited",
       "port": "tests/browser/input-conformance.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/InputConformanceFixture.svelte",
@@ -239,7 +239,7 @@
       ],
       "sourceCallbackSha256": "0a02417dee9b3a57a92a3d7bfc9f167d2addf93ea22406326b9613d8c4ff7394",
       "inactiveAssertionLines": [],
-      "status": "ported-pending-browser-verification-uncredited",
+      "status": "passing-secured-browser-uncredited",
       "port": "tests/browser/input-conformance.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/InputConformanceFixture.svelte",
@@ -268,7 +268,7 @@
       "inactiveAssertionLines": [
         89
       ],
-      "status": "ported-pending-browser-verification-uncredited",
+      "status": "passing-secured-browser-uncredited",
       "port": "tests/browser/input-conformance.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/InputConformanceFixture.svelte",
@@ -295,7 +295,7 @@
       ],
       "sourceCallbackSha256": "38f5afb0d9c7ebcf8d4808557b2290ae9d2c6d046e1a78431fce3f08c8153d7d",
       "inactiveAssertionLines": [],
-      "status": "ported-pending-browser-verification-uncredited",
+      "status": "passing-secured-browser-uncredited",
       "port": "tests/browser/input-conformance.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/InputConformanceFixture.svelte",
@@ -326,7 +326,7 @@
       ],
       "sourceCallbackSha256": "59febbf168761eb8ef1ce913894f8685422dd242e06fe05abc8bfd9ee10b0e6a",
       "inactiveAssertionLines": [],
-      "status": "ported-pending-browser-verification-uncredited",
+      "status": "passing-secured-browser-uncredited",
       "port": "tests/browser/input-conformance.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/InputConformanceFixture.svelte",
@@ -353,7 +353,7 @@
       ],
       "sourceCallbackSha256": "642aef7b86d368a44e5da111d25051f7fe7b977284e9e5298643d6fa74fa4ef3",
       "inactiveAssertionLines": [],
-      "status": "ported-pending-browser-verification-uncredited",
+      "status": "passing-secured-browser-uncredited",
       "port": "tests/browser/input-conformance.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/InputConformanceFixture.svelte",
@@ -380,7 +380,7 @@
       ],
       "sourceCallbackSha256": "183629d6d2e39830b2b1794eab09c0d2bd337859ad41c144db9169bddf0dbad1",
       "inactiveAssertionLines": [],
-      "status": "ported-pending-browser-verification-uncredited",
+      "status": "passing-secured-browser-uncredited",
       "port": "tests/browser/input-conformance.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/InputConformanceFixture.svelte",
@@ -402,7 +402,7 @@
       "sourceConditions": [],
       "sourceCallbackSha256": "8703b57df58e06fe07ae61eece51e1c95a64794b3271fd00cfd5cbec99371f7e",
       "inactiveAssertionLines": [],
-      "status": "ported-pending-browser-verification-uncredited",
+      "status": "passing-secured-browser-uncredited",
       "port": "tests/browser/input-conformance.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/InputConformanceFixture.svelte",
@@ -413,5 +413,13 @@
         "React reference"
       ]
     }
-  ]
+  ],
+  "evidence": {
+    "testedCommit": "2213f032551def068dba89115df69fdaf2cd7e03",
+    "workflowRun": "https://github.com/sveltery/base/actions/runs/36978731839",
+    "browserJob": 110748195566,
+    "helperExecutions": 30,
+    "ordinaryDeclarationCredit": 0,
+    "status": "All helper assertions passed at this immutable source checkpoint; nineteen supplemental browser failures prevent component acceptance. Final repaired head requires full CI and reviews."
+  }
 }

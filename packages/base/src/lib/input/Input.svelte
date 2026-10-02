@@ -18,16 +18,51 @@
     // Native Svelte does not restore a rejected controlled edit. Synchronize the external
     // DOM after the owner has processed its callback, without manufacturing reset defaults.
     let connected = true;
-    const restoreControlledEdit = () => {
+    const ownerWindow = node.ownerDocument.defaultView ?? window;
+    let restoreTimer: number | undefined;
+    let editVersion = 0;
+    let resetForm: HTMLFormElement | null = null;
+    let resetEvent: Event | undefined;
+    const observeReset = (event: Event) => { resetEvent = event; };
+    function clearPendingRestore() {
+      if (restoreTimer !== undefined) ownerWindow.clearTimeout(restoreTimer);
+      restoreTimer = undefined;
+      resetForm?.removeEventListener('reset', observeReset);
+      resetForm = null;
+    }
+    function restoreValue() {
+      const wasReset = resetEvent !== undefined && !resetEvent.defaultPrevented;
+      clearPendingRestore();
+      if (!connected || value === undefined || wasReset) return;
+      const input = node as HTMLInputElement;
+      const next = value == null ? '' : String(value);
+      if (input.value !== next) input.value = next;
+    }
+    const restoreControlledEdit = (event: Event) => {
+      const version = ++editVersion;
+      clearPendingRestore();
+      resetEvent = undefined;
+      if (value === undefined) return;
+      // A native reset during this edit keeps its native default; canceled resets still restore.
+      resetForm = (node as HTMLInputElement).form;
+      resetForm?.addEventListener('reset', observeReset);
       void tick().then(() => {
-        if (!connected || value === undefined) return;
-        const input = node as HTMLInputElement;
-        const next = value == null ? '' : String(value);
-        if (input.value !== next) input.value = next;
+        if (!connected || version !== editVersion) return;
+        // Trusted browser dispatch can run microtasks between native listeners.
+        // Wait for bubbling and the delegated owner callback before reasserting value.
+        if (event.eventPhase !== Event.NONE) {
+          restoreTimer = ownerWindow.setTimeout(restoreValue, 0);
+          return;
+        }
+        restoreValue();
       });
     };
     node.addEventListener('input', restoreControlledEdit);
-    return () => { connected = false; node.removeEventListener('input', restoreControlledEdit); };
+    return () => {
+      connected = false;
+      clearPendingRestore();
+      node.removeEventListener('input', restoreControlledEdit);
+    };
   }
   const internal = $derived({
     id: id ?? generatedId, disabled, 'data-disabled': disabled ? '' : undefined,

@@ -30,11 +30,11 @@
   {:else}<input {...merged} data-state={JSON.stringify(state)} data-testid="input" />{/if}
 {/snippet}
 <main data-hydrated={hydrated}>
-  <form data-testid="form" onreset={event => { if (scenario === 'reset-cancel') event.preventDefault(); }}>
+  <form data-testid="form" onreset={event => { if (scenario === 'reset-cancel' || scenario.endsWith('reset-in-input-cancel')) event.preventDefault(); }}>
     <Input {id} {name} {disabled} required={scenario === 'required'} type={scenario === 'email' ? 'email' : 'text'}
       {...(controlled ? { value, ...(scenario.includes('default') ? { defaultValue: seed } : {}) } : { defaultValue: seed })}
       {...(scenario === 'attachment' ? { [attachmentKey]: attachment } : {})}
-      oninput={event => { order.push('consumer'); if (scenario.endsWith('prevent-base')) event.preventBaseUIHandler(); if (scenario.endsWith('prevent-default')) event.preventDefault(); }}
+      oninput={event => { order.push('consumer'); if (scenario.endsWith('prevent-base')) event.preventBaseUIHandler(); if (scenario.endsWith('prevent-default')) event.preventDefault(); if (scenario.includes('reset-in-input')) (event.currentTarget as HTMLInputElement).form?.reset(); }}
       onValueChange={changed} class={state => state.disabled ? 'disabled-class' : 'enabled-class'}
       style={state => `opacity:${state.disabled ? 0.5 : 1}`} render={replacement} bind:ref />
     <button type="reset">Reset</button>
