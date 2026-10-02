@@ -23,18 +23,33 @@
     let restoreTimer: number | undefined;
     let editVersion = 0;
     let resetRoot: Node | undefined;
-    let resetEvents: Event[] = [];
+    let resetEvents: { event: Event; matches: boolean }[] = [];
     const observeReset = (event: Event) => {
-      if (event.target === (node as HTMLInputElement).form) resetEvents.push(event);
+      resetEvents.push({ event, matches: event.target === (node as HTMLInputElement).form });
     };
+    const finishResetObservation = (event: Event) => {
+      const record = resetEvents.find(record => record.event === event);
+      if (record) record.matches = event.target === (node as HTMLInputElement).form;
+    };
+    $effect(() => {
+      // Follow controlled native form reassociation while its reset handlers are still running.
+      // Once dispatch finishes, later prop changes must not rewrite a completed reset's record.
+      void props.form;
+      const form = (node as HTMLInputElement).form;
+      for (const record of resetEvents) {
+        if (record.event.eventPhase !== Event.NONE) record.matches = record.event.target === form;
+      }
+    });
     function clearPendingRestore() {
       if (restoreTimer !== undefined) ownerWindow.clearTimeout(restoreTimer);
       restoreTimer = undefined;
       resetRoot?.removeEventListener('reset', observeReset, true);
+      resetRoot?.removeEventListener('reset', finishResetObservation);
       resetRoot = undefined;
+      resetEvents = [];
     }
     function restoreValue() {
-      const wasReset = resetEvents.some(event => !event.defaultPrevented);
+      const wasReset = resetEvents.some(record => record.matches && !record.event.defaultPrevented);
       clearPendingRestore();
       if (!connected || value === undefined || wasReset) return;
       const input = node as HTMLInputElement;
@@ -45,12 +60,12 @@
       if (event.target !== node) return;
       const version = ++editVersion;
       clearPendingRestore();
-      resetEvents = [];
       if (value === undefined) return;
       // Capture before form handlers can stop propagation; check the live form association.
       // An uncanceled native reset during this edit keeps its native default.
       resetRoot = node.getRootNode();
       resetRoot.addEventListener('reset', observeReset, true);
+      resetRoot.addEventListener('reset', finishResetObservation);
       void tick().then(() => {
         if (!connected || version !== editVersion) return;
         // Trusted browser dispatch can run microtasks between native listeners.

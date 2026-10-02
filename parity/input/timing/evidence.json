@@ -11,12 +11,12 @@
   },
   "upstreamCommit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "localRun": {
-    "command": "INPUT_TIMING_RESULTS_PATH=/tmp/input-timing-final-attachment-results.json pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/input-timing.test.ts",
-    "result": "24 passed after dispatch-completion, native reset and target-attachment ordering repairs; original exact stage/value/FormData assertions retained.",
+    "command": "INPUT_TIMING_RESULTS_PATH=/tmp/input-timing-final-membership-results.json bash scripts/verify.sh",
+    "result": "24 original exact stage/value/FormData cases passed within full verification after native reset membership repair.",
     "testFileSha256": "a43f4de1a61e80b8f5aa72f6dbb7c4e7f39645743d9240338022131ec13ad002",
     "results": "dom-results.json",
     "resultsSha256": "c32634c6e554241ed231b5ced9001af53501b8cd7347c58bb95fe6117a70b7df",
-    "runtimeSourceSha256": "cdd5e02bca2249e206df7f4f5e172fb729ad629ededac6b3a3c8f7113cd1603d"
+    "runtimeSourceSha256": "98c914f36d45bf549ac09445b9d278e207ef601bb5e4d905deef35f72294f69d"
   },
   "sources": {
     "apps/fixtures/src/lib/InputTimingFixture.svelte": "9914dd17ec47cad135fbbd02514d5505682d25a1e564ed7230170b67abacb883",

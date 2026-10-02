@@ -1,12 +1,12 @@
 <script lang="ts">
   // Native Svelte reset comparators; supplemental evidence, no upstream declaration credit.
-  import { flushSync, onMount } from 'svelte';
+  import { flushSync, onMount, untrack } from 'svelte';
   import { createAttachmentKey } from 'svelte/attachments';
   import type { HTMLInputAttributes } from 'svelte/elements';
   import { Input } from '@sveltery/base/input';
   import { mergeProps } from '@sveltery/base/merge-props';
   let { native = false, scenario = 'reassociation', canceled = false, sibling = false }: { native?: boolean; scenario?: string; canceled?: boolean; sibling?: boolean } = $props();
-  let form = $state('reset-first'); let hydrated = $state(false);
+  let form = $state(untrack(() => scenario.startsWith('reassociation-into-reset') ? 'reset-second' : 'reset-first')); let hydrated = $state(false);
   const attachmentKey = createAttachmentKey();
   const renderAttachmentKey = createAttachmentKey();
   const attachmentScenario = $derived(scenario.startsWith('attachment-') || scenario.startsWith('render-attachment-'));
@@ -18,12 +18,15 @@
   function reset(event: Event & { currentTarget: HTMLInputElement }) {
     if (attachmentScenario) return;
     if (scenario === 'reassociation' || scenario === 'unrelated-old') { form = 'reset-second'; flushSync(); }
-    const resetForm = scenario === 'unrelated-old' ? event.currentTarget.ownerDocument.getElementById('reset-first') as HTMLFormElement : event.currentTarget.form;
+    const resetForm = scenario === 'unrelated-old' || scenario.startsWith('reassociation-into-reset') ? event.currentTarget.ownerDocument.getElementById('reset-first') as HTMLFormElement : event.currentTarget.form;
     resetForm?.reset();
+    if (scenario.startsWith('reassociation-after-reset')) { form = 'reset-second'; flushSync(); }
   }
   function observeReset(event: Event) {
     if (canceled) event.preventDefault();
-    if (scenario === 'stop-immediate') event.stopImmediatePropagation();
+    if (scenario.startsWith('reassociation-during-reset')) { form = 'reset-second'; flushSync(); }
+    if (scenario.startsWith('reassociation-into-reset')) { form = 'reset-first'; flushSync(); }
+    if (scenario === 'stop-immediate' || scenario.endsWith('-stop')) event.stopImmediatePropagation();
   }
 </script>
 {#snippet replacement(props: Record<string | symbol, unknown>)}<input {...mergeProps(props, { 'data-merged': 'true' }) as HTMLInputAttributes} />{/snippet}
