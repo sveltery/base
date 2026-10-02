@@ -13,9 +13,10 @@ The immutable Base UI 1.8.0 [root index](https://github.com/mui/base-ui/blob/47b
 | [Progress](progress.md) | Root, Label, Track, Indicator and Value with range normalization, formatting and status; ordinary, parameterized and conformance evidence remain separately counted. |
 | [Collapsible](collapsible.md) | Root/Trigger/Panel with bounded measurement and CSS motion lifecycle; six external React.Activity cases and shared conformance remain deferred. |
 | [Meter](meter.md) | Root, Label, Track, Indicator and Value with numeric range normalization, formatting and empty state; declaration, parameterized and conformance evidence remain separately counted. |
+| [Avatar](avatar.md) | Root/Image/Fallback with detached and rendered loading, fallback timing and private presence; ordinary declarations, conformance, types and supplements remain separately counted. |
 | merge-props | Bounded native prop/event merge foundation; see [contracts](upstream-contracts.md). |
 
-These ten modules are bounded and the remaining 32 are unimplemented. No module is labeled fully compatible. Field and Form have no placeholders or exports. The catalog denominator includes modules such as direction-provider and use-render; it is not a component count or a passing-test denominator. All unimplemented names remain visible in the machine-readable ledger.
+These eleven modules are bounded and the remaining 31 are unimplemented. No module is labeled fully compatible. Field and Form have no placeholders or exports. The catalog denominator includes modules such as direction-provider and use-render; it is not a component count or a passing-test denominator. All unimplemented names remain visible in the machine-readable ledger.
 
 The [ordinary assertion inventory](../parity/README.md) is separately scoped. Shared conformance helpers, paired framework executions and local supplements do not inflate its declaration credit. The dedicated Toggle ledger records five standalone declarations separately from the shared ordinary inventory; its two ToggleGroup-dependent declarations remain deferred and uncredited. Full Input/Field/Form integration and remaining controls require their own bounded characterization and review.
 

@@ -1,0 +1,24 @@
+# Avatar verification
+
+Source checkout: official mui/base-ui tag v1.8.0 resolved to `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`; root package identifies Base UI React 1.8.0. Source extractor confirms Image34/Fallback10/Root0 ordinary declarations, zero parameterized variants, three conformance calls and six type assertions. This is provenance verification, not execution credit.
+
+Secured browser and final-head review evidence is pending. The serialized shared integration patch must be applied by the parent against Meter's stable shared head before public import gates and final combined-head CI can establish merge eligibility. This feature checkpoint is not merge eligible merely because source-local tests pass.
+
+## Executed source-local checks, 2026-10-02
+
+- Frozen Node24/pnpm12.6 bootstrap passed. Full scripts/verify.sh passed: 42 script checks; library build; zero diagnostics in both workspaces; 167 runtime/SSR tests; 655 passing DOM tests and Input's four previously accepted expected failures; fixture SSR/client build; runtime boundary; every existing public package consumer. No new expected failure or skipped Avatar test was introduced.
+- Avatar's focused DOM suite passed 104 cases: 44 source-ID mappings, 45 separately counted helper leaves and 15 supplemental lifecycle regressions. Three native cache/transition DOM boundaries are explicit models, not real native browser parity credit. Five Avatar SSR tests and two actual React1.8.0/Svelte subprocess SSR witnesses passed without browser globals. Six exact type assertions passed and are separate.
+- Standards passed (full ESLint and existing standards formatting). Immutable inventory --check passed and all 18 source files are retained byte-exact against their hashes. Whitespace check passed. The exact shared patch passed cached-index application checking against Meter candidate85ff67c5ddeaec15cdc89322ace75daefafe9a94 without writing shared files.
+- Isolated tarball Avatar internal-entry consumer passed with real/frozen installation, both SSR loading modes and component types. Public root/subpath and all seven public named types remain blocked on parent serialization; this internal result does not establish public import acceptance.
+- Playwright discovers 204 Avatar cases: 88 ordinary paired instances, 84 conformance expansions and 32 supplemental instances. Discovery does not mean execution. Browser fixture audit restored exact source srcset, initial presence, getAnimations-not-called and pre-hydration complete assertions, keeping ordinary assertions in source order.
+- Local secured Chromium failed before any component assertion: the installed chrome-sandbox helper is not root-owned with mode4755 and crashpad cannot create its configured directory. Sandbox remains enabled; no sandbox/access change or insecure browser run was attempted. Installing official Playwright Chromium also failed because cdn.playwright.dev returned HTTP403 Domain forbidden. Hosted secured paired execution remains required. Candidate ordinary ledger entries have null execution evidence and earn no verified passing credit.
+
+Independent source/runtime review found no concrete fidelity defect in both loading modes/private closure and supplied source/provenance/browser assertion corrections, which were applied. Exact final-head source/tests review and configured automatic review are separately required. The user's quota exception may waive configured review only on evidenced exhausted quota, and never CI.
+
+## Published source checkpoint
+
+Draft [PR #36](https://github.com/sveltery/base/pull/36) publishes source checkpoint `aa5f426ac63527ef08de14f34ae1f2ec663ae1ad`. Independent GPT-6.1 Sol high review of that exact commit found no concrete runtime fidelity defect and passed104 focused DOM plus provenance/pairedSSR checks; ordinary native browser credit remains withheld. Main now contains Meter PR32 at `d889e75bedfee9174c3b36d16fe8a9fb2d2a66d3`, whose tree is identical to the patch base85ff67c. The merged main is preserved additively on this branch; no Avatar shared integration has yet been applied. Fresh combined local verification and hosted CI are required.
+
+## Parent-authorized shared integration
+
+The parent relayed Meter landing and authorized Avatar to take first shared ownership. Full origin/main d889e75 was fetched and compared tree-identically with85ff67c before applying the exact patch. Public root/subpath exports, seven type exports, attribution, catalog/docs and consumer gates are now present; fixture imports use the public root. The disposable proposed tree ab0cff07e719eedc7cab66b6ae865b364f1e2383 previously passed fresh frozen install/build, isolated public consumers, catalog/docs checks and standards. Those proposed-tree checks supplement, rather than replace, fresh integrated-head checks.
