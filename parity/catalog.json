@@ -171,9 +171,9 @@
     },
     {
       "upstreamModule": "progress",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "Progress",
+      "evidence": "parity/progress/README.md"
     },
     {
       "upstreamModule": "radio",
