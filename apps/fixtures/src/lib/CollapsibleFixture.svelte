@@ -1,14 +1,11 @@
 <script lang="ts">
   // Direct and supplemental paired fixtures. MIT: parity/collapsible/UPSTREAM_LICENSE.
   import { onMount, untrack, flushSync, type Snippet } from 'svelte';
-  import Root from '../../../../packages/base/src/lib/collapsible/Root.svelte';
-  import Trigger from '../../../../packages/base/src/lib/collapsible/Trigger.svelte';
+  import { Collapsible, mergeProps, type CollapsiblePanelState } from '@sveltery/base';
   import CollapsibleRaceClose from './CollapsibleRaceClose.svelte';
-  import Panel from '../../../../packages/base/src/lib/collapsible/Panel.svelte';
   import type { HTMLAttributes } from 'svelte/elements';
-  import type { CollapsiblePanelState } from '../../../../packages/base/src/lib/collapsible/types.js';
-  import { mergeProps } from '../../../../packages/base/src/lib/merge-props/index.js';
   import { collapsibleConfig, collapsibleCss } from './collapsible-config.js';
+  const { Root, Trigger, Panel } = Collapsible;
   let { scenario = 'uncontrolled' }: { scenario?: string } = $props();
   const config = untrack(() => collapsibleConfig(scenario));
   let hydrated = $state(false), ownerOpen = $state<boolean | undefined>(config.controlled ? false : undefined);

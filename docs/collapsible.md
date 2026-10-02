@@ -1,10 +1,10 @@
 # Collapsible
 
-This proposed standalone slice implements `Root`, `Trigger` and `Panel` against Base UI v1.8.0, immutable pin `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. [The assertion record](../parity/collapsible/README.md) distinguishes 41 portable ordinary declaration sites / 43 variants from six deferred React.Activity declarations and separate conformance/type/supplemental evidence. The public root/subpath exports await parent-serialized integration; dedicated source imports are available for local acceptance.
+This proposed standalone slice implements `Root`, `Trigger` and `Panel` against Base UI v1.8.0, immutable pin `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. [The assertion record](../parity/collapsible/README.md) distinguishes 41 portable ordinary declaration sites / 43 variants from six deferred React.Activity declarations and separate conformance/type/supplemental evidence. This branch integrates the public root/subpath exports after Progress's stable shared checkpoint; final acceptance remains separate.
 
 ```svelte
 <script lang="ts">
-  import * as Collapsible from '../packages/base/src/lib/collapsible/index.js';
+  import { Collapsible } from '@sveltery/base';
 </script>
 <Collapsible.Root defaultOpen={false} onOpenChange={(open, details) => {
   // Observe the request or call details.cancel() before the state write.

@@ -1,17 +1,98 @@
---- a/packages/base/src/lib/index.ts
-+++ b/packages/base/src/lib/index.ts
-@@ -9,3 +9,5 @@
- export type { SeparatorProps, SeparatorState } from './separator/index.js';
- export { Toggle } from './toggle/index.js';
- export type { ToggleProps, ToggleState, ToggleChangeEventReason, ToggleChangeEventDetails } from './toggle/index.js';
-+export { Collapsible } from './collapsible/index.js';
-+export type { CollapsibleRootProps, CollapsibleRootState, CollapsibleTriggerProps, CollapsibleTriggerState, CollapsiblePanelProps, CollapsiblePanelState, CollapsibleTransitionStatus, CollapsibleRootChangeEventReason, CollapsibleRootChangeEventDetails } from './collapsible/index.js';
+diff --git a/README.md b/README.md
+index e3192ec..4ae90bc 100644
+--- a/README.md
++++ b/README.md
+@@ -17,3 +17,5 @@ The [catalog ledger](docs/catalog.md) accounts for every pinned root export modu
+ [Standalone Toggle](parity/toggle/README.md) adds controlled/uncontrolled pressed state with cancellable callbacks and disabled behavior. Its public root/subpath API is bounded; ToggleGroup, Toolbar and complete conformance remain deferred, and final-head acceptance is recorded in PR #27.
+
+ [Progress](docs/progress.md) adds Root, Label, Track, Indicator and Value against the immutable v1.8.0 pin. Its [dedicated declaration and conformance evidence](parity/progress/README.md) remains separately accounted; final-head acceptance is recorded in PR #28.
++
++[Collapsible](docs/collapsible.md) adds Root, Trigger and Panel with a bounded measurement and CSS motion lifecycle. Its [dedicated evidence](parity/collapsible/README.md) separates the portable ordinary scope from six deferred React.Activity cases and final-head acceptance in PR #29.
+diff --git a/apps/fixtures/src/lib/docs/content.ts b/apps/fixtures/src/lib/docs/content.ts
+index 1a21e20..9c3b9ea 100644
+--- a/apps/fixtures/src/lib/docs/content.ts
++++ b/apps/fixtures/src/lib/docs/content.ts
+@@ -13,6 +13,16 @@ export interface Doc {
+   sections: Section[];
+ }
+ export const docs: Doc[] = [
++  {
++    slug: 'components/collapsible', group: 'Components', title: 'Collapsible',
++    description: 'A button and a panel that opens and closes with your CSS motion.',
++    sections: [
++      { id: 'anatomy', title: 'Assemble the parts', paragraphs: ['Root groups a Trigger and Panel. Root defaults to closed and enabled. Set defaultOpen for an uncontrolled initial value, or open and onOpenChange for an owner-controlled panel.'], code: "<Collapsible.Root><Collapsible.Trigger>Details</Collapsible.Trigger><Collapsible.Panel>Panel content</Collapsible.Panel></Collapsible.Root>" },
++      { id: 'motion', title: 'Style the panel', paragraphs: ['Use --collapsible-panel-height and --collapsible-panel-width for measured dimensions. State attributes expose open, closed, starting and ending phases. Initially open panels suppress entrance keyframes; later close and reopen cycles follow authored CSS.'] },
++      { id: 'presence', title: 'Keep content available', paragraphs: ['keepMounted retains a hidden closed panel. hiddenUntilFound overrides keepMounted and allows browser find-in-page to reveal its contents. Cancel onOpenChange through details.cancel() to keep the current state.'] },
++      { id: 'limits', title: 'Compatibility limits', paragraphs: ['The bounded Root, Trigger and Panel port uses Svelte snippets, native events, bindings and CSS strings. Six external React.Activity cases remain deferred. The source ledger separates ordinary assertions from helper, type and supplemental evidence; complete compatibility is unclaimed.'], links: [{ label: 'Read compatibility limits', href: '/docs/handbook/compatibility' }] },
++    ],
++  },
+   {
+     slug: '',
+     group: 'Overview',
+@@ -39,7 +49,7 @@ export const docs: Doc[] = [
+         id: 'status',
+         title: 'A foundation in progress',
+         paragraphs: [
+-          'Dialog, Button, Toast, standalone Separator, standalone Toggle and Progress have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
++          'Dialog, Button, Toast, standalone Separator, standalone Toggle, Progress and Collapsible have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
+           'The package is private and unpublished. APIs may change. Use this workspace to evaluate the current slice; check the repository contracts before depending on a behavior.',
+         ],
+         links: [
+diff --git a/docs/catalog.md b/docs/catalog.md
+index 8f0a2bd..fd4a0ba 100644
+--- a/docs/catalog.md
++++ b/docs/catalog.md
+@@ -10,8 +10,11 @@ The immutable Base UI 1.8.0 [root index](https://github.com/mui/base-ui/blob/47b
+ | [Separator](separator.md) | Standalone divider, orientation, native prop overrides and composition; acceptance gates are recorded separately. |
+ | [Toggle](../parity/toggle/README.md) | Standalone pressed state, cancellable callbacks and disabled behavior; ToggleGroup, Toolbar and shared conformance remain deferred. |
+ | [Progress](progress.md) | Root, Label, Track, Indicator and Value with range normalization, formatting and status; ordinary, parameterized and conformance evidence remain separately counted. |
++| [Collapsible](collapsible.md) | Root/Trigger/Panel with bounded measurement and CSS motion lifecycle; six external React.Activity cases and shared conformance remain deferred. |
+ | merge-props | Bounded native prop/event merge foundation; see [contracts](upstream-contracts.md). |
+
+-These seven modules are bounded and the remaining 35 are unimplemented. No module is labeled fully compatible. Field and Form have no placeholders or exports. The catalog denominator includes modules such as direction-provider and use-render; it is not a component count or a passing-test denominator. All unimplemented names remain visible in the machine-readable ledger.
++These eight modules are bounded and the remaining 34 are unimplemented. No module is labeled fully compatible. Field and Form have no placeholders or exports. The catalog denominator includes modules such as direction-provider and use-render; it is not a component count or a passing-test denominator. All unimplemented names remain visible in the machine-readable ledger.
+
+ The [ordinary assertion inventory](../parity/README.md) is separately scoped. Shared conformance helpers, paired framework executions and local supplements do not inflate its declaration credit. The dedicated Toggle ledger records five standalone declarations separately from the shared ordinary inventory; its two ToggleGroup-dependent declarations remain deferred and uncredited. Input and remaining controls require their own bounded characterization and review.
++
++The [Collapsible ledger](../parity/collapsible/README.md) separately records 47 ordinary sites / 49 variants, with a portable scope of 41 sites / 43 variants. Six React.Activity cases remain deferred. Local DOM/SSR execution, paired browser executions, conformance helpers, type checks and supplements are distinct from verified ordinary declaration credit.
+diff --git a/docs/upstream-differences.md b/docs/upstream-differences.md
+index ced987a..c84cb62 100644
+--- a/docs/upstream-differences.md
++++ b/docs/upstream-differences.md
+@@ -96,3 +96,13 @@ The published PR #22 follow-up extends the approved A-01 undefined-ref adaptatio
+ Source: pinned [Progress parts](https://github.com/mui/base-ui/tree/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/progress) and [useRegisteredLabelId](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/useRegisteredLabelId.ts). Svelte uses native class, string CSS, snippets, bindings/attachments and native events within the accepted five API substitutions in T-01; initially undefined refs follow A-01. Typed context exposes derived values, Svelte-stable IDs preserve generated relationships, and post-mount label registration preserves SSR omission followed by hydration association. React component namespace types become named part Props/State; ProgressStatus, Progress.Status and subpath Status remain public. Root's hidden presentation x and Value's default/child output are explicitly retained through replacement snippets.
+
+ Rationale: implement the actual pinned contracts with a private Progress dependency closure; no shared helper or Input changes and no opportunistic correction of reversed/nonfinite bound arithmetic. The [compatibility record](../parity/progress/compatibility.md), [feature documentation](progress.md) and [dedicated assertion record](../parity/progress/README.md) distinguish 20 passing ordinary declarations at the secured component checkpoint, seven parameterized variants, full conformance and supplemental evidence. Shared aggregate credits remain unchanged. Decision status: proposed in [PR #28](https://github.com/sveltery/base/pull/28), within the accepted framework baseline; no additional behavioral deviation approval or complete assistive-technology/whole-library parity is claimed. The complete integrated head requires full tests, paired secured browsers, public consumers, independent review and configured automatic review before merge.
++
++## CO-01: proposed Collapsible framework substitutions and bounded lifecycle
++
++Source: pinned [CollapsibleRoot/useCollapsibleRoot](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/root/useCollapsibleRoot.ts), [CollapsibleTrigger](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/trigger/CollapsibleTrigger.tsx), [CollapsiblePanel/useCollapsiblePanel](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/panel/useCollapsiblePanel.ts), useControlled, useTransitionStatus and useAnimationsFinished at immutable Base UI v1.8.0 `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`.
++
++The accepted five framework substitutions apply: className to class, render/children to Svelte snippets, refs to bindings/attachments, synthetic to native events and CSS objects to strings. Generated `base-ui-` ID relationships retain the reference registration lifecycle while framework ID bytes differ. Context uses a stable live facade; committed open/callback snapshots preserve the pinned stable callback boundary. A private lifecycle retains idle, starting and deferred ending phases, measures before ending styles, watches cancellation/replacement animations, suppresses initial-open keyframes and handles missing animation APIs/BASE_UI_ANIMATIONS_DISABLED. Temporary CSS uses property-level writes to preserve source sequencing. Framework-specific host cleanup and render/ref timing are bounded substitutions, with observations and limits in the [compatibility record](../parity/collapsible/compatibility.md).
++
++The existing Button helper remains unchanged and contributes inherited D-03 disabled chorded-mousedown focus behavior, with no new parity credit or specific deviation approval. Source-indicated authored alignment !important restoration and replaced-host beforematch issues remain UNVERIFIED until the paired exact-pin browser probes execute; this port does not claim they are verified shared defects or silently correct them. Six external React.Activity cases are unimplemented because state-preserving effect teardown has no bounded CSS-hide/remount equivalent. They earn no credit. No actions or onOpenChangeComplete API is invented.
++
++Rationale: preserve the bounded pinned Collapsible contract using native Svelte lifecycle ownership. Evidence: [component documentation](collapsible.md), [immutable declaration trace and ports](../parity/collapsible/README.md), local DOM/SSR and separate component type/package consumers; secured paired Chromium and final-head gates remain pending at the handoff. Decision status: proposed in [PR #29](https://github.com/sveltery/base/pull/29). The five accepted API substitutions and inherited A-01 initially undefined refs apply; no further behavioral correction approval or complete parity is claimed. This entry does not establish merge eligibility or inflate the shared inventory totals.
+diff --git a/packages/base/THIRD_PARTY_NOTICES.md b/packages/base/THIRD_PARTY_NOTICES.md
+index 87f9c3d..cce0ec4 100644
+--- a/packages/base/THIRD_PARTY_NOTICES.md
++++ b/packages/base/THIRD_PARTY_NOTICES.md
+@@ -1,5 +1,7 @@
+ # Third-party notices
+
++Collapsible Root, Trigger, Panel, bounded measurement/motion lifecycle and assertion/type ports derive from packages/react/src/collapsible, useControlled, useTransitionStatus and useAnimationsFinished at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT attribution and immutable source/assertion hashes are preserved in parity/collapsible.
++
+ Progress parts, range normalization, formatting, ID registration, visually hidden CSS and assertion/conformance ports derive from packages/react/src/progress, utils/useRegisteredLabelId.ts, packages/utils number/locale/clamp helpers and test conformance helpers at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT attribution and immutable source/assertion hashes are preserved in parity/progress.
+
+ Toggle standalone state, callbacks, disabled behavior and assertion ports derive from toggle/Toggle.tsx, toggle/Toggle.test.tsx, utils/useControlled.ts and internals/use-button/useButton.ts at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. Their MIT notice and immutable source/assertion hashes also appear in parity/toggle.
+diff --git a/packages/base/package.json b/packages/base/package.json
+index 00efd45..434afde 100644
 --- a/packages/base/package.json
 +++ b/packages/base/package.json
-@@ -42,6 +42,11 @@
-       "types": "./dist/toggle/index.d.ts",
-       "svelte": "./dist/toggle/index.js",
-       "default": "./dist/toggle/index.js"
+@@ -47,6 +47,11 @@
+       "types": "./dist/progress/index.d.ts",
+       "svelte": "./dist/progress/index.js",
+       "default": "./dist/progress/index.js"
 +    },
 +    "./collapsible": {
 +      "types": "./dist/collapsible/index.d.ts",
@@ -20,7 +101,7 @@
      }
    },
    "svelte": "./dist/index.js",
-@@ -63,5 +68,8 @@
+@@ -68,5 +73,8 @@
      "svelte-check": "4.7.6",
      "typescript": "5.9.3",
      "vitest": "5.0.3"
@@ -29,28 +110,28 @@
 +    "esm-env": "1.2.2"
    }
  }
---- a/pnpm-lock.yaml
-+++ b/pnpm-lock.yaml
-@@ -214,6 +214,10 @@
-         version: 8.3.1
+diff --git a/packages/base/src/lib/index.ts b/packages/base/src/lib/index.ts
+index f2e1840..34428a3 100644
+--- a/packages/base/src/lib/index.ts
++++ b/packages/base/src/lib/index.ts
+@@ -11,3 +11,5 @@ export { Toggle } from './toggle/index.js';
+ export type { ToggleProps, ToggleState, ToggleChangeEventReason, ToggleChangeEventDetails } from './toggle/index.js';
+ export { Progress } from './progress/index.js';
+ export type { ProgressStatus, ProgressRootProps, ProgressRootState, ProgressLabelProps, ProgressLabelState, ProgressTrackProps, ProgressTrackState, ProgressIndicatorProps, ProgressIndicatorState, ProgressValueProps, ProgressValueState } from './progress/index.js';
++export { Collapsible } from './collapsible/index.js';
++export type { CollapsibleRootProps, CollapsibleRootState, CollapsibleTriggerProps, CollapsibleTriggerState, CollapsiblePanelProps, CollapsiblePanelState, CollapsibleTransitionStatus, CollapsibleRootChangeEventReason, CollapsibleRootChangeEventDetails } from './collapsible/index.js';
+diff --git a/parity/README.md b/parity/README.md
+index 52e3b38..049b825 100644
+--- a/parity/README.md
++++ b/parity/README.md
+@@ -28,3 +28,5 @@ Standalone [Separator](separator/README.md) has two ordinary declarations (three
+ Standalone [Toggle](toggle/README.md) records seven source declarations in a separate immutable ledger: five complete standalone ports at the recorded secured source checkpoint and two deferred ToggleGroup-dependent declarations. These sites and five credits are outside the shared 635-entry inventory and its 30 passing ports until parent reconciliation; do not add the ledgers or count paired executions/supplements as declarations. Rendered pressed/callback boundary repairs require the separate final-head gates in PR #27. ToggleGroup, composite/Toolbar integration and shared conformance remain unimplemented and uncredited.
 
-   packages/base:
-+    dependencies:
-+      esm-env:
-+        specifier: 1.2.2
-+        version: 1.2.2
-     devDependencies:
-       '@sveltejs/package':
-         specifier: 2.5.8
---- a/scripts/check-package.sh
-+++ b/scripts/check-package.sh
-@@ -127,3 +127,6 @@
-
- # Isolated public Toggle entry identity, SSR and component type consumer.
- bash "$sveltery_repo_root/scripts/check-toggle-package.sh" --public
+ [Progress](progress/README.md) separately records 20 ordinary declarations passing at its secured component checkpoint, three parameterized sites expanding to seven variants, and full five-part conformance evidence. Track has zero ordinary declarations. These sites and any credits remain outside the shared 635-entry aggregate until parent reconciliation; paired executions, helpers and supplements add no ordinary declaration credit. See PR #28 and its exact-head verification for current acceptance.
 +
-+# Isolated public Collapsible root/subpath, SSR and component type consumer.
-+bash "$sveltery_repo_root/scripts/check-collapsible-package.sh" --public
++[Collapsible](collapsible/README.md) adds a separate source inventory of 47 ordinary declaration sites / 49 variants. Its portable scope is 41 sites / 43 variants; six React.Activity Panel cases remain deferred. The three conformance calls, ten type assertions and supplemental/package checks are separate, uncredited evidence. This proposed feature ledger has not been added to the existing shared ordinary totals, and browser declaration credit stays pending secured execution and final-head gates.
+diff --git a/parity/catalog.json b/parity/catalog.json
+index 3ef5c67..a236f5a 100644
 --- a/parity/catalog.json
 +++ b/parity/catalog.json
 @@ -51,9 +51,9 @@
@@ -66,70 +147,29 @@
      },
      {
        "upstreamModule": "combobox",
---- a/docs/catalog.md
-+++ b/docs/catalog.md
-@@ -9,8 +9,11 @@
- | [Toast](../parity/toast/rendering-interface.md) | Bounded store/rendering and standalone Portal; gestures, anchored positioning and remaining conformance remain incomplete. |
- | [Separator](separator.md) | Standalone divider, orientation, native prop overrides and composition; acceptance gates are recorded separately. |
- | [Toggle](../parity/toggle/README.md) | Standalone pressed state, cancellable callbacks and disabled behavior; ToggleGroup, Toolbar and shared conformance remain deferred. |
-+| [Collapsible](collapsible.md) | Root/Trigger/Panel with bounded measurement and CSS motion lifecycle; six external React.Activity cases and shared conformance remain deferred. |
- | merge-props | Bounded native prop/event merge foundation; see [contracts](upstream-contracts.md). |
+diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
+index 57072c5..2d53cb3 100644
+--- a/pnpm-lock.yaml
++++ b/pnpm-lock.yaml
+@@ -214,6 +214,10 @@ importers:
+         version: 8.3.1
 
--These six modules are bounded and the remaining 36 are unimplemented. No module is labeled fully compatible. Field and Form have no placeholders or exports. The catalog denominator includes modules such as direction-provider and use-render; it is not a component count or a passing-test denominator. All unimplemented names remain visible in the machine-readable ledger.
-+At the base of this patch, seven modules are bounded and the remaining 35 are unimplemented; reconcile these totals with concurrent serialized Input integration. No module is labeled fully compatible. Field and Form have no placeholders or exports. The catalog denominator includes modules such as direction-provider and use-render; it is not a component count or a passing-test denominator. All unimplemented names remain visible in the machine-readable ledger.
+   packages/base:
++    dependencies:
++      esm-env:
++        specifier: 1.2.2
++        version: 1.2.2
+     devDependencies:
+       '@sveltejs/package':
+         specifier: 2.5.8
+diff --git a/scripts/check-package.sh b/scripts/check-package.sh
+index bff6165..c0f35fe 100644
+--- a/scripts/check-package.sh
++++ b/scripts/check-package.sh
+@@ -129,3 +129,6 @@ node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$consumer_dir
+ bash "$sveltery_repo_root/scripts/check-toggle-package.sh" --public
 
- The [ordinary assertion inventory](../parity/README.md) is separately scoped. Shared conformance helpers, paired framework executions and local supplements do not inflate its declaration credit. The dedicated Toggle ledger records five standalone declarations separately from the shared ordinary inventory; its two ToggleGroup-dependent declarations remain deferred and uncredited. Input and remaining controls require their own bounded characterization and review.
+ bash "$sveltery_repo_root/scripts/check-progress-package.sh" --public
 +
-+The [Collapsible ledger](../parity/collapsible/README.md) separately records 47 ordinary sites / 49 variants, with a portable scope of 41 sites / 43 variants. Six React.Activity cases remain deferred. Local DOM/SSR execution, paired browser executions, conformance helpers, type checks and supplements are distinct from verified ordinary declaration credit.
---- a/parity/README.md
-+++ b/parity/README.md
-@@ -26,3 +26,5 @@
- Standalone [Separator](separator/README.md) has two ordinary declarations (three orientation/role variants), passing at the recorded secured source checkpoint; final-head component gates remain separate. The pinned Input.test.tsx contributes zero ordinary declarations to this inventory; Input implementation, helper ports and standalone supplements remain outside this Separator change. Shared conformance helpers remain excluded. The earlier 633-entry scope and its historical run records remain unchanged evidence.
-
- Standalone [Toggle](toggle/README.md) records seven source declarations in a separate immutable ledger: five complete standalone ports at the recorded secured source checkpoint and two deferred ToggleGroup-dependent declarations. These sites and five credits are outside the shared 635-entry inventory and its 30 passing ports until parent reconciliation; do not add the ledgers or count paired executions/supplements as declarations. Rendered pressed/callback boundary repairs require the separate final-head gates in PR #27. ToggleGroup, composite/Toolbar integration and shared conformance remain unimplemented and uncredited.
-+
-+[Collapsible](collapsible/README.md) adds a separate source inventory of 47 ordinary declaration sites / 49 variants. Its portable scope is 41 sites / 43 variants; six React.Activity Panel cases remain deferred. The three conformance calls, ten type assertions and supplemental/package checks are separate, uncredited evidence. This proposed feature ledger has not been added to the existing shared ordinary totals, and browser declaration credit stays pending secured execution and final-head gates.
---- a/docs/upstream-differences.md
-+++ b/docs/upstream-differences.md
-@@ -90,3 +90,13 @@
- Decision status: the implementation was proposed in the standalone [Portal PR #22](https://github.com/sveltery/base/pull/22); that PR records its current landing status and final-head gates. The five framework API substitutions are accepted (see T-01); this Portal implementation is limited to that baseline. No additional behavioral deviation acceptance is claimed. Historical source checkpoints are recorded in the linked feature evidence; acceptance requires the separate final-head gates recorded in PR #22.
-
- The published PR #22 follow-up extends the approved A-01 undefined-ref adaptation to Toast.Portal and retains the same pre-attachment undefined/host/null contract. Optional ownerDocument access is a fidelity boundary repair for valid ref objects with extra fields. [Portal follow-up evidence](../parity/toast/portal-ports.md#approved-local-follow-up) records the reviewed published source checkpoint, local and hosted tests, and completed automatic review; the original T-03 scope and source pin remain unchanged. Final-head acceptance remains required before merge.
-+
-+## CO-01: proposed Collapsible framework substitutions and bounded lifecycle
-+
-+Source: pinned [CollapsibleRoot/useCollapsibleRoot](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/root/useCollapsibleRoot.ts), [CollapsibleTrigger](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/trigger/CollapsibleTrigger.tsx), [CollapsiblePanel/useCollapsiblePanel](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/panel/useCollapsiblePanel.ts), useControlled, useTransitionStatus and useAnimationsFinished at immutable Base UI v1.8.0 `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`.
-+
-+The accepted five framework substitutions apply: className to class, render/children to Svelte snippets, refs to bindings/attachments, synthetic to native events and CSS objects to strings. Generated `base-ui-` ID relationships retain the reference registration lifecycle while framework ID bytes differ. Context uses a stable live facade; committed open/callback snapshots preserve the pinned stable callback boundary. A private lifecycle retains idle, starting and deferred ending phases, measures before ending styles, watches cancellation/replacement animations, suppresses initial-open keyframes and handles missing animation APIs/BASE_UI_ANIMATIONS_DISABLED. Temporary CSS uses property-level writes to preserve source sequencing. Framework-specific host cleanup and render/ref timing are bounded substitutions, with observations and limits in the [compatibility record](../parity/collapsible/compatibility.md).
-+
-+The existing Button helper remains unchanged and contributes inherited D-03 disabled chorded-mousedown focus behavior, with no new parity credit or specific deviation approval. Source-indicated authored alignment !important restoration and replaced-host beforematch issues remain UNVERIFIED until the paired exact-pin browser probes execute; this port does not claim they are verified shared defects or silently correct them. Six external React.Activity cases are unimplemented because state-preserving effect teardown has no bounded CSS-hide/remount equivalent. They earn no credit. No actions or onOpenChangeComplete API is invented.
-+
-+Rationale: preserve the bounded pinned Collapsible contract using native Svelte lifecycle ownership. Evidence: [component documentation](collapsible.md), [immutable declaration trace and ports](../parity/collapsible/README.md), local DOM/SSR and separate component type/package consumers; secured paired Chromium and final-head gates remain pending at the handoff. Decision status: proposed in [PR #29](https://github.com/sveltery/base/pull/29). The five accepted API substitutions and inherited A-01 initially undefined refs apply; no further behavioral correction approval or complete parity is claimed. This entry does not establish merge eligibility or inflate the shared inventory totals.
---- a/apps/fixtures/src/lib/docs/content.ts
-+++ b/apps/fixtures/src/lib/docs/content.ts
-@@ -14,6 +14,16 @@
- }
- export const docs: Doc[] = [
-   {
-+    slug: 'components/collapsible', group: 'Components', title: 'Collapsible',
-+    description: 'A button and a panel that opens and closes with your CSS motion.',
-+    sections: [
-+      { id: 'anatomy', title: 'Assemble the parts', paragraphs: ['Root groups a Trigger and Panel. Root defaults to closed and enabled. Set defaultOpen for an uncontrolled initial value, or open and onOpenChange for an owner-controlled panel.'], code: "<Collapsible.Root><Collapsible.Trigger>Details</Collapsible.Trigger><Collapsible.Panel>Panel content</Collapsible.Panel></Collapsible.Root>" },
-+      { id: 'motion', title: 'Style the panel', paragraphs: ['Use --collapsible-panel-height and --collapsible-panel-width for measured dimensions. State attributes expose open, closed, starting and ending phases. Initially open panels suppress entrance keyframes; later close and reopen cycles follow authored CSS.'] },
-+      { id: 'presence', title: 'Keep content available', paragraphs: ['keepMounted retains a hidden closed panel. hiddenUntilFound overrides keepMounted and allows browser find-in-page to reveal its contents. Cancel onOpenChange through details.cancel() to keep the current state.'] },
-+      { id: 'limits', title: 'Compatibility limits', paragraphs: ['The bounded Root, Trigger and Panel port uses Svelte snippets, native events, bindings and CSS strings. Six external React.Activity cases remain deferred. The source ledger separates ordinary assertions from helper, type and supplemental evidence; complete compatibility is unclaimed.'], links: [{ label: 'Try the component fixture', href: '/collapsible' }] },
-+    ],
-+  },
-+  {
-     slug: '',
-     group: 'Overview',
-     title: 'Build on a thoughtful base.',
-@@ -39,7 +49,7 @@
-         id: 'status',
-         title: 'A foundation in progress',
-         paragraphs: [
--          'Dialog, Button, Toast, standalone Separator and standalone Toggle have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
-+          'Dialog, Button, Toast, standalone Separator, standalone Toggle and Collapsible have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
-           'The package is private and unpublished. APIs may change. Use this workspace to evaluate the current slice; check the repository contracts before depending on a behavior.',
-         ],
-         links: [
++# Isolated public Collapsible root/subpath, SSR and component type consumer.
++bash "$sveltery_repo_root/scripts/check-collapsible-package.sh" --public

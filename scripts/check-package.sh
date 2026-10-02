@@ -129,3 +129,6 @@ node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$consumer_dir
 bash "$sveltery_repo_root/scripts/check-toggle-package.sh" --public
 
 bash "$sveltery_repo_root/scripts/check-progress-package.sh" --public
+
+# Isolated public Collapsible root/subpath, SSR and component type consumer.
+bash "$sveltery_repo_root/scripts/check-collapsible-package.sh" --public
