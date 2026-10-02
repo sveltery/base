@@ -7,7 +7,17 @@ trap 'rm -rf "$meter_consumer"' EXIT
 pnpm --filter @sveltery/base pack --pack-destination "$meter_consumer" > /dev/null
 mkdir -p "$meter_consumer/node_modules/@sveltery/base"
 tar -xzf "$meter_consumer"/*.tgz --strip-components=1 -C "$meter_consumer/node_modules/@sveltery/base"
-ln -s "$sveltery_repo_root/packages/base/node_modules/svelte" "$meter_consumer/node_modules/svelte"
+# Install the packed runtime closure (including Collapsible's esm-env) and Svelte peer.
+node --input-type=module - "$meter_consumer" <<'JS'
+import { readdirSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+const destination = process.argv[2];
+const tarball = readdirSync(destination).find(name => name.endsWith('.tgz'));
+writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(destination, tarball)}`, svelte: '5.57.1' } }));
+JS
+rm -rf "$meter_consumer/node_modules"
+pnpm --dir "$meter_consumer" --ignore-workspace install --ignore-scripts > /dev/null
+pnpm --dir "$meter_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
 test -f "$meter_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
 cmp LICENSE "$meter_consumer/node_modules/@sveltery/base/LICENSE"
 if [[ "${1:-}" == '--public' ]]; then
@@ -66,9 +76,6 @@ assert.match(body, /width:50%/); assert.match(body, /aria-valuenow="0"/);
 assert(!body.includes('data-indeterminate'));
 assert(!body.includes('aria-labelledby')); assert(!body.includes('name='));
 JS
-cat > "$meter_consumer/package.json" <<'JSON'
-{"private":true,"type":"module"}
-JSON
 cat > "$meter_consumer/tsconfig.json" <<'JSON'
 {"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"skipLibCheck":true,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts"]}
 JSON

@@ -51,9 +51,9 @@
     },
     {
       "upstreamModule": "collapsible",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "Collapsible",
+      "evidence": "parity/collapsible/README.md"
     },
     {
       "upstreamModule": "combobox",
@@ -135,9 +135,9 @@
     },
     {
       "upstreamModule": "meter",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "Meter",
+      "evidence": "parity/meter/README.md"
     },
     {
       "upstreamModule": "navigation-menu",
