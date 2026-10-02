@@ -35,7 +35,7 @@
       </DirectionProvider>
       <DirectionProbe id="outside" />
     {:else}
-      <DirectionProvider {direction}><DirectionProbe /></DirectionProvider>
+      <DirectionProvider {direction}><DirectionProbe beforeRead={scenario === 'timing' ? () => update('ltr') : undefined} /></DirectionProvider>
     {/if}
   </section>
 </main>

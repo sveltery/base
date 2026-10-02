@@ -2,6 +2,7 @@
 import { afterEach, expect, it } from 'vitest';
 import { flushSync, mount, unmount } from 'svelte';
 import Fixture from '../../../../apps/fixtures/src/lib/DirectionProviderFixture.svelte';
+import { flushDirectionReference, mountDirectionProviderReference } from '../../../../apps/fixtures/src/lib/direction-provider-reference.js';
 
 const cleanups: (() => Promise<void>)[] = [];
 afterEach(async () => {
@@ -46,4 +47,17 @@ it('supplement provider introduces no DOM host or dir attribute', () => {
   const providerHost = host.querySelector('[data-testid=provider-host]')!;
   expect([...providerHost.children].map(node => node.tagName)).toEqual(['SPAN']);
   expect(host.querySelector('[dir]')).toBeNull();
+});
+
+it('characterization callable-reader same-turn owner writes differ from the React rendered primitive', () => {
+  const { host, text } = setup('timing');
+  host.querySelector<HTMLButtonElement>('[data-testid=provider-host] button')!.click();
+  flushSync(); expect(text('read-observation')).toBe('rtl|ltr'); expect(text()).toBe('ltr');
+  const reference = document.createElement('div'); document.body.append(reference);
+  let cleanup: (() => void) | undefined;
+  flushDirectionReference(() => { cleanup = mountDirectionProviderReference(reference, 'timing'); });
+  cleanups.push(async () => { cleanup?.(); });
+  flushDirectionReference(() => { reference.querySelector<HTMLButtonElement>('[data-testid=provider-host] button')!.click(); });
+  expect(reference.querySelector('[data-testid=read-observation]')!.textContent).toBe('rtl|rtl');
+  expect(reference.querySelector('[data-testid=direction]')!.textContent).toBe('ltr');
 });

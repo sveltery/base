@@ -59,4 +59,10 @@ for (const reference of [false, true]) {
     await page.getByRole('button', { name: 'Set LTR', exact: true }).click(); await nested(page, 'ltr', 'rtl');
     expect(errors).toEqual([]);
   });
+  test(`characterization ${framework} same-turn reader retains its declared framework API behavior`, async ({ page }) => {
+    await setup(page, 'timing', reference);
+    await page.getByRole('button', { name: 'Read across owner write', exact: true }).click();
+    await expect(page.getByTestId('read-observation')).toHaveText(reference ? 'rtl|rtl' : 'rtl|ltr');
+    await expect(page.getByTestId('direction')).toHaveText('ltr');
+  });
 }

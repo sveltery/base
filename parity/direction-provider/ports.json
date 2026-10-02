@@ -18,8 +18,13 @@
       "fixture": "apps/fixtures/src/lib/DirectionProviderFixture.svelte",
       "reference": "apps/fixtures/src/lib/direction-provider-reference.ts",
       "pairedExecutionPrefix": "DirectionProvider:27",
-      "status": "ported-pending-verification",
-      "evidence": null
+      "status": "passing",
+      "evidence": {
+        "testedCommit": "0abdc424abc622b983784d833aa4dc822b1c74c3",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055254462",
+        "job": "https://github.com/sveltery/base/actions/runs/37055254462/job/110998257854",
+        "result": "All four ordinary React/Svelte executions passed; all12 component executions and1245 combined executions passed."
+      }
     },
     {
       "sourceId": "packages/react/src/direction-provider/DirectionProvider.test.tsx:33",
@@ -33,8 +38,13 @@
       "fixture": "apps/fixtures/src/lib/DirectionProviderFixture.svelte",
       "reference": "apps/fixtures/src/lib/direction-provider-reference.ts",
       "pairedExecutionPrefix": "DirectionProvider:33",
-      "status": "ported-pending-verification",
-      "evidence": null
+      "status": "passing",
+      "evidence": {
+        "testedCommit": "0abdc424abc622b983784d833aa4dc822b1c74c3",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055254462",
+        "job": "https://github.com/sveltery/base/actions/runs/37055254462/job/110998257854",
+        "result": "All four ordinary React/Svelte executions passed; all12 component executions and1245 combined executions passed."
+      }
     }
   ],
   "conformance": [],

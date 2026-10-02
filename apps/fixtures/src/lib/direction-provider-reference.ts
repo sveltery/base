@@ -2,10 +2,14 @@
 import { createElement as h, useEffect, useState } from 'react';
 import { createRoot, hydrateRoot } from 'react-dom/client';
 import { DirectionProvider, useDirection, type TextDirection } from '@base-ui/react/direction-provider';
+export { flushSync as flushDirectionReference } from 'react-dom';
 
-function DirectionProbe({ id = 'direction' }: { id?: string }) {
+function DirectionProbe({ id = 'direction', beforeRead }: { id?: string; beforeRead?: () => void }) {
   const direction = useDirection();
-  return h('span', { 'data-testid': id }, direction);
+  const [observed, setObserved] = useState('');
+  return [h('span', { 'data-testid': id, key: 'direction' }, direction), beforeRead ? h('button', { key: 'read', onClick: () => {
+    const before = direction; beforeRead(); setObserved(`${before}|${direction}`);
+  } }, 'Read across owner write') : null, beforeRead ? h('output', { 'data-testid': 'read-observation', key: 'observation' }, observed) : null];
 }
 
 export function DirectionProviderReference({ scenario = 'configured' }: { scenario?: string }) {
@@ -18,7 +22,7 @@ export function DirectionProviderReference({ scenario = 'configured' }: { scenar
     ? [h(DirectionProvider, { direction, key: 'provider' }, h(DirectionProbe, { id: 'outer-before' }),
       shown ? h(DirectionProvider, { direction: innerDirection }, h(DirectionProbe, { id: 'inner' })) : null,
       h(DirectionProbe, { id: 'outer-after' })), h(DirectionProbe, { id: 'outside', key: 'outside' })]
-    : h(DirectionProvider, { direction }, h(DirectionProbe));
+    : h(DirectionProvider, { direction }, h(DirectionProbe, { beforeRead: scenario === 'timing' ? () => setDirection('ltr') : undefined }));
   return h('main', { 'data-hydrated': hydrated },
     h('button', { onClick: () => setDirection('ltr') }, 'Set LTR'),
     h('button', { onClick: () => setDirection('rtl') }, 'Set RTL'),
