@@ -15,7 +15,7 @@
         39,
         45
       ],
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/toggle.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/ToggleFixture.svelte",
@@ -25,8 +25,12 @@
         "T:19 Svelte controlled",
         "T:19 React reference controlled"
       ],
-      "evidence": null,
-      "verification": "Complete observable source assertions retained. Hosted secured browser evidence is pending; DOM companions are supplemental."
+      "evidence": {
+        "testedCommit": "0da49b0d2a52a2b23ef8fa2280b5160ce37bae91",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36982011610",
+        "browserJob": 110758502337
+      },
+      "verification": "Complete observable source declaration assertions; both React and Svelte secured Chromium executions passed. Supplements and inherited D-03 comparison receive zero declaration credit. Public exports/integration and final-head acceptance remain separate gates."
     },
     {
       "sourceId": "packages/react/src/toggle/Toggle.test.tsx:48",
@@ -36,7 +40,7 @@
         58,
         64
       ],
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/toggle.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/ToggleFixture.svelte",
@@ -46,8 +50,12 @@
         "T:48 Svelte uncontrolled",
         "T:48 React reference uncontrolled"
       ],
-      "evidence": null,
-      "verification": "Complete observable source assertions retained. Hosted secured browser evidence is pending; DOM companions are supplemental."
+      "evidence": {
+        "testedCommit": "0da49b0d2a52a2b23ef8fa2280b5160ce37bae91",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36982011610",
+        "browserJob": 110758502337
+      },
+      "verification": "Complete observable source declaration assertions; both React and Svelte secured Chromium executions passed. Supplements and inherited D-03 comparison receive zero declaration credit. Public exports/integration and final-head acceptance remain separate gates."
     },
     {
       "sourceId": "packages/react/src/toggle/Toggle.test.tsx:69",
@@ -56,7 +64,7 @@
         80,
         81
       ],
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/toggle.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/ToggleFixture.svelte",
@@ -66,8 +74,12 @@
         "T:69 Svelte is called when the pressed state changes",
         "T:69 React reference is called when the pressed state changes"
       ],
-      "evidence": null,
-      "verification": "Complete observable source assertions retained. Hosted secured browser evidence is pending; DOM companions are supplemental."
+      "evidence": {
+        "testedCommit": "0da49b0d2a52a2b23ef8fa2280b5160ce37bae91",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36982011610",
+        "browserJob": 110758502337
+      },
+      "verification": "Complete observable source declaration assertions; both React and Svelte secured Chromium executions passed. Supplements and inherited D-03 comparison receive zero declaration credit. Public exports/integration and final-head acceptance remain separate gates."
     },
     {
       "sourceId": "packages/react/src/toggle/Toggle.test.tsx:84",
@@ -75,7 +87,7 @@
       "assertionLines": [
         100
       ],
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/toggle.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/ToggleFixture.svelte",
@@ -85,8 +97,12 @@
         "T:84 Svelte does not change the pressed state when the event is canceled",
         "T:84 React reference does not change the pressed state when the event is canceled"
       ],
-      "evidence": null,
-      "verification": "Complete observable source assertions retained. Hosted secured browser evidence is pending; DOM companions are supplemental."
+      "evidence": {
+        "testedCommit": "0da49b0d2a52a2b23ef8fa2280b5160ce37bae91",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36982011610",
+        "browserJob": 110758502337
+      },
+      "verification": "Complete observable source declaration assertions; both React and Svelte secured Chromium executions passed. Supplements and inherited D-03 comparison receive zero declaration credit. Public exports/integration and final-head acceptance remain separate gates."
     },
     {
       "sourceId": "packages/react/src/toggle/Toggle.test.tsx:103",
@@ -112,7 +128,7 @@
         144,
         145
       ],
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/toggle.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/ToggleFixture.svelte",
@@ -122,8 +138,12 @@
         "T:130 Svelte disables the component",
         "T:130 React reference disables the component"
       ],
-      "evidence": null,
-      "verification": "Complete observable source assertions retained. Hosted secured browser evidence is pending; DOM companions are supplemental."
+      "evidence": {
+        "testedCommit": "0da49b0d2a52a2b23ef8fa2280b5160ce37bae91",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36982011610",
+        "browserJob": 110758502337
+      },
+      "verification": "Complete observable source declaration assertions; both React and Svelte secured Chromium executions passed. Supplements and inherited D-03 comparison receive zero declaration credit. Public exports/integration and final-head acceptance remain separate gates."
     },
     {
       "sourceId": "packages/react/src/toggle/Toggle.test.tsx:150",
