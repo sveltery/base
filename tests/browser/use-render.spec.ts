@@ -87,6 +87,29 @@ for (const reference of [false, true]) {
   });
   test(`supplement ${framework} later ordinary objects retain inherited enumerable props`, async ({ page }) => {
     const host = await setup(page, 'inherited-props', reference); await expect(host).toHaveAttribute('data-native', 'yes');
+    await page.getByRole('button', { name: 'Advance' }).click(); await expect(host).toHaveAttribute('data-native', 'yes');
+  });
+  test(`supplement ${framework} first literal empty class reaches the actual host`, async ({ page }) => {
+    const host = await setup(page, 'literal-props', reference); await expect(host).toHaveAttribute('class', '');
+    await page.getByRole('button', { name: 'Advance' }).click(); await expect(host).toHaveAttribute('class', 'active');
+    await page.getByRole('button', { name: 'Advance' }).click(); await expect(host).toHaveAttribute('class', '');
+    await page.getByRole('button', { name: 'Advance' }).click(); await expect(host).not.toHaveAttribute('class'); expect((await probe(page)).calls).toEqual(['cleanup-attach:DIV']);
+    await page.getByRole('button', { name: 'Advance' }).click(); await expect(host).toHaveJSProperty('tagName', 'svg'); await expect(host).toHaveAttribute('class', '');
+    expect((await probe(page)).calls).toEqual(['cleanup-attach:DIV', 'cleanup', 'cleanup-attach:svg']);
+  });
+  test(`supplement ${framework} host spread drops inherited refs`, async ({ page }) => {
+    await setup(page, 'inherited-ref', reference); expect((await probe(page)).refs).toEqual([null, null, null]);
+  });
+  test(`supplement ${framework} host ref accessor resolves once and tears down without rereading`, async ({ page }) => {
+    const host = await setup(page, 'accessor-ref', reference); const observed = await probe(page);
+    expect(observed.refs).toEqual([{ tag: 'DIV', id: 'tested-render', connected: true }, null, null]);
+    expect(observed.calls.length).toBeGreaterThan(0); expect(observed.calls.every(value => value === 'ref-get:1')).toBe(true);
+    await page.getByRole('button', { name: 'Advance' }).click(); await expect(host).toHaveCount(0);
+    expect((await probe(page)).refs).toEqual([null, null, null]); expect((await probe(page)).calls).toEqual(observed.calls);
+  });
+  test(`supplement ${framework} primitive state-mapped ref is ignored on attach and detach`, async ({ page }) => {
+    const host = await setup(page, 'primitive-ref', reference); await expect(host).toHaveAttribute('data-active', '');
+    await page.getByRole('button', { name: 'Advance' }).click(); await expect(host).toHaveCount(0);
   });
   for (const scenario of ['default-button', 'default-img', 'replacement-default']) test(`supplement ${framework} intrinsic default ${scenario}`, async ({ page }) => {
     const host = await setup(page, scenario, reference); if (scenario === 'default-button') await expect(host).toHaveAttribute('type', 'button'); if (scenario === 'default-img') await expect(host).toHaveAttribute('alt', ''); if (scenario === 'replacement-default') await expect(host).not.toHaveAttribute('type');

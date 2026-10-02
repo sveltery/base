@@ -192,10 +192,36 @@ it('supplement: later ordinary sources retain inherited enumerable props but the
   const inherited = Object.create({ id: 'inherited-id', 'data-native': 'yes' });
   expect(render({ internal: true, options: { props: [{}, inherited] } }).host().getAttribute('data-native')).toBe('yes');
   const host = render({ internal: true, options: { props: inherited } }).host(); expect(host.hasAttribute('data-native')).toBe(false); expect(host.hasAttribute('id')).toBe(false);
+  expect(render({ internal: true, options: { props: [undefined, inherited] } }).host().getAttribute('data-native')).toBe('yes');
 });
 it('supplement: getters own raw handlers through ordinary props and component class/style', () => {
   const types: string[] = [], handler = vi.fn((event: PreventableEvent) => types.push(typeof event.preventBaseUIHandler)), observe = vi.fn();
   const options = { props: [() => ({ onmousedown: handler }), { id: 'after' }], class: 'component', style: 'color:red' };
   const host = render({ internal: true, options }).host(); host.dispatchEvent(new MouseEvent('mousedown', { bubbles: true })); expect(types).toEqual(['undefined']);
   render({ internal: true, replacement: true, observe, options }); expect(observe.mock.calls[0][0].onmousedown).toBe(handler);
+});
+it('supplement: first literal empty class survives on the actual host', () => {
+  const callback = vi.fn((node: Element | null) => { if (node) expect(node.getAttribute('class')).toBe(''); }); const { app, host } = render({ options: { props: { class: '' }, ref: callback } });
+  expect(host().getAttribute('class')).toBe('');
+  app.setOptions({ props: { class: 'active' }, ref: callback }); flushSync(); expect(host().getAttribute('class')).toBe('active');
+  app.setOptions({ props: { class: '' }, ref: callback }); flushSync(); expect(host().getAttribute('class')).toBe('');
+  app.setOptions({ props: {}, ref: callback }); flushSync(); expect(host().hasAttribute('class')).toBe(false); expect(callback).toHaveBeenCalledTimes(1);
+  app.setOptions({ defaultTagName: 'svg', props: { class: '' }, ref: callback }); flushSync(); expect(host().getAttribute('class')).toBe('');
+});
+it('supplement: merged host drops an inherited ref returned by a later getter', () => {
+  const inherited = ref();
+  const { app, host } = render({ internal: true, options: { props: [{}, () => Object.create({ ref: inherited })] } });
+  expect(inherited.current).toBeNull(); expect(app.getElement()).toBe(host());
+});
+it('supplement: merged host reads a later getter ref accessor exactly once', () => {
+  const first = ref(), second = ref(); let reads = 0;
+  const properties = { get ref() { return ++reads === 1 ? first : second; } };
+  const { app, host } = render({ internal: true, options: { props: [{}, () => properties] } });
+  expect(reads).toBe(1); expect(first.current).toBe(host()); expect(second.current).toBeNull();
+  app.setOptions({ enabled: false }); flushSync(); expect(first.current).toBeNull(); expect(reads).toBe(1);
+});
+it('supplement: primitive refs from typed state mapping are ignored on attach and detach', () => {
+  const { app, host } = render({ options: { state: { active: true }, stateAttributesMapping: { active: () => ({ ref: 'ignored', 'data-active': '' }) } } });
+  expect(app.getElement()).toBe(host()); expect(host().getAttribute('data-active')).toBe('');
+  app.setOptions({ enabled: false }); flushSync(); expect(app.getElement()).toBeNull();
 });

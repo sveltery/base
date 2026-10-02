@@ -8,6 +8,12 @@
 
   let { defaultTagName = 'div', enabled = true, state = EMPTY_STATE as State, stateAttributesMapping, props, class: classProp, style: styleProp, render, ref, element = $bindable(), children }: RenderElementProps<State, Host> = $props();
   const attachmentKey = createAttachmentKey();
+  const emptyClassKey = createAttachmentKey();
+  function preserveEmptyClass(node: Element) {
+    // Svelte's client class normalizer drops '', while the pinned host and native SSR retain it.
+    node.setAttribute('class', '');
+    return () => { if (node.getAttribute('class') === '') node.removeAttribute('class'); };
+  }
   const referenceAttachment = memoRefAttachment<Host>((node, previous) => untrack(() => {
     if (node !== null || element === previous) element = node;
   }));
@@ -19,14 +25,15 @@
     const stateProps = stateAttributes(state, stateAttributesMapping);
     const resolved = resolveSources(props);
     let host = { ...stateProps, ...resolved };
+    // Capture from the fresh merged host: inherited refs are dropped and accessors are read once.
+    const refs = refList(host.ref as UseRenderRef<Host> | null | undefined, ref);
     if (className !== undefined) host = mergeHostProps(host, { class: className });
     if (style !== undefined) host = mergeHostProps(host, { style });
     // Refs are a separate channel: mergeProps deliberately does not compose them.
-    const refs = refList(resolved.ref as UseRenderRef<Host> | null | undefined, ref);
     const { ref: _ref, ...attributes } = host;
     void _ref;
     const defaults = render ? {} : defaultTagName === 'button' ? { type: 'button' } : defaultTagName === 'img' ? { alt: '' } : {};
-    return { props: { ...defaults, ...attributes, [attachmentKey]: referenceAttachment(refs, Array.isArray(ref)) }, refs };
+    return { props: { [emptyClassKey]: !render && attributes.class === '' ? preserveEmptyClass : undefined, ...defaults, ...attributes, [attachmentKey]: referenceAttachment(refs, Array.isArray(ref)) }, refs };
   });
 </script>
 {#if enabled}

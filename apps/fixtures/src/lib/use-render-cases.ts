@@ -70,7 +70,14 @@ export function createUseRenderCase(scenario: string) {
     if (scenario === 'native-default' || scenario === 'native-base') options.props = [{ id: 'tested-render', onmousedown: callback('internal') }, { onmousedown: (event: PreventableEvent) => { calls.push('consumer'); if (scenario === 'native-default') event.preventDefault(); else event.preventBaseUIHandler(); } }];
     if (scenario === 'getter-replacement') options.props = [{ id: 'old', onclick: callback('old') }, getter];
     if (scenario === 'getter-raw') { options.props = [() => ({ onmousedown: (event: PreventableEvent) => { calls.push(`raw-native:${typeof event.preventBaseUIHandler}`); } }), { id: 'tested-render' }]; options.class = 'component'; options.style = 'color:red'; }
-    if (scenario === 'inherited-props') options.props = [{}, Object.create({ id: 'tested-render', 'data-native': 'yes' })];
+    if (scenario === 'inherited-props') options.props = [stage === 0 ? {} : undefined, Object.create({ id: 'tested-render', 'data-native': 'yes' })];
+    if (scenario === 'literal-props') { options.props = { id: 'tested-render', class: stage === 1 ? 'active' : stage === 3 ? undefined : '', onmousedown: undefined }; options.ref = cleanupRef; options.defaultTagName = stage === 4 ? 'svg' : 'div'; }
+    if (scenario === 'inherited-ref') options.props = [{}, () => Object.assign(Object.create({ ref: refs[0] }), { id: 'tested-render' })];
+    if (scenario === 'accessor-ref') {
+      options.enabled = stage === 0; let reads = 0;
+      options.props = [{}, () => ({ id: 'tested-render', get ref() { reads += 1; calls.push(`ref-get:${reads}`); return reads === 1 ? refs[0] : refs[1]; } })];
+    }
+    if (scenario === 'primitive-ref') { options.enabled = stage === 0; options.state = { active: true }; options.stateAttributesMapping = { active: () => ({ ref: 'ignored', 'data-active': '' }) }; }
     if (scenario === 'all-gating') {
       options.enabled = stage === 1; replacement = true;
       options.state = { active: true }; options.stateAttributesMapping = { active: () => { calls.push('mapping'); return { 'data-active': '' }; } };

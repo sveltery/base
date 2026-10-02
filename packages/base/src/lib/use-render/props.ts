@@ -7,6 +7,8 @@ import type { ClassValue } from 'svelte/elements';
 import type { UseRenderHostProps, UseRenderPropSources, UseRenderRef, UseRenderRefs, UseRenderStateAttributesMapping } from './types.js';
 
 export const EMPTY_STATE = Object.freeze({}) as Record<string, never>;
+// Like the pin, first getters receive this shared mutable input and empty arrays return it.
+const EMPTY_PROPS: UseRenderHostProps = {};
 
 export function stateAttributes<State extends Record<string, unknown>>(state: State, mapping?: UseRenderStateAttributesMapping<State>): UseRenderHostProps {
   const result: UseRenderHostProps = {};
@@ -29,7 +31,8 @@ export function mergeHostProps(left: UseRenderHostProps, right: UseRenderHostPro
   return result;
 }
 
-function mergeInto(target: UseRenderHostProps, source: UseRenderHostProps) {
+function mergeInto(target: UseRenderHostProps, source: UseRenderHostProps | undefined) {
+  if (!source) return;
   // Later source objects mutate the getter-owned accumulator and include inherited enumerable keys.
   // Merge only the incoming key; reinitializing the full accumulator would wrap raw getter handlers.
   for (const key in source) {
@@ -41,7 +44,9 @@ function mergeInto(target: UseRenderHostProps, source: UseRenderHostProps) {
     } else if (key === 'style' || (/^on[a-zA-Z]/u.test(key) && typeof value === 'function')) {
       target[key] = mergeProps(() => ({ [key]: target[key] }), { [key]: value })[key];
     } else if (/^on[a-zA-Z]/u.test(key) && value === undefined) {
-      // Like the pin, an undefined handler does not assign or erase an earlier callback.
+      // The handler is preserved, but this assignment still observes writability and own keys.
+      const previous = target[key];
+      target[key] = previous;
     } else target[key] = value;
   }
   for (const key of Object.getOwnPropertySymbols(source)) {
@@ -50,17 +55,21 @@ function mergeInto(target: UseRenderHostProps, source: UseRenderHostProps) {
 }
 
 export function resolveSources(sources?: UseRenderPropSources): UseRenderHostProps {
-  let result: UseRenderHostProps = {};
-  let initialized = false;
-  if (sources === undefined) return result;
   const inputs = Array.isArray(sources) ? sources : [sources];
-  for (const source of inputs) {
-    if (source === undefined) continue;
-    if (!initialized) {
-      initialized = true;
-      // The first source is always copied, including a first getter's returned object.
-      result = typeof source === 'function' ? { ...source({}) } : mergeHostProps({}, { ...source });
-    } else if (typeof source === 'function') {
+  if (inputs.length === 0) return EMPTY_PROPS;
+  const initial = inputs[0];
+  // Slot zero initializes even when undefined/null/falsy. Copy own props before wrapping handlers.
+  let result: UseRenderHostProps = typeof initial === 'function' ? { ...initial(EMPTY_PROPS) } : { ...initial };
+  if (typeof initial !== 'function') {
+    for (const key in result) {
+      if (/^on[a-zA-Z]/u.test(key) && typeof result[key] === 'function') {
+        result[key] = mergeProps({ [key]: result[key] })[key];
+      }
+    }
+  }
+  for (let index = 1; index < inputs.length; index += 1) {
+    const source = inputs[index];
+    if (typeof source === 'function') {
       // Later getters replace the actual accumulator; they own handlers, identity and writability.
       result = source(result);
     } else mergeInto(result, source);
@@ -82,8 +91,12 @@ export function attachRefs<Host extends Element>(node: Host, refs: RefSlot<Host>
       const cleanup = ref(node);
       return () => { if (typeof cleanup === 'function') cleanup(); else ref(null); };
     }
-    ref.current = node;
-    return () => { ref.current = null; };
+    if (typeof ref === 'object') {
+      ref.current = node;
+      return () => { ref.current = null; };
+    }
+    // The pinned ref switch ignores primitive values, including values produced by state mapping.
+    return () => {};
   });
   return () => { for (const cleanup of cleanups) cleanup(); };
 }

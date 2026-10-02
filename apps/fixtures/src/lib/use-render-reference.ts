@@ -14,7 +14,17 @@ function nativeProps(props: UseRenderHostProps): Record<string, unknown> {
   const inherited: Record<string, unknown> = {};
   for (const key in props) {
     const destination = Object.prototype.hasOwnProperty.call(props, key) ? result : inherited;
-    destination[key === 'class' ? 'className' : key === 'onclick' ? 'onClick' : key === 'onmousedown' ? 'onMouseDown' : key === 'oncontextmenu' ? 'onContextMenu' : key] = key === 'style' ? css(props[key]) : props[key];
+    const name = key === 'class' ? 'className' : key === 'onclick' ? 'onClick' : key === 'onmousedown' ? 'onMouseDown' : key === 'oncontextmenu' ? 'onContextMenu' : key;
+    let owner = props, descriptor: PropertyDescriptor | undefined;
+    while (owner && !descriptor) { descriptor = Object.getOwnPropertyDescriptor(owner, key); owner = Object.getPrototypeOf(owner); }
+    if (descriptor?.get || descriptor?.set) {
+      // Do not eagerly resolve property getters before the real hook's enabled/merge boundary.
+      Object.defineProperty(destination, name, { enumerable: true, configurable: descriptor.configurable,
+        get: descriptor.get ? () => key === 'style' ? css(props[key]) : props[key] : undefined,
+        set: descriptor.set ? value => descriptor!.set!.call(props, value) : undefined });
+    } else {
+      Object.defineProperty(destination, name, { enumerable: true, configurable: descriptor?.configurable ?? true, writable: descriptor?.writable ?? true, value: key === 'style' ? css(props[key]) : props[key] });
+    }
   }
   if (Object.keys(inherited).length) Object.setPrototypeOf(result, inherited);
   if (Object.isFrozen(props)) Object.freeze(result);

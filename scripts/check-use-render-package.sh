@@ -58,6 +58,7 @@ cat > "$render_consumer/Consumer.svelte" <<'SVELTE'
 <First defaultTagName="button" state={{ active: true }} props={{ id: 'packed-button' }}>Packed children</First>
 <Second {...config} bind:element><title>Packed SVG</title></Second>
 <First defaultTagName="img" props={{ id: 'packed-image' }}/>
+<First props={{ id: 'packed-empty-class', class: '' }}/>
 <Second enabled={false} props={{ id: 'disabled' }}/>
 <First state={{ active: true }} props={{ class: 'base', id: 'replacement' }}>
   {#snippet render(supplied: UseRenderHostProps, currentState, children)}
@@ -75,6 +76,7 @@ const body = render(Consumer).body;
 assert.match(body, /type="button"/); assert.match(body, /Packed children/);
 assert.match(body, /data-item-count="5"/); assert.match(body, /<svg/); assert.match(body, /Packed SVG/);
 assert.match(body, /alt=""/); assert.doesNotMatch(body, /id="disabled"/);
+assert.match(body, /id="packed-empty-class" class=""/);
 assert.match(body, /class="owned base"/); assert.match(body, /data-state="true"/);
 JS
 cat > "$render_consumer/tsconfig.json" <<'JSON'
