@@ -7,3 +7,5 @@ export { Button } from './button/index.js';
 export type { ButtonProps, ButtonState } from './button/index.js';
 export { Separator } from './separator/index.js';
 export type { SeparatorProps, SeparatorState } from './separator/index.js';
+export { Toggle } from './toggle/index.js';
+export type { ToggleProps, ToggleState, ToggleChangeEventReason, ToggleChangeEventDetails } from './toggle/index.js';

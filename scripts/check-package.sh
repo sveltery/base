@@ -124,3 +124,6 @@ assert.match(html, /class="replacement array-class object-class nested-class"/);
 console.log('Isolated tarball Separator root/subpath SSR consumer: PASS');
 JS
 node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$consumer_dir/separator-check.mjs"
+
+# Isolated public Toggle entry identity, SSR and component type consumer.
+bash "$sveltery_repo_root/scripts/check-toggle-package.sh" --public
