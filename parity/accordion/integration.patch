@@ -1,0 +1,236 @@
+diff --git a/packages/base/src/lib/index.ts b/packages/base/src/lib/index.ts
+--- a/packages/base/src/lib/index.ts
++++ b/packages/base/src/lib/index.ts
+@@ -16,3 +16,5 @@
+ export type { ProgressStatus, ProgressRootProps, ProgressRootState, ProgressLabelProps, ProgressLabelState, ProgressTrackProps, ProgressTrackState, ProgressIndicatorProps, ProgressIndicatorState, ProgressValueProps, ProgressValueState } from './progress/index.js';
+ export { Collapsible } from './collapsible/index.js';
+ export type { CollapsibleRootProps, CollapsibleRootState, CollapsibleTriggerProps, CollapsibleTriggerState, CollapsiblePanelProps, CollapsiblePanelState, CollapsibleTransitionStatus, CollapsibleRootChangeEventReason, CollapsibleRootChangeEventDetails } from './collapsible/index.js';
++export { Accordion } from './accordion/index.js';
++export type { AccordionValue, AccordionRootProps, AccordionRootState, AccordionItemProps, AccordionItemState, AccordionHeaderProps, AccordionHeaderState, AccordionTriggerProps, AccordionTriggerState, AccordionPanelProps, AccordionPanelState, AccordionRootChangeEventReason, AccordionRootChangeEventDetails, AccordionItemChangeEventReason, AccordionItemChangeEventDetails } from './accordion/index.js';
+diff --git a/packages/base/package.json b/packages/base/package.json
+--- a/packages/base/package.json
++++ b/packages/base/package.json
+@@ -57,6 +57,11 @@
+       "types": "./dist/collapsible/index.d.ts",
+       "svelte": "./dist/collapsible/index.js",
+       "default": "./dist/collapsible/index.js"
++    },
++    "./accordion": {
++      "types": "./dist/accordion/index.d.ts",
++      "svelte": "./dist/accordion/index.js",
++      "default": "./dist/accordion/index.js"
+     }
+   },
+   "svelte": "./dist/index.js",
+diff --git a/packages/base/THIRD_PARTY_NOTICES.md b/packages/base/THIRD_PARTY_NOTICES.md
+--- a/packages/base/THIRD_PARTY_NOTICES.md
++++ b/packages/base/THIRD_PARTY_NOTICES.md
+@@ -1,4 +1,6 @@
+ # Third-party notices
++
++Accordion Root, Item, Header, Trigger, Panel, value and DOM-order registration behavior, and assertion/type ports derive from packages/react/src/accordion and the pinned Collapsible/Button/lifecycle helpers at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT attribution and immutable source/assertion hashes are preserved in parity/accordion.
+ 
+ Collapsible Root, Trigger, Panel, bounded measurement/motion lifecycle and assertion/type ports derive from packages/react/src/collapsible, useControlled, useTransitionStatus and useAnimationsFinished at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT attribution and immutable source/assertion hashes are preserved in parity/collapsible.
+ 
+diff --git a/README.md b/README.md
+--- a/README.md
++++ b/README.md
+@@ -21,3 +21,5 @@
+ [Progress](docs/progress.md) adds Root, Label, Track, Indicator and Value against the immutable v1.8.0 pin. Its [dedicated declaration and conformance evidence](parity/progress/README.md) remains separately accounted; final-head acceptance is recorded in PR #28.
+ 
+ [Collapsible](docs/collapsible.md) adds Root, Trigger and Panel with a bounded measurement and CSS motion lifecycle. Its [dedicated evidence](parity/collapsible/README.md) separates the portable ordinary scope from six deferred React.Activity cases and final-head acceptance in PR #29.
++
++[Accordion](docs/accordion.md) adds Root, Item, Header, Trigger and Panel with array values and cancellable Item-before-Root callbacks. Its [dedicated evidence](parity/accordion/README.md) separates 38 portable ordinary declarations / 42 variants from deferred React.Activity, parameterized, conformance, type and final-head acceptance gates.
+diff --git a/parity/README.md b/parity/README.md
+--- a/parity/README.md
++++ b/parity/README.md
+@@ -30,3 +30,5 @@
+ [Progress](progress/README.md) separately records 20 ordinary declarations passing at its secured component checkpoint, three parameterized sites expanding to seven variants, and full five-part conformance evidence. Track has zero ordinary declarations. These sites and any credits remain outside the shared 635-entry aggregate until parent reconciliation; paired executions, helpers and supplements add no ordinary declaration credit. See PR #28 and its exact-head verification for current acceptance.
+ 
+ [Collapsible](collapsible/README.md) adds a separate source inventory of 47 ordinary declaration sites / 49 variants. Its portable scope is 41 sites / 43 variants; six React.Activity Panel cases remain deferred. The three conformance calls, ten type assertions and supplemental/package checks are separate, uncredited evidence. Its dedicated ledger records 41 passing sites / 43 variants at secured source checkpoint `2ef2532f7fb6bcf51ec2f379c662f11175b94357`; six Activity sites remain deferred. This feature ledger is not added to the existing shared ordinary totals, and final-head acceptance remains separate.
++
++[Accordion](accordion/README.md) inventories 39 ordinary sites / 43 variants; portable 38 / 42, with Panel:201 React.Activity deferred. The disabled parameterized declaration 1 / 2 variants, five conformance calls, seven generic type assertions and one expected type error remain separate. The feature ledger starts with candidate mappings and earns no passing credit before paired secured execution. Shared ordinary manifest totals remain unchanged.
+diff --git a/parity/catalog.json b/parity/catalog.json
+--- a/parity/catalog.json
++++ b/parity/catalog.json
+@@ -9,9 +9,9 @@
+   "modules": [
+     {
+       "upstreamModule": "accordion",
+-      "status": "unimplemented",
+-      "localExport": null,
+-      "evidence": null
++      "status": "bounded",
++      "localExport": "Accordion",
++      "evidence": "parity/accordion/README.md"
+     },
+     {
+       "upstreamModule": "alert-dialog",
+diff --git a/docs/catalog.md b/docs/catalog.md
+--- a/docs/catalog.md
++++ b/docs/catalog.md
+@@ -12,10 +12,13 @@
+ | [Input](input.md) | Standalone native input and controlled edit callbacks with native Svelte defaults/reset; Field/Form context and the accepted stopped imperative reset-reassociation combination are deferred. |
+ | [Progress](progress.md) | Root, Label, Track, Indicator and Value with range normalization, formatting and status; ordinary, parameterized and conformance evidence remain separately counted. |
+ | [Collapsible](collapsible.md) | Root/Trigger/Panel with bounded measurement and CSS motion lifecycle; six external React.Activity cases and shared conformance remain deferred. |
++| [Accordion](accordion.md) | Root/Item/Header/Trigger/Panel, array values and bounded motion; external React.Activity and complete conformance remain deferred. |
+ | merge-props | Bounded native prop/event merge foundation; see [contracts](upstream-contracts.md). |
+ 
+-These nine modules are bounded and the remaining 33 are unimplemented. No module is labeled fully compatible. Field and Form have no placeholders or exports. The catalog denominator includes modules such as direction-provider and use-render; it is not a component count or a passing-test denominator. All unimplemented names remain visible in the machine-readable ledger.
++These ten modules are bounded and the remaining 32 are unimplemented. No module is labeled fully compatible. Field and Form have no placeholders or exports. The catalog denominator includes modules such as direction-provider and use-render; it is not a component count or a passing-test denominator. All unimplemented names remain visible in the machine-readable ledger.
+ 
+ The [ordinary assertion inventory](../parity/README.md) is separately scoped. Shared conformance helpers, paired framework executions and local supplements do not inflate its declaration credit. The dedicated Toggle ledger records five standalone declarations separately from the shared ordinary inventory; its two ToggleGroup-dependent declarations remain deferred and uncredited. Full Input/Field/Form integration and remaining controls require their own bounded characterization and review.
+ 
+ The [Collapsible ledger](../parity/collapsible/README.md) separately records 47 ordinary sites / 49 variants, with a portable scope of 41 sites / 43 variants. Six React.Activity cases remain deferred. Local DOM/SSR execution, paired browser executions, conformance helpers, type checks and supplements are distinct from verified ordinary declaration credit.
++
++The [Accordion ledger](../parity/accordion/README.md) separately inventories 39 ordinary sites / 43 variants, portable 38 / 42 and one deferred Activity declaration. Parameterized disabled, conformance, types, supplemental execution and final-head acceptance remain separate.
+diff --git a/apps/fixtures/src/lib/docs/content.ts b/apps/fixtures/src/lib/docs/content.ts
+--- a/apps/fixtures/src/lib/docs/content.ts
++++ b/apps/fixtures/src/lib/docs/content.ts
+@@ -39,7 +39,7 @@
+         id: 'status',
+         title: 'A foundation in progress',
+         paragraphs: [
+-          'Dialog, Button, Toast, standalone Input, Separator and Toggle, Progress and Collapsible have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
++          'Dialog, Button, Toast, standalone Input, Separator and Toggle, Progress, Collapsible and Accordion have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
+           'The package is private and unpublished. APIs may change. Use this workspace to evaluate the current slice; check the repository contracts before depending on a behavior.',
+         ],
+         links: [
+@@ -235,6 +235,17 @@
+     ],
+   },
+   {
++    slug: 'components/accordion', group: 'Components', title: 'Accordion',
++    description: 'Compose labelled, collapsible sections with array values and cancellable requests.',
++    sections: [
++      { id: 'anatomy', title: 'Assemble the parts', paragraphs: ['Root groups Items. Each Item pairs Header and Trigger with a Panel. Values are arrays; use defaultValue for initial uncontrolled selection or value and onValueChange for controlled selection. multiple allows more than one selected item.'], code: "<Accordion.Root defaultValue={['details']}><Accordion.Item value=\"details\"><Accordion.Header><Accordion.Trigger>Details</Accordion.Trigger></Accordion.Header><Accordion.Panel>Panel content</Accordion.Panel></Accordion.Item></Accordion.Root>" },
++      { id: 'interaction', title: 'Requests and keyboard', paragraphs: ['Item onOpenChange runs before Root onValueChange; either can cancel the request through details.cancel(). Item cancellation stops the Root callback. Disabled state combines with ancestors. Enter and Space activate Triggers; deprecated orientation and loopFocus do not provide roving focus.'] },
++      { id: 'motion', title: 'Style and retain panels', paragraphs: ['Use --accordion-panel-height and --accordion-panel-width, and open/closed/starting/ending attributes on Panel. Panel overrides Root keepMounted and hiddenUntilFound defaults. hiddenUntilFound retains hidden contents for browser search.'] },
++      { id: 'api-reference', title: 'Local API reference', paragraphs: ['The signatures below are extracted from local declarations. Root props and state retain generic value arrays and the permissive upstream default. Explicit generic props constrain values and callback arrays.'] },
++      { id: 'limits', title: 'Compatibility limits', paragraphs: ['The immutable v1.8.0 inventory has 39 ordinary declaration sites / 43 variants. Portable scope is 38 / 42; one React.Activity Panel declaration remains deferred. Parameterized disabled, conformance, types and supplements are separate evidence. Final-head package, browser and review acceptance remain required.'], links: [{ label: 'Base UI Accordion reference', href: 'https://base-ui.com/react/components/accordion' }] },
++    ],
++  },
++  {
+     slug: 'components/collapsible', group: 'Components', title: 'Collapsible',
+     description: 'A button and a panel that opens and closes with your CSS motion.',
+     sections: [
+diff --git a/apps/fixtures/src/lib/docs/DocsPage.svelte b/apps/fixtures/src/lib/docs/DocsPage.svelte
+--- a/apps/fixtures/src/lib/docs/DocsPage.svelte
++++ b/apps/fixtures/src/lib/docs/DocsPage.svelte
+@@ -2,6 +2,7 @@
+   import { resolve } from '$app/paths';
+   import type { Doc } from './content.js';
+   import api from './dialog-api.json';
++  import accordionApi from '../../../../../parity/accordion/api.json';
+   import DialogExample from './DialogExample.svelte';
+   import exampleSource from './DialogExample.svelte?raw';
+   let { doc }: { doc: Doc } = $props();
+@@ -58,6 +59,14 @@
+         <!-- svelte-ignore a11y_no_noninteractive_tabindex (Keyboard access to horizontally scrollable code) -->
+         <pre tabindex="0" aria-label="Shared Dialog type declarations"><code>{api.types}</code></pre></details>
+     {/if}
++    {#if doc.slug === 'components/accordion' && section.id === 'api-reference'}
++      {#each accordionApi.parts as part (part.name)}<h3>{part.name}</h3>
++        <!-- svelte-ignore a11y_no_noninteractive_tabindex (Keyboard access to horizontally scrollable code) -->
++        <pre tabindex="0" aria-label={part.name + ' Accordion props signature'}><code>{part.signature}</code></pre>{/each}
++      <details class="docs-code"><summary>Accordion state, value and event types</summary>
++        <!-- svelte-ignore a11y_no_noninteractive_tabindex (Keyboard access to horizontally scrollable code) -->
++        <pre tabindex="0" aria-label="Accordion type declarations"><code>{accordionApi.types}</code></pre></details>
++    {/if}
+     {#if section.links}<div class="docs-links">{#each section.links as link (link.href)}
+       <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -- linkHref resolves local docs links and preserves external URLs. -->
+       <a href={linkHref(link.href)}>{link.label}</a>
+diff --git a/scripts/tests/docs.test.mjs b/scripts/tests/docs.test.mjs
+--- a/scripts/tests/docs.test.mjs
++++ b/scripts/tests/docs.test.mjs
+@@ -3,6 +3,7 @@
+ import { readFileSync } from 'node:fs';
+ import { docs, groups } from '../../apps/fixtures/src/lib/docs/content.ts';
+ import { checkDialogApi, extractDialogApi } from '../docs-api.mjs';
++import { checkAccordionApi, extractAccordionApi } from '../../parity/accordion/docs-api.mjs';
+ test('docs API matches actual local types and all public parts', () => {
+   checkDialogApi();
+   const exports = readFileSync(
+@@ -45,3 +46,8 @@
+       }
+   }
+ });
++
++test('Accordion docs API matches all five local part declarations', () => {
++  checkAccordionApi();
++  assert.deepEqual(extractAccordionApi().parts.map(part => part.name), ['Root', 'Item', 'Header', 'Trigger', 'Panel']);
++});
+diff --git a/scripts/check-package.sh b/scripts/check-package.sh
+--- a/scripts/check-package.sh
++++ b/scripts/check-package.sh
+@@ -173,3 +173,6 @@
+ 
+ # Isolated public Collapsible root/subpath, SSR and component type consumer.
+ bash "$sveltery_repo_root/scripts/check-collapsible-package.sh" --public
++
++# Genuine installed public Accordion root/subpath SSR and type consumer.
++bash "$sveltery_repo_root/scripts/check-accordion-package.sh" --public
+diff --git a/docs/upstream-differences.md b/docs/upstream-differences.md
+--- a/docs/upstream-differences.md
++++ b/docs/upstream-differences.md
+@@ -140,3 +140,9 @@
+ The existing Button helper remains unchanged and contributes inherited D-03 disabled chorded-mousedown focus behavior, with no new parity credit or specific deviation approval. Paired secured exact-pin Chromium at `828f8b996ec8933756e080830f91a53b7af314d2` reproduced value-only alignment restoration losing authored !important priority ([#30](https://github.com/sveltery/base/issues/30)) and beforematch retaining the original rendered-host listener ([#31](https://github.com/sveltery/base/issues/31)). Both shared quirks are preserved. The pin also retains idle after an unanimated close ([#33](https://github.com/sveltery/base/issues/33)); an independent actual React/Svelte witness agrees, and fresh supplemental browser acceptance is required. The pin also retains Root/Trigger ending status after a custom panel host disappears on close ([#34](https://github.com/sveltery/base/issues/34)); an independent actual React/Svelte reproduction agrees, with supplemental secured evidence separately required. Any correction remains deferred to a separate intentional-difference decision. Six external React.Activity cases are unimplemented because state-preserving effect teardown has no bounded CSS-hide/remount equivalent. They earn no credit. No actions or onOpenChangeComplete API is invented.
+ 
+ Rationale: preserve the bounded pinned Collapsible contract using native Svelte lifecycle ownership. Evidence: [component documentation](collapsible.md), [immutable declaration trace and ports](../parity/collapsible/README.md), local DOM/SSR and separate component type/package consumers; secured paired Chromium passed at the source checkpoint recorded there; strengthened final-head gates remain required. Implementation is tracked in [PR #29](https://github.com/sveltery/base/pull/29); landing status follows that PR. The five accepted API substitutions and inherited A-01 initially undefined refs apply; no further behavioral correction approval or complete parity is claimed. This entry does not establish merge eligibility or inflate the shared inventory totals.
++
++## AC-01: proposed bounded Accordion framework interface
++
++Source: pinned [Accordion parts](https://github.com/mui/base-ui/tree/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/accordion), inherited Collapsible/Button/lifecycle helpers at immutable Base UI v1.8.0 `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. The accepted five framework substitutions and A-01 initially undefined refs apply; named generic props/state/value and part/event types represent React namespace aliases. Root defaults retain upstream any. Item-before-Root callbacks, cancellation, array identity, OR-disabled inheritance, DOM-order registration and deprecated keyboard no-ops remain source behavior. Observable timing/ownership adaptations are bounded; no further behavioral correction is approved.
++
++Inherited Button D-03 earns no new credit. Shared Collapsible issues #30/#31/#33 remain preserved source mechanisms; #34 concerns the private lifecycle here because Accordion Root/Item/Header/Trigger state has no transitionStatus. Existing Collapsible runs do not establish Accordion execution. Panel:201 React.Activity remains deferred and uncredited. Evidence and exact applicability are in [compatibility](../parity/accordion/compatibility.md), [component docs](accordion.md) and [verification](../parity/accordion/verification.md). Proposed PR: feature branch, number pending; landing and final-head acceptance are pending. This entry earns no ordinary credit or complete parity claim.
+diff --git a/.github/workflows/ci.yml b/.github/workflows/ci.yml
+--- a/.github/workflows/ci.yml
++++ b/.github/workflows/ci.yml
+@@ -153,3 +153,38 @@
+           path: test-results/collapsible-*/
+           if-no-files-found: warn
+           retention-days: 14
++
++  accordion-browser:
++    name: Accordion browser
++    runs-on: ubuntu-22.04
++    timeout-minutes: 15
++    steps:
++      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
++        with:
++          ref: ${{ github.event.pull_request.head.sha || github.sha }}
++          persist-credentials: false
++      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
++        with:
++          version: 12.6.0
++          run_install: false
++      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
++        with:
++          node-version: '24'
++          package-manager-cache: false
++      - name: Frozen workspace install
++        run: bash scripts/bootstrap.sh
++      - name: Build actual component library
++        run: pnpm --filter @sveltery/base build
++      - name: Install official Chromium and OS dependencies
++        run: pnpm exec playwright install --with-deps chromium
++      - name: Paired exact-pin Accordion acceptance
++        # A failing run stops early for diagnosis; a passing run executes every case.
++        run: pnpm exec playwright test tests/browser/accordion.spec.ts --max-failures=5
++      - name: Preserve Accordion browser failure traces
++        if: failure()
++        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
++        with:
++          name: accordion-browser-failures
++          path: test-results/accordion-*/
++          if-no-files-found: warn
++          retention-days: 14
+diff --git a/docs/ci.md b/docs/ci.md
+--- a/docs/ci.md
++++ b/docs/ci.md
+@@ -22,3 +22,5 @@
+ - Do not add bypass actors, new grants, secrets, deployment settings or signing requirements through this change.
+ 
+ This document proposes settings; it does not assert they are active. The available connector exposes no repository-administration write action. Adding browser checks to protection needs a new explicit proposal after the real job has passed.
++
++`Accordion browser` runs the focused paired Accordion file with the same secured Chromium configuration and exact-head setup as Collapsible. The combined browser job continues to run the full suite. The isolated public package gate is included in Verification through check-package.sh; API consistency is registered in script regressions. Execution success does not create ordinary parity credit.

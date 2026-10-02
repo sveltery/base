@@ -1,0 +1,1785 @@
+{
+  "upstream": {
+    "repository": "https://github.com/mui/base-ui",
+    "tag": "v1.8.0",
+    "commit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+    "license": "MIT"
+  },
+  "scope": "39 ordinary declaration sites / 43 variants. Portable scope: 38 sites / 42 variants. Panel:201 React.Activity is deferred. The disabled parameterized declaration has two variants, separate from ordinary counts. Five conformance helper calls, seven type assertions and one expected type error are separate and earn zero ordinary declaration credit. This immutable source trace is not execution evidence.",
+  "sources": [
+    {
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "sha256": "30bf9611b6f02a917de4ee75759ec9685b3f3ee7d46bf8d3c1a260b420c629ea",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/accordion/root/AccordionRoot.test.tsx"
+    },
+    {
+      "source": "packages/react/src/accordion/item/AccordionItem.test.tsx",
+      "sha256": "23556fc35cbe97b595c418ef12c44f073860616bc7245e7c0d5dbacd0569a607",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/accordion/item/AccordionItem.test.tsx"
+    },
+    {
+      "source": "packages/react/src/accordion/header/AccordionHeader.test.tsx",
+      "sha256": "779c43f68e2c961ca8c2d661c7058eb893eab4503c4cb2a866ac54af41d832e4",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/accordion/header/AccordionHeader.test.tsx"
+    },
+    {
+      "source": "packages/react/src/accordion/trigger/AccordionTrigger.test.tsx",
+      "sha256": "e84d0ce35704a48cadc7682c1187be0a3bf32a448c555725a0a7cb8320220175",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/accordion/trigger/AccordionTrigger.test.tsx"
+    },
+    {
+      "source": "packages/react/src/accordion/panel/AccordionPanel.test.tsx",
+      "sha256": "02b785ae6f2fd07cee303d28fd03a83d1d6773a28ab62cc41229ba5a75de045a",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/accordion/panel/AccordionPanel.test.tsx"
+    },
+    {
+      "source": "packages/react/src/accordion/header/AccordionHeader.tsx",
+      "sha256": "4615d4ec311f2957e82549cc66ea045f92e6af1b5582b9980d98edd32c0cd02b",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/accordion/header/AccordionHeader.tsx"
+    },
+    {
+      "source": "packages/react/src/accordion/header/AccordionHeaderDataAttributes.ts",
+      "sha256": "a4fe5e82dd6a45635747accb5ea125728a585bf9f0706f96b82fe2a6cfe25ada",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/accordion/header/AccordionHeaderDataAttributes.ts"
+    },
+    {
+      "source": "packages/react/src/accordion/index.parts.ts",
+      "sha256": "a8efa51cdfa12eb2700fed3ccfd215d133426b925e45f9003523cbe137c627a6",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/accordion/index.parts.ts"
+    },
+    {
+      "source": "packages/react/src/accordion/index.ts",
+      "sha256": "55c7292748caa6620b9a9a65c1dace91a0e76a13bae2308580c2a3acde88538c",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/accordion/index.ts"
+    },
+    {
+      "source": "packages/react/src/accordion/item/AccordionItem.tsx",
+      "sha256": "85d7a15952b13d3bc085d9486c60b66ab84d6f6c011ced484d9cc8b8a8a28d01",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/accordion/item/AccordionItem.tsx"
+    },
+    {
+      "source": "packages/react/src/accordion/item/AccordionItemContext.ts",
+      "sha256": "8f161c06ccc06c65b932f47f3d5ac9c80e1f6c9ea06d815592e01caadd15784c",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/accordion/item/AccordionItemContext.ts"
+    },
+    {
+      "source": "packages/react/src/accordion/item/AccordionItemDataAttributes.ts",
+      "sha256": "a4fe5e82dd6a45635747accb5ea125728a585bf9f0706f96b82fe2a6cfe25ada",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/accordion/item/AccordionItemDataAttributes.ts"
+    },
+    {
+      "source": "packages/react/src/accordion/item/stateAttributesMapping.ts",
+      "sha256": "ff18d7ac763ce027483a3b15c18cf3e5e10d6de8e048a5c79208aefdd22656aa",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/accordion/item/stateAttributesMapping.ts"
+    },
+    {
+      "source": "packages/react/src/accordion/panel/AccordionPanel.tsx",
+      "sha256": "a35125ea703aef8287a1d94ac3d9b593c82a58fa10699067905b33778c2b35f2",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/accordion/panel/AccordionPanel.tsx"
+    },
+    {
+      "source": "packages/react/src/accordion/panel/AccordionPanelCssVars.ts",
+      "sha256": "0c9da032e98ab98ccfde4c07fb77bbd8d98408b067793c783e8c483ca7b6b7d6",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/accordion/panel/AccordionPanelCssVars.ts"
+    },
+    {
+      "source": "packages/react/src/accordion/panel/AccordionPanelDataAttributes.ts",
+      "sha256": "92b345dcea1c714f77a4df2a2eb6bff5e6dbf8297246edecb65ddb51ba909031",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/accordion/panel/AccordionPanelDataAttributes.ts"
+    },
+    {
+      "source": "packages/react/src/accordion/root/AccordionRoot.spec.tsx",
+      "sha256": "94b39e5bee0782ec96a20a9710d7f3e95912cc1fdbfeb8dab29199eca771bfbe",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/accordion/root/AccordionRoot.spec.tsx"
+    },
+    {
+      "source": "packages/react/src/accordion/root/AccordionRoot.tsx",
+      "sha256": "97775b67af77bd652e550e7999f70e5245eb4ca5c84703c16d2225b293e2fc1b",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/accordion/root/AccordionRoot.tsx"
+    },
+    {
+      "source": "packages/react/src/accordion/root/AccordionRootContext.ts",
+      "sha256": "a7aacf79a8f3f236bd4763c64a3a2653908f58f145ce38ed9d973943993805b9",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/accordion/root/AccordionRootContext.ts"
+    },
+    {
+      "source": "packages/react/src/accordion/root/AccordionRootDataAttributes.ts",
+      "sha256": "040a916c80de039e9d077273d32348a3d225610a1b0c8602d21ef85b9cc6605b",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/accordion/root/AccordionRootDataAttributes.ts"
+    },
+    {
+      "source": "packages/react/src/accordion/trigger/AccordionTrigger.tsx",
+      "sha256": "241cc873fbe29f6b00b0d2d4fa9291fa0a24cea9e89c4bdf3d064d4b21e66d5f",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/accordion/trigger/AccordionTrigger.tsx"
+    },
+    {
+      "source": "packages/react/src/accordion/trigger/AccordionTriggerDataAttributes.ts",
+      "sha256": "762a2186e6cc1287dc3eb08a3bb2a0d7a12bdae0f3c750eb53615ac4b227dab8",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/accordion/trigger/AccordionTriggerDataAttributes.ts"
+    },
+    {
+      "source": "packages/react/src/collapsible/root/useCollapsibleRoot.ts",
+      "sha256": "421c5192f10897812244c529ca61b91d2cebe1928362bcbdea998e7037f297d1",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/root/useCollapsibleRoot.ts"
+    },
+    {
+      "source": "packages/react/src/collapsible/panel/useCollapsiblePanel.ts",
+      "sha256": "5f2b096ff87493217f032f6252c8d73c152594d6ceb379753168238ab3ba8e04",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/panel/useCollapsiblePanel.ts"
+    },
+    {
+      "source": "packages/react/src/internals/useTransitionStatus.ts",
+      "sha256": "07ffaf4fcf96a3d4d24aa2dabb696f2e082f312149225e45372a12a0d3cfe4e1",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/useTransitionStatus.ts"
+    },
+    {
+      "source": "packages/react/src/internals/useAnimationsFinished.ts",
+      "sha256": "58fef3cb8defbbbe84c80126a6b0aff767293b692a19d97f078a190e62a3d7a6",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/useAnimationsFinished.ts"
+    },
+    {
+      "source": "packages/react/src/internals/useOpenChangeComplete.tsx",
+      "sha256": "809be9e6b5a1a6238d9f239c162e2489d7da6e5f20383fbe65e85933e7259d89",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/useOpenChangeComplete.tsx"
+    },
+    {
+      "source": "packages/react/src/internals/use-button/useButton.ts",
+      "sha256": "eba51ce4ed0d2082dda17180bbbbe2bf91318c2b33eae2d114c0e4ebbe3203e6",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/use-button/useButton.ts"
+    },
+    {
+      "source": "packages/react/src/internals/composite/list/CompositeList.tsx",
+      "sha256": "ee4a1b881541f30c7c0b3165fe66ffe88dc6a990f073a6afaa42da6199004afb",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/composite/list/CompositeList.tsx"
+    },
+    {
+      "source": "packages/react/src/internals/composite/list/useCompositeListItem.ts",
+      "sha256": "dbfec49eb3286458a425639c8cd2a4a17419fed1017c88c1636929e312e36542",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/composite/list/useCompositeListItem.ts"
+    },
+    {
+      "source": "packages/react/src/internals/getStateAttributesProps.ts",
+      "sha256": "ae0c62d85ecb1d58d833c49a8753929df86a7539e94e272fdfe692d6ae89abcb",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/getStateAttributesProps.ts"
+    },
+    {
+      "source": "packages/utils/src/empty.ts",
+      "sha256": "7d7c8625346dc2344dc551004c5c5da82878ab814818b7a8df4ad7082979ead6",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/empty.ts"
+    },
+    {
+      "source": "packages/utils/src/useControlled.ts",
+      "sha256": "487bc45fa3ef1a70177867bb03598230f9926601aed8e3c7f46470feb225f886",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useControlled.ts"
+    },
+    {
+      "source": "packages/utils/src/useStableCallback.ts",
+      "sha256": "908cbd177f86c961983d0124a859f733d341be49e58bc5a553255f47725419c1",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useStableCallback.ts"
+    }
+  ],
+  "declarations": [
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:19",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 19,
+      "title": "warns when hiddenUntilFound overrides keepMounted={false}",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "84e00d1e70c605c46e90601e5ffd8e9f2f56e3a0be5f5f3755a14a6a9923244b",
+      "assertions": [
+        {
+          "line": 31,
+          "text": "expect(warnSpy).toHaveBeenCalledWith(\n        'Base UI: The `keepMounted={false}` prop on `Accordion.Root` is ignored when `hiddenUntilFound` is enabled, since panels must remain mounted while closed.',\n      )",
+          "assertionSha256": "10b955d9c998bae59ee92bd473011057ddbf60bf9fd58ae7bb7dfe8fa3e56145"
+        },
+        {
+          "line": 34,
+          "text": "expect(screen.getByText('Panel').getAttribute('hidden')).toBe('until-found')",
+          "assertionSha256": "888828c2eb51f32e4381a0578c90a5fae5782d5125d324190de8165407ec8f68"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:41",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 41,
+      "title": "renders correct ARIA attributes",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "de0c2d888d3b32992c3469a2fb342d7968d41e9fc614bc7b30ade41a3b2b524a",
+      "assertions": [
+        {
+          "line": 56,
+          "text": "expect(trigger).toHaveAttribute('aria-controls')",
+          "assertionSha256": "35b994c97f690dc68a6157d1975792e0c0b2952ca9641dd49369933fd1e3f694"
+        },
+        {
+          "line": 57,
+          "text": "expect(panel.getAttribute('id')).toBe(trigger.getAttribute('aria-controls'))",
+          "assertionSha256": "651d65916a43eb06d221f509f58a98ee24aa317bc832b4d5e5b651cd852c1607"
+        },
+        {
+          "line": 58,
+          "text": "expect(panel).toHaveAttribute('role', 'region')",
+          "assertionSha256": "0962e1d079e351c2973a8a675584964db6d582921aaab95336d3879e986c1888"
+        },
+        {
+          "line": 59,
+          "text": "expect(trigger.getAttribute('id')).toBe(panel.getAttribute('aria-labelledby'))",
+          "assertionSha256": "e472c688aacaf70edb55a82b9b3be59b66efff867210ced4f845da4e091abe48"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:62",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 62,
+      "title": "references manual panel id in trigger aria-controls",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "8730420584b13063c34a8829bb053717598670b2b8401830d7da15e5b1ba137d",
+      "assertions": [
+        {
+          "line": 77,
+          "text": "expect(trigger).toHaveAttribute('aria-controls', 'custom-panel-id')",
+          "assertionSha256": "9fc16b4f84a1f4a0808d7593cd0d598cc08bf976068731c501cbb36373a357c6"
+        },
+        {
+          "line": 78,
+          "text": "expect(panel).toHaveAttribute('id', 'custom-panel-id')",
+          "assertionSha256": "ea5456b080349727e0b67a8d37c3bba65a133ff8852fddfe4fac5f18525eea96"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:81",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 81,
+      "title": "references manual trigger id in panel aria-labelledby",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "d4c5d161909ec1cefd3ef756bf965c6a466f39c9e16ac17fd0ebd6ef1c8f34f0",
+      "assertions": [
+        {
+          "line": 95,
+          "text": "expect(panel).toHaveAttribute('aria-labelledby', 'custom-trigger-id')",
+          "assertionSha256": "0fc0e14b65229a8e8efd8b64e522a9db9d6a04c868a2f8fa87451f67bac7ffe9"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:98",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 98,
+      "title": "updates panel labeling when a manual trigger id is added or changed",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "28d7caa12dff48a69664f2b325cdd223139982c652913807dea636fd695e5206",
+      "assertions": [
+        {
+          "line": 127,
+          "text": "expect(trigger).toHaveAttribute('id')",
+          "assertionSha256": "5682290d55ccb42df811af018968860bb39f4b0fb0bf69d36f65dee3ad3b7e59"
+        },
+        {
+          "line": 128,
+          "text": "expect(panel).toHaveAttribute('aria-labelledby', trigger.id)",
+          "assertionSha256": "49b4a655489ad1dbbe76c63a45cc2890f22a6d56ac0091b056b9f6d133e932ee"
+        },
+        {
+          "line": 133,
+          "text": "expect(trigger).toHaveAttribute('id', 'custom-trigger-id-1')",
+          "assertionSha256": "d44a3692495e59096bc59f5b6318623ebdb7a8b405a8f5a6c9388246e08ea781"
+        },
+        {
+          "line": 134,
+          "text": "expect(panel).toHaveAttribute('aria-labelledby', 'custom-trigger-id-1')",
+          "assertionSha256": "7420eccad50557dad5d90f56c1c78c51bbc571fd0382b0588f5375f123b4b04e"
+        },
+        {
+          "line": 140,
+          "text": "expect(trigger).toHaveAttribute('id', 'custom-trigger-id-2')",
+          "assertionSha256": "1a5bf206caa5540a64f16c0fdad35332badd29401061be62847de4bee58da013"
+        },
+        {
+          "line": 141,
+          "text": "expect(panel).toHaveAttribute('aria-labelledby', 'custom-trigger-id-2')",
+          "assertionSha256": "3854009a417cf811f8c6f34478f9e692256c080d27fa2d3834897036972c73bc"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:145",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 145,
+      "title": "restores panel labeling when a manual trigger id is removed",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "839bd32255c6d9ec18621a5d90c86257215b62accc0a029d142154c34c72aaf6",
+      "assertions": [
+        {
+          "line": 171,
+          "text": "expect(panel).toHaveAttribute('aria-labelledby', 'custom-trigger-id')",
+          "assertionSha256": "0fc0e14b65229a8e8efd8b64e522a9db9d6a04c868a2f8fa87451f67bac7ffe9"
+        },
+        {
+          "line": 176,
+          "text": "expect(trigger).toHaveAttribute('id')",
+          "assertionSha256": "5682290d55ccb42df811af018968860bb39f4b0fb0bf69d36f65dee3ad3b7e59"
+        },
+        {
+          "line": 177,
+          "text": "expect(trigger).not.toHaveAttribute('id', 'custom-trigger-id')",
+          "assertionSha256": "00677c97185b171348a3e89d3ca409580030e25c90b839b3d4e857a2c1a6bdcb"
+        },
+        {
+          "line": 178,
+          "text": "expect(panel).toHaveAttribute('aria-labelledby', trigger.id)",
+          "assertionSha256": "49b4a655489ad1dbbe76c63a45cc2890f22a6d56ac0091b056b9f6d133e932ee"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:182",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 182,
+      "title": "unregisters generated part ids when the trigger or panel unmounts",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "ab97491f230f5cda7417eeb709b7c83d3f1ad2bc20aac51e14fabfa80d17c131",
+      "assertions": [
+        {
+          "line": 201,
+          "text": "expect(screen.getByText(PANEL_CONTENT_1)).not.toHaveAttribute('aria-labelledby')",
+          "assertionSha256": "229115395ffff20814265ad1c39629c821130af271a35b4eeb28fe15ea4bb62d"
+        },
+        {
+          "line": 206,
+          "text": "expect(panel).toHaveAttribute('aria-labelledby', trigger.id)",
+          "assertionSha256": "49b4a655489ad1dbbe76c63a45cc2890f22a6d56ac0091b056b9f6d133e932ee"
+        },
+        {
+          "line": 209,
+          "text": "expect(screen.getByRole('button', { name: 'Trigger 1' })).not.toHaveAttribute(\n        'aria-controls',\n      )",
+          "assertionSha256": "f4e14d5421fac1da88c296ee4f1f597c1d4c02220777aca6960c55fdf956f566"
+        },
+        {
+          "line": 216,
+          "text": "expect(trigger).toHaveAttribute('aria-controls', panel.id)",
+          "assertionSha256": "b0689e0070ca85c35db22994a051fc2daf506fdf49f844c9e2b25d1a6f99278c"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:219",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 219,
+      "title": "preserves generated part associations during hydration",
+      "expression": "it.skipIf(isJSDOM)",
+      "variants": [
+        null
+      ],
+      "bodySha256": "0b38cf7ed22338af37f25dd0b5967ea959c2f29b3436ee282a6f4a232b1a19f7",
+      "assertions": [
+        {
+          "line": 233,
+          "text": "expect(trigger).toHaveAttribute('aria-controls', panel.id)",
+          "assertionSha256": "b0689e0070ca85c35db22994a051fc2daf506fdf49f844c9e2b25d1a6f99278c"
+        },
+        {
+          "line": 234,
+          "text": "expect(panel).toHaveAttribute('aria-labelledby', trigger.id)",
+          "assertionSha256": "49b4a655489ad1dbbe76c63a45cc2890f22a6d56ac0091b056b9f6d133e932ee"
+        },
+        {
+          "line": 241,
+          "text": "expect(trigger).toHaveAttribute('aria-controls', panel.id)",
+          "assertionSha256": "b0689e0070ca85c35db22994a051fc2daf506fdf49f844c9e2b25d1a6f99278c"
+        },
+        {
+          "line": 244,
+          "text": "expect(panel).toHaveAttribute('aria-labelledby', trigger.id)",
+          "assertionSha256": "49b4a655489ad1dbbe76c63a45cc2890f22a6d56ac0091b056b9f6d133e932ee"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:250",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 250,
+      "title": "open state",
+      "expression": "it.skipIf(isJSDOM)",
+      "variants": [
+        null
+      ],
+      "bodySha256": "104b8852fadd13c4d8906bd73da1bc4a9bc415fc104527b06dbe28df77b4d8f4",
+      "assertions": [
+        {
+          "line": 264,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')",
+          "assertionSha256": "37d8b585767020c83a35e8a7181dfe5fd47ec622032e68a08abd25b58e17aa01"
+        },
+        {
+          "line": 265,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).toBe(null)",
+          "assertionSha256": "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353"
+        },
+        {
+          "line": 269,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'true')",
+          "assertionSha256": "53b65fa0d09f2a83d4de2d43a2007d61a4cdb247dd2c2f3c7be6954366ca31a9"
+        },
+        {
+          "line": 270,
+          "text": "expect(trigger).toHaveAttribute('data-panel-open')",
+          "assertionSha256": "c488a124c95f4f7e6bd65787ec39813cee2ffb8fadabfcea177db9a8dd6faa0a"
+        },
+        {
+          "line": 271,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).not.toBe(null)",
+          "assertionSha256": "8035069744437763bd6445034f79be4b4af3d47cf897543548f8c0c50f4186c0"
+        },
+        {
+          "line": 272,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).toBeVisible()",
+          "assertionSha256": "7c556f989502e6459d4a94461295f17a26490e82be57ebcf7f1ca09ff0833c51"
+        },
+        {
+          "line": 273,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).toHaveAttribute('data-open')",
+          "assertionSha256": "64f535f43de26d77f1b20467ccf982cf1e406183924410331e4199233e7373be"
+        },
+        {
+          "line": 277,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')",
+          "assertionSha256": "37d8b585767020c83a35e8a7181dfe5fd47ec622032e68a08abd25b58e17aa01"
+        },
+        {
+          "line": 278,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).toBe(null)",
+          "assertionSha256": "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:282",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 282,
+      "title": "custom item value",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "a3c1b6bcbf64d848e2c3c06791bd4a63db4ac9ecf98d6747cfc0ea8effecd381",
+      "assertions": [
+        {
+          "line": 300,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).not.toBe(null)",
+          "assertionSha256": "8035069744437763bd6445034f79be4b4af3d47cf897543548f8c0c50f4186c0"
+        },
+        {
+          "line": 301,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).toBeVisible()",
+          "assertionSha256": "7c556f989502e6459d4a94461295f17a26490e82be57ebcf7f1ca09ff0833c51"
+        },
+        {
+          "line": 302,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).toHaveAttribute('data-open')",
+          "assertionSha256": "64f535f43de26d77f1b20467ccf982cf1e406183924410331e4199233e7373be"
+        },
+        {
+          "line": 304,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_2)).toBe(null)",
+          "assertionSha256": "9167d40cf1203b394442fae43f42eaee9589ce42d14bc597d63c326b1453e3f3"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:310",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 310,
+      "title": "open state",
+      "expression": "it.skipIf(isJSDOM)",
+      "variants": [
+        null
+      ],
+      "bodySha256": "edc0c0d5392df72b1b7512c7be0356cd00611cf8fe42b04a230a768ba8d86ad6",
+      "assertions": [
+        {
+          "line": 324,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')",
+          "assertionSha256": "37d8b585767020c83a35e8a7181dfe5fd47ec622032e68a08abd25b58e17aa01"
+        },
+        {
+          "line": 325,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).toBe(null)",
+          "assertionSha256": "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353"
+        },
+        {
+          "line": 329,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'true')",
+          "assertionSha256": "53b65fa0d09f2a83d4de2d43a2007d61a4cdb247dd2c2f3c7be6954366ca31a9"
+        },
+        {
+          "line": 330,
+          "text": "expect(trigger).toHaveAttribute('data-panel-open')",
+          "assertionSha256": "c488a124c95f4f7e6bd65787ec39813cee2ffb8fadabfcea177db9a8dd6faa0a"
+        },
+        {
+          "line": 331,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).not.toBe(null)",
+          "assertionSha256": "8035069744437763bd6445034f79be4b4af3d47cf897543548f8c0c50f4186c0"
+        },
+        {
+          "line": 332,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).toBeVisible()",
+          "assertionSha256": "7c556f989502e6459d4a94461295f17a26490e82be57ebcf7f1ca09ff0833c51"
+        },
+        {
+          "line": 333,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).toHaveAttribute('data-open')",
+          "assertionSha256": "64f535f43de26d77f1b20467ccf982cf1e406183924410331e4199233e7373be"
+        },
+        {
+          "line": 337,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')",
+          "assertionSha256": "37d8b585767020c83a35e8a7181dfe5fd47ec622032e68a08abd25b58e17aa01"
+        },
+        {
+          "line": 338,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).toBe(null)",
+          "assertionSha256": "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:342",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 342,
+      "title": "custom item value",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "ab5c19bac2faa2c7b0e12692440b121af027e39bd24aa7c5c664cf239e6307dc",
+      "assertions": [
+        {
+          "line": 360,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).not.toBe(null)",
+          "assertionSha256": "8035069744437763bd6445034f79be4b4af3d47cf897543548f8c0c50f4186c0"
+        },
+        {
+          "line": 361,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).toBeVisible()",
+          "assertionSha256": "7c556f989502e6459d4a94461295f17a26490e82be57ebcf7f1ca09ff0833c51"
+        },
+        {
+          "line": 362,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).toHaveAttribute('data-open')",
+          "assertionSha256": "64f535f43de26d77f1b20467ccf982cf1e406183924410331e4199233e7373be"
+        },
+        {
+          "line": 364,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_2)).toBe(null)",
+          "assertionSha256": "9167d40cf1203b394442fae43f42eaee9589ce42d14bc597d63c326b1453e3f3"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:370",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 370,
+      "title": "can disable the whole accordion",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "ce24fdba5434b887637ee8a3d0fa4c3ab230c8f0aaf470f9ac40773f6b889069",
+      "assertions": [
+        {
+          "line": 395,
+          "text": "expect(element).toHaveAttribute('data-disabled')",
+          "assertionSha256": "be1baace25f50e046641bbf8a551a22836e99888b69f45f501d18a0b0effd81c"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:399",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 399,
+      "title": "can disable one accordion item",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "b8d6881b578d2988cdd885f952ddf982dbf5784f3c0afbd0747e67eaa271d8bb",
+      "assertions": [
+        {
+          "line": 424,
+          "text": "expect(element).toHaveAttribute('data-disabled')",
+          "assertionSha256": "be1baace25f50e046641bbf8a551a22836e99888b69f45f501d18a0b0effd81c"
+        },
+        {
+          "line": 427,
+          "text": "expect(element).not.toHaveAttribute('data-disabled')",
+          "assertionSha256": "8a3facaf9a618827f187005c2256250c9714c6329c1ed54f05bb6f5391a6c0f0"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:473",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 473,
+      "title": "allows onMouseUp to call preventBaseUIHandler on the trigger",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "1f627242f38c64c85c69c5991fa8d61fed5cfb422ab36a79ce1b5b11c62a9b7c",
+      "assertions": [
+        {
+          "line": 489,
+          "text": "expect(() => fireEvent.mouseUp(trigger)).not.toThrow()",
+          "assertionSha256": "94c60929429ff291b616bf66c2097e7c6a8ed9323c618c1178f209fcc13a6083"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:496",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 496,
+      "title": "`key: ${key} toggles the Accordion open state`",
+      "expression": "it",
+      "variants": [
+        {
+          "nativeButton": true,
+          "key": "Enter"
+        },
+        {
+          "nativeButton": true,
+          "key": "Space"
+        },
+        {
+          "nativeButton": false,
+          "key": "Enter"
+        },
+        {
+          "nativeButton": false,
+          "key": "Space"
+        }
+      ],
+      "bodySha256": "ea1dd71b61bf4c50c9e3b93e16113dff1c323f823493efdf7ab6b2312127e9da",
+      "assertions": [
+        {
+          "line": 515,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')",
+          "assertionSha256": "37d8b585767020c83a35e8a7181dfe5fd47ec622032e68a08abd25b58e17aa01"
+        },
+        {
+          "line": 517,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).toBe(null)",
+          "assertionSha256": "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353"
+        },
+        {
+          "line": 520,
+          "text": "expect(trigger).toHaveFocus()",
+          "assertionSha256": "57268a10f67193cb78400450bde4f96d4de53a2195a1fe83f436dd145808d123"
+        },
+        {
+          "line": 523,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'true')",
+          "assertionSha256": "53b65fa0d09f2a83d4de2d43a2007d61a4cdb247dd2c2f3c7be6954366ca31a9"
+        },
+        {
+          "line": 524,
+          "text": "expect(trigger).toHaveAttribute('data-panel-open')",
+          "assertionSha256": "c488a124c95f4f7e6bd65787ec39813cee2ffb8fadabfcea177db9a8dd6faa0a"
+        },
+        {
+          "line": 525,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).not.toBe(null)",
+          "assertionSha256": "8035069744437763bd6445034f79be4b4af3d47cf897543548f8c0c50f4186c0"
+        },
+        {
+          "line": 526,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).toBeVisible()",
+          "assertionSha256": "7c556f989502e6459d4a94461295f17a26490e82be57ebcf7f1ca09ff0833c51"
+        },
+        {
+          "line": 527,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).toHaveAttribute('data-open')",
+          "assertionSha256": "64f535f43de26d77f1b20467ccf982cf1e406183924410331e4199233e7373be"
+        },
+        {
+          "line": 531,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')",
+          "assertionSha256": "37d8b585767020c83a35e8a7181dfe5fd47ec622032e68a08abd25b58e17aa01"
+        },
+        {
+          "line": 532,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).toBe(null)",
+          "assertionSha256": "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:541",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 541,
+      "title": "`opens and closes on Space keyup when rendering ${\n        isNativeButton ? 'interactive' : 'non-interactive'\n      } triggers`",
+      "expression": "it",
+      "variants": [
+        {
+          "nativeButton": true
+        },
+        {
+          "nativeButton": false
+        }
+      ],
+      "bodySha256": "4be976f4230c3d0692fd782c6fc985dac9aadddc8b4efbebe5b196d282df6b3f",
+      "assertions": [
+        {
+          "line": 565,
+          "text": "expect(trigger).toHaveFocus()",
+          "assertionSha256": "57268a10f67193cb78400450bde4f96d4de53a2195a1fe83f436dd145808d123"
+        },
+        {
+          "line": 568,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')",
+          "assertionSha256": "37d8b585767020c83a35e8a7181dfe5fd47ec622032e68a08abd25b58e17aa01"
+        },
+        {
+          "line": 569,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).not.toBeInTheDocument()",
+          "assertionSha256": "f4f7879f3253dc74466201f8bd5663d2f807a3fa9c57d93c855616eaf4670569"
+        },
+        {
+          "line": 570,
+          "text": "expect(onOpenChange).not.toHaveBeenCalled()",
+          "assertionSha256": "a869a91ccc157261e233014a01fc0d6e858e6f060c9bde5b2a9bf2a427ea8683"
+        },
+        {
+          "line": 573,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'true')",
+          "assertionSha256": "53b65fa0d09f2a83d4de2d43a2007d61a4cdb247dd2c2f3c7be6954366ca31a9"
+        },
+        {
+          "line": 574,
+          "text": "expect(screen.getByText(PANEL_CONTENT_1)).toBeInTheDocument()",
+          "assertionSha256": "190a4310eb739b425fba3a502791944c947702db928b67126f6beea9adee4a5e"
+        },
+        {
+          "line": 575,
+          "text": "expect(onOpenChange).toHaveBeenCalledTimes(1)",
+          "assertionSha256": "d01af1eed3e01eb0a8e37b8477b1791c08fc54ccf2cce37504fb71b921147838"
+        },
+        {
+          "line": 576,
+          "text": "expect(onOpenChange).toHaveBeenLastCalledWith(true, expect.anything())",
+          "assertionSha256": "030ea1b4d7e98278efee655eea63f90d33dce69831af6037f8546c41c988670f"
+        },
+        {
+          "line": 579,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'true')",
+          "assertionSha256": "53b65fa0d09f2a83d4de2d43a2007d61a4cdb247dd2c2f3c7be6954366ca31a9"
+        },
+        {
+          "line": 580,
+          "text": "expect(screen.getByText(PANEL_CONTENT_1)).toBeInTheDocument()",
+          "assertionSha256": "190a4310eb739b425fba3a502791944c947702db928b67126f6beea9adee4a5e"
+        },
+        {
+          "line": 581,
+          "text": "expect(onOpenChange).toHaveBeenCalledTimes(1)",
+          "assertionSha256": "d01af1eed3e01eb0a8e37b8477b1791c08fc54ccf2cce37504fb71b921147838"
+        },
+        {
+          "line": 584,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')",
+          "assertionSha256": "37d8b585767020c83a35e8a7181dfe5fd47ec622032e68a08abd25b58e17aa01"
+        },
+        {
+          "line": 585,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).not.toBeInTheDocument()",
+          "assertionSha256": "f4f7879f3253dc74466201f8bd5663d2f807a3fa9c57d93c855616eaf4670569"
+        },
+        {
+          "line": 586,
+          "text": "expect(onOpenChange).toHaveBeenCalledTimes(2)",
+          "assertionSha256": "0df430701c59b82e8c969fc8fd09bf8827c3501c4e42c607885e654b2e89b22c"
+        },
+        {
+          "line": 587,
+          "text": "expect(onOpenChange).toHaveBeenLastCalledWith(false, expect.anything())",
+          "assertionSha256": "392811b5a9c6b80f21f3ab62bbaad4e8cf7bba5822ceb098ee9456e14819d237"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:593",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 593,
+      "title": "onOpenChange cancel() prevents opening while uncontrolled",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "3e7d3ccb27e8415323f6558e56a22d83cb053b94aa2b01eed4697d0711314bf8",
+      "assertions": [
+        {
+          "line": 618,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')",
+          "assertionSha256": "37d8b585767020c83a35e8a7181dfe5fd47ec622032e68a08abd25b58e17aa01"
+        },
+        {
+          "line": 619,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).toBe(null)",
+          "assertionSha256": "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353"
+        },
+        {
+          "line": 620,
+          "text": "expect(onValueChange.mock.calls.length).toBe(0)",
+          "assertionSha256": "d2ba540b0ad7619fbad221e4ec5fa4937395919af87cbba3acdbe41b4b9f9d8e"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:623",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 623,
+      "title": "onValueChange cancel() prevents opening while uncontrolled",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "e4b94e26054d2ae7cf145a167af80b3c0e4f34dbc51320e413e28eb6d60f080d",
+      "assertions": [
+        {
+          "line": 643,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')",
+          "assertionSha256": "37d8b585767020c83a35e8a7181dfe5fd47ec622032e68a08abd25b58e17aa01"
+        },
+        {
+          "line": 644,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).toBe(null)",
+          "assertionSha256": "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353"
+        },
+        {
+          "line": 645,
+          "text": "expect(onValueChange.mock.calls.length).toBe(1)",
+          "assertionSha256": "475028da51ef3e4134da5be18a73250ae04274165abf3125123b252548774502"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:648",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 648,
+      "title": "onValueChange cancel() prevents closing while uncontrolled",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "7194772445d07569f058a207adab8aea355d5f59c4e841ff5dd02dba296f68e8",
+      "assertions": [
+        {
+          "line": 668,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'true')",
+          "assertionSha256": "53b65fa0d09f2a83d4de2d43a2007d61a4cdb247dd2c2f3c7be6954366ca31a9"
+        },
+        {
+          "line": 669,
+          "text": "expect(screen.getByText(PANEL_CONTENT_1)).toHaveAttribute('data-open')",
+          "assertionSha256": "17a75cec9de6b9334550a3ee31ba954f656dd528fe3d2968a64798102f003243"
+        },
+        {
+          "line": 670,
+          "text": "expect(onValueChange).toHaveBeenCalledOnce()",
+          "assertionSha256": "7ea31f4da79dc53455a179caa280293536f325cd6659436ae16c28f20ee32f1b"
+        },
+        {
+          "line": 671,
+          "text": "expect(onValueChange.mock.lastCall?.[0]).toEqual([])",
+          "assertionSha256": "189099ac08f8a437971fdf7ddd8302139d9bdc6c7493e841d8ffc0b65140b176"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:674",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 674,
+      "title": "onOpenChange cancel() prevents onValueChange while controlled",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "232645656560ae6d00424478c37459abab26e625458adafc44044d6aaa47b7e6",
+      "assertions": [
+        {
+          "line": 699,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')",
+          "assertionSha256": "37d8b585767020c83a35e8a7181dfe5fd47ec622032e68a08abd25b58e17aa01"
+        },
+        {
+          "line": 700,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).toBe(null)",
+          "assertionSha256": "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353"
+        },
+        {
+          "line": 701,
+          "text": "expect(onValueChange.mock.calls.length).toBe(0)",
+          "assertionSha256": "d2ba540b0ad7619fbad221e4ec5fa4937395919af87cbba3acdbe41b4b9f9d8e"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:704",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 704,
+      "title": "onValueChange cancel() prevents opening while controlled",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "ce76cc6a5479109cf71acd4685b93bfe011fad51ed48a7535b25de7940080c86",
+      "assertions": [
+        {
+          "line": 737,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')",
+          "assertionSha256": "37d8b585767020c83a35e8a7181dfe5fd47ec622032e68a08abd25b58e17aa01"
+        },
+        {
+          "line": 738,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).toBe(null)",
+          "assertionSha256": "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353"
+        },
+        {
+          "line": 739,
+          "text": "expect(onValueChange.mock.calls.length).toBe(1)",
+          "assertionSha256": "475028da51ef3e4134da5be18a73250ae04274165abf3125123b252548774502"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:742",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 742,
+      "title": "onValueChange cancel() prevents opening while multiple",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "8afcb8319b97db9f031c5f12014560747959a875194b544bae24d5b26c6643a9",
+      "assertions": [
+        {
+          "line": 762,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')",
+          "assertionSha256": "37d8b585767020c83a35e8a7181dfe5fd47ec622032e68a08abd25b58e17aa01"
+        },
+        {
+          "line": 763,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).toBe(null)",
+          "assertionSha256": "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353"
+        },
+        {
+          "line": 764,
+          "text": "expect(onValueChange.mock.calls.length).toBe(1)",
+          "assertionSha256": "475028da51ef3e4134da5be18a73250ae04274165abf3125123b252548774502"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:767",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 767,
+      "title": "onValueChange cancel() prevents closing while multiple",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "f60d1ef5f4d1d12c02d9907063a528e93f6858411f42f71cd43c95c33f44a0fb",
+      "assertions": [
+        {
+          "line": 787,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'true')",
+          "assertionSha256": "53b65fa0d09f2a83d4de2d43a2007d61a4cdb247dd2c2f3c7be6954366ca31a9"
+        },
+        {
+          "line": 788,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).not.toBe(null)",
+          "assertionSha256": "8035069744437763bd6445034f79be4b4af3d47cf897543548f8c0c50f4186c0"
+        },
+        {
+          "line": 789,
+          "text": "expect(onValueChange.mock.calls.length).toBe(1)",
+          "assertionSha256": "475028da51ef3e4134da5be18a73250ae04274165abf3125123b252548774502"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:794",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 794,
+      "title": "multiple items can be open when `multiple = true`",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "b12bbbbfc45a8cd3a2554dae987290ab1bf89c244b816e1a96f9fca8b13a87fc",
+      "assertions": [
+        {
+          "line": 814,
+          "text": "expect(trigger1).not.toHaveAttribute('data-panel-open')",
+          "assertionSha256": "be170522c32519d6bb0a0851a21561cd20a248a1726dc8b61b7b5cf193ed22f2"
+        },
+        {
+          "line": 815,
+          "text": "expect(trigger2).not.toHaveAttribute('data-panel-open')",
+          "assertionSha256": "efd58d73c313f900d9e96d91cc9c58d0f12faaef24a8ac61d050f33b0186b3e2"
+        },
+        {
+          "line": 816,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).toBe(null)",
+          "assertionSha256": "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353"
+        },
+        {
+          "line": 817,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_2)).toBe(null)",
+          "assertionSha256": "9167d40cf1203b394442fae43f42eaee9589ce42d14bc597d63c326b1453e3f3"
+        },
+        {
+          "line": 822,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).toHaveAttribute('data-open')",
+          "assertionSha256": "64f535f43de26d77f1b20467ccf982cf1e406183924410331e4199233e7373be"
+        },
+        {
+          "line": 823,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_2)).toHaveAttribute('data-open')",
+          "assertionSha256": "dc0e8c7ca0911a28f92f8cb8356dc2b03fe364a891aab754d73b22b7c6a568c5"
+        },
+        {
+          "line": 824,
+          "text": "expect(trigger1).toHaveAttribute('data-panel-open')",
+          "assertionSha256": "90c6d48d3c3e09eaf3371ad6d4c9a8e14a227275570f2735e4d6b9f903b28849"
+        },
+        {
+          "line": 825,
+          "text": "expect(trigger2).toHaveAttribute('data-panel-open')",
+          "assertionSha256": "eca160f347784cafacd0d7d6648b7bd2d15ab4e38d1f6629c6e5cfc6dbede886"
+        },
+        {
+          "line": 829,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).toBe(null)",
+          "assertionSha256": "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353"
+        },
+        {
+          "line": 830,
+          "text": "expect(screen.getByText(PANEL_CONTENT_2)).toHaveAttribute('data-open')",
+          "assertionSha256": "7abcce589ad0ae1d1c5867b73bfe08e931522407a561430edbdab00cf86c4a33"
+        },
+        {
+          "line": 831,
+          "text": "expect(trigger1).not.toHaveAttribute('data-panel-open')",
+          "assertionSha256": "be170522c32519d6bb0a0851a21561cd20a248a1726dc8b61b7b5cf193ed22f2"
+        },
+        {
+          "line": 832,
+          "text": "expect(trigger2).toHaveAttribute('data-panel-open')",
+          "assertionSha256": "eca160f347784cafacd0d7d6648b7bd2d15ab4e38d1f6629c6e5cfc6dbede886"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:835",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 835,
+      "title": "when false only one item can be open",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "d3be16f3129d2d01b2c33fa960793c1268117321dfda61d7ab3f6756ab57f33e",
+      "assertions": [
+        {
+          "line": 855,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).toBe(null)",
+          "assertionSha256": "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353"
+        },
+        {
+          "line": 856,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_2)).toBe(null)",
+          "assertionSha256": "9167d40cf1203b394442fae43f42eaee9589ce42d14bc597d63c326b1453e3f3"
+        },
+        {
+          "line": 857,
+          "text": "expect(trigger1).not.toHaveAttribute('data-panel-open')",
+          "assertionSha256": "be170522c32519d6bb0a0851a21561cd20a248a1726dc8b61b7b5cf193ed22f2"
+        },
+        {
+          "line": 858,
+          "text": "expect(trigger2).not.toHaveAttribute('data-panel-open')",
+          "assertionSha256": "efd58d73c313f900d9e96d91cc9c58d0f12faaef24a8ac61d050f33b0186b3e2"
+        },
+        {
+          "line": 862,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).toHaveAttribute('data-open')",
+          "assertionSha256": "64f535f43de26d77f1b20467ccf982cf1e406183924410331e4199233e7373be"
+        },
+        {
+          "line": 863,
+          "text": "expect(trigger1).toHaveAttribute('data-panel-open')",
+          "assertionSha256": "90c6d48d3c3e09eaf3371ad6d4c9a8e14a227275570f2735e4d6b9f903b28849"
+        },
+        {
+          "line": 867,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_2)).toHaveAttribute('data-open')",
+          "assertionSha256": "dc0e8c7ca0911a28f92f8cb8356dc2b03fe364a891aab754d73b22b7c6a568c5"
+        },
+        {
+          "line": 868,
+          "text": "expect(trigger2).toHaveAttribute('data-panel-open')",
+          "assertionSha256": "eca160f347784cafacd0d7d6648b7bd2d15ab4e38d1f6629c6e5cfc6dbede886"
+        },
+        {
+          "line": 869,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).toBe(null)",
+          "assertionSha256": "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353"
+        },
+        {
+          "line": 870,
+          "text": "expect(trigger1).not.toHaveAttribute('data-panel-open')",
+          "assertionSha256": "be170522c32519d6bb0a0851a21561cd20a248a1726dc8b61b7b5cf193ed22f2"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:875",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 875,
+      "title": "default item value",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "75ff6383b467f583f5200c5fd9e0af8843bf09099d11d924a6c523537054ebb1",
+      "assertions": [
+        {
+          "line": 897,
+          "text": "expect(onValueChange.mock.calls.length).toBe(0)",
+          "assertionSha256": "d2ba540b0ad7619fbad221e4ec5fa4937395919af87cbba3acdbe41b4b9f9d8e"
+        },
+        {
+          "line": 901,
+          "text": "expect(onValueChange.mock.calls.length).toBe(1)",
+          "assertionSha256": "475028da51ef3e4134da5be18a73250ae04274165abf3125123b252548774502"
+        },
+        {
+          "line": 902,
+          "text": "expect(onValueChange.mock.lastCall?.[0]).toEqual([0])",
+          "assertionSha256": "334b104df9036da7407b130a628d8661a050f17a0de712c4a9337d2592d6f76c"
+        },
+        {
+          "line": 903,
+          "text": "expect(onValueChange.mock.lastCall?.[1].reason).toBe(REASONS.triggerPress)",
+          "assertionSha256": "8c879d958ec3fbbab53a0ea15249359d681a9239fcff9d9dd211263fcc8599ae"
+        },
+        {
+          "line": 904,
+          "text": "expect(onValueChange.mock.lastCall?.[1].event.type).not.toBe('base-ui')",
+          "assertionSha256": "7f23e140fcc4282eecabf9f9b0f60c8fcdd8e6e90bac32c01045c0ed42ac920a"
+        },
+        {
+          "line": 909,
+          "text": "expect(onValueChange.mock.calls.length).toBe(2)",
+          "assertionSha256": "e22ee5638d682d2c358c739b1a110e8ac416d98e3eaf9bfa152ebeb7b875362a"
+        },
+        {
+          "line": 910,
+          "text": "expect(onValueChange.mock.lastCall?.[0]).toEqual([0, 1])",
+          "assertionSha256": "6073f5d20fee011a0e144652f51a7672a9336ad2f5140e27bb1b21c98db50f85"
+        },
+        {
+          "line": 911,
+          "text": "expect(onValueChange.mock.lastCall?.[1].reason).toBe(REASONS.triggerPress)",
+          "assertionSha256": "8c879d958ec3fbbab53a0ea15249359d681a9239fcff9d9dd211263fcc8599ae"
+        },
+        {
+          "line": 912,
+          "text": "expect(onValueChange.mock.lastCall?.[1].event.type).not.toBe('base-ui')",
+          "assertionSha256": "7f23e140fcc4282eecabf9f9b0f60c8fcdd8e6e90bac32c01045c0ed42ac920a"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:915",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 915,
+      "title": "custom item value",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "0a7dee525baad0b0847f90b0b7e526b6f75d0cf498a54bc92f54fb85db99a4e4",
+      "assertions": [
+        {
+          "line": 937,
+          "text": "expect(onValueChange.mock.calls.length).toBe(0)",
+          "assertionSha256": "d2ba540b0ad7619fbad221e4ec5fa4937395919af87cbba3acdbe41b4b9f9d8e"
+        },
+        {
+          "line": 941,
+          "text": "expect(onValueChange.mock.calls.length).toBe(1)",
+          "assertionSha256": "475028da51ef3e4134da5be18a73250ae04274165abf3125123b252548774502"
+        },
+        {
+          "line": 942,
+          "text": "expect(onValueChange.mock.calls[0][0]).toEqual(['two'])",
+          "assertionSha256": "1570580266912010c179c1484b2246fe18dfe45da8c2d1d020a5a4a22466fe59"
+        },
+        {
+          "line": 946,
+          "text": "expect(onValueChange.mock.calls.length).toBe(2)",
+          "assertionSha256": "e22ee5638d682d2c358c739b1a110e8ac416d98e3eaf9bfa152ebeb7b875362a"
+        },
+        {
+          "line": 947,
+          "text": "expect(onValueChange.mock.calls[1][0]).toEqual(['two', 'one'])",
+          "assertionSha256": "93eff3c3b558199252794780ad409347e0687eea612f4159561195231ccb9cc0"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:950",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 950,
+      "title": "`multiple` is false",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "df76a6d99704dc0cd8d2478aa4a7b9ebb4a3ab7620645e281454be7f034a85da",
+      "assertions": [
+        {
+          "line": 972,
+          "text": "expect(onValueChange.mock.calls.length).toBe(0)",
+          "assertionSha256": "d2ba540b0ad7619fbad221e4ec5fa4937395919af87cbba3acdbe41b4b9f9d8e"
+        },
+        {
+          "line": 976,
+          "text": "expect(onValueChange.mock.calls.length).toBe(1)",
+          "assertionSha256": "475028da51ef3e4134da5be18a73250ae04274165abf3125123b252548774502"
+        },
+        {
+          "line": 977,
+          "text": "expect(onValueChange.mock.calls[0][0]).toEqual(['one'])",
+          "assertionSha256": "0154371f9121b5afef5213aac3a9d1fe1c6df60f8ac29cd243bc1ae7b714cbd5"
+        },
+        {
+          "line": 981,
+          "text": "expect(onValueChange.mock.calls.length).toBe(2)",
+          "assertionSha256": "e22ee5638d682d2c358c739b1a110e8ac416d98e3eaf9bfa152ebeb7b875362a"
+        },
+        {
+          "line": 982,
+          "text": "expect(onValueChange.mock.calls[1][0]).toEqual(['two'])",
+          "assertionSha256": "9350ce1eb007d41b805086a36ee5f533d8245279c472b4e5b5d979e8728f66c0"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/item/AccordionItem.test.tsx:9",
+      "source": "packages/react/src/accordion/item/AccordionItem.test.tsx",
+      "line": 9,
+      "title": "throws when rendered outside an Accordion.Root",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "d13ed5c7a31482d920010501448e2c848ec79323c4b3fb7dacb235c60a92926d",
+      "assertions": [
+        {
+          "line": 13,
+          "text": "expect(render(<Accordion.Item />)).rejects.toThrow(\n        'Base UI: AccordionRootContext is missing. Accordion parts must be placed within <Accordion.Root>.',\n      )",
+          "assertionSha256": "1d677a2d85118e7160686d89a9fa49d57f7a3cb001297fee29c4f3d5e5090b1e"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/item/AccordionItem.test.tsx:29",
+      "source": "packages/react/src/accordion/item/AccordionItem.test.tsx",
+      "line": 29,
+      "title": "does not report hidden=true after the item has started opening",
+      "expression": "it.skipIf(isJSDOM)",
+      "variants": [
+        null
+      ],
+      "bodySha256": "619d5de1f08dfac469ce20c64275e1d082038b05db52c9eb42493ca454ae7e4b",
+      "assertions": [
+        {
+          "line": 51,
+          "text": "expect(\n          renderSpy.mock.calls.some(([state]) => state.open === true && state.hidden === true),\n        ).toBe(false)",
+          "assertionSha256": "7f0971b7d4acd0c0f254acbec4ec670c782412fa6db01a0bde03fea0a682746c"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/header/AccordionHeader.test.tsx:8",
+      "source": "packages/react/src/accordion/header/AccordionHeader.test.tsx",
+      "line": 8,
+      "title": "throws when rendered outside an Accordion.Item",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "e1bff7df7d09822fc262a93371dd1af5c8da6352090edeb07e5d3076e4070a2b",
+      "assertions": [
+        {
+          "line": 12,
+          "text": "expect(render(<Accordion.Header />)).rejects.toThrow(\n        'Base UI: AccordionItemContext is missing. Accordion parts must be placed within <Accordion.Item>.',\n      )",
+          "assertionSha256": "3cdd65e920e1e8a61ebaa62c352982df7f1af0d11264aeaf88dd1a7ad1397ecc"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/trigger/AccordionTrigger.test.tsx:21",
+      "source": "packages/react/src/accordion/trigger/AccordionTrigger.test.tsx",
+      "line": 21,
+      "title": "keeps a non-native trigger tabbable",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "e9c6229411a02d82fd713691fc7d9b047f74246cc16ae811f6622bcd2c115fcb",
+      "assertions": [
+        {
+          "line": 36,
+          "text": "expect(trigger).toHaveAttribute('tabindex', '0')",
+          "assertionSha256": "35586c8aee8d105eea5b1a91fa351aca1ceaf2f1e46534335d538c8fc58c22ed"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/panel/AccordionPanel.test.tsx:31",
+      "source": "packages/react/src/accordion/panel/AccordionPanel.test.tsx",
+      "line": 31,
+      "title": "warns when a panel enables hiddenUntilFound and disables keepMounted",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "de27a150784f2eeb788d8af2f8982005e5a1df7a44070958cdb4d75b314e2d21",
+      "assertions": [
+        {
+          "line": 45,
+          "text": "expect(warnSpy).toHaveBeenCalledWith(\n        'Base UI: The `keepMounted={false}` prop on an `Accordion.Panel` is ignored when `hiddenUntilFound` is enabled on the panel or root, since the panel must remain mounted while closed.',\n      )",
+          "assertionSha256": "5837c43dfd7010215e98cc17fd5a387bd94333d237d9543c5b8314b9469eafda"
+        },
+        {
+          "line": 48,
+          "text": "expect(screen.getByText(PANEL_CONTENT).getAttribute('hidden')).toBe('until-found')",
+          "assertionSha256": "5adba87840dd53a1188a444582ccf66d46b036d0caa82082a580d5d74926c6fa"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/panel/AccordionPanel.test.tsx:55",
+      "source": "packages/react/src/accordion/panel/AccordionPanel.test.tsx",
+      "line": 55,
+      "title": "suppresses the initial keyframe animation from inline styles when rendered open",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "995e7b4d7605b2c999f922b54864a7db00a6eded73e0e61ab959b3f05ca6b2a7",
+      "assertions": [
+        {
+          "line": 92,
+          "text": "expect(panel.style.animationName).toBe('none')",
+          "assertionSha256": "9553c37a6cfc5c04b65d8a442b8a3ee773a01e88b39f376f0706200d5e43fd46"
+        },
+        {
+          "line": 93,
+          "text": "expect(panel.style.animationDuration).toBe('100ms')",
+          "assertionSha256": "48660ffc81e1a2e2639e28fc24dccf9fcc6bd30d43a1fbcf353fbb93a260769e"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/panel/AccordionPanel.test.tsx:97",
+      "source": "packages/react/src/accordion/panel/AccordionPanel.test.tsx",
+      "line": 97,
+      "title": "passes root keepMounted to closed panels",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "2543c6512cfb23fc75fe13ca01927398af66c8d2e6215d364809c9352d3f4c4a",
+      "assertions": [
+        {
+          "line": 109,
+          "text": "expect(screen.getByText(PANEL_CONTENT)).toHaveAttribute('hidden')",
+          "assertionSha256": "b6ca3402cb1ef4a859599b75210828df77cbab40baf82430c677205bd98f851d"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/panel/AccordionPanel.test.tsx:112",
+      "source": "packages/react/src/accordion/panel/AccordionPanel.test.tsx",
+      "line": 112,
+      "title": "passes root hiddenUntilFound to closed panels and allows panel overrides",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "a917685e325ca5231ff6d805f683b0089d13ec230fa9a24bc02ee95502801be5",
+      "assertions": [
+        {
+          "line": 132,
+          "text": "expect(screen.getByText(PANEL_CONTENT).getAttribute('hidden')).toBe('until-found')",
+          "assertionSha256": "5adba87840dd53a1188a444582ccf66d46b036d0caa82082a580d5d74926c6fa"
+        },
+        {
+          "line": 133,
+          "text": "expect(screen.queryByText('Overridden panel')).toBe(null)",
+          "assertionSha256": "5304e5a67571df591d8a8e7cbebe591e5938b77256a2f7265a198316c7492bf0"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/panel/AccordionPanel.test.tsx:137",
+      "source": "packages/react/src/accordion/panel/AccordionPanel.test.tsx",
+      "line": 137,
+      "title": "keeps the closing panel visible until its exit transition completes when switching items",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "7a96ab142f1a2a94f40db21eb8129ed964ae7d5e9e8961d3aec97517cd35015a",
+      "assertions": [
+        {
+          "line": 180,
+          "text": "expect(panel1).toHaveAttribute('data-open')",
+          "assertionSha256": "3c00461e6d5613f9cc0492ce4f2cb2341c8ab310adeb6178a63be338baf611dc"
+        },
+        {
+          "line": 181,
+          "text": "expect(panel1.style.getPropertyValue('--accordion-panel-height')).toBe('auto')",
+          "assertionSha256": "4692a33562769915ce411e0b84f6e570e1b35ffa5a69888e2bea4153a8e9ab2e"
+        },
+        {
+          "line": 187,
+          "text": "expect(panel1).toHaveAttribute('data-ending-style')",
+          "assertionSha256": "b6e4d0675a3de24f821d3074d6e696c413354eade852a0828901fe88855bbf6d"
+        },
+        {
+          "line": 188,
+          "text": "expect(panel1).not.toHaveAttribute('hidden')",
+          "assertionSha256": "144f7a778874f25dd2d1d4359c321d675fa74b74ae2665ffd15cbbf537051536"
+        },
+        {
+          "line": 189,
+          "text": "expect(panel1.style.getPropertyValue('--accordion-panel-height')).toMatch(/px$/)",
+          "assertionSha256": "2bea3aaf2e875bb9bf860f07d1333817ebeb887f1c1c92ed466522c1971296ca"
+        },
+        {
+          "line": 190,
+          "text": "expect(panel2).toHaveAttribute('data-open')",
+          "assertionSha256": "e93501b378a12ba992d7032bb1fcd340bfdb34fda833bf85d29b3a7217efabbd"
+        },
+        {
+          "line": 194,
+          "text": "expect(panel1).toHaveAttribute('hidden')",
+          "assertionSha256": "94fc67fed71e40c263544496ce1a4895ae3e9c3f05a2046d65a6bb2ab72edfa4"
+        },
+        {
+          "line": 195,
+          "text": "expect(panel2).not.toHaveAttribute('hidden')",
+          "assertionSha256": "38381cc5d1978cf9b4a3713234860db945161cf5cd732b26553b077677040bb4"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/accordion/panel/AccordionPanel.test.tsx:201",
+      "source": "packages/react/src/accordion/panel/AccordionPanel.test.tsx",
+      "line": 201,
+      "title": "does not replay open keyframe animations from inline styles when revealing a panel opened by the user",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "b8918241dc97a5043d2c210f3f1b02f79fa2f1773a09e9795d0165c189cbbee2",
+      "assertions": [
+        {
+          "line": 259,
+          "text": "expect(panel).toHaveAttribute('data-open')",
+          "assertionSha256": "af11c55d9df92d01393477af6ebd5ba5e313c16df6fa9c3dbe4601ba5bf5286b"
+        },
+        {
+          "line": 263,
+          "text": "expect(panel.getAnimations().length).toBe(0)",
+          "assertionSha256": "19d7e289050808432545168ae4f09aebf6587df990f0dc63b6e3a8a0515e7afd"
+        },
+        {
+          "line": 270,
+          "text": "expect(panel).toHaveAttribute('data-open')",
+          "assertionSha256": "af11c55d9df92d01393477af6ebd5ba5e313c16df6fa9c3dbe4601ba5bf5286b"
+        },
+        {
+          "line": 273,
+          "text": "expect(panel.getAnimations().length).toBe(0)",
+          "assertionSha256": "19d7e289050808432545168ae4f09aebf6587df990f0dc63b6e3a8a0515e7afd"
+        }
+      ],
+      "scope": "deferred-react-activity",
+      "status": "unported",
+      "port": null
+    }
+  ],
+  "parameterized": [
+    {
+      "id": "packages/react/src/accordion/root/AccordionRoot.test.tsx:431",
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 431,
+      "title": "does not toggle or fire callbacks when the %s is disabled",
+      "expression": "it.each(['root', 'item'] as const)",
+      "variants": [
+        "root",
+        "item"
+      ],
+      "bodySha256": "e68f71e7b58717e12cea9f475cbdc5f45b8066efcc09b7dcc04efa7942931097",
+      "assertions": [
+        {
+          "line": 465,
+          "text": "expect(trigger1).toHaveAttribute('aria-expanded', 'false')",
+          "assertionSha256": "68963f24be5d64b59b1b504a07da4e22a937cdf92a2f00976e30d05e1a92775f"
+        },
+        {
+          "line": 466,
+          "text": "expect(screen.queryByText(PANEL_CONTENT_1)).toBe(null)",
+          "assertionSha256": "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353"
+        },
+        {
+          "line": 467,
+          "text": "expect(onValueChange.mock.calls.length).toBe(0)",
+          "assertionSha256": "d2ba540b0ad7619fbad221e4ec5fa4937395919af87cbba3acdbe41b4b9f9d8e"
+        },
+        {
+          "line": 468,
+          "text": "expect(onOpenChange.mock.calls.length).toBe(0)",
+          "assertionSha256": "49b0705c62e52450bcc0769c47fb61ad50bf3d159243ba731a20b513705b7032"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    }
+  ],
+  "conformance": [
+    {
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 14,
+      "declarationSha256": "61ac3b569d6809eaef2d1d0e12134e66a62e4253a2142289e69cabc6edf0e29a"
+    },
+    {
+      "source": "packages/react/src/accordion/item/AccordionItem.test.tsx",
+      "line": 21,
+      "declarationSha256": "bb98255801dc6bb3142186e89e4bf7264f5f47f97e59cc3b295cffb94a5bab9d"
+    },
+    {
+      "source": "packages/react/src/accordion/header/AccordionHeader.test.tsx",
+      "line": 20,
+      "declarationSha256": "d00196f9f43ae0713a9b93b521a1250375b9752082174ba7e8a33a636b7ab353"
+    },
+    {
+      "source": "packages/react/src/accordion/trigger/AccordionTrigger.test.tsx",
+      "line": 9,
+      "declarationSha256": "b4b5016aa329b2d558ea0a6476c8bdbb4543b227134d8e07bee44a5f7479ffd5"
+    },
+    {
+      "source": "packages/react/src/accordion/panel/AccordionPanel.test.tsx",
+      "line": 21,
+      "declarationSha256": "da7355251f78f47b411c0cc17ee50b5c5a0730b70a6b0d10044610c9756a224b"
+    }
+  ],
+  "typeAssertions": [
+    {
+      "source": "packages/react/src/accordion/root/AccordionRoot.spec.tsx",
+      "line": 10,
+      "text": "expectType<string[], typeof value>(value)",
+      "assertionSha256": "c57c31a29c35718e6952ccc943e5d1802fe18fb03388d536f51b1d8d9c2dc95a"
+    },
+    {
+      "source": "packages/react/src/accordion/root/AccordionRoot.spec.tsx",
+      "line": 17,
+      "text": "expectType<number[], typeof value>(value)",
+      "assertionSha256": "ea8da8de7511484512be1983d184b1c57ecd08e4aedab38cb8b1c187821b5bbd"
+    },
+    {
+      "source": "packages/react/src/accordion/root/AccordionRoot.spec.tsx",
+      "line": 25,
+      "text": "expectType<('a' | 'b')[], typeof value>(value)",
+      "assertionSha256": "a16d9476f307c08dae239aa6d2443fb75527c72395ba5102eb2b241c838aff58"
+    },
+    {
+      "source": "packages/react/src/accordion/root/AccordionRoot.spec.tsx",
+      "line": 32,
+      "text": "expectType<(string | null)[], typeof value>(value)",
+      "assertionSha256": "a1704d8ade3e14a5efd9f385785b14102ed2202da8ab96ea2089f47fdde8fc22"
+    },
+    {
+      "source": "packages/react/src/accordion/root/AccordionRoot.spec.tsx",
+      "line": 39,
+      "text": "expectType<any[], typeof value>(value)",
+      "assertionSha256": "ce643574dd26e370ef23efd9cef75416d569ead080ca6a639fa4b34827e1cbf7"
+    },
+    {
+      "source": "packages/react/src/accordion/root/AccordionRoot.spec.tsx",
+      "line": 50,
+      "text": "expectType<'a'[], typeof value>(value)",
+      "assertionSha256": "1cc6eff76309283518560ca9760a31bdb85e8d5d9ebc1f1d86d4ba02c3fbccca"
+    },
+    {
+      "source": "packages/react/src/accordion/root/AccordionRoot.spec.tsx",
+      "line": 56,
+      "text": "expectType<any[], typeof value>(value)",
+      "assertionSha256": "ce643574dd26e370ef23efd9cef75416d569ead080ca6a639fa4b34827e1cbf7"
+    }
+  ],
+  "expectedErrors": [
+    {
+      "source": "packages/react/src/accordion/root/AccordionRoot.spec.tsx",
+      "line": 43,
+      "text": "// @ts-expect-error value must match explicit generic type",
+      "assertion": "<Accordion.Root<'a' | 'b'> value={['c']} />;"
+    }
+  ]
+}

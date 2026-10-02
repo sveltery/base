@@ -1,0 +1,1648 @@
+{
+  "upstream": {
+    "repository": "https://github.com/mui/base-ui",
+    "tag": "v1.8.0",
+    "commit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+    "license": "MIT"
+  },
+  "scope": "38 portable ordinary candidate sites / 42 variants; Panel:201 Activity deferred. One parameterized disabled declaration / two variants, five conformance calls and seven type assertions / one expected type error are separate and add zero ordinary credit. No paired browser execution or final-head acceptance is claimed.",
+  "ports": [
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:19",
+      "sourceTitle": "warns when hiddenUntilFound overrides keepMounted={false}",
+      "sourceBodySha256": "84e00d1e70c605c46e90601e5ffd8e9f2f56e3a0be5f5f3755a14a6a9923244b",
+      "assertionLines": [
+        31,
+        34
+      ],
+      "assertionSha256": [
+        "10b955d9c998bae59ee92bd473011057ddbf60bf9fd58ae7bb7dfe8fa3e56145",
+        "888828c2eb51f32e4381a0578c90a5fae5782d5125d324190de8165407ec8f68"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:19",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion.test.ts"
+      ],
+      "executions": [
+        "R:19 Svelte warns when hiddenUntilFound overrides keepMounted=false",
+        "R:19 React reference warns when hiddenUntilFound overrides keepMounted=false"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:41",
+      "sourceTitle": "renders correct ARIA attributes",
+      "sourceBodySha256": "de0c2d888d3b32992c3469a2fb342d7968d41e9fc614bc7b30ade41a3b2b524a",
+      "assertionLines": [
+        56,
+        57,
+        58,
+        59
+      ],
+      "assertionSha256": [
+        "35b994c97f690dc68a6157d1975792e0c0b2952ca9641dd49369933fd1e3f694",
+        "651d65916a43eb06d221f509f58a98ee24aa317bc832b4d5e5b651cd852c1607",
+        "0962e1d079e351c2973a8a675584964db6d582921aaab95336d3879e986c1888",
+        "e472c688aacaf70edb55a82b9b3be59b66efff867210ced4f845da4e091abe48"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:41",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion.test.ts"
+      ],
+      "executions": [
+        "R:41 Svelte renders correct ARIA attributes",
+        "R:41 React reference renders correct ARIA attributes"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:62",
+      "sourceTitle": "references manual panel id in trigger aria-controls",
+      "sourceBodySha256": "8730420584b13063c34a8829bb053717598670b2b8401830d7da15e5b1ba137d",
+      "assertionLines": [
+        77,
+        78
+      ],
+      "assertionSha256": [
+        "9fc16b4f84a1f4a0808d7593cd0d598cc08bf976068731c501cbb36373a357c6",
+        "ea5456b080349727e0b67a8d37c3bba65a133ff8852fddfe4fac5f18525eea96"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:62",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion.test.ts"
+      ],
+      "executions": [
+        "R:62 Svelte references manual panel id",
+        "R:62 React reference references manual panel id"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:81",
+      "sourceTitle": "references manual trigger id in panel aria-labelledby",
+      "sourceBodySha256": "d4c5d161909ec1cefd3ef756bf965c6a466f39c9e16ac17fd0ebd6ef1c8f34f0",
+      "assertionLines": [
+        95
+      ],
+      "assertionSha256": [
+        "0fc0e14b65229a8e8efd8b64e522a9db9d6a04c868a2f8fa87451f67bac7ffe9"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:81",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion.test.ts"
+      ],
+      "executions": [
+        "R:81 Svelte references manual trigger id",
+        "R:81 React reference references manual trigger id"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:98",
+      "sourceTitle": "updates panel labeling when a manual trigger id is added or changed",
+      "sourceBodySha256": "28d7caa12dff48a69664f2b325cdd223139982c652913807dea636fd695e5206",
+      "assertionLines": [
+        127,
+        128,
+        133,
+        134,
+        140,
+        141
+      ],
+      "assertionSha256": [
+        "5682290d55ccb42df811af018968860bb39f4b0fb0bf69d36f65dee3ad3b7e59",
+        "49b4a655489ad1dbbe76c63a45cc2890f22a6d56ac0091b056b9f6d133e932ee",
+        "d44a3692495e59096bc59f5b6318623ebdb7a8b405a8f5a6c9388246e08ea781",
+        "7420eccad50557dad5d90f56c1c78c51bbc571fd0382b0588f5375f123b4b04e",
+        "1a5bf206caa5540a64f16c0fdad35332badd29401061be62847de4bee58da013",
+        "3854009a417cf811f8c6f34478f9e692256c080d27fa2d3834897036972c73bc"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:98",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion.test.ts"
+      ],
+      "executions": [
+        "R:98 Svelte updates labeling when trigger id is added or changed",
+        "R:98 React reference updates labeling when trigger id is added or changed"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:145",
+      "sourceTitle": "restores panel labeling when a manual trigger id is removed",
+      "sourceBodySha256": "839bd32255c6d9ec18621a5d90c86257215b62accc0a029d142154c34c72aaf6",
+      "assertionLines": [
+        171,
+        176,
+        177,
+        178
+      ],
+      "assertionSha256": [
+        "0fc0e14b65229a8e8efd8b64e522a9db9d6a04c868a2f8fa87451f67bac7ffe9",
+        "5682290d55ccb42df811af018968860bb39f4b0fb0bf69d36f65dee3ad3b7e59",
+        "00677c97185b171348a3e89d3ca409580030e25c90b839b3d4e857a2c1a6bdcb",
+        "49b4a655489ad1dbbe76c63a45cc2890f22a6d56ac0091b056b9f6d133e932ee"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:145",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion.test.ts"
+      ],
+      "executions": [
+        "R:145 Svelte restores labeling when manual trigger id is removed",
+        "R:145 React reference restores labeling when manual trigger id is removed"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:182",
+      "sourceTitle": "unregisters generated part ids when the trigger or panel unmounts",
+      "sourceBodySha256": "ab97491f230f5cda7417eeb709b7c83d3f1ad2bc20aac51e14fabfa80d17c131",
+      "assertionLines": [
+        201,
+        206,
+        209,
+        216
+      ],
+      "assertionSha256": [
+        "229115395ffff20814265ad1c39629c821130af271a35b4eeb28fe15ea4bb62d",
+        "49b4a655489ad1dbbe76c63a45cc2890f22a6d56ac0091b056b9f6d133e932ee",
+        "f4e14d5421fac1da88c296ee4f1f597c1d4c02220777aca6960c55fdf956f566",
+        "b0689e0070ca85c35db22994a051fc2daf506fdf49f844c9e2b25d1a6f99278c"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:182",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion.test.ts"
+      ],
+      "executions": [
+        "R:182 Svelte unregisters generated part ids when parts unmount",
+        "R:182 React reference unregisters generated part ids when parts unmount"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:219",
+      "sourceTitle": "preserves generated part associations during hydration",
+      "sourceBodySha256": "0b38cf7ed22338af37f25dd0b5967ea959c2f29b3436ee282a6f4a232b1a19f7",
+      "assertionLines": [
+        233,
+        234,
+        241,
+        244
+      ],
+      "assertionSha256": [
+        "b0689e0070ca85c35db22994a051fc2daf506fdf49f844c9e2b25d1a6f99278c",
+        "49b4a655489ad1dbbe76c63a45cc2890f22a6d56ac0091b056b9f6d133e932ee",
+        "b0689e0070ca85c35db22994a051fc2daf506fdf49f844c9e2b25d1a6f99278c",
+        "49b4a655489ad1dbbe76c63a45cc2890f22a6d56ac0091b056b9f6d133e932ee"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:219",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [],
+      "executions": [
+        "R:219 Svelte preserves generated part associations during hydration",
+        "R:219 React reference preserves generated part associations during hydration"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:250",
+      "sourceTitle": "open state",
+      "sourceBodySha256": "104b8852fadd13c4d8906bd73da1bc4a9bc415fc104527b06dbe28df77b4d8f4",
+      "assertionLines": [
+        264,
+        265,
+        269,
+        270,
+        271,
+        272,
+        273,
+        277,
+        278
+      ],
+      "assertionSha256": [
+        "37d8b585767020c83a35e8a7181dfe5fd47ec622032e68a08abd25b58e17aa01",
+        "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353",
+        "53b65fa0d09f2a83d4de2d43a2007d61a4cdb247dd2c2f3c7be6954366ca31a9",
+        "c488a124c95f4f7e6bd65787ec39813cee2ffb8fadabfcea177db9a8dd6faa0a",
+        "8035069744437763bd6445034f79be4b4af3d47cf897543548f8c0c50f4186c0",
+        "7c556f989502e6459d4a94461295f17a26490e82be57ebcf7f1ca09ff0833c51",
+        "64f535f43de26d77f1b20467ccf982cf1e406183924410331e4199233e7373be",
+        "37d8b585767020c83a35e8a7181dfe5fd47ec622032e68a08abd25b58e17aa01",
+        "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:250",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [],
+      "executions": [
+        "R:250 Svelte uncontrolled open state",
+        "R:250 React reference uncontrolled open state"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:282",
+      "sourceTitle": "custom item value",
+      "sourceBodySha256": "a3c1b6bcbf64d848e2c3c06791bd4a63db4ac9ecf98d6747cfc0ea8effecd381",
+      "assertionLines": [
+        300,
+        301,
+        302,
+        304
+      ],
+      "assertionSha256": [
+        "8035069744437763bd6445034f79be4b4af3d47cf897543548f8c0c50f4186c0",
+        "7c556f989502e6459d4a94461295f17a26490e82be57ebcf7f1ca09ff0833c51",
+        "64f535f43de26d77f1b20467ccf982cf1e406183924410331e4199233e7373be",
+        "9167d40cf1203b394442fae43f42eaee9589ce42d14bc597d63c326b1453e3f3"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:282",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion.test.ts"
+      ],
+      "executions": [
+        "R:282 Svelte defaultValue custom item value",
+        "R:282 React reference defaultValue custom item value"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:310",
+      "sourceTitle": "open state",
+      "sourceBodySha256": "edc0c0d5392df72b1b7512c7be0356cd00611cf8fe42b04a230a768ba8d86ad6",
+      "assertionLines": [
+        324,
+        325,
+        329,
+        330,
+        331,
+        332,
+        333,
+        337,
+        338
+      ],
+      "assertionSha256": [
+        "37d8b585767020c83a35e8a7181dfe5fd47ec622032e68a08abd25b58e17aa01",
+        "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353",
+        "53b65fa0d09f2a83d4de2d43a2007d61a4cdb247dd2c2f3c7be6954366ca31a9",
+        "c488a124c95f4f7e6bd65787ec39813cee2ffb8fadabfcea177db9a8dd6faa0a",
+        "8035069744437763bd6445034f79be4b4af3d47cf897543548f8c0c50f4186c0",
+        "7c556f989502e6459d4a94461295f17a26490e82be57ebcf7f1ca09ff0833c51",
+        "64f535f43de26d77f1b20467ccf982cf1e406183924410331e4199233e7373be",
+        "37d8b585767020c83a35e8a7181dfe5fd47ec622032e68a08abd25b58e17aa01",
+        "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:310",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [],
+      "executions": [
+        "R:310 Svelte controlled open state",
+        "R:310 React reference controlled open state"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:342",
+      "sourceTitle": "custom item value",
+      "sourceBodySha256": "ab5c19bac2faa2c7b0e12692440b121af027e39bd24aa7c5c664cf239e6307dc",
+      "assertionLines": [
+        360,
+        361,
+        362,
+        364
+      ],
+      "assertionSha256": [
+        "8035069744437763bd6445034f79be4b4af3d47cf897543548f8c0c50f4186c0",
+        "7c556f989502e6459d4a94461295f17a26490e82be57ebcf7f1ca09ff0833c51",
+        "64f535f43de26d77f1b20467ccf982cf1e406183924410331e4199233e7373be",
+        "9167d40cf1203b394442fae43f42eaee9589ce42d14bc597d63c326b1453e3f3"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:342",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion.test.ts"
+      ],
+      "executions": [
+        "R:342 Svelte value custom item value",
+        "R:342 React reference value custom item value"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:370",
+      "sourceTitle": "can disable the whole accordion",
+      "sourceBodySha256": "ce24fdba5434b887637ee8a3d0fa4c3ab230c8f0aaf470f9ac40773f6b889069",
+      "assertionLines": [
+        395
+      ],
+      "assertionSha256": [
+        "be1baace25f50e046641bbf8a551a22836e99888b69f45f501d18a0b0effd81c"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:370",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion.test.ts"
+      ],
+      "executions": [
+        "R:370 Svelte can disable the whole accordion",
+        "R:370 React reference can disable the whole accordion"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:399",
+      "sourceTitle": "can disable one accordion item",
+      "sourceBodySha256": "b8d6881b578d2988cdd885f952ddf982dbf5784f3c0afbd0747e67eaa271d8bb",
+      "assertionLines": [
+        424,
+        427
+      ],
+      "assertionSha256": [
+        "be1baace25f50e046641bbf8a551a22836e99888b69f45f501d18a0b0effd81c",
+        "8a3facaf9a618827f187005c2256250c9714c6329c1ed54f05bb6f5391a6c0f0"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:399",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion.test.ts"
+      ],
+      "executions": [
+        "R:399 Svelte can disable one item",
+        "R:399 React reference can disable one item"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:473",
+      "sourceTitle": "allows onMouseUp to call preventBaseUIHandler on the trigger",
+      "sourceBodySha256": "1f627242f38c64c85c69c5991fa8d61fed5cfb422ab36a79ce1b5b11c62a9b7c",
+      "assertionLines": [
+        489
+      ],
+      "assertionSha256": [
+        "94c60929429ff291b616bf66c2097e7c6a8ed9323c618c1178f209fcc13a6083"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:473",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion.test.ts"
+      ],
+      "executions": [
+        "R:473 Svelte mouseup allows preventBaseUIHandler",
+        "R:473 React reference mouseup allows preventBaseUIHandler"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:496",
+      "sourceTitle": "`key: ${key} toggles the Accordion open state`",
+      "sourceBodySha256": "ea1dd71b61bf4c50c9e3b93e16113dff1c323f823493efdf7ab6b2312127e9da",
+      "assertionLines": [
+        515,
+        517,
+        520,
+        523,
+        524,
+        525,
+        526,
+        527,
+        531,
+        532
+      ],
+      "assertionSha256": [
+        "37d8b585767020c83a35e8a7181dfe5fd47ec622032e68a08abd25b58e17aa01",
+        "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353",
+        "57268a10f67193cb78400450bde4f96d4de53a2195a1fe83f436dd145808d123",
+        "53b65fa0d09f2a83d4de2d43a2007d61a4cdb247dd2c2f3c7be6954366ca31a9",
+        "c488a124c95f4f7e6bd65787ec39813cee2ffb8fadabfcea177db9a8dd6faa0a",
+        "8035069744437763bd6445034f79be4b4af3d47cf897543548f8c0c50f4186c0",
+        "7c556f989502e6459d4a94461295f17a26490e82be57ebcf7f1ca09ff0833c51",
+        "64f535f43de26d77f1b20467ccf982cf1e406183924410331e4199233e7373be",
+        "37d8b585767020c83a35e8a7181dfe5fd47ec622032e68a08abd25b58e17aa01",
+        "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353"
+      ],
+      "variants": [
+        {
+          "nativeButton": true,
+          "key": "Enter"
+        },
+        {
+          "nativeButton": true,
+          "key": "Space"
+        },
+        {
+          "nativeButton": false,
+          "key": "Enter"
+        },
+        {
+          "nativeButton": false,
+          "key": "Space"
+        }
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:496",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [],
+      "executions": [
+        "R:496 Svelte native Enter toggles",
+        "R:496 Svelte native Space toggles",
+        "R:496 Svelte custom Enter toggles",
+        "R:496 Svelte custom Space toggles",
+        "R:496 React reference native Enter toggles",
+        "R:496 React reference native Space toggles",
+        "R:496 React reference custom Enter toggles",
+        "R:496 React reference custom Space toggles"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:541",
+      "sourceTitle": "`opens and closes on Space keyup when rendering ${\n        isNativeButton ? 'interactive' : 'non-interactive'\n      } triggers`",
+      "sourceBodySha256": "4be976f4230c3d0692fd782c6fc985dac9aadddc8b4efbebe5b196d282df6b3f",
+      "assertionLines": [
+        565,
+        568,
+        569,
+        570,
+        573,
+        574,
+        575,
+        576,
+        579,
+        580,
+        581,
+        584,
+        585,
+        586,
+        587
+      ],
+      "assertionSha256": [
+        "57268a10f67193cb78400450bde4f96d4de53a2195a1fe83f436dd145808d123",
+        "37d8b585767020c83a35e8a7181dfe5fd47ec622032e68a08abd25b58e17aa01",
+        "f4f7879f3253dc74466201f8bd5663d2f807a3fa9c57d93c855616eaf4670569",
+        "a869a91ccc157261e233014a01fc0d6e858e6f060c9bde5b2a9bf2a427ea8683",
+        "53b65fa0d09f2a83d4de2d43a2007d61a4cdb247dd2c2f3c7be6954366ca31a9",
+        "190a4310eb739b425fba3a502791944c947702db928b67126f6beea9adee4a5e",
+        "d01af1eed3e01eb0a8e37b8477b1791c08fc54ccf2cce37504fb71b921147838",
+        "030ea1b4d7e98278efee655eea63f90d33dce69831af6037f8546c41c988670f",
+        "53b65fa0d09f2a83d4de2d43a2007d61a4cdb247dd2c2f3c7be6954366ca31a9",
+        "190a4310eb739b425fba3a502791944c947702db928b67126f6beea9adee4a5e",
+        "d01af1eed3e01eb0a8e37b8477b1791c08fc54ccf2cce37504fb71b921147838",
+        "37d8b585767020c83a35e8a7181dfe5fd47ec622032e68a08abd25b58e17aa01",
+        "f4f7879f3253dc74466201f8bd5663d2f807a3fa9c57d93c855616eaf4670569",
+        "0df430701c59b82e8c969fc8fd09bf8827c3501c4e42c607885e654b2e89b22c",
+        "392811b5a9c6b80f21f3ab62bbaad4e8cf7bba5822ceb098ee9456e14819d237"
+      ],
+      "variants": [
+        {
+          "nativeButton": true
+        },
+        {
+          "nativeButton": false
+        }
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:541",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [],
+      "executions": [
+        "R:541 Svelte native opens and closes on Space keyup",
+        "R:541 Svelte custom opens and closes on Space keyup",
+        "R:541 React reference native opens and closes on Space keyup",
+        "R:541 React reference custom opens and closes on Space keyup"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:593",
+      "sourceTitle": "onOpenChange cancel() prevents opening while uncontrolled",
+      "sourceBodySha256": "3e7d3ccb27e8415323f6558e56a22d83cb053b94aa2b01eed4697d0711314bf8",
+      "assertionLines": [
+        618,
+        619,
+        620
+      ],
+      "assertionSha256": [
+        "37d8b585767020c83a35e8a7181dfe5fd47ec622032e68a08abd25b58e17aa01",
+        "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353",
+        "d2ba540b0ad7619fbad221e4ec5fa4937395919af87cbba3acdbe41b4b9f9d8e"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:593",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion.test.ts"
+      ],
+      "executions": [
+        "R:593 Svelte item cancel prevents uncontrolled opening",
+        "R:593 React reference item cancel prevents uncontrolled opening"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:623",
+      "sourceTitle": "onValueChange cancel() prevents opening while uncontrolled",
+      "sourceBodySha256": "e4b94e26054d2ae7cf145a167af80b3c0e4f34dbc51320e413e28eb6d60f080d",
+      "assertionLines": [
+        643,
+        644,
+        645
+      ],
+      "assertionSha256": [
+        "37d8b585767020c83a35e8a7181dfe5fd47ec622032e68a08abd25b58e17aa01",
+        "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353",
+        "475028da51ef3e4134da5be18a73250ae04274165abf3125123b252548774502"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:623",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion.test.ts"
+      ],
+      "executions": [
+        "R:623 Svelte root cancel prevents uncontrolled opening",
+        "R:623 React reference root cancel prevents uncontrolled opening"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:648",
+      "sourceTitle": "onValueChange cancel() prevents closing while uncontrolled",
+      "sourceBodySha256": "7194772445d07569f058a207adab8aea355d5f59c4e841ff5dd02dba296f68e8",
+      "assertionLines": [
+        668,
+        669,
+        670,
+        671
+      ],
+      "assertionSha256": [
+        "53b65fa0d09f2a83d4de2d43a2007d61a4cdb247dd2c2f3c7be6954366ca31a9",
+        "17a75cec9de6b9334550a3ee31ba954f656dd528fe3d2968a64798102f003243",
+        "7ea31f4da79dc53455a179caa280293536f325cd6659436ae16c28f20ee32f1b",
+        "189099ac08f8a437971fdf7ddd8302139d9bdc6c7493e841d8ffc0b65140b176"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:648",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion.test.ts"
+      ],
+      "executions": [
+        "R:648 Svelte root cancel prevents uncontrolled closing",
+        "R:648 React reference root cancel prevents uncontrolled closing"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:674",
+      "sourceTitle": "onOpenChange cancel() prevents onValueChange while controlled",
+      "sourceBodySha256": "232645656560ae6d00424478c37459abab26e625458adafc44044d6aaa47b7e6",
+      "assertionLines": [
+        699,
+        700,
+        701
+      ],
+      "assertionSha256": [
+        "37d8b585767020c83a35e8a7181dfe5fd47ec622032e68a08abd25b58e17aa01",
+        "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353",
+        "d2ba540b0ad7619fbad221e4ec5fa4937395919af87cbba3acdbe41b4b9f9d8e"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:674",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion.test.ts"
+      ],
+      "executions": [
+        "R:674 Svelte item cancel prevents controlled root callback",
+        "R:674 React reference item cancel prevents controlled root callback"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:704",
+      "sourceTitle": "onValueChange cancel() prevents opening while controlled",
+      "sourceBodySha256": "ce76cc6a5479109cf71acd4685b93bfe011fad51ed48a7535b25de7940080c86",
+      "assertionLines": [
+        737,
+        738,
+        739
+      ],
+      "assertionSha256": [
+        "37d8b585767020c83a35e8a7181dfe5fd47ec622032e68a08abd25b58e17aa01",
+        "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353",
+        "475028da51ef3e4134da5be18a73250ae04274165abf3125123b252548774502"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:704",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion.test.ts"
+      ],
+      "executions": [
+        "R:704 Svelte root cancel prevents controlled opening",
+        "R:704 React reference root cancel prevents controlled opening"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:742",
+      "sourceTitle": "onValueChange cancel() prevents opening while multiple",
+      "sourceBodySha256": "8afcb8319b97db9f031c5f12014560747959a875194b544bae24d5b26c6643a9",
+      "assertionLines": [
+        762,
+        763,
+        764
+      ],
+      "assertionSha256": [
+        "37d8b585767020c83a35e8a7181dfe5fd47ec622032e68a08abd25b58e17aa01",
+        "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353",
+        "475028da51ef3e4134da5be18a73250ae04274165abf3125123b252548774502"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:742",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion.test.ts"
+      ],
+      "executions": [
+        "R:742 Svelte root cancel prevents multiple opening",
+        "R:742 React reference root cancel prevents multiple opening"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:767",
+      "sourceTitle": "onValueChange cancel() prevents closing while multiple",
+      "sourceBodySha256": "f60d1ef5f4d1d12c02d9907063a528e93f6858411f42f71cd43c95c33f44a0fb",
+      "assertionLines": [
+        787,
+        788,
+        789
+      ],
+      "assertionSha256": [
+        "53b65fa0d09f2a83d4de2d43a2007d61a4cdb247dd2c2f3c7be6954366ca31a9",
+        "8035069744437763bd6445034f79be4b4af3d47cf897543548f8c0c50f4186c0",
+        "475028da51ef3e4134da5be18a73250ae04274165abf3125123b252548774502"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:767",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion.test.ts"
+      ],
+      "executions": [
+        "R:767 Svelte root cancel prevents multiple closing",
+        "R:767 React reference root cancel prevents multiple closing"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:794",
+      "sourceTitle": "multiple items can be open when `multiple = true`",
+      "sourceBodySha256": "b12bbbbfc45a8cd3a2554dae987290ab1bf89c244b816e1a96f9fca8b13a87fc",
+      "assertionLines": [
+        814,
+        815,
+        816,
+        817,
+        822,
+        823,
+        824,
+        825,
+        829,
+        830,
+        831,
+        832
+      ],
+      "assertionSha256": [
+        "be170522c32519d6bb0a0851a21561cd20a248a1726dc8b61b7b5cf193ed22f2",
+        "efd58d73c313f900d9e96d91cc9c58d0f12faaef24a8ac61d050f33b0186b3e2",
+        "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353",
+        "9167d40cf1203b394442fae43f42eaee9589ce42d14bc597d63c326b1453e3f3",
+        "64f535f43de26d77f1b20467ccf982cf1e406183924410331e4199233e7373be",
+        "dc0e8c7ca0911a28f92f8cb8356dc2b03fe364a891aab754d73b22b7c6a568c5",
+        "90c6d48d3c3e09eaf3371ad6d4c9a8e14a227275570f2735e4d6b9f903b28849",
+        "eca160f347784cafacd0d7d6648b7bd2d15ab4e38d1f6629c6e5cfc6dbede886",
+        "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353",
+        "7abcce589ad0ae1d1c5867b73bfe08e931522407a561430edbdab00cf86c4a33",
+        "be170522c32519d6bb0a0851a21561cd20a248a1726dc8b61b7b5cf193ed22f2",
+        "eca160f347784cafacd0d7d6648b7bd2d15ab4e38d1f6629c6e5cfc6dbede886"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:794",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [],
+      "executions": [
+        "R:794 Svelte multiple items can be open",
+        "R:794 React reference multiple items can be open"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:835",
+      "sourceTitle": "when false only one item can be open",
+      "sourceBodySha256": "d3be16f3129d2d01b2c33fa960793c1268117321dfda61d7ab3f6756ab57f33e",
+      "assertionLines": [
+        855,
+        856,
+        857,
+        858,
+        862,
+        863,
+        867,
+        868,
+        869,
+        870
+      ],
+      "assertionSha256": [
+        "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353",
+        "9167d40cf1203b394442fae43f42eaee9589ce42d14bc597d63c326b1453e3f3",
+        "be170522c32519d6bb0a0851a21561cd20a248a1726dc8b61b7b5cf193ed22f2",
+        "efd58d73c313f900d9e96d91cc9c58d0f12faaef24a8ac61d050f33b0186b3e2",
+        "64f535f43de26d77f1b20467ccf982cf1e406183924410331e4199233e7373be",
+        "90c6d48d3c3e09eaf3371ad6d4c9a8e14a227275570f2735e4d6b9f903b28849",
+        "dc0e8c7ca0911a28f92f8cb8356dc2b03fe364a891aab754d73b22b7c6a568c5",
+        "eca160f347784cafacd0d7d6648b7bd2d15ab4e38d1f6629c6e5cfc6dbede886",
+        "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353",
+        "be170522c32519d6bb0a0851a21561cd20a248a1726dc8b61b7b5cf193ed22f2"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:835",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [],
+      "executions": [
+        "R:835 Svelte only one item opens when multiple=false",
+        "R:835 React reference only one item opens when multiple=false"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:875",
+      "sourceTitle": "default item value",
+      "sourceBodySha256": "75ff6383b467f583f5200c5fd9e0af8843bf09099d11d924a6c523537054ebb1",
+      "assertionLines": [
+        897,
+        901,
+        902,
+        903,
+        904,
+        909,
+        910,
+        911,
+        912
+      ],
+      "assertionSha256": [
+        "d2ba540b0ad7619fbad221e4ec5fa4937395919af87cbba3acdbe41b4b9f9d8e",
+        "475028da51ef3e4134da5be18a73250ae04274165abf3125123b252548774502",
+        "334b104df9036da7407b130a628d8661a050f17a0de712c4a9337d2592d6f76c",
+        "8c879d958ec3fbbab53a0ea15249359d681a9239fcff9d9dd211263fcc8599ae",
+        "7f23e140fcc4282eecabf9f9b0f60c8fcdd8e6e90bac32c01045c0ed42ac920a",
+        "e22ee5638d682d2c358c739b1a110e8ac416d98e3eaf9bfa152ebeb7b875362a",
+        "6073f5d20fee011a0e144652f51a7672a9336ad2f5140e27bb1b21c98db50f85",
+        "8c879d958ec3fbbab53a0ea15249359d681a9239fcff9d9dd211263fcc8599ae",
+        "7f23e140fcc4282eecabf9f9b0f60c8fcdd8e6e90bac32c01045c0ed42ac920a"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:875",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [],
+      "executions": [
+        "R:875 Svelte onValueChange default item values",
+        "R:875 React reference onValueChange default item values"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:915",
+      "sourceTitle": "custom item value",
+      "sourceBodySha256": "0a7dee525baad0b0847f90b0b7e526b6f75d0cf498a54bc92f54fb85db99a4e4",
+      "assertionLines": [
+        937,
+        941,
+        942,
+        946,
+        947
+      ],
+      "assertionSha256": [
+        "d2ba540b0ad7619fbad221e4ec5fa4937395919af87cbba3acdbe41b4b9f9d8e",
+        "475028da51ef3e4134da5be18a73250ae04274165abf3125123b252548774502",
+        "1570580266912010c179c1484b2246fe18dfe45da8c2d1d020a5a4a22466fe59",
+        "e22ee5638d682d2c358c739b1a110e8ac416d98e3eaf9bfa152ebeb7b875362a",
+        "93eff3c3b558199252794780ad409347e0687eea612f4159561195231ccb9cc0"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:915",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [],
+      "executions": [
+        "R:915 Svelte onValueChange custom item values",
+        "R:915 React reference onValueChange custom item values"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:950",
+      "sourceTitle": "`multiple` is false",
+      "sourceBodySha256": "df76a6d99704dc0cd8d2478aa4a7b9ebb4a3ab7620645e281454be7f034a85da",
+      "assertionLines": [
+        972,
+        976,
+        977,
+        981,
+        982
+      ],
+      "assertionSha256": [
+        "d2ba540b0ad7619fbad221e4ec5fa4937395919af87cbba3acdbe41b4b9f9d8e",
+        "475028da51ef3e4134da5be18a73250ae04274165abf3125123b252548774502",
+        "0154371f9121b5afef5213aac3a9d1fe1c6df60f8ac29cd243bc1ae7b714cbd5",
+        "e22ee5638d682d2c358c739b1a110e8ac416d98e3eaf9bfa152ebeb7b875362a",
+        "9350ce1eb007d41b805086a36ee5f533d8245279c472b4e5b5d979e8728f66c0"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:950",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [],
+      "executions": [
+        "R:950 Svelte onValueChange multiple=false",
+        "R:950 React reference onValueChange multiple=false"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/item/AccordionItem.test.tsx:9",
+      "sourceTitle": "throws when rendered outside an Accordion.Root",
+      "sourceBodySha256": "d13ed5c7a31482d920010501448e2c848ec79323c4b3fb7dacb235c60a92926d",
+      "assertionLines": [
+        13
+      ],
+      "assertionSha256": [
+        "1d677a2d85118e7160686d89a9fa49d57f7a3cb001297fee29c4f3d5e5090b1e"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "packages/base/tests/dom/accordion.test.ts",
+      "pairedExecutionPrefix": null,
+      "fixtures": [
+        "packages/base/tests/dom/accordion/Fixture.svelte"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion.test.ts"
+      ],
+      "executions": [
+        "I:9 throws when rendered outside an Accordion.Root"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/item/AccordionItem.test.tsx:29",
+      "sourceTitle": "does not report hidden=true after the item has started opening",
+      "sourceBodySha256": "619d5de1f08dfac469ce20c64275e1d082038b05db52c9eb42493ca454ae7e4b",
+      "assertionLines": [
+        51
+      ],
+      "assertionSha256": [
+        "7f0971b7d4acd0c0f254acbec4ec670c782412fa6db01a0bde03fea0a682746c"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "I:29",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [],
+      "executions": [
+        "I:29 Svelte never reports hidden=true after opening starts",
+        "I:29 React reference never reports hidden=true after opening starts"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/header/AccordionHeader.test.tsx:8",
+      "sourceTitle": "throws when rendered outside an Accordion.Item",
+      "sourceBodySha256": "e1bff7df7d09822fc262a93371dd1af5c8da6352090edeb07e5d3076e4070a2b",
+      "assertionLines": [
+        12
+      ],
+      "assertionSha256": [
+        "3cdd65e920e1e8a61ebaa62c352982df7f1af0d11264aeaf88dd1a7ad1397ecc"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "packages/base/tests/dom/accordion.test.ts",
+      "pairedExecutionPrefix": null,
+      "fixtures": [
+        "packages/base/tests/dom/accordion/Fixture.svelte"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion.test.ts"
+      ],
+      "executions": [
+        "H:8 throws when rendered outside an Accordion.Item"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/trigger/AccordionTrigger.test.tsx:21",
+      "sourceTitle": "keeps a non-native trigger tabbable",
+      "sourceBodySha256": "e9c6229411a02d82fd713691fc7d9b047f74246cc16ae811f6622bcd2c115fcb",
+      "assertionLines": [
+        36
+      ],
+      "assertionSha256": [
+        "35586c8aee8d105eea5b1a91fa351aca1ceaf2f1e46534335d538c8fc58c22ed"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "T:21",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [],
+      "executions": [
+        "T:21 Svelte non-native trigger remains tabbable",
+        "T:21 React reference non-native trigger remains tabbable"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/panel/AccordionPanel.test.tsx:31",
+      "sourceTitle": "warns when a panel enables hiddenUntilFound and disables keepMounted",
+      "sourceBodySha256": "de27a150784f2eeb788d8af2f8982005e5a1df7a44070958cdb4d75b314e2d21",
+      "assertionLines": [
+        45,
+        48
+      ],
+      "assertionSha256": [
+        "5837c43dfd7010215e98cc17fd5a387bd94333d237d9543c5b8314b9469eafda",
+        "5adba87840dd53a1188a444582ccf66d46b036d0caa82082a580d5d74926c6fa"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "P:31",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion.test.ts"
+      ],
+      "executions": [
+        "P:31 Svelte warns when panel hiddenUntilFound overrides keepMounted=false",
+        "P:31 React reference warns when panel hiddenUntilFound overrides keepMounted=false"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/panel/AccordionPanel.test.tsx:55",
+      "sourceTitle": "suppresses the initial keyframe animation from inline styles when rendered open",
+      "sourceBodySha256": "995e7b4d7605b2c999f922b54864a7db00a6eded73e0e61ab959b3f05ca6b2a7",
+      "assertionLines": [
+        92,
+        93
+      ],
+      "assertionSha256": [
+        "9553c37a6cfc5c04b65d8a442b8a3ee773a01e88b39f376f0706200d5e43fd46",
+        "48660ffc81e1a2e2639e28fc24dccf9fcc6bd30d43a1fbcf353fbb93a260769e"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "P:55",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/accordion-ssr.test.ts"
+      ],
+      "executions": [
+        "P:55 Svelte SSR suppresses initial inline keyframe animation",
+        "P:55 React reference SSR suppresses initial inline keyframe animation"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/panel/AccordionPanel.test.tsx:97",
+      "sourceTitle": "passes root keepMounted to closed panels",
+      "sourceBodySha256": "2543c6512cfb23fc75fe13ca01927398af66c8d2e6215d364809c9352d3f4c4a",
+      "assertionLines": [
+        109
+      ],
+      "assertionSha256": [
+        "b6ca3402cb1ef4a859599b75210828df77cbab40baf82430c677205bd98f851d"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "P:97",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion.test.ts"
+      ],
+      "executions": [
+        "P:97 Svelte passes root keepMounted to closed panels",
+        "P:97 React reference passes root keepMounted to closed panels"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/panel/AccordionPanel.test.tsx:112",
+      "sourceTitle": "passes root hiddenUntilFound to closed panels and allows panel overrides",
+      "sourceBodySha256": "a917685e325ca5231ff6d805f683b0089d13ec230fa9a24bc02ee95502801be5",
+      "assertionLines": [
+        132,
+        133
+      ],
+      "assertionSha256": [
+        "5adba87840dd53a1188a444582ccf66d46b036d0caa82082a580d5d74926c6fa",
+        "5304e5a67571df591d8a8e7cbebe591e5938b77256a2f7265a198316c7492bf0"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "P:112",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion.test.ts"
+      ],
+      "executions": [
+        "P:112 Svelte root hiddenUntilFound allows panel overrides",
+        "P:112 React reference root hiddenUntilFound allows panel overrides"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/panel/AccordionPanel.test.tsx:137",
+      "sourceTitle": "keeps the closing panel visible until its exit transition completes when switching items",
+      "sourceBodySha256": "7a96ab142f1a2a94f40db21eb8129ed964ae7d5e9e8961d3aec97517cd35015a",
+      "assertionLines": [
+        180,
+        181,
+        187,
+        188,
+        189,
+        190,
+        194,
+        195
+      ],
+      "assertionSha256": [
+        "3c00461e6d5613f9cc0492ce4f2cb2341c8ab310adeb6178a63be338baf611dc",
+        "4692a33562769915ce411e0b84f6e570e1b35ffa5a69888e2bea4153a8e9ab2e",
+        "b6e4d0675a3de24f821d3074d6e696c413354eade852a0828901fe88855bbf6d",
+        "144f7a778874f25dd2d1d4359c321d675fa74b74ae2665ffd15cbbf537051536",
+        "2bea3aaf2e875bb9bf860f07d1333817ebeb887f1c1c92ed466522c1971296ca",
+        "e93501b378a12ba992d7032bb1fcd340bfdb34fda833bf85d29b3a7217efabbd",
+        "94fc67fed71e40c263544496ce1a4895ae3e9c3f05a2046d65a6bb2ab72edfa4",
+        "38381cc5d1978cf9b4a3713234860db945161cf5cd732b26553b077677040bb4"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "P:137",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [],
+      "executions": [
+        "P:137 Svelte switching retains closing panel until exit transition completes",
+        "P:137 React reference switching retains closing panel until exit transition completes"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    },
+    {
+      "sourceId": "packages/react/src/accordion/panel/AccordionPanel.test.tsx:201",
+      "sourceTitle": "does not replay open keyframe animations from inline styles when revealing a panel opened by the user",
+      "sourceBodySha256": "b8918241dc97a5043d2c210f3f1b02f79fa2f1773a09e9795d0165c189cbbee2",
+      "assertionLines": [
+        259,
+        263,
+        270,
+        273
+      ],
+      "assertionSha256": [
+        "af11c55d9df92d01393477af6ebd5ba5e313c16df6fa9c3dbe4601ba5bf5286b",
+        "19d7e289050808432545168ae4f09aebf6587df990f0dc63b6e3a8a0515e7afd",
+        "af11c55d9df92d01393477af6ebd5ba5e313c16df6fa9c3dbe4601ba5bf5286b",
+        "19d7e289050808432545168ae4f09aebf6587df990f0dc63b6e3a8a0515e7afd"
+      ],
+      "variants": [
+        null
+      ],
+      "kind": "ordinary",
+      "status": "deferred",
+      "port": null,
+      "pairedExecutionPrefix": null,
+      "fixtures": [],
+      "localPorts": [],
+      "executions": [],
+      "evidence": null,
+      "verification": "React.Activity external effect suspension is unimplemented; no parity credit."
+    }
+  ],
+  "parameterizedPorts": [
+    {
+      "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:431",
+      "sourceTitle": "does not toggle or fire callbacks when the %s is disabled",
+      "sourceBodySha256": "e68f71e7b58717e12cea9f475cbdc5f45b8066efcc09b7dcc04efa7942931097",
+      "assertionLines": [
+        465,
+        466,
+        467,
+        468
+      ],
+      "assertionSha256": [
+        "68963f24be5d64b59b1b504a07da4e22a937cdf92a2f00976e30d05e1a92775f",
+        "63bcb8f9f6ebb352018c383ab97ead89c9ffba432ed71867964cf8594709b353",
+        "d2ba540b0ad7619fbad221e4ec5fa4937395919af87cbba3acdbe41b4b9f9d8e",
+        "49b0705c62e52450bcc0769c47fb61ad50bf3d159243ba731a20b513705b7032"
+      ],
+      "variants": [
+        "root",
+        "item"
+      ],
+      "kind": "parameterized",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "R:431",
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts",
+        "apps/fixtures/src/lib/accordion-config.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion.test.ts"
+      ],
+      "executions": [
+        "R:431 Svelte does not toggle or fire callbacks when root disabled",
+        "R:431 Svelte does not toggle or fire callbacks when item disabled",
+        "R:431 React reference does not toggle or fire callbacks when root disabled",
+        "R:431 React reference does not toggle or fire callbacks when item disabled"
+      ],
+      "evidence": null,
+      "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
+    }
+  ],
+  "conformancePorts": [
+    {
+      "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
+      "line": 14,
+      "sourceDeclarationSha256": "61ac3b569d6809eaef2d1d0e12134e66a62e4253a2142289e69cabc6edf0e29a",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "evidence": null
+    },
+    {
+      "source": "packages/react/src/accordion/item/AccordionItem.test.tsx",
+      "line": 21,
+      "sourceDeclarationSha256": "bb98255801dc6bb3142186e89e4bf7264f5f47f97e59cc3b295cffb94a5bab9d",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "evidence": null
+    },
+    {
+      "source": "packages/react/src/accordion/header/AccordionHeader.test.tsx",
+      "line": 20,
+      "sourceDeclarationSha256": "d00196f9f43ae0713a9b93b521a1250375b9752082174ba7e8a33a636b7ab353",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "evidence": null
+    },
+    {
+      "source": "packages/react/src/accordion/trigger/AccordionTrigger.test.tsx",
+      "line": 9,
+      "sourceDeclarationSha256": "b4b5016aa329b2d558ea0a6476c8bdbb4543b227134d8e07bee44a5f7479ffd5",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "evidence": null
+    },
+    {
+      "source": "packages/react/src/accordion/panel/AccordionPanel.test.tsx",
+      "line": 21,
+      "sourceDeclarationSha256": "da7355251f78f47b411c0cc17ee50b5c5a0730b70a6b0d10044610c9756a224b",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "evidence": null
+    }
+  ],
+  "typePorts": [
+    {
+      "source": "packages/react/src/accordion/root/AccordionRoot.spec.tsx",
+      "line": 10,
+      "sourceAssertionSha256": "c57c31a29c35718e6952ccc943e5d1802fe18fb03388d536f51b1d8d9c2dc95a",
+      "port": "packages/base/tests/accordion-types.ts",
+      "status": "candidate"
+    },
+    {
+      "source": "packages/react/src/accordion/root/AccordionRoot.spec.tsx",
+      "line": 17,
+      "sourceAssertionSha256": "ea8da8de7511484512be1983d184b1c57ecd08e4aedab38cb8b1c187821b5bbd",
+      "port": "packages/base/tests/accordion-types.ts",
+      "status": "candidate"
+    },
+    {
+      "source": "packages/react/src/accordion/root/AccordionRoot.spec.tsx",
+      "line": 25,
+      "sourceAssertionSha256": "a16d9476f307c08dae239aa6d2443fb75527c72395ba5102eb2b241c838aff58",
+      "port": "packages/base/tests/accordion-types.ts",
+      "status": "candidate"
+    },
+    {
+      "source": "packages/react/src/accordion/root/AccordionRoot.spec.tsx",
+      "line": 32,
+      "sourceAssertionSha256": "a1704d8ade3e14a5efd9f385785b14102ed2202da8ab96ea2089f47fdde8fc22",
+      "port": "packages/base/tests/accordion-types.ts",
+      "status": "candidate"
+    },
+    {
+      "source": "packages/react/src/accordion/root/AccordionRoot.spec.tsx",
+      "line": 39,
+      "sourceAssertionSha256": "ce643574dd26e370ef23efd9cef75416d569ead080ca6a639fa4b34827e1cbf7",
+      "port": "packages/base/tests/accordion-types.ts",
+      "status": "candidate"
+    },
+    {
+      "source": "packages/react/src/accordion/root/AccordionRoot.spec.tsx",
+      "line": 50,
+      "sourceAssertionSha256": "1cc6eff76309283518560ca9760a31bdb85e8d5d9ebc1f1d86d4ba02c3fbccca",
+      "port": "packages/base/tests/accordion-types.ts",
+      "status": "candidate"
+    },
+    {
+      "source": "packages/react/src/accordion/root/AccordionRoot.spec.tsx",
+      "line": 56,
+      "sourceAssertionSha256": "ce643574dd26e370ef23efd9cef75416d569ead080ca6a639fa4b34827e1cbf7",
+      "port": "packages/base/tests/accordion-types.ts",
+      "status": "candidate"
+    }
+  ],
+  "expectedErrorPorts": [
+    {
+      "source": "packages/react/src/accordion/root/AccordionRoot.spec.tsx",
+      "line": 43,
+      "port": "packages/base/tests/accordion-types.ts",
+      "status": "candidate"
+    }
+  ]
+}

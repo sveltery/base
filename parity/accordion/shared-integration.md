@@ -1,0 +1,15 @@
+# Serialized Accordion integration handoff
+
+Feature-local files implement the five Accordion parts, dedicated tests/fixtures/reference routes, package checks and docs/parity evidence. Shared exports, navigation, catalog and verification belong to the parent integration owner. [integration.patch](integration.patch) is prepared against shared main checkpoint `39e0a4dc6e46b4696837adae691083f18b6e96bd`; it is not applied by this worker. Serialize it with the parent-owned Meter integration and review the combined result. No shared source, helpers, existing feature records or exports were edited here.
+
+The patch adds these concrete shared changes:
+
+- Root `Accordion` namespace object and all fifteen named value/props/state/event types; subpath metadata for the feature's namespace, five named parts and types. Root runtime aliases are not invented.
+- MIT package attribution, root README/component links, central compatibility and catalog records. Accordion becomes bounded, not fully compatible. Against this baseline, catalog totals become 10 bounded / 32 unimplemented; recompute once Meter integrates.
+- Accordion documentation navigation in the Components group, preserving the overview as the default page; a renderer for the generated [api.json](api.json) and shared script-test registration for [docs-api.mjs](docs-api.mjs). API validation proves documentation consistency only.
+- The genuine installed public Accordion tarball SSR/type gate in `scripts/check-package.sh`, which is already called by local verification and CI Verification. Existing packed dependencies and frozen lock stay intact; no dependency changes are required for Accordion.
+- A focused secured Chromium job following the Collapsible job, with exact-head checkout, frozen install and actual library build. The combined job still runs the full suite.
+
+The patch deliberately leaves `parity/manifest.json` and shared ordinary totals unchanged: the feature has a separate immutable inventory and candidate execution ledger, not passing ordinary credit. Parameterized/conformance/type/supplemental evidence stays separate. A feature-specific provenance script is independently owned by the evidence worker and is picked up by the existing script glob.
+
+`git apply --check parity/accordion/integration.patch` passes against the baseline. Recheck after Meter changes; resolve shared context/catalog totals serially. Internal packed SSR/type checks pass against the feature checkpoint; public checks remain pending until the shared export patch is applied. Then rerun full local checks, genuine public consumers, focused and complete secured browser suites, independent review and configured automatic review on the exact final head. This patch is a reviewable integration deliverable, not acceptance or authorization to publish.
