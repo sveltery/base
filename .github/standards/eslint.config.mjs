@@ -19,6 +19,7 @@ export default [
   { languageOptions: { globals: { ...globals.node, ...globals.browser } } },
   {
     rules: {
+      'svelte/no-at-const-tags': 'error',
       '@typescript-eslint/no-unused-vars': [
         'error',
         { argsIgnorePattern: '^_' },

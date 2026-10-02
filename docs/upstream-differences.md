@@ -46,6 +46,8 @@ Decision status: proposed in PR #16; this is an explicit, uncredited native timi
 
 Framework/API substitutions remain documented in [pinned contracts](upstream-contracts.md), [Dialog slice](dialog-first-slice.md) and [Button adaptations](../parity/button/README.md): native events and prevention channels, string CSS, snippets/attachments, bindable refs and Svelte state/ID relationships. These are distinct from the behavioral corrections above.
 
+The [scoped Svelte modernization](modern-svelte.md) records a fixture-local reactive declaration and existing-version tooling changes. It preserves the original guards and component lifetimes, introduces no runtime API difference, and earns no upstream parity credit.
+
 [Toast core's existing adaptations and pending compatibility](../parity/toast/core-interface.md) remain their own evidence record. Its statement that no AGENTS.md existed describes its historical handoff checkpoint; [root guidance](../AGENTS.md) now applies. Toast rendering/lifecycle classification in [PR #16](https://github.com/sveltery/base/pull/16) is indexed by proposed T-01/T-02 above, separately from landed differences. The existing [SSR issue #18](https://github.com/sveltery/base/issues/18) tracks its own scope.
 
 PR #13's disabled Close-anchor default prevention and [PR #15](https://github.com/sveltery/base/pull/15)'s native tabbable repairs restore observed upstream behavior. They are fidelity repairs, not additional upstream differences. Unimplemented contracts remain visible in the [parity inventory](../parity/README.md) and feature docs. Future shared bugs belong in this repository's issues before separate correction work; already-fixed entries above do not require duplicate issues.
