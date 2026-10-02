@@ -101,7 +101,11 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
     controller.request(false, 'outside-press', event);
   }
   function up() { frame(() => { pointerDown = false; }); }
-  function click(event: MouseEvent) { if (pressStartedOutside) dismiss(event); pressStartedOutside = false; pointerDown = false; }
+  function click(event: MouseEvent) {
+    // Pinned intentional outside presses allow detail=0 keyboard/virtual clicks without a pointer press.
+    if (pressStartedOutside || event.detail === 0) dismiss(event);
+    pressStartedOutside = false; pointerDown = false;
+  }
   function focusIn(event: FocusEvent) {
     if (isInside(event)) focusedInside = true;
   }

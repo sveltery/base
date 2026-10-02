@@ -42,7 +42,9 @@ for (const reference of [false, true]) for (const variant of ['contained', 'deta
       await click(page.getByRole('button', { name: 'Close', exact: true })); const second = (await api(page)).calls; expect(second).toHaveLength(2); if (line === 389) expect(second[1].open).toBe(false); else expect(second[1].reason).toBe('close-press');
     } else if ([459,472,485].includes(line)) {
       await expect(popup).toHaveCount(1);
-      if (line === 459) await page.keyboard.press('Escape'); else if (line === 472) await click(page.getByRole('presentation', { includeHidden: true })); else await click(page.locator('body'));
+      // RTL hidden:true selects the explicit role even with aria-hidden. Playwright resolves
+      // the presentation/global-ARIA conflict differently, so retain RTL's exact DOM role predicate.
+      if (line === 459) await page.keyboard.press('Escape'); else if (line === 472) await click(page.locator('[role="presentation"]')); else await click(page.locator('body'));
       const calls = (await api(page)).calls; expect(calls).toHaveLength(1); expect(calls[0].reason).toBe(line === 459 ? 'escape-key' : 'outside-press');
     } else if (line === 535) {
       await click(trigger); await page.evaluate(() => Promise.resolve()); await expect(popup).toHaveCount(0);

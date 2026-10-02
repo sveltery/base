@@ -101,6 +101,22 @@ test('D:230 actual pinned JSDOM detached production payload warning body', async
   });
 });
 
+test('pinned reopened nonmodal Root accepts a press-less virtual outside click', async () => {
+  await fixture(async ({ React, Dialog, root, document, act, settle }) => {
+    const h = React.createElement;
+    await act(async () => root.render(h(React.StrictMode, null, h(Dialog.Root, { modal: false },
+      h(Dialog.Trigger, { id: 'trigger' }, 'Open'), h(Dialog.Portal, null, h(Dialog.Popup, null, 'Dialog content', h(Dialog.Close, null, 'Close')))))));
+    await act(async () => document.getElementById('trigger').click()); await settle();
+    assert.ok(document.querySelector('[role=dialog]'));
+    await act(async () => document.dispatchEvent(new document.defaultView.KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))); await settle();
+    assert.equal(document.querySelector('[role=dialog]'), null);
+    await act(async () => document.getElementById('trigger').click()); await settle();
+    assert.ok(document.querySelector('[role=dialog]'));
+    await act(async () => document.body.dispatchEvent(new document.defaultView.MouseEvent('click', { bubbles: true }))); await settle();
+    assert.equal(document.querySelector('[role=dialog]'), null);
+  });
+});
+
 for (const popup of ['absent', 'remove-on-close']) test(`pinned close with Popup ${popup} retains mounted state without a completion`, async () => {
   await fixture(async ({ React, Dialog, root, act, settle }) => {
     const h = React.createElement; const handle = Dialog.createHandle(); const completions = []; const actions = React.createRef();
