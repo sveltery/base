@@ -13,8 +13,10 @@
   let ref = $state<HTMLElement | null | undefined>();
   let calls = $state<{ pressed: boolean; reason: string; type: string; before: string | null; canceled: boolean; defaultPrevented: boolean; trigger: boolean }[]>([]);
   let order = $state<string[]>([]);
+  let callbackSwitched = $state(false);
+  let callbackOwners = $state<string[]>([]);
   let submitted = $state(0), reset = $state(0), attached = $state(0), detached = $state(0);
-  const custom = $derived(['custom', 'custom-disabled', 'attachment', 'render-cancel', 'render-order', 'descendant', 'link', 'controlled-render'].includes(scenario));
+  const custom = $derived(['custom', 'custom-disabled', 'attachment', 'render-cancel', 'render-order', 'descendant', 'link', 'controlled-render', 'callback-render'].includes(scenario));
   function changed(next: boolean, details: ToggleChangeEventDetails) {
     if (scenario === 'cancel') details.cancel();
     order = [...order, 'change'];
@@ -22,6 +24,12 @@
       before: document.getElementById('tested-toggle')!.getAttribute('aria-pressed'), canceled: details.isCanceled,
       defaultPrevented: details.event.defaultPrevented, trigger: details.trigger !== undefined }];
     if (scenario === 'accept' || scenario === 'controlled-consumer' || scenario === 'controlled-render') ownerPressed = next;
+  }
+  function oldChanged(next: boolean, details: ToggleChangeEventDetails) {
+    callbackOwners = [...callbackOwners, 'old']; changed(next, details);
+  }
+  function newChanged(next: boolean, details: ToggleChangeEventDetails) {
+    callbackOwners = [...callbackOwners, 'new']; changed(next, details);
   }
   function attachedHost(node: HTMLElement) {
     untrack(() => attached++); node.dataset.consumerAttached = '';
@@ -37,6 +45,7 @@
     <span {...mergeProps(props, { onclick: (event: MouseEvent & { preventBaseUIHandler(): void }) => {
       order = [...order, 'render']; if (scenario === 'render-cancel') event.preventBaseUIHandler();
       if (scenario === 'controlled-render') ownerPressed = true;
+      if (scenario === 'callback-render') callbackSwitched = true;
     } })} data-state-pressed={state.pressed} data-state-disabled={state.disabled}>
       {@render children?.()}
       {#if scenario === 'descendant'}<input aria-label="Inner input" />{/if}
@@ -60,9 +69,10 @@
           {...scenario === 'stripped-form' || scenario === 'non-native-stripped' ? { form: 'external-form', type: 'submit', value: 'sent', name: 'toggle' } : scenario === 'stripped-reset' ? { type: 'reset' } : {}}
           {@attach scenario === 'attachment' ? attachedHost : () => {}}
           class={state => state.pressed ? 'pressed-class' : 'unpressed-class'} style={state => `opacity:${state.disabled ? 0.5 : 1}`}
-          onPressedChange={changed} onclick={event => {
+          onPressedChange={scenario.startsWith('callback-') ? callbackSwitched ? newChanged : oldChanged : changed} onclick={event => {
             order = [...order, 'consumer']; if (scenario === 'click-cancel') event.preventBaseUIHandler();
             if (scenario === 'controlled-consumer') ownerPressed = true;
+            if (scenario === 'callback-consumer') callbackSwitched = true;
             if (scenario === 'click-default') event.preventDefault();
           }}>Toggle</Toggle>
       {/if}
@@ -71,6 +81,7 @@
   </div>
   <form id="external-form"></form>
   <output data-testid="calls">{JSON.stringify(calls)}</output>
+  <output data-testid="callback-owners">{JSON.stringify(callbackOwners)}</output>
   <output data-testid="order">{JSON.stringify(order)}</output>
   <output data-testid="forms">{JSON.stringify({ submitted, reset })}</output>
   <output data-testid="ref">{ref?.id ?? ''}</output>

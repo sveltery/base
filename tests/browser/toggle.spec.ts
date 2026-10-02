@@ -130,6 +130,14 @@ for (const reference of [false, true]) {
     await button.click(); await expect(button).toHaveAttribute('aria-pressed', 'false');
     expect((await calls(page)).map(call => call.pressed)).toEqual([true, false]);
   });
+  for (const scenario of ['callback-consumer', 'callback-render']) test(`supplement: ${framework} ${scenario} preserves rendered callback then refreshes`, async ({ page }) => {
+    const button = await setup(page, scenario, reference);
+    await button.click(); await expect(button).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.getByTestId('callback-owners')).toHaveText('["old"]');
+    await button.click(); await expect(button).toHaveAttribute('aria-pressed', 'false');
+    await expect(page.getByTestId('callback-owners')).toHaveText('["old","new"]');
+    expect((await calls(page)).map(call => call.pressed)).toEqual([true, false]);
+  });
   test(`supplement: ${framework} same-turn clicks share the rendered snapshot`, async ({ page }) => {
     const button = await setup(page, 'uncontrolled', reference);
     await button.evaluate((node: HTMLButtonElement) => { node.click(); node.click(); });

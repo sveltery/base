@@ -17,10 +17,10 @@
   let internalPressed = $state(untrack(() => defaultPressed));
   const pressed = $derived(controlled && pressedProp !== undefined ? pressedProp : internalPressed);
   const toggleState = $derived({ pressed, disabled });
-  function toggle(event: MouseEvent, pressedSnapshot: boolean) {
+  function toggle(event: MouseEvent, pressedSnapshot: boolean, callbackSnapshot: ToggleProps['onPressedChange']) {
     const nextPressed = !pressedSnapshot;
     const details = createChangeEventDetails('none', event);
-    onPressedChange?.(nextPressed, details);
+    callbackSnapshot?.(nextPressed, details);
     if (!details.isCanceled && !controlled) internalPressed = nextPressed;
   }
   // Preserve enumerable attachment symbols alongside merged string props.
@@ -28,9 +28,10 @@
     // Like the pinned rendered closure, this snapshot survives earlier consumer
     // writes and same-turn clicks; the next rendered props receive a fresh one.
     const pressedSnapshot = pressed;
+    const callbackSnapshot = onPressedChange;
     return getButtonProps({ ...props, ...mergeProps({
       'aria-pressed': pressedSnapshot, 'data-pressed': pressedSnapshot ? '' : undefined,
-      onclick: (event: MouseEvent) => toggle(event, pressedSnapshot),
+      onclick: (event: MouseEvent) => toggle(event, pressedSnapshot, callbackSnapshot),
     }, props) }, disabled, false, nativeButton);
   });
 </script>

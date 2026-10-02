@@ -10,8 +10,10 @@ export function mountToggleReference(node: HTMLElement, scenario: string) {
     const [shown, setShown] = useState(true);
     const [calls, setCalls] = useState<{ pressed: boolean; reason: string; type: string; before: string | null; canceled: boolean; defaultPrevented: boolean; trigger: boolean }[]>([]);
     const [order, setOrder] = useState<string[]>([]);
+    const [callbackSwitched, setCallbackSwitched] = useState(false);
+    const [callbackOwners, setCallbackOwners] = useState<string[]>([]);
     const [submitted, setSubmitted] = useState(0), [reset, setReset] = useState(0);
-    const custom = ['custom', 'custom-disabled', 'render-cancel', 'render-order', 'descendant', 'link', 'controlled-render'].includes(scenario);
+    const custom = ['custom', 'custom-disabled', 'render-cancel', 'render-order', 'descendant', 'link', 'controlled-render', 'callback-render'].includes(scenario);
     const record = (entry: string) => setOrder(previous => [...previous, entry]);
     return h('main', { 'data-hydrated': 'true' },
       h('input', { type: 'checkbox', 'aria-label': 'Owner pressed', checked: ownerPressed ?? false, onChange: () => setOwner(!ownerPressed) }),
@@ -26,11 +28,12 @@ export function mountToggleReference(node: HTMLElement, scenario: string) {
             id: 'tested-toggle', pressed: ownerPressed, defaultPressed, disabled, nativeButton: !custom && !scenario.startsWith('non-native'),
             ...(scenario === 'stripped-form' || scenario === 'non-native-stripped' ? { form: 'external-form', type: 'submit', value: 'sent', name: 'toggle' } : scenario === 'stripped-reset' ? { type: 'reset' } : {}),
             render: scenario === 'link' ? h('a', { href: '#target' }) : custom ? h('span', {
-              onClick: (event: React.MouseEvent & { preventBaseUIHandler(): void }) => { record('render'); if (scenario === 'render-cancel') event.preventBaseUIHandler(); if (scenario === 'controlled-render') setOwner(true); },
+              onClick: (event: React.MouseEvent & { preventBaseUIHandler(): void }) => { record('render'); if (scenario === 'render-cancel') event.preventBaseUIHandler(); if (scenario === 'controlled-render') setOwner(true); if (scenario === 'callback-render') setCallbackSwitched(true); },
             }) : undefined,
             className: state => state.pressed ? 'pressed-class' : 'unpressed-class', style: state => ({ opacity: state.disabled ? 0.5 : 1 }),
-            onClick: event => { record('consumer'); if (scenario === 'click-cancel') event.preventBaseUIHandler(); if (scenario === 'click-default') event.preventDefault(); if (scenario === 'controlled-consumer') setOwner(true); },
+            onClick: event => { record('consumer'); if (scenario === 'click-cancel') event.preventBaseUIHandler(); if (scenario === 'click-default') event.preventDefault(); if (scenario === 'controlled-consumer') setOwner(true); if (scenario === 'callback-consumer') setCallbackSwitched(true); },
             onPressedChange: (pressed, details) => {
+              if (scenario.startsWith('callback-')) setCallbackOwners(previous => [...previous, callbackSwitched ? 'new' : 'old']);
               if (scenario === 'cancel') details.cancel();
               record('change');
               setCalls(previous => [...previous, { pressed, reason: details.reason, type: details.event.type,
@@ -42,6 +45,7 @@ export function mountToggleReference(node: HTMLElement, scenario: string) {
           h('button', { type: 'reset' }, 'Native reset'))),
       h('form', { id: 'external-form' }),
       h('output', { 'data-testid': 'calls' }, JSON.stringify(calls)),
+      h('output', { 'data-testid': 'callback-owners' }, JSON.stringify(callbackOwners)),
       h('output', { 'data-testid': 'order' }, JSON.stringify(order)),
       h('output', { 'data-testid': 'forms' }, JSON.stringify({ submitted, reset })),
       h('div', { id: 'target' }, 'Link target'));

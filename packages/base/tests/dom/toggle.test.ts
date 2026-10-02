@@ -85,3 +85,12 @@ it('supplement: same-turn uncontrolled clicks share the last rendered snapshot',
   expect(calls().map(call => call.pressed)).toEqual([true, true]); expect(button.getAttribute('aria-pressed')).toBe('true');
   button.click(); await tick(); expect(calls().map(call => call.pressed)).toEqual([true, true, false]); expect(button.getAttribute('aria-pressed')).toBe('false');
 });
+
+for (const scenario of ['callback-consumer', 'callback-render']) it(`supplement: ${scenario} retains rendered callback then refreshes after commit`, async () => {
+  const { button } = await setup(scenario); button.click(); await tick();
+  expect(JSON.parse(document.querySelector('[data-testid=callback-owners]')!.textContent!)).toEqual(['old']);
+  expect(button.getAttribute('aria-pressed')).toBe('true');
+  button.click(); await tick();
+  expect(JSON.parse(document.querySelector('[data-testid=callback-owners]')!.textContent!)).toEqual(['old', 'new']);
+  expect(calls().map(call => call.pressed)).toEqual([true, false]); expect(button.getAttribute('aria-pressed')).toBe('false');
+});
