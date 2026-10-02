@@ -136,7 +136,7 @@ for (const reference of [false, true]) {
     await flush(page); await expect(panel).toHaveAttribute('data-ending-style'); expect(await panel.evaluate((node: HTMLElement) => node.style.getPropertyValue('--collapsible-panel-height'))).toMatch(/px$/);
   });
   test(`P:286 ${framework} unmounts zero-size panel without waiting for unrelated transitions`, async ({ page }) => {
-    const { panel } = await setup(page, 'zero', reference); await expect(panel).toHaveAttribute('data-open'); await flush(page); await frames(page, 1); await expect(panel).toHaveCount(0);
+    const { panel } = await setup(page, 'zero', reference); await expect(panel).toHaveAttribute('data-open'); await flush(page); await frames(page, 1); expect(await panel.count()).toBe(0);
   });
   test(`P:322 ${framework} supports removing rendered panel as it closes`, async ({ page }) => {
     const { trigger, panel } = await setup(page, 'remove-close', reference); await expect(panel).toHaveAttribute('data-open'); await trigger.click(); await frames(page, 1);
@@ -149,8 +149,16 @@ for (const reference of [false, true]) {
     await frames(page, 1); expect(await panel.evaluate((node: HTMLElement) => node.style.justifyContent)).toBe('center');
   });
   test(`P:422 ${framework} keeps exit transitions working after close interrupted by reopening`, async ({ page }) => {
-    const { trigger, panel } = await setup(page, 'interrupt', reference); await trigger.click(); await expect(panel).toHaveAttribute('data-ending-style'); await trigger.click(); await expect(panel).toHaveAttribute('data-open'); await expect(panel).not.toHaveAttribute('data-starting-style');
-    await panel.evaluate(node => { (window as Window & { originalPanel?: Element }).originalPanel = node; }); await flush(page); await expect(panel).toHaveAttribute('data-ending-style'); expect(await panel.evaluate(node => node === (window as Window & { originalPanel?: Element }).originalPanel)).toBe(true);
+    const { trigger, panel } = await setup(page, 'interrupt', reference);
+    await panel.evaluate(node => { (window as Window & { originalPanel?: Element }).originalPanel = node; });
+    await trigger.click();
+    await expect(panel).toHaveAttribute('data-ending-style');
+    await trigger.click();
+    await expect(panel).toHaveAttribute('data-open');
+    await expect(panel).not.toHaveAttribute('data-starting-style');
+    await flush(page);
+    await expect(panel).toHaveAttribute('data-ending-style');
+    expect(await panel.evaluate(node => node === (window as Window & { originalPanel?: Element }).originalPanel)).toBe(true);
   });
   // The native AbortController stub keeps both frameworks' already-watched
   // finished promises alive across cleanup, so completion sees committed close.
@@ -158,16 +166,35 @@ for (const reference of [false, true]) {
     await installRace(page, 'open'); const { panel } = await setup(page, 'race-open', reference); await frames(page, 1);
     await page.waitForFunction(() => (window as Window & { raceStarted?: boolean }).raceStarted);
     expect(await page.evaluate(() => (window as Window & { raceStarted?: boolean }).raceStarted)).toBe(true);
-    await flush(page); await page.evaluate(() => Promise.resolve());
-    expect(await panel.evaluate((node: HTMLElement) => node.style.getPropertyValue('--collapsible-panel-height'))).toMatch(/px$/);
+    const height = await page.evaluate(async () => {
+      (window as Window & { collapsibleFlush: (action: string) => void }).collapsibleFlush('click');
+      for (let index = 0; index < 3; index++) await Promise.resolve();
+      return (document.querySelector('[data-testid="panel"]') as HTMLElement).style.getPropertyValue('--collapsible-panel-height');
+    });
+    expect(height).toMatch(/px$/);
   });
   // The same native abort stub preserves a watched close completion across reopen.
   test(`P:542 ${framework} does not restart entrance when close animation finishes after reopening`, async ({ page }) => {
-    await installRace(page, 'close'); const { panel } = await setup(page, 'race-close', reference); await flush(page); await page.waitForFunction(() => (window as Window & { raceStarted?: boolean }).raceStarted);
+    await installRace(page, 'close');
+    const { panel } = await setup(page, 'race-close', reference);
+    await panel.evaluate(node => { (window as Window & { originalPanel?: Element }).originalPanel = node; });
+    await flush(page);
+    await page.waitForFunction(() => (window as Window & { raceStarted?: boolean }).raceStarted);
     expect(await page.evaluate(() => (window as Window & { raceStarted?: boolean }).raceStarted)).toBe(true);
-    await flush(page); await expect(panel).toHaveAttribute('data-open'); await expect(panel).not.toHaveAttribute('data-starting-style'); await panel.evaluate(node => { (window as Window & { originalPanel?: Element }).originalPanel = node; });
-    await page.evaluate(() => (window as Window & { race: Animation }).race.finish()); await frames(page, 1);
-    await expect(panel).toHaveAttribute('data-open'); await expect(panel).not.toHaveAttribute('data-starting-style'); expect(await panel.evaluate(node => node === (window as Window & { originalPanel?: Element }).originalPanel)).toBe(true);
+    await flush(page);
+    await expect(panel).toHaveAttribute('data-open');
+    await expect(panel).not.toHaveAttribute('data-starting-style');
+    const afterCompletion = await page.evaluate(async () => {
+      (window as Window & { race: Animation }).race.finish();
+      // Let the native finished promise, Promise.all and completion continuation
+      // settle without a frame that could hide a restarted starting-style phase.
+      await Promise.resolve(); await Promise.resolve(); await Promise.resolve();
+      const node = document.querySelector('[data-testid="panel"]');
+      return { open: node?.hasAttribute('data-open'), starting: node?.hasAttribute('data-starting-style'), sameHost: node === (window as Window & { originalPanel?: Element }).originalPanel };
+    });
+    expect(afterCompletion.open).toBe(true);
+    expect(afterCompletion.starting).toBe(false);
+    expect(afterCompletion.sameHost).toBe(true);
   });
   test(`P:604 ${framework} does not run mount animation when initially open`, async ({ page }) => {
     const { panel } = await setup(page, 'keys-initial', reference); await expect(panel).toHaveAttribute('data-open'); expect(await animations(page)).toBe(0); await expect(panel).toHaveCSS('animation-name', 'none');

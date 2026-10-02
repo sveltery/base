@@ -7,7 +7,17 @@ trap 'rm -rf "$progress_consumer"' EXIT
 pnpm --filter @sveltery/base pack --pack-destination "$progress_consumer" > /dev/null
 mkdir -p "$progress_consumer/node_modules/@sveltery/base"
 tar -xzf "$progress_consumer"/*.tgz --strip-components=1 -C "$progress_consumer/node_modules/@sveltery/base"
-ln -s "$sveltery_repo_root/packages/base/node_modules/svelte" "$progress_consumer/node_modules/svelte"
+# Install the packed runtime dependency closure and its Svelte peer in isolation.
+node --input-type=module - "$progress_consumer" <<'JS'
+import { readdirSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+const destination = process.argv[2];
+const tarball = readdirSync(destination).find(name => name.endsWith('.tgz'));
+writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(destination, tarball)}`, svelte: '5.57.1' } }));
+JS
+rm -rf "$progress_consumer/node_modules"
+pnpm --dir "$progress_consumer" --ignore-workspace install --ignore-scripts > /dev/null
+pnpm --dir "$progress_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
 test -f "$progress_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
 cmp LICENSE "$progress_consumer/node_modules/@sveltery/base/LICENSE"
 if [[ "${1:-}" == '--public' ]]; then
@@ -52,9 +62,6 @@ assert.match(body, /aria-valuenow="30"/); assert.match(body, /aria-valuetext="50
 assert.match(body, /width:50%/); assert.match(body, /data-indeterminate/);
 assert(!body.includes('aria-labelledby')); assert(!body.includes('name='));
 JS
-cat > "$progress_consumer/package.json" <<'JSON'
-{"private":true,"type":"module"}
-JSON
 cat > "$progress_consumer/tsconfig.json" <<'JSON'
 {"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"skipLibCheck":true,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts"]}
 JSON

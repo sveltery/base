@@ -1,3 +1,46 @@
+diff --git a/.github/workflows/ci.yml b/.github/workflows/ci.yml
+index 9d4e76b..71b58d7 100644
+--- a/.github/workflows/ci.yml
++++ b/.github/workflows/ci.yml
+@@ -107,3 +107,38 @@ jobs:
+           path: test-results/docs-*/
+           if-no-files-found: warn
+           retention-days: 14
++
++  collapsible-browser:
++    name: Collapsible browser
++    runs-on: ubuntu-22.04
++    timeout-minutes: 15
++    steps:
++      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
++        with:
++          ref: ${{ github.event.pull_request.head.sha || github.sha }}
++          persist-credentials: false
++      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
++        with:
++          version: 12.6.0
++          run_install: false
++      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
++        with:
++          node-version: '24'
++          package-manager-cache: false
++      - name: Frozen workspace install
++        run: bash scripts/bootstrap.sh
++      - name: Build actual component library
++        run: pnpm --filter @sveltery/base build
++      - name: Install official Chromium and OS dependencies
++        run: pnpm exec playwright install --with-deps chromium
++      - name: Paired exact-pin Collapsible acceptance
++        # A failing run stops early for diagnosis; a passing run executes every case.
++        run: pnpm exec playwright test tests/browser/collapsible.spec.ts --max-failures=5
++      - name: Preserve Collapsible browser failure traces
++        if: failure()
++        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
++        with:
++          name: collapsible-browser-failures
++          path: test-results/collapsible-*/
++          if-no-files-found: warn
++          retention-days: 14
 diff --git a/README.md b/README.md
 index e3192ec..4ae90bc 100644
 --- a/README.md
@@ -163,13 +206,99 @@ index 57072c5..2d53cb3 100644
        '@sveltejs/package':
          specifier: 2.5.8
 diff --git a/scripts/check-package.sh b/scripts/check-package.sh
-index bff6165..c0f35fe 100644
+index bff6165..78e9ddd 100644
 --- a/scripts/check-package.sh
 +++ b/scripts/check-package.sh
-@@ -129,3 +129,6 @@ node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$consumer_dir
+@@ -30,8 +30,17 @@ const metadata = JSON.parse(await readFile(new URL('./node_modules/@sveltery/bas
+ assert.equal(metadata.license, 'MIT');
+ console.log('Isolated tarball consumer: PASS');
+ JS
+-# Svelte is an actual package peer; resolve it without registry/publishing in this isolated consumer.
+-ln -s "$sveltery_repo_root/packages/base/node_modules/svelte" "$consumer_dir/node_modules/svelte"
++# Install the packed runtime dependency closure and its Svelte peer in isolation.
++node --input-type=module - "$consumer_dir" <<'JS'
++import { readdirSync, writeFileSync } from 'node:fs';
++import { join } from 'node:path';
++const destination = process.argv[2];
++const tarball = readdirSync(destination).find(name => name.endsWith('.tgz'));
++writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(destination, tarball)}`, svelte: '5.57.1' } }));
++JS
++rm -rf "$consumer_dir/node_modules"
++pnpm --dir "$consumer_dir" --ignore-workspace install --ignore-scripts > /dev/null
++pnpm --dir "$consumer_dir" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+ cat > "$consumer_dir/DialogConsumer.svelte" <<'SVELTE'
+ <script>
+   import { Dialog } from '@sveltery/base';
+@@ -129,3 +138,6 @@ node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$consumer_dir
  bash "$sveltery_repo_root/scripts/check-toggle-package.sh" --public
 
  bash "$sveltery_repo_root/scripts/check-progress-package.sh" --public
 +
 +# Isolated public Collapsible root/subpath, SSR and component type consumer.
 +bash "$sveltery_repo_root/scripts/check-collapsible-package.sh" --public
+diff --git a/scripts/check-progress-package.sh b/scripts/check-progress-package.sh
+index 78dbef7..67c8981 100644
+--- a/scripts/check-progress-package.sh
++++ b/scripts/check-progress-package.sh
+@@ -7,7 +7,17 @@ trap 'rm -rf "$progress_consumer"' EXIT
+ pnpm --filter @sveltery/base pack --pack-destination "$progress_consumer" > /dev/null
+ mkdir -p "$progress_consumer/node_modules/@sveltery/base"
+ tar -xzf "$progress_consumer"/*.tgz --strip-components=1 -C "$progress_consumer/node_modules/@sveltery/base"
+-ln -s "$sveltery_repo_root/packages/base/node_modules/svelte" "$progress_consumer/node_modules/svelte"
++# Install the packed runtime dependency closure and its Svelte peer in isolation.
++node --input-type=module - "$progress_consumer" <<'JS'
++import { readdirSync, writeFileSync } from 'node:fs';
++import { join } from 'node:path';
++const destination = process.argv[2];
++const tarball = readdirSync(destination).find(name => name.endsWith('.tgz'));
++writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(destination, tarball)}`, svelte: '5.57.1' } }));
++JS
++rm -rf "$progress_consumer/node_modules"
++pnpm --dir "$progress_consumer" --ignore-workspace install --ignore-scripts > /dev/null
++pnpm --dir "$progress_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+ test -f "$progress_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
+ cmp LICENSE "$progress_consumer/node_modules/@sveltery/base/LICENSE"
+ if [[ "${1:-}" == '--public' ]]; then
+@@ -52,9 +62,6 @@ assert.match(body, /aria-valuenow="30"/); assert.match(body, /aria-valuetext="50
+ assert.match(body, /width:50%/); assert.match(body, /data-indeterminate/);
+ assert(!body.includes('aria-labelledby')); assert(!body.includes('name='));
+ JS
+-cat > "$progress_consumer/package.json" <<'JSON'
+-{"private":true,"type":"module"}
+-JSON
+ cat > "$progress_consumer/tsconfig.json" <<'JSON'
+ {"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"skipLibCheck":true,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts"]}
+ JSON
+diff --git a/scripts/check-toggle-package.sh b/scripts/check-toggle-package.sh
+index a86d5c9..86a0b29 100644
+--- a/scripts/check-toggle-package.sh
++++ b/scripts/check-toggle-package.sh
+@@ -7,7 +7,17 @@ trap 'rm -rf "$toggle_consumer"' EXIT
+ pnpm --filter @sveltery/base pack --pack-destination "$toggle_consumer" > /dev/null
+ mkdir -p "$toggle_consumer/node_modules/@sveltery/base"
+ tar -xzf "$toggle_consumer"/*.tgz --strip-components=1 -C "$toggle_consumer/node_modules/@sveltery/base"
+-ln -s "$sveltery_repo_root/packages/base/node_modules/svelte" "$toggle_consumer/node_modules/svelte"
++# Install the packed runtime dependency closure and its Svelte peer in isolation.
++node --input-type=module - "$toggle_consumer" <<'JS'
++import { readdirSync, writeFileSync } from 'node:fs';
++import { join } from 'node:path';
++const destination = process.argv[2];
++const tarball = readdirSync(destination).find(name => name.endsWith('.tgz'));
++writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(destination, tarball)}`, svelte: '5.57.1' } }));
++JS
++rm -rf "$toggle_consumer/node_modules"
++pnpm --dir "$toggle_consumer" --ignore-workspace install --ignore-scripts > /dev/null
++pnpm --dir "$toggle_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+ test -f "$toggle_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
+ cmp LICENSE "$toggle_consumer/node_modules/@sveltery/base/LICENSE"
+ if [[ "${1:-}" == '--public' ]]; then
+@@ -47,9 +57,6 @@ assert.equal((body.match(/data-pressed/g) ?? []).length, 1);
+ assert.match(body, /aria-pressed="true"/); assert.match(body, /aria-pressed="false"/);
+ assert.match(body, /data-disabled/); assert(!body.includes('form=')); assert(!body.includes('value='));
+ JS
+-cat > "$toggle_consumer/package.json" <<'JSON'
+-{"private":true,"type":"module"}
+-JSON
+ cat > "$toggle_consumer/tsconfig.json" <<'JSON'
+ {"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"skipLibCheck":true,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts"]}
+ JSON

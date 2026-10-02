@@ -30,8 +30,17 @@ const metadata = JSON.parse(await readFile(new URL('./node_modules/@sveltery/bas
 assert.equal(metadata.license, 'MIT');
 console.log('Isolated tarball consumer: PASS');
 JS
-# Svelte is an actual package peer; resolve it without registry/publishing in this isolated consumer.
-ln -s "$sveltery_repo_root/packages/base/node_modules/svelte" "$consumer_dir/node_modules/svelte"
+# Install the packed runtime dependency closure and its Svelte peer in isolation.
+node --input-type=module - "$consumer_dir" <<'JS'
+import { readdirSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+const destination = process.argv[2];
+const tarball = readdirSync(destination).find(name => name.endsWith('.tgz'));
+writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(destination, tarball)}`, svelte: '5.57.1' } }));
+JS
+rm -rf "$consumer_dir/node_modules"
+pnpm --dir "$consumer_dir" --ignore-workspace install --ignore-scripts > /dev/null
+pnpm --dir "$consumer_dir" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
 cat > "$consumer_dir/DialogConsumer.svelte" <<'SVELTE'
 <script>
   import { Dialog } from '@sveltery/base';
