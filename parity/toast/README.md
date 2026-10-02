@@ -1,5 +1,7 @@
 # Toast contract preparation
 
+Standalone Portal implementation and its separately accounted conformance invocation are documented in [portal-ports.md](portal-ports.md). It adds no ordinary leaf credit; the historical preparation below is unchanged.
+
 The subsequent actual [manager/core slice and DOM handoff](core-interface.md) is implemented separately from this historical reference-only preparation. Its 25 retained cases target src/lib; all shared Toast credits remain unported pending parent reconciliation. The preparation evidence below continues to describe PR #10 and its test-only execution.
 
 Toast is the next component because the original request calls for replacing Sonner. This PR prepares that work; it does not replace an application dependency or ship Toast parts. Foundation: main `e79368ed8668fbfcbdceeaa8cb6152cf04e85cde` after Dialog PR #9. No `AGENTS.md` was present in the saved checkout or workspace; `CONTRIBUTING.md`, architecture, upstream contracts and parity evidence rules apply.
