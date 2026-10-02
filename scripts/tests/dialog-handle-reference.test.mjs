@@ -117,6 +117,22 @@ test('pinned reopened nonmodal Root accepts a press-less virtual outside click',
   });
 });
 
+test('pinned external owner-control button.click also emits a virtual outside press', async () => {
+  await fixture(async ({ React, Dialog, root, document, act, settle }) => {
+    const h = React.createElement; const calls = [];
+    function App() {
+      const [cancel, setCancel] = React.useState(false);
+      return h('div', null, h('button', { id: 'owner-control', onClick: () => setCancel(true) }, 'Toggle cancel'),
+        h(Dialog.Root, { open: true, modal: false, onOpenChange(open, details) { calls.push({ open, reason: details.reason }); if (cancel) details.cancel(); } },
+          h(Dialog.Trigger, null, 'Open'), h(Dialog.Portal, null, h(Dialog.Popup, null, 'Dialog content'))));
+    }
+    await act(async () => root.render(h(React.StrictMode, null, h(App)))); await settle();
+    await act(async () => document.getElementById('owner-control').click()); await settle();
+    assert.deepEqual(calls, [{ open: false, reason: 'outside-press' }]);
+    assert.ok(document.querySelector('[role=dialog]'));
+  });
+});
+
 for (const popup of ['absent', 'remove-on-close']) test(`pinned close with Popup ${popup} retains mounted state without a completion`, async () => {
   await fixture(async ({ React, Dialog, root, act, settle }) => {
     const h = React.createElement; const handle = Dialog.createHandle(); const completions = []; const actions = React.createRef();

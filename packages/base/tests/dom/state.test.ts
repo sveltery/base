@@ -11,6 +11,8 @@ async function setup(scenario: string) {
 }
 function button(name: string) { return [...document.querySelectorAll<HTMLElement>('button, [role=button]')].find(node => node.textContent === name)!; }
 async function click(name: string) { button(name).click(); await settle(); }
+// Owner prop updates are separate from clicks, which correctly emit virtual outside presses.
+async function control(name: string) { await (document.querySelector('main') as HTMLElement & { controlOwner: (name: string) => Promise<void> }).controlOwner(name); await settle(); }
 function calls() { return JSON.parse(document.querySelector('[data-testid=calls]')!.textContent!) as { open: boolean; reason: string; triggerIsUndefined: boolean }[]; }
 function popup() { return document.querySelector<HTMLElement>('[role=dialog]'); }
 afterEach(async () => { for (const component of mounted.splice(0)) await unmount(component); document.body.replaceChildren(); });
@@ -52,17 +54,17 @@ for (const scenario of ['ownership', 'missing', 'native', 'custom', 'undefined',
 });
 for (const initiallyOpen of [false, true]) it(`cancellation exposes unchanged internal state when controlled input is released (${initiallyOpen})`, async () => {
   await setup('controlled');
-  if (initiallyOpen) { await click('Open'); await click('Owner open'); }
+  if (initiallyOpen) { await click('Open'); await control('Owner open'); }
   const before = calls().length;
-  await click('Toggle cancel');
+  await control('Toggle cancel');
   if (initiallyOpen) { document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); await settle(); }
   else await click('Open');
   expect(calls()).toHaveLength(before + 1);
   expect(document.querySelector('[data-testid=owner]')!.textContent).toBe(String(initiallyOpen));
   const order = JSON.parse(document.querySelector('[data-testid=order]')!.textContent!);
   expect(order.slice(initiallyOpen ? 2 : 0)).toEqual([{ channel: 'consumer', open: !initiallyOpen, before: String(initiallyOpen), reason: initiallyOpen ? 'escape-key' : 'trigger-press', canceled: true }]);
-  await click('Release control'); expect(Boolean(popup())).toBe(initiallyOpen);
-  await click('Toggle cancel');
+  await control('Release control'); expect(Boolean(popup())).toBe(initiallyOpen);
+  await control('Toggle cancel');
   if (initiallyOpen) { document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); await settle(); }
   else await click('Open');
   expect(Boolean(popup())).toBe(!initiallyOpen);
