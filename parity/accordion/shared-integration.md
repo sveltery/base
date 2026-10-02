@@ -23,3 +23,6 @@ Latest recorded source checkpoint, 2026-10-02 18:30:58 UTC: `377bf32b9d0181be168
 
 
 Independent audit on 2026-10-02 found two source-test fidelity gaps in historical checkpoint `377bf32`: R:182 lacked its React.StrictMode reference boundary, and merged-class helper predicates allowed class-name substrings instead of exact tokens. Both ports now preserve the pinned conditions and assertion order. The dedicated ledger temporarily retains 37 ordinary passing sites / 41 variants; R:182, two helper bodies and the five aggregate conformance calls are candidates until fresh secured execution. Historical 252-pass execution is not certification of these repairs. Portable scope remains 38 sites / 42 variants; Activity and shared-credit limits are unchanged.
+
+
+The resumed issue #37 fidelity repair updates the central compatibility index. The recorded integration patch’s central-index hunk is refreshed against the same imported `d695b41` baseline to include this additive source-quirk record; its eighteen-target scope is unchanged. Feature runtime/assertion repairs remain separately committed and are not instructions to reapply the patch.
