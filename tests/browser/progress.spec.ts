@@ -10,7 +10,7 @@ async function percent(page: Page, value: number) { return page.evaluate(v => ne
 async function currency(page: Page, value: number, code = 'USD') { return page.evaluate(({ v, c }) => new Intl.NumberFormat(undefined, { style: 'currency', currency: c }).format(v), { v: value, c: code }); }
 async function lastCall(page: Page, kind: 'aria' | 'value') {
   return page.locator('main').evaluate((node, key) => {
-    const probe = node as HTMLElement & { progressAriaCalls(): [string, string][]; progressValueCalls(): [string | null, string][] };
+    const probe = node as HTMLElement & { progressAriaCalls(): [string, number | null][]; progressValueCalls(): [string | null, number | null][] };
     return (key === 'aria' ? probe.progressAriaCalls() : probe.progressValueCalls()).at(-1);
   }, kind);
 }
@@ -57,8 +57,8 @@ for (const reference of [false, true]) {
   });
   test(`Root:262 ${framework} aria formatter determinate and null`, async ({ page }) => {
     const root = await setup(page, 'callback', reference); const expected = await percent(page, .3);
-    expect(await lastCall(page, 'aria')).toEqual([expected, '30']); await expect(root).toHaveAttribute('aria-valuetext', `${expected} uploaded`); expect(await page.getByTestId('value').textContent()).toBe(expected);
-    await page.getByRole('button', { name: 'Set null', exact: true }).click(); expect(await lastCall(page, 'aria')).toEqual(['', 'null']); await expect(root).toHaveAttribute('aria-valuetext', 'Waiting to start'); expect(await page.getByTestId('value').textContent()).toBe('');
+    expect(await lastCall(page, 'aria')).toEqual([expected, 30]); await expect(root).toHaveAttribute('aria-valuetext', `${expected} uploaded`); expect(await page.getByTestId('value').textContent()).toBe(expected);
+    await page.getByRole('button', { name: 'Set null', exact: true }).click(); expect(await lastCall(page, 'aria')).toEqual(['', null]); await expect(root).toHaveAttribute('aria-valuetext', 'Waiting to start'); expect(await page.getByTestId('value').textContent()).toBe('');
   });
   test(`Root:288 ${framework} currency format`, async ({ page }) => {
     const root = await setup(page, 'currency', reference); const expected = await currency(page, 30);
@@ -89,16 +89,16 @@ for (const reference of [false, true]) {
   test(`Label:49 ${framework} missing context`, async ({ page }) => { await setup(page, 'context', reference); await expect(page.getByTestId('context-error')).toContainText('Base UI: ProgressRootContext is missing. Progress parts must be placed within <Progress.Root>.'); });
   test(`Value:17 ${framework} default value`, async ({ page }) => { await setup(page, 'default', reference); expect(await page.getByTestId('value').textContent()).toBe(await percent(page, .3)); });
   test(`Value:28 ${framework} formatted default value`, async ({ page }) => { await setup(page, 'currency', reference); expect(await page.getByTestId('value').textContent()).toBe(await currency(page, 30)); });
-  test(`Value:48 ${framework} callback arguments numerical`, async ({ page }) => { await setup(page, 'value-callback', reference); expect(await page.getByTestId('value').textContent()).toBe(`${await currency(page, 30)}|30`); expect(await lastCall(page, 'value')).toEqual([await currency(page, 30), '30']); });
+  test(`Value:48 ${framework} callback arguments numerical`, async ({ page }) => { await setup(page, 'value-callback', reference); expect(await page.getByTestId('value').textContent()).toBe(`${await currency(page, 30)}|30`); expect(await lastCall(page, 'value')).toEqual([await currency(page, 30), 30]); });
   for (const [scenario, raw, clamped] of [['formatted-over', 50, 40], ['formatted-under', 10, 20]] as const) test(`parameterized Root:180 ${framework} ${raw}`, async ({ page }) => {
     const root = await setup(page, scenario, reference); const expected = await currency(page, clamped);
-    await expect(root).toHaveAttribute('aria-valuenow', String(clamped)); await expect(page.getByTestId('value')).toContainText(expected); expect(await lastCall(page, 'aria')).toEqual([expected, String(raw)]); await expect(root).toHaveAttribute('aria-valuetext', `${expected} (raw: ${raw})`);
+    await expect(root).toHaveAttribute('aria-valuenow', String(clamped)); await expect(page.getByTestId('value')).toContainText(expected); expect(await lastCall(page, 'aria')).toEqual([expected, raw]); await expect(root).toHaveAttribute('aria-valuetext', `${expected} (raw: ${raw})`);
   });
   for (const scenario of ['nan', 'infinity', 'negative']) test(`parameterized Root:246 ${framework} ${scenario}`, async ({ page }) => {
     const root = await setup(page, scenario, reference); await expect(root).toHaveAttribute('data-indeterminate'); await expect(root).not.toHaveAttribute('aria-valuenow'); await expect(root).toHaveAttribute('aria-valuetext', 'indeterminate progress');
     expect(await page.getByTestId('value').textContent()).toBe(''); expect(await page.getByTestId('indicator').evaluate((node: HTMLElement) => node.style.width)).toBe('');
   });
-  for (const [scenario, raw] of [['value-null', 'null'], ['value-nan', 'NaN']]) test(`parameterized Value:66 ${framework} ${raw}`, async ({ page }) => { await setup(page, scenario, reference); expect(await page.getByTestId('value').textContent()).toBe(`indeterminate|${raw}`); expect(await lastCall(page, 'value')).toEqual(['indeterminate', raw]); });
+  for (const [scenario, raw] of [['value-null', 'null'], ['value-nan', 'NaN']]) test(`parameterized Value:66 ${framework} ${raw}`, async ({ page }) => { await setup(page, scenario, reference); expect(await page.getByTestId('value').textContent()).toBe(`indeterminate|${raw}`); expect(await lastCall(page, 'value')).toEqual(['indeterminate', raw === 'null' ? null : NaN]); });
   test(`supplement ${framework} indeterminate removes all internal styles after determinate`, async ({ page }) => {
     await setup(page, 'default', reference); const indicator = page.getByTestId('indicator');
     await expect(indicator).toHaveCSS('height', '12px'); await page.getByRole('button', { name: 'Set null', exact: true }).click();
@@ -114,7 +114,7 @@ for (const reference of [false, true]) {
     await expect(root.locator(':scope > span[role=presentation]')).toHaveCSS('position', 'fixed'); await expect(root.locator(':scope > span[role=presentation]')).toHaveCSS('width', '1px');
     expect(await page.getByTestId('value').textContent()).toBe(await percent(page, .4)); await page.getByRole('button', { name: 'Replace host', exact: true }).click(); await expect(root).toHaveJSProperty('tagName', 'ARTICLE');
     await expect(root.locator(':scope > span[role=presentation]')).toHaveText('x'); await page.getByRole('button', { name: 'Remove root', exact: true }).click(); await expect(root).toHaveCount(0);
-    await setup(page, 'replacement-callback', reference); expect(await page.getByTestId('value').textContent()).toBe(`${await percent(page, .4)}|40`); expect(await lastCall(page, 'value')).toEqual([await percent(page, .4), '40']);
+    await setup(page, 'replacement-callback', reference); expect(await page.getByTestId('value').textContent()).toBe(`${await percent(page, .4)}|40`); expect(await lastCall(page, 'value')).toEqual([await percent(page, .4), 40]);
   });
   for (const scenario of ['reversed', 'nan-min', 'nan-max', 'infinite-min', 'infinite-max']) test(`supplement ${framework} preserve bound arithmetic ${scenario}`, async ({ page }) => {
     const root = await setup(page, scenario, reference);

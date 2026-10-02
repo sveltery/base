@@ -16,12 +16,24 @@ The independent source review verified the actual pin, 20 ordinary vectors, seve
 
 Local browser installation from the official CDN was denied by its network endpoint. The existing system Chromium also failed before interaction because its SUID sandbox helper is not configured for secured startup. No security policy, sandbox flags or environment access was changed. Hosted CI retains `chromiumSandbox: true`; no local interaction or browser parity is claimed from those startup attempts.
 
+## Passing component source checkpoint
+
+Head `a9f534cd5ab43db58b522baf2e1d061a86b1f006` passed hosted Standards, Verification and all 733 secured browser executions, including all 212 Progress executions, in [run 36993849121](https://github.com/sveltery/base/actions/runs/36993849121), browser job `110795942390`. The real Svelte/React SSR hydration pair and computed-style assertions passed. Its independent exact-head review reported no actionable findings and reran 16 Progress DOM cases, provenance/inventory and patch applicability. Its configured automatic review completed without new findings and returned a positive reaction; the earlier stale-record thread is resolved. This certifies that component checkpoint only.
+
+The port ledger records 20 ordinary passing source-checkpoint declarations. Seven parameterized variants and 15 conformance helpers remain separately counted. No shared aggregate credit or additional behavioral difference acceptance is inferred. The integrated public/type checkpoint below strengthens browser probes to preserve raw numeric/null/NaN values through Playwright serialization, rather than converting them to strings; fresh final-head execution remains required.
+
+## Integrated public checkpoint
+
+The parent released bounded Progress shared integration from main `5e6492007b187bc9f7f5296b79917c1715c4b141` while Input remains separately blocked. The exact shared additions are applied on this branch; no unmerged Input or shared helper change is included. Progress uses a part module namespace, retaining `Progress.Status` alongside named `ProgressStatus`; the native part subpath additionally exports the `Status` type alias. Consumer types assert all three forms.
+
+Full `bash scripts/verify.sh` passed on the integrated working tree: 32 script regressions, 152 runtime/SSR tests, 319 DOM tests, builds, type checks, runtime boundary and all existing plus Progress public consumers. `bash .github/standards/check.sh` passed. Fresh hosted tests and reviews are required on the committed integrated head.
+
 ## Outstanding integrated-head gates
 
-- Apply/reconcile [shared-integration.patch](shared-integration.patch) through the parent/Input owner, preserving unrelated work.
+- The parent released shared ownership while Input remains separate. [shared-integration.patch](shared-integration.patch) is now applied on this branch; unmerged Input and shared helpers remain excluded.
 - Run `bash scripts/check-progress-package.sh --public` on the complete integrated head. Internal imports and any isolated integration preview are separate evidence.
 - Pass full local checks, hosted Standards/Verification and all paired secured Chromium assertions, including real SSR/hydration and computed styles, on the final head.
 - Obtain independent exact-head review and configured automatic review completion; resolve any findings and rerun affected checks after changes.
-- Report the exact final merge-eligible SHA before any merge. This component-local branch is not merge-eligible while public integration remains pending.
+- Report the exact final merge-eligible SHA before any merge. This integrated branch is not merge-eligible until fresh public consumers and all exact-head reviews/checks pass.
 
-Source traces remain immutable/unported; the separate port ledger preserves pending status until recorded secured execution. Helpers, parameterized variants, packages and supplemental cases add no ordinary declaration credit. No release, deployment, access change or external review mention is part of this work.
+Source traces remain immutable/unported; the separate port ledger records the passing secured component checkpoint and keeps final integrated acceptance separate. Helpers, parameterized variants, packages and supplemental cases add no ordinary declaration credit. No release, deployment, access change or external review mention is part of this work.

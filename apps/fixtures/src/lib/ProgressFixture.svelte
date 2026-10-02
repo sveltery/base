@@ -6,7 +6,7 @@
   let { ariaSpy, valueSpy, scenario = 'default' }: { scenario?: string; ariaSpy?: (formatted: string, raw: number | null) => void; valueSpy?: (formatted: string | null, raw: number | null) => void } = $props();
   let config = $state<ProgressConfig>(untrack(() => progressConfig(scenario)));
   let mainRef = $state<HTMLElement>();
-  const ariaCalls: [string, string][] = [], valueCalls: [string | null, string][] = [];
+  const ariaCalls: [string, number | null][] = [], valueCalls: [string | null, number | null][] = [];
   let hydrated = $state(false), shown = $state(true), showLabel = $state(true), labelId = $state<string | undefined>(untrack(() => scenario === 'labels' ? 'label-a' : undefined));
   let tag = $state('section');
   let rootRef = $state<HTMLElement | null>(), labelRef = $state<HTMLElement | null>(), trackRef = $state<HTMLElement | null>(), indicatorRef = $state<HTMLElement | null>(), valueRef = $state<HTMLElement | null>();
@@ -20,8 +20,8 @@
   export function replaceHost() { tag = 'article'; }
   export function remove() { shown = false; }
   export function refs() { return [rootRef, labelRef, trackRef, indicatorRef, valueRef]; }
-  function observeValue(formatted: string | null, raw: number | null) { valueCalls.push([formatted, rawValue(raw)]); valueSpy?.(formatted, raw); return ''; }
-  function aria(formatted: string, raw: number | null) { ariaCalls.push([formatted, rawValue(raw)]); ariaSpy?.(formatted, raw); return raw == null ? 'Waiting to start' : scenario.startsWith('formatted-') ? `${formatted} (raw: ${raw})` : `${formatted} uploaded`; }
+  function observeValue(formatted: string | null, raw: number | null) { valueCalls.push([formatted, raw]); valueSpy?.(formatted, raw); return ''; }
+  function aria(formatted: string, raw: number | null) { ariaCalls.push([formatted, raw]); ariaSpy?.(formatted, raw); return raw == null ? 'Waiting to start' : scenario.startsWith('formatted-') ? `${formatted} (raw: ${raw})` : `${formatted} uploaded`; }
 </script>
 {#snippet host(props: Record<string | symbol, unknown>, state: ProgressRootState, children: Snippet | undefined)}
   <svelte:element this={tag} {...mergeProps(props, { class: 'replacement' })} data-render-state={state.status}>{@render children?.()}</svelte:element>

@@ -15,3 +15,5 @@ Read the [upstream differences register](docs/upstream-differences.md) for lande
 The [catalog ledger](docs/catalog.md) accounts for every pinned root export module and distinguishes bounded implementations from unimplemented scope. [Standalone Separator](docs/separator.md) adds the native horizontal/vertical divider surface; its source assertions and acceptance gates remain separately recorded.
 
 [Standalone Toggle](parity/toggle/README.md) adds controlled/uncontrolled pressed state with cancellable callbacks and disabled behavior. Its public root/subpath API is bounded; ToggleGroup, Toolbar and complete conformance remain deferred, and final-head acceptance is recorded in PR #27.
+
+[Progress](docs/progress.md) adds Root, Label, Track, Indicator and Value against the immutable v1.8.0 pin. Its [dedicated declaration and conformance evidence](parity/progress/README.md) remains separately accounted; final-head acceptance is recorded in PR #28.

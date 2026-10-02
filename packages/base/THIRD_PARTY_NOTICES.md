@@ -1,5 +1,7 @@
 # Third-party notices
 
+Progress parts, range normalization, formatting, ID registration, visually hidden CSS and assertion/conformance ports derive from packages/react/src/progress, utils/useRegisteredLabelId.ts, packages/utils number/locale/clamp helpers and test conformance helpers at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT attribution and immutable source/assertion hashes are preserved in parity/progress.
+
 Toggle standalone state, callbacks, disabled behavior and assertion ports derive from toggle/Toggle.tsx, toggle/Toggle.test.tsx, utils/useControlled.ts and internals/use-button/useButton.ts at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. Their MIT notice and immutable source/assertion hashes also appear in parity/toggle.
 
 Separator orientation, role, state attributes and assertion/conformance ports derive from separator/Separator.tsx, separator/Separator.test.tsx, separator/SeparatorDataAttributes.ts and test conformance helpers at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. Their MIT notice and exact source hashes also appear in parity/separator.

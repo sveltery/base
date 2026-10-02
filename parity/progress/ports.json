@@ -5,7 +5,7 @@
     "commit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
     "license": "MIT"
   },
-  "scope": "20 ordinary candidates, 7 parameterized variants; no credit until exact-head secured paired execution. Conformance helpers and supplements add zero ordinary credit. Shared inventory totals are unchanged.",
+  "scope": "20 ordinary passing source-checkpoint ports; 7 parameterized variants separately; 15 conformance helper declarations across all five parts add zero ordinary credit. Shared totals remain unchanged. Integrated final-head acceptance remains separate.",
   "ports": [
     {
       "sourceId": "packages/react/src/progress/root/ProgressRoot.test.tsx:32",
@@ -19,11 +19,18 @@
       ],
       "kind": "ordinary",
       "variants": 1,
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/progress.spec.ts",
       "pairedExecutionPrefix": "Root:32",
       "directCallbackWitness": null,
-      "evidence": null
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "sourceId": "packages/react/src/progress/root/ProgressRoot.test.tsx:56",
@@ -33,11 +40,18 @@
       ],
       "kind": "ordinary",
       "variants": 1,
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/progress.spec.ts",
       "pairedExecutionPrefix": "Root:56",
       "directCallbackWitness": null,
-      "evidence": null
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "sourceId": "packages/react/src/progress/root/ProgressRoot.test.tsx:65",
@@ -72,11 +86,18 @@
       ],
       "kind": "ordinary",
       "variants": 1,
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/progress.spec.ts",
       "pairedExecutionPrefix": "Root:65",
       "directCallbackWitness": null,
-      "evidence": null
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "sourceId": "packages/react/src/progress/root/ProgressRoot.test.tsx:122",
@@ -88,11 +109,18 @@
       ],
       "kind": "ordinary",
       "variants": 1,
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/progress.spec.ts",
       "pairedExecutionPrefix": "Root:122",
       "directCallbackWitness": null,
-      "evidence": null
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "sourceId": "packages/react/src/progress/root/ProgressRoot.test.tsx:140",
@@ -106,11 +134,18 @@
       ],
       "kind": "ordinary",
       "variants": 1,
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/progress.spec.ts",
       "pairedExecutionPrefix": "Root:140",
       "directCallbackWitness": null,
-      "evidence": null
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "sourceId": "packages/react/src/progress/root/ProgressRoot.test.tsx:160",
@@ -124,11 +159,18 @@
       ],
       "kind": "ordinary",
       "variants": 1,
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/progress.spec.ts",
       "pairedExecutionPrefix": "Root:160",
       "directCallbackWitness": null,
-      "evidence": null
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "sourceId": "packages/react/src/progress/root/ProgressRoot.test.tsx:180",
@@ -141,11 +183,18 @@
       ],
       "kind": "parameterized",
       "variants": 2,
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/progress.spec.ts",
       "pairedExecutionPrefix": "Root:180",
       "directCallbackWitness": "packages/base/tests/dom/progress.test.ts",
-      "evidence": null
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "sourceId": "packages/react/src/progress/root/ProgressRoot.test.tsx:215",
@@ -155,11 +204,18 @@
       ],
       "kind": "ordinary",
       "variants": 1,
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/progress.spec.ts",
       "pairedExecutionPrefix": "Root:215",
       "directCallbackWitness": null,
-      "evidence": null
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "sourceId": "packages/react/src/progress/root/ProgressRoot.test.tsx:227",
@@ -172,11 +228,18 @@
       ],
       "kind": "ordinary",
       "variants": 1,
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/progress.spec.ts",
       "pairedExecutionPrefix": "Root:227",
       "directCallbackWitness": null,
-      "evidence": null
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "sourceId": "packages/react/src/progress/root/ProgressRoot.test.tsx:246",
@@ -190,11 +253,18 @@
       ],
       "kind": "parameterized",
       "variants": 3,
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/progress.spec.ts",
       "pairedExecutionPrefix": "Root:246",
       "directCallbackWitness": null,
-      "evidence": null
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "sourceId": "packages/react/src/progress/root/ProgressRoot.test.tsx:262",
@@ -209,11 +279,18 @@
       ],
       "kind": "ordinary",
       "variants": 1,
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/progress.spec.ts",
       "pairedExecutionPrefix": "Root:262",
       "directCallbackWitness": "packages/base/tests/dom/progress.test.ts",
-      "evidence": null
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "sourceId": "packages/react/src/progress/root/ProgressRoot.test.tsx:288",
@@ -224,11 +301,18 @@
       ],
       "kind": "ordinary",
       "variants": 1,
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/progress.spec.ts",
       "pairedExecutionPrefix": "Root:288",
       "directCallbackWitness": null,
-      "evidence": null
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "sourceId": "packages/react/src/progress/root/ProgressRoot.test.tsx:312",
@@ -239,11 +323,18 @@
       ],
       "kind": "ordinary",
       "variants": 1,
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/progress.spec.ts",
       "pairedExecutionPrefix": "Root:312",
       "directCallbackWitness": null,
-      "evidence": null
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "sourceId": "packages/react/src/progress/root/ProgressRoot.test.tsx:334",
@@ -253,11 +344,18 @@
       ],
       "kind": "ordinary",
       "variants": 1,
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/progress.spec.ts",
       "pairedExecutionPrefix": "Root:334",
       "directCallbackWitness": null,
-      "evidence": null
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "sourceId": "packages/react/src/progress/indicator/ProgressIndicator.test.tsx:17",
@@ -267,11 +365,18 @@
       ],
       "kind": "ordinary",
       "variants": 1,
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/progress.spec.ts",
       "pairedExecutionPrefix": "Indicator:17",
       "directCallbackWitness": null,
-      "evidence": null
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "sourceId": "packages/react/src/progress/indicator/ProgressIndicator.test.tsx:34",
@@ -281,11 +386,18 @@
       ],
       "kind": "ordinary",
       "variants": 1,
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/progress.spec.ts",
       "pairedExecutionPrefix": "Indicator:34",
       "directCallbackWitness": null,
-      "evidence": null
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "sourceId": "packages/react/src/progress/indicator/ProgressIndicator.test.tsx:51",
@@ -295,11 +407,18 @@
       ],
       "kind": "ordinary",
       "variants": 1,
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/progress.spec.ts",
       "pairedExecutionPrefix": "Indicator:51",
       "directCallbackWitness": null,
-      "evidence": null
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "sourceId": "packages/react/src/progress/label/ProgressLabel.test.tsx:17",
@@ -311,11 +430,18 @@
       ],
       "kind": "ordinary",
       "variants": 1,
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/progress.spec.ts",
       "pairedExecutionPrefix": "Label:17",
       "directCallbackWitness": null,
-      "evidence": null
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "sourceId": "packages/react/src/progress/label/ProgressLabel.test.tsx:49",
@@ -325,11 +451,18 @@
       ],
       "kind": "ordinary",
       "variants": 1,
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/progress.spec.ts",
       "pairedExecutionPrefix": "Label:49",
       "directCallbackWitness": null,
-      "evidence": null
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "sourceId": "packages/react/src/progress/value/ProgressValue.test.tsx:17",
@@ -339,11 +472,18 @@
       ],
       "kind": "ordinary",
       "variants": 1,
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/progress.spec.ts",
       "pairedExecutionPrefix": "Value:17",
       "directCallbackWitness": null,
-      "evidence": null
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "sourceId": "packages/react/src/progress/value/ProgressValue.test.tsx:28",
@@ -353,11 +493,18 @@
       ],
       "kind": "ordinary",
       "variants": 1,
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/progress.spec.ts",
       "pairedExecutionPrefix": "Value:28",
       "directCallbackWitness": null,
-      "evidence": null
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "sourceId": "packages/react/src/progress/value/ProgressValue.test.tsx:48",
@@ -368,11 +515,18 @@
       ],
       "kind": "ordinary",
       "variants": 1,
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/progress.spec.ts",
       "pairedExecutionPrefix": "Value:48",
       "directCallbackWitness": "packages/base/tests/dom/progress.test.ts",
-      "evidence": null
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "sourceId": "packages/react/src/progress/value/ProgressValue.test.tsx:66",
@@ -383,11 +537,18 @@
       ],
       "kind": "parameterized",
       "variants": 2,
-      "status": "ported-pending-verification",
+      "status": "passing",
       "port": "tests/browser/progress.spec.ts",
       "pairedExecutionPrefix": "Value:66",
       "directCallbackWitness": "packages/base/tests/dom/progress.test.ts",
-      "evidence": null
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     }
   ],
   "conformance": [
@@ -402,8 +563,16 @@
         "Indicator",
         "Value"
       ],
-      "status": "ported-pending-verification",
-      "ordinaryCredit": 0
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "source": "packages/react/test/conformanceTests/propForwarding.tsx",
@@ -416,8 +585,16 @@
         "Indicator",
         "Value"
       ],
-      "status": "ported-pending-verification",
-      "ordinaryCredit": 0
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "source": "packages/react/test/conformanceTests/propForwarding.tsx",
@@ -430,8 +607,16 @@
         "Indicator",
         "Value"
       ],
-      "status": "ported-pending-verification",
-      "ordinaryCredit": 0
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "source": "packages/react/test/conformanceTests/propForwarding.tsx",
@@ -444,8 +629,16 @@
         "Indicator",
         "Value"
       ],
-      "status": "ported-pending-verification",
-      "ordinaryCredit": 0
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "source": "packages/react/test/conformanceTests/propForwarding.tsx",
@@ -458,8 +651,16 @@
         "Indicator",
         "Value"
       ],
-      "status": "ported-pending-verification",
-      "ordinaryCredit": 0
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "source": "packages/react/test/conformanceTests/propForwarding.tsx",
@@ -472,8 +673,16 @@
         "Indicator",
         "Value"
       ],
-      "status": "ported-pending-verification",
-      "ordinaryCredit": 0
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "source": "packages/react/test/conformanceTests/refForwarding.tsx",
@@ -486,8 +695,16 @@
         "Indicator",
         "Value"
       ],
-      "status": "ported-pending-verification",
-      "ordinaryCredit": 0
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "source": "packages/react/test/conformanceTests/className.tsx",
@@ -500,8 +717,16 @@
         "Indicator",
         "Value"
       ],
-      "status": "ported-pending-verification",
-      "ordinaryCredit": 0
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "source": "packages/react/test/conformanceTests/renderProp.tsx",
@@ -514,8 +739,16 @@
         "Indicator",
         "Value"
       ],
-      "status": "ported-pending-verification",
-      "ordinaryCredit": 0
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "source": "packages/react/test/conformanceTests/renderProp.tsx",
@@ -528,8 +761,16 @@
         "Indicator",
         "Value"
       ],
-      "status": "ported-pending-verification",
-      "ordinaryCredit": 0
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "source": "packages/react/test/conformanceTests/renderProp.tsx",
@@ -542,8 +783,16 @@
         "Indicator",
         "Value"
       ],
-      "status": "ported-pending-verification",
-      "ordinaryCredit": 0
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "source": "packages/react/test/conformanceTests/renderProp.tsx",
@@ -556,8 +805,16 @@
         "Indicator",
         "Value"
       ],
-      "status": "ported-pending-verification",
-      "ordinaryCredit": 0
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "source": "packages/react/test/conformanceTests/renderProp.tsx",
@@ -570,8 +827,16 @@
         "Indicator",
         "Value"
       ],
-      "status": "ported-pending-verification",
-      "ordinaryCredit": 0
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "source": "packages/react/test/conformanceTests/renderProp.tsx",
@@ -584,8 +849,16 @@
         "Indicator",
         "Value"
       ],
-      "status": "ported-pending-verification",
-      "ordinaryCredit": 0
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     },
     {
       "source": "packages/react/test/conformanceTests/renderProp.tsx",
@@ -598,9 +871,24 @@
         "Indicator",
         "Value"
       ],
-      "status": "ported-pending-verification",
-      "ordinaryCredit": 0
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+        "browserJob": 110795942390,
+        "progressExecutions": 212,
+        "overallExecutions": 733,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      }
     }
   ],
-  "evidence": null
+  "evidence": {
+    "testedCommit": "a9f534cd5ab43db58b522baf2e1d061a86b1f006",
+    "workflowRun": "https://github.com/sveltery/base/actions/runs/36993849121",
+    "browserJob": 110795942390,
+    "progressExecutions": 212,
+    "overallExecutions": 733,
+    "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+  }
 }

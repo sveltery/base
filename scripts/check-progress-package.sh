@@ -17,24 +17,26 @@ export { Progress as Second } from '@sveltery/base/progress';
 JS
   cat > "$progress_consumer/imports.d.ts" <<'TS'
 export { Progress as First, type ProgressRootProps, type ProgressStatus } from '@sveltery/base';
-export { Progress as Second } from '@sveltery/base/progress';
+export { Progress as Second, type Status } from '@sveltery/base/progress';
 TS
 else
   cat > "$progress_consumer/imports.js" <<'JS'
 export { Progress as First, Progress as Second } from './node_modules/@sveltery/base/dist/progress/index.js';
 JS
   cat > "$progress_consumer/imports.d.ts" <<'TS'
-export { Progress as First, Progress as Second, type ProgressRootProps, type ProgressStatus } from './node_modules/@sveltery/base/dist/progress/index.js';
+export { Progress as First, Progress as Second, type ProgressRootProps, type ProgressStatus, type Status } from './node_modules/@sveltery/base/dist/progress/index.js';
 TS
 fi
 cat > "$progress_consumer/Consumer.svelte" <<'SVELTE'
 <script lang="ts">
-  import { First, Second, type ProgressRootProps, type ProgressStatus } from './imports.js';
+  import { First, Second, type ProgressRootProps, type ProgressStatus, type Status } from './imports.js';
   const props: ProgressRootProps = { value: 30, min: 20, max: 40 };
   const status: ProgressStatus = 'indeterminate';
+  const namespaceStatus: First.Status = status;
+  const subpathStatus: Status = namespaceStatus;
 </script>
 <First.Root {...props}><First.Label>Upload</First.Label><First.Value/><First.Track><First.Indicator/></First.Track></First.Root>
-<Second.Root value={null} data-status={status}><Second.Value/></Second.Root>
+<Second.Root value={null} data-status={subpathStatus}><Second.Value/></Second.Root>
 SVELTE
 cat > "$progress_consumer/check.mjs" <<'JS'
 import assert from 'node:assert/strict';

@@ -4,7 +4,6 @@ Progress implements the pinned Base UI v1.8.0 Root, Label, Track, Indicator and 
 
 ```svelte
 <script lang="ts">
-  // Public exports are prepared in the serialized integration patch.
   import { Progress } from '@sveltery/base/progress';
 </script>
 <Progress.Root value={30} min={20} max={40}>
@@ -20,8 +19,8 @@ All parts receive `{ status }` in class/style callbacks and replacement snippets
 
 Label generates a Svelte-stable ID unless `id` is supplied. It registers after mounting, updates its association when the ID changes and conditionally unregisters on removal. SSR Root has no generated `aria-labelledby`; hydration establishes it. This deliberately uses a Progress-local effect rather than Dialog's initialization registration. Nested Roots own separate contexts. Progress has no form submission or reset state.
 
-Replacement snippets must spread the supplied props, including attachment symbols, and render the third children snippet to retain Root's hidden content and Value's output. Bind `ref` to receive the actual default or replacement host, followed by null on cleanup. React render elements/functions adapt to Svelte snippets; CSS objects adapt to strings; React `className` adapts to native `class` and its ClassValue forms. Public types are named `ProgressRootProps`, corresponding part Props/State names and `ProgressStatus` rather than React namespace types.
+Replacement snippets must spread the supplied props, including attachment symbols, and render the third children snippet to retain Root's hidden content and Value's output. Bind `ref` to receive the actual default or replacement host, followed by null on cleanup. React render elements/functions adapt to Svelte snippets; CSS objects adapt to strings; React `className` adapts to native `class` and its ClassValue forms. Public types are named `ProgressRootProps`, corresponding part Props/State names and `ProgressStatus`; `Progress.Status` preserves the pinned namespace alias, and the native part subpath also exports `Status`. React component namespace Props/State syntax adapts to the named part types.
 
 Reversed and nonfinite bounds retain the pin's arithmetic without validation or correction. For example min 40/max 20/value 30 yields raw clamp 40 but percentage 50%; equal bounds/value 5 yields complete with 0% fill. These are characterizations, not additional declaration credits or an approval to change behavior.
 
-See [assertion provenance and limits](../parity/progress/README.md), [compatibility](../parity/progress/compatibility.md), [verification](../parity/progress/verification.md) and [serialized shared integration](../parity/progress/shared-integration.md). Public exports, package consumers and final-head acceptance remain separate gates; complete library or assistive-technology parity is unclaimed.
+See [assertion provenance and limits](../parity/progress/README.md), [compatibility](../parity/progress/compatibility.md), [verification](../parity/progress/verification.md) and [serialized shared integration](../parity/progress/shared-integration.md). Public exports are integrated; package consumers and final-head acceptance remain separate gates; complete library or assistive-technology parity is unclaimed.
