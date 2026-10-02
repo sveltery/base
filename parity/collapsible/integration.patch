@@ -33,7 +33,7 @@
 +++ b/pnpm-lock.yaml
 @@ -214,6 +214,10 @@
          version: 8.3.1
- 
+
    packages/base:
 +    dependencies:
 +      esm-env:
@@ -45,7 +45,7 @@
 --- a/scripts/check-package.sh
 +++ b/scripts/check-package.sh
 @@ -127,3 +127,6 @@
- 
+
  # Isolated public Toggle entry identity, SSR and component type consumer.
  bash "$sveltery_repo_root/scripts/check-toggle-package.sh" --public
 +
@@ -74,10 +74,10 @@
  | [Toggle](../parity/toggle/README.md) | Standalone pressed state, cancellable callbacks and disabled behavior; ToggleGroup, Toolbar and shared conformance remain deferred. |
 +| [Collapsible](collapsible.md) | Root/Trigger/Panel with bounded measurement and CSS motion lifecycle; six external React.Activity cases and shared conformance remain deferred. |
  | merge-props | Bounded native prop/event merge foundation; see [contracts](upstream-contracts.md). |
- 
+
 -These six modules are bounded and the remaining 36 are unimplemented. No module is labeled fully compatible. Field and Form have no placeholders or exports. The catalog denominator includes modules such as direction-provider and use-render; it is not a component count or a passing-test denominator. All unimplemented names remain visible in the machine-readable ledger.
 +At the base of this patch, seven modules are bounded and the remaining 35 are unimplemented; reconcile these totals with concurrent serialized Input integration. No module is labeled fully compatible. Field and Form have no placeholders or exports. The catalog denominator includes modules such as direction-provider and use-render; it is not a component count or a passing-test denominator. All unimplemented names remain visible in the machine-readable ledger.
- 
+
  The [ordinary assertion inventory](../parity/README.md) is separately scoped. Shared conformance helpers, paired framework executions and local supplements do not inflate its declaration credit. The dedicated Toggle ledger records five standalone declarations separately from the shared ordinary inventory; its two ToggleGroup-dependent declarations remain deferred and uncredited. Input and remaining controls require their own bounded characterization and review.
 +
 +The [Collapsible ledger](../parity/collapsible/README.md) separately records 47 ordinary sites / 49 variants, with a portable scope of 41 sites / 43 variants. Six React.Activity cases remain deferred. Local DOM/SSR execution, paired browser executions, conformance helpers, type checks and supplements are distinct from verified ordinary declaration credit.
@@ -85,7 +85,7 @@
 +++ b/parity/README.md
 @@ -26,3 +26,5 @@
  Standalone [Separator](separator/README.md) has two ordinary declarations (three orientation/role variants), passing at the recorded secured source checkpoint; final-head component gates remain separate. The pinned Input.test.tsx contributes zero ordinary declarations to this inventory; Input implementation, helper ports and standalone supplements remain outside this Separator change. Shared conformance helpers remain excluded. The earlier 633-entry scope and its historical run records remain unchanged evidence.
- 
+
  Standalone [Toggle](toggle/README.md) records seven source declarations in a separate immutable ledger: five complete standalone ports at the recorded secured source checkpoint and two deferred ToggleGroup-dependent declarations. These sites and five credits are outside the shared 635-entry inventory and its 30 passing ports until parent reconciliation; do not add the ledgers or count paired executions/supplements as declarations. Rendered pressed/callback boundary repairs require the separate final-head gates in PR #27. ToggleGroup, composite/Toolbar integration and shared conformance remain unimplemented and uncredited.
 +
 +[Collapsible](collapsible/README.md) adds a separate source inventory of 47 ordinary declaration sites / 49 variants. Its portable scope is 41 sites / 43 variants; six React.Activity Panel cases remain deferred. The three conformance calls, ten type assertions and supplemental/package checks are separate, uncredited evidence. This proposed feature ledger has not been added to the existing shared ordinary totals, and browser declaration credit stays pending secured execution and final-head gates.
@@ -93,7 +93,7 @@
 +++ b/docs/upstream-differences.md
 @@ -90,3 +90,13 @@
  Decision status: the implementation was proposed in the standalone [Portal PR #22](https://github.com/sveltery/base/pull/22); that PR records its current landing status and final-head gates. The five framework API substitutions are accepted (see T-01); this Portal implementation is limited to that baseline. No additional behavioral deviation acceptance is claimed. Historical source checkpoints are recorded in the linked feature evidence; acceptance requires the separate final-head gates recorded in PR #22.
- 
+
  The published PR #22 follow-up extends the approved A-01 undefined-ref adaptation to Toast.Portal and retains the same pre-attachment undefined/host/null contract. Optional ownerDocument access is a fidelity boundary repair for valid ref objects with extra fields. [Portal follow-up evidence](../parity/toast/portal-ports.md#approved-local-follow-up) records the reviewed published source checkpoint, local and hosted tests, and completed automatic review; the original T-03 scope and source pin remain unchanged. Final-head acceptance remains required before merge.
 +
 +## CO-01: proposed Collapsible framework substitutions and bounded lifecycle
