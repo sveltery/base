@@ -33,3 +33,5 @@ The PR was initially opened as draft, then marked ready to trigger the configure
 - Report exact final merge eligibility before any merge. Verify post-merge CI afterward. No release, deployment, access change or live-data action is authorized.
 
 Final-head checks, browser execution, reviews and public integration remain pending. No runtime passing credit or merge eligibility is claimed in this record.
+
+A source-type audit found the initial native `Record<string, never>` state representation narrowed assignability relative to the pinned public empty interface. Meter now preserves that empty interface with a localized lint explanation; its type witness rejects reading an undeclared status field while retaining upstream structural assignability. Runtime state remains `{}`. This fidelity repair changes no shared types or lint configuration. The successor needs fresh checks and reviews.

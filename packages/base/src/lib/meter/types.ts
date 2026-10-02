@@ -2,7 +2,8 @@
 import type { Snippet } from 'svelte';
 import type { ClassValue, HTMLAttributes } from 'svelte/elements';
 import type { ElementProps } from '../dialog/types.js';
-export type MeterRootState = Record<string, never>;
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type -- Preserve the pinned public empty interface and its assignability.
+export interface MeterRootState {}
 export type MeterLabelState = MeterRootState;
 export type MeterTrackState = MeterRootState;
 export type MeterIndicatorState = MeterRootState;

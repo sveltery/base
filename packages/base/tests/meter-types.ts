@@ -10,10 +10,12 @@ const missing: MeterRootProps = {};
 const nullable: MeterRootProps = { value: null };
 // @ts-expect-error Meter accepts a number, not a numeric string.
 const stringValue: MeterRootProps = { value: '50' };
-// @ts-expect-error Meter state is empty and cannot carry a Progress status.
-const status: MeterRootState = { status: 'complete' };
+// @ts-expect-error The pinned empty state exposes no Progress status field.
+const status = state.status;
+// The pin uses an empty interface; preserve its structural assignability.
+const structuralState: MeterRootState = { consumer: true };
 declare const child: Snippet<[string, number]>;
 const value: MeterValueProps = { children: child };
 const defaultValue: MeterValueProps = { children: null };
 const parts: [MeterLabelProps, MeterTrackProps, MeterIndicatorProps] = [{}, {}, {}];
-void [root, state, partStates, missing, nullable, stringValue, status, value, defaultValue, parts];
+void [root, state, partStates, missing, nullable, stringValue, status, structuralState, value, defaultValue, parts];
