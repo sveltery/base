@@ -89,3 +89,37 @@ for (const mode of ['', 'replacement', 'formReplacement']) test(`acceptance Kit 
   await expect.soft(page.locator('#remote-result')).toHaveText('null'); await expect.soft(page.locator('#remote-resets')).toHaveText('0');
   await expect.soft(input).toHaveValue('blocked@example.com'); await expect.soft(input).toHaveAttribute('aria-invalid', 'true');
 });
+for (const mode of ['', 'formReplacement']) test(`acceptance Kit ${mode || 'default'} named controls preserve invalid blocking and the next valid native submit`, async ({ page }) => {
+  const input = await setup(page, mode); const before = await readCounter(page); const requests: string[] = [];
+  page.on('request', request => { if (request.method() === 'POST' && request.url().includes('remote')) requests.push(request.url()); });
+  const attributes = await page.locator('#remote-form').evaluate((form: HTMLFormElement) => {
+    for (const name of ['action', 'method', 'target', 'getAttribute', 'ownerDocument', 'baseURI']) {
+      const control = document.createElement('input'); control.type = 'hidden'; control.name = name; control.value = name; form.append(control);
+    }
+    const read = (name: 'method' | 'action' | 'target') => Object.getOwnPropertyDescriptor(HTMLFormElement.prototype, name)!.get!.call(form);
+    return { action: read('action'), method: read('method'), target: read('target'), namedCollisions: ['action','method','target','getAttribute','ownerDocument','baseURI'].map(name => ({ name, instanceLookupIsControl: Reflect.get(form, name) instanceof HTMLInputElement })) };
+  });
+  await test.info().attach('kit-native-named-control-attributes.json', { body: JSON.stringify(attributes, null, 2), contentType: 'application/json' });
+  expect(attributes.namedCollisions.every(collision => collision.instanceLookupIsControl)).toBe(true);
+  await input.fill('blocked@example.com'); await page.getByRole('button', { name: 'Submit', exact: true }).click(); await page.waitForTimeout(300);
+  expect(requests).toHaveLength(0); expect(await readCounter(page) - before).toBe(0); await expect(input).toHaveValue('blocked@example.com');
+  await expect(page.locator('#remote-result')).toHaveText('null'); await expect(page.locator('#remote-resets')).toHaveText('0');
+  await input.fill('valid@example.com'); await page.getByRole('button', { name: 'Submit', exact: true }).click();
+  await expect(page.locator('#remote-result')).toContainText('valid@example.com'); expect(requests).toHaveLength(1); expect(await readCounter(page) - before).toBe(1);
+  await expect(input).toHaveValue('seed@example.com'); await expect(page.locator('#remote-resets')).toHaveText('1');
+});
+for (const mode of ['', 'native']) for (const target of ['_blank', '_BLANK', '_Blank']) test(`diagnostic Kit ${mode || 'Form'} target ${target} preserves actual request and propagation observations`, async ({ page }) => {
+  // The native control is otherwise valid, so cancel its native submit to keep this characterization
+  // in one browsing context. Kit's enhancement still exposes whether it matches this target spelling.
+  const input = await setup(page, mode ? 'native&canceledSubmit' : ''); const before = await readCounter(page); const requests: string[] = [];
+  page.on('request', request => { if (request.method() === 'POST' && request.url().includes('remote')) requests.push(request.url()); });
+  await page.locator('#remote-form').evaluate((form: HTMLFormElement, value) => form.setAttribute('target', value), target);
+  await input.fill('blocked@example.com'); await page.getByRole('button', { name: 'Submit', exact: true }).click();
+  await expect(page.locator('#remote-events')).toContainText('capture'); await page.waitForTimeout(300);
+  const after = await readCounter(page);
+  const observation = { mode: mode || 'Form', target, counterBefore: before, counterAfter: after, delta: after - before, requests: requests.length,
+    result: JSON.parse(await page.locator('#remote-result').textContent() ?? 'null'), events: JSON.parse(await page.locator('#remote-events').textContent() ?? '[]'),
+    nativeSubmit: await page.locator('#remote-native-submit').textContent(), resets: await page.locator('#remote-resets').textContent(), value: await input.inputValue() };
+  await test.info().attach('kit-target-case-observation.json', { body: JSON.stringify(observation, null, 2), contentType: 'application/json' });
+  expect(observation.events.some((event: { stage: string }) => event.stage === 'capture')).toBe(true);
+});

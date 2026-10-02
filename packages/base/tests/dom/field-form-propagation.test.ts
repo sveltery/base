@@ -3,6 +3,7 @@
 import { afterEach, expect, it, vi } from 'vitest';
 import { flushSync, mount, unmount } from 'svelte';
 import Fixture from './FieldFormFixture.svelte';
+import { isNativeKitRemoteSubmit } from '../../src/lib/form/remoteSubmit.js';
 const cleanups: (() => Promise<void>)[] = [];
 afterEach(async () => { for (const cleanup of cleanups.splice(0)) await cleanup(); document.body.replaceChildren(); });
 function setup(action = 'https://example.test/ordinary', method = 'post', asyncValidation = false) {
@@ -40,4 +41,46 @@ it('native submitter overrides decide the actual action, method and target for t
   submitter.removeAttribute('formaction'); submitter.setAttribute('formmethod', 'get'); fixture.form.dispatchEvent(new SubmitEvent('submit', { submitter, cancelable: true, bubbles: true })); flushSync(); expect(fixture.later).toHaveBeenCalledTimes(2);
   submitter.removeAttribute('formmethod'); submitter.setAttribute('formtarget', '_blank'); fixture.form.dispatchEvent(new SubmitEvent('submit', { submitter, cancelable: true, bubbles: true })); flushSync(); expect(fixture.later).toHaveBeenCalledTimes(3);
   submitter.removeAttribute('formtarget'); fixture.form.dispatchEvent(new SubmitEvent('submit', { submitter, cancelable: true, bubbles: true })); flushSync(); expect(fixture.later).toHaveBeenCalledTimes(3);
+});
+it('malformed ordinary and submitter action URLs preserve invalid-submit prevention and source propagation', () => {
+  const fixture = setup('http://%'); fixture.component.update({ required: true }); flushSync();
+  expect(fixture.submit().defaultPrevented).toBe(true); expect(fixture.later).toHaveBeenCalledOnce(); expect(fixture.bubbling).toHaveBeenCalledOnce();
+  fixture.form.action = 'https://example.test/?/remote=fixture';
+  const submitter = fixture.form.querySelector<HTMLButtonElement>('#submit')!; submitter.setAttribute('formaction', 'http://%');
+  const event = new SubmitEvent('submit', { submitter, cancelable: true, bubbles: true }); fixture.form.dispatchEvent(event); flushSync();
+  expect(event.defaultPrevented).toBe(true); expect(fixture.later).toHaveBeenCalledTimes(2); expect(fixture.bubbling).toHaveBeenCalledTimes(2);
+  expect(fixture.onsubmit).not.toHaveBeenCalled(); expect(fixture.onFormSubmit).not.toHaveBeenCalled();
+});
+for (const action of ['https://example.test/ordinary', 'https://example.test/?/remote=fixture']) it(`native form getters preserve the actual boundary despite instance property collisions for ${action}`, () => {
+  const fixture = setup(action); fixture.component.update({ required: true }); flushSync();
+  // JSDOM does not implement HTMLFormElement's named-property override semantics. Actual named
+  // controls are measured separately in Chromium; these own properties exercise the same lookup hazard.
+  Object.defineProperties(fixture.form, {
+    action: { configurable: true, value: fixture.input }, method: { configurable: true, value: fixture.input }, target: { configurable: true, value: fixture.input },
+    getAttribute: { configurable: true, value: fixture.input }, ownerDocument: { configurable: true, value: fixture.input }, baseURI: { configurable: true, value: fixture.input },
+  });
+  expect(fixture.submit().defaultPrevented).toBe(true);
+  expect(fixture.later.mock.calls).toHaveLength(action.includes('/remote') ? 0 : 1); expect(fixture.bubbling.mock.calls).toHaveLength(action.includes('/remote') ? 0 : 1);
+});
+it('submitter method overrides use native POST casing and preserve invalid or empty method fallback', () => {
+  const fixture = setup('https://example.test/?/remote=fixture'); fixture.component.update({ required: true }); flushSync();
+  const submitter = fixture.form.querySelector<HTMLButtonElement>('#submit')!;
+  for (const method of ['', 'invalid', 'get', 'dialog']) {
+    submitter.setAttribute('formmethod', method); fixture.form.dispatchEvent(new SubmitEvent('submit', { submitter, cancelable: true, bubbles: true })); flushSync();
+  }
+  expect(fixture.later).toHaveBeenCalledTimes(4);
+  submitter.setAttribute('formmethod', 'POST'); fixture.form.dispatchEvent(new SubmitEvent('submit', { submitter, cancelable: true, bubbles: true })); flushSync();
+  expect(fixture.later).toHaveBeenCalledTimes(4);
+});
+it('the proposed boundary brands the actual host even when every submitter override resembles a remote form', () => {
+  const host = document.createElement('div'); const submitter = document.createElement('button');
+  submitter.setAttribute('formmethod', 'post'); submitter.setAttribute('formaction', 'https://example.test/?/remote=fixture'); submitter.setAttribute('formtarget', '_self');
+  let result: boolean | undefined; host.addEventListener('submit', event => { result = isNativeKitRemoteSubmit(event); });
+  host.dispatchEvent(new SubmitEvent('submit', { submitter, bubbles: true })); expect(result).toBe(false);
+});
+it('native getter branding accepts an actual form owned by a different document', () => {
+  const iframe = document.createElement('iframe'); document.body.append(iframe);
+  const form = iframe.contentDocument!.createElement('form'); form.setAttribute('method', 'post'); form.setAttribute('action', 'https://example.test/?/remote=fixture'); iframe.contentDocument!.body.append(form);
+  let result: boolean | undefined; form.addEventListener('submit', event => { result = isNativeKitRemoteSubmit(event); });
+  form.dispatchEvent(new Event('submit', { bubbles: true })); expect(result).toBe(true);
 });
