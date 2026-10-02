@@ -1,0 +1,9 @@
+# Serialized Meter integration
+
+Meter starts from Progress main `4412d40c73dfc108e959841824d7ff3ff2f27f54`. Component files, dedicated tests and fixtures use local part entry imports so they can be prepared independently. Input PR #26 and UI #19 remain separately held for user decisions; this proposal resolves neither.
+
+[shared-integration.patch](shared-integration.patch) contains the exact proposed Meter-only additions against that immutable main: root exports and all ten part Props/State types; package `./meter` export; bounded catalog row/count; central differences index and root documentation links; MIT attribution; the public package-consumer invocation and fixture documentation status. It leaves the 635-entry ordinary aggregate and credits unchanged. Adding a bounded catalog row is not declaration parity evidence.
+
+The Collapsible owner holds shared exports/catalog/runners. The parent must coordinate a stable checkpoint before applying/reconciling these additions. The serialized patch is a reviewable proposal, not an applied shared change. If Collapsible changes the bounded-module total, reconcile that total using the actual catalog instead of applying Meter's isolated eight/34 counts literally. No Input, Element, Button or shared helper change is proposed.
+
+Run `git apply --check parity/meter/shared-integration.patch` against the original main checkpoint to validate this proposal. After owner reconciliation, run `bash scripts/check-meter-package.sh --public` on the complete integrated head: internal import mode or a temporary patch preview proves only the bounded precursor. Full checks, secured paired browsers, independent exact-head review and configured automatic review remain required before merge, followed by post-merge CI. See [PR #32](https://github.com/sveltery/base/pull/32) and [verification](verification.md).
