@@ -1,5 +1,5 @@
 // Derived from Base UI Input/Field.Control at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
-// MIT: THIRD_PARTY_NOTICES.md. Standalone scope; Field integration is deferred.
+// MIT: THIRD_PARTY_NOTICES.md. Input shares the Field.Control implementation.
 import type { ClassValue, HTMLInputAttributes } from 'svelte/elements';
 import type { ElementProps } from '../dialog/types.js';
 import type { BaseUIChangeEventDetails } from '../internals/createBaseUIEventDetails.js';

@@ -1,20 +1,74 @@
 <script lang="ts">
   // Base UI v1.8.0 standalone Input/Field.Control adaptation; MIT: THIRD_PARTY_NOTICES.md.
-  import { tick } from 'svelte';
+  import { tick, untrack } from 'svelte';
   import Element from '../dialog/Element.svelte';
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { resolveClassValue } from '../internals/resolveClassValue.js';
   import type { InputProps } from './types.js';
   import type { HTMLInputAttributes } from 'svelte/elements';
-  let { children, render, class: classProp, disabled = false, id, value, defaultValue, onValueChange, ref = $bindable(), ...props }: InputProps = $props();
+  import { getFieldContext } from '../field/context.js';
+  import { getLabelableContext } from '../field/labelable.svelte.js';
+  import { getFormContext } from '../form/context.js';
+  import { DEFAULT_FIELD_STATE, stateAttributes } from '../field/state.js';
+  let { children, render, class: classProp, disabled: disabledProp = false, id: idProp, name: nameProp, autofocus = false, value, defaultValue, onValueChange, ref = $bindable(), ...props }: InputProps = $props();
+  const field = getFieldContext();
+  const labelable = getLabelableContext();
+  const form = getFormContext();
+  const controlSource = Symbol();
+  const labelSource = Symbol();
+  let inputElement = $state<HTMLInputElement | null>(null);
+  let hadExplicitId = false;
+  let labelRegistered = false;
+  let enterTimer: ReturnType<typeof setTimeout> | undefined;
   const instanceId = $props.id();
   const generatedId = `base-ui-${instanceId}`;
-  const state = $derived({ disabled, touched: false, dirty: false, filled: false, focused: false, valid: null });
+  const disabled = $derived(Boolean(field?.state.disabled || disabledProp));
+  const name = $derived(field?.name ?? nameProp);
+  const id = $derived(labelable?.controlId ?? idProp ?? generatedId);
+  const inputState = $derived({ ...(field?.state ?? DEFAULT_FIELD_STATE), disabled });
+  const serializedValue = $derived(value == null ? undefined : String(value));
+  let previousValue = untrack(() => serializedValue);
+  $effect(() => {
+    const explicit = idProp;
+    if (!labelable) return;
+    if (explicit !== undefined) { hadExplicitId = true; labelRegistered = true; untrack(() => labelable.registerControlId(labelSource, explicit)); }
+    else if (hadExplicitId) { labelRegistered = true; untrack(() => labelable.registerControlId(labelSource, generatedId)); }
+    else untrack(() => labelable.resetControlId());
+  });
+  $effect(() => {
+    const node = inputElement;
+    const currentId = id, currentName = nameProp ?? undefined, currentValue = serializedValue, enabled = !disabled;
+    untrack(() => field?.registerControl(controlSource, node && enabled ? { id: currentId, name: currentName, value: currentValue, control: node, getValue: () => field.input?.value } : undefined));
+  });
+  $effect(() => {
+    const current = serializedValue;
+    const node = inputElement;
+    if (node) untrack(() => field?.setFilled((current ?? node.value) !== ''));
+    if (current !== previousValue) {
+      previousValue = current;
+      if (current !== undefined) untrack(() => {
+        form?.clearErrors(name ?? undefined);
+        field?.setDirty(current !== (field.validityData.initialValue ?? ''));
+        field?.change(current);
+      });
+    }
+  });
+  $effect(() => () => {
+    if (enterTimer !== undefined) clearTimeout(enterTimer);
+    field?.registerControl(controlSource, undefined);
+    if (labelRegistered) labelable?.registerControlId(labelSource, undefined);
+  });
   const resolvedProps = $derived.by(() => {
-    const classValue = typeof classProp === 'function' ? classProp(state) : classProp;
-    return { ...props, class: classValue == null ? undefined : resolveClassValue(classValue) };
+    const classValue = typeof classProp === 'function' ? classProp(inputState) : classProp;
+    let resolved: Record<string, unknown> = { ...props, class: classValue == null ? undefined : resolveClassValue(classValue) };
+    if (labelable) resolved = labelable.getDescriptionProps(resolved);
+    if (field?.state.valid === false && !field.state.disabled && !disabled) resolved['aria-invalid'] = true;
+    return resolved;
   });
   function attach(node: HTMLElement) {
+    inputElement = node as HTMLInputElement;
+    field?.setInput(node as HTMLInputElement);
+    if (autofocus && node.ownerDocument.activeElement === node) field?.setFocused(true);
     // Native Svelte does not restore a rejected controlled edit. Synchronize the external
     // DOM after the owner has processed its callback, without manufacturing reset defaults.
     let connected = true;
@@ -83,22 +137,51 @@
       connected = false;
       clearPendingRestore();
       inputParent.removeEventListener('input', restoreControlledEdit, true);
+      if (inputElement === node) inputElement = null;
+      if (field?.input === node) field.setInput(null);
     };
   }
   const internal = $derived({
-    id: id ?? generatedId, disabled, 'data-disabled': disabled ? '' : undefined,
+    ...stateAttributes(inputState), id, disabled, name, autofocus,
+    'aria-labelledby': labelable?.labelId,
     // Preserve native value/defaultValue setters, including both getters in remote .as spreads.
     ...(defaultValue !== undefined ? { defaultValue } : {}),
     ...(value !== undefined ? { value } : {}),
     oninput(event: Event) {
       const next = (event.currentTarget as HTMLInputElement).value;
-      onValueChange?.(next, createChangeEventDetails('none', event));
-      // Standalone Field context setters and validation callbacks are no-ops. In particular,
-      // cancel() does not roll back an uncontrolled native edit or native preventDefault().
+      const details = createChangeEventDetails('none', event);
+      onValueChange?.(next, details);
+      // A controlled owner accepts or rewrites through value; rejected edits never reach Field state.
+      if (value !== undefined) return;
+      field?.setDirty(next !== (field.validityData.initialValue ?? ''));
+      field?.setFilled(next !== '');
+      if (!event.defaultPrevented && !details.isCanceled) { form?.clearErrors(name ?? undefined); field?.change(next); }
+    },
+    onfocus() { field?.setFocused(true); },
+    onblur(event: FocusEvent) {
+      field?.setTouched(true);
+      field?.setFocused(false);
+      if (field?.validationMode !== 'onBlur') return;
+      const next = (event.currentTarget as HTMLInputElement).value;
+      void field.commit(next);
+      if (value !== undefined) queueMicrotask(() => {
+        const rewritten = field.input?.value;
+        if (rewritten !== undefined && rewritten !== next && rewritten !== (field.validityData.initialValue ?? '')) void field.commit(rewritten);
+      });
+    },
+    onkeydown(event: KeyboardEvent) {
+      const node = event.currentTarget as HTMLInputElement;
+      if (node.tagName !== 'INPUT' || event.key !== 'Enter' || !field) return;
+      field.setTouched(true);
+      if (node.form && node.form === form?.element && !event.defaultPrevented) {
+        const count = form.submitCount;
+        if (enterTimer !== undefined) clearTimeout(enterTimer);
+        enterTimer = setTimeout(() => { if (form.submitCount === count) void field.commit(node.value); }, 0);
+      } else void field.commit(node.value);
     },
   });
 </script>
 {#snippet nativeInput(nativeProps: Record<string | symbol, unknown>)}
   <input {...nativeProps as HTMLInputAttributes} />
 {/snippet}
-<Element tag="input" {internal} props={resolvedProps} {state} render={render ?? nativeInput} {children} {attach} bind:ref />
+<Element tag="input" {internal} props={resolvedProps} state={inputState} render={render ?? nativeInput} {children} {attach} bind:ref />
