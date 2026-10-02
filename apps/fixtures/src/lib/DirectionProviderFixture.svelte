@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount, untrack } from 'svelte';
-  import { DirectionProvider, type TextDirection } from '../../../../packages/base/src/lib/direction-provider/index.js';
+  import { DirectionProvider, type TextDirection } from '@sveltery/base/direction-provider';
   import DirectionProbe from './DirectionProbe.svelte';
 
   let { scenario = 'configured' }: { scenario?: string } = $props();

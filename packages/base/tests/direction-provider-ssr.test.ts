@@ -2,7 +2,7 @@
 import { expect, it } from 'vitest';
 import { render } from 'svelte/server';
 import Fixture from '../../../apps/fixtures/src/lib/DirectionProviderFixture.svelte';
-import { DirectionProvider } from '../src/lib/direction-provider/index.js';
+import { DirectionProvider } from '@sveltery/base/direction-provider';
 
 it('SSR outside/default/configured providers require no browser globals', () => {
   for (const [scenario, direction] of [['outside', 'ltr'], ['default', 'ltr'], ['configured', 'rtl']]) {

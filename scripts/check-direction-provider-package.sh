@@ -16,7 +16,9 @@ pnpm --dir "$direction_consumer" --ignore-workspace install --ignore-scripts > /
 pnpm --dir "$direction_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
 test -f "$direction_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
 cmp LICENSE "$direction_consumer/node_modules/@sveltery/base/LICENSE"
+cmp packages/base/THIRD_PARTY_NOTICES.md "$direction_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
 if [[ "${1:-}" == '--public' ]]; then
+  rg --quiet 'DirectionProvider' "$direction_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
   cat > "$direction_consumer/imports.js" <<'JS'
 export { DirectionProvider as First, useDirection as firstReader } from '@sveltery/base';
 export { DirectionProvider as Second, useDirection as secondReader } from '@sveltery/base/direction-provider';

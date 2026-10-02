@@ -72,6 +72,11 @@
       "types": "./dist/accordion/index.d.ts",
       "svelte": "./dist/accordion/index.js",
       "default": "./dist/accordion/index.js"
+    },
+    "./direction-provider": {
+      "types": "./dist/direction-provider/index.d.ts",
+      "svelte": "./dist/direction-provider/index.js",
+      "default": "./dist/direction-provider/index.js"
     }
   },
   "svelte": "./dist/index.js",

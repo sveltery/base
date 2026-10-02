@@ -26,4 +26,6 @@ The [catalog ledger](docs/catalog.md) accounts for every pinned root export modu
 
 [Avatar](docs/avatar.md) adds Root, Image and Fallback with detached-probe and rendered-image keepMounted loading. Its [separate evidence](parity/avatar/README.md) accounts for 44 ordinary sites, three conformance calls and six type assertions; secured browser and exact final-head acceptance remain separate.
 
+[DirectionProvider](docs/direction-provider.md) supplies nearest-provider text direction through a retained Svelte reader, without adding a DOM element. Its [dedicated evidence](parity/direction-provider/README.md) separates two ordinary declarations from adapted type checks and divergent timing characterization; complete control RTL integration remains deferred.
+
 [Accordion](docs/accordion.md) adds Root, Item, Header, Trigger and Panel with array values and cancellable Item-before-Root callbacks. Its [dedicated evidence](parity/accordion/README.md) separates 38 portable ordinary declarations / 42 variants from deferred React.Activity, parameterized, conformance, type and final-head acceptance gates.

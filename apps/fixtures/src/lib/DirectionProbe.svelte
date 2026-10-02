@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { useDirection } from '../../../../packages/base/src/lib/direction-provider/index.js';
+  import { useDirection } from '@sveltery/base/direction-provider';
   let { id = 'direction', beforeRead }: { id?: string; beforeRead?: () => void } = $props();
   const direction = useDirection();
   let observed = $state('');

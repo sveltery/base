@@ -81,9 +81,9 @@
     },
     {
       "upstreamModule": "direction-provider",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "DirectionProvider / useDirection",
+      "evidence": "parity/direction-provider/README.md"
     },
     {
       "upstreamModule": "drawer",
