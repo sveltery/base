@@ -18,6 +18,7 @@
     // Native Svelte does not restore a rejected controlled edit. Synchronize the external
     // DOM after the owner has processed its callback, without manufacturing reset defaults.
     let connected = true;
+    const inputParent = node.parentNode ?? node.getRootNode();
     const ownerWindow = node.ownerDocument.defaultView ?? window;
     let restoreTimer: number | undefined;
     let editVersion = 0;
@@ -41,6 +42,7 @@
       if (input.value !== next) input.value = next;
     }
     const restoreControlledEdit = (event: Event) => {
+      if (event.target !== node) return;
       const version = ++editVersion;
       clearPendingRestore();
       resetEvents = [];
@@ -60,11 +62,12 @@
         restoreValue();
       });
     };
-    node.addEventListener('input', restoreControlledEdit);
+    // Observe this host before target attachments can reset its form, without altering dispatch.
+    inputParent.addEventListener('input', restoreControlledEdit, true);
     return () => {
       connected = false;
       clearPendingRestore();
-      node.removeEventListener('input', restoreControlledEdit);
+      inputParent.removeEventListener('input', restoreControlledEdit, true);
     };
   }
   const internal = $derived({
