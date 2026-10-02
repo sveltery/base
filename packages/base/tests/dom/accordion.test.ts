@@ -5,6 +5,7 @@ import { mount, tick, unmount } from 'svelte';
 import { Accordion } from '../../src/lib/accordion/index.js';
 import Fixture from './accordion/Fixture.svelte';
 import NestedSharedHost from './accordion/NestedSharedHost.svelte';
+import ReplaceHidden from './accordion/ReplaceHidden.svelte';
 const mounted: ReturnType<typeof mount>[] = [];
 async function setup(scenario = 'default') {
   const target = document.createElement('section'); document.body.append(target);
@@ -131,4 +132,14 @@ it('supplement: nested replacement Items sharing a host independently receive in
   expect(component.indexes()).toEqual({ outer: 0, inner: 0 });
   expect(get('shared-host')!.getAttribute('data-index')).toBe('0');
   expect(get('sibling')!.getAttribute('data-index')).toBe('1');
+});
+for (const overrideHidden of [false, true]) it(`supplement: hiddenUntilFound replacement preserves ${overrideHidden ? 'consumer override' : 'boolean prop'} without rerunning state effect`, async () => {
+  const target = document.createElement('section'); document.body.append(target);
+  const component = mount(ReplaceHidden, { target, props: { overrideHidden } }); mounted.push(component);
+  await tick(); await tick();
+  expect(get('replacement-panel')!.getAttribute('hidden')).toBe('until-found');
+  component.replace(); await tick(); await tick();
+  const panel = get('replacement-panel')!;
+  expect(panel.tagName).toBe('SECTION');
+  expect(panel.getAttribute('hidden')).toBe(overrideHidden ? null : '');
 });

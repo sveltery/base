@@ -64,9 +64,9 @@
   onDestroy(restorePendingTemporaryStyle);
 
   const internal = $derived({
-    // SSR retains the source boolean attribute; the attached client host can
-    // express the browser's native string without React's coercion workaround.
-    id, hidden: hidden && hiddenUntilFound && node ? 'until-found' : hidden,
+    // The pin passes a boolean, then forces until-found in its state-owned
+    // effect. A replacement host does not rerun that effect by itself.
+    id, hidden,
     ...stateAttributes(panelState),
     role: 'region',
     'aria-labelledby': item.triggerId,
@@ -231,11 +231,13 @@
   });
 
   $effect(() => {
-    const panel = node;
-    if (!panel || !hiddenUntilFound || !hidden) return;
+    const isHidden = hidden;
+    const untilFound = hiddenUntilFound;
+    const panel = untrack(() => node);
+    if (!panel || !untilFound || !isHidden) return;
     let canceled = false;
-    // Svelte supports the string directly. The post-commit restoration also
-    // retains the source's forced-until-found behavior over consumer overrides.
+    // Restoration follows the same state dependencies as the pin, including
+    // forcing the string over consumer overrides on those state commits.
     void tick().then(() => {
       if (!canceled && node === panel && hiddenUntilFound && hidden) panel.setAttribute('hidden', 'until-found');
     });

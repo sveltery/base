@@ -39,7 +39,7 @@
 {#snippet panelHost(props: Record<string | symbol, unknown>, state: AccordionPanelState, children: Snippet | undefined)}
   {recordPanel(state)}
   {#if scenario === 'remove-close' && !state.open}<!-- The authored render removes the host while closing. -->
-  {:else if alternate}<section {...props as HTMLAttributes<HTMLElement>}>{@render children?.()}</section>{:else}<div {...props as HTMLAttributes<HTMLDivElement>} data-status={state.transitionStatus}>{@render children?.()}</div>{/if}
+  {:else if alternate}<section {...props as HTMLAttributes<HTMLElement>} {...(scenario === 'replaced-hidden-override' ? { hidden: false } : {})}>{@render children?.()}</section>{:else}<div {...props as HTMLAttributes<HTMLDivElement>} {...(scenario === 'replaced-hidden-override' ? { hidden: false } : {})} data-status={state.transitionStatus}>{@render children?.()}</div>{/if}
 {/snippet}
 {#snippet item(index: number)}
   <Item value={config.implicit ? undefined : config.values[index]} disabled={config.itemDisabled && index === 0} data-testid={`item-${index + 1}`} class={record} onOpenChange={(open, details) => itemChanged(open, details, index)}>

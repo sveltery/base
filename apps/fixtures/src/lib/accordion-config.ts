@@ -23,6 +23,6 @@ export function accordionConfig(scenario: string) {
     rootKeep: ['root-keep', 'root-hidden', 'root-warning'].includes(scenario),
     rootHidden: ['root-hidden', 'root-warning'].includes(scenario),
     keep: ['switch', 'indexes', 'replacement', 'ids', 'important', 'no-motion-status'].includes(scenario),
-    hidden: ['panel-warning', 'beforematch', 'replaced-host'].includes(scenario),
+    hidden: ['panel-warning', 'beforematch', 'replaced-host', 'replaced-hidden-boolean', 'replaced-hidden-override'].includes(scenario),
   };
 }

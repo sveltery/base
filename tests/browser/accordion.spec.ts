@@ -177,6 +177,16 @@ for (const reference of [false, true]) {
   test(`supplement: ${framework} inherited issue31 beforematch listener stays on original host`, async ({ page }) => {
     const { trigger, panel } = await setup(page, 'replaced-host', reference); await panel.evaluate(node => { (window as Window & { originalAccordionPanel?: Element }).originalAccordionPanel = node; }); await page.getByRole('button', { name: 'Replace host', exact: true }).click(); expect(await panel.evaluate(node => node === (window as Window & { originalAccordionPanel?: Element }).originalAccordionPanel)).toBe(false); await panel.dispatchEvent('beforematch'); await expect(trigger).toHaveAttribute('aria-expanded', 'false'); expect(await calls(page)).toHaveLength(0);
   });
+  for (const overrideHidden of [false, true]) test(`supplement: ${framework} hiddenUntilFound replacement preserves ${overrideHidden ? 'consumer override' : 'boolean prop'} without rerunning state effect`, async ({ page }) => {
+    const { trigger, panel } = await setup(page, overrideHidden ? 'replaced-hidden-override' : 'replaced-hidden-boolean', reference);
+    await expect(panel).toHaveAttribute('hidden', 'until-found');
+    await page.getByRole('button', { name: 'Replace host', exact: true }).click();
+    expect(await panel.evaluate(node => node.tagName)).toBe('SECTION');
+    if (overrideHidden) await expect(panel).not.toHaveAttribute('hidden');
+    else await expect(panel).toHaveAttribute('hidden', '');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    expect(await calls(page)).toHaveLength(0);
+  });
   test(`supplement: ${framework} inherited issue33 no-motion retained panel keeps idle status`, async ({ page }) => {
     const { trigger, panel } = await setup(page, 'no-motion-status', reference); await expect(panel).toHaveAttribute('data-open'); await trigger.click(); await expect(panel).toHaveAttribute('hidden'); await page.evaluate(async () => { await new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))); }); await expect(panel).toHaveAttribute('data-status', 'idle'); await expect(panel).not.toHaveAttribute('data-ending-style'); await expect(trigger).toHaveAttribute('aria-expanded', 'false'); await expect(trigger).not.toHaveAttribute('aria-controls');
   });
