@@ -261,12 +261,13 @@ for (const reference of [false, true]) {
   });
 }
 
-test('supplement: Svelte SSR hydration retains generated IDs and authored motion suppression', async ({ page }) => {
+for (const reference of [false, true]) test(`supplement: ${reference ? 'React reference' : 'Svelte'} SSR hydration retains generated IDs and authored motion suppression`, async ({ page }) => {
   const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
+  page.on('console', message => { if (message.type() === 'error' && /hydrat/i.test(message.text())) errors.push(message.text()); });
   await page.addInitScript(() => {
-    const observer = new MutationObserver(() => { const node = document.querySelector('[data-testid="panel"]'); if (node) { (window as Window & { serverPanel?: Element; serverPanelId?: string | null }).serverPanel = node; (window as Window & { serverPanelId?: string | null }).serverPanelId = node.getAttribute('id'); observer.disconnect(); } }); observer.observe(document, { childList: true, subtree: true });
+    const observer = new MutationObserver(() => { const node = document.querySelector('[data-testid="panel"]'); if (node) { (window as Window & { serverPanel?: Element; serverPanelId?: string | null }).serverPanel = node; (window as Window & { serverPanelId?: string | null }).serverPanelId = node.getAttribute('id'); (window as Window & { serverPanelBeforeHydration?: boolean }).serverPanelBeforeHydration = document.querySelector('main')?.getAttribute('data-hydrated') === 'false'; observer.disconnect(); } }); observer.observe(document, { childList: true, subtree: true });
   });
-  const response = await page.goto('/collapsible?case=keys-initial');
+  const response = await page.goto(reference ? '/collapsible-ssr?case=keys-initial&reference' : '/collapsible?case=keys-initial');
   expect(response?.status()).toBe(200);
   const serverMarkup = await response!.text();
   const server = await page.evaluate(markup => {
@@ -282,6 +283,7 @@ test('supplement: Svelte SSR hydration retains generated IDs and authored motion
   expect(server.animationName).toBe('none');
   await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
   const panel = page.getByTestId('panel'), trigger = page.locator('#tested-trigger');
+  expect(await page.evaluate(() => (window as Window & { serverPanelBeforeHydration?: boolean }).serverPanelBeforeHydration)).toBe(true);
   expect(await panel.evaluate(node => node === (window as Window & { serverPanel?: Element }).serverPanel)).toBe(true);
   expect(await panel.getAttribute('id')).toBe(server.panelId);
   expect(await panel.getAttribute('id')).toBe(await page.evaluate(() => (window as Window & { serverPanelId?: string | null }).serverPanelId));
