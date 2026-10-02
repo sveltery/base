@@ -173,10 +173,10 @@ for (const mode of ['', 'formReplacement']) for (const remoteDocument of [false,
     return { documentURL: document.URL, baseURI: document.baseURI, action: submitter.formAction, method: form.method, remoteDocument: new URL(document.URL).searchParams.has('/remote') };
   }, remoteDocument);
   expect(observation.action).toBe(observation.documentURL); expect(observation.action).not.toBe(observation.baseURI); expect(observation.remoteDocument).toBe(remoteDocument);
-  await page.getByRole('button', { name: 'Submit', exact: true }).click(); await page.waitForTimeout(300);
+  await page.getByRole('button', { name: 'Submit', exact: true }).click(); await expect(input).toBeFocused(); await page.waitForTimeout(300);
   expect(requests).toHaveLength(0); expect(await readCounter(page) - before).toBe(0); await expectLaterListeners(page, remoteDocument ? 0 : 1);
   await expect(page.locator('#remote-result')).toHaveText('null'); await expect(page.locator('#remote-resets')).toHaveText('0'); await expect(page.locator('#remote-native-submit')).toHaveText('0');
-  await expect(input).toHaveValue('blocked@example.com'); await expect(input).toHaveAttribute('aria-invalid', 'true'); await expect(input).toBeFocused();
+  await expect(input).toHaveValue('blocked@example.com'); await expect(input).toHaveAttribute('aria-invalid', 'true');
   if (!remoteDocument) await page.locator('#remote-form').evaluate((form: HTMLFormElement) => {
     document.getElementById('boundary-base')!.remove(); form.querySelector('button[type="submit"]')!.removeAttribute('formaction');
   });
