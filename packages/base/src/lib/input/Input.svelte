@@ -3,6 +3,7 @@
   const checkedOwners = new WeakMap<HTMLInputElement, () => void>();
   const checkedTrackers = new WeakMap<HTMLInputElement, { value: string }>();
   const checkedRequests = new WeakMap<Event, boolean>();
+  const checkedCompletions = new WeakMap<Event, () => void>();
   function updateCheckedTracker(input: HTMLInputElement) {
     const tracker = checkedTrackers.get(input);
     const value = String(input.checked);
@@ -55,10 +56,17 @@
     let checkedClickRoot: Node | undefined;
     let checkedClickEvent: Event | undefined;
     let checkedClickCleanupTimer: number | undefined;
+    let nativeCheckedEdit: { event: Event; checked: boolean } | undefined;
+    let nativeCheckedEditCleanupTimer: number | undefined;
+    let checkedInputRoot: Node | undefined;
+    let checkedInputEvent: Event | undefined;
+    let checkedInputCleanupTimer: number | undefined;
     const input = node as HTMLInputElement;
     let checkedDescriptor: PropertyDescriptor | undefined;
     const restoreChecked = () => {
-      if (node.tagName === 'INPUT' && checked != null && input.checked !== checked) input.checked = checked;
+      // React assigns even when native rollback already matches the owner: the setter
+      // also synchronizes the property tracker for a subsequent canceled activation.
+      if (node.tagName === 'INPUT' && checked != null) input.checked = checked;
     };
     // React's native input initializes a controlled checkable's reset default from checked.
     // Later checked prop changes leave that initial default intact. A replacement host starts
@@ -71,8 +79,8 @@
       input.checked = currentChecked;
       checkedOwners.set(input, restoreChecked);
       if (input.type === 'checkbox' || input.type === 'radio') {
-        // Checked assignments update the property tracker; native activation and reset
-        // bypass that setter. These are the actual React native input boundaries.
+        // React's checked tracker observes JavaScript property assignments, but native
+        // activation and form reset bypass that setter. Preserve those same boundaries.
         const descriptor = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(input), 'checked');
         if (!Object.prototype.hasOwnProperty.call(input, 'checked') && descriptor?.get && descriptor.set) {
           checkedDescriptor = descriptor;
@@ -139,11 +147,42 @@
         restoreValue();
       });
     };
-    const observeOwnEdit = (event: Event) => { if (event.target === node) restoreControlledEdit(event); };
+    function clearCheckedInput() {
+      if (checkedInputCleanupTimer !== undefined) ownerWindow.clearTimeout(checkedInputCleanupTimer);
+      checkedInputCleanupTimer = undefined;
+      checkedInputRoot?.removeEventListener('input', finishCheckedInput);
+      if (checkedInputEvent) checkedCompletions.delete(checkedInputEvent);
+      checkedInputRoot = undefined; checkedInputEvent = undefined;
+    }
+    function finishCheckedInput(event: Event) {
+      if (event !== checkedInputEvent) return;
+      clearCheckedInput();
+      if (connected) restoreCheckedGroup(input);
+    }
+    const observeOwnEdit = (event: Event) => {
+      if (event.target !== node) return;
+      if (nativeCheckedEdit && !nativeCheckedEdit.event.defaultPrevented) {
+        // The click channel restores source ownership first. Native input consumers
+        // still receive the activation's edit, then their live owner is reasserted.
+        input.checked = nativeCheckedEdit.checked;
+        nativeCheckedEdit = undefined;
+        clearCheckedInput();
+        checkedInputEvent = event; checkedInputRoot = node.getRootNode();
+        checkedCompletions.set(event, () => finishCheckedInput(event));
+        checkedInputRoot.addEventListener('input', finishCheckedInput);
+        queueMicrotask(() => {
+          if (checkedInputEvent !== event) return;
+          if (event.eventPhase !== Event.NONE) checkedInputCleanupTimer = ownerWindow.setTimeout(() => finishCheckedInput(event), 0);
+          else finishCheckedInput(event);
+        });
+      }
+      restoreControlledEdit(event);
+    };
     function clearCheckedClick() {
       if (checkedClickCleanupTimer !== undefined) ownerWindow.clearTimeout(checkedClickCleanupTimer);
       checkedClickCleanupTimer = undefined;
       checkedClickRoot?.removeEventListener('click', finishCheckedClick);
+      if (checkedClickEvent) checkedCompletions.delete(checkedClickEvent);
       checkedClickRoot = undefined; checkedClickEvent = undefined;
     }
     function finishCheckedClick(event: Event) {
@@ -157,14 +196,18 @@
       const changed = updateCheckedTracker(input);
       checkedRequests.set(event, changed);
       if (!changed) return;
+      nativeCheckedEdit = { event, checked: input.checked };
+      if (nativeCheckedEditCleanupTimer !== undefined) ownerWindow.clearTimeout(nativeCheckedEditCleanupTimer);
+      nativeCheckedEditCleanupTimer = ownerWindow.setTimeout(() => { nativeCheckedEdit = undefined; nativeCheckedEditCleanupTimer = undefined; }, 0);
       checkedClickEvent = event; checkedClickRoot = node.getRootNode();
+      checkedCompletions.set(event, () => finishCheckedClick(event));
       // Run after Svelte's delegated consumer handlers, while native activation is still
       // dispatching. This also observes a replacement handler's work after props.onclick.
       checkedClickRoot.addEventListener('click', finishCheckedClick);
       queueMicrotask(() => {
         if (checkedClickEvent !== event) return;
-        if (event.eventPhase !== Event.NONE) checkedClickCleanupTimer = ownerWindow.setTimeout(clearCheckedClick, 0);
-        else clearCheckedClick();
+        if (event.eventPhase !== Event.NONE) checkedClickCleanupTimer = ownerWindow.setTimeout(() => finishCheckedClick(event), 0);
+        else finishCheckedClick(event);
       });
     };
     // Observe this host before target attachments can reset its form, without altering dispatch.
@@ -174,6 +217,8 @@
       connected = false;
       clearPendingRestore();
       clearCheckedClick();
+      clearCheckedInput(); nativeCheckedEdit = undefined;
+      if (nativeCheckedEditCleanupTimer !== undefined) ownerWindow.clearTimeout(nativeCheckedEditCleanupTimer);
       inputParent.removeEventListener('input', observeOwnEdit, true);
       inputParent.removeEventListener('click', observeCheckedClick, true);
       if (node.tagName === 'INPUT') checkedOwners.delete(input);
@@ -202,12 +247,20 @@
   });
 </script>
 {#snippet nativeInput(nativeProps: Record<string | symbol, unknown>, nativeState: InputState, nativeChildren: Snippet | undefined)}
-  {const checkedProps = $derived({ ...nativeProps, onclick(event: MouseEvent) {
+  {const checkedProps = $derived({ ...nativeProps, oninput(event: Event) {
+    try { (nativeProps.oninput as ((event: Event) => void) | undefined)?.(event); }
+    finally { queueMicrotask(() => checkedCompletions.get(event)?.()); }
+  }, onclick(event: MouseEvent) {
     const input = event.currentTarget as HTMLInputElement;
     try { (nativeProps.onclick as ((event: MouseEvent) => void) | undefined)?.(event); }
     // Replacement callbacks may continue after props.onclick returns. Their native root
     // completion observer restores only after that final consumer work has run.
-    finally { if (!render && checkedRequests.get(event) !== false) restoreCheckedGroup(input); }
+    finally {
+      if (!render && checkedRequests.get(event) !== false) restoreCheckedGroup(input);
+      // A replacement can stop the native root completion listener after forwarding
+      // props. Its remaining callback work must finish before this fallback restores.
+      if (render) queueMicrotask(() => checkedCompletions.get(event)?.());
+    }
   } })}
   {#if render}{@render render(checkedProps, nativeState, nativeChildren)}
   {:else}<input {...checkedProps as HTMLInputAttributes} />{/if}
