@@ -5,7 +5,7 @@
   import type { PortalContext, PortalFocusManager } from './context.js';
   import { preserveTabOrder } from '../overlay/portal-focus.js';
   import type { ElementProps } from './types.js';
-  let { children, render, keepMounted = false, container, ref = $bindable(null), ...props }: ElementProps & { keepMounted?: boolean; container?: HTMLElement | ShadowRoot | { current: HTMLElement | ShadowRoot | null } | null } = $props();
+  let { children, render, keepMounted = false, container, ref = $bindable(), ...props }: ElementProps & { keepMounted?: boolean; container?: HTMLElement | ShadowRoot | { current: HTMLElement | ShadowRoot | null } | null } = $props();
   const controller = root();
   const parent = getContext<PortalContext | undefined>(PORTAL);
   let focusManager = $state.raw<PortalFocusManager | null>(null);
@@ -15,7 +15,11 @@
   // Portals produce no server DOM. The attachment preserves logical Svelte context.
   let client = $state(false);
   onMount(() => { client = true; });
-  const target = $derived(container === undefined ? undefined : container && 'current' in container ? container.current : container);
+  function isContainerNode(value: HTMLElement | ShadowRoot | { current: HTMLElement | ShadowRoot | null }): value is HTMLElement | ShadowRoot {
+    return 'ownerDocument' in value && value instanceof (value.ownerDocument?.defaultView?.Node ?? Node);
+  }
+  // Explicit null waits; an empty ref falls back to the inherited Portal/body.
+  const target = $derived(container === undefined ? undefined : container === null ? null : isContainerNode(container) ? container : container.current ?? undefined);
   function attach(node: HTMLElement) {
     context.node = node;
     const position = node.ownerDocument.createComment('Dialog.Portal');

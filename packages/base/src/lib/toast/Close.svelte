@@ -6,7 +6,7 @@
   import { root } from './root-context.js';
   import { provider } from './context.js';
   import type { ToastCloseProps } from './types.js';
-  let { children, disabled = false, ref = $bindable(null), ...props }: ToastCloseProps = $props();
+  let { children, disabled = false, ref = $bindable(), ...props }: ToastCloseProps = $props();
   const controller = root();
   const { store } = provider();
   let hasFocus = $state(false);

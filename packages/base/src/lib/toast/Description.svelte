@@ -5,7 +5,7 @@
   import { root } from './root-context.js';
   import { isRenderableContent } from './content.js';
   import type { ToastDescriptionProps } from './types.js';
-  let { children, id, ref = $bindable(null), ...props }: ToastDescriptionProps = $props();
+  let { children, id, ref = $bindable(), ...props }: ToastDescriptionProps = $props();
   const controller = root();
   const generated = $props.id();
   const resolvedId = $derived(id ?? `base-ui-${generated}`);

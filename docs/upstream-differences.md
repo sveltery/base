@@ -42,6 +42,19 @@ Controlled React/Svelte JSdom executions differ for explicit blur then same-turn
 
 Decision status: proposed in PR #16; this is an explicit, uncredited native timing adaptation, not complete lifecycle parity. Specific user acceptance of the timing deviations is not recorded. The broader batching/model boundaries remain unported and blocked.
 
+## A-01: approved, proposed core audit repairs and substitutions
+
+The [2026-10-02 audit change record](audit-fixes.md) compares main `cdd1c4f3bef7d329b890de42c05aeb9d4402e656` with the immutable Base UI v1.8.0 pin above. It records each change, framework version support, regression evidence and remaining gates:
+
+| Change | Classification and observable contract |
+| --- | --- |
+| Dialog Portal target resolution | Fidelity repair: a null ref value uses the inherited Portal/body fallback, while explicit `container={null}` still waits. Native DOM targets take precedence over a coincidental `current` property. |
+| Initially undefined DOM refs | Intentional Svelte API relaxation: `$bindable()` accepts initially undefined `bind:ref`, including forwarding chains. The actual host is published on attachment and null on cleanup; an omitted, unattached ref can now remain undefined instead of defaulting to null. Imperative actions bindings retain their existing contract. |
+| Duplicate Viewport blur settlement | Behavior-preserving cleanup: keep one settlement before each affected window keydown/blur handler, retaining event order and native timing safeguards. |
+| Typed Toast contexts | Framework substitution: native `createContext<T>()` replaces manual keys. Its `has` function preserves the existing missing-context errors and requires Svelte 5.57. |
+
+Decision status: the user approved implementing these audit findings on 2026-10-02 at 01:25 UTC: "Ok. All these findings are good. Fix them" (source conversation `01a0f8d2-3e91-7455-b184-d3a30c452008`). Implementation is proposed in [PR #23](https://github.com/sveltery/base/pull/23), not landed. The [published source checkpoint](audit-fixes.md#published-source-checkpoint) records independent review, hosted CI/browser execution and completed automatic review; the PR must record these gates on its final head before merge. This decision covers the bounded fixes, not previously recorded differences, deferred shared defects or the pending remote-form investigation. Supplemental regressions add no upstream declaration credit. [Dialog](dialog-first-slice.md), [Button](../parity/button/README.md) and [Toast](../parity/toast/rendering-interface.md) link this record. Optional fixture/tooling modernization is a separate change.
+
 ## Adaptations and incomplete scope
 
 Framework/API substitutions remain documented in [pinned contracts](upstream-contracts.md), [Dialog slice](dialog-first-slice.md) and [Button adaptations](../parity/button/README.md): native events and prevention channels, string CSS, snippets/attachments, bindable refs and Svelte state/ID relationships. These are distinct from the behavioral corrections above.
