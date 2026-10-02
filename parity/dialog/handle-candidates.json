@@ -24,13 +24,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handle-hydration.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandleSsrFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handle-hydration-reference.ts",
       "unresolvedMapping": "real same-node SSR/hydration candidate requires fresh independent mapping review",
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-same-node-ssr-hydration",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:43",
@@ -68,13 +75,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:126",
@@ -90,13 +104,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:159",
@@ -111,13 +132,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:186",
@@ -136,13 +164,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:230",
@@ -159,13 +194,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "packages/base/tests/dom/dialog-handles.test.ts",
       "nativeFixture": null,
       "actualReference": "scripts/tests/dialog-handle-reference.test.mjs",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "3129a04727fd549cb3db7c218c75293264131d2b",
+        "kind": "paired-node-jsdom",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:249",
@@ -188,13 +230,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:325",
@@ -252,13 +301,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:490",
@@ -280,13 +336,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:549",
@@ -307,13 +370,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:612",
@@ -329,13 +399,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:641",
@@ -353,13 +430,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:700",
@@ -373,13 +457,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:738",
@@ -395,13 +486,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:775",
@@ -418,13 +516,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:820",
@@ -460,13 +565,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:871",
@@ -483,13 +595,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:939",
@@ -510,13 +629,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:987",
@@ -533,13 +659,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1020",
@@ -555,13 +688,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1048",
@@ -582,13 +722,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1078",
@@ -607,13 +754,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1100",
@@ -631,13 +785,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1157",
@@ -654,13 +815,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1274",
@@ -681,13 +849,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1323",
@@ -710,13 +885,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1389",
@@ -737,13 +919,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1444",
@@ -765,13 +954,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1518",
@@ -789,13 +985,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1579",
@@ -813,13 +1016,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1646",
@@ -833,13 +1043,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1664",
@@ -853,13 +1070,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1682",
@@ -873,13 +1097,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1711",
@@ -896,13 +1127,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1746",
@@ -916,13 +1154,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1764",
@@ -939,13 +1184,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1802",
@@ -961,13 +1213,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1835",
@@ -984,13 +1243,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1891",
@@ -1007,13 +1273,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1921",
@@ -1032,13 +1305,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1955",
@@ -1061,13 +1341,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:2028",
@@ -1086,13 +1373,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:2088",
@@ -1112,13 +1406,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:2129",
@@ -1137,13 +1438,20 @@
       "variants": [
         {}
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:280",
@@ -1183,13 +1491,20 @@
           }
         }
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-root-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:306",
@@ -1228,13 +1543,20 @@
           }
         }
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-root-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:333",
@@ -1278,13 +1600,20 @@
           }
         }
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-root-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:389",
@@ -1325,13 +1654,20 @@
           }
         }
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-root-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:411",
@@ -1371,13 +1707,20 @@
           }
         }
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-root-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:459",
@@ -1415,13 +1758,20 @@
           }
         }
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-root-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:472",
@@ -1459,13 +1809,20 @@
           }
         }
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-root-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:485",
@@ -1503,13 +1860,20 @@
           }
         }
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-root-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:535",
@@ -1546,13 +1910,20 @@
           }
         }
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-root-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:555",
@@ -1590,13 +1961,20 @@
           }
         }
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-root-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:582",
@@ -1634,13 +2012,20 @@
           }
         }
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-root-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:1319",
@@ -1681,13 +2066,20 @@
           }
         }
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "executed-awaiting-independent-mapping-review",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-root-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
       "unresolvedMapping": null,
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:1399",
@@ -1735,7 +2127,15 @@
       "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
       "unresolvedMapping": "React renderer StrictMode duplicate completion count; native row remains unimplemented by PM scope decision",
       "decision": "https://github.com/sveltery/base/pull/42#pullrequestreview-5397221448",
-      "rendererPreconditions": "renderer-preconditions.md"
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "actual-strict-source-only",
+        "actualSourcePasses": 3,
+        "nativePasses": 0,
+        "ordinaryCredit": 0
+      }
     }
   ]
 }
