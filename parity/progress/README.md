@@ -1,0 +1,15 @@
+# Progress assertion record
+
+Reference: Base UI v1.8.0, immutable `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. Original assertions and implementation/closure dependencies are preserved under [upstream](upstream), with SHA-256 source/body hashes in [upstream-inventory.json](upstream-inventory.json). MIT attribution: [UPSTREAM_LICENSE](UPSTREAM_LICENSE).
+
+The direct inventory has **20 ordinary declarations**: Root 32, 56, 65, 122, 140, 160, 215, 227, 262, 288, 312, 334; Indicator 17, 34, 51; Label 17, 49; Value 17, 28, 48. Track has **zero ordinary declarations**. The three `it.each` source sites are separately recorded: Root 180 has two custom-format range variants, Root 246 has three nonfinite variants and Value 66 has two indeterminate variants, for **seven parameterized executions per framework**. Those variants add no ordinary declaration credit.
+
+[ports.json](ports.json) preserves every source assertion line and lists the paired browser candidates plus direct callback witnesses in DOM tests. Root 262 and Root 180 retain the callback-argument assertions in addition to browser-visible text; Value 48/66 retain direct formatted/raw child arguments. Ordinary assertions are candidates until the complete exact-head secured paired run passes; currently **zero ordinary credits are claimed**. Shared inventory/aggregate totals remain unchanged for parent reconciliation.
+
+All five parts invoke the same pinned conformance suite. Its 15 helper declarations (prop forwarding, refs, class and replacement rendering) are recorded separately in `ports.json`, including all native/custom style, supplied attributes, wrapper presence, reference identity and merged-class assertions. Fourteen fixture modes per part cover these 15 helpers because the default native execution witnesses both prop forwarding and ref forwarding. Track requires this full conformance despite having no ordinary tests. Paired helpers, contextual render wrappers and supplements earn zero ordinary credit.
+
+Supplemental tests cover native overrides, indeterminate removal of all internal styles while retaining consumer CSS, replacement Root/Value children and refs, source-preserving atypical bounds, SSR omission, generated ID hydration, missing contexts, raw callback transitions, changing format/locale and lifecycle cleanup. They are execution evidence only. The Indicator browser assertions inspect actual computed style plus inline percentage width; they do not substitute JSDOM for geometry.
+
+Regenerate/check immutable source metadata with `node parity/progress/inventory.mjs /workspace/base-ui-upstream --check` after bootstrapping the toolchain. Source traces remain unported immutable records; executed status belongs solely in the separate port ledger. Provenance consistency tests verify these counts and hashes without asserting runtime parity.
+
+See [feature docs](../../docs/progress.md), [compatibility register](compatibility.md), [shared integration](shared-integration.md) and [verification](verification.md). No release, deployment, complete library parity, screen-reader certification or final merge eligibility is claimed by this component-local branch.
