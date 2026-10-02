@@ -1,0 +1,798 @@
+{
+  "upstream": {
+    "repository": "https://github.com/mui/base-ui",
+    "tag": "v1.8.0",
+    "commit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+    "license": "MIT"
+  },
+  "scope": "22 ordinary declarations passing at the recorded secured component checkpoint; one parameterized site expands to four passing variants counted separately; full five-part conformance. Final-head gates remain separate; no aggregate reconciliation or complete-library parity is claimed.",
+  "ports": [
+    {
+      "sourceId": "packages/react/src/meter/root/MeterRoot.test.tsx:19",
+      "sourceBodySha256": "3afe23d5560726fa38cce21f39f1ce78bb616f291e19963138769a70689c1947",
+      "assertionLines": [
+        31,
+        32,
+        33,
+        34,
+        35
+      ],
+      "kind": "ordinary",
+      "variants": 1,
+      "status": "passing",
+      "port": "tests/browser/meter.spec.ts",
+      "pairedExecutionPrefix": "Root:19",
+      "directCallbackWitness": null,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "sourceId": "packages/react/src/meter/root/MeterRoot.test.tsx:40",
+      "sourceBodySha256": "b8354b08370efcff87c06a88e7d4b45fde2da0249103b712ac5e803edbe59004",
+      "assertionLines": [
+        52,
+        53
+      ],
+      "kind": "ordinary",
+      "variants": 1,
+      "status": "passing",
+      "port": "tests/browser/meter.spec.ts",
+      "pairedExecutionPrefix": "Root:40",
+      "directCallbackWitness": null,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "sourceId": "packages/react/src/meter/root/MeterRoot.test.tsx:56",
+      "sourceBodySha256": "f5b81bc2a1de7d45de0e5f72821522059bb705379c57b2785018588a9b383fd6",
+      "assertionLines": [
+        66,
+        67
+      ],
+      "kind": "ordinary",
+      "variants": 1,
+      "status": "passing",
+      "port": "tests/browser/meter.spec.ts",
+      "pairedExecutionPrefix": "Root:56",
+      "directCallbackWitness": null,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "sourceId": "packages/react/src/meter/root/MeterRoot.test.tsx:70",
+      "sourceBodySha256": "f2a57e7112d1065c3d5fc0652d6fe3747362a44167570d08262aad98246619c5",
+      "assertionLines": [
+        86,
+        87,
+        88,
+        89,
+        93,
+        94,
+        95,
+        96
+      ],
+      "kind": "ordinary",
+      "variants": 1,
+      "status": "passing",
+      "port": "tests/browser/meter.spec.ts",
+      "pairedExecutionPrefix": "Root:70",
+      "directCallbackWitness": null,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "sourceId": "packages/react/src/meter/root/MeterRoot.test.tsx:101",
+      "sourceBodySha256": "7097d3b554ac7f57396e9829781e64900d530ef667bf406c8b779748994f4336",
+      "assertionLines": [
+        114,
+        115,
+        117
+      ],
+      "kind": "ordinary",
+      "variants": 1,
+      "status": "passing",
+      "port": "tests/browser/meter.spec.ts",
+      "pairedExecutionPrefix": "Root:101",
+      "directCallbackWitness": "packages/base/tests/dom/meter.test.ts",
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "sourceId": "packages/react/src/meter/root/MeterRoot.test.tsx:122",
+      "sourceBodySha256": "1c30ff62121844efdce79cdee6e93f7e53947be33f61a943ec6f2efe07e83b82",
+      "assertionLines": [
+        135,
+        136,
+        137,
+        138
+      ],
+      "kind": "ordinary",
+      "variants": 1,
+      "status": "passing",
+      "port": "tests/browser/meter.spec.ts",
+      "pairedExecutionPrefix": "Root:122",
+      "directCallbackWitness": null,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "sourceId": "packages/react/src/meter/root/MeterRoot.test.tsx:141",
+      "sourceBodySha256": "f37b559db4090f44e8278d02f3993e5ab76e7e448a39db95f7e4a685e1d32e7b",
+      "assertionLines": [
+        150,
+        151
+      ],
+      "kind": "ordinary",
+      "variants": 1,
+      "status": "passing",
+      "port": "tests/browser/meter.spec.ts",
+      "pairedExecutionPrefix": "Root:141",
+      "directCallbackWitness": null,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "sourceId": "packages/react/src/meter/root/MeterRoot.test.tsx:154",
+      "sourceBodySha256": "f11c5d48b9ced86609c6178d9994e66c6d8016684c34e77b7270c995eb090c8f",
+      "assertionLines": [
+        171,
+        172,
+        173,
+        174,
+        175,
+        176,
+        180,
+        181,
+        182,
+        183,
+        184,
+        185
+      ],
+      "kind": "ordinary",
+      "variants": 1,
+      "status": "passing",
+      "port": "tests/browser/meter.spec.ts",
+      "pairedExecutionPrefix": "Root:154",
+      "directCallbackWitness": null,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "sourceId": "packages/react/src/meter/root/MeterRoot.test.tsx:188",
+      "sourceBodySha256": "85a8cbd63a2f95f9035b14db2607f9c3ce3f1fc3910e5c17dc3ed32473c47ded",
+      "assertionLines": [
+        219,
+        220
+      ],
+      "kind": "parameterized",
+      "variants": 4,
+      "status": "passing",
+      "port": "tests/browser/meter.spec.ts",
+      "pairedExecutionPrefix": "Root:188",
+      "directCallbackWitness": null,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "sourceId": "packages/react/src/meter/root/MeterRoot.test.tsx:226",
+      "sourceBodySha256": "2a676068eb6c1ef840a5be3e13b5a5bec519da1c7ccb52017bca6f51bb303ca9",
+      "assertionLines": [
+        246,
+        247
+      ],
+      "kind": "ordinary",
+      "variants": 1,
+      "status": "passing",
+      "port": "tests/browser/meter.spec.ts",
+      "pairedExecutionPrefix": "Root:226",
+      "directCallbackWitness": null,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "sourceId": "packages/react/src/meter/root/MeterRoot.test.tsx:250",
+      "sourceBodySha256": "08fada443b1bcf9477d1ffe42cb99f2fdfddd9d9e0a26b44689582d5567b5f93",
+      "assertionLines": [
+        270,
+        271,
+        272,
+        273,
+        274
+      ],
+      "kind": "ordinary",
+      "variants": 1,
+      "status": "passing",
+      "port": "tests/browser/meter.spec.ts",
+      "pairedExecutionPrefix": "Root:250",
+      "directCallbackWitness": "packages/base/tests/dom/meter.test.ts",
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "sourceId": "packages/react/src/meter/root/MeterRoot.test.tsx:279",
+      "sourceBodySha256": "10361b22ce55f2e7e9079da315e45eb8a3931381298f570df627de1af06b7f03",
+      "assertionLines": [
+        297
+      ],
+      "kind": "ordinary",
+      "variants": 1,
+      "status": "passing",
+      "port": "tests/browser/meter.spec.ts",
+      "pairedExecutionPrefix": "Root:279",
+      "directCallbackWitness": null,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "sourceId": "packages/react/src/meter/indicator/MeterIndicator.test.tsx:17",
+      "sourceBodySha256": "3e76ead05e80e6a5be253dcf5e0cc0920baf52fe716b74570dd5bdfdcec076c6",
+      "assertionLines": [
+        26
+      ],
+      "kind": "ordinary",
+      "variants": 1,
+      "status": "passing",
+      "port": "tests/browser/meter.spec.ts",
+      "pairedExecutionPrefix": "Indicator:17",
+      "directCallbackWitness": null,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "sourceId": "packages/react/src/meter/indicator/MeterIndicator.test.tsx:29",
+      "sourceBodySha256": "b39d34dcee1ad3cb087f95b8c5734d6356127db0fd4553243402059d5556e16d",
+      "assertionLines": [
+        38
+      ],
+      "kind": "ordinary",
+      "variants": 1,
+      "status": "passing",
+      "port": "tests/browser/meter.spec.ts",
+      "pairedExecutionPrefix": "Indicator:29",
+      "directCallbackWitness": null,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "sourceId": "packages/react/src/meter/indicator/MeterIndicator.test.tsx:41",
+      "sourceBodySha256": "dadb2c2de9677159749703c4230c5ba64ef203afe638cebcaccc7fe59d75ffa5",
+      "assertionLines": [
+        50
+      ],
+      "kind": "ordinary",
+      "variants": 1,
+      "status": "passing",
+      "port": "tests/browser/meter.spec.ts",
+      "pairedExecutionPrefix": "Indicator:41",
+      "directCallbackWitness": null,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "sourceId": "packages/react/src/meter/indicator/MeterIndicator.test.tsx:55",
+      "sourceBodySha256": "b89a65d11146297d6d70c7044bbad5dc50c7ad0ab003d736d2576142b9582c79",
+      "assertionLines": [
+        66
+      ],
+      "kind": "ordinary",
+      "variants": 1,
+      "status": "passing",
+      "port": "tests/browser/meter.spec.ts",
+      "pairedExecutionPrefix": "Indicator:55",
+      "directCallbackWitness": null,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "sourceId": "packages/react/src/meter/indicator/MeterIndicator.test.tsx:72",
+      "sourceBodySha256": "75740ef6f710d9e5f8452aee3c996991ee7cee0e2cf383c43ac449194bc86724",
+      "assertionLines": [
+        83
+      ],
+      "kind": "ordinary",
+      "variants": 1,
+      "status": "passing",
+      "port": "tests/browser/meter.spec.ts",
+      "pairedExecutionPrefix": "Indicator:72",
+      "directCallbackWitness": null,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "sourceId": "packages/react/src/meter/label/MeterLabel.test.tsx:17",
+      "sourceBodySha256": "6fa1004162bb9fab979674542f976c699ae2af18d225aeda4abdc4aa2fcad4a5",
+      "assertionLines": [
+        40,
+        43,
+        46
+      ],
+      "kind": "ordinary",
+      "variants": 1,
+      "status": "passing",
+      "port": "tests/browser/meter.spec.ts",
+      "pairedExecutionPrefix": "Label:17",
+      "directCallbackWitness": null,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "sourceId": "packages/react/src/meter/label/MeterLabel.test.tsx:49",
+      "sourceBodySha256": "9ddfe1559a4067d1b8c8b3f8a401ec9f4de94efd0bdfe616d918be495350aea4",
+      "assertionLines": [
+        53
+      ],
+      "kind": "ordinary",
+      "variants": 1,
+      "status": "passing",
+      "port": "tests/browser/meter.spec.ts",
+      "pairedExecutionPrefix": "Label:49",
+      "directCallbackWitness": null,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "sourceId": "packages/react/src/meter/value/MeterValue.test.tsx:17",
+      "sourceBodySha256": "ff0230a0caa55cbcefe8c8c08963a904497618353f074424579a3fc73e2b68a8",
+      "assertionLines": [
+        25
+      ],
+      "kind": "ordinary",
+      "variants": 1,
+      "status": "passing",
+      "port": "tests/browser/meter.spec.ts",
+      "pairedExecutionPrefix": "Value:17",
+      "directCallbackWitness": null,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "sourceId": "packages/react/src/meter/value/MeterValue.test.tsx:28",
+      "sourceBodySha256": "5420c3540f73540e1d2d5cf19972a2300fb1a3e1795d0130bac8a5659234f348",
+      "assertionLines": [
+        44
+      ],
+      "kind": "ordinary",
+      "variants": 1,
+      "status": "passing",
+      "port": "tests/browser/meter.spec.ts",
+      "pairedExecutionPrefix": "Value:28",
+      "directCallbackWitness": null,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "sourceId": "packages/react/src/meter/value/MeterValue.test.tsx:47",
+      "sourceBodySha256": "7ec0f40d7a28433abd46783b605f99301a5f2072d9454bc47d88d31e47fa0f4e",
+      "assertionLines": [
+        61,
+        62
+      ],
+      "kind": "ordinary",
+      "variants": 1,
+      "status": "passing",
+      "port": "tests/browser/meter.spec.ts",
+      "pairedExecutionPrefix": "Value:47",
+      "directCallbackWitness": "packages/base/tests/dom/meter.test.ts",
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "sourceId": "packages/react/src/meter/value/MeterValue.test.tsx:65",
+      "sourceBodySha256": "17c7920bfe6f2890fefb70286333f3273fb4ede70c8ac6b3002528b0ffe7d779",
+      "assertionLines": [
+        74,
+        77,
+        81,
+        84
+      ],
+      "kind": "ordinary",
+      "variants": 1,
+      "status": "passing",
+      "port": "tests/browser/meter.spec.ts",
+      "pairedExecutionPrefix": "Value:65",
+      "directCallbackWitness": "packages/base/tests/dom/meter.test.ts",
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    }
+  ],
+  "conformance": [
+    {
+      "source": "packages/react/test/conformanceTests/propForwarding.tsx",
+      "line": 23,
+      "mode": "default",
+      "parts": [
+        "Root",
+        "Label",
+        "Track",
+        "Indicator",
+        "Value"
+      ],
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "source": "packages/react/test/conformanceTests/propForwarding.tsx",
+      "line": 38,
+      "mode": "function",
+      "parts": [
+        "Root",
+        "Label",
+        "Track",
+        "Indicator",
+        "Value"
+      ],
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "source": "packages/react/test/conformanceTests/propForwarding.tsx",
+      "line": 61,
+      "mode": "element",
+      "parts": [
+        "Root",
+        "Label",
+        "Track",
+        "Indicator",
+        "Value"
+      ],
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "source": "packages/react/test/conformanceTests/propForwarding.tsx",
+      "line": 82,
+      "mode": "style",
+      "parts": [
+        "Root",
+        "Label",
+        "Track",
+        "Indicator",
+        "Value"
+      ],
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "source": "packages/react/test/conformanceTests/propForwarding.tsx",
+      "line": 97,
+      "mode": "function-style",
+      "parts": [
+        "Root",
+        "Label",
+        "Track",
+        "Indicator",
+        "Value"
+      ],
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "source": "packages/react/test/conformanceTests/propForwarding.tsx",
+      "line": 114,
+      "mode": "element-style",
+      "parts": [
+        "Root",
+        "Label",
+        "Track",
+        "Indicator",
+        "Value"
+      ],
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "source": "packages/react/test/conformanceTests/refForwarding.tsx",
+      "line": 32,
+      "mode": "default",
+      "parts": [
+        "Root",
+        "Label",
+        "Track",
+        "Indicator",
+        "Value"
+      ],
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "source": "packages/react/test/conformanceTests/className.tsx",
+      "line": 20,
+      "mode": "class",
+      "parts": [
+        "Root",
+        "Label",
+        "Track",
+        "Indicator",
+        "Value"
+      ],
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "line": 41,
+      "mode": "wrapper-function",
+      "parts": [
+        "Root",
+        "Label",
+        "Track",
+        "Indicator",
+        "Value"
+      ],
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "line": 61,
+      "mode": "wrapper-element",
+      "parts": [
+        "Root",
+        "Label",
+        "Track",
+        "Indicator",
+        "Value"
+      ],
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "line": 78,
+      "mode": "wrapper-empty",
+      "parts": [
+        "Root",
+        "Label",
+        "Track",
+        "Indicator",
+        "Value"
+      ],
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "line": 93,
+      "mode": "ref-function",
+      "parts": [
+        "Root",
+        "Label",
+        "Track",
+        "Indicator",
+        "Value"
+      ],
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "line": 115,
+      "mode": "refs-element",
+      "parts": [
+        "Root",
+        "Label",
+        "Track",
+        "Indicator",
+        "Value"
+      ],
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "line": 146,
+      "mode": "merged-class",
+      "parts": [
+        "Root",
+        "Label",
+        "Track",
+        "Indicator",
+        "Value"
+      ],
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    },
+    {
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "line": 163,
+      "mode": "resolved-class",
+      "parts": [
+        "Root",
+        "Label",
+        "Track",
+        "Indicator",
+        "Value"
+      ],
+      "status": "passing",
+      "ordinaryCredit": 0,
+      "evidence": {
+        "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+        "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+        "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+      }
+    }
+  ],
+  "evidence": {
+    "testedCommit": "9605c77ec6a8fb1f2ae1e29a32daa15824300556",
+    "workflowRun": "https://github.com/sveltery/base/actions/runs/37001708795",
+    "browserJob": "https://github.com/sveltery/base/actions/runs/37001708795/job/110820925055",
+    "result": "224/224 paired secured Chromium executions passed; no retries or skips; 44 ordinary, 8 parameterized, 140 conformance and 32 supplemental executions separately counted"
+  }
+}
