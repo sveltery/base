@@ -5,7 +5,7 @@
     "commit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
     "license": "MIT"
   },
-  "scope": "37 ordinary passing sites / 41 variants retain historical exact-pin secured evidence; R:182 is candidate pending execution with its restored StrictMode boundary. Portable scope remains 38 sites / 42 variants; Panel:201 Activity deferred. Both merged-class helper bodies and all five aggregate conformance calls are candidate pending exact class-token execution. The previous 252-pass execution is historical and cannot certify the repaired assertions. Parameterized/types/supplements remain separate; shared manifest totals unchanged.",
+  "scope": "38 portable ordinary passing component-checkpoint sites / 42 variants at a4b767041074d22ad3eca85d063d12a51ad16c2d after restored StrictMode preconditions and exact class-token predicates. Panel:201 Activity remains deferred. One parameterized disabled declaration / two variants, five conformance calls / 15 shared helper declarations (140 paired cases), seven local type assertions / one expected type error, and 28 supplemental executions remain separately accounted and add zero ordinary credit. Hosted focused secured Chromium: 256 passed, zero retries or skips. Combined acceptance, Avatar-first landing, final-main synchronization and merge eligibility remain pending; the shared 635-entry manifest is unchanged.",
   "ports": [
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:19",
@@ -39,21 +39,21 @@
         "R:19 React reference warns when hiddenUntilFound overrides keepMounted=false"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:41",
@@ -91,21 +91,21 @@
         "R:41 React reference renders correct ARIA attributes"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:62",
@@ -139,21 +139,21 @@
         "R:62 React reference references manual panel id"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:81",
@@ -185,21 +185,21 @@
         "R:81 React reference references manual trigger id"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:98",
@@ -241,21 +241,21 @@
         "R:98 React reference updates labeling when trigger id is added or changed"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:145",
@@ -293,21 +293,21 @@
         "R:145 React reference restores labeling when manual trigger id is removed"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:182",
@@ -329,7 +329,7 @@
         null
       ],
       "kind": "ordinary",
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/accordion.spec.ts",
       "pairedExecutionPrefix": "R:182",
       "fixtures": [
@@ -344,8 +344,22 @@
         "R:182 Svelte unregisters generated part ids when parts unmount",
         "R:182 React reference unregisters generated part ids when parts unmount"
       ],
-      "evidence": null,
-      "verification": "2026-10-02 independent source audit found missing StrictMode reference preconditions for R:182 and substring class predicates for two helper bodies. Repaired ports preserve exact source boundaries and ordered classList.contains predicates. Prior execution remains historical; fresh paired secured browser execution is required before passing status. No additional ordinary credit.",
+      "evidence": {
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 84,
+        "parameterizedPairedInstances": 4,
+        "conformanceInstances": 140,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
+        "retries": 0,
+        "skips": 0,
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
+      },
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending.",
       "invalidatedEvidence": {
         "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
         "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
@@ -396,21 +410,21 @@
         "R:219 React reference preserves generated part associations during hydration"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:250",
@@ -456,21 +470,21 @@
         "R:250 React reference uncontrolled open state"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:282",
@@ -508,21 +522,21 @@
         "R:282 React reference defaultValue custom item value"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:310",
@@ -568,21 +582,21 @@
         "R:310 React reference controlled open state"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:342",
@@ -620,21 +634,21 @@
         "R:342 React reference value custom item value"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:370",
@@ -666,21 +680,21 @@
         "R:370 React reference can disable the whole accordion"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:399",
@@ -714,21 +728,21 @@
         "R:399 React reference can disable one item"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:473",
@@ -760,21 +774,21 @@
         "R:473 React reference mouseup allows preventBaseUIHandler"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:496",
@@ -843,21 +857,21 @@
         "R:496 React reference custom Space toggles"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:541",
@@ -922,21 +936,21 @@
         "R:541 React reference custom opens and closes on Space keyup"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:593",
@@ -972,21 +986,21 @@
         "R:593 React reference item cancel prevents uncontrolled opening"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:623",
@@ -1022,21 +1036,21 @@
         "R:623 React reference root cancel prevents uncontrolled opening"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:648",
@@ -1074,21 +1088,21 @@
         "R:648 React reference root cancel prevents uncontrolled closing"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:674",
@@ -1124,21 +1138,21 @@
         "R:674 React reference item cancel prevents controlled root callback"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:704",
@@ -1174,21 +1188,21 @@
         "R:704 React reference root cancel prevents controlled opening"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:742",
@@ -1224,21 +1238,21 @@
         "R:742 React reference root cancel prevents multiple opening"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:767",
@@ -1274,21 +1288,21 @@
         "R:767 React reference root cancel prevents multiple closing"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:794",
@@ -1340,21 +1354,21 @@
         "R:794 React reference multiple items can be open"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:835",
@@ -1402,21 +1416,21 @@
         "R:835 React reference only one item opens when multiple=false"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:875",
@@ -1462,21 +1476,21 @@
         "R:875 React reference onValueChange default item values"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:915",
@@ -1514,21 +1528,21 @@
         "R:915 React reference onValueChange custom item values"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:950",
@@ -1566,21 +1580,21 @@
         "R:950 React reference onValueChange multiple=false"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/item/AccordionItem.test.tsx:9",
@@ -1612,21 +1626,21 @@
         "I:9 React reference throws outside Accordion.Root"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/item/AccordionItem.test.tsx:29",
@@ -1656,21 +1670,21 @@
         "I:29 React reference never reports hidden=true after opening starts"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/header/AccordionHeader.test.tsx:8",
@@ -1702,21 +1716,21 @@
         "H:8 React reference throws outside Accordion.Item"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/trigger/AccordionTrigger.test.tsx:21",
@@ -1746,21 +1760,21 @@
         "T:21 React reference non-native trigger remains tabbable"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/panel/AccordionPanel.test.tsx:31",
@@ -1794,21 +1808,21 @@
         "P:31 React reference warns when panel hiddenUntilFound overrides keepMounted=false"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/panel/AccordionPanel.test.tsx:55",
@@ -1842,21 +1856,21 @@
         "P:55 React reference SSR suppresses initial inline keyframe animation"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/panel/AccordionPanel.test.tsx:97",
@@ -1888,21 +1902,21 @@
         "P:97 React reference passes root keepMounted to closed panels"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/panel/AccordionPanel.test.tsx:112",
@@ -1936,21 +1950,21 @@
         "P:112 React reference root hiddenUntilFound allows panel overrides"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/panel/AccordionPanel.test.tsx:137",
@@ -1994,21 +2008,21 @@
         "P:137 React reference switching retains closing panel until exit transition completes"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/src/accordion/panel/AccordionPanel.test.tsx:201",
@@ -2080,21 +2094,21 @@
         "R:431 React reference does not toggle or fire callbacks when item disabled"
       ],
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      "verification": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     }
   ],
   "conformancePorts": [
@@ -2102,9 +2116,23 @@
       "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
       "line": 14,
       "sourceDeclarationSha256": "61ac3b569d6809eaef2d1d0e12134e66a62e4253a2142289e69cabc6edf0e29a",
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/accordion.spec.ts",
-      "evidence": null,
+      "evidence": {
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 84,
+        "parameterizedPairedInstances": 4,
+        "conformanceInstances": 140,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
+        "retries": 0,
+        "skips": 0,
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
+      },
       "executions": [
         "conformance Svelte Root default",
         "conformance Svelte Root function",
@@ -2143,7 +2171,7 @@
         "packages/base/tests/dom/accordion-conformance.test.ts",
         "packages/base/tests/dom/accordion/Conformance.svelte"
       ],
-      "adaptation": "2026-10-02 independent source audit found missing StrictMode reference preconditions for R:182 and substring class predicates for two helper bodies. Repaired ports preserve exact source boundaries and ordered classList.contains predicates. Prior execution remains historical; fresh paired secured browser execution is required before passing status. No additional ordinary credit.",
+      "adaptation": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending.",
       "invalidatedEvidence": {
         "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
         "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
@@ -2164,9 +2192,23 @@
       "source": "packages/react/src/accordion/item/AccordionItem.test.tsx",
       "line": 21,
       "sourceDeclarationSha256": "bb98255801dc6bb3142186e89e4bf7264f5f47f97e59cc3b295cffb94a5bab9d",
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/accordion.spec.ts",
-      "evidence": null,
+      "evidence": {
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 84,
+        "parameterizedPairedInstances": 4,
+        "conformanceInstances": 140,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
+        "retries": 0,
+        "skips": 0,
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
+      },
       "executions": [
         "conformance Svelte Item default",
         "conformance Svelte Item function",
@@ -2205,7 +2247,7 @@
         "packages/base/tests/dom/accordion-conformance.test.ts",
         "packages/base/tests/dom/accordion/Conformance.svelte"
       ],
-      "adaptation": "2026-10-02 independent source audit found missing StrictMode reference preconditions for R:182 and substring class predicates for two helper bodies. Repaired ports preserve exact source boundaries and ordered classList.contains predicates. Prior execution remains historical; fresh paired secured browser execution is required before passing status. No additional ordinary credit.",
+      "adaptation": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending.",
       "invalidatedEvidence": {
         "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
         "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
@@ -2226,9 +2268,23 @@
       "source": "packages/react/src/accordion/header/AccordionHeader.test.tsx",
       "line": 20,
       "sourceDeclarationSha256": "d00196f9f43ae0713a9b93b521a1250375b9752082174ba7e8a33a636b7ab353",
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/accordion.spec.ts",
-      "evidence": null,
+      "evidence": {
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 84,
+        "parameterizedPairedInstances": 4,
+        "conformanceInstances": 140,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
+        "retries": 0,
+        "skips": 0,
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
+      },
       "executions": [
         "conformance Svelte Header default",
         "conformance Svelte Header function",
@@ -2267,7 +2323,7 @@
         "packages/base/tests/dom/accordion-conformance.test.ts",
         "packages/base/tests/dom/accordion/Conformance.svelte"
       ],
-      "adaptation": "2026-10-02 independent source audit found missing StrictMode reference preconditions for R:182 and substring class predicates for two helper bodies. Repaired ports preserve exact source boundaries and ordered classList.contains predicates. Prior execution remains historical; fresh paired secured browser execution is required before passing status. No additional ordinary credit.",
+      "adaptation": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending.",
       "invalidatedEvidence": {
         "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
         "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
@@ -2288,9 +2344,23 @@
       "source": "packages/react/src/accordion/trigger/AccordionTrigger.test.tsx",
       "line": 9,
       "sourceDeclarationSha256": "b4b5016aa329b2d558ea0a6476c8bdbb4543b227134d8e07bee44a5f7479ffd5",
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/accordion.spec.ts",
-      "evidence": null,
+      "evidence": {
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 84,
+        "parameterizedPairedInstances": 4,
+        "conformanceInstances": 140,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
+        "retries": 0,
+        "skips": 0,
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
+      },
       "executions": [
         "conformance Svelte Trigger default",
         "conformance Svelte Trigger function",
@@ -2329,7 +2399,7 @@
         "packages/base/tests/dom/accordion-conformance.test.ts",
         "packages/base/tests/dom/accordion/Conformance.svelte"
       ],
-      "adaptation": "2026-10-02 independent source audit found missing StrictMode reference preconditions for R:182 and substring class predicates for two helper bodies. Repaired ports preserve exact source boundaries and ordered classList.contains predicates. Prior execution remains historical; fresh paired secured browser execution is required before passing status. No additional ordinary credit.",
+      "adaptation": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending.",
       "invalidatedEvidence": {
         "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
         "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
@@ -2350,9 +2420,23 @@
       "source": "packages/react/src/accordion/panel/AccordionPanel.test.tsx",
       "line": 21,
       "sourceDeclarationSha256": "da7355251f78f47b411c0cc17ee50b5c5a0730b70a6b0d10044610c9756a224b",
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/accordion.spec.ts",
-      "evidence": null,
+      "evidence": {
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 84,
+        "parameterizedPairedInstances": 4,
+        "conformanceInstances": 140,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
+        "retries": 0,
+        "skips": 0,
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
+      },
       "executions": [
         "conformance Svelte Panel default",
         "conformance Svelte Panel function",
@@ -2391,7 +2475,7 @@
         "packages/base/tests/dom/accordion-conformance.test.ts",
         "packages/base/tests/dom/accordion/Conformance.svelte"
       ],
-      "adaptation": "2026-10-02 independent source audit found missing StrictMode reference preconditions for R:182 and substring class predicates for two helper bodies. Repaired ports preserve exact source boundaries and ordered classList.contains predicates. Prior execution remains historical; fresh paired secured browser execution is required before passing status. No additional ordinary credit.",
+      "adaptation": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending.",
       "invalidatedEvidence": {
         "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
         "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
@@ -2571,19 +2655,19 @@
       "status": "passing",
       "port": "tests/browser/accordion.spec.ts",
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
       "executionMode": "default",
       "executionNames": [
@@ -2601,7 +2685,7 @@
       "localPorts": [
         "packages/base/tests/dom/accordion-conformance.test.ts"
       ],
-      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs map to conformance. Default mode retains both forwarded props and realm instance assertions; style assertions retain the authored color substring. All mapped helper assertions passed paired secured Chromium at the recorded component checkpoint. Framework/API substitutions remain separately documented. Zero ordinary declaration credit."
+      "adaptation": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/test/conformanceTests/propForwarding.tsx:38",
@@ -2617,19 +2701,19 @@
       "status": "passing",
       "port": "tests/browser/accordion.spec.ts",
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
       "executionMode": "function",
       "executionNames": [
@@ -2647,7 +2731,7 @@
       "localPorts": [
         "packages/base/tests/dom/accordion-conformance.test.ts"
       ],
-      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs map to conformance. Default mode retains both forwarded props and realm instance assertions; style assertions retain the authored color substring. All mapped helper assertions passed paired secured Chromium at the recorded component checkpoint. Framework/API substitutions remain separately documented. Zero ordinary declaration credit."
+      "adaptation": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/test/conformanceTests/propForwarding.tsx:61",
@@ -2663,19 +2747,19 @@
       "status": "passing",
       "port": "tests/browser/accordion.spec.ts",
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
       "executionMode": "element",
       "executionNames": [
@@ -2693,7 +2777,7 @@
       "localPorts": [
         "packages/base/tests/dom/accordion-conformance.test.ts"
       ],
-      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs map to conformance. Default mode retains both forwarded props and realm instance assertions; style assertions retain the authored color substring. All mapped helper assertions passed paired secured Chromium at the recorded component checkpoint. Framework/API substitutions remain separately documented. Zero ordinary declaration credit."
+      "adaptation": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/test/conformanceTests/propForwarding.tsx:82",
@@ -2709,19 +2793,19 @@
       "status": "passing",
       "port": "tests/browser/accordion.spec.ts",
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
       "executionMode": "style",
       "executionNames": [
@@ -2739,7 +2823,7 @@
       "localPorts": [
         "packages/base/tests/dom/accordion-conformance.test.ts"
       ],
-      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs map to conformance. Default mode retains both forwarded props and realm instance assertions; style assertions retain the authored color substring. All mapped helper assertions passed paired secured Chromium at the recorded component checkpoint. Framework/API substitutions remain separately documented. Zero ordinary declaration credit."
+      "adaptation": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/test/conformanceTests/propForwarding.tsx:97",
@@ -2755,19 +2839,19 @@
       "status": "passing",
       "port": "tests/browser/accordion.spec.ts",
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
       "executionMode": "function-style",
       "executionNames": [
@@ -2785,7 +2869,7 @@
       "localPorts": [
         "packages/base/tests/dom/accordion-conformance.test.ts"
       ],
-      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs map to conformance. Default mode retains both forwarded props and realm instance assertions; style assertions retain the authored color substring. All mapped helper assertions passed paired secured Chromium at the recorded component checkpoint. Framework/API substitutions remain separately documented. Zero ordinary declaration credit."
+      "adaptation": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/test/conformanceTests/propForwarding.tsx:114",
@@ -2801,19 +2885,19 @@
       "status": "passing",
       "port": "tests/browser/accordion.spec.ts",
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
       "executionMode": "element-style",
       "executionNames": [
@@ -2831,7 +2915,7 @@
       "localPorts": [
         "packages/base/tests/dom/accordion-conformance.test.ts"
       ],
-      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs map to conformance. Default mode retains both forwarded props and realm instance assertions; style assertions retain the authored color substring. All mapped helper assertions passed paired secured Chromium at the recorded component checkpoint. Framework/API substitutions remain separately documented. Zero ordinary declaration credit."
+      "adaptation": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/test/conformanceTests/refForwarding.tsx:32",
@@ -2845,19 +2929,19 @@
       "status": "passing",
       "port": "tests/browser/accordion.spec.ts",
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
       "executionMode": "default",
       "executionNames": [
@@ -2875,7 +2959,7 @@
       "localPorts": [
         "packages/base/tests/dom/accordion-conformance.test.ts"
       ],
-      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs map to conformance. Default mode retains both forwarded props and realm instance assertions; style assertions retain the authored color substring. All mapped helper assertions passed paired secured Chromium at the recorded component checkpoint. Framework/API substitutions remain separately documented. Zero ordinary declaration credit."
+      "adaptation": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/test/conformanceTests/renderProp.tsx:41",
@@ -2893,19 +2977,19 @@
       "status": "passing",
       "port": "tests/browser/accordion.spec.ts",
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
       "executionMode": "wrapper-function",
       "executionNames": [
@@ -2923,7 +3007,7 @@
       "localPorts": [
         "packages/base/tests/dom/accordion-conformance.test.ts"
       ],
-      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs map to conformance. Default mode retains both forwarded props and realm instance assertions; style assertions retain the authored color substring. All mapped helper assertions passed paired secured Chromium at the recorded component checkpoint. Framework/API substitutions remain separately documented. Zero ordinary declaration credit."
+      "adaptation": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/test/conformanceTests/renderProp.tsx:61",
@@ -2941,19 +3025,19 @@
       "status": "passing",
       "port": "tests/browser/accordion.spec.ts",
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
       "executionMode": "wrapper-element",
       "executionNames": [
@@ -2971,7 +3055,7 @@
       "localPorts": [
         "packages/base/tests/dom/accordion-conformance.test.ts"
       ],
-      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs map to conformance. Default mode retains both forwarded props and realm instance assertions; style assertions retain the authored color substring. All mapped helper assertions passed paired secured Chromium at the recorded component checkpoint. Framework/API substitutions remain separately documented. Zero ordinary declaration credit."
+      "adaptation": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/test/conformanceTests/renderProp.tsx:78",
@@ -2987,19 +3071,19 @@
       "status": "passing",
       "port": "tests/browser/accordion.spec.ts",
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
       "executionMode": "wrapper-empty",
       "executionNames": [
@@ -3017,7 +3101,7 @@
       "localPorts": [
         "packages/base/tests/dom/accordion-conformance.test.ts"
       ],
-      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs map to conformance. Default mode retains both forwarded props and realm instance assertions; style assertions retain the authored color substring. All mapped helper assertions passed paired secured Chromium at the recorded component checkpoint. Framework/API substitutions remain separately documented. Zero ordinary declaration credit."
+      "adaptation": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/test/conformanceTests/renderProp.tsx:93",
@@ -3033,19 +3117,19 @@
       "status": "passing",
       "port": "tests/browser/accordion.spec.ts",
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
       "executionMode": "ref-function",
       "executionNames": [
@@ -3063,7 +3147,7 @@
       "localPorts": [
         "packages/base/tests/dom/accordion-conformance.test.ts"
       ],
-      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs map to conformance. Default mode retains both forwarded props and realm instance assertions; style assertions retain the authored color substring. All mapped helper assertions passed paired secured Chromium at the recorded component checkpoint. Framework/API substitutions remain separately documented. Zero ordinary declaration credit."
+      "adaptation": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/test/conformanceTests/renderProp.tsx:115",
@@ -3087,19 +3171,19 @@
       "status": "passing",
       "port": "tests/browser/accordion.spec.ts",
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
       "executionMode": "refs-element",
       "executionNames": [
@@ -3117,7 +3201,7 @@
       "localPorts": [
         "packages/base/tests/dom/accordion-conformance.test.ts"
       ],
-      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs map to conformance. Default mode retains both forwarded props and realm instance assertions; style assertions retain the authored color substring. All mapped helper assertions passed paired secured Chromium at the recorded component checkpoint. Framework/API substitutions remain separately documented. Zero ordinary declaration credit."
+      "adaptation": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     },
     {
       "sourceId": "packages/react/test/conformanceTests/renderProp.tsx:146",
@@ -3130,9 +3214,23 @@
         "47896e9bd87614ab32ed14003c0b8ad250aafeab3a366c7e81374a22786891fb",
         "d5c9059918b118b0d72ab3e8c5d16504795ec8da0fb320a60602c55e7fa72386"
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/accordion.spec.ts",
-      "evidence": null,
+      "evidence": {
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 84,
+        "parameterizedPairedInstances": 4,
+        "conformanceInstances": 140,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
+        "retries": 0,
+        "skips": 0,
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
+      },
       "executionMode": "merged-class",
       "executionNames": [
         "conformance Svelte Root merged-class",
@@ -3149,7 +3247,7 @@
       "localPorts": [
         "packages/base/tests/dom/accordion-conformance.test.ts"
       ],
-      "adaptation": "2026-10-02 independent source audit found missing StrictMode reference preconditions for R:182 and substring class predicates for two helper bodies. Repaired ports preserve exact source boundaries and ordered classList.contains predicates. Prior execution remains historical; fresh paired secured browser execution is required before passing status. No additional ordinary credit.",
+      "adaptation": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending.",
       "invalidatedEvidence": {
         "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
         "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
@@ -3177,9 +3275,23 @@
         "ba17baa5ddd908b3f24be3e62405e2e1ce027df62e37e8216711beb47d58674a",
         "d5c9059918b118b0d72ab3e8c5d16504795ec8da0fb320a60602c55e7fa72386"
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/accordion.spec.ts",
-      "evidence": null,
+      "evidence": {
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 84,
+        "parameterizedPairedInstances": 4,
+        "conformanceInstances": 140,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
+        "retries": 0,
+        "skips": 0,
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
+      },
       "executionMode": "resolved-class",
       "executionNames": [
         "conformance Svelte Root resolved-class",
@@ -3196,7 +3308,7 @@
       "localPorts": [
         "packages/base/tests/dom/accordion-conformance.test.ts"
       ],
-      "adaptation": "2026-10-02 independent source audit found missing StrictMode reference preconditions for R:182 and substring class predicates for two helper bodies. Repaired ports preserve exact source boundaries and ordered classList.contains predicates. Prior execution remains historical; fresh paired secured browser execution is required before passing status. No additional ordinary credit.",
+      "adaptation": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending.",
       "invalidatedEvidence": {
         "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
         "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
@@ -3225,19 +3337,19 @@
       "status": "passing",
       "port": "tests/browser/accordion.spec.ts",
       "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
+        "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+        "browserJob": 110999817071,
         "pairedSecuredBrowser": true,
         "ordinaryPairedInstances": 84,
         "parameterizedPairedInstances": 4,
         "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
+        "supplementalInstances": 28,
+        "totalExecutions": 256,
         "retries": 0,
         "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+        "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+        "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
       },
       "executionMode": "class",
       "executionNames": [
@@ -3255,7 +3367,34 @@
       "localPorts": [
         "packages/base/tests/dom/accordion-conformance.test.ts"
       ],
-      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs map to conformance. Default mode retains both forwarded props and realm instance assertions; style assertions retain the authored color substring. All mapped helper assertions passed paired secured Chromium at the recorded component checkpoint. Framework/API substitutions remain separately documented. Zero ordinary declaration credit."
+      "adaptation": "Immutable full source body, preconditions and ordered assertion predicates independently reviewed; every mapped actual React 1.8.0/Svelte secured Chromium execution passed at a4b767041074d22ad3eca85d063d12a51ad16c2d. R:182 retains its StrictMode reference boundary; renderProp:146/:163 use exact component-then-render classList.contains assertions. Historical invalidatedEvidence is not certification of the repaired tests. Parameterized, conformance/type and supplemental scopes remain separate; Panel:201 Activity is unimplemented. Combined acceptance and final-main synchronization remain pending."
     }
-  ]
+  ],
+  "supplementalCheckpoint": {
+    "status": "passing",
+    "port": "tests/browser/accordion.spec.ts",
+    "ordinaryDeclarationCredit": 0,
+    "issue37": "https://github.com/sveltery/base/issues/37",
+    "issue37Executions": [
+      "supplement: Svelte hiddenUntilFound replacement preserves boolean prop without rerunning state effect",
+      "supplement: Svelte hiddenUntilFound replacement preserves consumer override without rerunning state effect",
+      "supplement: React reference hiddenUntilFound replacement preserves boolean prop without rerunning state effect",
+      "supplement: React reference hiddenUntilFound replacement preserves consumer override without rerunning state effect"
+    ],
+    "evidence": {
+      "testedCommit": "a4b767041074d22ad3eca85d063d12a51ad16c2d",
+      "workflowRun": "https://github.com/sveltery/base/actions/runs/37055721029",
+      "browserJob": 110999817071,
+      "pairedSecuredBrowser": true,
+      "ordinaryPairedInstances": 84,
+      "parameterizedPairedInstances": 4,
+      "conformanceInstances": 140,
+      "supplementalInstances": 28,
+      "totalExecutions": 256,
+      "retries": 0,
+      "skips": 0,
+      "executionLogSha256": "d7ad0d1cca8898396ddb4605a6d8e89aef6e7b3644c35d091478c6d386f5ca2b",
+      "result": "passing repaired Accordion component checkpoint; combined acceptance, Avatar landing and final-main synchronization remain pending"
+    }
+  }
 }
