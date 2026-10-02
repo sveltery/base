@@ -1,6 +1,6 @@
 # Accordion compatibility record
 
-Reference: immutable Base UI v1.8.0 `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, with source hashes in [upstream-inventory.json](upstream-inventory.json). Proposed implementation: [draft PR #35](https://github.com/sveltery/base/pull/35); not landed. Passing a check or landing code does not approve a behavioral difference.
+Reference: immutable Base UI v1.8.0 `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, with source hashes in [upstream-inventory.json](upstream-inventory.json). Proposed implementation: [PR #35](https://github.com/sveltery/base/pull/35); not landed. Passing a check or landing code does not approve a behavioral difference.
 
 ## A-01: accepted framework baseline
 
