@@ -27,7 +27,7 @@ export function mountAvatarReference(node: HTMLElement, scenario: string, part =
       h(Avatar.Root, { ...tid('root'), className: state => `root-${state.imageLoadingStatus}` },
         shown ? h(Avatar.Image, { ...tid('image'), alt: 'Jane Doe', keepMounted: initial.keepMounted, src: renderedSource ? undefined : src, srcSet: initial.srcSet, sizes: initial.sizes,
           crossOrigin: scenario === 'native' || scenario.endsWith('responsive') ? 'anonymous' : undefined, referrerPolicy: scenario === 'native' || scenario.endsWith('responsive') ? 'no-referrer' : undefined,
-          loading: scenario === 'keep-order' ? 'lazy' : undefined, 'aria-hidden': scenario === 'keep-aria-override' ? false : undefined,
+          loading: scenario === 'keep-order' ? 'lazy' : undefined, ...(scenario === 'keep-aria-override' ? { 'aria-hidden': false } : {}),
           className: scenario.startsWith('animation') ? 'avatar-animation' : undefined, render,
           onLoadingStatusChange: status => { window.avatarHarness.statuses.push(status); window.avatarHarness.callbacks.push(`${callback}:${status}`); }, onLoad: e => event('load', e), onError: e => event('error', e), onTransitionEnd: () => window.avatarHarness.events.push('transitionend') }) : null,
         h(Avatar.Fallback, { delay, ...tid('fallback'), className: 'avatar-fallback' }, 'JD')));
