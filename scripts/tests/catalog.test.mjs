@@ -22,5 +22,5 @@ test('catalog accounts for every pinned non-type root module without complete pa
       assert.equal(item.evidence, null);
     }
   }
-  for (const name of ['field', 'form', 'toggle']) assert.equal(catalog.modules.find(item => item.upstreamModule === name).status, 'unimplemented');
+  for (const name of ['field', 'form', 'toggle-group']) assert.equal(catalog.modules.find(item => item.upstreamModule === name).status, 'unimplemented');
 });

@@ -38,6 +38,8 @@ cat > "$toggle_consumer/check.mjs" <<'JS'
 import assert from 'node:assert/strict';
 import { render } from 'svelte/server';
 import Consumer from './Consumer.svelte';
+import { First, Second } from './imports.js';
+assert.equal(First, Second);
 const body = render(Consumer).body;
 assert.equal((body.match(/<button/g) ?? []).length, 2);
 assert.equal((body.match(/type="button"/g) ?? []).length, 2);
@@ -56,5 +58,5 @@ node "$sveltery_repo_root/packages/base/node_modules/svelte-check/bin/svelte-che
 if [[ "${1:-}" == '--public' ]]; then
   echo 'Isolated tarball Toggle public root/subpath SSR and types: PASS'
 else
-  echo 'Isolated tarball Toggle internal entry SSR and types: PASS (public exports pending parent integration)'
+  echo 'Isolated tarball Toggle internal entry SSR and types: PASS (internal mode; public root/subpath mode is separate)'
 fi

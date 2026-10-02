@@ -37,6 +37,11 @@
       "types": "./dist/button/index.d.ts",
       "svelte": "./dist/button/index.js",
       "default": "./dist/button/index.js"
+    },
+    "./toggle": {
+      "types": "./dist/toggle/index.d.ts",
+      "svelte": "./dist/toggle/index.js",
+      "default": "./dist/toggle/index.js"
     }
   },
   "svelte": "./dist/index.js",

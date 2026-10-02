@@ -231,9 +231,9 @@
     },
     {
       "upstreamModule": "toggle",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "Toggle",
+      "evidence": "parity/toggle/README.md"
     },
     {
       "upstreamModule": "toggle-group",
