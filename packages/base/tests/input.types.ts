@@ -11,10 +11,14 @@ const props: Props = { value: 'owner', defaultValue: 'seed', disabled: true, req
   oninput(event) { const input: HTMLInputElement = event.currentTarget; event.preventBaseUIHandler(); void input; },
   onValueChange(value, details) { expectType<string, typeof value>(value); details.cancel(); },
 };
+const checkable: Props = { type: 'checkbox', checked: false, defaultChecked: true, value: 'token', onValueChange(value, details) { expectType<string, typeof value>(value); expectType<Event, typeof details.event>(details.event); } };
+const radio: Props = { type: 'radio', checked: null, defaultChecked: false, name: 'choice' };
+// @ts-expect-error checked retains native boolean semantics.
+const invalidChecked: Props = { checked: 'true' };
 // @ts-expect-error Disabled retains boolean semantics.
 const invalidDisabled: Props = { disabled: 'true' };
 // @ts-expect-error React CSS objects are outside the accepted native CSS string API.
 const invalidStyle: Props = { style: { opacity: 0.5 } };
 // @ts-expect-error Value callbacks retain string value inference.
 const invalidCallback: Props = { onValueChange(value: number) { void value; } };
-void [equality, props, invalidDisabled, invalidStyle, invalidCallback];
+void [equality, props, checkable, radio, invalidChecked, invalidDisabled, invalidStyle, invalidCallback];

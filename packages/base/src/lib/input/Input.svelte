@@ -1,12 +1,27 @@
+<script module lang="ts">
+  // Native radio restoration consults the final host group after consumer callbacks settle.
+  const checkedOwners = new WeakMap<HTMLInputElement, () => void>();
+  function restoreCheckedGroup(input: HTMLInputElement) {
+    if (input.tagName !== 'INPUT' || input.type !== 'checkbox' && input.type !== 'radio') return;
+    checkedOwners.get(input)?.();
+    if (input.type === 'radio' && input.name) {
+      const root = input.getRootNode() as Document | ShadowRoot | HTMLElement;
+      for (const other of root.querySelectorAll<HTMLInputElement>('input[type="radio"]')) {
+        if (other !== input && other.name === input.name && other.form === input.form) checkedOwners.get(other)?.();
+      }
+    }
+  }
+</script>
 <script lang="ts">
   // Base UI v1.8.0 standalone Input/Field.Control adaptation; MIT: THIRD_PARTY_NOTICES.md.
-  import { tick } from 'svelte';
+  import { tick, untrack, type Snippet } from 'svelte';
   import Element from '../dialog/Element.svelte';
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { resolveClassValue } from '../internals/resolveClassValue.js';
-  import type { InputProps } from './types.js';
+  import type { InputProps, InputState } from './types.js';
   import type { HTMLInputAttributes } from 'svelte/elements';
-  let { children, render, class: classProp, disabled = false, id, value, defaultValue, onValueChange, ref = $bindable(), ...props }: InputProps = $props();
+  let { children, render, class: classProp, disabled = false, id, value, defaultValue, checked, defaultChecked, onValueChange, ref = $bindable(), ...props }: InputProps = $props();
+  const initialChecked = untrack(() => checked);
   const instanceId = $props.id();
   const generatedId = `base-ui-${instanceId}`;
   const state = $derived({ disabled, touched: false, dirty: false, filled: false, focused: false, valid: null });
@@ -24,6 +39,24 @@
     let editVersion = 0;
     let resetRoot: Node | undefined;
     let resetEvents: { event: Event; matches: boolean }[] = [];
+    let checkedClickRoot: Node | undefined;
+    let checkedClickEvent: Event | undefined;
+    let checkedClickCleanupTimer: number | undefined;
+    const input = node as HTMLInputElement;
+    const restoreChecked = () => {
+      if (node.tagName === 'INPUT' && checked != null && input.checked !== checked) input.checked = checked;
+    };
+    // React's native input initializes a controlled checkable's reset default from checked.
+    // Later checked prop changes leave that initial default intact. A replacement host starts
+    // with its own current checked prop, just as a newly mounted native React input does.
+    if (node.tagName === 'INPUT') {
+      const currentChecked = input.checked;
+      if (checked != null) input.defaultChecked = checked;
+      // Initializing checked also marks native checked state dirty, so a later defaultChecked
+      // update changes the reset default without changing the current selection, as in React.
+      input.checked = currentChecked;
+      checkedOwners.set(input, restoreChecked);
+    }
     const observeReset = (event: Event) => {
       resetEvents.push({ event, matches: event.target === (node as HTMLInputElement).form });
     };
@@ -51,13 +84,13 @@
     function restoreValue() {
       const wasReset = resetEvents.some(record => record.matches && !record.event.defaultPrevented);
       clearPendingRestore();
-      if (!connected || value === undefined || wasReset) return;
-      const input = node as HTMLInputElement;
-      const next = value == null ? '' : String(value);
-      if (input.value !== next) input.value = next;
+      if (!connected) return;
+      if (value !== undefined && !wasReset) {
+        const next = value == null ? '' : String(value);
+        if (input.value !== next) input.value = next;
+      }
     }
     const restoreControlledEdit = (event: Event) => {
-      if (event.target !== node) return;
       const version = ++editVersion;
       clearPendingRestore();
       if (value === undefined) return;
@@ -77,12 +110,41 @@
         restoreValue();
       });
     };
+    const observeOwnEdit = (event: Event) => { if (event.target === node) restoreControlledEdit(event); };
+    function clearCheckedClick() {
+      if (checkedClickCleanupTimer !== undefined) ownerWindow.clearTimeout(checkedClickCleanupTimer);
+      checkedClickCleanupTimer = undefined;
+      checkedClickRoot?.removeEventListener('click', finishCheckedClick);
+      checkedClickRoot = undefined; checkedClickEvent = undefined;
+    }
+    function finishCheckedClick(event: Event) {
+      if (event !== checkedClickEvent) return;
+      clearCheckedClick();
+      if (connected) restoreCheckedGroup(input);
+    }
+    const observeCheckedClick = (event: Event) => {
+      if (event.target !== node || node.tagName !== 'INPUT' || input.type !== 'checkbox' && input.type !== 'radio') return;
+      clearCheckedClick();
+      checkedClickEvent = event; checkedClickRoot = node.getRootNode();
+      // Run after Svelte's delegated consumer handlers, while native activation is still
+      // dispatching. This also observes a replacement handler's work after props.onclick.
+      checkedClickRoot.addEventListener('click', finishCheckedClick);
+      queueMicrotask(() => {
+        if (checkedClickEvent !== event) return;
+        if (event.eventPhase !== Event.NONE) checkedClickCleanupTimer = ownerWindow.setTimeout(clearCheckedClick, 0);
+        else clearCheckedClick();
+      });
+    };
     // Observe this host before target attachments can reset its form, without altering dispatch.
-    inputParent.addEventListener('input', restoreControlledEdit, true);
+    inputParent.addEventListener('input', observeOwnEdit, true);
+    inputParent.addEventListener('click', observeCheckedClick, true);
     return () => {
       connected = false;
       clearPendingRestore();
-      inputParent.removeEventListener('input', restoreControlledEdit, true);
+      clearCheckedClick();
+      inputParent.removeEventListener('input', observeOwnEdit, true);
+      inputParent.removeEventListener('click', observeCheckedClick, true);
+      if (node.tagName === 'INPUT') checkedOwners.delete(input);
     };
   }
   const internal = $derived({
@@ -90,15 +152,30 @@
     // Preserve native value/defaultValue setters, including both getters in remote .as spreads.
     ...(defaultValue !== undefined ? { defaultValue } : {}),
     ...(value !== undefined ? { value } : {}),
+    ...(checked != null ? { checked, defaultChecked: initialChecked } : defaultChecked !== undefined ? { defaultChecked } : {}),
     oninput(event: Event) {
-      const next = (event.currentTarget as HTMLInputElement).value;
+      const input = event.currentTarget as HTMLInputElement;
+      if (input.tagName === 'INPUT' && (input.type === 'checkbox' || input.type === 'radio')) return;
+      const next = input.value;
       onValueChange?.(next, createChangeEventDetails('none', event));
       // Standalone Field context setters and validation callbacks are no-ops. In particular,
       // cancel() does not roll back an uncontrolled native edit or native preventDefault().
     },
+    onclick(event: MouseEvent) {
+      const input = event.currentTarget as HTMLInputElement;
+      if (input.tagName === 'INPUT' && (input.type === 'checkbox' || input.type === 'radio')) onValueChange?.(input.value, createChangeEventDetails('none', event));
+    },
   });
 </script>
-{#snippet nativeInput(nativeProps: Record<string | symbol, unknown>)}
-  <input {...nativeProps as HTMLInputAttributes} />
+{#snippet nativeInput(nativeProps: Record<string | symbol, unknown>, nativeState: InputState, nativeChildren: Snippet | undefined)}
+  {const checkedProps = $derived({ ...nativeProps, onclick(event: MouseEvent) {
+    const input = event.currentTarget as HTMLInputElement;
+    try { (nativeProps.onclick as ((event: MouseEvent) => void) | undefined)?.(event); }
+    // Replacement callbacks may continue after props.onclick returns. Their native root
+    // completion observer restores only after that final consumer work has run.
+    finally { if (!render) restoreCheckedGroup(input); }
+  } })}
+  {#if render}{@render render(checkedProps, nativeState, nativeChildren)}
+  {:else}<input {...checkedProps as HTMLInputAttributes} />{/if}
 {/snippet}
-<Element tag="input" {internal} props={resolvedProps} {state} render={render ?? nativeInput} {children} {attach} bind:ref />
+<Element tag="input" {internal} props={resolvedProps} {state} render={nativeInput} {children} {attach} bind:ref />
