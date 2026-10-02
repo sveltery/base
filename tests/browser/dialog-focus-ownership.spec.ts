@@ -51,7 +51,10 @@ for (const reference of [false, true]) {
     await expect(page.getByRole('button', { name: 'Trigger A' })).toBeFocused();
   });
   for (const scenario of ['external-focus', 'boolean-external-focus', 'explicit-external-focus']) test(`${framework}: ${scenario} respects the final-focus ownership policy`, async ({ page }) => {
-    await setup(page, scenario, reference); await page.getByRole('dialog').focus();
+    await setup(page, scenario, reference);
+    // Establish initial focus before the owner deliberately moves it outside.
+    await expect(page.getByRole('textbox', { name: 'Inside', exact: true })).toBeFocused();
+    await page.getByRole('dialog').focus();
     const outside = page.getByRole('button', { name: 'Outside' }); await outside.focus();
     await expect(page.getByRole('dialog')).toBeVisible();
     expect(await requests(page)).toHaveLength(1);
