@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { docs, groups } from '../../apps/fixtures/src/lib/docs/content.ts';
-import { checkDialogApi, extractDialogApi } from '../docs-api.mjs';
+import { checkDialogApi, extractDialogApi, extractTypeScript } from '../docs-api.mjs';
 import { checkAccordionApi, extractAccordionApi } from '../../parity/accordion/docs-api.mjs';
 test('docs API matches actual local types and all public parts', () => {
   checkDialogApi();
@@ -19,6 +19,16 @@ test('docs API matches actual local types and all public parts', () => {
       .sort(),
     names,
   );
+});
+test('Dialog docs extracts complete TypeScript from valid quoted Svelte generic attributes', () => {
+  const body = '\n  let { value }: { value: Payload } = $props();\n';
+  for (const attributes of [
+    'lang="ts" generics="Payload extends Record<string, number> = Record<string, number>"',
+    "generics='Payload extends Record<string, number> = Record<string, number>' lang='ts'",
+  ]) {
+    assert.equal(extractTypeScript(`<script ${attributes}>${body}</script><p>Example</p>`), body);
+  }
+  assert.equal(extractTypeScript(`<script lang="js">${body}</script>`), undefined);
 });
 test('docs metadata, navigation links and fragment targets are valid', () => {
   assert.equal(new Set(docs.map((doc) => doc.slug)).size, docs.length);

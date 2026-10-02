@@ -65,3 +65,38 @@ test('pinned external controlled opening prefers the previously focused external
     assert.equal(closeDetails.trigger, undefined);
   });
 });
+
+test('pinned JSDOM opening characterization remains separate from browser-only R1399', async () => {
+  await fixture(async ({ React, Dialog, root, document, act, settle }) => {
+    const h = React.createElement; const completions = [];
+    function TestDialog({ open }) {
+      return h(Dialog.Root, { open, onOpenChangeComplete: value => completions.push(value) },
+        h(Dialog.Trigger, null, 'Open'), h(Dialog.Portal, null,
+          h(Dialog.Popup, { style: { position: 'fixed', zIndex: 10 }, 'data-testid': 'dialog-popup' },
+            h('p', null, 'Dialog content'), h(Dialog.Close, null, 'Close'))));
+    }
+    function App() {
+      const [open, setOpen] = React.useState(false);
+      return h('div', null, h('button', { id: 'external', onClick: () => setOpen(true) }, 'Open externally'), h(TestDialog, { open }));
+    }
+    await act(async () => root.render(h(App)));
+    await act(async () => document.getElementById('external').click()); await settle();
+    assert.ok(document.querySelector('[data-testid=dialog-popup]'));
+    // R1399 is guarded out of JSDOM and requires two callbacks in the real source browser.
+    // This actual JSDOM observation receives no source declaration credit.
+    assert.equal(completions.length, 1); assert.equal(completions[0], true);
+  });
+});
+
+test('D:230 actual pinned JSDOM detached production payload warning body', async () => {
+  await fixture(async ({ Dialog }) => {
+    const originalEnvironment = process.env.NODE_ENV;
+    const originalWarn = console.warn; const calls = [];
+    console.warn = (...args) => calls.push(args);
+    process.env.NODE_ENV = 'production';
+    try {
+      const handle = Dialog.createHandle(); handle.openWithPayload(8);
+      assert.equal(handle.isOpen, false); assert.equal(calls.length, 0);
+    } finally { process.env.NODE_ENV = originalEnvironment; console.warn = originalWarn; }
+  });
+});

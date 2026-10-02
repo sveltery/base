@@ -1,5 +1,5 @@
 // Behavior reference: Base UI v1.8.0 DialogStore/popup lifecycle. MIT; see THIRD_PARTY_NOTICES.md.
-import { SvelteMap } from 'svelte/reactivity';
+import { SvelteMap, SvelteSet } from 'svelte/reactivity';
 import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
 import { TriggerMap } from './trigger-store.svelte.js';
 import type { ChangeEventDetails, ChangeReason, InteractionType, RootProps, PopupState } from './types.js';
@@ -23,6 +23,7 @@ export class DialogController {
   labels = new SvelteMap<object, () => string>();
   descriptions = new SvelteMap<object, () => string>();
   children = new SvelteMap<DialogController, true>();
+  readonly openChangeListeners = new SvelteSet<(details: { open: boolean; reason: ChangeReason }) => void>();
   readonly initialOpen: boolean;
   everMounted = false;
   method: InteractionType = 'mouse';
@@ -97,6 +98,7 @@ export class DialogController {
     this.props().onOpenChange?.(next, details);
     if (details.isCanceled) return details;
     this.props().onInternalOpenChange?.(next, details);
+    for (const listener of this.openChangeListeners) listener({ open: next, reason });
     this.deferred = !next && deferUnmount;
     if (next) {
       this.activeId = trigger?.id ?? null;

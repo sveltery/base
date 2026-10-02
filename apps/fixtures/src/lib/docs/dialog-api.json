@@ -2,7 +2,12 @@
   "props": [
     {
       "name": "children",
-      "type": "Snippet",
+      "type": "Snippet<[{ payload: Payload | undefined }]>",
+      "optional": true
+    },
+    {
+      "name": "handle",
+      "type": "DialogHandle<Payload>",
       "optional": true
     },
     {
@@ -59,11 +64,11 @@
   "parts": [
     {
       "name": "Root",
-      "signature": "RootProps"
+      "signature": "RootProps<Payload>"
     },
     {
       "name": "Trigger",
-      "signature": "ButtonProps"
+      "signature": "TriggerProps<Payload>"
     },
     {
       "name": "Portal",
@@ -90,5 +95,5 @@
       "signature": "ButtonProps"
     }
   ],
-  "types": "import type { Snippet } from 'svelte';\nimport type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';\nimport type { BaseUIChangeEventDetails } from '../internals/createBaseUIEventDetails.js';\nimport type { PreventableEvent } from '../merge-props/index.js';\nexport type ChangeReason = 'trigger-press' | 'close-press' | 'escape-key' | 'outside-press' | 'focus-out' | 'imperative-action' | 'none';\nexport type ChangeEventDetails = BaseUIChangeEventDetails<ChangeReason, { preventUnmountOnClose(): void }>;\nexport type InteractionType = 'mouse' | 'touch' | 'pen' | 'keyboard';\nexport type FocusTarget = boolean | { current: HTMLElement | null } | ((type: InteractionType) => boolean | HTMLElement | null | void);\nexport interface Actions { close(): void; unmount(): void }\nexport interface PopupState { open: boolean; nested: boolean; nestedDialogOpen: boolean; transitionStatus: 'starting' | 'ending' | undefined }\ntype PreventableHandlers<Props> = {\n  [Key in keyof Props]: Key extends `on:${string}` ? Props[Key] : Key extends `on${string}`\n    ? NonNullable<Props[Key]> extends (event: infer E) => infer Result\n      ? E extends Event ? ((event: E & PreventableEvent) => Result) | Extract<Props[Key], null | undefined> : Props[Key]\n      : Props[Key]\n    : Props[Key];\n};\nexport type ElementProps<State = Record<string, never>, NativeProps = HTMLAttributes<HTMLElement>> = Omit<PreventableHandlers<NativeProps>, 'class' | 'style' | 'children'> & {\n  children?: Snippet;\n  render?: Snippet<[Record<string | symbol, unknown>, State, Snippet | undefined]>;\n  class?: string | ((state: State) => string | undefined);\n  style?: string | ((state: State) => string | undefined);\n  ref?: HTMLElement | null;\n};\nexport interface RootProps {\n  children?: Snippet;\n  open?: boolean;\n  defaultOpen?: boolean;\n  modal?: boolean | 'trap-focus';\n  disablePointerDismissal?: boolean;\n  triggerId?: string | null;\n  defaultTriggerId?: string | null;\n  onOpenChange?: (open: boolean, details: ChangeEventDetails) => void;\n  onOpenChangeComplete?: (open: boolean) => void;\n  /** Svelte adaptation of actionsRef: bind:actions. */\n  actions?: Actions | null;\n  /** Acceptance observation seam; called only after consumer cancellation check. */\n  onInternalOpenChange?: (open: boolean, details: ChangeEventDetails) => void;\n}\nexport type ButtonProps = Omit<ElementProps<{ disabled: boolean; open?: boolean }, HTMLButtonAttributes>, 'disabled' | 'type'> & { disabled?: boolean; nativeButton?: boolean; type?: 'button' | 'submit' | 'reset' };\n"
+  "types": "import type { Snippet } from 'svelte';\nimport type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';\nimport type { BaseUIChangeEventDetails } from '../internals/createBaseUIEventDetails.js';\nimport type { PreventableEvent } from '../merge-props/index.js';\nimport type { DialogHandle } from './handle.svelte.js';\nexport type ChangeReason = 'trigger-press' | 'close-press' | 'escape-key' | 'outside-press' | 'focus-out' | 'imperative-action' | 'none';\nexport type ChangeEventDetails = BaseUIChangeEventDetails<ChangeReason, { preventUnmountOnClose(): void }>;\nexport type InteractionType = 'mouse' | 'touch' | 'pen' | 'keyboard';\nexport type FocusTarget = boolean | { current: HTMLElement | null } | ((type: InteractionType) => boolean | HTMLElement | null | void);\nexport interface Actions { close(): void; unmount(): void }\nexport interface PopupState { open: boolean; nested: boolean; nestedDialogOpen: boolean; transitionStatus: 'starting' | 'ending' | undefined }\ntype PreventableHandlers<Props> = {\n  [Key in keyof Props]: Key extends `on:${string}` ? Props[Key] : Key extends `on${string}`\n    ? NonNullable<Props[Key]> extends (event: infer E) => infer Result\n      ? E extends Event ? ((event: E & PreventableEvent) => Result) | Extract<Props[Key], null | undefined> : Props[Key]\n      : Props[Key]\n    : Props[Key];\n};\nexport type ElementProps<State = Record<string, never>, NativeProps = HTMLAttributes<HTMLElement>> = Omit<PreventableHandlers<NativeProps>, 'class' | 'style' | 'children'> & {\n  children?: Snippet;\n  render?: Snippet<[Record<string | symbol, unknown>, State, Snippet | undefined]>;\n  class?: string | ((state: State) => string | undefined);\n  style?: string | ((state: State) => string | undefined);\n  ref?: HTMLElement | null;\n};\nexport interface RootProps<Payload = unknown> {\n  children?: Snippet<[{ payload: Payload | undefined }]>;\n  handle?: DialogHandle<Payload>;\n  open?: boolean;\n  defaultOpen?: boolean;\n  modal?: boolean | 'trap-focus';\n  disablePointerDismissal?: boolean;\n  triggerId?: string | null;\n  defaultTriggerId?: string | null;\n  onOpenChange?: (open: boolean, details: ChangeEventDetails) => void;\n  onOpenChangeComplete?: (open: boolean) => void;\n  /** Svelte adaptation of actionsRef: bind:actions. */\n  actions?: Actions | null;\n  /** Acceptance observation seam; called only after consumer cancellation check. */\n  onInternalOpenChange?: (open: boolean, details: ChangeEventDetails) => void;\n}\nexport type ButtonProps = Omit<ElementProps<{ disabled: boolean; open?: boolean }, HTMLButtonAttributes>, 'disabled' | 'type'> & { disabled?: boolean; nativeButton?: boolean; type?: 'button' | 'submit' | 'reset' };\nexport type TriggerProps<Payload = unknown> = ButtonProps & { handle?: DialogHandle<Payload>; payload?: NoInfer<Payload> };\n"
 }

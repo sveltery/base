@@ -46,7 +46,7 @@ describe('Root-owned Dialog handle controller', () => {
     expect(handle.isOpen).toBe(true); expect(document.querySelector('[role=dialog]')).not.toBeNull(); expect(document.querySelector('[role=dialog]')).not.toBe(popup); expect(payload()).toBe('8');
   });
   it('returns focus to the external owner after a controlled programmatic open', async () => {
-    const handle = createDialogHandle<number>(); const requests: { open: boolean; trigger: HTMLElement | undefined }[] = [];
+    const handle = createDialogHandle<number>(); const requests: { open: boolean; trigger: Element | undefined }[] = [];
     setup({ handle, controlled: true, onChange: (open, details) => requests.push({ open, trigger: details.trigger }) }); await settle();
     const external = [...document.querySelectorAll('button')].find(button => button.textContent === 'Open programmatically')!;
     external.focus(); external.click(); await settle(); expect(payload()).toBe('9');
@@ -65,4 +65,21 @@ describe('Root-owned Dialog handle controller', () => {
     try { process.env.NODE_ENV = 'production'; warn.mockClear(); handle.openWithPayload(8); expect(handle.isOpen).toBe(false); expect(warn).not.toHaveBeenCalled(); }
     finally { process.env.NODE_ENV = previous; }
   });
+});
+
+// Complete D:230 body. Its original !isJSDOM guard maps to this configured JSDOM suite.
+// MIT: parity/dialog/UPSTREAM_LICENSE; no module reset or production bundle substitution.
+it('D:230 does not warn for a detached payload open in production', () => {
+  const originalEnvironment = process.env.NODE_ENV;
+  const consoleWarn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+  process.env.NODE_ENV = 'production';
+  try {
+    const handle = createDialogHandle<number>();
+    handle.openWithPayload(8);
+    expect(handle.isOpen).toBe(false);
+    expect(consoleWarn.mock.calls.length).toBe(0);
+  } finally {
+    process.env.NODE_ENV = originalEnvironment;
+    consoleWarn.mockRestore();
+  }
 });

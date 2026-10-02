@@ -43,7 +43,7 @@
 {#if client && target !== null && (controller.mounted || keepMounted)}
   <Element internal={{ 'data-base-ui-portal': '' }} {props} {render} bind:ref {attach}>
     {#if controller.mounted && controller.modal === true}
-      <div data-base-ui-internal-backdrop="" inert={!controller.open} style="position:fixed;inset:0;user-select:none" {@attach internal}></div>
+      <div role="presentation" data-base-ui-inert="" data-base-ui-internal-backdrop="" inert={!controller.open} style="position:fixed;inset:0;user-select:none;-webkit-user-select:none" {@attach internal}></div>
     {/if}
     {@render children?.()}
   </Element>

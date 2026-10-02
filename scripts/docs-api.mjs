@@ -5,6 +5,14 @@ import { resolve } from 'node:path';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const require = createRequire(resolve(root, 'packages/base/package.json'));
 const ts = require('typescript');
+export function extractTypeScript(component) {
+  // Svelte attributes can contain quoted > characters (for example generic bounds).
+  const tags = component.matchAll(/<script\b((?:[^>"']|"[^"]*"|'[^']*')*)>([\s\S]*?)<\/script>/g);
+  for (const [, attributes, script] of tags) {
+    if (/\blang\s*=\s*(["'])ts\1/.test(attributes)) return script;
+  }
+  return undefined;
+}
 export function extractDialogApi() {
   const source = readFileSync(
     resolve(root, 'packages/base/src/lib/dialog/types.ts'),
@@ -39,9 +47,7 @@ export function extractDialogApi() {
       resolve(root, `packages/base/src/lib/dialog/${name}.svelte`),
       'utf8',
     );
-    const script = component.match(
-      /<script lang="ts">([\s\S]*?)<\/script>/,
-    )?.[1];
+    const script = extractTypeScript(component);
     if (!script) throw new Error(`Missing script: ${name}`);
     const file = ts.createSourceFile(
       `${name}.ts`,
