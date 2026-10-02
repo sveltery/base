@@ -17,4 +17,4 @@
     return () => { stopped = true; cleanup?.(); };
   });
 </script>
-{#if data.scenario === 'context' && !data.reference}<main data-hydrated={contextReady}><div bind:this={host}></div><output data-testid="context-error">{error}</output></main>{:else if data.reference}<div bind:this={host}></div>{:else if data.scenario === 'conformance'}<MeterConformanceFixture part={data.part} mode={data.mode}/>{:else}<MeterFixture scenario={data.scenario} />{/if}
+{#if data.scenario === 'context' && !data.reference}<main data-hydrated={contextReady}><div bind:this={host}></div><output data-testid="context-error">{error}</output></main>{:else if data.reference}<div bind:this={host}></div>{:else if data.scenario === 'conformance' || data.scenario === 'standalone-track'}<MeterConformanceFixture part={data.part} mode={data.mode} standalone={data.scenario === 'standalone-track'}/>{:else}<MeterFixture scenario={data.scenario} />{/if}

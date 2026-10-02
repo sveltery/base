@@ -47,17 +47,17 @@ diff --git a/docs/catalog.md b/docs/catalog.md
  | [Progress](progress.md) | Root, Label, Track, Indicator and Value with range normalization, formatting and status; ordinary, parameterized and conformance evidence remain separately counted. |
 +| [Meter](meter.md) | Root, Label, Track, Indicator and Value with numeric range normalization, formatting and empty state; declaration, parameterized and conformance evidence remain separately counted. |
  | merge-props | Bounded native prop/event merge foundation; see [contracts](upstream-contracts.md). |
- 
+
 -These seven modules are bounded and the remaining 35 are unimplemented. No module is labeled fully compatible. Field and Form have no placeholders or exports. The catalog denominator includes modules such as direction-provider and use-render; it is not a component count or a passing-test denominator. All unimplemented names remain visible in the machine-readable ledger.
 +These eight modules are bounded and the remaining 34 are unimplemented. No module is labeled fully compatible. Field and Form have no placeholders or exports. The catalog denominator includes modules such as direction-provider and use-render; it is not a component count or a passing-test denominator. All unimplemented names remain visible in the machine-readable ledger.
- 
+
  The [ordinary assertion inventory](../parity/README.md) is separately scoped. Shared conformance helpers, paired framework executions and local supplements do not inflate its declaration credit. The dedicated Toggle ledger records five standalone declarations separately from the shared ordinary inventory; its two ToggleGroup-dependent declarations remain deferred and uncredited. Input and remaining controls require their own bounded characterization and review.
 diff --git a/README.md b/README.md
 --- a/README.md
 +++ b/README.md
 @@ -17,3 +17,5 @@
  [Standalone Toggle](parity/toggle/README.md) adds controlled/uncontrolled pressed state with cancellable callbacks and disabled behavior. Its public root/subpath API is bounded; ToggleGroup, Toolbar and complete conformance remain deferred, and final-head acceptance is recorded in PR #27.
- 
+
  [Progress](docs/progress.md) adds Root, Label, Track, Indicator and Value against the immutable v1.8.0 pin. Its [dedicated declaration and conformance evidence](parity/progress/README.md) remains separately accounted; final-head acceptance is recorded in PR #28.
 +
 +[Meter](docs/meter.md) adds Root, Label, Track, Indicator and Value from the immutable v1.8.0 pin. Its [dedicated declaration and conformance evidence](parity/meter/README.md) remains separate; final-head acceptance is recorded in PR #32.
@@ -66,7 +66,7 @@ diff --git a/parity/README.md b/parity/README.md
 +++ b/parity/README.md
 @@ -28,3 +28,5 @@
  Standalone [Toggle](toggle/README.md) records seven source declarations in a separate immutable ledger: five complete standalone ports at the recorded secured source checkpoint and two deferred ToggleGroup-dependent declarations. These sites and five credits are outside the shared 635-entry inventory and its 30 passing ports until parent reconciliation; do not add the ledgers or count paired executions/supplements as declarations. Rendered pressed/callback boundary repairs require the separate final-head gates in PR #27. ToggleGroup, composite/Toolbar integration and shared conformance remain unimplemented and uncredited.
- 
+
  [Progress](progress/README.md) separately records 20 ordinary declarations passing at its secured component checkpoint, three parameterized sites expanding to seven variants, and full five-part conformance evidence. Track has zero ordinary declarations. These sites and any credits remain outside the shared 635-entry aggregate until parent reconciliation; paired executions, helpers and supplements add no ordinary declaration credit. See PR #28 and its exact-head verification for current acceptance.
 +
 +[Meter](meter/README.md) separately records 22 ordinary declaration candidates, one parameterized site expanding to four variants and full five-part conformance. Track has zero ordinary declarations. Runtime verification remains pending in [PR #32](https://github.com/sveltery/base/pull/32). These sites and any later credits remain outside the shared 635-entry aggregate until parent reconciliation; paired executions, helpers and supplements add no ordinary declaration credit.
@@ -77,15 +77,15 @@ diff --git a/packages/base/THIRD_PARTY_NOTICES.md b/packages/base/THIRD_PARTY_NO
  # Third-party notices
 +
 +Meter parts, numeric range normalization, formatter/locale cache, label/ID registration, hidden CSS and assertion/conformance ports derive from packages/react/src/meter and its rendering/ref, label registration and packages/utils dependency closure at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT attribution and immutable source/assertion hashes are preserved in parity/meter.
- 
+
  Progress parts, range normalization, formatting, ID registration, visually hidden CSS and assertion/conformance ports derive from packages/react/src/progress, utils/useRegisteredLabelId.ts, packages/utils number/locale/clamp helpers and test conformance helpers at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT attribution and immutable source/assertion hashes are preserved in parity/progress.
- 
+
 diff --git a/scripts/check-package.sh b/scripts/check-package.sh
 --- a/scripts/check-package.sh
 +++ b/scripts/check-package.sh
 @@ -129,3 +129,5 @@
  bash "$sveltery_repo_root/scripts/check-toggle-package.sh" --public
- 
+
  bash "$sveltery_repo_root/scripts/check-progress-package.sh" --public
 +
 +bash "$sveltery_repo_root/scripts/check-meter-package.sh" --public
@@ -106,7 +106,7 @@ diff --git a/docs/upstream-differences.md b/docs/upstream-differences.md
 +++ b/docs/upstream-differences.md
 @@ -96,3 +96,9 @@
  Source: pinned [Progress parts](https://github.com/mui/base-ui/tree/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/progress) and [useRegisteredLabelId](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/useRegisteredLabelId.ts). Svelte uses native class, string CSS, snippets, bindings/attachments and native events within the accepted five API substitutions in T-01; initially undefined refs follow A-01. Typed context exposes derived values, Svelte-stable IDs preserve generated relationships, and post-mount label registration preserves SSR omission followed by hydration association. React component namespace types become named part Props/State; ProgressStatus, Progress.Status and subpath Status remain public. Root's hidden presentation x and Value's default/child output are explicitly retained through replacement snippets.
- 
+
  Rationale: implement the actual pinned contracts with a private Progress dependency closure; no shared helper or Input changes and no opportunistic correction of reversed/nonfinite bound arithmetic. The [compatibility record](../parity/progress/compatibility.md), [feature documentation](progress.md) and [dedicated assertion record](../parity/progress/README.md) distinguish 20 passing ordinary declarations at the secured component checkpoint, seven parameterized variants, full conformance and supplemental evidence. Shared aggregate credits remain unchanged. Decision status: proposed in [PR #28](https://github.com/sveltery/base/pull/28), within the accepted framework baseline; no additional behavioral deviation approval or complete assistive-technology/whole-library parity is claimed. The complete integrated head requires full tests, paired secured browsers, public consumers, independent review and configured automatic review before merge.
 +
 +## M-01: Meter framework substitutions

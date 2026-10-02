@@ -155,14 +155,15 @@ for (const reference of [false, true]) {
     const expected = scenario === 'reversed' ? { now: '40', fill: '50%', normalized: .5 } : scenario === 'nan-custom' ? { now: '20', fill: '0%', normalized: 0 } : scenario.startsWith('nan-') ? { now: 'NaN', fill: '0%', normalized: 0 } : { now: '30', fill: '0%', normalized: 0 };
     await expect(root).toHaveAttribute('aria-valuenow', expected.now); await textAndFill(page, root, await percent(page, expected.normalized), expected.fill);
   });
-  for (const part of ['Root', 'Label', 'Track', 'Indicator', 'Value']) for (const mode of ['default', 'function', 'element', 'style', 'function-style', 'element-style', 'class', 'wrapper-function', 'wrapper-element', 'wrapper-empty', 'ref-function', 'refs-element', 'merged-class', 'resolved-class']) test(`conformance ${framework} ${part} ${mode}`, async ({ page }) => {
-    await page.goto(`/meter?case=conformance&part=${part}&mode=${mode}${reference ? '&reference' : ''}`); await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+  for (const part of ['Root', 'Label', 'Track', 'Indicator', 'Value']) for (const standalone of part === 'Track' ? [false, true] : [false]) for (const mode of standalone ? ['default'] : ['default', 'function', 'element', 'style', 'function-style', 'element-style', 'class', 'wrapper-function', 'wrapper-element', 'wrapper-empty', 'ref-function', 'refs-element', 'merged-class', 'resolved-class']) test(`${standalone ? 'supplement standalone Track conformance' : 'conformance'} ${framework} ${part} ${mode}`, async ({ page }) => {
+    await page.goto(`/meter?case=${standalone ? 'standalone-track' : 'conformance'}&part=${part}&mode=${mode}${reference ? '&reference' : ''}`); await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
     const node = page.getByTestId('conformance'); await expect(node).toHaveAttribute('lang', 'fr'); await expect(node).toHaveAttribute('data-foobar', 'foobar');
     if (['style', 'function-style', 'element-style'].includes(mode)) { await expect(node).toHaveAttribute('style', /color: green/); await expect(node).toHaveCSS('color', 'rgb(0, 128, 0)'); }
     if (!['default', 'style', 'class', 'wrapper-empty'].includes(mode)) await expect(node).toHaveAttribute('data-test-value', 'test-value');
     expect(await node.evaluate(element => element instanceof HTMLDivElement || element instanceof HTMLSpanElement)).toBe(true);
     if (mode.startsWith('wrapper')) await expect(page.getByTestId('wrapper')).toHaveCount(1);
     if (mode === 'class') await expect(node).toHaveClass('test-class');
+    if (standalone) await expect(node).toHaveClass('component-classname');
     if (mode === 'merged-class' || mode === 'resolved-class') { await expect(node).toHaveClass(/render-prop-classname/); await expect(node).toHaveClass(mode === 'resolved-class' ? /conditional-component-classname/ : /component-classname/); }
     const tag = ['default', 'style', 'class'].includes(mode) && ['Value', 'Label'].includes(part) ? 'SPAN' : 'DIV';
     if (reference) { await expect(node).toHaveAttribute('data-ref', tag); await expect(node).toHaveAttribute('data-ref-id', 'conformance'); if (mode === 'refs-element') { await expect(node).toHaveAttribute('data-render-ref', tag); await expect(node).toHaveAttribute('data-render-ref-id', 'conformance'); } }

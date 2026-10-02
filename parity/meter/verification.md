@@ -2,7 +2,7 @@
 
 Reference: Base UI v1.8.0 `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`.
 Starting main: `4412d40c73dfc108e959841824d7ff3ff2f27f54`.
-Proposed implementation: [draft PR #32](https://github.com/sveltery/base/pull/32). Draft status does not establish merge eligibility.
+Proposed implementation: [PR #32](https://github.com/sveltery/base/pull/32). Draft status does not establish merge eligibility.
 
 The initial runtime checkpoint `c9367f4afeac6f4de2f5ae1726c21bb7e8de8dc2` was pushed and the draft PR opened. The implementation owner reported a successful package build and type check with zero diagnostics. This is bounded runtime checkpoint evidence; it does not certify later tests, shared integration, public consumers, browsers or final-head review.
 
@@ -13,6 +13,14 @@ The provenance owner executed `node parity/meter/inventory.mjs /workspace/base-u
 The byte-exact source inventory has been generated from the actual pinned Git object. Snapshot/hash/count validation is documentation/provenance evidence only. The port ledger starts with 22 ordinary candidates, four separately counted parameterized executions and 15 separate conformance helper declarations, all pending runtime verification. Track has no ordinary declaration but requires full conformance.
 
 The local secured Chromium probe stopped before page creation because `/usr/lib/chromium/chrome-sandbox` lacked the required installation permissions. No sandbox flag, access rule or system permission was changed. Browser runtime parity remains pending hosted execution with the existing secured CI configuration. An implementation-owner report of a clean runtime source review and 49,152 passing arithmetic/formatting comparisons against helpers compiled from the exact pin is supplemental evidence, with zero ordinary declaration credit; it does not replace final exact-head review.
+
+## Serialized source checkpoint
+
+Source checkpoint `4011f2ec96e40d4434b102726c706f1c453532f4` contains the dedicated source/test/fixture/provenance candidates. Full local `bash scripts/verify.sh` and standards completed successfully. An isolated detached checkout at this checkpoint plus the proposed shared patch passed the public root/subpath tarball SSR/type consumer, including all ten named types and required-number assertions, and three catalog/docs consistency checks. This is preview evidence only: the owned branch's shared exports are still unchanged and integrated-head acceptance remains pending.
+
+Hosted [run 36998432321](https://github.com/sveltery/base/actions/runs/36998432321) passed Verification. Its whitespace step rejected single-space blank context lines inside the proposed patch; those lines were removed without changing patch applicability. Standard Track conformance was also restored to its pinned Root wrapper, with context-free Track evidence retained as a separate supplemental pair. The complete browser candidate now has 224 executions: 44 ordinary paired executions, eight parameterized executions, 140 conformance executions and 32 supplemental executions. These totals add no extra ordinary declaration credit. Hosted runtime and configured review results must be inspected at the successor checkpoint.
+
+The PR was initially opened as draft, then marked ready to trigger the configured automatic review without manual external-agent mentions. This does not release shared-file ownership or authorize merge before the remaining gates.
 
 ## Outstanding gates
 

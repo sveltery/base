@@ -16,7 +16,7 @@ export function mountMeterReference(node: HTMLElement, scenario: string, part = 
     const button = (name: string, fn: () => void) => h('button', { onClick: fn }, name);
     const update = (patch: Partial<typeof config>) => setConfig(previous => ({ ...previous, ...patch }));
     if (scenario === 'context') return h('main', { 'data-hydrated': true }, h(MissingContextBoundary, {}, h(Meter.Label)));
-    if (scenario === 'conformance') return conformance(part, mode);
+    if (scenario === 'conformance' || scenario === 'standalone-track') return conformance(part, mode, scenario === 'standalone-track');
     return h('main', { 'data-hydrated': true, ref: (el: HTMLElement | null) => { if (el) Object.assign(el, { meterAriaCalls: () => ariaCalls, meterValueCalls: () => valueCalls, meterRefs: () => ['Root', 'Label', 'Track', 'Indicator', 'Value'].map(key => refs[key]) }); } },
       button('Set 77', () => update({ value: 77 })), button('Reverse bounds', () => update({ min: 40, max: 20 })), button('NaN min', () => update({ min: NaN, max: 100 })), button('Infinite max', () => update({ min: 0, max: Infinity })), button('NaN custom range', () => update({ min: 20, max: 40, value: NaN })), button('Remove first', () => setFirstLabel(false)), button('Generate second id', () => setSecondaryId(undefined)), button('Set 60', () => update({ value: 60 })), button('Update range', () => update({ min: 20, max: 60, value: 50 })), button('Set Infinity', () => update({ value: Infinity })), button('Set -Infinity', () => update({ value: -Infinity })), button('Set NaN', () => update({ value: NaN })),
       button('Set EUR', () => update({ format: { style: 'currency', currency: 'EUR' } })), button('Set German', () => update({ locale: 'de-DE' })), button('Clear format', () => update({ format: undefined })),
@@ -32,7 +32,7 @@ export function mountMeterReference(node: HTMLElement, scenario: string, part = 
   }
   const root = createRoot(node); root.render(h(Fixture)); return () => root.unmount();
 }
-function conformance(part: string, mode: string): ReactNode {
+function conformance(part: string, mode: string, standalone = false): ReactNode {
   const ref = (node: HTMLElement | null) => { if (node) { node.dataset.ref = node.tagName; node.dataset.refId = node.getAttribute('data-testid') ?? ''; } };
   const renderRef = (node: HTMLElement | null) => { if (node) { node.dataset.renderRef = node.tagName; node.dataset.renderRefId = node.getAttribute('data-testid') ?? ''; } };
   const custom = mode !== 'default' && mode !== 'style' && mode !== 'class';
@@ -46,7 +46,7 @@ function conformance(part: string, mode: string): ReactNode {
     style: mode === 'style' ? { color: 'green' } : undefined,
   };
   const tested = part === 'Root' ? h(Meter.Root, { ...properties, value: 40 }) : part === 'Label' ? h(Meter.Label, properties) : part === 'Track' ? h(Meter.Track, properties) : part === 'Indicator' ? h(Meter.Indicator, properties) : h(Meter.Value, properties);
-  return h('main', { 'data-hydrated': true }, part === 'Root' || part === 'Track' ? tested : h(Meter.Root, { value: 40 }, tested));
+  return h('main', { 'data-hydrated': true }, part === 'Root' || standalone ? tested : h(Meter.Root, { value: 40 }, tested));
 }
 
 const Wrapper = forwardRef<HTMLDivElement, Record<string, unknown>>(function Wrapper(props, ref) { return h('div', { 'data-testid': 'wrapper' }, h('div', { ...props, ref })); });
