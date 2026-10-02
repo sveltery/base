@@ -1,6 +1,6 @@
 # Accordion
 
-This bounded slice targets `Root`, `Item`, `Header`, `Trigger` and `Panel` at Base UI v1.8.0, immutable commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. The [assertion inventory](../parity/accordion/README.md) separates 39 ordinary declarations / 43 variants from parameterized disabled, conformance, type and supplemental checks. Portable scope is 38 declarations / 42 variants; Panel:201 requires React.Activity and remains deferred. Public exports are integrated on this branch; final acceptance and Avatar-first landing remain required as recorded in [serialized integration](../parity/accordion/shared-integration.md).
+This bounded slice targets `Root`, `Item`, `Header`, `Trigger` and `Panel` at Base UI v1.8.0, immutable commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. The [assertion inventory](../parity/accordion/README.md) separates 39 ordinary declarations / 43 variants from parameterized disabled, conformance, type and supplemental checks. Portable scope is 38 declarations / 42 variants; Panel:201 requires React.Activity and remains deferred. Public exports are integrated on this branch. [Focused secured Accordion acceptance](../parity/accordion/verification.md#successful-focused-checkpoint-377bf32) passes all 252 cases at `377bf32b9d0181be168e83a6dfa3651a06b26a12`, establishing 38 portable ordinary sites / 42 variants in the dedicated ledger. Final combined acceptance and Avatar-first landing remain required as recorded in [serialized integration](../parity/accordion/shared-integration.md).
 
 ```svelte
 <script lang="ts">
