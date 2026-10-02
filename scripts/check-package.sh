@@ -127,3 +127,5 @@ node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$consumer_dir
 
 # Isolated public Toggle entry identity, SSR and component type consumer.
 bash "$sveltery_repo_root/scripts/check-toggle-package.sh" --public
+
+bash "$sveltery_repo_root/scripts/check-progress-package.sh" --public
