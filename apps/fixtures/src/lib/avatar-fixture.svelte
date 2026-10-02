@@ -7,7 +7,7 @@
   let { scenario = 'pending' }: { scenario?: string } = $props();
   const initial = untrack(() => avatarConfig(scenario));
   let src = $state(initial.src), delay = $state<number | undefined>(initial.delay), shown = $state(true), updated = $state(false), callback = $state('initial'), host = $state(0), hydrated = $state(false);
-  const renderedSource = $derived(['keep-render-source', 'keep-callback-source'].includes(scenario));
+  const renderedSource = $derived(['keep-render-source', 'keep-callback-source', 'real-keep-replacement', 'dropped-ref'].includes(scenario));
   const replacement = $derived(renderedSource || ['keep-order', 'real-keep-replacement', 'dropped-ref'].includes(scenario));
   const sourceInRender = $derived(src ?? (initial.real ? avatarDataUri : avatarMockSource));
   const record = (status: string) => { window.avatarHarness.statuses.push(status); window.avatarHarness.callbacks.push(`${callback}:${status}`); };
@@ -15,7 +15,7 @@
   onMount(() => { hydrated = true; });
 </script>
 {#snippet imageReplacement(props: Record<string | symbol, unknown>, state: AvatarImageState)}
-  {const extras = $derived(scenario === 'keep-render-source' ? { src: sourceInRender } : scenario === 'keep-callback-source' ? { sizes: '48px', src: sourceInRender, srcset: `${sourceInRender} 1x` } : {})}
+  {const extras = $derived(scenario === 'keep-callback-source' ? { sizes: '48px', src: sourceInRender, srcset: `${sourceInRender} 1x` } : renderedSource ? { src: sourceInRender } : {})}
   {const supplied = $derived({
     ...mergeProps(extras, props, { class: updated ? 'updated' : 'initial', 'data-state': state.imageLoadingStatus }),
     // Preserve enumerable Svelte attachments while merging string-keyed native props.

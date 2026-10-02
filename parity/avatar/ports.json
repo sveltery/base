@@ -673,7 +673,7 @@
       "variants": [
         null
       ],
-      "status": "passing",
+      "status": "candidate",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -684,20 +684,8 @@
         "Image:537 Svelte",
         "Image:537 React reference"
       ],
-      "evidence": {
-        "testedCommit": "d1e225078829c30432dcdfba3a28e1590d9f3ba2",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37050302793",
-        "browserJob": 110981972161,
-        "pairedSecuredBrowser": true,
-        "ordinaryPairedInstances": 88,
-        "conformanceInstances": 84,
-        "supplementalInstances": 32,
-        "totalExecutions": 204,
-        "retries": 0,
-        "skips": 0,
-        "result": "passing source checkpoint; integrated final-head and post-merge gates remain separate"
-      },
-      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed against this source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
+      "evidence": null,
+      "verification": "Resumed independent review found component-owned rather than replacement-owned sources in the native browser fixtures. Historical green runs do not establish this pinned precondition; corrected fixtures preserve the full ordered body and await fresh secured paired execution and exact-head review. No ordinary credit is retained for this row."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:575",
@@ -978,7 +966,7 @@
       "variants": [
         null
       ],
-      "status": "passing",
+      "status": "candidate",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -989,20 +977,8 @@
         "Image:747 Svelte",
         "Image:747 React reference"
       ],
-      "evidence": {
-        "testedCommit": "d1e225078829c30432dcdfba3a28e1590d9f3ba2",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37050302793",
-        "browserJob": 110981972161,
-        "pairedSecuredBrowser": true,
-        "ordinaryPairedInstances": 88,
-        "conformanceInstances": 84,
-        "supplementalInstances": 32,
-        "totalExecutions": 204,
-        "retries": 0,
-        "skips": 0,
-        "result": "passing source checkpoint; integrated final-head and post-merge gates remain separate"
-      },
-      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed against this source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
+      "evidence": null,
+      "verification": "Resumed independent review found component-owned rather than replacement-owned sources in the native browser fixtures. Historical green runs do not establish this pinned precondition; corrected fixtures preserve the full ordered body and await fresh secured paired execution and exact-head review. No ordinary credit is retained for this row."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:797",

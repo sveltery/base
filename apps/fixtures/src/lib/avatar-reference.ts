@@ -10,13 +10,13 @@ export function mountAvatarReference(node: HTMLElement, scenario: string, part =
   function Fixture() {
     const initial = avatarConfig(scenario);
     const [src, setSrc] = useState(initial.src), [delay, setDelay] = useState<number | undefined>(initial.delay), [shown, setShown] = useState(true), [updated, setUpdated] = useState(false), [callback, setCallback] = useState('initial'), [host, setHost] = useState(0);
-    const renderedSource = ['keep-render-source', 'keep-callback-source'].includes(scenario);
+    const renderedSource = ['keep-render-source', 'keep-callback-source', 'real-keep-replacement', 'dropped-ref'].includes(scenario);
     const replacement = renderedSource || ['keep-order', 'real-keep-replacement', 'dropped-ref'].includes(scenario);
     const source = src ?? (initial.real ? avatarDataUri : avatarMockSource);
-    const extras = scenario === 'keep-render-source' ? { src: source } : scenario === 'keep-callback-source' ? { sizes: '48px', src: source, srcSet: `${source} 1x` } : {};
+    const extras = scenario === 'keep-callback-source' ? { sizes: '48px', src: source, srcSet: `${source} 1x` } : renderedSource ? { src: source } : {};
     let render: ComponentProps<typeof Avatar.Image>['render'];
     if (replacement) render = scenario === 'keep-render-source' || scenario === 'real-keep-replacement' || scenario === 'dropped-ref'
-      ? h(scenario === 'dropped-ref' ? DroppedRef : 'img', { ...extras, ...(scenario === 'dropped-ref' ? { src: avatarDataUri } : {}), className: updated ? 'updated' : 'initial', key: host, ...tid('image'), alt: '' })
+      ? h(scenario === 'dropped-ref' ? DroppedRef : 'img', { ...extras, className: updated ? 'updated' : 'initial', key: host, ...tid('image'), alt: '' })
       : props => { window.avatarHarness.sourceKeys = Object.keys(props); return h('img', { alt: '', ...extras, ...props, ...tid('image'), 'data-source-keys': Object.keys(props).join(',') }); };
     const event = (kind: string, event: { preventBaseUIHandler(): void; preventDefault(): void }) => { window.avatarHarness.events.push(kind); if (scenario === 'keep-prevent') event.preventBaseUIHandler(); if (scenario === 'keep-default-prevent') event.preventDefault(); };
     const button = (name: string, action: () => void) => h('button', { onClick: action }, name);
