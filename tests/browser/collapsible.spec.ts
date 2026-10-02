@@ -269,6 +269,29 @@ for (const reference of [false, true]) {
     await page.addInitScript(() => { Object.defineProperty(Element.prototype, 'getAnimations', { configurable: true, value: undefined }); });
     const { trigger, panel } = await setup(page, 'interrupt', reference); await trigger.click(); await expect(panel).toHaveCount(0); await trigger.click(); await expect(panel).toHaveAttribute('data-open'); await trigger.click(); await page.getByRole('button', { name: 'Toggle mounting', exact: true }).click(); await frames(page, 4); await expect(trigger).toHaveCount(0);
   });
+  test(`supplement: ${framework} no-motion close retains pinned idle callbacks`, async ({ page }) => {
+    const { panel } = await setup(page, 'no-motion-status', reference);
+    await expect(panel).toHaveAttribute('data-open');
+    // Independent React 1.8.0/Svelte witnesses confirm the pin only clears an
+    // ending phase. No-motion unmount bookkeeping cancels that deferred phase,
+    // retaining idle on Root, Trigger and the keepMounted Panel callbacks.
+    const snapshot = await page.evaluate(async () => {
+      await (window as Window & { collapsibleAfterFrame: () => Promise<boolean> }).collapsibleAfterFrame();
+      const root = document.querySelector('[data-testid="root"]');
+      const trigger = document.getElementById('tested-trigger');
+      const panel = document.querySelector('[data-testid="panel"]');
+      return {
+        root: root?.className, trigger: trigger?.className, panel: panel?.className,
+        panelStatus: panel?.getAttribute('data-status'), hidden: panel?.hasAttribute('hidden'),
+        expanded: trigger?.getAttribute('aria-expanded'), controls: trigger?.getAttribute('aria-controls'),
+        ending: [root, trigger, panel].map(node => node?.hasAttribute('data-ending-style')),
+      };
+    });
+    expect(snapshot).toEqual({
+      root: 'root-closed-enabled-idle', trigger: 'trigger-closed-enabled-idle', panel: 'panel-closed-enabled-idle',
+      panelStatus: 'idle', hidden: true, expanded: 'false', controls: null, ending: [false, false, false],
+    });
+  });
   test(`supplement: ${framework} explicit disabled false overrides Root`, async ({ page }) => {
     const { trigger, panel } = await setup(page, 'disabled-override', reference); await trigger.click(); await expect(trigger).toHaveAttribute('aria-expanded', 'true'); await expect(panel).toBeVisible(); expect(await calls(page)).toHaveLength(1);
   });

@@ -21,10 +21,10 @@ export const collapsibleCss = `
 export function collapsibleConfig(scenario: string) {
   const hidden = scenario.startsWith('beforematch') || scenario.startsWith('hidden') || scenario === 'replaced-host';
   const keys = scenario.startsWith('keys') || scenario === 'beforematch-keys';
-  const initialOpen = ['controlled-default', 'initial-transition', 'zero', 'remove-close', 'interrupt', 'race-open', 'race-close', 'keys-initial', 'keys-both', 'keys-close', 'keys-open', 'ids', 'ending-host', 'cancel-close', 'manual-id', 'keys-inline'].includes(scenario);
+  const initialOpen = ['controlled-default', 'initial-transition', 'zero', 'remove-close', 'interrupt', 'race-open', 'race-close', 'keys-initial', 'keys-both', 'keys-close', 'keys-open', 'ids', 'ending-host', 'cancel-close', 'manual-id', 'keys-inline', 'no-motion-status'].includes(scenario);
   return {
     hidden, initialOpen,
-    keep: hidden || ['keep', 'controlled-keep', 'keys-both', 'keys-open', 'mixed', 'important', 'race-open', 'state-callbacks'].includes(scenario),
+    keep: hidden || ['keep', 'controlled-keep', 'keys-both', 'keys-open', 'mixed', 'important', 'race-open', 'state-callbacks', 'no-motion-status'].includes(scenario),
     controlled: scenario.startsWith('controlled'),
     custom: ['custom', 'custom-disabled', 'controlled-render', 'callback-render', 'link'].includes(scenario),
     disabled: ['disabled', 'custom-disabled', 'disabled-override'].includes(scenario),

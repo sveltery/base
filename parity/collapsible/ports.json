@@ -5,7 +5,7 @@
     "commit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
     "license": "MIT"
   },
-  "scope": "41 portable ordinary sites / 43 variants; 6 Activity sites deferred. Candidate mappings are not passing credit. Source hashing, local tests, browser pairs and final-head gates remain separate.",
+  "scope": "41 portable ordinary passing source-checkpoint sites / 43 variants; 6 Activity sites deferred. Three conformance calls, ten type assertions and supplements add zero ordinary credit. Shared totals and integrated final-head acceptance remain separate.",
   "ports": [
     {
       "sourceId": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:19",
@@ -18,7 +18,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -29,8 +29,19 @@
         "R:19 Svelte sets ARIA attributes",
         "R:19 React reference sets ARIA attributes"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "sets ARIA attributes",
       "localPorts": [
         "packages/base/tests/dom/collapsible.test.ts"
@@ -46,7 +57,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -57,8 +68,19 @@
         "R:35 Svelte references manual panel id",
         "R:35 React reference references manual panel id"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "references manual panel id in trigger aria-controls",
       "localPorts": [
         "packages/base/tests/dom/collapsible.test.ts"
@@ -74,7 +96,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -85,8 +107,19 @@
         "R:50 Svelte unregisters and restores generated panel id",
         "R:50 React reference unregisters and restores generated panel id"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "unregisters and restores the generated panel id when the panel remounts",
       "localPorts": [
         "packages/base/tests/dom/collapsible.test.ts"
@@ -101,7 +134,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -112,8 +145,19 @@
         "R:74 Svelte disabled status",
         "R:74 React reference disabled status"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "disabled status",
       "localPorts": [
         "packages/base/tests/dom/collapsible.test.ts"
@@ -130,7 +174,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -141,8 +185,19 @@
         "R:87 Svelte disabled click does not toggle or call onOpenChange",
         "R:87 React reference disabled click does not toggle or call onOpenChange"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "does not toggle or call onOpenChange when clicked while disabled",
       "localPorts": [
         "packages/base/tests/dom/collapsible.test.ts"
@@ -164,7 +219,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -175,8 +230,19 @@
         "R:108 Svelte calls onOpenChange with eventDetails",
         "R:108 React reference calls onOpenChange with eventDetails"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "calls onOpenChange with eventDetails",
       "localPorts": [
         "packages/base/tests/dom/collapsible.test.ts"
@@ -193,7 +259,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -204,8 +270,19 @@
         "R:132 Svelte cancellation prevents opening",
         "R:132 React reference cancellation prevents opening"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "eventDetails.cancel() prevents opening while uncontrolled",
       "localPorts": [
         "packages/base/tests/dom/collapsible.test.ts"
@@ -222,7 +299,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -233,8 +310,19 @@
         "R:154 Svelte cancellation prevents closing",
         "R:154 React reference cancellation prevents closing"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "eventDetails.cancel() prevents closing while uncontrolled",
       "localPorts": [
         "packages/base/tests/dom/collapsible.test.ts"
@@ -254,7 +342,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -265,8 +353,19 @@
         "R:178 Svelte controlled trigger presses request open and close state changes",
         "R:178 React reference controlled trigger presses request open and close state changes"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "controlled trigger presses request open and close state changes",
       "localPorts": []
     },
@@ -281,7 +380,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -292,8 +391,19 @@
         "R:207 Svelte does not change controlled open state without an external update",
         "R:207 React reference does not change controlled open state without an external update"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "does not change controlled open state without an external update",
       "localPorts": []
     },
@@ -317,7 +427,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -328,8 +438,19 @@
         "R:226 Svelte controlled mode",
         "R:226 React reference controlled mode"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "controlled mode",
       "localPorts": []
     },
@@ -354,7 +475,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -365,8 +486,19 @@
         "R:267 Svelte uncontrolled mode",
         "R:267 React reference uncontrolled mode"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "uncontrolled mode",
       "localPorts": []
     },
@@ -390,7 +522,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -401,8 +533,19 @@
         "R:300 Svelte passes state to class and style callbacks",
         "R:300 React reference passes state to class and style callbacks"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "passes state to className and style callbacks",
       "localPorts": [
         "packages/base/tests/dom/collapsible.test.ts"
@@ -421,7 +564,7 @@
         "Enter",
         "Space"
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -434,8 +577,19 @@
         "R:348 React reference key Enter does not toggle or call onOpenChange when disabled",
         "R:348 React reference key Space does not toggle or call onOpenChange when disabled"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "`key: ${key} does not toggle or call onOpenChange when disabled`",
       "localPorts": []
     },
@@ -462,7 +616,7 @@
         "Enter",
         "Space"
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -475,8 +629,19 @@
         "R:372 React reference key Enter should toggle the Collapsible",
         "R:372 React reference key Space should toggle the Collapsible"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "`key: ${key} should toggle the Collapsible`",
       "localPorts": []
     },
@@ -489,7 +654,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -500,8 +665,19 @@
         "T:9 Svelte throws outside Root",
         "T:9 React reference throws outside Root"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "throws when rendered outside a Collapsible.Root",
       "localPorts": [
         "packages/base/tests/dom/collapsible.test.ts"
@@ -516,7 +692,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -527,8 +703,19 @@
         "T:32 Svelte forwards id prop",
         "T:32 React reference forwards id prop"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "forwards the id prop",
       "localPorts": [
         "packages/base/tests/dom/collapsible.test.ts"
@@ -544,7 +731,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -555,8 +742,19 @@
         "P:55 Svelte warns hiddenUntilFound overrides keepMounted false",
         "P:55 React reference warns hiddenUntilFound overrides keepMounted false"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "warns when hiddenUntilFound overrides keepMounted={false}",
       "localPorts": [
         "packages/base/tests/dom/collapsible.test.ts"
@@ -583,7 +781,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -594,8 +792,19 @@
         "P:77 Svelte does not unmount panel when keepMounted true",
         "P:77 React reference does not unmount panel when keepMounted true"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "does not unmount the panel when true",
       "localPorts": [
         "packages/base/tests/dom/collapsible.test.ts"
@@ -620,7 +829,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -631,8 +840,19 @@
         "P:117 Svelte handles external close with keepMounted without animation",
         "P:117 React reference handles external close with keepMounted without animation"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "hides the panel after external controlled close when true and no animations are applied",
       "localPorts": []
     },
@@ -646,7 +866,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -657,8 +877,19 @@
         "P:164 Svelte unmounts panel mounting during ending",
         "P:164 React reference unmounts panel mounting during ending"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "unmounts a panel that mounts after the close has already entered the ending phase",
       "localPorts": [
         "packages/base/tests/dom/collapsible.test.ts"
@@ -674,7 +905,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -685,8 +916,19 @@
         "P:211 Svelte applies data-starting-style while opening",
         "P:211 React reference applies data-starting-style while opening"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "applies data-starting-style while opening",
       "localPorts": []
     },
@@ -701,7 +943,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -712,8 +954,19 @@
         "P:247 Svelte restores measured height before applying closing transition styles",
         "P:247 React reference restores measured height before applying closing transition styles"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "restores a measured height before applying closing transition styles",
       "localPorts": []
     },
@@ -727,7 +980,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -738,8 +991,19 @@
         "P:286 Svelte unmounts zero-size panel without waiting for unrelated transitions",
         "P:286 React reference unmounts zero-size panel without waiting for unrelated transitions"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "unmounts a zero-size panel without waiting for unrelated transitions",
       "localPorts": []
     },
@@ -755,7 +1019,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -766,8 +1030,19 @@
         "P:322 Svelte supports removing rendered panel as it closes",
         "P:322 React reference supports removing rendered panel as it closes"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "supports removing the rendered panel as it closes",
       "localPorts": []
     },
@@ -784,7 +1059,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -795,8 +1070,19 @@
         "P:358 Svelte preserves inline alignment styles while measuring an opening panel",
         "P:358 React reference preserves inline alignment styles while measuring an opening panel"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "preserves inline alignment styles while measuring an opening panel",
       "localPorts": []
     },
@@ -813,7 +1099,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -824,8 +1110,19 @@
         "P:422 Svelte keeps exit transitions working after close interrupted by reopening",
         "P:422 React reference keeps exit transitions working after close interrupted by reopening"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "keeps exit transitions working after a close is interrupted by reopening",
       "localPorts": []
     },
@@ -839,7 +1136,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -850,8 +1147,19 @@
         "P:473 Svelte keeps measured size when open animation finishes during close commit",
         "P:473 React reference keeps measured size when open animation finishes during close commit"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "keeps the measured size when an open animation finishes during a close commit",
       "localPorts": []
     },
@@ -869,7 +1177,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -880,8 +1188,19 @@
         "P:542 Svelte does not restart entrance when close animation finishes after reopening",
         "P:542 React reference does not restart entrance when close animation finishes after reopening"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "does not restart the entrance transition when a close animation finishes after reopening",
       "localPorts": []
     },
@@ -896,7 +1215,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -907,8 +1226,19 @@
         "P:604 Svelte does not run mount animation when initially open",
         "P:604 React reference does not run mount animation when initially open"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "does not run the mount animation when initially open",
       "localPorts": []
     },
@@ -925,7 +1255,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -936,8 +1266,19 @@
         "P:640 Svelte still animates on close and reopen after initially open",
         "P:640 React reference still animates on close and reopen after initially open"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "still animates on close and reopen after being initially open",
       "localPorts": []
     },
@@ -953,7 +1294,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -964,8 +1305,19 @@
         "P:704 Svelte restores measured dimensions before closing keyframes",
         "P:704 React reference restores measured dimensions before closing keyframes"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "restores measured dimensions before applying a closing keyframe animation",
       "localPorts": []
     },
@@ -981,7 +1333,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -992,8 +1344,19 @@
         "P:749 Svelte animates reopen when only open keyframes defined",
         "P:749 React reference animates reopen when only open keyframes defined"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "still animates on reopen after being initially open when only open keyframes are defined",
       "localPorts": []
     },
@@ -1006,7 +1369,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -1017,8 +1380,19 @@
         "P:799 Svelte SSR suppresses initially open keyframes",
         "P:799 React reference SSR suppresses initially open keyframes"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "suppresses the initial keyframe animation when rendered open",
       "localPorts": [
         "packages/base/tests/collapsible-ssr.test.ts"
@@ -1034,7 +1408,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -1045,8 +1419,19 @@
         "P:830 Svelte SSR suppresses inline initially open keyframes",
         "P:830 React reference SSR suppresses inline initially open keyframes"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "suppresses the initial keyframe animation from inline styles when rendered open",
       "localPorts": [
         "packages/base/tests/collapsible-ssr.test.ts"
@@ -1163,7 +1548,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -1174,8 +1559,19 @@
         "P:1205 Svelte keeps temporary zero animation duration until closes",
         "P:1205 React reference keeps temporary zero animation duration until closes"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "keeps the temporary zero animation duration until the panel closes",
       "localPorts": []
     },
@@ -1192,7 +1588,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -1203,8 +1599,19 @@
         "P:1287 Svelte restores transition duration before first beforematch close",
         "P:1287 React reference restores transition duration before first beforematch close"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "restores the transition duration before the first close after a beforematch open",
       "localPorts": []
     },
@@ -1220,7 +1627,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -1231,8 +1638,19 @@
         "P:1349 Svelte does not suppress animated open after no-motion beforematch",
         "P:1349 React reference does not suppress animated open after no-motion beforematch"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "does not suppress a later animated open after a no-motion beforematch open",
       "localPorts": []
     },
@@ -1266,7 +1684,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -1277,8 +1695,19 @@
         "P:1474 Svelte does not keep hidden transition running after closes",
         "P:1474 React reference does not keep hidden transition running after closes"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "does not keep a hidden transition running after a hiddenUntilFound panel closes",
       "localPorts": []
     },
@@ -1296,7 +1725,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -1307,8 +1736,19 @@
         "P:1541 Svelte canceled beforematch does not suppress next trigger open",
         "P:1541 React reference canceled beforematch does not suppress next trigger open"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "does not open or suppress the next trigger open when beforematch is canceled",
       "localPorts": []
     },
@@ -1322,7 +1762,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/collapsible.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/CollapsibleFixture.svelte",
@@ -1333,8 +1773,19 @@
         "P:1599 Svelte uses hidden until-found and responds to beforematch",
         "P:1599 React reference uses hidden until-found and responds to beforematch"
       ],
-      "evidence": null,
-      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "evidence": {
+        "testedCommit": "2ef2532f7fb6bcf51ec2f379c662f11175b94357",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36998643687",
+        "browserJob": 110811382559,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 86,
+        "supplementalInstances": 40,
+        "totalExecutions": 126,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing source checkpoint; integrated final-head acceptance remains separate"
+      },
+      "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "uses `hidden=\"until-found\" to hide panel when true",
       "localPorts": []
     }

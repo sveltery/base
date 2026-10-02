@@ -39,6 +39,7 @@
     get state() { return rootState; }, get defaultPanelId() { return defaultPanelId; },
     get registeredPanelId() { return registeredPanelId; }, get panelId() { return panelId; },
     setOpen,
+    // The immutable helper clears only ending; no-motion close can retain idle.
     setMounted(next: boolean) { retainedMounted = next; if (!next && !open && phase === 'ending') phase = undefined; },
     onOpenChange(next: boolean, details: Parameters<NonNullable<CollapsibleRootProps['onOpenChange']>>[1]) { committedCallback?.(next, details); },
     handleTrigger(event: MouseEvent | KeyboardEvent) {
