@@ -1,0 +1,51 @@
+import assert from 'node:assert/strict';
+import { execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+import { createHash } from 'node:crypto';
+import { existsSync, readFileSync } from 'node:fs';
+import { test } from 'node:test';
+const local = path => new URL(`../../${path}`, import.meta.url);
+const read = path => readFileSync(local(path), 'utf8');
+test('Avatar preserves immutable source bytes and separates ordinary, conformance, types and supplements', () => {
+  const trace = JSON.parse(read('parity/avatar/upstream-inventory.json'));
+  const ledger = JSON.parse(read('parity/avatar/ports.json'));
+  assert.deepEqual(ledger.upstream, trace.upstream);
+  assert.equal(trace.upstream.commit, '47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c');
+  assert.equal(trace.declarations.length, 44); assert.equal(ledger.ports.length, 44);
+  assert.equal(new Set(trace.declarations.map(item => item.id)).size, 44);
+  assert.deepEqual(['Image', 'Fallback', 'Root'].map(part => trace.declarations.filter(item => item.source.endsWith(`Avatar${part}.test.tsx`)).length), [34, 10, 0]);
+  assert.equal(trace.conformance.length, 3); assert.equal(trace.typeAssertions.length, 6);
+  assert.equal(trace.declarations.reduce((count, item) => count + item.variants.length, 0), 44);
+  assert(trace.declarations.every(item => item.variants.length === 1 && item.variants[0] === null));
+  for (const source of trace.sources) assert.equal(createHash('sha256').update(read(`parity/avatar/upstream/${source.source}`)).digest('hex'), source.sha256, source.source);
+  assert.match(read('parity/avatar/UPSTREAM_LICENSE'), /MIT License/);
+  const browser = read('tests/browser/avatar.spec.ts');
+  assert.doesNotMatch(browser, /(?:test|describe)\.(?:skip|fixme|only)\s*\(/);
+  const discovery = JSON.parse(execFileSync(process.execPath, [fileURLToPath(local('node_modules/@playwright/test/cli.js')), 'test', 'tests/browser/avatar.spec.ts', '--list', '--reporter=json'], { cwd: local(''), encoding: 'utf8' }));
+  const titles = [];
+  const visit = suite => { for (const spec of suite.specs ?? []) titles.push(spec.title); for (const child of suite.suites ?? []) visit(child); };
+  discovery.suites.forEach(visit);
+  assert.equal(titles.filter(title => /^(?:Image|Fallback):/.test(title)).length, 88);
+  assert.equal(titles.filter(title => title.startsWith('conformance ')).length, 84);
+  assert.equal(titles.filter(title => title.startsWith('supplement ')).length, 32);
+  for (const [index, port] of ledger.ports.entries()) {
+    const source = trace.declarations[index];
+    assert.equal(port.sourceId, source.id); assert.equal(port.sourceTitle, source.title);
+    assert.equal(port.sourceBodySha256, source.bodySha256);
+    assert.deepEqual(port.assertionLines, source.assertions.map(item => item.line));
+    assert.deepEqual(port.variants, source.variants);
+    assert.equal(source.status, 'unported'); assert.equal(source.port, null);
+    assert.ok(['candidate', 'passing'].includes(port.status));
+    assert.ok(existsSync(local(port.port)));
+    for (const path of port.fixtures ?? []) assert.ok(existsSync(local(path)));
+    const prefix = source.source.includes('/image/') ? 'Image' : 'Fallback';
+    assert.equal(titles.filter(title => title.startsWith(`${prefix}:${source.line} `)).length, 2, source.id);
+    if (port.status === 'passing') {
+      assert.match(port.evidence.testedCommit, /^[0-9a-f]{40}$/);
+      assert.equal(port.evidence.pairedSecuredBrowser, true);
+      assert.equal(port.evidence.retries, 0);
+      assert.equal(port.evidence.skips, 0);
+    } else assert.equal(port.evidence, null);
+  }
+  assert.equal((read('packages/base/tests/avatar-types.ts').match(/^\s*expectType</gm) ?? []).length, 6);
+});
