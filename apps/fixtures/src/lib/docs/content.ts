@@ -39,7 +39,7 @@ export const docs: Doc[] = [
         id: 'status',
         title: 'A foundation in progress',
         paragraphs: [
-          'Dialog, Button, Toast, standalone Input, Separator and Toggle, Progress, Collapsible and Meter have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
+          'Dialog, Button, Toast, standalone Input, Separator and Toggle, Progress, Collapsible, Meter and Avatar have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
           'The package is private and unpublished. APIs may change. Use this workspace to evaluate the current slice; check the repository contracts before depending on a behavior.',
         ],
         links: [
@@ -232,6 +232,17 @@ export const docs: Doc[] = [
           },
         ],
       },
+    ],
+  },
+  {
+    slug: 'components/avatar', group: 'Components', title: 'Avatar',
+    description: 'A profile image with initials or a fallback icon while it loads.',
+    sections: [
+      { id: 'anatomy', title: 'Assemble the parts', paragraphs: ['Root owns the image loading status. Image loads a source and Fallback displays initials until it is ready.'], code: '<Avatar.Root><Avatar.Image src="/avatar.png" alt="Jane Doe" /><Avatar.Fallback>JD</Avatar.Fallback></Avatar.Root>' },
+      { id: 'loading', title: 'Load the image', paragraphs: ['The default mode preloads the source and mounts the image when loaded. Set keepMounted to load in the rendered image, including lazy images and replacement image snippets. Pass native srcset and sizes for responsive images. onLoadingStatusChange reports loading, loaded and error.'] },
+      { id: 'fallback', title: 'Delay the fallback', paragraphs: ['Set delay in milliseconds to wait before showing the fallback. Once shown, later delay changes keep it available until the image loads.'] },
+      { id: 'motion', title: 'Style loading and motion', paragraphs: ['Image exposes data-starting-style and, in default mode, data-ending-style while exiting. The keepMounted mode exposes data-loading and data-error and hides an unready image from assistive technology. Root and Fallback expose imageLoadingStatus to class, style and render callbacks.'] },
+      { id: 'limits', title: 'Compatibility limits', paragraphs: ['The bounded Root, Image and Fallback port uses native Svelte props, snippets, bindings and CSS strings. Ordinary assertions, conformance, types and supplemental evidence are separate; complete library and assistive-technology compatibility remain unclaimed.'], links: [{ label: 'Read compatibility limits', href: '/docs/handbook/compatibility' }] },
     ],
   },
   {

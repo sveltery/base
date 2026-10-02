@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { Avatar } from '../../../../packages/base/src/lib/avatar/index.js';
+  import { Avatar } from '@sveltery/base';
   import { avatarDataUri } from './avatar-harness.js';
   let { keepMounted = false }: { keepMounted?: boolean } = $props();
   let hydrated = $state(false);

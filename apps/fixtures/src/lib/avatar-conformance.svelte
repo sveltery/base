@@ -1,7 +1,7 @@
 <script lang="ts">
   // Three conformance declarations are separate from 44 ordinary assertions.
   import { onMount } from 'svelte';
-  import { Avatar, type AvatarRootState } from '../../../../packages/base/src/lib/avatar/index.js';
+  import { Avatar, type AvatarRootState } from '@sveltery/base';
   import { mergeProps } from '@sveltery/base';
   import { avatarMockSource } from './avatar-harness.js';
   let { part = 'Root', mode = 'default' }: { part?: string; mode?: string } = $props();

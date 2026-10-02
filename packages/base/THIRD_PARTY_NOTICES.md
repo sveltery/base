@@ -1,5 +1,7 @@
 # Third-party notices
 
+Avatar Root, Image, Fallback, private detached/rendered image loading, fallback timing and presence/animation completion and assertion/type ports derive from packages/react/src/avatar, useTransitionStatus, useOpenChangeComplete, useAnimationsFinished and useTimeout at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT attribution and complete immutable source/assertion hashes are preserved in parity/avatar.
+
 Meter parts, numeric range normalization, formatter/locale cache, label/ID registration, hidden CSS and assertion/conformance ports derive from packages/react/src/meter and its rendering/ref, label registration and packages/utils dependency closure at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT attribution and immutable source/assertion hashes are preserved in parity/meter.
 
 Collapsible Root, Trigger, Panel, bounded measurement/motion lifecycle and assertion/type ports derive from packages/react/src/collapsible, useControlled, useTransitionStatus and useAnimationsFinished at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT attribution and immutable source/assertion hashes are preserved in parity/collapsible.

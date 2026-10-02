@@ -18,3 +18,7 @@ Independent source/runtime review found no concrete fidelity defect in both load
 ## Published source checkpoint
 
 Draft [PR #36](https://github.com/sveltery/base/pull/36) publishes source checkpoint `aa5f426ac63527ef08de14f34ae1f2ec663ae1ad`. Independent GPT-6.1 Sol high review of that exact commit found no concrete runtime fidelity defect and passed104 focused DOM plus provenance/pairedSSR checks; ordinary native browser credit remains withheld. Main now contains Meter PR32 at `d889e75bedfee9174c3b36d16fe8a9fb2d2a66d3`, whose tree is identical to the patch base85ff67c. The merged main is preserved additively on this branch; no Avatar shared integration has yet been applied. Fresh combined local verification and hosted CI are required.
+
+## Parent-authorized shared integration
+
+The parent relayed Meter landing and authorized Avatar to take first shared ownership. Full origin/main d889e75 was fetched and compared tree-identically with85ff67c before applying the exact patch. Public root/subpath exports, seven type exports, attribution, catalog/docs and consumer gates are now present; fixture imports use the public root. The disposable proposed tree ab0cff07e719eedc7cab66b6ae865b364f1e2383 previously passed fresh frozen install/build, isolated public consumers, catalog/docs checks and standards. Those proposed-tree checks supplement, rather than replace, fresh integrated-head checks.

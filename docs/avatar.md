@@ -1,6 +1,6 @@
 # Avatar
 
-Avatar ports the Root, Image and Fallback contract from Base UI 1.8.0 at immutable commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. Runtime dependencies are the existing Element/mergeProps/class composition, private Avatar context and private animation completion. There is no Field, Form or overlay dependency. Public root/subpath exports await the serialized integration patch.
+Avatar ports the Root, Image and Fallback contract from Base UI 1.8.0 at immutable commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. Runtime dependencies are the existing Element/mergeProps/class composition, private Avatar context and private animation completion. There is no Field, Form or overlay dependency. The public Avatar namespace is available from @sveltery/base and @sveltery/base/avatar, with all seven named type exports through both entries.
 
 Root renders a span and exposes `imageLoadingStatus`. Image renders an img with empty default alt once its detached probe loads; `keepMounted` renders it immediately and derives status from the actual rendered host. Fallback renders a span until the image loads, optionally after `delay` milliseconds. All three accept native element props, state-dependent `class`/`style`, render/children snippets and bindable refs. The six named Props/State exports and `ImageLoadingStatus` mirror the source type surface through the accepted framework substitutions.
 

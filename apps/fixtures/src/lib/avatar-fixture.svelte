@@ -1,7 +1,7 @@
 <script lang="ts">
   // Paired assertion fixtures for Base UI 47b40521; MIT: parity/avatar/UPSTREAM_LICENSE.
   import { onMount, untrack } from 'svelte';
-  import { Avatar, type AvatarImageState, type AvatarRootState } from '../../../../packages/base/src/lib/avatar/index.js';
+  import { Avatar, type AvatarImageState, type AvatarRootState } from '@sveltery/base';
   import { mergeProps } from '@sveltery/base';
   import { avatarConfig, avatarDataUri, avatarMockSource, avatarNextMockSource, avatarNextRealSource } from './avatar-harness.js';
   let { scenario = 'pending' }: { scenario?: string } = $props();

@@ -175,3 +175,6 @@ bash "$sveltery_repo_root/scripts/check-progress-package.sh" --public
 bash "$sveltery_repo_root/scripts/check-collapsible-package.sh" --public
 
 bash "$sveltery_repo_root/scripts/check-meter-package.sh" --public
+
+# Isolated public Avatar root/subpath, both SSR loading modes and seven type exports.
+bash "$sveltery_repo_root/scripts/check-avatar-package.sh" --public
