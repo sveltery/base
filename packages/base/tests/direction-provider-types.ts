@@ -14,4 +14,6 @@ const invalid: DirectionProviderProps = { direction: 'vertical' };
 const host: DirectionProviderProps = { dir: 'rtl' };
 // @ts-expect-error The Svelte hook returns a reactive getter, not a captured primitive.
 const captured: TextDirection = getter;
-void [props, componentProps, defaultProps, direction, invalid, host, captured];
+// @ts-expect-error There is no direction override argument at the source pin.
+const override = useDirection('rtl');
+void [props, componentProps, defaultProps, direction, invalid, host, captured, override];

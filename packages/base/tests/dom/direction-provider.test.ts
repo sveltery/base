@@ -16,10 +16,10 @@ function setup(scenario: string) {
   return { component, host, text };
 }
 
-it('DirectionProvider:28 defaults useDirection to ltr outside a provider', () => {
+it('DirectionProvider:27 defaults useDirection to ltr outside a provider', () => {
   const { text } = setup('outside'); expect(text()).toContain('ltr');
 });
-it('DirectionProvider:34 provides the configured direction to descendants', () => {
+it('DirectionProvider:33 provides the configured direction to descendants', () => {
   const { component, text, host } = setup('configured');
   const original = host.querySelector('[data-testid=direction]');
   expect(text()).toContain('rtl');

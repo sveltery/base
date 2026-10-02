@@ -14,11 +14,11 @@ async function nested(page: Page, outer: string, inner: string) {
 
 for (const reference of [false, true]) {
   const framework = reference ? 'React' : 'Svelte';
-  test(`DirectionProvider:28 ${framework} defaults useDirection to ltr outside a provider`, async ({ page }) => {
+  test(`DirectionProvider:27 ${framework} defaults useDirection to ltr outside a provider`, async ({ page }) => {
     await setup(page, 'outside', reference);
     await expect(page.getByTestId('direction')).toContainText('ltr');
   });
-  test(`DirectionProvider:34 ${framework} provides the configured direction to descendants`, async ({ page }) => {
+  test(`DirectionProvider:33 ${framework} provides the configured direction to descendants`, async ({ page }) => {
     await setup(page, 'configured', reference);
     await expect(page.getByTestId('direction')).toContainText('rtl');
     await page.getByRole('button', { name: 'Set LTR', exact: true }).click();

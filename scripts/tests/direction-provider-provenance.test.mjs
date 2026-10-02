@@ -15,7 +15,7 @@ test('DirectionProvider keeps both pinned ordinary predicates separate from the 
   assert.equal(trace.typeAssertions.length, 2);
   assert.equal(ledger.ports.length, 2);
   assert.deepEqual(ledger.conformance, []);
-  assert.deepEqual(ledger.ports.map(port => port.assertionLines), [[31], [37, 41]]);
+  assert.deepEqual(ledger.ports.map(port => port.assertionLines), [[30], [36, 40]]);
   for (const source of trace.sources) {
     assert.equal(createHash('sha256').update(read(`parity/direction-provider/upstream/${source.source}`)).digest('hex'), source.sha256);
     assert.equal(source.url, `https://github.com/mui/base-ui/blob/${trace.upstream.commit}/${source.source}`);
