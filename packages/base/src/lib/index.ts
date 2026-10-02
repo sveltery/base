@@ -18,3 +18,6 @@ export { Collapsible } from './collapsible/index.js';
 export type { CollapsibleRootProps, CollapsibleRootState, CollapsibleTriggerProps, CollapsibleTriggerState, CollapsiblePanelProps, CollapsiblePanelState, CollapsibleTransitionStatus, CollapsibleRootChangeEventReason, CollapsibleRootChangeEventDetails } from './collapsible/index.js';
 export { Meter } from './meter/index.js';
 export type { MeterRootProps, MeterRootState, MeterLabelProps, MeterLabelState, MeterTrackProps, MeterTrackState, MeterIndicatorProps, MeterIndicatorState, MeterValueProps, MeterValueState } from './meter/index.js';
+
+export { CSPProvider } from './csp-provider/index.js';
+export type { CSPProviderProps, CSPProviderState } from './csp-provider/index.js';
