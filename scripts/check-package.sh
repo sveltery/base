@@ -175,3 +175,6 @@ bash "$sveltery_repo_root/scripts/check-progress-package.sh" --public
 bash "$sveltery_repo_root/scripts/check-collapsible-package.sh" --public
 
 bash "$sveltery_repo_root/scripts/check-meter-package.sh" --public
+
+# Shared CSP provider foundation: actual public root/subpath consumer, not a private-entry stand-in.
+bash scripts/check-csp-provider-package.sh

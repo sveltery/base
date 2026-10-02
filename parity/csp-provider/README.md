@@ -1,0 +1,25 @@
+# CSPProvider foundation evidence
+
+Behavior reference: Base UI v1.8.0, immutable `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. The [ledger](ledger.json) retains source snapshots, SHA-256 hashes, the four ordinary source declarations and their original assertion lines. [MIT attribution](UPSTREAM_LICENSE) is retained. This is a bounded provider/context foundation, not complete CSP consumer parity.
+
+The public provider and private context preserve optional nonce/disableStyleElements values, a default context of `{ disableStyleElements: false }` when no provider exists, wrapperless children, replacement (not merged) nested context, current prop updates and teardown/remount scope. The exact pin is an active context provider; no deprecated no-op or new nonce-generation feature is invented.
+
+## Ordinary credit and remaining consumers
+
+`CSPProvider.test.tsx` has four ordinary declarations, zero parameterized sites, zero conformance calls and zero upstream type assertions. Three declarations require actual ScrollArea; the second declaration requires actual Select. These families and PrehydrationScript remain unimplemented, so all four are deferred and earn **zero** credit. Private context probes cannot establish style-tag suppression, nonce application to style/script tags or source-test parity. No stub components stand in for the missing families.
+
+These counts are separate from the shared ordinary inventory. No source declaration, paired execution, local type assertion or supplement is added to its totals.
+
+## Supplemental verification
+
+Three DOM witnesses cover default/omitted distinction and nested shadowing, reactive false/undefined changes without replacing descendant nodes, and teardown/remount. With a wrapper-only provider, all three failed at observable assertion lines (received fallback instead of provider values); restoring context initialization passed all three. One separately labeled paired SSR witness executes the actual React 1.8.0 provider/internal context and Svelte source without browser globals and checks both exact output values and absence of wrapper elements. Public local type assertions remain supplemental.
+
+`tests/browser/csp-provider.spec.ts` collects five executions: two context/lifecycle supplements for each real framework plus one Svelte hydration node-identity/error witness. The React fixture imports actual `@base-ui/react/csp-provider` and `@base-ui/react/internals/csp-context`; the Svelte fixture uses the public root/subpath providers and a private internal context probe. Secured Chromium acceptance is pending until the ledger records an executed checkpoint. None is an upstream ordinary assertion port.
+
+The isolated tarball consumer checks real public root/subpath import identity, Props/State equivalence, type rejection, wrapperless child and empty-provider SSR, runtime dependency closure and MIT notices. Its command is `bash scripts/check-csp-provider-package.sh`; it is invoked by the normal package check, so hosted Verification includes it. Final-head CI, secured paired browsers and independent/automatic review remain separate merge gates.
+
+## Compatibility and obligations
+
+[CSPProvider documentation](../../docs/csp-provider.md) and [CSP-01](../../docs/upstream-differences.md#csp-01-csp-provider-framework-substitutions) record the child/namespace/context adaptations and truthful PM design decision. Public Props/State replace React namespace types, and a Svelte Snippet replaces ReactNode children. Svelte initialization context owns a stable object whose getters read reactive provider props; React memoizes a replacement object after dependency changes. Object identity/scheduling differs internally; no public context hook is added and no cross-framework context identity/batching equivalence is claimed.
+
+Future ScrollArea and Select ports must consume this same context and port the original four complete declarations with style/nonce assertions. PrehydrationScript must consume nonce without applying disableStyleElements to scripts. CSP headers, random per-request nonce generation, arbitrary authored tags, inline style attributes and downstream behavior are outside this provider slice. Chromium acceptance does not establish other browsers or assistive-technology coverage.
