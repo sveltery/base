@@ -1,0 +1,55 @@
+{
+  "versions": {
+    "svelte": "5.57.1",
+    "kit": "2.70.3",
+    "react": "19.3.0",
+    "baseUI": "1.8.0"
+  },
+  "kitSources": {
+    "client/remote-functions/form.svelte.js": "40ef548ea4da3e79a305ae25113506f1e019c4a7ef78d526c69dea23ee440401",
+    "form-utils.js": "98cd48645c4aa9c922e91258a8833f3e359d843eed4f179a857778359af3af01"
+  },
+  "baselineBeforeImplementation": "Native Svelte 3 DOM tests and actual pinned React 3 DOM tests executed before Input runtime was created.",
+  "observations": [
+    {
+      "case": "controlled value=owner only",
+      "React": {
+        "value": "owner",
+        "defaultValue": "owner",
+        "afterReset": "owner"
+      },
+      "Svelte": {
+        "value": "owner",
+        "defaultValue": "",
+        "afterReset": ""
+      }
+    },
+    {
+      "case": "controlled value=owner defaultValue=seed",
+      "React": {
+        "value": "owner",
+        "defaultValue": "owner",
+        "afterReset": "owner"
+      },
+      "Svelte": {
+        "value": "owner",
+        "defaultValue": "seed",
+        "afterReset": "seed"
+      }
+    },
+    {
+      "case": "uncontrolled defaultValue=seed native edit=edit canceled reset",
+      "React": {
+        "afterReset": "edit"
+      },
+      "Svelte": {
+        "afterReset": "edit"
+      }
+    }
+  ],
+  "evidence": [
+    "packages/base/tests/dom/input-native.test.ts",
+    "packages/base/tests/dom/input-reference.test.ts"
+  ],
+  "credit": "Supplemental characterization only. Divergent reset assertions earn zero parity credit."
+}

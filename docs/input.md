@@ -1,0 +1,24 @@
+# Standalone Input
+
+`Input` is exported from `@sveltery/base` and `@sveltery/base/input`. It renders a native input, accepts native props and supports controlled `value`, uncontrolled `defaultValue`, explicit or SSR-stable generated IDs, state-dependent class/style, replacement snippets, attachments and `bind:ref`.
+
+```svelte
+<script lang="ts">
+  import { Input } from '@sveltery/base';
+  let value = $state('');
+</script>
+
+<Input {value} onValueChange={next => value = next} name="title" required />
+```
+
+Each native input edit calls `onValueChange(value, details)` with reason `none` and the native event. Consumer and render-owned handlers follow the existing merge/prevention contract. Controlled owners accept, reject or rewrite the requested value; the actual DOM value settles after the owner update. Uncontrolled edits stay native, including when `details.cancel()` is called. Cancellation does not undo a native edit or call preventDefault.
+
+Controlled restoration follows Svelte’s tick: rejected/prevented edits remain visible immediately after native event dispatch and settle to the owner value after tick; rewritten edits settle to the rewritten value. React restores these before dispatch returns. This additional timing substitution is proposed as I-03 in [the compatibility register](upstream-differences.md); specific acceptance is not recorded. The paired tests expose both immediate and settled results.
+
+Standalone state is exactly `{ disabled, touched: false, dirty: false, filled: false, focused: false, valid: null }`. Typing, focus, blur and native validity do not invent Field state or data-invalid. Native required/type/pattern validation and explicitly supplied ARIA attributes remain available. Field registration, touched/dirty/filled/focus state, contextual validation including asynchronous validation, Field label/message relationships and Form integration are deferred; there are no placeholder Field/Form exports.
+
+`value` and `defaultValue` retain native Svelte meanings. For a controlled `value="owner"` alone, the reset default is empty; with `defaultValue="seed"`, native reset uses seed. Reset leaves the owner’s controlled value unchanged and emits no onValueChange request. Canceling the native reset keeps the current DOM value. React’s pinned standalone Input instead uses the controlled value as its reset default. This is the user-directed intentional native reset difference, recorded as I-02 in [the compatibility register](upstream-differences.md). Next owner changes and controlled input edits synchronize the value again.
+
+Fixtures demonstrate direct SvelteKit 2.70.3 remote field spreads: `<Input {...form.fields.name.as('text')} />`. Kit supplies both the current value and initial default through reactive getters and receives native bubbling events. Kit’s own reset handler snapshots FormData after a tick and clears issues/touched, including a canceled reset event; that behavior belongs to Kit. No Kit imports enter the runtime package. Native reset and successful remote-submit reset are covered separately in [the feature evidence](../parity/input/README.md).
+
+Behavior reference: [Input.tsx](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/input/Input.tsx) delegates to [FieldControl.tsx](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/field/control/FieldControl.tsx) at immutable Base UI 1.8.0 commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. Input.test.tsx has zero ordinary test declarations. Its shared conformance helpers and local standalone/Kit supplements are separate evidence and earn zero ordinary Input or Field parity credit. Full verification, secured hosted browser execution and exact-head independent/automatic reviews remain distinct acceptance gates.

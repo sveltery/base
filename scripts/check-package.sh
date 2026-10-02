@@ -127,3 +127,31 @@ node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$consumer_dir
 
 # Isolated public Toggle entry identity, SSR and component type consumer.
 bash "$sveltery_repo_root/scripts/check-toggle-package.sh" --public
+
+cat > "$consumer_dir/InputConsumer.svelte" <<'SVELTE'
+<script>
+  import { Input } from '@sveltery/base';
+  import { Input as SubpathInput } from '@sveltery/base/input';
+</script>
+<Input defaultValue="seed" /><SubpathInput value="owner" disabled />
+SVELTE
+cat > "$consumer_dir/input-check.mjs" <<'JS'
+import assert from 'node:assert/strict';
+import { render } from 'svelte/server';
+import { Input } from '@sveltery/base';
+import { Input as SubpathInput } from '@sveltery/base/input';
+import Consumer from './InputConsumer.svelte';
+assert.equal(Input, SubpathInput);
+const html = render(Consumer).body;
+assert.equal((html.match(/<input/g) ?? []).length, 2);
+assert.match(html, /value="seed"/);
+assert.match(html, /value="owner"/);
+assert.match(html, /data-disabled/);
+assert.doesNotMatch(html, /data-(?:invalid|valid|touched|dirty|filled|focused)/);
+const ids = [...html.matchAll(/ id="([^"]+)"/g)].map(match => match[1]);
+assert.equal(ids.length, 2);
+assert.equal(new Set(ids).size, 2);
+assert(ids.every(id => id.startsWith('base-ui-')));
+console.log('Isolated tarball Input root/subpath SSR consumer: PASS');
+JS
+node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$consumer_dir/input-check.mjs"

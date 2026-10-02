@@ -15,3 +15,5 @@ Read the [upstream differences register](docs/upstream-differences.md) for lande
 The [catalog ledger](docs/catalog.md) accounts for every pinned root export module and distinguishes bounded implementations from unimplemented scope. [Standalone Separator](docs/separator.md) adds the native horizontal/vertical divider surface; its source assertions and acceptance gates remain separately recorded.
 
 [Standalone Toggle](parity/toggle/README.md) adds controlled/uncontrolled pressed state with cancellable callbacks and disabled behavior. Its public root/subpath API is bounded; ToggleGroup, Toolbar and complete conformance remain deferred, and final-head acceptance is recorded in PR #27.
+
+[Standalone Input](docs/input.md) preserves a native input and native Svelte default/reset behavior, including direct SvelteKit remote form field spreads in fixtures. Field/Form registration, contextual validation and label/message integration remain deferred.

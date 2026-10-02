@@ -111,9 +111,9 @@
     },
     {
       "upstreamModule": "input",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "Input",
+      "evidence": "docs/input.md"
     },
     {
       "upstreamModule": "menu",

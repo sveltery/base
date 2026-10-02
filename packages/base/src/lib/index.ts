@@ -9,3 +9,5 @@ export { Separator } from './separator/index.js';
 export type { SeparatorProps, SeparatorState } from './separator/index.js';
 export { Toggle } from './toggle/index.js';
 export type { ToggleProps, ToggleState, ToggleChangeEventReason, ToggleChangeEventDetails } from './toggle/index.js';
+export { Input } from './input/index.js';
+export type { InputProps, InputState, InputChangeEventReason, InputChangeEventDetails } from './input/index.js';
