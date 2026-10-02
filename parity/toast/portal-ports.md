@@ -43,3 +43,9 @@ pnpm exec playwright test tests/browser/toast-portal.spec.ts
 ```
 
 The existing hosted CI discovers this browser spec with secured Chromium and zero retries. All three CI checks and independent source review are required before merge. [PR #22](https://github.com/sveltery/base/pull/22) records the reviewed commit and gate results.
+
+## Approved local follow-up
+
+The local follow-up to PR #22 integrates the reviewed core fixes at `5bdf3fca3dea2e25119483587c0013a0329f2d09` without discarding existing Portal tests or identity-gated container resolution. [Compatibility A-01](../../docs/upstream-differences.md#a-01-approved-proposed-core-audit-repairs-and-substitutions) documents the user-approved initial-undefined DOM ref adaptation: Toast.Portal now uses `$bindable()` throughout its Element chain, publishes the actual default/replacement host and clears it to null on teardown. A ref object with an unrelated undefined ownerDocument remains a ref, restoring pinned isNode/getWindow handling. New DOM/browsers regressions cover both changes; existing same-ref snapshots, context forwarding, destination-remount behavior, SSR omission and attachment composition remain covered. Supplemental assertions add no parity credit and immutable helper/source ledgers remain unchanged.
+
+Status: proposed local implementation; publication is blocked by automatic approval review retaining the original read-only audit scope despite supplied implementation approval. Historical CI/review above does not certify this follow-up. Its exact final head, local checks, independent review and new hosted secured browser/automatic review results must be recorded before merge. No remote branch or PR state change for the follow-up is claimed.

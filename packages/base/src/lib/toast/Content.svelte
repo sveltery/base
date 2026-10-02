@@ -3,7 +3,7 @@
   import Element from '../dialog/Element.svelte';
   import { root } from './root-context.js';
   import type { ToastContentProps } from './types.js';
-  let { children, ref = $bindable(null), ...props }: ToastContentProps = $props();
+  let { children, ref = $bindable(), ...props }: ToastContentProps = $props();
   const controller = root();
   const state = $derived({ expanded: controller.expanded, behind: controller.visibleIndex > 0 });
   const internal = $derived({ 'data-expanded': state.expanded ? '' : undefined, 'data-behind': state.behind ? '' : undefined });

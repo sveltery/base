@@ -3,7 +3,7 @@
   import Element from './Element.svelte';
   import { root } from './context.js';
   import type { ButtonProps } from './types.js';
-  let { children, render, disabled = false, nativeButton = true, ref = $bindable(null), ...props }: ButtonProps = $props();
+  let { children, render, disabled = false, nativeButton = true, ref = $bindable(), ...props }: ButtonProps = $props();
   const controller = root();
   function activate(event: MouseEvent | KeyboardEvent) {
     if (disabled) { event.preventDefault(); return; }

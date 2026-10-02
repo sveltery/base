@@ -5,9 +5,9 @@ import BrowserFixture from '../../../../apps/fixtures/src/lib/ToastPortalFixture
 import type { ToastPortalProps } from '../../src/lib/toast/types.js';
 const cleanups: (() => Promise<void>)[] = [];
 afterEach(async () => { for (const cleanup of cleanups.splice(0)) await cleanup(); document.body.replaceChildren(); });
-function setup(initial?: ToastPortalProps['container'], custom = false, attached?: (node: HTMLElement) => (() => void) | void) {
+function setup(initial?: ToastPortalProps['container'], custom = false, attached?: (node: HTMLElement) => (() => void) | void, initialRef: HTMLElement | null | undefined = null) {
   const host = document.createElement('main'); document.body.append(host);
-  const component = mount(Fixture, { target: host, props: { initial, custom, attached } });
+  const component = mount(Fixture, { target: host, props: { initial, custom, attached, initialRef } });
   cleanups.push(() => unmount(component)); flushSync(); return { host, component };
 }
 function portal() { return document.querySelector<HTMLElement>('[data-testid="portal"]')!; }
@@ -65,4 +65,19 @@ it('retains ref resolution when a parent derived container and native props rere
   expect(root().getAttribute('data-mode')).toBe('mutated');
   [...host.querySelectorAll('button')].find(node => node.textContent === 'resolve ref')!.click(); flushSync();
   expect(root().parentNode).toBe(host.querySelector('#target-a'));
+});
+
+for (const initialRef of [undefined, null]) for (const custom of [false, true]) {
+  it(`initially ${initialRef} Portal binding publishes actual host for custom=${custom} and clears`, () => {
+    const host = document.createElement('main'); document.body.append(host);
+    const component = mount(Fixture, {target: host, props: {initialRef, custom}}); cleanups.push(() => unmount(component)); flushSync();
+    const node = portal(); expect(component.getRefs()[0]).toBe(node);
+    if (custom) expect(component.getRefs()[1]).toBe(node);
+    component.remove(); flushSync(); expect(component.getRefs()).toEqual([null, null]); expect(node.isConnected).toBe(false);
+  });
+}
+it('a ref with an unrelated undefined ownerDocument resolves its current target', () => {
+  const destination = document.createElement('section'); document.body.append(destination);
+  setup({current: destination, ownerDocument: undefined} as ToastPortalProps['container']);
+  expect(portal().parentNode).toBe(destination);
 });

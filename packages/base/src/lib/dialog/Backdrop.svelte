@@ -2,7 +2,7 @@
   import Element from './Element.svelte';
   import { root } from './context.js';
   import type { ElementProps, PopupState } from './types.js';
-  let { children, render, forceRender = false, ref = $bindable(null), ...props }: ElementProps<PopupState> & { forceRender?: boolean } = $props();
+  let { children, render, forceRender = false, ref = $bindable(), ...props }: ElementProps<PopupState> & { forceRender?: boolean } = $props();
   const controller = root();
   function attach(node: HTMLElement) { controller.backdrop = node; return () => { if (controller.backdrop === node) controller.backdrop = null; }; }
 </script>

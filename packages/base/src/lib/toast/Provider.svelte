@@ -1,7 +1,7 @@
 <script lang="ts">
   // Derived from mui/base-ui at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, see ../../../THIRD_PARTY_NOTICES.md.
-  import { onDestroy, setContext, untrack } from 'svelte';
-  import { PROVIDER, type ToastProviderContext } from './context.js';
+  import { onDestroy, untrack } from 'svelte';
+  import { setProviderContext, type ToastProviderContext } from './context.js';
   import { createToastFacade } from './facade.js';
   import { ToastStore } from './store.js';
   import type { ToastProviderProps } from './types.js';
@@ -18,7 +18,7 @@
     prevFocusElement: null,
   }));
   const context: ToastProviderContext = { store, manager: createToastFacade(store) };
-  setContext(PROVIDER, context);
+  setProviderContext(context);
 
   // Committed inputs synchronize before descendants' pre/mount effects run.
   // Reading the store while synchronizing must not subscribe this effect to it.

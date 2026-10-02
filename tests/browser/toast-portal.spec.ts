@@ -132,3 +132,21 @@ for (const reference of [false, true]) {
     expect(errors).toEqual([]);
   });
 }
+
+for (const scenario of ['undefined-ref', 'render-undefined-ref']) {
+  test(`supplement: Svelte Portal initially undefined binding uses actual host (${scenario})`, async ({page}) => {
+    const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
+    await page.goto(`/toast-portal?case=${scenario}`); await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+    const refs = await readRefs(page); expect(refs.present).toBe(true); expect(refs.tag).toBe('DIV');
+    if (scenario.startsWith('render-')) expect(refs.same).toBe(true);
+    await click(page, 'remove'); expect((await readRefs(page)).present).toBe(false); expect((await readRefs(page)).renderPresent).toBe(false); expect(errors).toEqual([]);
+  });
+}
+for (const reference of [false, true]) {
+  test(`supplement: Portal undefined ownerDocument ref boundary reference=${reference}`, async ({page}) => {
+    const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
+    await page.goto(`/toast-portal${reference ? '-reference' : ''}?case=ref-owner-document`); await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+    await expect(page.getByTestId('root')).toHaveCount(1); expect(await page.getByTestId('root').evaluate(node => node.parentElement?.id)).toBe('target-a');
+    await click(page, 'remove'); await expect(page.getByTestId('root')).toHaveCount(0); expect(errors).toEqual([]);
+  });
+}

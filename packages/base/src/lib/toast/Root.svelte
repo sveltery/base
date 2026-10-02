@@ -1,15 +1,15 @@
 <script lang="ts">
   // Derived from Base UI v1.8.0 ToastRoot; MIT, see ../../../THIRD_PARTY_NOTICES.md.
-  import { flushSync, setContext, untrack } from 'svelte';
+  import { flushSync, untrack } from 'svelte';
   import Element from '../dialog/Element.svelte';
   import { provider } from './context.js';
-  import { ROOT, type ToastRootContext } from './root-context.js';
+  import { setRootContext, type ToastRootContext } from './root-context.js';
   import { selectors } from './store.js';
   import { afterAnimations } from './animations.js';
   import { activeElement, contains } from './viewport-focus.js';
   import type { ToastRootProps } from './types.js';
 
-  let { toast, swipeDirection, children, ref = $bindable(null), ...props }: ToastRootProps = $props();
+  let { toast, swipeDirection, children, ref = $bindable(), ...props }: ToastRootProps = $props();
   const store = provider().store;
   let node = $state<HTMLElement | null>(null);
   let title = $state.raw<{ id: string | undefined }>();
@@ -54,7 +54,7 @@
     },
     recalculateHeight,
   };
-  setContext(ROOT, context);
+  setRootContext(context);
   function attach(element: HTMLElement) {
     node = element;
     return () => {

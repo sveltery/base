@@ -1,6 +1,6 @@
 <script lang="ts">
   // Pinned Base UI 1.8.0 conformance/portal adapters; MIT: parity/toast/UPSTREAM_LICENSE.
-  import { onMount } from 'svelte';
+  import { onMount, untrack } from 'svelte';
   import { Toast, Dialog, mergeProps } from '@sveltery/base';
   import { createAttachmentKey } from 'svelte/attachments';
   import PortalContents from './ToastPortalContents.svelte';
@@ -13,7 +13,7 @@
   let host = $state<HTMLElement>();
   let mode = $state('initial');
   let calls = $state<string[]>([]);
-  let ref = $state<HTMLElement | null>(null);
+  let ref = $state<HTMLElement | null | undefined>(untrack(() => scenario.endsWith('undefined-ref') ? undefined : null));
   let renderRef = $state<HTMLElement | null>(null);
   const objectRef = { current: null as HTMLElement | ShadowRoot | null };
   const attachmentKey = createAttachmentKey();
@@ -27,6 +27,7 @@
     if (mode === 'a' || ['element', 'element-current'].includes(scenario) && mode === 'initial') return targetA ?? null;
     if (mode === 'b') return targetB ?? null;
     if (scenario === 'shadow') return shadow ?? null;
+    if (scenario === 'ref-owner-document') return {current: targetA ?? null, ownerDocument: undefined};
     if (scenario === 'ref' || scenario === 'ref-null') return mode === 'ref-a' ? { current: targetA ?? null } : objectRef;
     return undefined;
   });

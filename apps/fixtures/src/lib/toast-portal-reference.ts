@@ -28,6 +28,7 @@ export function mountToastPortalReference(node: HTMLElement, scenario: string) {
     else if (mode === 'a' || ['element', 'element-current'].includes(scenario) && mode === 'initial') container = targetA.current;
     else if (mode === 'b') container = targetB.current;
     else if (scenario === 'shadow') container = shadow ?? null;
+    else if (scenario === 'ref-owner-document') container = {current: targetA.current, ownerDocument: undefined};
     else if (scenario === 'ref' || scenario === 'ref-null') container = mode === 'ref-a' ? { current: targetA.current } : objectRef;
     const customized = scenario.startsWith('props-') && scenario !== 'props-default' && scenario !== 'props-style' || scenario.startsWith('render-') || scenario === 'events';
     const wrapped = scenario.startsWith('render-') && !scenario.includes('class');

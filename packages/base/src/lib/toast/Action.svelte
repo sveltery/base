@@ -6,7 +6,7 @@
   import { mergeButtonProps, nativeButtonProps } from './native-button.js';
   import { root } from './root-context.js';
   import type { ToastActionComponentProps } from './types.js';
-  let { children, disabled = false, class: classProp, style: styleProp, ref = $bindable(null), ...props }: ToastActionComponentProps = $props();
+  let { children, disabled = false, class: classProp, style: styleProp, ref = $bindable(), ...props }: ToastActionComponentProps = $props();
   const controller = root();
   const content = $derived(controller.toast.actionProps?.children ?? children);
   const state = $derived({ type: controller.toast.type });

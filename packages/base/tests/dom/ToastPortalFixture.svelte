@@ -3,9 +3,9 @@
   import { createAttachmentKey } from 'svelte/attachments';
   import { untrack } from 'svelte';
   import type { ToastPortalProps } from '../../src/lib/toast/types.js';
-  let { initial, custom = false, attached = () => {} }: { initial?: ToastPortalProps['container']; custom?: boolean; attached?: (node: HTMLElement) => (() => void) | void } = $props();
+  let { initial, initialRef, custom = false, attached = () => {} }: { initial?: ToastPortalProps['container']; initialRef?: HTMLElement | null; custom?: boolean; attached?: (node: HTMLElement) => (() => void) | void } = $props();
   let container = $state.raw(untrack(() => initial));
-  let ref = $state<HTMLElement | null>(null);
+  let ref = $state<HTMLElement | null | undefined>(untrack(() => initialRef));
   let renderRef = $state<HTMLElement | null>(null);
   let shown = $state(true);
   let id = $state<string>();

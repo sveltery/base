@@ -2,7 +2,7 @@
   import { createAttachmentKey } from 'svelte/attachments';
   import { untrack, type Snippet } from 'svelte';
   import { mergeProps } from '../merge-props/index.js';
-  let { tag = 'div', internal = {}, props = {}, state = {} as State, render, children, ref = $bindable(null), attach }: {
+  let { tag = 'div', internal = {}, props = {}, state = {} as State, render, children, ref = $bindable(), attach }: {
     tag?: string; internal?: Record<string, unknown>; props?: Record<string, unknown>; state?: State;
     render?: Snippet<[Record<string | symbol, unknown>, State, Snippet | undefined]>; children?: Snippet;
     ref?: HTMLElement | null; attach?: (node: HTMLElement) => void | (() => void);

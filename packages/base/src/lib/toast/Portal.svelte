@@ -6,7 +6,7 @@
   import { PORTAL, type PortalContext } from '../dialog/context.js';
   import RenderContent from './RenderContent.svelte';
   import type { ToastPortalProps, ToastPortalState } from './types.js';
-  let { children, container, render, ref = $bindable(null), ...props }: ToastPortalProps = $props();
+  let { children, container, render, ref = $bindable(), ...props }: ToastPortalProps = $props();
   const context = getAllContexts();
   const parent = getContext<PortalContext | undefined>(PORTAL);
   const generated = $props.id();
@@ -16,7 +16,7 @@
     return () => { if (portalNode === node) portalNode = null; };
   }
   function isContainerNode(value: NonNullable<ToastPortalProps['container']>): value is HTMLElement | ShadowRoot {
-    return 'ownerDocument' in value && value instanceof (value.ownerDocument.defaultView?.Node ?? Node);
+    return 'ownerDocument' in value && value instanceof (value.ownerDocument?.defaultView?.Node ?? Node);
   }
   // Like the pinned hook, resolve a ref only when its object (or parent) changes.
   // Explicit null waits; a null ref.current instead uses the parent/body fallback.
