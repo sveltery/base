@@ -27,9 +27,9 @@
     },
     {
       "upstreamModule": "avatar",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "Avatar",
+      "evidence": "parity/avatar/README.md"
     },
     {
       "upstreamModule": "button",
