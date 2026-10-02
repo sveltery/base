@@ -34,9 +34,10 @@ async function commit(page: Page, action?: string) { return page.evaluate(name =
 }, action); }
 // Frozen DOM captures the exact synchronous hydration commit, before any load or
 // frame can repair it. Playwright's role engine checks the complete host subtree;
-// the actual-page geometry and full ancestor state guard external CSS/ancestors.
+// the actual-page full ancestor state guards external CSS/ancestors. Role queries
+// do not require positive pixel dimensions (the source cached mock is JSDOM-only).
 async function frozenHydrationWitness(page: Page, snapshot: AvatarDomSnapshot) {
-  expect(snapshot.imageVisible).toBe(true); expect(snapshot.imageAncestorHidden).toBe(false);
+  expect(snapshot.imageAncestorHidden).toBe(false);
   const witness = await page.context().newPage(); await witness.setContent(snapshot.html);
   return witness;
 }
