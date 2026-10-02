@@ -1,0 +1,1342 @@
+{
+  "upstream": {
+    "repository": "https://github.com/mui/base-ui",
+    "tag": "v1.8.0",
+    "commit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+    "license": "MIT"
+  },
+  "scope": "41 portable ordinary sites / 43 variants; 6 Activity sites deferred. Candidate mappings are not passing credit. Source hashing, local tests, browser pairs and final-head gates remain separate.",
+  "ports": [
+    {
+      "sourceId": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:19",
+      "sourceBodySha256": "c6d3f7fea4cac88a30ba42744f966e197d21d47cf2a8c3fba4b98be392d88693",
+      "assertionLines": [
+        30,
+        31,
+        32
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "R:19 Svelte sets ARIA attributes",
+        "R:19 React reference sets ARIA attributes"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "sets ARIA attributes",
+      "localPorts": [
+        "packages/base/tests/dom/collapsible.test.ts"
+      ]
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:35",
+      "sourceBodySha256": "4d63fe9d39b8c0d1749dff8635d51408b9b497269defd8056eb5034d723af33f",
+      "assertionLines": [
+        46,
+        47
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "R:35 Svelte references manual panel id",
+        "R:35 React reference references manual panel id"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "references manual panel id in trigger aria-controls",
+      "localPorts": [
+        "packages/base/tests/dom/collapsible.test.ts"
+      ]
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:50",
+      "sourceBodySha256": "41dfbc1a0fb2cd197f1d43257c679ab8bdcb5434c18fe672b6e8d74ffb951571",
+      "assertionLines": [
+        66,
+        69
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "R:50 Svelte unregisters and restores generated panel id",
+        "R:50 React reference unregisters and restores generated panel id"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "unregisters and restores the generated panel id when the panel remounts",
+      "localPorts": [
+        "packages/base/tests/dom/collapsible.test.ts"
+      ]
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:74",
+      "sourceBodySha256": "c168850ffb8e957d3e343ef55fe7967048532e78a0ba7f099839db0400ff9c2e",
+      "assertionLines": [
+        84
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "R:74 Svelte disabled status",
+        "R:74 React reference disabled status"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "disabled status",
+      "localPorts": [
+        "packages/base/tests/dom/collapsible.test.ts"
+      ]
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:87",
+      "sourceBodySha256": "d118857a059fde202248730ba3ac0fb870e6b4c27d099fe8944acb1273ffc131",
+      "assertionLines": [
+        101,
+        102,
+        103
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "R:87 Svelte disabled click does not toggle or call onOpenChange",
+        "R:87 React reference disabled click does not toggle or call onOpenChange"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "does not toggle or call onOpenChange when clicked while disabled",
+      "localPorts": [
+        "packages/base/tests/dom/collapsible.test.ts"
+      ]
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:108",
+      "sourceBodySha256": "839d75dfd77c4d2546cdc049bd840ba19c6efad14afa16424ca60a052bebb42f",
+      "assertionLines": [
+        121,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "R:108 Svelte calls onOpenChange with eventDetails",
+        "R:108 React reference calls onOpenChange with eventDetails"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "calls onOpenChange with eventDetails",
+      "localPorts": [
+        "packages/base/tests/dom/collapsible.test.ts"
+      ]
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:132",
+      "sourceBodySha256": "680adb437dbb65f6c8b6257ddc08e70b6f313ca03b50d5ccdd4cfaffec4cf4dc",
+      "assertionLines": [
+        149,
+        150,
+        151
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "R:132 Svelte cancellation prevents opening",
+        "R:132 React reference cancellation prevents opening"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "eventDetails.cancel() prevents opening while uncontrolled",
+      "localPorts": [
+        "packages/base/tests/dom/collapsible.test.ts"
+      ]
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:154",
+      "sourceBodySha256": "8901a2bb2a48fc181fbd137293a8f3ca0ae49fc19f026370dde992274d432c6b",
+      "assertionLines": [
+        171,
+        172,
+        173
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "R:154 Svelte cancellation prevents closing",
+        "R:154 React reference cancellation prevents closing"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "eventDetails.cancel() prevents closing while uncontrolled",
+      "localPorts": [
+        "packages/base/tests/dom/collapsible.test.ts"
+      ]
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:178",
+      "sourceBodySha256": "762cfd75611a160b542da76bca85b034835fc6537bacb51bfde642bac9fcedd9",
+      "assertionLines": [
+        193,
+        194,
+        198,
+        199,
+        203,
+        204
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "R:178 Svelte controlled trigger presses request open and close state changes",
+        "R:178 React reference controlled trigger presses request open and close state changes"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "controlled trigger presses request open and close state changes",
+      "localPorts": []
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:207",
+      "sourceBodySha256": "e67ae5ee7d8951d1a2f13f6e993909d6b9f8c3fdf381a1e6dff7954193ccfd9b",
+      "assertionLines": [
+        221,
+        222,
+        223
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "R:207 Svelte does not change controlled open state without an external update",
+        "R:207 React reference does not change controlled open state without an external update"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "does not change controlled open state without an external update",
+      "localPorts": []
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:226",
+      "sourceBodySha256": "cf1def4f1f1c67779c4cfad73d22dde59a590a0031796c6947b75ee574bddee7",
+      "assertionLines": [
+        246,
+        247,
+        248,
+        252,
+        253,
+        255,
+        256,
+        257,
+        258,
+        262,
+        263,
+        264
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "R:226 Svelte controlled mode",
+        "R:226 React reference controlled mode"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "controlled mode",
+      "localPorts": []
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:267",
+      "sourceBodySha256": "8c48a1acb8b1930ccb1ba37002eba816523d12292d87e28d9b47eb6a165df90e",
+      "assertionLines": [
+        277,
+        278,
+        279,
+        283,
+        284,
+        285,
+        286,
+        287,
+        288,
+        292,
+        293,
+        294,
+        295
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "R:267 Svelte uncontrolled mode",
+        "R:267 React reference uncontrolled mode"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "uncontrolled mode",
+      "localPorts": []
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:300",
+      "sourceBodySha256": "1f4cc50d4213d1796147765bac437d207b9856f7a561a6eb824040d1240963ed",
+      "assertionLines": [
+        328,
+        329,
+        330,
+        331,
+        332,
+        333,
+        337,
+        338,
+        339,
+        340,
+        341,
+        342
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "R:300 Svelte passes state to class and style callbacks",
+        "R:300 React reference passes state to class and style callbacks"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "passes state to className and style callbacks",
+      "localPorts": [
+        "packages/base/tests/dom/collapsible.test.ts"
+      ]
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:348",
+      "sourceBodySha256": "5f11e20399197e137784411966c2d5aecb1a4c67ffb136ed9a44a7fb041c3ee3",
+      "assertionLines": [
+        361,
+        365,
+        366,
+        367
+      ],
+      "variants": [
+        "Enter",
+        "Space"
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "R:348 Svelte key Enter does not toggle or call onOpenChange when disabled",
+        "R:348 Svelte key Space does not toggle or call onOpenChange when disabled",
+        "R:348 React reference key Enter does not toggle or call onOpenChange when disabled",
+        "R:348 React reference key Space does not toggle or call onOpenChange when disabled"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "`key: ${key} does not toggle or call onOpenChange when disabled`",
+      "localPorts": []
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:372",
+      "sourceBodySha256": "0f445d811306ef8ec422cd9273f06c3e003a44937150a89912bb5771633f78ff",
+      "assertionLines": [
+        382,
+        383,
+        384,
+        387,
+        390,
+        391,
+        392,
+        393,
+        394,
+        395,
+        399,
+        400,
+        401,
+        402
+      ],
+      "variants": [
+        "Enter",
+        "Space"
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "R:372 Svelte key Enter should toggle the Collapsible",
+        "R:372 Svelte key Space should toggle the Collapsible",
+        "R:372 React reference key Enter should toggle the Collapsible",
+        "R:372 React reference key Space should toggle the Collapsible"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "`key: ${key} should toggle the Collapsible`",
+      "localPorts": []
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/trigger/CollapsibleTrigger.test.tsx:9",
+      "sourceBodySha256": "d7019945e8df83de3a44bda37636b8b837474a796d6b0268b7bc4352ef3ebe3b",
+      "assertionLines": [
+        13
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "T:9 Svelte throws outside Root",
+        "T:9 React reference throws outside Root"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "throws when rendered outside a Collapsible.Root",
+      "localPorts": [
+        "packages/base/tests/dom/collapsible.test.ts"
+      ]
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/trigger/CollapsibleTrigger.test.tsx:32",
+      "sourceBodySha256": "2a16242ec001017edaa0d86094ac5af79f77f70dbdbb39167161b1d4f8e887a3",
+      "assertionLines": [
+        39
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "T:32 Svelte forwards id prop",
+        "T:32 React reference forwards id prop"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "forwards the id prop",
+      "localPorts": [
+        "packages/base/tests/dom/collapsible.test.ts"
+      ]
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:55",
+      "sourceBodySha256": "9615fe7a78d7f50606859a294cbc09f2864fa09231a70522f902244a7cbb73db",
+      "assertionLines": [
+        67,
+        70
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "P:55 Svelte warns hiddenUntilFound overrides keepMounted false",
+        "P:55 React reference warns hiddenUntilFound overrides keepMounted false"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "warns when hiddenUntilFound overrides keepMounted={false}",
+      "localPorts": [
+        "packages/base/tests/dom/collapsible.test.ts"
+      ]
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:77",
+      "sourceBodySha256": "45a288c82245de735ee390b8b51d49212fa18689e553de6f4d14948871b375e2",
+      "assertionLines": [
+        92,
+        93,
+        94,
+        95,
+        100,
+        101,
+        104,
+        105,
+        106,
+        111,
+        112,
+        113,
+        114
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "P:77 Svelte does not unmount panel when keepMounted true",
+        "P:77 React reference does not unmount panel when keepMounted true"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "does not unmount the panel when true",
+      "localPorts": [
+        "packages/base/tests/dom/collapsible.test.ts"
+      ]
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:117",
+      "sourceBodySha256": "c93c7c0e7c8560673349463ac82b2848964a8a0c2be8aae637a20862b6676b10",
+      "assertionLines": [
+        143,
+        144,
+        145,
+        146,
+        150,
+        151,
+        152,
+        156,
+        157,
+        158,
+        159
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "P:117 Svelte handles external close with keepMounted without animation",
+        "P:117 React reference handles external close with keepMounted without animation"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "hides the panel after external controlled close when true and no animations are applied",
+      "localPorts": []
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:164",
+      "sourceBodySha256": "3ce8eff7c19a90c0aebcf7ab8086195bc1f660b79a2bfd1f27c1cd228969ee58",
+      "assertionLines": [
+        206,
+        207
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "P:164 Svelte unmounts panel mounting during ending",
+        "P:164 React reference unmounts panel mounting during ending"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "unmounts a panel that mounts after the close has already entered the ending phase",
+      "localPorts": [
+        "packages/base/tests/dom/collapsible.test.ts"
+      ]
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:211",
+      "sourceBodySha256": "3261c5f6f11de6fea7281316e515971871f5d4820f5e8b5a9bb8c1113c161671",
+      "assertionLines": [
+        243,
+        244
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "P:211 Svelte applies data-starting-style while opening",
+        "P:211 React reference applies data-starting-style while opening"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "applies data-starting-style while opening",
+      "localPorts": []
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:247",
+      "sourceBodySha256": "2eb3d9721d7080d20aec9e0397c55a4f77bf5f9ceb921dd79703e07faa59228c",
+      "assertionLines": [
+        275,
+        281,
+        282
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "P:247 Svelte restores measured height before applying closing transition styles",
+        "P:247 React reference restores measured height before applying closing transition styles"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "restores a measured height before applying closing transition styles",
+      "localPorts": []
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:286",
+      "sourceBodySha256": "39e41b239029c689020ae805eed0bddbabf6ae6dd6710a08c6d163644e37b813",
+      "assertionLines": [
+        312,
+        319
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "P:286 Svelte unmounts zero-size panel without waiting for unrelated transitions",
+        "P:286 React reference unmounts zero-size panel without waiting for unrelated transitions"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "unmounts a zero-size panel without waiting for unrelated transitions",
+      "localPorts": []
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:322",
+      "sourceBodySha256": "af78269239cc7925f2bf87c7fe33afc9d1145d0a0b5900f13e29ce30bc4c1d7a",
+      "assertionLines": [
+        346,
+        353,
+        354,
+        355
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "P:322 Svelte supports removing rendered panel as it closes",
+        "P:322 React reference supports removing rendered panel as it closes"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "supports removing the rendered panel as it closes",
+      "localPorts": []
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:358",
+      "sourceBodySha256": "d674bee42fd60fc63ba359107af19b866c53f7a46ac6e5cc20c7ff63586da639",
+      "assertionLines": [
+        405,
+        406,
+        407,
+        408,
+        416
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "P:358 Svelte preserves inline alignment styles while measuring an opening panel",
+        "P:358 React reference preserves inline alignment styles while measuring an opening panel"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "preserves inline alignment styles while measuring an opening panel",
+      "localPorts": []
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:422",
+      "sourceBodySha256": "a855c8070e6d8b176628d0e06f72cd6143dbfd9dfde50ee637dfc4a02789e53e",
+      "assertionLines": [
+        453,
+        459,
+        462,
+        468,
+        470
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "P:422 Svelte keeps exit transitions working after close interrupted by reopening",
+        "P:422 React reference keeps exit transitions working after close interrupted by reopening"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "keeps exit transitions working after a close is interrupted by reopening",
+      "localPorts": []
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:473",
+      "sourceBodySha256": "f7e633c031953cbf07364f7995dd49c84ec5cc5731f1d86200b4eccfc49d755f",
+      "assertionLines": [
+        529,
+        534
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "P:473 Svelte keeps measured size when open animation finishes during close commit",
+        "P:473 React reference keeps measured size when open animation finishes during close commit"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "keeps the measured size when an open animation finishes during a close commit",
+      "localPorts": []
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:542",
+      "sourceBodySha256": "2422a3fc71b61162168e5ad9f96f8ddf5ac3ead0c7330518398571610cf7dea1",
+      "assertionLines": [
+        578,
+        583,
+        586,
+        592,
+        593,
+        594
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "P:542 Svelte does not restart entrance when close animation finishes after reopening",
+        "P:542 React reference does not restart entrance when close animation finishes after reopening"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "does not restart the entrance transition when a close animation finishes after reopening",
+      "localPorts": []
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:604",
+      "sourceBodySha256": "21434e0d7d9cf000d75e423dbcf9b5e805c394bbef9ae3fe89f6c7f816c65dca",
+      "assertionLines": [
+        635,
+        636,
+        637
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "P:604 Svelte does not run mount animation when initially open",
+        "P:604 React reference does not run mount animation when initially open"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "does not run the mount animation when initially open",
+      "localPorts": []
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:640",
+      "sourceBodySha256": "0913f4aa267eb35053ca6201342777762107afb54ce47a9a0a437714220b1d32",
+      "assertionLines": [
+        687,
+        692,
+        693,
+        699,
+        700
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "P:640 Svelte still animates on close and reopen after initially open",
+        "P:640 React reference still animates on close and reopen after initially open"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "still animates on close and reopen after being initially open",
+      "localPorts": []
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:704",
+      "sourceBodySha256": "aab6c7fe4563487894c5413754b775cc9d2edb9c73f915b8cf3a30a510d99953",
+      "assertionLines": [
+        737,
+        743,
+        744,
+        745
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "P:704 Svelte restores measured dimensions before closing keyframes",
+        "P:704 React reference restores measured dimensions before closing keyframes"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "restores measured dimensions before applying a closing keyframe animation",
+      "localPorts": []
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:749",
+      "sourceBodySha256": "cba6e90951b14fd1c9440b26cdf2d9f31dda767e04e242517bfaf355ade49481",
+      "assertionLines": [
+        781,
+        786,
+        792,
+        793
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "P:749 Svelte animates reopen when only open keyframes defined",
+        "P:749 React reference animates reopen when only open keyframes defined"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "still animates on reopen after being initially open when only open keyframes are defined",
+      "localPorts": []
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:799",
+      "sourceBodySha256": "85594482bff5a93add8445a1408091fbb1822bdfffa054d8114347b3755bd118",
+      "assertionLines": [
+        827
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "P:799 Svelte SSR suppresses initially open keyframes",
+        "P:799 React reference SSR suppresses initially open keyframes"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "suppresses the initial keyframe animation when rendered open",
+      "localPorts": [
+        "packages/base/tests/collapsible-ssr.test.ts"
+      ]
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:830",
+      "sourceBodySha256": "c03814cf9251d929d2246c0e21c332d5827502ea701a0405a27641ebc4c175fe",
+      "assertionLines": [
+        863,
+        864
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "P:830 Svelte SSR suppresses inline initially open keyframes",
+        "P:830 React reference SSR suppresses inline initially open keyframes"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "suppresses the initial keyframe animation from inline styles when rendered open",
+      "localPorts": [
+        "packages/base/tests/collapsible-ssr.test.ts"
+      ]
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:869",
+      "sourceBodySha256": "eb072a5c7e4705ce1c7c24a3f350460ccdaddbfb617a3ebc2b8a501333478345",
+      "assertionLines": [
+        917,
+        926,
+        929
+      ],
+      "variants": [
+        null
+      ],
+      "status": "deferred",
+      "port": null,
+      "fixtures": [],
+      "executions": [],
+      "evidence": null,
+      "verification": "React.Activity external effect suspension requires state retained while effects disconnect; unimplemented, no credit.",
+      "sourceTitle": "does not replay open transitions when revealing an initially open panel"
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:932",
+      "sourceBodySha256": "d0ea05a4b985ac456fee95cc69c4706d1f0dc1ac2cfd6d5d9856cdd5cbf377e1",
+      "assertionLines": [
+        987,
+        988,
+        997,
+        1000
+      ],
+      "variants": [
+        null
+      ],
+      "status": "deferred",
+      "port": null,
+      "fixtures": [],
+      "executions": [],
+      "evidence": null,
+      "verification": "React.Activity external effect suspension requires state retained while effects disconnect; unimplemented, no credit.",
+      "sourceTitle": "does not replay open transitions when revealing a panel opened by the user"
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:1003",
+      "sourceBodySha256": "07e4c25d5df824f28602b6a79bfc4935d69d192021c09ff57a20d350a112f3a5",
+      "assertionLines": [
+        1050,
+        1057,
+        1060
+      ],
+      "variants": [
+        null
+      ],
+      "status": "deferred",
+      "port": null,
+      "fixtures": [],
+      "executions": [],
+      "evidence": null,
+      "verification": "React.Activity external effect suspension requires state retained while effects disconnect; unimplemented, no credit.",
+      "sourceTitle": "does not replay open keyframe animations when revealing an initially open panel"
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:1063",
+      "sourceBodySha256": "db5b1cf2b789311710e0ff510cc9414c626c258208f163a3136e8fba88c6a27f",
+      "assertionLines": [
+        1113,
+        1117,
+        1124,
+        1127
+      ],
+      "variants": [
+        null
+      ],
+      "status": "deferred",
+      "port": null,
+      "fixtures": [],
+      "executions": [],
+      "evidence": null,
+      "verification": "React.Activity external effect suspension requires state retained while effects disconnect; unimplemented, no credit.",
+      "sourceTitle": "does not replay open keyframe animations when revealing a panel opened by the user"
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:1130",
+      "sourceBodySha256": "9a1142d87e6d32b1c3d50905cd495efe035199f502b724552eb5c14e4341aa29",
+      "assertionLines": [
+        1184,
+        1188,
+        1195,
+        1198
+      ],
+      "variants": [
+        null
+      ],
+      "status": "deferred",
+      "port": null,
+      "fixtures": [],
+      "executions": [],
+      "evidence": null,
+      "verification": "React.Activity external effect suspension requires state retained while effects disconnect; unimplemented, no credit.",
+      "sourceTitle": "does not replay open keyframe animations from inline styles when revealing a panel opened by the user"
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:1205",
+      "sourceBodySha256": "4d98348562c0686a1c7a20c82d6c1aebf5da233dc57fcfdf6066964c16c41c40",
+      "assertionLines": [
+        1267,
+        1275,
+        1280,
+        1281,
+        1284
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "P:1205 Svelte keeps temporary zero animation duration until closes",
+        "P:1205 React reference keeps temporary zero animation duration until closes"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "keeps the temporary zero animation duration until the panel closes",
+      "localPorts": []
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:1287",
+      "sourceBodySha256": "4fe6f04419327d165f46a069d1778c6bf0992fb93f2215412c6759b364782c15",
+      "assertionLines": [
+        1330,
+        1338,
+        1343,
+        1344,
+        1345
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "P:1287 Svelte restores transition duration before first beforematch close",
+        "P:1287 React reference restores transition duration before first beforematch close"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "restores the transition duration before the first close after a beforematch open",
+      "localPorts": []
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:1349",
+      "sourceBodySha256": "a52f55c65c53240ccd73d168d00615dcbab88b816de2a6f3d4eff813e690633d",
+      "assertionLines": [
+        1397,
+        1403,
+        1409,
+        1410
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "P:1349 Svelte does not suppress animated open after no-motion beforematch",
+        "P:1349 React reference does not suppress animated open after no-motion beforematch"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "does not suppress a later animated open after a no-motion beforematch open",
+      "localPorts": []
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:1413",
+      "sourceBodySha256": "885545814dee17b7396b616a2389b53e46ac399fb996e1ba4accfe56dd8f1d7a",
+      "assertionLines": [
+        1469,
+        1470
+      ],
+      "variants": [
+        null
+      ],
+      "status": "deferred",
+      "port": null,
+      "fixtures": [],
+      "executions": [],
+      "evidence": null,
+      "verification": "React.Activity external effect suspension requires state retained while effects disconnect; unimplemented, no credit.",
+      "sourceTitle": "restores the inline transition duration when an instant open is interrupted"
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:1474",
+      "sourceBodySha256": "22f9e93bd85f02c8f9e3fa5bec6df7094f26dea2ddf325aff40df83959626d60",
+      "assertionLines": [
+        1517,
+        1523,
+        1531,
+        1534
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "P:1474 Svelte does not keep hidden transition running after closes",
+        "P:1474 React reference does not keep hidden transition running after closes"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "does not keep a hidden transition running after a hiddenUntilFound panel closes",
+      "localPorts": []
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:1541",
+      "sourceBodySha256": "fc69e3c8cfac6eeef0f4cafc71532450781fda818afc1026251df761c5f12a7f",
+      "assertionLines": [
+        1588,
+        1589,
+        1590,
+        1594,
+        1595,
+        1596
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "P:1541 Svelte canceled beforematch does not suppress next trigger open",
+        "P:1541 React reference canceled beforematch does not suppress next trigger open"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "does not open or suppress the next trigger open when beforematch is canceled",
+      "localPorts": []
+    },
+    {
+      "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:1599",
+      "sourceBodySha256": "8f1020853923e83397c6a5f23c316cab5e770242c232a417e39f81cab7a5cbbb",
+      "assertionLines": [
+        1615,
+        1616
+      ],
+      "variants": [
+        null
+      ],
+      "status": "candidate",
+      "port": "tests/browser/collapsible.spec.ts",
+      "fixtures": [
+        "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+        "apps/fixtures/src/lib/collapsible-reference.ts",
+        "apps/fixtures/src/lib/collapsible-config.ts"
+      ],
+      "executions": [
+        "P:1599 Svelte uses hidden until-found and responds to beforematch",
+        "P:1599 React reference uses hidden until-found and responds to beforematch"
+      ],
+      "evidence": null,
+      "verification": "Candidate mapping only. Full ordered immutable source assertions and paired secured Chromium execution must be verified before passing ordinary credit; supplemental, conformance and type assertions excluded.",
+      "sourceTitle": "uses `hidden=\"until-found\" to hide panel when true",
+      "localPorts": []
+    }
+  ]
+}
