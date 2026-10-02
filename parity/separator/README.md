@@ -1,0 +1,25 @@
+# Standalone Separator
+
+The behavior reference is mui/base-ui v1.8.0 at immutable commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. The [source ledger](ports.json) records exact file, callback-body and callback SHA-256 hashes, assertion lines and paired fixture paths. [Byte-exact snapshots](upstream/packages/react/src/separator/Separator.test.tsx) preserve the pinned source; [the upstream MIT license](UPSTREAM_LICENSE) applies to derived implementation and assertions.
+
+`Separator` renders a native `div` by default, with `orientation="horizontal"`, `role="separator"`, explicit `aria-orientation` and `data-orientation`. Reactive orientation changes update state, attributes and state-dependent class/style functions. Native consumer props override generated props; replacement-owned props can override the supplied native props. Class/style/render callbacks continue to receive the actual orientation state even when consumer ARIA or data attributes override defaults. Children render into the actual host. The shared Element primitive supplies composition, native event merging, enumerable symbol attachments and bindable refs, including replacement-host publication, replacement and cleanup.
+
+The public adaptation is the accepted framework baseline: React `className` becomes Svelte `class`; CSS objects become CSS strings; React render elements/functions become Svelte snippets; refs become bindings/attachments; synthetic events become native events with the existing prevention channel. The native `class` type also accepts Svelte ClassValue arrays and objects. A replacement snippet receives `(props, state, children)` and spreads the supplied props, including their attachment symbols, onto its actual host. Use `mergeProps(props, replacementProps)` to compose replacement classes and native callbacks; render supplied children with `{@render children?.()}`. The component introduces no intentional behavioral correction to the pin.
+
+## Assertion inventory and pending browser acceptance
+
+The pinned Separator test has **2 ordinary declaration sites**, expanding into **3 cases per framework**: the role declaration at line 14, and the `it(orientation)` declaration at line 21 inside the original horizontal/vertical loop. All original observable assertions are retained in [the paired browser suite](../../tests/browser/separator.spec.ts). The role case additionally checks the native tag. The fixture stylesheet supplies a minimal test host size so Playwright visibility can exercise the upstream visible-element assertion; no runtime styling is introduced.
+
+The conformance invocation at line 9 selects all four default helper groups: propsSpread, refForwarding, renderProp and className. This yields **15 applicable helper cases per framework**, recorded separately in the ledger. `Element=div`, `button=false` and `wrappingAllowed=true` preserve the source conditions; the unreachable alternative assertion at renderProp line 89 remains recorded as inactive. These helper cases earn **zero ordinary declaration credit**. Fixed `source-value` strings replace random fixture tokens without changing comparisons. Svelte snippets represent both React replacement forms and explicitly compose replacement props/refs. The React reference imports `@base-ui/react` 1.8.0 only from fixture code; runtime package files do not import React.
+
+The suite lists **49 executions**: 6 ordinary, 30 helper and 13 supplemental executions. Supplements cover defaults, reactive attributes/class/style/native callbacks, ordinary and replacement prop precedence, native replacement callback order/prevention, actual replacement-host refs/removal/remount and Svelte attachment cleanup/ClassValue. Supplements earn no upstream declaration credit.
+
+Current evidence at this workspace checkpoint:
+
+- The five focused [DOM regressions](../../packages/base/tests/dom/separator.test.ts) pass, after an initial failing run before the component existed.
+- Eleven [SSR regressions](../../packages/base/tests/separator-ssr.test.ts) pass without browser globals, including default/explicit orientation and replacement/override fixtures.
+- The [provenance regression](../../scripts/tests/separator-provenance.test.mjs) passes and verifies every snapshot hash, ordinary/helper body hash, callback hash and assertion-line mapping.
+- Runtime and fixture Svelte checks both report zero errors and zero warnings; the library build passes.
+- Playwright lists all 49 executions. The attempted local ordinary case could not launch Chromium because the configured executable is absent. No rendered browser assertion executed locally.
+
+Ordinary and helper statuses remain `ported-pending-verification`; **current ordinary declaration credit is zero**. Secured hosted Chromium acceptance, exact-head integration/package checks, independent review and CI evidence belong to the parent change record. This standalone implementation does not establish parity for unrelated components or broad React-node/render syntax compatibility. The shared manifest owns aggregate ordinary counts; this standalone ledger must not be added to those totals a second time.

@@ -1,6 +1,6 @@
 # Popup initialFocus leaf ports
 
-Current shared inventory after the bounded Toast rendering ports: **28 passing ports / 605 unported**. Historical Dialog execution details below retain their original checkpoint context.
+Current shared inventory after the bounded Toast rendering ports: **28 passing ports / 607 unported**. Historical Dialog execution details below retain their original checkpoint context.
 
 Source: Base UI **v1.8.0**, commit **`47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`**, [DialogPopup.test.tsx](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/dialog/popup/DialogPopup.test.tsx). Derived fixtures and assertions retain the [MIT notice](UPSTREAM_LICENSE). Base: main `a0a2c655e591feac6dca06697e484e7fd624a074`.
 

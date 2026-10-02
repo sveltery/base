@@ -96,3 +96,27 @@ assert(!/<button[^>]* disabled/.test(buttons));
 console.log('Isolated tarball Button root/subpath SSR consumer: PASS');
 JS
 node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$consumer_dir/check.mjs"
+
+cat > "$consumer_dir/SeparatorConsumer.svelte" <<'SVELTE'
+<script>
+  import { Separator } from '@sveltery/base';
+  import { Separator as SubpathSeparator } from '@sveltery/base/separator';
+</script>
+<Separator /><SubpathSeparator orientation="vertical" role="presentation" aria-orientation="horizontal" />
+SVELTE
+cat > "$consumer_dir/separator-check.mjs" <<'JS'
+import assert from 'node:assert/strict';
+import { render } from 'svelte/server';
+import { Separator } from '@sveltery/base';
+import { Separator as SubpathSeparator } from '@sveltery/base/separator';
+import Consumer from './SeparatorConsumer.svelte';
+assert.equal(Separator, SubpathSeparator);
+const html = render(Consumer).body;
+assert.match(html, /role="separator"/);
+assert.match(html, /role="presentation"/);
+assert.match(html, /data-orientation="horizontal"/);
+assert.match(html, /data-orientation="vertical"/);
+assert.equal((html.match(/aria-orientation="horizontal"/g) ?? []).length, 2);
+console.log('Isolated tarball Separator root/subpath SSR consumer: PASS');
+JS
+node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$consumer_dir/separator-check.mjs"

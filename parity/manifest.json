@@ -5104,6 +5104,20 @@
       "port": null
     },
     {
+      "source": "packages/react/src/separator/Separator.test.tsx",
+      "line": 14,
+      "name": "renders a div with the `separator` role",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "source": "packages/react/src/separator/Separator.test.tsx",
+      "line": 21,
+      "name": "${orientation}",
+      "status": "unported",
+      "port": null
+    },
+    {
       "source": "packages/react/src/internals/createBaseUIEventDetails.spec.ts",
       "line": 6,
       "name": "exact increment reason type",

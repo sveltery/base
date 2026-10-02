@@ -34,7 +34,9 @@
     "packages/react/src/toast/title/ToastTitle.test.tsx",
     "packages/react/src/toast/useToastManager.test.tsx",
     "packages/react/src/toast/utils/isRenderableNode.test.ts",
-    "packages/react/src/toast/viewport/ToastViewport.test.tsx"
+    "packages/react/src/toast/viewport/ToastViewport.test.tsx",
+    "packages/react/src/input/Input.test.tsx",
+    "packages/react/src/separator/Separator.test.tsx"
   ],
   "typeAssertions": [
     {
@@ -51,6 +53,14 @@
       "source": "packages/react/src/internals/createBaseUIEventDetails.spec.ts",
       "name": "invalid reason rejected",
       "expression": "createGenericEventDetails('invalid-reason')"
+    }
+  ],
+  "dynamicTestDeclarations": [
+    {
+      "source": "packages/react/src/separator/Separator.test.tsx",
+      "callee": "it",
+      "argument": "orientation",
+      "name": "${orientation}"
     }
   ]
 }

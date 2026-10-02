@@ -1,6 +1,6 @@
 # Contained Dialog state ports
 
-Current shared inventory after the bounded Toast rendering ports: **28 passing ports / 605 unported**. Historical Dialog execution details below retain their original checkpoint context.
+Current shared inventory after the bounded Toast rendering ports: **28 passing ports / 607 unported**. Historical Dialog execution details below retain their original checkpoint context.
 
 Pinned source: Base UI v1.8.0, `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. MIT attribution: [UPSTREAM_LICENSE](UPSTREAM_LICENSE). Baseline: main `f451bf305642f887cb8d4040006456220a38b8ca`.
 
