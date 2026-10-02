@@ -27,6 +27,7 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
   let focusedInside = false;
   let preventReturnFocus = false;
   let returnedFocus = false;
+  let preferPreviousFocus = controller.programmaticOpen;
   function returnFocus(detaching = false) {
     if (returnedFocus) return;
     returnedFocus = true;
@@ -37,7 +38,11 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
       const current = activeElement(document);
       if (current && current !== document.body && !contains(node, current)) return;
     }
-    if (!preventReturnFocus) focus(target, controller.closeMethod, () => controller.retainedTrigger?.isConnected ? controller.retainedTrigger : controller.trigger ?? controller.previousFocus);
+    if (!preventReturnFocus) focus(target, controller.closeMethod, () => {
+      const reference = controller.retainedTrigger?.isConnected ? controller.retainedTrigger : controller.trigger;
+      const previous = controller.previousFocus?.isConnected && controller.previousFocus !== document.body ? controller.previousFocus : null;
+      return preferPreviousFocus ? previous ?? reference : reference ?? previous;
+    });
   }
   let pointerDown = false;
   let composing = false;
@@ -195,6 +200,7 @@ export function attachOverlay(node: HTMLElement, controller: DialogController, o
           controller.presence = true;
           controller.starting = !initiallyOpen;
           controller.previousFocus = activeElement(document);
+          preferPreviousFocus = controller.programmaticOpen;
           preventReturnFocus = false;
           returnedFocus = false;
           frame(() => {

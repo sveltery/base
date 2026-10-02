@@ -32,6 +32,7 @@ export interface TriggerStore {
   readonly triggers: TriggerMap;
   method: InteractionType;
   closeMethod: InteractionType;
+  programmaticOpen: boolean;
   request(next: boolean, reason: ChangeReason, event?: Event, trigger?: HTMLElement): ChangeEventDetails | undefined;
   forwardTrigger(id: string, element: HTMLElement, payload: unknown, registering: boolean): void;
 }
@@ -40,7 +41,7 @@ export function createFallbackStore(): TriggerStore {
   // The registry is mutable, but detached requests/data writes never mutate popup state.
   return {
     open: false, mounted: false, ownerId: null, popupId: undefined,
-    triggers: new TriggerMap(), method: 'mouse', closeMethod: 'mouse',
+    triggers: new TriggerMap(), method: 'mouse', closeMethod: 'mouse', programmaticOpen: true,
     request() { return undefined; }, forwardTrigger() {},
   };
 }

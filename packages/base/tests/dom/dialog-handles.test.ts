@@ -40,6 +40,20 @@ describe('Root-owned Dialog handle controller', () => {
     const handle = createDialogHandle<number>(); setup({ handle, cancel: true }); await settle();
     handle.openWithPayload(8); await settle(); expect(handle.isOpen).toBe(false); expect(payload()).toBe('8'); expect(document.querySelector('[role=dialog]')).toBeNull();
   });
+  it('preserves the pinned remount after force unmount while logically open', async () => {
+    const handle = createDialogHandle<number>(); const component = setup({ handle }); await settle();
+    handle.openWithPayload(8); await settle(); const popup = document.querySelector('[role=dialog]'); component.forceUnmount(); await settle();
+    expect(handle.isOpen).toBe(true); expect(document.querySelector('[role=dialog]')).not.toBeNull(); expect(document.querySelector('[role=dialog]')).not.toBe(popup); expect(payload()).toBe('8');
+  });
+  it('returns focus to the external owner after a controlled programmatic open', async () => {
+    const handle = createDialogHandle<number>(); const requests: { open: boolean; trigger: HTMLElement | undefined }[] = [];
+    setup({ handle, controlled: true, onChange: (open, details) => requests.push({ open, trigger: details.trigger }) }); await settle();
+    const external = [...document.querySelectorAll('button')].find(button => button.textContent === 'Open programmatically')!;
+    external.focus(); external.click(); await settle(); expect(payload()).toBe('9');
+    [...document.querySelectorAll('button')].find(button => button.textContent === 'Close')!.click(); await settle();
+    expect(document.querySelector('[role=dialog]')).toBeNull(); expect(document.activeElement).toBe(external);
+    expect(requests).toEqual([{ open: false, trigger: undefined }]);
+  });
   it('forwards reactive payload while the owning trigger is mounted', async () => {
     const handle = createDialogHandle<number>(); const component = setup({ handle }); await settle();
     click('trigger'); await settle(); expect(payload()).toBe('1'); component.updatePayload(8); await settle(); expect(payload()).toBe('8');

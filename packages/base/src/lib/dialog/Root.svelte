@@ -11,6 +11,7 @@
   setContext(ROOT, controller);
   $effect(() => { controller.reconcileTrigger(); });
   $effect(() => { const open = controller.open; untrack(() => controller.synchronizeOpen(open)); });
+  $effect(() => { controller.synchronizeCompletion(); });
   // Exported component methods also work with bind:this without a DOM ref.
   export function close() { controller.request(false, 'imperative-action'); }
   export function unmount() { controller.unmount(); }

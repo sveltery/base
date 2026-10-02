@@ -16,7 +16,7 @@ export class DialogController {
   readonly generatedPopupId: string;
   popupIdSource: (() => string) | undefined = $state.raw(undefined);
   get popupId() { return this.popupIdSource?.() ?? this.generatedPopupId; }
-  popup: HTMLElement | null = null;
+  popup: HTMLElement | null = $state.raw(null);
   backdrop: HTMLElement | null = null;
   internalBackdrop: HTMLElement | null = null;
   triggers = new TriggerMap();
@@ -27,6 +27,8 @@ export class DialogController {
   everMounted = false;
   method: InteractionType = 'mouse';
   closeMethod: InteractionType = 'mouse';
+  programmaticOpen = true;
+  private destroyed = false;
   previousFocus: HTMLElement | null = null;
   retainedTrigger: HTMLElement | null = null;
   constructor(readonly props: () => Omit<RootProps, 'children' | 'handle'>, id: string, readonly parent?: DialogController) {
@@ -39,7 +41,7 @@ export class DialogController {
     parent?.children.set(this, true);
   }
   get open() { return this.props().open ?? this.internalOpen; }
-  get mounted() { return this.open || this.presence || this.deferred; }
+  get mounted() { return this.presence || this.deferred; }
   get modal() { return this.props().modal ?? true; }
   get ownerId() { return this.props().triggerId ?? this.activeId; }
   get trigger() { return this.mounted ? this.activeElement ?? (this.ownerId ? this.triggers.get(this.ownerId) : undefined) : undefined; }
@@ -48,11 +50,15 @@ export class DialogController {
     if (open === this.previousSyncedOpen) return;
     this.previousSyncedOpen = open;
     if (open) this.presence = true;
-    // Roots without Popup still own close completion and release trigger association.
-    else if (!this.popup && this.presence && !this.deferred) {
-      const version = this.completionVersion;
-      queueMicrotask(() => { if (!this.open && !this.popup && version === this.completionVersion) this.unmount(); });
-    }
+    else this.programmaticOpen = true;
+  }
+  synchronizeCompletion() {
+    // Completion belongs to the Root even if the Popup is absent or removed during close.
+    if (this.open || !this.mounted || this.deferred || this.popup) return;
+    const version = this.completionVersion;
+    queueMicrotask(() => {
+      if (!this.destroyed && !this.open && this.mounted && !this.deferred && !this.popup && version === this.completionVersion) this.unmount();
+    });
   }
   reconcileTrigger() {
     if (!this.open) return;
@@ -84,7 +90,8 @@ export class DialogController {
     // Keep the decision local until callbacks accept this request. Retained details
     // cannot change a later request's lifecycle, and canceled requests commit nothing.
     let deferUnmount = false;
-    const details = createChangeEventDetails(reason, event as never, trigger ?? (!next ? this.trigger : undefined), {
+    // The pin checks internal activeTriggerId here, not the controlled selected ID.
+    const details = createChangeEventDetails(reason, event as never, trigger ?? (!next && this.activeId != null ? this.activeElement ?? undefined : undefined), {
       preventUnmountOnClose: () => { deferUnmount = true; },
     }) as ChangeEventDetails;
     this.props().onOpenChange?.(next, details);
@@ -99,6 +106,7 @@ export class DialogController {
       this.retainedTrigger = this.trigger ?? this.retainedTrigger;
     }
     this.internalOpen = next;
+    if (this.open) this.presence = true;
     return details;
   }
   unmount() {
@@ -106,7 +114,9 @@ export class DialogController {
     this.presence = false; this.deferred = false;
     this.activeId = null; this.activeElement = null; this.retainedTrigger = null;
     this.props().onOpenChangeComplete?.(false);
+    // The pin's independent transition mounted state immediately remounts while logical open remains true.
+    if (this.open) queueMicrotask(() => { if (!this.destroyed && this.open) this.presence = true; });
   }
   beginOpenCycle() { this.deferred = false; this.completionVersion++; }
-  destroy() { this.parent?.children.delete(this); }
+  destroy() { this.destroyed = true; this.completionVersion++; this.parent?.children.delete(this); }
 }

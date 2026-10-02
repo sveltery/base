@@ -41,17 +41,18 @@ test('pinned forceUnmount while logically open remounts without changing the log
     const handle = Dialog.createHandle(); const actions = React.createRef(); const completions = [];
     await act(async () => root.render(React.createElement(Dialog.Root, { handle, actionsRef: actions, defaultOpen: true, onOpenChangeComplete: value => completions.push(value) },
       React.createElement(Dialog.Portal, null, React.createElement(Dialog.Popup, null, 'Dialog Content')))));
-    await settle(); await act(async () => actions.current.unmount()); await settle();
-    assert.equal(handle.isOpen, true); assert.ok(document.querySelector('[role=dialog]')); assert.ok(completions.includes(false));
+    await settle(); const popup = document.querySelector('[role=dialog]'); await act(async () => actions.current.unmount()); await settle();
+    assert.equal(handle.isOpen, true); assert.ok(document.querySelector('[role=dialog]')); assert.equal(document.querySelector('[role=dialog]') === popup, false); assert.ok(completions.includes(false));
   });
 });
 
 test('pinned external controlled opening prefers the previously focused external button', async () => {
   await fixture(async ({ React, Dialog, root, document, act, settle }) => {
     const h = React.createElement;
+    let closeDetails;
     function App() {
       const [open, setOpen] = React.useState(false); const [triggerId, setTriggerId] = React.useState(null);
-      return h('div', null, h(Dialog.Root, { open, triggerId, onOpenChange: setOpen }, ({ payload }) => h(React.Fragment, null,
+      return h('div', null, h(Dialog.Root, { open, triggerId, onOpenChange(value, details) { setOpen(value); if (!value) closeDetails = details; } }, ({ payload }) => h(React.Fragment, null,
         h(Dialog.Trigger, { id: 'one', payload: 1 }, 'One'), h(Dialog.Trigger, { id: 'two', payload: 2 }, 'Two'),
         h(Dialog.Portal, null, h(Dialog.Popup, null, h('span', { id: 'payload' }, payload), h(Dialog.Close, { id: 'close' }, 'Close'))))),
       h('button', { id: 'external', onClick() { setTriggerId('two'); setOpen(true); } }, 'Open programmatically'));
@@ -61,5 +62,6 @@ test('pinned external controlled opening prefers the previously focused external
     await act(async () => external.click()); await settle(); assert.equal(document.getElementById('payload').textContent, '2');
     await act(async () => document.getElementById('close').click()); await settle();
     assert.equal(document.getElementById('payload'), null); assert.equal(document.activeElement, external);
+    assert.equal(closeDetails.trigger, undefined);
   });
 });

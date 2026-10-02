@@ -15,6 +15,7 @@
   const open = $derived(controller.open && controller.ownerId === resolvedId);
   function activate(event: MouseEvent | KeyboardEvent) {
     if (disabled) { event.preventDefault(); return; }
+    controller.programmaticOpen = false;
     controller.method = event.type.startsWith('key') || (event instanceof MouseEvent && event.detail === 0) ? 'keyboard' : controller.method;
     if (open) controller.closeMethod = controller.method;
     controller.request(!open, 'trigger-press', event, ref ?? undefined);
@@ -24,7 +25,7 @@
     'aria-disabled': !nativeButton && disabled ? true : undefined, 'data-disabled': disabled ? '' : undefined,
     'aria-haspopup': 'dialog', 'aria-expanded': open, 'aria-controls': controller.open && (controller.ownerId === resolvedId || (controller.ownerId == null && controller.triggers.size === 1)) ? controller.popupId : undefined, 'data-popup-open': open ? '' : undefined,
     onclick: activate,
-    onpointerdown: (e: PointerEvent) => { controller.method = e.pointerType === 'touch' ? 'touch' : e.pointerType === 'pen' ? 'pen' : 'mouse'; },
+    onpointerdown: (e: PointerEvent) => { controller.programmaticOpen = false; controller.method = e.pointerType === 'touch' ? 'touch' : e.pointerType === 'pen' ? 'pen' : 'mouse'; },
     ...buttonKeys(() => disabled, () => nativeButton),
   });
   function attach(node: HTMLElement) {
