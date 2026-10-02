@@ -11,16 +11,26 @@ export function isNativeKitRemoteSubmit(event: Event): boolean {
       Object.getOwnPropertyDescriptor(HTMLFormElement.prototype, name)!.get!.call(form);
     const nativeMethod = readForm('method');
     const submitter = (event as SubmitEvent).submitter;
-    const override = (name: string) => submitter ? Element.prototype.getAttribute.call(submitter, name) : null;
-    const methodOverride = override('formmethod');
-    // The native enumerated formmethod attribute defaults to GET when empty or invalid.
-    const method = methodOverride === null ? nativeMethod : methodOverride.toLowerCase();
-    const target = override('formtarget') ?? readForm('target');
+    const override = (attribute: string, property: 'formMethod' | 'formAction' | 'formTarget', fallback: string): string => {
+      if (!submitter || !Element.prototype.hasAttribute.call(submitter, attribute)) return fallback;
+      // Calling a native getter brands either actual submitter type, including another document's
+      // controls. A synthetic DIV submitter and unavailable DOM implementations safely fall through.
+      for (const prototype of [HTMLButtonElement.prototype, HTMLInputElement.prototype]) {
+        const getter = Object.getOwnPropertyDescriptor(prototype, property)?.get;
+        if (!getter) continue;
+        try { return getter.call(submitter); } catch { /* Try the other native control brand. */ }
+      }
+      throw new TypeError('No native submitter property');
+    };
+    const method = override('formmethod', 'formMethod', nativeMethod);
+    if (method !== 'post') return false;
+    // Native action getters already resolve relative URLs. In particular, empty formaction reads
+    // the submitter document URL rather than its baseURI when a <base> is present.
+    const action = new URL(override('formaction', 'formAction', readForm('action')));
+    const target = override('formtarget', 'formTarget', readForm('target'));
     // Kit 2.70.3 itself excludes only this literal target; case variants are characterized separately.
-    if (method !== 'post' || target === '_blank') return false;
-    const action = override('formaction') ?? readForm('action');
-    const baseURI: string = Object.getOwnPropertyDescriptor(Node.prototype, 'baseURI')!.get!.call(form);
-    return new URL(action, baseURI).searchParams.has('/remote');
+    if (target === '_blank') return false;
+    return action.searchParams.has('/remote');
   } catch {
     return false;
   }

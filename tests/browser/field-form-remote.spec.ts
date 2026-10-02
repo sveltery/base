@@ -11,6 +11,23 @@ async function readCounter(page: Page) {
   await expect(page.locator('#counter-reads')).toHaveText(String(reads + 1));
   return Number(await page.locator('#server-counter').textContent());
 }
+async function observeLaterListeners(page: Page) {
+  await page.locator('#remote-form').evaluate((form: HTMLFormElement) => {
+    form.dataset.boundaryLater = '0'; form.dataset.boundaryBubbling = '0';
+    form.addEventListener('submit', () => { form.dataset.boundaryLater = String(Number(form.dataset.boundaryLater) + 1); });
+    form.parentElement!.addEventListener('submit', () => { form.dataset.boundaryBubbling = String(Number(form.dataset.boundaryBubbling) + 1); });
+  });
+}
+async function expectLaterListeners(page: Page, count: number) {
+  await expect(page.locator('#remote-form')).toHaveAttribute('data-boundary-later', String(count));
+  await expect(page.locator('#remote-form')).toHaveAttribute('data-boundary-bubbling', String(count));
+}
+async function expectNextValidSubmit(page: Page, input: ReturnType<Page['locator']>, before: number, requests: string[], previousListeners = 0) {
+  await input.fill('valid@example.com'); await page.getByRole('button', { name: 'Submit', exact: true }).click();
+  await expect(page.locator('#remote-result')).toContainText('valid@example.com'); expect(requests).toHaveLength(1); expect(await readCounter(page) - before).toBe(1);
+  await expect(input).toHaveValue('seed@example.com'); await expect(page.locator('#remote-resets')).toHaveText('1');
+  await expect(page.locator('#remote-native-submit')).toHaveText('1'); await expectLaterListeners(page, previousListeners + 1);
+}
 for (const mode of ['', 'replacement', 'formReplacement', 'native']) {
   test(`Kit ${mode || 'default'} direct descriptors serialize each trusted edit and programmatic updates`, async ({ page }) => {
     const input = await setup(page, mode); await input.fill('sent@example.com');
@@ -126,4 +143,71 @@ for (const mode of ['', 'native']) for (const target of ['_blank', '_BLANK', '_B
     nativeSubmit: await page.locator('#remote-native-submit').textContent(), resets: await page.locator('#remote-resets').textContent(), value: await input.inputValue() };
   await test.info().attach('kit-target-case-observation.json', { body: JSON.stringify(observation, null, 2), contentType: 'application/json' });
   expect(observation.events.some((event: { stage: string }) => event.stage === 'capture')).toBe(true);
+});
+test('acceptance Kit synthetic DIV submitter override attributes retain ordinary later listeners and the next valid submit', async ({ page }) => {
+  const input = await setup(page); const before = await readCounter(page); const requests: string[] = [];
+  page.on('request', request => { if (request.method() === 'POST' && request.url().includes('remote')) requests.push(request.url()); });
+  await observeLaterListeners(page); await input.fill('blocked@example.com');
+  const observation = await page.locator('#remote-form').evaluate((form: HTMLFormElement) => {
+    const submitter = document.createElement('div'); submitter.setAttribute('formmethod', 'post'); submitter.setAttribute('formaction', form.action); submitter.setAttribute('formtarget', '_self');
+    const event = new SubmitEvent('submit', { submitter, cancelable: true, bubbles: true }); form.dispatchEvent(event);
+    return { submitter: submitter.tagName, nativeMethod: Reflect.get(submitter, 'formMethod') ?? null, defaultPrevented: event.defaultPrevented };
+  });
+  expect(observation).toEqual({ submitter: 'DIV', nativeMethod: null, defaultPrevented: true }); await page.waitForTimeout(300);
+  expect(requests).toHaveLength(0); expect(await readCounter(page) - before).toBe(0); await expectLaterListeners(page, 1);
+  await expect(page.locator('#remote-events')).toContainText('after-attachments'); await expect(page.locator('#remote-native-submit')).toHaveText('0');
+  await expect(page.locator('#remote-result')).toHaveText('null'); await expect(page.locator('#remote-resets')).toHaveText('0');
+  await expect(input).toHaveValue('blocked@example.com'); await expect(input).toHaveAttribute('aria-invalid', 'true');
+  await expectNextValidSubmit(page, input, before, requests, 1);
+});
+for (const mode of ['', 'formReplacement']) for (const remoteDocument of [false, true]) test(`acceptance Kit ${mode || 'default'} empty formaction follows ${remoteDocument ? 'remote document despite ordinary base' : 'ordinary document despite remote base'} and the next valid submit`, async ({ page }) => {
+  const input = await setup(page, mode); const before = await readCounter(page); const requests: string[] = [];
+  page.on('request', request => { if (request.method() === 'POST' && request.url().includes('remote')) requests.push(request.url()); });
+  await observeLaterListeners(page); await input.fill('blocked@example.com');
+  const observation = await page.locator('#remote-form').evaluate((form: HTMLFormElement, useRemoteDocument) => {
+    const originalAction = form.action, originalDocument = document.URL;
+    const remoteURL = new URL(originalDocument); remoteURL.searchParams.set('/remote', new URL(originalAction).searchParams.get('/remote')!);
+    if (useRemoteDocument) history.replaceState(history.state, '', remoteURL);
+    const base = document.createElement('base'); base.id = 'boundary-base'; base.href = useRemoteDocument ? new URL('/ordinary-base', location.origin).href : remoteURL.href; document.head.prepend(base);
+    const submitter = form.querySelector<HTMLButtonElement>('button[type="submit"]')!; submitter.setAttribute('formaction', '');
+    return { documentURL: document.URL, baseURI: document.baseURI, action: submitter.formAction, method: form.method, remoteDocument: new URL(document.URL).searchParams.has('/remote') };
+  }, remoteDocument);
+  expect(observation.action).toBe(observation.documentURL); expect(observation.action).not.toBe(observation.baseURI); expect(observation.remoteDocument).toBe(remoteDocument);
+  await page.getByRole('button', { name: 'Submit', exact: true }).click(); await page.waitForTimeout(300);
+  expect(requests).toHaveLength(0); expect(await readCounter(page) - before).toBe(0); await expectLaterListeners(page, remoteDocument ? 0 : 1);
+  await expect(page.locator('#remote-result')).toHaveText('null'); await expect(page.locator('#remote-resets')).toHaveText('0'); await expect(page.locator('#remote-native-submit')).toHaveText('0');
+  await expect(input).toHaveValue('blocked@example.com'); await expect(input).toHaveAttribute('aria-invalid', 'true'); await expect(input).toBeFocused();
+  if (!remoteDocument) await page.locator('#remote-form').evaluate((form: HTMLFormElement) => {
+    document.getElementById('boundary-base')!.remove(); form.querySelector('button[type="submit"]')!.removeAttribute('formaction');
+  });
+  await expectNextValidSubmit(page, input, before, requests, remoteDocument ? 0 : 1);
+});
+for (const tag of ['button', 'input'] as const) test(`acceptance Kit native ${tag} submitter reflected overrides preserve method action target selection and the next valid submit`, async ({ page }) => {
+  const input = await setup(page); const before = await readCounter(page); const requests: string[] = [];
+  page.on('request', request => { if (request.method() === 'POST' && request.url().includes('remote')) requests.push(request.url()); });
+  await observeLaterListeners(page); await input.fill('blocked@example.com');
+  await page.locator('#remote-form').evaluate((form: HTMLFormElement, name) => {
+    const submitter = document.createElement(name); submitter.id = 'boundary-submitter'; submitter.type = 'submit'; form.append(submitter);
+  }, tag);
+  let later = 0;
+  for (const [attribute, value, suppress] of [
+    ['formmethod', '', false], ['formmethod', 'invalid', false], ['formmethod', 'get', false], ['formmethod', 'dialog', false], ['formmethod', 'POST', true],
+    ['formaction', '/ordinary', false], ['formtarget', '_blank', false], ['formtarget', '_self', true],
+  ] as const) {
+    const observation = await page.locator('#remote-form').evaluate((form: HTMLFormElement, override) => {
+      const submitter = form.querySelector<HTMLButtonElement | HTMLInputElement>('#boundary-submitter')!;
+      for (const name of ['formmethod', 'formaction', 'formtarget']) submitter.removeAttribute(name);
+      submitter.setAttribute(override[0], override[1]);
+      const event = new SubmitEvent('submit', { submitter, cancelable: true, bubbles: true }); form.dispatchEvent(event);
+      return { method: submitter.hasAttribute('formmethod') ? submitter.formMethod : form.method,
+        action: submitter.hasAttribute('formaction') ? submitter.formAction : form.action,
+        target: submitter.hasAttribute('formtarget') ? submitter.formTarget : form.target, defaultPrevented: event.defaultPrevented };
+    }, [attribute, value]);
+    expect(observation.defaultPrevented).toBe(true); if (attribute === 'formmethod') expect(observation.method).toBe(value === 'POST' ? 'post' : value === 'dialog' ? 'dialog' : 'get');
+    later += suppress ? 0 : 1; await expectLaterListeners(page, later);
+  }
+  await page.waitForTimeout(300); expect(requests).toHaveLength(0); expect(await readCounter(page) - before).toBe(0);
+  await expect(page.locator('#remote-result')).toHaveText('null'); await expect(page.locator('#remote-resets')).toHaveText('0');
+  await expect(page.locator('#remote-native-submit')).toHaveText('0'); await expect(input).toHaveValue('blocked@example.com');
+  await page.locator('#boundary-submitter').evaluate(node => node.remove()); await expectNextValidSubmit(page, input, before, requests, later);
 });

@@ -62,15 +62,24 @@ for (const action of ['https://example.test/ordinary', 'https://example.test/?/r
   expect(fixture.submit().defaultPrevented).toBe(true);
   expect(fixture.later.mock.calls).toHaveLength(action.includes('/remote') ? 0 : 1); expect(fixture.bubbling.mock.calls).toHaveLength(action.includes('/remote') ? 0 : 1);
 });
-it('submitter method overrides use native POST casing and preserve invalid or empty method fallback', () => {
+it('unavailable native submitter method getters fall through without attributing JSDOM browser semantics', () => {
   const fixture = setup('https://example.test/?/remote=fixture'); fixture.component.update({ required: true }); flushSync();
   const submitter = fixture.form.querySelector<HTMLButtonElement>('#submit')!;
   for (const method of ['', 'invalid', 'get', 'dialog']) {
     submitter.setAttribute('formmethod', method); fixture.form.dispatchEvent(new SubmitEvent('submit', { submitter, cancelable: true, bubbles: true })); flushSync();
   }
+  expect(Object.getOwnPropertyDescriptor(HTMLButtonElement.prototype, 'formMethod')?.get).toBeUndefined();
   expect(fixture.later).toHaveBeenCalledTimes(4);
   submitter.setAttribute('formmethod', 'POST'); fixture.form.dispatchEvent(new SubmitEvent('submit', { submitter, cancelable: true, bubbles: true })); flushSync();
-  expect(fixture.later).toHaveBeenCalledTimes(4);
+  expect(fixture.later).toHaveBeenCalledTimes(5);
+});
+it('a synthetic DIV submitter cannot qualify through remote-looking override attributes', () => {
+  const fixture = setup('https://example.test/?/remote=fixture'); fixture.component.update({ required: true }); flushSync();
+  const submitter = document.createElement('div');
+  submitter.setAttribute('formmethod', 'post'); submitter.setAttribute('formaction', 'https://example.test/?/remote=fixture'); submitter.setAttribute('formtarget', '_self');
+  const event = new SubmitEvent('submit', { submitter, cancelable: true, bubbles: true }); fixture.form.dispatchEvent(event); flushSync();
+  expect(event.defaultPrevented).toBe(true); expect(fixture.later).toHaveBeenCalledOnce(); expect(fixture.bubbling).toHaveBeenCalledOnce();
+  expect(fixture.onsubmit).not.toHaveBeenCalled(); expect(fixture.onFormSubmit).not.toHaveBeenCalled();
 });
 it('the proposed boundary brands the actual host even when every submitter override resembles a remote form', () => {
   const host = document.createElement('div'); const submitter = document.createElement('button');
