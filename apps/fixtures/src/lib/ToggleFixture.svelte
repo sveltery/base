@@ -14,14 +14,14 @@
   let calls = $state<{ pressed: boolean; reason: string; type: string; before: string | null; canceled: boolean; defaultPrevented: boolean; trigger: boolean }[]>([]);
   let order = $state<string[]>([]);
   let submitted = $state(0), reset = $state(0), attached = $state(0), detached = $state(0);
-  const custom = $derived(['custom', 'custom-disabled', 'attachment', 'render-cancel', 'render-order', 'descendant', 'link'].includes(scenario));
+  const custom = $derived(['custom', 'custom-disabled', 'attachment', 'render-cancel', 'render-order', 'descendant', 'link', 'controlled-render'].includes(scenario));
   function changed(next: boolean, details: ToggleChangeEventDetails) {
     if (scenario === 'cancel') details.cancel();
     order = [...order, 'change'];
     calls = [...calls, { pressed: next, reason: details.reason, type: details.event.type,
       before: document.getElementById('tested-toggle')!.getAttribute('aria-pressed'), canceled: details.isCanceled,
       defaultPrevented: details.event.defaultPrevented, trigger: details.trigger !== undefined }];
-    if (scenario === 'accept') ownerPressed = next;
+    if (scenario === 'accept' || scenario === 'controlled-consumer' || scenario === 'controlled-render') ownerPressed = next;
   }
   function attachedHost(node: HTMLElement) {
     untrack(() => attached++); node.dataset.consumerAttached = '';
@@ -36,6 +36,7 @@
   {:else}
     <span {...mergeProps(props, { onclick: (event: MouseEvent & { preventBaseUIHandler(): void }) => {
       order = [...order, 'render']; if (scenario === 'render-cancel') event.preventBaseUIHandler();
+      if (scenario === 'controlled-render') ownerPressed = true;
     } })} data-state-pressed={state.pressed} data-state-disabled={state.disabled}>
       {@render children?.()}
       {#if scenario === 'descendant'}<input aria-label="Inner input" />{/if}
@@ -61,6 +62,7 @@
           class={state => state.pressed ? 'pressed-class' : 'unpressed-class'} style={state => `opacity:${state.disabled ? 0.5 : 1}`}
           onPressedChange={changed} onclick={event => {
             order = [...order, 'consumer']; if (scenario === 'click-cancel') event.preventBaseUIHandler();
+            if (scenario === 'controlled-consumer') ownerPressed = true;
             if (scenario === 'click-default') event.preventDefault();
           }}>Toggle</Toggle>
       {/if}

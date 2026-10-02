@@ -75,3 +75,13 @@ for (const scenario of ['non-native-default', 'non-native-stripped']) it(`supple
   button.click(); await tick(); expect(calls().length).toBe(1); expect(button.getAttribute('aria-pressed')).toBe('true');
   expect(JSON.parse(document.querySelector('[data-testid=forms]')!.textContent!)).toEqual({ submitted: 0, reset: 0 });
 });
+for (const scenario of ['controlled-consumer', 'controlled-render']) it(`supplement: ${scenario} preserves rendered snapshot before consumer state writes`, async () => {
+  const { button } = await setup(scenario); button.click(); await tick();
+  expect(calls().map(call => call.pressed)).toEqual([true]); expect(button.getAttribute('aria-pressed')).toBe('true');
+  button.click(); await tick(); expect(calls().map(call => call.pressed)).toEqual([true, false]); expect(button.getAttribute('aria-pressed')).toBe('false');
+});
+it('supplement: same-turn uncontrolled clicks share the last rendered snapshot', async () => {
+  const { button } = await setup('uncontrolled'); button.click(); button.click(); await tick();
+  expect(calls().map(call => call.pressed)).toEqual([true, true]); expect(button.getAttribute('aria-pressed')).toBe('true');
+  button.click(); await tick(); expect(calls().map(call => call.pressed)).toEqual([true, true, false]); expect(button.getAttribute('aria-pressed')).toBe('false');
+});

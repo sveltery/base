@@ -17,16 +17,22 @@
   let internalPressed = $state(untrack(() => defaultPressed));
   const pressed = $derived(controlled && pressedProp !== undefined ? pressedProp : internalPressed);
   const toggleState = $derived({ pressed, disabled });
-  function toggle(event: MouseEvent) {
-    const nextPressed = !pressed;
+  function toggle(event: MouseEvent, pressedSnapshot: boolean) {
+    const nextPressed = !pressedSnapshot;
     const details = createChangeEventDetails('none', event);
     onPressedChange?.(nextPressed, details);
     if (!details.isCanceled && !controlled) internalPressed = nextPressed;
   }
   // Preserve enumerable attachment symbols alongside merged string props.
-  const resolved = $derived(getButtonProps({ ...props, ...mergeProps({
-    'aria-pressed': pressed, 'data-pressed': pressed ? '' : undefined, onclick: toggle,
-  }, props) }, disabled, false, nativeButton));
+  const resolved = $derived.by(() => {
+    // Like the pinned rendered closure, this snapshot survives earlier consumer
+    // writes and same-turn clicks; the next rendered props receive a fresh one.
+    const pressedSnapshot = pressed;
+    return getButtonProps({ ...props, ...mergeProps({
+      'aria-pressed': pressedSnapshot, 'data-pressed': pressedSnapshot ? '' : undefined,
+      onclick: (event: MouseEvent) => toggle(event, pressedSnapshot),
+    }, props) }, disabled, false, nativeButton);
+  });
 </script>
 <!-- Pinned useRenderElement defaults the native host type even with nativeButton=false. -->
 <Element tag="button" internal={render ? {} : { type: 'button' }} props={resolved} state={toggleState} {render} {children} bind:ref />

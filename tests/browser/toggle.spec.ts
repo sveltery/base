@@ -120,6 +120,24 @@ for (const reference of [false, true]) {
     await setup(page, 'descendant', reference); await page.getByRole('textbox', { name: 'Inner input' }).focus();
     await page.keyboard.press('Enter'); await page.keyboard.press('Space'); expect(await calls(page)).toEqual([]);
   });
+  for (const scenario of ['controlled-consumer', 'controlled-render']) test(`supplement: ${framework} ${scenario} preserves rendered pressed snapshot`, async ({ page }) => {
+    const button = await setup(page, scenario, reference);
+    await button.click(); await expect(button).toHaveAttribute('aria-pressed', 'true');
+    expect((await calls(page)).map(call => call.pressed)).toEqual([true]);
+    expect((await calls(page))[0].before).toBe('false');
+    expect(await order(page)).toEqual(scenario === 'controlled-render' ? ['render', 'consumer', 'change', 'ancestor'] : ['consumer', 'change', 'ancestor']);
+    // A committed owner update supplies a fresh handler snapshot for the next click.
+    await button.click(); await expect(button).toHaveAttribute('aria-pressed', 'false');
+    expect((await calls(page)).map(call => call.pressed)).toEqual([true, false]);
+  });
+  test(`supplement: ${framework} same-turn clicks share the rendered snapshot`, async ({ page }) => {
+    const button = await setup(page, 'uncontrolled', reference);
+    await button.evaluate((node: HTMLButtonElement) => { node.click(); node.click(); });
+    await expect(button).toHaveAttribute('aria-pressed', 'true');
+    expect((await calls(page)).map(call => call.pressed)).toEqual([true, true]);
+    await button.click(); await expect(button).toHaveAttribute('aria-pressed', 'false');
+    expect((await calls(page)).map(call => call.pressed)).toEqual([true, true, false]);
+  });
 }
 test('supplement: Svelte Toggle SSR hydrates with stable host and attachments clean up', async ({ page }) => {
   const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
