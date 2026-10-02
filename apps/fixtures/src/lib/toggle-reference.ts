@@ -23,8 +23,8 @@ export function mountToggleReference(node: HTMLElement, scenario: string) {
         h('form', { id: 'toggle-form', onSubmit: event => { event.preventDefault(); setSubmitted(previous => previous + 1); }, onReset: () => setReset(previous => previous + 1) },
           h('input', { 'aria-label': 'Reset field', defaultValue: 'initial' }),
           shown ? h(Toggle, {
-            id: 'tested-toggle', pressed: ownerPressed, defaultPressed, disabled, nativeButton: !custom,
-            ...(scenario === 'stripped-form' ? { form: 'external-form', type: 'submit', value: 'sent', name: 'toggle' } : scenario === 'stripped-reset' ? { type: 'reset' } : {}),
+            id: 'tested-toggle', pressed: ownerPressed, defaultPressed, disabled, nativeButton: !custom && !scenario.startsWith('non-native'),
+            ...(scenario === 'stripped-form' || scenario === 'non-native-stripped' ? { form: 'external-form', type: 'submit', value: 'sent', name: 'toggle' } : scenario === 'stripped-reset' ? { type: 'reset' } : {}),
             render: scenario === 'link' ? h('a', { href: '#target' }) : custom ? h('span', {
               onClick: (event: React.MouseEvent & { preventBaseUIHandler(): void }) => { record('render'); if (scenario === 'render-cancel') event.preventBaseUIHandler(); },
             }) : undefined,

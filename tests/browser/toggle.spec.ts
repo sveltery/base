@@ -101,7 +101,7 @@ for (const reference of [false, true]) {
     await page.getByRole('button', { name: 'Clear controlled prop', exact: true }).click(); await expect(button).toHaveAttribute('aria-pressed', 'true');
     await button.click(); await expect(button).toHaveAttribute('aria-pressed', 'true');
   });
-  for (const scenario of ['stripped-form', 'stripped-reset']) test(`supplement: ${framework} ${scenario} props and native reset`, async ({ page }) => {
+  for (const scenario of ['stripped-form', 'stripped-reset', 'non-native-default', 'non-native-stripped']) test(`supplement: ${framework} ${scenario} props and native reset`, async ({ page }) => {
     const button = await setup(page, scenario, reference);
     await expect(button).toHaveAttribute('type', 'button'); await expect(button).not.toHaveAttribute('form'); await expect(button).not.toHaveAttribute('value');
     await page.getByRole('textbox', { name: 'Reset field', exact: true }).fill('changed');
@@ -111,7 +111,7 @@ for (const reference of [false, true]) {
     await page.getByRole('button', { name: 'Native reset', exact: true }).click();
     await expect(page.getByRole('textbox', { name: 'Reset field', exact: true })).toHaveValue('initial');
     await expect(button).toHaveAttribute('aria-pressed', 'true'); await expect(page.getByTestId('forms')).toHaveText('{"submitted":0,"reset":1}');
-    if (scenario === 'stripped-form') expect(await page.locator('#toggle-form').evaluate((node: HTMLFormElement) => new FormData(node).get('toggle'))).toBeNull();
+    if (scenario === 'stripped-form' || scenario === 'non-native-stripped') expect(await page.locator('#toggle-form').evaluate((node: HTMLFormElement) => new FormData(node).get('toggle'))).toBeNull();
   });
   test(`supplement: ${framework} descendant keys do not activate host`, async ({ page }) => {
     await setup(page, 'descendant', reference); await page.getByRole('textbox', { name: 'Inner input' }).focus();

@@ -28,4 +28,5 @@
     'aria-pressed': pressed, 'data-pressed': pressed ? '' : undefined, onclick: toggle,
   }, props) }, disabled, false, nativeButton));
 </script>
-<Element tag="button" props={resolved} state={toggleState} {render} {children} bind:ref />
+<!-- Pinned useRenderElement defaults the native host type even with nativeButton=false. -->
+<Element tag="button" internal={render ? {} : { type: 'button' }} props={resolved} state={toggleState} {render} {children} bind:ref />

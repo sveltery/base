@@ -1,6 +1,6 @@
 # Parent-owned Toggle integration
 
-The current Input/Separator owner (`01a0fb67-1f88-77b5-99e4-d0a79168802f`) owns shared helper/export/package/catalog files. This branch changes only Toggle source and dedicated fixtures/tests/parity/docs. Shared helpers and existing tests are unchanged. Proposed additions have been sent through the task clarification channel; integration must wait for its committed checkpoint or merged main and a serialized handoff.
+The current Input/Separator owner (`01a0fb67-1f88-77b5-99e4-d0a79168802f`) owns shared helper/export/package/catalog files. This branch changes only Toggle source and dedicated fixtures/tests/parity/docs. Shared helpers and existing tests are unchanged. Proposed additions have been sent through the task clarification channel and are published in [PR #27](https://github.com/sveltery/base/pull/27); integration must wait for its committed checkpoint or merged main and a serialized handoff.
 
 Proposed shared additions:
 

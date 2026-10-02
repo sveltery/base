@@ -54,9 +54,9 @@
     <form id="toggle-form" onsubmit={event => { event.preventDefault(); submitted++; }} onreset={() => reset++}>
       <input aria-label="Reset field" value="initial" />
       {#if shown}
-        <Toggle id="tested-toggle" pressed={ownerPressed} {defaultPressed} {disabled} nativeButton={!custom}
+        <Toggle id="tested-toggle" pressed={ownerPressed} {defaultPressed} {disabled} nativeButton={!custom && !scenario.startsWith('non-native')}
           render={custom ? replacement : undefined} bind:ref
-          {...scenario === 'stripped-form' ? { form: 'external-form', type: 'submit', value: 'sent', name: 'toggle' } : scenario === 'stripped-reset' ? { type: 'reset' } : {}}
+          {...scenario === 'stripped-form' || scenario === 'non-native-stripped' ? { form: 'external-form', type: 'submit', value: 'sent', name: 'toggle' } : scenario === 'stripped-reset' ? { type: 'reset' } : {}}
           {@attach scenario === 'attachment' ? attachedHost : () => {}}
           class={state => state.pressed ? 'pressed-class' : 'unpressed-class'} style={state => `opacity:${state.disabled ? 0.5 : 1}`}
           onPressedChange={changed} onclick={event => {

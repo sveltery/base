@@ -68,3 +68,10 @@ it('supplement: custom disabled inherits uncredited D-03 mousedown cancellation'
   expect(button.dispatchEvent(event)).toBe(false); expect(event.defaultPrevented).toBe(true);
   button.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true })); button.click(); await tick(); expect(calls()).toEqual([]);
 });
+for (const scenario of ['non-native-default', 'non-native-stripped']) it(`supplement: ${scenario} native host still defaults to type=button`, async () => {
+  const { button } = await setup(scenario);
+  expect(button.tagName).toBe('BUTTON'); expect(button.getAttribute('type')).toBe('button');
+  expect(button.getAttribute('role')).toBe('button'); expect(button.hasAttribute('form')).toBe(false); expect(button.hasAttribute('value')).toBe(false);
+  button.click(); await tick(); expect(calls().length).toBe(1); expect(button.getAttribute('aria-pressed')).toBe('true');
+  expect(JSON.parse(document.querySelector('[data-testid=forms]')!.textContent!)).toEqual({ submitted: 0, reset: 0 });
+});
