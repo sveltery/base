@@ -5104,6 +5104,62 @@
       "port": null
     },
     {
+      "source": "packages/react/src/separator/Separator.test.tsx",
+      "line": 14,
+      "name": "renders a div with the `separator` role",
+      "status": "passing",
+      "port": "tests/browser/separator.spec.ts",
+      "sourceId": "packages/react/src/separator/Separator.test.tsx:14",
+      "sourceBodySha256": "43b92755cfaaf66af22745c4df7d8726fe4ea93266d5dd7cf404ec871e52ffd2",
+      "assertionLines": [
+        16
+      ],
+      "fixtures": [
+        "apps/fixtures/src/lib/SeparatorFixture.svelte",
+        "apps/fixtures/src/lib/separator-reference.ts"
+      ],
+      "adaptations": "parity/separator/README.md",
+      "evidence": {
+        "testedCommit": "f471edd0c4694cf6769dac2d8d982a4b95f25afd",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36978100619",
+        "browserJob": 110746256952,
+        "executions": [
+          "Separator ordinary Svelte: renders a div with the separator role [S:14]",
+          "Separator ordinary React reference: renders a div with the separator role [S:14]"
+        ]
+      },
+      "verification": "Complete preserved ordinary declaration variants passed secured hosted Chromium at f471edd0c4694cf6769dac2d8d982a4b95f25afd; component final-head acceptance remains separate."
+    },
+    {
+      "source": "packages/react/src/separator/Separator.test.tsx",
+      "line": 21,
+      "name": "${orientation}",
+      "status": "passing",
+      "port": "tests/browser/separator.spec.ts",
+      "sourceId": "packages/react/src/separator/Separator.test.tsx:21",
+      "sourceBodySha256": "2cf313eccf81fc36a51a6629c6c2361538e53a3af6dc761a99e1c3073bb94802",
+      "assertionLines": [
+        24
+      ],
+      "fixtures": [
+        "apps/fixtures/src/lib/SeparatorFixture.svelte",
+        "apps/fixtures/src/lib/separator-reference.ts"
+      ],
+      "adaptations": "parity/separator/README.md",
+      "evidence": {
+        "testedCommit": "f471edd0c4694cf6769dac2d8d982a4b95f25afd",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/36978100619",
+        "browserJob": 110746256952,
+        "executions": [
+          "Separator ordinary Svelte: orientation horizontal [S:21]",
+          "Separator ordinary Svelte: orientation vertical [S:21]",
+          "Separator ordinary React reference: orientation horizontal [S:21]",
+          "Separator ordinary React reference: orientation vertical [S:21]"
+        ]
+      },
+      "verification": "Complete preserved ordinary declaration variants passed secured hosted Chromium at f471edd0c4694cf6769dac2d8d982a4b95f25afd; component final-head acceptance remains separate."
+    },
+    {
       "source": "packages/react/src/internals/createBaseUIEventDetails.spec.ts",
       "line": 6,
       "name": "exact increment reason type",

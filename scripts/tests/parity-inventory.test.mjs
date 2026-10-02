@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { test } from 'node:test';
-import { extractTestDeclarations, locateTypeAssertion, reconcileCases } from '../parity-inventory.mjs';
+import { extractTestDeclarations, locateDynamicTestDeclaration, locateTypeAssertion, reconcileCases } from '../parity-inventory.mjs';
 
 test('extracts multiline conditional names and keeps their declaration lines', () => {
   const declarations = extractTestDeclarations('fixture.test.tsx', `
@@ -44,6 +44,14 @@ test('locates the exact pinned type assertion and rejects missing assertions', (
   assert.deepEqual(locateTypeAssertion(assertion, '\nconst value = makeDetails();\nexpectType<Reason, typeof value>(value);'),
     { source: 'fixture.spec.ts', line: 3, name: 'exact reason' });
   assert.throws(() => locateTypeAssertion(assertion, 'expectType<string, typeof value>(value);'), /found 0/);
+});
+
+test('explicit dynamic declaration inventory counts the orientation source site once', () => {
+  const declaration = { source: 'Separator.test.tsx', callee: 'it', argument: 'orientation', name: '${orientation}' };
+  const source = "['horizontal', 'vertical'].forEach((orientation) => {\n  it(orientation, async () => {});\n});";
+  assert.deepEqual(locateDynamicTestDeclaration(declaration, source), { source: declaration.source, line: 2, name: '${orientation}' });
+  assert.throws(() => locateDynamicTestDeclaration(declaration, 'it(other, () => {});'), /found 0/);
+  assert.throws(() => locateDynamicTestDeclaration(declaration, `${source}\n${source}`), /found 2/);
 });
 
 test('credited Dialog leaves retain immutable assertions, real fixtures and browser evidence', () => {

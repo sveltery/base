@@ -1,0 +1,15 @@
+# Component catalog accounting
+
+The immutable Base UI 1.8.0 [root index](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/index.ts) exports 42 non-type modules. [catalog.json](../parity/catalog.json) accounts for each module, including providers and utilities. A bounded export means selected functionality exists; it does not mean complete component or upstream assertion parity.
+
+| Local surface | Scope and limits |
+| --- | --- |
+| [Button](../parity/button/README.md) | Standalone native/custom button, keyboard and disabled behavior; broader conformance remains incomplete. |
+| [Dialog](dialog-first-slice.md) | Contained parts and selected reviewed focus/portal/state behavior; complete Dialog and detached handles remain incomplete. |
+| [Toast](../parity/toast/rendering-interface.md) | Bounded store/rendering and standalone Portal; gestures, anchored positioning and remaining conformance remain incomplete. |
+| [Separator](separator.md) | Standalone divider, orientation, native prop overrides and composition; acceptance gates are recorded separately. |
+| merge-props | Bounded native prop/event merge foundation; see [contracts](upstream-contracts.md). |
+
+These five modules are bounded and the remaining 37 are unimplemented. No module is labeled fully compatible. Field and Form have no placeholders or exports. The catalog denominator includes modules such as direction-provider and use-render; it is not a component count or a passing-test denominator. All unimplemented names remain visible in the machine-readable ledger.
+
+The [ordinary assertion inventory](../parity/README.md) is separately scoped. Shared conformance helpers, paired framework executions and local supplements do not inflate its declaration credit. After this bounded pair, standalone Toggle is the recommended next port; its source and tests still require their own characterization and review.
