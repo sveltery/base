@@ -1,11 +1,17 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { installAvatarHarness } from '../../lib/avatar-harness.js';
+  import { installAvatarHarness, primeAvatarCache } from '../../lib/avatar-harness.js';
   let { data } = $props(); let host = $state<HTMLDivElement>();
   onMount(() => {
-    const restore = installAvatarHarness(data.scenario); let stopped = false; let cleanup: (() => void) | undefined;
-    void import('../../lib/avatar-reference.js').then(({ mountAvatarReference }) => { if (!stopped && host) cleanup = mountAvatarReference(host, data.scenario, data.part, data.mode); });
-    return () => { stopped = true; cleanup?.(); restore(); };
+    let stopped = false; let cleanup: (() => void) | undefined; let restore: (() => void) | undefined;
+    void (async () => {
+      await primeAvatarCache(data.scenario);
+      if (stopped) return;
+      restore = installAvatarHarness(data.scenario);
+      const { mountAvatarReference } = await import('../../lib/avatar-reference.js');
+      if (!stopped && host) cleanup = mountAvatarReference(host, data.scenario, data.part, data.mode);
+    })();
+    return () => { stopped = true; cleanup?.(); restore?.(); };
   });
 </script>
 <div bind:this={host}></div>

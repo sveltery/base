@@ -27,7 +27,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -38,7 +38,20 @@
         "Image:102 Svelte",
         "Image:102 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:123",
@@ -51,7 +64,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -62,7 +75,20 @@
         "Image:123 Svelte",
         "Image:123 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:135",
@@ -76,7 +102,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -87,7 +113,20 @@
         "Image:135 Svelte",
         "Image:135 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:150",
@@ -100,7 +139,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -111,7 +150,20 @@
         "Image:150 Svelte",
         "Image:150 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:176",
@@ -124,7 +176,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -135,7 +187,20 @@
         "Image:176 Svelte",
         "Image:176 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:202",
@@ -148,7 +213,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -159,7 +224,20 @@
         "Image:202 Svelte",
         "Image:202 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:221",
@@ -173,7 +251,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -184,7 +262,20 @@
         "Image:221 Svelte",
         "Image:221 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:236",
@@ -197,7 +288,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -208,7 +299,20 @@
         "Image:236 Svelte",
         "Image:236 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:262",
@@ -223,7 +327,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -234,7 +338,20 @@
         "Image:262 Svelte",
         "Image:262 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:290",
@@ -247,7 +364,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -258,7 +375,20 @@
         "Image:290 Svelte",
         "Image:290 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:308",
@@ -271,7 +401,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -282,7 +412,20 @@
         "Image:308 Svelte",
         "Image:308 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:328",
@@ -296,7 +439,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -307,7 +450,20 @@
         "Image:328 Svelte",
         "Image:328 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:351",
@@ -323,7 +479,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -334,7 +490,20 @@
         "Image:351 Svelte",
         "Image:351 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:395",
@@ -348,7 +517,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -359,7 +528,20 @@
         "Image:395 Svelte",
         "Image:395 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:429",
@@ -378,7 +560,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -389,7 +571,20 @@
         "Image:429 Svelte",
         "Image:429 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:480",
@@ -403,7 +598,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -414,7 +609,20 @@
         "Image:480 Svelte",
         "Image:480 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:515",
@@ -427,7 +635,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -438,7 +646,20 @@
         "Image:515 Svelte",
         "Image:515 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:537",
@@ -452,7 +673,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -463,7 +684,20 @@
         "Image:537 Svelte",
         "Image:537 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:575",
@@ -478,7 +712,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -489,7 +723,20 @@
         "Image:575 Svelte",
         "Image:575 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:595",
@@ -503,7 +750,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -514,7 +761,20 @@
         "Image:595 Svelte",
         "Image:595 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:615",
@@ -527,7 +787,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -538,7 +798,20 @@
         "Image:615 Svelte",
         "Image:615 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:643",
@@ -552,7 +825,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -563,7 +836,20 @@
         "Image:643 Svelte",
         "Image:643 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:667",
@@ -578,7 +864,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -589,7 +875,20 @@
         "Image:667 Svelte",
         "Image:667 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:691",
@@ -603,7 +902,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -614,7 +913,20 @@
         "Image:691 Svelte",
         "Image:691 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:717",
@@ -628,7 +940,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -639,7 +951,20 @@
         "Image:717 Svelte",
         "Image:717 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:747",
@@ -653,7 +978,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -664,7 +989,20 @@
         "Image:747 Svelte",
         "Image:747 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:797",
@@ -679,7 +1017,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -690,7 +1028,20 @@
         "Image:797 Svelte",
         "Image:797 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:846",
@@ -705,7 +1056,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -716,7 +1067,20 @@
         "Image:846 Svelte",
         "Image:846 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:911",
@@ -731,7 +1095,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -742,7 +1106,20 @@
         "Image:911 Svelte",
         "Image:911 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:965",
@@ -756,7 +1133,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -767,7 +1144,20 @@
         "Image:965 Svelte",
         "Image:965 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:1017",
@@ -781,7 +1171,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -792,7 +1182,20 @@
         "Image:1017 Svelte",
         "Image:1017 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:1065",
@@ -805,7 +1208,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -816,7 +1219,20 @@
         "Image:1065 Svelte",
         "Image:1065 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:1100",
@@ -831,7 +1247,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -842,7 +1258,20 @@
         "Image:1100 Svelte",
         "Image:1100 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/image/AvatarImage.test.tsx:1136",
@@ -855,7 +1284,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -866,7 +1295,20 @@
         "Image:1136 Svelte",
         "Image:1136 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/fallback/AvatarFallback.test.tsx:38",
@@ -878,7 +1320,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -889,7 +1331,20 @@
         "Fallback:38 Svelte",
         "Fallback:38 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/fallback/AvatarFallback.test.tsx:53",
@@ -901,7 +1356,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -912,7 +1367,20 @@
         "Fallback:53 Svelte",
         "Fallback:53 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/fallback/AvatarFallback.test.tsx:68",
@@ -927,7 +1395,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -938,7 +1406,20 @@
         "Fallback:68 Svelte",
         "Fallback:68 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/fallback/AvatarFallback.test.tsx:105",
@@ -951,7 +1432,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -962,7 +1443,20 @@
         "Fallback:105 Svelte",
         "Fallback:105 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/fallback/AvatarFallback.test.tsx:120",
@@ -974,7 +1468,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -985,7 +1479,20 @@
         "Fallback:120 Svelte",
         "Fallback:120 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/fallback/AvatarFallback.test.tsx:134",
@@ -998,7 +1505,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -1009,7 +1516,20 @@
         "Fallback:134 Svelte",
         "Fallback:134 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/fallback/AvatarFallback.test.tsx:155",
@@ -1022,7 +1542,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -1033,7 +1553,20 @@
         "Fallback:155 Svelte",
         "Fallback:155 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/fallback/AvatarFallback.test.tsx:176",
@@ -1047,7 +1580,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -1058,7 +1591,20 @@
         "Fallback:176 Svelte",
         "Fallback:176 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/fallback/AvatarFallback.test.tsx:203",
@@ -1073,7 +1619,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -1084,7 +1630,20 @@
         "Fallback:203 Svelte",
         "Fallback:203 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     },
     {
       "sourceId": "packages/react/src/avatar/fallback/AvatarFallback.test.tsx:245",
@@ -1099,7 +1658,7 @@
       "variants": [
         null
       ],
-      "status": "candidate",
+      "status": "passing",
       "port": "tests/browser/avatar.spec.ts",
       "fixtures": [
         "apps/fixtures/src/lib/avatar-fixture.svelte",
@@ -1110,7 +1669,20 @@
         "Fallback:245 Svelte",
         "Fallback:245 React reference"
       ],
-      "evidence": null
+      "evidence": {
+        "testedCommit": "f9c219106b276bddf0a329721e49f2c023878050",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37054919223",
+        "browserJob": 110997139660,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 88,
+        "conformanceInstances": 84,
+        "supplementalInstances": 32,
+        "totalExecutions": 204,
+        "retries": 0,
+        "skips": 0,
+        "result": "passing corrected source checkpoint; integrated final-head and post-merge gates remain separate"
+      },
+      "verification": "Full ordered immutable source bodies, preconditions and predicates independently reviewed at the corrected source checkpoint; actual Base UI React 1.8.0/Svelte paired secured Chromium executions passed. Image:537 and Image:747 now use only replacement-owned sources with unchanged native load/ref behavior and ordered assertions. Frozen synchronous role/timer witnesses preserve source timing predicates. Helpers, types, pairs and supplements add no ordinary declaration credit; documented framework adaptations grant no divergent assertion credit."
     }
   ]
 }
