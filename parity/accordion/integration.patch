@@ -1,19 +1,19 @@
 diff --git a/packages/base/src/lib/index.ts b/packages/base/src/lib/index.ts
 --- a/packages/base/src/lib/index.ts
 +++ b/packages/base/src/lib/index.ts
-@@ -16,3 +16,5 @@
- export type { ProgressStatus, ProgressRootProps, ProgressRootState, ProgressLabelProps, ProgressLabelState, ProgressTrackProps, ProgressTrackState, ProgressIndicatorProps, ProgressIndicatorState, ProgressValueProps, ProgressValueState } from './progress/index.js';
- export { Collapsible } from './collapsible/index.js';
+@@ -18,3 +18,5 @@
  export type { CollapsibleRootProps, CollapsibleRootState, CollapsibleTriggerProps, CollapsibleTriggerState, CollapsiblePanelProps, CollapsiblePanelState, CollapsibleTransitionStatus, CollapsibleRootChangeEventReason, CollapsibleRootChangeEventDetails } from './collapsible/index.js';
+ export { Meter } from './meter/index.js';
+ export type { MeterRootProps, MeterRootState, MeterLabelProps, MeterLabelState, MeterTrackProps, MeterTrackState, MeterIndicatorProps, MeterIndicatorState, MeterValueProps, MeterValueState } from './meter/index.js';
 +export { Accordion } from './accordion/index.js';
 +export type { AccordionValue, AccordionRootProps, AccordionRootState, AccordionItemProps, AccordionItemState, AccordionHeaderProps, AccordionHeaderState, AccordionTriggerProps, AccordionTriggerState, AccordionPanelProps, AccordionPanelState, AccordionRootChangeEventReason, AccordionRootChangeEventDetails, AccordionItemChangeEventReason, AccordionItemChangeEventDetails } from './accordion/index.js';
 diff --git a/packages/base/package.json b/packages/base/package.json
 --- a/packages/base/package.json
 +++ b/packages/base/package.json
-@@ -57,6 +57,11 @@
-       "types": "./dist/collapsible/index.d.ts",
-       "svelte": "./dist/collapsible/index.js",
-       "default": "./dist/collapsible/index.js"
+@@ -62,6 +62,11 @@
+       "types": "./dist/meter/index.d.ts",
+       "svelte": "./dist/meter/index.js",
+       "default": "./dist/meter/index.js"
 +    },
 +    "./accordion": {
 +      "types": "./dist/accordion/index.d.ts",
@@ -30,24 +30,24 @@ diff --git a/packages/base/THIRD_PARTY_NOTICES.md b/packages/base/THIRD_PARTY_NO
 +
 +Accordion Root, Item, Header, Trigger, Panel, value and DOM-order registration behavior, and assertion/type ports derive from packages/react/src/accordion and the pinned Collapsible/Button/lifecycle helpers at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT attribution and immutable source/assertion hashes are preserved in parity/accordion.
 
- Collapsible Root, Trigger, Panel, bounded measurement/motion lifecycle and assertion/type ports derive from packages/react/src/collapsible, useControlled, useTransitionStatus and useAnimationsFinished at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT attribution and immutable source/assertion hashes are preserved in parity/collapsible.
+ Meter parts, numeric range normalization, formatter/locale cache, label/ID registration, hidden CSS and assertion/conformance ports derive from packages/react/src/meter and its rendering/ref, label registration and packages/utils dependency closure at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT attribution and immutable source/assertion hashes are preserved in parity/meter.
 
 diff --git a/README.md b/README.md
 --- a/README.md
 +++ b/README.md
-@@ -21,3 +21,5 @@
- [Progress](docs/progress.md) adds Root, Label, Track, Indicator and Value against the immutable v1.8.0 pin. Its [dedicated declaration and conformance evidence](parity/progress/README.md) remains separately accounted; final-head acceptance is recorded in PR #28.
-
+@@ -23,3 +23,5 @@
  [Collapsible](docs/collapsible.md) adds Root, Trigger and Panel with a bounded measurement and CSS motion lifecycle. Its [dedicated evidence](parity/collapsible/README.md) separates the portable ordinary scope from six deferred React.Activity cases and final-head acceptance in PR #29.
+
+ [Meter](docs/meter.md) adds Root, Label, Track, Indicator and Value from the immutable v1.8.0 pin. Its [dedicated declaration and conformance evidence](parity/meter/README.md) remains separate; final-head acceptance is recorded in PR #32.
 +
 +[Accordion](docs/accordion.md) adds Root, Item, Header, Trigger and Panel with array values and cancellable Item-before-Root callbacks. Its [dedicated evidence](parity/accordion/README.md) separates 38 portable ordinary declarations / 42 variants from deferred React.Activity, parameterized, conformance, type and final-head acceptance gates.
 diff --git a/parity/README.md b/parity/README.md
 --- a/parity/README.md
 +++ b/parity/README.md
-@@ -30,3 +30,5 @@
- [Progress](progress/README.md) separately records 20 ordinary declarations passing at its secured component checkpoint, three parameterized sites expanding to seven variants, and full five-part conformance evidence. Track has zero ordinary declarations. These sites and any credits remain outside the shared 635-entry aggregate until parent reconciliation; paired executions, helpers and supplements add no ordinary declaration credit. See PR #28 and its exact-head verification for current acceptance.
-
+@@ -32,3 +32,5 @@
  [Collapsible](collapsible/README.md) adds a separate source inventory of 47 ordinary declaration sites / 49 variants. Its portable scope is 41 sites / 43 variants; six React.Activity Panel cases remain deferred. The three conformance calls, ten type assertions and supplemental/package checks are separate, uncredited evidence. Its dedicated ledger records 41 passing sites / 43 variants at secured source checkpoint `2ef2532f7fb6bcf51ec2f379c662f11175b94357`; six Activity sites remain deferred. This feature ledger is not added to the existing shared ordinary totals, and final-head acceptance remains separate.
+
+ [Meter](meter/README.md) separately records 22 ordinary declarations, four parameterized variants and full five-part conformance passing at secured checkpoint `9605c77ec6a8fb1f2ae1e29a32daa15824300556`. Track has zero ordinary declarations. Final-head gates remain separate in [PR #32](https://github.com/sveltery/base/pull/32). These sites and credits remain outside the shared 635-entry aggregate until parent reconciliation; paired executions, helpers and supplements add no ordinary declaration credit.
 +
 +[Accordion](accordion/README.md) inventories 39 ordinary sites / 43 variants; portable 38 / 42, with Panel:201 React.Activity deferred. The disabled parameterized declaration 1 / 2 variants, five conformance calls, seven generic type assertions and one expected type error remain separate. The feature ledger starts with candidate mappings and earns no passing credit before paired secured execution. Shared ordinary manifest totals remain unchanged.
 diff --git a/parity/catalog.json b/parity/catalog.json
@@ -69,15 +69,15 @@ diff --git a/parity/catalog.json b/parity/catalog.json
 diff --git a/docs/catalog.md b/docs/catalog.md
 --- a/docs/catalog.md
 +++ b/docs/catalog.md
-@@ -12,10 +12,13 @@
- | [Input](input.md) | Standalone native input and controlled edit callbacks with native Svelte defaults/reset; Field/Form context and the accepted stopped imperative reset-reassociation combination are deferred. |
+@@ -13,10 +13,13 @@
  | [Progress](progress.md) | Root, Label, Track, Indicator and Value with range normalization, formatting and status; ordinary, parameterized and conformance evidence remain separately counted. |
  | [Collapsible](collapsible.md) | Root/Trigger/Panel with bounded measurement and CSS motion lifecycle; six external React.Activity cases and shared conformance remain deferred. |
+ | [Meter](meter.md) | Root, Label, Track, Indicator and Value with numeric range normalization, formatting and empty state; declaration, parameterized and conformance evidence remain separately counted. |
 +| [Accordion](accordion.md) | Root/Item/Header/Trigger/Panel, array values and bounded motion; external React.Activity and complete conformance remain deferred. |
  | merge-props | Bounded native prop/event merge foundation; see [contracts](upstream-contracts.md). |
 
--These nine modules are bounded and the remaining 33 are unimplemented. No module is labeled fully compatible. Field and Form have no placeholders or exports. The catalog denominator includes modules such as direction-provider and use-render; it is not a component count or a passing-test denominator. All unimplemented names remain visible in the machine-readable ledger.
-+These ten modules are bounded and the remaining 32 are unimplemented. No module is labeled fully compatible. Field and Form have no placeholders or exports. The catalog denominator includes modules such as direction-provider and use-render; it is not a component count or a passing-test denominator. All unimplemented names remain visible in the machine-readable ledger.
+-These ten modules are bounded and the remaining 32 are unimplemented. No module is labeled fully compatible. Field and Form have no placeholders or exports. The catalog denominator includes modules such as direction-provider and use-render; it is not a component count or a passing-test denominator. All unimplemented names remain visible in the machine-readable ledger.
++These eleven modules are bounded and the remaining 31 are unimplemented. No module is labeled fully compatible. Field and Form have no placeholders or exports. The catalog denominator includes modules such as direction-provider and use-render; it is not a component count or a passing-test denominator. All unimplemented names remain visible in the machine-readable ledger.
 
  The [ordinary assertion inventory](../parity/README.md) is separately scoped. Shared conformance helpers, paired framework executions and local supplements do not inflate its declaration credit. The dedicated Toggle ledger records five standalone declarations separately from the shared ordinary inventory; its two ToggleGroup-dependent declarations remain deferred and uncredited. Full Input/Field/Form integration and remaining controls require their own bounded characterization and review.
 
@@ -91,8 +91,8 @@ diff --git a/apps/fixtures/src/lib/docs/content.ts b/apps/fixtures/src/lib/docs/
          id: 'status',
          title: 'A foundation in progress',
          paragraphs: [
--          'Dialog, Button, Toast, standalone Input, Separator and Toggle, Progress and Collapsible have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
-+          'Dialog, Button, Toast, standalone Input, Separator and Toggle, Progress, Collapsible and Accordion have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
+-          'Dialog, Button, Toast, standalone Input, Separator and Toggle, Progress, Collapsible and Meter have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
++          'Dialog, Button, Toast, standalone Input, Separator and Toggle, Progress, Collapsible, Meter and Accordion have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
            'The package is private and unpublished. APIs may change. Use this workspace to evaluate the current slice; check the repository contracts before depending on a behavior.',
          ],
          links: [
@@ -163,31 +163,31 @@ diff --git a/scripts/tests/docs.test.mjs b/scripts/tests/docs.test.mjs
 diff --git a/scripts/check-package.sh b/scripts/check-package.sh
 --- a/scripts/check-package.sh
 +++ b/scripts/check-package.sh
-@@ -173,3 +173,6 @@
-
- # Isolated public Collapsible root/subpath, SSR and component type consumer.
+@@ -175,3 +175,6 @@
  bash "$sveltery_repo_root/scripts/check-collapsible-package.sh" --public
+
+ bash "$sveltery_repo_root/scripts/check-meter-package.sh" --public
 +
 +# Genuine installed public Accordion root/subpath SSR and type consumer.
 +bash "$sveltery_repo_root/scripts/check-accordion-package.sh" --public
 diff --git a/docs/upstream-differences.md b/docs/upstream-differences.md
 --- a/docs/upstream-differences.md
 +++ b/docs/upstream-differences.md
-@@ -140,3 +140,9 @@
- The existing Button helper remains unchanged and contributes inherited D-03 disabled chorded-mousedown focus behavior, with no new parity credit or specific deviation approval. Paired secured exact-pin Chromium at `828f8b996ec8933756e080830f91a53b7af314d2` reproduced value-only alignment restoration losing authored !important priority ([#30](https://github.com/sveltery/base/issues/30)) and beforematch retaining the original rendered-host listener ([#31](https://github.com/sveltery/base/issues/31)). Both shared quirks are preserved. The pin also retains idle after an unanimated close ([#33](https://github.com/sveltery/base/issues/33)); an independent actual React/Svelte witness agrees, and fresh supplemental browser acceptance is required. The pin also retains Root/Trigger ending status after a custom panel host disappears on close ([#34](https://github.com/sveltery/base/issues/34)); an independent actual React/Svelte reproduction agrees, with supplemental secured evidence separately required. Any correction remains deferred to a separate intentional-difference decision. Six external React.Activity cases are unimplemented because state-preserving effect teardown has no bounded CSS-hide/remount equivalent. They earn no credit. No actions or onOpenChangeComplete API is invented.
+@@ -146,3 +146,9 @@
+ Source: pinned [Meter parts](https://github.com/mui/base-ui/tree/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/meter) and [useRegisteredLabelId](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/useRegisteredLabelId.ts). Native class, string CSS, snippets, bindings/attachments and events follow the accepted framework substitutions in T-01; initially undefined refs follow A-01. Typed context exposes derived values, Svelte-stable IDs preserve relationships, and post-mount label registration retains SSR omission followed by hydration association. Public named part Props/State retain required numeric value and pinned empty-interface assignability. All five parts share a private frozen empty singleton, matching the pinned rendering closure within Meter. Replacement snippets explicitly preserve Root's hidden presentation x and Value's output.
 
- Rationale: preserve the bounded pinned Collapsible contract using native Svelte lifecycle ownership. Evidence: [component documentation](collapsible.md), [immutable declaration trace and ports](../parity/collapsible/README.md), local DOM/SSR and separate component type/package consumers; secured paired Chromium passed at the source checkpoint recorded there; strengthened final-head gates remain required. Implementation is tracked in [PR #29](https://github.com/sveltery/base/pull/29); landing status follows that PR. The five accepted API substitutions and inherited A-01 initially undefined refs apply; no further behavioral correction approval or complete parity is claimed. This entry does not establish merge eligibility or inflate the shared inventory totals.
+ Rationale: implement the actual pin with a private Meter dependency closure, including NaN/clamping and atypical bound arithmetic. No local behavioral correction or shared helper extraction is included. The [compatibility register](../parity/meter/compatibility.md), [feature docs](meter.md) and [assertion record](../parity/meter/README.md) distinguish 22 ordinary candidates, four separate parameterized variants, full conformance and supplemental evidence. Shared aggregate credits remain unchanged. Decision status: proposed in [PR #32](https://github.com/sveltery/base/pull/32), within the accepted framework baseline; no additional behavioral deviation decision, complete assistive-technology parity or final merge eligibility is claimed. Fresh integrated-head tests, secured paired browsers and public consumers remain required. The user explicitly waived the quota-blocked final review for this waiting PR on 2026-10-02 17:16:30 UTC ("Skip review and just merge. Ci is enough"); the [scoped record](../parity/meter/review-waiver.json) accepts no additional product behavior difference. Exact post-merge CI remains required.
 +
 +## AC-01: proposed bounded Accordion framework interface
 +
 +Source: pinned [Accordion parts](https://github.com/mui/base-ui/tree/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/accordion), inherited Collapsible/Button/lifecycle helpers at immutable Base UI v1.8.0 `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. The accepted five framework substitutions and A-01 initially undefined refs apply; named generic props/state/value and part/event types represent React namespace aliases. Root defaults retain upstream any. Item-before-Root callbacks, cancellation, array identity, OR-disabled inheritance, DOM-order registration and deprecated keyboard no-ops remain source behavior. Observable timing/ownership adaptations are bounded; no further behavioral correction is approved.
 +
-+Inherited Button D-03 earns no new credit. Shared Collapsible issues #30/#31/#33 remain preserved source mechanisms; #34 concerns the private lifecycle here because Accordion Root/Item/Header/Trigger state has no transitionStatus. Existing Collapsible runs do not establish Accordion execution. Panel:201 React.Activity remains deferred and uncredited. Evidence and exact applicability are in [compatibility](../parity/accordion/compatibility.md), [component docs](accordion.md) and [verification](../parity/accordion/verification.md). Proposed PR: feature branch, number pending; landing and final-head acceptance are pending. This entry earns no ordinary credit or complete parity claim.
++Inherited Button D-03 earns no new credit. Shared Collapsible issues #30/#31/#33 remain preserved source mechanisms; #34 concerns the private lifecycle here because Accordion Root/Item/Header/Trigger state has no transitionStatus. Existing Collapsible runs do not establish Accordion execution. Panel:201 React.Activity remains deferred and uncredited. Evidence and exact applicability are in [compatibility](../parity/accordion/compatibility.md), [component docs](accordion.md) and [verification](../parity/accordion/verification.md). Proposed implementation: [draft PR #35](https://github.com/sveltery/base/pull/35); landing and final-head acceptance are pending. This entry earns no ordinary credit or complete parity claim.
 diff --git a/.github/workflows/ci.yml b/.github/workflows/ci.yml
 --- a/.github/workflows/ci.yml
 +++ b/.github/workflows/ci.yml
-@@ -153,3 +153,38 @@
-           path: test-results/collapsible-*/
+@@ -188,3 +188,38 @@
+           path: test-results/meter-*/
            if-no-files-found: warn
            retention-days: 14
 +
@@ -228,7 +228,16 @@ diff --git a/.github/workflows/ci.yml b/.github/workflows/ci.yml
 diff --git a/docs/ci.md b/docs/ci.md
 --- a/docs/ci.md
 +++ b/docs/ci.md
-@@ -22,3 +22,5 @@
+@@ -4,7 +4,7 @@
+
+ `Standards` installs both the workspace and the isolated standards toolchain with frozen lockfiles, then runs ESLint, scoped Prettier and commit whitespace checks. `Verification` installs the workspace with its frozen lockfile and runs script regressions, the library build, TypeScript/Svelte diagnostics, runtime tests, the fixture SSR/client build, packaged runtime boundary checks, and the isolated tarball consumer/license check. It uses the existing verification commands and does not publish a package.
+
+-Standards and Verification use Ubuntu 24.04; Dialog browser, Collapsible browser and Meter browser use Ubuntu 22.04 (an officially supported Playwright/GitHub runner image). Jobs use Node 24.x and pnpm 12.6.0. GitHub Actions are pinned to full commit SHAs; version comments identify the reviewed releases. Update pins in a reviewed PR. All jobs have `contents: read` permissions and cancellation of older runs for the same PR/ref. Standards, Verification and focused browser jobs have a 15-minute timeout; the combined Dialog browser job has 20 minutes for the expanded suite plus artifact collection and cleanup. Checkout does not persist credentials. There are no secrets, deployments, writable tokens or `pull_request_target` code execution.
++Standards and Verification use Ubuntu 24.04; Dialog browser, Collapsible browser, Meter browser and Accordion browser use Ubuntu 22.04 (an officially supported Playwright/GitHub runner image). Jobs use Node 24.x and pnpm 12.6.0. GitHub Actions are pinned to full commit SHAs; version comments identify the reviewed releases. Update pins in a reviewed PR. All jobs have `contents: read` permissions and cancellation of older runs for the same PR/ref. Standards, Verification and focused browser jobs have a 15-minute timeout; the combined Dialog browser job has 20 minutes for the expanded suite plus artifact collection and cleanup. Checkout does not persist credentials. There are no secrets, deployments, writable tokens or `pull_request_target` code execution.
+
+ `Dialog browser` installs official Chromium plus OS dependencies and runs real React/Svelte fixtures. Read that job's log in the [exact-head CI run](https://github.com/sveltery/base/actions/workflows/ci.yml) for the current execution count and result; each browser assertion suite is under `tests/browser`. Executions include paired reference fixtures, complete source ports, and supplemental regressions, so execution counts differ from upstream parity credit. The Playwright configuration explicitly enables the Chromium sandbox, retries are zero, and no blanket skips hide pending behavior. Local saved-environment startup is blocked. The first Ubuntu 24.04 browser job also failed before interaction with Chromium "No usable sandbox!"; the browser job uses Ubuntu 22.04 without changing sandbox flags or OS security policies. [Run 36844887195](https://github.com/sveltery/base/actions/runs/36844887195) records the original secured-browser acceptance checkpoint. A green `Standards` or `Verification` check alone does not establish browser parity. This change does not add the browser check to branch protection.
+
+@@ -26,3 +26,5 @@
  - Do not add bypass actors, new grants, secrets, deployment settings or signing requirements through this change.
 
  This document proposes settings; it does not assert they are active. The available connector exposes no repository-administration write action. Adding browser checks to protection needs a new explicit proposal after the real job has passed.
