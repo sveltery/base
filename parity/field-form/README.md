@@ -1,0 +1,11 @@
+# Field, Form and Fieldset source inventory
+
+Behavior reference: Base UI v1.8.0, immutable commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. Upstream materials retain the [MIT license](UPSTREAM_LICENSE). [The immutable source trace](upstream-inventory.json) records source hashes, direct imports, declaration bodies and exact assertions. Regenerate or check it with `node parity/field-form/inventory.mjs /path/to/upstream [--check]`; the generator reads Git objects at the pin, never mutable working files.
+
+Public anatomy is Field.Root, Label, Description, Error, Control, Validity and Item; Form is a native form component; Fieldset has Root and Legend. Input at this pin delegates to Field.Control. The planned text-input vertical therefore requires per-Field and per-Form state, Fieldset disabled inheritance, Labelable scopes, live control registration, native constraint/custom validation and message ownership, error presence and native submit coordination.
+
+The trace contains **209 ordinary declaration sites**: Field's main tests have 159, its separate React17 tests have four, Form has 36 and Fieldset has ten. Nine conformance helper invocations and three Form type assertions are separate. Template declarations remain source sites; their executions must be recorded separately. This inventory establishes provenance only. No assertion has execution credit from this change, and shared catalog totals remain unchanged.
+
+Downstream Checkbox/CheckboxGroup, Radio/RadioGroup, Switch, NumberField, Select and Slider scenarios cannot be claimed from a text-input vertical. React17 and React Activity/Suspense lifecycle assumptions need their own feasibility classification. They remain unported until supported consumers or an explicit framework scope decision exists; no substitute stub can establish their parity.
+
+Existing Input native Svelte default/reset behavior and accepted controlled restoration timing remain governed by I-02/I-03/I-04 in [the compatibility register](../../docs/upstream-differences.md). In particular, preserve the four unchanged expected-failure reset witnesses. This source-only checkpoint neither widens those decisions to other form behavior nor completes B2.
