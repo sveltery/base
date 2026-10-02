@@ -9,6 +9,44 @@ const read = path => readFileSync(new URL(`../../${path}`, import.meta.url), 'ut
 const sha = value => createHash('sha256').update(value).digest('hex');
 const inventory = JSON.parse(read('parity/input/upstream-inventory.json'));
 const ledger = JSON.parse(read('parity/input/conformance.json'));
+test('Input accepted reset limitation keeps its narrow decision, negative assertions and zero credit visible', () => {
+  const evidence = JSON.parse(read('parity/input/reset-limit/evidence.json'));
+  const decision = JSON.parse(read('parity/input/reset-limit/decision.json'));
+  assert.equal(evidence.kind, 'accepted-unsupported-characterization');
+  assert.equal(decision.status, 'user-approved-narrow-unsupported-boundary');
+  assert.equal(decision.difference_id, 'I-04');
+  assert.equal(decision.source_thread, '01a0f8d2-3e91-7455-b184-d3a30c452008');
+  assert.equal(decision.assistant_message_id, 'Sentinel_64f8098c2d348191823aa010844ef6bf');
+  assert.equal(decision.user_message_id, 'Sentinel_fa42654e8f8c81918a530c2685f8df87');
+  assert.equal(decision.user_message_text, 'Svelte native is ok');
+  assert.equal(decision.user_message_timestamp_utc, '2026-10-02T16:40:55Z');
+  assert.equal(decision.runtime_changed, false);
+  assert.equal(evidence.runtime.unchanged, true);
+  assert.deepEqual(evidence.credits, { ordinary_input: 0, field: 0 });
+  for (const [path, hash] of Object.entries(evidence.hashes)) assert.equal(sha(read(path)), hash, path);
+  assert.equal(evidence.focused.total, 36);
+  assert.equal(evidence.focused.passing, 32);
+  assert.equal(evidence.focused.expected_failures, 4);
+  assert.equal(evidence.focused.unexpected_failures, 0);
+  const results = JSON.parse(read(evidence.focused.results));
+  assert.equal(results.length, 36);
+  assert.equal(results.filter(result => result.approvedUnsupported).length, 4);
+  for (const result of results) {
+    assert.equal(result.immediate, result.expectedImmediate);
+    if (result.approvedUnsupported) {
+      assert.equal(result.native, false); assert.equal(result.cancel, false);
+      assert.ok(result.stop === true || result.stop === 'propagation');
+      assert.ok(result.move === 'out' || result.move === 'in');
+      assert.notEqual(result.settled, result.expectedSettled);
+    } else assert.equal(result.settled, result.expectedSettled);
+  }
+  const port = read(evidence.focused.test);
+  assert.match(port, /approvedUnsupported \? it\.fails : it/);
+  assert.match(port, /expect\(input\.value\)\.toBe\(successful \? 'seed' : 'edit'\)/);
+  assert.match(port, /expect\(input\.value\)\.toBe\(successful \? 'seed' : native \? 'edit' : 'owner'\)/);
+  assert.doesNotMatch(port, /(?:it|test|describe)\.(?:skip|only|todo)\s*\(/);
+  assert.match(read('docs/upstream-differences.md'), /## I-04: accepted stopped imperative reset reassociation limit/);
+});
 test('Input source bytes and fifteen separate helper mappings retain zero ordinary declaration credit', () => {
   assert.equal(inventory.upstream.commit, '47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c'); assert.equal(inventory.upstream.license, 'MIT');
   assert.match(read('parity/input/UPSTREAM_LICENSE'), /Copyright \(c\) 2019 Material-UI SAS/);

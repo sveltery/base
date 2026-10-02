@@ -1,0 +1,30 @@
+# Detached-clone reset investigation
+
+Production Input remains unchanged at SHA-256 `98c914f36d45bf549ac09445b9d278e207ef601bb5e4d905deef35f72294f69d`. `InputCandidate.svelte` is a scratch copy with a detached-clone measurement; `candidate.patch` shows the mechanism separately from scratch import paths. No candidate was promoted, no CI assertions were relaxed, and no configured review finding was waived.
+
+The HTML Standard specifies that input cloning copies the native dirty value flag, reset clears it, and changing a value content attribute updates the value only while that flag is false. Value-mode to value-mode type changes retain the flag. The textarea specification has analogous cloning/reset rules. Primary sources:
+
+- https://html.spec.whatwg.org/multipage/input.html#the-input-element (dirty flag/value content attribute, reset algorithm, cloning steps, type transition algorithm).
+- https://html.spec.whatwg.org/multipage/form-elements.html#the-textarea-element (cloning, reset, children-changed rules).
+
+This supports measuring the flag by modifying only a detached clone. It does not make the final flag an oracle for reset history: live value-mode changes can clear it without reset, and caller value assignments can set it after reset.
+
+Executed scratch checks:
+
+- Detached-clone measurement: 38/38. Fourteen value-mode input types plus textarea, normal edits and seed/edit collisions, same-value assignments, and eight unsupported value modes. Live value, default, type, HTML, parent/form association and mutation records remain unchanged.
+- Candidate supported matrix: 818/818. This includes 672 type/reset/stop/cancel/collision native/Input cases with valid owners distinct from seed/edit, 48 accept/rewrite cases, the original 36 independent imperative assertions unchanged, the original 24 scratch assertions unchanged, and 38 measurements. Candidate measurement is gated to ordinary native input prototypes and absent customized-built-in `is`; textarea was measurement-only and remains on the existing fallback.
+- Existing Input suites through the candidate alias: 167/167, including the original 24 timing assertions. No hosted candidate browser acceptance ran.
+- Reviewer boundary suite: 9 executions, 7 pass and 2 fail. Candidate overwrites a completed reset after a same-value assignment, and mistakes a non-value/value type transition after an unrelated reset for an applied reset.
+- Collision boundary suite: 12 executions, 8 pass and 4 fail. Existing Input fails both moving-out cases; candidate fails both completed-reset-then-move cases after a caller same-value assignment. For the colliding seed/edit native pair, reset capture, queued observation, mutation history, final association/value/default and cloned dirty flag are identical while required controlled outcomes differ. The equality assertion passes.
+- Independent reviewer ambiguity suite: 13 executions, 9 pass and 4 fail. Its out/in pairs have identical observable metadata and final dirty flags despite different actual reset histories. This independently reproduces the limitation with caller writes.
+- Actual pinned Base UI React 1.8.0: 36/36. Controlled `value="owner"` plus `defaultValue="seed"` initializes both DOM value and default to `owner`, and settles to `owner` for every direct reassociation/reset/stop/cancel case. Uncontrolled `defaultValue="seed"` keeps `edit` for moving out or cancellation and resets to `seed` for uncanceled moving in or a completed reset followed by reassociation. The native prototype value setter exercises React's actual input tracking path; callback values and native reset phases are recorded in `react-pin-results.json`.
+
+Logs, raw observations, exact copied test sources and hashes are saved alongside this README. All are supplementary native investigations with zero ordinary Input or Field declaration credit.
+
+Restricting flag overrides to changed final association and invalidating non-value type transitions can address particular false positives. It cannot resolve the collision proof: a stopped in-reset move and a completed-reset-then-move followed by caller assignment can present identical permitted observations and still require different restoration. Final flags, DOM/default equality, or timestamps cannot recover that missing boundary. Native API/event-method patching and synchronous caller reset integration were excluded from this experiment.
+
+The candidate should not be promoted under the current full contract. The integrator needs an explicit contract/integration decision; production retains its draft status and open configured P2 finding. Reactive form reassociation remains supported by the existing event-phase-aware observer, and ordinary propagation by its late bubble observation. This scratch proof does not silently narrow the requested native contract.
+
+The executed realistic trigger is a consumer input/change callback calling `form.reset()`, with an `onreset` callback directly changing the input's form association and stopping propagation. Another trigger changes association and writes value after `reset()` returns. The native Svelte baseline keeps the native default only if reset actually applies; otherwise it leaves the edit. The approved hybrid additionally restores a rejected controlled edit to its owner, requiring the unobservable history demonstrated above for these imperative stopped callbacks.
+
+The smallest contract faithful to the actual pinned upstream is: controlled DOM always follows the owner, including reset; uncontrolled DOM retains its native supplied defaults/reset behavior. It avoids inferring reset history but changes the approved controlled native Svelte default/reset adaptation. The alternative smallest native Svelte contract leaves rejected DOM edits alone unless the owner changes its value, which changes the upstream controlled-rejection behavior. Adopting either tradeoff or requiring reactive reassociation for stopped reset handlers needs an explicit product decision; none is adopted here.

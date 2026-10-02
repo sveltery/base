@@ -11,3 +11,8 @@ export { Toggle } from './toggle/index.js';
 export type { ToggleProps, ToggleState, ToggleChangeEventReason, ToggleChangeEventDetails } from './toggle/index.js';
 export { Input } from './input/index.js';
 export type { InputProps, InputState, InputChangeEventReason, InputChangeEventDetails } from './input/index.js';
+
+export { Progress } from './progress/index.js';
+export type { ProgressStatus, ProgressRootProps, ProgressRootState, ProgressLabelProps, ProgressLabelState, ProgressTrackProps, ProgressTrackState, ProgressIndicatorProps, ProgressIndicatorState, ProgressValueProps, ProgressValueState } from './progress/index.js';
+export { Collapsible } from './collapsible/index.js';
+export type { CollapsibleRootProps, CollapsibleRootState, CollapsibleTriggerProps, CollapsibleTriggerState, CollapsiblePanelProps, CollapsiblePanelState, CollapsibleTransitionStatus, CollapsibleRootChangeEventReason, CollapsibleRootChangeEventDetails } from './collapsible/index.js';

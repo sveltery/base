@@ -47,6 +47,16 @@
       "types": "./dist/toggle/index.d.ts",
       "svelte": "./dist/toggle/index.js",
       "default": "./dist/toggle/index.js"
+    },
+    "./progress": {
+      "types": "./dist/progress/index.d.ts",
+      "svelte": "./dist/progress/index.js",
+      "default": "./dist/progress/index.js"
+    },
+    "./collapsible": {
+      "types": "./dist/collapsible/index.d.ts",
+      "svelte": "./dist/collapsible/index.js",
+      "default": "./dist/collapsible/index.js"
     }
   },
   "svelte": "./dist/index.js",
@@ -68,5 +78,8 @@
     "svelte-check": "4.7.6",
     "typescript": "5.9.3",
     "vitest": "5.0.3"
+  },
+  "dependencies": {
+    "esm-env": "1.2.2"
   }
 }

@@ -1,0 +1,47 @@
+{
+  "recorded_at_utc": "2026-10-02T09:53:15.591094+00:00",
+  "head": "ce49b546d6b35adc6b3b38c8673aeac8fdf8b9ab",
+  "runtime_source": "packages/base/src/lib/input/Input.svelte",
+  "runtime_sha256": "98c914f36d45bf549ac09445b9d278e207ef601bb5e4d905deef35f72294f69d",
+  "execution": "pnpm --filter @sveltery/base exec vitest run --config /tmp/input-imperative-reset-proof/vitest.config.mjs",
+  "environment": {
+    "Svelte": "5.57.1",
+    "Kit": "2.70.3",
+    "vitest": "5.0.3",
+    "jsdom": "30.1.1"
+  },
+  "test_cases": 24,
+  "passed": 22,
+  "failed_cases": [
+    {
+      "move": "out",
+      "stop": true,
+      "cancel": false,
+      "native": false,
+      "actual": "edit",
+      "expected": "owner"
+    },
+    {
+      "move": "in",
+      "stop": true,
+      "cancel": false,
+      "native": false,
+      "actual": "owner",
+      "expected": "seed"
+    }
+  ],
+  "credit": {
+    "ordinary_input": 0,
+    "field": 0,
+    "kind": "scratch native Svelte supplement, no upstream declaration credit"
+  },
+  "hashes": {
+    "ImperativeResetFixture.svelte": "0720dd5c680103d1bb2c11364b3a04c35547bcc320aa57594f6d6419b446147d",
+    "imperative-reset.test.ts": "f2c9a859609438d1878034f282bf10497aa91007bdd2dee3e180c81ca54e8bf8",
+    "results.json": "238033bc9f88f980d56dac90e75c44507a45ba7e3a248e5843f9b8fee54af5e6",
+    "runtime-checkpoint.svelte": "98c914f36d45bf549ac09445b9d278e207ef601bb5e4d905deef35f72294f69d",
+    "vitest.config.mjs": "b67295eb310f4d1c0bbcd720278380af10a4bea18fbb479c3d850b8241c01983",
+    "vitest.log": "cd3a5929528c8094f4b6d502eaef1f813fb1f753f20d0d9cd841f549f62a9ea2",
+    "README.md": "59fd9bba0acac702b2d2dfbadad108d80b5441ed858eb52b5c53b28b25097610"
+  }
+}
