@@ -69,6 +69,12 @@ for (const reference of [false, true]) {
     await page.getByRole('button', { name: 'Advance' }).click(); await expect(host).toHaveJSProperty('tagName', 'svg'); expect((await probe(page)).calls).toEqual(['cleanup-attach:DIV', 'legacy-attach:DIV', 'cleanup', 'legacy-null', 'cleanup-attach:svg', 'legacy-attach:svg']);
     await page.getByRole('button', { name: 'Advance' }).click(); await expect(host).toHaveCount(0); expect((await probe(page)).refs[0]).toBeNull(); expect((await probe(page)).calls).toEqual(['cleanup-attach:DIV', 'legacy-attach:DIV', 'cleanup', 'legacy-null', 'cleanup-attach:svg', 'legacy-attach:svg', 'cleanup', 'legacy-null']);
   });
+  test(`supplement ${framework} ref empty-slot and fixed-versus-array memoization`, async ({ page }) => {
+    await setup(page, 'ref-slots', reference); expect((await probe(page)).calls).toEqual(['cleanup-attach:DIV']);
+    await page.getByRole('button', { name: 'Advance' }).click(); expect((await probe(page)).calls).toEqual(['cleanup-attach:DIV', 'cleanup', 'cleanup-attach:DIV']);
+    await page.getByRole('button', { name: 'Advance' }).click(); expect((await probe(page)).calls).toEqual(['cleanup-attach:DIV', 'cleanup', 'cleanup-attach:DIV', 'cleanup', 'cleanup-attach:DIV']);
+    await page.getByRole('button', { name: 'Advance' }).click(); expect((await probe(page)).calls).toEqual(['cleanup-attach:DIV', 'cleanup', 'cleanup-attach:DIV', 'cleanup', 'cleanup-attach:DIV']);
+  });
   test(`supplement ${framework} source state attributes stay live`, async ({ page }) => {
     const host = await setup(page, 'live-state', reference); await expect(host).toHaveAttribute('data-camelcase', ''); await expect(host).toHaveAttribute('data-inheritedname', 'yes');
     for (const key of ['zero', 'blank', 'no']) await expect(host).not.toHaveAttribute(`data-${key}`);

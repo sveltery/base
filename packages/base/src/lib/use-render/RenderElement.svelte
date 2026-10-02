@@ -4,7 +4,7 @@
   import { untrack } from 'svelte';
   import { resolveClassValue } from '../internals/resolveClassValue.js';
   import { EMPTY_STATE, memoRefAttachment, mergeHostProps, refList, resolveSources, stateAttributes } from './props.js';
-  import type { RenderElementProps, UseRenderRefs } from './types.js';
+  import type { RenderElementProps, UseRenderRef } from './types.js';
 
   let { defaultTagName = 'div', enabled = true, state = EMPTY_STATE as State, stateAttributesMapping, props, class: classProp, style: styleProp, render, ref, element = $bindable(), children }: RenderElementProps<State, Host> = $props();
   const attachmentKey = createAttachmentKey();
@@ -22,11 +22,11 @@
     if (className !== undefined) host = mergeHostProps(host, { class: className });
     if (style !== undefined) host = mergeHostProps(host, { style });
     // Refs are a separate channel: mergeProps deliberately does not compose them.
-    const refs = refList(resolved.ref as UseRenderRefs<Host> | undefined, ref);
+    const refs = refList(resolved.ref as UseRenderRef<Host> | null | undefined, ref);
     const { ref: _ref, ...attributes } = host;
     void _ref;
     const defaults = render ? {} : defaultTagName === 'button' ? { type: 'button' } : defaultTagName === 'img' ? { alt: '' } : {};
-    return { props: { ...defaults, ...attributes, [attachmentKey]: referenceAttachment(refs) }, refs };
+    return { props: { ...defaults, ...attributes, [attachmentKey]: referenceAttachment(refs, Array.isArray(ref)) }, refs };
   });
 </script>
 {#if enabled}

@@ -45,12 +45,16 @@ export function resolveSources(sources?: UseRenderPropSources): UseRenderHostPro
   return result;
 }
 
-export function refList<Host extends Element>(...sources: (UseRenderRefs<Host> | null | undefined)[]): UseRenderRef<Host>[] {
-  return sources.flatMap(source => source == null ? [] : Array.isArray(source) ? source.filter((ref): ref is UseRenderRef<Host> => ref != null) : [source as UseRenderRef<Host>]);
+type RefSlot<Host extends Element> = UseRenderRef<Host> | null | undefined;
+export function refList<Host extends Element>(propsRef: RefSlot<Host>, ref: UseRenderRefs<Host> | undefined): RefSlot<Host>[] {
+  // Preserve source positional/length semantics, including empty slots and fixed-vs-array ref shape.
+  // The second slot is owned by the replacement element in React; native snippets own its attachment.
+  return Array.isArray(ref) ? [propsRef, undefined, ...ref] : [propsRef, undefined, ref as RefSlot<Host>, undefined];
 }
 
-export function attachRefs<Host extends Element>(node: Host, refs: UseRenderRef<Host>[]): () => void {
+export function attachRefs<Host extends Element>(node: Host, refs: RefSlot<Host>[]): () => void {
   const cleanups = refs.map(ref => {
+    if (ref == null) return () => {};
     if (typeof ref === 'function') {
       const cleanup = ref(node);
       return () => { if (typeof cleanup === 'function') cleanup(); else ref(null); };
@@ -63,10 +67,11 @@ export function attachRefs<Host extends Element>(node: Host, refs: UseRenderRef<
 
 /** Like useMergedRefsN, preserve callback identity until the individual references change. */
 export function memoRefAttachment<Host extends Element>(publish: (node: Host | null, previous?: Host) => void) {
-  let previous: UseRenderRef<Host>[] | undefined;
+  let previous: RefSlot<Host>[] | undefined;
   let attachment: ((node: Element) => () => void) | undefined;
-  return (refs: UseRenderRef<Host>[]) => {
-    if (!previous || refs.length !== previous.length || refs.some((ref, index) => ref !== previous![index])) {
+  return (refs: RefSlot<Host>[], arrayMode: boolean) => {
+    // The pinned fixed-ref comparison checks four positions; only its array form compares length.
+    if (!previous || (arrayMode && refs.length !== previous.length) || refs.some((ref, index) => ref !== previous![index])) {
       previous = refs;
       attachment = node => untrack(() => {
         const host = node as Host;

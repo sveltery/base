@@ -181,3 +181,10 @@ it('supplement: consumer attachment symbols survive replacement prop merging and
   const { app, host } = render({ replacement: true, options: { props: { [key]: attach } }, owned: { id: 'owned' } });
   expect(attach).toHaveBeenCalledWith(host()); expect(host().id).toBe('owned'); await unmount(app); apps.splice(apps.indexOf(app), 1); expect(cleanup).toHaveBeenCalledTimes(1);
 });
+it('supplement: empty ref slots and fixed-versus-array shape preserve source memoization', () => {
+  const cleanup = vi.fn(), callback = vi.fn(() => cleanup);
+  const { app } = render({ options: { ref: callback } });
+  app.setOptions({ ref: [callback] }); flushSync(); expect(callback).toHaveBeenCalledTimes(2); expect(cleanup).toHaveBeenCalledTimes(1);
+  app.setOptions({ ref: [callback, undefined] }); flushSync(); expect(callback).toHaveBeenCalledTimes(3); expect(cleanup).toHaveBeenCalledTimes(2);
+  app.setOptions({ ref: [callback, undefined] }); flushSync(); expect(callback).toHaveBeenCalledTimes(3); expect(cleanup).toHaveBeenCalledTimes(2);
+});

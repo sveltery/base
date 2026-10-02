@@ -60,6 +60,7 @@ export function createUseRenderCase(scenario: string) {
     if (scenario === 'minimal-class') { options.state = Object.freeze({}); options.class = 'test-class'; }
     if (scenario === 'minimal-style') { options.state = Object.freeze({}); options.style = 'color:red'; }
     if (scenario === 'ref-cleanup') { options.ref = [cleanupRef, legacyRef, refs[0]]; options.defaultTagName = stage === 2 ? 'svg' : 'div'; options.props = { id: 'tested-render', class: stage === 1 ? 'changed' : undefined }; if (stage === 3) options.enabled = false; }
+    if (scenario === 'ref-slots') options.ref = stage === 0 ? cleanupRef : stage === 1 ? [cleanupRef] : [cleanupRef, undefined];
     if (scenario === 'live-state') { options.state = { camelCase: stage === 0, inheritedName: stage === 0 ? 'yes' : 'changed', zero: 0, blank: '', no: false }; }
     if (scenario === 'default-button') options.defaultTagName = 'button';
     if (scenario === 'default-img') options.defaultTagName = 'img';
