@@ -22,7 +22,7 @@
     if (!event.defaultPrevented && event.detail > 1) event.preventDefault();
     if (nativeLabel || !labelable.controlId) return;
     const control = (event.currentTarget as HTMLElement).ownerDocument.getElementById(labelable.controlId);
-    control?.focus({ focusVisible: true } as FocusOptions);
+    control?.focus({ focusVisible: true } as Parameters<HTMLElement['focus']>[0]);
   }
   function attach(node: HTMLElement) {
     $effect(() => {

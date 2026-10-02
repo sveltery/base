@@ -1,5 +1,6 @@
 // Base UI v1.8.0 LabelableProvider adaptation; MIT: THIRD_PARTY_NOTICES.md.
 import { getContext, setContext } from 'svelte';
+import { SvelteMap, SvelteSet } from 'svelte/reactivity';
 export interface LabelableContext {
   readonly controlId: string | null;
   readonly labelId: string | undefined;
@@ -15,7 +16,7 @@ const key = Symbol('base-ui-labelable');
 export function getLabelableContext(): LabelableContext | undefined { return getContext(key); }
 export function createLabelableContext(defaultId: string): LabelableContext {
   const parent = getLabelableContext();
-  const registrations = new Map<symbol, string | null>();
+  const registrations = new SvelteMap<symbol, string | null>();
   let controlId = $state<string | null>(defaultId);
   let labelId = $state<string>();
   let messageIds = $state<string[]>([]);
@@ -40,7 +41,7 @@ export function createLabelableContext(defaultId: string): LabelableContext {
       const external = props['aria-describedby'];
       const ids = typeof external === 'string' && external ? external.split(' ') : [];
       ids.push(...(parent?.messageIds ?? []), ...messageIds);
-      return { ...props, 'aria-describedby': Array.from(new Set(ids)).join(' ') || undefined };
+      return { ...props, 'aria-describedby': Array.from(new SvelteSet(ids)).join(' ') || undefined };
     },
   };
   setContext(key, context);

@@ -11,7 +11,8 @@ export type FormSubmitEventReason = 'none';
 export type FormSubmitEventDetails = BaseUIGenericEventDetails<FormSubmitEventReason>;
 export type FormValues = Record<string, unknown>;
 export type FormProps<Values extends object = FormValues> = Omit<NativeFieldProps<FormState, HTMLFormAttributes>, 'render'> & {
-  render?: Snippet<[HTMLFormAttributes & Record<string | symbol, unknown>, FormState, Snippet | undefined]>;
+  render?: Snippet<[HTMLFormAttributes & { noValidate?: boolean } & Record<string | symbol, unknown>, FormState, Snippet | undefined]>;
+  noValidate?: boolean;
   validationMode?: FormValidationMode;
   errors?: FormErrors;
   onFormSubmit?: (formValues: Values, details: FormSubmitEventDetails) => void;

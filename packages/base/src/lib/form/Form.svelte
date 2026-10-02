@@ -7,7 +7,7 @@
   import { createGenericEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { getFormValues, setFormContext, type FormContext, type RegisteredField } from './context.js';
   import type { FormActions, FormErrors, FormProps, FormState } from './types.js';
-  let { children, render, validationMode = 'onSubmit', errors: externalErrors, onsubmit, onFormSubmit, actionsRef, ref = $bindable(), ...props }: FormProps<Values> = $props();
+  let { children, render, validationMode = 'onSubmit', errors: externalErrors, onsubmit, onFormSubmit, actionsRef, noValidate, novalidate, ref = $bindable(), ...props }: FormProps<Values> = $props();
   const fields = new Map<string, RegisteredField>();
   let errors = $state<FormErrors | undefined>(untrack(() => externalErrors));
   let previousErrors = untrack(() => externalErrors);
@@ -76,8 +76,8 @@
     element = node as HTMLFormElement;
     return () => { if (element === node) element = null; };
   }
-  const internal = {
-    noValidate: true,
+  const internal = $derived({
+    noValidate: noValidate ?? novalidate ?? true,
     onsubmit(event: Parameters<NonNullable<FormProps<Values>['onsubmit']>>[0]) {
       submitCount += 1;
       fields.forEach(field => field.validate());
@@ -89,9 +89,9 @@
         onFormSubmit(getFormValues(context) as Values, createGenericEventDetails('none', event));
       }
     },
-  };
+  });
 </script>
 {#snippet renderForm(nativeProps: Record<string | symbol, unknown>, state: FormState, content: Snippet | undefined)}
-  {@render render!(nativeProps as HTMLFormAttributes & Record<string | symbol, unknown>, state, content)}
+  {@render render!(nativeProps as HTMLFormAttributes & { noValidate?: boolean } & Record<string | symbol, unknown>, state, content)}
 {/snippet}
 <Element tag="form" {internal} props={resolveFieldProps(props, {})} state={{}} render={render ? renderForm : undefined} {children} {attach} bind:ref />
