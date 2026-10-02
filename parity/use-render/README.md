@@ -1,0 +1,9 @@
+# useRender assertion record
+
+Base UI 1.8.0 at `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c` is the immutable behavior reference. The [source trace](upstream-inventory.json) hashes the public/internal tests, seven return-type assertions and private dependency closure. Reproduce it with `node parity/use-render/inventory.mjs /path/to/upstream --check`. Derived materials are MIT, with [UPSTREAM_LICENSE](UPSTREAM_LICENSE).
+
+The public source contributes **14 ordinary sites / 14 variants**. Internal useRenderElement contributes **33 ordinary sites / 36 variants**; its single invalid-lazy-wrapper parameterization expands to four rows. Neither source calls conformance. Seven ReactElement/null return type assertions are a separate divergent/unported set, earning zero unchanged type credit.
+
+The bounded native closure has 14 public and 21 internal candidate assertion ports. The other 12 internal sites / 15 variants cover React lazy/Flight/RSC and diagnostics and remain unimplemented. Local actual Svelte DOM tests exercise the adapted predicates; secured paired browser validation is pending and no completed ordinary credit is claimed yet. Supplements cover gating, reference memoization/cleanup, SVG host swaps, intrinsic defaults, native prevention, prop getter replacement, source state rules, and attachment symbols. Supplemental tests, SSR/hydration and package/type checks add no ordinary declaration credit. These ledgers remain separate from the shared 635-entry aggregate.
+
+See [the compatibility decision](compatibility.md) and [component documentation](../../docs/use-render.md) for the PM-approved additional component/name/return substitution and its explicit acceptance limits. Root/subpath integration and final-head checks follow CSPProvider in the PM merge queue. Passing local tests or merging a PR does not establish blanket parity or acceptance of further differences.

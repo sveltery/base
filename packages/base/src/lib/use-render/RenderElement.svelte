@@ -1,0 +1,37 @@
+<script lang="ts" generics="State extends Record<string, unknown>, Host extends Element = Element">
+  // Private native closure of pinned useRenderElement (MIT); existing Element remains unchanged.
+  import { createAttachmentKey } from 'svelte/attachments';
+  import { untrack } from 'svelte';
+  import { resolveClassValue } from '../internals/resolveClassValue.js';
+  import { EMPTY_STATE, memoRefAttachment, mergeHostProps, refList, resolveSources, stateAttributes } from './props.js';
+  import type { RenderElementProps, UseRenderRefs } from './types.js';
+
+  let { defaultTagName = 'div', enabled = true, state = EMPTY_STATE as State, stateAttributesMapping, props, class: classProp, style: styleProp, render, ref, element = $bindable(), children }: RenderElementProps<State, Host> = $props();
+  const attachmentKey = createAttachmentKey();
+  const referenceAttachment = memoRefAttachment<Host>((node, previous) => untrack(() => {
+    if (node !== null || element === previous) element = node;
+  }));
+  const output = $derived.by(() => {
+    // Do not compute attributes, resolve getters/class/style, or inspect replacement props while disabled.
+    if (!enabled) return { props: {}, refs: [] };
+    const resolved = resolveSources(props);
+    let host = { ...stateAttributes(state, stateAttributesMapping), ...resolved };
+    const className = resolveClassValue(typeof classProp === 'function' ? classProp(state) : classProp);
+    const style = typeof styleProp === 'function' ? styleProp(state) : styleProp;
+    if (className !== undefined) host = mergeHostProps(host, { class: className });
+    if (style !== undefined) host = mergeHostProps(host, { style });
+    // Refs are a separate channel: mergeProps deliberately does not compose them.
+    const refs = refList(resolved.ref as UseRenderRefs<Host> | undefined, ref);
+    const { ref: _ref, ...attributes } = host;
+    void _ref;
+    const defaults = render ? {} : defaultTagName === 'button' ? { type: 'button' } : defaultTagName === 'img' ? { alt: '' } : {};
+    return { props: { ...defaults, ...attributes, [attachmentKey]: referenceAttachment(refs) }, refs };
+  });
+</script>
+{#if enabled}
+  {#if render}
+    {@render render(output.props, state, children)}
+  {:else}
+    <svelte:element this={defaultTagName} {...output.props}>{@render children?.()}</svelte:element>
+  {/if}
+{/if}
