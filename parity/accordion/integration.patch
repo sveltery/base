@@ -29,15 +29,15 @@ diff --git a/packages/base/THIRD_PARTY_NOTICES.md b/packages/base/THIRD_PARTY_NO
  # Third-party notices
 +
 +Accordion Root, Item, Header, Trigger, Panel, value and DOM-order registration behavior, and assertion/type ports derive from packages/react/src/accordion and the pinned Collapsible/Button/lifecycle helpers at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT attribution and immutable source/assertion hashes are preserved in parity/accordion.
- 
+
  Collapsible Root, Trigger, Panel, bounded measurement/motion lifecycle and assertion/type ports derive from packages/react/src/collapsible, useControlled, useTransitionStatus and useAnimationsFinished at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT attribution and immutable source/assertion hashes are preserved in parity/collapsible.
- 
+
 diff --git a/README.md b/README.md
 --- a/README.md
 +++ b/README.md
 @@ -21,3 +21,5 @@
  [Progress](docs/progress.md) adds Root, Label, Track, Indicator and Value against the immutable v1.8.0 pin. Its [dedicated declaration and conformance evidence](parity/progress/README.md) remains separately accounted; final-head acceptance is recorded in PR #28.
- 
+
  [Collapsible](docs/collapsible.md) adds Root, Trigger and Panel with a bounded measurement and CSS motion lifecycle. Its [dedicated evidence](parity/collapsible/README.md) separates the portable ordinary scope from six deferred React.Activity cases and final-head acceptance in PR #29.
 +
 +[Accordion](docs/accordion.md) adds Root, Item, Header, Trigger and Panel with array values and cancellable Item-before-Root callbacks. Its [dedicated evidence](parity/accordion/README.md) separates 38 portable ordinary declarations / 42 variants from deferred React.Activity, parameterized, conformance, type and final-head acceptance gates.
@@ -46,7 +46,7 @@ diff --git a/parity/README.md b/parity/README.md
 +++ b/parity/README.md
 @@ -30,3 +30,5 @@
  [Progress](progress/README.md) separately records 20 ordinary declarations passing at its secured component checkpoint, three parameterized sites expanding to seven variants, and full five-part conformance evidence. Track has zero ordinary declarations. These sites and any credits remain outside the shared 635-entry aggregate until parent reconciliation; paired executions, helpers and supplements add no ordinary declaration credit. See PR #28 and its exact-head verification for current acceptance.
- 
+
  [Collapsible](collapsible/README.md) adds a separate source inventory of 47 ordinary declaration sites / 49 variants. Its portable scope is 41 sites / 43 variants; six React.Activity Panel cases remain deferred. The three conformance calls, ten type assertions and supplemental/package checks are separate, uncredited evidence. Its dedicated ledger records 41 passing sites / 43 variants at secured source checkpoint `2ef2532f7fb6bcf51ec2f379c662f11175b94357`; six Activity sites remain deferred. This feature ledger is not added to the existing shared ordinary totals, and final-head acceptance remains separate.
 +
 +[Accordion](accordion/README.md) inventories 39 ordinary sites / 43 variants; portable 38 / 42, with Panel:201 React.Activity deferred. The disabled parameterized declaration 1 / 2 variants, five conformance calls, seven generic type assertions and one expected type error remain separate. The feature ledger starts with candidate mappings and earns no passing credit before paired secured execution. Shared ordinary manifest totals remain unchanged.
@@ -75,12 +75,12 @@ diff --git a/docs/catalog.md b/docs/catalog.md
  | [Collapsible](collapsible.md) | Root/Trigger/Panel with bounded measurement and CSS motion lifecycle; six external React.Activity cases and shared conformance remain deferred. |
 +| [Accordion](accordion.md) | Root/Item/Header/Trigger/Panel, array values and bounded motion; external React.Activity and complete conformance remain deferred. |
  | merge-props | Bounded native prop/event merge foundation; see [contracts](upstream-contracts.md). |
- 
+
 -These nine modules are bounded and the remaining 33 are unimplemented. No module is labeled fully compatible. Field and Form have no placeholders or exports. The catalog denominator includes modules such as direction-provider and use-render; it is not a component count or a passing-test denominator. All unimplemented names remain visible in the machine-readable ledger.
 +These ten modules are bounded and the remaining 32 are unimplemented. No module is labeled fully compatible. Field and Form have no placeholders or exports. The catalog denominator includes modules such as direction-provider and use-render; it is not a component count or a passing-test denominator. All unimplemented names remain visible in the machine-readable ledger.
- 
+
  The [ordinary assertion inventory](../parity/README.md) is separately scoped. Shared conformance helpers, paired framework executions and local supplements do not inflate its declaration credit. The dedicated Toggle ledger records five standalone declarations separately from the shared ordinary inventory; its two ToggleGroup-dependent declarations remain deferred and uncredited. Full Input/Field/Form integration and remaining controls require their own bounded characterization and review.
- 
+
  The [Collapsible ledger](../parity/collapsible/README.md) separately records 47 ordinary sites / 49 variants, with a portable scope of 41 sites / 43 variants. Six React.Activity cases remain deferred. Local DOM/SSR execution, paired browser executions, conformance helpers, type checks and supplements are distinct from verified ordinary declaration credit.
 +
 +The [Accordion ledger](../parity/accordion/README.md) separately inventories 39 ordinary sites / 43 variants, portable 38 / 42 and one deferred Activity declaration. Parameterized disabled, conformance, types, supplemental execution and final-head acceptance remain separate.
@@ -164,7 +164,7 @@ diff --git a/scripts/check-package.sh b/scripts/check-package.sh
 --- a/scripts/check-package.sh
 +++ b/scripts/check-package.sh
 @@ -173,3 +173,6 @@
- 
+
  # Isolated public Collapsible root/subpath, SSR and component type consumer.
  bash "$sveltery_repo_root/scripts/check-collapsible-package.sh" --public
 +
@@ -175,7 +175,7 @@ diff --git a/docs/upstream-differences.md b/docs/upstream-differences.md
 +++ b/docs/upstream-differences.md
 @@ -140,3 +140,9 @@
  The existing Button helper remains unchanged and contributes inherited D-03 disabled chorded-mousedown focus behavior, with no new parity credit or specific deviation approval. Paired secured exact-pin Chromium at `828f8b996ec8933756e080830f91a53b7af314d2` reproduced value-only alignment restoration losing authored !important priority ([#30](https://github.com/sveltery/base/issues/30)) and beforematch retaining the original rendered-host listener ([#31](https://github.com/sveltery/base/issues/31)). Both shared quirks are preserved. The pin also retains idle after an unanimated close ([#33](https://github.com/sveltery/base/issues/33)); an independent actual React/Svelte witness agrees, and fresh supplemental browser acceptance is required. The pin also retains Root/Trigger ending status after a custom panel host disappears on close ([#34](https://github.com/sveltery/base/issues/34)); an independent actual React/Svelte reproduction agrees, with supplemental secured evidence separately required. Any correction remains deferred to a separate intentional-difference decision. Six external React.Activity cases are unimplemented because state-preserving effect teardown has no bounded CSS-hide/remount equivalent. They earn no credit. No actions or onOpenChangeComplete API is invented.
- 
+
  Rationale: preserve the bounded pinned Collapsible contract using native Svelte lifecycle ownership. Evidence: [component documentation](collapsible.md), [immutable declaration trace and ports](../parity/collapsible/README.md), local DOM/SSR and separate component type/package consumers; secured paired Chromium passed at the source checkpoint recorded there; strengthened final-head gates remain required. Implementation is tracked in [PR #29](https://github.com/sveltery/base/pull/29); landing status follows that PR. The five accepted API substitutions and inherited A-01 initially undefined refs apply; no further behavioral correction approval or complete parity is claimed. This entry does not establish merge eligibility or inflate the shared inventory totals.
 +
 +## AC-01: proposed bounded Accordion framework interface
@@ -230,7 +230,7 @@ diff --git a/docs/ci.md b/docs/ci.md
 +++ b/docs/ci.md
 @@ -22,3 +22,5 @@
  - Do not add bypass actors, new grants, secrets, deployment settings or signing requirements through this change.
- 
+
  This document proposes settings; it does not assert they are active. The available connector exposes no repository-administration write action. Adding browser checks to protection needs a new explicit proposal after the real job has passed.
 +
 +`Accordion browser` runs the focused paired Accordion file with the same secured Chromium configuration and exact-head setup as Collapsible. The combined browser job continues to run the full suite. The isolated public package gate is included in Verification through check-package.sh; API consistency is registered in script regressions. Execution success does not create ordinary parity credit.
