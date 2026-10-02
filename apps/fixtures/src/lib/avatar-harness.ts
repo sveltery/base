@@ -1,6 +1,7 @@
 // Fixture adapters for Base UI 47b40521; MIT: parity/avatar/UPSTREAM_LICENSE.
 export const avatarDataUri = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
 export const avatarMockSource = '/avatar-assets/mock-a.png';
+export const avatarFallbackMockSource = '/avatar-assets/mock-fallback.png';
 export const avatarNextMockSource = '/avatar-assets/mock-b.png';
 export const avatarRealSource = 'https://avatar.test/avatar-a.png';
 export const avatarNextRealSource = 'https://avatar.test/avatar-b.png';
@@ -15,7 +16,14 @@ export type AvatarHarness = {
   animationReads: number;
   firstPaint?: { fallback: boolean; image: boolean; starting: boolean; hidden: string | null };
 };
-declare global { interface Window { avatarHarness: AvatarHarness; avatarHydrate?: () => ReturnType<typeof avatarSnapshot> } }
+export type AvatarDomSnapshot = ReturnType<typeof avatarSnapshot>;
+declare global { interface Window { avatarHarness: AvatarHarness; avatarHydrate?: () => ReturnType<typeof avatarSnapshot>; avatarCommit?: (action?: string) => ReturnType<typeof avatarSnapshot>; avatarMountSnapshot?: ReturnType<typeof avatarSnapshot> } }
+// I:797 expects the initial source to be decoded on its first commit. Each Playwright
+// context has a fresh cache, so prime it before mounting either framework's fixture.
+export async function primeAvatarCache(scenario: string) {
+  if (scenario !== 'real-keep-cached') return;
+  const image = new Image(); image.src = avatarDataUri; await image.decode();
+}
 export function installAvatarHarness(scenario: string) {
   const originalImage = window.Image;
   const animationFlags = globalThis as typeof globalThis & { BASE_UI_ANIMATIONS_DISABLED?: boolean };
@@ -66,14 +74,44 @@ export function avatarConfig(scenario: string) {
   const keepMounted = scenario.startsWith('keep') || scenario.startsWith('real-keep') || scenario === 'no-source-keep' || scenario === 'dropped-ref';
   return {
     keepMounted,
-    src: ['animation-enter', 'empty', 'delay', 'delay-zero', 'delay-undefined', 'fallback-error', 'no-source-keep'].includes(scenario) ? undefined : scenario === 'srcset' || scenario === 'keep-callback-source' || scenario === 'keep-render-source' ? undefined : real ? scenario === 'real-keep-cached' || scenario === 'real-keep-replacement' || scenario === 'dropped-ref' ? avatarDataUri : avatarRealSource : avatarMockSource,
-    srcSet: scenario.endsWith('responsive') && real ? `${avatarRealSource} 1x, ${avatarNextRealSource} 2x` : ['native', 'probe-responsive', 'srcset', 'keep-order'].includes(scenario) ? `${avatarMockSource} 1x, /avatar-assets/mock-2x.png 2x` : undefined,
+    src: ['animation-enter', 'empty', 'delay', 'delay-idle', 'delay-error', 'delay-zero', 'delay-undefined', 'fallback-error', 'no-source-keep'].includes(scenario) ? undefined : scenario === 'srcset' || scenario === 'keep-callback-source' || scenario === 'keep-render-source' ? undefined : scenario === 'probe-responsive' ? avatarFallbackMockSource : real ? scenario === 'real-keep-cached' || scenario === 'real-keep-replacement' || scenario === 'dropped-ref' ? avatarDataUri : avatarRealSource : avatarMockSource,
+    srcSet: scenario === 'srcset' ? `${avatarMockSource} 1x` : scenario.endsWith('responsive') && real ? `${avatarRealSource} 1x, ${avatarNextRealSource} 2x` : ['native', 'probe-responsive', 'srcset', 'keep-order'].includes(scenario) ? `${avatarMockSource} 1x, /avatar-assets/mock-2x.png 2x` : undefined,
     sizes: scenario.endsWith('responsive') || ['native', 'probe-responsive', 'srcset', 'keep-order'].includes(scenario) ? '48px' : undefined,
-    delay: scenario === 'delay' ? 1000 : scenario === 'delay-zero' ? 0 : undefined,
+    // F:105's pinned mocked hook stays idle: its fixture omits the invisible
+    // Image. Other delay cases keep a sourceless Image and therefore Root error.
+    delay: ['delay', 'delay-idle', 'delay-error'].includes(scenario) ? 100 : scenario === 'delay-zero' ? 0 : undefined,
     real,
   };
 }
 export function avatarSnapshot(node: ParentNode) {
   const image = node.querySelector('[data-testid="image"]');
-  return { fallback: !!node.querySelector('[data-testid="fallback"]'), image: !!image, starting: !!image?.hasAttribute('data-starting-style'), hidden: image?.getAttribute('aria-hidden') ?? null, src: image?.getAttribute('src') ?? null, accessibleImage: !!image && image.getAttribute('aria-hidden') !== 'true' };
+  const fallback = node.querySelector('[data-testid="fallback"]');
+  const ancestors: { tag: string; hidden: boolean; inert: boolean; ariaHidden: string | null; display: string; visibility: string }[] = [];
+  for (let ancestor = image; ancestor; ancestor = ancestor.parentElement) {
+    const style = window.getComputedStyle(ancestor);
+    ancestors.push({ tag: ancestor.tagName, hidden: ancestor.hasAttribute('hidden'), inert: ancestor.hasAttribute('inert'), ariaHidden: ancestor.getAttribute('aria-hidden'), display: style.display, visibility: style.visibility });
+  }
+  const imageAncestorHidden = ancestors.some(ancestor => ancestor.hidden || ancestor.inert || ancestor.ariaHidden === 'true' || ancestor.display === 'none' || ancestor.visibility === 'hidden' || ancestor.visibility === 'collapse');
+  const rect = image?.getBoundingClientRect();
+  return {
+    fallback: !!fallback, fallbackText: fallback?.textContent ?? null, image: !!image,
+    starting: !!image?.hasAttribute('data-starting-style'), hidden: image?.getAttribute('aria-hidden') ?? null,
+    src: image?.getAttribute('src') ?? null, accessibleImage: !!image && !imageAncestorHidden,
+    imageVisible: !!rect && rect.width > 0 && rect.height > 0 && !imageAncestorHidden,
+    imageAncestorHidden, ancestors, html: node instanceof Element ? node.outerHTML : '',
+    rootClass: node.querySelector('[data-testid="root"]')?.getAttribute('class') ?? null, time: Date.now(),
+  };
+}
+export function registerAvatarCommit(node: HTMLElement, commit: (action: () => void) => void) {
+  window.avatarMountSnapshot = avatarSnapshot(node);
+  window.avatarCommit = action => {
+    commit(() => {
+      if (!action) return;
+      const button = [...node.querySelectorAll('button')].find(candidate => candidate.textContent === action);
+      if (!button) throw new Error(`Missing Avatar fixture action: ${action}`);
+      button.click();
+    });
+    return avatarSnapshot(node);
+  };
+  return () => { delete window.avatarCommit; delete window.avatarMountSnapshot; };
 }
