@@ -4,6 +4,7 @@ import { afterEach, expect, it, vi } from 'vitest';
 import { mount, tick, unmount } from 'svelte';
 import { Accordion } from '../../src/lib/accordion/index.js';
 import Fixture from './accordion/Fixture.svelte';
+import NestedSharedHost from './accordion/NestedSharedHost.svelte';
 const mounted: ReturnType<typeof mount>[] = [];
 async function setup(scenario = 'default') {
   const target = document.createElement('section'); document.body.append(target);
@@ -123,4 +124,11 @@ it('supplement: missing animation API completes closing and Item opening never r
   const { trigger, component } = await setup(); trigger.click(); await settle(); expect(get('panel1')).not.toBe(null);
   expect(component.snapshot().states.some(state => state.open && state.hidden)).toBe(false);
   trigger.click(); await settle(); expect(get('panel1')).toBe(null);
+});
+it('supplement: nested replacement Items sharing a host independently receive index zero', async () => {
+  const target = document.createElement('section'); document.body.append(target);
+  const component = mount(NestedSharedHost, { target }); mounted.push(component); await tick(); await tick();
+  expect(component.indexes()).toEqual({ outer: 0, inner: 0 });
+  expect(get('shared-host')!.getAttribute('data-index')).toBe('0');
+  expect(get('sibling')!.getAttribute('data-index')).toBe('1');
 });

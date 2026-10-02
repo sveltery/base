@@ -1190,16 +1190,19 @@
       ],
       "kind": "ordinary",
       "status": "candidate",
-      "port": "packages/base/tests/dom/accordion.test.ts",
-      "pairedExecutionPrefix": null,
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "I:9",
       "fixtures": [
-        "packages/base/tests/dom/accordion/Fixture.svelte"
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts"
       ],
       "localPorts": [
-        "packages/base/tests/dom/accordion.test.ts"
+        "packages/base/tests/dom/accordion.test.ts",
+        "scripts/tests/accordion-reference-context.test.mjs"
       ],
       "executions": [
-        "I:9 throws when rendered outside an Accordion.Root"
+        "I:9 Svelte throws outside Accordion.Root",
+        "I:9 React reference throws outside Accordion.Root"
       ],
       "evidence": null,
       "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
@@ -1249,16 +1252,19 @@
       ],
       "kind": "ordinary",
       "status": "candidate",
-      "port": "packages/base/tests/dom/accordion.test.ts",
-      "pairedExecutionPrefix": null,
+      "port": "tests/browser/accordion.spec.ts",
+      "pairedExecutionPrefix": "H:8",
       "fixtures": [
-        "packages/base/tests/dom/accordion/Fixture.svelte"
+        "apps/fixtures/src/lib/AccordionFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts"
       ],
       "localPorts": [
-        "packages/base/tests/dom/accordion.test.ts"
+        "packages/base/tests/dom/accordion.test.ts",
+        "scripts/tests/accordion-reference-context.test.mjs"
       ],
       "executions": [
-        "H:8 throws when rendered outside an Accordion.Item"
+        "H:8 Svelte throws outside Accordion.Item",
+        "H:8 React reference throws outside Accordion.Item"
       ],
       "evidence": null,
       "verification": "Immutable assertion provenance retained. Candidate port; paired secured browser execution and final-head review are pending. Local suite execution is supplemental evidence, not paired parity credit."
@@ -1551,7 +1557,46 @@
       "sourceDeclarationSha256": "61ac3b569d6809eaef2d1d0e12134e66a62e4253a2142289e69cabc6edf0e29a",
       "status": "candidate",
       "port": "tests/browser/accordion.spec.ts",
-      "evidence": null
+      "evidence": null,
+      "executions": [
+        "conformance Svelte Root default",
+        "conformance Svelte Root function",
+        "conformance Svelte Root element",
+        "conformance Svelte Root style",
+        "conformance Svelte Root function-style",
+        "conformance Svelte Root element-style",
+        "conformance Svelte Root class",
+        "conformance Svelte Root wrapper-function",
+        "conformance Svelte Root wrapper-element",
+        "conformance Svelte Root wrapper-empty",
+        "conformance Svelte Root ref-function",
+        "conformance Svelte Root refs-element",
+        "conformance Svelte Root merged-class",
+        "conformance Svelte Root resolved-class",
+        "conformance React reference Root default",
+        "conformance React reference Root function",
+        "conformance React reference Root element",
+        "conformance React reference Root style",
+        "conformance React reference Root function-style",
+        "conformance React reference Root element-style",
+        "conformance React reference Root class",
+        "conformance React reference Root wrapper-function",
+        "conformance React reference Root wrapper-element",
+        "conformance React reference Root wrapper-empty",
+        "conformance React reference Root ref-function",
+        "conformance React reference Root refs-element",
+        "conformance React reference Root merged-class",
+        "conformance React reference Root resolved-class"
+      ],
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionConformanceFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion-conformance.test.ts",
+        "packages/base/tests/dom/accordion/Conformance.svelte"
+      ],
+      "adaptation": "React element render forms use Svelte snippets; refs use bindings and symbol attachments. Native conformance executed locally; paired secured browser and API adaptation acceptance pending. Zero ordinary credit."
     },
     {
       "source": "packages/react/src/accordion/item/AccordionItem.test.tsx",
@@ -1559,7 +1604,46 @@
       "sourceDeclarationSha256": "bb98255801dc6bb3142186e89e4bf7264f5f47f97e59cc3b295cffb94a5bab9d",
       "status": "candidate",
       "port": "tests/browser/accordion.spec.ts",
-      "evidence": null
+      "evidence": null,
+      "executions": [
+        "conformance Svelte Item default",
+        "conformance Svelte Item function",
+        "conformance Svelte Item element",
+        "conformance Svelte Item style",
+        "conformance Svelte Item function-style",
+        "conformance Svelte Item element-style",
+        "conformance Svelte Item class",
+        "conformance Svelte Item wrapper-function",
+        "conformance Svelte Item wrapper-element",
+        "conformance Svelte Item wrapper-empty",
+        "conformance Svelte Item ref-function",
+        "conformance Svelte Item refs-element",
+        "conformance Svelte Item merged-class",
+        "conformance Svelte Item resolved-class",
+        "conformance React reference Item default",
+        "conformance React reference Item function",
+        "conformance React reference Item element",
+        "conformance React reference Item style",
+        "conformance React reference Item function-style",
+        "conformance React reference Item element-style",
+        "conformance React reference Item class",
+        "conformance React reference Item wrapper-function",
+        "conformance React reference Item wrapper-element",
+        "conformance React reference Item wrapper-empty",
+        "conformance React reference Item ref-function",
+        "conformance React reference Item refs-element",
+        "conformance React reference Item merged-class",
+        "conformance React reference Item resolved-class"
+      ],
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionConformanceFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion-conformance.test.ts",
+        "packages/base/tests/dom/accordion/Conformance.svelte"
+      ],
+      "adaptation": "React element render forms use Svelte snippets; refs use bindings and symbol attachments. Native conformance executed locally; paired secured browser and API adaptation acceptance pending. Zero ordinary credit."
     },
     {
       "source": "packages/react/src/accordion/header/AccordionHeader.test.tsx",
@@ -1567,7 +1651,46 @@
       "sourceDeclarationSha256": "d00196f9f43ae0713a9b93b521a1250375b9752082174ba7e8a33a636b7ab353",
       "status": "candidate",
       "port": "tests/browser/accordion.spec.ts",
-      "evidence": null
+      "evidence": null,
+      "executions": [
+        "conformance Svelte Header default",
+        "conformance Svelte Header function",
+        "conformance Svelte Header element",
+        "conformance Svelte Header style",
+        "conformance Svelte Header function-style",
+        "conformance Svelte Header element-style",
+        "conformance Svelte Header class",
+        "conformance Svelte Header wrapper-function",
+        "conformance Svelte Header wrapper-element",
+        "conformance Svelte Header wrapper-empty",
+        "conformance Svelte Header ref-function",
+        "conformance Svelte Header refs-element",
+        "conformance Svelte Header merged-class",
+        "conformance Svelte Header resolved-class",
+        "conformance React reference Header default",
+        "conformance React reference Header function",
+        "conformance React reference Header element",
+        "conformance React reference Header style",
+        "conformance React reference Header function-style",
+        "conformance React reference Header element-style",
+        "conformance React reference Header class",
+        "conformance React reference Header wrapper-function",
+        "conformance React reference Header wrapper-element",
+        "conformance React reference Header wrapper-empty",
+        "conformance React reference Header ref-function",
+        "conformance React reference Header refs-element",
+        "conformance React reference Header merged-class",
+        "conformance React reference Header resolved-class"
+      ],
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionConformanceFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion-conformance.test.ts",
+        "packages/base/tests/dom/accordion/Conformance.svelte"
+      ],
+      "adaptation": "React element render forms use Svelte snippets; refs use bindings and symbol attachments. Native conformance executed locally; paired secured browser and API adaptation acceptance pending. Zero ordinary credit."
     },
     {
       "source": "packages/react/src/accordion/trigger/AccordionTrigger.test.tsx",
@@ -1575,7 +1698,46 @@
       "sourceDeclarationSha256": "b4b5016aa329b2d558ea0a6476c8bdbb4543b227134d8e07bee44a5f7479ffd5",
       "status": "candidate",
       "port": "tests/browser/accordion.spec.ts",
-      "evidence": null
+      "evidence": null,
+      "executions": [
+        "conformance Svelte Trigger default",
+        "conformance Svelte Trigger function",
+        "conformance Svelte Trigger element",
+        "conformance Svelte Trigger style",
+        "conformance Svelte Trigger function-style",
+        "conformance Svelte Trigger element-style",
+        "conformance Svelte Trigger class",
+        "conformance Svelte Trigger wrapper-function",
+        "conformance Svelte Trigger wrapper-element",
+        "conformance Svelte Trigger wrapper-empty",
+        "conformance Svelte Trigger ref-function",
+        "conformance Svelte Trigger refs-element",
+        "conformance Svelte Trigger merged-class",
+        "conformance Svelte Trigger resolved-class",
+        "conformance React reference Trigger default",
+        "conformance React reference Trigger function",
+        "conformance React reference Trigger element",
+        "conformance React reference Trigger style",
+        "conformance React reference Trigger function-style",
+        "conformance React reference Trigger element-style",
+        "conformance React reference Trigger class",
+        "conformance React reference Trigger wrapper-function",
+        "conformance React reference Trigger wrapper-element",
+        "conformance React reference Trigger wrapper-empty",
+        "conformance React reference Trigger ref-function",
+        "conformance React reference Trigger refs-element",
+        "conformance React reference Trigger merged-class",
+        "conformance React reference Trigger resolved-class"
+      ],
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionConformanceFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion-conformance.test.ts",
+        "packages/base/tests/dom/accordion/Conformance.svelte"
+      ],
+      "adaptation": "React element render forms use Svelte snippets; refs use bindings and symbol attachments. Native conformance executed locally; paired secured browser and API adaptation acceptance pending. Zero ordinary credit."
     },
     {
       "source": "packages/react/src/accordion/panel/AccordionPanel.test.tsx",
@@ -1583,7 +1745,46 @@
       "sourceDeclarationSha256": "da7355251f78f47b411c0cc17ee50b5c5a0730b70a6b0d10044610c9756a224b",
       "status": "candidate",
       "port": "tests/browser/accordion.spec.ts",
-      "evidence": null
+      "evidence": null,
+      "executions": [
+        "conformance Svelte Panel default",
+        "conformance Svelte Panel function",
+        "conformance Svelte Panel element",
+        "conformance Svelte Panel style",
+        "conformance Svelte Panel function-style",
+        "conformance Svelte Panel element-style",
+        "conformance Svelte Panel class",
+        "conformance Svelte Panel wrapper-function",
+        "conformance Svelte Panel wrapper-element",
+        "conformance Svelte Panel wrapper-empty",
+        "conformance Svelte Panel ref-function",
+        "conformance Svelte Panel refs-element",
+        "conformance Svelte Panel merged-class",
+        "conformance Svelte Panel resolved-class",
+        "conformance React reference Panel default",
+        "conformance React reference Panel function",
+        "conformance React reference Panel element",
+        "conformance React reference Panel style",
+        "conformance React reference Panel function-style",
+        "conformance React reference Panel element-style",
+        "conformance React reference Panel class",
+        "conformance React reference Panel wrapper-function",
+        "conformance React reference Panel wrapper-element",
+        "conformance React reference Panel wrapper-empty",
+        "conformance React reference Panel ref-function",
+        "conformance React reference Panel refs-element",
+        "conformance React reference Panel merged-class",
+        "conformance React reference Panel resolved-class"
+      ],
+      "fixtures": [
+        "apps/fixtures/src/lib/AccordionConformanceFixture.svelte",
+        "apps/fixtures/src/lib/accordion-reference.ts"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion-conformance.test.ts",
+        "packages/base/tests/dom/accordion/Conformance.svelte"
+      ],
+      "adaptation": "React element render forms use Svelte snippets; refs use bindings and symbol attachments. Native conformance executed locally; paired secured browser and API adaptation acceptance pending. Zero ordinary credit."
     }
   ],
   "typePorts": [
@@ -1643,6 +1844,496 @@
       "line": 43,
       "port": "packages/base/tests/accordion-types.ts",
       "status": "candidate"
+    }
+  ],
+  "conformanceAssertionPorts": [
+    {
+      "sourceId": "packages/react/test/conformanceTests/propForwarding.tsx:23",
+      "sourceBodySha256": "c27d457e6b6e3166c66d90f8b5a39587563a607cd6977d520faea938266b5248",
+      "assertionLines": [
+        34,
+        35
+      ],
+      "assertionSha256": [
+        "38488fd99cd356f56c143331c334eff01f9f93c7ac4726244bb44e4527eb0e04",
+        "34519c4bed4f1f46a413ba855416454e36a5ddcef44e652bc6476b769448bc36"
+      ],
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "evidence": null,
+      "executionMode": "default",
+      "executionNames": [
+        "conformance Svelte Root default",
+        "conformance Svelte Item default",
+        "conformance Svelte Header default",
+        "conformance Svelte Trigger default",
+        "conformance Svelte Panel default",
+        "conformance React reference Root default",
+        "conformance React reference Item default",
+        "conformance React reference Header default",
+        "conformance React reference Trigger default",
+        "conformance React reference Panel default"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion-conformance.test.ts"
+      ],
+      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs are mapped to conformance; default mode retains both forwarded props and realm instance expectations. Assertions are candidate fidelity mappings pending paired secured execution and independent review."
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/propForwarding.tsx:38",
+      "sourceBodySha256": "ac63627df56b5d723ada085ba9d0b56c2727190f6918767d47fdbd1b50343cf6",
+      "assertionLines": [
+        57,
+        58
+      ],
+      "assertionSha256": [
+        "38488fd99cd356f56c143331c334eff01f9f93c7ac4726244bb44e4527eb0e04",
+        "34519c4bed4f1f46a413ba855416454e36a5ddcef44e652bc6476b769448bc36"
+      ],
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "evidence": null,
+      "executionMode": "function",
+      "executionNames": [
+        "conformance Svelte Root function",
+        "conformance Svelte Item function",
+        "conformance Svelte Header function",
+        "conformance Svelte Trigger function",
+        "conformance Svelte Panel function",
+        "conformance React reference Root function",
+        "conformance React reference Item function",
+        "conformance React reference Header function",
+        "conformance React reference Trigger function",
+        "conformance React reference Panel function"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion-conformance.test.ts"
+      ],
+      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs are mapped to conformance; default mode retains both forwarded props and realm instance expectations. Assertions are candidate fidelity mappings pending paired secured execution and independent review."
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/propForwarding.tsx:61",
+      "sourceBodySha256": "35064256fd2eb73eea126f0a3231d6717e332f9be03bc0dc3e114c7ba8267035",
+      "assertionLines": [
+        78,
+        79
+      ],
+      "assertionSha256": [
+        "38488fd99cd356f56c143331c334eff01f9f93c7ac4726244bb44e4527eb0e04",
+        "34519c4bed4f1f46a413ba855416454e36a5ddcef44e652bc6476b769448bc36"
+      ],
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "evidence": null,
+      "executionMode": "element",
+      "executionNames": [
+        "conformance Svelte Root element",
+        "conformance Svelte Item element",
+        "conformance Svelte Header element",
+        "conformance Svelte Trigger element",
+        "conformance Svelte Panel element",
+        "conformance React reference Root element",
+        "conformance React reference Item element",
+        "conformance React reference Header element",
+        "conformance React reference Trigger element",
+        "conformance React reference Panel element"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion-conformance.test.ts"
+      ],
+      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs are mapped to conformance; default mode retains both forwarded props and realm instance expectations. Assertions are candidate fidelity mappings pending paired secured execution and independent review."
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/propForwarding.tsx:82",
+      "sourceBodySha256": "085a6cfe75f6bc9ef4451d4a8730efd7accfb06c4e898b3458370000293baffc",
+      "assertionLines": [
+        93,
+        94
+      ],
+      "assertionSha256": [
+        "c216a3c51da7d02d469700120dce1947479658f4188b8386104b010211ffb178",
+        "9a0482c9f4d23271a717e052b64a757dcae8dbdea338deb7a7904b3effc506b5"
+      ],
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "evidence": null,
+      "executionMode": "style",
+      "executionNames": [
+        "conformance Svelte Root style",
+        "conformance Svelte Item style",
+        "conformance Svelte Header style",
+        "conformance Svelte Trigger style",
+        "conformance Svelte Panel style",
+        "conformance React reference Root style",
+        "conformance React reference Item style",
+        "conformance React reference Header style",
+        "conformance React reference Trigger style",
+        "conformance React reference Panel style"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion-conformance.test.ts"
+      ],
+      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs are mapped to conformance; default mode retains both forwarded props and realm instance expectations. Assertions are candidate fidelity mappings pending paired secured execution and independent review."
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/propForwarding.tsx:97",
+      "sourceBodySha256": "9301e7779c55992fc206702101c9db9c38a8f8838a3660da7f8e18e738eb8bca",
+      "assertionLines": [
+        110,
+        111
+      ],
+      "assertionSha256": [
+        "c216a3c51da7d02d469700120dce1947479658f4188b8386104b010211ffb178",
+        "9a0482c9f4d23271a717e052b64a757dcae8dbdea338deb7a7904b3effc506b5"
+      ],
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "evidence": null,
+      "executionMode": "function-style",
+      "executionNames": [
+        "conformance Svelte Root function-style",
+        "conformance Svelte Item function-style",
+        "conformance Svelte Header function-style",
+        "conformance Svelte Trigger function-style",
+        "conformance Svelte Panel function-style",
+        "conformance React reference Root function-style",
+        "conformance React reference Item function-style",
+        "conformance React reference Header function-style",
+        "conformance React reference Trigger function-style",
+        "conformance React reference Panel function-style"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion-conformance.test.ts"
+      ],
+      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs are mapped to conformance; default mode retains both forwarded props and realm instance expectations. Assertions are candidate fidelity mappings pending paired secured execution and independent review."
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/propForwarding.tsx:114",
+      "sourceBodySha256": "63bb8e36a9114e19424e965328b78d45a12f07de5230d677a347934e950610ff",
+      "assertionLines": [
+        125,
+        126
+      ],
+      "assertionSha256": [
+        "c216a3c51da7d02d469700120dce1947479658f4188b8386104b010211ffb178",
+        "9a0482c9f4d23271a717e052b64a757dcae8dbdea338deb7a7904b3effc506b5"
+      ],
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "evidence": null,
+      "executionMode": "element-style",
+      "executionNames": [
+        "conformance Svelte Root element-style",
+        "conformance Svelte Item element-style",
+        "conformance Svelte Header element-style",
+        "conformance Svelte Trigger element-style",
+        "conformance Svelte Panel element-style",
+        "conformance React reference Root element-style",
+        "conformance React reference Item element-style",
+        "conformance React reference Header element-style",
+        "conformance React reference Trigger element-style",
+        "conformance React reference Panel element-style"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion-conformance.test.ts"
+      ],
+      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs are mapped to conformance; default mode retains both forwarded props and realm instance expectations. Assertions are candidate fidelity mappings pending paired secured execution and independent review."
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/refForwarding.tsx:32",
+      "sourceBodySha256": "1fd649cb54b6037db814c9fd681dcf4e948b3c886a2716eb149ec687e5bbf0dd",
+      "assertionLines": [
+        36
+      ],
+      "assertionSha256": [
+        "3b12178edce3b656f1d7b506ceff0bcc911ecef45a34bdd5f38f37344c4842b1"
+      ],
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "evidence": null,
+      "executionMode": "default",
+      "executionNames": [
+        "conformance Svelte Root default",
+        "conformance Svelte Item default",
+        "conformance Svelte Header default",
+        "conformance Svelte Trigger default",
+        "conformance Svelte Panel default",
+        "conformance React reference Root default",
+        "conformance React reference Item default",
+        "conformance React reference Header default",
+        "conformance React reference Trigger default",
+        "conformance React reference Panel default"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion-conformance.test.ts"
+      ],
+      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs are mapped to conformance; default mode retains both forwarded props and realm instance expectations. Assertions are candidate fidelity mappings pending paired secured execution and independent review."
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/renderProp.tsx:41",
+      "sourceBodySha256": "f61cfa46dede42e60729b834baa1a8f4c9d8651d0ec030622853179f1b6ba5cf",
+      "assertionLines": [
+        55,
+        57,
+        58
+      ],
+      "assertionSha256": [
+        "cd1de7914ebbb64184509f10bc313595f4248e49eda0667233fcde6fa4b5ab23",
+        "17221c26a06fa4e33e8964ccab2aaa57c1740fd4da2d4ae5d844452c97994165",
+        "f71b26ef096b198b7cc7592c2a1fdc10d7b9f9cc357a98642168176208b5e889"
+      ],
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "evidence": null,
+      "executionMode": "wrapper-function",
+      "executionNames": [
+        "conformance Svelte Root wrapper-function",
+        "conformance Svelte Item wrapper-function",
+        "conformance Svelte Header wrapper-function",
+        "conformance Svelte Trigger wrapper-function",
+        "conformance Svelte Panel wrapper-function",
+        "conformance React reference Root wrapper-function",
+        "conformance React reference Item wrapper-function",
+        "conformance React reference Header wrapper-function",
+        "conformance React reference Trigger wrapper-function",
+        "conformance React reference Panel wrapper-function"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion-conformance.test.ts"
+      ],
+      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs are mapped to conformance; default mode retains both forwarded props and realm instance expectations. Assertions are candidate fidelity mappings pending paired secured execution and independent review."
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/renderProp.tsx:61",
+      "sourceBodySha256": "3ba3a74aebf3558f1c53c65e49f1697cf0af60e393ffaf2650b0148504a8c0a2",
+      "assertionLines": [
+        72,
+        74,
+        75
+      ],
+      "assertionSha256": [
+        "cd1de7914ebbb64184509f10bc313595f4248e49eda0667233fcde6fa4b5ab23",
+        "17221c26a06fa4e33e8964ccab2aaa57c1740fd4da2d4ae5d844452c97994165",
+        "f71b26ef096b198b7cc7592c2a1fdc10d7b9f9cc357a98642168176208b5e889"
+      ],
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "evidence": null,
+      "executionMode": "wrapper-element",
+      "executionNames": [
+        "conformance Svelte Root wrapper-element",
+        "conformance Svelte Item wrapper-element",
+        "conformance Svelte Header wrapper-element",
+        "conformance Svelte Trigger wrapper-element",
+        "conformance Svelte Panel wrapper-element",
+        "conformance React reference Root wrapper-element",
+        "conformance React reference Item wrapper-element",
+        "conformance React reference Header wrapper-element",
+        "conformance React reference Trigger wrapper-element",
+        "conformance React reference Panel wrapper-element"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion-conformance.test.ts"
+      ],
+      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs are mapped to conformance; default mode retains both forwarded props and realm instance expectations. Assertions are candidate fidelity mappings pending paired secured execution and independent review."
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/renderProp.tsx:78",
+      "sourceBodySha256": "35a70e00d038323fcd9faae97a37eaf86186f4cdce20d13b71d97fac64a6255c",
+      "assertionLines": [
+        87,
+        89
+      ],
+      "assertionSha256": [
+        "cd1de7914ebbb64184509f10bc313595f4248e49eda0667233fcde6fa4b5ab23",
+        "17221c26a06fa4e33e8964ccab2aaa57c1740fd4da2d4ae5d844452c97994165"
+      ],
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "evidence": null,
+      "executionMode": "wrapper-empty",
+      "executionNames": [
+        "conformance Svelte Root wrapper-empty",
+        "conformance Svelte Item wrapper-empty",
+        "conformance Svelte Header wrapper-empty",
+        "conformance Svelte Trigger wrapper-empty",
+        "conformance Svelte Panel wrapper-empty",
+        "conformance React reference Root wrapper-empty",
+        "conformance React reference Item wrapper-empty",
+        "conformance React reference Header wrapper-empty",
+        "conformance React reference Trigger wrapper-empty",
+        "conformance React reference Panel wrapper-empty"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion-conformance.test.ts"
+      ],
+      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs are mapped to conformance; default mode retains both forwarded props and realm instance expectations. Assertions are candidate fidelity mappings pending paired secured execution and independent review."
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/renderProp.tsx:93",
+      "sourceBodySha256": "67cd5899bb4170488b495a7c3a33f21d077b8b12a44344ba4b389aa71de8459c",
+      "assertionLines": [
+        111,
+        112
+      ],
+      "assertionSha256": [
+        "e5cca82e543a4c058c1f282a9da297fc8f841fabfc354614862da479321a693f",
+        "5f116c98532ad168df4bd850b7a709ee592834ac3ca16eb754ef304ff63e2e12"
+      ],
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "evidence": null,
+      "executionMode": "ref-function",
+      "executionNames": [
+        "conformance Svelte Root ref-function",
+        "conformance Svelte Item ref-function",
+        "conformance Svelte Header ref-function",
+        "conformance Svelte Trigger ref-function",
+        "conformance Svelte Panel ref-function",
+        "conformance React reference Root ref-function",
+        "conformance React reference Item ref-function",
+        "conformance React reference Header ref-function",
+        "conformance React reference Trigger ref-function",
+        "conformance React reference Panel ref-function"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion-conformance.test.ts"
+      ],
+      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs are mapped to conformance; default mode retains both forwarded props and realm instance expectations. Assertions are candidate fidelity mappings pending paired secured execution and independent review."
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/renderProp.tsx:115",
+      "sourceBodySha256": "9cf5f1e5b708022a76295eaca0bb4553147b48bad690a7379d969c8d1a20d1cd",
+      "assertionLines": [
+        138,
+        139,
+        140,
+        141,
+        142,
+        143
+      ],
+      "assertionSha256": [
+        "24d35d79b6425b63292a4b597a0802701f9ce5094b2d6afe0e1f2ce3d9e51a83",
+        "16e5d63284e0cd2b780961c3a2db6ab5cde19d88d0aca6b69fc9d69165297fb5",
+        "23083a429329e5276ae11fd308bf29f9ef6865a023b90a40ad157001076db357",
+        "d4225ec15f7ba877e3fd17c4ee3486101ba55d262b95ef73d4b2ed035de2be94",
+        "310e523875993de75f05e8092e2830a3f1f3ed61155522487bc2243f62e112e5",
+        "f6d1d47fce639d594c5792bd934f2c4f045698889232617913dadd8a0af0e7ea"
+      ],
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "evidence": null,
+      "executionMode": "refs-element",
+      "executionNames": [
+        "conformance Svelte Root refs-element",
+        "conformance Svelte Item refs-element",
+        "conformance Svelte Header refs-element",
+        "conformance Svelte Trigger refs-element",
+        "conformance Svelte Panel refs-element",
+        "conformance React reference Root refs-element",
+        "conformance React reference Item refs-element",
+        "conformance React reference Header refs-element",
+        "conformance React reference Trigger refs-element",
+        "conformance React reference Panel refs-element"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion-conformance.test.ts"
+      ],
+      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs are mapped to conformance; default mode retains both forwarded props and realm instance expectations. Assertions are candidate fidelity mappings pending paired secured execution and independent review."
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/renderProp.tsx:146",
+      "sourceBodySha256": "86f4b910b10bc977dddb8c758634cbc1aba17ded7bd79710150058a457f3af95",
+      "assertionLines": [
+        159,
+        160
+      ],
+      "assertionSha256": [
+        "47896e9bd87614ab32ed14003c0b8ad250aafeab3a366c7e81374a22786891fb",
+        "d5c9059918b118b0d72ab3e8c5d16504795ec8da0fb320a60602c55e7fa72386"
+      ],
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "evidence": null,
+      "executionMode": "merged-class",
+      "executionNames": [
+        "conformance Svelte Root merged-class",
+        "conformance Svelte Item merged-class",
+        "conformance Svelte Header merged-class",
+        "conformance Svelte Trigger merged-class",
+        "conformance Svelte Panel merged-class",
+        "conformance React reference Root merged-class",
+        "conformance React reference Item merged-class",
+        "conformance React reference Header merged-class",
+        "conformance React reference Trigger merged-class",
+        "conformance React reference Panel merged-class"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion-conformance.test.ts"
+      ],
+      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs are mapped to conformance; default mode retains both forwarded props and realm instance expectations. Assertions are candidate fidelity mappings pending paired secured execution and independent review."
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/renderProp.tsx:163",
+      "sourceBodySha256": "cc73a906b911a7b9650543da1de90679da237af5f144ef382b4b14a52faebd5f",
+      "assertionLines": [
+        176,
+        177
+      ],
+      "assertionSha256": [
+        "ba17baa5ddd908b3f24be3e62405e2e1ce027df62e37e8216711beb47d58674a",
+        "d5c9059918b118b0d72ab3e8c5d16504795ec8da0fb320a60602c55e7fa72386"
+      ],
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "evidence": null,
+      "executionMode": "resolved-class",
+      "executionNames": [
+        "conformance Svelte Root resolved-class",
+        "conformance Svelte Item resolved-class",
+        "conformance Svelte Header resolved-class",
+        "conformance Svelte Trigger resolved-class",
+        "conformance Svelte Panel resolved-class",
+        "conformance React reference Root resolved-class",
+        "conformance React reference Item resolved-class",
+        "conformance React reference Header resolved-class",
+        "conformance React reference Trigger resolved-class",
+        "conformance React reference Panel resolved-class"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion-conformance.test.ts"
+      ],
+      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs are mapped to conformance; default mode retains both forwarded props and realm instance expectations. Assertions are candidate fidelity mappings pending paired secured execution and independent review."
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/className.tsx:20",
+      "sourceBodySha256": "1b1c9568e00f73f5c56ce801760487d3d36b0d41369725eba7aa5fdfa94db4cd",
+      "assertionLines": [
+        22
+      ],
+      "assertionSha256": [
+        "22d228bce74fc24fcfb67960f066a05821da0219e90395867605fd21c409512a"
+      ],
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "evidence": null,
+      "executionMode": "class",
+      "executionNames": [
+        "conformance Svelte Root class",
+        "conformance Svelte Item class",
+        "conformance Svelte Header class",
+        "conformance Svelte Trigger class",
+        "conformance Svelte Panel class",
+        "conformance React reference Root class",
+        "conformance React reference Item class",
+        "conformance React reference Header class",
+        "conformance React reference Trigger class",
+        "conformance React reference Panel class"
+      ],
+      "localPorts": [
+        "packages/base/tests/dom/accordion-conformance.test.ts"
+      ],
+      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs are mapped to conformance; default mode retains both forwarded props and realm instance expectations. Assertions are candidate fidelity mappings pending paired secured execution and independent review."
     }
   ]
 }

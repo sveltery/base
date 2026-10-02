@@ -11,17 +11,19 @@ const root = resolve(process.argv[2] ?? '../base-ui-upstream');
 const hash = text => createHash('sha256').update(text).digest('hex');
 const parts = ['root', 'item', 'header', 'trigger', 'panel'];
 const files = parts.map(part => `packages/react/src/accordion/${part}/Accordion${part[0].toUpperCase() + part.slice(1)}.test.tsx`);
+const helperFiles = ['propForwarding', 'refForwarding', 'renderProp', 'className'].map(name => `packages/react/test/conformanceTests/${name}.tsx`);
 const dependencies = execFileSync('git', ['-C', root, 'ls-tree', '-r', '--name-only', commit, 'packages/react/src/accordion'], { encoding: 'utf8' }).trim().split('\n').filter(file => !files.includes(file));
 dependencies.push('packages/react/src/collapsible/root/useCollapsibleRoot.ts', 'packages/react/src/collapsible/panel/useCollapsiblePanel.ts', 'packages/react/src/internals/useTransitionStatus.ts', 'packages/react/src/internals/useAnimationsFinished.ts', 'packages/react/src/internals/useOpenChangeComplete.tsx', 'packages/react/src/internals/use-button/useButton.ts', 'packages/react/src/internals/composite/list/CompositeList.tsx', 'packages/react/src/internals/composite/list/useCompositeListItem.ts', 'packages/react/src/internals/getStateAttributesProps.ts', 'packages/utils/src/empty.ts', 'packages/utils/src/useControlled.ts', 'packages/utils/src/useStableCallback.ts');
-const sources = [], declarations = [], parameterized = [], conformance = [], typeAssertions = [], expectedErrors = [];
+dependencies.push('packages/react/test/describeConformance.tsx', ...helperFiles);
+const sources = [], declarations = [], parameterized = [], conformance = [], conformanceDeclarations = [], typeAssertions = [], expectedErrors = [];
 for (const source of [...files, ...dependencies]) {
   const text = execFileSync('git', ['-C', root, 'show', `${commit}:${source}`], { encoding: 'utf8' });
   sources.push({ source, sha256: hash(text), url: `https://github.com/mui/base-ui/blob/${commit}/${source}` });
-  if (!files.includes(source) && !source.endsWith('.spec.tsx')) continue;
+  if (!files.includes(source) && !source.endsWith('.spec.tsx') && !helperFiles.includes(source)) continue;
   const tree = ts.createSourceFile(source, text, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
   const raw = node => node.getText(tree);
   const line = node => tree.getLineAndCharacterOfPosition(node.getStart(tree)).line + 1;
-  for (const [index, value] of text.split('\n').entries()) if (value.includes('@ts-expect-error')) expectedErrors.push({ source, line: index + 1, text: value.trim(), assertion: text.split('\n')[index + 1].trim() });
+  if (source.endsWith('.spec.tsx')) for (const [index, value] of text.split('\n').entries()) if (value.includes('@ts-expect-error')) expectedErrors.push({ source, line: index + 1, text: value.trim(), assertion: text.split('\n')[index + 1].trim() });
   const visit = node => {
     if (ts.isCallExpression(node)) {
       let callee = node.expression;
@@ -41,14 +43,14 @@ for (const source of [...files, ...dependencies]) {
         const isParameterized = raw(node.expression).startsWith('it.each(');
         const variants = isParameterized ? ['root', 'item'] : source.endsWith('AccordionRoot.test.tsx') && line(node) === 496 ? [{ nativeButton: true, key: 'Enter' }, { nativeButton: true, key: 'Space' }, { nativeButton: false, key: 'Enter' }, { nativeButton: false, key: 'Space' }] : source.endsWith('AccordionRoot.test.tsx') && line(node) === 541 ? [{ nativeButton: true }, { nativeButton: false }] : [null];
         const record = { id: `${source}:${line(node)}`, source, line: line(node), title: ts.isStringLiteralLike(title) ? title.text : raw(title), expression: raw(node.expression), variants, bodySha256: hash(raw(body.body)), assertions, scope: deferred ? 'deferred-react-activity' : 'portable', status: 'unported', port: null };
-        (isParameterized ? parameterized : declarations).push(record);
+        (helperFiles.includes(source) ? conformanceDeclarations : isParameterized ? parameterized : declarations).push(record);
       }
     }
     ts.forEachChild(node, visit);
   };
   visit(tree);
 }
-const output = JSON.stringify({ upstream: { repository: 'https://github.com/mui/base-ui', tag: 'v1.8.0', commit, license: 'MIT' }, scope: '39 ordinary declaration sites / 43 variants. Portable scope: 38 sites / 42 variants. Panel:201 React.Activity is deferred. The disabled parameterized declaration has two variants, separate from ordinary counts. Five conformance helper calls, seven type assertions and one expected type error are separate and earn zero ordinary declaration credit. This immutable source trace is not execution evidence.', sources, declarations, parameterized, conformance, typeAssertions, expectedErrors }, null, 2) + '\n';
+const output = JSON.stringify({ upstream: { repository: 'https://github.com/mui/base-ui', tag: 'v1.8.0', commit, license: 'MIT' }, scope: '39 ordinary declaration sites / 43 variants. Portable scope: 38 sites / 42 variants. Panel:201 React.Activity is deferred. The disabled parameterized declaration has two variants, separate from ordinary counts. Five conformance helper calls (15 shared helper declaration sites), seven type assertions and one expected type error are separate and earn zero ordinary declaration credit. React element/ref forms require explicit Svelte API substitutions. This immutable source trace is not execution evidence.', sources, declarations, parameterized, conformance, conformanceDeclarations, typeAssertions, expectedErrors }, null, 2) + '\n';
 const destination = new URL('./upstream-inventory.json', import.meta.url);
 if (process.argv.includes('--check')) { if (readFileSync(destination, 'utf8') !== output) throw new Error('Accordion trace differs from pinned source'); }
 else writeFileSync(destination, output);

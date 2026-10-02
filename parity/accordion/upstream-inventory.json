@@ -5,7 +5,7 @@
     "commit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
     "license": "MIT"
   },
-  "scope": "39 ordinary declaration sites / 43 variants. Portable scope: 38 sites / 42 variants. Panel:201 React.Activity is deferred. The disabled parameterized declaration has two variants, separate from ordinary counts. Five conformance helper calls, seven type assertions and one expected type error are separate and earn zero ordinary declaration credit. This immutable source trace is not execution evidence.",
+  "scope": "39 ordinary declaration sites / 43 variants. Portable scope: 38 sites / 42 variants. Panel:201 React.Activity is deferred. The disabled parameterized declaration has two variants, separate from ordinary counts. Five conformance helper calls (15 shared helper declaration sites), seven type assertions and one expected type error are separate and earn zero ordinary declaration credit. React element/ref forms require explicit Svelte API substitutions. This immutable source trace is not execution evidence.",
   "sources": [
     {
       "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
@@ -176,6 +176,31 @@
       "source": "packages/utils/src/useStableCallback.ts",
       "sha256": "908cbd177f86c961983d0124a859f733d341be49e58bc5a553255f47725419c1",
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useStableCallback.ts"
+    },
+    {
+      "source": "packages/react/test/describeConformance.tsx",
+      "sha256": "316678dd7c2637e23c1f02e536974dae67d41bd8c7241c67c6e8c7461b74a184",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/test/describeConformance.tsx"
+    },
+    {
+      "source": "packages/react/test/conformanceTests/propForwarding.tsx",
+      "sha256": "82043f827f31e0ad21dfb359598af51c7299a2139b20be958d07ac6313372733",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/test/conformanceTests/propForwarding.tsx"
+    },
+    {
+      "source": "packages/react/test/conformanceTests/refForwarding.tsx",
+      "sha256": "3fff79d221c972d29f9909dfefbfa7f4bd16ab761960d795c01368e524c7fef0",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/test/conformanceTests/refForwarding.tsx"
+    },
+    {
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "sha256": "9f2094949667daaecdfeff914c231295d79ca9e3699ba754637a5c31d6eab225",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/test/conformanceTests/renderProp.tsx"
+    },
+    {
+      "source": "packages/react/test/conformanceTests/className.tsx",
+      "sha256": "ea73ff821ec5660ee854392d0744a87cc38ede0d8c14a3c5070ea08408a599bb",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/test/conformanceTests/className.tsx"
     }
   ],
   "declarations": [
@@ -1728,6 +1753,418 @@
       "source": "packages/react/src/accordion/panel/AccordionPanel.test.tsx",
       "line": 21,
       "declarationSha256": "da7355251f78f47b411c0cc17ee50b5c5a0730b70a6b0d10044610c9756a224b"
+    }
+  ],
+  "conformanceDeclarations": [
+    {
+      "id": "packages/react/test/conformanceTests/propForwarding.tsx:23",
+      "source": "packages/react/test/conformanceTests/propForwarding.tsx",
+      "line": 23,
+      "title": "forwards custom props to the default element",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "c27d457e6b6e3166c66d90f8b5a39587563a607cd6977d520faea938266b5248",
+      "assertions": [
+        {
+          "line": 34,
+          "text": "expect(customRoot).toHaveAttribute('lang', otherProps.lang)",
+          "assertionSha256": "38488fd99cd356f56c143331c334eff01f9f93c7ac4726244bb44e4527eb0e04"
+        },
+        {
+          "line": 35,
+          "text": "expect(customRoot).toHaveAttribute('data-foobar', otherProps['data-foobar'])",
+          "assertionSha256": "34519c4bed4f1f46a413ba855416454e36a5ddcef44e652bc6476b769448bc36"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/test/conformanceTests/propForwarding.tsx:38",
+      "source": "packages/react/test/conformanceTests/propForwarding.tsx",
+      "line": 38,
+      "title": "forwards custom props to the customized element defined with a function",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "ac63627df56b5d723ada085ba9d0b56c2727190f6918767d47fdbd1b50343cf6",
+      "assertions": [
+        {
+          "line": 57,
+          "text": "expect(customRoot).toHaveAttribute('lang', otherProps.lang)",
+          "assertionSha256": "38488fd99cd356f56c143331c334eff01f9f93c7ac4726244bb44e4527eb0e04"
+        },
+        {
+          "line": 58,
+          "text": "expect(customRoot).toHaveAttribute('data-foobar', otherProps['data-foobar'])",
+          "assertionSha256": "34519c4bed4f1f46a413ba855416454e36a5ddcef44e652bc6476b769448bc36"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/test/conformanceTests/propForwarding.tsx:61",
+      "source": "packages/react/test/conformanceTests/propForwarding.tsx",
+      "line": 61,
+      "title": "forwards custom props to the customized element defined using JSX",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "35064256fd2eb73eea126f0a3231d6717e332f9be03bc0dc3e114c7ba8267035",
+      "assertions": [
+        {
+          "line": 78,
+          "text": "expect(customRoot).toHaveAttribute('lang', otherProps.lang)",
+          "assertionSha256": "38488fd99cd356f56c143331c334eff01f9f93c7ac4726244bb44e4527eb0e04"
+        },
+        {
+          "line": 79,
+          "text": "expect(customRoot).toHaveAttribute('data-foobar', otherProps['data-foobar'])",
+          "assertionSha256": "34519c4bed4f1f46a413ba855416454e36a5ddcef44e652bc6476b769448bc36"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/test/conformanceTests/propForwarding.tsx:82",
+      "source": "packages/react/test/conformanceTests/propForwarding.tsx",
+      "line": 82,
+      "title": "forwards the custom `style` attribute defined on the component",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "085a6cfe75f6bc9ef4451d4a8730efd7accfb06c4e898b3458370000293baffc",
+      "assertions": [
+        {
+          "line": 93,
+          "text": "expect(customRoot).toHaveAttribute('style')",
+          "assertionSha256": "c216a3c51da7d02d469700120dce1947479658f4188b8386104b010211ffb178"
+        },
+        {
+          "line": 94,
+          "text": "expect(customRoot.getAttribute('style')).toContain('color: green')",
+          "assertionSha256": "9a0482c9f4d23271a717e052b64a757dcae8dbdea338deb7a7904b3effc506b5"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/test/conformanceTests/propForwarding.tsx:97",
+      "source": "packages/react/test/conformanceTests/propForwarding.tsx",
+      "line": 97,
+      "title": "forwards the custom `style` attribute defined on the render function",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "9301e7779c55992fc206702101c9db9c38a8f8838a3660da7f8e18e738eb8bca",
+      "assertions": [
+        {
+          "line": 110,
+          "text": "expect(customRoot).toHaveAttribute('style')",
+          "assertionSha256": "c216a3c51da7d02d469700120dce1947479658f4188b8386104b010211ffb178"
+        },
+        {
+          "line": 111,
+          "text": "expect(customRoot.getAttribute('style')).toContain('color: green')",
+          "assertionSha256": "9a0482c9f4d23271a717e052b64a757dcae8dbdea338deb7a7904b3effc506b5"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/test/conformanceTests/propForwarding.tsx:114",
+      "source": "packages/react/test/conformanceTests/propForwarding.tsx",
+      "line": 114,
+      "title": "forwards the custom `style` attribute defined on the render function",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "63bb8e36a9114e19424e965328b78d45a12f07de5230d677a347934e950610ff",
+      "assertions": [
+        {
+          "line": 125,
+          "text": "expect(customRoot).toHaveAttribute('style')",
+          "assertionSha256": "c216a3c51da7d02d469700120dce1947479658f4188b8386104b010211ffb178"
+        },
+        {
+          "line": 126,
+          "text": "expect(customRoot.getAttribute('style')).toContain('color: green')",
+          "assertionSha256": "9a0482c9f4d23271a717e052b64a757dcae8dbdea338deb7a7904b3effc506b5"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/test/conformanceTests/refForwarding.tsx:32",
+      "source": "packages/react/test/conformanceTests/refForwarding.tsx",
+      "line": 32,
+      "title": "attaches the ref",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "1fd649cb54b6037db814c9fd681dcf4e948b3c886a2716eb149ec687e5bbf0dd",
+      "assertions": [
+        {
+          "line": 36,
+          "text": "expect(instance).toBeInstanceOf(refInstanceof)",
+          "assertionSha256": "3b12178edce3b656f1d7b506ceff0bcc911ecef45a34bdd5f38f37344c4842b1"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/test/conformanceTests/renderProp.tsx:41",
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "line": 41,
+      "title": "renders a customized root element with a function",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "f61cfa46dede42e60729b834baa1a8f4c9d8651d0ec030622853179f1b6ba5cf",
+      "assertions": [
+        {
+          "line": 55,
+          "text": "expect(screen.queryByTestId('base-ui-wrapper')).not.toBe(null)",
+          "assertionSha256": "cd1de7914ebbb64184509f10bc313595f4248e49eda0667233fcde6fa4b5ab23"
+        },
+        {
+          "line": 57,
+          "text": "expect(screen.queryByTestId('wrapped')).not.toBe(null)",
+          "assertionSha256": "17221c26a06fa4e33e8964ccab2aaa57c1740fd4da2d4ae5d844452c97994165"
+        },
+        {
+          "line": 58,
+          "text": "expect(screen.queryByTestId('wrapped')).toHaveAttribute('data-test-value', testValue)",
+          "assertionSha256": "f71b26ef096b198b7cc7592c2a1fdc10d7b9f9cc357a98642168176208b5e889"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/test/conformanceTests/renderProp.tsx:61",
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "line": 61,
+      "title": "renders a customized root element with an element",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "3ba3a74aebf3558f1c53c65e49f1697cf0af60e393ffaf2650b0148504a8c0a2",
+      "assertions": [
+        {
+          "line": 72,
+          "text": "expect(screen.queryByTestId('base-ui-wrapper')).not.toBe(null)",
+          "assertionSha256": "cd1de7914ebbb64184509f10bc313595f4248e49eda0667233fcde6fa4b5ab23"
+        },
+        {
+          "line": 74,
+          "text": "expect(screen.queryByTestId('wrapped')).not.toBe(null)",
+          "assertionSha256": "17221c26a06fa4e33e8964ccab2aaa57c1740fd4da2d4ae5d844452c97994165"
+        },
+        {
+          "line": 75,
+          "text": "expect(screen.queryByTestId('wrapped')).toHaveAttribute('data-test-value', testValue)",
+          "assertionSha256": "f71b26ef096b198b7cc7592c2a1fdc10d7b9f9cc357a98642168176208b5e889"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/test/conformanceTests/renderProp.tsx:78",
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "line": 78,
+      "title": "renders a customized root element with an element",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "35a70e00d038323fcd9faae97a37eaf86186f4cdce20d13b71d97fac64a6255c",
+      "assertions": [
+        {
+          "line": 87,
+          "text": "expect(screen.queryByTestId('base-ui-wrapper')).not.toBe(null)",
+          "assertionSha256": "cd1de7914ebbb64184509f10bc313595f4248e49eda0667233fcde6fa4b5ab23"
+        },
+        {
+          "line": 89,
+          "text": "expect(screen.queryByTestId('wrapped')).not.toBe(null)",
+          "assertionSha256": "17221c26a06fa4e33e8964ccab2aaa57c1740fd4da2d4ae5d844452c97994165"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/test/conformanceTests/renderProp.tsx:93",
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "line": 93,
+      "title": "should pass the ref to the custom component",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "67cd5899bb4170488b495a7c3a33f21d077b8b12a44344ba4b389aa71de8459c",
+      "assertions": [
+        {
+          "line": 111,
+          "text": "expect(instanceFromRef!.tagName).toBe(Element.toUpperCase())",
+          "assertionSha256": "e5cca82e543a4c058c1f282a9da297fc8f841fabfc354614862da479321a693f"
+        },
+        {
+          "line": 112,
+          "text": "expect(instanceFromRef!).toHaveAttribute('data-testid', 'wrapped')",
+          "assertionSha256": "5f116c98532ad168df4bd850b7a709ee592834ac3ca16eb754ef304ff63e2e12"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/test/conformanceTests/renderProp.tsx:115",
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "line": 115,
+      "title": "should merge the rendering element ref with the custom component ref",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "9cf5f1e5b708022a76295eaca0bb4553147b48bad690a7379d969c8d1a20d1cd",
+      "assertions": [
+        {
+          "line": 138,
+          "text": "expect(refA).not.toBe(null)",
+          "assertionSha256": "24d35d79b6425b63292a4b597a0802701f9ce5094b2d6afe0e1f2ce3d9e51a83"
+        },
+        {
+          "line": 139,
+          "text": "expect(refA!.tagName).toBe(Element.toUpperCase())",
+          "assertionSha256": "16e5d63284e0cd2b780961c3a2db6ab5cde19d88d0aca6b69fc9d69165297fb5"
+        },
+        {
+          "line": 140,
+          "text": "expect(refA!).toHaveAttribute('data-testid', 'wrapped')",
+          "assertionSha256": "23083a429329e5276ae11fd308bf29f9ef6865a023b90a40ad157001076db357"
+        },
+        {
+          "line": 141,
+          "text": "expect(refB).not.toBe(null)",
+          "assertionSha256": "d4225ec15f7ba877e3fd17c4ee3486101ba55d262b95ef73d4b2ed035de2be94"
+        },
+        {
+          "line": 142,
+          "text": "expect(refB!.tagName).toBe(Element.toUpperCase())",
+          "assertionSha256": "310e523875993de75f05e8092e2830a3f1f3ed61155522487bc2243f62e112e5"
+        },
+        {
+          "line": 143,
+          "text": "expect(refB!).toHaveAttribute('data-testid', 'wrapped')",
+          "assertionSha256": "f6d1d47fce639d594c5792bd934f2c4f045698889232617913dadd8a0af0e7ea"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/test/conformanceTests/renderProp.tsx:146",
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "line": 146,
+      "title": "should merge the rendering element className with the custom component className",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "86f4b910b10bc977dddb8c758634cbc1aba17ded7bd79710150058a457f3af95",
+      "assertions": [
+        {
+          "line": 159,
+          "text": "expect(component.classList.contains('component-classname')).toBe(true)",
+          "assertionSha256": "47896e9bd87614ab32ed14003c0b8ad250aafeab3a366c7e81374a22786891fb"
+        },
+        {
+          "line": 160,
+          "text": "expect(component.classList.contains('render-prop-classname')).toBe(true)",
+          "assertionSha256": "d5c9059918b118b0d72ab3e8c5d16504795ec8da0fb320a60602c55e7fa72386"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/test/conformanceTests/renderProp.tsx:163",
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "line": 163,
+      "title": "should merge the rendering element resolved className with the custom component className",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "cc73a906b911a7b9650543da1de90679da237af5f144ef382b4b14a52faebd5f",
+      "assertions": [
+        {
+          "line": 176,
+          "text": "expect(component.classList.contains('conditional-component-classname')).toBe(true)",
+          "assertionSha256": "ba17baa5ddd908b3f24be3e62405e2e1ce027df62e37e8216711beb47d58674a"
+        },
+        {
+          "line": 177,
+          "text": "expect(component.classList.contains('render-prop-classname')).toBe(true)",
+          "assertionSha256": "d5c9059918b118b0d72ab3e8c5d16504795ec8da0fb320a60602c55e7fa72386"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/test/conformanceTests/className.tsx:20",
+      "source": "packages/react/test/conformanceTests/className.tsx",
+      "line": 20,
+      "title": "should apply the className when passed as a string",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "1b1c9568e00f73f5c56ce801760487d3d36b0d41369725eba7aa5fdfa94db4cd",
+      "assertions": [
+        {
+          "line": 22,
+          "text": "expect(document.querySelector('.test-class')).not.toBe(null)",
+          "assertionSha256": "22d228bce74fc24fcfb67960f066a05821da0219e90395867605fd21c409512a"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
     }
   ],
   "typeAssertions": [

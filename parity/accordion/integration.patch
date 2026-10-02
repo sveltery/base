@@ -234,3 +234,51 @@ diff --git a/docs/ci.md b/docs/ci.md
  This document proposes settings; it does not assert they are active. The available connector exposes no repository-administration write action. Adding browser checks to protection needs a new explicit proposal after the real job has passed.
 +
 +`Accordion browser` runs the focused paired Accordion file with the same secured Chromium configuration and exact-head setup as Collapsible. The combined browser job continues to run the full suite. The isolated public package gate is included in Verification through check-package.sh; API consistency is registered in script regressions. Execution success does not create ordinary parity credit.
+diff --git a/apps/fixtures/src/lib/AccordionFixture.svelte b/apps/fixtures/src/lib/AccordionFixture.svelte
+--- a/apps/fixtures/src/lib/AccordionFixture.svelte
++++ b/apps/fixtures/src/lib/AccordionFixture.svelte
+@@ -1,7 +1,7 @@
+ <script lang="ts">
+   // Direct and supplemental paired fixtures. MIT: parity/accordion/UPSTREAM_LICENSE.
+   import { onMount, untrack, flushSync, type Snippet } from 'svelte';
+-  import { Accordion, type AccordionItemState, type AccordionPanelState } from '../../../../packages/base/src/lib/accordion/index.js';
++  import { Accordion, type AccordionItemState, type AccordionPanelState } from '@sveltery/base';
+   import type { HTMLAttributes } from 'svelte/elements';
+   import { accordionConfig, accordionCss } from './accordion-config.js';
+   const { Root, Item, Header, Trigger, Panel } = Accordion;
+diff --git a/apps/fixtures/src/lib/AccordionConformanceFixture.svelte b/apps/fixtures/src/lib/AccordionConformanceFixture.svelte
+--- a/apps/fixtures/src/lib/AccordionConformanceFixture.svelte
++++ b/apps/fixtures/src/lib/AccordionConformanceFixture.svelte
+@@ -1,7 +1,7 @@
+ <script lang="ts">
+   // Svelte adaptations of the five pinned describeConformance invocations; separate from ordinary assertions.
+   import { onMount, type Snippet } from 'svelte';
+-  import { Accordion, type AccordionItemState } from '../../../../packages/base/src/lib/accordion/index.js';
++  import { Accordion, type AccordionItemState } from '@sveltery/base';
+   import { mergeProps } from '../../../../packages/base/src/lib/merge-props/index.js';
+   import type { HTMLAttributes } from 'svelte/elements';
+   let { part, mode }: { part: string; mode: string } = $props();
+diff --git a/apps/fixtures/src/lib/AccordionSharedHostFixture.svelte b/apps/fixtures/src/lib/AccordionSharedHostFixture.svelte
+--- a/apps/fixtures/src/lib/AccordionSharedHostFixture.svelte
++++ b/apps/fixtures/src/lib/AccordionSharedHostFixture.svelte
+@@ -1,7 +1,7 @@
+ <script lang="ts">
+   // Supplemental shared-host registration repair; no ordinary declaration credit.
+   import { onMount, type Snippet } from 'svelte';
+-  import { Accordion, type AccordionItemProps, type AccordionItemState } from '../../../../packages/base/src/lib/accordion/index.js';
++  import { Accordion, type AccordionItemProps, type AccordionItemState } from '@sveltery/base';
+   let hydrated = $state(false);
+   const indexes = { outer: -1, inner: -1, sibling: -1 };
+   function record(part: keyof typeof indexes, state: AccordionItemState) { indexes[part] = state.index; return `${part}-${state.index}`; }
+diff --git a/apps/fixtures/src/routes/accordion/+page.svelte b/apps/fixtures/src/routes/accordion/+page.svelte
+--- a/apps/fixtures/src/routes/accordion/+page.svelte
++++ b/apps/fixtures/src/routes/accordion/+page.svelte
+@@ -7,7 +7,7 @@
+   onMount(() => {
+     if (!data.scenario.startsWith('outside-') || !host) return;
+     const target = host;
+-    void import('../../../../../packages/base/src/lib/accordion/index.js').then(({ Item, Header }) => { try { mount(data.scenario === 'outside-item' ? Item : Header, { target }); } catch (caught) { error = (caught as Error).message; } contextReady = true; });
++    void import('@sveltery/base/accordion').then(({ Item, Header }) => { try { mount(data.scenario === 'outside-item' ? Item : Header, { target }); } catch (caught) { error = (caught as Error).message; } contextReady = true; });
+   });
+ </script>
+ {#if data.scenario.startsWith('outside-')}<main data-hydrated={contextReady}><div bind:this={host}></div><output data-testid="context-error">{error}</output></main>{:else if data.scenario === 'shared-host'}<AccordionSharedHostFixture/>{:else if data.scenario === 'conformance'}<AccordionConformanceFixture part={data.part} mode={data.mode}/>{:else}<AccordionFixture scenario={data.scenario} />{/if}

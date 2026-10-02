@@ -3,10 +3,13 @@
 export const accordionCss = `
 .accordion-motion {overflow:hidden;height:var(--accordion-panel-height);transition:height 300ms linear}
 .accordion-motion[data-starting-style],.accordion-motion[data-ending-style] {height:0}
+@keyframes accordion-fade {from {opacity:0} to {opacity:1}}
+.accordion-mixed {height:var(--accordion-panel-height);transition:height 100ms linear;animation:accordion-fade 100ms linear}
+.accordion-mixed[data-starting-style] {height:0}
 @keyframes accordion-down {from {height:0} to {height:var(--accordion-panel-height)}}
 `;
 export function accordionConfig(scenario: string) {
-  const initial = ['aria', 'manual-panel', 'manual-trigger', 'trigger-change', 'trigger-remove', 'parts', 'hydration', 'default-custom', 'disabled-root-state', 'disabled-item-state', 'cancel-root-close', 'cancel-multiple-close', 'switch', 'ids', 'indexes', 'replacement', 'ssr-inline'].includes(scenario);
+  const initial = ['aria', 'manual-panel', 'manual-trigger', 'trigger-change', 'trigger-remove', 'parts', 'hydration', 'default-custom', 'disabled-root-state', 'disabled-item-state', 'cancel-root-close', 'cancel-multiple-close', 'switch', 'ids', 'indexes', 'replacement', 'ssr-inline', 'no-motion-status', 'remove-close'].includes(scenario);
   const customValues = ['default-custom', 'controlled-custom', 'values-custom', 'values-single'].includes(scenario);
   return {
     initial, customValues,
@@ -19,7 +22,7 @@ export function accordionConfig(scenario: string) {
     itemDisabled: ['disabled-item-state', 'disabled-item'].includes(scenario),
     rootKeep: ['root-keep', 'root-hidden', 'root-warning'].includes(scenario),
     rootHidden: ['root-hidden', 'root-warning'].includes(scenario),
-    keep: ['switch', 'indexes', 'replacement', 'ids'].includes(scenario),
-    hidden: ['panel-warning', 'beforematch'].includes(scenario),
+    keep: ['switch', 'indexes', 'replacement', 'ids', 'important', 'no-motion-status'].includes(scenario),
+    hidden: ['panel-warning', 'beforematch', 'replaced-host'].includes(scenario),
   };
 }

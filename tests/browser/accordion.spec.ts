@@ -115,10 +115,10 @@ for (const reference of [false, true]) {
     const { trigger, trigger2 } = await setup(page, 'values-single', reference); expect(await calls(page)).toHaveLength(0); await trigger.click(); expect(await calls(page)).toHaveLength(1); expect((await calls(page))[0].value).toEqual(['one']); await trigger2.click(); expect(await calls(page)).toHaveLength(2); expect((await calls(page))[1].value).toEqual(['two']);
   });
   test(`I:9 ${framework} throws outside Accordion.Root`, async ({ page }) => {
-    const errors: string[] = []; page.on('pageerror', error => errors.push(error.message)); await page.goto(`/accordion${reference ? '-reference' : ''}?case=outside-item`); await expect.poll(() => errors.join(' ')).toContain('Base UI: AccordionRootContext is missing. Accordion parts must be placed within <Accordion.Root>.');
+    await setup(page, 'outside-item', reference); await expect(page.getByTestId('context-error')).toHaveText('Base UI: AccordionRootContext is missing. Accordion parts must be placed within <Accordion.Root>.');
   });
   test(`H:8 ${framework} throws outside Accordion.Item`, async ({ page }) => {
-    const errors: string[] = []; page.on('pageerror', error => errors.push(error.message)); await page.goto(`/accordion${reference ? '-reference' : ''}?case=outside-header`); await expect.poll(() => errors.join(' ')).toContain('Base UI: AccordionItemContext is missing. Accordion parts must be placed within <Accordion.Item>.');
+    await setup(page, 'outside-header', reference); await expect(page.getByTestId('context-error')).toHaveText('Base UI: AccordionItemContext is missing. Accordion parts must be placed within <Accordion.Item>.');
   });
   test(`I:29 ${framework} never reports hidden=true after opening starts`, async ({ page }) => {
     const { trigger } = await setup(page, 'item-state', reference); await trigger.click(); expect(await page.evaluate(() => (window as Window & { accordionStates: { open: boolean; hidden: boolean }[] }).accordionStates.some(state => state.open && state.hidden))).toBe(false);
@@ -135,6 +135,19 @@ for (const reference of [false, true]) {
   test(`P:137 ${framework} switching retains closing panel until exit transition completes`, async ({ page }) => {
     const { trigger2, panel, panel2 } = await setup(page, 'switch', reference); await expect(panel).toHaveAttribute('data-open'); await expect.poll(() => panel.evaluate((node: HTMLElement) => node.style.getPropertyValue('--accordion-panel-height'))).toBe('auto'); await trigger2.click(); await expect(panel).toHaveAttribute('data-ending-style'); await expect(panel).not.toHaveAttribute('hidden'); expect(await panel.evaluate((node: HTMLElement) => node.style.getPropertyValue('--accordion-panel-height'))).toMatch(/px$/); await expect(panel2).toHaveAttribute('data-open'); await expect(panel).toHaveAttribute('hidden'); await expect(panel2).not.toHaveAttribute('hidden');
   });
+  for (const part of ['Root', 'Item', 'Header', 'Trigger', 'Panel']) for (const mode of ['default', 'function', 'element', 'style', 'function-style', 'element-style', 'class', 'wrapper-function', 'wrapper-element', 'wrapper-empty', 'ref-function', 'refs-element', 'merged-class', 'resolved-class']) test(`conformance ${framework} ${part} ${mode}`, async ({ page }) => {
+    await page.goto(`/accordion${reference ? '-reference' : ''}?case=conformance&part=${part}&mode=${mode}`); await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+    const node = page.getByTestId('conformance'); await expect(node).toHaveAttribute('lang', 'fr'); await expect(node).toHaveAttribute('data-foobar', 'foobar');
+    if (['style', 'function-style', 'element-style'].includes(mode)) { await expect(node).toHaveAttribute('style', /color: green/); await expect(node).toHaveCSS('color', 'rgb(0, 128, 0)'); }
+    if (!['default', 'style', 'class', 'wrapper-empty'].includes(mode)) await expect(node).toHaveAttribute('data-test-value', 'test-value');
+    const tag = ['default', 'style', 'class'].includes(mode) ? part === 'Header' ? 'H3' : part === 'Trigger' ? 'BUTTON' : 'DIV' : 'DIV';
+    expect(await node.evaluate(element => element.tagName)).toBe(tag);
+    if (mode.startsWith('wrapper')) await expect(page.getByTestId('wrapper')).toHaveCount(1);
+    if (mode === 'class') await expect(node).toHaveClass('test-class');
+    if (mode === 'merged-class' || mode === 'resolved-class') { await expect(node).toHaveClass(/render-prop-classname/); await expect(node).toHaveClass(mode === 'resolved-class' ? /conditional-component-classname/ : /component-classname/); }
+    if (reference) { await expect(node).toHaveAttribute('data-ref-instance', 'true'); await expect(node).toHaveAttribute('data-ref', tag); await expect(node).toHaveAttribute('data-ref-id', 'conformance'); if (mode === 'refs-element') { await expect(node).toHaveAttribute('data-render-ref', tag); await expect(node).toHaveAttribute('data-render-ref-id', 'conformance'); } }
+    else { await expect(page.getByTestId('ref-instance')).toHaveText('true'); await expect(page.getByTestId('ref')).toHaveText(tag); await expect(page.getByTestId('ref-id')).toHaveText('conformance'); if (mode === 'refs-element') { await expect(page.getByTestId('render-ref')).toHaveText(tag); await expect(page.getByTestId('render-ref-id')).toHaveText('conformance'); await expect(page.getByTestId('ref-identity')).toHaveText('true'); } }
+  });
   test(`supplement: ${framework} callback order and controlled owner acceptance`, async ({ page }) => {
     const { trigger, panel } = await setup(page, 'controlled-accept', reference); await trigger.click(); await opened(trigger, panel); expect(await page.getByTestId('order').innerText()).toBe('["item","root"]'); expect((await calls(page))[0].before).toBe('false'); await trigger.click(); await closed(trigger, panel); expect((await itemCalls(page)).map(call => call.open)).toEqual([true, false]); expect((await calls(page)).map(call => call.value)).toEqual([[0], []]);
   });
@@ -149,6 +162,34 @@ for (const reference of [false, true]) {
   });
   test(`supplement: ${framework} beforematch opens with none reason and callback order`, async ({ page }) => {
     const { trigger, panel } = await setup(page, 'beforematch', reference); await expect(panel).toHaveAttribute('hidden', 'until-found'); await panel.dispatchEvent('beforematch'); await opened(trigger, panel); expect((await calls(page))[0]).toMatchObject({ value: [0], reason: 'none', type: 'beforematch' }); expect((await itemCalls(page))[0]).toMatchObject({ open: true, reason: 'none', type: 'beforematch' }); await expect(page.getByTestId('order')).toHaveText('["item","root"]');
+  });
+  test(`supplement: ${framework} inherited issue30 loses authored important alignment priority`, async ({ page }) => {
+    const { trigger, panel } = await setup(page, 'important', reference); expect(await panel.evaluate((node: HTMLElement) => node.style.getPropertyPriority('justify-content'))).toBe('important'); await trigger.click(); await expect(panel).toHaveAttribute('data-open'); await page.evaluate(async () => { await new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))); }); expect(await panel.evaluate((node: HTMLElement) => ({ value: node.style.justifyContent, priority: node.style.getPropertyPriority('justify-content') }))).toEqual({ value: 'center', priority: '' });
+  });
+  test(`supplement: ${framework} inherited issue31 beforematch listener stays on original host`, async ({ page }) => {
+    const { trigger, panel } = await setup(page, 'replaced-host', reference); await panel.evaluate(node => { (window as Window & { originalAccordionPanel?: Element }).originalAccordionPanel = node; }); await page.getByRole('button', { name: 'Replace host', exact: true }).click(); expect(await panel.evaluate(node => node === (window as Window & { originalAccordionPanel?: Element }).originalAccordionPanel)).toBe(false); await panel.dispatchEvent('beforematch'); await expect(trigger).toHaveAttribute('aria-expanded', 'false'); expect(await calls(page)).toHaveLength(0);
+  });
+  test(`supplement: ${framework} inherited issue33 no-motion retained panel keeps idle status`, async ({ page }) => {
+    const { trigger, panel } = await setup(page, 'no-motion-status', reference); await expect(panel).toHaveAttribute('data-open'); await trigger.click(); await expect(panel).toHaveAttribute('hidden'); await page.evaluate(async () => { await new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))); }); await expect(panel).toHaveAttribute('data-status', 'idle'); await expect(panel).not.toHaveAttribute('data-ending-style'); await expect(trigger).toHaveAttribute('aria-expanded', 'false'); await expect(trigger).not.toHaveAttribute('aria-controls');
+  });
+  test(`supplement: ${framework} inherited issue34 removed panel host retains ending status`, async ({ page }) => {
+    const { trigger, panel } = await setup(page, 'remove-close', reference); await expect(panel).toHaveAttribute('data-open'); await expect(panel).toHaveCSS('transition-duration', '0.3s'); await trigger.click(); await expect(panel).toHaveCount(0); await page.evaluate(async () => { await new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))); }); expect(await page.evaluate(() => (window as Window & { accordionPanelStatuses: string[] }).accordionPanelStatuses.at(-1))).toBe('ending'); await expect(trigger).toHaveAttribute('aria-expanded', 'false'); await expect(trigger).not.toHaveAttribute('aria-controls');
+  });
+  test(`supplement: ${framework} inherited D03 disabled chorded mousedown focus difference`, async ({ page }) => {
+    const { trigger } = await setup(page, 'disabled-root-state', reference);
+    await trigger.evaluate(node => {
+      node.setAttribute('data-pointerdowns', '0'); node.addEventListener('pointerdown', () => { node.setAttribute('data-pointerdowns', String(Number(node.getAttribute('data-pointerdowns')) + 1)); }, { capture: true });
+      node.addEventListener('mousedown', event => { node.setAttribute('data-mousedown-trusted', String(event.isTrusted)); node.setAttribute('data-mousedown-button', String(event.button)); setTimeout(() => node.setAttribute('data-mousedown-prevented', String(event.defaultPrevented)), 0); }, { capture: true });
+    });
+    const box = await trigger.boundingBox(); expect(box).not.toBeNull(); await page.mouse.move(700, 500); await page.mouse.down({ button: 'right' });
+    try {
+      await page.mouse.move(box!.x + box!.width / 2, box!.y + box!.height / 2); await page.mouse.down({ button: 'left' }); await expect(trigger).toHaveAttribute('data-pointerdowns', '0'); await expect(trigger).toHaveAttribute('data-mousedown-trusted', 'true'); await expect(trigger).toHaveAttribute('data-mousedown-button', '0');
+      // Existing inherited difference: this characterization earns no parity credit.
+      if (reference) await expect(trigger).toBeFocused(); else await expect(trigger).not.toBeFocused(); await expect(trigger).toHaveAttribute('data-mousedown-prevented', String(!reference)); expect(await calls(page)).toHaveLength(0); expect(await itemCalls(page)).toHaveLength(0);
+    } finally { await page.mouse.up({ button: 'left' }); await page.mouse.up({ button: 'right' }); }
+  });
+  test(`supplement: ${framework} Item subscribers share one replacement host index`, async ({ page }) => {
+    await setup(page, 'shared-host', reference); await expect.poll(() => page.evaluate(() => (window as Window & { accordionSharedIndexes: { outer: number; inner: number; sibling: number } }).accordionSharedIndexes)).toEqual({ outer: 0, inner: 0, sibling: 1 }); await expect(page.getByTestId('shared-host')).toHaveAttribute('data-index', '0'); await expect(page.getByTestId('sibling-host')).toHaveAttribute('data-index', '1');
   });
   test(`supplement: ${framework} deprecated orientation and loopFocus do not navigate focus`, async ({ page }) => {
     const { trigger, trigger2 } = await setup(page, 'no-roving', reference); await trigger.focus(); await page.keyboard.press('ArrowRight'); await expect(trigger).toBeFocused(); await page.keyboard.press('ArrowDown'); await expect(trigger).toBeFocused(); await page.keyboard.press('End'); await expect(trigger).toBeFocused(); await page.keyboard.press('Tab'); await expect(trigger2).toBeFocused();

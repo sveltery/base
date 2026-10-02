@@ -17,6 +17,7 @@ test('Accordion trace preserves ordinary, parameterized, Activity, helper and ty
   assert.deepEqual(trace.declarations.filter(item => item.scope !== 'portable').map(item => item.id), ['packages/react/src/accordion/panel/AccordionPanel.test.tsx:201']);
   assert.equal(trace.parameterized.length, 1); assert.deepEqual(trace.parameterized[0].variants, ['root', 'item']);
   assert.equal(trace.parameterized[0].line, 431); assert.equal(trace.conformance.length, 5);
+  assert.equal(trace.conformanceDeclarations.length, 15);
   assert.equal(trace.typeAssertions.length, 7); assert.equal(trace.expectedErrors.length, 1);
   const browser = read('tests/browser/accordion.spec.ts');
   assert.doesNotMatch(browser, /(?:test|describe)\.(?:skip|fixme|only)\s*\(/);
@@ -66,6 +67,17 @@ test('Accordion trace preserves ordinary, parameterized, Activity, helper and ty
   for (const [index, port] of ledger.conformancePorts.entries()) {
     assert.equal(port.source, trace.conformance[index].source); assert.equal(port.line, trace.conformance[index].line);
     assert.equal(port.sourceDeclarationSha256, trace.conformance[index].declarationSha256);
+    assert.equal(port.executions.length, 28);
+    for (const path of [port.port, ...port.fixtures, ...port.localPorts]) assert.ok(existsSync(new URL(`../../${path}`, import.meta.url)), path);
+  }
+  assert.equal(ledger.conformanceAssertionPorts.length, 15);
+  for (const [index, port] of ledger.conformanceAssertionPorts.entries()) {
+    const source = trace.conformanceDeclarations[index];
+    assert.equal(port.sourceId, source.id); assert.equal(port.sourceBodySha256, source.bodySha256);
+    assert.deepEqual(port.assertionLines, source.assertions.map(item => item.line));
+    assert.deepEqual(port.assertionSha256, source.assertions.map(item => hash(item.text)));
+    assert.ok(['default', 'function', 'element', 'style', 'function-style', 'element-style', 'class', 'wrapper-function', 'wrapper-element', 'wrapper-empty', 'ref-function', 'refs-element', 'merged-class', 'resolved-class'].includes(port.executionMode));
+    assert.deepEqual(port.executionNames, ['Svelte', 'React reference'].flatMap(framework => ['Root', 'Item', 'Header', 'Trigger', 'Panel'].map(part => `conformance ${framework} ${part} ${port.executionMode}`)));
   }
   assert.equal(ledger.typePorts.length, 7); assert.equal(ledger.expectedErrorPorts.length, 1);
   for (const [index, port] of ledger.typePorts.entries()) assert.equal(port.sourceAssertionSha256, hash(trace.typeAssertions[index].text));
