@@ -292,3 +292,37 @@ jobs:
           path: test-results/direction-provider-*/
           if-no-files-found: warn
           retention-days: 14
+
+  use-render-browser:
+    name: UseRender browser
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+        with:
+          version: 12.6.0
+          run_install: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Frozen workspace install
+        run: bash scripts/bootstrap.sh
+      - name: Build actual component library
+        run: pnpm --filter @sveltery/base build
+      - name: Install official Chromium and OS dependencies
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Paired exact-pin UseRender acceptance
+        run: pnpm exec playwright test tests/browser/use-render.spec.ts --max-failures=5
+      - name: Preserve UseRender browser failure traces
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: use-render-browser-failures
+          path: test-results/use-render-*/
+          if-no-files-found: warn
+          retention-days: 14

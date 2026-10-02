@@ -1,5 +1,7 @@
 # Third-party notices
 
+UseRender native component and its private rendering, state attributes, source-prop ownership and merged-ref lifecycle closure, assertion/reference adapters and public type representations derive from packages/react/src/use-render/useRender, internals/useRenderElement, getStateAttributesProps, merge-props and packages/utils/useMergedRefs at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT attribution and complete immutable source/assertion hashes are preserved in parity/use-render.
+
 CSPProvider and its optional CSP context contract derive from packages/react/src/csp-provider and internals/csp-context at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. Immutable source/test hashes and the MIT license are preserved in parity/csp-provider. The four ScrollArea/Select-dependent ordinary tests remain deferred; local context/SSR/browser/consumer probes are supplemental.
 
 DirectionProvider, its direction context/callable reader and assertion/type adapters derive from packages/react/src/direction-provider and internals/direction-context at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT attribution and complete immutable source/assertion hashes are preserved in parity/direction-provider.

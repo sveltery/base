@@ -26,3 +26,5 @@ export { Accordion } from './accordion/index.js';
 export type { AccordionValue, AccordionRootProps, AccordionRootState, AccordionItemProps, AccordionItemState, AccordionHeaderProps, AccordionHeaderState, AccordionTriggerProps, AccordionTriggerState, AccordionPanelProps, AccordionPanelState, AccordionRootChangeEventReason, AccordionRootChangeEventDetails, AccordionItemChangeEventReason, AccordionItemChangeEventDetails } from './accordion/index.js';
 export { CSPProvider } from './csp-provider/index.js';
 export type { CSPProviderProps, CSPProviderState } from './csp-provider/index.js';
+export { UseRender } from './use-render/index.js';
+export type { UseRenderProps, UseRenderRef, UseRenderRefs, UseRenderRenderProp, UseRenderHostProps, UseRenderTagName, UseRenderStateAttributesMapping, UseRenderElementProps, UseRenderComponentProps } from './use-render/index.js';

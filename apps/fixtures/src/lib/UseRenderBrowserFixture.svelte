@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount, untrack, type Snippet } from 'svelte';
+  import type { HTMLAttributes } from 'svelte/elements';
   import { createAttachmentKey } from 'svelte/attachments';
   import { mergeProps } from '../../../../packages/base/src/lib/merge-props/index.js';
   import UseRender from '../../../../packages/base/src/lib/use-render/UseRender.svelte';
@@ -23,9 +24,9 @@
     Object.assign(node, { renderProbe: () => ({ calls: controller.calls, renders: controller.renders, refs: controller.refs.map(ref => ref.current ? { tag: ref.current.tagName, id: ref.current.id, connected: ref.current.isConnected } : null), element: element ? { tag: element.tagName, id: element.id, connected: element.isConnected } : null }) });
   }
 </script>
-{#snippet outerSpan(supplied: UseRenderHostProps, _state: State, children: Snippet | undefined)}<span {...supplied}>{@render children?.()}</span>{/snippet}
-{#snippet outerSection(supplied: UseRenderHostProps, _state: State, children: Snippet | undefined)}<section {...supplied}>{@render children?.()}</section>{/snippet}
-{#snippet outerSameSpan(supplied: UseRenderHostProps, _state: State, children: Snippet | undefined)}<span {...supplied}>{@render children?.()}</span>{/snippet}
+{#snippet outerSpan(supplied: UseRenderHostProps, _state: State, children: Snippet | undefined)}<span {...supplied as HTMLAttributes<HTMLSpanElement>}>{@render children?.()}</span>{/snippet}
+{#snippet outerSection(supplied: UseRenderHostProps, _state: State, children: Snippet | undefined)}<section {...supplied as HTMLAttributes<HTMLElement>}>{@render children?.()}</section>{/snippet}
+{#snippet outerSameSpan(supplied: UseRenderHostProps, _state: State, children: Snippet | undefined)}<span {...supplied as HTMLAttributes<HTMLSpanElement>}>{@render children?.()}</span>{/snippet}
 {#snippet replacement(supplied: UseRenderHostProps, state: State, children: Snippet | undefined)}
   {const merged = $derived(mergeProps(supplied, config.owned))}
   {const style = $derived(config.owned.style ? `${supplied.style ?? ''};${config.owned.style}` : supplied.style)}

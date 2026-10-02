@@ -255,9 +255,9 @@
     },
     {
       "upstreamModule": "use-render",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "UseRender",
+      "evidence": "parity/use-render/README.md"
     }
   ]
 }
