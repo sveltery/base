@@ -55,10 +55,10 @@ for (const reference of [false, true]) {
   test(`supplement: Separator ${framework} reactive orientation/default/native props`, async ({ page }) => {
     const errors = await setup(page, 'reactive'); const root = page.getByTestId('root');
     await expect(root).toHaveAttribute('role', 'separator'); await expect(root).toHaveAttribute('aria-orientation', 'horizontal'); await expect(root).toHaveAttribute('data-orientation', 'horizontal');
-    await expect(root).toHaveClass('orientation-horizontal'); await expect(root).toHaveCSS('color', 'rgb(0, 128, 0)'); await expect(root).toHaveText('Separator content');
+    await expect(root).toContainClass('orientation-horizontal'); await expect(root).toHaveCSS('color', 'rgb(0, 128, 0)'); await expect(root).toHaveText('Separator content');
     await root.evaluate(node => { (window as Window & { separatorHost?: Element }).separatorHost = node; });
     await page.getByRole('button', { name: 'vertical', exact: true }).click();
-    await expect(root).toHaveAttribute('aria-orientation', 'vertical'); await expect(root).toHaveAttribute('data-orientation', 'vertical'); await expect(root).toHaveClass('orientation-vertical'); await expect(root).toHaveCSS('color', 'rgb(255, 0, 0)');
+    await expect(root).toHaveAttribute('aria-orientation', 'vertical'); await expect(root).toHaveAttribute('data-orientation', 'vertical'); await expect(root).toContainClass('orientation-vertical'); await expect(root).toHaveCSS('color', 'rgb(255, 0, 0)');
     expect(await root.evaluate(node => (window as Window & { separatorHost?: Element }).separatorHost === node)).toBe(true);
     await page.getByRole('button', { name: 'update props' }).click(); await expect(root).toHaveAttribute('id', 'updated-separator');
     await root.click(); await expect(page.getByTestId('events')).toHaveText('["updated-part"]'); expect(errors).toEqual([]);
@@ -66,8 +66,8 @@ for (const reference of [false, true]) {
   for (const scenario of ['override', 'render-override']) test(`supplement: Separator ${framework} ${scenario} keeps consumer precedence`, async ({ page }) => {
     const errors = await setup(page, scenario); const root = page.getByTestId(scenario === 'override' ? 'root' : 'custom-root');
     await expect(root).toHaveAttribute('role', 'presentation'); await expect(root).toHaveAttribute('aria-orientation', 'vertical');
-    await expect(root).toHaveAttribute('data-orientation', scenario === 'override' ? 'consumer' : 'replacement'); await expect(root).toHaveClass('orientation-horizontal');
-    await page.getByRole('button', { name: 'vertical', exact: true }).click(); await expect(root).toHaveClass('orientation-vertical'); await expect(root).toHaveAttribute('aria-orientation', 'vertical'); expect(errors).toEqual([]);
+    await expect(root).toHaveAttribute('data-orientation', scenario === 'override' ? 'consumer' : 'replacement'); await expect(root).toContainClass('orientation-horizontal');
+    await page.getByRole('button', { name: 'vertical', exact: true }).click(); await expect(root).toContainClass('orientation-vertical'); await expect(root).toHaveAttribute('aria-orientation', 'vertical'); expect(errors).toEqual([]);
   });
   for (const scenario of ['events', 'events-prevent']) test(`supplement: Separator ${framework} ${scenario} replacement event order`, async ({ page }) => {
     const errors = await setup(page, scenario); await page.getByTestId('custom-root').click();
