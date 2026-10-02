@@ -11,7 +11,7 @@ function development() {
 }
 
 /** Connects detached triggers to the most recently committed Root using this handle. */
-export class DialogHandle<Payload = unknown> {
+export class DialogHandle<Payload> {
   declare private readonly payloadType: (value: Payload) => Payload;
   private readonly fallback = createFallbackStore();
   private readonly attached: DialogController[] = [];
@@ -80,4 +80,4 @@ export class DialogHandle<Payload = unknown> {
   get isOpen() { return this.current?.open ?? false; }
 }
 
-export function createDialogHandle<Payload = unknown>() { return new DialogHandle<Payload>(); }
+export function createDialogHandle<Payload>() { return new DialogHandle<Payload>(); }

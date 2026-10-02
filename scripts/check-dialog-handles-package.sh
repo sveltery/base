@@ -43,6 +43,8 @@ import type { ComponentProps, Snippet } from 'svelte';
 type Equal<A, B> = (<T>() => T extends A ? 1 : 2) extends (<T>() => T extends B ? 1 : 2) ? true : false;
 const factory: First.Handle<number> = Second.createHandle<number>();
 const constructed: Second.Handle<number> = new First.Handle<number>();
+// @ts-expect-error The pinned Handle type requires its payload type argument.
+const missingPayloadType: First.Handle = constructed;
 const rootPayload: Equal<Parameters<NonNullable<ComponentProps<typeof First.Root<number>>['children']>>[0], { payload: number | undefined }> = true;
 const triggerPayload: Equal<ComponentProps<typeof Second.Trigger<number>>['payload'], number | undefined> = true;
 declare const plain: Snippet;
@@ -54,7 +56,7 @@ factory.openWithPayload('wrong');
 const wrongTrigger: ComponentProps<typeof First.Trigger<number>> = { handle: factory, payload: 'wrong' };
 // @ts-expect-error Handles cannot change their payload type through assignment.
 const wrongHandle: First.Handle<string> = constructed;
-void [rootPayload, triggerPayload, plainRoot, strongTrigger, wrongTrigger, wrongHandle];
+void [missingPayloadType, rootPayload, triggerPayload, plainRoot, strongTrigger, wrongTrigger, wrongHandle];
 TS
 cat > "$dialog_consumer/check.mjs" <<'JS'
 import assert from 'node:assert/strict';

@@ -6,6 +6,8 @@ import Fixture from './DialogPayloadTypes.svelte';
 import { expectType } from './expect-type.js';
 const handle = createDialogHandle<number>();
 const constructed = new DialogHandle<number>();
+// @ts-expect-error The pinned Handle type requires its payload argument (construction still infers unknown).
+const missingPayloadType: DialogHandle = constructed;
 const root: RootProps<number> = { handle };
 const trigger: TriggerProps<number> = { handle, payload: 42 };
 const withoutPayload: ComponentProps<typeof Dialog.Trigger<number>> = { handle };
@@ -18,4 +20,4 @@ handle.openWithPayload('invalid');
 function equality(payload: Parameters<NonNullable<RootProps<number>['children']>>[0]['payload']) {
   expectType<number | undefined, typeof payload>(payload);
 }
-void [constructed, root, trigger, withoutPayload, directRoot, invalid, equality, Fixture];
+void [constructed, missingPayloadType, root, trigger, withoutPayload, directRoot, invalid, equality, Fixture];
