@@ -10,6 +10,11 @@ export function createUseRenderCase(scenario: string) {
   const renders: { props: { class: unknown; style: unknown; 'data-testid': unknown }; state: State }[] = [];
   const cleanupRef: UseRenderRef = node => { calls.push(node ? `cleanup-attach:${node.tagName}` : 'cleanup-null'); if (node) return () => { calls.push('cleanup'); }; };
   const legacyRef: UseRenderRef = node => { calls.push(node ? `legacy-attach:${node.tagName}` : 'legacy-null'); };
+  const emptyClassRef: UseRenderRef = node => {
+    if (!node) { calls.push('empty-null'); return; }
+    calls.push(`empty-attach:${node.tagName}:${String(node.getAttribute('class'))}`);
+    return () => { calls.push(`empty-cleanup:${node.tagName}:${String(node.getAttribute('class'))}`); };
+  };
   const callback = (value: string) => () => { calls.push(value); };
   const prevent = (event: PreventableEvent) => { calls.push('prevent'); event.preventBaseUIHandler(); };
   const getter = (previous: UseRenderHostProps) => { calls.push(`getter:${previous.id ?? 'empty'}`); return { id: 'tested-render', 'data-getter': 'replacement' }; };
@@ -71,7 +76,7 @@ export function createUseRenderCase(scenario: string) {
     if (scenario === 'getter-replacement') options.props = [{ id: 'old', onclick: callback('old') }, getter];
     if (scenario === 'getter-raw') { options.props = [() => ({ onmousedown: (event: PreventableEvent) => { calls.push(`raw-native:${typeof event.preventBaseUIHandler}`); } }), { id: 'tested-render' }]; options.class = 'component'; options.style = 'color:red'; }
     if (scenario === 'inherited-props') options.props = [stage === 0 ? {} : undefined, Object.create({ id: 'tested-render', 'data-native': 'yes' })];
-    if (scenario === 'literal-props') { options.props = { id: 'tested-render', class: stage === 1 ? 'active' : stage === 3 ? undefined : '', onmousedown: undefined }; options.ref = cleanupRef; options.defaultTagName = stage === 4 ? 'svg' : 'div'; }
+    if (scenario === 'literal-props') { options.props = { id: 'tested-render', class: stage === 1 ? 'active' : stage === 3 ? undefined : '', onmousedown: undefined }; options.ref = emptyClassRef; options.defaultTagName = stage >= 4 ? 'svg' : 'div'; options.enabled = stage < 5; }
     if (scenario === 'inherited-ref') options.props = [{}, () => Object.assign(Object.create({ ref: refs[0] }), { id: 'tested-render' })];
     if (scenario === 'accessor-ref') {
       options.enabled = stage === 0; let reads = 0;

@@ -2,6 +2,7 @@
   // Private native closure of pinned useRenderElement (MIT); existing Element remains unchanged.
   import { createAttachmentKey } from 'svelte/attachments';
   import { untrack } from 'svelte';
+  import { BROWSER } from 'esm-env';
   import { resolveClassValue } from '../internals/resolveClassValue.js';
   import { EMPTY_STATE, memoRefAttachment, mergeHostProps, refList, resolveSources, stateAttributes } from './props.js';
   import type { RenderElementProps, UseRenderRef } from './types.js';
@@ -12,7 +13,7 @@
   function preserveEmptyClass(node: Element) {
     // Svelte's client class normalizer drops '', while the pinned host and native SSR retain it.
     node.setAttribute('class', '');
-    return () => { if (node.getAttribute('class') === '') node.removeAttribute('class'); };
+    // Native attribute updates handle later changes. Teardown must retain the attribute for ref cleanup.
   }
   const referenceAttachment = memoRefAttachment<Host>((node, previous) => untrack(() => {
     if (node !== null || element === previous) element = node;
@@ -26,14 +27,14 @@
     const resolved = resolveSources(props);
     let host = { ...stateProps, ...resolved };
     // Capture from the fresh merged host: inherited refs are dropped and accessors are read once.
-    const refs = refList(host.ref as UseRenderRef<Host> | null | undefined, ref);
+    const refs = BROWSER ? refList(host.ref as UseRenderRef<Host> | null | undefined, ref) : [];
     if (className !== undefined) host = mergeHostProps(host, { class: className });
     if (style !== undefined) host = mergeHostProps(host, { style });
     // Refs are a separate channel: mergeProps deliberately does not compose them.
     const { ref: _ref, ...attributes } = host;
     void _ref;
     const defaults = render ? {} : defaultTagName === 'button' ? { type: 'button' } : defaultTagName === 'img' ? { alt: '' } : {};
-    return { props: { [emptyClassKey]: !render && attributes.class === '' ? preserveEmptyClass : undefined, ...defaults, ...attributes, [attachmentKey]: referenceAttachment(refs, Array.isArray(ref)) }, refs };
+    return { props: { [emptyClassKey]: !render && attributes.class === '' ? preserveEmptyClass : undefined, ...defaults, ...attributes, [attachmentKey]: BROWSER ? referenceAttachment(refs, Array.isArray(ref)) : undefined }, refs };
   });
 </script>
 {#if enabled}

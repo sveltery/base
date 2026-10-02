@@ -225,3 +225,11 @@ it('supplement: primitive refs from typed state mapping are ignored on attach an
   expect(app.getElement()).toBe(host()); expect(host().getAttribute('data-active')).toBe('');
   app.setOptions({ enabled: false }); flushSync(); expect(app.getElement()).toBeNull();
 });
+for (const path of ['disable', 'unmount', 'swap'] as const) it(`supplement: empty class remains visible to ref cleanup on ${path}`, async () => {
+  const observed: (string | null)[] = [];
+  const callback: UseRenderRef = node => { if (node) return () => { observed.push(node.getAttribute('class')); }; };
+  const { app } = render({ options: { props: { class: '' }, ref: callback } });
+  if (path === 'unmount') { await unmount(app); apps.splice(apps.indexOf(app), 1); }
+  else { app.setOptions(path === 'disable' ? { enabled: false } : { defaultTagName: 'svg', props: { class: '' }, ref: callback }); flushSync(); }
+  expect(observed).toEqual(['']);
+});

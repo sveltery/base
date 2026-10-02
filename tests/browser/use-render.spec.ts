@@ -93,9 +93,11 @@ for (const reference of [false, true]) {
     const host = await setup(page, 'literal-props', reference); await expect(host).toHaveAttribute('class', '');
     await page.getByRole('button', { name: 'Advance' }).click(); await expect(host).toHaveAttribute('class', 'active');
     await page.getByRole('button', { name: 'Advance' }).click(); await expect(host).toHaveAttribute('class', '');
-    await page.getByRole('button', { name: 'Advance' }).click(); await expect(host).not.toHaveAttribute('class'); expect((await probe(page)).calls).toEqual(['cleanup-attach:DIV']);
+    await page.getByRole('button', { name: 'Advance' }).click(); await expect(host).not.toHaveAttribute('class'); expect((await probe(page)).calls).toEqual(['empty-attach:DIV:']);
     await page.getByRole('button', { name: 'Advance' }).click(); await expect(host).toHaveJSProperty('tagName', 'svg'); await expect(host).toHaveAttribute('class', '');
-    expect((await probe(page)).calls).toEqual(['cleanup-attach:DIV', 'cleanup', 'cleanup-attach:svg']);
+    expect((await probe(page)).calls).toEqual(['empty-attach:DIV:', 'empty-cleanup:DIV:null', 'empty-attach:svg:']);
+    await page.getByRole('button', { name: 'Advance' }).click(); await expect(host).toHaveCount(0);
+    expect((await probe(page)).calls).toEqual(['empty-attach:DIV:', 'empty-cleanup:DIV:null', 'empty-attach:svg:', 'empty-cleanup:svg:']);
   });
   test(`supplement ${framework} host spread drops inherited refs`, async ({ page }) => {
     await setup(page, 'inherited-ref', reference); expect((await probe(page)).refs).toEqual([null, null, null]);

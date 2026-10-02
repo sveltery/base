@@ -78,6 +78,11 @@ assert.match(body, /data-item-count="5"/); assert.match(body, /<svg/); assert.ma
 assert.match(body, /alt=""/); assert.doesNotMatch(body, /id="disabled"/);
 assert.match(body, /id="packed-empty-class" class=""/);
 assert.match(body, /class="owned base"/); assert.match(body, /data-state="true"/);
+let refReads = 0;
+const refs = [];
+Object.defineProperty(refs, 0, { enumerable: true, get() { refReads += 1; return { current: null }; } });
+assert.match(render(First, { props: { ref: refs } }).body, /<div/);
+assert.equal(refReads, 0, 'SSR must not resolve the browser-only merged ref array');
 JS
 cat > "$render_consumer/tsconfig.json" <<'JSON'
 {"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"skipLibCheck":true,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts"]}
