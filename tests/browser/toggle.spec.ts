@@ -78,6 +78,9 @@ for (const reference of [false, true]) {
     const button = await setup(page, scenario, reference); await button.focus(); await expect(button).toBeFocused();
     await page.keyboard.press('Enter'); await expect(button).toHaveAttribute('aria-pressed', 'true');
     if (scenario === 'link') expect(new URL(page.url()).hash).toBe('#target');
+    // Native hash navigation can move focus away in both frameworks. Exercise
+    // Space on the actual host, preserving navigation rather than canceling it.
+    await button.focus(); await expect(button).toBeFocused();
     await page.keyboard.press('Space'); await expect(button).toHaveAttribute('aria-pressed', 'false');
     expect((await calls(page)).map(call => call.pressed)).toEqual([true, false]);
   });
