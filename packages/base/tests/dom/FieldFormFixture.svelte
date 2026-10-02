@@ -5,7 +5,7 @@
   import { Fieldset } from '../../src/lib/fieldset/index.js';
   import Input from '../../src/lib/input/Input.svelte';
   import { untrack } from 'svelte';
-  import type { HTMLTextareaAttributes } from 'svelte/elements';
+  import type { HTMLTextareaAttributes, HTMLAttributes } from 'svelte/elements';
   import type { FieldRootProps, FieldRootActions } from '../../src/lib/field/types.js';
   import type { FormActions, FormErrors, FormValidationMode, FormSubmitEventDetails } from '../../src/lib/form/types.js';
   import type { InputChangeEventDetails } from '../../src/lib/input/types.js';
@@ -22,7 +22,7 @@
     errorMatch: undefined as boolean | keyof ValidityState | undefined, second: false, secondFirst: false,
     control: true, field: true, fieldMode: undefined as FormValidationMode | undefined,
     debounce: 0, required: false, type: 'text', defaultValue: untrack(() => initial), externalForm: undefined as string | undefined,
-    textarea: false, preventInput: false, cancelValue: false,
+    textarea: false, preventInput: false, cancelValue: false, error: true, errorOverride: 'default' as 'default' | 'children' | 'render' | 'empty',
   });
   let errors = $state.raw<FormErrors | undefined>(untrack(() => initialErrors));
   let actions = $state.raw<{ current: FormActions | null }>({ current: null });
@@ -40,6 +40,8 @@
   }
 </script>
 {#snippet replacement(nativeProps: Record<string | symbol, unknown>)}<textarea {...nativeProps as HTMLTextareaAttributes}></textarea>{/snippet}
+{#snippet customError()}<strong>Custom error content</strong>{/snippet}
+{#snippet renderedError(nativeProps: Record<string | symbol, unknown>)}<p {...nativeProps as HTMLAttributes<HTMLParagraphElement>}>Custom rendered error</p>{/snippet}
 {#snippet firstField()}
   {#if config.field}
     <Field.Root id="field" name={config.fieldName} disabled={config.disabled} invalid={config.invalid} dirty={config.dirty} touched={config.touched} {validate} validationMode={config.fieldMode} validationDebounceTime={config.debounce} actionsRef={fieldActions}>
@@ -51,7 +53,7 @@
         {:else}<Field.Control id={config.controlId} name={config.controlName} value={controlled ? value : undefined} defaultValue={config.defaultValue} required={config.required} type={config.type} form={config.externalForm} onValueChange={change} oninput={(event) => { if (config.preventInput) event.preventBaseUIHandler(); }} render={config.textarea ? replacement : undefined} aria-describedby="external external" />{/if}
       {/if}
       {#if config.item}<Field.Item id="item" disabled><Field.Label id="item-label">Item</Field.Label><Field.Description id="item-description">Item description</Field.Description></Field.Item>{/if}
-      <Field.Error id="error" match={config.errorMatch} />
+      {#if config.error}<Field.Error id="error" match={config.errorMatch} {...(config.errorOverride === 'children' ? { children: customError } : config.errorOverride === 'empty' ? { children: undefined } : {})} render={config.errorOverride === 'render' ? renderedError : undefined} />{/if}
       <Field.Validity>{#snippet children(state)}<output id="validity">{JSON.stringify(state)}</output>{/snippet}</Field.Validity>
     </Field.Root>
   {/if}

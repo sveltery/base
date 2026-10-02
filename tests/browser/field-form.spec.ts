@@ -22,12 +22,6 @@ for (const reference of [false, true]) {
     await input.fill('valid'); await expect(input).not.toHaveAttribute('aria-invalid'); await expect(page.locator('#error')).toHaveCount(0);
     await page.locator('#submit').click(); expect(await read(page, 'submissions')).toEqual(['native', { values: { email: 'valid' }, reason: 'none' }]);
   });
-  test(`${framework} duplicate external and client messages keep both list items`, async ({ page }) => {
-    const input = await setup(page, 'duplicates-custom-onChange', reference);
-    await page.getByRole('button', { name: 'Server duplicates', exact: true }).click();
-    await expect(page.locator('#error li')).toHaveText(['duplicate', 'duplicate']);
-    await input.fill('changed'); await expect(page.locator('#error li')).toHaveText(['same', 'same']);
-  });
   test(`${framework} empty control id excludes consolidated registration and restores it after a valid id returns`, async ({ page }) => {
     const input = await setup(page, 'custom-onSubmit', reference); await input.fill('valid');
     await page.getByRole('button', { name: 'Empty id', exact: true }).click(); await expect(input).toHaveAttribute('id', '');
@@ -90,3 +84,25 @@ for (const reference of [false, true]) {
     await page.locator('#submit').click(); expect((await read(page, 'submissions')).at(-1)).toEqual({ values: { email: 'value' }, reason: 'none' });
   });
 }
+for (const initialClient of [false, true]) test(`supplement native message ownership matches the actual pin across external/client updates with initialClient=${initialClient}`, async ({ page, browser }) => {
+  const reference = await browser.newPage();
+  try {
+    const nativeInput = await setup(page, 'duplicates-custom-onChange', false), referenceInput = await setup(reference, 'duplicates-custom-onChange', true);
+    const match = async () => {
+      const expected = await reference.locator('#error li').allTextContents();
+      await expect(page.locator('#error li')).toHaveText(expected);
+    };
+    if (initialClient) {
+      await referenceInput.fill('first'); await nativeInput.fill('first');
+      await expect(reference.locator('#validity')).toContainText('"value":"first"'); await match();
+    }
+    await reference.getByRole('button', { name: 'Server duplicates', exact: true }).click();
+    await page.getByRole('button', { name: 'Server duplicates', exact: true }).click(); await match();
+    for (const value of ['changed', 'again']) {
+      await referenceInput.fill(value); await nativeInput.fill(value);
+      await expect(reference.locator('#validity')).toContainText(`"value":"${value}"`); await match();
+    }
+    await reference.getByRole('button', { name: 'Empty errors', exact: true }).click();
+    await page.getByRole('button', { name: 'Empty errors', exact: true }).click(); await match();
+  } finally { await reference.close(); }
+});

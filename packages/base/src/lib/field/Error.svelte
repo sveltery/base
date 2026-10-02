@@ -8,8 +8,15 @@
   import { getLabelableContext } from './labelable.svelte.js';
   import { stateAttributes } from './state.js';
   import { createFieldTransition } from './transition.svelte.js';
+  import ErrorMessageList from './ErrorMessageList.svelte';
   import type { FieldErrorProps } from './types.js';
-  let { children, render, id: idProp, match, ref = $bindable(), ...props }: FieldErrorProps = $props();
+  let { ref = $bindable(), ...componentProps }: FieldErrorProps = $props();
+  const render = $derived(componentProps.render), idProp = $derived(componentProps.id), match = $derived(componentProps.match);
+  const nativeProps = $derived.by(() => {
+    const native = { ...componentProps };
+    delete native.children; delete native.render; delete native.id; delete native.match;
+    return native;
+  });
   const field = getFieldContext(false)!;
   const labelable = getLabelableContext()!;
   const instanceId = $props.id();
@@ -40,9 +47,9 @@
 </script>
 {#snippet errorContent()}
   {#if Array.isArray(message)}
-    {#if message.length > 1}<ul>{#each message as item, index (index)}<li>{item}</li>{/each}</ul>{:else}{message[0] ?? ''}{/if}
+    {#if message.length > 1}<ErrorMessageList messages={message} />{:else}{message[0] ?? ''}{/if}
   {:else}{message ?? ''}{/if}
 {/snippet}
 {#if transition.mounted}
-  <Element tag="div" {internal} props={resolveFieldProps(props, errorState)} state={errorState} {render} children={children ?? errorContent} {attach} bind:ref />
+  <Element tag="div" {internal} props={resolveFieldProps(nativeProps, errorState)} state={errorState} {render} children={Object.hasOwn(componentProps, 'children') ? componentProps.children : errorContent} {attach} bind:ref />
 {/if}

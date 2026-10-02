@@ -85,11 +85,12 @@ it('Form:777 clears only changed own external errors, and disabling a computed-i
   component.update({ fieldsetDisabled: false }); flushSync(); submit(); expect(onFormSubmit.mock.lastCall?.[0]).toEqual({ email: 'ok' });
 });
 it('supplement repeated external and custom error text renders every source list item without key collisions', () => {
-  const { component, host, edit } = setup({ mode: 'onChange', initialErrors: { email: ['duplicate', 'duplicate'] }, validate: () => ['same', 'same'] });
+  const { component, host } = setup({ initialErrors: { email: ['duplicate', 'duplicate'] } });
   expect([...host.querySelectorAll('#error li')].map(item => item.textContent)).toEqual(['duplicate', 'duplicate']);
-  edit('changed'); expect([...host.querySelectorAll('#error li')].map(item => item.textContent)).toEqual(['same', 'same']);
   component.setErrors({ email: ['duplicate', 'new', 'duplicate'] }); flushSync();
   expect([...host.querySelectorAll('#error li')].map(item => item.textContent)).toEqual(['duplicate', 'new', 'duplicate']);
+  const client = setup({ mode: 'onChange', validate: () => ['same', 'same'] }); client.edit('changed');
+  expect([...client.host.querySelectorAll('#error li')].map(item => item.textContent)).toEqual(['same', 'same']);
 });
 it('Root:533 retains explicit invalidity while disabled and suppresses automatic Error/aria-invalid', () => {
   const { component, field, input, host } = setup(); component.update({ disabled: true, invalid: true }); flushSync();
