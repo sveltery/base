@@ -15,6 +15,7 @@
   const controlled = untrack(() => openProp !== undefined);
   const initialDefault = untrack(() => defaultOpen);
   let internalOpen = $state(initialDefault);
+  // The immutable useControlled pin falls back to its initial default if a controlled value disappears.
   const open = $derived(controlled && openProp !== undefined ? openProp : internalOpen);
   let retainedMounted = $state(untrack(() => open));
   let phase = $state<CollapsibleTransitionStatus>(untrack(() => open ? 'idle' : undefined));

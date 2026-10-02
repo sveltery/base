@@ -118,6 +118,13 @@ it('supplement: controlled undefined fallback preserves the initial default', as
   const { trigger, component } = await setup('controlled'); component.setDefaultOpen(true); component.setOwnerOpen(undefined); await tick(); expect(trigger.getAttribute('aria-expanded')).toBe('false');
   trigger.click(); await settle(); expect(trigger.getAttribute('aria-expanded')).toBe('false');
 });
+it('supplement: initially controlled false with a true default falls back when its value disappears', async () => {
+  vi.spyOn(console, 'error').mockImplementation(() => {});
+  const { trigger, component } = await setup('controlled-default'); expect(trigger.getAttribute('aria-expanded')).toBe('false');
+  component.setOwnerOpen(undefined); await settle(); expect(trigger.getAttribute('aria-expanded')).toBe('true'); expect(panel()).not.toBe(null);
+  trigger.click(); await settle(); expect(trigger.getAttribute('aria-expanded')).toBe('true');
+  expect(component.snapshot().events.map(event => ({ open: event.open, before: event.before }))).toEqual([{ open: false, before: 'true' }]);
+});
 it('supplement: missing animation API completes opening and closing', async () => {
   const { trigger } = await setup('default'); trigger.click(); await settle(); expect(panel()).not.toBe(null); expect(panel()!.hasAttribute('data-starting-style')).toBe(false);
   trigger.click(); await settle(); expect(panel()).toBe(null);

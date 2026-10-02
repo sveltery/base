@@ -21,7 +21,7 @@ export const collapsibleCss = `
 export function collapsibleConfig(scenario: string) {
   const hidden = scenario.startsWith('beforematch') || scenario.startsWith('hidden') || scenario === 'replaced-host';
   const keys = scenario.startsWith('keys') || scenario === 'beforematch-keys';
-  const initialOpen = ['initial-transition', 'zero', 'remove-close', 'interrupt', 'race-open', 'race-close', 'keys-initial', 'keys-both', 'keys-close', 'keys-open', 'ids', 'ending-host', 'cancel-close', 'manual-id', 'keys-inline'].includes(scenario);
+  const initialOpen = ['controlled-default', 'initial-transition', 'zero', 'remove-close', 'interrupt', 'race-open', 'race-close', 'keys-initial', 'keys-both', 'keys-close', 'keys-open', 'ids', 'ending-host', 'cancel-close', 'manual-id', 'keys-inline'].includes(scenario);
   return {
     hidden, initialOpen,
     keep: hidden || ['keep', 'controlled-keep', 'keys-both', 'keys-open', 'mixed', 'important', 'race-open', 'state-callbacks'].includes(scenario),

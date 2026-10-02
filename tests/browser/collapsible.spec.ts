@@ -136,7 +136,14 @@ for (const reference of [false, true]) {
     await flush(page); await expect(panel).toHaveAttribute('data-ending-style'); expect(await panel.evaluate((node: HTMLElement) => node.style.getPropertyValue('--collapsible-panel-height'))).toMatch(/px$/);
   });
   test(`P:286 ${framework} unmounts zero-size panel without waiting for unrelated transitions`, async ({ page }) => {
-    const { panel } = await setup(page, 'zero', reference); await expect(panel).toHaveAttribute('data-open'); await flush(page); await frames(page, 1); expect(await panel.count()).toBe(0);
+    const { panel } = await setup(page, 'zero', reference); await expect(panel).toHaveAttribute('data-open');
+    const absent = await page.evaluate(async () => {
+      (window as Window & { collapsibleFlush: (action: string) => void }).collapsibleFlush('click');
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+      for (let index = 0; index < 3; index++) await Promise.resolve();
+      return document.querySelector('[data-testid="panel"]') === null;
+    });
+    expect(absent).toBe(true);
   });
   test(`P:322 ${framework} supports removing rendered panel as it closes`, async ({ page }) => {
     const { trigger, panel } = await setup(page, 'remove-close', reference); await expect(panel).toHaveAttribute('data-open'); await trigger.click(); await frames(page, 1);
@@ -267,6 +274,16 @@ for (const reference of [false, true]) {
   });
   test(`supplement: ${framework} explicit disabled false overrides Root`, async ({ page }) => {
     const { trigger, panel } = await setup(page, 'disabled-override', reference); await trigger.click(); await expect(trigger).toHaveAttribute('aria-expanded', 'true'); await expect(panel).toBeVisible(); expect(await calls(page)).toHaveLength(1);
+  });
+  test(`supplement: ${framework} initially controlled undefined uses the initial default and preserves its warning`, async ({ page }) => {
+    const warnings: string[] = []; page.on('console', message => { if (message.type() === 'error') warnings.push(message.text()); });
+    const { trigger, panel } = await setup(page, 'controlled-default', reference);
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false'); await expect(panel).toHaveCount(0);
+    await page.getByRole('button', { name: 'Release controlled value' }).click();
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true'); await expect(panel).toHaveAttribute('data-open');
+    await expect.poll(() => warnings.join(' ')).toContain('A component is changing the controlled open state of Collapsible to be uncontrolled.');
+    await trigger.click(); await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    expect((await calls(page)).map(call => ({ open: call.open, before: call.before }))).toEqual([{ open: false, before: 'true' }]);
   });
   test(`supplement: ${framework} disabled custom activation remains focusable`, async ({ page }) => {
     const { trigger } = await setup(page, 'custom-disabled', reference); await trigger.focus(); await expect(trigger).toBeFocused(); await expect(trigger).toHaveAttribute('aria-disabled', 'true'); await page.keyboard.press('Enter'); await page.keyboard.press('Space'); await trigger.click({ force: true }); expect(await calls(page)).toHaveLength(0);

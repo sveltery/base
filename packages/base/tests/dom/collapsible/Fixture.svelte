@@ -6,7 +6,7 @@
   import type { CollapsiblePanelState, CollapsibleRootChangeEventDetails } from '../../../src/lib/collapsible/index.js';
   let { scenario = 'default' }: { scenario?: string } = $props();
   let ownerOpen = $state<boolean | undefined>(untrack(() => scenario.startsWith('controlled') || scenario === 'keep' ? false : undefined));
-  let defaultOpen = $state(untrack(() => ['aria', 'manual-id', 'remount-id', 'cancel-close', 'late-panel', 'explicit-id'].includes(scenario)));
+  let defaultOpen = $state(untrack(() => ['controlled-default', 'aria', 'manual-id', 'remount-id', 'cancel-close', 'late-panel', 'explicit-id'].includes(scenario)));
   let rootDisabled = $state(untrack(() => scenario.startsWith('disabled')));
   let triggerDisabled = $state<boolean | undefined>(untrack(() => scenario === 'disabled-override' ? false : undefined));
   let panelMounted = $state(true);

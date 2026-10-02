@@ -60,6 +60,7 @@
   {/if}
   <form id="external-form" onsubmit={event => { event.preventDefault(); externalSubmitted++; }}></form>
   <button onclick={() => ownerOpen = !ownerOpen}>toggle externally</button>
+  <button onclick={() => ownerOpen = undefined}>Release controlled value</button>
   <button onclick={() => defaultOpen = !defaultOpen}>Change default</button>
   <button onclick={() => disabled = !disabled}>Change disabled</button>
   <button onclick={() => shown = !shown}>Toggle mounting</button>
