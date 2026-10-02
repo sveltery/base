@@ -8,6 +8,8 @@ const require = createRequire(new URL('../../packages/base/package.json', import
 const ts = require('typescript');
 const root = resolve(process.argv[2] ?? '../direction-provider-upstream');
 const inventory = JSON.parse(readFileSync(new URL('./upstream-inventory.json', import.meta.url), 'utf8'));
+const nativePorts = JSON.parse(readFileSync(new URL('./fieldset-ports.json', import.meta.url), 'utf8'));
+const portsById = new Map(nativePorts.ports.map(port => [port.id, port]));
 const bodies = new Map();
 const declarationsById = new Map(inventory.declarations.map(declaration => [declaration.id, declaration]));
 for (const source of new Set(inventory.declarations.map(declaration => declaration.source))) {
@@ -34,14 +36,16 @@ const declarations = inventory.declarations.map(declaration => {
   if (!body) throw new Error(`Missing immutable declaration body: ${declaration.id}`);
   const dependencies = families.filter(family => new RegExp(`\\b${family}\\b`).test(body));
   const reactLifecycle = /\.react17\.test\.tsx$/.test(declaration.source) || renderCountSites.includes(declaration.id) || /\b(?:React\.)?(?:Activity|Suspense|StrictMode|strictMode)\b/.test(body);
+  const port = portsById.get(declaration.id);
+  if (port && port.bodySha256 !== declaration.bodySha256) throw new Error(`Native port source body differs: ${declaration.id}`);
   return { id: declaration.id, title: declaration.title, bodySha256: declaration.bodySha256, assertionLines: declaration.assertions.map(assertion => assertion.line),
-    status: dependencies.length ? 'deferred-consumer-family' : reactLifecycle ? 'deferred-react-lifecycle-contract' : 'unported',
-    reason: dependencies.length ? `The exact declaration uses ${dependencies.join(', ')}; a text-input substitute cannot establish its consumer contract.` : reactLifecycle ? 'The exact declaration uses React17, React lifecycle/scheduler behavior or React render counts. Svelte observable supplements do not execute that lifecycle contract.' : 'No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.',
-    dependencies, port: null, ordinaryDeclarationCredit: 0 };
+    status: dependencies.length ? 'deferred-consumer-family' : reactLifecycle ? 'deferred-react-lifecycle-contract' : port ? 'native-dom-port-pending-final-gates' : 'unported',
+    reason: dependencies.length ? `The exact declaration uses ${dependencies.join(', ')}; a text-input substitute cannot establish its consumer contract.` : reactLifecycle ? 'The exact declaration uses React17, React lifecycle/scheduler behavior or React render counts. Svelte observable supplements do not execute that lifecycle contract.' : port ? 'Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.' : 'No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.',
+    dependencies, port: port ? { file: port.port, declarationLine: port.portDeclarationLine, bodySha256: port.portBodySha256, assertionLines: port.portAssertionLines } : null, ordinaryDeclarationCredit: 0 };
 });
 const counts = declarations.reduce((result, declaration) => { result[declaration.status] = (result[declaration.status] ?? 0) + 1; return result; }, {});
 const output = JSON.stringify({ upstream: inventory.upstream,
-  scope: 'All 209 immutable ordinary declaration sites accounted for. Consumer/lifecycle classifications identify concrete blockers, not approved differences or completed parity. Template sites remain sites; no hypothetical parameterized execution total is credited. No ordinary declaration is ported by the grouped supplements.',
+  scope: 'All 209 immutable ordinary declaration sites accounted for. Seven complete native DOM body adaptations are separately mapped in fieldset-ports.json and await final gates with zero credit. Consumer/lifecycle classifications identify concrete blockers, not approved differences or completed parity. Template sites remain sites; no hypothetical parameterized execution total or grouped supplement is credited.',
   counts, ordinaryDeclarationCredit: 0, declarations,
   helperInventory: { file: 'conformance.json', invocations: 9, distinctHelperDeclarationSites: 15, invocationMappings: 135, plannedRealReactSvelteExecutions: 270, ordinaryDeclarationCredit: 0, status: 'uncredited-pending-execution' },
   typeAssertions: inventory.typeAssertions.map(assertion => ({ id: `${assertion.source}:${assertion.line}`, assertion: assertion.text, port: 'packages/base/tests/field-form.types.ts', status: 'passing-internal-svelte-check-public-tarball-pending', ordinaryDeclarationCredit: 0 })),
@@ -50,6 +54,7 @@ const output = JSON.stringify({ upstream: inventory.upstream,
     { file: 'packages/base/tests/field-form-ssr.test.ts', executions: 4, status: 'passing-local-ssr', checkpoint: 'f2515eb481880e88a94bdf9f377077817814d749', ordinaryDeclarationCredit: 0 },
     { file: 'tests/browser/field-form.spec.ts', executions: 34, status: 'passing-secured-paired-browser', evidence: 'browser-evidence.json', ordinaryDeclarationCredit: 0 },
     { file: 'tests/browser/field-form-remote.spec.ts', acceptanceSupplements: 9, diagnosticExecutions: 3, unmetAcceptanceWitness: 1, status: 'invalid-submit-no-effect-requirement-fails', checkpoint: 'cfbe5eb867f498b57828911ff5acc1177f405a99', ordinaryDeclarationCredit: 0 },
+    { file: 'packages/base/tests/dom/field-error-ownership.test.ts', executions: 8, status: 'passing-local-actual-pin-matched-dom', checkpoint: 'a168a1502d517a0deb9aca5ed060228a57fd286e', ordinaryDeclarationCredit: 0 },
   ] }, null, 2) + '\n';
 const destination = new URL('./ledger.json', import.meta.url);
 if (process.argv.includes('--check')) { if (readFileSync(destination, 'utf8') !== output) throw new Error('Field/Form incomplete-scope ledger differs from immutable source'); }

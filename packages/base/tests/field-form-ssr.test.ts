@@ -28,6 +28,6 @@ it('SSR supports generic Form native attributes and context-free Field.Control',
 it('SSR Fieldset supports disabled native semantics and required Legend context errors', () => {
   const { body } = render(Fieldset.Root, { props: { disabled: true, id: 'group' } });
   expect(body).toContain('<fieldset'); expect(body).toContain('disabled'); expect(body).toContain('data-disabled=""');
-  expect(() => render(Fieldset.Legend).body).toThrow('Fieldset context is missing');
+  expect(() => render(Fieldset.Legend).body).toThrow('FieldsetRootContext is missing');
   for (const Component of [Field.Label, Field.Description, Field.Error, Field.Item]) expect(() => render(Component).body).toThrow('FieldRootContext is missing');
 });

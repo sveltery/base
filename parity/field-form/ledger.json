@@ -5,11 +5,12 @@
     "commit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
     "license": "MIT"
   },
-  "scope": "All 209 immutable ordinary declaration sites accounted for. Consumer/lifecycle classifications identify concrete blockers, not approved differences or completed parity. Template sites remain sites; no hypothetical parameterized execution total is credited. No ordinary declaration is ported by the grouped supplements.",
+  "scope": "All 209 immutable ordinary declaration sites accounted for. Seven complete native DOM body adaptations are separately mapped in fieldset-ports.json and await final gates with zero credit. Consumer/lifecycle classifications identify concrete blockers, not approved differences or completed parity. Template sites remain sites; no hypothetical parameterized execution total or grouped supplement is credited.",
   "counts": {
     "deferred-react-lifecycle-contract": 8,
-    "unported": 166,
-    "deferred-consumer-family": 35
+    "unported": 159,
+    "deferred-consumer-family": 35,
+    "native-dom-port-pending-final-gates": 7
   },
   "ordinaryDeclarationCredit": 0,
   "declarations": [
@@ -2588,10 +2589,17 @@
       "assertionLines": [
         24
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/fieldset-source.test.ts",
+        "declarationLine": 36,
+        "bodySha256": "e3cf90013a8892f6c04419f1771ebf9c7876cbbcdf640825c8dc78c7d0b538d6",
+        "assertionLines": [
+          38
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -2601,10 +2609,17 @@
       "assertionLines": [
         37
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/fieldset-source.test.ts",
+        "declarationLine": 40,
+        "bodySha256": "4fe39277e40b2d6ea563741fdabd67f2277d296f0ea9e99488d453e187bf9955",
+        "assertionLines": [
+          42
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -2616,10 +2631,19 @@
         64,
         66
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/fieldset-source.test.ts",
+        "declarationLine": 44,
+        "bodySha256": "3e23fd1c0813de5b8e5f7e818b6ebbfb0549ffe6e5e59f3746987c39a1679f3b",
+        "assertionLines": [
+          46,
+          47,
+          48
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -2629,10 +2653,17 @@
       "assertionLines": [
         73
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/fieldset-source.test.ts",
+        "declarationLine": 50,
+        "bodySha256": "198c37d4322377f92734e2a2549115caa61edf4f1cf9aee4c174a898e019d9cb",
+        "assertionLines": [
+          52
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -2671,10 +2702,18 @@
         28,
         29
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/fieldset-source.test.ts",
+        "declarationLine": 14,
+        "bodySha256": "baecf005f8b57033d2c3d5beedb2932395f253658a1a14b3dfdc42306e083392",
+        "assertionLines": [
+          16,
+          17
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -2684,10 +2723,17 @@
       "assertionLines": [
         43
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/fieldset-source.test.ts",
+        "declarationLine": 19,
+        "bodySha256": "e147c848df6ae8ca490c14ac7ca9fc1add2b79ab6bc234ede1c84c3e2cce1a4e",
+        "assertionLines": [
+          21
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -2702,10 +2748,22 @@
         82,
         83
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/fieldset-source.test.ts",
+        "declarationLine": 23,
+        "bodySha256": "13e8d675ca358900b693f4a4b5a6eccf1da34b692d50341c2e34ff7b3ce52a2a",
+        "assertionLines": [
+          25,
+          26,
+          28,
+          29,
+          31,
+          32
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -3374,6 +3432,13 @@
       "unmetAcceptanceWitness": 1,
       "status": "invalid-submit-no-effect-requirement-fails",
       "checkpoint": "cfbe5eb867f498b57828911ff5acc1177f405a99",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "file": "packages/base/tests/dom/field-error-ownership.test.ts",
+      "executions": 8,
+      "status": "passing-local-actual-pin-matched-dom",
+      "checkpoint": "a168a1502d517a0deb9aca5ed060228a57fd286e",
       "ordinaryDeclarationCredit": 0
     }
   ]
