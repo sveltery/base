@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "kind": "accepted-unsupported-characterization",
+  "recorded_at_utc": "2026-10-02T16:52:51.019252+00:00",
+  "runtime": {
+    "path": "packages/base/src/lib/input/Input.svelte",
+    "sha256": "98c914f36d45bf549ac09445b9d278e207ef601bb5e4d905deef35f72294f69d",
+    "unchanged": true,
+    "original_head": "ce49b546d6b35adc6b3b38c8673aeac8fdf8b9ab"
+  },
+  "upstream": {
+    "version": "@base-ui/react 1.8.0",
+    "commit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+    "inventory": "parity/input/upstream-inventory.json",
+    "license": "MIT",
+    "notice": "parity/input/UPSTREAM_LICENSE"
+  },
+  "decision": {
+    "path": "parity/input/reset-limit/decision.json",
+    "sha256": "2f1359cccc76b750fd2fd20afc6addcd31a0a7aaa5732274d37c10b967651e69",
+    "difference_id": "I-04",
+    "scope": "Exactly four controlled, uncanceled direct IN/OUT reassociation cases with stopped reset propagation."
+  },
+  "focused": {
+    "test": "packages/base/tests/dom/input-reset-limit.test.ts",
+    "fixture": "packages/base/tests/dom/InputResetLimitFixture.svelte",
+    "total": 36,
+    "passing": 32,
+    "expected_failures": 4,
+    "unexpected_failures": 0,
+    "skipped": 0,
+    "results": "parity/input/reset-limit/results.json",
+    "log": "parity/input/reset-limit/vitest.log",
+    "command": "pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/input-reset-limit.test.ts",
+    "aggregate_guard": "afterAll outside it.fails validates all 36 observations and successful cleanups, exact four limitation rows, every immediate native value, final form associations and all 32 normative passing rows."
+  },
+  "historical": {
+    "sources_preserved_byte_for_byte": true,
+    "origins": "parity/input/reset-limit/history/origins.json",
+    "original24": {
+      "test": "parity/input/reset-limit/history/original24/imperative-reset.test.ts",
+      "fixture": "parity/input/reset-limit/history/original24/ImperativeResetFixture.svelte",
+      "results": "parity/input/reset-limit/history/original24/results.json",
+      "log": "parity/input/reset-limit/history/original24/vitest.log",
+      "total": 24,
+      "passing": 22,
+      "negative_failures": 2
+    },
+    "independent36": {
+      "test": "parity/input/reset-limit/history/independent/imperative-reset.test.ts",
+      "fixture": "parity/input/reset-limit/history/independent/FinalResetFixture.svelte",
+      "log": "parity/input/reset-limit/history/independent/negative36.log",
+      "log_status": "Re-executed unchanged historical source against unchanged production runtime on October 2, 2026; original normative assertions still fail.",
+      "total": 36,
+      "passing": 32,
+      "negative_failures": 4
+    },
+    "actual_pinned_react36": {
+      "test": "parity/input/reset-limit/history/rejected-clone-candidate/react-pin.test.ts",
+      "results": "parity/input/reset-limit/history/rejected-clone-candidate/react-pin-results.json",
+      "log": "parity/input/reset-limit/history/rejected-clone-candidate/react-pin.log",
+      "total": 36,
+      "passing": 36,
+      "executed_actual_react": true
+    },
+    "rejected_clone_candidate": {
+      "status": "rejected-characterization-only-not-production",
+      "source": "parity/input/reset-limit/history/rejected-clone-candidate/InputCandidate.svelte",
+      "source_sha256": "83a1026aa4b350eeaa9b1545e2d25b514b981e788700debb61e6a17861fd967d",
+      "proof_index": "parity/input/reset-limit/history/rejected-clone-candidate/evidence.json",
+      "supported_sample": {
+        "total": 818,
+        "passing": 818
+      },
+      "collision": {
+        "total": 12,
+        "passing": 8,
+        "negative_failures": 4
+      },
+      "boundary": {
+        "total": 9,
+        "passing": 7,
+        "negative_failures": 2
+      },
+      "ambiguity": {
+        "total": 13,
+        "passing": 9,
+        "negative_failures": 4
+      },
+      "promoted": false
+    },
+    "native_baseline": "parity/input/reset-limit/history/native-baseline/input-native.test.ts"
+  },
+  "credits": {
+    "ordinary_input": 0,
+    "field": 0
+  },
+  "acceptance": "Narrow unsupported-combination approval only. Existing supported assertions and final secured CI/independent/configured reviews remain required; historical green samples do not establish final-head acceptance.",
+  "hashes": {
+    "packages/base/tests/dom/InputResetLimitFixture.svelte": "38fa4084a35cd0793a080e7981ee6b2ba91ecd253672d2bd2085421d64303053",
+    "packages/base/tests/dom/input-reset-limit.test.ts": "080eb0822333d0d55d4c5fb6b38693e9ace1875d5421c8c03d467dbdabc16388",
+    "parity/input/reset-limit/README.md": "b15d14debec382816e43e684429f7b4d219511ea429f3fede47212272d3fc871",
+    "parity/input/reset-limit/decision.json": "2f1359cccc76b750fd2fd20afc6addcd31a0a7aaa5732274d37c10b967651e69",
+    "parity/input/reset-limit/history/independent/CloneAmbiguityFixture.svelte": "da87f8ca710cde46324a511cf708758e8f2f9b92dd83ab83792efdcb19f2a5cc",
+    "parity/input/reset-limit/history/independent/CloneBoundaryFixture.svelte": "a988ed0ce2579b8f05c06922fd0dbe3d7887d09ebccd364d05af822e8195687b",
+    "parity/input/reset-limit/history/independent/FinalCloneFixture.svelte": "ff04e6f9e715b023203a54fd13cb89590c615abde966111324d64c6653e9d3ff",
+    "parity/input/reset-limit/history/independent/FinalResetFixture.svelte": "f2b2a396178ccffb4f5b9124f036d1de891ce41f873d5ae9715fcb63bfa22d0d",
+    "parity/input/reset-limit/history/independent/clone-ambiguity-results.json": "9b2c8458dc3a3b8d480a3751674d8a83bfe6859390c4965199cd2cf80ab6e00d",
+    "parity/input/reset-limit/history/independent/clone-ambiguity.config.mjs": "9e9206dc12a58d711f802923b3f1a0ae6da719da6078370ed8c95441f25ca09f",
+    "parity/input/reset-limit/history/independent/clone-ambiguity.test.ts": "d396a3f9295a924c89f71b5e1ed2cc2bbd0505db94583955db9c487b231a8734",
+    "parity/input/reset-limit/history/independent/clone-boundary.config.mjs": "6e045b31645cadcedf2d57cbfe93f2beeec4e2f997445369a0383ec3f3337838",
+    "parity/input/reset-limit/history/independent/clone-boundary.test.ts": "966ead6974e5c9830dda10d4edd52aafbbd8834eb34758bbd9e3cae7a464188f",
+    "parity/input/reset-limit/history/independent/imperative-clone.config.mjs": "789dd13104d464ea34c6b6a140d009e1cc64a4291912a69d24be702371402e6d",
+    "parity/input/reset-limit/history/independent/imperative-clone.test.ts": "487e1d8b8135ab8d004a2ae12adbe719c3faf876bba14f370bd7cb7f13cd9f05",
+    "parity/input/reset-limit/history/independent/imperative-observer-results.json": "253ecab63a27cdfc1bb8c3cffed8303b8bf29182dd1d81337e9f1f94543d9ea8",
+    "parity/input/reset-limit/history/independent/imperative-observer.config.mjs": "5dd37e0eab5ae1b9d1896313409382b1a3e8be9f40bdb5ff5caae3edca4c8d0b",
+    "parity/input/reset-limit/history/independent/imperative-observer.test.ts": "0e26df8aa85bb6f4675112e93c38f6a3d21ee884a973b8b460ee7551596ffe34",
+    "parity/input/reset-limit/history/independent/imperative-reset.config.mjs": "5bf4aaf93dc1828a2649a964ffed5d810123f12691b016c3bfba8e84e7117b76",
+    "parity/input/reset-limit/history/independent/imperative-reset.test.ts": "348825ddfce9a99e364ec51bda6da0fa384666dadb8982f905a14e1a498f64a9",
+    "parity/input/reset-limit/history/independent/negative36.log": "44afec76560ebc33b4e444e5f3401a7e6d2b5ffde669e39490db3220dccc95c9",
+    "parity/input/reset-limit/history/native-baseline/InputNativeFixture.svelte": "cfb563c299ca61b791b815b60cad46ae5410e39f6c3115f4d022c6ff2ee77a06",
+    "parity/input/reset-limit/history/native-baseline/input-native.test.ts": "b0675b2cea3de29f8731d20e5600b6aa1785d6f23a587a5ef2b5c665fc982d37",
+    "parity/input/reset-limit/history/native-baseline/input-reference.test.ts": "6b07566724fdf185d41a3208338adbf3de8641896d54b3a12fe1a6a34c8187df",
+    "parity/input/reset-limit/history/original24/ImperativeResetFixture.svelte": "0720dd5c680103d1bb2c11364b3a04c35547bcc320aa57594f6d6419b446147d",
+    "parity/input/reset-limit/history/original24/README.md": "59fd9bba0acac702b2d2dfbadad108d80b5441ed858eb52b5c53b28b25097610",
+    "parity/input/reset-limit/history/original24/imperative-reset.test.ts": "f2c9a859609438d1878034f282bf10497aa91007bdd2dee3e180c81ca54e8bf8",
+    "parity/input/reset-limit/history/original24/results.json": "238033bc9f88f980d56dac90e75c44507a45ba7e3a248e5843f9b8fee54af5e6",
+    "parity/input/reset-limit/history/original24/runtime-checkpoint.svelte": "98c914f36d45bf549ac09445b9d278e207ef601bb5e4d905deef35f72294f69d",
+    "parity/input/reset-limit/history/original24/vitest.config.mjs": "b67295eb310f4d1c0bbcd720278380af10a4bea18fbb479c3d850b8241c01983",
+    "parity/input/reset-limit/history/original24/vitest.log": "cd3a5929528c8094f4b6d502eaef1f813fb1f753f20d0d9cd841f549f62a9ea2",
+    "parity/input/reset-limit/history/origins.json": "5459265b0c97a0eb927d798da9a657f75b33e98ebd178ed7d008fd3855cbc20c",
+    "parity/input/reset-limit/history/rejected-clone-candidate/CandidateFixture.svelte": "ffde878a472fe7cf626b03434b64f874545a8ba94a68eb0092b14f0efbabe657",
+    "parity/input/reset-limit/history/rejected-clone-candidate/CollisionFixture.svelte": "79c5a16ea7d0bfc09ec31bd94817bada6b251ad9def2a425fac8e10dcec08e9c",
+    "parity/input/reset-limit/history/rejected-clone-candidate/IndependentResetFixture.svelte": "6acec0d9e6a81d63f84d508c683b79b4bec3c0ab6763abf5d982b5217e0e8880",
+    "parity/input/reset-limit/history/rejected-clone-candidate/InputCandidate.svelte": "83a1026aa4b350eeaa9b1545e2d25b514b981e788700debb61e6a17861fd967d",
+    "parity/input/reset-limit/history/rejected-clone-candidate/OriginalImperativeFixture.svelte": "0679917a74881519147f074296365e6a771e86f70f169b29a74f07d9b7542fb2",
+    "parity/input/reset-limit/history/rejected-clone-candidate/README.md": "f537b12d11f27a6b08d016c4b5ae4b3834d35a181475c46776b1902598f3d467",
+    "parity/input/reset-limit/history/rejected-clone-candidate/base.config.mjs": "8dd7a074227899912ffe85a1b5763fe13fcd54c1bf6a62d9a0999ccbdcf49c5f",
+    "parity/input/reset-limit/history/rejected-clone-candidate/base167.log": "e078a4ac082bab172143100f36d5e56eead0ad5e9f2eb17f66de1990d48c5b22",
+    "parity/input/reset-limit/history/rejected-clone-candidate/candidate-results.json": "d02378706018129b23993ed7b9f274154cc0854c6a6ee372c629d32ea3e35983",
+    "parity/input/reset-limit/history/rejected-clone-candidate/candidate.patch": "9656bc96acbf410eea4e1f619d16a65a4d509114f044883655011a8629fe6587",
+    "parity/input/reset-limit/history/rejected-clone-candidate/candidate.test.ts": "53eba7453fd5c26d96046238c0df74de4c23a42fe0302029e5182d0759bcd0c2",
+    "parity/input/reset-limit/history/rejected-clone-candidate/collision-results.json": "8cf3d73f0949add3bbac8bda57a02346f10e88be644a61d6b849a5fc7d892692",
+    "parity/input/reset-limit/history/rejected-clone-candidate/collision.log": "14a6ece167a7b021d3ff195931624f0c27d610bc09a2c5cdd3c3a9f19d3ea5ac",
+    "parity/input/reset-limit/history/rejected-clone-candidate/collision.test.ts": "b8fac3d7586e7f4a544fe50558359832404b34c5f06dcae714d8e89a300e6824",
+    "parity/input/reset-limit/history/rejected-clone-candidate/independent36.test.ts": "ffbd2b444109522ddef6636a8577672906e28737fc10acd64f88edc475382039",
+    "parity/input/reset-limit/history/rejected-clone-candidate/index.ts": "724ce891bf0a39dca6481de8533a05df92ae6ee847961c65fe0833e8a746e44f",
+    "parity/input/reset-limit/history/rejected-clone-candidate/inputValues.ts": "e79cd65ab90fddd92a062e20f3c81390308fdca1d788b4d5d20162cf57511939",
+    "parity/input/reset-limit/history/rejected-clone-candidate/measurement-results.json": "dc79a38d909b6b6dc290a942b264d2c2ef9e0aac1c35e7814614df982ee710fe",
+    "parity/input/reset-limit/history/rejected-clone-candidate/measurement.test.ts": "e798df7b9c2fc26874a283680d86fd6bd32335d5ba4f4b8b1c5e0b6a59c40210",
+    "parity/input/reset-limit/history/rejected-clone-candidate/original-results.json": "c742301dabee0d32cc84b3062eca82ffa34353490023a7e30cbd325910a3c630",
+    "parity/input/reset-limit/history/rejected-clone-candidate/original.test.ts": "9d691cead83807146f8dc892651723a4d7427e0e42cf9c6e3f0eba7dfb2edcf9",
+    "parity/input/reset-limit/history/rejected-clone-candidate/react-pin-results.json": "b2a4f619f7e53c874794e55e3e74e4b4632c9e4898ee3de1a5f704d626dc7a8f",
+    "parity/input/reset-limit/history/rejected-clone-candidate/react-pin.log": "b1a67a302bbc37273ded23a3bcbe558efd72f83f2334591d4be03031ae87033a",
+    "parity/input/reset-limit/history/rejected-clone-candidate/react-pin.test.ts": "1e8929f2228194b630e1bdbf6f93b0932a17893e07394247076e25361ba7fb27",
+    "parity/input/reset-limit/history/rejected-clone-candidate/readNativeDirtyValue.ts": "a8c27e45388122b32580bd5ec41f39f6d93758d763dab2938954f49bb4f88392",
+    "parity/input/reset-limit/history/rejected-clone-candidate/reviewer-CloneAmbiguityFixture.svelte": "da87f8ca710cde46324a511cf708758e8f2f9b92dd83ab83792efdcb19f2a5cc",
+    "parity/input/reset-limit/history/rejected-clone-candidate/reviewer-CloneBoundaryFixture.svelte": "a988ed0ce2579b8f05c06922fd0dbe3d7887d09ebccd364d05af822e8195687b",
+    "parity/input/reset-limit/history/rejected-clone-candidate/reviewer-ambiguity13.log": "75afe34ccfa0648b4dd8f5f1e9b2141fbdac7ec446fa303643b8735986917a8a",
+    "parity/input/reset-limit/history/rejected-clone-candidate/reviewer-boundary.log": "d4923bfb4b7039a7c569d304dd9b46e35f81a372bfd3947a710e8210991084f1",
+    "parity/input/reset-limit/history/rejected-clone-candidate/reviewer-clone-ambiguity-results.json": "9b2c8458dc3a3b8d480a3751674d8a83bfe6859390c4965199cd2cf80ab6e00d",
+    "parity/input/reset-limit/history/rejected-clone-candidate/reviewer-clone-ambiguity.test.ts": "d396a3f9295a924c89f71b5e1ed2cc2bbd0505db94583955db9c487b231a8734",
+    "parity/input/reset-limit/history/rejected-clone-candidate/reviewer-clone-boundary.test.ts": "966ead6974e5c9830dda10d4edd52aafbbd8834eb34758bbd9e3cae7a464188f",
+    "parity/input/reset-limit/history/rejected-clone-candidate/runtime-checkpoint.svelte": "98c914f36d45bf549ac09445b9d278e207ef601bb5e4d905deef35f72294f69d",
+    "parity/input/reset-limit/history/rejected-clone-candidate/vitest.config.mjs": "b055ebcad11c4842ad364481d924321237209619b27284fdbaa8bde837565902",
+    "parity/input/reset-limit/history/rejected-clone-candidate/vitest.log": "b0e31bf9f8eb51c79d4f1e1d64d3481687a90d976bb809d8a9de751a67d3e5dc",
+    "parity/input/reset-limit/results.json": "56ccab80800910d23dbff647b48087649349b783d96899426fec31a4847c33b6",
+    "parity/input/reset-limit/vitest.log": "aa25dc9c8589315e0a88fb009af8c6312ed3cdf1ba42e6ef83e97c83fc6eeb96"
+  }
+}

@@ -1,0 +1,1178 @@
+[
+  {
+    "move": "out",
+    "stop": false,
+    "cancel": false,
+    "native": true,
+    "immediate": "edit",
+    "settled": "edit",
+    "expected": "edit",
+    "form": "imperative-second",
+    "observations": [
+      {
+        "stage": "input:before-reset",
+        "value": "edit",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "reset:handler-before",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "reset:handler-after",
+        "value": "edit",
+        "form": "imperative-second",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "input:reset-return",
+        "value": "edit",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "input:after-reassociation",
+        "value": "edit",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "mutation:form",
+        "value": "edit",
+        "form": "imperative-second",
+        "eventPhase": 0,
+        "defaultPrevented": false,
+        "oldForm": "imperative-first"
+      }
+    ]
+  },
+  {
+    "move": "out",
+    "stop": false,
+    "cancel": false,
+    "native": false,
+    "immediate": "edit",
+    "settled": "owner",
+    "expected": "owner",
+    "form": "imperative-second",
+    "observations": [
+      {
+        "stage": "input:before-reset",
+        "value": "edit",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "reset:handler-before",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "reset:handler-after",
+        "value": "edit",
+        "form": "imperative-second",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "input:reset-return",
+        "value": "edit",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "input:after-reassociation",
+        "value": "edit",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "mutation:form",
+        "value": "edit",
+        "form": "imperative-second",
+        "eventPhase": 0,
+        "defaultPrevented": false,
+        "oldForm": "imperative-first"
+      }
+    ]
+  },
+  {
+    "move": "out",
+    "stop": false,
+    "cancel": true,
+    "native": true,
+    "immediate": "edit",
+    "settled": "edit",
+    "expected": "edit",
+    "form": "imperative-second",
+    "observations": [
+      {
+        "stage": "input:before-reset",
+        "value": "edit",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "reset:handler-before",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "reset:handler-after",
+        "value": "edit",
+        "form": "imperative-second",
+        "eventPhase": 2,
+        "defaultPrevented": true
+      },
+      {
+        "stage": "input:reset-return",
+        "value": "edit",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "input:after-reassociation",
+        "value": "edit",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "mutation:form",
+        "value": "edit",
+        "form": "imperative-second",
+        "eventPhase": 0,
+        "defaultPrevented": true,
+        "oldForm": "imperative-first"
+      }
+    ]
+  },
+  {
+    "move": "out",
+    "stop": false,
+    "cancel": true,
+    "native": false,
+    "immediate": "edit",
+    "settled": "owner",
+    "expected": "owner",
+    "form": "imperative-second",
+    "observations": [
+      {
+        "stage": "input:before-reset",
+        "value": "edit",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "reset:handler-before",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "reset:handler-after",
+        "value": "edit",
+        "form": "imperative-second",
+        "eventPhase": 2,
+        "defaultPrevented": true
+      },
+      {
+        "stage": "input:reset-return",
+        "value": "edit",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "input:after-reassociation",
+        "value": "edit",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "mutation:form",
+        "value": "edit",
+        "form": "imperative-second",
+        "eventPhase": 0,
+        "defaultPrevented": true,
+        "oldForm": "imperative-first"
+      }
+    ]
+  },
+  {
+    "move": "out",
+    "stop": true,
+    "cancel": false,
+    "native": true,
+    "immediate": "edit",
+    "settled": "edit",
+    "expected": "edit",
+    "form": "imperative-second",
+    "observations": [
+      {
+        "stage": "input:before-reset",
+        "value": "edit",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "reset:handler-before",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "reset:handler-after",
+        "value": "edit",
+        "form": "imperative-second",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "input:reset-return",
+        "value": "edit",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "input:after-reassociation",
+        "value": "edit",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "mutation:form",
+        "value": "edit",
+        "form": "imperative-second",
+        "eventPhase": 0,
+        "defaultPrevented": false,
+        "oldForm": "imperative-first"
+      }
+    ]
+  },
+  {
+    "move": "out",
+    "stop": true,
+    "cancel": false,
+    "native": false,
+    "immediate": "edit",
+    "settled": "edit",
+    "expected": "owner",
+    "form": "imperative-second",
+    "observations": [
+      {
+        "stage": "input:before-reset",
+        "value": "edit",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "reset:handler-before",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "reset:handler-after",
+        "value": "edit",
+        "form": "imperative-second",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "input:reset-return",
+        "value": "edit",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "input:after-reassociation",
+        "value": "edit",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "mutation:form",
+        "value": "edit",
+        "form": "imperative-second",
+        "eventPhase": 0,
+        "defaultPrevented": false,
+        "oldForm": "imperative-first"
+      }
+    ]
+  },
+  {
+    "move": "out",
+    "stop": true,
+    "cancel": true,
+    "native": true,
+    "immediate": "edit",
+    "settled": "edit",
+    "expected": "edit",
+    "form": "imperative-second",
+    "observations": [
+      {
+        "stage": "input:before-reset",
+        "value": "edit",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "reset:handler-before",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "reset:handler-after",
+        "value": "edit",
+        "form": "imperative-second",
+        "eventPhase": 2,
+        "defaultPrevented": true
+      },
+      {
+        "stage": "input:reset-return",
+        "value": "edit",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "input:after-reassociation",
+        "value": "edit",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "mutation:form",
+        "value": "edit",
+        "form": "imperative-second",
+        "eventPhase": 0,
+        "defaultPrevented": true,
+        "oldForm": "imperative-first"
+      }
+    ]
+  },
+  {
+    "move": "out",
+    "stop": true,
+    "cancel": true,
+    "native": false,
+    "immediate": "edit",
+    "settled": "owner",
+    "expected": "owner",
+    "form": "imperative-second",
+    "observations": [
+      {
+        "stage": "input:before-reset",
+        "value": "edit",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "reset:handler-before",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "reset:handler-after",
+        "value": "edit",
+        "form": "imperative-second",
+        "eventPhase": 2,
+        "defaultPrevented": true
+      },
+      {
+        "stage": "input:reset-return",
+        "value": "edit",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "input:after-reassociation",
+        "value": "edit",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "mutation:form",
+        "value": "edit",
+        "form": "imperative-second",
+        "eventPhase": 0,
+        "defaultPrevented": true,
+        "oldForm": "imperative-first"
+      }
+    ]
+  },
+  {
+    "move": "in",
+    "stop": false,
+    "cancel": false,
+    "native": true,
+    "immediate": "seed",
+    "settled": "seed",
+    "expected": "seed",
+    "form": "imperative-first",
+    "observations": [
+      {
+        "stage": "input:before-reset",
+        "value": "edit",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "reset:handler-before",
+        "value": "edit",
+        "form": "imperative-second",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "reset:handler-after",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "input:reset-return",
+        "value": "seed",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "input:after-reassociation",
+        "value": "seed",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "mutation:form",
+        "value": "seed",
+        "form": "imperative-first",
+        "eventPhase": 0,
+        "defaultPrevented": false,
+        "oldForm": "imperative-second"
+      }
+    ]
+  },
+  {
+    "move": "in",
+    "stop": false,
+    "cancel": false,
+    "native": false,
+    "immediate": "seed",
+    "settled": "seed",
+    "expected": "seed",
+    "form": "imperative-first",
+    "observations": [
+      {
+        "stage": "input:before-reset",
+        "value": "edit",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "reset:handler-before",
+        "value": "edit",
+        "form": "imperative-second",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "reset:handler-after",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "input:reset-return",
+        "value": "seed",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "input:after-reassociation",
+        "value": "seed",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "mutation:form",
+        "value": "seed",
+        "form": "imperative-first",
+        "eventPhase": 0,
+        "defaultPrevented": false,
+        "oldForm": "imperative-second"
+      }
+    ]
+  },
+  {
+    "move": "in",
+    "stop": false,
+    "cancel": true,
+    "native": true,
+    "immediate": "edit",
+    "settled": "edit",
+    "expected": "edit",
+    "form": "imperative-first",
+    "observations": [
+      {
+        "stage": "input:before-reset",
+        "value": "edit",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "reset:handler-before",
+        "value": "edit",
+        "form": "imperative-second",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "reset:handler-after",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": true
+      },
+      {
+        "stage": "input:reset-return",
+        "value": "edit",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "input:after-reassociation",
+        "value": "edit",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "mutation:form",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 0,
+        "defaultPrevented": true,
+        "oldForm": "imperative-second"
+      }
+    ]
+  },
+  {
+    "move": "in",
+    "stop": false,
+    "cancel": true,
+    "native": false,
+    "immediate": "edit",
+    "settled": "owner",
+    "expected": "owner",
+    "form": "imperative-first",
+    "observations": [
+      {
+        "stage": "input:before-reset",
+        "value": "edit",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "reset:handler-before",
+        "value": "edit",
+        "form": "imperative-second",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "reset:handler-after",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": true
+      },
+      {
+        "stage": "input:reset-return",
+        "value": "edit",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "input:after-reassociation",
+        "value": "edit",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "mutation:form",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 0,
+        "defaultPrevented": true,
+        "oldForm": "imperative-second"
+      }
+    ]
+  },
+  {
+    "move": "in",
+    "stop": true,
+    "cancel": false,
+    "native": true,
+    "immediate": "seed",
+    "settled": "seed",
+    "expected": "seed",
+    "form": "imperative-first",
+    "observations": [
+      {
+        "stage": "input:before-reset",
+        "value": "edit",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "reset:handler-before",
+        "value": "edit",
+        "form": "imperative-second",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "reset:handler-after",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "input:reset-return",
+        "value": "seed",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "input:after-reassociation",
+        "value": "seed",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "mutation:form",
+        "value": "seed",
+        "form": "imperative-first",
+        "eventPhase": 0,
+        "defaultPrevented": false,
+        "oldForm": "imperative-second"
+      }
+    ]
+  },
+  {
+    "move": "in",
+    "stop": true,
+    "cancel": false,
+    "native": false,
+    "immediate": "seed",
+    "settled": "owner",
+    "expected": "seed",
+    "form": "imperative-first",
+    "observations": [
+      {
+        "stage": "input:before-reset",
+        "value": "edit",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "reset:handler-before",
+        "value": "edit",
+        "form": "imperative-second",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "reset:handler-after",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "input:reset-return",
+        "value": "seed",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "input:after-reassociation",
+        "value": "seed",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "mutation:form",
+        "value": "seed",
+        "form": "imperative-first",
+        "eventPhase": 0,
+        "defaultPrevented": false,
+        "oldForm": "imperative-second"
+      }
+    ]
+  },
+  {
+    "move": "in",
+    "stop": true,
+    "cancel": true,
+    "native": true,
+    "immediate": "edit",
+    "settled": "edit",
+    "expected": "edit",
+    "form": "imperative-first",
+    "observations": [
+      {
+        "stage": "input:before-reset",
+        "value": "edit",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "reset:handler-before",
+        "value": "edit",
+        "form": "imperative-second",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "reset:handler-after",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": true
+      },
+      {
+        "stage": "input:reset-return",
+        "value": "edit",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "input:after-reassociation",
+        "value": "edit",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "mutation:form",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 0,
+        "defaultPrevented": true,
+        "oldForm": "imperative-second"
+      }
+    ]
+  },
+  {
+    "move": "in",
+    "stop": true,
+    "cancel": true,
+    "native": false,
+    "immediate": "edit",
+    "settled": "owner",
+    "expected": "owner",
+    "form": "imperative-first",
+    "observations": [
+      {
+        "stage": "input:before-reset",
+        "value": "edit",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "reset:handler-before",
+        "value": "edit",
+        "form": "imperative-second",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "reset:handler-after",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": true
+      },
+      {
+        "stage": "input:reset-return",
+        "value": "edit",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "input:after-reassociation",
+        "value": "edit",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "mutation:form",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 0,
+        "defaultPrevented": true,
+        "oldForm": "imperative-second"
+      }
+    ]
+  },
+  {
+    "move": "after",
+    "stop": false,
+    "cancel": false,
+    "native": true,
+    "immediate": "seed",
+    "settled": "seed",
+    "expected": "seed",
+    "form": "imperative-second",
+    "observations": [
+      {
+        "stage": "input:before-reset",
+        "value": "edit",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "reset:handler-before",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "reset:handler-after",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "input:reset-return",
+        "value": "seed",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "input:after-reassociation",
+        "value": "seed",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "mutation:form",
+        "value": "seed",
+        "form": "imperative-second",
+        "eventPhase": 0,
+        "defaultPrevented": false,
+        "oldForm": "imperative-first"
+      }
+    ]
+  },
+  {
+    "move": "after",
+    "stop": false,
+    "cancel": false,
+    "native": false,
+    "immediate": "seed",
+    "settled": "seed",
+    "expected": "seed",
+    "form": "imperative-second",
+    "observations": [
+      {
+        "stage": "input:before-reset",
+        "value": "edit",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "reset:handler-before",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "reset:handler-after",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "input:reset-return",
+        "value": "seed",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "input:after-reassociation",
+        "value": "seed",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "mutation:form",
+        "value": "seed",
+        "form": "imperative-second",
+        "eventPhase": 0,
+        "defaultPrevented": false,
+        "oldForm": "imperative-first"
+      }
+    ]
+  },
+  {
+    "move": "after",
+    "stop": false,
+    "cancel": true,
+    "native": true,
+    "immediate": "edit",
+    "settled": "edit",
+    "expected": "edit",
+    "form": "imperative-second",
+    "observations": [
+      {
+        "stage": "input:before-reset",
+        "value": "edit",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "reset:handler-before",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "reset:handler-after",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": true
+      },
+      {
+        "stage": "input:reset-return",
+        "value": "edit",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "input:after-reassociation",
+        "value": "edit",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "mutation:form",
+        "value": "edit",
+        "form": "imperative-second",
+        "eventPhase": 0,
+        "defaultPrevented": true,
+        "oldForm": "imperative-first"
+      }
+    ]
+  },
+  {
+    "move": "after",
+    "stop": false,
+    "cancel": true,
+    "native": false,
+    "immediate": "edit",
+    "settled": "owner",
+    "expected": "owner",
+    "form": "imperative-second",
+    "observations": [
+      {
+        "stage": "input:before-reset",
+        "value": "edit",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "reset:handler-before",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "reset:handler-after",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": true
+      },
+      {
+        "stage": "input:reset-return",
+        "value": "edit",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "input:after-reassociation",
+        "value": "edit",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "mutation:form",
+        "value": "edit",
+        "form": "imperative-second",
+        "eventPhase": 0,
+        "defaultPrevented": true,
+        "oldForm": "imperative-first"
+      }
+    ]
+  },
+  {
+    "move": "after",
+    "stop": true,
+    "cancel": false,
+    "native": true,
+    "immediate": "seed",
+    "settled": "seed",
+    "expected": "seed",
+    "form": "imperative-second",
+    "observations": [
+      {
+        "stage": "input:before-reset",
+        "value": "edit",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "reset:handler-before",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "reset:handler-after",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "input:reset-return",
+        "value": "seed",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "input:after-reassociation",
+        "value": "seed",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "mutation:form",
+        "value": "seed",
+        "form": "imperative-second",
+        "eventPhase": 0,
+        "defaultPrevented": false,
+        "oldForm": "imperative-first"
+      }
+    ]
+  },
+  {
+    "move": "after",
+    "stop": true,
+    "cancel": false,
+    "native": false,
+    "immediate": "seed",
+    "settled": "seed",
+    "expected": "seed",
+    "form": "imperative-second",
+    "observations": [
+      {
+        "stage": "input:before-reset",
+        "value": "edit",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "reset:handler-before",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "reset:handler-after",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "input:reset-return",
+        "value": "seed",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "input:after-reassociation",
+        "value": "seed",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "mutation:form",
+        "value": "seed",
+        "form": "imperative-second",
+        "eventPhase": 0,
+        "defaultPrevented": false,
+        "oldForm": "imperative-first"
+      }
+    ]
+  },
+  {
+    "move": "after",
+    "stop": true,
+    "cancel": true,
+    "native": true,
+    "immediate": "edit",
+    "settled": "edit",
+    "expected": "edit",
+    "form": "imperative-second",
+    "observations": [
+      {
+        "stage": "input:before-reset",
+        "value": "edit",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "reset:handler-before",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "reset:handler-after",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": true
+      },
+      {
+        "stage": "input:reset-return",
+        "value": "edit",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "input:after-reassociation",
+        "value": "edit",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "mutation:form",
+        "value": "edit",
+        "form": "imperative-second",
+        "eventPhase": 0,
+        "defaultPrevented": true,
+        "oldForm": "imperative-first"
+      }
+    ]
+  },
+  {
+    "move": "after",
+    "stop": true,
+    "cancel": true,
+    "native": false,
+    "immediate": "edit",
+    "settled": "owner",
+    "expected": "owner",
+    "form": "imperative-second",
+    "observations": [
+      {
+        "stage": "input:before-reset",
+        "value": "edit",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "reset:handler-before",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": false
+      },
+      {
+        "stage": "reset:handler-after",
+        "value": "edit",
+        "form": "imperative-first",
+        "eventPhase": 2,
+        "defaultPrevented": true
+      },
+      {
+        "stage": "input:reset-return",
+        "value": "edit",
+        "form": "imperative-first"
+      },
+      {
+        "stage": "input:after-reassociation",
+        "value": "edit",
+        "form": "imperative-second"
+      },
+      {
+        "stage": "mutation:form",
+        "value": "edit",
+        "form": "imperative-second",
+        "eventPhase": 0,
+        "defaultPrevented": true,
+        "oldForm": "imperative-first"
+      }
+    ]
+  }
+]

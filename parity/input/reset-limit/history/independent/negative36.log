@@ -1,0 +1,45 @@
+
+ RUN  v5.0.3 /workspace/base/packages/base
+
+ ❯ ../../../../tmp/input-independent-review/imperative-reset.test.ts (36 tests | 4 failed) 102ms
+   × independent imperative reset out/stop=true/cancel=false/native=false 17ms
+   × independent imperative reset out/stop=propagation/cancel=false/native=false 3ms
+   × independent imperative reset in/stop=true/cancel=false/native=false 2ms
+   × independent imperative reset in/stop=propagation/cancel=false/native=false 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  ../../../../tmp/input-independent-review/imperative-reset.test.ts > independent imperative reset out/stop=true/cancel=false/native=false
+ FAIL  ../../../../tmp/input-independent-review/imperative-reset.test.ts > independent imperative reset out/stop=propagation/cancel=false/native=false
+AssertionError: expected 'edit' to be 'owner' // Object.is equality
+
+Expected: "owner"
+Received: "edit"
+
+ ❯ ../../../../tmp/input-independent-review/imperative-reset.test.ts:6:265
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  ../../../../tmp/input-independent-review/imperative-reset.test.ts > independent imperative reset in/stop=true/cancel=false/native=false
+ FAIL  ../../../../tmp/input-independent-review/imperative-reset.test.ts > independent imperative reset in/stop=propagation/cancel=false/native=false
+AssertionError: expected 'owner' to be 'seed' // Object.is equality
+
+Expected: "seed"
+Received: "owner"
+
+ ❯ ../../../../tmp/input-independent-review/imperative-reset.test.ts:6:265
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed | 32 passed (36)
+   Start at  16:48:33
+   Duration  1.41s (transform 43%, environment 40%, import 9%, tests 8%)
+
+Error: ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL
+
+  × "pnpm recursive exec" failed in /workspace/base/packages/base
+

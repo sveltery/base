@@ -1,0 +1,52 @@
+[
+  {
+    "stages": [
+      {
+        "stage": "capture",
+        "phase": 1,
+        "form": "first"
+      },
+      {
+        "stage": "queued",
+        "phase": 0,
+        "form": "second"
+      }
+    ],
+    "mutations": [
+      {
+        "attribute": "form",
+        "old": "first",
+        "current": "second",
+        "phase": 0
+      }
+    ],
+    "canceled": false,
+    "settledForm": "second",
+    "nativeValue": "edit"
+  },
+  {
+    "stages": [
+      {
+        "stage": "capture",
+        "phase": 1,
+        "form": "first"
+      },
+      {
+        "stage": "queued",
+        "phase": 0,
+        "form": "second"
+      }
+    ],
+    "mutations": [
+      {
+        "attribute": "form",
+        "old": "first",
+        "current": "second",
+        "phase": 0
+      }
+    ],
+    "canceled": false,
+    "settledForm": "second",
+    "nativeValue": "seed"
+  }
+]
