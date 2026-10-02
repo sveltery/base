@@ -4,8 +4,8 @@
   import type { Actions, ChangeEventDetails } from '../../src/lib/dialog/types.js';
   import MountAction from './DialogHandleMount.svelte';
   import { untrack } from 'svelte';
-  let { handle, second = createDialogHandle<number>(), initial = false, mountAction, sameCommit = false, cancel = false, controlled = false, onChange }: {
-    handle: DialogHandle<number>; second?: DialogHandle<number>; initial?: boolean; mountAction?: 'open' | 'payload' | 'close'; sameCommit?: boolean; cancel?: boolean; controlled?: boolean; onChange?: (open: boolean, details: ChangeEventDetails) => void;
+  let { handle, second = createDialogHandle<number>(), initial = false, mountAction, sameCommit = false, cancel = false, controlled = false, onChange, onComplete, popup = 'present' }: {
+    handle: DialogHandle<number>; second?: DialogHandle<number>; initial?: boolean; mountAction?: 'open' | 'payload' | 'close'; sameCommit?: boolean; cancel?: boolean; controlled?: boolean; onChange?: (open: boolean, details: ChangeEventDetails) => void; onComplete?: (open: boolean) => void; popup?: 'present' | 'absent' | 'remove-on-close';
   } = $props();
   let current = $state(untrack(() => handle));
   let attached = $state(true);
@@ -14,6 +14,7 @@
   let open = $state(false);
   let triggerId = $state<string | null>(null);
   let actions = $state<Actions | null>(null);
+  let shown = $state(untrack(() => popup !== 'absent'));
   export function forceUnmount() { actions?.unmount(); }
   export function swap() { current = current === handle ? second : handle; }
   export function toggle() { attached = !attached; }
@@ -28,11 +29,11 @@
 {/if}
 <button type="button" onclick={() => { triggerId = 'other'; open = true; }}>Open programmatically</button>
 {#if mounted}
-  <Dialog.Root handle={attached ? current : undefined} defaultOpen={initial} open={controlled ? open : undefined} triggerId={controlled ? triggerId : undefined} modal={false} disablePointerDismissal bind:actions onOpenChange={(value, details) => { onChange?.(value, details); if (cancel) details.cancel(); if (controlled) open = value; }}>
+  <Dialog.Root handle={attached ? current : undefined} defaultOpen={initial} open={controlled ? open : undefined} triggerId={controlled ? triggerId : undefined} modal={false} disablePointerDismissal bind:actions onOpenChange={(value, details) => { onChange?.(value, details); if (cancel) details.cancel(); if (controlled) open = value; if (!value && popup === 'remove-on-close') shown = false; }} onOpenChangeComplete={onComplete}>
     {#snippet children(state)}
       <span data-testid="payload">{state.payload ?? 'No payload'}</span>
       {#if mountAction}<MountAction handle={current} action={mountAction}/>{/if}
-      <Dialog.Portal><Dialog.Popup>Dialog Content<Dialog.Close>Close</Dialog.Close></Dialog.Popup></Dialog.Portal>
+      {#if shown}<Dialog.Portal><Dialog.Popup>Dialog Content<Dialog.Close>Close</Dialog.Close></Dialog.Popup></Dialog.Portal>{/if}
     {/snippet}
   </Dialog.Root>
 {/if}

@@ -29,7 +29,8 @@
       "test": "tests/browser/dialog-handle-hydration.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandleSsrFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handle-hydration-reference.ts",
-      "unresolvedMapping": "real same-node SSR/hydration candidate requires fresh independent mapping review"
+      "unresolvedMapping": "real same-node SSR/hydration candidate requires fresh independent mapping review",
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:43",
@@ -51,7 +52,8 @@
       "test": null,
       "nativeFixture": null,
       "actualReference": null,
-      "unresolvedMapping": true
+      "unresolvedMapping": true,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:99",
@@ -71,7 +73,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:126",
@@ -92,7 +95,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:159",
@@ -112,7 +116,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:186",
@@ -136,7 +141,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:230",
@@ -158,7 +164,8 @@
       "test": "packages/base/tests/dom/dialog-handles.test.ts",
       "nativeFixture": null,
       "actualReference": "scripts/tests/dialog-handle-reference.test.mjs",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:249",
@@ -186,7 +193,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:325",
@@ -219,7 +227,8 @@
       "test": null,
       "nativeFixture": null,
       "actualReference": null,
-      "unresolvedMapping": true
+      "unresolvedMapping": true,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:412",
@@ -248,7 +257,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:490",
@@ -275,7 +285,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:549",
@@ -301,7 +312,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:612",
@@ -322,7 +334,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:641",
@@ -345,7 +358,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:700",
@@ -364,7 +378,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:738",
@@ -385,7 +400,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:775",
@@ -407,7 +423,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:820",
@@ -428,7 +445,8 @@
       "test": null,
       "nativeFixture": null,
       "actualReference": null,
-      "unresolvedMapping": true
+      "unresolvedMapping": true,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:845",
@@ -447,7 +465,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:871",
@@ -469,7 +488,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:939",
@@ -495,7 +515,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:987",
@@ -517,7 +538,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1020",
@@ -538,7 +560,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1048",
@@ -564,7 +587,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1078",
@@ -588,7 +612,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1100",
@@ -611,7 +636,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1157",
@@ -633,7 +659,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1274",
@@ -659,7 +686,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1323",
@@ -687,7 +715,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1389",
@@ -713,7 +742,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1444",
@@ -740,7 +770,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1518",
@@ -763,7 +794,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1579",
@@ -786,7 +818,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1646",
@@ -805,7 +838,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1664",
@@ -824,7 +858,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1682",
@@ -843,7 +878,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1711",
@@ -865,7 +901,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1746",
@@ -884,7 +921,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1764",
@@ -906,7 +944,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1802",
@@ -927,7 +966,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1835",
@@ -949,7 +989,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1891",
@@ -971,7 +1012,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1921",
@@ -995,7 +1037,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1955",
@@ -1023,7 +1066,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:2028",
@@ -1047,7 +1091,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:2088",
@@ -1072,7 +1117,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:2129",
@@ -1096,7 +1142,8 @@
       "test": "tests/browser/dialog-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:280",
@@ -1141,7 +1188,8 @@
       "test": "tests/browser/dialog-root-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:306",
@@ -1185,7 +1233,8 @@
       "test": "tests/browser/dialog-root-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:333",
@@ -1234,7 +1283,8 @@
       "test": "tests/browser/dialog-root-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:389",
@@ -1280,7 +1330,8 @@
       "test": "tests/browser/dialog-root-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:411",
@@ -1325,7 +1376,8 @@
       "test": "tests/browser/dialog-root-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:459",
@@ -1368,7 +1420,8 @@
       "test": "tests/browser/dialog-root-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:472",
@@ -1411,7 +1464,8 @@
       "test": "tests/browser/dialog-root-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:485",
@@ -1454,7 +1508,8 @@
       "test": "tests/browser/dialog-root-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:535",
@@ -1496,7 +1551,8 @@
       "test": "tests/browser/dialog-root-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:555",
@@ -1539,7 +1595,8 @@
       "test": "tests/browser/dialog-root-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:582",
@@ -1582,7 +1639,8 @@
       "test": "tests/browser/dialog-root-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:1319",
@@ -1628,7 +1686,8 @@
       "test": "tests/browser/dialog-root-handles.spec.ts",
       "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
       "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
-      "unresolvedMapping": null
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md"
     },
     {
       "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:1399",
@@ -1669,12 +1728,14 @@
           }
         }
       ],
-      "status": "candidate-awaiting-execution-and-independent-review",
+      "status": "unimplemented-framework",
       "ordinaryCredit": 0,
       "test": "tests/browser/dialog-root-handles.spec.ts",
-      "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
+      "nativeFixture": null,
       "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
-      "unresolvedMapping": "complete browser-only source expects two callbacks; JSDOM observation of one is separate"
+      "unresolvedMapping": "React renderer StrictMode duplicate completion count; native row remains unimplemented by PM scope decision",
+      "decision": "https://github.com/sveltery/base/pull/42#pullrequestreview-5397221448",
+      "rendererPreconditions": "renderer-preconditions.md"
     }
   ]
 }

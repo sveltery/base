@@ -53,14 +53,6 @@ export class DialogController {
     if (open) this.presence = true;
     else this.programmaticOpen = true;
   }
-  synchronizeCompletion() {
-    // Completion belongs to the Root even if the Popup is absent or removed during close.
-    if (this.open || !this.mounted || this.deferred || this.popup) return;
-    const version = this.completionVersion;
-    queueMicrotask(() => {
-      if (!this.destroyed && !this.open && this.mounted && !this.deferred && !this.popup && version === this.completionVersion) this.unmount();
-    });
-  }
   reconcileTrigger() {
     if (!this.open) return;
     const owner = this.ownerId;

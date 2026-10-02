@@ -1,6 +1,6 @@
 // Real @base-ui/react1.8.0 complete portable D topology adapters, not a substitute implementation.
 // Immutable47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: parity/dialog/UPSTREAM_LICENSE.
-import { createElement as h, Fragment, memo, useLayoutEffect, useState, type ReactElement } from 'react';
+import { createElement as h, Fragment, StrictMode, memo, useLayoutEffect, useState, type ReactElement } from 'react';
 import { flushSync } from 'react-dom';
 import { createRoot } from 'react-dom/client';
 import { Dialog } from '@base-ui/react/dialog';
@@ -103,5 +103,6 @@ export function mountHandlesReference(node: HTMLElement, line: number) {
             line === 641 ? h(MountAction, { handle: current, action: 'open', id: 'trigger' }) : null,
             line === 1100 ? h('button', { type: 'button', onClick: () => { setTriggerId('trigger-2'); setOpen(true); } }, 'Open programmatically') : null) : null);
   }
-  const root = createRoot(node); root.render(h(App)); return () => root.unmount();
+  // The pin's @mui/internal-test-utils createRenderer defaults strict/strictEffects to true.
+  const root = createRoot(node); root.render(h(StrictMode, null, h(App))); return () => root.unmount();
 }

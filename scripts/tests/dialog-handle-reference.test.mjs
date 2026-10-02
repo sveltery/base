@@ -66,7 +66,7 @@ test('pinned external controlled opening prefers the previously focused external
   });
 });
 
-test('pinned JSDOM opening characterization remains separate from browser-only R1399', async () => {
+for (const strict of [false, true]) test(`pinned completion characterization with renderer StrictMode=${strict}`, async () => {
   await fixture(async ({ React, Dialog, root, document, act, settle }) => {
     const h = React.createElement; const completions = [];
     function TestDialog({ open }) {
@@ -79,12 +79,12 @@ test('pinned JSDOM opening characterization remains separate from browser-only R
       const [open, setOpen] = React.useState(false);
       return h('div', null, h('button', { id: 'external', onClick: () => setOpen(true) }, 'Open externally'), h(TestDialog, { open }));
     }
-    await act(async () => root.render(h(App)));
+    await act(async () => root.render(strict ? h(React.StrictMode, null, h(App)) : h(App)));
     await act(async () => document.getElementById('external').click()); await settle();
     assert.ok(document.querySelector('[data-testid=dialog-popup]'));
-    // R1399 is guarded out of JSDOM and requires two callbacks in the real source browser.
-    // This actual JSDOM observation receives no source declaration credit.
-    assert.equal(completions.length, 1); assert.equal(completions[0], true);
+    // R1399 is guarded out of JSDOM; its source renderer also defaults to StrictMode replay.
+    // These actual JSDOM observations receive no browser source declaration credit.
+    assert.equal(completions.length, strict ? 2 : 1); assert.equal(completions[0], true);
   });
 });
 
@@ -98,5 +98,23 @@ test('D:230 actual pinned JSDOM detached production payload warning body', async
       const handle = Dialog.createHandle(); handle.openWithPayload(8);
       assert.equal(handle.isOpen, false); assert.equal(calls.length, 0);
     } finally { process.env.NODE_ENV = originalEnvironment; console.warn = originalWarn; }
+  });
+});
+
+for (const popup of ['absent', 'remove-on-close']) test(`pinned close with Popup ${popup} retains mounted state without a completion`, async () => {
+  await fixture(async ({ React, Dialog, root, act, settle }) => {
+    const h = React.createElement; const handle = Dialog.createHandle(); const completions = []; const actions = React.createRef();
+    function App() {
+      const [shown, setShown] = React.useState(popup !== 'absent');
+      return h(Dialog.Root, { handle, actionsRef: actions, onOpenChange(value) { if (!value && popup === 'remove-on-close') setShown(false); }, onOpenChangeComplete: value => completions.push(value) },
+        shown ? h(Dialog.Portal, null, h(Dialog.Popup, null, 'Dialog Content')) : null);
+    }
+    await act(async () => root.render(h(React.StrictMode, null, h(App))));
+    await act(async () => handle.openWithPayload(8)); await settle();
+    await act(async () => handle.close()); await settle();
+    assert.equal(handle.isOpen, false); assert.equal(handle.store.select('mounted'), true);
+    assert.equal(completions.filter(value => !value).length, 0);
+    await act(async () => actions.current.unmount());
+    assert.equal(handle.store.select('mounted'), false); assert.equal(completions.filter(value => !value).length, 1);
   });
 });

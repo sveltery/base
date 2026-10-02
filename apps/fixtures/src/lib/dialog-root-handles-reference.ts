@@ -1,7 +1,7 @@
 // Actual pinned implementation and private event channel; complete Root helper topology.
 // Relative imports keep the source namespace and private RootContext in the same ESM family.
 // MIT: parity/dialog/UPSTREAM_LICENSE; immutable47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
-import { createElement as h, Fragment, useEffect, useState } from 'react';
+import { createElement as h, Fragment, StrictMode, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Dialog } from '../../node_modules/@base-ui/react/dialog/index.mjs';
 import { useDialogRootContext } from '../../node_modules/@base-ui/react/dialog/root/DialogRootContext.mjs';
@@ -48,5 +48,6 @@ export function mountRootHandlesReference(node: HTMLElement, line: number, varia
               : h(Fragment, null, line === 555 || line === 582 ? h(Spy, { observe: details => api.events.push(details) }) : null,
                 h('p', null, 'Dialog content'), h(Dialog.Close, null, 'Close'))))));
   }
-  const root = createRoot(node); root.render(h(App)); return () => root.unmount();
+  // The pin's @mui/internal-test-utils createRenderer defaults strict/strictEffects to true.
+  const root = createRoot(node); root.render(h(StrictMode, null, h(App))); return () => root.unmount();
 }

@@ -54,6 +54,21 @@ describe('Root-owned Dialog handle controller', () => {
     expect(document.querySelector('[role=dialog]')).toBeNull(); expect(document.activeElement).toBe(external);
     expect(requests).toEqual([{ open: false, trigger: undefined }]);
   });
+  // Native lifecycle supplement: R1399's replay-specific duplicate count remains unimplemented.
+  it('native controlled lifecycle completes once per edge without synthesized effect replay', async () => {
+    const handle = createDialogHandle<number>(); const completions: boolean[] = [];
+    setup({ handle, controlled: true, onComplete: value => completions.push(value) }); await settle();
+    const external = [...document.querySelectorAll('button')].find(button => button.textContent === 'Open programmatically')!;
+    external.click(); await settle(); expect(completions).toEqual([true]);
+    [...document.querySelectorAll('button')].find(button => button.textContent === 'Close')!.click(); await settle(); expect(completions).toEqual([true, false]);
+  });
+  for (const popup of ['absent', 'remove-on-close'] as const) it(`preserves pinned mounted state and absent close completion with Popup ${popup}`, async () => {
+    const handle = createDialogHandle<number>(); const completions: boolean[] = [];
+    const component = setup({ handle, popup, onComplete: value => completions.push(value) }); await settle();
+    handle.openWithPayload(8); await settle(); handle.close(); await settle();
+    expect(handle.isOpen).toBe(false); expect(handle.store.mounted).toBe(true); expect(completions.filter(value => !value)).toHaveLength(0);
+    component.forceUnmount(); await settle(); expect(handle.store.mounted).toBe(false); expect(completions.filter(value => !value)).toHaveLength(1);
+  });
   it('forwards reactive payload while the owning trigger is mounted', async () => {
     const handle = createDialogHandle<number>(); const component = setup({ handle }); await settle();
     click('trigger'); await settle(); expect(payload()).toBe('1'); component.updatePayload(8); await settle(); expect(payload()).toBe('8');
