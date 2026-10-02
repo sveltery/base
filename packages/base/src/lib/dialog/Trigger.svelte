@@ -3,7 +3,7 @@
   import Element from './Element.svelte';
   import { root } from './context.js';
   import type { ButtonProps } from './types.js';
-  let { children, render, disabled = false, nativeButton = true, id, ref = $bindable(null), ...props }: ButtonProps = $props();
+  let { children, render, disabled = false, nativeButton = true, id, ref = $bindable(), ...props }: ButtonProps = $props();
   const generated = $props.id();
   const controller = root();
   const resolvedId = $derived(id ?? `base-ui-${generated}`);

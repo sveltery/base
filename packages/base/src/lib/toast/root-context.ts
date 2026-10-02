@@ -1,7 +1,8 @@
-import { getContext } from 'svelte';
+import { createContext } from 'svelte';
 import type { ToastObject } from './types.js';
 
-export const ROOT = Symbol('Toast.Root');
+const [getRootContext, setRootContext, hasRootContext] = createContext<ToastRootContext>();
+export { setRootContext };
 export interface ToastRootContext {
   readonly toast: ToastObject;
   readonly expanded: boolean;
@@ -13,7 +14,7 @@ export interface ToastRootContext {
   recalculateHeight(flush?: boolean): void;
 }
 export function root(): ToastRootContext {
-  const value = getContext<ToastRootContext>(ROOT);
+  const value = hasRootContext() ? getRootContext() : undefined;
   if (!value) throw new Error('Base UI: ToastRootContext is missing. Toast parts must be used within <Toast.Root>.');
   return value;
 }

@@ -6,7 +6,7 @@
   import { activeElement, contains, getTarget, isFocusVisible } from './viewport-focus.js';
   import Element from '../dialog/Element.svelte';
   import type { ToastViewportProps } from './types.js';
-  let { children, ref = $bindable(null), ...props }: ToastViewportProps = $props();
+  let { children, ref = $bindable(), ...props }: ToastViewportProps = $props();
   const { store } = provider();
   let viewport = $state<HTMLElement | null>(null);
   let handlingFocusGuard = false;
@@ -64,7 +64,6 @@
     const win = doc.defaultView;
     if (!win) return;
     function keydown(event: KeyboardEvent) {
-    settlePendingBlur();
       settlePendingBlur();
       if (event.key === 'F6' && getTarget(event) !== node) {
         event.preventDefault();
@@ -75,7 +74,6 @@
       }
     }
     function blur(event: FocusEvent) {
-    settlePendingBlur();
       settlePendingBlur();
       if (getTarget(event) !== win) return;
       store.set('isWindowFocused', false);
