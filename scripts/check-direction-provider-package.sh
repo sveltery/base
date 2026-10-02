@@ -18,7 +18,11 @@ test -f "$direction_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
 cmp LICENSE "$direction_consumer/node_modules/@sveltery/base/LICENSE"
 cmp packages/base/THIRD_PARTY_NOTICES.md "$direction_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
 if [[ "${1:-}" == '--public' ]]; then
-  rg --quiet 'DirectionProvider' "$direction_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
+  node --input-type=module - "$direction_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md" <<'JS'
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+assert.match(readFileSync(process.argv[2], 'utf8'), /DirectionProvider/);
+JS
   cat > "$direction_consumer/imports.js" <<'JS'
 export { DirectionProvider as First, useDirection as firstReader } from '@sveltery/base';
 export { DirectionProvider as Second, useDirection as secondReader } from '@sveltery/base/direction-provider';
