@@ -24,7 +24,7 @@ for (const reference of [false, true]) {
     if (scenario === 'enabled-toggle') {
       await expect(host).toHaveCount(0); expect((await probe(page)).refs[0]).toBeNull();
       await page.getByRole('button', { name: 'Advance' }).click(); await expect(host).toHaveCount(1); expect((await probe(page)).refs[0]).toEqual({ tag: 'DIV', id: 'tested-render', connected: true });
-      await host.click(); expect((await probe(page)).calls).toEqual(['click']);
+      await host.dispatchEvent('click'); expect((await probe(page)).calls).toEqual(['click']);
       await page.getByRole('button', { name: 'Advance' }).click(); await expect(host).toHaveCount(0); expect((await probe(page)).refs[0]).toBeNull(); return;
     }
     await expect(host).toHaveCount(1);
@@ -49,7 +49,7 @@ for (const reference of [false, true]) {
     if (scenario === 'ref-shape') {
       let snapshot = await probe(page); expect(snapshot.refs[0]).toEqual({ tag: 'DIV', id: 'tested-render', connected: true }); expect(snapshot.refs[1]).toBeNull();
       await page.getByRole('button', { name: 'Advance' }).click(); snapshot = await probe(page); expect(snapshot.refs[0]).toEqual(snapshot.refs[1]); expect(snapshot.refs[0]).toEqual({ tag: 'DIV', id: 'tested-render', connected: true });
-      await host.click(); expect((await probe(page)).calls).toEqual(['second']);
+      await host.dispatchEvent('click'); expect((await probe(page)).calls).toEqual(['second']);
       await page.getByRole('button', { name: 'Advance' }).click(); snapshot = await probe(page); expect(snapshot.refs[0]).toBeNull(); expect(snapshot.refs[1]).toEqual({ tag: 'DIV', id: 'tested-render', connected: true });
     }
     if (scenario === 'render-function' || scenario === 'clone-props') {

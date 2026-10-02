@@ -7,7 +7,7 @@ import { createUseRenderCase, publicCases, type State } from './use-render-cases
 import type { UseRenderHostProps, UseRenderPropSource, UseRenderTagName } from '../../../../packages/base/src/lib/use-render/types.js';
 function css(value: unknown): CSSProperties | undefined {
   if (typeof value !== 'string') return undefined;
-  return Object.fromEntries(value.split(';').filter(Boolean).map(property => { const colon = property.indexOf(':'); const key = property.slice(0, colon).replace(/-([a-z])/g, (_, letter: string) => letter.toUpperCase()); return [key, property.slice(colon + 1)]; }));
+  return Object.fromEntries(value.split(';').filter(property => property.trim()).map(property => { const colon = property.indexOf(':'); const key = property.slice(0, colon).trim().replace(/-([a-z])/g, (_, letter: string) => letter.toUpperCase()); return [key, property.slice(colon + 1).trim()]; }));
 }
 function nativeProps(props: UseRenderHostProps): Record<string, unknown> {
   const result: Record<string, unknown> = {};
