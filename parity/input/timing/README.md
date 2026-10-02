@@ -25,7 +25,7 @@ Every FormData snapshot exactly matches the DOM value shown. Accepted edits rema
 
 The probe's document labels describe registration relative to the isolated probe mount. An enclosing SvelteKit root can already have document delegation; the observable native snapshots and isolated root-before/root-after ordering remain explicitly asserted.
 
-These DOM results have a separate [secured Chromium test](../../../tests/browser/input-timing.spec.ts), which attaches the complete JSON matrix. Browser execution is pending, and these DOM results do not substitute for it. No ordinary Input or Field parity credit is added.
+These DOM results have a separate [secured Chromium test](../../../tests/browser/input-timing.spec.ts), which attaches the complete JSON matrix. The [complete hosted matrix](browser-passing-fresh-host-results.json) passed at checkpoint `02863a6` ([CI 36985467480](https://github.com/sveltery/base/actions/runs/36985467480)); its source/run/artifact hashes are indexed separately. Final-head execution remains required after subsequent repairs. No ordinary Input or Field parity credit is added.
 
 ## Smallest feasible synchronous approach
 

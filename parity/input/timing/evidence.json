@@ -11,12 +11,12 @@
   },
   "upstreamCommit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "localRun": {
-    "command": "INPUT_TIMING_RESULTS_PATH=/tmp/input-timing-final-results.json pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/input-timing.test.ts",
-    "result": "24 passed after fresh-host and dispatch-completion repairs; original exact stage/value/FormData assertions retained.",
+    "command": "INPUT_TIMING_RESULTS_PATH=/tmp/input-timing-final-reset-results.json pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/input-timing.test.ts",
+    "result": "24 passed after fresh-host, dispatch-completion and native reset observation repairs; original exact stage/value/FormData assertions retained.",
     "testFileSha256": "a43f4de1a61e80b8f5aa72f6dbb7c4e7f39645743d9240338022131ec13ad002",
     "results": "dom-results.json",
     "resultsSha256": "c32634c6e554241ed231b5ced9001af53501b8cd7347c58bb95fe6117a70b7df",
-    "runtimeSourceSha256": "b9f55a6b1c8cbd8bbabe98490879cc68167c41ccb4da91769c9328f46a037781"
+    "runtimeSourceSha256": "4b0c18b3faa7f4a3867c8fb28702c9bc5bd13afe457a052609f14f66ebeba5b1"
   },
   "sources": {
     "apps/fixtures/src/lib/InputTimingFixture.svelte": "9914dd17ec47cad135fbbd02514d5505682d25a1e564ed7230170b67abacb883",
@@ -35,8 +35,18 @@
   },
   "browserRun": {
     "test": "tests/browser/input-timing.spec.ts",
-    "result": "not executed yet; secured hosted Chromium required",
-    "attachment": "input-timing-results.json"
+    "result": "All twenty-four exact stage/value/FormData cases passed at secured dispatch-repair checkpoint; final-head component acceptance remains a separate gate.",
+    "attachment": "input-timing-results.json",
+    "testedCommit": "02863a60afcb627a582e2f0ce35d53fefcc0f146",
+    "workflowRun": "https://github.com/sveltery/base/actions/runs/36985467480",
+    "browserJob": 110769376545,
+    "results": "browser-passing-fresh-host-results.json",
+    "resultsSha256": "f2772dfeea753a738d02acef9b4b587b698f04e18873c7cc777cf9fdf4d300d5",
+    "artifact": {
+      "id": 11217851107,
+      "name": "input-timing-characterization",
+      "sha256": "d4235aed8bc5ef0c532d359ba7eb40532e6ef1c470c8cde230f46c25283870bb"
+    }
   },
   "credit": "Uncredited supplemental characterization; no additional ordinary Input or Field declaration credit.",
   "ownedWrapperPrototype": {

@@ -21,17 +21,19 @@
     const ownerWindow = node.ownerDocument.defaultView ?? window;
     let restoreTimer: number | undefined;
     let editVersion = 0;
-    let resetForm: HTMLFormElement | null = null;
-    let resetEvent: Event | undefined;
-    const observeReset = (event: Event) => { resetEvent = event; };
+    let resetRoot: Node | undefined;
+    let resetEvents: Event[] = [];
+    const observeReset = (event: Event) => {
+      if (event.target === (node as HTMLInputElement).form) resetEvents.push(event);
+    };
     function clearPendingRestore() {
       if (restoreTimer !== undefined) ownerWindow.clearTimeout(restoreTimer);
       restoreTimer = undefined;
-      resetForm?.removeEventListener('reset', observeReset);
-      resetForm = null;
+      resetRoot?.removeEventListener('reset', observeReset, true);
+      resetRoot = undefined;
     }
     function restoreValue() {
-      const wasReset = resetEvent !== undefined && !resetEvent.defaultPrevented;
+      const wasReset = resetEvents.some(event => !event.defaultPrevented);
       clearPendingRestore();
       if (!connected || value === undefined || wasReset) return;
       const input = node as HTMLInputElement;
@@ -41,11 +43,12 @@
     const restoreControlledEdit = (event: Event) => {
       const version = ++editVersion;
       clearPendingRestore();
-      resetEvent = undefined;
+      resetEvents = [];
       if (value === undefined) return;
-      // A native reset during this edit keeps its native default; canceled resets still restore.
-      resetForm = (node as HTMLInputElement).form;
-      resetForm?.addEventListener('reset', observeReset);
+      // Capture before form handlers can stop propagation; check the live form association.
+      // An uncanceled native reset during this edit keeps its native default.
+      resetRoot = node.getRootNode();
+      resetRoot.addEventListener('reset', observeReset, true);
       void tick().then(() => {
         if (!connected || version !== editVersion) return;
         // Trusted browser dispatch can run microtasks between native listeners.
