@@ -208,19 +208,19 @@
   $effect(() => {
     const panel = node;
     if (!panel || context.open || !context.mounted || panelTransitionStatus !== 'ending') return;
-    let canceled = false;
+    const abortController = new AbortController();
     let stopObserving: (() => void) | undefined;
     // The ending attribute is committed now. Give Chrome one additional frame
     // to register a transition before the animation helper's observation frame.
     const cancelEndingFrame = requestFrame(panel, () => {
-      if (canceled) return;
+      if (abortController.signal.aborted) return;
       stopObserving = afterAnimations(panel, () => {
-        if (canceled || node !== panel || context.open) return;
+        if (abortController.signal.aborted || node !== panel || context.open) return;
         context.setMounted(false);
         setDimensions(emptyDimensions, false);
-      });
+      }, false, abortController.signal);
     });
-    return () => { canceled = true; cancelEndingFrame(); stopObserving?.(); };
+    return () => { cancelEndingFrame(); abortController.abort(); stopObserving?.(); };
   });
 
   $effect(() => {

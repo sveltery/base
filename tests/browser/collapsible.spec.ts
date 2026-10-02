@@ -20,6 +20,7 @@ async function animations(page: Page) { return page.getByTestId('panel').evaluat
 async function installRace(page: Page, phase: 'open' | 'close') {
   await page.addInitScript(phase => {
     const browser = window as Window & { race?: Animation; raceStarted?: boolean };
+    (globalThis as typeof globalThis & { BASE_UI_ANIMATIONS_DISABLED?: boolean }).BASE_UI_ANIMATIONS_DISABLED = false;
     AbortController.prototype.abort = () => {};
     Element.prototype.getAnimations = function () {
       if (this.getAttribute('data-testid') === 'panel' && this.hasAttribute(phase === 'open' ? 'data-open' : 'data-ending-style')) {
@@ -43,7 +44,7 @@ for (const reference of [false, true]) {
   });
   test(`R:74 ${framework} disabled status`, async ({ page }) => { const { trigger } = await setup(page, 'disabled', reference); await expect(trigger).toHaveAttribute('data-disabled'); });
   test(`R:87 ${framework} disabled click does not toggle or call onOpenChange`, async ({ page }) => {
-    const { trigger, panel } = await setup(page, 'disabled', reference); await trigger.click(); expect(await calls(page)).toHaveLength(0); await expect(trigger).toHaveAttribute('aria-expanded', 'false'); await expect(panel).toHaveCount(0);
+    const { trigger, panel } = await setup(page, 'disabled', reference); await trigger.click({ force: true }); expect(await calls(page)).toHaveLength(0); await expect(trigger).toHaveAttribute('aria-expanded', 'false'); await expect(panel).toHaveCount(0);
   });
   test(`R:108 ${framework} calls onOpenChange with eventDetails`, async ({ page }) => {
     const { trigger } = await setup(page, 'uncontrolled', reference); await trigger.click(); const entries = await calls(page); expect(entries).toHaveLength(1); expect(entries[0].open).toBe(true); expect(entries[0]).toBeDefined(); expect(entries[0].reason).toBe('trigger-press'); expect((entries[0] as Record<string, unknown>).mouse).toBe(true); expect(entries[0].canceled).toBe(false); expect((entries[0] as Record<string, unknown>).cancelType).toBe('function'); expect((entries[0] as Record<string, unknown>).allowType).toBe('function');
@@ -65,7 +66,22 @@ for (const reference of [false, true]) {
     const warnings: string[] = []; page.on('console', message => { if (message.type() === 'warning') warnings.push(message.text()); }); const { panel } = await setup(page, 'hidden-warning', reference); await expect.poll(() => warnings).toContain('Base UI: The `keepMounted={false}` prop on `Collapsible.Panel` is ignored when `hiddenUntilFound` is enabled, since the panel must remain mounted while closed.'); await expect(panel).toHaveAttribute('hidden', 'until-found');
   });
   test(`P:77 ${framework} does not unmount panel when keepMounted true`, async ({ page }) => {
-    const { trigger, panel } = await setup(page, 'controlled-keep', reference); await expect(trigger).toHaveAttribute('aria-expanded', 'false'); await expect(panel).toHaveCount(1); await expect(panel).not.toBeVisible(); await expect(panel).toHaveAttribute('data-closed'); await flush(page); await expect(trigger).toHaveAttribute('aria-expanded', 'true'); await expect(panel).toHaveCount(1); await expect(panel).toBeVisible(); await expect(panel).toHaveAttribute('data-open'); await flush(page); await expect(trigger).toHaveAttribute('aria-expanded', 'false'); await expect(panel).toHaveCount(1); await expect(panel).not.toBeVisible(); await expect(panel).toHaveAttribute('data-closed');
+    const { trigger, panel } = await setup(page, 'keep', reference);
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    await expect(panel).toHaveCount(1);
+    await expect(panel).not.toBeVisible();
+    await expect(panel).toHaveAttribute('data-closed');
+    await flush(page);
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    expect(await trigger.getAttribute('aria-controls')).toBe(await panel.getAttribute('id'));
+    await expect(panel).toBeVisible();
+    await expect(panel).toHaveAttribute('data-open');
+    await expect(trigger).toHaveAttribute('data-panel-open');
+    await flush(page);
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    expect(await trigger.getAttribute('aria-controls')).toBe(null);
+    await expect(panel).not.toBeVisible();
+    await expect(panel).toHaveAttribute('data-closed');
   });
   test(`P:164 ${framework} unmounts panel mounting during ending`, async ({ page }) => {
     const { panel } = await setup(page, 'ending-host', reference); await flush(page); await frames(page, 1); const statuses = reference ? await page.evaluate(() => (window as Window & { collapsibleStatuses?: string[] }).collapsibleStatuses) : JSON.parse(await page.getByTestId('statuses').innerText()) as string[]; expect(statuses).toContain('ending'); await expect(panel).toHaveCount(0);
@@ -136,14 +152,19 @@ for (const reference of [false, true]) {
     const { trigger, panel } = await setup(page, 'interrupt', reference); await trigger.click(); await expect(panel).toHaveAttribute('data-ending-style'); await trigger.click(); await expect(panel).toHaveAttribute('data-open'); await expect(panel).not.toHaveAttribute('data-starting-style');
     await panel.evaluate(node => { (window as Window & { originalPanel?: Element }).originalPanel = node; }); await flush(page); await expect(panel).toHaveAttribute('data-ending-style'); expect(await panel.evaluate(node => node === (window as Window & { originalPanel?: Element }).originalPanel)).toBe(true);
   });
+  // The native AbortController stub keeps both frameworks' already-watched
+  // finished promises alive across cleanup, so completion sees committed close.
   test(`P:473 ${framework} keeps measured size when open animation finishes during close commit`, async ({ page }) => {
     await installRace(page, 'open'); const { panel } = await setup(page, 'race-open', reference); await frames(page, 1);
     await page.waitForFunction(() => (window as Window & { raceStarted?: boolean }).raceStarted);
+    expect(await page.evaluate(() => (window as Window & { raceStarted?: boolean }).raceStarted)).toBe(true);
     await flush(page); await page.evaluate(() => Promise.resolve());
     expect(await panel.evaluate((node: HTMLElement) => node.style.getPropertyValue('--collapsible-panel-height'))).toMatch(/px$/);
   });
+  // The same native abort stub preserves a watched close completion across reopen.
   test(`P:542 ${framework} does not restart entrance when close animation finishes after reopening`, async ({ page }) => {
     await installRace(page, 'close'); const { panel } = await setup(page, 'race-close', reference); await flush(page); await page.waitForFunction(() => (window as Window & { raceStarted?: boolean }).raceStarted);
+    expect(await page.evaluate(() => (window as Window & { raceStarted?: boolean }).raceStarted)).toBe(true);
     await flush(page); await expect(panel).toHaveAttribute('data-open'); await expect(panel).not.toHaveAttribute('data-starting-style'); await panel.evaluate(node => { (window as Window & { originalPanel?: Element }).originalPanel = node; });
     await page.evaluate(() => (window as Window & { race: Animation }).race.finish()); await frames(page, 1);
     await expect(panel).toHaveAttribute('data-open'); await expect(panel).not.toHaveAttribute('data-starting-style'); expect(await panel.evaluate(node => node === (window as Window & { originalPanel?: Element }).originalPanel)).toBe(true);
@@ -163,10 +184,14 @@ for (const reference of [false, true]) {
     const { panel } = await setup(page, 'keys-open', reference); expect(await animations(page)).toBe(0); await flush(page); await expect(panel).toHaveAttribute('data-closed'); await flush(page); await expect(panel).toHaveAttribute('data-open'); expect(await animations(page)).toBe(1);
   });
   test(`P:799 ${framework} SSR suppresses initially open keyframes`, async ({ page }) => {
-    await page.goto(`/collapsible-ssr?case=keys-initial${reference ? '&reference' : ''}`); expect(await page.getByTestId('panel').evaluate((node: HTMLElement) => node.style.animationName)).toBe('none');
+    const response = await page.goto(`/collapsible-ssr?case=keys-initial${reference ? '&reference' : ''}`);
+    const style = await page.evaluate(markup => { const panel = new DOMParser().parseFromString(markup, 'text/html').querySelector('[data-testid="panel"]') as HTMLElement | null; return panel?.style.animationName; }, await response!.text());
+    expect(style).toBe('none');
   });
   test(`P:830 ${framework} SSR suppresses inline initially open keyframes`, async ({ page }) => {
-    await page.goto(`/collapsible-ssr?case=keys-inline${reference ? '&reference' : ''}`); const panel = page.getByTestId('panel'); expect(await panel.evaluate((node: HTMLElement) => node.style.animationName)).toBe('none'); expect(await panel.evaluate((node: HTMLElement) => node.style.animationDuration)).toBe('100ms');
+    const response = await page.goto(`/collapsible-ssr?case=keys-inline${reference ? '&reference' : ''}`);
+    const style = await page.evaluate(markup => { const panel = new DOMParser().parseFromString(markup, 'text/html').querySelector('[data-testid="panel"]') as HTMLElement | null; return { name: panel?.style.animationName, duration: panel?.style.animationDuration }; }, await response!.text());
+    expect(style.name).toBe('none'); expect(style.duration).toBe('100ms');
   });
   test(`P:1205 ${framework} keeps temporary zero animation duration until closes`, async ({ page }) => {
     const { trigger, panel } = await setup(page, 'beforematch-keys', reference); await flush(page, 'beforematch'); await expect(panel).toHaveAttribute('data-open'); await frames(page); await expect(panel).toHaveCSS('animation-duration', '0s');
@@ -217,7 +242,7 @@ for (const reference of [false, true]) {
     const { trigger, panel } = await setup(page, 'disabled-override', reference); await trigger.click(); await expect(trigger).toHaveAttribute('aria-expanded', 'true'); await expect(panel).toBeVisible(); expect(await calls(page)).toHaveLength(1);
   });
   test(`supplement: ${framework} disabled custom activation remains focusable`, async ({ page }) => {
-    const { trigger } = await setup(page, 'custom-disabled', reference); await trigger.focus(); await expect(trigger).toBeFocused(); await expect(trigger).toHaveAttribute('aria-disabled', 'true'); await page.keyboard.press('Enter'); await page.keyboard.press('Space'); await trigger.click(); expect(await calls(page)).toHaveLength(0);
+    const { trigger } = await setup(page, 'custom-disabled', reference); await trigger.focus(); await expect(trigger).toBeFocused(); await expect(trigger).toHaveAttribute('aria-disabled', 'true'); await page.keyboard.press('Enter'); await page.keyboard.press('Space'); await trigger.click({ force: true }); expect(await calls(page)).toHaveLength(0);
   });
   test(`supplement: ${framework} BASE_UI_ANIMATIONS_DISABLED completes bounded motion`, async ({ page }) => {
     await page.addInitScript(() => { (globalThis as typeof globalThis & { BASE_UI_ANIMATIONS_DISABLED?: boolean }).BASE_UI_ANIMATIONS_DISABLED = true; }); const { panel } = await setup(page, 'initial-transition', reference); await flush(page); await frames(page, 3); await expect(panel).toHaveCount(0);
@@ -241,5 +266,26 @@ test('supplement: Svelte SSR hydration retains generated IDs and authored motion
   await page.addInitScript(() => {
     const observer = new MutationObserver(() => { const node = document.querySelector('[data-testid="panel"]'); if (node) { (window as Window & { serverPanel?: Element; serverPanelId?: string | null }).serverPanel = node; (window as Window & { serverPanelId?: string | null }).serverPanelId = node.getAttribute('id'); observer.disconnect(); } }); observer.observe(document, { childList: true, subtree: true });
   });
-  const { trigger, panel } = await setup(page, 'keys-initial', false); expect(await panel.evaluate(node => node === (window as Window & { serverPanel?: Element }).serverPanel)).toBe(true); expect(await panel.getAttribute('id')).toBe(await page.evaluate(() => (window as Window & { serverPanelId?: string | null }).serverPanelId)); await expect(trigger).toHaveAttribute('aria-controls', (await panel.getAttribute('id'))!); await expect(panel).toHaveCSS('animation-name', 'none'); expect(errors).toEqual([]);
+  const response = await page.goto('/collapsible?case=keys-initial');
+  expect(response?.status()).toBe(200);
+  const serverMarkup = await response!.text();
+  const server = await page.evaluate(markup => {
+    const document = new DOMParser().parseFromString(markup, 'text/html');
+    const panel = document.querySelector('[data-testid="panel"]') as HTMLElement | null;
+    const trigger = document.getElementById('tested-trigger');
+    return { panelExists: panel !== null, panelId: panel?.id, controlledId: trigger?.getAttribute('aria-controls'), open: panel?.hasAttribute('data-open'), animationName: panel?.style.animationName };
+  }, serverMarkup);
+  expect(server.panelExists).toBe(true);
+  expect(server.panelId).toBeTruthy();
+  expect(server.controlledId).toBe(server.panelId);
+  expect(server.open).toBe(true);
+  expect(server.animationName).toBe('none');
+  await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+  const panel = page.getByTestId('panel'), trigger = page.locator('#tested-trigger');
+  expect(await panel.evaluate(node => node === (window as Window & { serverPanel?: Element }).serverPanel)).toBe(true);
+  expect(await panel.getAttribute('id')).toBe(server.panelId);
+  expect(await panel.getAttribute('id')).toBe(await page.evaluate(() => (window as Window & { serverPanelId?: string | null }).serverPanelId));
+  await expect(trigger).toHaveAttribute('aria-controls', server.panelId!);
+  await expect(panel).toHaveCSS('animation-name', 'none');
+  expect(errors).toEqual([]);
 });

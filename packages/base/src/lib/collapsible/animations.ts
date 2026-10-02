@@ -38,17 +38,19 @@ export function afterAnimations(
   element: HTMLElement,
   complete: () => void,
   waitForStartingStyleRemoved = false,
+  signal: AbortSignal | null = null,
 ): () => void {
-  let canceled = false;
+  const ownedController = signal ? undefined : new AbortController();
+  const lifecycleSignal = signal ?? ownedController?.signal;
   let cancelFrame: (() => void) | undefined;
   let observer: MutationObserver | undefined;
   const done = () => {
-    if (!canceled) flushSync(complete);
+    if (!lifecycleSignal?.aborted) flushSync(complete);
   };
   function observe() {
-    if (canceled) return;
+    if (lifecycleSignal?.aborted) return;
     Promise.all(element.getAnimations().map(animation => animation.finished)).then(done, () => {
-      if (canceled) return;
+      if (lifecycleSignal?.aborted) return;
       const current = element.getAnimations();
       if (current.some(animation => animation.pending || animation.playState !== 'finished')) {
         observe();
@@ -72,6 +74,7 @@ export function afterAnimations(
         }
       });
       observer.observe(element, { attributes: true, attributeFilter: ['data-starting-style'] });
+      lifecycleSignal?.addEventListener('abort', () => observer?.disconnect(), { once: true });
     } else {
       cancelFrame = requestFrame(element, observe);
     }
@@ -79,7 +82,7 @@ export function afterAnimations(
     cancelFrame = requestFrame(element, observe);
   }
   return () => {
-    canceled = true;
+    ownedController?.abort();
     cancelFrame?.();
     observer?.disconnect();
   };
