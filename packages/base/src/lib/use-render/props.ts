@@ -104,18 +104,39 @@ export function attachRefs<Host extends Element>(node: Host, refs: RefSlot<Host>
 /** Like useMergedRefsN, preserve callback identity until the individual references change. */
 export function memoRefAttachment<Host extends Element>(publish: (node: Host | null, previous?: Host) => void) {
   let previous: RefSlot<Host>[] | undefined;
-  let attachment: ((node: Element) => () => void) | undefined;
-  return (refs: RefSlot<Host>[], arrayMode: boolean) => {
+  type Attachment = (node: Element) => () => void;
+  let attachment: Attachment | undefined;
+  let active: { attachment: Attachment; cleanup: () => void } | undefined;
+  function resolve(refs: RefSlot<Host>[], arrayMode: boolean) {
     // The pinned fixed-ref comparison checks four positions; only its array form compares length.
     if (!previous || (arrayMode && refs.length !== previous.length) || refs.some((ref, index) => ref !== previous![index])) {
       previous = refs;
-      attachment = node => untrack(() => {
+      const nextAttachment: Attachment = node => untrack(() => {
+        // Like the pinned fork callback, attaching a new host first releases its previous host.
+        active?.cleanup();
         const host = node as Host;
         publish(host);
-        const cleanup = attachRefs(host, refs);
-        return () => untrack(() => { cleanup(); publish(null, host); });
+        const releaseRefs = attachRefs(host, refs);
+        let cleaned = false;
+        const cleanup = () => untrack(() => {
+          if (cleaned) return;
+          cleaned = true;
+          releaseRefs();
+          publish(null, host);
+          if (active?.cleanup === cleanup) active = undefined;
+        });
+        active = { attachment: nextAttachment, cleanup };
+        return cleanup;
       });
+      attachment = nextAttachment;
     }
     return attachment!;
+  }
+  return {
+    resolve,
+    beforeUpdate(nextAttachment: Attachment | undefined, replacingDefaultHost = false) {
+      // React detaches a replaced ref before host mutation. Svelte attachments otherwise detach after it.
+      if (active && (active.attachment !== nextAttachment || replacingDefaultHost)) active.cleanup();
+    },
   };
 }

@@ -10,7 +10,7 @@
   const controller = untrack(() => createUseRenderCase(scenario));
   let stage = $state(0), hydrated = $state(false), element = $state<Element | null | undefined>();
   const config = $derived(controller.configuration(stage));
-  const internal = $derived(!publicCases.includes(scenario));
+  const internal = $derived(!publicCases.includes(scenario) && !scenario.startsWith('ref-update-') && !scenario.startsWith('ref-observation-'));
   const options = $derived({ ...config.options, render: config.replacement ? replacement : undefined });
   const ownKey = createAttachmentKey();
   function attachOwn(node: Element) {
@@ -31,5 +31,7 @@
 {/snippet}
 <main data-hydrated={hydrated} {@attach probe}>
   <button type="button" onclick={() => { stage += 1; }}>Advance</button>
-  {#if internal}<RenderElement {...options} bind:element />{:else}<UseRender {...options as UseRenderProps} bind:element />{/if}
+  {#if scenario === 'ref-observation-unmount'}
+    {#if stage === 0}<UseRender {...options as UseRenderProps} enabled={true} bind:element />{/if}
+  {:else if internal}<RenderElement {...options} bind:element />{:else}<UseRender {...options as UseRenderProps} bind:element />{/if}
 </main>

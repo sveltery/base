@@ -233,3 +233,64 @@ for (const path of ['disable', 'unmount', 'swap'] as const) it(`supplement: empt
   else { app.setOptions(path === 'disable' ? { enabled: false } : { defaultTagName: 'svg', props: { class: '' }, ref: callback }); flushSync(); }
   expect(observed).toEqual(['']);
 });
+for (const path of ['disable', 'swap'] as const) it(`supplement: refs clean the connected default host before ${path}`, () => {
+  const observations: unknown[] = [];
+  const callback: UseRenderRef = node => {
+    if (node) return () => { observations.push([node.isConnected, node.tagName]); };
+  };
+  const { app } = render({ options: { ref: callback } });
+  app.setOptions(path === 'disable' ? { enabled: false } : { defaultTagName: 'svg', ref: callback }); flushSync();
+  expect(observations).toEqual([[true, 'DIV']]);
+});
+for (const path of ['owner-unmount', 'snippet-swap'] as const) it(`supplement characterization: native attachment cleanup observes detached host on ${path}`, async () => {
+  const observations: boolean[] = [];
+  const callback: UseRenderRef = node => { if (node) return () => { observations.push(node.isConnected); }; };
+  const { app } = render({ replacement: path === 'snippet-swap', replacementTag: 'div', options: { ref: callback } });
+  if (path === 'owner-unmount') { await unmount(app); apps.splice(apps.indexOf(app), 1); }
+  else { app.setTag('svg'); flushSync(); }
+  expect(observations).toEqual([false]); // Specific PM native lifecycle decision; zero unchanged credit.
+});
+for (const [before, after] of [['', 'changed'], ['before', ''], ['before', undefined]] as const) it(`supplement: replaced refs observe class before host mutation (${String(before)} to ${String(after)})`, () => {
+  const observations: unknown[] = [];
+  function observer(label: string): UseRenderRef {
+    return node => {
+      if (node) {
+        observations.push([label, 'attach', node.getAttribute('class')]);
+        return () => { observations.push([label, 'cleanup', node.getAttribute('class')]); };
+      }
+    };
+  }
+  const first = observer('first'), second = observer('second');
+  const { app, host } = render({ options: { props: { class: before }, ref: first } });
+  const initial = host();
+  app.setOptions({ props: { class: after }, ref: second }); flushSync();
+  expect(host()).toBe(initial);
+  expect(observations).toEqual([['first', 'attach', before], ['first', 'cleanup', before], ['second', 'attach', after ?? null]]);
+});
+it('supplement: old ref cleanup cannot overwrite newly authored attributes', () => {
+  const restoring: UseRenderRef = node => {
+    if (node) {
+      const previous = node.getAttribute('class');
+      return () => { if (previous === null) node.removeAttribute('class'); else node.setAttribute('class', previous); };
+    }
+  };
+  const { app, host } = render({ options: { props: { class: 'before' }, ref: restoring } });
+  app.setOptions({ props: { class: 'changed' }, ref: () => {} }); flushSync();
+  expect(host().getAttribute('class')).toBe('changed');
+});
+it('supplement: replaced refs release before data, style and title updates and attach once', async () => {
+  const observations: unknown[] = [];
+  function observer(label: string): UseRenderRef {
+    return node => {
+      const value = () => [node!.getAttribute('data-version'), node!.getAttribute('style'), node!.getAttribute('title')];
+      if (node) { observations.push([label, 'attach', ...value()]); return () => { observations.push([label, 'cleanup', ...value()]); }; }
+    };
+  }
+  const first = observer('first'), second = observer('second');
+  const { app } = render({ options: { props: { 'data-version': 'before', style: 'color:red', title: 'before' }, ref: first } });
+  app.setOptions({ props: { 'data-version': 'after', style: 'color:blue', title: 'after' }, ref: second }); flushSync();
+  expect(observations).toEqual([['first', 'attach', 'before', 'color: red;', 'before'], ['first', 'cleanup', 'before', 'color: red;', 'before'], ['second', 'attach', 'after', 'color: blue;', 'after']]);
+  await unmount(app); apps.splice(apps.indexOf(app), 1);
+  expect(observations.at(-1)).toEqual(['second', 'cleanup', 'after', 'color: blue;', 'after']);
+  expect(observations).toHaveLength(4);
+});

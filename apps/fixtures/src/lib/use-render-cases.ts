@@ -15,6 +15,25 @@ export function createUseRenderCase(scenario: string) {
     calls.push(`empty-attach:${node.tagName}:${String(node.getAttribute('class'))}`);
     return () => { calls.push(`empty-cleanup:${node.tagName}:${String(node.getAttribute('class'))}`); };
   };
+  function attributeRef(label: string, restore = false): UseRenderRef {
+    return node => {
+      if (!node) return;
+      const initial = node.getAttribute('class');
+      calls.push(`${label}-attach:${String(initial)}`);
+      return () => {
+        calls.push(`${label}-cleanup:${String(node.getAttribute('class'))}`);
+        if (restore) { if (initial === null) node.removeAttribute('class'); else node.setAttribute('class', initial); }
+      };
+    };
+  }
+  const initialAttributeRef = attributeRef('first', scenario === 'ref-update-restore');
+  const nextAttributeRef = attributeRef('second');
+  const connectionRef: UseRenderRef = node => {
+    if (node) {
+      calls.push(`connection-attach:${node.tagName}:${node.isConnected}`);
+      return () => { calls.push(`connection-cleanup:${node.tagName}:${node.isConnected}`); };
+    }
+  };
   const callback = (value: string) => () => { calls.push(value); };
   const prevent = (event: PreventableEvent) => { calls.push('prevent'); event.preventBaseUIHandler(); };
   const getter = (previous: UseRenderHostProps) => { calls.push(`getter:${previous.id ?? 'empty'}`); return { id: 'tested-render', 'data-getter': 'replacement' }; };
@@ -77,6 +96,22 @@ export function createUseRenderCase(scenario: string) {
     if (scenario === 'getter-raw') { options.props = [() => ({ onmousedown: (event: PreventableEvent) => { calls.push(`raw-native:${typeof event.preventBaseUIHandler}`); } }), { id: 'tested-render' }]; options.class = 'component'; options.style = 'color:red'; }
     if (scenario === 'inherited-props') options.props = [stage === 0 ? {} : undefined, Object.create({ id: 'tested-render', 'data-native': 'yes' })];
     if (scenario === 'literal-props') { options.props = { id: 'tested-render', class: stage === 1 ? 'active' : stage === 3 ? undefined : '', onmousedown: undefined }; options.ref = emptyClassRef; options.defaultTagName = stage >= 4 ? 'svg' : 'div'; options.enabled = stage < 5; }
+    if (scenario.startsWith('ref-update-')) {
+      const before = scenario === 'ref-update-empty' ? '' : 'before';
+      const after = scenario === 'ref-update-to-empty' ? '' : scenario === 'ref-update-remove' ? undefined : 'changed';
+      options.props = { id: 'tested-render', class: stage === 0 ? before : after };
+      options.ref = stage === 0 ? initialAttributeRef : nextAttributeRef;
+      options.enabled = stage < 2;
+    }
+    if (scenario.startsWith('ref-observation-')) {
+      options.ref = connectionRef;
+      if (scenario === 'ref-observation-unmount') options.enabled = false; // The fixture mounts a separate owner below.
+      else {
+        options.enabled = stage < 2;
+        if (scenario === 'ref-observation-default') options.defaultTagName = stage === 0 ? 'div' : 'svg';
+        else { replacement = true; tag = stage === 0 ? 'div' : 'svg'; }
+      }
+    }
     if (scenario === 'inherited-ref') options.props = [{}, () => Object.assign(Object.create({ ref: refs[0] }), { id: 'tested-render' })];
     if (scenario === 'accessor-ref') {
       options.enabled = stage === 0; let reads = 0;

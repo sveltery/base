@@ -5,7 +5,7 @@
   import { BROWSER } from 'esm-env';
   import { resolveClassValue } from '../internals/resolveClassValue.js';
   import { EMPTY_STATE, memoRefAttachment, mergeHostProps, refList, resolveSources, stateAttributes } from './props.js';
-  import type { RenderElementProps, UseRenderRef } from './types.js';
+  import type { RenderElementProps, UseRenderRef, UseRenderTagName } from './types.js';
 
   let { defaultTagName = 'div', enabled = true, state = EMPTY_STATE as State, stateAttributesMapping, props, class: classProp, style: styleProp, render, ref, element = $bindable(), children }: RenderElementProps<State, Host> = $props();
   const attachmentKey = createAttachmentKey();
@@ -18,9 +18,10 @@
   const referenceAttachment = memoRefAttachment<Host>((node, previous) => untrack(() => {
     if (node !== null || element === previous) element = node;
   }));
+  let previousTag: UseRenderTagName | undefined;
   const output = $derived.by(() => {
     // Do not compute attributes, resolve getters/class/style, or inspect replacement props while disabled.
-    if (!enabled) return { props: {}, refs: [] };
+    if (!enabled) return { props: {}, attachment: undefined, hostTag: undefined };
     const className = resolveClassValue(typeof classProp === 'function' ? classProp(state) : classProp);
     const style = typeof styleProp === 'function' ? styleProp(state) : styleProp;
     const stateProps = stateAttributes(state, stateAttributesMapping);
@@ -34,7 +35,16 @@
     const { ref: _ref, ...attributes } = host;
     void _ref;
     const defaults = render ? {} : defaultTagName === 'button' ? { type: 'button' } : defaultTagName === 'img' ? { alt: '' } : {};
-    return { props: { [emptyClassKey]: !render && attributes.class === '' ? preserveEmptyClass : undefined, ...defaults, ...attributes, [attachmentKey]: BROWSER ? referenceAttachment(refs, Array.isArray(ref)) : undefined }, refs };
+    const attachment = BROWSER ? referenceAttachment.resolve(refs, Array.isArray(ref)) : undefined;
+    return { props: { [emptyClassKey]: !render && attributes.class === '' ? preserveEmptyClass : undefined, ...defaults, ...attributes, [attachmentKey]: attachment }, attachment, hostTag: render ? undefined : defaultTagName };
+  });
+  $effect.pre(() => {
+    const nextAttachment = output.attachment;
+    const nextTag = output.hostTag;
+    untrack(() => {
+      referenceAttachment.beforeUpdate(nextAttachment, nextTag !== undefined && previousTag !== nextTag);
+      previousTag = nextTag;
+    });
   });
 </script>
 {#if enabled}

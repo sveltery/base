@@ -34,6 +34,10 @@ function source(value: UseRenderPropSource) {
   if (typeof value !== 'function') return nativeProps(value);
   return (previous: Record<string, unknown>) => nativeProps(value(previous));
 }
+function OwnedReference({ controller }: { controller: ReturnType<typeof createUseRenderCase> }) {
+  const options = controller.configuration(0).options;
+  return useRender({ ref: options.ref as Ref<Element>, props: nativeProps(options.props as UseRenderHostProps) });
+}
 export function mountUseRenderReference(node: HTMLElement, scenario: string) {
   function Fixture() {
     const controller = useRef(createUseRenderCase(scenario)).current;
@@ -41,7 +45,7 @@ export function mountUseRenderReference(node: HTMLElement, scenario: string) {
     useEffect(() => { setHydrated(true); }, []);
     const config = controller.configuration(stage), options = config.options;
     const inputProps = Array.isArray(options.props) ? options.props.map(value => value === undefined ? undefined : source(value)) : options.props ? source(options.props as UseRenderPropSource) : undefined;
-    const internal = !publicCases.includes(scenario);
+    const internal = !publicCases.includes(scenario) && !scenario.startsWith('ref-update-') && !scenario.startsWith('ref-observation-');
     const render = !config.replacement ? undefined : scenario === 'render-function' || scenario === 'public-class' || scenario === 'public-refs' || scenario === 'all-gating'
       ? (props: HTMLAttributes<Element> & { ref?: Ref<Element> }, state: State) => {
         controller.observe({ ...props, class: props.className, style: props.style ? Object.entries(props.style).map(([key, value]) => `${key}:${value}`).join(';') : undefined }, state);
@@ -53,7 +57,8 @@ export function mountUseRenderReference(node: HTMLElement, scenario: string) {
     // These two hooks share the same source closure; the selected hook stays fixed for a mounted case.
     const privateProps = (typeof inputProps === 'function' ? [inputProps] : inputProps) as UseRenderElementParameters<State, Element, UseRenderTagName, boolean>['props'];
     const element = internal ? useRenderElement(options.defaultTagName ?? 'div', componentProps, { ...params, props: privateProps }) : useRender({ ...params, render, defaultTagName: options.defaultTagName, props: inputProps as Record<string, unknown> | undefined });
-    return h('main', { 'data-hydrated': hydrated, ref: (main: HTMLElement | null) => { if (main) Object.assign(main, { renderProbe: () => ({ calls: controller.calls, renders: controller.renders, refs: controller.refs.map(ref => ref.current ? { tag: ref.current.tagName, id: ref.current.id, connected: ref.current.isConnected } : null), element: node.querySelector('#tested-render') ? { tag: node.querySelector('#tested-render')!.tagName, id: 'tested-render', connected: true } : null }) }); } }, h('button', { type: 'button', onClick: () => setStage(value => value + 1) }, 'Advance'), element);
+    const renderedElement = scenario === 'ref-observation-unmount' ? stage === 0 ? h(OwnedReference, { controller }) : null : element;
+    return h('main', { 'data-hydrated': hydrated, ref: (main: HTMLElement | null) => { if (main) Object.assign(main, { renderProbe: () => ({ calls: controller.calls, renders: controller.renders, refs: controller.refs.map(ref => ref.current ? { tag: ref.current.tagName, id: ref.current.id, connected: ref.current.isConnected } : null), element: node.querySelector('#tested-render') ? { tag: node.querySelector('#tested-render')!.tagName, id: 'tested-render', connected: true } : null }) }); } }, h('button', { type: 'button', onClick: () => setStage(value => value + 1) }, 'Advance'), renderedElement);
   }
   const root = createRoot(node); root.render(h(Fixture)); return () => root.unmount();
 }

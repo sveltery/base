@@ -99,6 +99,35 @@ for (const reference of [false, true]) {
     await page.getByRole('button', { name: 'Advance' }).click(); await expect(host).toHaveCount(0);
     expect((await probe(page)).calls).toEqual(['empty-attach:DIV:', 'empty-cleanup:DIV:null', 'empty-attach:svg:', 'empty-cleanup:svg:']);
   });
+  for (const scenario of ['ref-update-empty', 'ref-update-to-empty', 'ref-update-remove', 'ref-update-restore']) test(`supplement ${framework} ${scenario} cleans old ref before host mutation`, async ({ page }) => {
+    const before = scenario === 'ref-update-empty' ? '' : 'before';
+    const after = scenario === 'ref-update-to-empty' ? '' : scenario === 'ref-update-remove' ? null : 'changed';
+    const host = await setup(page, scenario, reference);
+    expect((await probe(page)).calls).toEqual([`first-attach:${before}`]);
+    await host.evaluate(node => { Object.assign(document.querySelector('main')!, { originalHost: node }); });
+    await page.getByRole('button', { name: 'Advance' }).click();
+    expect(await host.evaluate(node => node === (document.querySelector('main') as HTMLElement & { originalHost: Element }).originalHost)).toBe(true);
+    expect(await host.getAttribute('class')).toBe(after);
+    expect((await probe(page)).calls).toEqual([`first-attach:${before}`, `first-cleanup:${before}`, `second-attach:${String(after)}`]);
+    await page.getByRole('button', { name: 'Advance' }).click(); await expect(host).toHaveCount(0);
+    expect((await probe(page)).calls).toEqual([`first-attach:${before}`, `first-cleanup:${before}`, `second-attach:${String(after)}`, `second-cleanup:${String(after)}`]);
+  });
+  for (const scenario of ['ref-observation-unmount', 'ref-observation-snippet', 'ref-observation-default']) test(`supplement characterization ${framework} ${scenario} observes actual host connection`, async ({ page }) => {
+    const host = await setup(page, scenario, reference);
+    expect((await probe(page)).calls).toEqual(['connection-attach:DIV:true']);
+    await page.getByRole('button', { name: 'Advance' }).click();
+    // Explicit native attachment teardown difference: it supplies no ordinary declaration credit.
+    const connected = reference || scenario === 'ref-observation-default';
+    if (scenario === 'ref-observation-unmount') {
+      await expect(host).toHaveCount(0);
+      expect((await probe(page)).calls).toEqual([`connection-attach:DIV:true`, `connection-cleanup:DIV:${connected}`]);
+    } else {
+      await expect(host).toHaveJSProperty('tagName', 'svg');
+      expect((await probe(page)).calls).toEqual(['connection-attach:DIV:true', `connection-cleanup:DIV:${connected}`, 'connection-attach:svg:true']);
+      await page.getByRole('button', { name: 'Advance' }).click(); await expect(host).toHaveCount(0);
+      expect((await probe(page)).calls).toEqual(['connection-attach:DIV:true', `connection-cleanup:DIV:${connected}`, 'connection-attach:svg:true', 'connection-cleanup:svg:true']);
+    }
+  });
   test(`supplement ${framework} host spread drops inherited refs`, async ({ page }) => {
     await setup(page, 'inherited-ref', reference); expect((await probe(page)).refs).toEqual([null, null, null]);
   });
