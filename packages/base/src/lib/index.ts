@@ -18,6 +18,11 @@ export { Collapsible } from './collapsible/index.js';
 export type { CollapsibleRootProps, CollapsibleRootState, CollapsibleTriggerProps, CollapsibleTriggerState, CollapsiblePanelProps, CollapsiblePanelState, CollapsibleTransitionStatus, CollapsibleRootChangeEventReason, CollapsibleRootChangeEventDetails } from './collapsible/index.js';
 export { Meter } from './meter/index.js';
 export type { MeterRootProps, MeterRootState, MeterLabelProps, MeterLabelState, MeterTrackProps, MeterTrackState, MeterIndicatorProps, MeterIndicatorState, MeterValueProps, MeterValueState } from './meter/index.js';
-
+export { Avatar } from './avatar/index.js';
+export type { AvatarRootProps, AvatarRootState, AvatarImageProps, AvatarImageState, AvatarFallbackProps, AvatarFallbackState, ImageLoadingStatus } from './avatar/index.js';
+export { DirectionProvider, useDirection } from './direction-provider/index.js';
+export type { DirectionProviderProps, TextDirection } from './direction-provider/index.js';
+export { Accordion } from './accordion/index.js';
+export type { AccordionValue, AccordionRootProps, AccordionRootState, AccordionItemProps, AccordionItemState, AccordionHeaderProps, AccordionHeaderState, AccordionTriggerProps, AccordionTriggerState, AccordionPanelProps, AccordionPanelState, AccordionRootChangeEventReason, AccordionRootChangeEventDetails, AccordionItemChangeEventReason, AccordionItemChangeEventDetails } from './accordion/index.js';
 export { CSPProvider } from './csp-provider/index.js';
 export type { CSPProviderProps, CSPProviderState } from './csp-provider/index.js';

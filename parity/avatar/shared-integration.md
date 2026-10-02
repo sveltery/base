@@ -1,0 +1,13 @@
+# Serialized shared integration
+
+Avatar workers own feature-local source, DOM/SSR/types, fixtures/reference routes, browser cases, immutable source/ordered assertion records, component docs and package consumer script. Meter PR #32 owns shared files. No shared Element, Button, Collapsible or Meter source is edited.
+
+[integration.patch](integration.patch) is generated against Meter's stable shared candidate `85ff67c5ddeaec15cdc89322ace75daefafe9a94` (tree-identical landed main `d889e75bedfee9174c3b36d16fe8a9fb2d2a66d3`), which incorporates main `39e0a4dc6e46b4696837adae691083f18b6e96bd`. It is the exact additive integration record; the parent authorized its application after Meter landed. It adds root namespace and all seven named types, ./avatar export, package MIT attribution, component/catalog/docs navigation, the central differences link and public root/subpath consumer gate. Meter's records and counts remain intact: adding Avatar makes eleven bounded and 31 unimplemented modules. Existing shared 635-entry ordinary totals remain unchanged.
+
+There is no new runtime dependency, package-lock change or overlay/Field/Form dependency. The existing secured combined browser workflow discovers Avatar's paired cases. A focused secured Avatar job is now added for complete204-case acceptance and bounded failure diagnosis; no sandbox weakening is proposed. The integrated fixtures now import the public root namespace. Full builds and public consumers passed; the complete secured browser suite remains a separate gate.
+
+The parent-authorized integration is applied. The next dependency-verified step is secured paired browser acceptance and configured review on the integrated head; Accordion can prepare its additive patch against the published shared checkpoint. A configured review may be waived only if quota is exhausted under the user's recorded exception; failing CI is never waived. Report merge eligibility before merge and verify exact post-merge CI. No deployment, release, access changes or manual external agent mentions are authorized.
+
+## Serialized application
+
+After Meter landed, the parent authorized Avatar as the first shared integration owner. Current main was fetched and verified as full `d889e75bedfee9174c3b36d16fe8a9fb2d2a66d3`, tree-identical to Meter tested85ff67c. The exact patch is now applied to this branch and browser/conformance/SSR fixtures import the public root entry. Accordion must prepare its later additive patch against this new stable checkpoint; no sibling component is edited. Public checks, final review and fresh combined CI remain acceptance gates.

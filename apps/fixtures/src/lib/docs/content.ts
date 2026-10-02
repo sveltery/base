@@ -39,7 +39,7 @@ export const docs: Doc[] = [
         id: 'status',
         title: 'A foundation in progress',
         paragraphs: [
-          'Dialog, Button, Toast, standalone Input, Separator and Toggle, Progress, Collapsible and Meter have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
+          'Dialog, Button, Toast, standalone Input, Separator and Toggle, Progress, Collapsible, Meter, Avatar, Accordion, DirectionProvider and the CSPProvider context foundation have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
           'The package is private and unpublished. APIs may change. Use this workspace to evaluate the current slice; check the repository contracts before depending on a behavior.',
         ],
         links: [
@@ -232,6 +232,49 @@ export const docs: Doc[] = [
           },
         ],
       },
+    ],
+  },
+  {
+    slug: 'components/csp-provider', group: 'Components', title: 'CSP Provider',
+    description: 'Share optional CSP settings with descendant components as they gain support.',
+    sections: [
+      { id: 'provide', title: 'Provide settings', paragraphs: ['CSPProvider renders its children without a wrapper element. It accepts an optional string nonce and optional boolean disableStyleElements.'], code: '<script lang="ts">\n  import { CSPProvider } from "@sveltery/base/csp-provider";\n</script>\n<CSPProvider nonce="server-provided-nonce" disableStyleElements>\n  <Content />\n</CSPProvider>' },
+      { id: 'defaults', title: 'Defaults and nesting', paragraphs: ['Without a provider, the internal default has disableStyleElements=false. A provider supplies its own optional values, including undefined when omitted. Nested providers replace outer settings, and prop updates reach existing descendants.'] },
+      { id: 'imports', title: 'Imports and types', paragraphs: ['Import CSPProvider from @sveltery/base or @sveltery/base/csp-provider. CSPProviderProps and CSPProviderState are named type exports from either entry. Children use a Svelte snippet; the provider has no native host attributes or public context reader.'] },
+      { id: 'limits', title: 'Current support', paragraphs: ['This release provides the context foundation. No downstream style or script consumer is implemented yet: ScrollArea, Select and prehydration scripts remain future work. Passing a nonce does not currently establish nonce application or style-tag suppression. The provider does not generate a nonce or set response headers. Four dependent upstream declarations remain deferred and uncredited.'], links: [{ label: 'Read the CSPProvider contract and evidence', href: 'https://github.com/sveltery/base/blob/main/docs/csp-provider.md' }] },
+    ],
+  },
+  {
+    slug: 'components/direction-provider', group: 'Components', title: 'Direction Provider',
+    description: 'Share a text reading direction with descendant components.',
+    sections: [
+      { id: 'provide', title: 'Provide a direction', paragraphs: ['Wrap content in DirectionProvider with direction="rtl" or direction="ltr". It supplies context without adding an element or setting dir on your document.'], code: '<DirectionProvider direction="rtl"><Content /></DirectionProvider>' },
+      { id: 'read', title: 'Read reactive direction', paragraphs: ['In a descendant component, call useDirection once during initialization. Retain the returned reader and call it in markup, $derived or event handlers. Reading once during initialization captures only that value.'], code: '<script lang="ts">\n  import { useDirection } from "@sveltery/base/direction-provider";\n  const direction = useDirection();\n  let isRTL = $derived(direction() === "rtl");\n</script>\n<span dir={direction()}>{isRTL ? "RTL content" : "LTR content"}</span>' },
+      { id: 'defaults', title: 'Defaults and nesting', paragraphs: ['Readers outside a provider return ltr. An omitted or undefined provider direction also defaults to ltr. A nested provider owns its direction and defaults to ltr rather than inheriting its parent. Prop updates reach its existing descendants.'] },
+      { id: 'imports', title: 'Imports and types', paragraphs: ['Import DirectionProvider and useDirection from @sveltery/base or @sveltery/base/direction-provider. DirectionProviderProps and TextDirection are named types; DirectionProvider.Props and the empty DirectionProvider.State are type-only aliases. The hook takes no override argument.'] },
+      { id: 'limits', title: 'Compatibility limits', paragraphs: ['The reader is a callable Svelte API. It reads live owner changes, including inside the same event handler. Existing controls are not automatically connected to this context, and full directional interaction compatibility remains unfinished.'], links: [{ label: 'Read the DirectionProvider contract and evidence', href: 'https://github.com/sveltery/base/blob/main/docs/direction-provider.md' }] },
+    ],
+  },
+  {
+    slug: 'components/avatar', group: 'Components', title: 'Avatar',
+    description: 'A profile image with initials or a fallback icon while it loads.',
+    sections: [
+      { id: 'anatomy', title: 'Assemble the parts', paragraphs: ['Root owns the image loading status. Image loads a source and Fallback displays initials until it is ready.'], code: '<Avatar.Root><Avatar.Image src="/avatar.png" alt="Jane Doe" /><Avatar.Fallback>JD</Avatar.Fallback></Avatar.Root>' },
+      { id: 'loading', title: 'Load the image', paragraphs: ['The default mode preloads the source and mounts the image when loaded. Set keepMounted to load in the rendered image, including lazy images and replacement image snippets. Pass native srcset and sizes for responsive images. onLoadingStatusChange reports loading, loaded and error.'] },
+      { id: 'fallback', title: 'Delay the fallback', paragraphs: ['Set delay in milliseconds to wait before showing the fallback. Once shown, later delay changes keep it available until the image loads.'] },
+      { id: 'motion', title: 'Style loading and motion', paragraphs: ['Image exposes data-starting-style and, in default mode, data-ending-style while exiting. The keepMounted mode exposes data-loading and data-error and hides an unready image from assistive technology. Root and Fallback expose imageLoadingStatus to class, style and render callbacks.'] },
+      { id: 'limits', title: 'Compatibility limits', paragraphs: ['The bounded Root, Image and Fallback port uses native Svelte props, snippets, bindings and CSS strings. Ordinary assertions, conformance, types and supplemental evidence are separate; complete library and assistive-technology compatibility remain unclaimed.'], links: [{ label: 'Read compatibility limits', href: '/docs/handbook/compatibility' }] },
+    ],
+  },
+  {
+    slug: 'components/accordion', group: 'Components', title: 'Accordion',
+    description: 'Compose labelled, collapsible sections with array values and cancellable requests.',
+    sections: [
+      { id: 'anatomy', title: 'Assemble the parts', paragraphs: ['Root groups Items. Each Item pairs Header and Trigger with a Panel. Values are arrays; use defaultValue for initial uncontrolled selection or value and onValueChange for controlled selection. multiple allows more than one selected item.'], code: "<Accordion.Root defaultValue={['details']}><Accordion.Item value=\"details\"><Accordion.Header><Accordion.Trigger>Details</Accordion.Trigger></Accordion.Header><Accordion.Panel>Panel content</Accordion.Panel></Accordion.Item></Accordion.Root>" },
+      { id: 'interaction', title: 'Requests and keyboard', paragraphs: ['Item onOpenChange runs before Root onValueChange; either can cancel the request through details.cancel(). Item cancellation stops the Root callback. Disabled state combines with ancestors. Enter and Space activate Triggers; deprecated orientation and loopFocus do not provide roving focus.'] },
+      { id: 'motion', title: 'Style and retain panels', paragraphs: ['Use --accordion-panel-height and --accordion-panel-width, and open/closed/starting/ending attributes on Panel. Panel overrides Root keepMounted and hiddenUntilFound defaults. hiddenUntilFound retains hidden contents for browser search.'] },
+      { id: 'api-reference', title: 'Local API reference', paragraphs: ['The signatures below are extracted from local declarations. Root props and state retain generic value arrays and the permissive upstream default. Explicit generic props constrain values and callback arrays.'] },
+      { id: 'limits', title: 'Compatibility limits', paragraphs: ['The immutable v1.8.0 inventory has 39 ordinary declaration sites / 43 variants. Portable scope is 38 / 42; one React.Activity Panel declaration remains deferred. Parameterized disabled, conformance, types and supplements are separate evidence. Final-head package, browser and review acceptance remain required.'], links: [{ label: 'Base UI Accordion reference', href: 'https://base-ui.com/react/components/accordion' }] },
     ],
   },
   {

@@ -176,5 +176,14 @@ bash "$sveltery_repo_root/scripts/check-collapsible-package.sh" --public
 
 bash "$sveltery_repo_root/scripts/check-meter-package.sh" --public
 
+# Isolated public Avatar root/subpath, both SSR loading modes and seven type exports.
+bash "$sveltery_repo_root/scripts/check-avatar-package.sh" --public
+
+# Genuine installed public Accordion root/subpath SSR and type consumer.
+bash "$sveltery_repo_root/scripts/check-accordion-package.sh" --public
+
+# Isolated public DirectionProvider root/subpath, callable reader, SSR and namespace types.
+bash "$sveltery_repo_root/scripts/check-direction-provider-package.sh" --public
+
 # Shared CSP provider foundation: actual public root/subpath consumer, not a private-entry stand-in.
 bash scripts/check-csp-provider-package.sh

@@ -1,0 +1,332 @@
+diff --git a/.github/workflows/ci.yml b/.github/workflows/ci.yml
+index 4225e96..6a15458 100644
+--- a/.github/workflows/ci.yml
++++ b/.github/workflows/ci.yml
+@@ -76,7 +76,7 @@ jobs:
+     name: Dialog browser
+     # Officially supported Playwright image; its default policy permits Chromium sandbox startup.
+     runs-on: ubuntu-22.04
+-    timeout-minutes: 20
++    timeout-minutes: 25
+     steps:
+       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+         with:
+@@ -223,3 +223,38 @@ jobs:
+           path: test-results/avatar-*/
+           if-no-files-found: warn
+           retention-days: 14
++
++  accordion-browser:
++    name: Accordion browser
++    runs-on: ubuntu-22.04
++    timeout-minutes: 15
++    steps:
++      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
++        with:
++          ref: ${{ github.event.pull_request.head.sha || github.sha }}
++          persist-credentials: false
++      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
++        with:
++          version: 12.6.0
++          run_install: false
++      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
++        with:
++          node-version: '24'
++          package-manager-cache: false
++      - name: Frozen workspace install
++        run: bash scripts/bootstrap.sh
++      - name: Build actual component library
++        run: pnpm --filter @sveltery/base build
++      - name: Install official Chromium and OS dependencies
++        run: pnpm exec playwright install --with-deps chromium
++      - name: Paired exact-pin Accordion acceptance
++        # A failing run stops early for diagnosis; a passing run executes every case.
++        run: pnpm exec playwright test tests/browser/accordion.spec.ts --max-failures=5
++      - name: Preserve Accordion browser failure traces
++        if: failure()
++        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
++        with:
++          name: accordion-browser-failures
++          path: test-results/accordion-*/
++          if-no-files-found: warn
++          retention-days: 14
+diff --git a/README.md b/README.md
+index 63ee9eb..1d91a4f 100644
+--- a/README.md
++++ b/README.md
+@@ -25,3 +25,5 @@ The [catalog ledger](docs/catalog.md) accounts for every pinned root export modu
+ [Meter](docs/meter.md) adds Root, Label, Track, Indicator and Value from the immutable v1.8.0 pin. Its [dedicated declaration and conformance evidence](parity/meter/README.md) remains separate; final-head acceptance is recorded in PR #32.
+
+ [Avatar](docs/avatar.md) adds Root, Image and Fallback with detached-probe and rendered-image keepMounted loading. Its [separate evidence](parity/avatar/README.md) accounts for 44 ordinary sites, three conformance calls and six type assertions; secured browser and exact final-head acceptance remain separate.
++
++[Accordion](docs/accordion.md) adds Root, Item, Header, Trigger and Panel with array values and cancellable Item-before-Root callbacks. Its [dedicated evidence](parity/accordion/README.md) separates 38 portable ordinary declarations / 42 variants from deferred React.Activity, parameterized, conformance, type and final-head acceptance gates.
+diff --git a/apps/fixtures/src/lib/AccordionConformanceFixture.svelte b/apps/fixtures/src/lib/AccordionConformanceFixture.svelte
+index 3a39360..4aa4aeb 100644
+--- a/apps/fixtures/src/lib/AccordionConformanceFixture.svelte
++++ b/apps/fixtures/src/lib/AccordionConformanceFixture.svelte
+@@ -1,7 +1,7 @@
+ <script lang="ts">
+   // Svelte adaptations of the five pinned describeConformance invocations; separate from ordinary assertions.
+   import { onMount, type Snippet } from 'svelte';
+-  import { Accordion, type AccordionItemState } from '../../../../packages/base/src/lib/accordion/index.js';
++  import { Accordion, type AccordionItemState } from '@sveltery/base';
+   import { mergeProps } from '../../../../packages/base/src/lib/merge-props/index.js';
+   import type { HTMLAttributes } from 'svelte/elements';
+   let { part, mode }: { part: string; mode: string } = $props();
+diff --git a/apps/fixtures/src/lib/AccordionFixture.svelte b/apps/fixtures/src/lib/AccordionFixture.svelte
+index 8650bf1..364f8a3 100644
+--- a/apps/fixtures/src/lib/AccordionFixture.svelte
++++ b/apps/fixtures/src/lib/AccordionFixture.svelte
+@@ -1,7 +1,7 @@
+ <script lang="ts">
+   // Direct and supplemental paired fixtures. MIT: parity/accordion/UPSTREAM_LICENSE.
+   import { onMount, untrack, flushSync, type Snippet } from 'svelte';
+-  import { Accordion, type AccordionItemState, type AccordionPanelState } from '../../../../packages/base/src/lib/accordion/index.js';
++  import { Accordion, type AccordionItemState, type AccordionPanelState } from '@sveltery/base';
+   import type { HTMLAttributes } from 'svelte/elements';
+   import { accordionConfig, accordionCss } from './accordion-config.js';
+   const { Root, Item, Header, Trigger, Panel } = Accordion;
+diff --git a/apps/fixtures/src/lib/AccordionSharedHostFixture.svelte b/apps/fixtures/src/lib/AccordionSharedHostFixture.svelte
+index 45cbf82..c34d2ee 100644
+--- a/apps/fixtures/src/lib/AccordionSharedHostFixture.svelte
++++ b/apps/fixtures/src/lib/AccordionSharedHostFixture.svelte
+@@ -1,7 +1,7 @@
+ <script lang="ts">
+   // Supplemental shared-host registration repair; no ordinary declaration credit.
+   import { onMount, type Snippet } from 'svelte';
+-  import { Accordion, type AccordionItemProps, type AccordionItemState } from '../../../../packages/base/src/lib/accordion/index.js';
++  import { Accordion, type AccordionItemProps, type AccordionItemState } from '@sveltery/base';
+   let hydrated = $state(false);
+   const indexes = { outer: -1, inner: -1, sibling: -1 };
+   function record(part: keyof typeof indexes, state: AccordionItemState) { indexes[part] = state.index; return `${part}-${state.index}`; }
+diff --git a/apps/fixtures/src/lib/docs/DocsPage.svelte b/apps/fixtures/src/lib/docs/DocsPage.svelte
+index 9a6cb30..d451ce2 100644
+--- a/apps/fixtures/src/lib/docs/DocsPage.svelte
++++ b/apps/fixtures/src/lib/docs/DocsPage.svelte
+@@ -2,6 +2,7 @@
+   import { resolve } from '$app/paths';
+   import type { Doc } from './content.js';
+   import api from './dialog-api.json';
++  import accordionApi from '../../../../../parity/accordion/api.json';
+   import DialogExample from './DialogExample.svelte';
+   import exampleSource from './DialogExample.svelte?raw';
+   let { doc }: { doc: Doc } = $props();
+@@ -58,6 +59,14 @@
+         <!-- svelte-ignore a11y_no_noninteractive_tabindex (Keyboard access to horizontally scrollable code) -->
+         <pre tabindex="0" aria-label="Shared Dialog type declarations"><code>{api.types}</code></pre></details>
+     {/if}
++    {#if doc.slug === 'components/accordion' && section.id === 'api-reference'}
++      {#each accordionApi.parts as part (part.name)}<h3>{part.name}</h3>
++        <!-- svelte-ignore a11y_no_noninteractive_tabindex (Keyboard access to horizontally scrollable code) -->
++        <pre tabindex="0" aria-label={part.name + ' Accordion props signature'}><code>{part.signature}</code></pre>{/each}
++      <details class="docs-code"><summary>Accordion state, value and event types</summary>
++        <!-- svelte-ignore a11y_no_noninteractive_tabindex (Keyboard access to horizontally scrollable code) -->
++        <pre tabindex="0" aria-label="Accordion type declarations"><code>{accordionApi.types}</code></pre></details>
++    {/if}
+     {#if section.links}<div class="docs-links">{#each section.links as link (link.href)}
+       <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -- linkHref resolves local docs links and preserves external URLs. -->
+       <a href={linkHref(link.href)}>{link.label}</a>
+diff --git a/apps/fixtures/src/lib/docs/content.ts b/apps/fixtures/src/lib/docs/content.ts
+index a6d3e80..198fe11 100644
+--- a/apps/fixtures/src/lib/docs/content.ts
++++ b/apps/fixtures/src/lib/docs/content.ts
+@@ -39,7 +39,7 @@ export const docs: Doc[] = [
+         id: 'status',
+         title: 'A foundation in progress',
+         paragraphs: [
+-          'Dialog, Button, Toast, standalone Input, Separator and Toggle, Progress, Collapsible, Meter and Avatar have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
++          'Dialog, Button, Toast, standalone Input, Separator and Toggle, Progress, Collapsible, Meter, Avatar and Accordion have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
+           'The package is private and unpublished. APIs may change. Use this workspace to evaluate the current slice; check the repository contracts before depending on a behavior.',
+         ],
+         links: [
+@@ -245,6 +245,17 @@ export const docs: Doc[] = [
+       { id: 'limits', title: 'Compatibility limits', paragraphs: ['The bounded Root, Image and Fallback port uses native Svelte props, snippets, bindings and CSS strings. Ordinary assertions, conformance, types and supplemental evidence are separate; complete library and assistive-technology compatibility remain unclaimed.'], links: [{ label: 'Read compatibility limits', href: '/docs/handbook/compatibility' }] },
+     ],
+   },
++  {
++    slug: 'components/accordion', group: 'Components', title: 'Accordion',
++    description: 'Compose labelled, collapsible sections with array values and cancellable requests.',
++    sections: [
++      { id: 'anatomy', title: 'Assemble the parts', paragraphs: ['Root groups Items. Each Item pairs Header and Trigger with a Panel. Values are arrays; use defaultValue for initial uncontrolled selection or value and onValueChange for controlled selection. multiple allows more than one selected item.'], code: "<Accordion.Root defaultValue={['details']}><Accordion.Item value=\"details\"><Accordion.Header><Accordion.Trigger>Details</Accordion.Trigger></Accordion.Header><Accordion.Panel>Panel content</Accordion.Panel></Accordion.Item></Accordion.Root>" },
++      { id: 'interaction', title: 'Requests and keyboard', paragraphs: ['Item onOpenChange runs before Root onValueChange; either can cancel the request through details.cancel(). Item cancellation stops the Root callback. Disabled state combines with ancestors. Enter and Space activate Triggers; deprecated orientation and loopFocus do not provide roving focus.'] },
++      { id: 'motion', title: 'Style and retain panels', paragraphs: ['Use --accordion-panel-height and --accordion-panel-width, and open/closed/starting/ending attributes on Panel. Panel overrides Root keepMounted and hiddenUntilFound defaults. hiddenUntilFound retains hidden contents for browser search.'] },
++      { id: 'api-reference', title: 'Local API reference', paragraphs: ['The signatures below are extracted from local declarations. Root props and state retain generic value arrays and the permissive upstream default. Explicit generic props constrain values and callback arrays.'] },
++      { id: 'limits', title: 'Compatibility limits', paragraphs: ['The immutable v1.8.0 inventory has 39 ordinary declaration sites / 43 variants. Portable scope is 38 / 42; one React.Activity Panel declaration remains deferred. Parameterized disabled, conformance, types and supplements are separate evidence. Final-head package, browser and review acceptance remain required.'], links: [{ label: 'Base UI Accordion reference', href: 'https://base-ui.com/react/components/accordion' }] },
++    ],
++  },
+   {
+     slug: 'components/collapsible', group: 'Components', title: 'Collapsible',
+     description: 'A button and a panel that opens and closes with your CSS motion.',
+diff --git a/apps/fixtures/src/routes/accordion/+page.svelte b/apps/fixtures/src/routes/accordion/+page.svelte
+index c5b2948..0287d3a 100644
+--- a/apps/fixtures/src/routes/accordion/+page.svelte
++++ b/apps/fixtures/src/routes/accordion/+page.svelte
+@@ -7,7 +7,7 @@
+   onMount(() => {
+     if (!data.scenario.startsWith('outside-') || !host) return;
+     const target = host;
+-    void import('../../../../../packages/base/src/lib/accordion/index.js').then(({ Item, Header }) => { try { mount(data.scenario === 'outside-item' ? Item : Header, { target }); } catch (caught) { error = (caught as Error).message; } contextReady = true; });
++    void import('@sveltery/base/accordion').then(({ Item, Header }) => { try { mount(data.scenario === 'outside-item' ? Item : Header, { target }); } catch (caught) { error = (caught as Error).message; } contextReady = true; });
+   });
+ </script>
+ {#if data.scenario.startsWith('outside-')}<main data-hydrated={contextReady}><div bind:this={host}></div><output data-testid="context-error">{error}</output></main>{:else if data.scenario === 'shared-host'}<AccordionSharedHostFixture/>{:else if data.scenario === 'conformance'}<AccordionConformanceFixture part={data.part} mode={data.mode}/>{:else}<AccordionFixture scenario={data.scenario} />{/if}
+diff --git a/docs/catalog.md b/docs/catalog.md
+index c6e81ed..3ade62e 100644
+--- a/docs/catalog.md
++++ b/docs/catalog.md
+@@ -14,10 +14,13 @@ The immutable Base UI 1.8.0 [root index](https://github.com/mui/base-ui/blob/47b
+ | [Collapsible](collapsible.md) | Root/Trigger/Panel with bounded measurement and CSS motion lifecycle; six external React.Activity cases and shared conformance remain deferred. |
+ | [Meter](meter.md) | Root, Label, Track, Indicator and Value with numeric range normalization, formatting and empty state; declaration, parameterized and conformance evidence remain separately counted. |
+ | [Avatar](avatar.md) | Root/Image/Fallback with detached and rendered loading, fallback timing and private presence; ordinary declarations, conformance, types and supplements remain separately counted. |
++| [Accordion](accordion.md) | Root/Item/Header/Trigger/Panel, array values and bounded motion; external React.Activity and complete conformance remain deferred. |
+ | merge-props | Bounded native prop/event merge foundation; see [contracts](upstream-contracts.md). |
+
+-These eleven modules are bounded and the remaining 31 are unimplemented. No module is labeled fully compatible. Field and Form have no placeholders or exports. The catalog denominator includes modules such as direction-provider and use-render; it is not a component count or a passing-test denominator. All unimplemented names remain visible in the machine-readable ledger.
++These twelve modules are bounded and the remaining 30 are unimplemented. No module is labeled fully compatible. Field and Form have no placeholders or exports. The catalog denominator includes modules such as direction-provider and use-render; it is not a component count or a passing-test denominator. All unimplemented names remain visible in the machine-readable ledger.
+
+ The [ordinary assertion inventory](../parity/README.md) is separately scoped. Shared conformance helpers, paired framework executions and local supplements do not inflate its declaration credit. The dedicated Toggle ledger records five standalone declarations separately from the shared ordinary inventory; its two ToggleGroup-dependent declarations remain deferred and uncredited. Full Input/Field/Form integration and remaining controls require their own bounded characterization and review.
+
+ The [Collapsible ledger](../parity/collapsible/README.md) separately records 47 ordinary sites / 49 variants, with a portable scope of 41 sites / 43 variants. Six React.Activity cases remain deferred. Local DOM/SSR execution, paired browser executions, conformance helpers, type checks and supplements are distinct from verified ordinary declaration credit.
++
++The [Accordion ledger](../parity/accordion/README.md) separately inventories 39 ordinary sites / 43 variants, portable 38 / 42 and one deferred Activity declaration. Parameterized disabled, conformance, types, supplemental execution and final-head acceptance remain separate.
+diff --git a/docs/ci.md b/docs/ci.md
+index 73ea952..653e0c0 100644
+--- a/docs/ci.md
++++ b/docs/ci.md
+@@ -4,7 +4,7 @@
+
+ `Standards` installs both the workspace and the isolated standards toolchain with frozen lockfiles, then runs ESLint, scoped Prettier and commit whitespace checks. `Verification` installs the workspace with its frozen lockfile and runs script regressions, the library build, TypeScript/Svelte diagnostics, runtime tests, the fixture SSR/client build, packaged runtime boundary checks, and the isolated tarball consumer/license check. It uses the existing verification commands and does not publish a package.
+
+-Standards and Verification use Ubuntu 24.04; Dialog browser, Collapsible browser and Meter browser use Ubuntu 22.04 (an officially supported Playwright/GitHub runner image). Jobs use Node 24.x and pnpm 12.6.0. GitHub Actions are pinned to full commit SHAs; version comments identify the reviewed releases. Update pins in a reviewed PR. All jobs have `contents: read` permissions and cancellation of older runs for the same PR/ref. Standards, Verification and focused browser jobs have a 15-minute timeout; the combined Dialog browser job has 20 minutes for the expanded suite plus artifact collection and cleanup. Checkout does not persist credentials. There are no secrets, deployments, writable tokens or `pull_request_target` code execution.
++Standards and Verification use Ubuntu 24.04; Dialog browser, Collapsible browser, Meter browser, Avatar browser and Accordion browser use Ubuntu 22.04 (an officially supported Playwright/GitHub runner image). Jobs use Node 24.x and pnpm 12.6.0. GitHub Actions are pinned to full commit SHAs; version comments identify the reviewed releases. Update pins in a reviewed PR. All jobs have `contents: read` permissions and cancellation of older runs for the same PR/ref. Standards, Verification and focused browser jobs have a 15-minute timeout; the combined Dialog browser job has 25 minutes for the expanded suite plus artifact collection and cleanup. Checkout does not persist credentials. There are no secrets, deployments, writable tokens or `pull_request_target` code execution.
+
+ `Dialog browser` installs official Chromium plus OS dependencies and runs real React/Svelte fixtures. Read that job's log in the [exact-head CI run](https://github.com/sveltery/base/actions/workflows/ci.yml) for the current execution count and result; each browser assertion suite is under `tests/browser`. Executions include paired reference fixtures, complete source ports, and supplemental regressions, so execution counts differ from upstream parity credit. The Playwright configuration explicitly enables the Chromium sandbox, retries are zero, and no blanket skips hide pending behavior. Local saved-environment startup is blocked. The first Ubuntu 24.04 browser job also failed before interaction with Chromium "No usable sandbox!"; the browser job uses Ubuntu 22.04 without changing sandbox flags or OS security policies. [Run 36844887195](https://github.com/sveltery/base/actions/runs/36844887195) records the original secured-browser acceptance checkpoint. A green `Standards` or `Verification` check alone does not establish browser parity. This change does not add the browser check to branch protection.
+
+@@ -12,6 +12,8 @@ Standards and Verification use Ubuntu 24.04; Dialog browser, Collapsible browser
+
+ The integrated Input/Meter suite collected 1,233 cases. [Run 37040246461](https://github.com/sveltery/base/actions/runs/37040246461) logged 1,233 passing assertions in 14.1 minutes, then the combined job was cancelled at its 15-minute wall-time boundary during artifact/cleanup completion. Increasing only that combined budget to 20 minutes preserves the full suite, sandbox, zero retries, source expectations and artifact retention; the successor still requires green exact-head CI.
+
++After corrected Avatar/Accordion integration, [run 37055721029](https://github.com/sveltery/base/actions/runs/37055721029/job/110999817012) collected 1,693 combined cases at `a4b767041074d22ad3eca85d063d12a51ad16c2d`. The runner started at 19:41:15 UTC on 2026-10-02 and canceled at 20:01:29 after 1,667 passing cases, before suite completion; no assertion failed before cancellation. This incomplete run earns no combined acceptance. Raising only the combined budget from 20 to 25 minutes gives the expanded suite and cleanup room to finish. The full suite, sandbox, zero retries, expectations, pinned actions, permissions and artifact retention remain unchanged; fresh final-head green CI is required.
++
+ `Meter browser` runs the focused 224 paired Meter executions with the same secured configuration and exact-head setup. It retains failure traces and stops diagnosis after five failures; successful runs execute every case. The combined browser job still runs every suite. The 22 ordinary declarations, four parameterized variants, conformance and supplemental evidence remain separately accounted.
+
+ ## Proposed main-branch protection
+@@ -26,3 +28,5 @@ Apply only after both checks have passed on the reviewed PR head and the maintai
+ - Do not add bypass actors, new grants, secrets, deployment settings or signing requirements through this change.
+
+ This document proposes settings; it does not assert they are active. The available connector exposes no repository-administration write action. Adding browser checks to protection needs a new explicit proposal after the real job has passed.
++
++`Accordion browser` runs the focused paired Accordion file with the same secured Chromium configuration and exact-head setup as Collapsible. The combined browser job continues to run the full suite. The isolated public package gate is included in Verification through check-package.sh; API consistency is registered in script regressions. Execution success does not create ordinary parity credit.
+diff --git a/docs/upstream-differences.md b/docs/upstream-differences.md
+index 7f0f1e6..4cce308 100644
+--- a/docs/upstream-differences.md
++++ b/docs/upstream-differences.md
+@@ -150,3 +150,11 @@ Rationale: implement the actual pin with a private Meter dependency closure, inc
+ ## AV-01: Avatar framework substitutions and private loading closure
+
+ Source: [pinned Avatar](https://github.com/mui/base-ui/tree/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/avatar) and its loading, transition, animation and timeout dependencies at Base UI 1.8.0 immutable `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. Both default detached-probe loading and rendered-image keepMounted loading are implemented. The accepted five T-01 framework substitutions and inherited A-01 refs apply; native image props use Svelte spelling. Svelte snippet identity remains stable during render-owned source changes, so private source-attribute observation also reads status after imperative source mutation, while the React effect requires a dependency change. This observable adaptation has no additional specific acceptance decision recorded. Rationale, before/after ownership, proposed PR and executed test evidence remain in the [Avatar compatibility record](../parity/avatar/compatibility.md) and [verification](../parity/avatar/verification.md). No inherited source bug is silently fixed, no divergent assertion is credited, and landing status does not establish approval or full parity. The separate inventory has 44 ordinary sites/44 variants, no parameterized declarations, three conformance calls and six type assertions; source and acceptance gates are distinct.
++
++## AC-01: proposed bounded Accordion framework interface
++
++Source: pinned [Accordion parts](https://github.com/mui/base-ui/tree/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/accordion), inherited Collapsible/Button/lifecycle helpers at immutable Base UI v1.8.0 `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. The accepted five framework substitutions and A-01 initially undefined refs apply; named generic props/state/value and part/event types represent React namespace aliases. Root defaults retain upstream any. Item-before-Root callbacks, cancellation, array identity, OR-disabled inheritance, DOM-order registration and deprecated keyboard no-ops remain source behavior. Observable timing/ownership adaptations are bounded; no further behavioral correction is approved.
++
++Inherited Button D-03 earns no new credit. Shared Collapsible issues #30/#31/#33 remain preserved source mechanisms; #34 concerns the private lifecycle here because Accordion Root/Item/Header/Trigger state has no transitionStatus. Existing Collapsible runs do not establish Accordion execution. Panel:201 React.Activity remains deferred and uncredited. Evidence and exact applicability are in [compatibility](../parity/accordion/compatibility.md), [component docs](accordion.md) and [verification](../parity/accordion/verification.md). Proposed implementation: [PR #35](https://github.com/sveltery/base/pull/35); landing and final-head acceptance are pending. This entry earns no ordinary credit or complete parity claim.
++
++The resumed Accordion review reproduced [#37](https://github.com/sveltery/base/issues/37): pinned hiddenUntilFound restoration follows hidden state, rather than new Panel host identity. Replacements preserve boolean hidden props or authored false overrides until that state changes. Accordion restores this fidelity with separate DOM and paired browser supplements; no behavioral correction is accepted and no ordinary credit is added. Shared Collapsible examination remains separate.
+diff --git a/packages/base/THIRD_PARTY_NOTICES.md b/packages/base/THIRD_PARTY_NOTICES.md
+index bf4c75b..7bc7d95 100644
+--- a/packages/base/THIRD_PARTY_NOTICES.md
++++ b/packages/base/THIRD_PARTY_NOTICES.md
+@@ -1,5 +1,7 @@
+ # Third-party notices
+
++Accordion Root, Item, Header, Trigger, Panel, value and DOM-order registration behavior, and assertion/type ports derive from packages/react/src/accordion and the pinned Collapsible/Button/lifecycle helpers at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT attribution and immutable source/assertion hashes are preserved in parity/accordion.
++
+ Avatar Root, Image, Fallback, private detached/rendered image loading, fallback timing and presence/animation completion and assertion/type ports derive from packages/react/src/avatar, useTransitionStatus, useOpenChangeComplete, useAnimationsFinished and useTimeout at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT attribution and complete immutable source/assertion hashes are preserved in parity/avatar.
+
+ Meter parts, numeric range normalization, formatter/locale cache, label/ID registration, hidden CSS and assertion/conformance ports derive from packages/react/src/meter and its rendering/ref, label registration and packages/utils dependency closure at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT attribution and immutable source/assertion hashes are preserved in parity/meter.
+diff --git a/packages/base/package.json b/packages/base/package.json
+index e811522..0ff34b8 100644
+--- a/packages/base/package.json
++++ b/packages/base/package.json
+@@ -67,6 +67,11 @@
+       "types": "./dist/avatar/index.d.ts",
+       "svelte": "./dist/avatar/index.js",
+       "default": "./dist/avatar/index.js"
++    },
++    "./accordion": {
++      "types": "./dist/accordion/index.d.ts",
++      "svelte": "./dist/accordion/index.js",
++      "default": "./dist/accordion/index.js"
+     }
+   },
+   "svelte": "./dist/index.js",
+diff --git a/packages/base/src/lib/index.ts b/packages/base/src/lib/index.ts
+index 1a94711..5b59fcc 100644
+--- a/packages/base/src/lib/index.ts
++++ b/packages/base/src/lib/index.ts
+@@ -20,3 +20,5 @@ export { Meter } from './meter/index.js';
+ export type { MeterRootProps, MeterRootState, MeterLabelProps, MeterLabelState, MeterTrackProps, MeterTrackState, MeterIndicatorProps, MeterIndicatorState, MeterValueProps, MeterValueState } from './meter/index.js';
+ export { Avatar } from './avatar/index.js';
+ export type { AvatarRootProps, AvatarRootState, AvatarImageProps, AvatarImageState, AvatarFallbackProps, AvatarFallbackState, ImageLoadingStatus } from './avatar/index.js';
++export { Accordion } from './accordion/index.js';
++export type { AccordionValue, AccordionRootProps, AccordionRootState, AccordionItemProps, AccordionItemState, AccordionHeaderProps, AccordionHeaderState, AccordionTriggerProps, AccordionTriggerState, AccordionPanelProps, AccordionPanelState, AccordionRootChangeEventReason, AccordionRootChangeEventDetails, AccordionItemChangeEventReason, AccordionItemChangeEventDetails } from './accordion/index.js';
+diff --git a/parity/README.md b/parity/README.md
+index cd21ce3..4bc4dcb 100644
+--- a/parity/README.md
++++ b/parity/README.md
+@@ -34,3 +34,5 @@ Standalone [Toggle](toggle/README.md) records seven source declarations in a sep
+ [Meter](meter/README.md) separately records 22 ordinary declarations, four parameterized variants and full five-part conformance passing at secured checkpoint `9605c77ec6a8fb1f2ae1e29a32daa15824300556`. Track has zero ordinary declarations. Final-head gates remain separate in [PR #32](https://github.com/sveltery/base/pull/32). These sites and credits remain outside the shared 635-entry aggregate until parent reconciliation; paired executions, helpers and supplements add no ordinary declaration credit.
+
+ [Avatar](avatar/README.md) separately traces 44 ordinary declarations (Image34/Fallback10/Root0), with no parameterization, three conformance calls and six type assertions. Both loading modes are mandatory. Execution state belongs to the dedicated ledger; helpers, pairs and supplements add no ordinary credit, and the existing shared ordinary totals are unchanged.
++
++[Accordion](accordion/README.md) inventories 39 ordinary sites / 43 variants; portable 38 / 42, with Panel:201 React.Activity deferred. The disabled parameterized declaration 1 / 2 variants, five conformance calls, seven generic type assertions and one expected type error remain separate. The feature ledger starts with candidate mappings and earns no passing credit before paired secured execution. Shared ordinary manifest totals remain unchanged.
+diff --git a/parity/catalog.json b/parity/catalog.json
+index 7a47624..c97e260 100644
+--- a/parity/catalog.json
++++ b/parity/catalog.json
+@@ -9,9 +9,9 @@
+   "modules": [
+     {
+       "upstreamModule": "accordion",
+-      "status": "unimplemented",
+-      "localExport": null,
+-      "evidence": null
++      "status": "bounded",
++      "localExport": "Accordion",
++      "evidence": "parity/accordion/README.md"
+     },
+     {
+       "upstreamModule": "alert-dialog",
+diff --git a/scripts/check-package.sh b/scripts/check-package.sh
+index dcb9922..0ed6b46 100644
+--- a/scripts/check-package.sh
++++ b/scripts/check-package.sh
+@@ -178,3 +178,6 @@ bash "$sveltery_repo_root/scripts/check-meter-package.sh" --public
+
+ # Isolated public Avatar root/subpath, both SSR loading modes and seven type exports.
+ bash "$sveltery_repo_root/scripts/check-avatar-package.sh" --public
++
++# Genuine installed public Accordion root/subpath SSR and type consumer.
++bash "$sveltery_repo_root/scripts/check-accordion-package.sh" --public
+diff --git a/scripts/tests/docs.test.mjs b/scripts/tests/docs.test.mjs
+index 02c4952..80e09f1 100644
+--- a/scripts/tests/docs.test.mjs
++++ b/scripts/tests/docs.test.mjs
+@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
+ import { readFileSync } from 'node:fs';
+ import { docs, groups } from '../../apps/fixtures/src/lib/docs/content.ts';
+ import { checkDialogApi, extractDialogApi } from '../docs-api.mjs';
++import { checkAccordionApi, extractAccordionApi } from '../../parity/accordion/docs-api.mjs';
+ test('docs API matches actual local types and all public parts', () => {
+   checkDialogApi();
+   const exports = readFileSync(
+@@ -45,3 +46,8 @@ test('docs metadata, navigation links and fragment targets are valid', () => {
+       }
+   }
+ });
++
++test('Accordion docs API matches all five local part declarations', () => {
++  checkAccordionApi();
++  assert.deepEqual(extractAccordionApi().parts.map(part => part.name), ['Root', 'Item', 'Header', 'Trigger', 'Panel']);
++});

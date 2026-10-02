@@ -23,3 +23,11 @@ The [catalog ledger](docs/catalog.md) accounts for every pinned root export modu
 [Collapsible](docs/collapsible.md) adds Root, Trigger and Panel with a bounded measurement and CSS motion lifecycle. Its [dedicated evidence](parity/collapsible/README.md) separates the portable ordinary scope from six deferred React.Activity cases and final-head acceptance in PR #29.
 
 [Meter](docs/meter.md) adds Root, Label, Track, Indicator and Value from the immutable v1.8.0 pin. Its [dedicated declaration and conformance evidence](parity/meter/README.md) remains separate; final-head acceptance is recorded in PR #32.
+
+[Avatar](docs/avatar.md) adds Root, Image and Fallback with detached-probe and rendered-image keepMounted loading. Its [separate evidence](parity/avatar/README.md) accounts for 44 ordinary sites, three conformance calls and six type assertions; secured browser and exact final-head acceptance remain separate.
+
+[DirectionProvider](docs/direction-provider.md) supplies nearest-provider text direction through a retained Svelte reader, without adding a DOM element. Its [dedicated evidence](parity/direction-provider/README.md) separates two ordinary declarations from adapted type checks and divergent timing characterization; complete control RTL integration remains deferred.
+
+[Accordion](docs/accordion.md) adds Root, Item, Header, Trigger and Panel with array values and cancellable Item-before-Root callbacks. Its [dedicated evidence](parity/accordion/README.md) separates 38 portable ordinary declarations / 42 variants from deferred React.Activity, parameterized, conformance, type and final-head acceptance gates.
+
+[CSPProvider](docs/csp-provider.md) adds a wrapperless provider and optional private CSP context foundation. Its [separate evidence](parity/csp-provider/README.md) keeps all four ScrollArea/Select-dependent ordinary declarations deferred with zero credit; downstream style/script integration remains unimplemented.
