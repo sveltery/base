@@ -45,7 +45,7 @@ export function mountUseRenderReference(node: HTMLElement, scenario: string) {
     useEffect(() => { setHydrated(true); }, []);
     const config = controller.configuration(stage), options = config.options;
     const inputProps = Array.isArray(options.props) ? options.props.map(value => value === undefined ? undefined : source(value)) : options.props ? source(options.props as UseRenderPropSource) : undefined;
-    const internal = !publicCases.includes(scenario) && !scenario.startsWith('ref-update-') && !scenario.startsWith('ref-observation-');
+    const internal = !publicCases.includes(scenario) && !scenario.startsWith('ref-update-') && !scenario.startsWith('ref-observation-') && !scenario.startsWith('ref-outer-');
     const render = !config.replacement ? undefined : scenario === 'render-function' || scenario === 'public-class' || scenario === 'public-refs' || scenario === 'all-gating'
       ? (props: HTMLAttributes<Element> & { ref?: Ref<Element> }, state: State) => {
         controller.observe({ ...props, class: props.className, style: props.style ? Object.entries(props.style).map(([key, value]) => `${key}:${value}`).join(';') : undefined }, state);

@@ -134,9 +134,9 @@ export function memoRefAttachment<Host extends Element>(publish: (node: Host | n
   }
   return {
     resolve,
-    beforeUpdate(nextAttachment: Attachment | undefined, replacingDefaultHost = false) {
+    beforeUpdate(nextAttachment: Attachment | undefined, replacingKnownHost = false) {
       // React detaches a replaced ref before host mutation. Svelte attachments otherwise detach after it.
-      if (active && (active.attachment !== nextAttachment || replacingDefaultHost)) active.cleanup();
+      if (active && (active.attachment !== nextAttachment || replacingKnownHost)) active.cleanup();
     },
   };
 }

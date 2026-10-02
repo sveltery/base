@@ -10,8 +10,8 @@
   const controller = untrack(() => createUseRenderCase(scenario));
   let stage = $state(0), hydrated = $state(false), element = $state<Element | null | undefined>();
   const config = $derived(controller.configuration(stage));
-  const internal = $derived(!publicCases.includes(scenario) && !scenario.startsWith('ref-update-') && !scenario.startsWith('ref-observation-'));
-  const options = $derived({ ...config.options, render: config.replacement ? replacement : undefined });
+  const internal = $derived(!publicCases.includes(scenario) && !scenario.startsWith('ref-update-') && !scenario.startsWith('ref-observation-') && !scenario.startsWith('ref-outer-'));
+  const options = $derived({ ...config.options, render: config.outer === 'span' ? outerSpan : config.outer === 'section' ? outerSection : config.outer === 'same-span' ? outerSameSpan : config.replacement ? replacement : undefined });
   const ownKey = createAttachmentKey();
   function attachOwn(node: Element) {
     const ref = config.ownRef; if (!ref) return;
@@ -23,6 +23,9 @@
     Object.assign(node, { renderProbe: () => ({ calls: controller.calls, renders: controller.renders, refs: controller.refs.map(ref => ref.current ? { tag: ref.current.tagName, id: ref.current.id, connected: ref.current.isConnected } : null), element: element ? { tag: element.tagName, id: element.id, connected: element.isConnected } : null }) });
   }
 </script>
+{#snippet outerSpan(supplied: UseRenderHostProps, _state: State, children: Snippet | undefined)}<span {...supplied}>{@render children?.()}</span>{/snippet}
+{#snippet outerSection(supplied: UseRenderHostProps, _state: State, children: Snippet | undefined)}<section {...supplied}>{@render children?.()}</section>{/snippet}
+{#snippet outerSameSpan(supplied: UseRenderHostProps, _state: State, children: Snippet | undefined)}<span {...supplied}>{@render children?.()}</span>{/snippet}
 {#snippet replacement(supplied: UseRenderHostProps, state: State, children: Snippet | undefined)}
   {const merged = $derived(mergeProps(supplied, config.owned))}
   {const style = $derived(config.owned.style ? `${supplied.style ?? ''};${config.owned.style}` : supplied.style)}

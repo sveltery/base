@@ -37,10 +37,11 @@ export function createUseRenderCase(scenario: string) {
   const callback = (value: string) => () => { calls.push(value); };
   const prevent = (event: PreventableEvent) => { calls.push('prevent'); event.preventBaseUIHandler(); };
   const getter = (previous: UseRenderHostProps) => { calls.push(`getter:${previous.id ?? 'empty'}`); return { id: 'tested-render', 'data-getter': 'replacement' }; };
-  function configuration(stage = 0): { options: RenderElementProps<State>; replacement: boolean; owned: UseRenderHostProps; tag: UseRenderTagName; ownRef?: UseRenderRef } {
+  function configuration(stage = 0): { options: RenderElementProps<State>; replacement: boolean; owned: UseRenderHostProps; tag: UseRenderTagName; ownRef?: UseRenderRef; outer?: 'span' | 'section' | 'same-span' } {
     const options: RenderElementProps<State> = { props: { id: 'tested-render' } };
     let replacement = false, tag: UseRenderTagName = 'span'; const owned: UseRenderHostProps = {};
     let ownRef: UseRenderRef | undefined;
+    let outer: 'span' | 'section' | 'same-span' | undefined;
     if (scenario === 'public-class') { replacement = true; options.props = { id: 'tested-render', class: undefined }; owned.class = 'my-span '; }
     if (scenario === 'public-refs') { replacement = true; options.ref = [refs[0], refs[1]]; }
     if (scenario === 'public-default' || scenario === 'public-tag' || scenario === 'public-replacement') options.props = undefined;
@@ -112,6 +113,17 @@ export function createUseRenderCase(scenario: string) {
         else { replacement = true; tag = stage === 0 ? 'div' : 'svg'; }
       }
     }
+    if (scenario.startsWith('ref-outer-')) {
+      outer = scenario === 'ref-outer-default' ? stage === 0 ? undefined : 'span'
+        : scenario === 'ref-outer-reverse' ? stage === 0 ? 'span' : undefined
+        : scenario === 'ref-outer-stable' || stage === 0 ? 'span' : scenario === 'ref-outer-reuse' ? 'same-span' : 'section';
+      replacement = outer !== undefined;
+      tag = outer === 'section' ? 'section' : 'span';
+      options.props = { id: 'tested-render', class: scenario === 'ref-outer-stable' && stage > 0 ? 'changed' : 'before' };
+      if (scenario === 'ref-outer-stable') options.state = { active: stage > 0 };
+      options.ref = connectionRef;
+      options.enabled = stage < 2;
+    }
     if (scenario === 'inherited-ref') options.props = [{}, () => Object.assign(Object.create({ ref: refs[0] }), { id: 'tested-render' })];
     if (scenario === 'accessor-ref') {
       options.enabled = stage === 0; let reads = 0;
@@ -123,7 +135,7 @@ export function createUseRenderCase(scenario: string) {
       options.state = { active: true }; options.stateAttributesMapping = { active: () => { calls.push('mapping'); return { 'data-active': '' }; } };
       options.props = [getter]; options.class = () => { calls.push('class'); return 'active'; }; options.style = () => { calls.push('style'); return 'color:red'; }; options.ref = legacyRef;
     }
-    return { options, replacement, owned, tag, ownRef };
+    return { options, replacement, owned, tag, ownRef, outer };
   }
   return { refs, calls, renders, configuration, observe: (props: UseRenderHostProps, state: State) => {
     renders.push({ props: { class: props.class, style: props.style, 'data-testid': props['data-testid'] }, state: { ...state } });

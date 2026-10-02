@@ -114,19 +114,37 @@ for (const reference of [false, true]) {
   });
   for (const scenario of ['ref-observation-unmount', 'ref-observation-snippet', 'ref-observation-default']) test(`supplement characterization ${framework} ${scenario} observes actual host connection`, async ({ page }) => {
     const host = await setup(page, scenario, reference);
-    expect((await probe(page)).calls).toEqual(['connection-attach:DIV:true']);
+    const connectionCalls = async () => (await probe(page)).calls.filter(value => value.startsWith('connection-'));
+    expect(await connectionCalls()).toEqual(['connection-attach:DIV:true']);
     await page.getByRole('button', { name: 'Advance' }).click();
     // Explicit native attachment teardown difference: it supplies no ordinary declaration credit.
     const connected = reference || scenario === 'ref-observation-default';
     if (scenario === 'ref-observation-unmount') {
       await expect(host).toHaveCount(0);
-      expect((await probe(page)).calls).toEqual([`connection-attach:DIV:true`, `connection-cleanup:DIV:${connected}`]);
+      expect(await connectionCalls()).toEqual([`connection-attach:DIV:true`, `connection-cleanup:DIV:${connected}`]);
     } else {
       await expect(host).toHaveJSProperty('tagName', 'svg');
-      expect((await probe(page)).calls).toEqual(['connection-attach:DIV:true', `connection-cleanup:DIV:${connected}`, 'connection-attach:svg:true']);
+      expect(await connectionCalls()).toEqual(['connection-attach:DIV:true', `connection-cleanup:DIV:${connected}`, 'connection-attach:svg:true']);
       await page.getByRole('button', { name: 'Advance' }).click(); await expect(host).toHaveCount(0);
-      expect((await probe(page)).calls).toEqual(['connection-attach:DIV:true', `connection-cleanup:DIV:${connected}`, 'connection-attach:svg:true', 'connection-cleanup:svg:true']);
+      expect(await connectionCalls()).toEqual(['connection-attach:DIV:true', `connection-cleanup:DIV:${connected}`, 'connection-attach:svg:true', 'connection-cleanup:svg:true']);
     }
+  });
+  for (const scenario of ['ref-outer-default', 'ref-outer-reverse', 'ref-outer-change', 'ref-outer-reuse', 'ref-outer-stable']) test(`supplement characterization ${framework} ${scenario} observes known render transitions`, async ({ page }) => {
+    const before = scenario === 'ref-outer-default' ? 'DIV' : 'SPAN';
+    const after = scenario === 'ref-outer-reverse' ? 'DIV' : scenario === 'ref-outer-change' ? 'SECTION' : 'SPAN';
+    const host = await setup(page, scenario, reference);
+    const connectionCalls = async () => (await probe(page)).calls.filter(value => value.startsWith('connection-'));
+    expect(await connectionCalls()).toEqual([`connection-attach:${before}:true`]);
+    await host.evaluate(node => { Object.assign(document.querySelector('main')!, { originalHost: node }); });
+    await page.getByRole('button', { name: 'Advance' }).click(); await expect(host).toHaveJSProperty('tagName', after);
+    const retainsHost = scenario === 'ref-outer-stable' || reference && scenario === 'ref-outer-reuse';
+    expect(await host.evaluate(node => node === (document.querySelector('main') as HTMLElement & { originalHost: Element }).originalHost)).toBe(retainsHost);
+    const observations = retainsHost ? [`connection-attach:${before}:true`] : [`connection-attach:${before}:true`, `connection-cleanup:${before}:true`, `connection-attach:${after}:true`];
+    expect(await connectionCalls()).toEqual(observations); await expect(host).toHaveAttribute('class', scenario === 'ref-outer-stable' ? 'changed' : 'before');
+    if (scenario === 'ref-outer-stable') await expect(host).toHaveAttribute('data-active', '');
+    await page.getByRole('button', { name: 'Advance' }).click(); await expect(host).toHaveCount(0);
+    expect(await connectionCalls()).toEqual([...observations, `connection-cleanup:${after}:true`]);
+    // Same-tag identity reuse is an explicit native snippet characterization with zero unchanged credit.
   });
   test(`supplement ${framework} host spread drops inherited refs`, async ({ page }) => {
     await setup(page, 'inherited-ref', reference); expect((await probe(page)).refs).toEqual([null, null, null]);

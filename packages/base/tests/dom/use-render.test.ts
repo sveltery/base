@@ -4,6 +4,7 @@ import { afterEach, expect, it, vi } from 'vitest';
 import { flushSync, mount, unmount, type ComponentProps } from 'svelte';
 import { createAttachmentKey } from 'svelte/attachments';
 import Fixture from './UseRenderFixture.svelte';
+import OuterFixture from './UseRenderOuterFixture.svelte';
 import type { PreventableEvent } from '../../src/lib/merge-props/index.js';
 import type { UseRenderRef } from '../../src/lib/use-render/types.js';
 
@@ -249,6 +250,36 @@ for (const path of ['owner-unmount', 'snippet-swap'] as const) it(`supplement ch
   if (path === 'owner-unmount') { await unmount(app); apps.splice(apps.indexOf(app), 1); }
   else { app.setTag('svg'); flushSync(); }
   expect(observations).toEqual([false]); // Specific PM native lifecycle decision; zero unchanged credit.
+});
+for (const [before, after] of [['default', 'span'], ['span', 'default'], ['span', 'section']] as const) it(`supplement: known render branch ${before} to ${after} cleans a connected host`, () => {
+  const observations: unknown[] = [];
+  const callback: UseRenderRef = node => {
+    if (node) { observations.push(['attach', node.tagName, node.isConnected, node.getAttribute('class')]); return () => { observations.push(['cleanup', node.tagName, node.isConnected, node.getAttribute('class')]); }; }
+  };
+  const target = document.createElement('main'); document.body.append(target);
+  const app = mount(OuterFixture, { target, props: { start: before, callback } }); apps.push(app); flushSync();
+  app.setMode(after); flushSync();
+  const tag = (value: string) => value === 'default' ? 'DIV' : value === 'span' ? 'SPAN' : 'SECTION';
+  expect(observations).toEqual([['attach', tag(before), true, 'before'], ['cleanup', tag(before), true, 'before'], ['attach', tag(after), true, 'before']]);
+});
+it('supplement characterization: a changed supplied snippet identity replaces its native host', () => {
+  const target = document.createElement('main'); document.body.append(target);
+  const observations: unknown[] = [];
+  const callback: UseRenderRef = node => { if (node) { observations.push(['attach', node.isConnected]); return () => { observations.push(['cleanup', node.isConnected]); }; } };
+  const app = mount(OuterFixture, { target, props: { start: 'span', callback } }); apps.push(app); flushSync();
+  const previous = target.firstElementChild;
+  app.setMode('same-span'); flushSync();
+  expect(target.firstElementChild).not.toBe(previous);
+  expect(observations).toEqual([['attach', true], ['cleanup', true], ['attach', true]]); // Native snippet identity; zero unchanged credit.
+});
+it('supplement: a stable supplied snippet retains its host and refs across reactive arguments', () => {
+  const cleanup = vi.fn(), callback = vi.fn(() => cleanup);
+  const { app, host } = render({ replacement: true, options: { ref: callback, props: { class: 'before' }, state: { active: false } } });
+  const previous = host();
+  app.setOptions({ ref: callback, props: { class: 'changed' }, state: { active: true } }); flushSync();
+  expect(host()).toBe(previous);
+  expect(host().getAttribute('class')).toBe('changed'); expect(host().getAttribute('data-active')).toBe('');
+  expect(callback).toHaveBeenCalledTimes(1); expect(cleanup).not.toHaveBeenCalled();
 });
 for (const [before, after] of [['', 'changed'], ['before', ''], ['before', undefined]] as const) it(`supplement: replaced refs observe class before host mutation (${String(before)} to ${String(after)})`, () => {
   const observations: unknown[] = [];

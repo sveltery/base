@@ -5,7 +5,7 @@
   import { BROWSER } from 'esm-env';
   import { resolveClassValue } from '../internals/resolveClassValue.js';
   import { EMPTY_STATE, memoRefAttachment, mergeHostProps, refList, resolveSources, stateAttributes } from './props.js';
-  import type { RenderElementProps, UseRenderRef, UseRenderTagName } from './types.js';
+  import type { RenderElementProps, UseRenderRef, UseRenderRenderProp, UseRenderTagName } from './types.js';
 
   let { defaultTagName = 'div', enabled = true, state = EMPTY_STATE as State, stateAttributesMapping, props, class: classProp, style: styleProp, render, ref, element = $bindable(), children }: RenderElementProps<State, Host> = $props();
   const attachmentKey = createAttachmentKey();
@@ -19,9 +19,10 @@
     if (node !== null || element === previous) element = node;
   }));
   let previousTag: UseRenderTagName | undefined;
+  let previousRender: UseRenderRenderProp<State> | undefined;
   const output = $derived.by(() => {
     // Do not compute attributes, resolve getters/class/style, or inspect replacement props while disabled.
-    if (!enabled) return { props: {}, attachment: undefined, hostTag: undefined };
+    if (!enabled) return { props: {}, attachment: undefined, hostTag: undefined, renderIdentity: undefined };
     const className = resolveClassValue(typeof classProp === 'function' ? classProp(state) : classProp);
     const style = typeof styleProp === 'function' ? styleProp(state) : styleProp;
     const stateProps = stateAttributes(state, stateAttributesMapping);
@@ -36,14 +37,16 @@
     void _ref;
     const defaults = render ? {} : defaultTagName === 'button' ? { type: 'button' } : defaultTagName === 'img' ? { alt: '' } : {};
     const attachment = BROWSER ? referenceAttachment.resolve(refs, Array.isArray(ref)) : undefined;
-    return { props: { [emptyClassKey]: !render && attributes.class === '' ? preserveEmptyClass : undefined, ...defaults, ...attributes, [attachmentKey]: attachment }, attachment, hostTag: render ? undefined : defaultTagName };
+    return { props: { [emptyClassKey]: !render && attributes.class === '' ? preserveEmptyClass : undefined, ...defaults, ...attributes, [attachmentKey]: attachment }, attachment, hostTag: render ? undefined : defaultTagName, renderIdentity: render };
   });
   $effect.pre(() => {
     const nextAttachment = output.attachment;
     const nextTag = output.hostTag;
+    const nextRender = output.renderIdentity;
     untrack(() => {
-      referenceAttachment.beforeUpdate(nextAttachment, nextTag !== undefined && previousTag !== nextTag);
+      referenceAttachment.beforeUpdate(nextAttachment, previousTag !== nextTag || previousRender !== nextRender);
       previousTag = nextTag;
+      previousRender = nextRender;
     });
   });
 </script>
