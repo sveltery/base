@@ -9,9 +9,9 @@
   "modules": [
     {
       "upstreamModule": "accordion",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "Accordion",
+      "evidence": "parity/accordion/README.md"
     },
     {
       "upstreamModule": "alert-dialog",

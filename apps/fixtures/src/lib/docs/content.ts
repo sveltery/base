@@ -39,7 +39,7 @@ export const docs: Doc[] = [
         id: 'status',
         title: 'A foundation in progress',
         paragraphs: [
-          'Dialog, Button, Toast, standalone Input, Separator and Toggle, Progress, Collapsible, Meter and Avatar have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
+          'Dialog, Button, Toast, standalone Input, Separator and Toggle, Progress, Collapsible, Meter, Avatar and Accordion have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
           'The package is private and unpublished. APIs may change. Use this workspace to evaluate the current slice; check the repository contracts before depending on a behavior.',
         ],
         links: [
@@ -243,6 +243,17 @@ export const docs: Doc[] = [
       { id: 'fallback', title: 'Delay the fallback', paragraphs: ['Set delay in milliseconds to wait before showing the fallback. Once shown, later delay changes keep it available until the image loads.'] },
       { id: 'motion', title: 'Style loading and motion', paragraphs: ['Image exposes data-starting-style and, in default mode, data-ending-style while exiting. The keepMounted mode exposes data-loading and data-error and hides an unready image from assistive technology. Root and Fallback expose imageLoadingStatus to class, style and render callbacks.'] },
       { id: 'limits', title: 'Compatibility limits', paragraphs: ['The bounded Root, Image and Fallback port uses native Svelte props, snippets, bindings and CSS strings. Ordinary assertions, conformance, types and supplemental evidence are separate; complete library and assistive-technology compatibility remain unclaimed.'], links: [{ label: 'Read compatibility limits', href: '/docs/handbook/compatibility' }] },
+    ],
+  },
+  {
+    slug: 'components/accordion', group: 'Components', title: 'Accordion',
+    description: 'Compose labelled, collapsible sections with array values and cancellable requests.',
+    sections: [
+      { id: 'anatomy', title: 'Assemble the parts', paragraphs: ['Root groups Items. Each Item pairs Header and Trigger with a Panel. Values are arrays; use defaultValue for initial uncontrolled selection or value and onValueChange for controlled selection. multiple allows more than one selected item.'], code: "<Accordion.Root defaultValue={['details']}><Accordion.Item value=\"details\"><Accordion.Header><Accordion.Trigger>Details</Accordion.Trigger></Accordion.Header><Accordion.Panel>Panel content</Accordion.Panel></Accordion.Item></Accordion.Root>" },
+      { id: 'interaction', title: 'Requests and keyboard', paragraphs: ['Item onOpenChange runs before Root onValueChange; either can cancel the request through details.cancel(). Item cancellation stops the Root callback. Disabled state combines with ancestors. Enter and Space activate Triggers; deprecated orientation and loopFocus do not provide roving focus.'] },
+      { id: 'motion', title: 'Style and retain panels', paragraphs: ['Use --accordion-panel-height and --accordion-panel-width, and open/closed/starting/ending attributes on Panel. Panel overrides Root keepMounted and hiddenUntilFound defaults. hiddenUntilFound retains hidden contents for browser search.'] },
+      { id: 'api-reference', title: 'Local API reference', paragraphs: ['The signatures below are extracted from local declarations. Root props and state retain generic value arrays and the permissive upstream default. Explicit generic props constrain values and callback arrays.'] },
+      { id: 'limits', title: 'Compatibility limits', paragraphs: ['The immutable v1.8.0 inventory has 39 ordinary declaration sites / 43 variants. Portable scope is 38 / 42; one React.Activity Panel declaration remains deferred. Parameterized disabled, conformance, types and supplements are separate evidence. Final-head package, browser and review acceptance remain required.'], links: [{ label: 'Base UI Accordion reference', href: 'https://base-ui.com/react/components/accordion' }] },
     ],
   },
   {
