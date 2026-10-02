@@ -22,7 +22,7 @@ Hosted [run 36998432321](https://github.com/sveltery/base/actions/runs/369984323
 
 The PR was initially opened as draft, then marked ready to trigger the configured automatic review without manual external-agent mentions. This does not release shared-file ownership or authorize merge before the remaining gates.
 
-## Outstanding gates
+## Gates pending at the initial source checkpoint
 
 - Coordinate the exact [shared integration proposal](shared-integration.md) through the parent and current shared-file owner. No Input PR #26 or UI #19 decision is included.
 - Run full `bash scripts/verify.sh` and `bash .github/standards/check.sh` on the complete integrated head, including the dedicated Meter runtime/SSR/DOM/type tests and builds.
@@ -32,9 +32,9 @@ The PR was initially opened as draft, then marked ready to trigger the configure
 - Complete independent exact-head review and configured automatic review, resolve findings, then rerun affected checks after changes. No manual external agent mention is part of this workflow.
 - Report exact final merge eligibility before any merge. Verify post-merge CI afterward. No release, deployment, access change or live-data action is authorized.
 
-Final-head checks, browser execution, reviews and public integration remain pending. No runtime passing credit or merge eligibility is claimed in this record.
+At that initial checkpoint, final-head checks, browser execution, reviews and public integration remained pending. No runtime passing credit or merge eligibility was claimed.
 
-A source-type audit found the initial native `Record<string, never>` state representation narrowed assignability relative to the pinned public empty interface. Meter now preserves that empty interface with a localized lint explanation; its type witness rejects reading an undeclared status field while retaining upstream structural assignability. Runtime state remains `{}`. This fidelity repair changes no shared types or lint configuration. The successor needs fresh checks and reviews.
+A source-type audit found the initial native `Record<string, never>` state representation narrowed assignability relative to the pinned public empty interface. Meter now preserves that empty interface with a localized lint explanation; its type witness rejects reading an undeclared status field while retaining upstream structural assignability. Runtime state at that checkpoint was `{}`; the subsequent frozen-state repair is recorded below. This fidelity repair changes no shared types or lint configuration. The successor needs fresh checks and reviews.
 
 Hosted [run 36998999496](https://github.com/sveltery/base/actions/runs/36998999496) executed all 957 secured browser candidates at source checkpoint `2d7cad798aff54e5c1c5fe6b7929db18201b8be4`: 956 passed and one Svelte Label:49 port failed. Meter contributed 223 passing executions and one failure. The captured message contained the exact pinned missing-context error plus Svelte's development component stack. The pin uses `rejects.toThrow(string)` (substring semantics); the browser adapter incorrectly used exact text equality. The successor restores contained-text matching, retains the direct DOM `toThrow` witness and changes no runtime behavior. No full ordinary passing credit is claimed for this failing checkpoint. Standards and Verification passed; independent review found no substantive issues and configured automatic review completed with a bot approval reaction and no review threads on this exact SHA. These reviews do not excuse the failing assertion or shared integration gate.
 
@@ -43,3 +43,13 @@ A deeper rendering-closure audit independently reproduced a state fidelity gap a
 The parent released Collapsible checkpoint `ed90a160919581a48c56f1100600552a22032c0f` after publishing its stable integration. Meter now merges that checkpoint and reconciles its exact shared additions, preserving Collapsible docs navigation and the `esm-env` runtime dependency declaration. The existing isolated Meter consumer is updated to install the packed runtime closure, matching the released Progress/Toggle consumer pattern. Meter must wait for Collapsible's merge and then fresh final integrated gates; no earlier preview, source-checkpoint review or browser subset clears that prerequisite.
 
 The reconciled working tree passed full local verification and standards, including the actual public Meter root/subpath tarball consumer with all ten types and required-number checks. A dedicated Meter browser job uses the existing pinned exact-head setup and secured Playwright configuration; the combined browser job still runs all suites. Hosted integrated-head acceptance and reviews remain pending.
+
+## Secured integrated component checkpoint
+
+Checkpoint `9605c77ec6a8fb1f2ae1e29a32daa15824300556` passed Standards, full Verification and the focused secured Meter browser job in [run 37001708795](https://github.com/sveltery/base/actions/runs/37001708795). The actual job log records **224/224 passing executions** with zero retries/skips: 44 ordinary paired executions (22 declarations), eight parameterized executions (four variants), 140 conformance executions (15 separately recorded helper declarations across all five parts) and 32 supplemental executions. Track has zero ordinary declarations and full conformance. The existing combined browser job was still running when the successor reconciliation began; no completed combined result is claimed for this checkpoint.
+
+Local full integration verification passed 36 script tests, 175 runtime/SSR tests and 366 DOM tests, with zero type/Svelte diagnostics, both builds, runtime boundary and every public tarball consumer. Meter contributes 19 SSR and 14 DOM tests. Independent exact-head review found no substantive issues and confirmed the prior frozen-state finding resolved; configured automatic review completed on `9605c77` with a bot approval reaction and no review threads.
+
+The separate port ledger now records this exact checkpoint and run for every passing ordinary/parameterized/conformance mapping. Immutable source trace placeholders and the shared 635-entry aggregate remain unchanged. Reproduced fidelity repairs do not create intentional-deviation credit. Complete library and assistive-technology parity remain unclaimed.
+
+Collapsible PR #29 merged as `8c1f1d1a4142269ceb9b3968ac7c5c51b6cdfc87`, retaining the released `ed90a160919581a48c56f1100600552a22032c0f` tree. The successor reconciles current main and records the bounded evidence. It requires fresh final-head full verification, standards, public root/subpath consumers, all secured browser jobs, independent/configured automatic reviews and an explicit merge-eligibility report. Post-merge CI remains required after merge. No Input PR #26 or UI #19 decision, release, deployment, access or live-data action is included.

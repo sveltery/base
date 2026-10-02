@@ -101,7 +101,7 @@ index fa6e85b..547611b 100644
 
  Apply only after both checks have passed on the reviewed PR head and the maintainer has approved the exact settings at action time:
 diff --git a/docs/upstream-differences.md b/docs/upstream-differences.md
-index 1db16d0..77383a6 100644
+index 1db16d0..ff93714 100644
 --- a/docs/upstream-differences.md
 +++ b/docs/upstream-differences.md
 @@ -106,3 +106,9 @@ The accepted five framework substitutions apply: className to class, render/chil
@@ -111,7 +111,7 @@ index 1db16d0..77383a6 100644
 +
 +## M-01: Meter framework substitutions
 +
-+Source: pinned [Meter parts](https://github.com/mui/base-ui/tree/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/meter) and [useRegisteredLabelId](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/useRegisteredLabelId.ts). Native class, string CSS, snippets, bindings/attachments and events follow the accepted framework substitutions in T-01; initially undefined refs follow A-01. Typed context exposes derived values, Svelte-stable IDs preserve relationships, and post-mount label registration retains SSR omission followed by hydration association. Public named part Props/State retain required numeric value and empty state. Replacement snippets explicitly preserve Root's hidden presentation x and Value's output.
++Source: pinned [Meter parts](https://github.com/mui/base-ui/tree/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/meter) and [useRegisteredLabelId](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/useRegisteredLabelId.ts). Native class, string CSS, snippets, bindings/attachments and events follow the accepted framework substitutions in T-01; initially undefined refs follow A-01. Typed context exposes derived values, Svelte-stable IDs preserve relationships, and post-mount label registration retains SSR omission followed by hydration association. Public named part Props/State retain required numeric value and pinned empty-interface assignability. All five parts share a private frozen empty singleton, matching the pinned rendering closure within Meter. Replacement snippets explicitly preserve Root's hidden presentation x and Value's output.
 +
 +Rationale: implement the actual pin with a private Meter dependency closure, including NaN/clamping and atypical bound arithmetic. No local behavioral correction or shared helper extraction is included. The [compatibility register](../parity/meter/compatibility.md), [feature docs](meter.md) and [assertion record](../parity/meter/README.md) distinguish 22 ordinary candidates, four separate parameterized variants, full conformance and supplemental evidence. Shared aggregate credits remain unchanged. Decision status: proposed in [PR #32](https://github.com/sveltery/base/pull/32), within the accepted framework baseline; no additional behavioral deviation decision, complete assistive-technology parity or final merge eligibility is claimed. Full integrated-head tests, secured paired browsers, public consumers and independent/configured automatic reviews remain required.
 diff --git a/packages/base/THIRD_PARTY_NOTICES.md b/packages/base/THIRD_PARTY_NOTICES.md
@@ -153,7 +153,7 @@ index 34428a3..15b27e1 100644
 +export { Meter } from './meter/index.js';
 +export type { MeterRootProps, MeterRootState, MeterLabelProps, MeterLabelState, MeterTrackProps, MeterTrackState, MeterIndicatorProps, MeterIndicatorState, MeterValueProps, MeterValueState } from './meter/index.js';
 diff --git a/parity/README.md b/parity/README.md
-index 208d5b2..7665164 100644
+index 208d5b2..c3c29e4 100644
 --- a/parity/README.md
 +++ b/parity/README.md
 @@ -30,3 +30,5 @@ Standalone [Toggle](toggle/README.md) records seven source declarations in a sep
@@ -161,7 +161,7 @@ index 208d5b2..7665164 100644
 
  [Collapsible](collapsible/README.md) adds a separate source inventory of 47 ordinary declaration sites / 49 variants. Its portable scope is 41 sites / 43 variants; six React.Activity Panel cases remain deferred. The three conformance calls, ten type assertions and supplemental/package checks are separate, uncredited evidence. Its dedicated ledger records 41 passing sites / 43 variants at secured source checkpoint `2ef2532f7fb6bcf51ec2f379c662f11175b94357`; six Activity sites remain deferred. This feature ledger is not added to the existing shared ordinary totals, and final-head acceptance remains separate.
 +
-+[Meter](meter/README.md) separately records 22 ordinary declaration candidates, one parameterized site expanding to four variants and full five-part conformance. Track has zero ordinary declarations. Runtime verification remains pending in [PR #32](https://github.com/sveltery/base/pull/32). These sites and any later credits remain outside the shared 635-entry aggregate until parent reconciliation; paired executions, helpers and supplements add no ordinary declaration credit.
++[Meter](meter/README.md) separately records 22 ordinary declarations, four parameterized variants and full five-part conformance passing at secured checkpoint `9605c77ec6a8fb1f2ae1e29a32daa15824300556`. Track has zero ordinary declarations. Final-head gates remain separate in [PR #32](https://github.com/sveltery/base/pull/32). These sites and credits remain outside the shared 635-entry aggregate until parent reconciliation; paired executions, helpers and supplements add no ordinary declaration credit.
 diff --git a/parity/catalog.json b/parity/catalog.json
 index a236f5a..7711e4b 100644
 --- a/parity/catalog.json
