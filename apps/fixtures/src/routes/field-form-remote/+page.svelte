@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { onMount, untrack } from 'svelte';
+  import { onMount, untrack, type Snippet } from 'svelte';
   import { createAttachmentKey } from 'svelte/attachments';
-  import type { HTMLInputAttributes } from 'svelte/elements';
+  import type { HTMLInputAttributes, HTMLFormAttributes } from 'svelte/elements';
   import { Field } from '../../../../../packages/base/src/lib/field/index.js';
   import { Form } from '../../../../../packages/base/src/lib/form/index.js';
   import type { FormErrors } from '../../../../../packages/base/src/lib/form/types.js';
@@ -30,6 +30,7 @@
   });
 </script>
 {#snippet replacement(props: Record<string | symbol, unknown>)}<input {...props as HTMLInputAttributes} />{/snippet}
+{#snippet replacementForm(props: Record<string | symbol, unknown>, _state: unknown, children: Snippet | undefined)}<form {...props as HTMLFormAttributes}>{@render children?.()}</form>{/snippet}
 {#snippet content()}
   {#if data.native}
     <label for="remote-email">Email</label>
@@ -52,7 +53,7 @@
       {@render content()}
     </form>
   {:else}
-    <Form id="remote-form" {...saveFieldForm} {...{ [observeKey]: observeForm }} {errors} onsubmit={event => { nativeSubmit++; if (data.canceledSubmit) event.preventDefault(); }} onreset={event => { resets++; if (data.canceledReset) event.preventDefault(); }}>
+    <Form id="remote-form" {...saveFieldForm} {...{ [observeKey]: observeForm }} {errors} render={data.formReplacement ? replacementForm : undefined} onsubmit={event => { nativeSubmit++; if (data.canceledSubmit) event.preventDefault(); }} onreset={event => { resets++; if (data.canceledReset) event.preventDefault(); }}>
       {@render content()}
     </Form>
   {/if}

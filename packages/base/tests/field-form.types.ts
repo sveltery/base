@@ -9,7 +9,7 @@ import type { FormProps, FormActions } from '../src/lib/form/index.js';
 import type { FieldRootProps, FieldRootActions, FieldValidityState } from '../src/lib/field/index.js';
 import { expectType } from './expect-type.js';
 interface Values { name: string; age: number }
-const form: FormProps<Values> = {
+const form: ComponentProps<typeof Form<Values>> = {
   onFormSubmit(values) {
     expectType<string, typeof values.name>(values.name); // Form.spec.tsx:12
     expectType<number, typeof values.age>(values.age); // Form.spec.tsx:13
@@ -17,7 +17,7 @@ const form: FormProps<Values> = {
     values.email.startsWith('a');
   },
 };
-declare const renderProps: Parameters<NonNullable<FormProps['render']>>[0];
+declare const renderProps: Parameters<NonNullable<ComponentProps<typeof Form>['render']>>[0];
 expectType<boolean | undefined, typeof renderProps.noValidate>(renderProps.noValidate); // Form.spec.tsx:22
 declare const control: ComponentProps<typeof Field.Control>;
 expectType<ComponentProps<typeof Input>, typeof control>(control);
@@ -39,4 +39,5 @@ const badAction: FieldRootActions = { reset() {} };
 const badMode: FormProps = { validationMode: 'onInput' };
 // @ts-expect-error Boolean noValidate is preserved in native render props.
 const badNoValidate: FormProps = { noValidate: 'false' };
-void [form, root, nativeForm, fieldset, badAction, badMode, badNoValidate];
+const typedForm: FormProps<Values> = form;
+void [form, typedForm, root, nativeForm, fieldset, badAction, badMode, badNoValidate];

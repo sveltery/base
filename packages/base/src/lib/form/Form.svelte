@@ -6,6 +6,7 @@
   import { resolveFieldProps } from '../field/props.js';
   import { createGenericEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { getFormValues, setFormContext, type FormContext, type RegisteredField } from './context.js';
+  import { isNativeKitRemoteSubmit } from './remoteSubmit.js';
   import type { FormActions, FormErrors, FormProps, FormState } from './types.js';
   let { children, render, validationMode = 'onSubmit', errors: externalErrors, onsubmit, onFormSubmit, actionsRef, noValidate, novalidate, ref = $bindable(), ...props }: FormProps<Values> = $props();
   const fields = new Map<string, RegisteredField>();
@@ -81,7 +82,13 @@
     onsubmit(event: Parameters<NonNullable<FormProps<Values>['onsubmit']>>[0]) {
       submitCount += 1;
       fields.forEach(field => field.validate());
-      if (focusFirstInvalid()) { event.preventDefault(); return; }
+      if (focusFirstInvalid()) {
+        event.preventDefault();
+        // Proposed, pending PM decision: Kit ignores defaultPrevented. Keep ordinary propagation
+        // and pinned validation timing; stop later listeners only for this native remote action.
+        if (isNativeKitRemoteSubmit(event)) event.stopImmediatePropagation();
+        return;
+      }
       submitted = true;
       onsubmit?.(event);
       if (onFormSubmit) {

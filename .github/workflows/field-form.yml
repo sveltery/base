@@ -43,7 +43,7 @@ jobs:
         run: |
           set -o pipefail
           mkdir -p .checks/field-form
-          pnpm exec playwright test tests/browser/field-form.spec.ts tests/browser/field-form-remote.spec.ts --reporter=list,json | tee .checks/field-form/browser.log
+          pnpm exec playwright test tests/browser/field-form.spec.ts tests/browser/field-form-remote.spec.ts tests/browser/field-form-conformance.spec.ts --reporter=list,json | tee .checks/field-form/browser.log
       - name: Preserve actual Field Form JSON observations and traces
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
