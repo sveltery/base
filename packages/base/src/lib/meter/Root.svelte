@@ -3,12 +3,12 @@
   import Element from '../dialog/Element.svelte';
   import { resolveClassValue } from '../internals/resolveClassValue.js';
   import { setMeterContext } from './context.js';
-  import { normalize, visuallyHidden } from './helpers.js';
+  import { emptyState, normalize, visuallyHidden } from './helpers.js';
   import type { MeterRootProps } from './types.js';
   let { value, min = 0, max = 100, format, locale, getAriaValueText, children, render, class: classProp, ref = $bindable(), ...props }: MeterRootProps = $props();
   let labelId = $state<string>();
   const normalized = $derived(normalize(value, min, max, locale, format));
-  const partState = {};
+  const partState = emptyState;
   setMeterContext({
     get value() { return value; },
     get percentageValue() { return normalized.percentageValue; }, get formattedValue() { return normalized.formattedValue; },

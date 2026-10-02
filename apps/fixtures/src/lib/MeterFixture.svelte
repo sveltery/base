@@ -7,6 +7,9 @@
   let config = $state<MeterConfig>(untrack(() => meterConfig(scenario)));
   let mainRef = $state<HTMLElement>();
   const ariaCalls: [string, number][] = [], valueCalls: [string, number][] = [];
+  const stateIdentities = new WeakMap<object, number>();
+  let stateIdentityCount = 0;
+  function stateIdentity(state: MeterRootState) { let id = stateIdentities.get(state); if (id === undefined) { id = ++stateIdentityCount; stateIdentities.set(state, id); } return id; }
   let hydrated = $state(false), shown = $state(true), showLabel = $state(true), labelId = $state<string | undefined>(untrack(() => scenario === 'labels' ? 'label-a' : undefined));
   let tag = $state('section'), firstLabel = $state(true), secondaryId = $state<string | undefined>('second');
   let rootRef = $state<HTMLElement | null>(), labelRef = $state<HTMLElement | null>(), trackRef = $state<HTMLElement | null>(), indicatorRef = $state<HTMLElement | null>(), valueRef = $state<HTMLElement | null>();
@@ -30,7 +33,7 @@
   }
 </script>
 {#snippet host(props: Record<string | symbol, unknown>, state: MeterRootState, children: Snippet | undefined)}
-  <svelte:element this={tag} {...mergeProps(props, { class: 'replacement' })} data-render-state={JSON.stringify(state)}>{@render children?.()}</svelte:element>
+  <svelte:element this={tag} {...mergeProps(props, { class: 'replacement' })} data-render-state={JSON.stringify(state)} data-render-frozen={Object.isFrozen(state)} data-render-identity={stateIdentity(state)}>{@render children?.()}</svelte:element>
 {/snippet}
 {#snippet indicatorHost(props: Record<string | symbol, unknown>, _state: MeterRootState, children: Snippet | undefined)}<span {...props as import('svelte/elements').HTMLAttributes<HTMLSpanElement>}>{@render children?.()}</span>{/snippet}
 {#snippet display(formatted: string, raw: number)}{observeValue(formatted, raw)}{formatted}|{rawValue(raw)}{/snippet}
@@ -65,7 +68,7 @@
   {:else if shown}
     <Meter.Root {...config} id="tested-meter" bind:ref={rootRef} render={replacement ? host : undefined} getAriaValueText={callback ? aria : undefined}
       {...(scenario === 'override' ? { role: 'progressbar' as const, 'aria-valuenow': 123, 'aria-valuetext': 'consumer', 'aria-labelledby': 'external' } : {})}
-      class={state => `root-state-${Object.keys(state).length}`} style={state => `opacity:${Object.keys(state).length === 0 ? 0.5 : 1}${scenario === 'determinate' || scenario === 'zero' ? ';width:100px' : ''}`}>
+      class={state => `root-state-${Object.keys(state).length}-frozen-${Object.isFrozen(state)}`} style={state => `opacity:${Object.isFrozen(state) && Object.keys(state).length === 0 ? 0.5 : 1}${scenario === 'determinate' || scenario === 'zero' ? ';width:100px' : ''}`}>
       {#if showLabel}<Meter.Label id={labelId} data-testid="label" bind:ref={labelRef} render={replacement ? host : undefined}>Battery Level</Meter.Label>{/if}
       <Meter.Value data-testid="value" bind:ref={valueRef} render={replacement ? host : undefined} children={valueCallback ? display : undefined}/>
       <Meter.Track data-testid="track" bind:ref={trackRef} style={scenario === 'determinate' || scenario === 'zero' ? undefined : 'width:300px;height:12px'} render={replacement ? host : undefined}>

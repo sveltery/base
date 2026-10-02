@@ -1,4 +1,6 @@
 // Private Meter closure from Base UI 47b40521; MIT: THIRD_PARTY_NOTICES.md.
+// Pinned useRenderElement defaults every Meter part to one frozen empty state.
+export const emptyState = Object.freeze({});
 const cache = new Map<string, Intl.NumberFormat>();
 function stringifyLocale(locale?: Intl.LocalesArgument): string {
   if (Array.isArray(locale)) return locale.map(value => stringifyLocale(value)).join(',');

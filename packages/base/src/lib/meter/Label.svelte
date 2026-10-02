@@ -3,10 +3,11 @@
   import Element from '../dialog/Element.svelte';
   import { resolveClassValue } from '../internals/resolveClassValue.js';
   import { getMeterContext } from './context.js';
+  import { emptyState } from './helpers.js';
   import type { MeterLabelProps } from './types.js';
   let { children, id: idProp, render, class: classProp, ref = $bindable(), ...props }: MeterLabelProps = $props();
   const context = getMeterContext();
-  const state = {};
+  const state = emptyState;
   const instanceId = $props.id();
   const generatedId = `base-ui-${instanceId}`;
   const id = $derived(idProp ?? generatedId);

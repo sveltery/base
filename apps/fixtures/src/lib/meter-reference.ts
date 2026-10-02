@@ -9,10 +9,12 @@ export function mountMeterReference(node: HTMLElement, scenario: string, part = 
     const [shown, setShown] = useState(true), [showLabel, setShowLabel] = useState(true), [labelId, setLabelId] = useState<string | undefined>(scenario === 'labels' ? 'label-a' : undefined), [tag, setTag] = useState('section'), [firstLabel, setFirstLabel] = useState(true), [secondaryId, setSecondaryId] = useState<string | undefined>('second');
     const ariaCalls = useRef<[string, number][]>([]).current, valueCalls = useRef<[string, number][]>([]).current;
     const refs = useRef<Record<string, HTMLElement | null>>({}).current;
+    const stateIdentities = useRef(new Map<Meter.Root.State, number>()).current;
+    const stateIdentity = (state: Meter.Root.State) => { let id = stateIdentities.get(state); if (id === undefined) { id = stateIdentities.size + 1; stateIdentities.set(state, id); } return id; };
     const replacement = scenario === 'replacement' || scenario === 'replacement-callback';
     const callback = scenario === 'callback' || scenario === 'raw-callback' || scenario.startsWith('formatted-');
     const valueCallback = scenario.startsWith('value-') || scenario === 'raw-callback' || scenario === 'replacement-callback';
-    const render = replacement ? (props: HTMLAttributes<HTMLElement>, state: Meter.Root.State) => h(tag, { ...props, className: `${props.className ?? ''} replacement`, 'data-render-state': JSON.stringify(state) }) : undefined;
+    const render = replacement ? (props: HTMLAttributes<HTMLElement>, state: Meter.Root.State) => h(tag, { ...props, className: `${props.className ?? ''} replacement`, 'data-render-state': JSON.stringify(state), 'data-render-frozen': Object.isFrozen(state), 'data-render-identity': stateIdentity(state) }) : undefined;
     const button = (name: string, fn: () => void) => h('button', { onClick: fn }, name);
     const update = (patch: Partial<typeof config>) => setConfig(previous => ({ ...previous, ...patch }));
     if (scenario === 'context') return h('main', { 'data-hydrated': true }, h(MissingContextBoundary, {}, h(Meter.Label)));
@@ -24,7 +26,7 @@ export function mountMeterReference(node: HTMLElement, scenario: string, part = 
       scenario === 'nested' ? h(Meter.Root, { value: config.value, id: 'outer' }, firstLabel ? h(Meter.Label, { id: 'first' }, 'First') : null, h(Meter.Label, { id: secondaryId, ...{ 'data-testid': 'second-label' } }, 'Second'), h(Meter.Value, { id: 'outer-value' }), h(Meter.Root, { value: 100, id: 'inner' }, h(Meter.Label, { id: 'inner-label' }, 'Inner'), h(Meter.Value, { id: 'inner-value' }))) : shown ? h(Meter.Root, { ...config, id: 'tested-meter', render, ref: el => { refs.Root = el; },
         getAriaValueText: callback ? (formatted, raw) => { ariaCalls.push([formatted, raw]); return scenario === 'callback' ? `${raw} of 100 (${formatted})` : `${formatted} (raw: ${raw})`; } : undefined,
         ...(scenario === 'override' ? { role: 'progressbar', 'aria-valuenow': 123, 'aria-valuetext': 'consumer', 'aria-labelledby': 'external' } : {}),
-        className: state => `root-state-${Object.keys(state).length}`, style: state => ({ opacity: Object.keys(state).length === 0 ? 0.5 : 1, ...(scenario === 'determinate' || scenario === 'zero' ? { width: 100 } : {}) }),
+        className: state => `root-state-${Object.keys(state).length}-frozen-${Object.isFrozen(state)}`, style: state => ({ opacity: Object.isFrozen(state) && Object.keys(state).length === 0 ? 0.5 : 1, ...(scenario === 'determinate' || scenario === 'zero' ? { width: 100 } : {}) }),
       }, showLabel ? h(Meter.Label, { id: labelId, ...{ 'data-testid': 'label' }, render, ref: el => { refs.Label = el; } }, 'Battery Level') : null,
       h(Meter.Value, { ...{ 'data-testid': 'value' }, render, ref: el => { refs.Value = el; }, children: valueCallback ? (formatted, raw) => { valueCalls.push([formatted, raw]); return `${formatted}|${rawValue(raw)}`; } : undefined }),
       h(Meter.Track, { ...{ 'data-testid': 'track' }, render, ref: el => { refs.Track = el; }, style: scenario === 'determinate' || scenario === 'zero' ? undefined : { width: 300, height: 12 } },

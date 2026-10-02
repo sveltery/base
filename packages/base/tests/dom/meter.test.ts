@@ -71,6 +71,8 @@ it('labels register, change IDs and clean up', () => {
 it('replacement refs follow actual hosts and clear on replacement/removal', () => {
   const { component, root, host } = setup('replacement'); const old = component.refs();
   expect(old.every(node => node?.tagName === 'SECTION')).toBe(true); expect(old[0]).toBe(root);
+  for (const node of old) { expect(node?.getAttribute('data-render-frozen')).toBe('true'); expect(node?.getAttribute('data-render-identity')).toBe('1'); }
+  expect(root.className).toContain('root-state-0-frozen-true'); expect(root.style.opacity).toBe('0.5');
   expect(host.querySelector('[data-testid=value]')!.textContent).toBe(percent(.4));
   expect(root.querySelector(':scope > span[role=presentation]')!.textContent).toBe('x');
   component.replaceHost(); flushSync(); expect(component.refs().every(node => node?.tagName === 'ARTICLE')).toBe(true); expect(old.every(node => !node?.isConnected)).toBe(true);
