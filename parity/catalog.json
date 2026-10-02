@@ -135,9 +135,9 @@
     },
     {
       "upstreamModule": "meter",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "Meter",
+      "evidence": "parity/meter/README.md"
     },
     {
       "upstreamModule": "navigation-menu",

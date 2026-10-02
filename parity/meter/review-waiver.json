@@ -1,0 +1,20 @@
+{
+  "decisionTimeUtc": "2026-10-02T17:16:30Z",
+  "sourceThreadId": "01a0f8d2-3e91-7455-b184-d3a30c452008",
+  "userMessageId": "Sentinel_e508bb67bd1c819187ed3f4510e1ddaf",
+  "assistantContext": "Input, Meter and CMS field editing are waiting for that final review because your merge rule requires it.",
+  "userResponse": "Skip review and just merge. Ci is enough",
+  "scope": "The user waived the quota-blocked final review gate for the waiting PRs, including Meter PR #32. This is a scoped merge-gate exception, not a general future review waiver or a behavioral-difference acceptance.",
+  "preservedMeterCheckpoint": "91526af2a7ddcd87cc5cd9fdcbe6066d4ce7ab39",
+  "quotaEvidence": [
+    "https://github.com/sveltery/base/pull/32#issuecomment-5951600921",
+    "https://github.com/sveltery/base/pull/32#issuecomment-5951605900"
+  ],
+  "historicalReviewStatus": "Independent exact-head review of the preserved checkpoint had no substantive findings; the configured completed summary and approval cover only 9605c77. Neither is promoted to an approval of a successor.",
+  "requiredRemainingGates": [
+    "Integrate Input merged main, preserving its accepted records and all Meter scope.",
+    "Pass fresh CI on the exact final integrated head before merge.",
+    "Report merge eligibility and verify exact post-merge CI."
+  ],
+  "authorizationLimits": "No release, deployment, live data, access change, account credit change, new behavioral decision or UI #19 resolution is included. Do not wait for or retrigger the quota-blocked configured review."
+}

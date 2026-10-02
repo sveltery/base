@@ -21,3 +21,5 @@ The [catalog ledger](docs/catalog.md) accounts for every pinned root export modu
 [Progress](docs/progress.md) adds Root, Label, Track, Indicator and Value against the immutable v1.8.0 pin. Its [dedicated declaration and conformance evidence](parity/progress/README.md) remains separately accounted; final-head acceptance is recorded in PR #28.
 
 [Collapsible](docs/collapsible.md) adds Root, Trigger and Panel with a bounded measurement and CSS motion lifecycle. Its [dedicated evidence](parity/collapsible/README.md) separates the portable ordinary scope from six deferred React.Activity cases and final-head acceptance in PR #29.
+
+[Meter](docs/meter.md) adds Root, Label, Track, Indicator and Value from the immutable v1.8.0 pin. Its [dedicated declaration and conformance evidence](parity/meter/README.md) remains separate; final-head acceptance is recorded in PR #32.

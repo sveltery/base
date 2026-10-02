@@ -39,7 +39,7 @@ export const docs: Doc[] = [
         id: 'status',
         title: 'A foundation in progress',
         paragraphs: [
-          'Dialog, Button, Toast, standalone Input, Separator and Toggle, Progress and Collapsible have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
+          'Dialog, Button, Toast, standalone Input, Separator and Toggle, Progress, Collapsible and Meter have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
           'The package is private and unpublished. APIs may change. Use this workspace to evaluate the current slice; check the repository contracts before depending on a behavior.',
         ],
         links: [
