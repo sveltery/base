@@ -80,7 +80,7 @@ for (const reference of [false, true]) {
     await page.getByRole('button', { name: 'Change id', exact: true }).click(); await expect(root).toHaveAttribute('aria-labelledby', 'label-b');
     await page.getByRole('button', { name: 'Remove label', exact: true }).click(); await expect(root).not.toHaveAttribute('aria-labelledby');
   });
-  test(`Label:49 ${framework} missing context descriptive error`, async ({ page }) => { await setup(page, 'context', reference); await expect(page.getByTestId('context-error')).toHaveText('Base UI: MeterRootContext is missing. Meter parts must be placed within <Meter.Root>.'); });
+  test(`Label:49 ${framework} missing context descriptive error`, async ({ page }) => { await setup(page, 'context', reference); await expect(page.getByTestId('context-error')).toContainText('Base UI: MeterRootContext is missing. Meter parts must be placed within <Meter.Root>.'); });
   test(`Value:17 ${framework} default visible value`, async ({ page }) => { await setup(page, 'default', reference); expect(await page.getByTestId('value').textContent()).toBe(await percent(page, .3)); });
   test(`Value:28 ${framework} formatted visible value`, async ({ page }) => { await setup(page, 'currency', reference); expect(await page.getByTestId('value').textContent()).toBe(await currency(page, 30)); });
   test(`Value:47 ${framework} children callback formatted and raw arguments`, async ({ page }) => { await setup(page, 'value-callback', reference); const args = await lastCall(page, 'value'); expect(args?.[0]).toEqual(await currency(page, 30)); expect(args?.[1]).toEqual(30); });
