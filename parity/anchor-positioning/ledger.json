@@ -77,17 +77,56 @@
         71
       ],
       "variants": 3,
-      "status": "deferred-browser-gate"
+      "status": "deferred-browser-gate",
+      "declarations": [
+        {
+          "line": 64,
+          "bodySha256": "fe25fef7344e4dcb7abcb3265eef0e64573bf3e90bfc9e0a961ec59ed8afcbb8",
+          "assertions": [
+            "expect(shiftSpy).toHaveBeenCalled();",
+            "expect(shiftSpy.mock.calls[0]?.[0].rootBoundary).toBe(undefined);"
+          ]
+        },
+        {
+          "line": 71,
+          "bodySha256": "64a20aeb8986b131b3f55e6c6d57a80eb2726f0e1805518dd30c2f108619885a",
+          "assertions": [
+            "expect(shiftSpy.mock.calls[0]?.[0].rootBoundary).toBe('layoutViewport');",
+            "expect(shiftSpy.mock.calls[0]?.[0].crossAxis).toBe(crossAxis);"
+          ]
+        }
+      ]
     },
     {
       "source": "packages/react/src/utils/hideMiddleware.test.ts",
       "local": "packages/base/tests/dom/anchor-positioning-hide.test.ts",
       "sourceSites": [
-        42,
-        80
+        41,
+        67
       ],
       "variants": 6,
-      "status": "deferred-browser-gate"
+      "status": "deferred-browser-gate",
+      "declarations": [
+        {
+          "line": 41,
+          "bodySha256": "62d0cf6b778785bab2cdfbaf7c853d34f0edb11d6800ff16cf9b09717d92db58",
+          "assertions": [
+            "expect(result.data?.referenceHidden).toBe(nativeResult.data?.referenceHidden);",
+            "expect(result.data?.referenceHidden).toBe(expected);",
+            "expect(state.platform.detectOverflow).toHaveBeenCalledTimes(2);",
+            "expect(state.platform.detectOverflow).toHaveBeenNthCalledWith(1, state, {\n        elementContext: 'reference',\n      });",
+            "expect(state.platform.detectOverflow).toHaveBeenNthCalledWith(2, state, {\n        elementContext: 'reference',\n      });"
+          ]
+        },
+        {
+          "line": 67,
+          "bodySha256": "3fe1ecced329748484e348d7d804339dca9ff974d164f24fad2aa18895729ce8",
+          "assertions": [
+            "expect(nativeResult.data?.referenceHidden).toBe(false);",
+            "expect(result.data?.referenceHidden).toBe(true);"
+          ]
+        }
+      ]
     }
   ],
   "floatingLifecycle": "Root-store replacement/identity assertions are deferred: no native interaction/root store is implemented. Supplemental native reference separation is not an unchanged declaration port.",

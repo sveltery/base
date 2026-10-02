@@ -46,7 +46,9 @@ for (const reference of [false, true]) {
   }
   test(`anchor foundation ${framework} function offsets use measured dimensions and current values`, async ({ page }) => {
     await setup(page, 'function', reference); await offsets(page, -30, 45);
-    await page.getByRole('button', { name: 'Set offset', exact: true }).click(); await offsets(page, -30, 57);
+    await page.getByRole('button', { name: 'Set offset', exact: true }).click();
+    await page.evaluate(() => window.dispatchEvent(new Event('resize')));
+    await offsets(page, -30, 57);
     expect((await geometry(page)).origin).toBe('70px -27px');
   });
   test(`anchor foundation ${framework} provider logical sides and DOM alignment direction`, async ({ page }) => {
@@ -108,6 +110,18 @@ for (const reference of [false, true]) {
     await page.evaluate(() => window.dispatchEvent(new Event('resize')));
     await expect(page.getByTestId('arrow')).toHaveCount(0); expect((await geometry(page)).origin).toBe('70px 0px');
     await setup(page, 'start', reference); await offsets(page, 0, 30); expect((await geometry(page)).origin).toBe('0% 0px');
+  });
+  test(`anchor foundation ${framework} measures and rounds through the actual owner window`, async ({ page }) => {
+    await page.goto(`/anchor-positioning?owner-window${reference ? '&reference' : ''}`);
+    const frame = page.frameLocator('iframe'); await expect(frame.locator('main')).toHaveAttribute('data-hydrated', 'true');
+    const floating = frame.getByTestId('floating'); await expect(floating).toHaveAttribute('data-positioned', 'true');
+    await expect.poll(() => floating.evaluate(node => {
+      const anchor = node.ownerDocument.querySelector('[data-testid="anchor"]')!.getBoundingClientRect();
+      const rect = node.getBoundingClientRect(), style = (node as HTMLElement).style;
+      return { dx: rect.x - anchor.x, dy: rect.y - anchor.y, width: style.getPropertyValue('--anchor-width'), height: style.getPropertyValue('--anchor-height'), willChange: style.willChange, ownerDpr: node.ownerDocument.defaultView!.devicePixelRatio, topDpr: window.top!.devicePixelRatio };
+    })).toEqual({ dx: -29.75, dy: 30.25, width: '80px', height: '30px', willChange: 'transform', ownerDpr: 2, topDpr: 1 });
+    await frame.getByRole('button', { name: 'Toggle foundation', exact: true }).click();
+    await expect(floating).toHaveCount(0);
   });
 }
 

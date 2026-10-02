@@ -1,6 +1,6 @@
 // Actual installed Base UI 1.8.0 reference, corresponding to immutable pin 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // Fixture-only React/private-source imports; MIT: parity/anchor-positioning/UPSTREAM_LICENSE.
-import { createElement as h, useEffect, useRef, useState } from 'react';
+import { createElement as h, StrictMode, useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { DirectionProvider } from '@base-ui/react/direction-provider';
 import { useAnchorPositioningWithHook } from '../../node_modules/@base-ui/react/internals/useAnchorPositioning.mjs';
@@ -64,6 +64,7 @@ function Fixture({ scenario }: { scenario: string }) {
 }
 
 export function mountAnchorPositioningReference(node: HTMLElement, scenario: string) {
-  const root = createRoot(node); root.render(h(Fixture, { scenario }));
+  // Supplemental fixtures use the source helper's default strict setting.
+  const root = createRoot(node); root.render(h(StrictMode, null, h(Fixture, { scenario })));
   return () => root.unmount();
 }

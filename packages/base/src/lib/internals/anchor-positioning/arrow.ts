@@ -95,7 +95,6 @@ export const baseArrow = (options: ArrowOptions | Derivable<ArrowOptions>): Midd
         (center < min ? minPadding : maxPadding) -
         arrowDimensions[length] / 2 <
         0;
-    // eslint-disable-next-line no-nested-ternary
     const alignmentOffset = shouldAddOffset ? (center < min ? center - min : center - max) : 0;
 
     return {
