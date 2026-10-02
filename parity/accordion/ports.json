@@ -5,7 +5,7 @@
     "commit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
     "license": "MIT"
   },
-  "scope": "38 portable ordinary passing component-checkpoint sites / 42 variants at 377bf32b9d0181be168e83a6dfa3651a06b26a12; Panel:201 Activity remains deferred. One parameterized disabled declaration / two variants, five conformance calls / 15 shared helper declarations (140 paired cases), seven local type assertions / one expected type error, and 24 supplemental executions remain separately accounted and add zero ordinary credit. Hosted focused Chromium: 252 passed, zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; inherited Avatar failures are outside this scoped Accordion checkpoint.",
+  "scope": "37 ordinary passing sites / 41 variants retain historical exact-pin secured evidence; R:182 is candidate pending execution with its restored StrictMode boundary. Portable scope remains 38 sites / 42 variants; Panel:201 Activity deferred. Both merged-class helper bodies and all five aggregate conformance calls are candidate pending exact class-token execution. The previous 252-pass execution is historical and cannot certify the repaired assertions. Parameterized/types/supplements remain separate; shared manifest totals unchanged.",
   "ports": [
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:19",
@@ -329,7 +329,7 @@
         null
       ],
       "kind": "ordinary",
-      "status": "passing",
+      "status": "candidate",
       "port": "tests/browser/accordion.spec.ts",
       "pairedExecutionPrefix": "R:182",
       "fixtures": [
@@ -344,7 +344,9 @@
         "R:182 Svelte unregisters generated part ids when parts unmount",
         "R:182 React reference unregisters generated part ids when parts unmount"
       ],
-      "evidence": {
+      "evidence": null,
+      "verification": "2026-10-02 independent source audit found missing StrictMode reference preconditions for R:182 and substring class predicates for two helper bodies. Repaired ports preserve exact source boundaries and ordered classList.contains predicates. Prior execution remains historical; fresh paired secured browser execution is required before passing status. No additional ordinary credit.",
+      "invalidatedEvidence": {
         "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
         "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
         "browserJob": 110971936333,
@@ -358,8 +360,7 @@
         "skips": 0,
         "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
         "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
-      },
-      "verification": "Immutable source body and ordered assertion provenance retained and independently reviewed at the tested component checkpoint. Actual React 1.8.0 and Svelte paired secured Chromium executions passed with zero retries or skips. Whole-CI acceptance and merge eligibility remain pending; parameterized declarations and supplements are separate from ordinary credit."
+      }
     },
     {
       "sourceId": "packages/react/src/accordion/root/AccordionRoot.test.tsx:219",
@@ -2101,23 +2102,9 @@
       "source": "packages/react/src/accordion/root/AccordionRoot.test.tsx",
       "line": 14,
       "sourceDeclarationSha256": "61ac3b569d6809eaef2d1d0e12134e66a62e4253a2142289e69cabc6edf0e29a",
-      "status": "passing",
+      "status": "candidate",
       "port": "tests/browser/accordion.spec.ts",
-      "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
-        "pairedSecuredBrowser": true,
-        "ordinaryPairedInstances": 84,
-        "parameterizedPairedInstances": 4,
-        "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
-        "retries": 0,
-        "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
-      },
+      "evidence": null,
       "executions": [
         "conformance Svelte Root default",
         "conformance Svelte Root function",
@@ -2156,15 +2143,8 @@
         "packages/base/tests/dom/accordion-conformance.test.ts",
         "packages/base/tests/dom/accordion/Conformance.svelte"
       ],
-      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs map to conformance. Default mode retains both forwarded props and realm instance assertions; style assertions retain the authored color substring. All mapped helper assertions passed paired secured Chromium at the recorded component checkpoint. Framework/API substitutions remain separately documented. Zero ordinary declaration credit."
-    },
-    {
-      "source": "packages/react/src/accordion/item/AccordionItem.test.tsx",
-      "line": 21,
-      "sourceDeclarationSha256": "bb98255801dc6bb3142186e89e4bf7264f5f47f97e59cc3b295cffb94a5bab9d",
-      "status": "passing",
-      "port": "tests/browser/accordion.spec.ts",
-      "evidence": {
+      "adaptation": "2026-10-02 independent source audit found missing StrictMode reference preconditions for R:182 and substring class predicates for two helper bodies. Repaired ports preserve exact source boundaries and ordered classList.contains predicates. Prior execution remains historical; fresh paired secured browser execution is required before passing status. No additional ordinary credit.",
+      "invalidatedEvidence": {
         "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
         "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
         "browserJob": 110971936333,
@@ -2178,7 +2158,15 @@
         "skips": 0,
         "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
         "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
-      },
+      }
+    },
+    {
+      "source": "packages/react/src/accordion/item/AccordionItem.test.tsx",
+      "line": 21,
+      "sourceDeclarationSha256": "bb98255801dc6bb3142186e89e4bf7264f5f47f97e59cc3b295cffb94a5bab9d",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "evidence": null,
       "executions": [
         "conformance Svelte Item default",
         "conformance Svelte Item function",
@@ -2217,15 +2205,8 @@
         "packages/base/tests/dom/accordion-conformance.test.ts",
         "packages/base/tests/dom/accordion/Conformance.svelte"
       ],
-      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs map to conformance. Default mode retains both forwarded props and realm instance assertions; style assertions retain the authored color substring. All mapped helper assertions passed paired secured Chromium at the recorded component checkpoint. Framework/API substitutions remain separately documented. Zero ordinary declaration credit."
-    },
-    {
-      "source": "packages/react/src/accordion/header/AccordionHeader.test.tsx",
-      "line": 20,
-      "sourceDeclarationSha256": "d00196f9f43ae0713a9b93b521a1250375b9752082174ba7e8a33a636b7ab353",
-      "status": "passing",
-      "port": "tests/browser/accordion.spec.ts",
-      "evidence": {
+      "adaptation": "2026-10-02 independent source audit found missing StrictMode reference preconditions for R:182 and substring class predicates for two helper bodies. Repaired ports preserve exact source boundaries and ordered classList.contains predicates. Prior execution remains historical; fresh paired secured browser execution is required before passing status. No additional ordinary credit.",
+      "invalidatedEvidence": {
         "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
         "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
         "browserJob": 110971936333,
@@ -2239,7 +2220,15 @@
         "skips": 0,
         "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
         "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
-      },
+      }
+    },
+    {
+      "source": "packages/react/src/accordion/header/AccordionHeader.test.tsx",
+      "line": 20,
+      "sourceDeclarationSha256": "d00196f9f43ae0713a9b93b521a1250375b9752082174ba7e8a33a636b7ab353",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "evidence": null,
       "executions": [
         "conformance Svelte Header default",
         "conformance Svelte Header function",
@@ -2278,15 +2267,8 @@
         "packages/base/tests/dom/accordion-conformance.test.ts",
         "packages/base/tests/dom/accordion/Conformance.svelte"
       ],
-      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs map to conformance. Default mode retains both forwarded props and realm instance assertions; style assertions retain the authored color substring. All mapped helper assertions passed paired secured Chromium at the recorded component checkpoint. Framework/API substitutions remain separately documented. Zero ordinary declaration credit."
-    },
-    {
-      "source": "packages/react/src/accordion/trigger/AccordionTrigger.test.tsx",
-      "line": 9,
-      "sourceDeclarationSha256": "b4b5016aa329b2d558ea0a6476c8bdbb4543b227134d8e07bee44a5f7479ffd5",
-      "status": "passing",
-      "port": "tests/browser/accordion.spec.ts",
-      "evidence": {
+      "adaptation": "2026-10-02 independent source audit found missing StrictMode reference preconditions for R:182 and substring class predicates for two helper bodies. Repaired ports preserve exact source boundaries and ordered classList.contains predicates. Prior execution remains historical; fresh paired secured browser execution is required before passing status. No additional ordinary credit.",
+      "invalidatedEvidence": {
         "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
         "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
         "browserJob": 110971936333,
@@ -2300,7 +2282,15 @@
         "skips": 0,
         "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
         "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
-      },
+      }
+    },
+    {
+      "source": "packages/react/src/accordion/trigger/AccordionTrigger.test.tsx",
+      "line": 9,
+      "sourceDeclarationSha256": "b4b5016aa329b2d558ea0a6476c8bdbb4543b227134d8e07bee44a5f7479ffd5",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "evidence": null,
       "executions": [
         "conformance Svelte Trigger default",
         "conformance Svelte Trigger function",
@@ -2339,15 +2329,8 @@
         "packages/base/tests/dom/accordion-conformance.test.ts",
         "packages/base/tests/dom/accordion/Conformance.svelte"
       ],
-      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs map to conformance. Default mode retains both forwarded props and realm instance assertions; style assertions retain the authored color substring. All mapped helper assertions passed paired secured Chromium at the recorded component checkpoint. Framework/API substitutions remain separately documented. Zero ordinary declaration credit."
-    },
-    {
-      "source": "packages/react/src/accordion/panel/AccordionPanel.test.tsx",
-      "line": 21,
-      "sourceDeclarationSha256": "da7355251f78f47b411c0cc17ee50b5c5a0730b70a6b0d10044610c9756a224b",
-      "status": "passing",
-      "port": "tests/browser/accordion.spec.ts",
-      "evidence": {
+      "adaptation": "2026-10-02 independent source audit found missing StrictMode reference preconditions for R:182 and substring class predicates for two helper bodies. Repaired ports preserve exact source boundaries and ordered classList.contains predicates. Prior execution remains historical; fresh paired secured browser execution is required before passing status. No additional ordinary credit.",
+      "invalidatedEvidence": {
         "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
         "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
         "browserJob": 110971936333,
@@ -2361,7 +2344,15 @@
         "skips": 0,
         "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
         "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
-      },
+      }
+    },
+    {
+      "source": "packages/react/src/accordion/panel/AccordionPanel.test.tsx",
+      "line": 21,
+      "sourceDeclarationSha256": "da7355251f78f47b411c0cc17ee50b5c5a0730b70a6b0d10044610c9756a224b",
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "evidence": null,
       "executions": [
         "conformance Svelte Panel default",
         "conformance Svelte Panel function",
@@ -2400,7 +2391,22 @@
         "packages/base/tests/dom/accordion-conformance.test.ts",
         "packages/base/tests/dom/accordion/Conformance.svelte"
       ],
-      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs map to conformance. Default mode retains both forwarded props and realm instance assertions; style assertions retain the authored color substring. All mapped helper assertions passed paired secured Chromium at the recorded component checkpoint. Framework/API substitutions remain separately documented. Zero ordinary declaration credit."
+      "adaptation": "2026-10-02 independent source audit found missing StrictMode reference preconditions for R:182 and substring class predicates for two helper bodies. Repaired ports preserve exact source boundaries and ordered classList.contains predicates. Prior execution remains historical; fresh paired secured browser execution is required before passing status. No additional ordinary credit.",
+      "invalidatedEvidence": {
+        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
+        "browserJob": 110971936333,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 84,
+        "parameterizedPairedInstances": 4,
+        "conformanceInstances": 140,
+        "supplementalInstances": 24,
+        "totalExecutions": 252,
+        "retries": 0,
+        "skips": 0,
+        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
+        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+      }
     }
   ],
   "typePorts": [
@@ -3124,23 +3130,9 @@
         "47896e9bd87614ab32ed14003c0b8ad250aafeab3a366c7e81374a22786891fb",
         "d5c9059918b118b0d72ab3e8c5d16504795ec8da0fb320a60602c55e7fa72386"
       ],
-      "status": "passing",
+      "status": "candidate",
       "port": "tests/browser/accordion.spec.ts",
-      "evidence": {
-        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
-        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
-        "browserJob": 110971936333,
-        "pairedSecuredBrowser": true,
-        "ordinaryPairedInstances": 84,
-        "parameterizedPairedInstances": 4,
-        "conformanceInstances": 140,
-        "supplementalInstances": 24,
-        "totalExecutions": 252,
-        "retries": 0,
-        "skips": 0,
-        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
-        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
-      },
+      "evidence": null,
       "executionMode": "merged-class",
       "executionNames": [
         "conformance Svelte Root merged-class",
@@ -3157,22 +3149,8 @@
       "localPorts": [
         "packages/base/tests/dom/accordion-conformance.test.ts"
       ],
-      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs map to conformance. Default mode retains both forwarded props and realm instance assertions; style assertions retain the authored color substring. All mapped helper assertions passed paired secured Chromium at the recorded component checkpoint. Framework/API substitutions remain separately documented. Zero ordinary declaration credit."
-    },
-    {
-      "sourceId": "packages/react/test/conformanceTests/renderProp.tsx:163",
-      "sourceBodySha256": "cc73a906b911a7b9650543da1de90679da237af5f144ef382b4b14a52faebd5f",
-      "assertionLines": [
-        176,
-        177
-      ],
-      "assertionSha256": [
-        "ba17baa5ddd908b3f24be3e62405e2e1ce027df62e37e8216711beb47d58674a",
-        "d5c9059918b118b0d72ab3e8c5d16504795ec8da0fb320a60602c55e7fa72386"
-      ],
-      "status": "passing",
-      "port": "tests/browser/accordion.spec.ts",
-      "evidence": {
+      "adaptation": "2026-10-02 independent source audit found missing StrictMode reference preconditions for R:182 and substring class predicates for two helper bodies. Repaired ports preserve exact source boundaries and ordered classList.contains predicates. Prior execution remains historical; fresh paired secured browser execution is required before passing status. No additional ordinary credit.",
+      "invalidatedEvidence": {
         "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
         "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
         "browserJob": 110971936333,
@@ -3186,7 +3164,22 @@
         "skips": 0,
         "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
         "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
-      },
+      }
+    },
+    {
+      "sourceId": "packages/react/test/conformanceTests/renderProp.tsx:163",
+      "sourceBodySha256": "cc73a906b911a7b9650543da1de90679da237af5f144ef382b4b14a52faebd5f",
+      "assertionLines": [
+        176,
+        177
+      ],
+      "assertionSha256": [
+        "ba17baa5ddd908b3f24be3e62405e2e1ce027df62e37e8216711beb47d58674a",
+        "d5c9059918b118b0d72ab3e8c5d16504795ec8da0fb320a60602c55e7fa72386"
+      ],
+      "status": "candidate",
+      "port": "tests/browser/accordion.spec.ts",
+      "evidence": null,
       "executionMode": "resolved-class",
       "executionNames": [
         "conformance Svelte Root resolved-class",
@@ -3203,7 +3196,22 @@
       "localPorts": [
         "packages/base/tests/dom/accordion-conformance.test.ts"
       ],
-      "adaptation": "React render element forms use Svelte snippets; refs use bindings and symbol attachments. Test IDs map to conformance. Default mode retains both forwarded props and realm instance assertions; style assertions retain the authored color substring. All mapped helper assertions passed paired secured Chromium at the recorded component checkpoint. Framework/API substitutions remain separately documented. Zero ordinary declaration credit."
+      "adaptation": "2026-10-02 independent source audit found missing StrictMode reference preconditions for R:182 and substring class predicates for two helper bodies. Repaired ports preserve exact source boundaries and ordered classList.contains predicates. Prior execution remains historical; fresh paired secured browser execution is required before passing status. No additional ordinary credit.",
+      "invalidatedEvidence": {
+        "testedCommit": "377bf32b9d0181be168e83a6dfa3651a06b26a12",
+        "workflowRun": "https://github.com/sveltery/base/actions/runs/37047259152",
+        "browserJob": 110971936333,
+        "pairedSecuredBrowser": true,
+        "ordinaryPairedInstances": 84,
+        "parameterizedPairedInstances": 4,
+        "conformanceInstances": 140,
+        "supplementalInstances": 24,
+        "totalExecutions": 252,
+        "retries": 0,
+        "skips": 0,
+        "executionLogSha256": "a1b96287b15f9e79d2e0da335b5bb90b948a2c68d44de1c18d28e384a2733beb",
+        "result": "passing Accordion component checkpoint; whole-CI acceptance and merge eligibility remain pending"
+      }
     },
     {
       "sourceId": "packages/react/test/conformanceTests/className.tsx:20",

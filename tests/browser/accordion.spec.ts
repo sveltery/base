@@ -149,7 +149,10 @@ for (const reference of [false, true]) {
     expect(await node.evaluate(element => element.tagName)).toBe(tag);
     if (mode.startsWith('wrapper')) await expect(page.getByTestId('wrapper')).toHaveCount(1);
     if (mode === 'class') await expect(node).toHaveClass('test-class');
-    if (mode === 'merged-class' || mode === 'resolved-class') { await expect(node).toHaveClass(/render-prop-classname/); await expect(node).toHaveClass(mode === 'resolved-class' ? /conditional-component-classname/ : /component-classname/); }
+    if (mode === 'merged-class' || mode === 'resolved-class') {
+      expect(await node.evaluate((element, token) => element.classList.contains(token), mode === 'resolved-class' ? 'conditional-component-classname' : 'component-classname')).toBe(true);
+      expect(await node.evaluate(element => element.classList.contains('render-prop-classname'))).toBe(true);
+    }
     if (reference) { await expect(node).toHaveAttribute('data-ref-instance', 'true'); await expect(node).toHaveAttribute('data-ref', tag); await expect(node).toHaveAttribute('data-ref-id', 'conformance'); if (mode === 'refs-element') { await expect(node).toHaveAttribute('data-render-ref', tag); await expect(node).toHaveAttribute('data-render-ref-id', 'conformance'); } }
     else { await expect(page.getByTestId('ref-instance')).toHaveText('true'); await expect(page.getByTestId('ref')).toHaveText(tag); await expect(page.getByTestId('ref-id')).toHaveText('conformance'); if (mode === 'refs-element') { await expect(page.getByTestId('render-ref')).toHaveText(tag); await expect(page.getByTestId('render-ref-id')).toHaveText('conformance'); await expect(page.getByTestId('ref-identity')).toHaveText('true'); } }
   });

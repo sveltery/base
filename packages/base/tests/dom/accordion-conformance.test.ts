@@ -22,8 +22,8 @@ for (const part of ['Root', 'Item', 'Header', 'Trigger', 'Panel'] as const) for 
     if (mode !== 'wrapper-empty') expect(node.getAttribute('data-test-value')).toBe('test-value');
   }
   if (mode === 'merged-class' || mode === 'resolved-class') {
-    expect(node.classList.contains('render-prop-classname')).toBe(true);
     expect(node.classList.contains(mode === 'resolved-class' ? 'conditional-component-classname' : 'component-classname')).toBe(true);
+    expect(node.classList.contains('render-prop-classname')).toBe(true);
   }
   const custom = ['function', 'element', 'function-style', 'element-style', 'wrapper-function', 'wrapper-element', 'wrapper-empty', 'ref-function', 'refs-element', 'merged-class', 'resolved-class'].includes(mode);
   const tag = custom ? 'DIV' : tags[part];

@@ -1,6 +1,6 @@
 // Exact Base UI 1.8.0 paired fixture; immutable pin 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT: parity/accordion/UPSTREAM_LICENSE.
-import { createElement as h, useState, useEffect, forwardRef, Component, type ReactNode, type HTMLAttributes, type Ref } from 'react';
+import { createElement as h, useState, useEffect, forwardRef, Component, Fragment, StrictMode, type ReactNode, type HTMLAttributes, type Ref } from 'react';
 import { createRoot } from 'react-dom/client';
 import { flushSync } from 'react-dom';
 import { Accordion } from '@base-ui/react/accordion';
@@ -39,7 +39,8 @@ export function mountAccordionReference(node: HTMLElement, scenario: string, par
     if (scenario === 'outside-item' || scenario === 'outside-header') return h('main', { 'data-hydrated': 'true' }, h(MissingContextBoundary, {}, scenario === 'outside-item' ? h(Accordion.Item) : h(Accordion.Header)));
     if (scenario === 'conformance') return conformance(part, mode);
     if (scenario === 'shared-host') return sharedHost();
-    return h('main', { 'data-hydrated': 'true' }, h(Accordion.Root<number | string>, {
+    // R:182 replays effects/refs under the pinned StrictMode boundary.
+    return h('main', { 'data-hydrated': 'true' }, h(scenario === 'parts' ? StrictMode : Fragment, null, h(Accordion.Root<number | string>, {
       ...{ 'data-testid': 'root' }, value: owner, defaultValue: config.initial ? [config.values[0]] : [], multiple: config.multiple, disabled: config.rootDisabled,
       keepMounted: scenario === 'root-warning' ? false : config.rootKeep ? true : undefined, hiddenUntilFound: config.rootHidden,
       orientation: scenario === 'no-roving' ? 'horizontal' : undefined, loopFocus: scenario === 'no-roving' ? true : undefined,
@@ -48,7 +49,7 @@ export function mountAccordionReference(node: HTMLElement, scenario: string, par
         setOrder(previous => [...previous, 'root']); setCalls(previous => [...previous, { value, reason: details.reason, type: details.event.type, canceled: details.isCanceled, before: document.querySelector('[data-testid="trigger-1"]')?.getAttribute('aria-expanded'), defaultPrevented: details.event.defaultPrevented }]);
         if (scenario === 'controlled-accept' || scenario === 'cancel-root-controlled' && !details.isCanceled) setOwner(value);
       },
-    }, items),
+    }, items)),
       h('button', { onClick: () => setOwner(owner?.length ? [] : [config.values[0]]) }, 'toggle externally'),
       h('button', { onClick: () => setTriggerId('custom-trigger-id-1') }, 'Set id 1'), h('button', { onClick: () => setTriggerId('custom-trigger-id-2') }, 'Set id 2'), h('button', { onClick: () => setTriggerId(undefined) }, 'Remove id'),
       h('button', { onClick: () => setTriggerShown(!triggerShown) }, 'Toggle trigger'), h('button', { onClick: () => setPanelShown(!panelShown) }, 'Toggle panel'), h('button', { onClick: () => setPanelId(panelId ? undefined : 'manual-panel') }, 'Change panel ID'),
