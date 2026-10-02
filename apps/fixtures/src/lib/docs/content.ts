@@ -14,16 +14,6 @@ export interface Doc {
 }
 export const docs: Doc[] = [
   {
-    slug: 'components/collapsible', group: 'Components', title: 'Collapsible',
-    description: 'A button and a panel that opens and closes with your CSS motion.',
-    sections: [
-      { id: 'anatomy', title: 'Assemble the parts', paragraphs: ['Root groups a Trigger and Panel. Root defaults to closed and enabled. Set defaultOpen for an uncontrolled initial value, or open and onOpenChange for an owner-controlled panel.'], code: "<Collapsible.Root><Collapsible.Trigger>Details</Collapsible.Trigger><Collapsible.Panel>Panel content</Collapsible.Panel></Collapsible.Root>" },
-      { id: 'motion', title: 'Style the panel', paragraphs: ['Use --collapsible-panel-height and --collapsible-panel-width for measured dimensions. State attributes expose open, closed, starting and ending phases. Initially open panels suppress entrance keyframes; later close and reopen cycles follow authored CSS.'] },
-      { id: 'presence', title: 'Keep content available', paragraphs: ['keepMounted retains a hidden closed panel. hiddenUntilFound overrides keepMounted and allows browser find-in-page to reveal its contents. Cancel onOpenChange through details.cancel() to keep the current state.'] },
-      { id: 'limits', title: 'Compatibility limits', paragraphs: ['The bounded Root, Trigger and Panel port uses Svelte snippets, native events, bindings and CSS strings. Six external React.Activity cases remain deferred. The source ledger separates ordinary assertions from helper, type and supplemental evidence; complete compatibility is unclaimed.'], links: [{ label: 'Read compatibility limits', href: '/docs/handbook/compatibility' }] },
-    ],
-  },
-  {
     slug: '',
     group: 'Overview',
     title: 'Build on a thoughtful base.',
@@ -242,6 +232,16 @@ export const docs: Doc[] = [
           },
         ],
       },
+    ],
+  },
+  {
+    slug: 'components/collapsible', group: 'Components', title: 'Collapsible',
+    description: 'A button and a panel that opens and closes with your CSS motion.',
+    sections: [
+      { id: 'anatomy', title: 'Assemble the parts', paragraphs: ['Root groups a Trigger and Panel. Root defaults to closed and enabled. Set defaultOpen for an uncontrolled initial value, or open and onOpenChange for an owner-controlled panel.'], code: "<Collapsible.Root><Collapsible.Trigger>Details</Collapsible.Trigger><Collapsible.Panel>Panel content</Collapsible.Panel></Collapsible.Root>" },
+      { id: 'motion', title: 'Style the panel', paragraphs: ['Use --collapsible-panel-height and --collapsible-panel-width for measured dimensions. State attributes expose open, closed, starting and ending phases. Initially open panels suppress entrance keyframes; later close and reopen cycles follow authored CSS.'] },
+      { id: 'presence', title: 'Keep content available', paragraphs: ['keepMounted retains a hidden closed panel. hiddenUntilFound overrides keepMounted and allows browser find-in-page to reveal its contents. Cancel onOpenChange through details.cancel() to keep the current state.'] },
+      { id: 'limits', title: 'Compatibility limits', paragraphs: ['The bounded Root, Trigger and Panel port uses Svelte snippets, native events, bindings and CSS strings. Six external React.Activity cases remain deferred. The source ledger separates ordinary assertions from helper, type and supplemental evidence; complete compatibility is unclaimed.'], links: [{ label: 'Read compatibility limits', href: '/docs/handbook/compatibility' }] },
     ],
   },
   {

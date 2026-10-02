@@ -1,5 +1,5 @@
 // Pinned Base UI v1.8.0 fixtures. MIT: parity/collapsible/UPSTREAM_LICENSE.
-import { createElement as h, useState, useEffect, useLayoutEffect, forwardRef } from 'react';
+import { createElement as h, useState, useEffect, useLayoutEffect, forwardRef, act } from 'react';
 import { createRoot } from 'react-dom/client';
 import { flushSync } from 'react-dom';
 import { Collapsible } from '@base-ui/react/collapsible';
@@ -23,9 +23,24 @@ export function mountCollapsibleReference(node: HTMLElement, scenario: string) {
     const record = (entry: string) => setOrder(previous => [...previous, entry]);
     const style = Object.fromEntries((motionEnabled ? config.panelStyle : '').split(';').filter(Boolean).map(entry => { const [name, value] = entry.split(':'); return [name.replace(/-([a-z])/g, (_, letter: string) => letter.toUpperCase()), value.replace('!important', '')]; }));
     useEffect(() => {
-      const browser = window as Window & { collapsibleFlush?: (action: string) => void };
+      const browser = window as Window & { collapsibleFlush?: (action: string) => void; collapsibleAfterFrame?: () => Promise<boolean> };
       browser.collapsibleFlush = action => flushSync(() => { if (action === 'beforematch') panel?.dispatchEvent(new Event('beforematch', { bubbles: true })); else document.getElementById('tested-trigger')?.click(); });
-      return () => { delete browser.collapsibleFlush; };
+      browser.collapsibleAfterFrame = async () => {
+        browser.collapsibleFlush!('click');
+        // Pinned Panel:286 awaits one frame inside React.act, which flushes the
+        // resulting passive effects before querying the panel. Raw RAF is earlier.
+        const environment = globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean };
+        const previousEnvironment = environment.IS_REACT_ACT_ENVIRONMENT;
+        environment.IS_REACT_ACT_ENVIRONMENT = true;
+        try {
+          await act(async () => { await new Promise<void>(resolve => requestAnimationFrame(() => resolve())); });
+          return document.querySelector('[data-testid="panel"]') === null;
+        } finally {
+          if (previousEnvironment === undefined) delete environment.IS_REACT_ACT_ENVIRONMENT;
+          else environment.IS_REACT_ACT_ENVIRONMENT = previousEnvironment;
+        }
+      };
+      return () => { delete browser.collapsibleFlush; delete browser.collapsibleAfterFrame; };
     }, []);
     return h('main', { 'data-hydrated': 'true' }, scenario === 'outside-trigger' ? h(Collapsible.Trigger) : shown ? h(Collapsible.Root, { ...{ 'data-testid': 'root' }, className: state => scenario === 'state-callbacks' ? state.open ? 'root-open' : 'root-closed' : '', style: state => scenario === 'state-callbacks' ? { opacity: state.open ? 1 : 0.5 } : {}, open: ownerOpen, defaultOpen, disabled, onOpenChange: (open, details) => {
       if (scenario === 'beforematch-cancel' && details.reason === 'none' || ['cancel', 'cancel-close'].includes(scenario)) details.cancel();

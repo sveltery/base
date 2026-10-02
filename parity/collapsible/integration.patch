@@ -52,13 +52,22 @@ index e3192ec..4ae90bc 100644
 +
 +[Collapsible](docs/collapsible.md) adds Root, Trigger and Panel with a bounded measurement and CSS motion lifecycle. Its [dedicated evidence](parity/collapsible/README.md) separates the portable ordinary scope from six deferred React.Activity cases and final-head acceptance in PR #29.
 diff --git a/apps/fixtures/src/lib/docs/content.ts b/apps/fixtures/src/lib/docs/content.ts
-index 1a21e20..9c3b9ea 100644
+index 1a21e20..f01af16 100644
 --- a/apps/fixtures/src/lib/docs/content.ts
 +++ b/apps/fixtures/src/lib/docs/content.ts
-@@ -13,6 +13,16 @@ export interface Doc {
-   sections: Section[];
- }
- export const docs: Doc[] = [
+@@ -39,7 +39,7 @@ export const docs: Doc[] = [
+         id: 'status',
+         title: 'A foundation in progress',
+         paragraphs: [
+-          'Dialog, Button, Toast, standalone Separator, standalone Toggle and Progress have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
++          'Dialog, Button, Toast, standalone Separator, standalone Toggle, Progress and Collapsible have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
+           'The package is private and unpublished. APIs may change. Use this workspace to evaluate the current slice; check the repository contracts before depending on a behavior.',
+         ],
+         links: [
+@@ -234,6 +234,16 @@ export const docs: Doc[] = [
+       },
+     ],
+   },
 +  {
 +    slug: 'components/collapsible', group: 'Components', title: 'Collapsible',
 +    description: 'A button and a panel that opens and closes with your CSS motion.',
@@ -70,17 +79,8 @@ index 1a21e20..9c3b9ea 100644
 +    ],
 +  },
    {
-     slug: '',
-     group: 'Overview',
-@@ -39,7 +49,7 @@ export const docs: Doc[] = [
-         id: 'status',
-         title: 'A foundation in progress',
-         paragraphs: [
--          'Dialog, Button, Toast, standalone Separator, standalone Toggle and Progress have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
-+          'Dialog, Button, Toast, standalone Separator, standalone Toggle, Progress and Collapsible have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
-           'The package is private and unpublished. APIs may change. Use this workspace to evaluate the current slice; check the repository contracts before depending on a behavior.',
-         ],
-         links: [
+     slug: 'components/dialog',
+     group: 'Components',
 diff --git a/docs/catalog.md b/docs/catalog.md
 index 8f0a2bd..fd4a0ba 100644
 --- a/docs/catalog.md

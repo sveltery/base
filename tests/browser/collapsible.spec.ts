@@ -137,12 +137,9 @@ for (const reference of [false, true]) {
   });
   test(`P:286 ${framework} unmounts zero-size panel without waiting for unrelated transitions`, async ({ page }) => {
     const { panel } = await setup(page, 'zero', reference); await expect(panel).toHaveAttribute('data-open');
-    const absent = await page.evaluate(async () => {
-      (window as Window & { collapsibleFlush: (action: string) => void }).collapsibleFlush('click');
-      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
-      for (let index = 0; index < 3; index++) await Promise.resolve();
-      return document.querySelector('[data-testid="panel"]') === null;
-    });
+    // The source queries after act(frame), including its passive-effect flush.
+    // The fixture adapters preserve that synchronization without polling/retries.
+    const absent = await page.evaluate(() => (window as Window & { collapsibleAfterFrame: () => Promise<boolean> }).collapsibleAfterFrame());
     expect(absent).toBe(true);
   });
   test(`P:322 ${framework} supports removing rendered panel as it closes`, async ({ page }) => {
@@ -170,7 +167,7 @@ for (const reference of [false, true]) {
   // The native AbortController stub keeps both frameworks' already-watched
   // finished promises alive across cleanup, so completion sees committed close.
   test(`P:473 ${framework} keeps measured size when open animation finishes during close commit`, async ({ page }) => {
-    await installRace(page, 'open'); const { panel } = await setup(page, 'race-open', reference); await frames(page, 1);
+    await installRace(page, 'open'); await setup(page, 'race-open', reference); await frames(page, 1);
     await page.waitForFunction(() => (window as Window & { raceStarted?: boolean }).raceStarted);
     expect(await page.evaluate(() => (window as Window & { raceStarted?: boolean }).raceStarted)).toBe(true);
     const height = await page.evaluate(async () => {

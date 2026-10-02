@@ -1,6 +1,6 @@
 <script lang="ts">
   // Direct and supplemental paired fixtures. MIT: parity/collapsible/UPSTREAM_LICENSE.
-  import { onMount, untrack, flushSync, type Snippet } from 'svelte';
+  import { onMount, untrack, flushSync, tick, type Snippet } from 'svelte';
   import { Collapsible, mergeProps, type CollapsiblePanelState } from '@sveltery/base';
   import CollapsibleRaceClose from './CollapsibleRaceClose.svelte';
   import type { HTMLAttributes } from 'svelte/elements';
@@ -27,9 +27,17 @@
   function recordPanel(state: CollapsiblePanelState) { untrack(() => { if (statuses.at(-1) !== String(state.transitionStatus)) statuses = [...statuses, String(state.transitionStatus)]; }); return ''; }
   onMount(() => {
     hydrated = true;
-    const browser = window as Window & { collapsibleFlush?: (action: string) => void };
+    const browser = window as Window & { collapsibleFlush?: (action: string) => void; collapsibleAfterFrame?: () => Promise<boolean> };
     browser.collapsibleFlush = action => flushSync(() => { if (action === 'beforematch') panelRef?.dispatchEvent(new Event('beforematch', { bubbles: true })); else document.getElementById('tested-trigger')?.click(); });
-    return () => { delete browser.collapsibleFlush; };
+    browser.collapsibleAfterFrame = async () => {
+      browser.collapsibleFlush!('click');
+      // Native counterpart of the pinned act(frame) synchronization: flush the
+      // click, await one frame, then settle Svelte's effects through tick.
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+      await tick();
+      return document.querySelector('[data-testid="panel"]') === null;
+    };
+    return () => { delete browser.collapsibleFlush; delete browser.collapsibleAfterFrame; };
   });
 </script>
 <!-- eslint-disable svelte/no-at-html-tags -- Fixed authored fixture CSS contains no external input. -->
