@@ -1,7 +1,7 @@
 <script lang="ts">
   // Svelte adaptations of the five pinned describeConformance invocations; separate from ordinary assertions.
   import { onMount, type Snippet } from 'svelte';
-  import { Accordion, type AccordionItemState } from '../../../../packages/base/src/lib/accordion/index.js';
+  import { Accordion, type AccordionItemState } from '@sveltery/base';
   import { mergeProps } from '../../../../packages/base/src/lib/merge-props/index.js';
   import type { HTMLAttributes } from 'svelte/elements';
   let { part, mode }: { part: string; mode: string } = $props();

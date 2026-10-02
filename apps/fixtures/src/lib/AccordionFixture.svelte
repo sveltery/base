@@ -1,7 +1,7 @@
 <script lang="ts">
   // Direct and supplemental paired fixtures. MIT: parity/accordion/UPSTREAM_LICENSE.
   import { onMount, untrack, flushSync, type Snippet } from 'svelte';
-  import { Accordion, type AccordionItemState, type AccordionPanelState } from '../../../../packages/base/src/lib/accordion/index.js';
+  import { Accordion, type AccordionItemState, type AccordionPanelState } from '@sveltery/base';
   import type { HTMLAttributes } from 'svelte/elements';
   import { accordionConfig, accordionCss } from './accordion-config.js';
   const { Root, Item, Header, Trigger, Panel } = Accordion;

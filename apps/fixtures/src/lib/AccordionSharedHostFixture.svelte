@@ -1,7 +1,7 @@
 <script lang="ts">
   // Supplemental shared-host registration repair; no ordinary declaration credit.
   import { onMount, type Snippet } from 'svelte';
-  import { Accordion, type AccordionItemProps, type AccordionItemState } from '../../../../packages/base/src/lib/accordion/index.js';
+  import { Accordion, type AccordionItemProps, type AccordionItemState } from '@sveltery/base';
   let hydrated = $state(false);
   const indexes = { outer: -1, inner: -1, sibling: -1 };
   function record(part: keyof typeof indexes, state: AccordionItemState) { indexes[part] = state.index; return `${part}-${state.index}`; }
