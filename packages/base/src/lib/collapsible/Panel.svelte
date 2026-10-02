@@ -133,6 +133,8 @@
     const mounted = context.mounted;
     const status = context.transitionStatus;
     const preventOpenAnimation = shouldPreventOpenAnimation;
+    // The pin returns when the custom host disappears; its Root ending status
+    // remains retained. Finalizing here would correct shared source behavior.
     if (!panel) return;
     return untrack(() => {
       if (!open) restorePendingTemporaryStyle();

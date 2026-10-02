@@ -269,6 +269,29 @@ for (const reference of [false, true]) {
     await page.addInitScript(() => { Object.defineProperty(Element.prototype, 'getAnimations', { configurable: true, value: undefined }); });
     const { trigger, panel } = await setup(page, 'interrupt', reference); await trigger.click(); await expect(panel).toHaveCount(0); await trigger.click(); await expect(panel).toHaveAttribute('data-open'); await trigger.click(); await page.getByRole('button', { name: 'Toggle mounting', exact: true }).click(); await frames(page, 4); await expect(trigger).toHaveCount(0);
   });
+  test(`supplement: ${framework} removed panel host retains pinned ending callbacks`, async ({ page }) => {
+    const { panel } = await setup(page, 'remove-close', reference);
+    await expect(panel).toHaveAttribute('data-open');
+    await expect(panel).toHaveCSS('transition-duration', '0.1s');
+    // Actual pin witnesses confirm both null-host effect paths skip completion,
+    // leaving Root and Trigger in ending after the deferred frame commits.
+    const snapshot = await page.evaluate(async () => {
+      const absent = await (window as Window & { collapsibleAfterFrame: () => Promise<boolean> }).collapsibleAfterFrame();
+      const root = document.querySelector('[data-testid="root"]');
+      const trigger = document.getElementById('tested-trigger');
+      const calls = JSON.parse(document.querySelector('[data-testid="calls"]')!.textContent!) as { open: boolean }[];
+      return {
+        root: root?.className, trigger: trigger?.className, absent,
+        ending: [root, trigger].map(node => node?.hasAttribute('data-ending-style')),
+        expanded: trigger?.getAttribute('aria-expanded'), controls: trigger?.getAttribute('aria-controls'),
+        calls: calls.map(call => call.open),
+      };
+    });
+    expect(snapshot).toEqual({
+      root: 'root-closed-enabled-ending', trigger: 'trigger-closed-enabled-ending', absent: true,
+      ending: [true, true], expanded: 'false', controls: null, calls: [false],
+    });
+  });
   test(`supplement: ${framework} no-motion close retains pinned idle callbacks`, async ({ page }) => {
     const { panel } = await setup(page, 'no-motion-status', reference);
     await expect(panel).toHaveAttribute('data-open');
