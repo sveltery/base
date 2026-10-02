@@ -2,6 +2,7 @@ import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
 import type { PreventableEvent } from '../merge-props/index.js';
+import type { DialogHandle } from './handle.svelte.js';
 export type ChangeReason = 'trigger-press' | 'close-press' | 'escape-key' | 'outside-press' | 'focus-out' | 'imperative-action' | 'none';
 export type ChangeEventDetails = BaseUIChangeEventDetails<ChangeReason, { preventUnmountOnClose(): void }>;
 export type InteractionType = 'mouse' | 'touch' | 'pen' | 'keyboard';
@@ -22,8 +23,9 @@ export type ElementProps<State = Record<string, never>, NativeProps = HTMLAttrib
   style?: string | ((state: State) => string | undefined);
   ref?: HTMLElement | null;
 };
-export interface RootProps {
-  children?: Snippet;
+export interface RootProps<Payload = unknown> {
+  children?: Snippet<[{ payload: Payload | undefined }]>;
+  handle?: DialogHandle<Payload>;
   open?: boolean;
   defaultOpen?: boolean;
   modal?: boolean | 'trap-focus';
@@ -38,3 +40,4 @@ export interface RootProps {
   onInternalOpenChange?: (open: boolean, details: ChangeEventDetails) => void;
 }
 export type ButtonProps = Omit<ElementProps<{ disabled: boolean; open?: boolean }, HTMLButtonAttributes>, 'disabled' | 'type'> & { disabled?: boolean; nativeButton?: boolean; type?: 'button' | 'submit' | 'reset' };
+export type TriggerProps<Payload = unknown> = ButtonProps & { handle?: DialogHandle<Payload>; payload?: NoInfer<Payload> };
