@@ -66,7 +66,7 @@ for (const reference of [false, true]) {
     const warnings: string[] = []; page.on('console', message => { if (message.type() === 'warning') warnings.push(message.text()); }); const { panel } = await setup(page, 'hidden-warning', reference); await expect.poll(() => warnings).toContain('Base UI: The `keepMounted={false}` prop on `Collapsible.Panel` is ignored when `hiddenUntilFound` is enabled, since the panel must remain mounted while closed.'); await expect(panel).toHaveAttribute('hidden', 'until-found');
   });
   test(`P:77 ${framework} does not unmount panel when keepMounted true`, async ({ page }) => {
-    const { trigger, panel } = await setup(page, 'keep', reference);
+    const { trigger, panel } = await setup(page, 'controlled-keep', reference);
     await expect(trigger).toHaveAttribute('aria-expanded', 'false');
     await expect(panel).toHaveCount(1);
     await expect(panel).not.toBeVisible();
