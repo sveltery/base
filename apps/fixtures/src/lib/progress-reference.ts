@@ -7,6 +7,7 @@ export function mountProgressReference(node: HTMLElement, scenario: string, part
   function Fixture() {
     const [config, setConfig] = useState(progressConfig(scenario));
     const [shown, setShown] = useState(true), [showLabel, setShowLabel] = useState(true), [labelId, setLabelId] = useState<string | undefined>(scenario === 'labels' ? 'label-a' : undefined), [tag, setTag] = useState('section');
+    const ariaCalls: [string, string][] = [], valueCalls: [string | null, string][] = [];
     const refs: Record<string, HTMLElement | null> = {};
     const replacement = scenario === 'replacement' || scenario === 'replacement-callback';
     const callback = scenario === 'callback' || scenario.startsWith('formatted-');
@@ -16,16 +17,16 @@ export function mountProgressReference(node: HTMLElement, scenario: string, part
     const update = (patch: Partial<typeof config>) => setConfig(previous => ({ ...previous, ...patch }));
     if (scenario === 'context') return h('main', { 'data-hydrated': true }, h(MissingContextBoundary, {}, h(Progress.Label)));
     if (scenario === 'conformance') return conformance(part, mode);
-    return h('main', { 'data-hydrated': true },
+    return h('main', { 'data-hydrated': true, ref: (el: HTMLElement | null) => { if (el) Object.assign(el, { progressAriaCalls: () => ariaCalls, progressValueCalls: () => valueCalls }); } },
       button('Set 77', () => update({ value: 77 })), button('Set 50', () => update({ value: 50 })), button('Set 100', () => update({ value: 100 })), button('Set null', () => update({ value: null })), button('Set NaN', () => update({ value: NaN })),
       button('Set EUR', () => update({ format: { style: 'currency', currency: 'EUR' } })), button('Set German', () => update({ locale: 'de-DE' })),
       button('Change id', () => setLabelId('label-b')), button('Remove label', () => setShowLabel(false)), button('Replace host', () => setTag('article')), button('Remove root', () => setShown(false)),
       shown ? h(Progress.Root, { ...config, id: 'tested-progress', render, ref: el => { refs.Root = el; },
-        getAriaValueText: callback ? (formatted, raw) => raw == null ? 'Waiting to start' : scenario.startsWith('formatted-') ? `${formatted} (raw: ${raw})` : `${formatted} uploaded` : undefined,
+        getAriaValueText: callback ? (formatted, raw) => { ariaCalls.push([formatted, rawValue(raw)]); return raw == null ? 'Waiting to start' : scenario.startsWith('formatted-') ? `${formatted} (raw: ${raw})` : `${formatted} uploaded`; } : undefined,
         ...(scenario === 'override' ? { role: 'meter', 'aria-valuenow': 123, 'aria-valuetext': 'consumer', 'aria-labelledby': 'external', 'data-complete': 'consumer' } : {}),
         className: state => `root-${state.status}`, style: state => ({ opacity: state.status === 'complete' ? 1 : 0.5 }),
       }, showLabel ? h(Progress.Label, { id: labelId, ...{ 'data-testid': 'label' }, render, ref: el => { refs.Label = el; } }, 'Downloading') : null,
-      h(Progress.Value, { ...{ 'data-testid': 'value' }, render, ref: el => { refs.Value = el; }, children: valueCallback ? (formatted, raw) => `${formatted}|${rawValue(raw)}` : undefined }),
+      h(Progress.Value, { ...{ 'data-testid': 'value' }, render, ref: el => { refs.Value = el; }, children: valueCallback ? (formatted, raw) => { valueCalls.push([formatted, rawValue(raw)]); return `${formatted}|${rawValue(raw)}`; } : undefined }),
       h(Progress.Track, { ...{ 'data-testid': 'track' }, render, ref: el => { refs.Track = el; }, style: { width: 300, height: 12 } },
         h(Progress.Indicator, { ...{ 'data-testid': 'indicator' }, ref: el => { refs.Indicator = el; }, render: scenario === 'determinate' ? h('span') : render, style: scenario === 'style-override' ? { width: 7, height: 9, insetInlineStart: 2 } : undefined }))) : null);
   }

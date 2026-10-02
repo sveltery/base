@@ -52,3 +52,12 @@ it('format, locale and bounds resolve without a copied-state effect', () => {
 it('nonfinite transitions retain raw callback values and empty ARIA formatter arguments', () => {
   const { component, ariaSpy, root, host } = setup('callback'); for (const value of [NaN, Infinity, -Infinity]) { component.update({ value }); flushSync(); expect(ariaSpy).toHaveBeenLastCalledWith('', value); expect(root.hasAttribute('data-indeterminate')).toBe(true); expect(root.hasAttribute('aria-valuenow')).toBe(false); expect(host.querySelector('[data-testid=value]')!.textContent).toBe(''); expect((host.querySelector('[data-testid=indicator]') as HTMLElement).style.cssText).toBe(''); }
 });
+
+it('older label cleanup preserves the later association and nested Root owns its state', async () => {
+  const { default: Nested } = await import('./ProgressNestedFixture.svelte');
+  const host = document.createElement('div'); document.body.append(host); const component = mount(Nested, { target: host }); cleanups.push(() => unmount(component)); flushSync();
+  const outer = host.querySelector('#outer')!, inner = host.querySelector('#inner')!;
+  expect(outer.getAttribute('aria-labelledby')).toBe('second'); expect(inner.getAttribute('aria-labelledby')).toBe('inner-label');
+  component.removeFirst(); flushSync(); expect(outer.getAttribute('aria-labelledby')).toBe('second');
+  component.change(); flushSync(); expect(outer.hasAttribute('data-indeterminate')).toBe(true); expect(inner.hasAttribute('data-complete')).toBe(true); expect(host.querySelector('#outer-value')!.textContent).toBe(''); expect(host.querySelector('#inner-value')!.textContent).toBe('100%');
+});
