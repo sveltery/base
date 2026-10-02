@@ -42,7 +42,10 @@ test('CSP supplement Svelte: hydration preserves SSR probe nodes and has no hydr
   });
   const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
   page.on('console', message => { if (message.type() === 'warning' || message.type() === 'error') errors.push(message.text()); });
-  await page.goto('/csp-provider'); await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+  const response = await page.goto('/csp-provider');
+  const serverMarkup = await response!.text();
+  for (const name of ['outside', 'outer', 'inner-omitted', 'inner-explicit', 'outer-sibling', 'after']) expect(serverMarkup).toContain(`data-testid="${name}"`);
+  await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
   expect(await page.evaluate(() => { const initial = (window as Window & { cspInitialNodes?: Map<string, Element> }).cspInitialNodes!; return initial.size === 6 && [...initial].every(([name, node]) => node === document.querySelector(`[data-testid="${name}"]`)); })).toBe(true);
   expect(errors.filter(message => /hydration/i.test(message))).toEqual([]);
 });
