@@ -69,9 +69,9 @@
     },
     {
       "upstreamModule": "csp-provider",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "CSPProvider",
+      "evidence": "parity/csp-provider/README.md"
     },
     {
       "upstreamModule": "dialog",
