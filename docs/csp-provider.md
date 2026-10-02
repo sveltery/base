@@ -11,7 +11,7 @@
 </CSPProvider>
 ```
 
-The provider accepts optional `children` as a Svelte Snippet, `nonce` as a string, and `disableStyleElements` as a boolean. No children produces no host element. Its state type preserves the pinned empty-interface assignability. React namespace types are replaced by named Props/State exports; no public context hook or DOM props are introduced.
+The provider accepts optional `children` as a Svelte Snippet, `nonce` as a string, and `disableStyleElements` as a boolean. No children produces no host element. Its state type preserves the pinned empty-interface assignability. Pinned `CSPProvider.Props` and `CSPProvider.State` remain available as type-only namespace aliases alongside the named Props/State exports; the aliases add no runtime Props/State properties, public context hook or DOM props.
 
 A missing provider supplies the private context fallback `{ disableStyleElements: false }`. An existing provider supplies its own optional values, including `undefined` when omitted or explicitly cleared. Nested providers replace the context; omitted inner values do not inherit outer values. Existing descendants see nonce/flag updates through reactive getters, and teardown/remount retains component-local scope.
 

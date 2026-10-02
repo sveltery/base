@@ -24,7 +24,10 @@ cat > "$csp_consumer/Consumer.svelte" <<'SVELTE'
   const second: SecondProps = { nonce: undefined, disableStyleElements: undefined };
   const state: CSPProviderState = 1;
   const other: SecondState = {};
-  void [state, other];
+  const namespaceProps: CSPProvider.Props = { nonce: 'root' };
+  const subpathNamespaceProps: Second.Props = { disableStyleElements: false };
+  const namespaceStates: [CSPProvider.State, Second.State] = [1, {}];
+  void [state, other, namespaceProps, subpathNamespaceProps, namespaceStates];
 </script>
 <main><CSPProvider {...first}><span>root child</span><Second {...second}><em>subpath child</em></Second></CSPProvider><Second /></main>
 SVELTE
@@ -35,13 +38,16 @@ import { CSPProvider as Second, type CSPProviderProps as SecondProps, type CSPPr
 type Equal<A, B> = (<T>() => T extends A ? 1 : 2) extends (<T>() => T extends B ? 1 : 2) ? true : false;
 const equality: Equal<[CSPProviderProps, CSPProviderState, ComponentProps<typeof CSPProvider>], [SecondProps, SecondState, ComponentProps<typeof Second>]> = true;
 const snippet: Equal<CSPProviderProps['children'], Snippet | undefined> = true;
+const namespaces: Equal<[CSPProvider.Props, CSPProvider.State, Second.Props, Second.State], [CSPProviderProps, CSPProviderState, SecondProps, SecondState]> = true;
+// @ts-expect-error The type-only namespace does not add a component state prop.
+const invalidStateProp: Second.Props = { state: {} };
 // @ts-expect-error Nonces retain string type.
 const invalidNonce: SecondProps = { nonce: 1 };
 // @ts-expect-error No DOM host attributes exist.
 const invalidHost: CSPProviderProps = { id: 'host' };
 // @ts-expect-error ReactNode text is not a snippet.
 const invalidChildren: CSPProviderProps = { children: 'text' };
-void [equality, snippet, invalidNonce, invalidHost, invalidChildren];
+void [namespaces, invalidStateProp, equality, snippet, invalidNonce, invalidHost, invalidChildren];
 TS
 cat > "$csp_consumer/check.mjs" <<'JS'
 import assert from 'node:assert/strict';
@@ -51,6 +57,8 @@ import Consumer from './Consumer.svelte';
 import { CSPProvider } from '@sveltery/base';
 import { CSPProvider as Second } from '@sveltery/base/csp-provider';
 assert.equal(CSPProvider, Second);
+assert.equal('Props' in CSPProvider, false);
+assert.equal('State' in CSPProvider, false);
 const body = render(Consumer).body.replace(/<!--[\s\S]*?-->/g, '');
 assert.equal(body, '<main><span>root child</span><em>subpath child</em></main>');
 assert.equal(render(Second).body.replace(/<!--[\s\S]*?-->/g, ''), '');

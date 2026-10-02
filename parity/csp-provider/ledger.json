@@ -189,5 +189,18 @@
       "record": "parity/csp-provider/review-waiver.json",
       "independentReview": "pending-exact-final-head"
     }
+  },
+  "publicTypeSurface": {
+    "named": [
+      "CSPProviderProps",
+      "CSPProviderState"
+    ],
+    "namespace": [
+      "CSPProvider.Props",
+      "CSPProvider.State"
+    ],
+    "runtimeNamespaceProperties": false,
+    "status": "Pinned namespace alias availability preserved as erased aliases; previous named-only PM proposal removed, never explicit user acceptance.",
+    "evidence": "Local supplemental type and genuine installed root/subpath consumer assertions; zero upstream type assertion credit."
   }
 }
