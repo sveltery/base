@@ -2,8 +2,9 @@
   import Separator from '../../src/lib/separator/Separator.svelte';
   import { createAttachmentKey } from 'svelte/attachments';
   import { mergeProps } from '../../src/lib/merge-props/index.js';
+  import type { ClassValue } from 'svelte/elements';
   import type { SeparatorState } from '../../src/lib/separator/types.js';
-  let { custom = false, attached }: { custom?: boolean; attached?: (node: HTMLElement) => (() => void) | void } = $props();
+  let { custom = false, attached, classValue }: { custom?: boolean; classValue?: ClassValue | ((state: SeparatorState) => ClassValue); attached?: (node: HTMLElement) => (() => void) | void } = $props();
   let orientation = $state<SeparatorState['orientation']>('horizontal');
   let mounted = $state(true);
   let ref = $state<HTMLElement | null>();
@@ -24,5 +25,7 @@
 {#if mounted}
   <Separator {orientation} bind:ref render={custom ? replacement : undefined} {...attachments}
     {...(override ? { role: 'presentation' as const, 'aria-orientation': 'vertical' as const, 'data-orientation': 'consumer' } : {})}
-    class={state => `separator-${state.orientation}`} style={state => state.orientation === 'vertical' ? 'color: red' : 'color: green'} data-testid="separator">Child</Separator>
+    class={classValue === undefined ? ((state: SeparatorState) => `separator-${state.orientation}`) : classValue} style={state => state.orientation === 'vertical' ? 'color: red' : 'color: green'} data-testid="separator">Child</Separator>
 {/if}
+
+<span data-testid="native-class" class={typeof classValue === 'function' ? classValue({ orientation }) : classValue}></span>

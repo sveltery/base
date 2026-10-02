@@ -2,7 +2,7 @@
 
 `manifest.json` traces selected upstream test declarations to immutable commit and source lines. `sources.json` lists the selected files and three exact event-detail type assertions. The TypeScript parser in `scripts/parity-inventory.mjs` recognizes named declarations across line breaks and conditional modifiers such as `it.skipIf`. Interpolated-template names are recorded once, including the two already in the initial inventory. An explicit dynamic source-site entry records Separator’s `it(orientation)` once; its two loop values remain variant evidence. Parameterized `.each`/`.for` expansion and shared conformance helpers are excluded. This is a scoped initial inventory, not an exhaustive catalog or expanded assertion count.
 
-The extended inventory contains 635 declarations/type assertions, including the two standalone Separator declarations and zero ordinary Input declarations: **28 passing ports / 607 unported**, with no failing executed ports or approved deviations. The previous 569-entry inventory omitted 64 ordinary multiline declarations in the same selected upstream files.
+The extended inventory contains 635 declarations/type assertions, including the two standalone Separator declarations and zero ordinary Input declarations: **30 passing ports / 605 unported**, with no failing executed ports or approved deviations. The previous 569-entry inventory omitted 64 ordinary multiline declarations in the same selected upstream files.
 
 To audit or regenerate after installing workspace dependencies, provide a local Git repository containing the pinned upstream commit:
 
@@ -23,4 +23,4 @@ For each future port, include source file, exact suite/test identifier, source l
 
 Toast has **13 complete ports / 183 unported declarations** out of 196, expanding to **13 complete ports / 186 unported variant records** out of 199. The 37 additional direct DOM mappings, 25 earlier core cases, type specs and new supplements are separate uncredited evidence. The immutable Toast trace keeps its original unported provenance placeholders.
 
-Standalone [Separator](separator/README.md) has two ordinary declarations (three orientation/role variants), currently unported pending secured hosted verification. Input has zero ordinary declarations in Input.test.tsx; its helper and standalone supplement evidence is separate and earns no Field credit. Shared conformance helpers remain excluded. The earlier 633-entry scope and its historical run records remain unchanged evidence.
+Standalone [Separator](separator/README.md) has two ordinary declarations (three orientation/role variants), passing at the recorded secured source checkpoint; final-head component gates remain separate. Input has zero ordinary declarations in Input.test.tsx; its helper and standalone supplement evidence is separate and earns no Field credit. Shared conformance helpers remain excluded. The earlier 633-entry scope and its historical run records remain unchanged evidence.

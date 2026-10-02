@@ -87,5 +87,16 @@ for (const reference of [false, true]) {
   });
 }
 test('supplement: Separator Svelte native ClassValue arrays/objects', async ({ page }) => {
-  await page.goto('/separator?case=class-value'); await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true'); await expect(page.getByTestId('root')).toHaveClass('array-class object-class');
+  await page.goto('/separator?case=class-value'); await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true'); await expect(page.getByTestId('root')).toHaveClass('array-class object-class nested-class');
+});
+
+for (const scenario of ['class-value-render', 'class-value-callback-render']) test(`supplement: Separator Svelte ${scenario} preserves native classes through render merging`, async ({ page }) => {
+  await page.goto(`/separator?case=${scenario}`); await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+  const root = page.getByTestId('test-component'); await expect(root).toContainClass('render-prop-classname');
+  await expect(root).toContainClass('array-class'); await expect(root).toContainClass('object-class');
+  if (scenario === 'class-value-render') await expect(root).toContainClass('nested-class');
+  else {
+    await expect(root).toContainClass('orientation-horizontal'); await page.getByRole('button', { name: 'vertical', exact: true }).click();
+    await expect(root).toContainClass('orientation-vertical'); await expect(root).toContainClass('object-class');
+  }
 });

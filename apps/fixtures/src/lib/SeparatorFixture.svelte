@@ -16,9 +16,9 @@
   let tag = $state('section');
   const key = createAttachmentKey();
   const attachments = { [key]: (node: HTMLElement) => { attachmentNode = node; return () => { attachmentNode = null; cleanups += 1; }; } };
-  const customized = $derived(scenario.startsWith('props-') && scenario !== 'props-default' && scenario !== 'props-style' || scenario.startsWith('render-') || ['lifecycle', 'events', 'events-prevent', 'render-override'].includes(scenario));
+  const customized = $derived(scenario.startsWith('props-') && scenario !== 'props-default' && scenario !== 'props-style' || scenario.startsWith('render-') || ['lifecycle', 'events', 'events-prevent', 'render-override', 'class-value-render', 'class-value-callback-render'].includes(scenario));
   const wrapped = $derived(scenario.startsWith('render-') && !scenario.includes('class') && scenario !== 'render-override');
-  const classes = $derived(scenario === 'class' ? 'test-class' : scenario === 'render-class' ? 'component-classname' : scenario === 'render-class-resolved' ? () => 'conditional-component-classname' : ['reactive', 'lifecycle', 'override', 'render-override'].includes(scenario) ? (state: SeparatorState) => `orientation-${state.orientation}` : scenario === 'class-value' ? ['array-class', { 'object-class': true }] : undefined);
+  const classes = $derived(scenario === 'class' ? 'test-class' : scenario === 'render-class' ? 'component-classname' : scenario === 'render-class-resolved' ? () => 'conditional-component-classname' : ['reactive', 'lifecycle', 'override', 'render-override'].includes(scenario) ? (state: SeparatorState) => `orientation-${state.orientation}` : scenario === 'class-value-callback-render' ? (state: SeparatorState) => ['array-class', [{ 'object-class': true }, [`orientation-${state.orientation}`]]] : scenario.startsWith('class-value') ? ['array-class', [{ 'object-class': true }, ['nested-class']]] : undefined);
   const style = $derived(scenario === 'props-style' ? 'color: green' : scenario === 'reactive' ? (state: SeparatorState) => state.orientation === 'vertical' ? 'color: red' : 'color: green' : undefined);
   onMount(() => { hydrated = true; });
 </script>

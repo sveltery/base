@@ -99,10 +99,13 @@ node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$consumer_dir
 
 cat > "$consumer_dir/SeparatorConsumer.svelte" <<'SVELTE'
 <script>
-  import { Separator } from '@sveltery/base';
+  import { Separator, mergeProps } from '@sveltery/base';
   import { Separator as SubpathSeparator } from '@sveltery/base/separator';
 </script>
 <Separator /><SubpathSeparator orientation="vertical" role="presentation" aria-orientation="horizontal" />
+<Separator class={['array-class', { 'object-class': true }, ['nested-class']]}>
+  {#snippet render(props)}<div {...mergeProps(props, { class: 'replacement' })}></div>{/snippet}
+</Separator>
 SVELTE
 cat > "$consumer_dir/separator-check.mjs" <<'JS'
 import assert from 'node:assert/strict';
@@ -116,7 +119,8 @@ assert.match(html, /role="separator"/);
 assert.match(html, /role="presentation"/);
 assert.match(html, /data-orientation="horizontal"/);
 assert.match(html, /data-orientation="vertical"/);
-assert.equal((html.match(/aria-orientation="horizontal"/g) ?? []).length, 2);
+assert.equal((html.match(/aria-orientation="horizontal"/g) ?? []).length, 3);
+assert.match(html, /class="replacement array-class object-class nested-class"/);
 console.log('Isolated tarball Separator root/subpath SSR consumer: PASS');
 JS
 node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$consumer_dir/separator-check.mjs"

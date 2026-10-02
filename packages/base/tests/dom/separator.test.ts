@@ -1,4 +1,5 @@
 import { afterEach, expect, it, vi } from 'vitest';
+import type { ClassValue } from 'svelte/elements';
 import { flushSync, mount, unmount } from 'svelte';
 import Fixture from './SeparatorFixture.svelte';
 const cleanups: (() => Promise<void>)[] = [];
@@ -38,4 +39,28 @@ it('attachment cleanup belongs to the actual replacement host and runs once on r
   const node = separator(); expect(node.tagName).toBe('ARTICLE'); expect(old.isConnected).toBe(false);
   expect(component.getRefs()).toEqual([node, node]); expect(cleanup).toHaveBeenCalledTimes(1); expect(attachment).toHaveBeenCalledTimes(2);
   component.remove(); flushSync(); expect(component.getRefs()).toEqual([null, null]); expect(cleanup).toHaveBeenCalledTimes(2);
+});
+
+for (const value of [{ active: true, inactive: false }, ['array', [{ active: true }, ['nested']]]] satisfies ClassValue[]) it('preserves native ClassValues when replacement props add a class', () => {
+  const host = document.createElement('main'); document.body.append(host);
+  const component = mount(Fixture, { target: host, props: { custom: true, classValue: value } });
+  cleanups.push(() => unmount(component)); flushSync();
+  const node = separator(); expect(node.classList.contains('replacement')).toBe(true);
+  expect(node.classList.contains('active')).toBe(true); expect(node.className).not.toContain('[object Object]');
+  if (Array.isArray(value)) { expect(node.classList.contains('array')).toBe(true); expect(node.classList.contains('nested')).toBe(true); }
+});
+
+it('reactive ClassValue callbacks preserve replacement and native class tokens', () => {
+  const host = document.createElement('main'); document.body.append(host);
+  const component = mount(Fixture, { target: host, props: { custom: true, classValue: state => [state.orientation, { active: true }] } });
+  cleanups.push(() => unmount(component)); flushSync(); const node = separator();
+  expect(node.className).toBe('replacement horizontal active'); component.setOrientation('vertical'); flushSync();
+  expect(separator()).toBe(node); expect(node.className).toBe('replacement vertical active');
+});
+
+for (const [index, value] of ['plain', false, true, 0, 17, null as unknown as ClassValue, { active: true, inactive: false }, ['array', [{ active: true }, ['nested']]]].entries()) it(`native ClassValue output matches an ordinary Svelte host (${index})`, () => {
+  const host = document.createElement('main'); document.body.append(host);
+  const component = mount(Fixture, { target: host, props: { classValue: value as unknown as ClassValue } });
+  cleanups.push(() => unmount(component)); flushSync();
+  expect(separator().getAttribute('class')).toBe(host.querySelector('[data-testid="native-class"]')!.getAttribute('class'));
 });
