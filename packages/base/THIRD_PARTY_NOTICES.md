@@ -2,7 +2,7 @@
 
 Toggle standalone state, callbacks, disabled behavior and assertion ports derive from toggle/Toggle.tsx, toggle/Toggle.test.tsx, utils/useControlled.ts and internals/use-button/useButton.ts at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. Their MIT notice and immutable source/assertion hashes also appear in parity/toggle.
 
-Standalone Input native/control behavior, default state, IDs, value callbacks and conformance adapters derive from input/Input.tsx, input/Input.test.tsx, field/control/FieldControl.tsx, field/root/FieldRootContext.ts and label/state helpers at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. Their source hashes and MIT license are retained in parity/input. Field/Form contextual integration remains unimplemented.
+Standalone Input native/control behavior, default state, IDs, value callbacks and conformance adapters derive from input/Input.tsx, input/Input.test.tsx, field/control/FieldControl.tsx, internals/field-root-context/FieldRootContext.ts and label/state helpers at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. Their source hashes and MIT license are retained in parity/input. Field/Form contextual integration remains unimplemented.
 
 Separator orientation, role, state attributes and assertion/conformance ports derive from separator/Separator.tsx, separator/Separator.test.tsx, separator/SeparatorDataAttributes.ts and test conformance helpers at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. Their MIT notice and exact source hashes also appear in parity/separator.
 
