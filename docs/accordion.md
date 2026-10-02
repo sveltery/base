@@ -1,6 +1,6 @@
 # Accordion
 
-This bounded slice targets `Root`, `Item`, `Header`, `Trigger` and `Panel` at Base UI v1.8.0, immutable commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. The [assertion inventory](../parity/accordion/README.md) separates 39 ordinary declarations / 43 variants from parameterized disabled, conformance, type and supplemental checks. Portable scope is 38 declarations / 42 variants; Panel:201 requires React.Activity and remains deferred. Public exports and final acceptance await [serialized integration](../parity/accordion/shared-integration.md).
+This bounded slice targets `Root`, `Item`, `Header`, `Trigger` and `Panel` at Base UI v1.8.0, immutable commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. The [assertion inventory](../parity/accordion/README.md) separates 39 ordinary declarations / 43 variants from parameterized disabled, conformance, type and supplemental checks. Portable scope is 38 declarations / 42 variants; Panel:201 requires React.Activity and remains deferred. Public exports are integrated on this branch; final acceptance and Avatar-first landing remain required as recorded in [serialized integration](../parity/accordion/shared-integration.md).
 
 ```svelte
 <script lang="ts">

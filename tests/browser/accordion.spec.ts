@@ -77,7 +77,10 @@ for (const reference of [false, true]) {
     await setup(page, 'disabled-item-state', reference); for (const id of ['item-1', 'header-1', 'trigger-1', 'panel-1']) await expect(page.getByTestId(id)).toHaveAttribute('data-disabled'); for (const id of ['item-2', 'header-2', 'trigger-2']) await expect(page.getByTestId(id)).not.toHaveAttribute('data-disabled');
   });
   for (const disabledPart of ['root', 'item']) test(`R:431 ${framework} does not toggle or fire callbacks when ${disabledPart} disabled`, async ({ page }) => {
-    const { trigger, panel } = await setup(page, `disabled-${disabledPart}`, reference); await trigger.click(); await trigger.focus(); await page.keyboard.press('Space'); await page.keyboard.press('Enter'); await closed(trigger, panel); expect(await calls(page)).toHaveLength(0); expect(await itemCalls(page)).toHaveLength(0);
+    const { trigger, panel } = await setup(page, `disabled-${disabledPart}`, reference);
+    // Upstream user.pointer sends the click to this aria-disabled, focusable host.
+    // Bypass Playwright's enabled check while preserving trusted browser input.
+    await trigger.click({ force: true }); await trigger.focus(); await page.keyboard.press('Space'); await page.keyboard.press('Enter'); await closed(trigger, panel); expect(await calls(page)).toHaveLength(0); expect(await itemCalls(page)).toHaveLength(0);
   });
   test(`R:473 ${framework} mouseup allows preventBaseUIHandler`, async ({ page }) => {
     const errors: string[] = []; page.on('pageerror', error => errors.push(error.message)); const { trigger } = await setup(page, 'mouseup', reference); await trigger.dispatchEvent('mouseup'); expect(errors).toEqual([]);
@@ -115,10 +118,12 @@ for (const reference of [false, true]) {
     const { trigger, trigger2 } = await setup(page, 'values-single', reference); expect(await calls(page)).toHaveLength(0); await trigger.click(); expect(await calls(page)).toHaveLength(1); expect((await calls(page))[0].value).toEqual(['one']); await trigger2.click(); expect(await calls(page)).toHaveLength(2); expect((await calls(page))[1].value).toEqual(['two']);
   });
   test(`I:9 ${framework} throws outside Accordion.Root`, async ({ page }) => {
-    await setup(page, 'outside-item', reference); await expect(page.getByTestId('context-error')).toHaveText('Base UI: AccordionRootContext is missing. Accordion parts must be placed within <Accordion.Root>.');
+    // The pinned rejects.toThrow(string) checks a message substring.
+    await setup(page, 'outside-item', reference); await expect(page.getByTestId('context-error')).toContainText('Base UI: AccordionRootContext is missing. Accordion parts must be placed within <Accordion.Root>.');
   });
   test(`H:8 ${framework} throws outside Accordion.Item`, async ({ page }) => {
-    await setup(page, 'outside-header', reference); await expect(page.getByTestId('context-error')).toHaveText('Base UI: AccordionItemContext is missing. Accordion parts must be placed within <Accordion.Item>.');
+    // Preserve Svelte's appended development component trace in the fixture.
+    await setup(page, 'outside-header', reference); await expect(page.getByTestId('context-error')).toContainText('Base UI: AccordionItemContext is missing. Accordion parts must be placed within <Accordion.Item>.');
   });
   test(`I:29 ${framework} never reports hidden=true after opening starts`, async ({ page }) => {
     const { trigger } = await setup(page, 'item-state', reference); await trigger.click(); expect(await page.evaluate(() => (window as Window & { accordionStates: { open: boolean; hidden: boolean }[] }).accordionStates.some(state => state.open && state.hidden))).toBe(false);
