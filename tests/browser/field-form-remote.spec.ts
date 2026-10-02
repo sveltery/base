@@ -37,6 +37,14 @@ for (const mode of ['', 'replacement', 'formReplacement', 'native']) {
     await page.getByRole('button', { name: 'Reset', exact: true }).click(); await expect(input).toHaveValue('edit@example.com');
     await expect(page.locator('#remote-value')).toHaveText('edit@example.com'); await expect(page.locator('#remote-resets')).toHaveText('1');
   });
+  test(`Kit ${mode || 'default'} direct validate publishes server issues without a server operation or reset`, async ({ page }) => {
+    const input = await setup(page, mode); const before = await readCounter(page); await input.fill('bad');
+    await page.getByRole('button', { name: 'Validate', exact: true }).click();
+    await expect(page.locator('#remote-issues')).toContainText('Email required');
+    expect(await readCounter(page) - before).toBe(0); await expect(page.locator('#remote-result')).toHaveText('null'); await expect(page.locator('#remote-resets')).toHaveText('0');
+    await expect(input).toHaveValue('bad'); await expect(page.locator('#remote-value')).toHaveText('bad');
+    if (mode !== 'native') { await expect(input).toHaveAttribute('aria-invalid', 'true'); await expect(page.locator('#remote-error')).toContainText('Email required'); }
+  });
 }
 test('diagnostic Kit Form invalid submit preserves raw request, listener and server-effect observations', async ({ page }) => {
   const input = await setup(page); const before = await readCounter(page); const requests: string[] = [];
