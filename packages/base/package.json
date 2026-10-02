@@ -77,6 +77,11 @@
       "types": "./dist/direction-provider/index.d.ts",
       "svelte": "./dist/direction-provider/index.js",
       "default": "./dist/direction-provider/index.js"
+    },
+    "./csp-provider": {
+      "types": "./dist/csp-provider/index.d.ts",
+      "svelte": "./dist/csp-provider/index.js",
+      "default": "./dist/csp-provider/index.js"
     }
   },
   "svelte": "./dist/index.js",
