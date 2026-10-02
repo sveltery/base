@@ -1,6 +1,16 @@
 <script module lang="ts">
   // Native radio restoration consults the final host group after consumer callbacks settle.
   const checkedOwners = new WeakMap<HTMLInputElement, () => void>();
+  const checkedTrackers = new WeakMap<HTMLInputElement, { value: string }>();
+  const checkedRequests = new WeakMap<Event, boolean>();
+  function updateCheckedTracker(input: HTMLInputElement) {
+    const tracker = checkedTrackers.get(input);
+    const value = String(input.checked);
+    if (!tracker) return true;
+    if (value === tracker.value) return false;
+    tracker.value = value;
+    return true;
+  }
   function restoreCheckedGroup(input: HTMLInputElement) {
     if (input.tagName !== 'INPUT' || input.type !== 'checkbox' && input.type !== 'radio') return;
     checkedOwners.get(input)?.();
@@ -8,6 +18,9 @@
       const root = input.getRootNode() as Document | ShadowRoot | HTMLElement;
       for (const other of root.querySelectorAll<HTMLInputElement>('input[type="radio"]')) {
         if (other !== input && other.name === input.name && other.form === input.form) checkedOwners.get(other)?.();
+      }
+      for (const other of root.querySelectorAll<HTMLInputElement>('input[type="radio"]')) {
+        if (other.name === input.name && other.form === input.form) updateCheckedTracker(other);
       }
     }
   }
@@ -43,6 +56,7 @@
     let checkedClickEvent: Event | undefined;
     let checkedClickCleanupTimer: number | undefined;
     const input = node as HTMLInputElement;
+    let checkedDescriptor: PropertyDescriptor | undefined;
     const restoreChecked = () => {
       if (node.tagName === 'INPUT' && checked != null && input.checked !== checked) input.checked = checked;
     };
@@ -56,6 +70,21 @@
       // update changes the reset default without changing the current selection, as in React.
       input.checked = currentChecked;
       checkedOwners.set(input, restoreChecked);
+      if (input.type === 'checkbox' || input.type === 'radio') {
+        // Checked assignments update the property tracker; native activation and reset
+        // bypass that setter. These are the actual React native input boundaries.
+        const descriptor = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(input), 'checked');
+        if (!Object.prototype.hasOwnProperty.call(input, 'checked') && descriptor?.get && descriptor.set) {
+          checkedDescriptor = descriptor;
+          const tracker = { value: String(input.checked) };
+          checkedTrackers.set(input, tracker);
+          Object.defineProperty(input, 'checked', {
+            configurable: true, enumerable: descriptor.enumerable,
+            get() { return descriptor.get!.call(this); },
+            set(next) { tracker.value = String(next); descriptor.set!.call(this, next); },
+          });
+        }
+      }
     }
     const observeReset = (event: Event) => {
       resetEvents.push({ event, matches: event.target === (node as HTMLInputElement).form });
@@ -125,6 +154,9 @@
     const observeCheckedClick = (event: Event) => {
       if (event.target !== node || node.tagName !== 'INPUT' || input.type !== 'checkbox' && input.type !== 'radio') return;
       clearCheckedClick();
+      const changed = updateCheckedTracker(input);
+      checkedRequests.set(event, changed);
+      if (!changed) return;
       checkedClickEvent = event; checkedClickRoot = node.getRootNode();
       // Run after Svelte's delegated consumer handlers, while native activation is still
       // dispatching. This also observes a replacement handler's work after props.onclick.
@@ -145,6 +177,8 @@
       inputParent.removeEventListener('input', observeOwnEdit, true);
       inputParent.removeEventListener('click', observeCheckedClick, true);
       if (node.tagName === 'INPUT') checkedOwners.delete(input);
+      checkedTrackers.delete(input);
+      if (checkedDescriptor) Reflect.deleteProperty(input, 'checked');
     };
   }
   const internal = $derived({
@@ -163,7 +197,7 @@
     },
     onclick(event: MouseEvent) {
       const input = event.currentTarget as HTMLInputElement;
-      if (input.tagName === 'INPUT' && (input.type === 'checkbox' || input.type === 'radio')) onValueChange?.(input.value, createChangeEventDetails('none', event));
+      if (input.tagName === 'INPUT' && (input.type === 'checkbox' || input.type === 'radio') && checkedRequests.get(event) !== false) onValueChange?.(input.value, createChangeEventDetails('none', event));
     },
   });
 </script>
@@ -173,7 +207,7 @@
     try { (nativeProps.onclick as ((event: MouseEvent) => void) | undefined)?.(event); }
     // Replacement callbacks may continue after props.onclick returns. Their native root
     // completion observer restores only after that final consumer work has run.
-    finally { if (!render) restoreCheckedGroup(input); }
+    finally { if (!render && checkedRequests.get(event) !== false) restoreCheckedGroup(input); }
   } })}
   {#if render}{@render render(checkedProps, nativeState, nativeChildren)}
   {:else}<input {...checkedProps as HTMLInputAttributes} />{/if}

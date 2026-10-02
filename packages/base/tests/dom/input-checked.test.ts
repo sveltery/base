@@ -37,6 +37,28 @@ for (const reference of [true, false]) {
     expect(target.querySelector<HTMLInputElement>('[data-testid=first]')!.checked).toBe(mode !== 'accept');
     expect(target.querySelector<HTMLInputElement>('[data-testid=other]')!.checked).toBe(true);
   });
+  it(`${framework} clicking an already selected radio does not request another value change`, async () => {
+    const { target, input } = await setup(reference, 'radio-accept-off');
+    input.click(); await settle(reference); input.click(); await settle(reference);
+    expect(input.checked).toBe(true);
+    expect(JSON.parse(target.querySelector('[data-testid=calls]')!.textContent!)).toHaveLength(1);
+  });
+  for (const radio of [false, true]) for (const canceled of [false, true]) it(`${framework} checked tracking across programmatic props and ${canceled ? 'canceled' : 'native'} reset (${radio})`, async () => {
+    const { target, input, form } = await setup(reference, `${radio ? 'radio' : 'checkbox'}-${canceled ? 'cancel-reset-' : ''}accept-off`);
+    [...target.querySelectorAll<HTMLButtonElement>('button')].find(button => button.textContent === 'Programmatic')!.click(); await settle(reference);
+    form.reset(); await settle(reference); input.click(); await settle(reference);
+    expect(JSON.parse(target.querySelector('[data-testid=calls]')!.textContent!)).toHaveLength(radio || !canceled ? 0 : 1);
+  });
+  for (const radio of [false, true]) it(`${framework} imperative checked writes update the native property tracker (${radio})`, async () => {
+    const { target, input } = await setup(reference, `${radio ? 'radio' : 'checkbox'}-accept-off`);
+    input.checked = true; input.click(); await settle(reference);
+    expect(JSON.parse(target.querySelector('[data-testid=calls]')!.textContent!)).toHaveLength(radio ? 0 : 1);
+  });
+  it(`${framework} canceled checkbox activation rollback leaves the source tracker unchanged`, async () => {
+    const { target, input } = await setup(reference, 'checkbox-cancel-click-reject-off');
+    input.click(); await settle(reference); input.click(); await settle(reference);
+    expect(JSON.parse(target.querySelector('[data-testid=calls]')!.textContent!)).toHaveLength(1);
+  });
   for (const scenario of ['radio-uncontrolled-default-off', 'radio-first-uncontrolled-reject-off']) it(`${framework} mixed radio ownership (${scenario})`, async () => {
     const { target, input } = await setup(reference, scenario);
     input.click(); await settle(reference);
