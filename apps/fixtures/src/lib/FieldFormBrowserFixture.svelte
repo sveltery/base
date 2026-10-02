@@ -12,7 +12,7 @@
   const custom = $derived(scenario.includes('custom') || scenario.includes('async') || scenario.includes('debounce'));
   const validate: NonNullable<FieldRootProps['validate']> = (value, values) => {
     untrack(() => validations.push({ value, values }));
-    const result = value === 'valid' || value === 'second' ? null : 'custom error';
+    const result = scenario.includes('duplicates') ? ['same', 'same'] : value === 'valid' || value === 'second' ? null : 'custom error';
     return scenario.includes('async') ? new Promise(resolve => setTimeout(() => resolve(result), value === 'slow' ? 180 : 30)) : result;
   };
   onMount(() => {
@@ -29,9 +29,11 @@
   <button onclick={() => api?.update({ fieldsetDisabled: true })}>Disable</button>
   <button onclick={() => api?.update({ fieldsetDisabled: false })}>Enable</button>
   <button onclick={() => api?.setErrors({ email: 'server error' })}>Server errors</button>
+  <button onclick={() => api?.setErrors({ email: ['duplicate', 'duplicate'] })}>Server duplicates</button>
   <button onclick={() => api?.setErrors({ email: [] })}>Empty errors</button>
   <button onclick={() => api?.update({ controlId: 'control-b' })}>Change id</button>
   <button onclick={() => api?.update({ controlId: undefined })}>Remove id</button>
+  <button onclick={() => api?.update({ controlId: '' })}>Empty id</button>
   <button onclick={() => api?.update({ fieldName: undefined, controlName: 'fallback' })}>Rename</button>
   <button onclick={() => api?.update({ description: false })}>Hide description</button>
   <button onclick={() => api?.update({ control: false })}>Remove control</button>

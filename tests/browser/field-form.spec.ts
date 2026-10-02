@@ -22,6 +22,20 @@ for (const reference of [false, true]) {
     await input.fill('valid'); await expect(input).not.toHaveAttribute('aria-invalid'); await expect(page.locator('#error')).toHaveCount(0);
     await page.locator('#submit').click(); expect(await read(page, 'submissions')).toEqual(['native', { values: { email: 'valid' }, reason: 'none' }]);
   });
+  test(`${framework} duplicate external and client messages keep both list items`, async ({ page }) => {
+    const input = await setup(page, 'duplicates-custom-onChange', reference);
+    await page.getByRole('button', { name: 'Server duplicates', exact: true }).click();
+    await expect(page.locator('#error li')).toHaveText(['duplicate', 'duplicate']);
+    await input.fill('changed'); await expect(page.locator('#error li')).toHaveText(['same', 'same']);
+  });
+  test(`${framework} empty control id excludes consolidated registration and restores it after a valid id returns`, async ({ page }) => {
+    const input = await setup(page, 'custom-onSubmit', reference); await input.fill('valid');
+    await page.getByRole('button', { name: 'Empty id', exact: true }).click(); await expect(input).toHaveAttribute('id', '');
+    await page.locator('#submit').click(); expect(await read(page, 'submissions')).toEqual(['native', { values: {}, reason: 'none' }]); expect(await read(page, 'validations')).toEqual([]);
+    await page.getByRole('button', { name: 'Change id', exact: true }).click(); await page.locator('#submit').click();
+    expect((await read(page, 'submissions')).at(-1)).toEqual({ values: { email: 'valid' }, reason: 'none' });
+    expect((await read(page, 'validations')).at(-1)).toEqual({ value: 'valid', values: { email: 'valid' } });
+  });
   for (const mode of ['onBlur', 'onChange', 'onSubmit']) test(`${framework} custom validation boundary ${mode} and visible messages`, async ({ page }) => {
     const input = await setup(page, `custom-${mode}`, reference); await input.fill('wrong');
     if (mode === 'onBlur') { expect(await read(page, 'validations')).toEqual([]); await input.blur(); }

@@ -136,7 +136,7 @@ export function createFieldController(props: () => Pick<FieldRootProps, 'name' |
       const initialValue = next.value === undefined ? getValue() : next.value;
       if (validityData.initialValue !== initialValue) validityData = { ...validityData, initialValue };
     }
-    form?.fields.set(next.id, entry);
+    if (next.id) form?.fields.set(next.id, entry);
     entryValidityOverride = null;
   }
   $effect(() => {

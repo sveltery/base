@@ -42,6 +42,14 @@ it('Root:1230 uses Control name fallback and updates it when Root name is remove
   expect(onFormSubmit.mock.lastCall?.[0]).toEqual({ fallback: 'sent' }); expect(validate.mock.lastCall?.[1]).toEqual({ fallback: 'sent' });
   component.update({ controlName: 'changed' }); flushSync(); submit(); expect(onFormSubmit.mock.lastCall?.[0]).toEqual({ changed: 'sent' });
 });
+it('supplement an empty control id removes the previous Form registration but preserves the logical Field action', () => {
+  const onFormSubmit = vi.fn(), validate = vi.fn(() => null); const { component, input, submit } = setup({ initial: 'seed', onFormSubmit, validate });
+  component.update({ controlId: '' }); flushSync(); expect(input().id).toBe(''); submit();
+  expect(onFormSubmit.mock.lastCall?.[0]).toEqual({}); expect(validate).not.toHaveBeenCalled();
+  component.validateField(); flushSync(); expect(validate).toHaveBeenLastCalledWith('seed', {});
+  component.update({ controlId: 'restored' }); flushSync(); submit();
+  expect(onFormSubmit.mock.lastCall?.[0]).toEqual({ email: 'seed' }); expect(validate).toHaveBeenLastCalledWith('seed', { email: 'seed' });
+});
 it('Root:574 does not run a custom validator on ordinary changes outside Form by default', () => {
   const validate = vi.fn(() => 'error'); const { edit, validity } = setup({ noForm: true, validate });
   edit('value'); expect(validate).not.toHaveBeenCalled(); expect(validity().validity.valid).toBe(null);
@@ -75,6 +83,13 @@ it('Form:777 clears only changed own external errors, and disabling a computed-i
   component.update({ fieldsetDisabled: true }); flushSync(); expect(input().disabled).toBe(true); expect(field().hasAttribute('data-disabled')).toBe(true);
   submit(); expect(onFormSubmit.mock.lastCall?.[0]).toEqual({});
   component.update({ fieldsetDisabled: false }); flushSync(); submit(); expect(onFormSubmit.mock.lastCall?.[0]).toEqual({ email: 'ok' });
+});
+it('supplement repeated external and custom error text renders every source list item without key collisions', () => {
+  const { component, host, edit } = setup({ mode: 'onChange', initialErrors: { email: ['duplicate', 'duplicate'] }, validate: () => ['same', 'same'] });
+  expect([...host.querySelectorAll('#error li')].map(item => item.textContent)).toEqual(['duplicate', 'duplicate']);
+  edit('changed'); expect([...host.querySelectorAll('#error li')].map(item => item.textContent)).toEqual(['same', 'same']);
+  component.setErrors({ email: ['duplicate', 'new', 'duplicate'] }); flushSync();
+  expect([...host.querySelectorAll('#error li')].map(item => item.textContent)).toEqual(['duplicate', 'new', 'duplicate']);
 });
 it('Root:533 retains explicit invalidity while disabled and suppresses automatic Error/aria-invalid', () => {
   const { component, field, input, host } = setup(); component.update({ disabled: true, invalid: true }); flushSync();

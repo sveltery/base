@@ -40,7 +40,7 @@
 </script>
 {#snippet errorContent()}
   {#if Array.isArray(message)}
-    {#if message.length > 1}<ul>{#each message as item (item)}<li>{item}</li>{/each}</ul>{:else}{message[0] ?? ''}{/if}
+    {#if message.length > 1}<ul>{#each message as item, index (index)}<li>{item}</li>{/each}</ul>{:else}{message[0] ?? ''}{/if}
   {:else}{message ?? ''}{/if}
 {/snippet}
 {#if transition.mounted}

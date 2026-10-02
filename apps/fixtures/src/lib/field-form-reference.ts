@@ -26,7 +26,7 @@ export function mountFieldFormReference(node: HTMLElement, scenario: string) {
     const fieldActions = useRef<Field.Root.Actions | null>(null), formActions = useRef<Form.Actions | null>(null);
     const validate: NonNullable<Field.Root.Props['validate']> = (value, values) => {
       setValidations(previous => [...previous, { value, values }]);
-      const result = value === 'valid' || value === 'second' ? null : 'custom error';
+      const result = scenario.includes('duplicates') ? ['same', 'same'] : value === 'valid' || value === 'second' ? null : 'custom error';
       return scenario.includes('async') ? new Promise(resolve => setTimeout(() => resolve(result), value === 'slow' ? 180 : 30)) : result;
     };
     const Control = scenario.includes('input') ? Input : Field.Control;
@@ -51,7 +51,9 @@ export function mountFieldFormReference(node: HTMLElement, scenario: string) {
       h('form', { id: 'other-form' }),
       button('Programmatic', () => setValue('programmatic')), button('Disable', () => setDisabled(true)), button('Enable', () => setDisabled(false)),
       button('Server errors', () => setErrors({ email: 'server error' })), button('Empty errors', () => setErrors({ email: [] })),
+      button('Server duplicates', () => setErrors({ email: ['duplicate', 'duplicate'] })),
       button('Change id', () => setId('control-b')), button('Remove id', () => setId(undefined)), button('Rename', () => setName(undefined)),
+      button('Empty id', () => setId('')),
       button('Hide description', () => setDescription(false)), button('Remove control', () => setControl(false)), button('Show control', () => setControl(true)),
       button('Textarea', () => setTextarea(true)), button('Reorder', () => setSecondFirst(true)), button('Reassociate', () => setExternalForm('other-form')),
       button('Validate form', () => formActions.current?.validate()), button('Validate field', () => fieldActions.current?.validate()),
