@@ -7,7 +7,7 @@ async function setup(page: Page, query = '') {
 }
 async function readCounter(page: Page) {
   const reads = Number(await page.locator('#counter-reads').textContent());
-  await page.getByRole('button', { name: 'Read server counter', exact: true }).click();
+  await page.locator('main > button').filter({ hasText: /^Read server counter$/ }).click();
   await expect(page.locator('#counter-reads')).toHaveText(String(reads + 1));
   return Number(await page.locator('#server-counter').textContent());
 }
@@ -101,10 +101,14 @@ for (const mode of ['', 'formReplacement']) test(`acceptance Kit ${mode || 'defa
   });
   await test.info().attach('kit-native-named-control-attributes.json', { body: JSON.stringify(attributes, null, 2), contentType: 'application/json' });
   expect(attributes.namedCollisions.every(collision => collision.instanceLookupIsControl)).toBe(true);
-  await input.fill('blocked@example.com'); await page.getByRole('button', { name: 'Submit', exact: true }).click(); await page.waitForTimeout(300);
+  // Playwright locator.fill/click itself calls ancestor.getAttribute for ARIA checks. Native focus
+  // plus trusted keyboard events exercises the real collision without patching a DOM API.
+  await input.evaluate(node => HTMLElement.prototype.focus.call(node)); await page.keyboard.press('ControlOrMeta+A');
+  await page.keyboard.type('blocked@example.com'); await page.keyboard.press('Enter'); await page.waitForTimeout(300);
   expect(requests).toHaveLength(0); expect(await readCounter(page) - before).toBe(0); await expect(input).toHaveValue('blocked@example.com');
   await expect(page.locator('#remote-result')).toHaveText('null'); await expect(page.locator('#remote-resets')).toHaveText('0');
-  await input.fill('valid@example.com'); await page.getByRole('button', { name: 'Submit', exact: true }).click();
+  await input.evaluate(node => HTMLElement.prototype.focus.call(node)); await page.keyboard.press('ControlOrMeta+A');
+  await page.keyboard.type('valid@example.com'); await page.keyboard.press('Enter');
   await expect(page.locator('#remote-result')).toContainText('valid@example.com'); expect(requests).toHaveLength(1); expect(await readCounter(page) - before).toBe(1);
   await expect(input).toHaveValue('seed@example.com'); await expect(page.locator('#remote-resets')).toHaveText('1');
 });
