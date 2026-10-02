@@ -6,10 +6,13 @@
   import { Form } from '../../../../../packages/base/src/lib/form/index.js';
   import type { FormErrors } from '../../../../../packages/base/src/lib/form/types.js';
   import Input from '../../../../../packages/base/src/lib/input/Input.svelte';
-  import { saveFieldForm } from './field-form.remote.js';
+  import { saveFieldForm, fieldFormEffectCount } from './field-form.remote.js';
   let { data } = $props();
   let hydrated = $state(false), resets = $state(0), nativeInvalid = $state(0), nativeSubmit = $state(0);
   let events = $state<unknown[]>([]);
+  const effectCounter = fieldFormEffectCount();
+  let observedEffects = $state<number>();
+  let counterReads = $state(0);
   const observeKey = createAttachmentKey();
   function observeForm(node: HTMLFormElement) {
     const capture = (event: Event) => untrack(() => events.push({ stage: 'capture', type: event.type, defaultPrevented: event.defaultPrevented, value: new FormData(node).get('email') }));
@@ -17,7 +20,10 @@
     node.addEventListener('submit', capture, true); node.addEventListener('submit', after);
     return () => { node.removeEventListener('submit', capture, true); node.removeEventListener('submit', after); };
   }
-  onMount(() => { hydrated = true; });
+  async function refreshCounter() {
+    await effectCounter.refresh(); observedEffects = await effectCounter; counterReads++;
+  }
+  onMount(() => { void refreshCounter().then(() => { hydrated = true; }); });
   const errors = $derived.by((): FormErrors => {
     const issues = saveFieldForm.fields.email.issues();
     return issues?.length ? { email: issues.map(issue => issue.message) } : {};
@@ -52,7 +58,9 @@
   {/if}
   <button onclick={() => saveFieldForm.fields.email.set('programmatic@example.com')}>Programmatic</button>
   <button onclick={() => saveFieldForm.validate({ includeUntouched: true })}>Validate</button>
+  <button onclick={refreshCounter}>Read server counter</button>
   <output id="remote-value">{saveFieldForm.fields.email.value() ?? ''}</output><output id="remote-issues">{JSON.stringify(saveFieldForm.fields.email.issues() ?? [])}</output>
   <output id="remote-result">{JSON.stringify(saveFieldForm.result ?? null)}</output><output id="remote-events">{JSON.stringify(events)}</output>
   <output id="remote-resets">{resets}</output><output id="remote-invalid">{nativeInvalid}</output><output id="remote-native-submit">{nativeSubmit}</output>
+  <output id="server-counter">{observedEffects ?? ''}</output><output id="counter-reads">{counterReads}</output>
 </main>

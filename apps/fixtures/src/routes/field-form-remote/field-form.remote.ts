@@ -1,7 +1,8 @@
 // Actual Kit server validation and visible effect counter; fixture-only.
-import { form } from '$app/server';
+import { form, query } from '$app/server';
 type Data = { email: string };
 let effectCount = 0;
+export const fieldFormEffectCount = query(async () => effectCount);
 const schema = {
   '~standard': {
     version: 1 as const, vendor: 'field-form-fixture',
