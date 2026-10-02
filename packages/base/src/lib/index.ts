@@ -20,3 +20,5 @@ export { Meter } from './meter/index.js';
 export type { MeterRootProps, MeterRootState, MeterLabelProps, MeterLabelState, MeterTrackProps, MeterTrackState, MeterIndicatorProps, MeterIndicatorState, MeterValueProps, MeterValueState } from './meter/index.js';
 export { Avatar } from './avatar/index.js';
 export type { AvatarRootProps, AvatarRootState, AvatarImageProps, AvatarImageState, AvatarFallbackProps, AvatarFallbackState, ImageLoadingStatus } from './avatar/index.js';
+export { Accordion } from './accordion/index.js';
+export type { AccordionValue, AccordionRootProps, AccordionRootState, AccordionItemProps, AccordionItemState, AccordionHeaderProps, AccordionHeaderState, AccordionTriggerProps, AccordionTriggerState, AccordionPanelProps, AccordionPanelState, AccordionRootChangeEventReason, AccordionRootChangeEventDetails, AccordionItemChangeEventReason, AccordionItemChangeEventDetails } from './accordion/index.js';
