@@ -47,6 +47,9 @@ cat > "$direction_consumer/Consumer.svelte" <<'SVELTE'
   import { First, Second, type DirectionProviderProps } from './imports.js';
   import Probe from './Probe.svelte';
   const props: DirectionProviderProps = { direction: 'rtl' };
+  const namespaceProps: Second.Props = { direction: 'rtl' };
+  const state: First.State = {};
+  void [namespaceProps, state];
 </script>
 <Probe id="outside" />
 <First {...props}><Probe id="outer" /><Second><Probe id="inner" /></Second></First>
