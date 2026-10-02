@@ -181,3 +181,6 @@ bash "$sveltery_repo_root/scripts/check-avatar-package.sh" --public
 
 # Genuine installed public Accordion root/subpath SSR and type consumer.
 bash "$sveltery_repo_root/scripts/check-accordion-package.sh" --public
+
+# Isolated public DirectionProvider root/subpath, callable reader, SSR and namespace types.
+bash "$sveltery_repo_root/scripts/check-direction-provider-package.sh" --public

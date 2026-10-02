@@ -39,7 +39,7 @@ export const docs: Doc[] = [
         id: 'status',
         title: 'A foundation in progress',
         paragraphs: [
-          'Dialog, Button, Toast, standalone Input, Separator and Toggle, Progress, Collapsible, Meter, Avatar and Accordion have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
+          'Dialog, Button, Toast, standalone Input, Separator and Toggle, Progress, Collapsible, Meter, Avatar, Accordion and DirectionProvider have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
           'The package is private and unpublished. APIs may change. Use this workspace to evaluate the current slice; check the repository contracts before depending on a behavior.',
         ],
         links: [
@@ -232,6 +232,17 @@ export const docs: Doc[] = [
           },
         ],
       },
+    ],
+  },
+  {
+    slug: 'components/direction-provider', group: 'Components', title: 'Direction Provider',
+    description: 'Share a text reading direction with descendant components.',
+    sections: [
+      { id: 'provide', title: 'Provide a direction', paragraphs: ['Wrap content in DirectionProvider with direction="rtl" or direction="ltr". It supplies context without adding an element or setting dir on your document.'], code: '<DirectionProvider direction="rtl"><Content /></DirectionProvider>' },
+      { id: 'read', title: 'Read reactive direction', paragraphs: ['In a descendant component, call useDirection once during initialization. Retain the returned reader and call it in markup, $derived or event handlers. Reading once during initialization captures only that value.'], code: '<script lang="ts">\n  import { useDirection } from "@sveltery/base/direction-provider";\n  const direction = useDirection();\n  let isRTL = $derived(direction() === "rtl");\n</script>\n<span dir={direction()}>{isRTL ? "RTL content" : "LTR content"}</span>' },
+      { id: 'defaults', title: 'Defaults and nesting', paragraphs: ['Readers outside a provider return ltr. An omitted or undefined provider direction also defaults to ltr. A nested provider owns its direction and defaults to ltr rather than inheriting its parent. Prop updates reach its existing descendants.'] },
+      { id: 'imports', title: 'Imports and types', paragraphs: ['Import DirectionProvider and useDirection from @sveltery/base or @sveltery/base/direction-provider. DirectionProviderProps and TextDirection are named types; DirectionProvider.Props and the empty DirectionProvider.State are type-only aliases. The hook takes no override argument.'] },
+      { id: 'limits', title: 'Compatibility limits', paragraphs: ['The reader is a callable Svelte API. It reads live owner changes, including inside the same event handler. Existing controls are not automatically connected to this context, and full directional interaction compatibility remains unfinished.'], links: [{ label: 'Read the DirectionProvider contract and evidence', href: 'https://github.com/sveltery/base/blob/main/docs/direction-provider.md' }] },
     ],
   },
   {
