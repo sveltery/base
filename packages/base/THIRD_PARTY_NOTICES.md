@@ -1,5 +1,7 @@
 # Third-party notices
 
+DirectionProvider, its direction context/callable reader and assertion/type adapters derive from packages/react/src/direction-provider and internals/direction-context at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT attribution and complete immutable source/assertion hashes are preserved in parity/direction-provider.
+
 Accordion Root, Item, Header, Trigger, Panel, value and DOM-order registration behavior, and assertion/type ports derive from packages/react/src/accordion and the pinned Collapsible/Button/lifecycle helpers at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT attribution and immutable source/assertion hashes are preserved in parity/accordion.
 
 Avatar Root, Image, Fallback, private detached/rendered image loading, fallback timing and presence/animation completion and assertion/type ports derive from packages/react/src/avatar, useTransitionStatus, useOpenChangeComplete, useAnimationsFinished and useTimeout at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT attribution and complete immutable source/assertion hashes are preserved in parity/avatar.
