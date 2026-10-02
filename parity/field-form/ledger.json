@@ -5,11 +5,11 @@
     "commit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
     "license": "MIT"
   },
-  "scope": "All 209 immutable ordinary declaration sites accounted for. Twenty complete native DOM body adaptations are separately mapped in fieldset-ports.json and primitive-ports.json and await final gates with zero credit. Consumer/lifecycle classifications identify concrete blockers, not approved differences or completed parity. Template sites remain sites; no hypothetical parameterized execution total or grouped supplement is credited.",
+  "scope": "All 209 immutable ordinary declaration sites accounted for. Forty-two complete native DOM body adaptations are separately mapped in fieldset-ports.json, primitive-ports.json and validation-ports.json and await final gates with zero credit. The stale-error template has both source mode executions but remains one declaration. Consumer/lifecycle classifications identify concrete blockers, not approved differences or completed parity; no grouped supplement is credited.",
   "counts": {
     "deferred-react-lifecycle-contract": 8,
-    "unported": 146,
-    "native-dom-port-pending-final-gates": 20,
+    "unported": 124,
+    "native-dom-port-pending-final-gates": 42,
     "deferred-consumer-family": 35
   },
   "ordinaryDeclarationCredit": 0,
@@ -440,10 +440,17 @@
       "assertionLines": [
         26
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-validation-source.test.ts",
+        "declarationLine": 29,
+        "bodySha256": "dd137f2f6b44c4f5b61fc71b1501365340fe5454754ec523e8bd31a8a57af398",
+        "assertionLines": [
+          30
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -455,10 +462,19 @@
         51,
         54
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-validation-source.test.ts",
+        "declarationLine": 32,
+        "bodySha256": "7713521bf924dbdca66714200b889e664558aaaa953b5b124530d4eb77eaf246",
+        "assertionLines": [
+          33,
+          34,
+          35
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -471,10 +487,20 @@
         78,
         81
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-validation-source.test.ts",
+        "declarationLine": 37,
+        "bodySha256": "44598604de9e16d3bdf67e01f133b49ae570c7a9a233b8ce5ae53487fe9940ac",
+        "assertionLines": [
+          38,
+          39,
+          40,
+          41
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -485,10 +511,18 @@
         100,
         103
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-validation-source.test.ts",
+        "declarationLine": 43,
+        "bodySha256": "7abeae7cf9b05b0f13a363aea8c07dabd47e08d95ddd34319d08429527afde57",
+        "assertionLines": [
+          44,
+          45
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -501,10 +535,20 @@
         123,
         124
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-validation-source.test.ts",
+        "declarationLine": 47,
+        "bodySha256": "254c41be8dde3a3b2dbe4a3c0be1dab1c4ccd282b3bf4f0dae79102455ee6026",
+        "assertionLines": [
+          48,
+          49,
+          49,
+          50
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -517,10 +561,20 @@
         144,
         145
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-validation-source.test.ts",
+        "declarationLine": 52,
+        "bodySha256": "668caa4ea5ada90b0251afd22890e28bd025329fb6a32e1bbe2b6b9f75cbe82c",
+        "assertionLines": [
+          53,
+          54,
+          54,
+          55
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -533,10 +587,20 @@
         165,
         166
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-validation-source.test.ts",
+        "declarationLine": 57,
+        "bodySha256": "f0a265823d375be69b2e50324003b9567a095b08ecf4f482fd5d2ad79be2c7be",
+        "assertionLines": [
+          58,
+          59,
+          60,
+          60
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -547,10 +611,18 @@
         179,
         180
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-validation-source.test.ts",
+        "declarationLine": 62,
+        "bodySha256": "fa164b8cfeaaddea2e3ed87de441729e3e7e19e45af7ca2c22b74215e9b1b966",
+        "assertionLines": [
+          63,
+          63
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -563,10 +635,20 @@
         196,
         197
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-validation-source.test.ts",
+        "declarationLine": 65,
+        "bodySha256": "c1a218ca017394bb83beae96320b2f0e954bd3070845cfe0dae427712b8cca48",
+        "assertionLines": [
+          67,
+          67,
+          68,
+          68
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -577,10 +659,18 @@
         210,
         211
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-validation-source.test.ts",
+        "declarationLine": 70,
+        "bodySha256": "19e933bc08c8d5cbe6a5b5b5b5a5de9b49cca37b278e326e19f5d3a86aefdedd",
+        "assertionLines": [
+          71,
+          71
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -593,10 +683,20 @@
         230,
         231
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-validation-source.test.ts",
+        "declarationLine": 73,
+        "bodySha256": "a68acc20d93b89a27e93e7e22d4a0fa418045e57aef2ce574eff437babc8f9de",
+        "assertionLines": [
+          75,
+          75,
+          76,
+          76
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -606,10 +706,17 @@
       "assertionLines": [
         242
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-validation-source.test.ts",
+        "declarationLine": 78,
+        "bodySha256": "a5900f1a98c481e95b93c10b964dea8d6bc05f579a639d0e90122ad99fac3447",
+        "assertionLines": [
+          79
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -620,10 +727,18 @@
         258,
         259
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-validation-source.test.ts",
+        "declarationLine": 81,
+        "bodySha256": "2729ff2f1a07041b7932c7ad30a48130f271440a0212721bd0838356c727c181",
+        "assertionLines": [
+          82,
+          82
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -634,10 +749,18 @@
         273,
         277
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-validation-source.test.ts",
+        "declarationLine": 84,
+        "bodySha256": "c05bdcc3fea0ed13e648ec371006eafb9d6bba8196de10a5a1428efe928c4a56",
+        "assertionLines": [
+          85,
+          85
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -649,10 +772,19 @@
         295,
         296
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-validation-source.test.ts",
+        "declarationLine": 87,
+        "bodySha256": "84f4136c61bb8e699ae264db4334b8d2268585c4741d248cb211aacde5af3ad9",
+        "assertionLines": [
+          88,
+          89,
+          89
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -662,10 +794,17 @@
       "assertionLines": [
         307
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-validation-source.test.ts",
+        "declarationLine": 91,
+        "bodySha256": "e1050962eb77db9e62988a9f14cbca2404ab522a791dcc7e56a6ee048db0dae1",
+        "assertionLines": [
+          92
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -707,10 +846,18 @@
         38,
         39
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-validation-source.test.ts",
+        "declarationLine": 96,
+        "bodySha256": "eede77965707ede40d86592aa21195567e09074d7fb4d42f301fe9dfc2029447",
+        "assertionLines": [
+          98,
+          98
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -2588,10 +2735,29 @@
         65,
         66
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-validation-source.test.ts",
+        "declarationLine": 103,
+        "bodySha256": "a857b485f50a30faaf4154eff57b0528ed0590a7805ed75af7feb300ba385eef",
+        "assertionLines": [
+          107,
+          107,
+          108,
+          108,
+          110,
+          110,
+          111,
+          111,
+          112,
+          114,
+          114,
+          115,
+          115
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -2628,10 +2794,23 @@
         130,
         131
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-validation-source.test.ts",
+        "declarationLine": 119,
+        "bodySha256": "76e56b8a569531e4e963e58f4b74b91ac6244adc318061af6883533010b37421",
+        "assertionLines": [
+          121,
+          122,
+          122,
+          123,
+          124,
+          124,
+          124
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -2644,10 +2823,20 @@
         155,
         156
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-validation-source.test.ts",
+        "declarationLine": 128,
+        "bodySha256": "5359563e6f4aeb8e4831ae62697e212c15fade48aca1472d5ba00802f74b5123",
+        "assertionLines": [
+          130,
+          131,
+          131,
+          131
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -2658,10 +2847,18 @@
         174,
         175
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-validation-source.test.ts",
+        "declarationLine": 133,
+        "bodySha256": "db1021ca16f62b67bf805605f5c5295fed73d192347629e7a474f02128f1ee43",
+        "assertionLines": [
+          135,
+          135
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -2672,10 +2869,18 @@
         193,
         194
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-validation-source.test.ts",
+        "declarationLine": 137,
+        "bodySha256": "37768f46566a496c74caf03023b99c3a64105836576c3d9fb9f0cb3dfc2cc360",
+        "assertionLines": [
+          139,
+          139
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {

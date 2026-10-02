@@ -10,7 +10,8 @@ const root = resolve(process.argv[2] ?? '../direction-provider-upstream');
 const inventory = JSON.parse(readFileSync(new URL('./upstream-inventory.json', import.meta.url), 'utf8'));
 const nativePorts = JSON.parse(readFileSync(new URL('./fieldset-ports.json', import.meta.url), 'utf8'));
 const primitivePorts = JSON.parse(readFileSync(new URL('./primitive-ports.json', import.meta.url), 'utf8'));
-const portsById = new Map([...nativePorts.ports, ...primitivePorts.ports].map(port => [port.id, port]));
+const validationPorts = JSON.parse(readFileSync(new URL('./validation-ports.json', import.meta.url), 'utf8'));
+const portsById = new Map([...nativePorts.ports, ...primitivePorts.ports, ...validationPorts.ports].map(port => [port.id, port]));
 const bodies = new Map();
 const declarationsById = new Map(inventory.declarations.map(declaration => [declaration.id, declaration]));
 for (const source of new Set(inventory.declarations.map(declaration => declaration.source))) {
@@ -46,7 +47,7 @@ const declarations = inventory.declarations.map(declaration => {
 });
 const counts = declarations.reduce((result, declaration) => { result[declaration.status] = (result[declaration.status] ?? 0) + 1; return result; }, {});
 const output = JSON.stringify({ upstream: inventory.upstream,
-  scope: 'All 209 immutable ordinary declaration sites accounted for. Twenty complete native DOM body adaptations are separately mapped in fieldset-ports.json and primitive-ports.json and await final gates with zero credit. Consumer/lifecycle classifications identify concrete blockers, not approved differences or completed parity. Template sites remain sites; no hypothetical parameterized execution total or grouped supplement is credited.',
+  scope: 'All 209 immutable ordinary declaration sites accounted for. Forty-two complete native DOM body adaptations are separately mapped in fieldset-ports.json, primitive-ports.json and validation-ports.json and await final gates with zero credit. The stale-error template has both source mode executions but remains one declaration. Consumer/lifecycle classifications identify concrete blockers, not approved differences or completed parity; no grouped supplement is credited.',
   counts, ordinaryDeclarationCredit: 0, declarations,
   helperInventory: { file: 'conformance.json', invocations: 9, distinctHelperDeclarationSites: 15, invocationMappings: 135, plannedRealReactSvelteExecutions: 270, ordinaryDeclarationCredit: 0, status: 'uncredited-pending-execution' },
   typeAssertions: inventory.typeAssertions.map(assertion => ({ id: `${assertion.source}:${assertion.line}`, assertion: assertion.text, port: 'packages/base/tests/field-form.types.ts', status: 'passing-internal-svelte-check-public-tarball-pending', ordinaryDeclarationCredit: 0 })),
