@@ -5,12 +5,12 @@
     "commit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
     "license": "MIT"
   },
-  "scope": "All 209 immutable ordinary declaration sites accounted for. Seven complete native DOM body adaptations are separately mapped in fieldset-ports.json and await final gates with zero credit. Consumer/lifecycle classifications identify concrete blockers, not approved differences or completed parity. Template sites remain sites; no hypothetical parameterized execution total or grouped supplement is credited.",
+  "scope": "All 209 immutable ordinary declaration sites accounted for. Twenty complete native DOM body adaptations are separately mapped in fieldset-ports.json and primitive-ports.json and await final gates with zero credit. Consumer/lifecycle classifications identify concrete blockers, not approved differences or completed parity. Template sites remain sites; no hypothetical parameterized execution total or grouped supplement is credited.",
   "counts": {
     "deferred-react-lifecycle-contract": 8,
-    "unported": 159,
-    "deferred-consumer-family": 35,
-    "native-dom-port-pending-final-gates": 7
+    "unported": 146,
+    "native-dom-port-pending-final-gates": 20,
+    "deferred-consumer-family": 35
   },
   "ordinaryDeclarationCredit": 0,
   "declarations": [
@@ -360,10 +360,17 @@
       "assertionLines": [
         24
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-primitives-source.test.ts",
+        "declarationLine": 13,
+        "bodySha256": "7e2a9918229fa5fd00f9913d8e857d4d3e8a70a310ea2bb696d538a15dcfa6ac",
+        "assertionLines": [
+          15
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -373,10 +380,17 @@
       "assertionLines": [
         38
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-primitives-source.test.ts",
+        "declarationLine": 17,
+        "bodySha256": "4af399abf5cb2716d65fe3f0742ead38ddee35c37d945c1f7ca870c0549e3640",
+        "assertionLines": [
+          19
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -386,10 +400,17 @@
       "assertionLines": [
         51
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-primitives-source.test.ts",
+        "declarationLine": 21,
+        "bodySha256": "582b8d8ead92417e755a52b34f3e6bd2b9be2ffd028148f19f17b6ef7687e796",
+        "assertionLines": [
+          23
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -399,10 +420,17 @@
       "assertionLines": [
         63
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-primitives-source.test.ts",
+        "declarationLine": 25,
+        "bodySha256": "f9fa9976cd972c43720aa8317771f63e0185f437f60c1c5662063ccf7c8828ce",
+        "assertionLines": [
+          27
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -746,10 +774,17 @@
       "assertionLines": [
         27
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-primitives-source.test.ts",
+        "declarationLine": 31,
+        "bodySha256": "a85c6c671a98dfc23d0e05a48b3b867fee20096c4a34778a491745b68d5b0816",
+        "assertionLines": [
+          33
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -760,10 +795,18 @@
         43,
         46
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-primitives-source.test.ts",
+        "declarationLine": 35,
+        "bodySha256": "a361657bf2e5e45e3a6dca049361f492b54a003145cabb3283f441dfb2d41ff7",
+        "assertionLines": [
+          37,
+          39
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -774,10 +817,18 @@
         64,
         68
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-primitives-source.test.ts",
+        "declarationLine": 41,
+        "bodySha256": "a6bbd9e1a321ef7c6e972b3c6c4f5c6f7e6f251f4f82c1804d110a40c317f9c7",
+        "assertionLines": [
+          43,
+          44
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -788,10 +839,18 @@
         74,
         78
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-primitives-source.test.ts",
+        "declarationLine": 46,
+        "bodySha256": "be516c76b189879b628d95e5bbae3396634069007d6bb4a74caaae41cb1b9a11",
+        "assertionLines": [
+          48,
+          49
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -801,10 +860,17 @@
       "assertionLines": [
         91
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-primitives-source.test.ts",
+        "declarationLine": 51,
+        "bodySha256": "748f7c085637264e4ad0c6a7161f5e356c9d457bedb466da665329ba780f2a9a",
+        "assertionLines": [
+          53
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -814,10 +880,17 @@
       "assertionLines": [
         108
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-primitives-source.test.ts",
+        "declarationLine": 55,
+        "bodySha256": "c840d04e8ada68d5faf3e3086c2e71ea6ee4fa3af3347ec7c90557b93de6d50f",
+        "assertionLines": [
+          57
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -827,10 +900,17 @@
       "assertionLines": [
         128
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-primitives-source.test.ts",
+        "declarationLine": 59,
+        "bodySha256": "515c2caa5196d9e9c1ef705254aef1e0e87b7ec697097525774138e785c83326",
+        "assertionLines": [
+          61
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -841,10 +921,18 @@
         148,
         149
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-primitives-source.test.ts",
+        "declarationLine": 63,
+        "bodySha256": "719e61bca9b58c8c65e881e6f15d2b0c95cd75d0f59f80e457bb11d7f02ccbaa",
+        "assertionLines": [
+          66,
+          67
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -855,10 +943,18 @@
         175,
         176
       ],
-      "status": "unported",
-      "reason": "No complete ordinary source declaration port has been executed. Related grouped supplements remain separate and uncredited.",
+      "status": "native-dom-port-pending-final-gates",
+      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
       "dependencies": [],
-      "port": null,
+      "port": {
+        "file": "packages/base/tests/dom/field-primitives-source.test.ts",
+        "declarationLine": 70,
+        "bodySha256": "612b1af12d8a3cc8abd63e40294dedcd2e6105038773ed45952bfce5e0c4542f",
+        "assertionLines": [
+          73,
+          74
+        ]
+      },
       "ordinaryDeclarationCredit": 0
     },
     {
