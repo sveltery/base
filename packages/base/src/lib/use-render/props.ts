@@ -12,7 +12,7 @@ export function stateAttributes<State extends Record<string, unknown>>(state: St
   const result: UseRenderHostProps = {};
   for (const key in state) {
     const value = state[key];
-    if (mapping && Object.prototype.hasOwnProperty.call(mapping, key)) {
+    if (mapping?.hasOwnProperty(key)) {
       const custom = mapping[key]!(value);
       if (custom != null) Object.assign(result, custom);
     } else if (value === true) result[`data-${key.toLowerCase()}`] = '';
