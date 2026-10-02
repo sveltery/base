@@ -2,7 +2,7 @@
 
 Source checkout: official mui/base-ui tag v1.8.0 resolved to `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`; root package identifies Base UI React 1.8.0. Source extractor confirms Image34/Fallback10/Root0 ordinary declarations, zero parameterized variants, three conformance calls and six type assertions. This is provenance verification, not execution credit.
 
-Secured browser and final-head review evidence is pending. The serialized shared integration patch must be applied by the parent against Meter's stable shared head before public import gates and final combined-head CI can establish merge eligibility. This feature checkpoint is not merge eligible merely because source-local tests pass.
+Secured browser and final-head review evidence is pending. The parent has authorized and serialized shared integration against landed Meter. Public import gates now pass; final combined-head CI remains required. The integrated checkpoint is not merge eligible merely because local tests pass.
 
 ## Executed source-local checks, 2026-10-02
 
@@ -22,3 +22,9 @@ Draft [PR #36](https://github.com/sveltery/base/pull/36) publishes source checkp
 ## Parent-authorized shared integration
 
 The parent relayed Meter landing and authorized Avatar to take first shared ownership. Full origin/main d889e75 was fetched and compared tree-identically with85ff67c before applying the exact patch. Public root/subpath exports, seven type exports, attribution, catalog/docs and consumer gates are now present; fixture imports use the public root. The disposable proposed tree ab0cff07e719eedc7cab66b6ae865b364f1e2383 previously passed fresh frozen install/build, isolated public consumers, catalog/docs checks and standards. Those proposed-tree checks supplement, rather than replace, fresh integrated-head checks.
+
+## Executed integrated checks
+
+Published shared checkpoint `cc2c3e217d6d4d9411a9388f53f9814551328982` passed full verification:43 script checks,186 runtime/SSR tests,669 DOM passes plus the four pre-existing accepted Input expected failures, both builds, zero type/Svelte diagnostics, runtime boundary and all public consumers. The actual Avatar public root/subpath tarball and all seven type exports passed with fresh/frozen dependency installation; both SSR modes passed. Standards and whitespace passed. Independent integrated review found no runtime/export/shared-workflow blocker and verified11 bounded/31 unimplemented modules, unchanged Meter/shared helpers/lockfile and sandbox/retry settings. It identified only stale historical integration prose, which this documentation correction resolves.
+
+Hosted secured CI on the integrated source checkpoint remains pending; the prior handoff run had Verification, Standards, Meter and Collapsible green but its combined browser job was canceled when the integrated successor was pushed. Canceled combined acceptance is not a passing result. Candidate ordinary evidence remains null and no native browser parity credit is claimed yet. Final exact-head CI, configured review (or evidenced quota exhaustion) and post-merge CI are still required.
