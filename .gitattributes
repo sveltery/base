@@ -1,0 +1,2 @@
+# Preserve byte-exact diagnostic logs, including their terminal blank lines.
+parity/input/reset-limit/**/*.log whitespace=-blank-at-eof

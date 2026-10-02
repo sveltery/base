@@ -1,0 +1,94 @@
+[
+  {
+    "direction": "out",
+    "when": "during",
+    "stages": [
+      {
+        "phase": 1,
+        "form": "clone-first",
+        "dirty": true,
+        "type": "text",
+        "value": "edit",
+        "defaultValue": "seed"
+      }
+    ],
+    "canceled": false,
+    "phase": 0,
+    "form": "clone-second",
+    "dirty": true,
+    "type": "text",
+    "value": "post",
+    "defaultValue": "seed",
+    "html": "<input value=\"seed\" form=\"clone-second\">",
+    "actualReset": false
+  },
+  {
+    "direction": "out",
+    "when": "after",
+    "stages": [
+      {
+        "phase": 1,
+        "form": "clone-first",
+        "dirty": true,
+        "type": "text",
+        "value": "edit",
+        "defaultValue": "seed"
+      }
+    ],
+    "canceled": false,
+    "phase": 0,
+    "form": "clone-second",
+    "dirty": true,
+    "type": "text",
+    "value": "post",
+    "defaultValue": "seed",
+    "html": "<input value=\"seed\" form=\"clone-second\">",
+    "actualReset": true
+  },
+  {
+    "direction": "in",
+    "when": "during",
+    "stages": [
+      {
+        "phase": 1,
+        "form": "clone-second",
+        "dirty": true,
+        "type": "text",
+        "value": "edit",
+        "defaultValue": "seed"
+      }
+    ],
+    "canceled": false,
+    "phase": 0,
+    "form": "clone-first",
+    "dirty": true,
+    "type": "text",
+    "value": "post",
+    "defaultValue": "seed",
+    "html": "<input value=\"seed\" form=\"clone-first\">",
+    "actualReset": true
+  },
+  {
+    "direction": "in",
+    "when": "after",
+    "stages": [
+      {
+        "phase": 1,
+        "form": "clone-second",
+        "dirty": true,
+        "type": "text",
+        "value": "edit",
+        "defaultValue": "seed"
+      }
+    ],
+    "canceled": false,
+    "phase": 0,
+    "form": "clone-first",
+    "dirty": true,
+    "type": "text",
+    "value": "post",
+    "defaultValue": "seed",
+    "html": "<input value=\"seed\" form=\"clone-first\">",
+    "actualReset": false
+  }
+]

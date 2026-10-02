@@ -1,0 +1,1 @@
+export function load({ url }: { url: URL }) { return { native: url.searchParams.has('native'), replacement: url.searchParams.has('replacement'), canceledReset: url.searchParams.has('canceled-reset'), canceledValue: url.searchParams.has('canceled-value') }; }

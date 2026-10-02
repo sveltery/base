@@ -1,0 +1,41 @@
+
+ RUN  v5.0.3 /workspace/base/packages/base
+
+ ❯ ../../../../tmp/input-independent-review/clone-boundary.test.ts (9 tests | 2 failed) 63ms
+   × actual candidate native boundary same-value-after-reset 12ms
+   × actual candidate native boundary unrelated-mode-transition 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  ../../../../tmp/input-independent-review/clone-boundary.test.ts > actual candidate native boundary same-value-after-reset
+AssertionError: expected 'owner' to be 'seed' // Object.is equality
+
+Expected: "seed"
+Received: "owner"
+
+ ❯ ../../../../tmp/input-independent-review/clone-boundary.test.ts:22:174
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  ../../../../tmp/input-independent-review/clone-boundary.test.ts > actual candidate native boundary unrelated-mode-transition
+AssertionError: expected 'edit' to be 'owner' // Object.is equality
+
+Expected: "owner"
+Received: "edit"
+
+ ❯ ../../../../tmp/input-independent-review/clone-boundary.test.ts:22:174
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 7 passed (9)
+   Start at  10:12:31
+   Duration  1.36s (transform 47%, environment 40%, import 8%, tests 5%)
+
+Error: ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL
+
+  × "pnpm recursive exec" failed in /workspace/base/packages/base
+
