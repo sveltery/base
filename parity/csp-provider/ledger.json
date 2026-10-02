@@ -161,11 +161,18 @@
     "browser": {
       "file": "tests/browser/csp-provider.spec.ts",
       "executions": 5,
-      "result": "pending-secured-browser"
+      "result": "passing-secured-source-checkpoint-uncredited",
+      "record": "parity/csp-provider/browser-evidence.json",
+      "sourceHead": "d77182579f151bf08c9b7d192e5feff5bd2f3ede",
+      "run": 37056606091,
+      "browserJob": 111002877487
     },
     "publicConsumer": {
       "file": "scripts/check-csp-provider-package.sh",
-      "result": "passing-local"
+      "result": "passing-local-and-hosted-source-checkpoint",
+      "sourceHead": "d77182579f151bf08c9b7d192e5feff5bd2f3ede",
+      "run": 37056606091,
+      "verificationJob": 111002877377
     },
     "red": {
       "setup": "Wrapper-only provider omitted context initialization; all other fixture and observable assertions retained.",
