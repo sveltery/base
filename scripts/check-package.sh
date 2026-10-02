@@ -178,3 +178,6 @@ bash "$sveltery_repo_root/scripts/check-meter-package.sh" --public
 
 # Isolated public Avatar root/subpath, both SSR loading modes and seven type exports.
 bash "$sveltery_repo_root/scripts/check-avatar-package.sh" --public
+
+# Genuine installed public Accordion root/subpath SSR and type consumer.
+bash "$sveltery_repo_root/scripts/check-accordion-package.sh" --public
