@@ -1,0 +1,28 @@
+{
+  "status": "quota-waived",
+  "scope": "Configured automatic Codex PR code review for CSPProvider PR #39 only. A waiver is not a passed review or product approval.",
+  "pr": "https://github.com/sveltery/base/pull/39",
+  "basis": {
+    "requirementsPage": "page_a2f16e7472408191ba98a44acf7220c8",
+    "section": "Definition of done for a slice, item 4",
+    "instruction": "Configured automatic review must pass unless actual quota exhaustion invokes the user's exception; a waiver is not approval.",
+    "decision": "PM independently verified the actual quota exhaustion and applied the requirements Page's recorded exception in the current project conversation on 2026-10-02."
+  },
+  "evidence": {
+    "comment": "https://github.com/sveltery/base/pull/39#issuecomment-5960165735",
+    "commentId": 5960165735,
+    "actor": "chatgpt-codex-connector[bot]",
+    "createdAt": "2026-10-02T19:46:56Z",
+    "literal": "You have reached your Codex usage limits for code reviews.",
+    "initialPRHead": "c495874269fe45283c36055b874f71c8ed9ec1a4"
+  },
+  "mandatoryGates": [
+    "Independent review of the exact final candidate",
+    "All current exact-head CI and secured paired browser acceptance",
+    "Real public root/subpath consumers",
+    "Current-main merge synchronization",
+    "PM exact-head merge approval",
+    "Exact post-merge CI"
+  ],
+  "behavioralDifferenceApproval": false
+}

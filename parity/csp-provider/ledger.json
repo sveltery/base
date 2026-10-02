@@ -176,6 +176,11 @@
   "decision": {
     "classification": "framework-context-and-child-snippet-substitution",
     "status": "implementation-scope-approved-by-pm; exact-head-acceptance-pending",
-    "authority": "PM delegated project design authority approved concrete scope in current project conversation on 2026-10-02. No explicit user deviation approval claimed."
+    "authority": "PM delegated project design authority approved concrete scope in current project conversation on 2026-10-02. No explicit user deviation approval claimed.",
+    "automaticReview": {
+      "status": "quota-waived",
+      "record": "parity/csp-provider/review-waiver.json",
+      "independentReview": "pending-exact-final-head"
+    }
   }
 }
