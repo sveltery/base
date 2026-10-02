@@ -1,0 +1,17 @@
+# Avatar compatibility register
+
+## AV-01: framework/API substitutions
+
+Source: [pinned Avatar parts](https://github.com/mui/base-ui/tree/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/avatar), useImageLoadingStatus, useTransitionStatus, useOpenChangeComplete and useAnimationsFinished at Base UI 1.8.0 `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`.
+
+React className/style object/render elements or functions/refs/synthetic events become Svelte class/string CSS/render and children snippets/bindings and attachments/native events within the five accepted framework substitutions recorded in T-01 of the central register. Image native responsive props use native Svelte spelling (`srcset`, `crossorigin`, `referrerpolicy`, `onload`, `onerror`). Named part Props/State exports replace React component namespaces. Initial undefined bindable refs follow inherited A-01. Replacement snippets must spread supplied attachments and explicitly merge render-owned props with mergeProps for the same precedence and callback chaining.
+
+React render-element identity changes re-read the actual image's complete/naturalWidth. Svelte snippet identity remains stable while its lexical source changes, so a private MutationObserver observes only src/srcset/sizes/crossorigin/referrerpolicy changes on the rendered host. A ref replacement also re-reads status and disconnects the old observer. Thus imperatively mutating those source attributes also triggers a read locally; the pin's effect runs only when its React dependencies change. This observable framework ownership adaptation is explicit; no claim of identical external imperative mutation scheduling is made. No source callback is invented. Ref-less snippets retain forwarded event-derived status. State class/style callbacks and status publication use Svelte commit scheduling; cached hydration must be observed before paint in the paired browser harness.
+
+Rationale: close both source loading modes using native Svelte ownership while preserving source handler order, status suppression, presence and cached-hydration behavior. Evidence: the feature-local DOM, SSR, type and paired browser tests plus the immutable source/ordered assertion ledger. Executed evidence and proposed PR are recorded in verification.md. Landing status remains separate from approval: the accepted five baseline substitutions apply; no additional specific acceptance decision for external imperative source mutation observation is recorded. This record does not grant divergent assertions parity credit.
+
+## Preserved scope and unimplemented acceptance
+
+The fallback timer is monotonic, delay changes do not hide an already visible fallback, and Image disposal resets the Root even when other images exist. Detached-source changes preserve exit presence and suppress stale callbacks. Rendered mode retains its element and excludes ending-style. Any questionable source behavior must first be reproduced against the pin and retained; no inherited bug fixes are introduced.
+
+Native request ordering, rendered responsive selection, actual cached hydration before paint, CSS animation completion, public root/subpath package consumers and final-head independent/configured reviews require their own executed evidence. Pending verification is incomplete acceptance, not an intentional correction. Full assistive-technology parity is not established by aria attributes or roles alone.

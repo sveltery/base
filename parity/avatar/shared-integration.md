@@ -1,0 +1,9 @@
+# Serialized shared integration
+
+Avatar workers own feature-local source, DOM/SSR/types, fixtures/reference routes, browser cases, immutable source/ordered assertion records, component docs and package consumer script. Meter PR #32 owns shared files. No shared Element, Button, Collapsible or Meter source is edited.
+
+[integration.patch](integration.patch) is generated against Meter's stable shared candidate `85ff67c5ddeaec15cdc89322ace75daefafe9a94`, which incorporates main `39e0a4dc6e46b4696837adae691083f18b6e96bd`. It is an exact additive parent handoff; do not apply it concurrently with Meter integration. It adds root namespace and all seven named types, ./avatar export, package MIT attribution, component/catalog/docs navigation, the central differences link and public root/subpath consumer gate. Meter's records and counts remain intact: adding Avatar makes eleven bounded and 31 unimplemented modules. Existing shared 635-entry ordinary totals remain unchanged.
+
+There is no new runtime dependency, package-lock change or overlay/Field/Form dependency. The existing secured combined browser workflow discovers Avatar's paired cases. An isolated focused job is optional; no sandbox weakening is proposed. The source-local fixtures use a direct feature import until public integration is serialized. After applying the patch, switch fixture namespace imports to the public API in a separately reviewed additive change, build and run public consumers and the complete combined suite.
+
+The parent's next dependency-verified step is to obtain Meter's landed stable shared head, reconcile/apply this exact patch, then verify the combined Avatar head and configured review. A configured review may be waived only if quota is exhausted under the user's recorded exception; failing CI is never waived. Report merge eligibility before merge and verify exact post-merge CI. No deployment, release, access changes or manual external agent mentions are authorized.
