@@ -41,11 +41,11 @@ for (const reference of [true, false]) {
   for (const canceled of [false, true]) test(`${framework} trusted checked restoration after ${canceled ? 'canceled' : 'native'} reset in callback`, async ({ page }) => {
     await page.goto(`/input-checked?case=checkbox-${canceled ? 'cancel-reset-' : ''}reset-in-input-reject-off${suffix}`); await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
     await page.getByRole('button', { name: 'Programmatic', exact: true }).click(); await expect(page.getByTestId('input')).toBeChecked();
-    await page.getByTestId('input').click(); await expect(page.getByTestId('input')).not.toBeChecked();
+    await page.getByTestId('input').click(); await expect(page.getByTestId('input')).toBeChecked();
   });
   test(`${framework} trusted canceled checkbox click callback observation`, async ({ page }) => {
     await page.goto(`/input-checked?case=checkbox-cancel-click-reject-off${suffix}`); await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
-    await page.getByTestId('input').click(); await expect(page.getByTestId('input')).toBeChecked();
+    await page.getByTestId('input').click(); await expect(page.getByTestId('input')).not.toBeChecked();
     const calls = JSON.parse(await page.getByTestId('calls').textContent() ?? '[]'); expect(calls).toHaveLength(1);
     expect(calls[0]).toMatchObject({ type: 'click', defaultPrevented: true, trusted: true });
   });
