@@ -43,3 +43,22 @@ test('Input supplemental native reset and real remote evidence cannot silently c
   assert.equal(baseline.observations[0].React.afterReset, 'owner'); assert.equal(baseline.observations[0].Svelte.afterReset, '');
   for (const file of ['input.spec.ts', 'input-conformance.spec.ts', 'input-remote.spec.ts']) assert.doesNotMatch(read(`tests/browser/${file}`), /(?:test|describe)\.(?:skip|fixme|only)\s*\(/);
 });
+test('Input timing characterization preserves hashed raw phase observations and the explicit native decision', () => {
+  const evidence = JSON.parse(read('parity/input/timing/evidence.json'));
+  assert.equal(evidence.upstreamCommit, inventory.upstream.commit);
+  assert.equal(evidence.decision.status, 'accepted');
+  for (const [source, hash] of Object.entries(evidence.sources)) assert.equal(sha(read(source)), hash, source);
+  assert.equal(sha(read(`parity/input/timing/${evidence.localRun.results}`)), evidence.localRun.resultsSha256);
+  assert.equal(sha(read(`parity/input/timing/${evidence.ownedWrapperPrototype.baseline}`)), evidence.ownedWrapperPrototype.baselineSha256);
+  assert.equal(sha(read(`parity/input/timing/${evidence.ownedWrapperPrototype.diff}`)), evidence.ownedWrapperPrototype.diffSha256);
+  const results = JSON.parse(read('parity/input/timing/dom-results.json'));
+  assert.equal(results.length, 24);
+  assert.deepEqual(new Set(results.map(result => result.framework)), new Set(['react', 'input', 'native-value', 'native-bind', 'native-bind-accessor', 'input-final-wrapper', 'input-owned-final-wrapper']));
+  for (const result of results) {
+    assert.equal(result.immediate.at(-1).stage, 'dispatch:return');
+    assert.equal(result.settled[0].stage, 'after:tick');
+    for (const observation of [...result.immediate, ...result.settled]) assert.equal(observation.formData, observation.value);
+  }
+  assert.doesNotMatch(read(evidence.browserRun.test), /(?:test|describe)\.(?:skip|fixme|only)\s*\(/);
+  assert.equal(inventory.creditedOrdinaryPorts, 0);
+});

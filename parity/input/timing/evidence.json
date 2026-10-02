@@ -1,0 +1,60 @@
+{
+  "runtimeCheckpoint": "2213f032551def068dba89115df69fdaf2cd7e03",
+  "runtimeChange": "none; characterization only",
+  "versions": {
+    "Node": "24.19.0",
+    "Svelte": "5.57.1",
+    "React": "19.3.0",
+    "BaseUI": "1.8.0",
+    "SvelteKit": "2.70.3",
+    "JSDOM": "30.1.1"
+  },
+  "upstreamCommit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "localRun": {
+    "command": "INPUT_TIMING_RESULTS_PATH=/tmp/input-timing-dom-results.json pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/input-timing.test.ts",
+    "result": "24 passed, zero failures; exact listener stage ordering and every FormData snapshot asserted; three owned-prop boundary decisions and consumer prevention verified",
+    "testFileSha256": "a43f4de1a61e80b8f5aa72f6dbb7c4e7f39645743d9240338022131ec13ad002",
+    "results": "dom-results.json",
+    "resultsSha256": "c32634c6e554241ed231b5ced9001af53501b8cd7347c58bb95fe6117a70b7df"
+  },
+  "sources": {
+    "apps/fixtures/src/lib/InputTimingFixture.svelte": "9914dd17ec47cad135fbbd02514d5505682d25a1e564ed7230170b67abacb883",
+    "apps/fixtures/src/lib/input-timing/types.ts": "df43514c14d322e0d0017da71d159c7d0bcc18a3e792c46c9126de928d4fd4e8",
+    "apps/fixtures/src/lib/input-timing/reference.ts": "8f3603c6f87cfaa63fbc132dd0aff1cc5e18cae3c3dc05e1604516eb42a46438",
+    "apps/fixtures/src/lib/input-timing/probe.ts": "bf829992a38a2f0474354f9bb4e1007a9cd5c53ee0244f24c1ca9919868eef8f",
+    "apps/fixtures/src/routes/input-timing/+page.svelte": "857a4a9876b4e8995f8f417e46108d0c3ff1eab33803a2efea93ed624afe6170",
+    "packages/base/tests/dom/input-timing.test.ts": "a43f4de1a61e80b8f5aa72f6dbb7c4e7f39645743d9240338022131ec13ad002",
+    "tests/browser/input-timing.spec.ts": "85acf389404e3a7cbf48b99a560b903cbc9cff1193c67d3b4bb708741fb13717",
+    "apps/fixtures/src/lib/input-timing/InputOwnedFinalWrapper.svelte": "bfcef060c6ff9cc024ae22e589a26ad9ca538f130b0317b5d8e6c93eee0a02d3"
+  },
+  "svelteBindingSource": {
+    "path": "svelte@5.57.1/src/internal/client/dom/elements/bindings/input.js",
+    "sha256": "9adf41ec57c7f5d2518424f2047f1abc9e7bf84d2044aa7a771a19266c27fd86",
+    "lines": "22-64: native setter, await tick, getter validation and DOM restoration"
+  },
+  "browserRun": {
+    "test": "tests/browser/input-timing.spec.ts",
+    "result": "not executed yet; secured hosted Chromium required",
+    "attachment": "input-timing-results.json"
+  },
+  "credit": "Uncredited supplemental characterization; no additional ordinary Input or Field declaration credit.",
+  "ownedWrapperPrototype": {
+    "baseline": "runtime-checkpoint.svelte",
+    "baselineSha256": "0fbcae17db9ad7ed2269401f4db74bef9ce9b75760c37bdf1e69df62845a04fc",
+    "fixture": "apps/fixtures/src/lib/input-timing/InputOwnedFinalWrapper.svelte",
+    "fixtureSha256": "bfcef060c6ff9cc024ae22e589a26ad9ca538f130b0317b5d8e6c93eee0a02d3",
+    "diff": "owned-wrapper.patch",
+    "diffSha256": "e31cf38447b3aeedf6509831a7ece1623505b0329b723b6a2111105a36818982",
+    "changes": [
+      "Fixture import paths only",
+      "Default native snippet final oninput handler invokes merged nativeProps.oninput then reasserts own value prop getter in finally"
+    ],
+    "runResult": "Accept/reject/rewrite and consumer prevention restore synchronously across the parent prop boundary, without flushSync or global interception",
+    "productionRuntime": "unchanged"
+  },
+  "decision": {
+    "status": "accepted",
+    "date": "2026-10-02",
+    "contract": "Uniform native Svelte next-tick controlled restoration for default and replacement hosts; no synchronous wrapper API."
+  }
+}

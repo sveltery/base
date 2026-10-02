@@ -1,19 +1,14 @@
 <script lang="ts">
   // Base UI v1.8.0 standalone Input/Field.Control adaptation; MIT: THIRD_PARTY_NOTICES.md.
   import { tick } from 'svelte';
-  import Element from '../dialog/Element.svelte';
-  import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
-  import { resolveClassValue } from '../internals/resolveClassValue.js';
-  import type { InputProps } from './types.js';
+  import Element from '../../../../../packages/base/src/lib/dialog/Element.svelte';
+  import { createChangeEventDetails } from '../../../../../packages/base/src/lib/internals/createBaseUIEventDetails.js';
+  import type { InputProps } from '@sveltery/base/input';
   import type { HTMLInputAttributes } from 'svelte/elements';
-  let { children, render, class: classProp, disabled = false, id, value, defaultValue, onValueChange, ref = $bindable(), ...props }: InputProps = $props();
+  let { children, render, disabled = false, id, value, defaultValue, onValueChange, ref = $bindable(), ...props }: InputProps = $props();
   const instanceId = $props.id();
   const generatedId = `base-ui-${instanceId}`;
   const state = $derived({ disabled, touched: false, dirty: false, filled: false, focused: false, valid: null });
-  const resolvedProps = $derived.by(() => {
-    const classValue = typeof classProp === 'function' ? classProp(state) : classProp;
-    return { ...props, class: classValue == null ? undefined : resolveClassValue(classValue) };
-  });
   function attach(node: HTMLElement) {
     // Native Svelte does not restore a rejected controlled edit. Synchronize the external
     // DOM after the owner has processed its callback, without manufacturing reset defaults.
@@ -43,6 +38,17 @@
   });
 </script>
 {#snippet nativeInput(nativeProps: Record<string | symbol, unknown>)}
-  <input {...nativeProps as HTMLInputAttributes} />
+  <input {...nativeProps as HTMLInputAttributes} oninput={event => {
+    // Fixture-only change: restore from this component's own controlled prop getter.
+    // The surrounding script, merge path, attachment and runtime remain otherwise copied.
+    const input = event.currentTarget;
+    try { (nativeProps.oninput as ((event: Event) => void) | undefined)?.(event); }
+    finally {
+      if (value !== undefined) {
+        const next = value == null ? '' : String(value);
+        if (input.value !== next) input.value = next;
+      }
+    }
+  }} />
 {/snippet}
-<Element tag="input" {internal} props={resolvedProps} {state} render={render ?? nativeInput} {children} {attach} bind:ref />
+<Element tag="input" {internal} {props} {state} render={render ?? nativeInput} {children} {attach} bind:ref />

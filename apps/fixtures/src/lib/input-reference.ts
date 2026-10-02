@@ -8,16 +8,22 @@ export function mountInputReference(node: HTMLElement, scenario: string) {
     const kind = scenario.replace('conformance-', '');
     const ref = useRef<HTMLElement | null>(null); const renderRef = useRef<HTMLDivElement | null>(null);
     const [hydrated, setHydrated] = useState(false); useEffect(() => { setHydrated(true); }, []);
+    const [disabled, setDisabled] = useState(false);
     const wrapped = kind.startsWith('render-') && !kind.includes('class');
     const customized = kind.startsWith('props-') && !['props-default', 'props-style'].includes(kind) || kind.startsWith('render-');
-    const className = kind === 'class' ? 'test-class' : kind === 'render-class' ? 'component-classname' : kind === 'render-class-resolved' ? () => 'conditional-component-classname' : undefined;
+    // React's string classes are the observable comparator for Svelte's native ClassValue API.
+    const className: React.ComponentProps<typeof Input>['className'] = kind === 'class' ? 'test-class' : kind === 'render-class' ? 'component-classname' : kind === 'render-class-resolved' ? () => 'conditional-component-classname'
+      : kind === 'render-class-object' ? 'component-classname object-class'
+      : kind === 'render-class-array' ? 'component-classname nested-class object-class'
+      : kind === 'render-class-object-callback' ? state => `${state.disabled ? 'disabled-class' : 'enabled-class'} object-class`
+      : kind === 'render-class-array-callback' ? state => `nested-class object-class ${state.disabled ? 'disabled-class' : 'enabled-class'}` : undefined;
     const replacement = wrapped ? h(HelperWrapper, { ref: renderRef, 'data-test-value': 'source-value' }) : h('div', { ref: renderRef, 'data-testid': kind.includes('class') ? 'test-component' : 'custom-root', ...(kind.includes('class') ? { className: 'render-prop-classname' } : {}), ...(kind.includes('style') ? { style: { color: 'green' } } : {}) });
     const render: React.ComponentProps<typeof Input>['render'] = customized ? kind.includes('element') || kind.includes('class') || kind === 'render-merge-ref' ? replacement : props => wrapped ? h(HelperWrapper, { ...props, 'data-test-value': 'source-value' }) : h('div', { ...props, 'data-testid': 'custom-root', ...(kind.includes('style') ? { style: { color: 'green' } } : {}) }) : undefined;
     return h('main', { 'data-hydrated': hydrated }, h(Input, {
-      ref, render, className, ...(kind === 'props-style' ? { style: { color: 'green' } } : {}),
+      ref, render, className, disabled, ...(kind === 'props-style' ? { style: { color: 'green' } } : {}),
       ...{ 'data-testid': kind === 'props-style' ? 'custom-root' : 'root' },
       ...(kind.startsWith('props-') ? { lang: 'fr', 'data-foobar': 'source-value' } : {}),
-    }), h('output', { 'data-testid': 'refs' }, JSON.stringify({ instanceofInput: hydrated && ref.current instanceof HTMLInputElement, present: !!ref.current, renderPresent: !!renderRef.current, tag: ref.current?.tagName, testid: ref.current?.getAttribute('data-testid'), renderTag: renderRef.current?.tagName, renderTestid: renderRef.current?.getAttribute('data-testid'), same: !!ref.current && ref.current === renderRef.current })));
+    }), h('output', { 'data-testid': 'refs' }, JSON.stringify({ instanceofInput: hydrated && ref.current instanceof HTMLInputElement, present: !!ref.current, renderPresent: !!renderRef.current, tag: ref.current?.tagName, testid: ref.current?.getAttribute('data-testid'), renderTag: renderRef.current?.tagName, renderTestid: renderRef.current?.getAttribute('data-testid'), same: !!ref.current && ref.current === renderRef.current })), kind.includes('callback') ? h('button', { onClick: () => setDisabled(previous => !previous) }, 'Toggle disabled class') : null);
   }
   function Fixture() {
     const [value, setValue] = useState('owner');

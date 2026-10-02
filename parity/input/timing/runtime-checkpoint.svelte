@@ -3,17 +3,12 @@
   import { tick } from 'svelte';
   import Element from '../dialog/Element.svelte';
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
-  import { resolveClassValue } from '../internals/resolveClassValue.js';
   import type { InputProps } from './types.js';
   import type { HTMLInputAttributes } from 'svelte/elements';
-  let { children, render, class: classProp, disabled = false, id, value, defaultValue, onValueChange, ref = $bindable(), ...props }: InputProps = $props();
+  let { children, render, disabled = false, id, value, defaultValue, onValueChange, ref = $bindable(), ...props }: InputProps = $props();
   const instanceId = $props.id();
   const generatedId = `base-ui-${instanceId}`;
   const state = $derived({ disabled, touched: false, dirty: false, filled: false, focused: false, valid: null });
-  const resolvedProps = $derived.by(() => {
-    const classValue = typeof classProp === 'function' ? classProp(state) : classProp;
-    return { ...props, class: classValue == null ? undefined : resolveClassValue(classValue) };
-  });
   function attach(node: HTMLElement) {
     // Native Svelte does not restore a rejected controlled edit. Synchronize the external
     // DOM after the owner has processed its callback, without manufacturing reset defaults.
@@ -45,4 +40,4 @@
 {#snippet nativeInput(nativeProps: Record<string | symbol, unknown>)}
   <input {...nativeProps as HTMLInputAttributes} />
 {/snippet}
-<Element tag="input" {internal} props={resolvedProps} {state} render={render ?? nativeInput} {children} {attach} bind:ref />
+<Element tag="input" {internal} {props} {state} render={render ?? nativeInput} {children} {attach} bind:ref />
