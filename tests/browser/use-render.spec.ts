@@ -2,18 +2,20 @@
 // Public ordinary, private ordinary and supplements stay separate; no conformance/type credit.
 import { expect, test, type Page } from '@playwright/test';
 import { publicCases, internalCases } from '../../apps/fixtures/src/lib/use-render-cases.js';
-type Snapshot = { calls: string[]; refs: ({ tag: string; id: string; connected: boolean } | null)[]; element: { tag: string; id: string; connected: boolean } | null };
+type Snapshot = { calls: string[]; renders: { props: { class: unknown; style: unknown; 'data-testid': unknown }; state: Record<string, unknown> }[]; refs: ({ tag: string; id: string; connected: boolean } | null)[]; element: { tag: string; id: string; connected: boolean } | null };
 async function setup(page: Page, scenario: string, reference: boolean) {
   await page.goto(`/use-render?case=${scenario}${reference ? '&reference' : ''}`);
-  await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true'); return page.locator('#tested-render, #submit-btn');
+  await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+  return ['public-default', 'public-tag', 'public-replacement', 'minimal-class', 'minimal-style'].includes(scenario) ? page.locator('main > :not(button)') : page.locator('#tested-render, #submit-btn');
 }
 for (const reference of [false, true]) test(`supplement ${reference ? 'React' : 'Svelte'} SSR hydration actual host refs SVG children and removal`, async ({ page, request }) => {
   const url = `/use-render-ssr${reference ? '?reference' : ''}`; const response = await request.get(url); const markup = await response.text();
   expect(markup).toMatch(/<button[^>]*type="button"[^>]*id="ssr-render"|<button[^>]*id="ssr-render"[^>]*type="button"/); expect(markup).toContain('data-active=""'); expect(markup).toContain('SSR children'); expect(markup).toContain('SVG children');
   const errors: string[] = []; page.on('pageerror', error => errors.push(error.message)); page.on('console', message => { if (message.type() === 'error' || message.text().includes('hydration_mismatch')) errors.push(message.text()); });
-  await page.goto(url); await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true'); await expect(page.locator('#ssr-render')).toHaveText('SSR children'); await expect(page.locator('#ssr-ref')).toHaveText('BUTTON');
+  const actualRef = () => page.locator('main').evaluate(node => (node as HTMLElement & { renderRefProbe(): { tag: string; id: string; connected: boolean; same: boolean } | null }).renderRefProbe());
+  await page.goto(url); await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true'); await expect(page.locator('#ssr-render')).toHaveText('SSR children'); expect(await actualRef()).toEqual({ tag: 'BUTTON', id: 'ssr-render', connected: true, same: true });
   expect(await page.locator('#ssr-svg').evaluate(node => node instanceof SVGElement)).toBe(true); await expect(page.locator('#ssr-svg title')).toHaveText('SVG children');
-  await page.getByRole('button', { name: 'Remove', exact: true }).click(); await expect(page.locator('#ssr-render')).toHaveCount(0); await expect(page.locator('#ssr-ref')).toHaveText('none'); expect(errors).toEqual([]);
+  await page.getByRole('button', { name: 'Remove', exact: true }).click(); await expect(page.locator('#ssr-render')).toHaveCount(0); expect(await actualRef()).toBeNull(); expect(errors).toEqual([]);
 });
 async function probe(page: Page): Promise<Snapshot> { return page.locator('main').evaluate(node => (node as HTMLElement & { renderProbe(): Snapshot }).renderProbe()); }
 for (const reference of [false, true]) {
@@ -54,7 +56,7 @@ for (const reference of [false, true]) {
     }
     if (scenario === 'render-function' || scenario === 'clone-props') {
       await expect(host).toHaveJSProperty('tagName', 'SPAN'); await expect(host).toHaveAttribute('data-testid', 'custom'); await expect(host).toHaveAttribute('data-active', 'true');
-      if (scenario === 'render-function') expect((await probe(page)).calls).toContain('render:true:test-component:padding:10px:custom');
+      if (scenario === 'render-function') expect((await probe(page)).renders[0]).toEqual({ props: { class: 'test-component', style: 'padding:10px', 'data-testid': 'custom' }, state: { active: true } });
     }
     if (scenario === 'forward-ref') expect((await probe(page)).refs[0]).toEqual({ tag: 'DIV', id: 'tested-render', connected: true });
     if (scenario === 'clone-class' || scenario === 'clone-class-function') await expect(host).toHaveClass(scenario === 'clone-class' ? 'render-class component-class test-component' : 'render-class active-class test-component');
@@ -79,6 +81,12 @@ for (const reference of [false, true]) {
     const host = await setup(page, 'live-state', reference); await expect(host).toHaveAttribute('data-camelcase', ''); await expect(host).toHaveAttribute('data-inheritedname', 'yes');
     for (const key of ['zero', 'blank', 'no']) await expect(host).not.toHaveAttribute(`data-${key}`);
     await page.getByRole('button', { name: 'Advance' }).click(); await expect(host).not.toHaveAttribute('data-camelcase'); await expect(host).toHaveAttribute('data-inheritedname', 'changed');
+  });
+  test(`supplement ${framework} getter owns raw handlers through later props class and style`, async ({ page }) => {
+    const host = await setup(page, 'getter-raw', reference); await host.dispatchEvent('mousedown'); expect((await probe(page)).calls).toEqual(['raw-native:undefined']);
+  });
+  test(`supplement ${framework} later ordinary objects retain inherited enumerable props`, async ({ page }) => {
+    const host = await setup(page, 'inherited-props', reference); await expect(host).toHaveAttribute('data-native', 'yes');
   });
   for (const scenario of ['default-button', 'default-img', 'replacement-default']) test(`supplement ${framework} intrinsic default ${scenario}`, async ({ page }) => {
     const host = await setup(page, scenario, reference); if (scenario === 'default-button') await expect(host).toHaveAttribute('type', 'button'); if (scenario === 'default-img') await expect(host).toHaveAttribute('alt', ''); if (scenario === 'replacement-default') await expect(host).not.toHaveAttribute('type');

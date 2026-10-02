@@ -20,7 +20,7 @@
   }
   onMount(() => { hydrated = true; });
   function probe(node: HTMLElement) {
-    Object.assign(node, { renderProbe: () => ({ calls: controller.calls, refs: controller.refs.map(ref => ref.current ? { tag: ref.current.tagName, id: ref.current.id, connected: ref.current.isConnected } : null), element: element ? { tag: element.tagName, id: element.id, connected: element.isConnected } : null }) });
+    Object.assign(node, { renderProbe: () => ({ calls: controller.calls, renders: controller.renders, refs: controller.refs.map(ref => ref.current ? { tag: ref.current.tagName, id: ref.current.id, connected: ref.current.isConnected } : null), element: element ? { tag: element.tagName, id: element.id, connected: element.isConnected } : null }) });
   }
 </script>
 {#snippet replacement(supplied: UseRenderHostProps, state: State, children: Snippet | undefined)}

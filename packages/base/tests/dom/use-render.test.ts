@@ -188,3 +188,14 @@ it('supplement: empty ref slots and fixed-versus-array shape preserve source mem
   app.setOptions({ ref: [callback, undefined] }); flushSync(); expect(callback).toHaveBeenCalledTimes(3); expect(cleanup).toHaveBeenCalledTimes(2);
   app.setOptions({ ref: [callback, undefined] }); flushSync(); expect(callback).toHaveBeenCalledTimes(3); expect(cleanup).toHaveBeenCalledTimes(2);
 });
+it('supplement: later ordinary sources retain inherited enumerable props but the first drops them', () => {
+  const inherited = Object.create({ id: 'inherited-id', 'data-native': 'yes' });
+  expect(render({ internal: true, options: { props: [{}, inherited] } }).host().getAttribute('data-native')).toBe('yes');
+  const host = render({ internal: true, options: { props: inherited } }).host(); expect(host.hasAttribute('data-native')).toBe(false); expect(host.hasAttribute('id')).toBe(false);
+});
+it('supplement: getters own raw handlers through ordinary props and component class/style', () => {
+  const types: string[] = [], handler = vi.fn((event: PreventableEvent) => types.push(typeof event.preventBaseUIHandler)), observe = vi.fn();
+  const options = { props: [() => ({ onmousedown: handler }), { id: 'after' }], class: 'component', style: 'color:red' };
+  const host = render({ internal: true, options }).host(); host.dispatchEvent(new MouseEvent('mousedown', { bubbles: true })); expect(types).toEqual(['undefined']);
+  render({ internal: true, replacement: true, observe, options }); expect(observe.mock.calls[0][0].onmousedown).toBe(handler);
+});

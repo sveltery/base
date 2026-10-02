@@ -7,6 +7,7 @@ export type State = Record<string, unknown>;
 export function createUseRenderCase(scenario: string) {
   const refs = [{ current: null as Element | null }, { current: null as Element | null }, { current: null as Element | null }];
   const calls: string[] = [];
+  const renders: { props: { class: unknown; style: unknown; 'data-testid': unknown }; state: State }[] = [];
   const cleanupRef: UseRenderRef = node => { calls.push(node ? `cleanup-attach:${node.tagName}` : 'cleanup-null'); if (node) return () => { calls.push('cleanup'); }; };
   const legacyRef: UseRenderRef = node => { calls.push(node ? `legacy-attach:${node.tagName}` : 'legacy-null'); };
   const callback = (value: string) => () => { calls.push(value); };
@@ -18,6 +19,7 @@ export function createUseRenderCase(scenario: string) {
     let ownRef: UseRenderRef | undefined;
     if (scenario === 'public-class') { replacement = true; options.props = { id: 'tested-render', class: undefined }; owned.class = 'my-span '; }
     if (scenario === 'public-refs') { replacement = true; options.ref = [refs[0], refs[1]]; }
+    if (scenario === 'public-default' || scenario === 'public-tag' || scenario === 'public-replacement') options.props = undefined;
     if (scenario === 'public-tag') options.defaultTagName = stage ? 'span' : 'div';
     if (scenario === 'public-replacement') { replacement = true; options.defaultTagName = stage ? 'a' : 'div'; }
     if (scenario.startsWith('state-')) {
@@ -57,8 +59,8 @@ export function createUseRenderCase(scenario: string) {
     if (scenario === 'clone-class' || scenario === 'clone-class-function') owned.class = 'render-class';
     if (scenario === 'clone-style') options.style = 'color:rgb(255,0,0)';
     if (scenario === 'clone-style' || scenario === 'clone-style-function') owned.style = 'font-size:16px';
-    if (scenario === 'minimal-class') { options.state = Object.freeze({}); options.class = 'test-class'; }
-    if (scenario === 'minimal-style') { options.state = Object.freeze({}); options.style = 'color:red'; }
+    if (scenario === 'minimal-class') { options.props = undefined; options.state = Object.freeze({}); options.class = 'test-class'; }
+    if (scenario === 'minimal-style') { options.props = undefined; options.state = Object.freeze({}); options.style = 'color:red'; }
     if (scenario === 'ref-cleanup') { options.ref = [cleanupRef, legacyRef, refs[0]]; options.defaultTagName = stage === 2 ? 'svg' : 'div'; options.props = { id: 'tested-render', class: stage === 1 ? 'changed' : undefined }; if (stage === 3) options.enabled = false; }
     if (scenario === 'ref-slots') options.ref = stage === 0 ? cleanupRef : stage === 1 ? [cleanupRef] : [cleanupRef, undefined];
     if (scenario === 'live-state') { options.state = { camelCase: stage === 0, inheritedName: stage === 0 ? 'yes' : 'changed', zero: 0, blank: '', no: false }; }
@@ -67,6 +69,8 @@ export function createUseRenderCase(scenario: string) {
     if (scenario === 'replacement-default') { options.defaultTagName = 'button'; replacement = true; tag = 'button'; }
     if (scenario === 'native-default' || scenario === 'native-base') options.props = [{ id: 'tested-render', onmousedown: callback('internal') }, { onmousedown: (event: PreventableEvent) => { calls.push('consumer'); if (scenario === 'native-default') event.preventDefault(); else event.preventBaseUIHandler(); } }];
     if (scenario === 'getter-replacement') options.props = [{ id: 'old', onclick: callback('old') }, getter];
+    if (scenario === 'getter-raw') { options.props = [() => ({ onmousedown: (event: PreventableEvent) => { calls.push(`raw-native:${typeof event.preventBaseUIHandler}`); } }), { id: 'tested-render' }]; options.class = 'component'; options.style = 'color:red'; }
+    if (scenario === 'inherited-props') options.props = [{}, Object.create({ id: 'tested-render', 'data-native': 'yes' })];
     if (scenario === 'all-gating') {
       options.enabled = stage === 1; replacement = true;
       options.state = { active: true }; options.stateAttributesMapping = { active: () => { calls.push('mapping'); return { 'data-active': '' }; } };
@@ -74,5 +78,8 @@ export function createUseRenderCase(scenario: string) {
     }
     return { options, replacement, owned, tag, ownRef };
   }
-  return { refs, calls, configuration, observe: (props: UseRenderHostProps, state: State) => { calls.push(`render:${String(state.active)}:${String(props.class)}:${String(props.style)}:${String(props['data-testid'])}`); } };
+  return { refs, calls, renders, configuration, observe: (props: UseRenderHostProps, state: State) => {
+    renders.push({ props: { class: props.class, style: props.style, 'data-testid': props['data-testid'] }, state: { ...state } });
+    calls.push(`render:${String(state.active)}:${String(props.class)}:${String(props.style)}:${String(props['data-testid'])}`);
+  } };
 }

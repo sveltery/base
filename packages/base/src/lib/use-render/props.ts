@@ -12,6 +12,7 @@ export function stateAttributes<State extends Record<string, unknown>>(state: St
   const result: UseRenderHostProps = {};
   for (const key in state) {
     const value = state[key];
+    // eslint-disable-next-line no-prototype-builtins -- Preserve the pinned mapping method boundary, including its failures.
     if (mapping?.hasOwnProperty(key)) {
       const custom = mapping[key]!(value);
       if (custom != null) Object.assign(result, custom);
@@ -23,24 +24,46 @@ export function stateAttributes<State extends Record<string, unknown>>(state: St
 
 /** Keep the native CSS string cascade and enumerable attachment symbols through object merges. */
 export function mergeHostProps(left: UseRenderHostProps, right: UseRenderHostProps): UseRenderHostProps {
-  const resolved = { ...right };
-  if ('class' in resolved) resolved.class = resolveClassValue(resolved.class as ClassValue);
-  const result = mergeProps(left, resolved) as UseRenderHostProps;
-  if (typeof resolved.style === 'string') result.style = [left.style, resolved.style].filter(value => value !== undefined && value !== '').join(';');
-  for (const source of [left, resolved]) for (const key of Object.getOwnPropertySymbols(source)) {
-    if (Object.prototype.propertyIsEnumerable.call(source, key)) result[key] = source[key];
-  }
+  const result = { ...left };
+  mergeInto(result, right);
   return result;
+}
+
+function mergeInto(target: UseRenderHostProps, source: UseRenderHostProps) {
+  // Later source objects mutate the getter-owned accumulator and include inherited enumerable keys.
+  // Merge only the incoming key; reinitializing the full accumulator would wrap raw getter handlers.
+  for (const key in source) {
+    const value = source[key];
+    if (key === 'class') {
+      target[key] = mergeProps(() => ({ class: target.class }), { class: resolveClassValue(value as ClassValue) }).class;
+    } else if (key === 'style' && typeof value === 'string') {
+      target.style = [target.style, value].filter(part => part !== undefined && part !== '').join(';');
+    } else if (key === 'style' || (/^on[a-zA-Z]/u.test(key) && typeof value === 'function')) {
+      target[key] = mergeProps(() => ({ [key]: target[key] }), { [key]: value })[key];
+    } else if (/^on[a-zA-Z]/u.test(key) && value === undefined) {
+      // Like the pin, an undefined handler does not assign or erase an earlier callback.
+    } else target[key] = value;
+  }
+  for (const key of Object.getOwnPropertySymbols(source)) {
+    if (Object.prototype.propertyIsEnumerable.call(source, key)) target[key] = source[key];
+  }
 }
 
 export function resolveSources(sources?: UseRenderPropSources): UseRenderHostProps {
   let result: UseRenderHostProps = {};
+  let initialized = false;
   if (sources === undefined) return result;
   const inputs = Array.isArray(sources) ? sources : [sources];
   for (const source of inputs) {
     if (source === undefined) continue;
-    // Like pinned mergeProps: getters replace the accumulated object and own handler chaining.
-    result = typeof source === 'function' ? source(result) : mergeHostProps(result, source);
+    if (!initialized) {
+      initialized = true;
+      // The first source is always copied, including a first getter's returned object.
+      result = typeof source === 'function' ? { ...source({}) } : mergeHostProps({}, { ...source });
+    } else if (typeof source === 'function') {
+      // Later getters replace the actual accumulator; they own handlers, identity and writability.
+      result = source(result);
+    } else mergeInto(result, source);
   }
   return result;
 }

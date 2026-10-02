@@ -4,8 +4,11 @@
   let hydrated = $state(false), active = $state(true), enabled = $state(true);
   let element = $state<Element | null | undefined>();
   onMount(() => { hydrated = true; });
+  function probe(node: HTMLElement) {
+    Object.assign(node, { renderRefProbe: () => element ? { tag: element.tagName, id: element.id, connected: element.isConnected, same: element === node.querySelector('#ssr-render') } : null });
+  }
 </script>
-<main data-hydrated={hydrated}>
+<main data-hydrated={hydrated} {@attach probe}>
   <button type="button" onclick={() => { active = false; enabled = false; }}>Remove</button>
   <UseRender defaultTagName="button" state={{ active }} props={{ id: 'ssr-render' }} {enabled} bind:element>SSR children</UseRender>
   <UseRender defaultTagName="svg" props={{ id: 'ssr-svg' }}><title>SVG children</title></UseRender>

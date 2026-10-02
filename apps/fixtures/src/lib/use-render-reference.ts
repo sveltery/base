@@ -11,7 +11,13 @@ function css(value: unknown): CSSProperties | undefined {
 }
 function nativeProps(props: UseRenderHostProps): Record<string, unknown> {
   const result: Record<string, unknown> = {};
-  for (const [key, value] of Object.entries(props)) result[key === 'class' ? 'className' : key === 'onclick' ? 'onClick' : key === 'onmousedown' ? 'onMouseDown' : key === 'oncontextmenu' ? 'onContextMenu' : key] = key === 'style' ? css(value) : value;
+  const inherited: Record<string, unknown> = {};
+  for (const key in props) {
+    const destination = Object.prototype.hasOwnProperty.call(props, key) ? result : inherited;
+    destination[key === 'class' ? 'className' : key === 'onclick' ? 'onClick' : key === 'onmousedown' ? 'onMouseDown' : key === 'oncontextmenu' ? 'onContextMenu' : key] = key === 'style' ? css(props[key]) : props[key];
+  }
+  if (Object.keys(inherited).length) Object.setPrototypeOf(result, inherited);
+  if (Object.isFrozen(props)) Object.freeze(result);
   return result;
 }
 function source(value: UseRenderPropSource) {
@@ -37,7 +43,7 @@ export function mountUseRenderReference(node: HTMLElement, scenario: string) {
     // These two hooks share the same source closure; the selected hook stays fixed for a mounted case.
     const privateProps = (typeof inputProps === 'function' ? [inputProps] : inputProps) as UseRenderElementParameters<State, Element, UseRenderTagName, boolean>['props'];
     const element = internal ? useRenderElement(options.defaultTagName ?? 'div', componentProps, { ...params, props: privateProps }) : useRender({ ...params, render, defaultTagName: options.defaultTagName, props: inputProps as Record<string, unknown> | undefined });
-    return h('main', { 'data-hydrated': hydrated, ref: (main: HTMLElement | null) => { if (main) Object.assign(main, { renderProbe: () => ({ calls: controller.calls, refs: controller.refs.map(ref => ref.current ? { tag: ref.current.tagName, id: ref.current.id, connected: ref.current.isConnected } : null), element: node.querySelector('#tested-render') ? { tag: node.querySelector('#tested-render')!.tagName, id: 'tested-render', connected: true } : null }) }); } }, h('button', { type: 'button', onClick: () => setStage(value => value + 1) }, 'Advance'), element);
+    return h('main', { 'data-hydrated': hydrated, ref: (main: HTMLElement | null) => { if (main) Object.assign(main, { renderProbe: () => ({ calls: controller.calls, renders: controller.renders, refs: controller.refs.map(ref => ref.current ? { tag: ref.current.tagName, id: ref.current.id, connected: ref.current.isConnected } : null), element: node.querySelector('#tested-render') ? { tag: node.querySelector('#tested-render')!.tagName, id: 'tested-render', connected: true } : null }) }); } }, h('button', { type: 'button', onClick: () => setStage(value => value + 1) }, 'Advance'), element);
   }
   const root = createRoot(node); root.render(h(Fixture)); return () => root.unmount();
 }
