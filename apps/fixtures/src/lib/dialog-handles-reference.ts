@@ -4,14 +4,14 @@ import { createElement as h, Fragment, StrictMode, memo, useLayoutEffect, useSta
 import { flushSync } from 'react-dom';
 import { createRoot } from 'react-dom/client';
 import { Dialog } from '@base-ui/react/dialog';
-import { containedCases, overlapCases, reparentCases, noTriggerCases, type HandleFixtureApi, type Payload } from './dialog-handle-cases.js';
+import { containedCases, overlapCases, reparentCases, noTriggerCases, generatedTriggerCases, type HandleFixtureApi, type Payload } from './dialog-handle-cases.js';
 type Handle = Dialog.Handle<Payload>;
 function MountAction({ handle, action, id = null }: { handle: Handle; action: 'open' | 'payload' | 'close'; id?: string | null }) {
   useLayoutEffect(() => { if (action === 'payload') handle.openWithPayload(8); else if (action === 'close') handle.close(); else handle.open(id); }, [handle, action, id]);
   return null;
 }
-function Wrappers({ handle, nesting }: { handle: Handle; nesting: number }) {
-  let trigger: ReactElement = h(Dialog.Trigger, { handle, id: 'trigger' }, 'Trigger');
+function Wrappers({ handle, nesting, id }: { handle: Handle; nesting: number; id?: string }) {
+  let trigger: ReactElement = h(Dialog.Trigger, { handle, id }, 'Trigger');
   for (let level = 0; level < nesting; level++) trigger = h('div', null, trigger);
   return trigger;
 }
@@ -50,18 +50,18 @@ export function mountHandlesReference(node: HTMLElement, line: number) {
     };
     function remount() { if (line === 1518) setMode('uncontrolled'); if (line === 1579) setMode('controlled'); setMounted(true); }
     function triggers() {
-      if (reparent) return h(Wrappers, { handle: current, nesting });
+      if (reparent) return h(Wrappers, { handle: current, nesting, id: line === 1711 ? 'trigger' : undefined });
       if (line === 1835) return h(AccessorTriggers, { handle: current });
       if (noTriggerCases.includes(line)) return null;
       return h(Fragment, null,
         line === 641 ? h(Dialog.Trigger, { handle: current, id: 'other', payload: 9 }, 'Other') : null,
         line === 2028 ? h(Dialog.Trigger, { handle: handleA, id: 'a', payload: 1 }, 'A trigger')
           : h(Dialog.Trigger, { handle: contained ? undefined : current,
-            id: line === 2088 || line === 2129 ? 'trigger1' : [939,987,1020,1048,1078,1100,1157,1274,1323,1764,1802,1891].includes(line) ? 'trigger-1' : 'trigger',
+            id: generatedTriggerCases.includes(line) ? undefined : line === 2088 || line === 2129 ? 'trigger1' : [1078,1100,1157,1323].includes(line) ? 'trigger-1' : 'trigger',
             payload: line === 641 ? 5 : line === 1955 ? 7 : [186,249,412,987,1020,1100,1157,1764,1802,2088,2129].includes(line) ? payloads[0] : undefined,
           }, line === 1157 ? 'Dialog 1' : [939,987,1020,1048,1078,1274,1323,1764,1802,1891,2088,2129].includes(line) ? 'Trigger 1' : line === 1100 ? 'One' : 'Trigger'),
-        [939,987,1020,1048,1078,1100,1157,1274,1323,1764,1802,1891,2088,2129].includes(line) ? h(Dialog.Trigger, { handle: contained ? undefined : current, id: line === 2088 || line === 2129 ? 'trigger2' : 'trigger-2', payload: [939,1048,1078,1274,1323,1891].includes(line) ? undefined : payloads[1] }, line === 1157 ? 'Dialog 2' : line === 1100 ? 'Two' : 'Trigger 2') : null,
-        line === 939 || line === 1274 ? h(Dialog.Trigger, { handle: contained ? undefined : current, id: 'trigger-3' }, 'Trigger 3') : null);
+        [939,987,1020,1048,1078,1100,1157,1274,1323,1764,1802,1891,2088,2129].includes(line) ? h(Dialog.Trigger, { handle: contained ? undefined : current, id: generatedTriggerCases.includes(line) ? undefined : line === 2088 || line === 2129 ? 'trigger2' : 'trigger-2', payload: [939,1048,1078,1274,1323,1891].includes(line) ? undefined : payloads[1] }, line === 1157 ? 'Dialog 2' : line === 1100 ? 'Two' : 'Trigger 2') : null,
+        line === 939 || line === 1274 ? h(Dialog.Trigger, { handle: contained ? undefined : current }, 'Trigger 3') : null);
     }
     function content(payload: Payload | undefined) {
       const value = typeof payload === 'function' ? payload() : payload;

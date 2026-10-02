@@ -8,7 +8,7 @@
   import AccessorTriggers from './DialogHandleAccessorTriggers.svelte';
   import PersistentTrigger from './DialogHandlePersistentTrigger.svelte';
   import RouteRoot from './DialogHandleRouteRoot.svelte';
-  import { containedCases, overlapCases, reparentCases, noTriggerCases, type HandleFixtureApi, type Payload } from './dialog-handle-cases.js';
+  import { containedCases, overlapCases, reparentCases, noTriggerCases, generatedTriggerCases, type HandleFixtureApi, type Payload } from './dialog-handle-cases.js';
   let { line }: { line: number } = $props();
   const handleA = createDialogHandle<Payload>(); const handleB = createDialogHandle<Payload>();
   let current = $state(handleA);
@@ -41,20 +41,20 @@
   function remount() { if (line === 1518) mode = 'uncontrolled'; if (line === 1579) mode = 'controlled'; mounted = true; }
 </script>
 {#snippet triggers()}
-  {#if reparent}<Wrappers handle={current} {nesting}/>
+  {#if reparent}<Wrappers handle={current} {nesting} id={line === 1711 ? 'trigger' : undefined}/>
   {:else if line === 1835}<AccessorTriggers handle={current}/>
   {:else if !noTriggerCases.includes(line)}
     {#if line === 641}<Dialog.Trigger handle={current} id="other" payload={9}>Other</Dialog.Trigger>{/if}
     {#if line === 2028}<Dialog.Trigger handle={handleA} id="a" payload={1}>A trigger</Dialog.Trigger>
     {:else}
-      <Dialog.Trigger handle={contained ? undefined : current} id={line === 2088 || line === 2129 ? 'trigger1' : [939,987,1020,1048,1078,1100,1157,1274,1323,1764,1802,1835,1891].includes(line) ? 'trigger-1' : 'trigger'} payload={line === 641 ? 5 : line === 1955 ? 7 : [186,249,412,987,1020,1100,1157,1764,1802,2088,2129].includes(line) ? payloads[0] : undefined}>
+      <Dialog.Trigger handle={contained ? undefined : current} id={generatedTriggerCases.includes(line) ? undefined : line === 2088 || line === 2129 ? 'trigger1' : [1078,1100,1157,1323].includes(line) ? 'trigger-1' : 'trigger'} payload={line === 641 ? 5 : line === 1955 ? 7 : [186,249,412,987,1020,1100,1157,1764,1802,2088,2129].includes(line) ? payloads[0] : undefined}>
         {line === 1157 ? 'Dialog 1' : [939,987,1020,1048,1078,1274,1323,1764,1802,1891,2088,2129].includes(line) ? 'Trigger 1' : line === 1100 ? 'One' : 'Trigger'}
       </Dialog.Trigger>
     {/if}
     {#if [939,987,1020,1048,1078,1100,1157,1274,1323,1764,1802,1891,2088,2129].includes(line)}
-      <Dialog.Trigger handle={contained ? undefined : current} id={line === 2088 || line === 2129 ? 'trigger2' : 'trigger-2'} payload={[939,1048,1078,1274,1323,1891].includes(line) ? undefined : payloads[1]}>{line === 1157 ? 'Dialog 2' : line === 1100 ? 'Two' : 'Trigger 2'}</Dialog.Trigger>
+      <Dialog.Trigger handle={contained ? undefined : current} id={generatedTriggerCases.includes(line) ? undefined : line === 2088 || line === 2129 ? 'trigger2' : 'trigger-2'} payload={[939,1048,1078,1274,1323,1891].includes(line) ? undefined : payloads[1]}>{line === 1157 ? 'Dialog 2' : line === 1100 ? 'Two' : 'Trigger 2'}</Dialog.Trigger>
     {/if}
-    {#if line === 939 || line === 1274}<Dialog.Trigger handle={contained ? undefined : current} id="trigger-3">Trigger 3</Dialog.Trigger>{/if}
+    {#if line === 939 || line === 1274}<Dialog.Trigger handle={contained ? undefined : current}>Trigger 3</Dialog.Trigger>{/if}
   {/if}
 {/snippet}
 {#snippet content(payload: Payload | undefined, name = 'Dialog Content')}
