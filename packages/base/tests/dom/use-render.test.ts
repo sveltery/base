@@ -77,11 +77,12 @@ for (const [title, classProp, expected] of [
   expect(render({ internal: true, options: { state: { active: true }, class: classProp, props: { class: 'test-component' } } }).host().getAttribute('class')).toBe(expected);
 });
 for (const [title, style, color] of [
-  ['style function', (state: Record<string, unknown>) => state.active ? 'color:rgb(255,0,0)' : 'color:rgb(0,255,0)', 'rgb(255, 0, 0)'],
+  ['style function', (state: Record<string, unknown>) => state.active ? ' color: rgb(255, 0, 0);' : ' color: rgb(0, 255, 0);', 'rgb(255, 0, 0)'],
   ['undefined style function', () => undefined, ''],
 ] as const) it(`internal: ${title}`, () => {
-  const host = render({ internal: true, options: { state: { active: true }, style, props: { style: 'padding:10px' } } }).host() as HTMLElement;
+  const host = render({ internal: true, options: { state: { active: true }, style, props: { style: title === 'style function' ? 'padding: 10px' : 'padding: 10px;' } } }).host() as HTMLElement;
   expect(host.style.padding).toBe('10px'); expect(host.style.color).toBe(color);
+  expect(host.getAttribute('style')).toBe(title === 'style function' ? 'padding: 10px; color: rgb(255, 0, 0);' : 'padding: 10px;');
 });
 for (const event of ['mousedown', 'contextmenu']) for (const array of [false, true]) it(`internal: ${event} is preventable in ${array ? 'array' : 'object'} props`, () => {
   const handler = vi.fn((event: PreventableEvent) => event.preventBaseUIHandler());

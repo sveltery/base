@@ -14,10 +14,11 @@
   const output = $derived.by(() => {
     // Do not compute attributes, resolve getters/class/style, or inspect replacement props while disabled.
     if (!enabled) return { props: {}, refs: [] };
-    const resolved = resolveSources(props);
-    let host = { ...stateAttributes(state, stateAttributesMapping), ...resolved };
     const className = resolveClassValue(typeof classProp === 'function' ? classProp(state) : classProp);
     const style = typeof styleProp === 'function' ? styleProp(state) : styleProp;
+    const stateProps = stateAttributes(state, stateAttributesMapping);
+    const resolved = resolveSources(props);
+    let host = { ...stateProps, ...resolved };
     if (className !== undefined) host = mergeHostProps(host, { class: className });
     if (style !== undefined) host = mergeHostProps(host, { style });
     // Refs are a separate channel: mergeProps deliberately does not compose them.
