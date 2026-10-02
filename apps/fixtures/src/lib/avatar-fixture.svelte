@@ -16,7 +16,11 @@
 </script>
 {#snippet imageReplacement(props: Record<string | symbol, unknown>, state: AvatarImageState)}
   {const extras = $derived(renderedSource ? { sizes: '48px', src: sourceInRender, srcset: `${sourceInRender} 1x` } : {})}
-  {const supplied = $derived(mergeProps(extras, props, { class: updated ? 'updated' : 'initial', 'data-state': state.imageLoadingStatus }))}
+  {const supplied = $derived({
+    ...mergeProps(extras, props, { class: updated ? 'updated' : 'initial', 'data-state': state.imageLoadingStatus }),
+    // Preserve enumerable Svelte attachments while merging string-keyed native props.
+    ...Object.fromEntries(Object.getOwnPropertySymbols(props).filter(key => Object.prototype.propertyIsEnumerable.call(props, key)).map(key => [key, props[key]]))
+  })}
   {#if scenario === 'dropped-ref'}
     {const withoutAttachment = $derived(Object.fromEntries(Object.entries(supplied)))}
     <img alt="" {...withoutAttachment} data-testid="image" data-source-keys={Object.keys(props).join(",")} />
@@ -35,7 +39,7 @@
     {#if shown}
       <Avatar.Image data-testid="image" alt="Jane Doe" keepMounted={initial.keepMounted} src={renderedSource ? undefined : src} srcset={initial.srcSet} sizes={initial.sizes}
         crossorigin={scenario === 'native' || scenario.endsWith('responsive') ? 'anonymous' : undefined} referrerpolicy={scenario === 'native' || scenario.endsWith('responsive') ? 'no-referrer' : undefined}
-        loading={scenario === 'keep-order' ? 'lazy' : undefined} aria-hidden={scenario === 'keep-aria-override' ? false : undefined}
+        loading={scenario === 'keep-order' ? 'lazy' : undefined} {...(scenario === 'keep-aria-override' ? { 'aria-hidden': false } : {})}
         class={scenario.startsWith('animation') ? 'avatar-animation' : undefined} render={replacement ? imageReplacement : undefined} onLoadingStatusChange={record}
         onload={(e) => event('load', e)} onerror={(e) => event('error', e)} ontransitionend={() => window.avatarHarness.events.push('transitionend')} />
     {/if}
