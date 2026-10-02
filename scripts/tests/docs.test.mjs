@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { docs, groups } from '../../apps/fixtures/src/lib/docs/content.ts';
 import { checkDialogApi, extractDialogApi } from '../docs-api.mjs';
+import { checkAccordionApi, extractAccordionApi } from '../../parity/accordion/docs-api.mjs';
 test('docs API matches actual local types and all public parts', () => {
   checkDialogApi();
   const exports = readFileSync(
@@ -44,4 +45,9 @@ test('docs metadata, navigation links and fragment targets are valid', () => {
         } else assert.equal(new URL(link.href).protocol, 'https:');
       }
   }
+});
+
+test('Accordion docs API matches all five local part declarations', () => {
+  checkAccordionApi();
+  assert.deepEqual(extractAccordionApi().parts.map(part => part.name), ['Root', 'Item', 'Header', 'Trigger', 'Panel']);
 });
