@@ -4,7 +4,8 @@ import { isElement, isHTMLElement } from '@floating-ui/utils/dom';
 import { activeElement, contains, getTarget } from '../../utils/shadowDom.js';
 import { FOCUSABLE_ATTRIBUTE, TYPEABLE_SELECTOR } from './constants.js';
 import { type PopupTriggerMap } from '../../utils/popups/index.js';
-const triggerDisabled = 'data-disabled';
+// Selected TooltipTriggerDataAttributes value; retain the original marker.
+const triggerDisabled = 'data-trigger-disabled';
 
 export { activeElement, contains, getTarget };
 export { matchesFocusVisible } from './matchesFocusVisible.js';

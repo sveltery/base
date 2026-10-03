@@ -571,9 +571,9 @@
       "sha256": "2b66034708a583e4fecfb2cab7a8b22cedde0d29b4d60812e47dcfc4dede798b",
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/direction-context/DirectionContext.tsx",
       "local": [
-        "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts"
+        "packages/base/src/lib/direction-provider/types.ts"
       ],
-      "decision": "Only direction type through the inherited Composite type closure is selected; native provider belongs to accepted DirectionProvider.",
+      "decision": "Only TextDirection through the inherited Composite type closure is selected at direction-provider/types.ts; native provider belongs to accepted DirectionProvider.",
       "reviewStatus": "final source/native/maintainability review pending"
     },
     {
@@ -745,7 +745,7 @@
       "local": [
         "packages/base/src/lib/floating-ui/utils/element.ts"
       ],
-      "decision": "Only the exact source disabled marker value is used, as triggerDisabled; Tooltip family remains unselected.",
+      "decision": "Only the exact data-trigger-disabled marker value is copied as triggerDisabled in the original shared predicate. Current Dialog consumers do not call isTargetInsideEnabledTrigger; its Source useFocus/useHover callers and the Tooltip family remain unselected.",
       "reviewStatus": "final source/native/maintainability review pending"
     },
     {

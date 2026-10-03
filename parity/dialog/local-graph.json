@@ -1278,7 +1278,7 @@
     },
     {
       "local": "packages/base/src/lib/floating-ui/utils/element.ts",
-      "sha256": "735245a0c543db586e2ccb5f579881967d1c1056be92b8cce97f2e43dce0cc71",
+      "sha256": "43da99a8e24b9713afaaa52f09f8b21b92681252d1c17824cc246e15400c79eb",
       "imports": [
         {
           "specifier": "@floating-ui/utils/dom",
