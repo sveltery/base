@@ -261,9 +261,9 @@
     {
       "source": "packages/utils/src/shadowDom.ts",
       "sourceSha256": "00307496a294b1bde9a09e4d0263cae4bf1eb75f43f5c9b85b37c712210e4e8a",
-      "symbol": "activeElement",
+      "symbol": "activeElement/getTarget",
       "local": "packages/base/src/lib/utils/shadowDom.ts",
-      "adaptation": "Original used function body unchanged; contains/getTarget not imported by this closure.",
+      "adaptation": "Original used shadow-DOM functions unchanged; source useLabel now shares getTarget.",
       "status": "written-unverified",
       "imports": [
         "@floating-ui/utils/dom"
@@ -355,7 +355,7 @@
       "symbol": "useRenderElement and helper closure",
       "local": "packages/base/src/lib/internals/useRenderElement.ts; packages/base/src/lib/internals/RenderElement.svelte",
       "adaptation": "shared renderer dependency: source ordered props/ref/mapping stages, native literal input host",
-      "status": "pending-separate-dependency-review",
+      "status": "integrated-dependency-pending-final-review",
       "imports": [
         "react",
         "@base-ui/utils/useMergedRefs",
@@ -388,6 +388,270 @@
         "../internals/useRenderElement",
         "../internals/useValueChanged"
       ]
+    },
+    {
+      "source": "packages/react/src/field/label/FieldLabel.tsx",
+      "sourceSha256": "74b9a2aaa0f596409bfa9b78de5b4152cf1fc8500ddcd9bda5218d81f20293c7",
+      "symbol": "FieldLabel",
+      "local": "packages/base/src/lib/field/Label.svelte",
+      "adaptation": "Source useLabel, shared development error logger, native ref/effect and shared renderer.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "react",
+        "@base-ui/utils/error",
+        "@base-ui/utils/safeReact",
+        "../root/FieldRoot",
+        "../../internals/field-root-context/FieldRootContext",
+        "../../internals/field-constants/constants",
+        "../../internals/types",
+        "../../internals/useRenderElement",
+        "../../internals/labelable-provider/LabelableContext",
+        "../../internals/labelable-provider/useLabel",
+        "../item/FieldItemContext"
+      ]
+    },
+    {
+      "source": "packages/react/src/field/item/FieldItem.tsx",
+      "sourceSha256": "cc182a1ce4f90cb755307bd44ae3ae74f60a99330ae12fb38f271a51f4993486",
+      "symbol": "FieldItem",
+      "local": "packages/base/src/lib/field/Item.svelte",
+      "adaptation": "Actual LabelableProvider composition with canonical source FieldItemContext; shared renderer.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "react",
+        "../root/FieldRoot",
+        "../../internals/field-root-context/FieldRootContext",
+        "../../internals/field-constants/constants",
+        "../../internals/types",
+        "../../internals/useRenderElement",
+        "./FieldItemContext",
+        "../../internals/labelable-provider"
+      ]
+    },
+    {
+      "source": "packages/react/src/field/item/FieldItemContext.ts",
+      "sourceSha256": "4e83a82491828c93404c8ba0b1cbb740b549d15e51f38848f94cde225eda7749",
+      "symbol": "useFieldItemContext",
+      "local": "packages/base/src/lib/field/item/FieldItemContext.ts",
+      "adaptation": "Source exact disabled:false default; native getter context.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "react"
+      ]
+    },
+    {
+      "source": "packages/react/src/field/description/FieldDescription.tsx",
+      "sourceSha256": "415eb6cbbe77d429746142c0e731045a0fe11533378956a306256f70df9d2f17",
+      "symbol": "FieldDescription",
+      "local": "packages/base/src/lib/field/Description.svelte",
+      "adaptation": "Source message-id registration/cleanup and contexts; shared renderer.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "react",
+        "@base-ui/utils/useIsoLayoutEffect",
+        "../root/FieldRoot",
+        "../../internals/field-root-context/FieldRootContext",
+        "../../internals/labelable-provider/LabelableContext",
+        "../../internals/field-constants/constants",
+        "../../internals/types",
+        "../../internals/useBaseUiId",
+        "../../internals/useRenderElement",
+        "../item/FieldItemContext"
+      ]
+    },
+    {
+      "source": "packages/react/src/field/validity/FieldValidity.tsx",
+      "sourceSha256": "8a10780f9da25a7d019b7d2a08d562f7f0923d6b6fed78bf036c13293f4d57f6",
+      "symbol": "FieldValidity",
+      "local": "packages/base/src/lib/field/Validity.svelte",
+      "adaptation": "Source combined validity and stable public state derivation; shared source transition helper.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "react",
+        "../../internals/field-root-context/FieldRootContext",
+        "../utils/getCombinedFieldValidityData",
+        "../root/FieldRoot",
+        "../../internals/useTransitionStatus"
+      ]
+    },
+    {
+      "source": "packages/react/src/field/error/FieldError.tsx",
+      "sourceSha256": "fd4823039d4e6ea67479782d336ee3f1c04662f6def97c2910a612083e80cc4b",
+      "symbol": "FieldError",
+      "local": "packages/base/src/lib/field/Error.svelte",
+      "adaptation": "Source rendering/match/error ordering/message-key retention, message registration and completion helpers; native unkeyed list.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "react",
+        "@base-ui/utils/useIsoLayoutEffect",
+        "../root/FieldRoot",
+        "../../internals/field-root-context/FieldRootContext",
+        "../../internals/labelable-provider/LabelableContext",
+        "../../internals/field-constants/constants",
+        "../../internals/form-context/FormContext",
+        "../../internals/types",
+        "../../internals/getStateAttributesProps",
+        "../../internals/useRenderElement",
+        "../../internals/useBaseUiId",
+        "../../internals/useOpenChangeComplete",
+        "../../internals/stateAttributesMapping",
+        "../../internals/useTransitionStatus"
+      ]
+    },
+    {
+      "source": "packages/react/src/fieldset/root/FieldsetRoot.tsx",
+      "sourceSha256": "670a976b982ba32841cedc257e83a0d2fa2d0a2e7cf0398574737f2ef9bf266c",
+      "symbol": "FieldsetRoot",
+      "local": "packages/base/src/lib/fieldset/Root.svelte",
+      "adaptation": "Source parent-disabled precedence, legend state/context and ordered shared renderer props.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "react",
+        "./FieldsetRootContext",
+        "../../internals/types",
+        "../../internals/useRenderElement"
+      ]
+    },
+    {
+      "source": "packages/react/src/fieldset/root/FieldsetRootContext.ts",
+      "sourceSha256": "f4d9dbeb41dc4bab42b3ba6dca1ce51ff83c009a6f7e5507a2b1f840e3708dcc",
+      "symbol": "useFieldsetRootContext",
+      "local": "packages/base/src/lib/fieldset/root/FieldsetRootContext.ts",
+      "adaptation": "Source required/optional context and missing-context error; native context with functional setter.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "react"
+      ]
+    },
+    {
+      "source": "packages/react/src/fieldset/legend/FieldsetLegend.tsx",
+      "sourceSha256": "feea18985193fbb3cec39b66829108170a3499c02ca65905d65e57b9369ab02c",
+      "symbol": "FieldsetLegend",
+      "local": "packages/base/src/lib/fieldset/Legend.svelte",
+      "adaptation": "Source shared useRegisteredLabelId and renderer.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "react",
+        "../../internals/useRenderElement",
+        "../root/FieldsetRootContext",
+        "../../internals/types",
+        "../../utils/useRegisteredLabelId"
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/labelable-provider/useLabel.ts",
+      "sourceSha256": "e8bc584b4cc36db672b97f1f460da09f61a2d35f4c7432c038a89cfc8cd4c741",
+      "symbol": "useLabel/focusElementWithVisible",
+      "local": "packages/base/src/lib/internals/labelable-provider/useLabel.svelte.ts",
+      "adaptation": "Source pointer/selection/control-focus business; native event names, realm-safe HTMLElement check, live getter props.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "react",
+        "@floating-ui/utils/dom",
+        "@base-ui/utils/owner",
+        "@base-ui/utils/useStableCallback",
+        "../../floating-ui-react/utils",
+        "../../utils/useRegisteredLabelId",
+        "./LabelableContext"
+      ]
+    },
+    {
+      "source": "packages/react/src/utils/useRegisteredLabelId.ts",
+      "sourceSha256": "400156404e561e86b73303a22a78d555793b86844efc9fd574f79acd912a56f7",
+      "symbol": "useRegisteredLabelId",
+      "local": "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
+      "adaptation": "Source registration and conditional cleanup through canonical layout helper and native stable id.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "react",
+        "@base-ui/utils/useIsoLayoutEffect",
+        "../internals/useBaseUiId"
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/useTransitionStatus.ts",
+      "sourceSha256": "07ffaf4fcf96a3d4d24aa2dabb696f2e082f312149225e45372a12a0d3cfe4e1",
+      "symbol": "useTransitionStatus",
+      "local": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+      "adaptation": "Source mounted/status/idle/deferred/initial-open branches; native derived/pre-DOM/post-DOM state and rAF scheduling.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "react",
+        "@base-ui/utils/useIsoLayoutEffect",
+        "@base-ui/utils/useAnimationFrame"
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/useOpenChangeComplete.tsx",
+      "sourceSha256": "809be9e6b5a1a6238d9f239c162e2489d7da6e5f20383fbe65e85933e7259d89",
+      "symbol": "useOpenChangeComplete",
+      "local": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+      "adaptation": "Source enabled/open/abort/completion lifecycle with native post-DOM synchronization.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "react",
+        "@base-ui/utils/useStableCallback",
+        "./useAnimationsFinished"
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/useAnimationsFinished.ts",
+      "sourceSha256": "58fef3cb8defbbbe84c80126a6b0aff767293b692a19d97f078a190e62a3d7a6",
+      "symbol": "useAnimationsFinished",
+      "local": "packages/base/src/lib/internals/useAnimationsFinished.ts",
+      "adaptation": "Source animation replacement/starting-style observation/abort branches; native Svelte rendering replaces ReactDOM flushSync and global batching queue.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "react",
+        "react-dom",
+        "@base-ui/utils/useAnimationFrame",
+        "@base-ui/utils/useStableCallback",
+        "../utils/resolveRef",
+        "./TransitionStatusDataAttributes"
+      ]
+    },
+    {
+      "source": "packages/utils/src/useAnimationFrame.ts",
+      "sourceSha256": "229943cee6d42305da4db33ed395ff8ccdde915c2e4e922c5af0c7b0aeeddf82",
+      "symbol": "AnimationFrame/useAnimationFrame",
+      "local": "packages/base/src/lib/utils/useAnimationFrame.ts",
+      "adaptation": "Source instance request/cancel/currentId/dispose/ref/mount shape; native rAF replaces source process-global framework scheduler. Scheduler timing/exception differences have zero parity credit.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "./useRefWithInit",
+        "./useOnMount"
+      ]
+    },
+    {
+      "source": "packages/react/src/utils/resolveRef.ts",
+      "sourceSha256": "fb0a9525bf7c002fe9e82d5c74235c5620b0b83f106cdec67b77071a05140312",
+      "symbol": "resolveRef",
+      "local": "packages/base/src/lib/utils/resolveRef.ts",
+      "adaptation": "Original used function unchanged; native ref-object type.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": []
+    },
+    {
+      "source": "packages/react/src/internals/stateAttributesMapping.ts",
+      "sourceSha256": "722dc0fed9ce97ed42b5b59418a01596c99b0cb8c5c5bb638737878dfe2d43bc",
+      "symbol": "transitionStatusMapping",
+      "local": "packages/base/src/lib/internals/stateAttributesMapping.ts",
+      "adaptation": "Source mapping unchanged; native transition type path.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "./useTransitionStatus",
+        "./getStateAttributesProps",
+        "./TransitionStatusDataAttributes"
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/TransitionStatusDataAttributes.ts",
+      "sourceSha256": "cf240c33e54cbfae687b7f9b1bdaf7329c1cda7630481ca68d105723d75440d7",
+      "symbol": "TransitionStatusDataAttributes",
+      "local": "packages/base/src/lib/internals/TransitionStatusDataAttributes.ts",
+      "adaptation": "Exact source constants.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": []
     }
   ],
   "sharedUtilityDependency": {
@@ -396,8 +660,29 @@
     "localCherryPicks": [
       "d02624d",
       "aafa25d",
-      "06e9a11"
+      "06e9a11",
+      "102a879"
     ],
-    "decision": "PM authorized reviewable dependency integration; final merge gates remain pending"
+    "decision": "PM authorized reviewable dependency integration; final merge gates remain pending",
+    "liveCallbackFixSource": "72889961123096955875ade8b1b4b2062736c2fa"
+  },
+  "sharedRendererDependency": {
+    "pr": "https://github.com/sveltery/base/pull/47",
+    "sourceHead": "e71d643afb22b4d3afd88f88b46caa4d0f102fd9",
+    "localCherryPick": "26a2a1995eb34253bb37ebb9bbaf43732e94f781",
+    "status": "canonical dependency consumed unchanged; final utility/render delivery and rebase pending"
+  },
+  "currentCheckpointEvidence": {
+    "libraryCheck": "0 errors/0 warnings, /tmp/field-source-resume-check1.log",
+    "focusedFieldDom": "79 passing executions, /tmp/field-source-resume-dom2.log",
+    "nativeInputDom": "108 passing executions after current dist rebuild, /tmp/field-resume-native1.log",
+    "ordinaryDeclarationCredit": 0,
+    "unresolved": [
+      "final utility/renderer delivery/rebase",
+      "complete source closure independent review",
+      "remote Form API runtime/types/consumers",
+      "Kit cancellation requirement",
+      "secured final browser/CI/public consumer gates"
+    ]
   }
 }

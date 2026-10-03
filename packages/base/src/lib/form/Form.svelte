@@ -36,7 +36,7 @@
     return hasInvalid;
   });
   let errors = $state<FormErrors | undefined>(untrack(() => externalErrors));
-  useValueChanged(() => externalErrors, () => { errors = externalErrors; });
+  useValueChanged(() => externalErrors, () => () => { errors = externalErrors; });
   $effect(() => {
     void errors;
     untrack(() => {
@@ -88,7 +88,7 @@
     get errors() { return errors ?? EMPTY_OBJECT; }, clearErrors, submitCountRef,
   };
   setFormContext(contextValue);
-  const forwardedRef = { get current() { return ref; }, set current(value: HTMLElement | null | undefined) { ref = value; } };
+  const forwardedRef = { get current() { return ref ?? null; }, set current(value: HTMLElement | null) { ref = value; } };
   const componentProps = $derived({ render: render ? renderForm : undefined, class: classProp, style });
   const params = $derived({ ref: [forwardedRef, elementRef], props: [internal, elementProps] });
   function comesBeforeInSameTree(element: Node, reference: Node) {

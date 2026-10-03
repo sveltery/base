@@ -5,6 +5,7 @@ import Fixture from './FieldFormFixture.svelte';
 import { Field } from '../../src/lib/field/index.js';
 import { Fieldset } from '../../src/lib/fieldset/index.js';
 import Input from '../../src/lib/input/Input.svelte';
+import Control from '../../src/lib/field/Control.svelte';
 const cleanups: (() => Promise<void>)[] = [];
 afterEach(async () => { for (const cleanup of cleanups.splice(0)) await cleanup(); document.body.replaceChildren(); });
 function setup(props: Record<string, unknown> = {}) {
@@ -18,9 +19,9 @@ function setup(props: Record<string, unknown> = {}) {
   const submit = () => { const event = new Event('submit', { bubbles: true, cancelable: true }); form().dispatchEvent(event); flushSync(); return event; };
   return { host, component, input, field, validity, form, edit, submit };
 }
-it('supplement Field.Control and Input share exactly the same component', () => {
+it('supplement Field.Control exports the actual control and Input remains a distinct wrapper', () => {
   // This is a composition dependency witness, not an ordinary source declaration.
-  expect(Field.Control).toBe(Input);
+  expect(Field.Control).toBe(Control); expect(Input).not.toBe(Control);
 });
 for (const inputPart of [false, true]) it(`Root:152 label association, descriptions and explicit-id removal through ${inputPart ? 'Input' : 'Control'}`, () => {
   const { host, component, input } = setup({ inputPart });

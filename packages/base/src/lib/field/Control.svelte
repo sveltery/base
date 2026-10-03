@@ -43,7 +43,7 @@
     const currentValue = serializedValue ?? field.validation.inputRef.current?.value;
     if (currentValue !== undefined) field.setFilled(currentValue !== '');
   }, () => [serializedValue, field.validation.inputRef, field.setFilled]);
-  useValueChanged(() => serializedValue, () => {
+  useValueChanged(() => serializedValue, () => () => {
     if (serializedValue === undefined) return;
     form.clearErrors(name ?? undefined);
     field.setDirty(serializedValue !== (field.validityData.initialValue ?? ''));
@@ -100,7 +100,7 @@
       }
     },
   });
-  const forwardedRef = { get current() { return ref; }, set current(value: HTMLElement | null | undefined) { ref = value; } };
+  const forwardedRef = { get current() { return ref ?? null; }, set current(value: HTMLElement | null) { ref = value; } };
   const componentProps = $derived({ ...elementProps, render, class: classProp, style });
   const params = $derived({
     ref: [forwardedRef, inputRef], state: controlState,

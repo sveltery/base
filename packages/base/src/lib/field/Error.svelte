@@ -1,48 +1,59 @@
 <script lang="ts">
-  // Base UI v1.8.0 FieldError and animation completion; MIT: THIRD_PARTY_NOTICES.md.
-  import { untrack } from 'svelte';
-  import Element from '../dialog/Element.svelte';
-  import { resolveFieldProps } from './props.js';
-  import { afterAnimations } from '../collapsible/animations.js';
-  import { getFieldContext } from './context.js';
-  import { getLabelableContext } from './labelable.svelte.js';
-  import { stateAttributes } from './state.js';
-  import { createFieldTransition } from './transition.svelte.js';
+  // Ported from Base UI v1.8.0 FieldError.tsx; MIT: THIRD_PARTY_NOTICES.md.
+  import RenderElement from '../internals/RenderElement.svelte';
+  import { useIsoLayoutEffect } from '../utils/useIsoLayoutEffect.svelte.js';
+  import { useFieldRootContext } from '../internals/field-root-context/FieldRootContext.js';
+  import { useLabelableContext } from '../internals/labelable-provider/LabelableContext.js';
+  import { fieldValidityMapping } from '../internals/field-constants/constants.js';
+  import { useFormContext } from '../internals/form-context/FormContext.js';
+  import { useBaseUiId } from '../internals/useBaseUiId.js';
+  import { useOpenChangeComplete } from '../internals/useOpenChangeComplete.svelte.js';
+  import { transitionStatusMapping } from '../internals/stateAttributesMapping.js';
+  import { useTransitionStatus } from '../internals/useTransitionStatus.svelte.js';
   import ErrorMessageList from './ErrorMessageList.svelte';
-  import type { FieldErrorProps } from './types.js';
-  let { ref = $bindable(), ...componentProps }: FieldErrorProps = $props();
-  const render = $derived(componentProps.render), idProp = $derived(componentProps.id), match = $derived(componentProps.match);
-  const nativeProps = $derived.by(() => {
-    const native = { ...componentProps };
-    delete native.children; delete native.render; delete native.id; delete native.match;
-    return native;
-  });
-  const field = getFieldContext(false)!;
-  const labelable = getLabelableContext()!;
-  const instanceId = $props.id();
-  const id = $derived(idProp ?? `base-ui-${instanceId}`);
+  import type { FieldErrorProps, FieldErrorState } from './types.js';
+  let { render, id: idProp, class: classProp, match, style, ref = $bindable(), ...elementProps }: FieldErrorProps = $props();
+  const nativeId = $props.id();
+  const id = $derived(useBaseUiId(idProp ?? undefined, nativeId));
+  const field = useFieldRootContext(false);
+  const { setMessageIds } = useLabelableContext();
+  const form = useFormContext();
+  const formError = $derived(field.name && Object.hasOwn(form.errors, field.name) ? form.errors[field.name] : null);
+  const hasFormError = $derived(Boolean(Array.isArray(formError) ? formError.length : formError));
   const hasSpecificMatch = $derived(typeof match === 'string');
-  const hasFormError = $derived(Boolean(Array.isArray(field.formError) ? field.formError.length : field.formError));
-  const rendered = $derived(match === true || (!field.state.disabled && (hasSpecificMatch ? Boolean(field.validityData.state[match as keyof ValidityState]) : hasFormError || field.validityData.state.valid === false)));
-  const error = $derived(!hasSpecificMatch && hasFormError ? field.formError : field.validityData.errors.length > 1 ? field.validityData.errors : field.validityData.error);
-  let lastError = $state.raw<string | string[] | null>(untrack(() => rendered ? error : null));
-  const message = $derived(rendered ? error : lastError);
-  let errorElement = $state<HTMLElement | null>(null);
-  const transition = createFieldTransition(() => rendered, () => errorElement);
-  const errorState = $derived({ ...field.state, transitionStatus: transition.transitionStatus });
-  $effect.pre(() => { if (rendered) lastError = error; });
-  $effect(() => { const open = rendered, current = id; if (open && current) return untrack(() => labelable.addMessage(current)); });
-  $effect(() => {
-    const open = rendered;
-    const node = errorElement;
-    if (!node) return;
-    return afterAnimations(node, () => { if (!open && !rendered) transition.setMounted(false); }, open);
+  const rendered = $derived.by(() => {
+    if (match === true) return true;
+    if (field.state.disabled) return false;
+    if (typeof match === 'string') return Boolean(field.validityData.state[match]);
+    return hasFormError || field.validityData.state.valid === false;
   });
-  function attach(node: HTMLElement) { errorElement = node; return () => { if (errorElement === node) errorElement = null; }; }
-  const internal = $derived({
-    ...stateAttributes(errorState), id,
-    'data-starting-style': transition.transitionStatus === 'starting' ? '' : undefined,
-    'data-ending-style': transition.transitionStatus === 'ending' ? '' : undefined,
+  const transition = useTransitionStatus(() => rendered);
+  useIsoLayoutEffect(() => {
+    if (!rendered || !id) return;
+    setMessageIds(v => v.concat(id));
+    return () => { setMessageIds(v => v.filter(item => item !== id)); };
+  }, () => [rendered, id, setMessageIds]);
+  const errorRef = $state<{ current: HTMLElement | null }>({ current: null });
+  let lastRenderedMessage = $state.raw<string | string[] | null>(null);
+  let lastRenderedMessageKey = $state<string | null>(null);
+  const error = $derived(!hasSpecificMatch && hasFormError ? formError : field.validityData.errors.length > 1 ? field.validityData.errors : field.validityData.error);
+  const errorKey = $derived(Array.isArray(error) ? JSON.stringify(error) : error);
+  // Source retained message/key state uses native pre-DOM synchronization on visibility/message changes.
+  $effect.pre(() => {
+    if (rendered && errorKey !== lastRenderedMessageKey) { lastRenderedMessageKey = errorKey; lastRenderedMessage = error; }
+  });
+  const message = $derived(rendered ? error : lastRenderedMessage);
+  useOpenChangeComplete({
+    get open() { return rendered; }, ref: errorRef,
+    onComplete() { if (!rendered) transition.setMounted(false); },
+  });
+  const errorState: FieldErrorState = $derived({ ...field.state, transitionStatus: transition.transitionStatus });
+  const stateAttributesMapping = { ...fieldValidityMapping, ...transitionStatusMapping };
+  const forwardedRef = { get current() { return ref ?? null; }, set current(value: HTMLElement | null) { ref = value; } };
+  const componentProps = $derived({ render, class: classProp, style });
+  const params = $derived({
+    ref: [forwardedRef, errorRef], state: errorState,
+    props: [{ id, children: errorContent }, elementProps], stateAttributesMapping, enabled: transition.mounted,
   });
 </script>
 {#snippet errorContent()}
@@ -50,6 +61,4 @@
     {#if message.length > 1}<ErrorMessageList messages={message} />{:else}{message[0] ?? ''}{/if}
   {:else}{message ?? ''}{/if}
 {/snippet}
-{#if transition.mounted}
-  <Element tag="div" {internal} props={resolveFieldProps(nativeProps, errorState)} state={errorState} {render} children={Object.hasOwn(componentProps, 'children') ? componentProps.children : errorContent} {attach} bind:ref />
-{/if}
+{#if transition.mounted}<RenderElement tag="div" {componentProps} {params} />{/if}

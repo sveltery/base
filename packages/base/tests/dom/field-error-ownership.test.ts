@@ -39,7 +39,7 @@ for (const [name, sequence] of Object.entries(sequences)) it(`supplement native 
     if (JSON.stringify(nativeRows()) !== JSON.stringify(referenceRows())) observedFrameworkDifference = true;
     if (messages.length === 1) expect(nativeHost.querySelector('#error')?.textContent).toBe(referenceHost.querySelector('#error')?.textContent);
   }
-  expect(observedFrameworkDifference).toBe(true); // Characterization, not parity credit.
+  expect(observedFrameworkDifference).toBe(name !== 'duplicate shrink and structural replacement'); // Actual paired characterization, not parity credit.
   component.update({ error: false }); flushSync(); expect(nativeHost.querySelector('#error')).toBeNull();
   component.update({ error: true }); flushSync(); await tick(); flushSync();
   const last = sequence.at(-1)!; expect([...nativeHost.querySelectorAll('li')].map(node => node.textContent)).toEqual(last.length > 1 ? last : []);

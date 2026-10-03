@@ -7,7 +7,7 @@
   import { useStableCallback } from '../../utils/useStableCallback.js';
   import { setFieldRootContext, type FieldRootContext } from '../../internals/field-root-context/FieldRootContext.js';
   import { DEFAULT_VALIDITY_STATE, fieldValidityMapping } from '../../internals/field-constants/constants.js';
-  import { getFieldsetContext } from '../../fieldset/context.js';
+  import { useFieldsetRootContext } from '../../fieldset/root/FieldsetRootContext.js';
   import { useFormContext } from '../../internals/form-context/FormContext.js';
   import { useFieldValidation } from './useFieldValidation.svelte.js';
   import { useFieldControlRegistration } from '../../internals/field-register-control/useFieldControlRegistration.svelte.js';
@@ -19,7 +19,7 @@
     invalid: invalidProp, dirty: dirtyProp, touched: touchedProp, actionsRef, style,
     children, ref = $bindable(), ...elementProps
   }: FieldRootProps = $props();
-  const fieldset = getFieldsetContext(true);
+  const fieldset = useFieldsetRootContext(true);
   const validate = useStableCallback((value: unknown, values: Parameters<NonNullable<FieldRootProps['validate']>>[1]) => (validateProp || (() => null))(value, values));
   const disabled = $derived(Boolean(fieldset?.disabled || disabledProp));
   let touchedState = $state(false);
@@ -81,7 +81,7 @@
   };
   setFieldRootContext(contextValue);
   const componentProps = $derived({ ...elementProps, render, class: classProp, style });
-  const forwardedRef = { get current() { return ref; }, set current(value: HTMLElement | null | undefined) { ref = value; } };
+  const forwardedRef = { get current() { return ref ?? null; }, set current(value: HTMLElement | null) { ref = value; } };
   const params = $derived({ ref: forwardedRef, state: fieldRootState, props: elementProps, stateAttributesMapping: fieldValidityMapping });
 </script>
 <RenderElement tag="div" {componentProps} {params} {children} />

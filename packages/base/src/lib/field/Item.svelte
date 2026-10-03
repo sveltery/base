@@ -1,17 +1,18 @@
 <script lang="ts">
-  // Base UI v1.8.0 FieldItem; MIT: THIRD_PARTY_NOTICES.md.
-  import Element from '../dialog/Element.svelte';
-  import { resolveFieldProps } from './props.js';
-  import { getFieldContext, setFieldItemContext } from './context.js';
-  import { createLabelableContext } from './labelable.svelte.js';
-  import { stateAttributes } from './state.js';
+  // Ported from Base UI v1.8.0 FieldItem.tsx; MIT: THIRD_PARTY_NOTICES.md.
+  import RenderElement from '../internals/RenderElement.svelte';
+  import LabelableProvider from '../internals/labelable-provider/LabelableProvider.svelte';
+  import { useFieldRootContext } from '../internals/field-root-context/FieldRootContext.js';
+  import { fieldValidityMapping } from '../internals/field-constants/constants.js';
+  import { setFieldItemContext } from './item/FieldItemContext.js';
   import type { FieldItemProps } from './types.js';
-  let { children, render, disabled: disabledProp = false, ref = $bindable(), ...props }: FieldItemProps = $props();
-  const field = getFieldContext(false)!;
-  const instanceId = $props.id();
-  createLabelableContext(`base-ui-${instanceId}`);
-  const disabled = $derived(field.state.disabled || disabledProp);
-  setFieldItemContext({ get disabled() { return disabled; } });
+  let { children, render, class: classProp, style, disabled: disabledProp = false, ref = $bindable(), ...elementProps }: FieldItemProps = $props();
+  const field = useFieldRootContext(false);
+  const disabled = $derived(field.disabled || disabledProp);
   const itemState = $derived({ ...field.state, disabled });
+  setFieldItemContext({ get disabled() { return disabled; } });
+  const forwardedRef = { get current() { return ref ?? null; }, set current(value: HTMLElement | null) { ref = value; } };
+  const componentProps = $derived({ render, class: classProp, style });
+  const params = $derived({ ref: forwardedRef, state: itemState, props: elementProps, stateAttributesMapping: fieldValidityMapping });
 </script>
-<Element tag="div" internal={stateAttributes(itemState)} props={resolveFieldProps(props, itemState)} state={itemState} {render} {children} bind:ref />
+<LabelableProvider><RenderElement tag="div" {componentProps} {params} {children} /></LabelableProvider>
