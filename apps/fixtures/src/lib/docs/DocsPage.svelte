@@ -2,6 +2,7 @@
   import { resolve } from '$app/paths';
   import type { Doc } from './content.js';
   import api from './dialog-api.json';
+  import tabsApi from '../../../../../parity/tabs/api.json';
   import accordionApi from '../../../../../parity/accordion/api.json';
   import DialogExample from './DialogExample.svelte';
   import exampleSource from './DialogExample.svelte?raw';
@@ -66,6 +67,14 @@
       <details class="docs-code"><summary>Accordion state, value and event types</summary>
         <!-- svelte-ignore a11y_no_noninteractive_tabindex (Keyboard access to horizontally scrollable code) -->
         <pre tabindex="0" aria-label="Accordion type declarations"><code>{accordionApi.types}</code></pre></details>
+    {/if}
+    {#if doc.slug === 'components/tabs' && section.id === 'api-reference'}
+      {#each tabsApi.parts as part (part.name)}<h3>{part.name}</h3>
+        <!-- svelte-ignore a11y_no_noninteractive_tabindex (Keyboard access to horizontally scrollable code) -->
+        <pre tabindex="0" aria-label={part.name + ' Tabs props signature'}><code>{part.signature}</code></pre>{/each}
+      <details class="docs-code"><summary>Tabs state, value and event types</summary>
+        <!-- svelte-ignore a11y_no_noninteractive_tabindex (Keyboard access to horizontally scrollable code) -->
+        <pre tabindex="0" aria-label="Tabs type declarations"><code>{tabsApi.types}</code></pre></details>
     {/if}
     {#if section.links}<div class="docs-links">{#each section.links as link (link.href)}
       <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -- linkHref resolves local docs links and preserves external URLs. -->

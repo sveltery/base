@@ -128,6 +128,11 @@
       "types": "./dist/radio-group/index.d.ts",
       "svelte": "./dist/radio-group/index.js",
       "default": "./dist/radio-group/index.js"
+    },
+    "./tabs": {
+      "types": "./dist/tabs/index.d.ts",
+      "svelte": "./dist/tabs/index.js",
+      "default": "./dist/tabs/index.js"
     }
   },
   "svelte": "./dist/index.js",

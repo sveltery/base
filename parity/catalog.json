@@ -219,9 +219,9 @@
     },
     {
       "upstreamModule": "tabs",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "Tabs",
+      "evidence": "parity/tabs/README.md"
     },
     {
       "upstreamModule": "toast",

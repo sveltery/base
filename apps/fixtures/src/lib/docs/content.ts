@@ -39,7 +39,7 @@ export const docs: Doc[] = [
         id: 'status',
         title: 'A foundation in progress',
         paragraphs: [
-          'The repository catalog accounts for 23 bounded modules and 19 unimplemented modules, including providers and utilities. Field, Form, Fieldset, Checkbox, CheckboxGroup, Switch, Radio and RadioGroup are available alongside UseRender composition and the earlier components. Remote Form exposes typed Field children and control descriptors. Complete upstream compatibility remains unfinished; the catalog ledger records each exported scope and its limits.',
+          'The repository catalog accounts for 24 bounded modules and 18 unimplemented modules, including providers and utilities. Field, Form, Fieldset, Checkbox, CheckboxGroup, Switch, Radio and RadioGroup are available alongside UseRender composition and the earlier components. Remote Form exposes typed Field children and control descriptors. Complete upstream compatibility remains unfinished; the catalog ledger records each exported scope and its limits.',
           'The package is private and unpublished. APIs may change. Use this workspace to evaluate the current slice; check the repository contracts before depending on a behavior.',
         ],
         links: [
@@ -415,3 +415,15 @@ export const docs: Doc[] = [
   },
 ];
 export const groups = ['Overview', 'Getting started', 'Handbook', 'Components'];
+
+// Tabs is owned independently; earlier component documentation stays intact.
+docs.push({
+  slug: 'components/tabs', group: 'Components', title: 'Tabs',
+  description: 'Group tab buttons with associated panels and a measured active indicator.',
+  sections: [
+    { id: 'usage', title: 'Assemble tabs and panels', paragraphs: ['Root owns selection. List groups Tab buttons; each Panel shares the corresponding value. Indicator exposes measured CSS variables for the active tab.'], code: '<Tabs.Root defaultValue="first">\n  <Tabs.List aria-label="Details">\n    <Tabs.Tab value="first">First</Tabs.Tab>\n    <Tabs.Tab value="second">Second</Tabs.Tab>\n    <Tabs.Indicator />\n  </Tabs.List>\n  <Tabs.Panel value="first">First content</Tabs.Panel>\n  <Tabs.Panel value="second">Second content</Tabs.Panel>\n</Tabs.Root>' },
+    { id: 'behavior', title: 'Selection and focus', paragraphs: ['Selection defaults to value 0. Arrows move focus; Enter or Space activate. Set activateOnFocus on List for automatic activation, or loopFocus={false} to stop at either end.', 'Disabled tabs remain focusable through navigation and cannot activate. Uncontrolled automatic initial, disabled or missing fallbacks cannot be canceled; user value changes can be canceled through their event details. Inactive keepMounted panels retain native inert content.'] },
+    { id: 'api-reference', title: 'API reference', paragraphs: ['These signatures are extracted from the actual typed public exports. Render snippets, class/style functions, native events and element ref bindings follow the shared Svelte composition API.'] },
+    { id: 'compatibility', title: 'Verification status', paragraphs: ['This five-part Source port is under verification. Complete ordinary assertion parity and final independent source/native/maintainability, hosted gate and PM acceptance are separately recorded. The optional SSR script uses the exact pinned payload through the canonical native CSP wrapper; generated IDs and native lifecycle use Svelte defaults.'] },
+  ],
+});
