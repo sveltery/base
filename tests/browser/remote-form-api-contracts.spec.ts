@@ -126,7 +126,7 @@ test('nested server errors use logical canonical paths, authored IDs and authori
   expect(requests).toHaveLength(1);
   expect((await json(page, 'contract-effects')).nested ?? 0).toBe(before);
   await page.getByRole('button', { name: 'Toggle authoritative errors', exact: true }).click();
-  await expect(page.locator('#nested-email-error')).toBeEmpty(); await expect(page.locator('#nested-index-error')).toBeEmpty();
+  await expect(page.locator('#nested-email-error')).toHaveCount(0); await expect(page.locator('#nested-index-error')).toHaveCount(0);
   expect(await json(page, 'nested-issues')).toHaveLength(2);
   await email.fill('valid@example.com'); await index.fill('valid');
   await positive(page, 'Save nested', 'nested-result', 'nested', { profile: { email: 'valid@example.com' }, items: [{ label: 'valid' }] });
@@ -140,7 +140,7 @@ test('preflight errors route to nested and leading-zero indexed fields without a
   await expect(page.locator('#nested-email-error')).toHaveText('Preflight email error'); await expect(page.locator('#nested-index-error')).toHaveText('Preflight indexed error');
   expect(requests).toHaveLength(0);
   await page.getByLabel('Indexed label', { exact: true }).fill('valid');
-  await expect(page.locator('#nested-index-error')).toBeEmpty();
+  await expect(page.locator('#nested-index-error')).toHaveCount(0);
   await expect(page.locator('#nested-email-error')).toHaveText('Preflight email error');
 });
 
@@ -149,7 +149,7 @@ test('remote.for IDs keep live fields, errors and results isolated', async ({ pa
   const first = page.getByLabel('Isolated 0', { exact: true }), second = page.getByLabel('Isolated 1', { exact: true });
   await first.fill('server-reject');
   await page.getByRole('button', { name: 'Save isolated 0', exact: true }).click();
-  await expect(page.locator('#isolated-error-0')).toHaveText('Server message error'); await expect(page.locator('#isolated-error-1')).toBeEmpty();
+  await expect(page.locator('#isolated-error-0')).toHaveText('Server message error'); await expect(page.locator('#isolated-error-1')).toHaveCount(0);
   await expect(second).toHaveValue('second-seed'); expect(await json(page, 'isolated-result-1')).toBeNull();
   await second.fill('second-valid');
   await positive(page, 'Save isolated 1', 'isolated-result-1', 'isolated', { message: 'second-valid' });
