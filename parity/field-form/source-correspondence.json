@@ -1230,7 +1230,7 @@
       "sourceSha256": "415eb6cbbe77d429746142c0e731045a0fe11533378956a306256f70df9d2f17",
       "symbol": "FieldDescription",
       "local": "packages/base/src/lib/field/Description.svelte",
-      "adaptation": "Source message-id registration/cleanup and contexts; shared renderer.",
+      "adaptation": "Source message-id registration/cleanup and contexts; shared renderer. Native effect cleanup captures the installed registration ID, matching the pinned render closure rather than reading a live rune during teardown.",
       "status": "source-checkpoint-executed-pending-independent-review",
       "imports": [
         "react",
@@ -1344,7 +1344,7 @@
       "sourceSha256": "fd4823039d4e6ea67479782d336ee3f1c04662f6def97c2910a612083e80cc4b",
       "symbol": "FieldError",
       "local": "packages/base/src/lib/field/Error.svelte",
-      "adaptation": "Source rendering/match/error ordering/message-key retention, message registration and completion helpers; native unkeyed list.",
+      "adaptation": "Source rendering/match/error ordering/message-key retention, message registration and completion helpers; native unkeyed list. Native effect cleanup captures the installed registration ID, matching the pinned render closure rather than reading a live rune during teardown.",
       "status": "source-checkpoint-executed-pending-independent-review",
       "imports": [
         "react",
@@ -1590,7 +1590,7 @@
       "sourceSha256": "400156404e561e86b73303a22a78d555793b86844efc9fd574f79acd912a56f7",
       "symbol": "useRegisteredLabelId",
       "local": "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
-      "adaptation": "Source registration and conditional cleanup through canonical layout helper and native stable id.",
+      "adaptation": "Source registration and conditional cleanup through canonical layout helper and native stable id. Native effect cleanup captures the installed registration ID, matching the pinned render closure rather than reading a live rune during teardown.",
       "status": "source-checkpoint-executed-pending-independent-review",
       "imports": [
         "react",
@@ -2016,5 +2016,12 @@
       "ordinaryDeclarationCredit": 0,
       "tests": "packages/base/tests/dom/field-control-name.test.ts"
     }
-  ]
+  ],
+  "reviewRepairs": {
+    "supersededCandidate": "89a55125520efb0fa7b198b2a3e6c917a6174107",
+    "registrationCleanup": "Description, Error and useRegisteredLabelId capture the installed registration ID; simultaneous message replacement/removal and remaining-legend ownership are new supplemental regressions.",
+    "publicTypes": "Pinned schema-free Form.Values/default Form constraint and explicit-undefined own prop contracts restored; shared rendering class/style/render delta is type-only, not covered by the prior PR47 review.",
+    "ordinaryDeclarationCredit": 0,
+    "status": "fresh-final-head-review-and-browser-gates-required"
+  }
 }
