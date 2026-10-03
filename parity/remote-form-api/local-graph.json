@@ -206,7 +206,7 @@
     },
     {
       "local": "packages/base/src/lib/checkbox/root/CheckboxRoot.svelte",
-      "sha256": "a36b319df5260003cf385ea81c73c499a4dbb95fa3f11dadf2c6edd2f4fb5eb8",
+      "sha256": "36fec4ac980a7ad09bb5614726f3fe7479dbc48cdec293641a90a809fa78e7d8",
       "imports": [
         {
           "specifier": "svelte",
@@ -217,6 +217,11 @@
           "specifier": "../../internals/field-control-name/FieldControlNameContext.js",
           "kind": "runtime",
           "resolved": "packages/base/src/lib/internals/field-control-name/FieldControlNameContext.ts"
+        },
+        {
+          "specifier": "../../internals/field-control-value/FieldControlValueContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-control-value/FieldControlValueContext.ts"
         },
         {
           "specifier": "../../internals/RenderElement.svelte",
@@ -1591,6 +1596,17 @@
       ]
     },
     {
+      "local": "packages/base/src/lib/internals/field-control-value/FieldControlValueContext.ts",
+      "sha256": "e97a45c620080963320c4ee0bc8a81e5422c5cdc3ebca07cd94d062ee46cb852",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        }
+      ]
+    },
+    {
       "local": "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts",
       "sha256": "2fbe1f3900ce42aff6d9f65e489b9dcac76a90e34c2be6dcd75c4f5d5bc887fe",
       "imports": [
@@ -2657,7 +2673,7 @@
     },
     {
       "local": "packages/base/src/lib/remote-forms/RemoteBooleanControl.svelte",
-      "sha256": "bd2e4638cf9d4cb0c0980e1fe28e45167014c74375caf84f0e6f6c092fad4c10",
+      "sha256": "3f4e3a1b71d822a6bf3593db75ecba13508842de53d365606917cd6212ea94ba",
       "imports": [
         {
           "specifier": "../checkbox/root/CheckboxRoot.svelte",
@@ -2678,6 +2694,16 @@
           "specifier": "../internals/field-control-name/FieldControlNameContext.js",
           "kind": "runtime",
           "resolved": "packages/base/src/lib/internals/field-control-name/FieldControlNameContext.ts"
+        },
+        {
+          "specifier": "../internals/field-control-value/FieldControlValueContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-control-value/FieldControlValueContext.ts"
+        },
+        {
+          "specifier": "../checkbox-group/CheckboxGroupContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/checkbox-group/CheckboxGroupContext.ts"
         },
         {
           "specifier": "../internals/field-root-context/FieldRootContext.js",
@@ -2703,7 +2729,7 @@
     },
     {
       "local": "packages/base/src/lib/remote-forms/RemoteControl.svelte",
-      "sha256": "cca419ff07e10e0520c1a4ae786e60cccd5e21f07de5216ce562395ae6d4df16",
+      "sha256": "a2c3bf73969d002f99e7571df274a77d97d0603ec1d8c517901992ca58312527",
       "imports": [
         {
           "specifier": "./RemoteTextControl.svelte",

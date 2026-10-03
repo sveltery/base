@@ -3,6 +3,7 @@
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
   import { untrack } from 'svelte';
   import { useFieldControlNativeName } from '../../internals/field-control-name/FieldControlNameContext.js';
+  import { useFieldControlNativeValue } from '../../internals/field-control-value/FieldControlValueContext.js';
   import RenderElement from '../../internals/RenderElement.svelte';
   import { createMergedRefs } from '../../utils/useMergedRefs.js';
   import { createRefAttachment } from '../../internals/nativeRefAttachment.js';
@@ -69,6 +70,7 @@
   const name = $derived(field.name ?? nameProp);
   const getNativeName = useFieldControlNativeName();
   const nativeName = $derived(getNativeName(name));
+  const getNativeValue = useFieldControlNativeValue();
   const value = $derived(valueProp ?? name);
   const instanceId = $props.id();
   const id = useBaseUiId(undefined, instanceId);
@@ -224,7 +226,7 @@
       controlRef.current?.focus();
     },
     ...(valueProp !== undefined
-      ? { value: (groupContext ? checked && valueProp : valueProp) || '' }
+      ? { value: getNativeValue((groupContext ? checked && valueProp : valueProp) || '') }
       : {}),
   });
   $effect(() => {

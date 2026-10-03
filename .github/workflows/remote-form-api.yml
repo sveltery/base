@@ -37,7 +37,7 @@ jobs:
         run: pnpm --filter @sveltery/base build
       - name: Install official secured Chromium
         run: pnpm exec playwright install --with-deps chromium
-      - name: Typed facade and unchanged original remote acceptance
+      - name: Typed facade and current source/native remote acceptance
         env:
           PLAYWRIGHT_JSON_OUTPUT_NAME: .checks/remote-form-api/browser-results.json
         run: |
