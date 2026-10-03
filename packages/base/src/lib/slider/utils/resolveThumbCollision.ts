@@ -1,8 +1,8 @@
 // Ported from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT: THIRD_PARTY_NOTICES.md; parity/slider/source-correspondence.md.
-import { clamp } from '../../utils/clamp.js';
-import { getPushedThumbValues } from './getPushedThumbValues.js';
-import type { SliderRootContext } from '../root/SliderRootContext.js';
+import { clamp } from "../../utils/clamp.js";
+import { getPushedThumbValues } from "./getPushedThumbValues.js";
+import type { SliderRootContext } from "../root/SliderRootContext.js";
 
 export interface ResolveThumbCollisionResult {
   value: number | number[];
@@ -15,7 +15,7 @@ export interface ResolveThumbCollisionResult {
  * minify, so passing them positionally keeps this internal helper smaller in the bundle.
  */
 export function resolveThumbCollision(
-  behavior: SliderRootContext['thumbCollisionBehavior'],
+  behavior: SliderRootContext["thumbCollisionBehavior"],
   values: readonly number[],
   currentValues: readonly number[] | null | undefined,
   initialValues: readonly number[] | null | undefined,
@@ -42,7 +42,7 @@ export function resolveThumbCollision(
 
   // `push` does its own copy/bounds/rounding pass in `getPushedThumbValues`, so it must not
   // pay for the neighbor-clamp setup below (this is the hottest path — `push` is the default).
-  if (behavior === 'push') {
+  if (behavior === "push") {
     return {
       value: getPushedThumbValues(
         activeValues,
@@ -62,13 +62,17 @@ export function resolveThumbCollision(
   const candidateValues = activeValues.slice();
   const previousNeighbor = candidateValues[pressedIndex - 1];
   const nextNeighbor = candidateValues[pressedIndex + 1];
-  const lowerBound = previousNeighbor != null ? previousNeighbor + minValueDifference : min;
-  const upperBound = nextNeighbor != null ? nextNeighbor - minValueDifference : max;
-  const pressedValueAfterClamp = Number(clamp(nextValue, lowerBound, upperBound).toFixed(12));
+  const lowerBound =
+    previousNeighbor != null ? previousNeighbor + minValueDifference : min;
+  const upperBound =
+    nextNeighbor != null ? nextNeighbor - minValueDifference : max;
+  const pressedValueAfterClamp = Number(
+    clamp(nextValue, lowerBound, upperBound).toFixed(12),
+  );
   candidateValues[pressedIndex] = pressedValueAfterClamp;
 
   switch (behavior) {
-    case 'swap': {
+    case "swap": {
       const pressedInitialValue = activeValues[pressedIndex];
       const epsilon = 1e-7;
 
@@ -76,9 +80,13 @@ export function resolveThumbCollision(
       const movingBackward = nextValue < pressedInitialValue;
 
       const shouldSwapForward =
-        movingForward && nextNeighbor != null && nextValue >= nextNeighbor - epsilon;
+        movingForward &&
+        nextNeighbor != null &&
+        nextValue >= nextNeighbor - epsilon;
       const shouldSwapBackward =
-        movingBackward && previousNeighbor != null && nextValue <= previousNeighbor + epsilon;
+        movingBackward &&
+        previousNeighbor != null &&
+        nextValue <= previousNeighbor + epsilon;
 
       if (!shouldSwapForward && !shouldSwapBackward) {
         return {
@@ -88,7 +96,9 @@ export function resolveThumbCollision(
         };
       }
 
-      const targetIndex = shouldSwapForward ? pressedIndex + 1 : pressedIndex - 1;
+      const targetIndex = shouldSwapForward
+        ? pressedIndex + 1
+        : pressedIndex - 1;
 
       const initialValuesForPush = candidateValues.map((_, index) => {
         if (index === pressedIndex) {
@@ -103,6 +113,7 @@ export function resolveThumbCollision(
         return activeValues[index];
       });
 
+      // eslint-disable-next-line no-useless-assignment -- Preserve the original Source branch initialization.
       let nextValueForTarget = nextValue;
       if (shouldSwapForward) {
         nextValueForTarget = Math.max(nextValue, candidateValues[targetIndex]);
@@ -121,21 +132,32 @@ export function resolveThumbCollision(
         initialValuesForPush,
       );
 
-      const neighborIndex = shouldSwapForward ? targetIndex - 1 : targetIndex + 1;
+      const neighborIndex = shouldSwapForward
+        ? targetIndex - 1
+        : targetIndex + 1;
 
       const previousValue = adjustedValues[neighborIndex - 1];
       const nextValueAfter = adjustedValues[neighborIndex + 1];
 
-      let neighborLowerBound = previousValue != null ? previousValue + minValueDifference : min;
-      neighborLowerBound = Math.max(neighborLowerBound, min + neighborIndex * minValueDifference);
+      let neighborLowerBound =
+        previousValue != null ? previousValue + minValueDifference : min;
+      neighborLowerBound = Math.max(
+        neighborLowerBound,
+        min + neighborIndex * minValueDifference,
+      );
 
-      let neighborUpperBound = nextValueAfter != null ? nextValueAfter - minValueDifference : max;
+      let neighborUpperBound =
+        nextValueAfter != null ? nextValueAfter - minValueDifference : max;
       neighborUpperBound = Math.min(
         neighborUpperBound,
         max - (adjustedValues.length - 1 - neighborIndex) * minValueDifference,
       );
 
-      const restoredValue = clamp(pressedValueAfterClamp, neighborLowerBound, neighborUpperBound);
+      const restoredValue = clamp(
+        pressedValueAfterClamp,
+        neighborLowerBound,
+        neighborUpperBound,
+      );
       adjustedValues[neighborIndex] = Number(restoredValue.toFixed(12));
 
       return {
@@ -144,7 +166,7 @@ export function resolveThumbCollision(
         didSwap: true,
       };
     }
-    case 'none':
+    case "none":
     default: {
       return {
         value: candidateValues,

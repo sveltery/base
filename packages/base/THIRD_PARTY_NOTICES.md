@@ -53,3 +53,5 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 Shared controlled state, stable callbacks, initialized refs, timeouts, mount/layout synchronization, value-change tracking, development logging and immutable fallbacks derive from packages/utils/src and packages/react/src/internals/useValueChanged.ts at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT license, original dependency hashes and explicit native framework replacements are preserved in parity/shared-utils.
+
+Slider Root, Label, Value, Control, Track, Thumb, Indicator, collision/step/geometry algorithms, native prehydration boundary and exact immutable positioning script derive from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. Shared exact percentage/label/diagnostic/focus-visible leaves and original assertion ports retain MIT provenance in parity/slider. Shared Field/Form/Composite/render/ref business bodies are reused.

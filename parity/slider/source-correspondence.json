@@ -1,6 +1,6 @@
 {
   "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
-  "status": "pre-implementation source correspondence",
+  "status": "Original pre-implementation mappings retained; actual business/native correspondence is specified in source-correspondence.md and actual-local-graph.json; final review pending.",
   "modules": [
     {
       "source": "packages/react/src/field/control/FieldControlDataAttributes.ts",
