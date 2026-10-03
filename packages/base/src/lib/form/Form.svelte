@@ -1,4 +1,4 @@
-<script lang="ts" generics="Values extends object = Record<string, unknown>">
+<script lang="ts" generics="Values extends FormValues = FormValues">
   // Mechanically ported from Base UI v1.8.0 form/Form.tsx.
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
   import { untrack, type Snippet } from 'svelte';
@@ -10,7 +10,7 @@
   import { setFormContext, type FormContext } from '../internals/form-context/FormContext.js';
   import RenderElement from '../internals/RenderElement.svelte';
   import { useValueChanged } from '../internals/useValueChanged.svelte.js';
-  import type { FormActions, FormErrors, FormProps, FormState } from './types.js';
+  import type { FormActions, FormErrors, FormProps, FormState, FormValues } from './types.js';
   let {
     render, class: classProp, validationMode = 'onSubmit', errors: externalErrors,
     onsubmit, onFormSubmit, actionsRef, style, children, ref = $bindable(), ...elementProps
