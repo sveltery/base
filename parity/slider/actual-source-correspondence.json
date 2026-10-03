@@ -2656,7 +2656,7 @@
           ]
         }
       ],
-      "correspondence": "Reused canonical ownerDocument body and approved Boolean-owned ownerWindow native helper. Pinned owner.ts reexports getWindow as ownerWindow from @floating-ui/utils/dom; dispatchClickWithModifiers now directly imports and calls the shared local ownerWindow for its actual Element target. Native ownerDocument/defaultView/window lookup replaces that selected DOM boundary without a Floating/React runtime import. The separate Field-only correspondence selects ownerDocument; ownerWindow is part of the actual Radio closure.",
+      "correspondence": "Selected Slider ownerDocument and canonical ownerWindow helpers for actual control/Thumb focus, styles, ResizeObserver and listener cleanup. Reuses accepted canonical DOM boundary with no private owner lookup.",
       "status": "implemented; independent entire-closure review pending"
     },
     {
@@ -2673,7 +2673,7 @@
           ]
         }
       ],
-      "correspondence": "Unselected transitive barrel exports retained in the full original module graph. Actual Radio consumes only contains/getTarget, list/grid helpers, transition status and explicitly mapped canonical rendering/Field helpers; no Radio business import uses this module export. Unrelated floating/popup/platform modules remain outside this component scope.",
+      "correspondence": "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible. The selected element branch reads platform.env.jsdom; the canonical platform index and its real dependencies are reused, with no second classifier or stub. Final actual-main PR55 integration remains required.",
       "status": "implemented; independent entire-closure review pending"
     },
     {
@@ -2690,7 +2690,7 @@
           ]
         }
       ],
-      "correspondence": "Unselected transitive barrel exports retained in the full original module graph. Actual Radio consumes only contains/getTarget, list/grid helpers, transition status and explicitly mapped canonical rendering/Field helpers; no Radio business import uses this module export. Unrelated floating/popup/platform modules remain outside this component scope.",
+      "correspondence": "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible. The selected element branch reads platform.env.jsdom; the canonical platform index and its real dependencies are reused, with no second classifier or stub. Final actual-main PR55 integration remains required.",
       "status": "implemented; independent entire-closure review pending"
     },
     {
@@ -2707,7 +2707,7 @@
           ]
         }
       ],
-      "correspondence": "Unselected transitive barrel exports retained in the full original module graph. Actual Radio consumes only contains/getTarget, list/grid helpers, transition status and explicitly mapped canonical rendering/Field helpers; no Radio business import uses this module export. Unrelated floating/popup/platform modules remain outside this component scope.",
+      "correspondence": "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible. The selected element branch reads platform.env.jsdom; the canonical platform index and its real dependencies are reused, with no second classifier or stub. Final actual-main PR55 integration remains required.",
       "status": "implemented; independent entire-closure review pending"
     },
     {
@@ -2724,7 +2724,7 @@
           ]
         }
       ],
-      "correspondence": "Unselected transitive barrel exports retained in the full original module graph. Actual Radio consumes only contains/getTarget, list/grid helpers, transition status and explicitly mapped canonical rendering/Field helpers; no Radio business import uses this module export. Unrelated floating/popup/platform modules remain outside this component scope.",
+      "correspondence": "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible. The selected element branch reads platform.env.jsdom; the canonical platform index and its real dependencies are reused, with no second classifier or stub. Final actual-main PR55 integration remains required.",
       "status": "implemented; independent entire-closure review pending"
     },
     {
@@ -2741,7 +2741,7 @@
           ]
         }
       ],
-      "correspondence": "Unselected transitive barrel exports retained in the full original module graph. Actual Radio consumes only contains/getTarget, list/grid helpers, transition status and explicitly mapped canonical rendering/Field helpers; no Radio business import uses this module export. Unrelated floating/popup/platform modules remain outside this component scope.",
+      "correspondence": "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible. The selected element branch reads platform.env.jsdom; the canonical platform index and its real dependencies are reused, with no second classifier or stub. Final actual-main PR55 integration remains required.",
       "status": "implemented; independent entire-closure review pending"
     },
     {
@@ -2758,7 +2758,7 @@
           ]
         }
       ],
-      "correspondence": "Unselected transitive barrel exports retained in the full original module graph. Actual Radio consumes only contains/getTarget, list/grid helpers, transition status and explicitly mapped canonical rendering/Field helpers; no Radio business import uses this module export. Unrelated floating/popup/platform modules remain outside this component scope.",
+      "correspondence": "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible. The selected element branch reads platform.env.jsdom; the canonical platform index and its real dependencies are reused, with no second classifier or stub. Final actual-main PR55 integration remains required.",
       "status": "implemented; independent entire-closure review pending"
     },
     {
@@ -2775,7 +2775,7 @@
           ]
         }
       ],
-      "correspondence": "Unselected transitive barrel exports retained in the full original module graph. Actual Radio consumes only contains/getTarget, list/grid helpers, transition status and explicitly mapped canonical rendering/Field helpers; no Radio business import uses this module export. Unrelated floating/popup/platform modules remain outside this component scope.",
+      "correspondence": "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible. The selected element branch reads platform.env.jsdom; the canonical platform index and its real dependencies are reused, with no second classifier or stub. Final actual-main PR55 integration remains required.",
       "status": "implemented; independent entire-closure review pending"
     },
     {
@@ -2796,7 +2796,7 @@
           ]
         }
       ],
-      "correspondence": "Unselected transitive barrel exports retained in the full original module graph. Actual Radio consumes only contains/getTarget, list/grid helpers, transition status and explicitly mapped canonical rendering/Field helpers; no Radio business import uses this module export. Unrelated floating/popup/platform modules remain outside this component scope.",
+      "correspondence": "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible. The selected element branch reads platform.env.jsdom; the canonical platform index and its real dependencies are reused, with no second classifier or stub. Final actual-main PR55 integration remains required.",
       "status": "implemented; independent entire-closure review pending"
     },
     {
@@ -3259,7 +3259,7 @@
           ]
         }
       ],
-      "correspondence": "Unselected transitive barrel exports retained in the full original module graph. Actual Radio consumes only contains/getTarget, list/grid helpers, transition status and explicitly mapped canonical rendering/Field helpers; no Radio business import uses this module export. Unrelated floating/popup/platform modules remain outside this component scope.",
+      "correspondence": "Selected directly by SliderRoot for the original DEV-only min >= max warning. Exact Source warn body reuses the canonical createLogOnce; native esm-env DEV replaces the React/browser process environment boundary.",
       "status": "implemented; independent entire-closure review pending"
     }
   ],

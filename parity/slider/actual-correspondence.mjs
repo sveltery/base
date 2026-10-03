@@ -72,6 +72,19 @@ const modules = original.modules.map((module) => {
   )
     candidates.push(lib + "slider/types.ts");
   candidates = [...new Set(candidates)].filter((path) => local.has(path));
+  if (module.source.startsWith("packages/utils/src/platform/")) {
+    correspondence =
+      "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible. The selected element branch reads platform.env.jsdom; the canonical platform index and its real dependencies are reused, with no second classifier or stub. Final actual-main PR55 integration remains required.";
+  } else if (module.source === "packages/utils/src/warn.ts") {
+    correspondence =
+      "Selected directly by SliderRoot for the original DEV-only min >= max warning. Exact Source warn body reuses the canonical createLogOnce; native esm-env DEV replaces the React/browser process environment boundary.";
+  } else if (module.source === "packages/utils/src/owner.ts") {
+    correspondence =
+      "Selected Slider ownerDocument and canonical ownerWindow helpers for actual control/Thumb focus, styles, ResizeObserver and listener cleanup. Reuses accepted canonical DOM boundary with no private owner lookup.";
+  } else if (correspondence?.includes("Radio")) {
+    correspondence =
+      "Selected Slider dependency at the listed canonical paths. Reuses the existing Source business or accepted native boundary; prior feature correspondence remains provenance in the immutable pre-code mapping and does not determine Slider symbol selection. Full inherited body review remains required.";
+  }
   return {
     source: module.source,
     sourceSha256: module.sha256,
