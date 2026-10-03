@@ -21,4 +21,6 @@ Path validation follows Kit's identifier/dot/digit-only bracket grammar. Consume
 
 Default exported name unions suggest canonical nonnegative decimal indices, so negative and exponent literals cannot enter through a broad `number` template. Explicit literal paths still accept all digit-only spellings permitted by Kit, including leading zeroes.
 
+Remote paths also exclude the three segments Kit rejects during submission: `__proto__`, `constructor` and `prototype`. These exclusions apply to ancestor and array-element segments even when present in the schema. Ordinary globally imported Field components retain their native name contract.
+
 The newer Kit 3.0.0 declaration check uses its public type location (`$app/server`) and tests optional defaults and tuple arguments. Runtime behavior remains verified separately against the repository's pinned Kit version; passing newer declarations is not a claim of Kit 3 runtime integration.

@@ -163,3 +163,16 @@ TypedPair.Root(internals, { name: uncertainName, as: 'number' });
 // @ts-expect-error The constructor signature cannot borrow another leaf's numeric accessor.
 new TypedPair.Root({ target: document.body, props: { name: uncertainName, as: 'number' } });
 void [matrix, largeIndex, leadingZero, manualUnion, uncertainControl, uncertainValue];
+
+// Kit rejects these keys during submission, including protected ancestor segments.
+type BlockedFields = RemoteFormFields<{
+  __proto__: string;
+  constructor: { label: string };
+  prototype: string;
+  nested: { __proto__: string; constructor: string; prototype: string };
+  rows: Array<{ __proto__: string; constructor: string; prototype: string }>;
+}>;
+type BlockedPaths = '__proto__' | 'constructor.label' | 'prototype' | 'nested.__proto__' | 'nested.constructor' | 'nested.prototype' | 'rows[0].__proto__' | 'rows[0].constructor' | 'rows[0].prototype';
+export type RejectedBlockedNames = ExpectNever<RemoteFieldName<BlockedFields>>;
+export type RejectedBlockedExplicitNames = ExpectNever<RemoteFieldName<BlockedFields, BlockedPaths>>;
+export type RejectedBlockedProps = ExpectNever<RemoteFieldRootPropsForName<BlockedFields, BlockedPaths>>;

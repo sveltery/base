@@ -40,7 +40,13 @@ export function remoteFieldSegments(name: string): readonly (string | number)[] 
     throw new Error(`Sveltery: invalid remote field path "${name}".`);
   }
   const segments = [...name.matchAll(/(?:^|\.)([^.[\]]+)|\[(\d+)\]/g)];
-  return segments.map(segment => segment[1] ?? Number(segment[2]));
+  const path = segments.map(segment => segment[1] ?? Number(segment[2]));
+  // Actual Kit setters reject these segments. Other accessor method names
+  // remain valid schema fields and are resolved through the public proxy.
+  if (path.some(segment => segment === '__proto__' || segment === 'constructor' || segment === 'prototype')) {
+    throw new Error(`Sveltery: unsupported remote field path "${name}".`);
+  }
+  return path;
 }
 
 export function remoteFieldArguments(as: string | readonly unknown[] | undefined, value: unknown): readonly unknown[] | undefined {

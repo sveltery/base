@@ -37,13 +37,13 @@ jobs:
         run: pnpm --filter @sveltery/base build
       - name: Install official secured Chromium
         run: pnpm exec playwright install --with-deps chromium
-      - name: Typed facade and unchanged original remote acceptance
+      - name: Typed facade and current source/native remote acceptance
         env:
           PLAYWRIGHT_JSON_OUTPUT_NAME: .checks/remote-form-api/browser-results.json
         run: |
           set -o pipefail
           mkdir -p .checks/remote-form-api
-          pnpm exec playwright test tests/browser/remote-form-api.spec.ts tests/browser/field-form-remote.spec.ts --reporter=list,json | tee .checks/remote-form-api/browser.log
+          pnpm exec playwright test tests/browser/remote-form-api.spec.ts tests/browser/field-form-remote.spec.ts tests/browser/remote-native-propagation.spec.ts --reporter=list,json | tee .checks/remote-form-api/browser.log
       - name: Preserve actual remote API observations and traces
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -53,6 +53,7 @@ jobs:
             .checks/remote-form-api/
             test-results/field-form-remote-*/
             test-results/remote-form-api-*/
+            test-results/remote-native-propagation-*/
           if-no-files-found: warn
           retention-days: 14
   installed-api-types:

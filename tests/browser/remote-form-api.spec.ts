@@ -25,6 +25,7 @@ test('typed remote namespace hydrates and renders one semantic Switch input', as
   await expect.poll(async () => (await value(page, 'owner')).enabled).toBe(true);
   expect(await page.locator('#survey-form').evaluate((node: HTMLFormElement) => new FormData(node).get('b:enabled'))).toBe('on');
   expect(await value(page, 'changes')).toEqual([{ checked: true, type: 'click' }]);
+  expect(await value(page, 'value-changes')).toEqual([{ value: true, type: 'click' }]);
   await page.getByRole('button', { name: 'Replace values', exact: true }).click();
   await expect(input).toHaveValue('replacement');
   await expect(page.getByRole('switch')).toHaveAttribute('aria-checked', 'false');
@@ -32,9 +33,33 @@ test('typed remote namespace hydrates and renders one semantic Switch input', as
   await expect(page.getByRole('switch')).toHaveAttribute('aria-checked', 'true');
   await page.getByRole('button', { name: 'Reset', exact: true }).click();
   await expect(input).toHaveValue('seed');
+  await test.info().attach('source-switch-reset.json', { body: JSON.stringify(await page.locator('#survey-form').evaluate((form: HTMLFormElement) => {
+    const control = form.querySelector<HTMLInputElement>('input[type="checkbox"]')!;
+    return { checked: control.checked, defaultChecked: control.defaultChecked, html: control.outerHTML, successfulValues: [...new FormData(form)] };
+  })), contentType: 'application/json' });
   await expect(page.getByRole('switch')).toHaveAttribute('aria-checked', 'false');
   expect(await page.locator('#survey-form').evaluate((node: HTMLFormElement) => new FormData(node).has('b:enabled'))).toBe(false);
   expect(await value(page, 'changes')).toEqual([{ checked: true, type: 'click' }]);
+  expect(await value(page, 'value-changes')).toEqual([{ value: true, type: 'click' }]);
+});
+
+test('actual literal Kit descriptors characterize initially undefined checkbox and reset defaults', async ({ page }) => {
+  await setup(page);
+  const checkbox = page.locator('#literal-enabled'), input = page.locator('#literal-text');
+  await expect(checkbox).not.toBeChecked(); await expect(input).toHaveValue('seed');
+  await checkbox.check();
+  await expect.poll(async () => (await value(page, 'literal-owner')).enabled).toBe(true);
+  await page.getByRole('button', { name: 'Literal replace values', exact: true }).click();
+  await expect(checkbox).not.toBeChecked(); await expect(input).toHaveValue('replacement');
+  await page.getByRole('button', { name: 'Literal set enabled', exact: true }).click();
+  await expect(checkbox).toBeChecked();
+  await page.getByRole('button', { name: 'Literal reset', exact: true }).click();
+  await expect(input).toHaveValue('seed'); await expect(checkbox).not.toBeChecked();
+  expect((await value(page, 'literal-owner')).enabled ?? false).toBe(false);
+  await test.info().attach('literal-checked-reset.json', { body: JSON.stringify(await page.locator('#literal-reset-form').evaluate((form: HTMLFormElement) => {
+    const control = form.querySelector<HTMLInputElement>('input[type="checkbox"]')!;
+    return { checked: control.checked, defaultChecked: control.defaultChecked, html: control.outerHTML, successfulValues: [...new FormData(form)] };
+  })), contentType: 'application/json' });
 });
 
 test('checked cancellation precedes native input and Kit ownership', async ({ page }) => {
@@ -50,10 +75,12 @@ test('checked cancellation precedes native input and Kit ownership', async ({ pa
   await expect(page.locator('#survey-form')).toHaveAttribute('data-inputs', '0');
   expect((await value(page, 'owner')).enabled ?? false).toBe(false);
   expect(await value(page, 'changes')).toEqual([{ checked: true, type: 'click' }]);
+  expect(await value(page, 'value-changes')).toEqual([]);
   await page.getByRole('button', { name: 'Toggle checked cancellation', exact: true }).click();
   await page.getByRole('switch').click();
   await expect.poll(async () => (await value(page, 'owner')).enabled).toBe(true);
   await expect(page.locator('#survey-form')).toHaveAttribute('data-inputs', '1');
+  expect(await value(page, 'value-changes')).toEqual([{ value: true, type: 'click' }]);
 });
 
 for (const canceled of [false, true]) test(`remote source cancellation makes zero POST before next valid submission (authored=${canceled})`, async ({ page }) => {

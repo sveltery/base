@@ -3,6 +3,8 @@
   import { createAttachmentKey } from 'svelte/attachments';
   import { createRefAttachment } from '../internals/nativeRefAttachment.js';
   import { setFieldControlNameContext } from '../internals/field-control-name/FieldControlNameContext.js';
+  import { setFieldControlValueContext } from '../internals/field-control-value/FieldControlValueContext.js';
+  import { useCheckboxGroupContext } from '../checkbox-group/CheckboxGroupContext.js';
   import { useFieldRootContext } from '../internals/field-root-context/FieldRootContext.js';
   import { useRemoteFieldContext } from './RemoteFieldContext.js';
   import type { RemoteControlProps, RemoteControlRenderProps, RemoteControlState } from './control.types.js';
@@ -10,10 +12,12 @@
   let { render, children, ref = $bindable(), onCheckedChange, onValueChange, ...props }: RemoteControlProps = $props();
   const remote = useRemoteFieldContext();
   const field = useFieldRootContext();
+  const group = useCheckboxGroupContext();
   const descriptor = $derived({ ...remote?.descriptor, ...props });
   setFieldControlNameContext({ get name() { return typeof descriptor.name === 'string' ? descriptor.name : undefined; } });
   function change(checked: boolean, details: SwitchRootChangeEventDetails) {
     onCheckedChange?.(checked, details);
+    if (details.isCanceled) return;
     onValueChange?.(checked, details);
   }
   const semanticProps: RemoteControlRenderProps = $derived.by(() => {
@@ -22,14 +26,21 @@
     void [_type, _files, _defaultValue];
     return {
       ...attributes,
-      checked: remote?.accessor && !Object.hasOwn(props, 'checked')
+      checked: remote?.accessor && descriptor.checked === undefined
         ? Boolean(descriptor.checked ?? descriptor.defaultChecked)
         : typeof descriptor.checked === 'boolean' ? descriptor.checked : undefined,
       defaultChecked: typeof descriptor.defaultChecked === 'boolean' ? descriptor.defaultChecked : undefined,
-      value: remote?.kind === 'radio' ? value : value == null ? undefined : String(value),
+      value: (descriptor.type ?? remote?.kind) === 'radio' ? value : value == null ? undefined : String(value),
       onCheckedChange: change,
     };
   });
+  if (group && remote) {
+    // Unchecked inputs are omitted by native FormData. A constant option value
+    // lets native input listeners read the accepted group option before a flush.
+    setFieldControlValueContext({
+      get value() { return typeof semanticProps.value === 'string' ? semanticProps.value : undefined; },
+    });
+  }
   const state: RemoteControlState = $derived({
     ...field.state,
     checked: semanticProps.checked ?? semanticProps.defaultChecked ?? false,

@@ -1,12 +1,13 @@
 <script lang="ts">
   import { Field, type TypedField } from './imports.js';
-  import { survey, other, transformed, matrix, uncertainName } from './forms.js';
+  import { survey, other, transformed, matrix, blocked, uncertainName } from './forms.js';
   import CompilerRoot from './TypedRoot.svelte';
   function namespace<Fields extends object>(): TypedField<Fields> { return { ...Field, Root: CompilerRoot }; }
   const Root = namespace<typeof survey.fields>().Root;
   const Other = namespace<typeof other.fields>().Root;
   const Transformed = namespace<typeof transformed.fields>().Root;
   const Matrix = namespace<typeof matrix.fields>().Root;
+  const Blocked = namespace<typeof blocked.fields>().Root;
 </script>
 <!-- reject: typo -->
 <Root name="storageTyp" as="text" />
@@ -60,3 +61,17 @@
 <Matrix name="bad-key" as="text" />
 <!-- reject: invalid-identifier-dollar-suffix -->
 <Matrix name="cash$amount" as="text" />
+<!-- reject: blocked-root-proto -->
+<Blocked name="__proto__" as="text" />
+<!-- reject: blocked-root-prototype -->
+<Blocked name="prototype" as="text" />
+<!-- reject: blocked-ancestor-constructor -->
+<Blocked name="constructor.label" as="text" />
+<!-- reject: blocked-nested-proto -->
+<Blocked name="nested.__proto__" as="text" />
+<!-- reject: blocked-nested-constructor -->
+<Blocked name="nested.constructor" as="text" />
+<!-- reject: blocked-nested-prototype -->
+<Blocked name="nested.prototype" as="text" />
+<!-- reject: blocked-array-constructor -->
+<Blocked name="rows[0].constructor" as="text" />
