@@ -80,6 +80,8 @@ export function SliderReferenceFixture({
   const [hostSpan, setHostSpan] = useState(false);
   const [calls, setCalls] = useState<unknown[]>([]);
   const [commits, setCommits] = useState<unknown[]>([]);
+  const plainCallbacks = scenario.includes("plain-callback");
+  const plain = useRef({ calls: [] as unknown[], commits: [] as unknown[] });
   const [submissions, setSubmissions] = useState<unknown[]>([]);
   const [validationCalls, setValidationCalls] = useState(0);
   const [referenceCalls, setReferenceCalls] = useState<string[]>([]);
@@ -95,6 +97,12 @@ export function SliderReferenceFixture({
       ).sliderLayout?.push({ event: "control-ref", node: node?.id ?? null });
   }, []);
   useEffect(() => setHydrated(true), []);
+  useEffect(() => {
+    Object.assign(window, { sliderPlain: plain.current });
+    return () => {
+      delete (window as unknown as { sliderPlain?: unknown }).sliderPlain;
+    };
+  }, []);
   function changed(
     value: number | readonly number[],
     details: SliderRootChangeEventDetails,
@@ -103,18 +111,17 @@ export function SliderReferenceFixture({
       value: unknown;
       name: string;
     };
-    setCalls((previous) => [
-      ...previous,
-      {
-        value,
-        reason: details.reason,
-        type: details.event.type,
-        activeThumbIndex: details.activeThumbIndex,
-        targetValue: target.value,
-        targetName: target.name,
-        eventClass: details.event.constructor.name,
-      },
-    ]);
+    const request = {
+      value,
+      reason: details.reason,
+      type: details.event.type,
+      activeThumbIndex: details.activeThumbIndex,
+      targetValue: target.value,
+      targetName: target.name,
+      eventClass: details.event.constructor.name,
+    };
+    if (plainCallbacks) plain.current.calls.push(request);
+    else setCalls((previous) => [...previous, request]);
     if (canceled) details.cancel();
     if (controlled && accepts && !details.isCanceled) setOwner(value);
   }
@@ -122,10 +129,9 @@ export function SliderReferenceFixture({
     value: number | readonly number[],
     details: SliderRootCommitEventDetails,
   ) {
-    setCommits((previous) => [
-      ...previous,
-      { value, reason: details.reason, type: details.event.type },
-    ]);
+    const commit = { value, reason: details.reason, type: details.event.type };
+    if (plainCallbacks) plain.current.commits.push(commit);
+    else setCommits((previous) => [...previous, commit]);
   }
   function validate(value: unknown) {
     setValidationCalls((previous) => previous + 1);

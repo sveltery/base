@@ -1,6 +1,6 @@
 <script lang="ts">
   // Source SliderControl.tsx bodies at Base UI 47b40521; MIT.
-  import { untrack } from "svelte";
+  import { onDestroy, tick, untrack } from "svelte";
   import { isElement } from "@floating-ui/utils/dom";
   import { ownerDocument, ownerWindow } from "../../utils/owner.js";
   import { useAnimationFrame } from "../../utils/useAnimationFrame.js";
@@ -145,6 +145,10 @@
     current: null as number | number[] | null,
   };
   const latestValuesRef = { current: untrack(() => values) };
+  let disposed = false;
+  onDestroy(() => {
+    disposed = true;
+  });
   $effect.pre(() => {
     latestValuesRef.current = values;
   });
@@ -332,6 +336,11 @@
         updatePressedThumb(finger.thumbIndex);
         focusThumb(finger.thumbIndex);
       }
+      // Native flush replaces Source useValueAsRef's layout-commit snapshot.
+      // Preserve the immediate Source cache above for moves in the same task.
+      void tick().then(() => {
+        if (!disposed) latestValuesRef.current = values;
+      });
     }
 
     return applied;
@@ -352,7 +361,7 @@
         nativeEvent.type === "pointermove" &&
         (nativeEvent as PointerEvent).buttons === 0
       ) {
-            handleTouchEnd(nativeEvent);
+        handleTouchEnd(nativeEvent);
         return;
       }
 
@@ -410,7 +419,7 @@
 
       pressedThumbIndexRef.current = -1;
       touchIdRef.current = null;
-        stopListening();
+      stopListening();
     },
   );
 

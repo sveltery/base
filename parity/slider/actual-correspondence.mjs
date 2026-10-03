@@ -75,6 +75,9 @@ const modules = original.modules.map((module) => {
   if (module.source.startsWith("packages/utils/src/platform/")) {
     correspondence =
       "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible. The selected element branch reads platform.env.jsdom; the canonical platform index and its real dependencies are reused, with no second classifier or stub. Final actual-main PR55 integration remains required.";
+  } else if (module.source === "packages/utils/src/useValueAsRef.ts") {
+    correspondence =
+      "Source applied pointer cache is immediate; native tick replaces the React per-commit layout snapshot by reading actual accepted values after flush, with disposal guard and pre-effect for external values. SL-03 records the measured plain rejected-push difference and zero unchanged Source credit. Numeric/collision/swap/cancel order is unchanged; no React commit tracking or generic scheduler.";
   } else if (module.source === "packages/utils/src/warn.ts") {
     correspondence =
       "Selected directly by SliderRoot for the original DEV-only min >= max warning. Exact Source warn body reuses the canonical createLogOnce; native esm-env DEV replaces the React/browser process environment boundary.";

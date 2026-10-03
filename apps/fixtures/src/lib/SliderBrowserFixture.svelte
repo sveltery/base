@@ -67,6 +67,9 @@
   let hostSpan = $state(false);
   let calls = $state<unknown[]>([]);
   let commits = $state<unknown[]>([]);
+  const plainCallbacks = scenario.includes("plain-callback");
+  const plainCalls: unknown[] = [];
+  const plainCommits: unknown[] = [];
   let submissions = $state<unknown[]>([]);
   let validationCalls = $state(0);
   let referenceCalls = $state<string[]>([]);
@@ -81,7 +84,7 @@
       value: unknown;
       name: string;
     };
-    calls.push({
+    (plainCallbacks ? plainCalls : calls).push({
       value,
       reason: details.reason,
       type: details.event.type,
@@ -97,7 +100,11 @@
     value: number | readonly number[],
     details: SliderRootCommitEventDetails,
   ) {
-    commits.push({ value, reason: details.reason, type: details.event.type });
+    (plainCallbacks ? plainCommits : commits).push({
+      value,
+      reason: details.reason,
+      type: details.event.type,
+    });
   }
   function validate(value: unknown) {
     validationCalls += 1;
@@ -115,6 +122,12 @@
   }
   onMount(() => {
     hydrated = true;
+    Object.assign(window, {
+      sliderPlain: { calls: plainCalls, commits: plainCommits },
+    });
+    return () => {
+      delete (window as unknown as { sliderPlain?: unknown }).sliderPlain;
+    };
   });
 </script>
 

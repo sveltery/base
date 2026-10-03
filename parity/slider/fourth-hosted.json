@@ -1,0 +1,13 @@
+{
+  "head": "17652eca27359508251149238f2e65734e1f7052",
+  "run": "https://github.com/sveltery/base/actions/runs/37159430575",
+  "job": 111309583266,
+  "rawJobLogSha256": "f4819136c22d10a0a7a84d0f8070da35a3bf460d4f27418a103227daeeab7cba",
+  "artifact": 11287121502,
+  "artifactDigest": "sha256:2da243160c6ceba0018099c746ba6e4189ceefa3318e32374107c9898c846a7d",
+  "observed": { "passed": 96, "failed": 1, "workers": 1, "retries": 0, "chromiumSandbox": true, "browser": "Chrome for Testing 153.0.8010.12", "runner": "Ubuntu 22.04", "react": "19.2.8", "reactDom": "19.2.8" },
+  "verified": ["Both actual Source and native label ID replacement/removal pass after the functional setter repair", "All three authored Source-also-failing supplements now agree with measured actual Source", "Existing pointer, keyboard, cancellation, serialized owner values, CSP nonce/parser/hydration, observer diagnostic and real remote Form boundaries pass"],
+  "remainingFailure": "Real native runtime cache gap: after a controlled rejected push request [70,70] and a rendered callback, actual Source rebaselines its layout-commit cache to owner [20,40], requesting/committing [30,40] on the backward move. Native cache retained projection [70,70], requesting [30,70]. DOM/FormData remained owner [20,40] in both. This historical prerepair witness remains unchanged.",
+  "ordinaryComponentAssertionCredit": 0,
+  "decision": "Root authorized a narrow native tick snapshot replacement for Source useValueAsRef, with explicit plain-callback timing difference and required paired task/lifetime checks; final exact repair acceptance remains pending."
+}

@@ -34,6 +34,19 @@ async function values(page: Page) {
       nodes.map((node) => (node as HTMLInputElement).valueAsNumber),
     );
 }
+async function plainLogs(page: Page) {
+  return page.evaluate(
+    () =>
+      (
+        window as unknown as {
+          sliderPlain: {
+            calls: Record<string, unknown>[];
+            commits: Record<string, unknown>[];
+          };
+        }
+      ).sliderPlain,
+  );
+}
 async function nativeInput(page: Page, index: number, value: number) {
   await page
     .locator('input[type="range"]')
@@ -608,6 +621,208 @@ for (const framework of ["react", "svelte"]) {
     expect(await list(page, "#slider-commits")).toEqual([
       { value: [30, 40], reason: "drag", type: "pointerup" },
     ]);
+  });
+  for (const collision of ["push", "swap"] as const) {
+    for (const plain of [false, true]) {
+      test(`${framework} ${collision} rejected owner rapid across-tick drag ${plain ? "plain" : "reactive"} callback cache diagnostic`, async ({
+        page,
+      }, testInfo) => {
+        await open(
+          page,
+          `controlled-reject-${collision}${plain ? "-plain-callback" : ""}`,
+        );
+        const rect = (await page.locator("#slider-control").boundingBox())!;
+        const thumb = (await page.getByTestId("thumb-0").boundingBox())!;
+        await page.mouse.move(
+          thumb.x + thumb.width / 2,
+          thumb.y + thumb.height / 2,
+        );
+        await page.mouse.down();
+        await page.mouse.move(
+          rect.x + rect.width * 0.7,
+          rect.y + rect.height / 2,
+        );
+        await page.evaluate(async () => {
+          await new Promise<void>((resolve) =>
+            requestAnimationFrame(() => resolve()),
+          );
+        });
+        await page.mouse.move(
+          rect.x + rect.width * 0.3,
+          rect.y + rect.height / 2,
+        );
+        await page.mouse.up();
+        const calls = plain
+          ? (await plainLogs(page)).calls
+          : await list(page, "#slider-calls");
+        const commits = plain
+          ? (await plainLogs(page)).commits
+          : await list(page, "#slider-commits");
+        const last = calls.at(-1)!;
+        await testInfo.attach("callback-cache-lifetime", {
+          body: JSON.stringify({ framework, collision, plain, calls, commits }),
+          contentType: "application/json",
+        });
+        expect(await values(page)).toEqual([20, 40]);
+        // The measured Source plain-push callback performs no parent commit. Native tick
+        // synchronization is an explicit lifecycle boundary, earning zero Source credit.
+        const expected =
+          collision === "swap"
+            ? [20, 30]
+            : framework === "react" && plain
+              ? [30, 70]
+              : [30, 40];
+        expect(last).toMatchObject({
+          value: expected,
+          activeThumbIndex: collision === "swap" ? 1 : 0,
+        });
+        expect(commits).toEqual([
+          { value: expected, reason: "drag", type: "pointerup" },
+        ]);
+        const formData = await page
+          .locator("#slider-form")
+          .evaluate((form) =>
+            new FormData(form as HTMLFormElement).getAll("volume"),
+          );
+        expect(formData).toEqual(["20", "40"]);
+      });
+    }
+    test(`${framework} ${collision} two pointer moves and release within one task preserve Source immediate cache`, async ({
+      page,
+    }, testInfo) => {
+      await open(page, `controlled-reject-${collision}`);
+      const rect = (await page.locator("#slider-control").boundingBox())!;
+      const thumb = (await page.getByTestId("thumb-0").boundingBox())!;
+      await page.mouse.move(
+        thumb.x + thumb.width / 2,
+        thumb.y + thumb.height / 2,
+      );
+      await page.mouse.down();
+      await page.evaluate(
+        ({ x, y, width }) => {
+          for (const ratio of [0.7, 0.3])
+            document.dispatchEvent(
+              new PointerEvent("pointermove", {
+                bubbles: true,
+                pointerId: 1,
+                pointerType: "mouse",
+                buttons: 1,
+                clientX: x + width * ratio,
+                clientY: y,
+              }),
+            );
+          document.dispatchEvent(
+            new PointerEvent("pointerup", {
+              bubbles: true,
+              pointerId: 1,
+              pointerType: "mouse",
+              buttons: 0,
+              clientX: x + width * 0.3,
+              clientY: y,
+            }),
+          );
+        },
+        { x: rect.x, y: rect.y + rect.height / 2, width: rect.width },
+      );
+      await page.mouse.up();
+      const calls = await list(page, "#slider-calls");
+      const commits = await list(page, "#slider-commits");
+      await testInfo.attach("same-task-cache", {
+        body: JSON.stringify({ framework, collision, calls, commits }),
+        contentType: "application/json",
+      });
+      expect(await values(page)).toEqual([20, 40]);
+      const expected = collision === "push" ? [30, 70] : [30, 40];
+      expect(calls.at(-1)).toMatchObject({
+        value: expected,
+        activeThumbIndex: 0,
+      });
+      expect(commits).toEqual([
+        { value: expected, reason: "drag", type: "pointerup" },
+      ]);
+    });
+    for (const controlled of [false, true]) {
+      for (const plain of [false, true]) {
+        test(`${framework} ${collision} accepted ${controlled ? "controlled" : "uncontrolled"} owner ${plain ? "plain" : "reactive"} callback remains authoritative`, async ({
+          page,
+        }) => {
+          await open(
+            page,
+            `${controlled ? "controlled-" : ""}${collision}${plain ? "-plain-callback" : ""}`,
+          );
+          const rect = (await page.locator("#slider-control").boundingBox())!;
+          const thumb = (await page.getByTestId("thumb-0").boundingBox())!;
+          await page.mouse.move(
+            thumb.x + thumb.width / 2,
+            thumb.y + thumb.height / 2,
+          );
+          await page.mouse.down();
+          await page.mouse.move(
+            rect.x + rect.width * 0.7,
+            rect.y + rect.height / 2,
+          );
+          await expect
+            .poll(() => values(page))
+            .toEqual(collision === "push" ? [70, 70] : [40, 70]);
+          await page.mouse.move(
+            rect.x + rect.width * 0.3,
+            rect.y + rect.height / 2,
+          );
+          await page.mouse.up();
+          const expected = collision === "push" ? [30, 70] : [30, 40];
+          expect(await values(page)).toEqual(expected);
+          const calls = plain
+            ? (await plainLogs(page)).calls
+            : await list(page, "#slider-calls");
+          const commits = plain
+            ? (await plainLogs(page)).commits
+            : await list(page, "#slider-commits");
+          expect(calls.at(-1)).toMatchObject({
+            value: expected,
+            activeThumbIndex: 0,
+          });
+          expect(commits).toEqual([
+            { value: expected, reason: "drag", type: "pointerup" },
+          ]);
+        });
+      }
+    }
+  }
+  test(`${framework} queued owner synchronization cannot commit after same-task disposal`, async ({
+    page,
+  }) => {
+    await open(page, "controlled-reject-push-plain-callback");
+    const rect = (await page.locator("#slider-control").boundingBox())!;
+    const thumb = (await page.getByTestId("thumb-0").boundingBox())!;
+    const errors: string[] = [];
+    page.on("pageerror", (error) => errors.push(error.message));
+    await page.mouse.move(
+      thumb.x + thumb.width / 2,
+      thumb.y + thumb.height / 2,
+    );
+    await page.mouse.down();
+    await page.evaluate(
+      ({ x, y }) => {
+        document.dispatchEvent(
+          new PointerEvent("pointermove", {
+            bubbles: true,
+            pointerId: 1,
+            pointerType: "mouse",
+            buttons: 1,
+            clientX: x,
+            clientY: y,
+          }),
+        );
+        (
+          document.querySelector("#toggle-present") as HTMLButtonElement
+        ).click();
+      },
+      { x: rect.x + rect.width * 0.7, y: rect.y + rect.height / 2 },
+    );
+    await expect(page.locator("#slider-control")).toHaveCount(0);
+    await page.mouse.up();
+    expect((await plainLogs(page)).commits).toEqual([]);
+    expect(errors).toEqual([]);
   });
   for (const scenario of [
     "disabled",

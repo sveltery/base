@@ -1616,7 +1616,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/slider/control/SliderControl.svelte",
-          "sha256": "fae4489f0c9ac67544ac9504aee03fde908e4e4ae155599e45165b0fefcfcb9e",
+          "sha256": "f0d2656e58455d051ad20467cefb57904a88aec889a8171f0dbb7b3136d8251f",
           "reachability": [
             "runtime"
           ]
@@ -2432,7 +2432,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/slider/control/SliderControl.svelte",
-          "sha256": "fae4489f0c9ac67544ac9504aee03fde908e4e4ae155599e45165b0fefcfcb9e",
+          "sha256": "f0d2656e58455d051ad20467cefb57904a88aec889a8171f0dbb7b3136d8251f",
           "reachability": [
             "runtime"
           ]
@@ -3218,13 +3218,13 @@
       "local": [
         {
           "path": "packages/base/src/lib/slider/control/SliderControl.svelte",
-          "sha256": "fae4489f0c9ac67544ac9504aee03fde908e4e4ae155599e45165b0fefcfcb9e",
+          "sha256": "f0d2656e58455d051ad20467cefb57904a88aec889a8171f0dbb7b3136d8251f",
           "reachability": [
             "runtime"
           ]
         }
       ],
-      "correspondence": "Direct native primitive or purposeful leaf boundary; see named function mapping in source-correspondence.md and SL-01.",
+      "correspondence": "Source applied pointer cache is immediate; native tick replaces the React per-commit layout snapshot by reading actual accepted values after flush, with disposal guard and pre-effect for external values. SL-03 records the measured plain rejected-push difference and zero unchanged Source credit. Numeric/collision/swap/cancel order is unchanged; no React commit tracking or generic scheduler.",
       "status": "implemented; independent entire-closure review pending"
     },
     {
