@@ -25,7 +25,7 @@ async function positive(page: Page, button: string, result: string, effect: stri
 
 test('public remote controls SSR real native names and preserve file input defaults', async ({ page, request }) => {
   const html = await (await request.get('/remote-api-contracts')).text();
-  expect(html).toContain('name="a:choices"');
+  expect(html).toContain('name="choices[]"');
   expect(html).toContain('name="items[0].label"');
   expect(html).toContain('id="manual-email"');
   await setup(page);
@@ -46,7 +46,7 @@ test('native array checkboxes retain the whole accessor array through set and th
   await expect(red).not.toBeChecked(); await expect(blue).toBeChecked();
   await red.check();
   await expect.poll(() => json(page, 'native-choice-owner')).toEqual(['red', 'blue']);
-  expect(await page.locator('#native-choices').evaluate((node: HTMLFormElement) => new FormData(node).getAll('a:choices'))).toEqual(['red', 'blue']);
+  expect(await page.locator('#native-choices').evaluate((node: HTMLFormElement) => new FormData(node).getAll('choices[]'))).toEqual(['red', 'blue']);
   await positive(page, 'Save native choices', 'native-choice-result', 'nativeChoices', { choices: ['red', 'blue'] });
 });
 
@@ -56,7 +56,7 @@ test('real CheckboxGroup reports source callbacks, metadata, successful hidden v
   await form.evaluate((node: HTMLFormElement) => {
     node.addEventListener('input', (event) => {
       const target = event.target;
-      if (target instanceof HTMLInputElement) node.dataset.inputPhase = JSON.stringify({ value: target.value, checked: target.checked, values: new FormData(node).getAll('a:choices') });
+      if (target instanceof HTMLInputElement) node.dataset.inputPhase = JSON.stringify({ value: target.value, checked: target.checked, values: new FormData(node).getAll('choices[]') });
     });
   });
   await page.getByRole('button', { name: 'Set styled blue', exact: true }).click();
@@ -64,13 +64,23 @@ test('real CheckboxGroup reports source callbacks, metadata, successful hidden v
   await page.getByRole('checkbox', { name: 'Styled red', exact: true }).click();
   await test.info().attach('styled-checkbox-group-native-measurement', {
     contentType: 'application/json',
-    body: JSON.stringify({ owner: await json(page, 'styled-choice-owner'), callbacks: await json(page, 'styled-choice-changes'), nativeInputPhase: JSON.parse(await form.getAttribute('data-input-phase') ?? 'null'), successfulValues: await form.evaluate((node: HTMLFormElement) => new FormData(node).getAll('a:choices')) }),
+    body: JSON.stringify({ owner: await json(page, 'styled-choice-owner'), callbacks: await json(page, 'styled-choice-changes'), nativeInputPhase: JSON.parse(await form.getAttribute('data-input-phase') ?? 'null'), successfulValues: await form.evaluate((node: HTMLFormElement) => new FormData(node).getAll('choices[]')) }),
   });
   await expect.poll(() => json(page, 'styled-choice-owner')).toEqual(['red', 'blue']);
   expect(await json(page, 'styled-choice-changes')).toEqual([{ value: ['blue', 'red'], type: 'click', reason: 'none' }]);
-  await expect.poll(async () => (await json(page, 'styled-choice-state')).dirty).toBe(true);
-  expect(await form.evaluate((node: HTMLFormElement) => new FormData(node).getAll('a:choices'))).toEqual(['red', 'blue']);
+  await expect(page.locator('#styled-choice-group')).toHaveClass(/source-dirty/);
+  await expect(page.locator('#styled-choice-group')).toHaveClass(/source-filled/);
+  expect(await form.evaluate((node: HTMLFormElement) => new FormData(node).getAll('choices[]'))).toEqual(['red', 'blue']);
   expect(JSON.parse(await form.getAttribute('data-input-phase') ?? 'null')).toMatchObject({ checked: true });
+  await page.getByRole('checkbox', { name: 'Styled blue', exact: true }).click();
+  await expect.poll(() => json(page, 'styled-choice-owner')).toEqual(['red']);
+  await page.getByRole('checkbox', { name: 'Styled blue', exact: true }).click();
+  await expect.poll(() => json(page, 'styled-choice-owner')).toEqual(['red', 'blue']);
+  expect(await json(page, 'styled-choice-changes')).toEqual([
+    { value: ['blue', 'red'], type: 'click', reason: 'none' },
+    { value: ['red'], type: 'click', reason: 'none' },
+    { value: ['red', 'blue'], type: 'click', reason: 'none' },
+  ]);
   await positive(page, 'Save styled choices', 'styled-choice-result', 'styledChoices', { choices: ['red', 'blue'] });
 });
 
@@ -83,10 +93,24 @@ for (const styled of [false, true]) test(`${styled ? 'real RadioGroup' : 'native
   if (styled) {
     await expect(blue).toHaveAttribute('aria-checked', 'true'); await expect(red).toHaveAttribute('aria-checked', 'false');
     expect(await json(page, 'styled-radio-changes')).toEqual([{ value: 'red', type: 'click' }, { value: 'blue', type: 'click' }]);
-    await expect(page.locator(`#${formId} input[name="choice"]`)).toHaveCount(1);
+    await expect(page.locator(`#${formId} input[name="choice"]`)).toHaveCount(2);
+    await expect(page.locator(`#${formId} input[name="choice"]:checked`)).toHaveCount(1);
   } else { await expect(blue).toBeChecked(); await expect(red).not.toBeChecked(); }
   expect(await page.locator(`#${formId}`).evaluate((node: HTMLFormElement) => new FormData(node).getAll('choice'))).toEqual(['blue']);
   await positive(page, styled ? 'Save styled radio' : 'Save native radio', `${formId}-result`, styled ? 'styledRadio' : 'nativeRadio', { choice: 'blue' });
+});
+
+test('real numeric RadioGroup keeps Kit numeric names and one successful selection', async ({ page }) => {
+  await setup(page);
+  const one = page.getByRole('radio', { name: 'Styled radio one', exact: true }), two = page.getByRole('radio', { name: 'Styled radio two', exact: true });
+  await one.click(); await two.click();
+  await expect(one).toHaveAttribute('aria-checked', 'false'); await expect(two).toHaveAttribute('aria-checked', 'true');
+  await expect.poll(() => json(page, 'numeric-radio-owner')).toBe(2);
+  expect(await json(page, 'numeric-radio-changes')).toEqual([{ value: 1, type: 'click' }, { value: 2, type: 'click' }]);
+  await expect(page.locator('#numeric-radio input[name="n:choice"]')).toHaveCount(2);
+  await expect(page.locator('#numeric-radio input[name="n:choice"]:checked')).toHaveCount(1);
+  expect(await page.locator('#numeric-radio').evaluate((node: HTMLFormElement) => new FormData(node).getAll('n:choice'))).toEqual(['2']);
+  await positive(page, 'Save numeric radio', 'numeric-radio-result', 'numericRadio', { choice: 2 });
 });
 
 test('selects preserve authored options, multiple selection, native render props and live set', async ({ page }) => {

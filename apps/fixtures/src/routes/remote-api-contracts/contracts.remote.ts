@@ -1,5 +1,5 @@
 // Supplemental public API acceptance against actual SvelteKit 2.70.3.
-import { form, query } from '$app/server';
+import { form, query, requested } from '$app/server';
 
 type Issue = { message: string; path: (string | number)[] };
 type Validation<Input> = { value: Input } | { issues: Issue[] };
@@ -38,6 +38,13 @@ const selectionSchema = contractSchema<Selection>((value) => {
 export const nativeRadio = form(selectionSchema, async (values) => ({ values, effects: effect('nativeRadio') }));
 export const styledRadio = form(selectionSchema, async (values) => ({ values, effects: effect('styledRadio') }));
 
+type NumericSelection = { choice?: number };
+export const numericRadio = form(contractSchema<NumericSelection>((value) => {
+  const choice = record(value) ? value.choice : undefined;
+  return choice === 1 || choice === 2
+    ? { value: { choice } } : { issues: [{ message: 'Choose one number', path: ['choice'] }] };
+}), async (values) => ({ values, effects: effect('numericRadio') }));
+
 type Selects = { single?: string; multiple?: string[]; custom?: string };
 export const selects = form(contractSchema<Selects>((value) => {
   if (!record(value) || typeof value.single !== 'string' || typeof value.custom !== 'string' || !strings(value.multiple)) {
@@ -73,5 +80,7 @@ const messageSchema = contractSchema<Message>((value) => {
 export const isolated = form(messageSchema, async (values) => ({ values, effects: effect('isolated') }));
 export const enhanced = form(messageSchema, async (values) => {
   await new Promise((resolve) => setTimeout(resolve, 150));
-  return { values, effects: effect('enhanced') };
+  const effects = effect('enhanced');
+  await requested(contractEffects, 1).refreshAll();
+  return { values, effects };
 });

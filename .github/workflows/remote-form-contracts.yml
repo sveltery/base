@@ -38,8 +38,17 @@ jobs:
       - name: Actual packed public consumer and explicit Kit patch setup
         run: bash scripts/check-remote-form-contracts-package.sh
       - name: Install official secured Chromium
+        id: chromium
         run: pnpm exec playwright install --with-deps chromium
-      - name: Entire original remote suite and public developer experience contracts
+      - name: Measure public developer experience contracts first
+        env:
+          PLAYWRIGHT_JSON_OUTPUT_NAME: .checks/remote-contracts/contracts-results.json
+        run: |
+          set -o pipefail
+          mkdir -p .checks/remote-contracts
+          pnpm exec playwright test tests/browser/remote-form-api-contracts.spec.ts --output=.checks/remote-contracts/first-results --reporter=list,json | tee .checks/remote-contracts/contracts.log
+      - name: Entire current remote suite and public developer experience contracts
+        if: ${{ !cancelled() && steps.chromium.outcome == 'success' }}
         env:
           PLAYWRIGHT_JSON_OUTPUT_NAME: .checks/remote-contracts/browser-results.json
         run: |
@@ -56,3 +65,4 @@ jobs:
             test-results/
           if-no-files-found: warn
           retention-days: 14
+          include-hidden-files: true

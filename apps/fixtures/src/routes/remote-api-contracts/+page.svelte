@@ -1,9 +1,10 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { Form, Checkbox, CheckboxGroup, Radio, RadioGroup } from '@sveltery/base';
-  import { nativeChoices, styledChoices, nativeRadio, styledRadio, selects, uploads, nested, isolated, enhanced, contractEffects } from './contracts.remote.js';
+  import { nativeChoices, styledChoices, nativeRadio, styledRadio, numericRadio, selects, uploads, nested, isolated, enhanced, contractEffects } from './contracts.remote.js';
   let hydrated = $state(false), authoritative = $state(false);
   let nativeChanges = $state<unknown[]>([]), groupChanges = $state<unknown[]>([]), radioChanges = $state<unknown[]>([]);
+  let numericRadioChanges = $state<unknown[]>([]);
   let enhancements = $state<string[]>([]);
   const effects = contractEffects();
   const first = isolated.for('first'), second = isolated.for('second');
@@ -34,7 +35,7 @@
     {#snippet children(Field)}
       <Field.Root name="choices">
         <Field.Label>Styled colors</Field.Label><Field.Description>Choose colors</Field.Description>
-        <CheckboxGroup value={(styledChoices.fields.choices.value() ?? []).filter((value): value is string => value !== undefined)} onValueChange={(value, details) => { groupChanges.push({ value, type: details.event.type, reason: details.reason }); styledChoices.fields.choices.set(value); }}>
+        <CheckboxGroup id="styled-choice-group" class={(state) => [state.dirty && 'source-dirty', state.filled && 'source-filled'].filter(Boolean).join(' ')} value={(styledChoices.fields.choices.value() ?? []).filter((value): value is string => value !== undefined)} onValueChange={(value, details) => { groupChanges.push({ value, type: details.event.type, reason: details.reason }); styledChoices.fields.choices.set(value); }}>
           <Field.Root name="choices" as="checkbox" value="red"><Field.Control>{#snippet render(props)}<Checkbox.Root {...props} aria-label="Styled red"><Checkbox.Indicator>Red</Checkbox.Indicator></Checkbox.Root>{/snippet}</Field.Control></Field.Root>
           <Field.Root name="choices" as="checkbox" value="blue"><Field.Control>{#snippet render(props)}<Checkbox.Root {...props} aria-label="Styled blue"><Checkbox.Indicator>Blue</Checkbox.Indicator></Checkbox.Root>{/snippet}</Field.Control></Field.Root>
         </CheckboxGroup>
@@ -74,6 +75,23 @@
   <output id="styled-radio-changes">{JSON.stringify(radioChanges)}</output>
   <output id="styled-radio-result">{JSON.stringify(styledRadio.result ?? null)}</output>
 
+  <Form id="numeric-radio" remote={numericRadio} {...numericRadio}>
+    {#snippet children(Field)}
+      <Field.Root name="choice" as="number">
+        <Field.Label>Styled radio numbers</Field.Label>
+        <RadioGroup value={numericRadio.fields.choice.value()} onValueChange={(value: number, details) => { numericRadioChanges.push({ value, type: details.event.type }); numericRadio.fields.choice.set(value); }}>
+          <Radio.Root value={1} aria-label="Styled radio one"><Radio.Indicator>One</Radio.Indicator></Radio.Root>
+          <Radio.Root value={2} aria-label="Styled radio two"><Radio.Indicator>Two</Radio.Indicator></Radio.Root>
+        </RadioGroup>
+        <Field.Error />
+      </Field.Root>
+      <button type="submit">Save numeric radio</button>
+    {/snippet}
+  </Form>
+  <output id="numeric-radio-owner">{JSON.stringify(numericRadio.fields.choice.value() ?? null)}</output>
+  <output id="numeric-radio-changes">{JSON.stringify(numericRadioChanges)}</output>
+  <output id="numeric-radio-result">{JSON.stringify(numericRadio.result ?? null)}</output>
+
   <Form id="selects" remote={selects} {...selects}>
     {#snippet children(Field)}
       <Field.Root name="single" as="select" value="red"><Field.Label>Single color</Field.Label><Field.Control><option value="red">Red</option><option value="blue">Blue</option></Field.Control></Field.Root>
@@ -85,7 +103,7 @@
   <button onclick={() => selects.fields.set({ single: 'blue', multiple: ['blue'], custom: 'blue' })}>Set selects blue</button>
   <output id="select-owner">{JSON.stringify(selects.fields.value())}</output><output id="select-result">{JSON.stringify(selects.result ?? null)}</output>
 
-  <Form id="uploads" remote={uploads} {...uploads}>
+  <Form id="uploads" remote={uploads} {...uploads} enctype="multipart/form-data">
     {#snippet children(Field)}
       <Field.Root name="file" as="file"><Field.Label>Single file</Field.Label><Field.Control /></Field.Root>
       <Field.Root name="files" as="file multiple"><Field.Label>Multiple files</Field.Label><Field.Control /></Field.Root>
@@ -133,7 +151,7 @@
 </main>
 
 <style>
-  :global(#styled-choices [role='checkbox']), :global(#styled-radio [role='radio']) {
+  :global(#styled-choices [role='checkbox']), :global(#styled-radio [role='radio']), :global(#numeric-radio [role='radio']) {
     display: inline-flex;
     min-width: 7rem;
     min-height: 2rem;
