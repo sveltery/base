@@ -1,4 +1,5 @@
 <script lang="ts">
+  /* eslint-disable svelte/require-each-key -- Native unkeyed rows characterize the explicitly selected Svelte default. */
   let messages = $state<string[]>([]);
   export function update(next: string[]) { messages = next; }
 </script>

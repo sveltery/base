@@ -14,6 +14,23 @@
         "react",
         "../internals/types",
         "../field"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "../internals/types",
+          "kind": "type",
+          "symbols": "{ BaseUIComponentProps }"
+        },
+        {
+          "specifier": "../field",
+          "kind": "runtime",
+          "symbols": "{ Field, type FieldControlState }"
+        }
       ]
     },
     {
@@ -44,6 +61,108 @@
         "../../internals/reasons",
         "../../internals/createBaseUIEventDetails",
         "../../floating-ui-react/utils"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/useControlled",
+          "kind": "runtime",
+          "symbols": "{ useControlled }"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "symbols": "{ useIsoLayoutEffect }"
+        },
+        {
+          "specifier": "@base-ui/utils/owner",
+          "kind": "runtime",
+          "symbols": "{ ownerDocument }"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "symbols": "{ useStableCallback }"
+        },
+        {
+          "specifier": "@base-ui/utils/useTimeout",
+          "kind": "runtime",
+          "symbols": "{ useTimeout }"
+        },
+        {
+          "specifier": "../root/FieldRoot",
+          "kind": "type",
+          "symbols": "{ type FieldRootState }"
+        },
+        {
+          "specifier": "../../internals/field-root-context/FieldRootContext",
+          "kind": "runtime",
+          "symbols": "{ useFieldRootContext }"
+        },
+        {
+          "specifier": "../../internals/field-register-control/useRegisterFieldControl",
+          "kind": "runtime",
+          "symbols": "{ useRegisterFieldControl }"
+        },
+        {
+          "specifier": "../../internals/form-context/FormContext",
+          "kind": "runtime",
+          "symbols": "{ useFormContext }"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/LabelableContext",
+          "kind": "runtime",
+          "symbols": "{ useLabelableContext }"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/useLabelableId",
+          "kind": "runtime",
+          "symbols": "{ useLabelableId }"
+        },
+        {
+          "specifier": "../../internals/field-constants/constants",
+          "kind": "runtime",
+          "symbols": "{ fieldValidityMapping }"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "runtime",
+          "symbols": "{ BaseUIComponentProps }"
+        },
+        {
+          "specifier": "../../internals/useRenderElement",
+          "kind": "runtime",
+          "symbols": "{ useRenderElement }"
+        },
+        {
+          "specifier": "../../internals/useValueChanged",
+          "kind": "runtime",
+          "symbols": "{ useValueChanged }"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails",
+          "kind": "runtime",
+          "symbols": "{ createChangeEventDetails }"
+        },
+        {
+          "specifier": "../../internals/reasons",
+          "kind": "runtime",
+          "symbols": "{ REASONS }"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails",
+          "kind": "type",
+          "symbols": "{ BaseUIChangeEventDetails }"
+        },
+        {
+          "specifier": "../../floating-ui-react/utils",
+          "kind": "runtime",
+          "symbols": "{ activeElement }"
+        }
       ]
     },
     {
@@ -67,6 +186,73 @@
         "../../internals/useRenderElement",
         "./useFieldValidation",
         "../../internals/field-register-control/useFieldControlRegistration"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "symbols": "{ useIsoLayoutEffect }"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "symbols": "{ useStableCallback }"
+        },
+        {
+          "specifier": "../../internals/field-root-context/FieldRootContext",
+          "kind": "runtime",
+          "symbols": "{ FieldRootContext }"
+        },
+        {
+          "specifier": "../../internals/field-constants/constants",
+          "kind": "runtime",
+          "symbols": "{\n  DEFAULT_VALIDITY_STATE,\n  fieldValidityMapping,\n}"
+        },
+        {
+          "specifier": "../../fieldset/root/FieldsetRootContext",
+          "kind": "runtime",
+          "symbols": "{ useFieldsetRootContext }"
+        },
+        {
+          "specifier": "../../form",
+          "kind": "type",
+          "symbols": "{ Form }"
+        },
+        {
+          "specifier": "../../internals/form-context/FormContext",
+          "kind": "runtime",
+          "symbols": "{ useFormContext }"
+        },
+        {
+          "specifier": "../../internals/labelable-provider",
+          "kind": "runtime",
+          "symbols": "{ LabelableProvider }"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "runtime",
+          "symbols": "{ BaseUIComponentProps }"
+        },
+        {
+          "specifier": "../../internals/useRenderElement",
+          "kind": "runtime",
+          "symbols": "{ useRenderElement }"
+        },
+        {
+          "specifier": "./useFieldValidation",
+          "kind": "runtime",
+          "symbols": "{ useFieldValidation }"
+        },
+        {
+          "specifier": "../../internals/field-register-control/useFieldControlRegistration",
+          "kind": "runtime",
+          "symbols": "{ useFieldControlRegistration }"
+        }
       ]
     },
     {
@@ -90,6 +276,73 @@
         "../utils/getCombinedFieldValidityData",
         "../../internals/types",
         "./FieldRoot"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/empty",
+          "kind": "runtime",
+          "symbols": "{ EMPTY_OBJECT }"
+        },
+        {
+          "specifier": "@base-ui/utils/useTimeout",
+          "kind": "runtime",
+          "symbols": "{ useTimeout }"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "symbols": "{ useStableCallback }"
+        },
+        {
+          "specifier": "@base-ui/utils/useRefWithInit",
+          "kind": "runtime",
+          "symbols": "{ useRefWithInit }"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/LabelableContext",
+          "kind": "runtime",
+          "symbols": "{ useLabelableContext }"
+        },
+        {
+          "specifier": "../../merge-props",
+          "kind": "runtime",
+          "symbols": "{ mergeProps }"
+        },
+        {
+          "specifier": "../../internals/field-constants/constants",
+          "kind": "runtime",
+          "symbols": "{ DEFAULT_VALIDITY_STATE }"
+        },
+        {
+          "specifier": "../../internals/form-context/FormContext",
+          "kind": "runtime",
+          "symbols": "{ useFormContext }"
+        },
+        {
+          "specifier": "../../form",
+          "kind": "type",
+          "symbols": "{ Form }"
+        },
+        {
+          "specifier": "../utils/getCombinedFieldValidityData",
+          "kind": "runtime",
+          "symbols": "{ getCombinedFieldValidityData }"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "type",
+          "symbols": "{ HTMLProps }"
+        },
+        {
+          "specifier": "./FieldRoot",
+          "kind": "type",
+          "symbols": "{ FieldValidityData, FieldRootState }"
+        }
       ]
     },
     {
@@ -106,6 +359,38 @@
         "../../field/utils/getCombinedFieldValidityData",
         "../form-context/FormContext",
         "../../field/root/FieldRoot"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "symbols": "{ useIsoLayoutEffect }"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "symbols": "{ useStableCallback }"
+        },
+        {
+          "specifier": "../../field/utils/getCombinedFieldValidityData",
+          "kind": "runtime",
+          "symbols": "{ getCombinedFieldValidityData }"
+        },
+        {
+          "specifier": "../form-context/FormContext",
+          "kind": "runtime",
+          "symbols": "{ useFormContext }"
+        },
+        {
+          "specifier": "../../field/root/FieldRoot",
+          "kind": "type",
+          "symbols": "{ FieldValidityData }"
+        }
       ]
     },
     {
@@ -120,6 +405,28 @@
         "@base-ui/utils/useRefWithInit",
         "../field-root-context/FieldRootContext",
         "./useFieldControlRegistration"
+      ],
+      "importEdges": [
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "symbols": "{ useIsoLayoutEffect }"
+        },
+        {
+          "specifier": "@base-ui/utils/useRefWithInit",
+          "kind": "runtime",
+          "symbols": "{ useRefWithInit }"
+        },
+        {
+          "specifier": "../field-root-context/FieldRootContext",
+          "kind": "runtime",
+          "symbols": "{ useFieldRootContext }"
+        },
+        {
+          "specifier": "./useFieldControlRegistration",
+          "kind": "type",
+          "symbols": "{ FieldControlRegistration }"
+        }
       ]
     },
     {
@@ -139,6 +446,53 @@
         "../../field/root/useFieldValidation",
         "../types",
         "../field-register-control/useFieldControlRegistration"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/empty",
+          "kind": "runtime",
+          "symbols": "{ EMPTY_OBJECT }"
+        },
+        {
+          "specifier": "../noop",
+          "kind": "runtime",
+          "symbols": "{ NOOP }"
+        },
+        {
+          "specifier": "../field-constants/constants",
+          "kind": "runtime",
+          "symbols": "{ DEFAULT_FIELD_ROOT_STATE, DEFAULT_VALIDITY_STATE }"
+        },
+        {
+          "specifier": "../../field/root/FieldRoot",
+          "kind": "type",
+          "symbols": "{ FieldValidityData, FieldRootState }"
+        },
+        {
+          "specifier": "../../form",
+          "kind": "type",
+          "symbols": "{ Form }"
+        },
+        {
+          "specifier": "../../field/root/useFieldValidation",
+          "kind": "type",
+          "symbols": "{ UseFieldValidationReturnValue }"
+        },
+        {
+          "specifier": "../types",
+          "kind": "type",
+          "symbols": "{ HTMLProps }"
+        },
+        {
+          "specifier": "../field-register-control/useFieldControlRegistration",
+          "kind": "type",
+          "symbols": "{ FieldControlRegistration }"
+        }
       ]
     },
     {
@@ -153,6 +507,28 @@
         "../../field/root/FieldRoot",
         "../noop",
         "../../form/Form"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "../../field/root/FieldRoot",
+          "kind": "type",
+          "symbols": "{ FieldValidityData }"
+        },
+        {
+          "specifier": "../noop",
+          "kind": "runtime",
+          "symbols": "{ NOOP }"
+        },
+        {
+          "specifier": "../../form/Form",
+          "kind": "type",
+          "symbols": "{ Form }"
+        }
       ]
     },
     {
@@ -166,6 +542,23 @@
         "react",
         "../noop",
         "../types"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "../noop",
+          "kind": "runtime",
+          "symbols": "{ NOOP }"
+        },
+        {
+          "specifier": "../types",
+          "kind": "runtime",
+          "symbols": "{ HTMLProps }"
+        }
       ]
     },
     {
@@ -182,6 +575,38 @@
         "../types",
         "../useBaseUiId",
         "./LabelableContext"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "symbols": "{ useStableCallback }"
+        },
+        {
+          "specifier": "@base-ui/utils/useRefWithInit",
+          "kind": "runtime",
+          "symbols": "{ useRefWithInit }"
+        },
+        {
+          "specifier": "../types",
+          "kind": "runtime",
+          "symbols": "{ HTMLProps }"
+        },
+        {
+          "specifier": "../useBaseUiId",
+          "kind": "runtime",
+          "symbols": "{ useBaseUiId }"
+        },
+        {
+          "specifier": "./LabelableContext",
+          "kind": "runtime",
+          "symbols": "{ LabelableContext, useLabelableContext }"
+        }
       ]
     },
     {
@@ -199,6 +624,43 @@
         "../noop",
         "../useBaseUiId",
         "./LabelableContext"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "symbols": "{ useIsoLayoutEffect }"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "symbols": "{ useStableCallback }"
+        },
+        {
+          "specifier": "@base-ui/utils/useRefWithInit",
+          "kind": "runtime",
+          "symbols": "{ useRefWithInit }"
+        },
+        {
+          "specifier": "../noop",
+          "kind": "runtime",
+          "symbols": "{ NOOP }"
+        },
+        {
+          "specifier": "../useBaseUiId",
+          "kind": "runtime",
+          "symbols": "{ useBaseUiId }"
+        },
+        {
+          "specifier": "./LabelableContext",
+          "kind": "runtime",
+          "symbols": "{ useLabelableContext }"
+        }
       ]
     },
     {
@@ -211,6 +673,18 @@
       "imports": [
         "../../field/control/FieldControlDataAttributes",
         "../../field/root/FieldRoot"
+      ],
+      "importEdges": [
+        {
+          "specifier": "../../field/control/FieldControlDataAttributes",
+          "kind": "runtime",
+          "symbols": "* as FieldControlDataAttributes"
+        },
+        {
+          "specifier": "../../field/root/FieldRoot",
+          "kind": "type",
+          "symbols": "{ FieldRootState }"
+        }
       ]
     },
     {
@@ -222,6 +696,13 @@
       "status": "written-unverified",
       "imports": [
         "../root/FieldRoot"
+      ],
+      "importEdges": [
+        {
+          "specifier": "../root/FieldRoot",
+          "kind": "type",
+          "symbols": "{ FieldValidityData }"
+        }
       ]
     },
     {
@@ -233,6 +714,13 @@
       "status": "written-unverified",
       "imports": [
         "@base-ui/utils/useId"
+      ],
+      "importEdges": [
+        {
+          "specifier": "@base-ui/utils/useId",
+          "kind": "runtime",
+          "symbols": "{ useId }"
+        }
       ]
     },
     {
@@ -245,6 +733,18 @@
       "imports": [
         "react",
         "./safeReact"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "./safeReact",
+          "kind": "runtime",
+          "symbols": "{ SafeReact }"
+        }
       ]
     },
     {
@@ -256,7 +756,8 @@
       "status": "written-unverified",
       "imports": [
         "@floating-ui/utils/dom"
-      ]
+      ],
+      "importEdges": []
     },
     {
       "source": "packages/utils/src/shadowDom.ts",
@@ -267,6 +768,13 @@
       "status": "written-unverified",
       "imports": [
         "@floating-ui/utils/dom"
+      ],
+      "importEdges": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "symbols": "{ isShadowRoot }"
+        }
       ]
     },
     {
@@ -279,6 +787,18 @@
       "imports": [
         "react",
         "./error"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "./error",
+          "kind": "runtime",
+          "symbols": "{ error }"
+        }
       ]
     },
     {
@@ -291,6 +811,18 @@
       "imports": [
         "./safeReact",
         "./useRefWithInit"
+      ],
+      "importEdges": [
+        {
+          "specifier": "./safeReact",
+          "kind": "runtime",
+          "symbols": "{ SafeReact }"
+        },
+        {
+          "specifier": "./useRefWithInit",
+          "kind": "runtime",
+          "symbols": "{ useRefWithInit }"
+        }
       ]
     },
     {
@@ -303,6 +835,18 @@
       "imports": [
         "./useRefWithInit",
         "./useOnMount"
+      ],
+      "importEdges": [
+        {
+          "specifier": "./useRefWithInit",
+          "kind": "runtime",
+          "symbols": "{ useRefWithInit }"
+        },
+        {
+          "specifier": "./useOnMount",
+          "kind": "runtime",
+          "symbols": "{ useOnMount }"
+        }
       ]
     },
     {
@@ -314,6 +858,13 @@
       "status": "integrated-dependency-pending-final-review",
       "imports": [
         "react"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        }
       ]
     },
     {
@@ -325,6 +876,13 @@
       "status": "integrated-dependency-pending-final-review",
       "imports": [
         "react"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        }
       ]
     },
     {
@@ -334,7 +892,8 @@
       "local": "packages/base/src/lib/utils/empty.ts",
       "adaptation": "shared-utils dependency: unchanged source constants",
       "status": "integrated-dependency-pending-final-review",
-      "imports": []
+      "imports": [],
+      "importEdges": []
     },
     {
       "source": "packages/react/src/internals/useValueChanged.ts",
@@ -347,6 +906,23 @@
         "react",
         "@base-ui/utils/useIsoLayoutEffect",
         "@base-ui/utils/useStableCallback"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "symbols": "{ useIsoLayoutEffect }"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "symbols": "{ useStableCallback }"
+        }
       ]
     },
     {
@@ -368,6 +944,63 @@
         "../utils/resolveClassName",
         "../utils/resolveStyle",
         "../merge-props"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/useMergedRefs",
+          "kind": "runtime",
+          "symbols": "{ useMergedRefs, useMergedRefsN }"
+        },
+        {
+          "specifier": "@base-ui/utils/getReactElementRef",
+          "kind": "runtime",
+          "symbols": "{ getReactElementRef }"
+        },
+        {
+          "specifier": "@base-ui/utils/mergeObjects",
+          "kind": "runtime",
+          "symbols": "{ mergeObjects }"
+        },
+        {
+          "specifier": "@base-ui/utils/warn",
+          "kind": "runtime",
+          "symbols": "{ warn }"
+        },
+        {
+          "specifier": "@base-ui/utils/empty",
+          "kind": "runtime",
+          "symbols": "{ EMPTY_OBJECT }"
+        },
+        {
+          "specifier": "./types",
+          "kind": "type",
+          "symbols": "{ BaseUIComponentProps, ComponentRenderFn, HTMLProps }"
+        },
+        {
+          "specifier": "./getStateAttributesProps",
+          "kind": "runtime",
+          "symbols": "{ getStateAttributesProps, StateAttributesMapping }"
+        },
+        {
+          "specifier": "../utils/resolveClassName",
+          "kind": "runtime",
+          "symbols": "{ resolveClassName }"
+        },
+        {
+          "specifier": "../utils/resolveStyle",
+          "kind": "runtime",
+          "symbols": "{ resolveStyle }"
+        },
+        {
+          "specifier": "../merge-props",
+          "kind": "runtime",
+          "symbols": "{ mergeProps, mergePropsN, mergeClassNames }"
+        }
       ]
     },
     {
@@ -387,6 +1020,53 @@
         "../internals/form-context/FormContext",
         "../internals/useRenderElement",
         "../internals/useValueChanged"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "symbols": "{ useStableCallback }"
+        },
+        {
+          "specifier": "@base-ui/utils/empty",
+          "kind": "runtime",
+          "symbols": "{ EMPTY_OBJECT }"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails",
+          "kind": "runtime",
+          "symbols": "{\n  createGenericEventDetails,\n  type BaseUIGenericEventDetails,\n}"
+        },
+        {
+          "specifier": "../internals/reasons",
+          "kind": "runtime",
+          "symbols": "{ REASONS }"
+        },
+        {
+          "specifier": "../internals/types",
+          "kind": "type",
+          "symbols": "{ BaseUIComponentProps }"
+        },
+        {
+          "specifier": "../internals/form-context/FormContext",
+          "kind": "runtime",
+          "symbols": "{ FormContext }"
+        },
+        {
+          "specifier": "../internals/useRenderElement",
+          "kind": "runtime",
+          "symbols": "{ useRenderElement }"
+        },
+        {
+          "specifier": "../internals/useValueChanged",
+          "kind": "runtime",
+          "symbols": "{ useValueChanged }"
+        }
       ]
     },
     {
@@ -408,6 +1088,63 @@
         "../../internals/labelable-provider/LabelableContext",
         "../../internals/labelable-provider/useLabel",
         "../item/FieldItemContext"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/error",
+          "kind": "runtime",
+          "symbols": "{ error }"
+        },
+        {
+          "specifier": "@base-ui/utils/safeReact",
+          "kind": "runtime",
+          "symbols": "{ SafeReact }"
+        },
+        {
+          "specifier": "../root/FieldRoot",
+          "kind": "type",
+          "symbols": "{ FieldRootState }"
+        },
+        {
+          "specifier": "../../internals/field-root-context/FieldRootContext",
+          "kind": "runtime",
+          "symbols": "{ useFieldRootContext }"
+        },
+        {
+          "specifier": "../../internals/field-constants/constants",
+          "kind": "runtime",
+          "symbols": "{ fieldValidityMapping }"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "type",
+          "symbols": "{ BaseUIComponentProps }"
+        },
+        {
+          "specifier": "../../internals/useRenderElement",
+          "kind": "runtime",
+          "symbols": "{ useRenderElement }"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/LabelableContext",
+          "kind": "runtime",
+          "symbols": "{ useLabelableContext }"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/useLabel",
+          "kind": "runtime",
+          "symbols": "{ useLabel }"
+        },
+        {
+          "specifier": "../item/FieldItemContext",
+          "kind": "runtime",
+          "symbols": "{ useFieldItemContext }"
+        }
       ]
     },
     {
@@ -426,6 +1163,48 @@
         "../../internals/useRenderElement",
         "./FieldItemContext",
         "../../internals/labelable-provider"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "../root/FieldRoot",
+          "kind": "type",
+          "symbols": "{ type FieldRootState }"
+        },
+        {
+          "specifier": "../../internals/field-root-context/FieldRootContext",
+          "kind": "runtime",
+          "symbols": "{ useFieldRootContext }"
+        },
+        {
+          "specifier": "../../internals/field-constants/constants",
+          "kind": "runtime",
+          "symbols": "{ fieldValidityMapping }"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "type",
+          "symbols": "{ BaseUIComponentProps }"
+        },
+        {
+          "specifier": "../../internals/useRenderElement",
+          "kind": "runtime",
+          "symbols": "{ useRenderElement }"
+        },
+        {
+          "specifier": "./FieldItemContext",
+          "kind": "runtime",
+          "symbols": "{ FieldItemContext }"
+        },
+        {
+          "specifier": "../../internals/labelable-provider",
+          "kind": "runtime",
+          "symbols": "{ LabelableProvider }"
+        }
       ]
     },
     {
@@ -437,6 +1216,13 @@
       "status": "source-checkpoint-executed-pending-independent-review",
       "imports": [
         "react"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        }
       ]
     },
     {
@@ -457,6 +1243,58 @@
         "../../internals/useBaseUiId",
         "../../internals/useRenderElement",
         "../item/FieldItemContext"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "symbols": "{ useIsoLayoutEffect }"
+        },
+        {
+          "specifier": "../root/FieldRoot",
+          "kind": "type",
+          "symbols": "{ type FieldRootState }"
+        },
+        {
+          "specifier": "../../internals/field-root-context/FieldRootContext",
+          "kind": "runtime",
+          "symbols": "{ useFieldRootContext }"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/LabelableContext",
+          "kind": "runtime",
+          "symbols": "{ useLabelableContext }"
+        },
+        {
+          "specifier": "../../internals/field-constants/constants",
+          "kind": "runtime",
+          "symbols": "{ fieldValidityMapping }"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "type",
+          "symbols": "{ BaseUIComponentProps }"
+        },
+        {
+          "specifier": "../../internals/useBaseUiId",
+          "kind": "runtime",
+          "symbols": "{ useBaseUiId }"
+        },
+        {
+          "specifier": "../../internals/useRenderElement",
+          "kind": "runtime",
+          "symbols": "{ useRenderElement }"
+        },
+        {
+          "specifier": "../item/FieldItemContext",
+          "kind": "runtime",
+          "symbols": "{ useFieldItemContext }"
+        }
       ]
     },
     {
@@ -472,6 +1310,33 @@
         "../utils/getCombinedFieldValidityData",
         "../root/FieldRoot",
         "../../internals/useTransitionStatus"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "../../internals/field-root-context/FieldRootContext",
+          "kind": "runtime",
+          "symbols": "{ useFieldRootContext }"
+        },
+        {
+          "specifier": "../utils/getCombinedFieldValidityData",
+          "kind": "runtime",
+          "symbols": "{ getCombinedFieldValidityData }"
+        },
+        {
+          "specifier": "../root/FieldRoot",
+          "kind": "type",
+          "symbols": "{ FieldValidityData }"
+        },
+        {
+          "specifier": "../../internals/useTransitionStatus",
+          "kind": "runtime",
+          "symbols": "{ type TransitionStatus, useTransitionStatus }"
+        }
       ]
     },
     {
@@ -496,6 +1361,78 @@
         "../../internals/useOpenChangeComplete",
         "../../internals/stateAttributesMapping",
         "../../internals/useTransitionStatus"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "symbols": "{ useIsoLayoutEffect }"
+        },
+        {
+          "specifier": "../root/FieldRoot",
+          "kind": "type",
+          "symbols": "{ type FieldRootState }"
+        },
+        {
+          "specifier": "../../internals/field-root-context/FieldRootContext",
+          "kind": "runtime",
+          "symbols": "{ useFieldRootContext }"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/LabelableContext",
+          "kind": "runtime",
+          "symbols": "{ useLabelableContext }"
+        },
+        {
+          "specifier": "../../internals/field-constants/constants",
+          "kind": "runtime",
+          "symbols": "{ fieldValidityMapping }"
+        },
+        {
+          "specifier": "../../internals/form-context/FormContext",
+          "kind": "runtime",
+          "symbols": "{ useFormContext }"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "type",
+          "symbols": "{ BaseUIComponentProps }"
+        },
+        {
+          "specifier": "../../internals/getStateAttributesProps",
+          "kind": "type",
+          "symbols": "{ StateAttributesMapping }"
+        },
+        {
+          "specifier": "../../internals/useRenderElement",
+          "kind": "runtime",
+          "symbols": "{ useRenderElement }"
+        },
+        {
+          "specifier": "../../internals/useBaseUiId",
+          "kind": "runtime",
+          "symbols": "{ useBaseUiId }"
+        },
+        {
+          "specifier": "../../internals/useOpenChangeComplete",
+          "kind": "runtime",
+          "symbols": "{ useOpenChangeComplete }"
+        },
+        {
+          "specifier": "../../internals/stateAttributesMapping",
+          "kind": "runtime",
+          "symbols": "{ transitionStatusMapping }"
+        },
+        {
+          "specifier": "../../internals/useTransitionStatus",
+          "kind": "runtime",
+          "symbols": "{ type TransitionStatus, useTransitionStatus }"
+        }
       ]
     },
     {
@@ -510,6 +1447,28 @@
         "./FieldsetRootContext",
         "../../internals/types",
         "../../internals/useRenderElement"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "./FieldsetRootContext",
+          "kind": "runtime",
+          "symbols": "{ FieldsetRootContext, useFieldsetRootContext }"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "type",
+          "symbols": "{ BaseUIComponentProps }"
+        },
+        {
+          "specifier": "../../internals/useRenderElement",
+          "kind": "runtime",
+          "symbols": "{ useRenderElement }"
+        }
       ]
     },
     {
@@ -521,6 +1480,13 @@
       "status": "source-checkpoint-executed-pending-independent-review",
       "imports": [
         "react"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        }
       ]
     },
     {
@@ -536,6 +1502,33 @@
         "../root/FieldsetRootContext",
         "../../internals/types",
         "../../utils/useRegisteredLabelId"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "../../internals/useRenderElement",
+          "kind": "runtime",
+          "symbols": "{ useRenderElement }"
+        },
+        {
+          "specifier": "../root/FieldsetRootContext",
+          "kind": "runtime",
+          "symbols": "{ useFieldsetRootContext }"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "type",
+          "symbols": "{ BaseUIComponentProps }"
+        },
+        {
+          "specifier": "../../utils/useRegisteredLabelId",
+          "kind": "runtime",
+          "symbols": "{ useRegisteredLabelId }"
+        }
       ]
     },
     {
@@ -553,6 +1546,43 @@
         "../../floating-ui-react/utils",
         "../../utils/useRegisteredLabelId",
         "./LabelableContext"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "symbols": "{ isHTMLElement }"
+        },
+        {
+          "specifier": "@base-ui/utils/owner",
+          "kind": "runtime",
+          "symbols": "{ ownerDocument }"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "symbols": "{ useStableCallback }"
+        },
+        {
+          "specifier": "../../floating-ui-react/utils",
+          "kind": "runtime",
+          "symbols": "{ getTarget }"
+        },
+        {
+          "specifier": "../../utils/useRegisteredLabelId",
+          "kind": "runtime",
+          "symbols": "{ useRegisteredLabelId }"
+        },
+        {
+          "specifier": "./LabelableContext",
+          "kind": "runtime",
+          "symbols": "{ useLabelableContext }"
+        }
       ]
     },
     {
@@ -566,6 +1596,23 @@
         "react",
         "@base-ui/utils/useIsoLayoutEffect",
         "../internals/useBaseUiId"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "type",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "symbols": "{ useIsoLayoutEffect }"
+        },
+        {
+          "specifier": "../internals/useBaseUiId",
+          "kind": "runtime",
+          "symbols": "{ useBaseUiId }"
+        }
       ]
     },
     {
@@ -579,6 +1626,23 @@
         "react",
         "@base-ui/utils/useIsoLayoutEffect",
         "@base-ui/utils/useAnimationFrame"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "symbols": "{ useIsoLayoutEffect }"
+        },
+        {
+          "specifier": "@base-ui/utils/useAnimationFrame",
+          "kind": "runtime",
+          "symbols": "{ AnimationFrame }"
+        }
       ]
     },
     {
@@ -592,6 +1656,23 @@
         "react",
         "@base-ui/utils/useStableCallback",
         "./useAnimationsFinished"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "symbols": "{ useStableCallback }"
+        },
+        {
+          "specifier": "./useAnimationsFinished",
+          "kind": "runtime",
+          "symbols": "{ useAnimationsFinished }"
+        }
       ]
     },
     {
@@ -608,6 +1689,38 @@
         "@base-ui/utils/useStableCallback",
         "../utils/resolveRef",
         "./TransitionStatusDataAttributes"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "react-dom",
+          "kind": "runtime",
+          "symbols": "* as ReactDOM"
+        },
+        {
+          "specifier": "@base-ui/utils/useAnimationFrame",
+          "kind": "runtime",
+          "symbols": "{ useAnimationFrame }"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "symbols": "{ useStableCallback }"
+        },
+        {
+          "specifier": "../utils/resolveRef",
+          "kind": "runtime",
+          "symbols": "{ resolveRef }"
+        },
+        {
+          "specifier": "./TransitionStatusDataAttributes",
+          "kind": "runtime",
+          "symbols": "* as TransitionStatusDataAttributes"
+        }
       ]
     },
     {
@@ -620,6 +1733,18 @@
       "imports": [
         "./useRefWithInit",
         "./useOnMount"
+      ],
+      "importEdges": [
+        {
+          "specifier": "./useRefWithInit",
+          "kind": "runtime",
+          "symbols": "{ useRefWithInit }"
+        },
+        {
+          "specifier": "./useOnMount",
+          "kind": "runtime",
+          "symbols": "{ useOnMount }"
+        }
       ]
     },
     {
@@ -629,7 +1754,8 @@
       "local": "packages/base/src/lib/utils/resolveRef.ts",
       "adaptation": "Original used function unchanged; native ref-object type.",
       "status": "source-checkpoint-executed-pending-independent-review",
-      "imports": []
+      "imports": [],
+      "importEdges": []
     },
     {
       "source": "packages/react/src/internals/stateAttributesMapping.ts",
@@ -642,6 +1768,23 @@
         "./useTransitionStatus",
         "./getStateAttributesProps",
         "./TransitionStatusDataAttributes"
+      ],
+      "importEdges": [
+        {
+          "specifier": "./useTransitionStatus",
+          "kind": "type",
+          "symbols": "{ TransitionStatus }"
+        },
+        {
+          "specifier": "./getStateAttributesProps",
+          "kind": "type",
+          "symbols": "{ StateAttributesMapping }"
+        },
+        {
+          "specifier": "./TransitionStatusDataAttributes",
+          "kind": "runtime",
+          "symbols": "* as TransitionStatusDataAttributes"
+        }
       ]
     },
     {
@@ -651,7 +1794,184 @@
       "local": "packages/base/src/lib/internals/TransitionStatusDataAttributes.ts",
       "adaptation": "Exact source constants.",
       "status": "source-checkpoint-executed-pending-independent-review",
-      "imports": []
+      "imports": [],
+      "importEdges": []
+    },
+    {
+      "source": "packages/react/src/internals/createBaseUIEventDetails.ts",
+      "sourceSha256": "77bdb11a11ef1dfe9bc1a82db4754766cffbb91c27c3aeaea215e4e07cec2b2d",
+      "symbol": "createChangeEventDetails/createGenericEventDetails/ReasonToEvent",
+      "local": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+      "adaptation": "Source business functions and event-reason conditional types; native Event and canonical shared EMPTY_OBJECT.",
+      "status": "source-checkpoint-pending-independent-review",
+      "imports": [
+        "@base-ui/utils/empty",
+        "./reasons"
+      ],
+      "importEdges": [
+        {
+          "specifier": "@base-ui/utils/empty",
+          "kind": "runtime",
+          "symbols": "{ EMPTY_OBJECT }"
+        },
+        {
+          "specifier": "./reasons",
+          "kind": "runtime",
+          "symbols": "{ REASONS }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/reasons.ts",
+      "sourceSha256": "694b1512f2dd9c999e97899e1fe9ea0f189fbe8476fcbc0f957cd786806c4abf",
+      "symbol": "REASONS",
+      "local": "packages/base/src/lib/internals/reasons.ts",
+      "adaptation": "Original reexport shape; native module extensions.",
+      "status": "source-checkpoint-pending-independent-review",
+      "imports": [
+        "./reason-parts"
+      ],
+      "importEdges": [
+        {
+          "specifier": "./reason-parts",
+          "kind": "runtime",
+          "symbols": "* as REASONS"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/reason-parts.ts",
+      "sourceSha256": "1cddfb9a98326bc5e586c2bdb66fb3a58913038f8ee7368ec57bbaf972521e06",
+      "symbol": "reason constants",
+      "local": "packages/base/src/lib/internals/reason-parts.ts",
+      "adaptation": "Exact source constants reused.",
+      "status": "source-checkpoint-pending-independent-review",
+      "imports": [],
+      "importEdges": []
+    },
+    {
+      "source": "packages/react/src/internals/noop.ts",
+      "sourceSha256": "268edb20da01bc632fc8335f808298027500d577ad3872d340080c40a21fc3a0",
+      "symbol": "NOOP alias",
+      "local": "packages/base/src/lib/utils/empty.ts",
+      "adaptation": "Original alias points to same canonical shared NOOP; no redundant runtime facade.",
+      "status": "source-checkpoint-pending-independent-review",
+      "imports": [
+        "@base-ui/utils/empty"
+      ],
+      "importEdges": []
+    },
+    {
+      "source": "packages/react/src/field/control/FieldControlDataAttributes.ts",
+      "sourceSha256": "cbdf610a0e3492927587685b1d4f9bf8ae5ac2cba01e5f39e4001de9f9d0b1d3",
+      "symbol": "field validity attribute names",
+      "local": "packages/base/src/lib/internals/field-constants/constants.ts",
+      "adaptation": "Used exact valid/invalid string constants inlined; other state attrs generated by canonical source getStateAttributesProps.",
+      "status": "source-checkpoint-pending-independent-review",
+      "imports": [],
+      "importEdges": []
+    },
+    {
+      "source": "packages/react/src/field/index.ts",
+      "sourceSha256": "efd415bc76741a4543cb10a20a9cd75a478f4b0703cc3325c57f51f730634ca1",
+      "symbol": "Field public module/type exports",
+      "local": "packages/base/src/lib/field/index.ts",
+      "adaptation": "Source namespace/type relationships plus native named component exports.",
+      "status": "source-checkpoint-pending-independent-review",
+      "imports": [
+        "./index.parts",
+        "./root/FieldRoot",
+        "./label/FieldLabel",
+        "./description/FieldDescription",
+        "./error/FieldError",
+        "./control/FieldControl",
+        "./validity/FieldValidity",
+        "./item/FieldItem"
+      ],
+      "importEdges": []
+    },
+    {
+      "source": "packages/react/src/field/index.parts.ts",
+      "sourceSha256": "ed070b74dc6328c7dafcc7cec7eb427acab5ef9eab49e1120f0a8c2e49aad774",
+      "symbol": "Field parts",
+      "local": "packages/base/src/lib/field/index.parts.ts",
+      "adaptation": "Exact source part composition; native component filenames.",
+      "status": "source-checkpoint-pending-independent-review",
+      "imports": [
+        "./root/FieldRoot",
+        "./label/FieldLabel",
+        "./error/FieldError",
+        "./description/FieldDescription",
+        "./control/FieldControl",
+        "./validity/FieldValidity",
+        "./item/FieldItem",
+        "./root/FieldRoot"
+      ],
+      "importEdges": []
+    },
+    {
+      "source": "packages/react/src/form/index.ts",
+      "sourceSha256": "307b2a028920f531705827c9d9e43ea26193e734bffbac98170b9718f90ea9f8",
+      "symbol": "Form public exports",
+      "local": "packages/base/src/lib/form/index.ts",
+      "adaptation": "Source component and type export relationships.",
+      "status": "source-checkpoint-pending-independent-review",
+      "imports": [
+        "./Form",
+        "./Form"
+      ],
+      "importEdges": []
+    },
+    {
+      "source": "packages/react/src/fieldset/index.ts",
+      "sourceSha256": "36c6543f9c61ae7f71f9c87099264f055e8b5abefa4b6d386903e529547fad2c",
+      "symbol": "Fieldset public exports",
+      "local": "packages/base/src/lib/fieldset/index.ts",
+      "adaptation": "Source namespace/type relationships plus native named component exports.",
+      "status": "source-checkpoint-pending-independent-review",
+      "imports": [
+        "./index.parts",
+        "./root/FieldsetRoot",
+        "./legend/FieldsetLegend"
+      ],
+      "importEdges": []
+    },
+    {
+      "source": "packages/react/src/fieldset/index.parts.ts",
+      "sourceSha256": "d6ec23306755f49305be519fe7b0187c63bb4fdd48b23514c576e75ce2d14abe",
+      "symbol": "Fieldset parts",
+      "local": "packages/base/src/lib/fieldset/index.parts.ts",
+      "adaptation": "Exact source part composition; native component filenames.",
+      "status": "source-checkpoint-pending-independent-review",
+      "imports": [
+        "./root/FieldsetRoot",
+        "./legend/FieldsetLegend"
+      ],
+      "importEdges": []
+    },
+    {
+      "source": "packages/react/src/internals/types.ts",
+      "sourceSha256": "ed0c29125011488378a038fe179287809ef624d9d84389d83d7207b25e3d416a",
+      "symbol": "BaseUIComponentProps/WithBaseUIEvent",
+      "local": "packages/base/src/lib/internals/types.ts; packages/base/src/lib/dialog/types.ts; packages/base/src/lib/field/props.ts",
+      "adaptation": "Source business type relationships; native Snippet, Event, ClassValue, CSS string, attachment/ref representational boundaries. Shared renderer owns canonical rendering types.",
+      "status": "source-checkpoint-pending-independent-review",
+      "imports": [
+        "react",
+        "../types"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "type",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "../types",
+          "kind": "type",
+          "symbols": "{ BaseUIEvent, ComponentRenderFn, HTMLProps }"
+        }
+      ]
     }
   ],
   "sharedUtilityDependency": {
