@@ -89,9 +89,20 @@
       "scope": "Actual React/ReactDOM19.2.8 source families and measured literal/source native activation vectors. Earlier milestone before descendant focus-fidelity repair; does not clear new runtime head. Sandbox enabled, retries zero; zero ordinary declaration credit.",
       "artifactId": 11266806188,
       "artifactZipSha256": "907e8eb2fd2cc085490fb1574a61d0e661b8acdc681a8f79945c76b89d9fe79d"
+    },
+    {
+      "head": "154cba6fa3e0ac9f3a3bc7e51f95f10e4ed138d7",
+      "runId": 37103261024,
+      "url": "https://github.com/sveltery/base/actions/runs/37103261024",
+      "result": "success",
+      "passed": 68,
+      "failed": 0,
+      "scope": "Actual React/ReactDOM19.2.8 + BaseUI1.8.0 and native Svelte source family focus/validation/cancellation/roving/activation/geometry/SSR characterizations; sandbox enabled, retries zero. Zero ordinary declaration credit.",
+      "artifactId": 11266709283,
+      "artifactZipSha256": "43a5147fca601b3fc71625a567e08de787e413045634edad987676a6ab93e754"
     }
   ],
-  "status": "Fresh exact-head run, configured review and independent whole-closure source/native/maintainability acceptance pending; no merge or exhaustive assertion parity claimed.",
+  "status": "Independent source/native/public/maintainability review and secured68/source-core442 are clear at154cba6. Approved actual-main core integration preserves reviewed bodies; fresh exact final delivery checks/configured review and PM merge approval remain required. Zero ordinary declaration credit; exhaustive component assertion parity is not claimed.",
   "inheritedDevelopmentGates": [
     {
       "head": "49d23aa034332b0dba6e7675687e490f9e87879e",
@@ -144,5 +155,15 @@
       "repair": "Use native focusin on Group, CompositeRoot, CompositeItem and visible Radio Root, and native focusout on Group; all business bodies, containment and setter/commit order remain unchanged. Direct hidden input focus remains native onfocus.",
       "supplementAccounting": "Meaningful paired source/native focus supplements have zero unchanged ordinary declaration credit; fresh exact-head secured and independent affected-closure review required."
     }
-  ]
+  ],
+  "reviewedDeliveryCheckpoint": {
+    "reviewedHead": "154cba6fa3e0ac9f3a3bc7e51f95f10e4ed138d7",
+    "approvedCoreMain": "ae07f45ed3e90418baf281f825480c0439a5308b",
+    "sourceNativePublicMaintainabilityReview": "clear",
+    "independentReportSha256": "c7f5a61ddff0f273e0450fcf9e1364fd0f44a8cee209c8b0bbdb4eb32cd5ebb2",
+    "coreFocusedRunId": 37103261089,
+    "coreFocusedPassed": 442,
+    "deliveryIdentity": "All library runtime/types, fixture source, DOM/runtime tests, Radio browser assertions, original Radio graph/correspondence/assertions, package manifests/lockfiles and workflows unchanged from reviewed head; only approved source-core and Radio status documentation/evidence reconciliation.",
+    "mergeApproval": "pending-exact-final-delivery-head"
+  }
 }
