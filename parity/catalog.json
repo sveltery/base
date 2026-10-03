@@ -39,15 +39,15 @@
     },
     {
       "upstreamModule": "checkbox",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "Checkbox",
+      "evidence": "parity/boolean-controls/README.md"
     },
     {
       "upstreamModule": "checkbox-group",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "CheckboxGroup",
+      "evidence": "parity/boolean-controls/README.md"
     },
     {
       "upstreamModule": "collapsible",
@@ -93,21 +93,21 @@
     },
     {
       "upstreamModule": "field",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "Field",
+      "evidence": "parity/field-form/source-correspondence.md"
     },
     {
       "upstreamModule": "fieldset",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "Fieldset",
+      "evidence": "parity/field-form/source-correspondence.md"
     },
     {
       "upstreamModule": "form",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "Form",
+      "evidence": "parity/field-form/source-correspondence.md"
     },
     {
       "upstreamModule": "input",
@@ -177,15 +177,15 @@
     },
     {
       "upstreamModule": "radio",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "Radio",
+      "evidence": "parity/radio/README.md"
     },
     {
       "upstreamModule": "radio-group",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "RadioGroup",
+      "evidence": "parity/radio/README.md"
     },
     {
       "upstreamModule": "scroll-area",
@@ -213,9 +213,9 @@
     },
     {
       "upstreamModule": "switch",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "Switch",
+      "evidence": "parity/boolean-controls/README.md"
     },
     {
       "upstreamModule": "tabs",

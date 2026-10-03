@@ -25,7 +25,13 @@
       "typeEdges": [
         "react"
       ],
-      "status": "native source port"
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [
+        "svelte",
+        "esm-env",
+        "./error.js"
+      ],
+      "localSha256": "f74b9a8aa08b323835613037c871a6b85c938555c788c0a8ff51825c1863fd35"
     },
     {
       "source": "packages/utils/src/useStableCallback.ts",
@@ -36,7 +42,11 @@
         "./useRefWithInit"
       ],
       "typeEdges": [],
-      "status": "native source port"
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [
+        "svelte"
+      ],
+      "localSha256": "b790a02da99e0e9365bc05d35a434ef37dcffb2a4db8186b1327b949a994d05e"
     },
     {
       "source": "packages/utils/src/useTimeout.ts",
@@ -47,7 +57,12 @@
         "./useOnMount"
       ],
       "typeEdges": [],
-      "status": "native source port"
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [
+        "./useRefWithInit.js",
+        "./useOnMount.js"
+      ],
+      "localSha256": "a04448de8715b8728243ee6e33572c57bc5b151674628304f6c3906966738c78"
     },
     {
       "source": "packages/utils/src/useIsoLayoutEffect.ts",
@@ -59,7 +74,11 @@
       "typeEdges": [
         "react"
       ],
-      "status": "native source port"
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [
+        "svelte"
+      ],
+      "localSha256": "0d24dd22dad18fc54341aaedb964a25829ae62322f10bf110a4fd8bde65dd1f3"
     },
     {
       "source": "packages/utils/src/useRefWithInit.ts",
@@ -71,7 +90,9 @@
       "typeEdges": [
         "react"
       ],
-      "status": "native source port"
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [],
+      "localSha256": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036"
     },
     {
       "source": "packages/utils/src/error.ts",
@@ -81,7 +102,11 @@
         "./createLogOnce"
       ],
       "typeEdges": [],
-      "status": "native source port"
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [
+        "./createLogOnce.js"
+      ],
+      "localSha256": "de9eeee73db42c056c110eb94f3aef8b51ae3003e97d5140bfaf876bdde52c69"
     },
     {
       "source": "packages/utils/src/createLogOnce.ts",
@@ -89,7 +114,11 @@
       "local": "packages/base/src/lib/utils/createLogOnce.ts",
       "runtimeEdges": [],
       "typeEdges": [],
-      "status": "native source port"
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [
+        "esm-env"
+      ],
+      "localSha256": "a3c52188a495927ef9b49765ca1e70bc384b37b68a5c896ca86df15852a279b1"
     },
     {
       "source": "packages/utils/src/useOnMount.ts",
@@ -102,7 +131,11 @@
       "typeEdges": [
         "react"
       ],
-      "status": "native source port"
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [
+        "svelte"
+      ],
+      "localSha256": "a7ba4007eff27b601eebcb76755886a23a4dd8548a54f67e15fa1cd648e0e695"
     },
     {
       "source": "packages/utils/src/empty.ts",
@@ -110,7 +143,9 @@
       "local": "packages/base/src/lib/utils/empty.ts",
       "runtimeEdges": [],
       "typeEdges": [],
-      "status": "native source port"
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [],
+      "localSha256": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b"
     },
     {
       "source": "packages/utils/src/safeReact.ts",
@@ -122,7 +157,8 @@
       "typeEdges": [
         "react"
       ],
-      "status": "framework adapter in useStableCallback"
+      "status": "replaced React framework compatibility layer; native setup boundary",
+      "localRuntimeEdges": []
     },
     {
       "source": "packages/react/src/internals/useValueChanged.ts",
@@ -136,7 +172,15 @@
       "typeEdges": [
         "react"
       ],
-      "status": "native source port"
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [
+        "svelte",
+        "../utils/useIsoLayoutEffect.svelte.js",
+        "../utils/useStableCallback.js",
+        "../utils/useRefWithInit.js"
+      ],
+      "localSha256": "340a8f5ed100094c283f167c8a8a3e196708cdf238eeadc93f148ee31c4274c9"
     }
-  ]
+  ],
+  "reviewStatus": "independent final-head source review pending"
 }

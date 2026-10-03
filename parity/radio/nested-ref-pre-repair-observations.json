@@ -1,0 +1,58 @@
+{
+  "head": "3061aeb6512c2f1cbc38c67737da05e962b8b5ec",
+  "sourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "renderer": {
+    "react": "19.2.8",
+    "reactDom": "19.2.8"
+  },
+  "ordinaryDeclarationCredit": 0,
+  "sourceTests": "CompositeRoot.test.tsx1377\u20131416",
+  "ownerPairedJSDOM": {
+    "passed": 1,
+    "failed": 1,
+    "logSha256": "7d920db7959e1cea8f7beff3b40c4853d92f60fbd2577545a31540103c629c6e"
+  },
+  "rawObservationSha256": {
+    "react": "e8599d31c88ea7a974c9bd28a9a1afe578d8e4f194958864297a65699a2176f0",
+    "svelte": "1111d9a0043495c5432b157dbefa642338c4c4b8e2f310833114f97c2e905ab1"
+  },
+  "observations": {
+    "react": {
+      "renderer": "react",
+      "initial": {
+        "disabled": true,
+        "focusableWhenDisabled": true,
+        "owner": "outer",
+        "index": 1
+      },
+      "updated": {
+        "disabled": true,
+        "focusableWhenDisabled": true,
+        "owner": "outer",
+        "index": 1
+      },
+      "focused": "shared",
+      "size": 3
+    },
+    "svelte": {
+      "renderer": "svelte",
+      "initial": {
+        "disabled": true,
+        "focusableWhenDisabled": false,
+        "owner": "inner",
+        "revision": 0,
+        "index": 1
+      },
+      "updated": {
+        "disabled": true,
+        "focusableWhenDisabled": false,
+        "owner": "inner",
+        "revision": 1,
+        "index": 1
+      },
+      "focused": "last",
+      "size": 3
+    }
+  },
+  "scope": "Genuine source ownership/navigation mismatch; both original and local source registry Map.set/delete are unchanged. Native canonical forwarded refs were scheduled independently in the wrong order."
+}

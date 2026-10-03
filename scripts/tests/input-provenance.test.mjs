@@ -9,6 +9,12 @@ const read = path => readFileSync(new URL(`../../${path}`, import.meta.url), 'ut
 const sha = value => createHash('sha256').update(value).digest('hex');
 const inventory = JSON.parse(read('parity/input/upstream-inventory.json'));
 const ledger = JSON.parse(read('parity/input/conformance.json'));
+const nativeDefaults = JSON.parse(read('parity/input/native-defaults/provenance.json'));
+// Historical evidence remains byte-exact; current native suites are separate executions.
+function historicalRead(path, hash) {
+  const snapshot = nativeDefaults.historicalRecords.find(record => record.originalFile === path && record.sha256 === hash);
+  return read(snapshot?.historicalFile ?? path);
+}
 test('Input accepted reset limitation keeps its narrow decision, negative assertions and zero credit visible', () => {
   const evidence = JSON.parse(read('parity/input/reset-limit/evidence.json'));
   const decision = JSON.parse(read('parity/input/reset-limit/decision.json'));
@@ -23,7 +29,7 @@ test('Input accepted reset limitation keeps its narrow decision, negative assert
   assert.equal(decision.runtime_changed, false);
   assert.equal(evidence.runtime.unchanged, true);
   assert.deepEqual(evidence.credits, { ordinary_input: 0, field: 0 });
-  for (const [path, hash] of Object.entries(evidence.hashes)) assert.equal(sha(read(path)), hash, path);
+  for (const [path, hash] of Object.entries(evidence.hashes)) assert.equal(sha(historicalRead(path, hash)), hash, path);
   assert.equal(evidence.focused.total, 36);
   assert.equal(evidence.focused.passing, 32);
   assert.equal(evidence.focused.expected_failures, 4);
@@ -40,7 +46,7 @@ test('Input accepted reset limitation keeps its narrow decision, negative assert
       assert.notEqual(result.settled, result.expectedSettled);
     } else assert.equal(result.settled, result.expectedSettled);
   }
-  const port = read(evidence.focused.test);
+  const port = historicalRead(evidence.focused.test, evidence.hashes[evidence.focused.test]);
   assert.match(port, /approvedUnsupported \? it\.fails : it/);
   assert.match(port, /expect\(input\.value\)\.toBe\(successful \? 'seed' : 'edit'\)/);
   assert.match(port, /expect\(input\.value\)\.toBe\(successful \? 'seed' : native \? 'edit' : 'owner'\)/);
@@ -85,7 +91,7 @@ test('Input timing characterization preserves hashed raw phase observations and 
   const evidence = JSON.parse(read('parity/input/timing/evidence.json'));
   assert.equal(evidence.upstreamCommit, inventory.upstream.commit);
   assert.equal(evidence.decision.status, 'accepted');
-  for (const [source, hash] of Object.entries(evidence.sources)) assert.equal(sha(read(source)), hash, source);
+  for (const [source, hash] of Object.entries(evidence.sources)) assert.equal(sha(historicalRead(source, hash)), hash, source);
   assert.equal(sha(read(`parity/input/timing/${evidence.localRun.results}`)), evidence.localRun.resultsSha256);
   assert.equal(sha(read(`parity/input/timing/${evidence.ownedWrapperPrototype.baseline}`)), evidence.ownedWrapperPrototype.baselineSha256);
   assert.equal(sha(read(`parity/input/timing/${evidence.ownedWrapperPrototype.diff}`)), evidence.ownedWrapperPrototype.diffSha256);
@@ -99,4 +105,16 @@ test('Input timing characterization preserves hashed raw phase observations and 
   }
   assert.doesNotMatch(read(evidence.browserRun.test), /(?:test|describe)\.(?:skip|fixme|only)\s*\(/);
   assert.equal(inventory.creditedOrdinaryPorts, 0);
+});
+
+test('Current Input native-default source suites retain historical assertions without active failure waivers', () => {
+  for (const record of nativeDefaults.historicalRecords) assert.equal(sha(read(record.historicalFile)), record.sha256);
+  assert.equal(nativeDefaults.retainedHistoricalExpectedFailureWitnesses, 4);
+  assert.equal(nativeDefaults.currentExpectedFailureExemptions, 0);
+  const current = read('packages/base/tests/dom/input-reset-limit.test.ts');
+  assert.doesNotMatch(current, /(?:it|test)\.(?:fails|skip|only|todo)/);
+  assert.match(current, /for \(const native of \[false, true\]\)/);
+  assert.match(current, /expect\(observations\[0\]\)\.toEqual\(observations\[1\]\)/);
+  assert.match(read('packages/base/src/lib/input/Input.svelte'), /<FieldControl/);
+  assert.equal(nativeDefaults.ordinaryCredit, 0);
 });

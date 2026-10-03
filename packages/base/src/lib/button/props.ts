@@ -1,7 +1,8 @@
 // Adapted from Base UI v1.8.0 useButton/useFocusableWhenDisabled/dispatchClickWithModifiers.
 // Pinned 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
 import { mergeProps, type PreventableEvent } from '../merge-props/index.js';
-type Props = Record<string | symbol, unknown>;
+import type { HTMLProps } from '../internals/types.js';
+type Props = HTMLProps;
 type KeyEvent = KeyboardEvent & PreventableEvent;
 function dispatchClick(target: HTMLElement, event: KeyboardEvent) {
   const view = target.ownerDocument.defaultView!;
