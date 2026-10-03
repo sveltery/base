@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-export TMPDIR="${TMPDIR:-/workspace/sveltery-tmp}"
-export NODE_COMPILE_CACHE="${NODE_COMPILE_CACHE:-/workspace/sveltery-node-compile-cache}"
+export TMPDIR="${TMPDIR:-$PWD/.checks/scroll-area/tmp}"
+export NODE_COMPILE_CACHE="${NODE_COMPILE_CACHE:-$PWD/.checks/scroll-area/node-cache}"
+mkdir -p "$TMPDIR" "$NODE_COMPILE_CACHE"
 source scripts/toolchain.sh
 scroll_consumer="$(mktemp -d "${TMPDIR}/sveltery-scroll-area-consumer.XXXXXX")"
 mkdir -p .checks/scroll-area

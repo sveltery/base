@@ -48,7 +48,7 @@
     <DirectionProvider direction={settings.direction}>
       <CSPProvider nonce={settings.nonce} disableStyleElements={settings.disableStyleElements}>
         <div style:display={settings.hidden ? 'none' : undefined}>
-          <ScrollArea.Root data-testid="root" bind:ref={rootRef} overflowEdgeThreshold={settings.threshold} render={settings.customRender ? replacement : undefined} class="root-class" style={{ width: settings.viewportSize, height: settings.viewportSize, direction: settings.direction }}>
+          <ScrollArea.Root data-testid="root" bind:ref={rootRef} overflowEdgeThreshold={settings.threshold} render={settings.customRender ? replacement : undefined} class="root-class" style={{ width: `${settings.viewportSize}px`, height: `${settings.viewportSize}px`, direction: settings.direction }}>
             {#if settings.viewportMounted}
               <ScrollArea.Viewport data-testid="viewport" bind:ref={viewportRef} render={settings.customRender ? replacement : undefined} onscroll={(event) => consumer('scroll', event)} style={{ width: '100%', height: '100%', scrollSnapType: settings.snap, pointerEvents: 'none' }}>
                 {#if settings.contentMounted}
@@ -59,11 +59,11 @@
               </ScrollArea.Viewport>
             {/if}
             {#if settings.scrollbarMounted}
-              <ScrollArea.Scrollbar orientation="vertical" data-testid="vertical" bind:ref={verticalRef} render={settings.customRender ? replacement : undefined} keepMounted={settings.keepMounted} {...(settings.ariaOverride ? { 'aria-hidden': undefined } : {})} onpointerdown={(event) => consumer('track', event)} style={{ width: 10, display: 'flex', paddingBlock: settings.padding, marginInline: settings.margin, ...(settings.trackHeight !== null ? { height: settings.trackHeight, bottom: 'auto' } : {}) }}>
-                {#if settings.thumbMounted}<ScrollArea.Thumb data-testid="vertical-thumb" bind:ref={thumbRef} render={settings.customRender ? replacement : undefined} onpointerdown={(event) => consumer('down', event)} onpointermove={(event) => consumer('move', event)} onpointerup={(event) => consumer('up', event)} style={{ width: '100%', marginBlock: settings.thumbMargin }} />{/if}
+              <ScrollArea.Scrollbar orientation="vertical" data-testid="vertical" bind:ref={verticalRef} render={settings.customRender ? replacement : undefined} keepMounted={settings.keepMounted} {...(settings.ariaOverride ? { 'aria-hidden': undefined } : {})} onpointerdown={(event) => consumer('track', event)} style={{ width: '10px', display: 'flex', paddingBlock: `${settings.padding}px`, marginInline: `${settings.margin}px`, ...(settings.trackHeight !== null ? { height: `${settings.trackHeight}px`, bottom: 'auto' } : {}) }}>
+                {#if settings.thumbMounted}<ScrollArea.Thumb data-testid="vertical-thumb" bind:ref={thumbRef} render={settings.customRender ? replacement : undefined} onpointerdown={(event) => consumer('down', event)} onpointermove={(event) => consumer('move', event)} onpointerup={(event) => consumer('up', event)} style={{ width: '100%', marginBlock: `${settings.thumbMargin}px` }} />{/if}
               </ScrollArea.Scrollbar>
-              <ScrollArea.Scrollbar orientation="horizontal" data-testid="horizontal" bind:ref={horizontalRef} render={settings.customRender ? replacement : undefined} keepMounted={settings.keepMounted} {...(settings.ariaOverride ? { 'aria-hidden': undefined } : {})} style={{ height: 10, display: 'flex', paddingInline: settings.padding, marginBlock: settings.margin }}>
-                {#if settings.thumbMounted}<ScrollArea.Thumb data-testid="horizontal-thumb" render={settings.customRender ? replacement : undefined} style={{ height: '100%', marginInline: settings.thumbMargin }} />{/if}
+              <ScrollArea.Scrollbar orientation="horizontal" data-testid="horizontal" bind:ref={horizontalRef} render={settings.customRender ? replacement : undefined} keepMounted={settings.keepMounted} {...(settings.ariaOverride ? { 'aria-hidden': undefined } : {})} style={{ height: '10px', display: 'flex', paddingInline: `${settings.padding}px`, marginBlock: `${settings.margin}px` }}>
+                {#if settings.thumbMounted}<ScrollArea.Thumb data-testid="horizontal-thumb" render={settings.customRender ? replacement : undefined} style={{ height: '100%', marginInline: `${settings.thumbMargin}px` }} />{/if}
               </ScrollArea.Scrollbar>
             {/if}
             {#if settings.cornerMounted}<ScrollArea.Corner data-testid="corner" bind:ref={cornerRef} render={settings.customRender ? replacement : undefined} {...(settings.ariaOverride ? { 'aria-hidden': undefined } : {})} />{/if}

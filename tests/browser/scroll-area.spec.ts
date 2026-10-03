@@ -24,20 +24,28 @@ for (const framework of ['react','svelte'] as const) {
   const enter = async (page:Page,name='viewport',pointerType='mouse') => { await pointer(page,name,framework==='react'?'pointerover':'pointerenter',{pointerType}); };
   const leave = async (page:Page) => { await pointer(page,'root',framework==='react'?'pointerout':'pointerleave',{relatedTarget:null}); };
   test(`${framework} R:321/349 initial real geometry, no overlay padding and exact native roles/CSS`,async({page})=>{
-    await open(page);
+    await open(page,{cornerMounted:false});
     for(const name of ['root','viewport','content'])await expect(part(page,name)).toHaveAttribute('role','presentation');
     await expect(part(page,'viewport')).toHaveAttribute('tabindex','0');
-    await expect.poll(()=>part(page,'vertical-thumb').evaluate(node=>node.getBoundingClientRect().height)).toBe(38);
-    await expect.poll(()=>part(page,'horizontal-thumb').evaluate(node=>node.getBoundingClientRect().width)).toBe(38);
+    await expect.poll(()=>part(page,'vertical-thumb').evaluate(node=>node.getBoundingClientRect().height)).toBe(40);
+    await expect.poll(()=>part(page,'horizontal-thumb').evaluate(node=>node.getBoundingClientRect().width)).toBe(40);
     expect(await part(page,'large').evaluate(node=>{const s=getComputedStyle(node);return[s.paddingLeft,s.paddingRight,s.paddingBottom]})).toEqual(['0px','0px','0px']);
     expect(await part(page,'viewport').evaluate(node=>getComputedStyle(node).scrollbarWidth)).toBe('none');
   });
-  test(`${framework} R:374/412/451 logical track padding, scrollbar and thumb margins`,async({page})=>{
-    await open(page,{padding:8,thumbMargin:8,margin:11});
-    const size=await part(page,'vertical-thumb').evaluate(node=>node.getBoundingClientRect().height);
-    // Source subtracts both logical padding16 and thumb margin16. Track layout includes its margin cross-axis only.
-    expect(size).toBeCloseTo((190-16-16)*0.2,1);
-    expect(await part(page,'horizontal-thumb').evaluate(node=>node.getBoundingClientRect().width)).toBeCloseTo((190-16-16)*0.2,1);
+  test(`${framework} R:374 logical scrollbar padding`,async({page})=>{
+    await open(page,{padding:8,cornerMounted:false});
+    await expect.poll(()=>part(page,'vertical-thumb').evaluate(node=>node.getBoundingClientRect().height)).toBeCloseTo((200-16)*0.2,1);
+    expect(await part(page,'horizontal-thumb').evaluate(node=>node.getBoundingClientRect().width)).toBeCloseTo((200-16)*0.2,1);
+  });
+  test(`${framework} R:412 scrollbar cross-axis margin leaves source sizing unchanged`,async({page})=>{
+    await open(page,{margin:11,viewportSize:390,cornerMounted:false});
+    await expect.poll(()=>part(page,'vertical-thumb').evaluate(node=>node.getBoundingClientRect().height)).toBeCloseTo(390*0.39,1);
+    expect(await part(page,'horizontal-thumb').evaluate(node=>node.getBoundingClientRect().width)).toBeCloseTo(390*0.39,1);
+  });
+  test(`${framework} R:451 logical thumb margin`,async({page})=>{
+    await open(page,{thumbMargin:8,cornerMounted:false});
+    await expect.poll(()=>part(page,'vertical-thumb').evaluate(node=>node.getBoundingClientRect().height)).toBeCloseTo((200-16)*0.2,1);
+    expect(await part(page,'horizontal-thumb').evaluate(node=>node.getBoundingClientRect().width)).toBeCloseTo((200-16)*0.2,1);
   });
   test(`${framework} R:103/144/173 initial measurement before ResizeObserver and hidden-to-visible recompute`,async({page})=>{
     await open(page,{hidden:true,keepMounted:true});
