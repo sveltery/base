@@ -40,13 +40,15 @@ jobs:
       - name: Install official Chromium and OS dependencies
         run: pnpm exec playwright install --with-deps chromium
       - name: Secured SDK-boundary acceptance
-        run: pnpm exec playwright test tests/browser/kit-submit-compat.spec.ts
+        run: pnpm exec playwright test tests/browser/kit-submit-compat.spec.ts tests/browser/kit-reset-compat.spec.ts
       - name: Preserve browser failure traces
         if: failure()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: kit-submit-compatibility-failures
-          path: test-results/kit-submit-compat-*/
+          path: |
+            test-results/kit-submit-compat-*/
+            test-results/kit-reset-compat-*/
           if-no-files-found: warn
           retention-days: 14
   unpatched-witness:
@@ -82,15 +84,17 @@ jobs:
         run: pnpm --filter @sveltery/base build
       - name: Install official Chromium and OS dependencies
         run: pnpm exec playwright install --with-deps chromium
-      - name: Witness requests after prior native cancellation
+      - name: Witness original submit cancellation and native reset behavior
         env:
           KIT_SUBMIT_EXPECT_UNPATCHED: '1'
-        run: pnpm exec playwright test tests/browser/kit-submit-compat.spec.ts
+        run: pnpm exec playwright test tests/browser/kit-submit-compat.spec.ts tests/browser/kit-reset-compat.spec.ts
       - name: Preserve witness failure traces
         if: failure()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: kit-unpatched-witness-failures
-          path: test-results/kit-submit-compat-*/
+          path: |
+            test-results/kit-submit-compat-*/
+            test-results/kit-reset-compat-*/
           if-no-files-found: warn
           retention-days: 14
