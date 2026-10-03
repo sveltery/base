@@ -34,16 +34,26 @@ type FieldPaths<Fields, Path extends string = '', Ancestors = never> = IsAny<Fie
             : never;
         }[keyof Fields & (string | number)]);
 
-type FieldAtKey<Fields, Key extends string> = Key extends keyof Fields
-  ? Fields[Key]
-  : Key extends `${infer Index extends number}`
-    ? Index extends keyof Fields ? Fields[Index] : never
-    : never;
+type FieldAtNumber<Fields, Key extends string> = Key extends `${infer Index extends number}`
+  ? Index extends keyof Fields ? Fields[Index] : never
+  : never;
+
+type FieldAtKey<Fields, Key extends string> = Key extends keyof Fields ? Fields[Key]
+  : Key extends `${CanonicalIndex}`
+    ? number extends keyof Fields ? Fields[number] : FieldAtNumber<Fields, Key>
+    : FieldAtNumber<Fields, Key>;
 
 type HasOnly<Text extends string, Characters extends string> = Text extends '' ? true
   : Text extends `${infer Character}${infer Rest}`
     ? Characters extends `${string}${Character}${string}` ? HasOnly<Rest, Characters> : false
     : false;
+
+// Public name unions suggest Kit's canonical serialized index spelling. The literal
+// lookup below still accepts every digit-only spelling allowed by Kit's parser.
+type CanonicalIndex = `${bigint}` & ('0' | `${'1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'}${string}`);
+type CanonicalName<Path extends string> = Path extends `${infer Head}[${infer Index}]${infer Rest}`
+  ? `${Head}[${`${number}` extends Index ? CanonicalIndex : Index}]${CanonicalName<Rest>}`
+  : Path;
 
 type IsIdentifier<Text extends string> = string extends Text ? true
   : Text extends `${infer First}${infer Rest}`
@@ -53,7 +63,7 @@ type IsIdentifier<Text extends string> = string extends Text ? true
 
 // Kit's logical paths use identifiers and digit-only bracket indices. Keep the symbolic
 // number index for autocomplete; each concrete Root name is checked again on lookup.
-type IsIndex<Index extends string> = `${number}` extends Index ? true
+type IsIndex<Index extends string> = Index extends `${CanonicalIndex}` ? true : `${number}` extends Index ? true
   : Index extends '' ? false : HasOnly<Index, '0123456789'>;
 
 type FieldAtBrackets<Fields, Brackets extends string> = Brackets extends '' ? Fields
@@ -97,7 +107,7 @@ type Selection<Arguments> = Arguments extends readonly unknown[]
 /** Known leaf names; supply a literal Path to validate a deeper recursive schema name. */
 export type RemoteFieldName<Fields, Path extends string = FieldPaths<Fields>> = Path extends unknown
   ? [FieldAtPath<Fields, Path>] extends [never] ? never
-    : FieldAtPath<Fields, Path> extends FieldAccessor ? Path : never
+    : FieldAtPath<Fields, Path> extends FieldAccessor ? CanonicalName<Path> : never
   : never;
 
 /** Props for a supplied literal name, used by the compiler-native generic Root. */

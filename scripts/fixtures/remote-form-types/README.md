@@ -19,4 +19,6 @@ Finite schema paths supply autocomplete. Recursive schemas stop infinite autocom
 
 Path validation follows Kit's identifier/dot/digit-only bracket grammar. Consumers cover missing separators, empty segments, invalid numeric spellings and valid consecutive brackets for nested arrays. Dynamic union names can use only accessor options valid for every selected leaf; a correlated props union can preserve each name's own control choice. Both native constructor inference and callable signatures are checked.
 
+Default exported name unions suggest canonical nonnegative decimal indices, so negative and exponent literals cannot enter through a broad `number` template. Explicit literal paths still accept all digit-only spellings permitted by Kit, including leading zeroes.
+
 The newer Kit 3.0.0 declaration check uses its public type location (`$app/server`) and tests optional defaults and tuple arguments. Runtime behavior remains verified separately against the repository's pinned Kit version; passing newer declarations is not a claim of Kit 3 runtime integration.

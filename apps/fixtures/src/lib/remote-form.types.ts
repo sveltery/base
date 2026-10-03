@@ -128,15 +128,21 @@ void [recursive, recursiveWrongAs, recursiveTypo, recursiveName, invalidRecursiv
 
 // Kit's public path grammar rejects malformed separators and non-digit indices.
 type ExpectNever<Value extends never> = Value;
-type MalformedFinitePaths = 'rows[0]title' | 'rows[0]..title' | 'rows[0].title.' | 'rows[-1].title' | 'rows[+1].title' | 'rows[1e2].title' | 'rows[1.5].title' | 'rows[0x1].title' | 'rows[ 1 ].title' | 'rows[].title';
+type MalformedFinitePaths = 'rows[0]title' | 'rows[0]..title' | 'rows[0].title.' | 'rows[-1].title' | 'rows[+1].title' | 'rows[1e2].title' | 'rows[1.5].title' | 'rows[0x1].title' | 'rows[0b1].title' | 'rows[01e2].title' | 'rows[1 ].title' | 'rows[ 1 ].title' | 'rows[].title';
 type MalformedRecursivePaths = 'children[0].children[1]label' | 'children[0]..label' | 'children[0].label.' | 'children[0].children[-1].label' | 'children[0].children[+1].label' | 'children[0].children[1e2].label' | 'children[0].children[1.5].label';
 export type RejectedFiniteNames = ExpectNever<RemoteFieldName<RemoteFormFields<Input>, MalformedFinitePaths>>;
 export type RejectedFiniteProps = ExpectNever<RemoteFieldRootProps<RemoteFormFields<Input>, MalformedFinitePaths>>;
+export type RejectedDefaultNames = ExpectNever<Extract<MalformedFinitePaths, RemoteFieldName<RemoteFormFields<Input>>>>;
+// @ts-expect-error Default props aliases must reject negative index literals too.
+accept({ name: 'rows[-1].title', as: 'text' });
+// @ts-expect-error Exponent notation is not a logical array index.
+accept({ name: 'rows[1e2].title', as: 'text' });
 export type RejectedRecursiveNames = ExpectNever<RemoteFieldName<TreeFields, MalformedRecursivePaths>>;
 export type RejectedRecursiveProps = ExpectNever<RemoteFieldRootPropsForName<TreeFields, MalformedRecursivePaths>>;
 
 type MatrixFields = RemoteFormFields<{ cells: Array<Array<{ label: string }>> }>;
 const matrix: RemoteFieldRootProps<MatrixFields> = { name: 'cells[0][1].label', as: 'text' };
+const largeIndex: RemoteFieldRootProps<MatrixFields> = { name: 'cells[32][100000].label', as: 'text' };
 const leadingZero: RemoteFieldRootProps<MatrixFields, 'cells[00][12].label'> = { name: 'cells[00][12].label', as: 'text' };
 export type RejectedMatrixNames = ExpectNever<RemoteFieldName<MatrixFields, 'cells[0][1]label' | 'cells[0]x[1].label' | 'cells[][1].label'>>;
 export type RejectedIdentifierNames = ExpectNever<RemoteFieldName<RemoteFormFields<{ 'bad-key': string; 'cash$amount': string }>>>;
@@ -156,4 +162,4 @@ TypedPair.Root(internals, { name: 'count', as: 'number' });
 TypedPair.Root(internals, { name: uncertainName, as: 'number' });
 // @ts-expect-error The constructor signature cannot borrow another leaf's numeric accessor.
 new TypedPair.Root({ target: document.body, props: { name: uncertainName, as: 'number' } });
-void [matrix, leadingZero, manualUnion, uncertainControl, uncertainValue];
+void [matrix, largeIndex, leadingZero, manualUnion, uncertainControl, uncertainValue];
