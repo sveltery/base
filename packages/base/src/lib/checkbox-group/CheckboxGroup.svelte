@@ -71,6 +71,7 @@
   const getFormValue = useStableCallback(() => {
     const formElement = form.elementRef.current;
     if (!formElement) return value;
+    // eslint-disable-next-line svelte/prefer-svelte-reactivity -- source snapshot collector is not reactive state
     const successfulValues = new Set<string>();
     for (const [input, registration] of field.validation.registeredInputs) {
       if (

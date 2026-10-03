@@ -120,7 +120,7 @@
         }
       ],
       "local": "packages/base/src/lib/checkbox-group/CheckboxGroup.svelte",
-      "localSha256": "b70653940824a02997df2310a0e24f2a51cbb27dbf5f57b4b1a5b0caedcaa00d",
+      "localSha256": "c22d35f007ef61a6c777f5bd121ac812a4ed2a2104ad172ed20f3f15c32f9809",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -221,7 +221,7 @@
         }
       ],
       "local": "packages/base/src/lib/checkbox-group/useCheckboxGroupParent.svelte.ts",
-      "localSha256": "4225b5dd5b1358e2b0b7f5c85409e569325fda721afca83582f4ae8200d334ab",
+      "localSha256": "8adf195142cc9b97f5c11f32946562d3c3b42cbf7f67d6253d601550f96977b8",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -484,7 +484,7 @@
         }
       ],
       "local": "packages/base/src/lib/checkbox/root/CheckboxRoot.svelte",
-      "localSha256": "d04cc6f7decc546362bb360385065fd2f8832bbe5195dac96df4916c17ad39a4",
+      "localSha256": "4ecdc8bb2b05062b43eb9033f826e0fa4d1bb242105205dab5e30a57bcbe3fe3",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3917,7 +3917,7 @@
         }
       ],
       "local": "packages/base/src/lib/switch/root/SwitchRoot.svelte",
-      "localSha256": "a38cb02555b749d7155b5f8a6098070a4d31524877b8f3f5e61d9b6bf365e60b",
+      "localSha256": "0cb1395cd4a1bf6d50f88c97092f8a0bd3454e5119abff7f2e05d4edad267367",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },

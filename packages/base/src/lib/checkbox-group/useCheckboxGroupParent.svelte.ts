@@ -13,8 +13,10 @@ export function useCheckboxGroupParent(
   getParameters: () => UseCheckboxGroupParentParameters,
 ) {
   const uncontrolledStateRef = { current: untrack(() => getParameters().value) };
+  // eslint-disable-next-line svelte/prefer-svelte-reactivity -- source imperative registry is read only by parent-selection callbacks
   const disabledStatesRef = { current: new Map<string, boolean>() };
   let status = $state<'on' | 'off' | 'mixed'>('mixed');
+  // eslint-disable-next-line svelte/prefer-svelte-reactivity -- source registry publishes its own explicit revision below
   let childIdsState = $state.raw({ registry: new Map<string, readonly string[]>() });
   const onValueChange = useStableCallback(
     (value: string[], details: BaseUIChangeEventDetails<'none'>) =>
