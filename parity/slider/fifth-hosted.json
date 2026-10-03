@@ -1,0 +1,18 @@
+{
+  "head": "8f8ba533bd0c368463b58493fe2324d83da9cde3",
+  "tree": "3d1072fec45a3697f1a45fd74b7961518838b5d6",
+  "run": "https://github.com/sveltery/base/actions/runs/37159995655",
+  "job": 111311277938,
+  "rawJobLogSha256": "3e81bcc57335f1f46e11383aada31cd5cfaac9acfd041e45acde152e5220bdf5",
+  "artifact": 11287576609,
+  "artifactDigest": "sha256:0726ab8d1d6d7a10bff3327522d9e80858551b5165ae83e0c3724c59f9a879e0",
+  "browserResultsSha256": "52e107d27d29de1ae2e737aeb1ea9ce3d8911f3e8a4f1b65799174ae158ba791",
+  "observed": { "passed": 127, "failed": 0, "skipped": 0, "flaky": 0, "workers": 1, "retries": 0, "chromiumSandbox": true, "browser": "Chrome for Testing 153.0.8010.12", "runner": "Ubuntu 22.04", "react": "19.2.8", "reactDom": "19.2.8" },
+  "verified": ["Original Source/native pointer, keyboard, collision, touch, serialization, cancellation and optional Field/Form boundaries", "Functional label ID replacement/removal", "Exact nonce/prehydration parser-once, no-JavaScript positions, native fresh-CSR inert insertion and warning-free actual range hydration", "Independent observer/ref/lifetime diagnostic retained separately", "Source/native reactive and plain callback vectors for rejected push and swap, with explicit native plain-push timing difference", "Accepted controlled/uncontrolled owner updates with both callback modes", "Same-task multiple moves/release retain immediate Source cache", "Across-flush moves rebaseline actual accepted values", "Same-task disposal detaches listeners and pending work cannot commit", "Authored real remote typed Field name/as/render/fields.set/cancellation and enhanced zero/positive POST"],
+  "cacheDiagnostic": "cache-diagnostic.json retains actual official Source/native vectors. Source plain rejected push [30,70] versus native [30,40] is the explicitly authorized native flush boundary, earning zero unchanged Source assertion credit.",
+  "fullLocalVerification": { "exitCode": 0, "nodeTests": 65, "unitSsrFiles": 35, "unitSsrTests": 247, "domFiles": 76, "domTests": 1165, "strictChecks": "library and fixtures: 0 errors / 0 warnings", "packedConsumers": "all installed public consumers passed; Slider covers all seven parts/twenty named types, intended invalid declarations/markup, SSR/MIT and actual DOM callback/controlled/FormData/output/ref cleanup", "stdoutSha256": "f5b9437b729e8b9850ce846e8452f8757c9b72159c53fd6c05a12e2c58e92722" },
+  "fullLocalStandards": { "exitCode": 0, "stdoutSha256": "1eca12da39018d1c9d7139247dbe99251b2682d95934e886bfd10179a0355138" },
+  "unchangedOriginalHelperAssertionBodies": 24,
+  "ordinaryComponentAssertionCredit": 0,
+  "decision": "Scoped secured/browser and complete local gates pass on the exact runtime checkpoint. Final actual accepted-main dependency integration, required exact-head hosted gates, independent entire-closure Source/native/maintainability review and Root PM approval remain required before owner normal merge."
+}

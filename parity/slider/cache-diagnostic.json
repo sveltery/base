@@ -1,0 +1,572 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "head": "8f8ba533bd0c368463b58493fe2324d83da9cde3",
+  "run": "https://github.com/sveltery/base/actions/runs/37159995655",
+  "artifact": 11287576609,
+  "artifactDigest": "sha256:0726ab8d1d6d7a10bff3327522d9e80858551b5165ae83e0c3724c59f9a879e0",
+  "browserResultsSha256": "52e107d27d29de1ae2e737aeb1ea9ce3d8911f3e8a4f1b65799174ae158ba791",
+  "diagnostics": [
+    {
+      "framework": "react",
+      "collision": "push",
+      "plain": false,
+      "calls": [
+        {
+          "value": [
+            70,
+            70
+          ],
+          "reason": "drag",
+          "type": "pointermove",
+          "activeThumbIndex": 0,
+          "targetValue": [
+            70,
+            70
+          ],
+          "targetName": "volume",
+          "eventClass": "PointerEvent"
+        },
+        {
+          "value": [
+            30,
+            40
+          ],
+          "reason": "drag",
+          "type": "pointermove",
+          "activeThumbIndex": 0,
+          "targetValue": [
+            30,
+            40
+          ],
+          "targetName": "volume",
+          "eventClass": "PointerEvent"
+        }
+      ],
+      "commits": [
+        {
+          "value": [
+            30,
+            40
+          ],
+          "reason": "drag",
+          "type": "pointerup"
+        }
+      ]
+    },
+    {
+      "framework": "react",
+      "collision": "push",
+      "plain": true,
+      "calls": [
+        {
+          "value": [
+            70,
+            70
+          ],
+          "reason": "drag",
+          "type": "pointermove",
+          "activeThumbIndex": 0,
+          "targetValue": [
+            70,
+            70
+          ],
+          "targetName": "volume",
+          "eventClass": "PointerEvent"
+        },
+        {
+          "value": [
+            30,
+            70
+          ],
+          "reason": "drag",
+          "type": "pointermove",
+          "activeThumbIndex": 0,
+          "targetValue": [
+            30,
+            70
+          ],
+          "targetName": "volume",
+          "eventClass": "PointerEvent"
+        }
+      ],
+      "commits": [
+        {
+          "value": [
+            30,
+            70
+          ],
+          "reason": "drag",
+          "type": "pointerup"
+        }
+      ]
+    },
+    {
+      "framework": "react",
+      "collision": "push",
+      "calls": [
+        {
+          "value": [
+            70,
+            70
+          ],
+          "reason": "drag",
+          "type": "pointermove",
+          "activeThumbIndex": 0,
+          "targetValue": [
+            70,
+            70
+          ],
+          "targetName": "volume",
+          "eventClass": "PointerEvent"
+        },
+        {
+          "value": [
+            30,
+            70
+          ],
+          "reason": "drag",
+          "type": "pointermove",
+          "activeThumbIndex": 0,
+          "targetValue": [
+            30,
+            70
+          ],
+          "targetName": "volume",
+          "eventClass": "PointerEvent"
+        }
+      ],
+      "commits": [
+        {
+          "value": [
+            30,
+            70
+          ],
+          "reason": "drag",
+          "type": "pointerup"
+        }
+      ]
+    },
+    {
+      "framework": "react",
+      "collision": "swap",
+      "plain": false,
+      "calls": [
+        {
+          "value": [
+            40,
+            70
+          ],
+          "reason": "drag",
+          "type": "pointermove",
+          "activeThumbIndex": 1,
+          "targetValue": [
+            40,
+            70
+          ],
+          "targetName": "volume",
+          "eventClass": "PointerEvent"
+        },
+        {
+          "value": [
+            20,
+            30
+          ],
+          "reason": "drag",
+          "type": "pointermove",
+          "activeThumbIndex": 1,
+          "targetValue": [
+            20,
+            30
+          ],
+          "targetName": "volume",
+          "eventClass": "PointerEvent"
+        }
+      ],
+      "commits": [
+        {
+          "value": [
+            20,
+            30
+          ],
+          "reason": "drag",
+          "type": "pointerup"
+        }
+      ]
+    },
+    {
+      "framework": "react",
+      "collision": "swap",
+      "plain": true,
+      "calls": [
+        {
+          "value": [
+            40,
+            70
+          ],
+          "reason": "drag",
+          "type": "pointermove",
+          "activeThumbIndex": 1,
+          "targetValue": [
+            40,
+            70
+          ],
+          "targetName": "volume",
+          "eventClass": "PointerEvent"
+        },
+        {
+          "value": [
+            20,
+            30
+          ],
+          "reason": "drag",
+          "type": "pointermove",
+          "activeThumbIndex": 1,
+          "targetValue": [
+            20,
+            30
+          ],
+          "targetName": "volume",
+          "eventClass": "PointerEvent"
+        }
+      ],
+      "commits": [
+        {
+          "value": [
+            20,
+            30
+          ],
+          "reason": "drag",
+          "type": "pointerup"
+        }
+      ]
+    },
+    {
+      "framework": "react",
+      "collision": "swap",
+      "calls": [
+        {
+          "value": [
+            40,
+            70
+          ],
+          "reason": "drag",
+          "type": "pointermove",
+          "activeThumbIndex": 1,
+          "targetValue": [
+            40,
+            70
+          ],
+          "targetName": "volume",
+          "eventClass": "PointerEvent"
+        },
+        {
+          "value": [
+            30,
+            40
+          ],
+          "reason": "drag",
+          "type": "pointermove",
+          "activeThumbIndex": 0,
+          "targetValue": [
+            30,
+            40
+          ],
+          "targetName": "volume",
+          "eventClass": "PointerEvent"
+        }
+      ],
+      "commits": [
+        {
+          "value": [
+            30,
+            40
+          ],
+          "reason": "drag",
+          "type": "pointerup"
+        }
+      ]
+    },
+    {
+      "framework": "svelte",
+      "collision": "push",
+      "plain": false,
+      "calls": [
+        {
+          "value": [
+            70,
+            70
+          ],
+          "reason": "drag",
+          "type": "pointermove",
+          "activeThumbIndex": 0,
+          "targetValue": [
+            70,
+            70
+          ],
+          "targetName": "volume",
+          "eventClass": "PointerEvent"
+        },
+        {
+          "value": [
+            30,
+            40
+          ],
+          "reason": "drag",
+          "type": "pointermove",
+          "activeThumbIndex": 0,
+          "targetValue": [
+            30,
+            40
+          ],
+          "targetName": "volume",
+          "eventClass": "PointerEvent"
+        }
+      ],
+      "commits": [
+        {
+          "value": [
+            30,
+            40
+          ],
+          "reason": "drag",
+          "type": "pointerup"
+        }
+      ]
+    },
+    {
+      "framework": "svelte",
+      "collision": "push",
+      "plain": true,
+      "calls": [
+        {
+          "value": [
+            70,
+            70
+          ],
+          "reason": "drag",
+          "type": "pointermove",
+          "activeThumbIndex": 0,
+          "targetValue": [
+            70,
+            70
+          ],
+          "targetName": "volume",
+          "eventClass": "PointerEvent"
+        },
+        {
+          "value": [
+            30,
+            40
+          ],
+          "reason": "drag",
+          "type": "pointermove",
+          "activeThumbIndex": 0,
+          "targetValue": [
+            30,
+            40
+          ],
+          "targetName": "volume",
+          "eventClass": "PointerEvent"
+        }
+      ],
+      "commits": [
+        {
+          "value": [
+            30,
+            40
+          ],
+          "reason": "drag",
+          "type": "pointerup"
+        }
+      ]
+    },
+    {
+      "framework": "svelte",
+      "collision": "push",
+      "calls": [
+        {
+          "value": [
+            70,
+            70
+          ],
+          "reason": "drag",
+          "type": "pointermove",
+          "activeThumbIndex": 0,
+          "targetValue": [
+            70,
+            70
+          ],
+          "targetName": "volume",
+          "eventClass": "PointerEvent"
+        },
+        {
+          "value": [
+            30,
+            70
+          ],
+          "reason": "drag",
+          "type": "pointermove",
+          "activeThumbIndex": 0,
+          "targetValue": [
+            30,
+            70
+          ],
+          "targetName": "volume",
+          "eventClass": "PointerEvent"
+        }
+      ],
+      "commits": [
+        {
+          "value": [
+            30,
+            70
+          ],
+          "reason": "drag",
+          "type": "pointerup"
+        }
+      ]
+    },
+    {
+      "framework": "svelte",
+      "collision": "swap",
+      "plain": false,
+      "calls": [
+        {
+          "value": [
+            40,
+            70
+          ],
+          "reason": "drag",
+          "type": "pointermove",
+          "activeThumbIndex": 1,
+          "targetValue": [
+            40,
+            70
+          ],
+          "targetName": "volume",
+          "eventClass": "PointerEvent"
+        },
+        {
+          "value": [
+            20,
+            30
+          ],
+          "reason": "drag",
+          "type": "pointermove",
+          "activeThumbIndex": 1,
+          "targetValue": [
+            20,
+            30
+          ],
+          "targetName": "volume",
+          "eventClass": "PointerEvent"
+        }
+      ],
+      "commits": [
+        {
+          "value": [
+            20,
+            30
+          ],
+          "reason": "drag",
+          "type": "pointerup"
+        }
+      ]
+    },
+    {
+      "framework": "svelte",
+      "collision": "swap",
+      "plain": true,
+      "calls": [
+        {
+          "value": [
+            40,
+            70
+          ],
+          "reason": "drag",
+          "type": "pointermove",
+          "activeThumbIndex": 1,
+          "targetValue": [
+            40,
+            70
+          ],
+          "targetName": "volume",
+          "eventClass": "PointerEvent"
+        },
+        {
+          "value": [
+            20,
+            30
+          ],
+          "reason": "drag",
+          "type": "pointermove",
+          "activeThumbIndex": 1,
+          "targetValue": [
+            20,
+            30
+          ],
+          "targetName": "volume",
+          "eventClass": "PointerEvent"
+        }
+      ],
+      "commits": [
+        {
+          "value": [
+            20,
+            30
+          ],
+          "reason": "drag",
+          "type": "pointerup"
+        }
+      ]
+    },
+    {
+      "framework": "svelte",
+      "collision": "swap",
+      "calls": [
+        {
+          "value": [
+            40,
+            70
+          ],
+          "reason": "drag",
+          "type": "pointermove",
+          "activeThumbIndex": 1,
+          "targetValue": [
+            40,
+            70
+          ],
+          "targetName": "volume",
+          "eventClass": "PointerEvent"
+        },
+        {
+          "value": [
+            30,
+            40
+          ],
+          "reason": "drag",
+          "type": "pointermove",
+          "activeThumbIndex": 0,
+          "targetValue": [
+            30,
+            40
+          ],
+          "targetName": "volume",
+          "eventClass": "PointerEvent"
+        }
+      ],
+      "commits": [
+        {
+          "value": [
+            30,
+            40
+          ],
+          "reason": "drag",
+          "type": "pointerup"
+        }
+      ]
+    }
+  ],
+  "ordinaryCredit": 0,
+  "classification": "Actual secured Source/plain/reactive and native flush vectors. Root authorized the precise native tick snapshot replacement; differing plain rejected across-tick push earns zero unchanged Source credit. Final exact-head review/PM acceptance and actual-main dependency integration remain pending."
+}

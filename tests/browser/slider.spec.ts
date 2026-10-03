@@ -676,6 +676,9 @@ for (const framework of ["react", "svelte"]) {
           value: expected,
           activeThumbIndex: collision === "swap" ? 1 : 0,
         });
+        await expect(
+          page.locator('input[type="range"]').nth(collision === "swap" ? 1 : 0),
+        ).toBeFocused();
         expect(commits).toEqual([
           { value: expected, reason: "drag", type: "pointerup" },
         ]);
