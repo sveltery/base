@@ -103,7 +103,7 @@
   </Form>
   <button onclick={() => preflight.validate({ includeUntouched: true, preflightOnly: true })}>Validate preflight</button>
   <button onclick={() => { authoritative = !authoritative; }}>Toggle authoritative errors</button>
-  <output id="nested-issues">{JSON.stringify(preflight.fields.issues() ?? [])}</output><output id="nested-result">{JSON.stringify(preflight.result ?? null)}</output>
+  <output id="nested-issues">{JSON.stringify(preflight.fields.allIssues() ?? [])}</output><output id="nested-result">{JSON.stringify(preflight.result ?? null)}</output>
 
   {#each [first, second] as remote, index (remote)}
     <Form id={`isolated-${index}`} {remote} {...remote}>
