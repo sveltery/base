@@ -2004,5 +2004,17 @@
       "Kit cancellation requirement",
       "secured final browser/CI/public consumer gates"
     ]
-  }
+  },
+  "nativeExtensions": [
+    {
+      "local": "packages/base/src/lib/internals/field-control-name/FieldControlNameContext.ts",
+      "sourceSymbol": null,
+      "classification": "Sveltery native serialization context extension",
+      "businessNamePreserved": true,
+      "providerOptional": true,
+      "hasKitImportOrPrefixLogic": false,
+      "ordinaryDeclarationCredit": 0,
+      "tests": "packages/base/tests/dom/field-control-name.test.ts"
+    }
+  ]
 }
