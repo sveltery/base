@@ -1,0 +1,4416 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "ordinaryDeclarationCredit": 0,
+  "status": "immutable original declaration sites; variants and execution counts stay separate",
+  "files": [
+    {
+      "source": "packages/react/src/number-field/decrement/NumberFieldDecrement.test.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/number-field/decrement/NumberFieldDecrement.test.tsx",
+      "sha256": "d186ac4426d9f2c4b0eb64b1728e2d91c113bb6d0af32846b5bcbe20c16d0f35",
+      "declarations": [
+        {
+          "line": 11,
+          "callee": "describeConformance",
+          "name": "<NumberField.Decrement />",
+          "sha256": "af0505e21adce69565459da7be795c2c816bf140f184aeed658aecec7b9f4d33",
+          "kind": "conformance",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 20,
+          "callee": "it",
+          "name": "'has decrease label'",
+          "sha256": "00ed6d593166bc2e9da3f82db16663dbd346b213543f0be2c614b4e661b18c12",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 29,
+          "callee": "it",
+          "name": "'decrements starting from 0 click'",
+          "sha256": "391609c905c7cf0a366fa18729e08053aec65515444b503563b1f66e16f49178",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 42,
+          "callee": "it",
+          "name": "'decrements to -1 starting from defaultValue=0 click'",
+          "sha256": "4c0785dcce1fb126b599712fde39b71942f642d3db9b49bf340c727001f61fa3",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 55,
+          "callee": "it",
+          "name": "'first decrement after external controlled update'",
+          "sha256": "939c05d8f4f6816bdfc9a14d52be68daea52c9ee6480bdf59baebfdf0aaf46b2",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 78,
+          "callee": "it",
+          "name": "'decrements uncontrolled defaultValue from numeric state, not rounded display text'",
+          "sha256": "346ae5d47f258fe783e63f96abb609553c495ff13ee6965a94cbdc1af145e3aa",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 98,
+          "callee": "it",
+          "name": "'does not commit a stale value when a synced decrement is canceled after an external change'",
+          "sha256": "f1f6241c8e3545261cd6ac268b74720deeda1ce8d9878fc97d757c9e34dc9ebb",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 142,
+          "callee": "it",
+          "name": "'only calls onValueChange once per decrement'",
+          "sha256": "87d8117ff1b3129efb63bbd5b5ecbe3c6a29d5c2ca8ec2ef08b4aa1a18922e1a",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 163,
+          "callee": "it",
+          "name": "'decrements continuously when holding pointerdown'",
+          "sha256": "d1054b306c267576c535692f08b7a26792d62eb5401edd6b0a4c9732b85a6620",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 193,
+          "callee": "it",
+          "name": "'stops calling onValueChange once min is reached'",
+          "sha256": "f0b21d94e58b2ce002642cd013b8f2370ca79562b43add63632ac89e497b61af",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 221,
+          "callee": "it",
+          "name": "'does not decrement twice with pointerdown and click'",
+          "sha256": "010db224ee4386b2ec72dfd1f41994c5c2a40d18acf90cbab259660c66a14c2e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 239,
+          "callee": "it",
+          "name": "'should stop decrementing after mouseleave'",
+          "sha256": "3152671e4a80b694e9be63dd14e9dc6ef1ac3145fa9460482954fa7b9bb1a9ae",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 269,
+          "callee": "it",
+          "name": "'should start decrementing again after mouseleave then mouseenter'",
+          "sha256": "67af9fb0d7e48e6e98955fecea7beb67444af154b0068490e9fc84bc01cdd528",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 305,
+          "callee": "it",
+          "name": "'should not start decrementing again after mouseleave then mouseenter after pointerup'",
+          "sha256": "2b81c0a15e1ae09af41a0356594b410e92d15792174db7468c918fa5fbd4c0cb",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 348,
+          "callee": "it",
+          "name": "'should not decrement when readOnly'",
+          "sha256": "a12e5b7fa4c019d1bf2d24d3f1ea99e7978507c3287f189dbab5a03deb00f16b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 361,
+          "callee": "it",
+          "name": "'should decrement when input is dirty but not blurred (click)'",
+          "sha256": "535f94e5d4f9b9a495c264ddc38dbe3f978b0bfe395ebdf31a01419d561e1009",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 379,
+          "callee": "it",
+          "name": "'should decrement when input is dirty but not blurred (pointerdown)'",
+          "sha256": "a9f2ee43c63437cbc5eab67b6351bac0b30074b6a9af92133cd6f35689562473",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 397,
+          "callee": "it",
+          "name": "'always decrements on quick touch (touchend that occurs before TOUCH_TIMEOUT)'",
+          "sha256": "cdf738365a8288c19b29bf8e3ae9002c79f798ed880195f87f8b1d6c4d95d5cf",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 425,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "'fires onValueCommitted once on first soft tap (touch)'",
+          "sha256": "5564ddfbf1b5f13739eef01c5069af8bc0fed2f5ac1c8325ebb14aaca8338204",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 425,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 447,
+          "callee": "it",
+          "name": "'should decrement by exact step without rounding when snapOnStep is false'",
+          "sha256": "7c822c6ee5f210ba5b723bb303a08b682e2b94b69519f2bf863c13357a1bdfd7",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 461,
+          "callee": "it",
+          "name": "'should snap on decrement when snapOnStep is true'",
+          "sha256": "fb10983361408792e9f3c1b06e12b75386ffbeddb5a71a27809dee38a90f4cbf",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 485,
+          "callee": "it",
+          "name": "'should decrement with respect to the min value'",
+          "sha256": "739d6eda13918ee67812acad5d55bb3c8e99032162813d0d54a2a043c9034d33",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 513,
+          "callee": "it",
+          "name": "'should not decrement when root is disabled'",
+          "sha256": "718e5e54155514c97a48f979de1daa80766b79f7fbfdd8ccbb5c94f568095454",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 528,
+          "callee": "it",
+          "name": "'should not decrement when button is disabled'",
+          "sha256": "da6e2e3171ad2fca8f9812c5dcab3fc76f90550539e8ef49cb4bb71b169bbfd7",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 547,
+          "callee": "it",
+          "name": "'when root is disabled'",
+          "sha256": "4a135079f709a808eccf813a461563f1aedf2367563de605d3a0c870aa656dfd",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 559,
+          "callee": "it",
+          "name": "'when button is disabled'",
+          "sha256": "89ae5df06780a03810ba06a869c00b3c50515a6e9c03686bc2882f09b41a0696",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/number-field/group/NumberFieldGroup.test.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/number-field/group/NumberFieldGroup.test.tsx",
+      "sha256": "85ddb65d56363e241ac81bf6b156d9275bd49fce3eee4d3cebeb6d780ce60cd3",
+      "declarations": [
+        {
+          "line": 9,
+          "callee": "describeConformance",
+          "name": "<NumberField.Group />",
+          "sha256": "9a27dad3fe48af2d04c4e619d15410b5d65a8add41374550bacade3163bfa36e",
+          "kind": "conformance",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 16,
+          "callee": "it",
+          "name": "'has role prop'",
+          "sha256": "8658a14d04ef5c3799666cce53a1df5af8f8a92a6ed5ca997cab5a0f5013b67a",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/number-field/increment/NumberFieldIncrement.test.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/number-field/increment/NumberFieldIncrement.test.tsx",
+      "sha256": "c0c698c2717e176aaf09d713cf3d1f798cf57ddacd2ab7906034f6baa58eb32d",
+      "declarations": [
+        {
+          "line": 11,
+          "callee": "describeConformance",
+          "name": "<NumberField.Increment />",
+          "sha256": "d5f1fff96fa7dc1a7778d6059233e4a43715ec2af2adc6d68e0ddcd84f31f4f6",
+          "kind": "conformance",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 20,
+          "callee": "it",
+          "name": "'has increase label'",
+          "sha256": "716c3fc25fcb889fa3bed926631259f01525efc20cba955237b3db078cc18939",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 29,
+          "callee": "it",
+          "name": "'increments starting from 0 click'",
+          "sha256": "c73d9f96368086a56852c66891c1af8b42e06a5021789d7a4eb9a75980bffb23",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 42,
+          "callee": "it",
+          "name": "'increments to 1 starting from defaultValue=0 click'",
+          "sha256": "533f593100abb453146487feda968cc97a437b962bfca0f4c3996c7834ab1da6",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 55,
+          "callee": "it",
+          "name": "'seeds an empty fully-negative range in range on first increment'",
+          "sha256": "b7a83aadbb88d7fd6aa4e461da8ceece2fed44d39cac23e99a23fd310c13ceab",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 67,
+          "callee": "it",
+          "name": "'first increment after external controlled update'",
+          "sha256": "ae5aa2005b9546dced0b91ce6f329ddcf2bc74820ddda630b817047867670b7e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 90,
+          "callee": "it",
+          "name": "'increments uncontrolled defaultValue from numeric state, not rounded display text'",
+          "sha256": "5e10cc271a25c4874bbe97bc708df2b953ac32414c97d24ef484a54a942fb291",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 110,
+          "callee": "it",
+          "name": "'increments from numeric state after typed precision is formatted on blur'",
+          "sha256": "a37ecb2e85554c5ab56414f3bbd81bd578cbe0679841a50cb92bde5aacc662b2",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 137,
+          "callee": "it",
+          "name": "'advances by a step finer than 3 fraction digits'",
+          "sha256": "018a8bdc8d3e2b8515c976e04c7cf290c345799e336103297f39df74fafbc90d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 171,
+          "callee": "it",
+          "name": "'cleans binary floating point noise introduced by stepping'",
+          "sha256": "1520aeb1772a83339da68db4715d5a74a49138220a336742d216b146159a2558",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 187,
+          "callee": "it",
+          "name": "'preserves large fractional values when stepping cleanup would be too coarse'",
+          "sha256": "62ddcb0f88fb3d0da9453934aa021f9b3eb90a164089a5bbb77a7d4d7c462d82",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 214,
+          "callee": "it",
+          "name": "'does not commit a stale value when a synced increment is canceled after an external change'",
+          "sha256": "06e9aca87313ff0f302ac40fd646e9ef7f9dd8ed085a2ac8e14aa8183db01432",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 258,
+          "callee": "it",
+          "name": "'only calls onValueChange once per increment'",
+          "sha256": "df2624513c1251508ca2e1c0b523382b3c8a57424f7980d470113436e1dbd90c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 288,
+          "callee": "it",
+          "name": "'increments continuously when holding pointerdown'",
+          "sha256": "e07d043413e52f61fd99203b29297feab87de0f9672dcea9e5b62b60639ea2e6",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 318,
+          "callee": "it",
+          "name": "'cancels an active mouse press-and-hold interaction when disabled'",
+          "sha256": "5396e6428eea23e11975f76c55356059b6affd164264612b0f519c65f4006041",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 346,
+          "callee": "it",
+          "name": "'cancels the compatibility click from a touch press when disabled'",
+          "sha256": "7849518929c46c1407c43ee88f47ad0694c4955f4d86c60dc9b26c8d121ec1b9",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 366,
+          "callee": "it",
+          "name": "'removes the global release listener when unmounted during a hold'",
+          "sha256": "3635f4d4bd5c973d5a039b1110a599d3abea0438f166a579f23fefd647639a57",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 399,
+          "callee": "it",
+          "name": "'stops calling onValueChange once max is reached'",
+          "sha256": "7110a10348cddc5242663ee5a047f25bf60f4085612c16eb371f15507c72520a",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 427,
+          "callee": "it",
+          "name": "'commits on release after a hold reaches the boundary'",
+          "sha256": "586192961538b8456a2633be03fab92dc799eea63a7f3f17d266baa8a29ba90a",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 453,
+          "callee": "it",
+          "name": "'does not commit a stale value when the first hold tick is canceled after dirty input'",
+          "sha256": "77139d6e2c7e49f3dd8564dace6b001b1128a11bfb0bc187b9e804cf82c94e8b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 501,
+          "callee": "it",
+          "name": "'does not increment twice with pointerdown and click'",
+          "sha256": "59eee395571fc7d9be13162f896a917627bce63cba3f7f091ce45fac10ad3753",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 519,
+          "callee": "it",
+          "name": "'should stop incrementing after mouseleave'",
+          "sha256": "a270053cf5b895f0f3ee50a88428da90fa455d3bbe2f4ff7d13fed538a6657d6",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 549,
+          "callee": "it",
+          "name": "'should start incrementing again after mouseleave then mouseenter'",
+          "sha256": "dabb98f8304e23978b3c3d184e9f411d5268088893c84de37557bea0eea99e94",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 585,
+          "callee": "it",
+          "name": "'should not start incrementing again after mouseleave then mouseenter after pointerup'",
+          "sha256": "26406fad79aa089195ca55bf8ef9fe0e89526f335b00787101fa606a7f809852",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 628,
+          "callee": "it",
+          "name": "'should not increment when readOnly'",
+          "sha256": "d85733c8d14d399fe708a8d4e55f12bf93e60ea697d5755eb39c51313ad2d51e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 641,
+          "callee": "it",
+          "name": "'should increment when input is dirty but not blurred (click)'",
+          "sha256": "0148a950577c0a60f0f8e9c27bd4bc9bb61b868190fb9765ca453bc9ae26b37d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 659,
+          "callee": "it",
+          "name": "'should increment when input is dirty but not blurred (pointerdown)'",
+          "sha256": "8a3273c63196502bb0e493f59d7a58875b6f4ebbb696b7c2288a46e2c35c0953",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 677,
+          "callee": "it",
+          "name": "'ignores non-primary pointer buttons'",
+          "sha256": "33bc0ec3873e6678bb6cfa4c6a4d917d4768b3232d9beeeb4a646c9178b03ce3",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 703,
+          "callee": "it",
+          "name": "'does not step or commit when the dirty-input sync is canceled'",
+          "sha256": "d4e01c7e503fb72db45aa9d6f4ae3a746deba5d991424905ee3c177fc63e6467",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 734,
+          "callee": "it",
+          "name": "'places the caret at the end of the input when a mouse press focuses it'",
+          "sha256": "92dca1cb65f47514d820b04c87f0a25d488766eb4a55b3acaf8cdadd9e84881d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 752,
+          "callee": "it",
+          "name": "'treats pen pointer as touch-like'",
+          "sha256": "18a36da62dbca23b9c997ff2733b068cf0e77ffb8eb5b624bc9c5c4e57476968",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 768,
+          "callee": "it",
+          "name": "'always increments on quick touch (touchend that occurs before TOUCH_TIMEOUT)'",
+          "sha256": "1ceb70bdbb69ac09fb1f4e45709d7501efd2de60c7699034bd7fee56725c9eaf",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 796,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "'fires onValueCommitted once on first soft tap (touch)'",
+          "sha256": "8110de828f4111ff3c7ca37df6dd1759a8a6ea9056faaf04bf9f4a02d8d56377",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 796,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 821,
+          "callee": "it",
+          "name": "'does not emit a snapped intermediate when committing dirty text before a step'",
+          "sha256": "3b08571159f611aaad49b542ac1e0106973063a0f6ca086dd2df3d56803811bf",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 843,
+          "callee": "it",
+          "name": "'should increment by exact step without rounding when snapOnStep is false'",
+          "sha256": "2f833f8a215c6d132c9e64ca4eeedf22ed7d2d0a9d19a36908dd3e6420f672ad",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 857,
+          "callee": "it",
+          "name": "'should snap on increment when snapOnStep is true'",
+          "sha256": "ce1028f1845c2d256d35e967ab1f29dfb17135fc76b1bce6ca65f4e585360962",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 881,
+          "callee": "it",
+          "name": "'seeds an empty field in range without directional snapping'",
+          "sha256": "3d5cf4137b9119ff7e25460b97a1e8a8c0af40a4715e06b9d356dda63bd571ae",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 895,
+          "callee": "it",
+          "name": "'should increment with respect to the min value'",
+          "sha256": "9b2efb0a0eb2eb6aab2360baf4790868a9d56f71d9a9a7849d38602816c2d3b3",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 923,
+          "callee": "it",
+          "name": "'exposes aria-controls on the stepper'",
+          "sha256": "f62d3aef57273f29a3863b155f2645f337ea28309daee39bbcb69f118eb5ba4b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 935,
+          "callee": "it",
+          "name": "'should not increment when root is disabled'",
+          "sha256": "a18be5d9b0911ae190b7fea2e0397a15bae965900c4042220099111eff07c956",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 950,
+          "callee": "it",
+          "name": "'should not increment when button is disabled'",
+          "sha256": "aefb31675e4c08291bca7dbe4d0b46194d80d156f326a38b2dc10b6658ae6e52",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 969,
+          "callee": "it",
+          "name": "'when root is disabled'",
+          "sha256": "50199bfef43b762e7f5958cb3a0467e0b0d140de29b63a844341b6d200349b18",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 981,
+          "callee": "it",
+          "name": "'when button is disabled'",
+          "sha256": "7702dd294bfcd276ee4b2c9656d68e39f353e2c2714fa9d32eae8c8615f52a14",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/number-field/input/NumberFieldInput.spec.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/number-field/input/NumberFieldInput.spec.tsx",
+      "sha256": "4a915d39397ca53e988d8db9f98eaf2ca086e566523e643b600db8728ffaa07d",
+      "declarations": [
+        {
+          "line": 7,
+          "callee": "expectType",
+          "name": "props.disabled",
+          "sha256": "d280775962cefa961839c673dd93674904e68895d229188a1a1a2ad207856861",
+          "kind": "type",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 8,
+          "callee": "expectType",
+          "name": "props.readOnly",
+          "sha256": "e4a68dceec2b83cf11d30b387b69d48c9dc6bb1a61b8f86d4cba290cbf3de866",
+          "kind": "type",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/number-field/input/NumberFieldInput.test.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/number-field/input/NumberFieldInput.test.tsx",
+      "sha256": "363143998de2d3de2a552c62b2f2ba480ebf1a6b490052ea780cfd01557d38e4",
+      "declarations": [
+        {
+          "line": 28,
+          "callee": "describeConformance",
+          "name": "<NumberField.Input />",
+          "sha256": "2953ccd75ed3d57d2dfb890a16ee9cf6307ceee20d6e8de03f5de62b9d32089e",
+          "kind": "conformance",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 35,
+          "callee": "it",
+          "name": "'throws a descriptive error when rendered outside <NumberField.Root>'",
+          "sha256": "41ae734cc4e6a7df1682b100ccb5c01e2ec9bdf91d9ccf8f9566111e10e8abc4",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 47,
+          "callee": "it",
+          "name": "'has textbox role'",
+          "sha256": "5232e15a77621f9ba8fff827860d6c6fb0c6929069017cc9288ffc3da825ae08",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 56,
+          "callee": "it",
+          "name": "'should not allow non-numeric characters on change'",
+          "sha256": "b7cbd9299a53d860d0059ff60ed8cc09267db4cbfef3cd71f12649ff8c2573cd",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 68,
+          "callee": "it",
+          "name": "'should not allow non-numeric characters on keydown'",
+          "sha256": "12e29ec32ed0b59a940c6a8e0d2f1de3860079eadb4ba6502857ee85341c178c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 80,
+          "callee": "it",
+          "name": "'should allow numeric characters on change'",
+          "sha256": "603b549e54d7db8c33ad7a32a8a3b232a8075ece23ce220d6889bc4e07cc79e2",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 92,
+          "callee": "it",
+          "name": "'should increment on keydown ArrowUp'",
+          "sha256": "662375b8b022091e5b1a8a30182c359f4897a882d1d19799a8bb4c670fad36ce",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 104,
+          "callee": "it",
+          "name": "'should decrement on keydown ArrowDown'",
+          "sha256": "1dd67c662bdae3cd41ea5fb3a44e18e47df9e6203ee29e4421ab73793fb23483",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 116,
+          "callee": "it",
+          "name": "'should set the value to min on keydown Home'",
+          "sha256": "9a5d2956e757a8b66b3e707b55ba9507efc4ab489a0e2ce877d03a67bc9fd240",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 128,
+          "callee": "it",
+          "name": "'should set the value to max on keydown End'",
+          "sha256": "a79acc8bb7d94d9f7b1742fa215869bc10a2bae609823571ee2ded5e203392f1",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 140,
+          "callee": "it",
+          "name": "'uses smallStep and snapOnStep when holding Alt with ArrowUp/ArrowDown'",
+          "sha256": "93ae3d70fd967069fbc18a76c666285f19aacc375c31c357b998ea36945bd84e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 154,
+          "callee": "it",
+          "name": "'advances by a smallStep finer than 3 fraction digits'",
+          "sha256": "3edaf3e2cfc913ef81feb882873e3f3ccceec1aa38c142b6acf37282981cb247",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 184,
+          "callee": "it",
+          "name": "'increments with keyboard from numeric state, not rounded display text'",
+          "sha256": "8a353871f1839bcc50a41d52a8af65243b4e29b5b26fdd242f653be62e74c902",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 205,
+          "callee": "it",
+          "name": "'decrements with keyboard from numeric state, not rounded display text'",
+          "sha256": "fdad5af94c61944ab45b46cfaefca50d771ec968a3a57b7549d7ed33eb7ee080",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 226,
+          "callee": "it",
+          "name": "'increments with keyboard from numeric state after a no-edit blur cycle'",
+          "sha256": "47d7d1349f337d95564d2677d08d49ae98338473422a6f8695de83bf891b0353",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 258,
+          "callee": "it",
+          "name": "'steps keyboard from dirty input text when the controlled value lags onValueChange'",
+          "sha256": "13504a215a77fb488a4c6d97ce23fad3d16e834ba3132c2f45b157dd4cc4c684",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 280,
+          "callee": "it",
+          "name": "'does not commit a stale value when a synced keyboard step is canceled after an external change'",
+          "sha256": "7a84d07f668fb01d292d7f4d696bf8fa30c488d51ffe32b2d21b9a3454e0009e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 324,
+          "callee": "it",
+          "name": "'keeps dirty-input authority after a non-mutating key so the next keyboard step uses dirty text'",
+          "sha256": "a9357895cdfe50a568debd75f974155af8f4a9348a5aa3bc3baa038fb7bc6405",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 347,
+          "callee": "it",
+          "name": "'keeps dirty-input authority after a non-mutating key so a button step uses dirty text'",
+          "sha256": "c370bdeb15d45905c00c4333d9f3638180887eed82bf84dd5bb41a558cd6999b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 368,
+          "callee": "it",
+          "name": "'commits dirty text on blur after a cursor key when the controlled value does not mirror it'",
+          "sha256": "41eb928b79fff3805a87e2c95c68dab0ed077da81fb6a526c8f75e911dbf9501",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 392,
+          "callee": "it",
+          "name": "'allows unicode plus/minus, permille and fullwidth digits on keydown when formatted as percent'",
+          "sha256": "52b063ed1383d414801e6f06ec49129a323e19d074aec1efbd303fd363fbbff3",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 413,
+          "callee": "it",
+          "name": "'blocks percent and permille symbols on keydown when not formatted as percent'",
+          "sha256": "3b3686792dff068d9b8a7fd09a6c29821e84bbbab095843e8ed3130e9f617265",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 432,
+          "callee": "it",
+          "name": "'applies locale-aware decimal/group gating (de-DE)'",
+          "sha256": "98693f970a0fd711f9dc4b27ddd97b99ff08756af0f9881cbcf855b0cd0aed6d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 463,
+          "callee": "it",
+          "name": "'allows space key when locale uses space-like grouping (pl-PL)'",
+          "sha256": "54c327d6d54c5bccb5dcfd3fa86b160b1970cfde68a09bd13e4909a9d7f8bc9c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 486,
+          "callee": "it",
+          "name": "'commits formatted value only on blur'",
+          "sha256": "e4504f7812fb4465ee967a60e0864fed193cd89297293fb0db2b7610626891e8",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 500,
+          "callee": "it",
+          "name": "'should commit validated number on blur (min)'",
+          "sha256": "6070bc135fff407634de61602f3a012bd67da1ffa52b24b2adb33167b936ecb7",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 514,
+          "callee": "it",
+          "name": "'should commit validated number on blur (max)'",
+          "sha256": "f36dff5f4350ca09f1829795ace3fd5914f1c1b37788123316ca18d8c0459850",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 528,
+          "callee": "it",
+          "name": "'should not snap number to step on blur'",
+          "sha256": "09b78debe1cd6eb0addb670e9ef277d668fbe6d4c89ac855ef4901ae38eddad8",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 542,
+          "callee": "it",
+          "name": "'should commit validated number on blur (step and min)'",
+          "sha256": "fe81b0a1ff7528745cb498ceffacc14e3c3b9080c2074fbcfd4b7340c5ed02b6",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 556,
+          "callee": "it",
+          "name": "'should preserve default formatting on first blur after external value change'",
+          "sha256": "ead98e7ca9af01513d779e5b6cd53c4942d2649c003fa0a8a0b6a85229322b2b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 587,
+          "callee": "it",
+          "name": "'should update input value after increment/decrement followed by external value change'",
+          "sha256": "c77f6151e7672cff29bf3bcf6dedfed2a91ab47b86a5e78770cc3fb283e17731",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 624,
+          "callee": "it",
+          "name": "'should update input value after decrement followed by external value change'",
+          "sha256": "a0509d2a21eba37972d0137e938756bbe8fe07241f085ffd91a7851d67540fb6",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 661,
+          "callee": "it",
+          "name": "'should allow typing after default formatting on blur'",
+          "sha256": "fe233034edd920c78d4a33c18bb35ceec3f29d348ffae4202fad3e45d0cab76e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 700,
+          "callee": "it",
+          "name": "'should format to default canonical representation on blur'",
+          "sha256": "6432ea11d2c44ccdbc0c84f8508ee49c7f7b1c2b6d25d447bb19ccf4ae66c6b6",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 732,
+          "callee": "it",
+          "name": "'should handle multiple blur cycles with default formatting'",
+          "sha256": "675791886c28fa149106f06c1a9573418b68f93a66e83ac987721820b86df1f6",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 771,
+          "callee": "it",
+          "name": "'should handle edge case where parsed value equals current value but input differs'",
+          "sha256": "a861c82acbcfbfc4a87b56b089c8712399ac18d345b985ebfc2c346fb7dcbb0a",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 803,
+          "callee": "it",
+          "name": "'should apply default formatting after external change during typing'",
+          "sha256": "309cdc74109e87eeb534c9b1ab08d3c5c9021935ffa84a83f58c530a78c106a4",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 840,
+          "callee": "it",
+          "name": "'should round to explicit maximumFractionDigits on blur'",
+          "sha256": "1ef85b8d848fcb40045a2d79c990cf7f7906f7bb56652974e953bc18ad95ad20",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 911,
+          "callee": "it.each([\n    ['en-US', '1.239'],\n    ['fr-FR', '1,239'],\n    ['ar-EG', '١٫٢٣٩'],\n  ] as const)",
+          "name": "'should respect roundingMode when rounding to explicit maximumFractionDigits on blur in %s'",
+          "sha256": "a93b0d2fae094e377830f9773d34ec5c95b3a490dbb531530c125a87b20ae7c5",
+          "kind": "parameterized",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 911,
+          "callee": "it.each",
+          "name": "[\n    ['en-US', '1.239'],\n    ['fr-FR', '1,239'],\n    ['ar-EG', '١٫٢٣٩'],\n  ] as const",
+          "sha256": "a39843ccdaeb02c4af2e8207f84475e408bf8d527cf1565aa96f91318adb481e",
+          "kind": "parameterized",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 933,
+          "callee": "it",
+          "name": "'should not throw on blur when format uses roundingIncrement with fixed fraction digits'",
+          "sha256": "e54f726ff7188b166dce899085b93b08a066a6e1ccfacaa192db8eb4c651a0ca",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 959,
+          "callee": "it",
+          "name": "'should commit roundingIncrement values on blur'",
+          "sha256": "58ede16b0e75ae5f3e4be4836a6a2261f74d985a0447afa8576190c825dbb881",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 979,
+          "callee": "it",
+          "name": "'should commit significant digit rounded values on blur'",
+          "sha256": "3c6d4a842e403dcf274637752814cf9e8fa54c007cf350d05d46de69d2d20aa2",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 996,
+          "callee": "it",
+          "name": "'should preserve tiny percent significant digit rounded values on blur'",
+          "sha256": "611dd44326f15bcf836d3d00f6c0c6d781d63ce333bfeb9a322194d534e127d2",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1013,
+          "callee": "it",
+          "name": "'should commit roundingMode values on blur without explicit precision'",
+          "sha256": "27bb17158bf88e11725c7319eabc98ebcc18b4b1b78936bf2cab2aca3263b949",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1030,
+          "callee": "it",
+          "name": "'should format controlled values with rounding options after external value changes'",
+          "sha256": "188a3028c0abafce7b7b27a3667aaa0ca86323042fa7b66634a025778ab81101",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1054,
+          "callee": "it.each([\n    [\n      'percent',\n      {\n        style: 'percent',\n        maximumFractionDigits: 2,\n        roundingMode: 'floor',\n      },\n      0.0123,\n    ],\n    [\n      'percent with min-only precision',\n      {\n        style: 'percent',\n        minimumFractionDigits: 2,\n        roundingMode: 'floor',\n      },\n      0.0123,\n    ],\n    [\n      'unit percent',\n      {\n        style: 'unit',\n        unit: 'percent',\n        maximumFractionDigits: 2,\n        roundingMode: 'floor',\n      },\n      1.23,\n    ],\n  ] as const)",
+          "name": "'should round %s values on blur'",
+          "sha256": "1c321cff297210afdc3617eff322712cc2194286de1890f2d30ce3df649e524d",
+          "kind": "parameterized",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1054,
+          "callee": "it.each",
+          "name": "[\n    [\n      'percent',\n      {\n        style: 'percent',\n        maximumFractionDigits: 2,\n        roundingMode: 'floor',\n      },\n      0.0123,\n    ],\n    [\n      'percent with min-only precision',\n      {\n        style: 'percent',\n        minimumFractionDigits: 2,\n        roundingMode: 'floor',\n      },\n      0.0123,\n    ],\n    [\n      'unit percent',\n      {\n        style: 'unit',\n        unit: 'percent',\n        maximumFractionDigits: 2,\n        roundingMode: 'floor',\n      },\n      1.23,\n    ],\n  ] as const",
+          "sha256": "6482c011f290043afa1cb6ff5082737f2a72ec5ede48166dab5530d12c791f28",
+          "kind": "parameterized",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1093,
+          "callee": "it",
+          "name": "'should parse locale prefix percent values on blur'",
+          "sha256": "e8a26daa8b243cdc5eb00a730c805f563fba0f23ca2c9b0690b4d69e3733445b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1113,
+          "callee": "it",
+          "name": "'should preserve exact percent precision boundaries with directional roundingMode on blur'",
+          "sha256": "8f6e04e0b79b85e09db4b21d4822fc51fecb4ee950eddae15df2ddef709d19d5",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1131,
+          "callee": "it",
+          "name": "'should preserve high-precision percent boundaries with directional roundingMode on blur'",
+          "sha256": "b3a47fee6358e2477d808ed9ee7fb000d6cbdf523962de49d58137b534636526",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1149,
+          "callee": "it",
+          "name": "'should commit the clamped value when blur rounding crosses a boundary'",
+          "sha256": "8e8b0bfb62f7b673db54d6c581bba01a84c336531fc973bf62c654cda5a3f5e8",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1168,
+          "callee": "it",
+          "name": "'should round currency values on blur without percent scaling'",
+          "sha256": "ffd80ea89714b30f684c5d0b6994626aa15136547852975fb96c3617e2b70b89",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1185,
+          "callee": "it",
+          "name": "'should not commit values that overflow while parsing on blur'",
+          "sha256": "1501765bffb749a2142ea7d80bce5cd2ac399a499b023508a8f85d4264f3c541",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1218,
+          "callee": "it",
+          "name": "'should not commit a canceled blur change'",
+          "sha256": "948807be9a3718fb116d55fc0bbb3a52fb1216c4d0a55d5bc59290f391dcec09",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1247,
+          "callee": "it",
+          "name": "'should preserve default numeric precision while formatting display on blur'",
+          "sha256": "127dc3b0e3c5a4b1522574c60d2e497f03e05f67632de5c47190f1e0280d3f76",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1288,
+          "callee": "it",
+          "name": "'should preserve values typed with more than 15 significant digits'",
+          "sha256": "3c3f2af2569a7aabfe03af0017272e0192644c3c88fe176a5f6e99d59bff4525",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1327,
+          "callee": "it",
+          "name": "'keeps full numeric precision across no-edit focus/blur cycles and subsequent stepping'",
+          "sha256": "844d9fe58dabb10303197134235d029fa94a5bfa3bf62dba05d6878b674fbb2a",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1375,
+          "callee": "it",
+          "name": "'commits parsed value on blur and normalizes display for fr-FR'",
+          "sha256": "8beecd250f861d2daf4994bfcd27bf2e3b95ea123a0698f402ea7f8891a5888b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1398,
+          "callee": "it",
+          "name": "'warns in development when clipboard text cannot be read during paste handling'",
+          "sha256": "2800ce201cba3b67701f6860c7b46c9793b15884d916623ce2fa6a217fe093a0",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1428,
+          "callee": "it.skipIf(!hasCaptureOwnerStack)",
+          "name": "'warns without an owner stack when React cannot provide one'",
+          "sha256": "4ab920b3edc096be04d3b9be47b75a85d95822f0fa8b4e5bd66d4ea95d229ac4",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1428,
+          "callee": "it.skipIf",
+          "name": "!hasCaptureOwnerStack",
+          "sha256": "ce4501731d4e40002b28e413bff8dc085cb5db1b20d7e29cf7367ae1a3df0cc5",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1457,
+          "callee": "it",
+          "name": "'reports an unchanged value once when a paste event carries no clipboard data'",
+          "sha256": "d6fbd70e8e9f0cd8f753bdb5895d5b7461e5f769222323a0de9be53d883cdc83",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1504,
+          "callee": "it",
+          "name": "'blocks a second minus sign when the existing one is not selected'",
+          "sha256": "b16b163e33792a68342cf365f7877ea099287ef9fe60085ee165245772a052f5",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1510,
+          "callee": "it",
+          "name": "'allows a minus sign that replaces the selected existing sign'",
+          "sha256": "ea670f60d73218365273bf0f183816c6b20a1bab0800db0f05cf767eeb326fe9",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1516,
+          "callee": "it",
+          "name": "'allows a minus sign when the whole value is selected'",
+          "sha256": "21811eefc7f563b26369e66c7c8ebcba67a43e04c458ee09ddbdc3567eb00c86",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1524,
+          "callee": "it",
+          "name": "'keeps the selection the browser set when focus moves into the input'",
+          "sha256": "72e7fddec0ce5947da6a76f291b6a50d96cffdfab45a4fd409104932adb6d3aa",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1543,
+          "callee": "it",
+          "name": "'does not mark the field focused when the focus default is prevented'",
+          "sha256": "feaa7fba647fd61fca838d1cc6e28a1fe8f55a9cd10245454298810886b9ee38",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1557,
+          "callee": "it",
+          "name": "'does not reformat, touch, or commit on blur when the blur default is prevented'",
+          "sha256": "57a85eada434594ba9f109a6ee81afd115bf9c66ca67aa42e7cddb0983145183",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1578,
+          "callee": "it",
+          "name": "'ignores a change whose native default was already prevented'",
+          "sha256": "2b91c2121106bb841a047d5b38a233908748004e9fa42722a9ee8bfbe19bcbca",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1595,
+          "callee": "it",
+          "name": "'does not step when the keydown default is prevented'",
+          "sha256": "e60c2c570662e6ba94649ec3aedd49f2e0da90568720e9aab54488e078ada68c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/number-field/root/NumberFieldRoot.iOS.test.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/number-field/root/NumberFieldRoot.iOS.test.tsx",
+      "sha256": "665dff4289b4cc982cd0b163093332f5c305aa11207f4f185fd596d911e7f67c",
+      "declarations": [
+        {
+          "line": 24,
+          "callee": "it",
+          "name": "'uses the decimal keyboard when negative values are impossible'",
+          "sha256": "709babd06181797b4a7d0c3a529976fb4164b28a14b18f8a14c9763df3c4391b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 34,
+          "callee": "it",
+          "name": "'uses the text keyboard when negative values are allowed'",
+          "sha256": "de4035b9791943d64d4bf30b2c305fb84bd8827ede70dcb6ef18b9b05719265a",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 44,
+          "callee": "it",
+          "name": "'uses the text keyboard when no minimum is set'",
+          "sha256": "86b0dc2e69a47ef17cdce0f9de9e33c1c04d40c6b910e5a3233d40458338a987",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/number-field/root/NumberFieldRoot.spec.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/number-field/root/NumberFieldRoot.spec.tsx",
+      "sha256": "dff31a4f992d84bc352ea2eadfa7c2df047835fe3f86a642d52024f3dcff5d6a",
+      "declarations": [
+        {
+          "line": 14,
+          "callee": "expectType",
+          "name": "null as unknown as NumberFieldWheelEvent",
+          "sha256": "d83eb52cb7b6a8b66189c3da565b260cf78c36788b758b7429ce5a61017546f6",
+          "kind": "type",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 59,
+          "callee": "expectType",
+          "name": "value",
+          "sha256": "42545c41f0c0c6f66cb4454f4135960eb8da080d4e90702af64ef5dc6da853b2",
+          "kind": "type",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 64,
+          "callee": "expectType",
+          "name": "value",
+          "sha256": "42545c41f0c0c6f66cb4454f4135960eb8da080d4e90702af64ef5dc6da853b2",
+          "kind": "type",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/number-field/root/NumberFieldRoot.test.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/number-field/root/NumberFieldRoot.test.tsx",
+      "sha256": "b7b3da230759042333ee080b701387fb1acff46d0de16ed39804741755f903ca",
+      "declarations": [
+        {
+          "line": 33,
+          "callee": "describeConformance",
+          "name": "<NumberFieldBase.Root />",
+          "sha256": "bf9b542ab9254215fc1c849280c0a6ac19a7a086761b0365849b828672ccea36",
+          "kind": "conformance",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 52,
+          "callee": "it",
+          "name": "'should accept a number value'",
+          "sha256": "f487e05a18b6707f78f71bd334ded12a14c7a40a89d47e88cf0d03d1098ede09",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 58,
+          "callee": "it",
+          "name": "'should accept an `undefined` value'",
+          "sha256": "b111e9a3bd70e4dc519dfb5c5cc18a69531bd42514e272b0273712f274ada556",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 66,
+          "callee": "it",
+          "name": "'should accept a number value that can change over time'",
+          "sha256": "2838f4a4b778f69055566f56868a42c2710c846d1094344f7d492b03ea93b60b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 74,
+          "callee": "it",
+          "name": "'should accept an `undefined` value'",
+          "sha256": "b111e9a3bd70e4dc519dfb5c5cc18a69531bd42514e272b0273712f274ada556",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 80,
+          "callee": "it",
+          "name": "'should accept a `null` value'",
+          "sha256": "86abb850fb8855882e217631d7ebf3ea6cc26bb311c64210c6483e3486dba1f0",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 86,
+          "callee": "it",
+          "name": "'should be `null` when the input is empty but not trimmed'",
+          "sha256": "772ce6d731ab29c038fe75dba3c119dab8c91935e0bc8ddc995cf506a122671d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 95,
+          "callee": "it",
+          "name": "'blocks submission when step mismatch occurs'",
+          "sha256": "c60885e1c73734a9ce83ecf381a40c7cb592a8e308c31fcd7eaf4210fd5fa14c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 120,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "'blocks submission when step mismatch occurs with default step'",
+          "sha256": "010f6df2f42355513bde9b588237a77e22367dde66ccd1aae3217c391ee6758b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 120,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 145,
+          "callee": "it",
+          "name": "'does not block submission when step=\"any\"'",
+          "sha256": "ba4b46e4493c671a2103cdc4acf4930d58a7658067586319631870a7f11e6799",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 171,
+          "callee": "it",
+          "name": "'should be called when the value changes'",
+          "sha256": "64bcbcb337c2fe316a3c20eb79600cb7146175ab1d2f84c6f36f09156e550cec",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 192,
+          "callee": "it",
+          "name": "'should be called with a number when transitioning from `null`'",
+          "sha256": "259d435bfe1b565ce901e9e878e3620933e45baa0f7a9439e973ececea7c6cdc",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 213,
+          "callee": "it",
+          "name": "'should be called with `null` when empty and transitioning from a number'",
+          "sha256": "d16d62c15db583272dd9df603f46fe203b041271f9310e96a6bec3f6bcc19e2d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 234,
+          "callee": "it",
+          "name": "'includes the reason for parseable typing'",
+          "sha256": "2920420ddb3a10d4536c4118f10b2913eccc9678c71f87ff4fb535cbf904f78b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 249,
+          "callee": "it",
+          "name": "'includes the reason when clearing the value'",
+          "sha256": "d11d412c32c0f3fc1647610cf6c38ec35a125258eb8d1f89ebde306990d3c76f",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 264,
+          "callee": "it",
+          "name": "'includes the reason for keyboard increments'",
+          "sha256": "5231973ef43ae38c0df0386742ab4d4062adb1664d3b865379cc783ef724fff4",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 282,
+          "callee": "it",
+          "name": "'includes the reason for increment button presses'",
+          "sha256": "060368ae19a65ebf3fd8894569e8aaaa405b242376f549671ac362090b716be6",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 297,
+          "callee": "it",
+          "name": "'includes the reason for decrement button presses'",
+          "sha256": "e3fa6d294f8ee82c972e037fd155907b3a1d3eb2cd523f6fb30c99bd026dacfe",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 312,
+          "callee": "it",
+          "name": "'includes the reason for wheel scrubbing'",
+          "sha256": "ea1a6fc5272581d9b81abca1f00c76cf81f8131a271621429bb71c7e4082e7fe",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 332,
+          "callee": "it",
+          "name": "'fires onValueChange for each parseable change while typing'",
+          "sha256": "73b4c003263fc5b77c944cf8c545de3678bbdc75a6e1b10383756f562d441bc6",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 357,
+          "callee": "it",
+          "name": "'does not fire onValueChange for non-numeric composition/partial input'",
+          "sha256": "94d3ec09325d3d68a9216883e50f82fbeb2176c36fc7da9d0f9d6e7e2cd5fb8e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 384,
+          "callee": "it",
+          "name": "'handles sign and decimal partials vs. parseable numbers'",
+          "sha256": "8255f01a3b812f07d065b92d3c88232f0e2084f9d1d78ccca5a8fff023ff7ed7",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 413,
+          "callee": "it",
+          "name": "'allows typing a decimal while replacing a selection'",
+          "sha256": "1db0fbe9f688663fc9d47be3d0fde26ccc6dbe72d3d2c79ad3ad5c7f9de130df",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 431,
+          "callee": "it",
+          "name": "'accepts grouping while typing and parses progressively'",
+          "sha256": "fd539773a3050fff49c4ce5358683c9daa1cc120828590961bdcba010046ddbd",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 463,
+          "callee": "it",
+          "name": "'respects locale decimal separator while typing (de-DE)'",
+          "sha256": "44d073f23464bf80c4caa0d5ab4497523a6488a263d59b7aeb6a63fc4caae4b8",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 489,
+          "callee": "it",
+          "name": "'parses percent while typing and commits canonical percent value'",
+          "sha256": "bf17aaf58297df22f62593c56cd5bb2e0b4f98f36898dcdd2e96300207426ff0",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 516,
+          "callee": "it",
+          "name": "'parses an interleaved percent sign while typing (1%2 -> 12%)'",
+          "sha256": "e991cd3aa39a9d52f3b6edfa05076396ff5091fdbdaa1203b8a27b29133001a1",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 540,
+          "callee": "it",
+          "name": "'accepts currency symbol while typing and parses numeric value'",
+          "sha256": "1d3407b7a1575c8e97175b80370d52fb5ee87acbd5200a9ff0e91c1c319b429f",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 582,
+          "callee": "it",
+          "name": "'accepts multi-character currency symbols while typing (e.g. pt-BR BRL)'",
+          "sha256": "833629db36c2c7988b11d5b0fb1f6e2218407ca325495281a7468b5aba1c09e7",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 605,
+          "callee": "it",
+          "name": "'accepts multi-character unit symbols while typing (e.g. km/h)'",
+          "sha256": "487f126e33baa96b43ac6cc39eafabbaa20092c149b588e1fb9db345c3e5be10",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 625,
+          "callee": "it",
+          "name": "'accepts exponent separators while typing (scientific notation)'",
+          "sha256": "929cfa28b680605fc4a7b347988a0a828ba8f54cd331ee17f24647f501760e31",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 639,
+          "callee": "it",
+          "name": "'ignores bidi/format control characters in the value (e.g. RTL exponent signs)'",
+          "sha256": "0157500cd834c6d6eda01ab6523aba730c0620c99f7f47055a996e36949f9505",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 654,
+          "callee": "it",
+          "name": "'allows deleting trailing currency symbols with locale literals'",
+          "sha256": "c5a446110d8416a775d9fe0a334b506b1346713534fc1c732db20828c24f8762",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 683,
+          "callee": "it",
+          "name": "'allows backspace to remove trailing currency symbol that follows a locale literal'",
+          "sha256": "2f8ea13a2fdb6bf2744bc1181a49bd70a67c522ec2a8c878aa75b541cb432552",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 720,
+          "callee": "it",
+          "name": "'does not commit on blur for invalid input'",
+          "sha256": "497f164734ee42c08f91cf58fada2c6597da3981856a401759900842e17cd407",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 734,
+          "callee": "it",
+          "name": "'fires on blur with committed numeric value'",
+          "sha256": "c2526c879b3eeadd094176d22413753f4129a8272f36ce02d6b262723a4ee046",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 748,
+          "callee": "it",
+          "name": "'fires null on blur when input is cleared'",
+          "sha256": "0f66fed223d8f0a8acfa35009df750699fa044a7e4bbe2a28005b048ebae0650",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 761,
+          "callee": "it",
+          "name": "'reports and displays the clamped value on blur, not the raw input'",
+          "sha256": "08fdfa2ad96ad649987dbe48ef9ecb141d6079d409d84f216ea8825b1f409d1e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 775,
+          "callee": "it",
+          "name": "'reports and displays the min-clamped value on blur, not the raw input'",
+          "sha256": "74a79b120dfedbf85d46cfeba2b74905be4b7782241c868c420fb84e61dce2ed",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 789,
+          "callee": "it",
+          "name": "'fires on keyboard interactions (ArrowUp/Down/Home/End)'",
+          "sha256": "8c23ea703a2adc546f428694d90792347ed771e97ae994dd10bc014af22ed0f2",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 815,
+          "callee": "it",
+          "name": "'fires when using increment/decrement buttons'",
+          "sha256": "fec5feaa6fdfde064e049bc20cfbea196bf325c58e4441d794bd1283fdda5e5c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 834,
+          "callee": "it",
+          "name": "'includes the correct reason for increment and decrement button presses'",
+          "sha256": "e70818c1bb8a1929107d38ded45d2772c698399f5367fea41c05e9ff22fe5a1e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 848,
+          "callee": "it",
+          "name": "'does not fire when blurring an untouched empty field'",
+          "sha256": "8830f1dd6d858c6b917d6f0b9abcf63d17d969985a97016a8bff25d2798af433",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 859,
+          "callee": "it",
+          "name": "'does not fire on keyboard steps that do not change the value'",
+          "sha256": "03f2916fa3ade95c1a8f96ac254503734e0f2cf9426e2d63d0ddae89a4e2bbd3",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 876,
+          "callee": "it",
+          "name": "'fires once per press-release even after mouseleave/mouseenter during a hold'",
+          "sha256": "f1c6eca23453358fdae70c40f8d957110e5543a3d709dcf17d228ee0f09c2550",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 889,
+          "callee": "it",
+          "name": "'does not commit a canceled keyboard change'",
+          "sha256": "c9ceac0f0e78347c4bf94801f8bc52ba895171635150370d9114f456349a795e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 908,
+          "callee": "it",
+          "name": "'does not commit a canceled clear on blur'",
+          "sha256": "bc0aaa0a780bbf616822549a1704c91dd721610f2ce7f7966af31dc5f57c9e62",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 929,
+          "callee": "it",
+          "name": "'should disable the input'",
+          "sha256": "e3e8c363986fb9df71d6aa77094717aa26978a568e023c80094d14d99f9000f5",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 937,
+          "callee": "it",
+          "name": "'should mark the input as readOnly'",
+          "sha256": "6478ae4dc62c76d04d4bbb2ea15b2fc50be61eb6c976ff5c7aa21b3a2ca409e6",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 943,
+          "callee": "it",
+          "name": "'keeps focus state in sync on a readOnly field'",
+          "sha256": "a4c7a26ab2d05867c824626502bbc761ba34aed32a8155d731db2f882c056dc3",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 960,
+          "callee": "it",
+          "name": "'does not render aria-readonly on stepper buttons'",
+          "sha256": "dd168769adb05a4e589ef2a9e633dcd5eebe3829dae29caa7ed208f279b33bd6",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 978,
+          "callee": "it",
+          "name": "'should mark the input as required'",
+          "sha256": "c09b49e88f40db3901a6845d2802cf6529ca5bd7bb357a0d8f4cddf654715ead",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 986,
+          "callee": "it",
+          "name": "'should set the name attribute on the hidden input'",
+          "sha256": "41fcb73eed9609eab75e2cafae59b56b672b532b1ceff83eb7de4bd6fb1bc51b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 994,
+          "callee": "it",
+          "name": "'marks the hidden input readOnly when the field is readOnly'",
+          "sha256": "a046cff64a606a7db7b54ad16fe87742368bf26051d5c43e049862bcf7c0c45c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1004,
+          "callee": "it",
+          "name": "'prevents the raw value from going below the `min` prop'",
+          "sha256": "749594f797a723bf7cb89437272a76f9db29f86854297ac6e61269e7ed433bd0",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1030,
+          "callee": "it",
+          "name": "'allows the value to go above the `min` prop'",
+          "sha256": "806c831f9c5e10c0e045e9d28ec7c1ca26ab781465c51d69f66057c5882294c6",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1057,
+          "callee": "it",
+          "name": "'prevents the value from going above the `max` prop'",
+          "sha256": "225c1fe787aa1069f95fb8c90dc2f887c82b47138e2b9ca707f5dd84b2c02b77",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1083,
+          "callee": "it",
+          "name": "'allows the value to go below the `max` prop'",
+          "sha256": "19ecdf7b977682f63f3f425c40123356259637d6ab5a0e9468f898e71e9e1245",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1111,
+          "callee": "it",
+          "name": "'allows typing a negative value via keyboard when min is 0'",
+          "sha256": "d56ae0123bc92e848a0e24a084190c16c265a6ca3071422bb65d4b15735aabf7",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1125,
+          "callee": "it",
+          "name": "'allows range overflow validation when true'",
+          "sha256": "318ae0e859f1f17ff40f83bb75a0c6c6ca6aeceae514852067f65745abdc951d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1152,
+          "callee": "it",
+          "name": "'still clamps step interactions when true'",
+          "sha256": "5313957f5d760e5e11e9449b7748c8008c83d13d787648d3278331744ab1eaee",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1176,
+          "callee": "it",
+          "name": "'clamps to range when false'",
+          "sha256": "9e3f854d21c393a0fcc38bb24fd441317b6ccb18d33a2ffb45baabaab967ca4f",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1205,
+          "callee": "it",
+          "name": "'defaults to 1'",
+          "sha256": "e53a2f8a97c82539080ba631dd6d33d426afdfea80cd0eaf37e7051634270e40",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1212,
+          "callee": "it",
+          "name": "'should increment the value by the `step` prop'",
+          "sha256": "c6b50383271f956e6cdcde63196956c853f6afc60495f317bf8cdc3c3d909cae",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1219,
+          "callee": "it",
+          "name": "'should snap when incrementing to the nearest multiple of the `step` prop'",
+          "sha256": "6e6985bd171a28a2c2fedd27f378c325062e95640261af5a61903a0864137c6a",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1226,
+          "callee": "it",
+          "name": "'should decrement the value by the `step` prop'",
+          "sha256": "458b7deae0f00b51d3681cd10131088f16ec3e3feb30d66774e7dc844a343af8",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1233,
+          "callee": "it",
+          "name": "'should snap when decrementing to the nearest multiple of the `step` prop'",
+          "sha256": "35f7a2760b4ef0bcd46cff738f9a6a65206b54e92fd98df4a94484bce325e65b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1242,
+          "callee": "it",
+          "name": "'should increment the value by the default `largeStep` prop of 10 while holding the shift key'",
+          "sha256": "215f00e38739b002dafa753da9976acdbe8e8f066792b74f999ca36c2ed9e5ac",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1249,
+          "callee": "it",
+          "name": "'should decrement the value by the default `largeStep` prop of 10 while holding the shift key'",
+          "sha256": "b4e197719a8746affd417857939f280159ab552edb1495dec67e6849ff0e4dab",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1256,
+          "callee": "it",
+          "name": "'should use explicit `largeStep` value if provided while holding the shift key'",
+          "sha256": "d288110bffd4446b78a3bd17a5ae0155727441294c83d7671b734458b1870445",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1263,
+          "callee": "it",
+          "name": "'should not use the `largeStep` prop if no longer holding the shift key'",
+          "sha256": "74a01deba512e047a4250b18d212c8dde9674447234f0a58328c081c370e841b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1275,
+          "callee": "it",
+          "name": "'should increment the value by the default `smallStep` prop of 0.1 while holding the alt key'",
+          "sha256": "eb9d0b1e2266ec1320c3c895f592fcc9e5d4501c25ad2a8df15b28b9a16c0760",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1282,
+          "callee": "it",
+          "name": "'should decrement the value by the default `smallStep` prop of 0.1 while holding the alt key'",
+          "sha256": "0be3885d0c804c588e7d4b71f259ee6156c46bd93968231b00ccda08ba04daa2",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1289,
+          "callee": "it",
+          "name": "'should use explicit `smallStep` value if provided while holding the alt key'",
+          "sha256": "704b612054115cf03fdf47b6236a34a01d01b80ddf51f64d90b1eb71e335129e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1297,
+          "callee": "it",
+          "name": "'should not use the `smallStep` prop if no longer holding the alt key'",
+          "sha256": "942dcaf2653ea096254329e214ef81eec96c4ff993b4ac71679c9eacb7552e89",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1310,
+          "callee": "it",
+          "name": "'reformats the visible text when the format prop changes at the same value'",
+          "sha256": "e8d60921225fda3a36c86b0c9386483a1f3acabf02d71388a9e39ede8cd3dbec",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1321,
+          "callee": "it",
+          "name": "'should format the value using the provided options'",
+          "sha256": "8f03f4ef221252acef2eff14a4ebe202766866e095a7f0731eddce586ec07a75",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1333,
+          "callee": "it",
+          "name": "'reflects controlled value changes in the textbox'",
+          "sha256": "230dd276cbff441918235a55f0857071535903a276e6296f0e0e9da8b963e423",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1355,
+          "callee": "it",
+          "name": "'does not scrub on wheel when disabled'",
+          "sha256": "a6aa93922dfa54aa97eb78f4a1a36acf59387d46cc76354e0550202a9ecdb4cd",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1364,
+          "callee": "it",
+          "name": "'does not scrub on wheel when readOnly'",
+          "sha256": "5dbe3e032ec2ddf2ae135c97fef63f001b3de39456b988aede3e5eade57b8484",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1373,
+          "callee": "it",
+          "name": "'should allow the user to scrub the input value with the mouse wheel'",
+          "sha256": "644a2c3100979bd02eac388a370bba39c00399ab7c56e0e2305fd3c455a8e632",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1383,
+          "callee": "it",
+          "name": "'should not allow the user to scrub the input value with the mouse wheel if `allowWheelScrub` is `false`'",
+          "sha256": "6112dfb414f5aa44586026752bf6f443c6b7edb50f63b046d0d044603c569924",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1393,
+          "callee": "it",
+          "name": "'does not scrub on wheel while pinch-zooming (ctrlKey)'",
+          "sha256": "6157a6f929db77016369d76126c07df4cecabfab10fc6d5f039d94dfd1833418",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1403,
+          "callee": "it",
+          "name": "'does not scrub on wheel when the input is not focused'",
+          "sha256": "6ad61d4a038bc17741836a3cc7a1c0a87f74a1de724153f51b714db976fe5172",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1412,
+          "callee": "it",
+          "name": "'does not scrub on a horizontal wheel event, and lets it scroll the page'",
+          "sha256": "03282e0cb5afe5aaef2839017680cf6c56c0a052ecff126069633139c41e24e0",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1440,
+          "callee": "it",
+          "name": "'scrubs on a vertical wheel event that carries horizontal noise'",
+          "sha256": "790a83fa2c570494d37693fb1ddb33019684cbd477670d67848828b1bd005660",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1457,
+          "callee": "it",
+          "name": "'uses largeStep when shift is held and the browser swaps the wheel axis'",
+          "sha256": "d7d3107da6db2eb87fb4336e8389307009898273c1731811051222b71b2bc803",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1479,
+          "callee": "it",
+          "name": "'uses largeStep when shift is held during wheel'",
+          "sha256": "230a7aaa0852324976c77d63b9bb11be80b6638c096b5af61da029c4abe3dc1c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1496,
+          "callee": "it",
+          "name": "'calls onValueChange and onValueCommitted on wheel'",
+          "sha256": "e2501f750ac4636a8ba2cea14c5894d0d9d28da6e3fcccc5d1aed922acdf0da5",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1528,
+          "callee": "it",
+          "name": "'does not commit when a wheel step is a no-op at the boundary'",
+          "sha256": "6af3b013630370f5d166344914f0885b26a8a8ae3e383008838bab88435bc2bc",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1550,
+          "callee": "it",
+          "name": "'syncs the visible input value when using the mouse wheel after pasting'",
+          "sha256": "7a9b4bad2725ab36b77a0f6d542ee75668b2c358fd561eb3a4ec05210c4116bb",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1573,
+          "callee": "it",
+          "name": "'should include the input value in the form submission'",
+          "sha256": "4d9a816b05b1b69cf062c6d21f951bfdfb126fcf9f91caeeadfee79e9a2ee126",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1607,
+          "callee": "it",
+          "name": "'should not include formatting in the submitted value'",
+          "sha256": "b6e6660e9d0c2efeec6f6a83bf742b3a70a401fb0bc4adea92e2781f83764844",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1650,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "'submits to an external form when `form` is provided'",
+          "sha256": "850f14e09a3250ee45dee1928899ab39eef31b11aa15c645847fa23cb037738f",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1650,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1676,
+          "callee": "it",
+          "name": "'triggers native HTML validation on submit'",
+          "sha256": "b5bfe7d9140ec8425494db42af38b76cf4e14a1adaab9fe320af644f1873768e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1699,
+          "callee": "it",
+          "name": "'focuses the input when the field receives an error from Form'",
+          "sha256": "fa2f7619e86e2aa4b0669e3577cd1f6d6597b634e05fbc669ad8c2f0db9c6d19",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1730,
+          "callee": "it",
+          "name": "'clears external errors on change'",
+          "sha256": "e576ba30331bcb011e951d726ea6b64d1f4893e87d46d6b3604a42570ec3d067",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1755,
+          "callee": "it",
+          "name": "'revalidates immediately after form submission errors using increment button'",
+          "sha256": "d2a87864c17c8dd2316a737a6fa5eb3cebd81b4e331809846bf7a3c106558933",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1784,
+          "callee": "it",
+          "name": "'should handle browser autofill'",
+          "sha256": "b041f2072aa0027163f1c9b8fb7692b5c06d507ff7c10c71737530f5e51e8c25",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1806,
+          "callee": "it",
+          "name": "'validates the parsed number when handling browser autofill'",
+          "sha256": "e7e5888366304ae30f256bf35468467f144cd347435aefad57eabfb24c12e80e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1827,
+          "callee": "it.each([\n      { lockState: 'readOnly', label: 'inside Field', withField: true },\n      { lockState: 'disabled', label: 'inside Field', withField: true },\n      { lockState: 'readOnly', label: 'outside Field', withField: false },\n      { lockState: 'disabled', label: 'outside Field', withField: false },\n    ] as const)",
+          "name": "'ignores hidden-input autofill when $lockState $label'",
+          "sha256": "7422cf5daf9ff6dc5237b1fa8d2b11bb7362ce74844e2eb532abb1bed080302f",
+          "kind": "parameterized",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1827,
+          "callee": "it.each",
+          "name": "[\n      { lockState: 'readOnly', label: 'inside Field', withField: true },\n      { lockState: 'disabled', label: 'inside Field', withField: true },\n      { lockState: 'readOnly', label: 'outside Field', withField: false },\n      { lockState: 'disabled', label: 'outside Field', withField: false },\n    ] as const",
+          "sha256": "ea9e64f58cb6574c84c7249bb4e3c71e464327a63231a64581188a6661009e71",
+          "kind": "parameterized",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1887,
+          "callee": "it",
+          "name": "'[data-touched]'",
+          "sha256": "785ec4fd6759be3e98876781bf37b3336c4def312f3a0e5910b910293a4cf88d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1904,
+          "callee": "it",
+          "name": "'[data-dirty]'",
+          "sha256": "ebb42e31555fc70b7825df94042c09d09c97b65dab55ec923b2442222635ba5b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1923,
+          "callee": "it",
+          "name": "'adds [data-filled] attribute when filled'",
+          "sha256": "6a5d972aeb7cd0a290b28bb2a59ec70d80ced6253d8f05ef047cc1fde2b3768a",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1945,
+          "callee": "it",
+          "name": "'has [data-filled] attribute when already filled'",
+          "sha256": "74eb2da2692e6a42acf5004d61da2a1ae5bbb54fb750acb25265c22b60b0ecfb",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1964,
+          "callee": "it",
+          "name": "'[data-filled]'",
+          "sha256": "9abd21462a6b08df572f2ea0c18cd8b58c76e09d3d179d21f878fb7916ce14ab",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1986,
+          "callee": "it",
+          "name": "'adds [data-focused] attribute on every focus'",
+          "sha256": "28b5fd05c7c69e7968092ccb98adc20303aeac39454d31d1191384c773673dc9",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2007,
+          "callee": "it",
+          "name": "'prop: validate'",
+          "sha256": "ce6ed7013c51a88641c946d62018fc946de1578e61867ba2b2c715ef04722501",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2028,
+          "callee": "it",
+          "name": "'onSubmit'",
+          "sha256": "bc3ef81d79d55a15964cd430fbd9f00de0644fe8e20b9e5859c3f4da04b71722",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2084,
+          "callee": "it",
+          "name": "'onChange'",
+          "sha256": "776eff54207ff96ac06bd99533a5880808779f6343fe6febb5251bb52e2a20fa",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2107,
+          "callee": "it",
+          "name": "'revalidates when the controlled value changes externally'",
+          "sha256": "9f33b03dc76301983a639c198b494a3cd269b4340cfdeb9eaa0afeb1d6642da9",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2144,
+          "callee": "it",
+          "name": "'onBlur'",
+          "sha256": "c482924e7d65bdb9acbcefabec3554ffc8a837fcedc7cf5127b71fa8dbc3ef31",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2174,
+          "callee": "it.skipIf(!isJSDOM)",
+          "name": "'prevents form submission when the value does not match the step'",
+          "sha256": "7e7ec65d6e41b002b5b6a97daf8401cfcafa6a11fcede5ac26b032dc172b6af0",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2174,
+          "callee": "it.skipIf",
+          "name": "!isJSDOM",
+          "sha256": "bcb41b6ed34c3d27133810ed8ff33381f4e39220c9197524a842f7ae965646b7",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2206,
+          "callee": "it",
+          "name": "'prevents Form/Field submission when the value does not match the step'",
+          "sha256": "de7b0de76d43d38fb0473488dba994906fde8e1d161c1c21c6b8b19a8df0db28",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2243,
+          "callee": "it",
+          "name": "'disables the input when disabled=true'",
+          "sha256": "0702857aa224696b1b050356399f3797952df0bfcdf9059dd044762d2cf71092",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2257,
+          "callee": "it",
+          "name": "'does not disable the input when disabled=false'",
+          "sha256": "b59b52866a4bbd9dce57e3013954e1e8db3d5adee367ea11bf83386340aef7ec",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2271,
+          "callee": "it",
+          "name": "'is validated with latest value when validationMode=onBlur'",
+          "sha256": "fe1c7feed0cde04f3659906189f7aaff08c3a43431930e052cbac3fd7b0c2af6",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2294,
+          "callee": "it",
+          "name": "'is validated with clamped value when validationMode=onBlur'",
+          "sha256": "55f9a4153e90bf78cd30bc3aa8587f3a2e440b228a9ca2339dcafe3e90500d08",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2318,
+          "callee": "it",
+          "name": "'revalidates an external change after a blur that normalizes back to the current value'",
+          "sha256": "13eed1b4ac6e8531527bd2c49904a93110127daaf101bd40aa7a66671de2c4b4",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2355,
+          "callee": "it",
+          "name": "'Field.Label'",
+          "sha256": "e4a3cd3a1d43a2958b0fdf213cadcc6939c6f8792532479a9948c381e2ad3509",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2368,
+          "callee": "it",
+          "name": "'Field.Description'",
+          "sha256": "741d663dcb2d3d022e9b269f8900a9b738068bb13bb1caf0210c8d9077f9677e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2386,
+          "callee": "it",
+          "name": "'should set the inputMode to numeric'",
+          "sha256": "13199719c925f35a486706c096e680eb5f315fad67cb39eb1a9e945a428be220",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2404,
+          "callee": "it",
+          "name": "'forwards focus to the visible input'",
+          "sha256": "65bf9bb2b82d93368917b570aa2b1b94e76180ffba1521d4a9b96a89fd27e666",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2412,
+          "callee": "it",
+          "name": "'places the caret at the end of the visible input when forwarding focus'",
+          "sha256": "e608db12520b3dafa60431a88553f9b859679255425e0f1cc9e6ce7de46e2dbf",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2425,
+          "callee": "it",
+          "name": "'keeps a selection the consumer sets in onFocus when forwarding focus'",
+          "sha256": "2ceac16963f84e68237041d383986e45972eca2b44e3c8afb17c64ff6c44488a",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2441,
+          "callee": "it",
+          "name": "'clears the value when autofill empties the hidden input'",
+          "sha256": "f7213fc8d57f250e7ecfbc14ac435f6f80a9a46b4d65b440588b630fc220dc9a",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2451,
+          "callee": "it",
+          "name": "'applies an autofilled value to the visible input'",
+          "sha256": "47f084533ef31b4f03d1b09c7e1d830fa928c422f517ce671cdf76e722ca23c9",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2461,
+          "callee": "it",
+          "name": "'validates the autofilled value even when the change is canceled'",
+          "sha256": "df8d0dd492201f612bb979fd692287e3ca5003e97f6c9084f5de21867a0f01cf",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2478,
+          "callee": "it",
+          "name": "'accepts Persian digit keyboard input'",
+          "sha256": "a98fd0c38b590991cdc80dd57f03d04f448840bbbf22d65bed5b5d665a7a9b70",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2500,
+          "callee": "it.each([\n      ['Persian', '۱۲۳', 123],\n      ['Arabic-Indic', '١٢٣', 123],\n      ['fullwidth', '１２３', 123],\n      ['Han', '一二三', 123],\n    ] as const)",
+          "name": "'pastes %s numerals through the input contract'",
+          "sha256": "8cff24f27a847b2f132d0a745ef6585e6f32ad30559819b7a8dd40a7b5c5c2d0",
+          "kind": "parameterized",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2500,
+          "callee": "it.each",
+          "name": "[\n      ['Persian', '۱۲۳', 123],\n      ['Arabic-Indic', '١٢٣', 123],\n      ['fullwidth', '１２３', 123],\n      ['Han', '一二三', 123],\n    ] as const",
+          "sha256": "ce827449ec40c2fb26b52b7d373aec97867590051d2ed17c17d9cec99b3aeebc",
+          "kind": "parameterized",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2519,
+          "callee": "it",
+          "name": "'rejects invalid pasted characters without changing the value contract'",
+          "sha256": "ff1f12899808a07b3a1c930c4587ba0f91ca717d13e104495c17ee27128bca0f",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2532,
+          "callee": "it",
+          "name": "'parses Persian digits and separators via change events'",
+          "sha256": "5606b6d5c005f18a0bdeb990af1c0b1d97fc37451cd3e3668602094d2464561b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2556,
+          "callee": "it",
+          "name": "'parses Persian digits with Arabic group/decimal separators'",
+          "sha256": "346b2c59780577abf452c955b2c99bad80e831fd59da2e27386e0f3e2cbc9103",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2580,
+          "callee": "it",
+          "name": "'parses fullwidth digits and punctuation'",
+          "sha256": "b0430b404fc7921e41e9627ec7fa887da4a4795e2068924109a4b64bcf501caa",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2605,
+          "callee": "it",
+          "name": "'parses percent and permille signs in exotic forms when formatted as percent'",
+          "sha256": "08dc6e0c8c4d4ba1bfeb9fd2fc67b3d196017b2ed7d323b28eb332596395c571",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2635,
+          "callee": "it",
+          "name": "'ignores percent and permille symbols when not formatted as percent'",
+          "sha256": "7e200c74b2fe5044584640207c5676b5494bcb3b2536e34b6cf118c54e1775a8",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2651,
+          "callee": "it",
+          "name": "'parses trailing unicode minus'",
+          "sha256": "3b4a0379c6ba40a4852826ea1f9878abf10a5317749b086433fdb381329b322d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2675,
+          "callee": "it",
+          "name": "'treats parentheses negatives as invalid input'",
+          "sha256": "0918940c9270838518a4ddec6ff62d846c630bd78baac29b764fb243c1d8440b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2699,
+          "callee": "it",
+          "name": "'collapses extra dots from mixed-locale inputs'",
+          "sha256": "4bb13d1efb90560c4ef25c5a389a9843a418b0f2865af16e5bb24c05e852c6cf",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2723,
+          "callee": "it",
+          "name": "'allows composition key events (IME) without preventing default'",
+          "sha256": "584fad2bbdfc8bfcecafab8a7ceb0e899dc1bd78df1cc57526a36d0955f0af69",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2739,
+          "callee": "it",
+          "name": "'should allow pasting a valid number'",
+          "sha256": "a18c69afc930bca7ce14c797f41f09edae657404d1685a15982ba1c2681f1eed",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2751,
+          "callee": "it",
+          "name": "'should not allow pasting an invalid number'",
+          "sha256": "d8ef6816a844da1c1770a709a4fef0b23bad4c82edaf1503a3bf80922fc3fa48",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2767,
+          "callee": "it",
+          "name": "'ignores a paste that does not parse to a number'",
+          "sha256": "6cec30a67a69a58c0b26ba7d335f14e593cce9cbbc372858fc7c2cc6dd4b6372",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2780,
+          "callee": "it",
+          "name": "'does not paste into a readOnly field'",
+          "sha256": "af2eb41918c1aaa656b0a46fc2bfebb80ab9ae230c33abc3a1a98ab9140d9e3e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2791,
+          "callee": "it",
+          "name": "'inserts pasted text at the caret instead of replacing the whole value'",
+          "sha256": "4c119783112f80ca6e7a83b5f04c9e9f8ad3397dcd08004f9f14be6077915c4f",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2804,
+          "callee": "it",
+          "name": "'replaces the selected range when pasting over a selection'",
+          "sha256": "bbabddb32394d45036e6c2231bf1088f1a7933fd7369ab48ab21e3fbbf0771d6",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2815,
+          "callee": "it",
+          "name": "'keeps the caret just after the pasted text'",
+          "sha256": "d6ab507ce099e11310423f1a12195221b70acb54dc82db71258a1aca23e45eb4",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2829,
+          "callee": "it",
+          "name": "'should allow navigation keys and not prevent their default behavior'",
+          "sha256": "7c86eb516c955e8438bb9abf2fa421f5bfe3411f27d25557ec35aa1de286a6f0",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2843,
+          "callee": "it",
+          "name": "'does not prevent native caret movement for Home/End without min/max'",
+          "sha256": "f4c40d72c9ab4907609dc171d57f14a8612cb37450acc1bb5fa70e9825fc2195",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2855,
+          "callee": "it",
+          "name": "'does not swallow non-printing keys it does not handle'",
+          "sha256": "f632e49d8f703894b41c10f59101b0d0a51e6e23de0f596f56bce775d28c7453",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2868,
+          "callee": "it",
+          "name": "'should set the locale of the input'",
+          "sha256": "9c3c91625ffa75103af0632d33ca994d812d9aa6f9697d01f023074cc6fdcd2e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2877,
+          "callee": "it",
+          "name": "'should use the default locale if no locale is provided'",
+          "sha256": "9686704104f824fa5c0a18c1ce304590cb2b7de1f16c71946fd35b09212f8196",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2884,
+          "callee": "it",
+          "name": "'should handle locales using space as the thousands separator'",
+          "sha256": "cd912608656eceb3bb5db14f85b0a1b4120f9dee1a6aecaf9c89afc4229b71d7",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/number-field/scrub-area-cursor/NumberFieldScrubAreaCursor.test.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/number-field/scrub-area-cursor/NumberFieldScrubAreaCursor.test.tsx",
+      "sha256": "d731445316c261dbcd1ddee23395561d6ca2c6754f90c41fccd8228a6b253d07",
+      "declarations": [
+        {
+          "line": 22,
+          "callee": "describeConformance",
+          "name": "<NumberField.ScrubAreaCursor />",
+          "sha256": "6323c9a63207accb89da0b5260640627a7049e1f05f9e5facb58ab05848b9472",
+          "kind": "conformance",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 37,
+          "callee": "it",
+          "name": "'has presentation role'",
+          "sha256": "df4bed76473a7b86c8719296be2620de1d6cdce383f91ab865128390066a735b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 46,
+          "callee": "it",
+          "name": "'throws a descriptive error when rendered outside <NumberField.ScrubArea>'",
+          "sha256": "8dd87d3712b9641428f69b77642598a0c4d8e26da317c79e5457a663f4fd1c80",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 64,
+          "callee": "it",
+          "name": "'renders when using mouse input'",
+          "sha256": "8cce12c15427a8d57a633205fc988ee6323d44a26661c303edcc592b33616416",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 94,
+          "callee": "it",
+          "name": "'only renders a cursor for the active scrub area'",
+          "sha256": "b3190f9f758a8676166f753a723140ec1bfe0a91707ec0493dd5a7189cb95d51",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 127,
+          "callee": "it",
+          "name": "'does not render when using touch input'",
+          "sha256": "f79ff2ffabecc7896caf816921ff4a55fbc099a4648d05ea6b1a594230aad6ed",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 148,
+          "callee": "it",
+          "name": "'handles pointer lock denial through requestPointerLock API'",
+          "sha256": "54db164a82f3a44efeaf213c4750196a9b5720db4135a7fb71fa6fe1f596e2d7",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 182,
+          "callee": "it",
+          "name": "'does not render after a quick tap when pointer lock resolves later'",
+          "sha256": "59f0a1ab51b48f440f71e6ad9841cb41ffed20198fbc1b27c036a48e952b5456",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/number-field/scrub-area/NumberFieldScrubArea.gecko.test.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/number-field/scrub-area/NumberFieldScrubArea.gecko.test.tsx",
+      "sha256": "ee34e10edd55d37fa257029fa089eca6cfe7c38f46317a7938296f451b97f882",
+      "declarations": [
+        {
+          "line": 26,
+          "callee": "it",
+          "name": "'delays releasing the pointer lock so soft clicks are not swallowed'",
+          "sha256": "c6406806935f68d03a1af8c40d4171f70c84fbb97867032f4d22fb24d51b965b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/number-field/scrub-area/NumberFieldScrubArea.test.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/number-field/scrub-area/NumberFieldScrubArea.test.tsx",
+      "sha256": "1ec465d0bd21054a1c26b5194300d56c72d1037826c9ae4b9efb0c1d4b72848e",
+      "declarations": [
+        {
+          "line": 63,
+          "callee": "describeConformance",
+          "name": "<NumberField.ScrubArea />",
+          "sha256": "4d49decf543d75d2c2cc53a05bef9edf2d1644c0a3a223ad1e087b591371468b",
+          "kind": "conformance",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 70,
+          "callee": "it",
+          "name": "'has presentation role'",
+          "sha256": "df4bed76473a7b86c8719296be2620de1d6cdce383f91ab865128390066a735b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 97,
+          "callee": "it",
+          "name": "'blocks scrolling for a single-touch scrub'",
+          "sha256": "113d286f6c90a4cb86a7dafbeb5e25ef45c8b1de467d4aa36a02d34845575b51",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 105,
+          "callee": "it",
+          "name": "'leaves multi-touch gestures such as pinch-zoom to the browser'",
+          "sha256": "b932fba02cfb6d39aaa2870a94ce42fd5a286f8d0612a0a3aaccef23f8e62b24",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 130,
+          "callee": "it",
+          "name": "'ignores non-primary pointer buttons'",
+          "sha256": "e0a56dc0f2849f75c51e51c6d26ac5e5b8c93cf5887f16664e55a02574182ffd",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 140,
+          "callee": "it",
+          "name": "'does not start scrubbing when the field is read-only'",
+          "sha256": "b613c8f4d460adfc52b7acbbfd7020da374a7135a6123d3fd7d362ac8cd603ee",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 150,
+          "callee": "it",
+          "name": "'keeps a selection the consumer sets in onFocus when a mouse press focuses the input'",
+          "sha256": "3f8289a49b9e55c5d8fe782330d1ec2b6a127f213e2d74ba8b34237cce6088c3",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 177,
+          "callee": "it",
+          "name": "'should increment or decrement the value when scrubbing with the pointer'",
+          "sha256": "4178d36eab72f6f1e46db8e613bd93db18f15188af5291a2dc1a788bca17f258",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 209,
+          "callee": "it",
+          "name": "'tracks visual viewport scale and removes scrub listeners after pointer lock exits'",
+          "sha256": "ccf8105f36c9e2ad6f76cfd6c77f113d3f9501d4e417c2ffc817e212f2dd3912",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 276,
+          "callee": "it",
+          "name": "'clears the root scrubbing state when the scrub area unmounts mid-scrub'",
+          "sha256": "c0967d66e583dd9d0fb57f51251bd0ea7e9a4d18627313e1c5070116a4e33fd9",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 310,
+          "callee": "it",
+          "name": "'syncs the visible input value when scrubbing after pasting'",
+          "sha256": "d39576f94064efd0e53f63fe4ec75a7357bb2c8bef7478a2572ae569d48eebbb",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 342,
+          "callee": "it",
+          "name": "'calls onValueChange while scrubbing and onValueCommitted on pointerup'",
+          "sha256": "fb8b9d80d25f8d157a00df0d0c43db3e4687f2389057678badbc43ad2dc5762e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 382,
+          "callee": "it.skipIf(platform.engine.gecko)",
+          "name": "'ignores pointer movement once the scrub has ended'",
+          "sha256": "504fbfc4cbd8e8734bf49d86f2ebc45bc231a76697fb34dae6c0df571b727462",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 382,
+          "callee": "it.skipIf",
+          "name": "platform.engine.gecko",
+          "sha256": "b5f6ed9c250d79061e870d5c74ac73f0086292a0fd20fdaa9f744a3cd3bf6e4c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 414,
+          "callee": "it",
+          "name": "'does not resume scrubbing when a hidden scrub area is revealed again'",
+          "sha256": "89df18d10232357b97e96ec717c548e818ee3042fc8b7508953c497ad23db874",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 460,
+          "callee": "it",
+          "name": "'does not change the value for a zero-distance move when sensitivity is 0'",
+          "sha256": "c96dd68926be3aeb235ea848196fdcdac8c362e3b9b876873d4200e99c06d073",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 484,
+          "callee": "it",
+          "name": "'should only increment if the pointer movement was greater than or equal to the value'",
+          "sha256": "fad975cb50466de1b792fc75345d5849313e9e4d313434517179bc982c58fcea",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 552,
+          "callee": "it",
+          "name": "'wraps the virtual cursor around the allowed bounds'",
+          "sha256": "42c6eb6980bca10c72bda09aff23c5eb3f573ca7bb3c7b146cbfc1266d83870d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 601,
+          "callee": "it",
+          "name": "'scrubs on vertical movement when direction is vertical'",
+          "sha256": "6bbbdc11d0eeb0c9c16e6dcaf2bb260a86c64635d758a97207be43ed1c90534c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 635,
+          "callee": "it",
+          "name": "'should only scrub if the pointer moved in the given direction'",
+          "sha256": "f25cf41ecb6f81ad7609124e2f8cb75282ccf01b6215860b55ce2a0807cf0be2",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 663,
+          "callee": "it",
+          "name": "'should fire onClick when clicked without scrubbing'",
+          "sha256": "ed4cb23c05b281d5aa44eef3c828e81e142052876392be4f701a98439f85a022",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 679,
+          "callee": "it",
+          "name": "'should fire onClick on child elements'",
+          "sha256": "1b76277d69ba8100fa3241eba490ca8aed17412225cd1d8dd60221c6e99a0f16",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/number-field/utils/getViewportRect.test.ts",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/number-field/utils/getViewportRect.test.ts",
+      "sha256": "cfd491585058897ebc034944f9b2cbcd495b834f9e55f0a7a683ed1b0d5d1495",
+      "declarations": [
+        {
+          "line": 18,
+          "callee": "it",
+          "name": "'pads the element rect by half the teleport distance'",
+          "sha256": "f425b5a3fe6b0ffbb4d6e6caacb66707a48d4d21a52fb651355f94741dbc3c0b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 29,
+          "callee": "it",
+          "name": "'collapses to the element rect for a zero teleport distance'",
+          "sha256": "855da746ef947ac6d77e77a9c1a3b6fa82e44e3adcefe02a4ddca2cc57e277b5",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 40,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "'uses the visual viewport when no teleport distance is set'",
+          "sha256": "91ce2b2a90fb5897251e0398b596e60cb05e6be8e41f50cf93a535a584a95fc5",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 40,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 67,
+          "callee": "it.skipIf(!isJSDOM)",
+          "name": "'falls back to the document element without a visual viewport'",
+          "sha256": "03f6fb08eef95ec9a8f7643f9f36dc92cad4aae63cd9608e1e61fa702862a7b9",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 67,
+          "callee": "it.skipIf",
+          "name": "!isJSDOM",
+          "sha256": "bcb41b6ed34c3d27133810ed8ff33381f4e39220c9197524a842f7ae965646b7",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/number-field/utils/parse.test.ts",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/number-field/utils/parse.test.ts",
+      "sha256": "df07c84846c0e5834dee6ac502d8d66f65ac6b973a79aa3818350c8a90aff23f",
+      "declarations": [
+        {
+          "line": 7,
+          "callee": "it",
+          "name": "'returns the number locale details'",
+          "sha256": "65c267688acbf29b63392d6b081d407f2b0837c9e1c33c69653be985c6f20a25",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 18,
+          "callee": "it",
+          "name": "'parses a number'",
+          "sha256": "ec114e62ea2f7f970b730cc81e30fe9c2ac7feaa8684e49dafca0c11b5dc9d40",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 23,
+          "callee": "it",
+          "name": "'parses percentages by default'",
+          "sha256": "d3affe9f4d29b312eaaefa2eda1823ce4e35ff2c285a98c994aaaaa3c3b1b974",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 27,
+          "callee": "it",
+          "name": "'parses a number with Arabic numerals'",
+          "sha256": "08d5df6bacee0afa099ad0c2130b61fdee1d242097b8446b86f5b22b57a7e123",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 33,
+          "callee": "it",
+          "name": "'parses a number with Han numerals'",
+          "sha256": "93870974331629e97c4ab719e550b22d2dde356460ee7f3610a13145384f6252",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 37,
+          "callee": "it",
+          "name": "'parses percentages with Arabic numerals'",
+          "sha256": "fa26943f84d4f0cafdb16907327881502b82abd25e75a63cc30d45949b562139",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 41,
+          "callee": "it",
+          "name": "'parses percentages with Han numerals'",
+          "sha256": "6cf607b0b2acfb4040dc5522a8b4df04a276dc16a989a926810c4adf51d7e0de",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 45,
+          "callee": "it",
+          "name": "'returns null for an invalid number'",
+          "sha256": "3198bc775cf3700431a1e75b003f0f77018c328bb5b121170b58c1b18683535d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 49,
+          "callee": "it",
+          "name": "'handles percentages with style: \"percent\"'",
+          "sha256": "fbbad37eaf03097db246575764e21bc0282c6f1ed7f35b8166977330de8e7d9b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 53,
+          "callee": "it",
+          "name": "'parses prefix percentages'",
+          "sha256": "3b963359a949ea0b9fcc3b1a08e586a9b76d50527fbc73a13185aa96e96ee83f",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 60,
+          "callee": "it",
+          "name": "'parses scientific notation percentages'",
+          "sha256": "c50c04e5b0d4404bb4994e5bb435dd0e6975a163bff3410e8307ee6be467256c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 64,
+          "callee": "it",
+          "name": "'handles percentages with style: \"unit\" and unit: \"percent\"'",
+          "sha256": "c9a171a4d557c60ae4c0d354fb8900aaaf9eb6a57b1eb1467b4418ad2548c552",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 68,
+          "callee": "it",
+          "name": "'strips an interleaved percent sign (1%2)'",
+          "sha256": "2d64e700d66c0d7d4ac8ee4ede7db52ee89a4cfd18e36161d79708ecba0961ce",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 73,
+          "callee": "it",
+          "name": "'parses fullwidth digits and punctuation'",
+          "sha256": "d6777d47598dd8094095f23135bb910832facce2fe271d620117e74ea61c6296",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 78,
+          "callee": "it",
+          "name": "'parses Persian digits'",
+          "sha256": "c22242fc8582fb60b6ac77d46dfaba195d20d110e657f7e52d8b51776aee8cef",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 84,
+          "callee": "it",
+          "name": "'parses Persian digits with Arabic thousands and decimal characters'",
+          "sha256": "e274ef95deb36ec069cf40835518e76b5908fd5c16be52558ca37fdb7a4714a2",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 89,
+          "callee": "it",
+          "name": "'parses permille values'",
+          "sha256": "dcb5dfc7b1af9eac9d76037a5a83bc930b7cf366591489fdae307c988965a0fd",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 94,
+          "callee": "it",
+          "name": "'strips bidi/control characters'",
+          "sha256": "3d16b84c10cb1c9baba4d138ce2c00960fab187a395a166953053f72fc74542e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 99,
+          "callee": "it",
+          "name": "'handles unicode minus and plus signs'",
+          "sha256": "1dabe6bb3f9e1d272328a176dd42bf0ef0fc14d431f7cf9ccb723bc8354fd249",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 106,
+          "callee": "it",
+          "name": "'parses french formatted numbers with narrow no-break space grouping'",
+          "sha256": "c87273515a452e19662702b5ca47390c4bd22cb4c067e48fa3a0fd2f1b87fb60",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 112,
+          "callee": "it",
+          "name": "'parses currency when options specify currency style'",
+          "sha256": "4b194703973fbf400e693fc5c7c3b70dea5d0f7acc07f2bc49cd3432f57c4ddb",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 118,
+          "callee": "it",
+          "name": "'parses scientific notation with currency codes'",
+          "sha256": "6c0b3bcc935d257d8b0268e01bb7a91320f1cfc80345008239a5d428cc1b8f6f",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 131,
+          "callee": "it.each(['ar-EG', 'fa-IR'] as const)",
+          "name": "'parses localized scientific notation for %s'",
+          "sha256": "cee23a8a6cf3557463a1cf0fd5c16eabca398b4c2aa311751c80a60afdf5e036",
+          "kind": "parameterized",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 131,
+          "callee": "it.each",
+          "name": "['ar-EG', 'fa-IR'] as const",
+          "sha256": "bb66507bb6222b1902171fed2d0172dbfc124ed24b8885e47df4511f9586e18a",
+          "kind": "parameterized",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 141,
+          "callee": "it.each(['ar-EG', 'fa-IR'] as const)",
+          "name": "'parses localized percent scientific notation with a negative exponent for %s'",
+          "sha256": "49dd9338c97c8f38fc37f2594e90982974b583e7279135a11962f5d9482b3df7",
+          "kind": "parameterized",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 141,
+          "callee": "it.each",
+          "name": "['ar-EG', 'fa-IR'] as const",
+          "sha256": "bb66507bb6222b1902171fed2d0172dbfc124ed24b8885e47df4511f9586e18a",
+          "kind": "parameterized",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 156,
+          "callee": "it.each(['ar-EG', 'fa-IR'] as const)",
+          "name": "'parses localized tiny percent scientific notation for %s'",
+          "sha256": "62e2005b9a03f15d206fd22d85c68981e3019db93e465b328df74c1e726480a3",
+          "kind": "parameterized",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 156,
+          "callee": "it.each",
+          "name": "['ar-EG', 'fa-IR'] as const",
+          "sha256": "bb66507bb6222b1902171fed2d0172dbfc124ed24b8885e47df4511f9586e18a",
+          "kind": "parameterized",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 171,
+          "callee": "it",
+          "name": "'parses scientific notation permille values'",
+          "sha256": "50daf1f85f16e4a498fb994b58fcc622e9d61df563977410957a44249da49814",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 175,
+          "callee": "it",
+          "name": "'parses units when options specify unit style'",
+          "sha256": "d04c52d72940b9a01f773ddd73f3ae614abc3a24f7fc21db7add08fb06385bf3",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 179,
+          "callee": "it",
+          "name": "'returns null for Infinity-like inputs'",
+          "sha256": "face3c8e3a8ff20113627664428085ea28db181a0bfa6dd8e10751054d615344",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 185,
+          "callee": "it",
+          "name": "'returns null when parsing overflows to Infinity'",
+          "sha256": "ef056ab0692c9c2816a742ae5983ecd4ec52696e9bbaa3046f20eda223befaa5",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 194,
+          "callee": "it",
+          "name": "'collapses extra dots from mixed-locale inputs'",
+          "sha256": "78db976f9f9d749416e9d7f6e3bcb273d83bf0394f8b67221af95693e61bd210",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 199,
+          "callee": "it",
+          "name": "'parses number with mixed separators (FR)'",
+          "sha256": "115285904a13fbd9c8a3d17bcaa3a4926f2224750f5b00e1bd68d29a7d71426f",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 203,
+          "callee": "it",
+          "name": "'parses number with mixed separators (US)'",
+          "sha256": "f57032d97f838c730bb9b5869346b8033b36a404c88c1dc77e4eaeb704658303",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 207,
+          "callee": "it",
+          "name": "'returns null for empty and whitespace-only input'",
+          "sha256": "9318054ee4785b3e8594450fe4c1a492a76a4c7a513f45f4593182be61c5be1b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 212,
+          "callee": "it",
+          "name": "'returns null for just a sign'",
+          "sha256": "8ab3aeced42fdf735a816c2d6040a10920a1e3d41c0ec465d46f12e14fcbb8c6",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 217,
+          "callee": "it",
+          "name": "'handles ASCII leading and trailing signs'",
+          "sha256": "aa86f8053862053b008bd9023fb7c7b265ded7c48dea3a125c4ca758ae636e28",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 224,
+          "callee": "it",
+          "name": "'supports multiple unicode minus variants'",
+          "sha256": "82b56aef778def40f339ecd585fb2e9f20069cf18525cda3584dd0d99cea78b5",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 232,
+          "callee": "it",
+          "name": "'supports additional unicode plus variants'",
+          "sha256": "ab7f82ceeaebef0cb53cb70ef8ccbf269f0fef746f3870be6b9576ba1b651855",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 236,
+          "callee": "it",
+          "name": "'handles additional percent symbol variants'",
+          "sha256": "ca702a55d4decd0b029b20514365922813e3da2ff25bd5217f70eabd745c5a9b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 242,
+          "callee": "it",
+          "name": "'parses Arabic punctuation with ASCII digits'",
+          "sha256": "00a231b1cd6bb06b57bf1cbfc912aca74e968e8f49755fe8fd9c000ef794bf60",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 246,
+          "callee": "it",
+          "name": "'removes various Unicode space groupings (fr-FR)'",
+          "sha256": "ab20fb9c931c202e95798c9bcac0f7a7a0131620bb3fd822f756b3666cef8dab",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 253,
+          "callee": "it",
+          "name": "'handles Swiss grouping apostrophe'",
+          "sha256": "56222f6f13aec62bd01b502edc39f43eb7c05a9c6de71767b09feaa400106456",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 259,
+          "callee": "it",
+          "name": "'parses de-DE formatted numbers'",
+          "sha256": "11bd74f966c140116341ad03034d9e137dd1cb0af99768072aa0e6064fdd400c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 264,
+          "callee": "it",
+          "name": "'parses currency prefix/suffix across locales'",
+          "sha256": "19fb848bd9e44539abfab7ead1eac6878805a5077b408b18441e55fd0f99d828",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 275,
+          "callee": "it",
+          "name": "'parses units with different formats'",
+          "sha256": "1a933d751867fb7ecb1c8163ab91978a8925b5c3c15db03f81577c1c3ffca9fb",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 282,
+          "callee": "it",
+          "name": "'treats bidi/format controls as ignorable in the middle of input'",
+          "sha256": "2f1b199312d1a269d466e3b99bd6b024d82fbd9277665ccaa4ad3f434d1e4c18",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 287,
+          "callee": "it",
+          "name": "'returns null for Infinity with explicit sign and surrounding spaces'",
+          "sha256": "0888d18f9b0dc104ba067bb1e4d214740306433ee4e6a792e75bc00e722121e8",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 293,
+          "callee": "it",
+          "name": "'collapses multiple consecutive dots keeping only the last as decimal'",
+          "sha256": "181ede346def28eeb45780044cf4c20c0af3ed447ccd9ac215659a534bd97e89",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 303,
+          "callee": "it",
+          "name": "'maps the full Persian digit range'",
+          "sha256": "2fcefa45a803e62a98dae61c4f1bb2ecb1bb6039e5bc0775cabe0e80fb97636c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 307,
+          "callee": "it",
+          "name": "'maps the full fullwidth digit range'",
+          "sha256": "eb16caf016b459b3462183add9ee1a109be2328ac6a3f265dc9c5e2d568ee5e0",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 311,
+          "callee": "it.skipIf(!isJSDOM)",
+          "name": "'maps the full Arabic-Indic digit range'",
+          "sha256": "97aa372c684808b18898fae0149826ff8d8328c184b879a044e26b52725ef49c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 311,
+          "callee": "it.skipIf",
+          "name": "!isJSDOM",
+          "sha256": "bcb41b6ed34c3d27133810ed8ff33381f4e39220c9197524a842f7ae965646b7",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 316,
+          "callee": "it",
+          "name": "'maps the full Han digit range'",
+          "sha256": "ac65e2dbba55a815fee34c38147d35dec63608b17cd1b96c7f0e5d1e5e63e647",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 320,
+          "callee": "it",
+          "name": "'maps both Han zero forms to 0'",
+          "sha256": "6677ae44403c2ec63a68a41e1bfd8d015b66101681c976b3bcd5af622ea56586",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 327,
+          "callee": "it",
+          "name": "'accepts a digit from every supported numeral system'",
+          "sha256": "ccbf4c540a3f90535a8d65fc6d9326553e7fbea9bdf3ad6fe096a78fe30136e7",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 334,
+          "callee": "it",
+          "name": "'rejects non-digit characters'",
+          "sha256": "47fd45a36bd7e13be9767fc91436d45af517acfb9f914a44e5ca4e401db52d29",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/number-field/utils/validate.test.ts",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/number-field/utils/validate.test.ts",
+      "sha256": "b16b5ea7992ade5b73b4da618ed8d263225ac95da1baae32a06242330359da6f",
+      "declarations": [
+        {
+          "line": 45,
+          "callee": "it",
+          "name": "'returns 0.3 for 0.2 + 0.1'",
+          "sha256": "6a41c543c925eec0b7968c94198404fe30b50b7c735757783bb0e15adbd7f51c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 49,
+          "callee": "it",
+          "name": "'cleans negative floating point noise without a format'",
+          "sha256": "7addd64813592201dcbde16993a5f8e183b6fbd4f0cc5388e9303a7aebeeeff6",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 53,
+          "callee": "it",
+          "name": "'preserves precision finer than 3 fraction digits without a format'",
+          "sha256": "ef3718a762920ae943b1d872daef390d7262286aae3edb147e543bee51b57c14",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 58,
+          "callee": "it",
+          "name": "'preserves safe integers exactly without a format'",
+          "sha256": "33e5e0ae6318cac9a40e089e271ca413b093df6c4b4142d57568fb78fbcab99d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 63,
+          "callee": "it",
+          "name": "'cleans 16-digit noise patterns from arithmetic'",
+          "sha256": "67969550680130e8b4b078718d8335675b378e152efd10fad0a975d7fe939d1c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 68,
+          "callee": "it",
+          "name": "'leaves large-magnitude noise uncleaned once one ULP exceeds the absolute cap'",
+          "sha256": "96e2d95ca9080bcbcbe6fc2c8013d95cecc57a879fd95d6457617a4f9e41959a",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 76,
+          "callee": "it",
+          "name": "'returns non-finite values untouched'",
+          "sha256": "b72c82f03e7c7514c8f23a74af5e187ef057d3442b22ae4cf647b58d6de089a3",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 82,
+          "callee": "it",
+          "name": "'rounds compact notation against its standard equivalent'",
+          "sha256": "95449a927724dbee39a53e276fc82763d270873ad31fb26154361131aa05728d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 90,
+          "callee": "it",
+          "name": "'returns 0.3 for 0.2 + 0.1 with maximumFractionDigits'",
+          "sha256": "77fc47c243811e5fe6ff113dbf1ac419060b983e6f0a950d3b975c0fe1eccab6",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 94,
+          "callee": "it",
+          "name": "'respects roundingMode when maximumFractionDigits is provided'",
+          "sha256": "f455ca108e9ef41587ad849cdbc9cfbbf6603299f9fc7710aa749936082d5d4d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 103,
+          "callee": "it",
+          "name": "'respects half-even rounding at ties'",
+          "sha256": "d227d1e88cb4afbe11ebe7fa203ad6eb7d10a86a0a8f40488b6b03036264451d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 118,
+          "callee": "it",
+          "name": "'respects rounding mode differences for negative values'",
+          "sha256": "8b7f686ea0e3e1950c8af48688d19af7be5c284d3dad990bef911a54d7f41f02",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 133,
+          "callee": "it",
+          "name": "'rounds percent values at display scale when maximumFractionDigits is provided'",
+          "sha256": "f435194f324c15568077d47a264581a83f3b5d767d1abe92ea4df282cd463bdb",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 149,
+          "callee": "it.each(['floor', 'ceil', 'trunc', 'expand'] as const)",
+          "name": "'preserves exact percent precision boundaries with roundingMode: %s'",
+          "sha256": "49a12a3e3cd76ca2d69b9929b9670b8c909a824915f3029b160cf1bda87e6415",
+          "kind": "parameterized",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 149,
+          "callee": "it.each",
+          "name": "['floor', 'ceil', 'trunc', 'expand'] as const",
+          "sha256": "2a48a45b4040ed986d86f20e75eb6141304befefbe5d187eca578a06fde7f8b0",
+          "kind": "parameterized",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 162,
+          "callee": "it",
+          "name": "'rounds percent values at display scale when only minimumFractionDigits is provided'",
+          "sha256": "d91ffd5ef526504b080fcd3e29a5fec4c6f61817b4358be6f5ee4305eb1bdd34",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 172,
+          "callee": "it",
+          "name": "'rounds values with significant digit precision'",
+          "sha256": "a3e0b2c66615ae2fc5fa53531a684f2bd248ac1d3552eeaee40076a835b1b67e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 181,
+          "callee": "it",
+          "name": "'rounds percent values at display scale when significant digits are provided'",
+          "sha256": "cccdca823e2028e2ffa1214fc23ca1bf07a13bd69d8ed6003f865173311303c7",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 191,
+          "callee": "it",
+          "name": "'rounds percent significant digit values without reintroducing binary noise'",
+          "sha256": "c6ffe24f232bdc84f7a36223826e09d41879cda8269698b2b102627d3ed965d3",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 205,
+          "callee": "it",
+          "name": "'preserves tiny percent significant digit values after scaling back'",
+          "sha256": "df043a1e0c9fbd859430cf85a67b3f87411c02de501d3010cae2d37723e6209d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 219,
+          "callee": "it",
+          "name": "'preserves meaningful percent precision above directional rounding boundaries'",
+          "sha256": "f4254ea099af95d96382af41f57276b12c5a3e78d47dc3ffeaaca4b66351c838",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 233,
+          "callee": "it",
+          "name": "'preserves high-precision percent fraction digits'",
+          "sha256": "a5e0eebc110176ff335adbf62e71f8408d09ba2e98517183b16b64104d6a8288",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 243,
+          "callee": "it",
+          "name": "'preserves high-precision percent boundaries with directional rounding'",
+          "sha256": "2532b2ee91e69a786fd520f78c4e34f54f95926051db8a2a9e5dc76ac1070fbc",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 258,
+          "callee": "it",
+          "name": "'preserves tiny values when Intl supports more than 20 fraction digits'",
+          "sha256": "8e5b202e6c9afa0ddb63fbc251e9413a74191a5a889a057f3189f0fadfcdb38f",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 262,
+          "callee": "it",
+          "name": "'uses percent fraction defaults when significant digits use roundingPriority'",
+          "sha256": "f7958bec0b0aec9f272334ece5f29c001df3ea674a724315ae9d9e42ae70299e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 276,
+          "callee": "it",
+          "name": "'respects roundingPriority when fraction and significant digits are provided'",
+          "sha256": "b521943f305ee29e3791d01a3b4842050566718edff60511d6a28cbd7dbab3cd",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 287,
+          "callee": "it",
+          "name": "'does not scale unit percent values when maximumFractionDigits is provided'",
+          "sha256": "566d499d13aecf7677766b5e50229cf5538ac7714f1e031445383f6e3507e423",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 298,
+          "callee": "it",
+          "name": "'rounds currency values without percent scaling'",
+          "sha256": "e7f48036c75518bc419ece2be0484a4ca555825e34acbe868bf668bdb76f430e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 309,
+          "callee": "it",
+          "name": "'rounds scientific currency code values'",
+          "sha256": "245b8914036788dbfdcc9edacf3ce6fc3023232de39f1fe9b5eb4208ba323fba",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 321,
+          "callee": "it",
+          "name": "'preserves negative values when signDisplay hides the sign'",
+          "sha256": "28385902fdfdba84d2eb07fd5f99fccf589b7b489ea410b6cf69d61a437833f7",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 334,
+          "callee": "it",
+          "name": "'rounds negative accounting currency values'",
+          "sha256": "6743ed8fa851a91dd4970c6b86b8862bf86c346551e2d97e3fb615131c6bc963",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 349,
+          "callee": "it",
+          "name": "'respects roundingMode when no precision is provided'",
+          "sha256": "f167128e2478c681adbdb67fb2251d39127724e6a7fbc9adaa11d842dccedbb5",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 358,
+          "callee": "it",
+          "name": "'respects roundingIncrement when maximumFractionDigits is provided'",
+          "sha256": "6b3253d49b77504b809b59518b15f1cf5331e41ccfa9d93461cef8ae26b189c9",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 368,
+          "callee": "it",
+          "name": "'keeps the original finite value when percent scaling overflows before Intl rounding'",
+          "sha256": "0931491b60fd927075558bc4cafd2af7287c266ae14696f7bc1aa56bc860fd98",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 378,
+          "callee": "it",
+          "name": "'rounds scientific notation values at their formatted scale'",
+          "sha256": "578e34dc295912e7e5c0a3f81e880e4f0054ec68ef2bfcb8f6a5bb3b6d5b7997",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 391,
+          "callee": "it",
+          "name": "'preserves non-invertible scientific rounded zero buckets'",
+          "sha256": "ade86b9c46984a33526b911064fe61436c0d0e2cc118dad79bbb43ee979e3cc3",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 407,
+          "callee": "it",
+          "name": "'rounds invertible scientific zero buckets'",
+          "sha256": "72104b4e53420ea134b52afde183ff9c370ad454575079ed5c7606cbc0448e58",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 418,
+          "callee": "it",
+          "name": "'returns 1000 for 1000, ignoring grouping'",
+          "sha256": "0ac34ad43bf13499b678758241e2771bc34e77ee1df64efad2d515274f73bfaf",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 422,
+          "callee": "it",
+          "name": "'ignores formatting style'",
+          "sha256": "47500d48b49eeb1c6604292858a7a0b8f9f4091355b878f8b0ae7b529b2c534c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 426,
+          "callee": "it",
+          "name": "'uses resolved maximumFractionDigits when only minimum is provided'",
+          "sha256": "bd1b028879e73f3a924538652a608a02ec098aa40259cbdee2c0cd70c64dc6b0",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 432,
+          "callee": "it",
+          "name": "'returns null when value is null'",
+          "sha256": "31702191f45550990a122d55abd7fe0156d7d80b7784580bf2bee22a36d82cd8",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 436,
+          "callee": "it",
+          "name": "'skips clamping when clamp is false'",
+          "sha256": "c8d2a014dd49b40c3f269970677d6387c60c4f5cfb3d469fc5d1912870868e32",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 449,
+          "callee": "it",
+          "name": "'preserves parsed input beyond 15 significant digits when step is undefined'",
+          "sha256": "dfb8f1725a369ae84cc83362ef54f9e312101141a16467384e5a580d2456c5ac",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 459,
+          "callee": "it",
+          "name": "'cleans arithmetic noise when stepping'",
+          "sha256": "c5d0d8679b891ea2578f24ea4428a77aa3cba7fbebb6e386b34b9669a57fbb95",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 465,
+          "callee": "it",
+          "name": "'preserves large fractional values when stepping cleanup would be too coarse'",
+          "sha256": "596d3de6c1da534df27ee72e849552f5a1e70159a00374e314b5121be3509235",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 473,
+          "callee": "it",
+          "name": "'preserves high-significance step values'",
+          "sha256": "5f9fe3030f56cbd6bf1d74a272c86437349849d6823129765a668b4b608c5f83",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 486,
+          "callee": "it",
+          "name": "'snaps 5 to 5 when step is 1'",
+          "sha256": "efef6ff5658917dfc79ad29dc9f9c911c5ef64be550b5359d7980535de52b0b2",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 490,
+          "callee": "it",
+          "name": "'snaps 5.5 to 5 when step is 1'",
+          "sha256": "b935d50b10f655a2128d393536bfaf57acdee5c04a246ac204bb9dd116dccd06",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 494,
+          "callee": "it",
+          "name": "'snaps -0.3 to -1 when step is 1'",
+          "sha256": "ce1471ce8d3e7248161de28dc8120e1a0856090dc3db413506378ba17faabd5b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 498,
+          "callee": "it",
+          "name": "'be same value when step is undefined and within bounds'",
+          "sha256": "34e8a0338c84eaa962f7c4dae06f5bd34e78458c418d5cb945094d17deadd3d5",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 507,
+          "callee": "it",
+          "name": "'snaps 9 to 5 when step is 5 and within bounds'",
+          "sha256": "238af113caf285b2981a74c78ce6cc81a3d55121ade9a97e92405217f0ee6c72",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 516,
+          "callee": "it",
+          "name": "'snaps 12 to 10 when step is 5 and within bounds'",
+          "sha256": "0f80b5fe2278814a9528c6fec37e940d0ac7d02d3c635d32d84def330980904d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 525,
+          "callee": "it",
+          "name": "'preserves exact value when snapOnStep is false'",
+          "sha256": "cb9a798fa3a406260159fb4fdec0ad10beb2ad8ece30488e1829d0b2636e99ef",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 537,
+          "callee": "it",
+          "name": "'snaps 5 to 5 when step is -1'",
+          "sha256": "ab7f9d51688421df471094c59b9f4cf4b465203e5cf2e24e6de39e4ad3f2ca2a",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 546,
+          "callee": "it",
+          "name": "'snaps 5.5 to 6 when step is -1'",
+          "sha256": "406985b706257bb07a2f0b1b049b6128e71bb9b973c21996d2f40e97c8750de8",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 555,
+          "callee": "it",
+          "name": "'snaps -0.3 to 0 when step is -1'",
+          "sha256": "e414666456d68b102deba9ffbdb5b5144677c65d252ebbb3b1533e3a6f3f4e25",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 564,
+          "callee": "it",
+          "name": "'be same value when step is undefined and within bounds'",
+          "sha256": "34e8a0338c84eaa962f7c4dae06f5bd34e78458c418d5cb945094d17deadd3d5",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 573,
+          "callee": "it",
+          "name": "'snaps 9 to 10 when step is -5'",
+          "sha256": "8c0029a50cc84116cc5f6eff66f362a688f93361d876808e3b9b1dff84f91b1f",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 582,
+          "callee": "it",
+          "name": "'snaps 12 to 15 when step is -5'",
+          "sha256": "b6c38ee7c1c10c5e24271c88bf6e50935c8f7e7f9f8cfbede0bd4487aee2649a",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 591,
+          "callee": "it",
+          "name": "'preserves exact value when snapOnStep is false'",
+          "sha256": "2070161600411f8c772085d89398a1a2d885fa8e47669eef6675648f1c4ff7a1",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 603,
+          "callee": "it",
+          "name": "'applies roundingMode after step validation'",
+          "sha256": "3c62b0eddc95a085d0c068967c6d4070ce3b92830ee64e5228141b8a35984c6e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 617,
+          "callee": "it",
+          "name": "'clamps the final value after percent rounding crosses max'",
+          "sha256": "b255fa984d089a9a41ad9d58f1530a89da59c89c729e0ec69db1e36f0290a9fc",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 632,
+          "callee": "it",
+          "name": "'clamps the final value after directional percent rounding crosses min'",
+          "sha256": "c0cdba66557b5793403f14b14812423b9fa582a142f920bfa49acc238a13852f",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 649,
+          "callee": "it",
+          "name": "'removes floating point errors when stepping'",
+          "sha256": "a19f029ab052e8d03435f30f73767ad2c9dcfe6a16c5262f926f016248ea1a3b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 659,
+          "callee": "it",
+          "name": "'clamps before rounding for non-integer bounds'",
+          "sha256": "6ba92b3aed66e9c75a9f1967220f602d24cdb7dc8c26937664e24d1ba27255d1",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 677,
+          "callee": "it",
+          "name": "'handles increment with step 0.1 without getting stuck'",
+          "sha256": "e4b3e4346d726ff56674fb4d96915912be435bce19dbc635b3668f76ecd60a4b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 689,
+          "callee": "it",
+          "name": "'handles decrement with step -0.1 without getting stuck'",
+          "sha256": "47037ff6933e5ad978c373259a5a25d32c2fb4fc50a49eba3142863772927287",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 700,
+          "callee": "it",
+          "name": "'handles multiple increments with step 0.01'",
+          "sha256": "4cd4ef2fc959e85e89656dc633a1d4122163e0e5ec92df35fcb940a9fc131b13",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 710,
+          "callee": "it",
+          "name": "'handles fractional step when a minimum is set'",
+          "sha256": "8b5d2cbac11660675fdbcaddd2e20f443a8394df4d2d46dc7165afd75846331c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 721,
+          "callee": "it",
+          "name": "'rounds to the nearest value when using small step'",
+          "sha256": "0096ed099a6cf1771a83fe2cca5bd31cdd747688f37c7129ecaf80192662b306",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 732,
+          "callee": "it",
+          "name": "'rounds negative small steps to the nearest value'",
+          "sha256": "bbff5228f08638c2e71ad1687d2674e3330fbb92289f59e9e1a097068d4a07e5",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 744,
+          "callee": "it",
+          "name": "'keeps rounded out-of-range values when clamping is disabled'",
+          "sha256": "f159e9bed797e49ffdc2ee8deed2f3ec7699ec7b62f4fe65ff7ecaf9734352fb",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 761,
+          "callee": "it",
+          "name": "'clamps to a non-step-aligned max after snapping so the boundary is reachable'",
+          "sha256": "ad7e061c2eb932af05105b406b56cb9a47bc3f76bad17309dff50ca093acbfc3",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 774,
+          "callee": "it",
+          "name": "'clamps to a non-step-aligned min after snapping so the boundary is reachable'",
+          "sha256": "f39baf12d7481b9e3947f51ec7cec9e9f83e2faf27698fa0536ef5bec69ce5d5",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    }
+  ]
+}

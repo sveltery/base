@@ -1,0 +1,51 @@
+# NumberField source correspondence
+
+Reference: Base UI 1.8.0 immutable `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, MIT. The complete recursive runtime/type [import graph](source-graph.json), original file hashes and [declaration inventory](original-assertions.json) are committed before implementation. The [machine record](source-correspondence.json) retains every recursive source module, including unrelated barrel/type edges. Zero ordinary assertion credit is claimed.
+
+| Original module/functions at the pin | Actual used local business port/native primitive | Boundary and review |
+| --- | --- | --- |
+| NumberFieldRoot: getAllowedNonNumericKeys, getStepAmount, setValue, incrementValue, focusInput, handleWheel, hidden autofill | `number-field/root/NumberFieldRoot.svelte`, same functions | Preserve numeric-state/text-state division, callback/cancel/setDirty order, input-prefix clamping, pending commits, precision, non-passive wheel and hidden native submission/validity. Canonical useControlled plus native runes/context/attachments. |
+| NumberFieldRootContext, NumberFieldScrubAreaContext | Corresponding native Svelte contexts | Live getters/ref objects; original missing-provider guards and state ownership. |
+| NumberFieldInput: onFocus/onBlur/onChange/onKeyDown/onPaste, registration, caret restore, value-change validation | `number-field/input/NumberFieldInput.svelte` | Actual canonical Field registration/validation/Form errors/Labelable dependencies; native `oninput` handles text edits, native events replace synthetic wrappers. Keep all source branch/order/cancellation/precision contracts. |
+| useNumberFieldStepperButton: commitValue, tick/onStop, onClick/onPointerDown | `number-field/root/useNumberFieldStepperButton.svelte.ts` and shared StepperButton component | Increment/Decrement reuse one implementation; canonical useButton and renderer; no Button legacy props. |
+| usePressAndHold: startAutoChange/stopAutoChange, pointerHandlers, shouldSkipClick/isTouchLikePointerType | New canonical `internals/usePressAndHold.svelte.ts` | Actual 400ms initial/60ms repeat/50ms touch intent, scroll-distance cancellation, source release/contextmenu/listener cleanup; native external-system effects. |
+| parse: locale details, format parts, numeral/sign/symbol normalization, shiftDecimal/parseNumber | `number-field/utils/parse.ts` | Start from entire original body; preserve supported numeral systems, percent/permille, exponent, grouping, mixed-locale and Infinity guards. |
+| validate: hasNumberFormatRoundingOptions, removeFloatingPointErrors, snapToStep/toValidatedNumber | `number-field/utils/validate.ts` | Original epsilon/cap, source snap → clamp → numeric cleanup → clamp sequence. Preserve source precision trade-offs. |
+| formatNumber/getFormatter → stringifyLocale; clamp | New canonical `utils/formatNumber.ts`, `utils/stringifyLocale.ts`, `utils/clamp.ts` | Source cache key/Intl operation and exact clamp; no helper duplication. New helper lease coordinated with Root. |
+| useInterval/Interval | New canonical `utils/useInterval.ts` | Source Interval extends accepted Timeout; native mount teardown, same interval clear/start. |
+| NumberFieldGroup | `number-field/group/NumberFieldGroup.svelte` | Thin source context/state renderer. |
+| NumberFieldScrubArea: onScrub/onScrubbingChange, pointer move/release, request/exit pointer lock | `number-field/scrub-area/NumberFieldScrubArea.svelte` | Native flushSync replaces ReactDOM flushSync; preserve viewport wrapping, sensitivity/direction, original raw delta and guarded cleanup. |
+| NumberFieldScrubAreaCursor/createPortal | `number-field/scrub-area-cursor/NumberFieldScrubAreaCursor.svelte` | Native attachment moves actual cursor host to its owner document body and cleans up; native context/lifetime. Preserve WebKit/touch/denied guards. |
+| getViewportRect/stateAttributesMapping/utility types | `number-field/utils/getViewportRect.ts`, `stateAttributesMapping.ts`, `types.ts` | Actual source bodies/type aliases; fieldValidityMapping reused. Legacy constants and standalone DataAttributes enums are unselected by the pinned public family and have no dead local copies. |
+| Field/Form/Fieldset/Labelable/registration/useValueChanged; rendering/mergeProps/refs; useButton/owner/timeout/stable callback | Existing canonical accepted source ports | Entire used closure remains in final source/native/maintainability review, including out-of-diff bodies. No second controller or validation engine. |
+| platform source and addEventListener classification | Canonical separately owned PR55 prerequisite after normal main integration | No private copy and no claim that development copy is accepted. |
+| floating-utils activeElement/getTarget | Native owner-document activeElement and composed event target | Selected leaf bodies, shadow-root handling retained through canonical shadowDom helpers; unrelated Floating barrel exports remain unselected. |
+| React-only render/context/memo/ref/state/lifecycle/synthetic types/SafeReact owner stack | Native Svelte runes/context/snippets/attachments/tick/flushSync and actual native events/types | User native-Svelte directive; no forced React tracking, insertion guards or StrictMode replay. Native differences require observed evidence and zero divergent credit. |
+
+The seven-part implementation now uses the mapped paths and original bodies. The machine record names the actual recursively used local runtime/type closure and hashes, including out-of-diff helpers. The [ledger](README.md) records executed SSR/hydration, actual DOM/cancellation/Field/Form, installed public consumers, secured hosted paired browser and repository checkpoints. They do not establish accepted final source/native/maintainability review. External Intl and DOM APIs remain real boundaries. Actual prerequisite main integration, exact final-head CI and fresh whole-closure review remain outstanding.
+
+## Shared helper implementation checkpoint
+
+The numeric/locale/cache/Interval/press-and-hold helper bodies now exist at the canonical shared paths above. NumberField is their real consumer in the working family. `addEventListener.ts` and `mergeCleanups.ts` reuse exact published Dialog42 checkpoint `17006204a66c9ddb77cade10f83605b51925569a` bytes at the same canonical paths, under the Root-coordinated development dependency lease. That checkpoint is unaccepted pending whole-closure review; no second implementation is introduced. Platform is the normally locally integrated published PR55 `35ba718b3d6e425cab5729eb46fb1c30be2c042c`, explicitly an unmerged development dependency pending normal accepted main integration.
+
+| Canonical shared leaf | SHA-256 | Business/native boundary |
+| --- | --- | --- |
+| `utils/clamp.ts` | `96e2dcc83d37bbe52ac6d4f65b205859eae0017c4208551f00a16195c176ec35` | Actual source body; native events/live runes/lifecycle only where required. |
+| `utils/stringifyLocale.ts` | `6822bbd143dfdee434bdecfea1da34fc65681d550b5dd3473f3efb6b8fb746cb` | Actual source body; native events/live runes/lifecycle only where required. |
+| `utils/formatNumber.ts` | `393dedb1ddf8bda2d837b3a592f40817768648b86e83f032ad4639394cae7319` | Actual source body; native events/live runes/lifecycle only where required. |
+| `utils/useInterval.ts` | `cd770d55465d31d370e1f9822e6af07040d5bc0e15adfed70535d8b3df24d797` | Actual source body; native events/live runes/lifecycle only where required. |
+| `internals/usePressAndHold.svelte.ts` | `6f9d6fe34087723aaec3382d4c493db593b616fe19ce610b4009834e9bed6788` | Actual source body; native events/live runes/lifecycle only where required. |
+| `utils/addEventListener.ts` | `77880d75a5c8c5ac2d924e69d7cc7662c616b953d4895c8e6a24de53de4502bf` | Actual source body; native events/live runes/lifecycle only where required. |
+| `utils/mergeCleanups.ts` | `28eb97759c815e7a3edcb4a5ac4464473790ae9294bda5a66ba268bca8efedcb` | Actual source body; native events/live runes/lifecycle only where required. |
+
+Executed local development evidence: the canonical library builds and typechecks with zero errors/warnings after local PR55 development integration. The complete original parse/validate helper assertion bodies pass 131 executions with two retained original conditional skips. Native rendered family/Field/Form/viewport checks initially pass 18 with one original browser-only viewport branch skipped. Expanded timer/scrub tests retain source timing and cancellation and caught a corrected native portal teardown leak. These execution counts add zero ordinary declaration credit; final-family and exact-head acceptance remain outstanding.
+
+## Native live numeric reader
+
+`useValueAsRef` becomes a native live numeric reader plus one transient slot for the source stepper `commitValue` assignment. Consecutive native DOM handlers read the latest source numeric value before DOM synchronization, while the explicit dirty-text assignment still supplies the base for that same step interaction. The actual post-DOM numeric/format revision clears this temporary slot. Three consecutive keyboard dispatches without intervening flush produce commits 3, 4, 5. This is a small used framework boundary, not another value controller.
+
+The pinned family never imports its legacy `utils/constants.ts` or standalone part DataAttributes files. Their unselected source status is explicit in the machine record; no dead copies remain. Canonical source state mapping generates the actual scrubbing/disabled/required/readOnly/Field validity attributes.
+
+## Blur validation ordering repair
+
+The independent `31bb800` review found that a native live `value` read after `setValue` reset the source blur revalidation guard prematurely. The original handler compares against the numeric value before its updates. `onblur` now captures that event-local numeric snapshot and uses it in the same four source comparisons; no renderer tracking is added. Four native regressions check settled sync/async validity, customError, error/error-array, numeric value, validator call/value ordering and later controlled-owner change. Paired secured supplements use the same source numeric/validity expectations; React's actual native `focusout` event and Svelte's actual native `blur` event retain separate literal event-type assertions. This is a fidelity repair, with zero added ordinary declaration credit.

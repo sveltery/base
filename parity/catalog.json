@@ -147,9 +147,9 @@
     },
     {
       "upstreamModule": "number-field",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "NumberField",
+      "evidence": "parity/number-field/README.md"
     },
     {
       "upstreamModule": "otp-field",

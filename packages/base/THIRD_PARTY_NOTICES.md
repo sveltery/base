@@ -53,3 +53,5 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 Shared controlled state, stable callbacks, initialized refs, timeouts, mount/layout synchronization, value-change tracking, development logging and immutable fallbacks derive from packages/utils/src and packages/react/src/internals/useValueChanged.ts at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT license, original dependency hashes and explicit native framework replacements are preserved in parity/shared-utils.
+
+NumberField Root/Input/Group/Increment/Decrement/ScrubArea/ScrubAreaCursor, locale parsing/numeric validation/viewport helpers, and canonical clamp, stringifyLocale, formatNumber, Interval and press-and-hold derive from Base UI v1.8.0 immutable commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c, MIT. Their full original runtime/type graph, file hashes, function correspondence and assertion provenance are retained in parity/number-field. Canonical addEventListener/mergeCleanups reuse the published Dialog source bodies at the same shared paths; native Svelte runes/events/context/snippets/attachments replace framework representation.

@@ -195,6 +195,7 @@ bash "$sveltery_repo_root/scripts/check-field-form-package.sh" --public
 
 # Actual installed public Radio/RadioGroup source composition and typed consumer.
 bash "$sveltery_repo_root/scripts/check-radio-package.sh"
+bash "$sveltery_repo_root/scripts/check-number-field-package.sh"
 # Real source checked families: public subpaths/types and SSR without browser globals.
 bash "$sveltery_repo_root/scripts/check-boolean-controls-package.sh"
 

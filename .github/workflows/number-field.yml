@@ -1,0 +1,67 @@
+name: NumberField source acceptance
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: number-field-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  number-field-browser:
+    name: NumberField browser
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+        with:
+          version: 12.6.0
+          run_install: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Frozen workspace install
+        run: bash scripts/bootstrap.sh
+      - name: Check out the immutable original source closure
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          repository: mui/base-ui
+          ref: 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c
+          path: .checks/number-field/upstream
+          persist-credentials: false
+      - name: Verify complete source and assertion hashes with exact installed references
+        run: node parity/number-field/verify-source.mjs .checks/number-field/upstream
+      - name: Build actual library
+        run: pnpm --filter @sveltery/base build
+      - name: Installed public root and NumberField subpath consumer
+        run: bash scripts/check-number-field-package.sh
+      - name: Install official secured Chromium
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Actual React 19.2.8 and native Svelte NumberField source acceptance
+        env:
+          PLAYWRIGHT_JSON_OUTPUT_NAME: .checks/number-field/browser-results.json
+        run: |
+          set -o pipefail
+          mkdir -p .checks/number-field
+          pnpm exec playwright test tests/browser/number-field.spec.ts --reporter=list,json | tee .checks/number-field/browser.log
+      - name: Preserve actual NumberField observations and traces
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: number-field-browser-evidence
+          path: |
+            .checks/number-field/
+            test-results/number-field-*/
+          if-no-files-found: warn
+          retention-days: 14
