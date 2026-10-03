@@ -154,8 +154,8 @@ if (!unpatched) {
       expect(await counter(page)).toBe(before + 1);
     });
   }
-  test('Kit compatibility acceptance: SSR emits ordinary method/action/control defaults before hydration', async ({ browser }) => {
-    const context = await browser.newContext({ javaScriptEnabled: false });
+  test('Kit compatibility acceptance: SSR emits ordinary method/action/control defaults before hydration', async ({ browser, baseURL }) => {
+    const context = await browser.newContext({ javaScriptEnabled: false, baseURL });
     try {
       const page = await context.newPage();
       await page.goto('/kit-submit-compat?mode=replacement');
