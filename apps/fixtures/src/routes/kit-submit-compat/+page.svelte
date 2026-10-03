@@ -81,7 +81,7 @@
   {/if}
   <button onclick={() => { canceled = false; }}>Allow submission</button>
   <button onclick={refreshCounter}>Read server counter</button>
-  {#each gates as gate}
+  {#each gates as gate (gate.release)}
     <button onclick={() => { gate.release(); gates = gates.filter(item => item !== gate); }}>Release {gate.intent}</button>
   {/each}
   <output id="compat-result">{JSON.stringify(remote.result ?? null)}</output>

@@ -1,10 +1,10 @@
 # SvelteKit remote submit cancellation
 
-SvelteKit 2.70.3's remote form attachment submits an already canceled event. That prevents ordinary `onsubmit` cancellation and Base Form's synchronous Field validation from blocking a remote request. Sveltery retains the original Form validation, focus and cancellation sequence; the optional Kit patch makes Kit honor that sequence.
+SvelteKit 2.70.3's remote form attachment submits an already canceled event. That prevents ordinary `onsubmit` cancellation and Base Form's synchronous Field validation from blocking a remote request. Sveltery retains the original Form validation, focus and cancellation sequence; the explicit Kit patch makes Kit honor that sequence. Applications using Kit 2.70.3 must apply it when they rely on synchronous Form validation or authored submit cancellation. It is optional for applications that do not rely on that contract.
 
 ## Application setup
 
-This repository applies a reviewable one-line patch through pnpm's `patchedDependencies`. The patch is also included in the Base package's `patches` directory. It is optional setup for applications using Kit remote forms, not a Sveltery runtime dependency or an automatic postinstall modification.
+This repository applies a reviewable one-line patch through pnpm's `patchedDependencies`. The patch is also included in the Base package's `patches` directory. It is required application setup for this cancellation contract on Kit 2.70.3, not a Sveltery runtime dependency or an automatic postinstall modification. Installing Base alone does not fix Kit.
 
 For a pnpm application with **Kit pinned to 2.70.3**, copy the patch from the installed Base package into the application:
 
@@ -45,7 +45,7 @@ Calling `remote.submit()` directly remains Kit's programmatic API; it does not d
 - Original remote form source SHA-256: `40ef548ea4da3e79a305ae25113506f1e019c4a7ef78d526c69dea23ee440401`.
 - Patched remote form source SHA-256: `00b87303b7d268906809f889b2e342fdee89bd03dd417023a5fd055d94b518b1`.
 - [Package patch](../packages/base/patches/@sveltejs__kit@2.70.3.patch) and [upstream license](../packages/base/patches/LICENSE.sveltekit).
-- Decision: the PM explicitly authorized this minimal dependency compatibility patch in the Form API implementation delegation on October 2, 2026 PDT. This is a Kit dependency correction, not a Base UI business-behavior change or a claim that unpatched Kit supports cancellation.
+- Compatibility decision: apply this explicit dependency correction for prior-event cancellation, retain the original Base Form business sequence, and preserve caller-owned Kit enhancement. Unpatched Kit is not supported for this cancellation contract.
 
 The patch source/installation checks and dedicated secured-browser fixture record acceptance separately. Unmodified Kit is retained as an explicit negative control in its own isolated workflow setup. That witness uses the same authored cancellation and Field rejection but expects Kit to send the request; it does not establish compatibility or upstream assertion credit. Patched acceptance requires zero remote POSTs and zero server counter changes for invalid/canceled attempts, followed by exactly one request and mutation on the next valid submission.
 
