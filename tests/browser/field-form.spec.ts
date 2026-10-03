@@ -84,25 +84,46 @@ for (const reference of [false, true]) {
     await page.locator('#submit').click(); expect((await read(page, 'submissions')).at(-1)).toEqual({ values: { email: 'value' }, reason: 'none' });
   });
 }
-for (const initialClient of [false, true]) test(`supplement native message ownership matches the actual pin across external/client updates with initialClient=${initialClient}`, async ({ page, browser }) => {
+for (const initialClient of [false, true]) test(`supplement Field.Error messages follow a literal Svelte list with initialClient=${initialClient}`, async ({ page, browser }, testInfo) => {
   const reference = await browser.newPage();
+  const nativeList = await browser.newPage();
+  const observations: { stage: string; selectedMessages: string[]; fieldRows: string[]; literalRows: string[]; reactRows: string[]; unchangedParityCredit: number }[] = [];
   try {
     const nativeInput = await setup(page, 'duplicates-custom-onChange', false), referenceInput = await setup(reference, 'duplicates-custom-onChange', true);
-    const match = async () => {
-      const expected = await reference.locator('#error li').allTextContents();
-      await expect(page.locator('#error li')).toHaveText(expected);
+    await nativeList.goto('/field-error-native');
+    await expect(nativeList.locator('main')).toHaveAttribute('data-hydrated', 'true');
+    const check = async (stage: string, selectedMessages: string[], reactRows: string[]) => {
+      await expect(page.locator('#error li')).toHaveText(selectedMessages);
+      await expect(nativeList.locator('#native-error li')).toHaveText(selectedMessages);
+      await expect(reference.locator('#error li')).toHaveText(reactRows);
+      observations.push({ stage, selectedMessages, fieldRows: await page.locator('#error li').allTextContents(), literalRows: await nativeList.locator('#native-error li').allTextContents(), reactRows: await reference.locator('#error li').allTextContents(), unchangedParityCredit: 0 });
     };
     if (initialClient) {
       await referenceInput.fill('first'); await nativeInput.fill('first');
-      await expect(reference.locator('#validity')).toContainText('"value":"first"'); await match();
+      await expect(reference.locator('#validity')).toContainText('"value":"first"');
+      await expect(page.locator('#validity')).toContainText('"value":"first"');
+      await nativeList.getByRole('button', { name: 'Client messages', exact: true }).click();
+      await check('initial-client', ['same', 'same'], ['same', 'same']);
     }
     await reference.getByRole('button', { name: 'Server duplicates', exact: true }).click();
-    await page.getByRole('button', { name: 'Server duplicates', exact: true }).click(); await match();
+    await page.getByRole('button', { name: 'Server duplicates', exact: true }).click();
+    await nativeList.getByRole('button', { name: 'Server messages', exact: true }).click();
+    await check('server', ['duplicate', 'duplicate'], initialClient ? ['same', 'duplicate', 'duplicate'] : ['duplicate', 'duplicate']);
+    const clientReactRows = initialClient ? ['same', 'duplicate', 'same', 'same'] : ['duplicate', 'same', 'same'];
     for (const value of ['changed', 'again']) {
       await referenceInput.fill(value); await nativeInput.fill(value);
-      await expect(reference.locator('#validity')).toContainText(`"value":"${value}"`); await match();
+      await expect(reference.locator('#validity')).toContainText(`"value":"${value}"`);
+      await expect(page.locator('#validity')).toContainText(`"value":"${value}"`);
+      await nativeList.getByRole('button', { name: 'Client messages', exact: true }).click();
+      await check(value, ['same', 'same'], clientReactRows);
+      expect((await read(page, 'validity')).errors).toEqual(['same', 'same']);
+      expect((await read(reference, 'validity')).errors).toEqual(['same', 'same']);
     }
     await reference.getByRole('button', { name: 'Empty errors', exact: true }).click();
-    await page.getByRole('button', { name: 'Empty errors', exact: true }).click(); await match();
-  } finally { await reference.close(); }
+    await page.getByRole('button', { name: 'Empty errors', exact: true }).click();
+    await check('empty-external', ['same', 'same'], clientReactRows);
+  } finally {
+    await testInfo.attach('native-error-message-observations', { body: JSON.stringify({ sourcePin: '47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c', initialClient, observations }, null, 2), contentType: 'application/json' });
+    await reference.close(); await nativeList.close();
+  }
 });
