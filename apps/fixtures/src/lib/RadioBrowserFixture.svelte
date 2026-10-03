@@ -39,6 +39,11 @@
   let calls = $state<unknown[]>([]);
   let ancestorClicks = $state(0);
   let submissions = $state<unknown[]>([]);
+  let validationCalls = $state(0);
+  function validate(value: unknown) {
+    validationCalls += 1;
+    return `Blur error: ${String(value)}`;
+  }
   onMount(() => {
     hydrated = true;
   });
@@ -92,7 +97,9 @@
 {#snippet content()}
   <Fieldset.Root disabled={current.fieldsetDisabled}>
     <Fieldset.Legend id="legend">Legend</Fieldset.Legend>
-    <Field.Root name={current.fieldName} id="field" invalid={current.invalid}>
+    <Field.Root name={current.fieldName} id="field" invalid={current.invalid}
+      validationMode={scenario === 'onblur' ? 'onBlur' : undefined}
+      validate={scenario === 'onblur' ? validate : undefined}>
       {#if current.label}<Field.Label id="group-label">Group</Field.Label>{/if}
       {#if current.description}<Field.Description id="description">Description</Field.Description>{/if}
       <Group
@@ -134,5 +141,6 @@
 <output id="ancestor-clicks">{ancestorClicks}</output>
 <output id="calls">{JSON.stringify(calls)}</output>
 <output id="submissions">{JSON.stringify(submissions)}</output>
+<output id="validation-calls">{validationCalls}</output>
 {/if}
 </main>

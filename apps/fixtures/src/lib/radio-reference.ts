@@ -9,14 +9,21 @@ import {
 } from 'react';
 import { version as reactDomVersion } from 'react-dom';
 import { createRoot } from 'react-dom/client';
-import { Radio } from '@base-ui/react/radio';
-import { RadioGroup } from '@base-ui/react/radio-group';
+import { Radio, type RadioRootProps } from '@base-ui/react/radio';
+import { RadioGroup, type RadioGroupProps } from '@base-ui/react/radio-group';
 import { Field } from '@base-ui/react/field';
 import { Fieldset } from '@base-ui/react/fieldset';
 import { Form } from '@base-ui/react/form';
 import { DirectionProvider } from '@base-ui/react/direction-provider';
+import { CompositeRoot } from '@base-ui/react/internals/composite';
 const Group = RadioGroup<string | null>;
-export function mountRadioReference(node: HTMLElement, scenario: string) {
+export function mountRadioReference(
+  node: HTMLElement,
+  scenario: string,
+  focusProps: Pick<RadioGroupProps<string | null>, 'onFocus' | 'onBlur'> = {},
+  renderOverride = false,
+  radioFocusProps: Pick<RadioRootProps, 'onFocus'> = {},
+) {
   function Fixture() {
     const initial = scenario.includes('empty') ? null : 'b';
     const controlled = scenario.startsWith('controlled');
@@ -37,6 +44,7 @@ export function mountRadioReference(node: HTMLElement, scenario: string) {
     const [submissions, setSubmissions] = useState<unknown[]>([]);
     const literalInput = useRef<HTMLInputElement>(null);
     const [literalCalls, setLiteralCalls] = useState(0);
+    const [validationCalls, setValidationCalls] = useState(0);
     if (scenario.startsWith('standalone-')) {
       return h(
         'main',
@@ -110,7 +118,19 @@ export function mountRadioReference(node: HTMLElement, scenario: string) {
             h(Fieldset.Legend, { id: 'legend' }, 'Legend'),
             h(
               Field.Root,
-              { name: 'choice', id: 'field' },
+              {
+                name: 'choice',
+                id: 'field',
+                validationMode: scenario.startsWith('onblur')
+                  ? 'onBlur'
+                  : undefined,
+                validate: scenario.startsWith('onblur')
+                  ? (value: unknown) => {
+                      setValidationCalls((previous) => previous + 1);
+                      return `Blur error: ${String(value)}`;
+                    }
+                  : undefined,
+              },
               h(Field.Label, { id: 'group-label' }, 'Group'),
               h(Field.Description, { id: 'description' }, 'Description'),
               h(
@@ -143,6 +163,8 @@ export function mountRadioReference(node: HTMLElement, scenario: string) {
                     )
                       setOwner(value);
                   },
+                  ...focusProps,
+                  render: renderOverride ? h('section') : undefined,
                 },
                 items.map((value) =>
                   h(
@@ -158,6 +180,7 @@ export function mountRadioReference(node: HTMLElement, scenario: string) {
                         nativeButton,
                         disabled: disabledFirst && value === 'a',
                         render: nativeButton ? h('button') : h('span'),
+                        ...radioFocusProps,
                       },
                       h(Radio.Indicator, {
                         ...{ 'data-testid': `indicator-${value}` },
@@ -185,9 +208,29 @@ export function mountRadioReference(node: HTMLElement, scenario: string) {
       h('output', { id: 'ancestor-clicks' }, ancestorClicks),
       h('output', { id: 'calls' }, JSON.stringify(calls)),
       h('output', { id: 'submissions' }, JSON.stringify(submissions)),
+      h('output', { id: 'validation-calls' }, validationCalls),
     );
   }
   const root = createRoot(node);
   root.render(h(Fixture));
+  return () => root.unmount();
+}
+
+export function mountCompositeFocusReference(
+  node: HTMLElement,
+  renderOverride: boolean,
+) {
+  const root = createRoot(node);
+  root.render(
+    h(CompositeRoot, {
+      props: [{ id: 'composite' }],
+      render: renderOverride ? h('section') : undefined,
+      children: h('input', {
+        id: 'textbox',
+        type: 'text',
+        defaultValue: 'hello',
+      }),
+    }),
+  );
   return () => root.unmount();
 }

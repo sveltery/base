@@ -15,6 +15,31 @@ for (const framework of ['react', 'svelte']) {
         '19.2.8/19.2.8',
       );
   };
+  test(`${framework} group descendant focus and containment preserve onBlur validation`, async ({
+    page,
+  }) => {
+    await open(page, 'onblur');
+    const field = page.locator('#field');
+    await expect(field).not.toHaveAttribute('data-focused');
+    await expect(field).not.toHaveAttribute('data-touched');
+    await expect(page.locator('#validation-calls')).toHaveText('0');
+    await page.getByTestId('radio-b').focus();
+    await expect(field).toHaveAttribute('data-focused', '');
+    await expect(field).not.toHaveAttribute('data-touched');
+    await page.getByTestId('radio-c').focus();
+    await expect(field).toHaveAttribute('data-focused', '');
+    await expect(field).not.toHaveAttribute('data-touched');
+    await expect(page.locator('#validation-calls')).toHaveText('0');
+    await expect(page.getByTestId('radio-b')).toHaveAttribute(
+      'aria-checked',
+      'true',
+    );
+    await page.locator('#submit').focus();
+    await expect(field).not.toHaveAttribute('data-focused');
+    await expect(field).toHaveAttribute('data-touched', '');
+    await expect(page.locator('#validation-calls')).toHaveText('1');
+    await expect(page.locator('#error')).toHaveText('Blur error: b');
+  });
   for (const scenario of ['standalone-empty', 'standalone-nonempty']) {
     for (const action of ['visible', 'hidden']) {
       test(`${framework} ${scenario} ${action} activation preserves source Field touch contract`, async ({

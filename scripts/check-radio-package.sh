@@ -29,7 +29,7 @@ cat > "$radio_consumer/Consumer.svelte" <<'SVELTE'
   const NumberGroup = RadioGroup<number>;
   const NumberRoot = Radio.Root<number>;
 </script>
-<Form><Field.Root name="storageType"><Field.Label>Storage</Field.Label><RadioGroup defaultValue="disk">
+<Form><Field.Root name="storageType"><Field.Label>Storage</Field.Label><RadioGroup defaultValue="disk" onfocusin={(event) => { const native: FocusEvent = event; event.preventBaseUIHandler(); void native; }} onfocusout={(event) => event.preventBaseUIHandler()}>
   <Radio.Root value="disk" inputRef={null}><Radio.Indicator />Disk</Radio.Root><SubRadio.Root value="cloud">Cloud</SubRadio.Root>
 </RadioGroup></Field.Root></Form>
 <SubGroup defaultValue={null} inputRef={null}><SubRadio.Root value={null} id="null-option">None</SubRadio.Root></SubGroup>
@@ -58,6 +58,9 @@ declare const details: GroupTypes.RadioGroupChangeEventDetails; exact<Root.Radio
 // Source defaults must accept strict string callbacks without explicit generic arguments.
 const stringCallback = (value: string) => value.toUpperCase();
 const defaultGroupProps: GroupTypes.RadioGroupProps = { value: 'disk', onValueChange: stringCallback };
+const nativeFocusGroup: GroupTypes.RadioGroupProps<string> = { onfocusin: (event) => { const native: FocusEvent = event; const host: HTMLDivElement = event.currentTarget; event.preventBaseUIHandler(); void [native, host]; }, onfocusout: (event) => event.preventBaseUIHandler() };
+const nativeFocusRoot: RadioTypes.RadioRootProps<string> = { value: 'disk', onfocusin: (event) => { const native: FocusEvent = event; event.preventBaseUIHandler(); void native; } };
+void [nativeFocusGroup, nativeFocusRoot];
 const defaultRootProps: RadioTypes.RadioRootProps = { value: { storage: 'cloud' }, inputRef: null };
 type IsAny<T> = 0 extends (1 & T) ? true : false;
 declare const rootValueDefault: IsAny<RadioTypes.RadioRootProps['value']>;

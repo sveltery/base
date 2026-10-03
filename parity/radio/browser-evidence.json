@@ -78,6 +78,17 @@
       "failure": "Witness-only intermediate retained the deliberately unchanged React direct-hidden source native-event expectation until literal renderer measurement. All four literal witnesses passed: React direct no native events, nested input+change; Svelte both input+change. Source touch/checked contracts passed.",
       "artifactId": 11266875566,
       "artifactZipSha256": "0037777bdadd5506b6e28f7980ce9aab9a83d3033f7ed84ffff8f363619ff86d"
+    },
+    {
+      "head": "dd608a8f8ad9a54049b67c6dd0c35943a08cec51",
+      "runId": 37101478323,
+      "url": "https://github.com/sveltery/base/actions/runs/37101478323",
+      "result": "success",
+      "passed": 52,
+      "failed": 0,
+      "scope": "Actual React/ReactDOM19.2.8 source families and measured literal/source native activation vectors. Earlier milestone before descendant focus-fidelity repair; does not clear new runtime head. Sandbox enabled, retries zero; zero ordinary declaration credit.",
+      "artifactId": 11266806188,
+      "artifactZipSha256": "907e8eb2fd2cc085490fb1574a61d0e661b8acdc681a8f79945c76b89d9fe79d"
     }
   ],
   "status": "Fresh exact-head run, configured review and independent whole-closure source/native/maintainability acceptance pending; no merge or exhaustive assertion parity claimed.",
@@ -111,6 +122,27 @@
       },
       "repair": "Use existing computed checked in native activation guard; no native currentTarget.checked test, new state owner, tracking or replay.",
       "supplementAccounting": "Paired standalone variants are native supplements with zero unchanged ordinary declaration credit; new exact-head secured evidence and independent review remain required."
+    },
+    {
+      "previousHead": "dd608a8f8ad9a54049b67c6dd0c35943a08cec51",
+      "sources": [
+        "packages/react/src/radio-group/RadioGroup.tsx",
+        "packages/react/src/internals/composite/root/useCompositeRoot.ts",
+        "packages/react/src/internals/composite/item/useCompositeItem.ts",
+        "packages/react/src/radio/root/RadioRoot.tsx"
+      ],
+      "contract": "Source bubbling focus reaches Field focus/touched/onBlur validation, descendant textbox select-all, roving item highlight, and touched-keyboard activation, with source consumer-first cancellation/order.",
+      "preRepairPairedJSDOM": {
+        "initialGroupVariants": 2,
+        "initialGroupPassed": 1,
+        "initialGroupFailed": 1,
+        "subsequentAffectedChainVariants": 24,
+        "subsequentAffectedChainPassed": 20,
+        "subsequentAffectedChainFailed": 4,
+        "failure": "Initially Svelte descendant radio focus never reaches Group Field state. After Group/CompositeRoot keys are repaired, four Svelte nested textbox modes still miss CompositeItem roving highlight; actual React19.2.8 passes all twelve paired counterparts. Historical intermediate witness failures from an incorrect Shift modifier or missing React state flush are retained as development logs, not source failures."
+      },
+      "repair": "Use native focusin on Group, CompositeRoot, CompositeItem and visible Radio Root, and native focusout on Group; all business bodies, containment and setter/commit order remain unchanged. Direct hidden input focus remains native onfocus.",
+      "supplementAccounting": "Meaningful paired source/native focus supplements have zero unchanged ordinary declaration credit; fresh exact-head secured and independent affected-closure review required."
     }
   ]
 }

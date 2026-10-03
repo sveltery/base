@@ -2346,7 +2346,7 @@
       ],
       "local": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
       "correspondence": "Same highlighted roving tab index/focus/hover and shared list-item registration.",
-      "localSha256": "58ec383752005e6d8ba523465fae142b1078ef77bdcc61e548ffb1b4f485f017",
+      "localSha256": "d0faf967447c35339c6ad06b8cc6218cf2002613844a4bdb7b1453fd5262afc3",
       "status": "implemented-awaiting-exact-head-review"
     },
     {
@@ -2615,7 +2615,7 @@
       ],
       "local": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
       "correspondence": "Source initial active/default/disabled index, map/replacement preservation, orientation/modifier/text-caret/RTL/loop/grid/Home-End/scroll/focus algorithm. Native state and live parameter readers replace render snapshots.",
-      "localSha256": "c74699f875b45f04a747a92bb9a452c0695133ff415a4defa164ca2d12124d6d",
+      "localSha256": "8db12d19818afe6509addc02e10a55082126da9be7a40d03f9a8f62a6e6b5d78",
       "status": "implemented-awaiting-exact-head-review"
     },
     {
@@ -3679,7 +3679,7 @@
       ],
       "local": "packages/base/src/lib/radio-group/RadioGroup.svelte",
       "correspondence": "Source controlled state/callback cancellation, representative ref registry, eligible form values, Field registration/value tracking and CompositeRoot ownership.",
-      "localSha256": "bb5903860e44f148beaf487baafdb74c487bb42b5427ca88d6f966c5ec012758",
+      "localSha256": "35ec21ae0c7e49df3454fe5360843171cf829a34b7bc44bb804d4510e7468111",
       "additionalLocalCounterparts": [
         {
           "local": "packages/base/src/lib/radio-group/types.ts",
@@ -3963,7 +3963,7 @@
       ],
       "local": "packages/base/src/lib/radio/root/RadioRoot.svelte",
       "correspondence": "Source-ordered Root state/hidden input/Field/Item/label/button/CompositeItem composition. Native onclick owns one radio activation; cancellation prevents its default before input/change.",
-      "localSha256": "10c8455458fb9a26c93cd28ad0c41caa1f8fca63e38d81aebb218dc75a65c18c",
+      "localSha256": "e6a1b213f783d001f3fbe171fc8e51ee4b763ec1a3e0d3f7150bf6ecaa063622",
       "additionalLocalCounterparts": [
         {
           "local": "packages/base/src/lib/radio/types.ts",
