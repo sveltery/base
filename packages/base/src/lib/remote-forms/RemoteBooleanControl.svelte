@@ -51,7 +51,17 @@
   const resolveRefAttachment = createRefAttachment<HTMLElement>((node, previous) => {
     if (node !== null || ref === previous) ref = node;
   });
-  const renderedProps = $derived({ ...semanticProps, [attachmentKey]: resolveRefAttachment(null) });
+  const renderedProps = $derived.by(() => {
+    const attributes = { ...semanticProps };
+    if ((descriptor.type ?? remote?.kind) === 'radio') {
+      // An authored RadioGroup owns selection; these checkbox-only props are
+      // not part of Radio.Root's visible host contract.
+      delete attributes.checked;
+      delete attributes.defaultChecked;
+      delete attributes.onCheckedChange;
+    }
+    return { ...attributes, [attachmentKey]: resolveRefAttachment(null) };
+  });
 </script>
 {#if render}
   {@render render(renderedProps, state, children)}

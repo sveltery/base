@@ -3,10 +3,12 @@
   import Form from '../../src/lib/form/Form.svelte';
   import CheckboxRoot from '../../src/lib/checkbox/root/CheckboxRoot.svelte';
   import CheckboxGroup from '../../src/lib/checkbox-group/CheckboxGroup.svelte';
+  import RadioRoot from '../../src/lib/radio/root/RadioRoot.svelte';
+  import RadioGroup from '../../src/lib/radio-group/RadioGroup.svelte';
   // @ts-expect-error Actual installed Kit helper has no declarations; test-only runtime probe.
   import { create_field_proxy } from '../../../../apps/fixtures/node_modules/@sveltejs/kit/src/runtime/form-utils.js';
   let { mode = 'boolean', initial = {}, submitted, cancel = false }: {
-    mode?: 'boolean' | 'array' | 'group' | 'nested';
+    mode?: 'boolean' | 'array' | 'group' | 'nested' | 'radio';
     initial?: Record<string, unknown>;
     submitted?: (values: Record<string, unknown>) => void;
     cancel?: boolean;
@@ -40,6 +42,21 @@
             </Field.Control>
           </Field.Root>
         </CheckboxGroup>
+      </Field.Root>
+    {:else if mode === 'radio'}
+      <Field.Root name="choice">
+        <RadioGroup value={fields.choice.value() ?? null} onValueChange={(value) => {
+          changes.push(value); fields.choice.set(value);
+        }}>
+          <Field.Control {...fields.choice.as('radio', 3)} name={fields.choice.as('number').name} defaultChecked={true}>
+            {#snippet render(props, state)}
+              <RadioRoot {...props} value={props.value} data-option="3" data-render-checked={String(state.checked)} />
+            {/snippet}
+          </Field.Control>
+          <Field.Control {...fields.choice.as('radio', 4)} name={fields.choice.as('number').name}>
+            {#snippet render(props)}<RadioRoot {...props} value={props.value} data-option="4" />{/snippet}
+          </Field.Control>
+        </RadioGroup>
       </Field.Root>
     {:else}
       <Field.Root name="choices" as="checkbox" value="a">
