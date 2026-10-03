@@ -21,3 +21,5 @@ The three raw terminal captures retain their original bytes, including trailing 
 | `browser-8b88b30-observation.log` | `55ba9f574a6ac5a3730eff46d75a95d3add09776c8c46eae5d21b0dce8f23fc2` |
 | `browser-b103288-observation.log` | `5a356e8d81649e31309a7169d7f71a65e102a539dcb19798cfc375a2154513de` |
 | `browser-b9c3185-observation.log` | `d9d72187cffdacfeb7ed82b117e2658d2734f5ee26c97a469d3de070fbeb80da` |
+
+Canonical source-core CI checkpoint `8438374` raises only the combined browser job's timeout from 25 to 35 minutes. The prior source-core run passed 1,919 of 2,020 collected cases before forced timeout; that incomplete run establishes no combined acceptance. The successor keeps the full selector, one worker, secured Chromium, zero retries and assertions unchanged. The checked-control runtime, types, probes and original raw captures are unchanged by this workflow-only dependency; complete final-head CI remains required.
