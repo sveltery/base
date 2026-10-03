@@ -306,3 +306,24 @@ Decision and evidence: the user authorized this typed remote/override design and
 Source: pinned [platform/shared.ts](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/platform/shared.ts). The original static browser classifier checks `process.env.NODE_ENV` before preferring development UA-CH. The canonical native port checks the existing `esm-env` `DEV` flag, retaining the original UA-CH/legacy reader, OS/engine branches and SSR defaults without requiring a browser Node global. The shared event helper uses native Event directly and omits the unused React synthetic-event discriminator; Composite imports its original `stopEvent` body rather than keeping a private duplicate.
 
 This framework substitution was requested during the source review; it introduces no new platform algorithm or component assertion credit. The [scoped source correspondence and complete original graph](../parity/shared-interaction-events/source-correspondence.md) record the source boundary, no-browser SSR classifiers, installed private utility import with no Node process, and public Radio browser navigation witness. The prerequisite is proposed and requires exact-head independent review and mandatory CI. Whole Dialog/OTP acceptance remains separate.
+
+## SA-01: native ScrollArea framework boundary
+
+Pinned Base UI1.8.0 immutable47b40521 `scroll-area` six-part source and
+`utils/styles.tsx`, MIT. Root/Viewport/Content/Scrollbar/Thumb/Corner preserve
+business algorithms and use native Svelte runes, contexts, lifecycle, snippets and
+attachments through the canonical renderer. The public native substitution uses
+`class`, lowercase DOM event props and bindable actual host refs. Native style
+markup stays within each owning Root rather than implementing React's stylesheet
+hoisting/deduplication. CSP nonce and exact constant scrollbar CSS are preserved;
+style suppression belongs to the real CSPProvider context.
+
+Decision: native framework substitutions follow the user's source-first/native
+Svelte directive; exact-head independent source/native/maintainability review and
+observable browser evidence remain pending. No business fix or generic waiver is
+approved. Original95 ordinary declarations, one parameterized declaration/three
+variants and six conformance calls retain separate provenance; divergent native
+assertions earn zero unchanged credit. See [ScrollArea evidence](../parity/scroll-area/README.md)
+and [API](scroll-area.md). This feature normally integrates reviewed PUBLIC PR55
+only as a development dependency; its separately blocked merge to actual main is
+not bypassed or authorized by this record.

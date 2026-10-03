@@ -34,3 +34,7 @@ The [ordinary assertion inventory](../parity/README.md) is separately scoped. Sh
 The [Collapsible ledger](../parity/collapsible/README.md) separately records 47 ordinary sites / 49 variants, with a portable scope of 41 sites / 43 variants. Six React.Activity cases remain deferred. Local DOM/SSR execution, paired browser executions, conformance helpers, type checks and supplements are distinct from verified ordinary declaration credit.
 
 The [Accordion ledger](../parity/accordion/README.md) separately inventories 39 ordinary sites / 43 variants, portable 38 / 42 and one deferred Activity declaration. Parameterized disabled, conformance, types, supplemental execution and final-head acceptance remain separate.
+
+[ScrollArea](scroll-area.md) adds the complete six-part source composition on its
+feature branch. Its source correspondence, assertion accounting and execution
+gates remain separately recorded; it is not labeled fully compatible.
