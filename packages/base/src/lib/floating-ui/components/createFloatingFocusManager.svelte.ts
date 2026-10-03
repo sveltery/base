@@ -143,7 +143,7 @@ function handleTabIndex(floatingFocusElement: HTMLElement) {
 }
 
 export interface FloatingFocusManagerProps {
-  
+
   /**
    * The floating context returned from `useFloatingRootContext`.
    */

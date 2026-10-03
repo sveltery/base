@@ -27,7 +27,8 @@
   const uniqueId = generatedId;
   const attr = createAttribute('portal');
   const parentPortal = usePortalContext();
-  const hostContext = getAllContexts();
+  // Immutable context snapshot: the source host subtree is outside this Portal's provider.
+  const hostContext = new Map(getAllContexts());
   let containerElement = $state.raw<HTMLElement | ShadowRoot | null>(null);
   let portalNode = $state.raw<HTMLElement | null>(null);
   let portalNodeId = $state<string | undefined>();

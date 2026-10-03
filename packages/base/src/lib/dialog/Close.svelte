@@ -1,21 +1,23 @@
 <script lang="ts">
-  import { buttonKeys } from './button.js';
-  import Element from './Element.svelte';
-  import { root } from './context.js';
+  // Original DialogClose business/render/button composition (MIT).
+  import RenderElement from '../internals/RenderElement.svelte';
+  import { useButton } from '../internals/use-button/useButton.svelte.js';
+  import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
+  import { REASONS } from '../internals/reasons.js';
+  import { useDialogRootContext } from './context.js';
   import type { DialogCloseProps } from './types.js';
-  let { children, render, disabled = false, nativeButton = true, ref = $bindable(), ...props }: DialogCloseProps = $props();
-  const controller = root();
-  function activate(event: MouseEvent | KeyboardEvent) {
-    if (disabled) { event.preventDefault(); return; }
-    if (!controller.open) return;
-    controller.closeMethod = event.type.startsWith('key') || (event instanceof MouseEvent && event.detail === 0) ? 'keyboard' : 'mouse';
-    controller.request(false, 'close-press', event);
+  let { children, render, class: className, style, disabled = false, nativeButton = true, ref = $bindable(), ...elementProps }: DialogCloseProps = $props();
+  const store = useDialogRootContext();
+  const { getButtonProps, buttonRef } = useButton(() => ({ disabled, native: nativeButton }));
+  const state = $derived({ disabled });
+  function handleClick(event: MouseEvent) {
+    if (store.select('open')) store.setOpen(false, createChangeEventDetails(REASONS.closePress, event));
   }
-  const internal = $derived({ type: nativeButton ? 'button' : undefined, disabled: nativeButton ? disabled : undefined,
-    role: nativeButton ? undefined : 'button', tabindex: nativeButton ? undefined : disabled ? -1 : 0,
-    'aria-disabled': !nativeButton && disabled ? true : undefined, 'data-disabled': disabled ? '' : undefined,
-    onclick: activate,
-    ...buttonKeys(() => disabled, () => nativeButton),
-  });
 </script>
-<Element tag="button" {internal} {props} state={{ disabled }} {render} {children} bind:ref/>
+<RenderElement
+  tag="button"
+  componentProps={{ render, class: className, style }}
+  params={{ state, ref: buttonRef, props: [{ onclick: handleClick }, elementProps, getButtonProps] }}
+  {children}
+  bind:element={ref}
+/>

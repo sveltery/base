@@ -1,7 +1,7 @@
 import { afterEach, expect, it } from 'vitest';
 import { mount, tick, unmount } from 'svelte';
 import Fixture from '../../../../apps/fixtures/src/lib/ModalIsolationFixture.svelte';
-import { isolateDialog } from '../../src/lib/overlay/isolation.js';
+import { markOthers } from '../../src/lib/floating-ui/utils/markOthers.js';
 import { mountModalIsolationReference } from '../../../../apps/fixtures/src/lib/modal-isolation-reference.js';
 // Paired source-derived supplements: attribute/lifecycle diagnostics, not browser evidence.
 const cleanup: (() => void | Promise<void>)[] = [];
@@ -103,8 +103,8 @@ it('document ownership stays independent across a native iframe and releases det
   const popup = document.createElement('div'); document.body.append(outside, popup);
   const otherOutside = other.createElement('button');
   const otherPopup = other.createElement('div'); other.body.append(otherOutside, otherPopup);
-  const first = isolateDialog(popup, true);
-  const second = isolateDialog(otherPopup, true);
+  const first = markOthers([popup], { ariaHidden: true });
+  const second = markOthers([otherPopup], { ariaHidden: true });
   cleanup.push(first, second);
   expect(outside.getAttribute('aria-hidden')).toBe('true');
   expect(otherOutside.getAttribute('aria-hidden')).toBe('true');

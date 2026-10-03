@@ -32,7 +32,8 @@ type Context = PopupStoreContext<DialogRootChangeEventDetails> & {
   readonly backdropRef: { current: HTMLDivElement | null };
   readonly internalBackdropRef: { current: HTMLDivElement | null };
   readonly outsidePressEnabledRef: { current: boolean };
-  readonly onNestedDialogOpen?: ((dialogCount: number, drawerCount: number) => void) | undefined;
+  onInternalOpenChange?: ((open: boolean, details: DialogRootChangeEventDetails) => void) | undefined;
+  onNestedDialogOpen?: ((dialogCount: number, drawerCount: number) => void) | undefined;
 };
 
 const selectors = {
@@ -92,6 +93,8 @@ export class DialogStore<Payload> extends SvelteStore<
       return;
     }
 
+    // Existing native observation seam: source state/cancellation/dispatch ownership is unchanged.
+    this.context.onInternalOpenChange?.(nextOpen, eventDetails as DialogRootChangeEventDetails);
     this.state.floatingRootContext.dispatchOpenChange(nextOpen, eventDetails);
 
     this.update(createPopupOpenState(this.state, nextOpen, eventDetails.trigger));

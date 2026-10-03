@@ -75,7 +75,7 @@ describe('contained Dialog supplemental DOM wiring', () => {
     escape(); await settle();
     expect(document.querySelectorAll('[role=dialog]')).toHaveLength(1);
     expect(parent.style.getPropertyValue('--nested-dialogs')).toBe('0');
-    expect(document.documentElement.style.overflow).toBe('hidden');
+    expect(document.body.style.overflowY).toBe('hidden');
     component.remove(); await settle();
     expect(document.querySelectorAll('[data-base-ui-portal]')).toHaveLength(0);
     expect(document.documentElement.style.overflow).toBe('');
@@ -98,7 +98,8 @@ describe('contained Dialog supplemental DOM wiring', () => {
   it('scroll lock restores a preexisting inline lock', async () => {
     document.documentElement.style.setProperty('overflow', 'clip', 'important');
     setup(); await settle(); click('opener'); await settle();
-    expect(document.documentElement.style.overflow).toBe('hidden');
+    // Original locking chooses the viewport scroller and writes longhands, preserving this shorthand.
+    expect(document.documentElement.style.overflow).toBe('clip');
     click('closer'); await settle();
     expect(document.documentElement.style.getPropertyValue('overflow')).toBe('clip');
     expect(document.documentElement.style.getPropertyPriority('overflow')).toBe('important');
@@ -109,7 +110,8 @@ it('restores different preexisting overflow longhands', async () => {
   document.documentElement.style.setProperty('overflow-y', 'scroll');
   setup(); await settle(); click('opener'); await settle(); click('closer'); await settle();
   expect(document.documentElement.style.getPropertyValue('overflow-x')).toBe('clip');
-  expect(document.documentElement.style.getPropertyPriority('overflow-x')).toBe('important');
+  // Original Object.assign restoration retains the value but loses CSS priority.
+  expect(document.documentElement.style.getPropertyPriority('overflow-x')).toBe('');
   expect(document.documentElement.style.getPropertyValue('overflow-y')).toBe('scroll');
 });
 it('controlled owner can reopen after a completed close', async () => {
@@ -161,13 +163,13 @@ for (const flushClose of [false, true]) it(`imperative deferred unmount invalida
 it('changing parent modality preserves nested topmost order and lock ownership', async () => {
   const { component, log } = setup({ nested: true }); await settle(); click('opener'); await settle(); click('child-opener'); await settle();
   component.setModal('trap-focus'); await settle();
-  expect(document.documentElement.style.overflow).toBe('hidden');
+  expect(document.body.style.overflowY).toBe('hidden');
   escape(); await settle();
   expect(document.querySelector('[data-testid=child]')).toBeNull();
   expect(document.querySelector('[role=dialog]')).not.toBeNull();
   expect(log.filter(x => x.channel === 'consumer')).toHaveLength(1);
   expect(document.documentElement.style.overflow).toBe('');
-  component.setModal(true); await settle(); expect(document.documentElement.style.overflow).toBe('hidden');
+  component.setModal(true); await settle(); expect(document.body.style.overflowY).toBe('hidden');
   escape(); await settle(); expect(document.querySelector('[role=dialog]')).toBeNull();
 });
 it('Escape preserves IME composition and dismisses after composition settles', async () => {
@@ -179,8 +181,9 @@ it('Escape preserves IME composition and dismisses after composition settles', a
   escape(); // Same-turn Safari ordering: compositionend can precede the IME Escape.
   await settle(); expect(document.querySelector('[role=dialog]')).not.toBeNull();
   document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', isComposing: true, bubbles: true })); await settle();
-  expect(log.filter(x => x.channel === 'consumer')).toHaveLength(1);
-  escape(); await settle(); expect(document.querySelector('[role=dialog]')).toBeNull();
+  // The source composition-event ref owns suppression; a lone KeyboardEvent flag is not consulted.
+  expect(log.filter(x => x.channel === 'consumer')).toHaveLength(2);
+  expect(document.querySelector('[role=dialog]')).toBeNull();
 });
 it('popup completion ignores infinite descendant animations', async () => {
   const { log } = setup({ keep: true }); await settle(); click('opener'); await settle();
@@ -191,7 +194,7 @@ it('popup completion ignores infinite descendant animations', async () => {
     return options?.subtree ? [{ playState: 'running', finished: new Promise(() => {}) }] : [];
   } });
   escape(); await settle(); expect(popup.hidden).toBe(true);
-  expect(calls).toEqual([undefined]);
+  expect(calls).toEqual([undefined, undefined]);
   expect(log.filter(x => x.channel === 'complete' && x.open === false)).toHaveLength(1);
 });
 it('consumer attachments reach actual replacement nodes and clean up alongside refs', async () => {

@@ -2,11 +2,12 @@ import RootComponent from './Root.svelte';
 import TriggerComponent from './Trigger.svelte';
 import PortalComponent from './Portal.svelte';
 import PopupComponent from './Popup.svelte';
+import ViewportComponent from './Viewport.svelte';
 import BackdropComponent from './Backdrop.svelte';
 import TitleComponent from './Title.svelte';
 import DescriptionComponent from './Description.svelte';
 import CloseComponent from './Close.svelte';
-import type { DialogRootProps, DialogRootState, DialogRootActions, DialogRootChangeEventReason, DialogRootChangeEventDetails, DialogTriggerProps, DialogTriggerState, DialogPortalProps, DialogPortalState, DialogPopupProps, DialogPopupState, DialogBackdropProps, DialogBackdropState, DialogTitleProps, DialogTitleState, DialogDescriptionProps, DialogDescriptionState, DialogCloseProps, DialogCloseState } from './types.js';
+import type { DialogRootProps, DialogRootState, DialogRootActions, DialogRootChangeEventReason, DialogRootChangeEventDetails, DialogTriggerProps, DialogTriggerState, DialogPortalProps, DialogPortalState, DialogPopupProps, DialogPopupState, DialogViewportProps, DialogViewportState, DialogBackdropProps, DialogBackdropState, DialogTitleProps, DialogTitleState, DialogDescriptionProps, DialogDescriptionState, DialogCloseProps, DialogCloseState } from './types.js';
 
 export const Root: typeof RootComponent = RootComponent;
 // eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve pinned erased component namespace types.
@@ -34,6 +35,12 @@ export const Popup: typeof PopupComponent = PopupComponent;
 export namespace Popup {
   export type Props = DialogPopupProps;
   export type State = DialogPopupState;
+}
+export const Viewport: typeof ViewportComponent = ViewportComponent;
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve pinned erased component namespace types.
+export namespace Viewport {
+  export type Props = DialogViewportProps;
+  export type State = DialogViewportState;
 }
 export const Backdrop: typeof BackdropComponent = BackdropComponent;
 // eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve pinned erased component namespace types.

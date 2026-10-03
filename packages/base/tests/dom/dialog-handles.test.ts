@@ -1,4 +1,4 @@
-// Supplemental controller/lifecycle characterization; ordinary source credit awaits full portable ports.
+// Supplemental source-store/lifecycle characterization; ordinary credit awaits full portable ports.
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { mount, tick, unmount, type ComponentProps } from 'svelte';
 import { createDialogHandle } from '../../src/lib/dialog/handle.svelte.js';
@@ -13,7 +13,7 @@ function setup(props: ComponentProps<typeof Fixture>) {
 function click(id: string) { document.getElementById(id)!.dispatchEvent(new MouseEvent('click', { bubbles: true, detail: 1 })); }
 function payload() { return document.querySelector('[data-testid=payload]')!.textContent; }
 afterEach(async () => { for (const instance of instances.splice(0)) await unmount(instance); document.body.replaceChildren(); vi.restoreAllMocks(); });
-describe('Root-owned Dialog handle controller', () => {
+describe('Root-owned original Dialog popup store and handles', () => {
   for (const action of ['open', 'payload', 'close'] as const) it(`attaches before descendant committed ${action}`, async () => {
     const handle = createDialogHandle<number>(); const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
     setup({ handle, mountAction: action, initial: action === 'close' }); await settle();
@@ -67,8 +67,8 @@ describe('Root-owned Dialog handle controller', () => {
     const handle = createDialogHandle<number>(); const completions: boolean[] = [];
     const component = setup({ handle, popup, onComplete: value => completions.push(value) }); await settle();
     handle.openWithPayload(8); await settle(); handle.close(); await settle();
-    expect(handle.isOpen).toBe(false); expect(handle.store.mounted).toBe(true); expect(completions.filter(value => !value)).toHaveLength(0);
-    component.forceUnmount(); await settle(); expect(handle.store.mounted).toBe(false); expect(completions.filter(value => !value)).toHaveLength(1);
+    expect(handle.isOpen).toBe(false); expect(handle.store.select('mounted')).toBe(true); expect(completions.filter(value => !value)).toHaveLength(0);
+    component.forceUnmount(); await settle(); expect(handle.store.select('mounted')).toBe(false); expect(completions.filter(value => !value)).toHaveLength(1);
   });
   it('forwards reactive payload while the owning trigger is mounted', async () => {
     const handle = createDialogHandle<number>(); const component = setup({ handle }); await settle();

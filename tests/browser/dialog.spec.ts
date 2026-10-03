@@ -169,14 +169,14 @@ test('Svelte nested dialogs count descendants, dismiss topmost, retain parent sc
   await expect(page.getByTestId('grandchild-popup')).toHaveCount(0);
   await expect(parent).toHaveCSS('--nested-dialogs', '1');
   await expect(page.getByTestId('child-popup')).toBeVisible();
-  expect(await page.evaluate(() => document.documentElement.style.overflow)).toBe('hidden');
+  expect(await page.evaluate(() => [document.documentElement, document.body].some(node => getComputedStyle(node).overflowY === 'hidden'))).toBe(true);
   await page.keyboard.press('Escape');
   await expect(page.getByTestId('child-popup')).toHaveCount(0);
   await expect(parent).toHaveCSS('--nested-dialogs', '0');
   await expect(parent).toBeVisible();
-  expect(await page.evaluate(() => document.documentElement.style.overflow)).toBe('hidden');
+  expect(await page.evaluate(() => [document.documentElement, document.body].some(node => getComputedStyle(node).overflowY === 'hidden'))).toBe(true);
   await page.keyboard.press('Escape'); await expect(parent).toHaveCount(0);
-  expect(await page.evaluate(() => document.documentElement.style.overflow)).toBe('');
+  expect(await page.evaluate(() => [document.documentElement, document.body].every(node => node.style.overflowY !== 'hidden'))).toBe(true);
 });
 test('Svelte nested outside click closes child only', async ({ page }) => {
   await start(page, '/dialog', '?nested');
@@ -193,7 +193,7 @@ test('Svelte cleanup removes portals, lock, labels and registrations across remo
   await expect(page.getByRole('button', { name: 'Mount toggle' })).toHaveCount(0);
   await page.getByRole('button', { name: 'Mount toggle', includeHidden: true }).evaluate((button: HTMLButtonElement) => button.click());
   await expect(page.locator('[data-base-ui-portal]')).toHaveCount(0);
-  expect(await page.evaluate(() => document.documentElement.style.overflow)).toBe('');
+  expect(await page.evaluate(() => [document.documentElement, document.body].every(node => node.style.overflowY !== 'hidden'))).toBe(true);
   await page.getByRole('button', { name: 'Mount toggle' }).click(); await page.locator('#trigger').click();
   await expect(page.getByTestId('popup')).toHaveCSS('--nested-dialogs', '0');
   await page.keyboard.press('Escape'); await expect(page.getByRole('dialog')).toHaveCount(0);
@@ -292,7 +292,7 @@ test('audit: parent modality change preserves child Escape ownership', async ({ 
   await page.getByRole('button', { name: 'Modality toggle', includeHidden: true }).evaluate((button: HTMLButtonElement) => button.click());
   await page.keyboard.press('Escape'); await expect(page.getByTestId('child-popup')).toHaveCount(0);
   await expect(page.getByTestId('popup')).toBeVisible();
-  expect(await page.evaluate(() => document.documentElement.style.overflow)).toBe('');
+  expect(await page.evaluate(() => [document.documentElement, document.body].every(node => node.style.overflowY !== 'hidden'))).toBe(true);
   await page.keyboard.press('Escape'); await expect(page.getByRole('dialog')).toHaveCount(0);
 });
 test('audit: composing Escape leaves popup open without a close request', async ({ page }) => {

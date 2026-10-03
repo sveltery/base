@@ -1,5 +1,7 @@
 # Dialog handle/controller closure
 
+**Current source replacement:** PR #42 now replaces the historical controller/overlay foundation with the whole pinned Dialog business closure, including Viewport and canonical stores/focus/dismissal/portal/scroll helpers. See [whole-source correspondence](source-correspondence.md) and [current feature/API record](../../docs/dialog-first-slice.md). The records below preserve earlier checkpoints; their controller structure, unsupported style objects and D-01/D-02 corrections do not describe the proposed replacement. Whole-source review and current hosted acceptance remain pending; ordinary assertion credits are unchanged.
+
 Behavior reference: Base UI v1.8.0, immutable `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. The [unchanged inventory](upstream-inventory.json) retains 175 declarations / 371 expansions. Existing 11/13 complete ports remain separate; this candidate adds zero credits to the shared manifest.
 
 One controller belongs to each Root independently of handle identity. Committed attachment precedes descendant mount work; an inert server fallback and attachment stack preserve detached association through swaps, overlap and real Root remounts. Trigger registration migrates between stores with replacement-safe node ownership. The controller forwards the active owner's payload, owns mounted state independently of logical open, and retains cancellable payload writes and completion ownership.

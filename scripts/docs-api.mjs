@@ -38,6 +38,7 @@ export function extractDialogApi() {
     'Trigger',
     'Portal',
     'Backdrop',
+    'Viewport',
     'Popup',
     'Title',
     'Description',
