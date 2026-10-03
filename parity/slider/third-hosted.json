@@ -1,0 +1,17 @@
+{
+  "head": "7cb89675d47358e38b73b99864ba32a5af866bde",
+  "run": "https://github.com/sveltery/base/actions/runs/37158057459",
+  "job": 111305516176,
+  "rawJobLogSha256": "dca05d2fe2b535c3bbc6094cdec68784c26b13505ab6c9e75489daa784b4d726",
+  "artifact": 11286536320,
+  "browserResultsSha256": "c4f5b3ca44cff72636776051cf486e86365142ea04a4f6c7c7d74cfb7ae3cdc4",
+  "observed": { "passed": 87, "failed": 6, "workers": 1, "retries": 0, "chromiumSandbox": true, "browser": "Chrome for Testing 153.0.8010.12", "runner": "Ubuntu 22.04", "react": "19.2.8", "reactDom": "19.2.8" },
+  "remainingFailures": [
+    "Both frameworks: authored non-native Field.Label precedence scenario still rendered a local Slider.Label, whose later registration supplies aria-labelledby. Corrected the supplement to omit the local Slider.Label when testing Field.Label precedence.",
+    "Both frameworks: authored max-stack scenario clicked the track, selecting the normal closest/latest thumb and yielding [50,50]. Corrected the supplement to press the last stacked Thumb and drag as the original Source regression does; its expected [50,100] is retained.",
+    "Both frameworks: trusted Chrome touch dispatch emits PointerEvents as well as TouchEvents and actual Source commits pointerup. Corrected this authored supplement to measured pointerup; the constructed TouchEvent original path retains touchend."
+  ],
+  "observerDiagnostic": "Both exact lifecycle diagnostics passed and are retained separately in observer-diagnostic.json. Root accepted only the documented native attached-ref lifetime substitution after independent review.",
+  "ordinaryComponentAssertionCredit": 0,
+  "decision": "Historical red receipt retained. Corrected authored supplements do not earn unchanged Source assertion credit. Final runtime review, current secured browser gates, actual accepted-main dependency integration and exact-head PM approval remain pending."
+}

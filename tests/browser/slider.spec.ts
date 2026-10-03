@@ -149,16 +149,50 @@ for (const framework of ["react", "svelte"]) {
       await expect(input).toHaveValue(scenario === "fractional" ? "2" : "100");
     });
   }
-  test(`${framework} non-native Field label takes Source aria precedence over local Slider label`, async ({
+  test(`${framework} Field label without a nested Slider label supplies Source aria relationship`, async ({
     page,
   }) => {
-    await open(page, "range-field-label-non-native");
+    await open(page, "range-field-label-non-native-no-local-label");
     await expect(page.locator("#slider-root")).toHaveAttribute(
       "aria-labelledby",
       "field-label",
     );
     for (const input of await page.locator('input[type="range"]').all())
       await expect(input).toHaveAttribute("aria-labelledby", "field-label");
+  });
+  test(`${framework} label ID change and removal resolve Source cleanup updaters against current ownership`, async ({
+    page,
+  }) => {
+    await open(page);
+    await expect(page.locator("#slider-root")).toHaveAttribute(
+      "aria-labelledby",
+      "slider-root-label",
+    );
+    await page.locator("#change-root-id").click();
+    await expect(page.locator("#updated-slider-root")).toHaveAttribute(
+      "aria-labelledby",
+      "updated-slider-root-label",
+    );
+    await expect(page.locator('[data-testid="slider-label"]')).toHaveAttribute(
+      "id",
+      "updated-slider-root-label",
+    );
+    await expect(page.locator('input[type="range"]')).toHaveAttribute(
+      "aria-labelledby",
+      "updated-slider-root-label",
+    );
+    await page.locator("#toggle-label").click();
+    await expect(page.locator("#updated-slider-root")).not.toHaveAttribute(
+      "aria-labelledby",
+    );
+    await expect(page.locator('input[type="range"]')).not.toHaveAttribute(
+      "aria-labelledby",
+    );
+    await page.locator("#toggle-label").click();
+    await expect(page.locator("#updated-slider-root")).toHaveAttribute(
+      "aria-labelledby",
+      "updated-slider-root-label",
+    );
   });
   test(`${framework} external native form association keeps Source name and canceled serialization`, async ({
     page,
@@ -507,9 +541,19 @@ for (const framework of ["react", "svelte"]) {
     page,
   }) => {
     await open(page, "max-stack");
-    await pointer(page, 0.5);
+    const thumb = (await page.getByTestId("thumb-1").boundingBox())!;
+    const rect = (await page.locator("#slider-control").boundingBox())!;
+    await page.mouse.move(
+      thumb.x + thumb.width / 2,
+      thumb.y + thumb.height / 2,
+    );
+    await page.mouse.down();
+    await page.mouse.move(rect.x + rect.width * 0.5, rect.y + rect.height / 2, {
+      steps: 4,
+    });
+    await page.mouse.up();
     expect(await values(page)).toEqual([50, 100]);
-    expect((await list(page, "#slider-calls"))[0]).toMatchObject({
+    expect((await list(page, "#slider-calls")).at(-1)).toMatchObject({
       value: [50, 100],
       activeThumbIndex: 0,
     });
@@ -538,6 +582,32 @@ for (const framework of ["react", "svelte"]) {
       activeThumbIndex: 0,
     });
     expect(await list(page, "#slider-commits")).toEqual([]);
+  });
+  test(`${framework} controlled rejected range drag follows authoritative owner feedback after rendered callback`, async ({
+    page,
+  }) => {
+    await open(page, "controlled-reject-push");
+    const thumb = (await page.getByTestId("thumb-0").boundingBox())!;
+    const rect = (await page.locator("#slider-control").boundingBox())!;
+    await page.mouse.move(
+      thumb.x + thumb.width / 2,
+      thumb.y + thumb.height / 2,
+    );
+    await page.mouse.down();
+    await page.mouse.move(rect.x + rect.width * 0.7, rect.y + rect.height / 2);
+    await expect
+      .poll(() => list(page, "#slider-calls"))
+      .toContainEqual(expect.objectContaining({ value: [70, 70] }));
+    await page.mouse.move(rect.x + rect.width * 0.3, rect.y + rect.height / 2);
+    await page.mouse.up();
+    expect(await values(page)).toEqual([20, 40]);
+    expect((await list(page, "#slider-calls")).at(-1)).toMatchObject({
+      value: [30, 40],
+      activeThumbIndex: 0,
+    });
+    expect(await list(page, "#slider-commits")).toEqual([
+      { value: [30, 40], reason: "drag", type: "pointerup" },
+    ]);
   });
   for (const scenario of [
     "disabled",
@@ -763,7 +833,7 @@ for (const framework of ["react", "svelte"]) {
     ).toBe(true);
     expect(await values(page)).toEqual([60]);
     expect(await list(page, "#slider-commits")).toEqual([
-      { value: 60, reason: "drag", type: "touchend" },
+      { value: 60, reason: "drag", type: "pointerup" },
     ]);
     await session.detach();
   });

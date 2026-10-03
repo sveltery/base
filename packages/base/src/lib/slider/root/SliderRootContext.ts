@@ -51,7 +51,12 @@ export interface SliderRootContext {
       | (number | undefined)[]
       | ((previous: (number | undefined)[]) => (number | undefined)[]),
   ): void;
-  setLabelId(value: string | undefined): void;
+  setLabelId(
+    value:
+      | string
+      | undefined
+      | ((previous: string | undefined) => string | undefined),
+  ): void;
   setValue(
     value: number | number[],
     details: SliderRootChangeEventDetails,

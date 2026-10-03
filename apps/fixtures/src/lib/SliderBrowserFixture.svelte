@@ -1,6 +1,6 @@
 <script lang="ts">
   // Actual source family fixture; native supplements preserve separate provenance. MIT.
-  import { onMount, untrack } from "svelte";
+  import { onMount, untrack, type Snippet } from "svelte";
   import {
     Slider,
     Field,
@@ -15,6 +15,8 @@
   import type { HTMLAttributes } from "svelte/elements";
   let { scenario: supplied = "default" }: { scenario?: string } = $props();
   const scenario = untrack(() => supplied);
+  let rootId = $state("slider-root");
+  let labelVisible = $state(!scenario.includes("no-local-label"));
   const range = /range|push|swap|none|dynamic|max-stack/.test(scenario);
   const fractional = scenario.includes("fractional");
   const initial: number | readonly number[] = scenario.includes("max-stack")
@@ -116,6 +118,14 @@
   });
 </script>
 
+{#snippet fieldLabelHost(
+  props: HTMLAttributes<HTMLElement>,
+  _state: unknown,
+  children?: Snippet,
+)}
+  <span {...props}>{@render children?.()}</span>
+{/snippet}
+
 {#snippet host(
   props: Record<string | symbol, unknown>,
   _state: unknown,
@@ -149,14 +159,16 @@
           {#if scenario.includes("field-label")}<Field.Label
               id="field-label"
               nativeLabel={!scenario.includes("non-native")}
-              >Field volume</Field.Label
+              render={scenario.includes("non-native")
+                ? fieldLabelHost
+                : undefined}>Field volume</Field.Label
             >{/if}
           <Field.Description id="slider-description"
             >Adjust volume</Field.Description
           >
           {#if present && (!scenario.includes("fresh") || hydrated)}
             <Root
-              id="slider-root"
+              id={rootId}
               defaultValue={initial}
               value={controlled ? owner : undefined}
               name="fallback"
@@ -179,7 +191,9 @@
               bind:ref={rootRef}
               render={scenario.includes("render") ? host : undefined}
             >
-              <Slider.Label data-testid="slider-label">Volume</Slider.Label>
+              {#if labelVisible}<Slider.Label data-testid="slider-label"
+                  >Volume</Slider.Label
+                >{/if}
               <Slider.Control
                 id="slider-control"
                 class={vertical ? "vertical" : "horizontal"}
@@ -231,6 +245,18 @@
     </DirectionProvider>
   </CSPProvider>
   <button id="slider-outside">Outside</button>
+  <button
+    id="change-root-id"
+    onclick={() => {
+      rootId = "updated-slider-root";
+    }}>Change id</button
+  >
+  <button
+    id="toggle-label"
+    onclick={() => {
+      labelVisible = !labelVisible;
+    }}>Toggle label</button
+  >
   <button
     id="set-owner"
     onclick={() => {

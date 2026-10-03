@@ -69,6 +69,10 @@ export function SliderReferenceFixture({
     ? { style: "currency" as const, currency: "USD" }
     : undefined;
   const [hydrated, setHydrated] = useState(false);
+  const [rootId, setRootId] = useState("slider-root");
+  const [labelVisible, setLabelVisible] = useState(
+    !scenario.includes("no-local-label"),
+  );
   const [owner, setOwner] = useState<number | readonly number[]>(initial);
   const [disabled, setDisabled] = useState(scenario === "disabled");
   const [indexes, setIndexes] = useState(range ? [0, 1] : [0]);
@@ -173,7 +177,7 @@ export function SliderReferenceFixture({
       ? h(
           Slider.Root<number | readonly number[]>,
           {
-            id: "slider-root",
+            id: rootId,
             defaultValue: initial,
             value: controlled ? owner : undefined,
             name: "fallback",
@@ -196,11 +200,16 @@ export function SliderReferenceFixture({
             ref: rootRef,
             render: scenario.includes("render") ? renderer : undefined,
           },
-          h(
-            Slider.Label,
-            { className: "slider-label", ...{ "data-testid": "slider-label" } },
-            "Volume",
-          ),
+          labelVisible
+            ? h(
+                Slider.Label,
+                {
+                  className: "slider-label",
+                  ...{ "data-testid": "slider-label" },
+                },
+                "Volume",
+              )
+            : null,
           h(
             Slider.Control,
             {
@@ -257,6 +266,9 @@ export function SliderReferenceFixture({
             {
               id: "field-label",
               nativeLabel: !scenario.includes("non-native"),
+              render: scenario.includes("non-native")
+                ? (props: HTMLAttributes<HTMLElement>) => h("span", props)
+                : undefined,
             },
             "Field volume",
           )
@@ -286,6 +298,19 @@ export function SliderReferenceFixture({
       ),
     ),
     h("button", { id: "slider-outside" }, "Outside"),
+    h(
+      "button",
+      { id: "change-root-id", onClick: () => setRootId("updated-slider-root") },
+      "Change id",
+    ),
+    h(
+      "button",
+      {
+        id: "toggle-label",
+        onClick: () => setLabelVisible((previous) => !previous),
+      },
+      "Toggle label",
+    ),
     h(
       "button",
       { id: "set-owner", onClick: () => setOwner(range ? [30, 70] : 60) },

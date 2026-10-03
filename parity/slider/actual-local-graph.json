@@ -4656,7 +4656,7 @@
     },
     {
       "local": "packages/base/src/lib/slider/root/SliderRoot.svelte",
-      "sha256": "1333b7bacb1fc0bfb3f627d180665a8b70f81cc4f6bb36884e2a55e4c2b1ba30",
+      "sha256": "ea4ae4a24127be3c9cc6de8a6ee6a1db90e94856eee33116edd77f6050604ee7",
       "reachability": [
         "runtime"
       ],
@@ -4900,7 +4900,7 @@
     },
     {
       "local": "packages/base/src/lib/slider/root/SliderRootContext.ts",
-      "sha256": "8723d7b7336d3782604ed10e0d1a271a29737a7bcffc08e9625062be9f4a49f4",
+      "sha256": "d00a4c1ae1724ed016f811cb517a1107f31667d05a3063f5e51c40c94f5e2697",
       "reachability": [
         "runtime",
         "type"

@@ -336,7 +336,7 @@
         typeof value === "function" ? value(indicatorPosition) : value;
     },
     setLabelId(value) {
-      labelId = value;
+      labelId = typeof value === "function" ? value(labelId) : value;
     },
     setValue,
     get state() {

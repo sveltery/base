@@ -1,0 +1,170 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "head": "7cb89675d47358e38b73b99864ba32a5af866bde",
+  "run": "https://github.com/sveltery/base/actions/runs/37158057459",
+  "artifact": "https://github.com/sveltery/base/actions/runs/37158057459/artifacts/11286536320",
+  "artifactDigest": "sha256:c4e503cd26414c50e333ac4d4cf1f985381898fca3d9d10bbd3360133d6d83e8",
+  "browserResultsSha256": "c4f5b3ca44cff72636776051cf486e86365142ea04a4f6c7c7d74cfb7ae3cdc4",
+  "diagnostics": [
+    {
+      "framework": "react",
+      "immutableSource": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+      "initial": [
+        {
+          "event": "input-ref",
+          "node": "thumb-0"
+        },
+        {
+          "event": "control-ref",
+          "node": "slider-control"
+        },
+        {
+          "event": "measure",
+          "node": "thumb-0"
+        },
+        {
+          "event": "measure",
+          "node": "slider-control"
+        }
+      ],
+      "after": {
+        "records": [
+          {
+            "event": "input-ref",
+            "node": "thumb-0"
+          },
+          {
+            "event": "control-ref",
+            "node": "slider-control"
+          },
+          {
+            "event": "measure",
+            "node": "thumb-0"
+          },
+          {
+            "event": "measure",
+            "node": "slider-control"
+          },
+          {
+            "event": "measure",
+            "node": "slider-control"
+          }
+        ],
+        "controlWidth": 500,
+        "position": 40.666666666666664
+      },
+      "afterValueChange": 41.36
+    },
+    {
+      "framework": "svelte",
+      "immutableSource": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+      "initial": [
+        {
+          "event": "measure",
+          "node": "thumb-0"
+        },
+        {
+          "event": "measure",
+          "node": "slider-control"
+        },
+        {
+          "event": "observer-constructor",
+          "node": null
+        },
+        {
+          "event": "observe",
+          "node": "slider-control"
+        },
+        {
+          "event": "observe",
+          "node": "thumb-0"
+        },
+        {
+          "event": "measure",
+          "node": "thumb-0"
+        },
+        {
+          "event": "measure",
+          "node": "slider-control"
+        },
+        {
+          "event": "resize-callback",
+          "node": "slider-control,thumb-0"
+        },
+        {
+          "event": "measure",
+          "node": "thumb-0"
+        },
+        {
+          "event": "measure",
+          "node": "slider-control"
+        }
+      ],
+      "after": {
+        "records": [
+          {
+            "event": "measure",
+            "node": "thumb-0"
+          },
+          {
+            "event": "measure",
+            "node": "slider-control"
+          },
+          {
+            "event": "observer-constructor",
+            "node": null
+          },
+          {
+            "event": "observe",
+            "node": "slider-control"
+          },
+          {
+            "event": "observe",
+            "node": "thumb-0"
+          },
+          {
+            "event": "measure",
+            "node": "thumb-0"
+          },
+          {
+            "event": "measure",
+            "node": "slider-control"
+          },
+          {
+            "event": "resize-callback",
+            "node": "slider-control,thumb-0"
+          },
+          {
+            "event": "measure",
+            "node": "thumb-0"
+          },
+          {
+            "event": "measure",
+            "node": "slider-control"
+          },
+          {
+            "event": "resize-callback",
+            "node": "slider-control"
+          },
+          {
+            "event": "measure",
+            "node": "thumb-0"
+          },
+          {
+            "event": "measure",
+            "node": "slider-control"
+          },
+          {
+            "event": "measure",
+            "node": "slider-control"
+          }
+        ],
+        "controlWidth": 500,
+        "position": 40.400000000000006
+      },
+      "afterValueChange": 41.36
+    }
+  ],
+  "ordinaryCredit": 0,
+  "classification": "Independent whole-closure review confirmed the pinned child layout effect sees an unattached parent controlRef; stable ref-object dependencies do not rerun it, so Source installs no observer. Native live attached-ref tracking installs the identical Source observer, geometry algorithm and cleanup. Root accepted this narrow native ref/lifecycle primitive substitution under the user's native Svelte directive; zero unchanged Source assertion credit and no Source business algorithm fix or final family approval is claimed."
+}
