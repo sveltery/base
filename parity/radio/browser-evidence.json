@@ -56,6 +56,17 @@
       "scope": "Secured actual React/ReactDOM19.2.8 and Svelte contracts and native supplements; subsequent independent source review found uncovered standalone empty-value Field touch guard. This passing historical run is not final acceptance.",
       "artifactId": 11265135846,
       "artifactZipSha256": "1ddf818721202c84d8277b7a664c09df80f64314f1ab62ca5aa8729314c3c2ac"
+    },
+    {
+      "head": "862d9d7c22293c735a00ba57f431cbbc43bfe3cd",
+      "runId": 37099525181,
+      "url": "https://github.com/sveltery/base/actions/runs/37099525181",
+      "result": "failure",
+      "passed": 47,
+      "failed": 1,
+      "failure": "The React standalone nonempty direct-hidden activation passes source Field touch/filled/logical checked assertions but emits no native input/change events in secured Chromium, contrary to the two-event JSDOM-derived supplement expectation. Visible nested React activation and all Svelte variants pass. The source computed-checked guard remains correct and unchanged. Literal exact-renderer baselines are added before correcting the native observer expectation.",
+      "artifactId": 11265870339,
+      "artifactZipSha256": "9e7ef2d2d26fd05ac50280056a966d4406af97a9612c5e37bfc49f808483490c"
     }
   ],
   "status": "Fresh exact-head run, configured review and independent whole-closure source/native/maintainability acceptance pending; no merge or exhaustive assertion parity claimed.",

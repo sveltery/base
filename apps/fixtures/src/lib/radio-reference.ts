@@ -2,8 +2,10 @@
 import {
   createElement as h,
   useEffect,
+  useRef,
   useState,
   version as reactVersion,
+  type MouseEvent as ReactMouseEvent,
 } from 'react';
 import { version as reactDomVersion } from 'react-dom';
 import { createRoot } from 'react-dom/client';
@@ -33,6 +35,8 @@ export function mountRadioReference(node: HTMLElement, scenario: string) {
     const [calls, setCalls] = useState<unknown[]>([]);
     const [ancestorClicks, setAncestorClicks] = useState(0);
     const [submissions, setSubmissions] = useState<unknown[]>([]);
+    const literalInput = useRef<HTMLInputElement>(null);
+    const [literalCalls, setLiteralCalls] = useState(0);
     if (scenario.startsWith('standalone-')) {
       return h(
         'main',
@@ -52,6 +56,33 @@ export function mountRadioReference(node: HTMLElement, scenario: string) {
             },
             'Standalone',
           ),
+        ),
+        h(
+          'section',
+          { 'aria-label': 'Literal React radio baseline' },
+          h(
+            'button',
+            {
+              type: 'button',
+              ...{ 'data-testid': 'literal-radio' },
+              onClick(event: ReactMouseEvent<HTMLButtonElement>) {
+                event.preventDefault();
+                literalInput.current?.click();
+              },
+            },
+            'Literal activation',
+          ),
+          h('input', {
+            id: 'literal-input',
+            ref: literalInput,
+            type: 'radio',
+            value: 'a',
+            checked: false,
+            hidden: true,
+            onClick: (event) => event.stopPropagation(),
+            onChange: () => setLiteralCalls((previous) => previous + 1),
+          }),
+          h('output', { id: 'literal-calls' }, literalCalls),
         ),
       );
     }

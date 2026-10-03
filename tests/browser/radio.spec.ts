@@ -74,15 +74,65 @@ for (const framework of ['react', 'svelte']) {
             (await input.getAttribute('data-native-events')) ?? '[]',
           ),
         };
-        expect(observations.nativeEvents).toEqual(
-          selected ? [] : ['input', 'change'],
-        );
         await test.info().attach('standalone-native-observations', {
           body: JSON.stringify(observations, null, 2),
           contentType: 'application/json',
         });
+        expect(observations.nativeEvents).toEqual(
+          selected ? [] : ['input', 'change'],
+        );
       });
     }
+  }
+  for (const action of ['visible', 'hidden']) {
+    test(`${framework} literal controlled-false radio ${action} activation records native phase`, async ({
+      page,
+    }) => {
+      await open(page, 'standalone-nonempty');
+      const input = page.locator('#literal-input');
+      expect(await input.isChecked()).toBe(false);
+      await input.evaluate((element) => {
+        const input = element as HTMLInputElement;
+        input.dataset.nativeEvents = '[]';
+        for (const type of ['input', 'change']) {
+          input.addEventListener(type, () => {
+            input.dataset.nativeEvents = JSON.stringify([
+              ...JSON.parse(input.dataset.nativeEvents ?? '[]'),
+              type,
+            ]);
+          });
+        }
+      });
+      if (action === 'visible') await page.getByTestId('literal-radio').click();
+      else
+        await input.evaluate((element) =>
+          (element as HTMLInputElement).click(),
+        );
+      await expect(page.locator('#literal-calls')).toHaveText('1');
+      const observations = {
+        framework,
+        action,
+        checked: await input.isChecked(),
+        changeCallbacks: Number(
+          await page.locator('#literal-calls').textContent(),
+        ),
+        nativeEvents: JSON.parse(
+          (await input.getAttribute('data-native-events')) ?? '[]',
+        ),
+      };
+      await test.info().attach('literal-radio-native-observations', {
+        body: JSON.stringify(observations, null, 2),
+        contentType: 'application/json',
+      });
+      expect(observations.checked).toBe(framework === 'svelte');
+      // This first witness records the secured browser vector before assigning
+      // a renderer-specific event expectation to the source supplement.
+      expect(
+        observations.nativeEvents.every(
+          (type: string) => type === 'input' || type === 'change',
+        ),
+      ).toBe(true);
+    });
   }
   test(`${framework} native hidden input CSS preserves source one-pixel geometry`, async ({
     page,
