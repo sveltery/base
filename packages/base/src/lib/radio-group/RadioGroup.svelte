@@ -101,7 +101,7 @@
     const formElement = formContext.elementRef.current;
     if (!formElement) return checkedValue ?? null;
     for (const input of field.validation.registeredInputs.keys()) {
-      if (input.checked && isEligibleInput(input, formElement))
+      if ('checked' in input && input.checked && isEligibleInput(input, formElement))
         return checkedValue ?? null;
     }
     return null;
