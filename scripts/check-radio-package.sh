@@ -15,7 +15,11 @@ JS
 pnpm --dir "$radio_consumer" --ignore-workspace install --ignore-scripts > /dev/null
 pnpm --dir "$radio_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
 cmp LICENSE "$radio_consumer/node_modules/@sveltery/base/LICENSE"
-rg -q 'Radio Root/Indicator and RadioGroup' "$radio_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
+node --input-type=module - "$radio_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md" <<'JS'
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+assert.ok(readFileSync(process.argv[2], 'utf8').includes('Radio Root/Indicator and RadioGroup'));
+JS
 cat > "$radio_consumer/Consumer.svelte" <<'SVELTE'
 <script lang="ts">
   import { Radio, RadioGroup, Field, Form } from '@sveltery/base';
