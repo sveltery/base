@@ -45,7 +45,9 @@ Calling `remote.submit()` directly remains Kit's programmatic API; it does not d
 - Original remote form source SHA-256: `40ef548ea4da3e79a305ae25113506f1e019c4a7ef78d526c69dea23ee440401`.
 - Patched remote form source SHA-256: `00b87303b7d268906809f889b2e342fdee89bd03dd417023a5fd055d94b518b1`.
 - [Package patch](../packages/base/patches/@sveltejs__kit@2.70.3.patch) and [upstream license](../packages/base/patches/LICENSE.sveltekit).
-- Compatibility decision: apply this explicit dependency correction for prior-event cancellation, retain the original Base Form business sequence, and preserve caller-owned Kit enhancement. Unpatched Kit is not supported for this cancellation contract.
+- Proposed compatibility approach: [PR #49](https://github.com/sveltery/base/pull/49) applies this explicit dependency correction for prior-event cancellation, retaining the original Base Form business sequence and caller-owned Kit enhancement. Unpatched Kit is not supported for this cancellation contract. No final acceptance decision is recorded; merge remains pending.
+
+At `5d736ee2d81b6012276736240ef0416089c38b69`, [SDK run 37100205695](https://github.com/sveltery/base/actions/runs/37100205695) passed twelve patched acceptance cases and five isolated unpatched witnesses. [CI run 37100205690](https://github.com/sveltery/base/actions/runs/37100205690) passed all eight jobs, including 2,032 combined browser cases. This is executed evidence for the documented cancellation boundary; the complete typed remote API and B2 remain separate, incomplete follow-up scope in [PR #52](https://github.com/sveltery/base/pull/52).
 
 The patch source/installation checks and dedicated secured-browser fixture record acceptance separately. Unmodified Kit is retained as an explicit negative control in its own isolated workflow setup. That witness uses the same authored cancellation and Field rejection but expects Kit to send the request; it does not establish compatibility or upstream assertion credit. Patched acceptance requires zero remote POSTs and zero server counter changes for invalid/canceled attempts, followed by exactly one request and mutation on the next valid submission.
 
