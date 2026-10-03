@@ -1,0 +1,1707 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "ordinaryDeclarationCredit": 0,
+  "tests": [
+    {
+      "source": "packages/react/src/switch/root/SwitchRoot.test.tsx",
+      "sourceSha256": "e0aa13dfcf0affa42d9e96fed15724d2d17d6d0a1601c5fd0a0fbc46cf6c9065",
+      "sourceUrl": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/switch/root/SwitchRoot.test.tsx",
+      "assertions": [
+        {
+          "line": 20,
+          "callee": "it",
+          "title": "'tolerates imperative interaction in its ref callback before the hidden input mounts'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 36,
+          "callee": "it",
+          "title": "'should change its state when clicked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 49,
+          "callee": "it",
+          "title": "'should update its state when changed from outside'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 78,
+          "callee": "it",
+          "title": "'should update its state if the underlying input is toggled'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 90,
+          "callee": "it",
+          "title": "'ignores a hidden input click canceled before React handles it'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 106,
+          "callee": "it",
+          "title": "`can be activated with ${key} key`",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 122,
+          "callee": "it",
+          "title": "'should override the built-in attributes'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 127,
+          "callee": "it",
+          "title": "'sets `aria-labelledby` from a sibling label associated with the hidden input'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 140,
+          "callee": "it",
+          "title": "'updates fallback `aria-labelledby` when the hidden input id changes'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 177,
+          "callee": "it",
+          "title": "'should call onCheckedChange when clicked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 190,
+          "callee": "it",
+          "title": "'should report keyboard modifier event properties when calling onCheckedChange'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 203,
+          "callee": "it",
+          "title": "'does not change state when canceled via a root click'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 224,
+          "callee": "it",
+          "title": "'does not change state when canceled via a hidden input click'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 247,
+          "callee": "it",
+          "title": "'should call onClick when clicked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 259,
+          "callee": "it",
+          "title": "'propagates a single click event to ancestors per user click'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 273,
+          "callee": "it",
+          "title": "'does not propagate to ancestors when stopPropagation() is called'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 287,
+          "callee": "it",
+          "title": "'propagates a single click event to ancestors with a native button'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 301,
+          "callee": "it",
+          "title": "'does not propagate to ancestors when stopPropagation() is called with a native button'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 321,
+          "callee": "it",
+          "title": "'uses aria-disabled instead of HTML disabled'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 327,
+          "callee": "it",
+          "title": "'should not have the `disabled` attribute when `disabled` is not set'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 332,
+          "callee": "it",
+          "title": "'should not change its state when clicked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 347,
+          "callee": "it",
+          "title": "'should have the `aria-readonly` attribute'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 352,
+          "callee": "it",
+          "title": "'should not have the aria attribute when `readOnly` is not set'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 357,
+          "callee": "it",
+          "title": "'should not change its state when clicked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 370,
+          "callee": "it",
+          "title": "'should not change its state when its label is clicked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 391,
+          "callee": "it",
+          "title": "'should have the `aria-required` attribute'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 396,
+          "callee": "it",
+          "title": "'should not have the aria attribute when `required` is not set'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 403,
+          "callee": "it",
+          "title": "'should be able to access the native input'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 412,
+          "callee": "it",
+          "title": "'should place the style hooks on the root and the thumb'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 442,
+          "callee": "it",
+          "title": "'should set the name attribute only on the input'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 452,
+          "callee": "it",
+          "title": "'should not set the value attribute by default'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 460,
+          "callee": "it",
+          "title": "'should set the value attribute only on the input'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 471,
+          "callee": "it",
+          "title": "'should toggle the switch when a wrapping <label> is clicked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 486,
+          "callee": "it",
+          "title": "'should toggle the switch when a explicitly linked <label> is clicked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 504,
+          "callee": "it",
+          "title": "'should associate `id` with the native button when `nativeButton=true`'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 528,
+          "callee": "it.skipIf(isJSDOM)",
+          "title": "'preserves Field validation props through canceled changes, submit, and reset'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 591,
+          "callee": "it.skipIf(isJSDOM)",
+          "title": "'should include the switch value in form submission, matching native checkbox behavior'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 625,
+          "callee": "it.skipIf(isJSDOM)",
+          "title": "'submits to an external form when `form` is provided'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 648,
+          "callee": "it.skipIf(isJSDOM)",
+          "title": "'submits uncheckedValue to an external form when off'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 670,
+          "callee": "it.skipIf(isJSDOM)",
+          "title": "'does not submit uncheckedValue when disabled'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 690,
+          "callee": "it.skipIf(isJSDOM)",
+          "title": "'matches native checkbox form submission behavior'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 748,
+          "callee": "it.skipIf(isJSDOM)",
+          "title": "'should submit uncheckedValue when switch is off and uncheckedValue is specified'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 788,
+          "callee": "it.skipIf(isJSDOM)",
+          "title": "'should submit custom uncheckedValue when switch is off'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 819,
+          "callee": "it.skipIf(isJSDOM)",
+          "title": "'submits custom value and uncheckedValue across an off/on/off cycle'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 856,
+          "callee": "it",
+          "title": "'triggers native HTML validation on submit'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 879,
+          "callee": "it",
+          "title": "'clears external errors on change'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 906,
+          "callee": "it",
+          "title": "'should receive disabled prop from Field.Root'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 917,
+          "callee": "it",
+          "title": "'should receive name prop from Field.Root'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 928,
+          "callee": "it",
+          "title": "'[data-touched]'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 943,
+          "callee": "it",
+          "title": "'[data-dirty]'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 960,
+          "callee": "it",
+          "title": "'adds [data-filled] attribute when checked after being initially unchecked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 980,
+          "callee": "it",
+          "title": "'clears [data-filled] when a controlled switch remounts unchecked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1007,
+          "callee": "it",
+          "title": "'removes [data-filled] attribute when unchecked after being initially checked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1024,
+          "callee": "it",
+          "title": "'[data-focused]'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1044,
+          "callee": "it",
+          "title": "'does not set [data-focused] when disabled'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1058,
+          "callee": "it",
+          "title": "'prop: validationMode=onSubmit'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1085,
+          "callee": "it",
+          "title": "'prop: validationMode=onChange'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1107,
+          "callee": "it",
+          "title": "'validates once when changed by the user'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1122,
+          "callee": "it",
+          "title": "'revalidates when a controlled value changes externally'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1155,
+          "callee": "it",
+          "title": "'prop: validationMode=onBlur'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1181,
+          "callee": "it",
+          "title": "'sets `for` on the label'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1207,
+          "callee": "it",
+          "title": "'when the label is sibling to the switch'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1230,
+          "callee": "it",
+          "title": "'when rendering a non-native button'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1246,
+          "callee": "it",
+          "title": "'when rendering a non-native label'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1271,
+          "callee": "it",
+          "title": "'Field.Description'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1290,
+          "callee": "it",
+          "title": "'can render a native button'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/switch/thumb/SwitchThumb.test.tsx",
+      "sourceSha256": "a87ef2da2b1f961f92eef9bae48aa3cb9caecfb06fb2a1ea41464d9ce2a89274",
+      "sourceUrl": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/switch/thumb/SwitchThumb.test.tsx",
+      "assertions": [
+        {
+          "line": 30,
+          "callee": "it",
+          "title": "'throws a descriptive error when rendered outside <Switch.Root>'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/checkbox/root/CheckboxRoot.test.tsx",
+      "sourceSha256": "9a272e47c4309c97b15782805e3b452bb44d186be45530278550aa9c7443bbb1",
+      "sourceUrl": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/checkbox/root/CheckboxRoot.test.tsx",
+      "assertions": [
+        {
+          "line": 24,
+          "callee": "it",
+          "title": "'sets the correct aria attributes'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 35,
+          "callee": "it",
+          "title": "'can override the built-in attributes'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 68,
+          "callee": "it.each([false, true])",
+          "title": "'drops an explicit id when the prop is removed (nativeButton=%s)'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 88,
+          "callee": "it.each([false, true])",
+          "title": "'does not reuse an unmounted Checkbox id for a keyed id-less Checkbox (nativeButton=%s)'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 111,
+          "callee": "it.each([false, true])",
+          "title": "'defers an explicit id until hydration but keeps Field.Label associated during SSR (nativeButton=%s)'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 134,
+          "callee": "it",
+          "title": "'propagates a single click event to ancestors per user click'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 148,
+          "callee": "it",
+          "title": "'does not propagate to ancestors when stopPropagation() is called'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 162,
+          "callee": "it",
+          "title": "'propagates a single click event to ancestors with a native button'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 176,
+          "callee": "it",
+          "title": "'does not propagate to ancestors when stopPropagation() is called with a native button'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 197,
+          "callee": "it",
+          "title": "'tolerates imperative interaction in its ref callback before the hidden input mounts'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 213,
+          "callee": "it",
+          "title": "'should change its state when clicked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 240,
+          "callee": "it",
+          "title": "'should update its state when changed from outside'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 269,
+          "callee": "it",
+          "title": "'should call onCheckedChange when clicked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 282,
+          "callee": "it",
+          "title": "'does not update its state when onCheckedChange cancels the event'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 300,
+          "callee": "it",
+          "title": "'should report keyboard modifier event properties when calling onCheckedChange'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 313,
+          "callee": "it",
+          "title": "'should update its state if the underlying input is toggled'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 325,
+          "callee": "it",
+          "title": "'ignores a hidden input click canceled before React handles it'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 340,
+          "callee": "it",
+          "title": "'can be activated with Space key'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 353,
+          "callee": "it",
+          "title": "'does not activate with Enter key'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 368,
+          "callee": "it",
+          "title": "'uses aria-disabled instead of HTML disabled'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 374,
+          "callee": "it",
+          "title": "'should not change its state when clicked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 389,
+          "callee": "it",
+          "title": "'should have the `aria-readonly` attribute'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 394,
+          "callee": "it",
+          "title": "'should not have the aria attribute when `readOnly` is not set'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 399,
+          "callee": "it",
+          "title": "'should not change its state when clicked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 412,
+          "callee": "it",
+          "title": "'should not change its state when its label is clicked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 433,
+          "callee": "it",
+          "title": "'should set the `aria-checked` attribute as \"mixed\"'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 438,
+          "callee": "it",
+          "title": "'should not change its state when clicked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 451,
+          "callee": "it",
+          "title": "'should not have the aria attribute when `indeterminate` is not set'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 456,
+          "callee": "it",
+          "title": "'should not be overridden by `checked` prop'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 461,
+          "callee": "it",
+          "title": "'sets the native input state when indeterminate'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 470,
+          "callee": "it",
+          "title": "'keeps the native input state when checked changes while indeterminate remains'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 495,
+          "callee": "it",
+          "title": "'sets indeterminate style hooks on the root and indicator'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 506,
+          "callee": "it",
+          "title": "'sets grouped parent aria when manually indeterminate'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 517,
+          "callee": "it",
+          "title": "'sets grouped parent native input state when manually indeterminate'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 532,
+          "callee": "it",
+          "title": "'should update its state if the underlying input is toggled'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 546,
+          "callee": "it",
+          "title": "'should place the style hooks on the root and the indicator'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 577,
+          "callee": "it",
+          "title": "'should set the name attribute only on the input'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 589,
+          "callee": "it",
+          "title": "'should toggle the checkbox when a wrapping <label> is clicked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 604,
+          "callee": "it",
+          "title": "'should toggle the checkbox when a explicitly linked <label> is clicked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 622,
+          "callee": "it",
+          "title": "'should associate `id` with the native button when `nativeButton=true`'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 646,
+          "callee": "it",
+          "title": "'falls back to the Field control id when id is empty'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 665,
+          "callee": "it",
+          "title": "'assigns an input id to a valueless child in a parent checkbox group'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 676,
+          "callee": "it",
+          "title": "'assigns a root id to a valueless native button in a parent checkbox group'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 688,
+          "callee": "it",
+          "title": "'triggers native HTML validation on submit'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 711,
+          "callee": "it",
+          "title": "'clears external errors on change'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 736,
+          "callee": "it.skipIf(isJSDOM)",
+          "title": "'should include the checkbox value in form submission, matching native checkbox behavior'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 777,
+          "callee": "it.skipIf(isJSDOM)",
+          "title": "'submits the form when Enter is pressed while focused'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 815,
+          "callee": "it.skipIf(isJSDOM)",
+          "title": "'does not submit the form with Enter when the consumer prevents default'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 843,
+          "callee": "it.skipIf(isJSDOM)",
+          "title": "'does not submit the form with Enter when an ancestor prevents default'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 877,
+          "callee": "it.skipIf(isJSDOM)",
+          "title": "'submits the form with Enter when readOnly'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 906,
+          "callee": "it.skipIf(isJSDOM)",
+          "title": "'submits the form once with Enter when rendered as a native button'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 942,
+          "callee": "it.skipIf(isJSDOM)",
+          "title": "'does not submit the form with Enter when there is no submit button'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 969,
+          "callee": "it.skipIf(isJSDOM)",
+          "title": "'does not submit the form with Enter when the default button is disabled'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1002,
+          "callee": "it.skipIf(isJSDOM)",
+          "title": "'submits to an external form when `form` is provided'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1025,
+          "callee": "it.skipIf(isJSDOM)",
+          "title": "'submits to an external form with Enter when `form` is provided'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1055,
+          "callee": "it.skipIf(isJSDOM)",
+          "title": "'submits uncheckedValue to an external form when unchecked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1077,
+          "callee": "it.skipIf(isJSDOM)",
+          "title": "'should include the custom checkbox value in form submission, matching native checkbox behavior'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1118,
+          "callee": "it.skipIf(isJSDOM)",
+          "title": "'matches native checkbox form submission behavior'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1176,
+          "callee": "it.skipIf(isJSDOM)",
+          "title": "'should submit uncheckedValue when checkbox is unchecked and uncheckedValue is specified'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1228,
+          "callee": "it.skipIf(isJSDOM)",
+          "title": "'does not submit uncheckedValue when disabled'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1248,
+          "callee": "it.skipIf(isJSDOM)",
+          "title": "'should submit custom uncheckedValue when checkbox is unchecked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1291,
+          "callee": "it",
+          "title": "'should receive disabled prop from Field.Root'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1302,
+          "callee": "it",
+          "title": "'should receive name prop from Field.Root'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1315,
+          "callee": "it",
+          "title": "'[data-touched]'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1330,
+          "callee": "it",
+          "title": "'[data-dirty]'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1347,
+          "callee": "it",
+          "title": "'adds [data-filled] attribute when checked after being initially unchecked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1367,
+          "callee": "it",
+          "title": "'removes [data-filled] attribute when unchecked after being initially checked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1383,
+          "callee": "it",
+          "title": "'clears [data-filled] when a controlled checkbox remounts unchecked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1410,
+          "callee": "it",
+          "title": "'adds [data-filled] attribute when any checkbox is filled when inside a group'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1438,
+          "callee": "it",
+          "title": "'[data-focused]'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1458,
+          "callee": "it",
+          "title": "'does not set [data-focused] when disabled'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1472,
+          "callee": "it",
+          "title": "'[data-invalid]'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1484,
+          "callee": "it",
+          "title": "'[data-valid]'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1505,
+          "callee": "it",
+          "title": "'prop: validationMode=onSubmit'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1541,
+          "callee": "it",
+          "title": "'props: validationMode=onChange'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1563,
+          "callee": "it",
+          "title": "'validates once when changed by the user'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1578,
+          "callee": "it",
+          "title": "'revalidates when a controlled value changes externally'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1611,
+          "callee": "it",
+          "title": "'prop: validationMode=onBlur'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1637,
+          "callee": "it",
+          "title": "'when label and checkbox are siblings'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1661,
+          "callee": "it",
+          "title": "'sets `for` on the label'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1687,
+          "callee": "it",
+          "title": "'Field.Description'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1704,
+          "callee": "it",
+          "title": "'should change state when clicking the checkbox if it has a wrapping label'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1725,
+          "callee": "it",
+          "title": "'sets `aria-labelledby` from a sibling label associated with the hidden input'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1738,
+          "callee": "it",
+          "title": "'updates fallback `aria-labelledby` when the hidden input id changes'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1773,
+          "callee": "it",
+          "title": "'can render a native button'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/checkbox/root/CheckboxRoot.react17.test.tsx",
+      "sourceSha256": "e52ea83e80fedbf02393c2cf5555910f5d112b533459c8405d7201b6792114bc",
+      "sourceUrl": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/checkbox/root/CheckboxRoot.react17.test.tsx",
+      "assertions": [
+        {
+          "line": 51,
+          "callee": "it.each([false, true])",
+          "title": "'drops an explicit id when the prop is removed (nativeButton=%s)'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 67,
+          "callee": "it.each([false, true])",
+          "title": "'does not reuse an unmounted Checkbox id for a keyed id-less Checkbox (nativeButton=%s)'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 83,
+          "callee": "it.each([false, true])",
+          "title": "'assigns the label association once the fallback ids arrive (nativeButton=%s)'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 115,
+          "callee": "it.each([false, true])",
+          "title": "'wires parent aria-controls once the fallback ids are assigned (nativeButton=%s)'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/checkbox/indicator/CheckboxIndicator.test.tsx",
+      "sourceSha256": "f21d9f54190a7ff9a73a3c457afc2558e55755ac96fdf6729a504865ad99ab7b",
+      "sourceUrl": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/checkbox/indicator/CheckboxIndicator.test.tsx",
+      "assertions": [
+        {
+          "line": 37,
+          "callee": "it",
+          "title": "'throws a descriptive error when rendered outside <Checkbox.Root>'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 49,
+          "callee": "it",
+          "title": "'should not render indicator by default'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 59,
+          "callee": "it",
+          "title": "'should render indicator when checked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 69,
+          "callee": "it",
+          "title": "'should spread extra props'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 80,
+          "callee": "it",
+          "title": "'should keep indicator mounted when unchecked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 90,
+          "callee": "it",
+          "title": "'should keep indicator mounted when checked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 100,
+          "callee": "it",
+          "title": "'should keep indicator mounted when indeterminate'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 111,
+          "callee": "it",
+          "title": "'should remove the indicator when there is no exit animation defined'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 141,
+          "callee": "it",
+          "title": "'should remove the indicator when the animation finishes'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 201,
+          "callee": "it",
+          "title": "'triggers enter animation via data-starting-style when mounting'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 265,
+          "callee": "it",
+          "title": "'applies data-ending-style before unmount'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 315,
+          "callee": "it",
+          "title": "'removes all indicators in a single commit when multiple checkboxes are unchecked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/checkbox-group/CheckboxGroup.test.tsx",
+      "sourceSha256": "803927ae90947c8f0d19a8148809e876cc1face4e7360471a9b4f7b41d8b6536",
+      "sourceUrl": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/checkbox-group/CheckboxGroup.test.tsx",
+      "assertions": [
+        {
+          "line": 22,
+          "callee": "it",
+          "title": "'is forwarded to the root element'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 30,
+          "callee": "it",
+          "title": "'should control the value'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 71,
+          "callee": "it",
+          "title": "'supports an empty string item value'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 95,
+          "callee": "it",
+          "title": "'treats a controlled value that becomes undefined as an empty array'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 127,
+          "callee": "it",
+          "title": "'should be called when the value changes'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 169,
+          "callee": "it",
+          "title": "'should treat an omitted defaultValue as an empty array'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 196,
+          "callee": "it",
+          "title": "'does not update the group when onValueChange cancels the event'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 221,
+          "callee": "it",
+          "title": "'treats null as an empty array'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 230,
+          "callee": "it",
+          "title": "'should set the initial value'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 258,
+          "callee": "it",
+          "title": "'keeps omitted defaults isolated between groups in Strict Mode'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 305,
+          "callee": "it",
+          "title": "'disables all checkboxes when `true`'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 327,
+          "callee": "it",
+          "title": "'does not disable all checkboxes when `false`'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 349,
+          "callee": "it",
+          "title": "'takes precedence over individual checkboxes'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 373,
+          "callee": "it",
+          "title": "'[data-dirty]'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 401,
+          "callee": "it",
+          "title": "'[data-filled] follows the group value even without a matching rendered checkbox'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 423,
+          "callee": "it",
+          "title": "'keeps a required error while another required checkbox in the group is unchecked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 458,
+          "callee": "it",
+          "title": "'ignores a disabled required checkbox when validating the group'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 489,
+          "callee": "it",
+          "title": "'keeps validating the remaining required checkbox after a checked sibling unmounts'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 535,
+          "callee": "it",
+          "title": "'validationMode=onChange keeps the error until every required checkbox is ticked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 562,
+          "callee": "it",
+          "title": "'validationMode=onBlur keeps the error until every required checkbox is ticked'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 589,
+          "callee": "it",
+          "title": "'does not leave a stale custom error when toggling checkboxes in a group'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 621,
+          "callee": "it",
+          "title": "'clears custom validity from disabled registered inputs when the group becomes valid'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 660,
+          "callee": "it",
+          "title": "'prop: validationMode=onSubmit'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 712,
+          "callee": "it",
+          "title": "'prop: validationMode=onChange'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 757,
+          "callee": "it",
+          "title": "'validates with the group value when toggling the parent checkbox'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 781,
+          "callee": "it",
+          "title": "'revalidates when the controlled value changes externally'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 824,
+          "callee": "it",
+          "title": "'prop: validationMode=onBlur'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 902,
+          "callee": "it.each([false, true])",
+          "title": "'keeps checkbox ids unique when the group shares one Field.Root (nativeButton=%s)'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 917,
+          "callee": "it.each([false, true])",
+          "title": "'keeps checkbox ids unique in a shared Field.Root during SSR (nativeButton=%s)'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 925,
+          "callee": "it.each([false, true])",
+          "title": "'keeps ids unique without allValues in a shared Field.Root (nativeButton=%s)'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 946,
+          "callee": "it",
+          "title": "'labels the group rather than pointing Field.Label at one checkbox inside it'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 960,
+          "callee": "it",
+          "title": "'gives each checkbox in a shared Field.Root its own accessible name'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 987,
+          "callee": "it.each([\n      { nativeButton: false, parent: false },\n      { nativeButton: true, parent: false },\n      { nativeButton: false, parent: true },\n      { nativeButton: true, parent: true },\n    ])",
+          "title": "'associates Field.Label with a grouped Checkbox during SSR (nativeButton=$nativeButton, parent=$parent)'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1019,
+          "callee": "it.each([false, true])",
+          "title": "'points parent aria-controls at the children once they register (nativeButton=%s)'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1071,
+          "callee": "it",
+          "title": "'implicit association'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1116,
+          "callee": "it",
+          "title": "'explicit association'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1164,
+          "callee": "it",
+          "title": "'links the group and individual checkboxes'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1200,
+          "callee": "it",
+          "title": "'projects selected enabled checkboxes while preserving the logical validation value'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1249,
+          "callee": "it",
+          "title": "'omits selected unmounted checkboxes while retaining group state across remounts'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1284,
+          "callee": "it",
+          "title": "'preserves the logical field-name value when Checkbox.Root has no value prop'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1303,
+          "callee": "it",
+          "title": "'updates duplicate-value registrations before a parent layout effect submits'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1339,
+          "callee": "it",
+          "title": "'omits selected checkboxes associated with another form'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1362,
+          "callee": "it",
+          "title": "'includes a context-portaled checkbox without native form association'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1386,
+          "callee": "it",
+          "title": "'includes a group fully portaled outside the form element'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1412,
+          "callee": "it",
+          "title": "'includes a portaled checkbox explicitly associated with the Form'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1437,
+          "callee": "it",
+          "title": "'omits checkboxes disabled by a fieldset'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1466,
+          "callee": "it",
+          "title": "'includes the checkbox group value in form submission'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1496,
+          "callee": "it",
+          "title": "'is validated as a group upon form submission'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1528,
+          "callee": "it",
+          "title": "'focuses the first checkbox when the field receives an error from Form'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1566,
+          "callee": "it",
+          "title": "'focuses the invalid checkbox when a later checkbox in the group fails validation'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1594,
+          "callee": "it",
+          "title": "'ignores required checkboxes associated with a different form'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1617,
+          "callee": "it",
+          "title": "'stops validating a checkbox after it changes form owner'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1656,
+          "callee": "it",
+          "title": "'validates and focuses required portaled checkboxes within the form'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1688,
+          "callee": "it",
+          "title": "'ignores a checkbox portaled into another form without a form attribute'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1710,
+          "callee": "it",
+          "title": "'skips a checkbox disabled by a fieldset when focusing Form errors'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1744,
+          "callee": "it",
+          "title": "'focuses a remaining checkbox when Form errors unmount the first checkbox'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1778,
+          "callee": "it",
+          "title": "'unblocks submission after every checkbox in the group unmounts'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1810,
+          "callee": "it",
+          "title": "'still runs custom validation after every checkbox in the group unmounts'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1847,
+          "callee": "it",
+          "title": "'clears a custom error when an inputless group becomes valid after submission'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1890,
+          "callee": "it.each(['onSubmit', 'onBlur'] as const)",
+          "title": "'does not validate on change with validationMode=%s after the final checkbox unmounts'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1931,
+          "callee": "it.each(['onSubmit', 'onBlur'] as const)",
+          "title": "'respects validationMode=%s when a controlled group starts without inputs'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1972,
+          "callee": "it",
+          "title": "'validates an inputless controlled group on change with validationMode=onChange'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 1996,
+          "callee": "it",
+          "title": "'validates an initially empty group through the imperative action'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 2020,
+          "callee": "it",
+          "title": "'skips a disabled representative checkbox on a later focus attempt'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 2059,
+          "callee": "it",
+          "title": "'focuses the first child checkbox instead of a parent checkbox for Form errors'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 2092,
+          "callee": "it",
+          "title": "'focuses a later invalid field when an inputless group is invalid without a control'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 2111,
+          "callee": "it",
+          "title": "'focuses a later invalid field when every checkbox in an invalid group is disabled'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 2131,
+          "callee": "it",
+          "title": "'excludes parent checkboxes from form submission'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        },
+        {
+          "line": 2183,
+          "callee": "it",
+          "title": "'appends the id attribute of the error to aria-describedby of individual checkboxes'",
+          "status": "original-evidence-unported",
+          "ordinaryDeclarationCredit": 0
+        }
+      ]
+    }
+  ]
+}

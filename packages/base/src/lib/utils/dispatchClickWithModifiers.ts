@@ -1,3 +1,4 @@
+import { ownerWindow } from './owner.js';
 // Ported from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
 
 interface ModifierState {
@@ -22,7 +23,7 @@ export function dispatchClickWithModifiers(
   { detail = 0 }: { detail?: number | undefined } = {},
 ) {
   target.dispatchEvent(
-    new (target.ownerDocument.defaultView!.PointerEvent ?? target.ownerDocument.defaultView!.MouseEvent)('click', {
+    new (ownerWindow(target).PointerEvent ?? ownerWindow(target).MouseEvent)('click', {
       bubbles: true,
       cancelable: true,
       composed: true,

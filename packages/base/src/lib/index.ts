@@ -31,6 +31,7 @@ export { Field, FieldRoot, FieldLabel, FieldDescription, FieldError, FieldContro
 export type * from './field/types.js';
 export { Form } from './form/index.js';
 export type * from './form/types.js';
+export type { RemoteFormLike, RemoteFieldArguments, RemoteFieldName, RemoteFieldRootProps, RemoteFieldRootPropsForName, TypedField } from './form/index.js';
 export { Fieldset, FieldsetRoot, FieldsetLegend } from './fieldset/index.js';
 export type * from './fieldset/types.js';
 
@@ -38,3 +39,6 @@ export { Radio, RadioRoot, RadioIndicator } from './radio/index.js';
 export type * from './radio/types.js';
 export { RadioGroup } from './radio-group/index.js';
 export type * from './radio-group/types.js';
+export * from './checkbox/index.js';
+export * from './checkbox-group/index.js';
+export * from './switch/index.js';
