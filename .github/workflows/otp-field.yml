@@ -1,0 +1,58 @@
+name: OTP Field source acceptance
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: otp-field-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  otp-field-browser:
+    name: OTP Field browser
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+        with:
+          version: 12.6.0
+          run_install: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: "24"
+          package-manager-cache: false
+      - name: Frozen workspace install
+        run: bash scripts/bootstrap.sh
+      - name: Build actual library
+        run: pnpm --filter @sveltery/base build
+      - name: Isolated packed root and subpath strict consumer
+        run: bash scripts/check-otp-field-package.sh
+      - name: Install official secured Chromium
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Exact React 19.2.8 and Svelte OTP Field source acceptance
+        env:
+          PLAYWRIGHT_JSON_OUTPUT_NAME: .checks/otp-field/browser-results.json
+        run: |
+          set -o pipefail
+          mkdir -p .checks/otp-field
+          pnpm exec playwright test tests/browser/otp-field.spec.ts --reporter=list,json | tee .checks/otp-field/browser.log
+      - name: Preserve actual OTP Field JSON observations and traces
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: otp-field-browser-evidence
+          path: |
+            .checks/otp-field/
+            test-results/otp-field-*/
+          if-no-files-found: warn
+          retention-days: 14

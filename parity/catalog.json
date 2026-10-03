@@ -153,9 +153,9 @@
     },
     {
       "upstreamModule": "otp-field",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "OTPField",
+      "evidence": "parity/otp-field/README.md"
     },
     {
       "upstreamModule": "popover",
