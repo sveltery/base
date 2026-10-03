@@ -2395,7 +2395,7 @@
     },
     {
       "local": "packages/base/src/lib/radio/root/RadioRoot.svelte",
-      "sha256": "3e4683f16b1e8939fbb0ad1eb012518f33c971988be8af3d574726de53dd484d",
+      "sha256": "10c8455458fb9a26c93cd28ad0c41caa1f8fca63e38d81aebb218dc75a65c18c",
       "imports": [
         {
           "specifier": "../../internals/RenderElement.svelte",
