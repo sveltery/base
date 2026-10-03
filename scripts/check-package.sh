@@ -191,5 +191,10 @@ bash scripts/check-csp-provider-package.sh
 # Installed public source Field/Form/Fieldset anatomy, SSR and 31 named types.
 bash "$sveltery_repo_root/scripts/check-field-form-package.sh" --public
 
+# Actual installed public Radio/RadioGroup source composition and typed consumer.
+bash "$sveltery_repo_root/scripts/check-radio-package.sh"
 # Real source checked families: public subpaths/types and SSR without browser globals.
 bash "$sveltery_repo_root/scripts/check-boolean-controls-package.sh"
+
+# Installed public schema-derived remote form types, including recursive/exact optional contracts.
+bash "$sveltery_repo_root/scripts/check-remote-form-types.sh" --public

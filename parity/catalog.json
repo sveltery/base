@@ -177,15 +177,15 @@
     },
     {
       "upstreamModule": "radio",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "Radio",
+      "evidence": "parity/radio/README.md"
     },
     {
       "upstreamModule": "radio-group",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "RadioGroup",
+      "evidence": "parity/radio/README.md"
     },
     {
       "upstreamModule": "scroll-area",
