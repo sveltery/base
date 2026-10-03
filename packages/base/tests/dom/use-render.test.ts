@@ -1,3 +1,4 @@
+// Native-default supplements explicitly characterize framework differences; ordinary bodies stay unchanged.
 // Assertion ports from immutable Base UI v1.8.0 useRender/useRenderElement tests.
 // MIT: parity/use-render/UPSTREAM_LICENSE. Supplements are named separately; no conformance/type credit.
 import { afterEach, expect, it, vi } from 'vitest';
@@ -201,13 +202,13 @@ it('supplement: getters own raw handlers through ordinary props and component cl
   const host = render({ internal: true, options }).host(); host.dispatchEvent(new MouseEvent('mousedown', { bubbles: true })); expect(types).toEqual(['undefined']);
   render({ internal: true, replacement: true, observe, options }); expect(observe.mock.calls[0][0].onmousedown).toBe(handler);
 });
-it('supplement: first literal empty class survives on the actual host', () => {
-  const callback = vi.fn((node: Element | null) => { if (node) expect(node.getAttribute('class')).toBe(''); }); const { app, host } = render({ options: { props: { class: '' }, ref: callback } });
-  expect(host().getAttribute('class')).toBe('');
+it('supplement native characterization: empty class follows Svelte normalization', () => {
+  const callback = vi.fn((node: Element | null) => { if (node) expect(node.getAttribute('class')).toBeNull(); }); const { app, host } = render({ options: { props: { class: '' }, ref: callback } });
+  expect(host().getAttribute('class')).toBeNull();
   app.setOptions({ props: { class: 'active' }, ref: callback }); flushSync(); expect(host().getAttribute('class')).toBe('active');
-  app.setOptions({ props: { class: '' }, ref: callback }); flushSync(); expect(host().getAttribute('class')).toBe('');
+  app.setOptions({ props: { class: '' }, ref: callback }); flushSync(); expect(host().getAttribute('class')).toBeNull();
   app.setOptions({ props: {}, ref: callback }); flushSync(); expect(host().hasAttribute('class')).toBe(false); expect(callback).toHaveBeenCalledTimes(1);
-  app.setOptions({ defaultTagName: 'svg', props: { class: '' }, ref: callback }); flushSync(); expect(host().getAttribute('class')).toBe('');
+  app.setOptions({ defaultTagName: 'svg', props: { class: '' }, ref: callback }); flushSync(); expect(host().getAttribute('class')).toBeNull();
 });
 it('supplement: merged host drops an inherited ref returned by a later getter', () => {
   const inherited = ref();
@@ -226,22 +227,22 @@ it('supplement: primitive refs from typed state mapping are ignored on attach an
   expect(app.getElement()).toBe(host()); expect(host().getAttribute('data-active')).toBe('');
   app.setOptions({ enabled: false }); flushSync(); expect(app.getElement()).toBeNull();
 });
-for (const path of ['disable', 'unmount', 'swap'] as const) it(`supplement: empty class remains visible to ref cleanup on ${path}`, async () => {
+for (const path of ['disable', 'unmount', 'swap'] as const) it(`supplement native characterization: empty class stays omitted at cleanup on ${path}`, async () => {
   const observed: (string | null)[] = [];
   const callback: UseRenderRef = node => { if (node) return () => { observed.push(node.getAttribute('class')); }; };
   const { app } = render({ options: { props: { class: '' }, ref: callback } });
   if (path === 'unmount') { await unmount(app); apps.splice(apps.indexOf(app), 1); }
   else { app.setOptions(path === 'disable' ? { enabled: false } : { defaultTagName: 'svg', props: { class: '' }, ref: callback }); flushSync(); }
-  expect(observed).toEqual(['']);
+  expect(observed).toEqual([null]);
 });
-for (const path of ['disable', 'swap'] as const) it(`supplement: refs clean the connected default host before ${path}`, () => {
+for (const path of ['disable', 'swap'] as const) it(`supplement native characterization: refs clean a removed default host after ${path}`, () => {
   const observations: unknown[] = [];
   const callback: UseRenderRef = node => {
     if (node) return () => { observations.push([node.isConnected, node.tagName]); };
   };
   const { app } = render({ options: { ref: callback } });
   app.setOptions(path === 'disable' ? { enabled: false } : { defaultTagName: 'svg', ref: callback }); flushSync();
-  expect(observations).toEqual([[true, 'DIV']]);
+  expect(observations).toEqual([[false, 'DIV']]);
 });
 for (const path of ['owner-unmount', 'snippet-swap'] as const) it(`supplement characterization: native attachment cleanup observes detached host on ${path}`, async () => {
   const observations: boolean[] = [];
@@ -249,9 +250,9 @@ for (const path of ['owner-unmount', 'snippet-swap'] as const) it(`supplement ch
   const { app } = render({ replacement: path === 'snippet-swap', replacementTag: 'div', options: { ref: callback } });
   if (path === 'owner-unmount') { await unmount(app); apps.splice(apps.indexOf(app), 1); }
   else { app.setTag('svg'); flushSync(); }
-  expect(observations).toEqual([false]); // Specific PM native lifecycle decision; zero unchanged credit.
+  expect(observations).toEqual([false]); // Native attachment lifecycle under updated Svelte-default direction; zero unchanged credit.
 });
-for (const [before, after] of [['default', 'span'], ['span', 'default'], ['span', 'section']] as const) it(`supplement: known render branch ${before} to ${after} cleans a connected host`, () => {
+for (const [before, after] of [['default', 'span'], ['span', 'default'], ['span', 'section']] as const) it(`supplement native characterization: render branch ${before} to ${after} cleans the removed host`, () => {
   const observations: unknown[] = [];
   const callback: UseRenderRef = node => {
     if (node) { observations.push(['attach', node.tagName, node.isConnected, node.getAttribute('class')]); return () => { observations.push(['cleanup', node.tagName, node.isConnected, node.getAttribute('class')]); }; }
@@ -260,7 +261,7 @@ for (const [before, after] of [['default', 'span'], ['span', 'default'], ['span'
   const app = mount(OuterFixture, { target, props: { start: before, callback } }); apps.push(app); flushSync();
   app.setMode(after); flushSync();
   const tag = (value: string) => value === 'default' ? 'DIV' : value === 'span' ? 'SPAN' : 'SECTION';
-  expect(observations).toEqual([['attach', tag(before), true, 'before'], ['cleanup', tag(before), true, 'before'], ['attach', tag(after), true, 'before']]);
+  expect(observations).toEqual([['attach', tag(before), true, 'before'], ['cleanup', tag(before), false, 'before'], ['attach', tag(after), true, 'before']]);
 });
 it('supplement characterization: a changed supplied snippet identity replaces its native host', () => {
   const target = document.createElement('main'); document.body.append(target);
@@ -270,7 +271,7 @@ it('supplement characterization: a changed supplied snippet identity replaces it
   const previous = target.firstElementChild;
   app.setMode('same-span'); flushSync();
   expect(target.firstElementChild).not.toBe(previous);
-  expect(observations).toEqual([['attach', true], ['cleanup', true], ['attach', true]]); // Native snippet identity; zero unchanged credit.
+  expect(observations).toEqual([['attach', true], ['cleanup', false], ['attach', true]]); // Native snippet identity; zero unchanged credit.
 });
 it('supplement: a stable supplied snippet retains its host and refs across reactive arguments', () => {
   const cleanup = vi.fn(), callback = vi.fn(() => cleanup);
@@ -281,7 +282,7 @@ it('supplement: a stable supplied snippet retains its host and refs across react
   expect(host().getAttribute('class')).toBe('changed'); expect(host().getAttribute('data-active')).toBe('');
   expect(callback).toHaveBeenCalledTimes(1); expect(cleanup).not.toHaveBeenCalled();
 });
-for (const [before, after] of [['', 'changed'], ['before', ''], ['before', undefined]] as const) it(`supplement: replaced refs observe class before host mutation (${String(before)} to ${String(after)})`, () => {
+for (const [before, after] of [['', 'changed'], ['before', ''], ['before', undefined]] as const) it(`supplement native characterization: replaced refs observe the updated class (${String(before)} to ${String(after)})`, () => {
   const observations: unknown[] = [];
   function observer(label: string): UseRenderRef {
     return node => {
@@ -296,9 +297,9 @@ for (const [before, after] of [['', 'changed'], ['before', ''], ['before', undef
   const initial = host();
   app.setOptions({ props: { class: after }, ref: second }); flushSync();
   expect(host()).toBe(initial);
-  expect(observations).toEqual([['first', 'attach', before], ['first', 'cleanup', before], ['second', 'attach', after ?? null]]);
+  expect(observations).toEqual([['first', 'attach', before || null], ['first', 'cleanup', after || null], ['second', 'attach', after || null]]);
 });
-it('supplement: old ref cleanup cannot overwrite newly authored attributes', () => {
+it('supplement native characterization: ref cleanup can restore old host attributes', () => {
   const restoring: UseRenderRef = node => {
     if (node) {
       const previous = node.getAttribute('class');
@@ -307,9 +308,9 @@ it('supplement: old ref cleanup cannot overwrite newly authored attributes', () 
   };
   const { app, host } = render({ options: { props: { class: 'before' }, ref: restoring } });
   app.setOptions({ props: { class: 'changed' }, ref: () => {} }); flushSync();
-  expect(host().getAttribute('class')).toBe('changed');
+  expect(host().getAttribute('class')).toBe('before');
 });
-it('supplement: replaced refs release before data, style and title updates and attach once', async () => {
+it('supplement native characterization: refs clean updated attributes and attach once', async () => {
   const observations: unknown[] = [];
   function observer(label: string): UseRenderRef {
     return node => {
@@ -320,7 +321,7 @@ it('supplement: replaced refs release before data, style and title updates and a
   const first = observer('first'), second = observer('second');
   const { app } = render({ options: { props: { 'data-version': 'before', style: 'color:red', title: 'before' }, ref: first } });
   app.setOptions({ props: { 'data-version': 'after', style: 'color:blue', title: 'after' }, ref: second }); flushSync();
-  expect(observations).toEqual([['first', 'attach', 'before', 'color: red;', 'before'], ['first', 'cleanup', 'before', 'color: red;', 'before'], ['second', 'attach', 'after', 'color: blue;', 'after']]);
+  expect(observations).toEqual([['first', 'attach', 'before', 'color: red;', 'before'], ['first', 'cleanup', 'after', 'color: blue;', 'after'], ['second', 'attach', 'after', 'color: blue;', 'after']]);
   await unmount(app); apps.splice(apps.indexOf(app), 1);
   expect(observations.at(-1)).toEqual(['second', 'cleanup', 'after', 'color: blue;', 'after']);
   expect(observations).toHaveLength(4);

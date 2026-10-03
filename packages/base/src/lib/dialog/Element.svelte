@@ -1,37 +1,32 @@
-<script lang="ts" generics="State">
-  import { createAttachmentKey } from 'svelte/attachments';
-  import { untrack, type Snippet } from 'svelte';
-  import { mergeProps } from '../merge-props/index.js';
+<script lang="ts" generics="State extends object">
+  // Temporary legacy call-shape adapter. All rendering/merging/refs use the pinned shared closure.
+  import type { Snippet } from 'svelte';
+  import RenderElement from '../internals/RenderElement.svelte';
+  import type { StateAttributesMapping } from '../internals/getStateAttributesProps.js';
+  import type { HTMLProps } from '../internals/types.js';
+  import type { NativeStyle } from '../internals/nativeProps.js';
+  import type { ClassValue } from 'svelte/elements';
   let { tag = 'div', internal = {}, props = {}, state = {} as State, render, children, ref = $bindable(), attach }: {
-    tag?: string; internal?: Record<string, unknown>; props?: Record<string, unknown>; state?: State;
-    render?: Snippet<[Record<string | symbol, unknown>, State, Snippet | undefined]>; children?: Snippet;
+    tag?: string; internal?: HTMLProps; props?: HTMLProps; state?: State;
+    render?: Snippet<[HTMLProps, State, Snippet | undefined]>; children?: Snippet;
     ref?: HTMLElement | null; attach?: (node: HTMLElement) => void | (() => void);
   } = $props();
-  const attachmentKey = createAttachmentKey();
-  function attachment(node: HTMLElement) {
-    ref = node;
-    const cleanup = untrack(() => attach?.(node));
-    return () => { cleanup?.(); if (ref === node) ref = null; };
-  }
-  function resolveStyle(value: unknown): string | undefined {
-    if (!value) return undefined;
-    if (typeof value === 'string') return value;
-    return Object.entries(value as Record<string, unknown>).filter(([, v]) => v !== undefined).map(([k, v]) => `${k.startsWith('--') ? k : k.replace(/[A-Z]/g, c => `-${c.toLowerCase()}`)}:${v}`).join(';');
-  }
-  const merged = $derived.by(() => {
-    const { class: classProp, style: styleProp, ...rest } = props;
-    const resolved: Record<string | symbol, unknown> = { ...rest, class: typeof classProp === 'function' ? classProp(state) : classProp, style: typeof styleProp === 'function' ? styleProp(state) : styleProp };
-    const result = mergeProps(internal, resolved);
-    // Svelte's style attribute is a CSS string, unlike React's object representation.
-    result.style = typeof resolved.style === 'string' ? [resolveStyle(internal.style), resolved.style].filter(Boolean).join(';') : resolveStyle(result.style);
-    // Foundation mergeProps composes string-keyed native props; Svelte attachments
-    // are enumerable symbol props and must survive alongside our own attachment.
-    const symbols = Object.fromEntries(Object.getOwnPropertySymbols(resolved).filter(key => Object.prototype.propertyIsEnumerable.call(resolved, key)).map(key => [key, resolved[key]]));
-    return { ...result, ...symbols, [attachmentKey]: attachment };
+  const componentProps = $derived.by(() => {
+    const { class: classProp, style: styleProp } = props;
+    return { render, class: classProp as ClassValue | ((state: State) => ClassValue), style: styleProp as NativeStyle | ((state: State) => NativeStyle | undefined) };
   });
+  const elementProps = $derived.by(() => {
+    const { class: _class, style: _style, ...rest } = props;
+    void _class; void _style;
+    return rest;
+  });
+  const legacyStateAttributesMapping = $derived.by(() => {
+    // Legacy callers already provide mapped attributes. Each component must replace this
+    // suppression with its actual pinned mapping during its own source audit; no clearance implied.
+    const mapping: StateAttributesMapping<State> = {};
+    for (const key in state) mapping[key] = () => null;
+    return mapping;
+  });
+  function attachmentRef(node: HTMLElement | null) { if (node) return attach?.(node); }
 </script>
-{#if render}
-  {@render render(merged, state, children)}
-{:else}
-  <svelte:element this={tag} {...merged}>{@render children?.()}</svelte:element>
-{/if}
+<RenderElement {tag} {componentProps} params={{ state, props: [internal, elementProps], ref: attachmentRef, stateAttributesMapping: legacyStateAttributesMapping }} {children} bind:element={ref} />

@@ -21,7 +21,7 @@
   }
   onMount(() => { hydrated = true; });
   function probe(node: HTMLElement) {
-    Object.assign(node, { renderProbe: () => ({ calls: controller.calls, renders: controller.renders, refs: controller.refs.map(ref => ref.current ? { tag: ref.current.tagName, id: ref.current.id, connected: ref.current.isConnected } : null), element: element ? { tag: element.tagName, id: element.id, connected: element.isConnected } : null }) });
+    Object.assign(node, { renderProbe: () => ({ calls: controller.calls, renders: controller.renders, refs: controller.refs.map(ref => ref.current ? { tag: ref.current.tagName, id: ref.current.id, connected: ref.current.isConnected } : null), publicRefs: scenario === 'public-refs' ? (config.options.ref as { current: Element | null }[]).map(ref => ref.current ? { tag: ref.current.tagName, id: ref.current.id, connected: ref.current.isConnected } : null) : undefined, element: element ? { tag: element.tagName, id: element.id, connected: element.isConnected } : null }) });
   }
 </script>
 {#snippet outerSpan(supplied: UseRenderHostProps, _state: State, children: Snippet | undefined)}<span {...supplied as HTMLAttributes<HTMLSpanElement>}>{@render children?.()}</span>{/snippet}

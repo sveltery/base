@@ -80,7 +80,7 @@ export function createUseRenderCase(scenario: string) {
     if (scenario === 'clone-props') { tag = 'span'; options.state = { active: true }; options.props = [base, { 'data-testid': 'custom' }]; owned['data-active'] = 'true'; }
     if (scenario === 'forward-ref' || scenario === 'clone-refs') { replacement = true; tag = 'div'; options.ref = refs[0]; }
     if (scenario === 'clone-refs') ownRef = refs[2];
-    if (scenario === 'clone-class') options.class = 'component-class';
+    if (scenario === 'clone-class') { options.state = { active: true }; options.class = 'component-class'; }
     if (scenario === 'clone-class' || scenario === 'clone-class-function') owned.class = 'render-class';
     if (scenario === 'clone-style') options.style = 'color:rgb(255,0,0)';
     if (scenario === 'clone-style' || scenario === 'clone-style-function') owned.style = 'font-size:16px';

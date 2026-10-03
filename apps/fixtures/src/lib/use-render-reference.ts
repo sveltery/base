@@ -1,9 +1,9 @@
 // Actual npm @base-ui/react 1.8.0 hooks. Immutable behavior pin 47b40521 (MIT).
-import { createElement as h, useState, useEffect, useRef, type CSSProperties, type Ref, type HTMLAttributes } from 'react';
+import { createElement as h, StrictMode, useState, useEffect, useRef, version as reactVersion, type CSSProperties, type Ref, type HTMLAttributes } from 'react';
 import { createRoot } from 'react-dom/client';
 import { useRender } from '@base-ui/react/use-render';
 import { useRenderElement, type UseRenderElementParameters } from '@base-ui/react/internals/useRenderElement';
-import { createUseRenderCase, publicCases, type State } from './use-render-cases.js';
+import { createUseRenderCase, publicCases, internalCases, type State } from './use-render-cases.js';
 import type { UseRenderHostProps, UseRenderPropSource, UseRenderTagName } from '../../../../packages/base/src/lib/use-render/types.js';
 function css(value: unknown): CSSProperties | undefined {
   if (typeof value !== 'string') return undefined;
@@ -39,6 +39,12 @@ function OwnedReference({ controller }: { controller: ReturnType<typeof createUs
   return useRender({ ref: options.ref as Ref<Element>, props: nativeProps(options.props as UseRenderHostProps) });
 }
 export function mountUseRenderReference(node: HTMLElement, scenario: string) {
+  // Both source suites use createRenderer() without overrides: strict=true and strictEffects=true.
+  // The twelve unimplemented source cases/guards remain excluded; supplements declare a plain root.
+  const ordinary = [...publicCases, ...internalCases].includes(scenario);
+  const animations = globalThis as typeof globalThis & { BASE_UI_ANIMATIONS_DISABLED?: boolean };
+  const priorAnimationFlag = animations.BASE_UI_ANIMATIONS_DISABLED;
+  if (ordinary) animations.BASE_UI_ANIMATIONS_DISABLED = true;
   function Fixture() {
     const controller = useRef(createUseRenderCase(scenario)).current;
     const [stage, setStage] = useState(0), [hydrated, setHydrated] = useState(false);
@@ -58,7 +64,8 @@ export function mountUseRenderReference(node: HTMLElement, scenario: string) {
     const privateProps = (typeof inputProps === 'function' ? [inputProps] : inputProps) as UseRenderElementParameters<State, Element, UseRenderTagName, boolean>['props'];
     const element = internal ? useRenderElement(options.defaultTagName ?? 'div', componentProps, { ...params, props: privateProps }) : useRender({ ...params, render, defaultTagName: options.defaultTagName, props: inputProps as Record<string, unknown> | undefined });
     const renderedElement = scenario === 'ref-observation-unmount' ? stage === 0 ? h(OwnedReference, { controller }) : null : element;
-    return h('main', { 'data-hydrated': hydrated, ref: (main: HTMLElement | null) => { if (main) Object.assign(main, { renderProbe: () => ({ calls: controller.calls, renders: controller.renders, refs: controller.refs.map(ref => ref.current ? { tag: ref.current.tagName, id: ref.current.id, connected: ref.current.isConnected } : null), element: node.querySelector('#tested-render') ? { tag: node.querySelector('#tested-render')!.tagName, id: 'tested-render', connected: true } : null }) }); } }, h('button', { type: 'button', onClick: () => setStage(value => value + 1) }, 'Advance'), renderedElement);
+    return h('main', { 'data-hydrated': hydrated, ref: (main: HTMLElement | null) => { if (main) Object.assign(main, { renderProbe: () => ({ calls: controller.calls, renders: controller.renders, refs: controller.refs.map(ref => ref.current ? { tag: ref.current.tagName, id: ref.current.id, connected: ref.current.isConnected } : null), publicRefs: scenario === 'public-refs' ? (options.ref as { current: Element | null }[]).map(ref => ref.current ? { tag: ref.current.tagName, id: ref.current.id, connected: ref.current.isConnected } : null) : undefined, renderer: { strict: ordinary, strictEffects: ordinary, reactVersion, animationsDisabled: animations.BASE_UI_ANIMATIONS_DISABLED }, element: node.querySelector('#tested-render') ? { tag: node.querySelector('#tested-render')!.tagName, id: 'tested-render', connected: true } : null }) }); } }, h('button', { type: 'button', onClick: () => setStage(value => value + 1) }, 'Advance'), renderedElement);
   }
-  const root = createRoot(node); root.render(h(Fixture)); return () => root.unmount();
+  const root = createRoot(node); root.render(ordinary ? h(StrictMode, null, h(Fixture)) : h(Fixture));
+  return () => { root.unmount(); if (ordinary) animations.BASE_UI_ANIMATIONS_DISABLED = priorAnimationFlag; };
 }

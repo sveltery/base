@@ -1,6 +1,9 @@
 // Supplemental exact-pin getter ownership regressions; no ordinary declaration credit.
 import { expect, it, vi } from 'vitest';
-import { resolveSources } from '../src/lib/use-render/props.js';
+import { mergeProps, mergePropsN } from '../src/lib/merge-props/index.js';
+function resolveSources(sources?: UseRenderPropSources): UseRenderHostProps {
+  return Array.isArray(sources) ? mergePropsN(sources) : mergeProps(undefined, sources as UseRenderHostProps | ((previous: UseRenderHostProps) => UseRenderHostProps));
+}
 import type { UseRenderHostProps, UseRenderPropSources } from '../src/lib/use-render/types.js';
 it('copies the first getter result while later getters own the mutable accumulator', () => {
   const first = { id: 'before' };

@@ -1,23 +1,21 @@
 import type { Snippet } from 'svelte';
 import type { ClassValue, SvelteHTMLElements } from 'svelte/elements';
 import type { PreventableEvent } from '../merge-props/index.js';
+import type { StateAttributesMapping } from '../internals/getStateAttributesProps.js';
+import type { MergedRef } from '../utils/useMergedRefs.js';
+import type { ComponentRenderFn, HTMLProps } from '../internals/types.js';
 
 export type UseRenderTagName = keyof HTMLElementTagNameMap | keyof SVGElementTagNameMap;
-export type UseRenderRef<Host extends Element = Element> =
-  | { current: Host | null }
-  | ((element: Host | null) => void | (() => void));
+export type UseRenderRef<Host extends Element = Element> = MergedRef<Host>;
 export type UseRenderRefs<Host extends Element = Element> =
   | UseRenderRef<Host>
   | readonly (UseRenderRef<Host> | null | undefined)[]
   | null;
-export type UseRenderStateAttributesMapping<State> = {
-  [Key in keyof State]?: (value: State[Key]) => Record<string, string> | null;
-};
-export type UseRenderHostProps = Record<string | symbol, unknown>;
+export type UseRenderStateAttributesMapping<State> = StateAttributesMapping<State>;
+export type UseRenderHostProps = HTMLProps;
 export type UseRenderPropSource = UseRenderHostProps | ((previous: UseRenderHostProps) => UseRenderHostProps);
 export type UseRenderPropSources = UseRenderPropSource | readonly (UseRenderPropSource | undefined)[];
-export type UseRenderRenderProp<State = Record<string, unknown>> =
-  Snippet<[UseRenderHostProps, State, Snippet | undefined]>;
+export type UseRenderRenderProp<State = Record<string, unknown>> = ComponentRenderFn<UseRenderHostProps, State>;
 type PreventableHandlers<Props> = {
   [Key in keyof Props]: Key extends `on:${string}` ? Props[Key] : Key extends `on${string}`
     ? NonNullable<Props[Key]> extends (event: infer E) => infer Result
