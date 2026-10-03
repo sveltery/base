@@ -1,11 +1,20 @@
 // Native representation probes against installed Svelte 5.57.1; no Base UI assertion credit.
 import { expect, it } from 'vitest';
+import { readFileSync } from 'node:fs';
 import type { ClassValue } from 'svelte/elements';
-import { clsx, to_class } from '../node_modules/svelte/src/internal/shared/attributes.js';
 import { resolveClassValue } from '../src/lib/internals/resolveClassValue.js';
 import { mergeProps } from '../src/lib/merge-props/index.js';
 
+// Test-only access to actual pinned private reference functions, not library runtime imports.
+const { clsx, to_class } = await import(
+  new URL('../node_modules/svelte/src/internal/shared/attributes.js', import.meta.url).href
+);
+
 it('normalizes ClassValue inputs like the pinned native Svelte clsx/to_class boundary', () => {
+  const version = JSON.parse(readFileSync(new URL('../node_modules/svelte/package.json', import.meta.url), 'utf8')).version;
+  expect(version).toBe('5.57.1');
+  expect(typeof clsx).toBe('function');
+  expect(typeof to_class).toBe('function');
   const inherited = Object.assign(Object.create({ inherited: true, omitted: false }), { own: true });
   const cases: ClassValue[] = [
     undefined, null, '', false, true, 0, -0, NaN, 4, 1n, 'plain',
