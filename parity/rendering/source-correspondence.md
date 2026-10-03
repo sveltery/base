@@ -30,7 +30,7 @@ The native markup adapter renders a literal `<input>` for a default input tag so
 
 Legacy `dialog/Element.svelte` callers already supply their own attributes and therefore temporarily suppress generic auto attributes with an explicitly labeled mapping adapter. This is an intermediate convergence step only. Those consumers still require their own pinned mapping/dependency audit and are not structurally cleared by the common renderer change. The fresh Field.Control port uses its real `fieldValidityMapping` and ordered source parameters directly.
 
-Shared utility dependency is PR46 final `b3bdfb266b1a6e51eb77459d66f6c727eddfddac`; the foundation branch is based directly on that exact commit and does not recreate those utilities. Canonical body implementation is now used; independent final-head source review and full execution gates remain pending.
+Shared utility dependency is PR46 final `b3bdfb266b1a6e51eb77459d66f6c727eddfddac`; the foundation branch is based directly on that exact commit and does not recreate those utilities. Canonical body implementation is now used; local full verification and standards pass. Independent final-head source/native/maintainability review, secured browser CI and PM approval remain pending in [PR #47](https://github.com/sveltery/base/pull/47).
 
 
 ### Temporary legacy suppression ledger
