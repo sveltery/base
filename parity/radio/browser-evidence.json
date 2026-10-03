@@ -1,6 +1,10 @@
 {
   "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
-  "renderer": { "react": "19.2.8", "reactDom": "19.2.8", "baseUi": "1.8.0" },
+  "renderer": {
+    "react": "19.2.8",
+    "reactDom": "19.2.8",
+    "baseUi": "1.8.0"
+  },
   "chromiumSandbox": true,
   "retries": 0,
   "ordinaryDeclarationCredit": 0,
@@ -13,10 +17,41 @@
       "passed": 29,
       "failed": 2,
       "failure": "Two React cancellation native-event expectations assumed zero input/change events. Actual React19.2.8 emitted input+change, retaining source and successful input value; every Svelte case passed.",
-      "nativeObservation": { "reactCanceledInputAndChangeEvents": 2, "svelteCanceledInputAndChangeEvents": 0 },
+      "nativeObservation": {
+        "reactCanceledInputAndChangeEvents": 2,
+        "svelteCanceledInputAndChangeEvents": 0
+      },
       "artifactId": 11263618188,
       "artifactZipSha256": "18000d46a69901e8f702e576c2184a3ba35dbdd8428012018b197546ab198716"
+    },
+    {
+      "head": "49d23aa034332b0dba6e7675687e490f9e87879e",
+      "runId": 37094471042,
+      "url": "https://github.com/sveltery/base/actions/runs/37094471042",
+      "result": "success",
+      "passed": 37,
+      "failed": 0,
+      "scope": "Actual React/ReactDOM19.2.8 and Svelte Radio/RadioGroup source-family contracts and native cancellation/controlled rejection/reset/SSR supplements. Sandbox enabled, retries zero; no ordinary declaration credit.",
+      "artifactId": 11264010016,
+      "artifactZipSha256": "4bcae511ef7df3771dd5dbe089d3820f28290f6c862532e6f715310ab5e32d62"
     }
   ],
-  "status": "Fresh exact-head run, configured review and independent whole-closure source/native/maintainability acceptance pending; no merge or exhaustive assertion parity claimed."
+  "status": "Fresh exact-head run, configured review and independent whole-closure source/native/maintainability acceptance pending; no merge or exhaustive assertion parity claimed.",
+  "inheritedDevelopmentGates": [
+    {
+      "head": "49d23aa034332b0dba6e7675687e490f9e87879e",
+      "runId": 37094471082,
+      "name": "CI",
+      "result": "failure",
+      "passing": "Standards, Verification and all focused non-Dialog browser jobs",
+      "failure": "Combined Dialog browser contains inherited Field Error business observation reading validity.errors instead of top-level errors; source-owner minimal449d850 is integrated before the next candidate."
+    },
+    {
+      "head": "49d23aa034332b0dba6e7675687e490f9e87879e",
+      "runId": 37094471109,
+      "name": "Field Form source core acceptance",
+      "result": "failure",
+      "failure": "Inherited error-payload browser read repaired by the source owner in449d850; actual runtime and exact array assertions are unchanged."
+    }
+  ]
 }
