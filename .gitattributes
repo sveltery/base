@@ -1,2 +1,7 @@
 # Preserve byte-exact diagnostic logs, including their terminal blank lines.
 parity/input/reset-limit/**/*.log whitespace=-blank-at-eof
+
+# Keep these immutable terminal captures byte-exact; retain all other whitespace checks.
+parity/boolean-controls/browser-8b88b30-observation.log whitespace=-blank-at-eol
+parity/boolean-controls/browser-b103288-observation.log whitespace=-blank-at-eol
+parity/boolean-controls/browser-b9c3185-observation.log whitespace=-blank-at-eol
