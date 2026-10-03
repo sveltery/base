@@ -31,7 +31,7 @@ cat > "$remote_contract_consumer/pnpm-workspace.yaml" <<'YAML'
 patchedDependencies:
   '@sveltejs/kit@2.70.3': patches/@sveltejs__kit@2.70.3.patch
 YAML
-pnpm --dir "$remote_contract_consumer" install --ignore-scripts > /dev/null
+pnpm --dir "$remote_contract_consumer" install --no-frozen-lockfile --ignore-scripts > /dev/null
 pnpm --dir "$remote_contract_consumer" install --frozen-lockfile --ignore-scripts > /dev/null
 pnpm --dir "$remote_contract_consumer" exec svelte-kit sync
 pnpm --dir "$remote_contract_consumer" exec svelte-check --tsconfig ./tsconfig.json
