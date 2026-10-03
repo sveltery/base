@@ -39,7 +39,7 @@ export const docs: Doc[] = [
         id: 'status',
         title: 'A foundation in progress',
         paragraphs: [
-          'Dialog, Button, Toast, standalone Input, Separator and Toggle, Progress, Collapsible, Meter, Avatar, Accordion and DirectionProvider have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
+          'Dialog, Button, Toast, standalone Input, Separator and Toggle, Progress, Collapsible, Meter, Avatar, Accordion, DirectionProvider and the CSPProvider context foundation have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
           'The package is private and unpublished. APIs may change. Use this workspace to evaluate the current slice; check the repository contracts before depending on a behavior.',
         ],
         links: [
@@ -232,6 +232,16 @@ export const docs: Doc[] = [
           },
         ],
       },
+    ],
+  },
+  {
+    slug: 'components/csp-provider', group: 'Components', title: 'CSP Provider',
+    description: 'Share optional CSP settings with descendant components as they gain support.',
+    sections: [
+      { id: 'provide', title: 'Provide settings', paragraphs: ['CSPProvider renders its children without a wrapper element. It accepts an optional string nonce and optional boolean disableStyleElements.'], code: '<script lang="ts">\n  import { CSPProvider } from "@sveltery/base/csp-provider";\n</script>\n<CSPProvider nonce="server-provided-nonce" disableStyleElements>\n  <Content />\n</CSPProvider>' },
+      { id: 'defaults', title: 'Defaults and nesting', paragraphs: ['Without a provider, the internal default has disableStyleElements=false. A provider supplies its own optional values, including undefined when omitted. Nested providers replace outer settings, and prop updates reach existing descendants.'] },
+      { id: 'imports', title: 'Imports and types', paragraphs: ['Import CSPProvider from @sveltery/base or @sveltery/base/csp-provider. CSPProviderProps and CSPProviderState are named type exports from either entry. CSPProvider.Props and CSPProvider.State preserve the pinned type-only aliases without runtime properties. Children use a Svelte snippet; the provider has no native host attributes or public context reader.'] },
+      { id: 'limits', title: 'Current support', paragraphs: ['This release provides the context foundation. No downstream style or script consumer is implemented yet: ScrollArea, Select and prehydration scripts remain future work. Passing a nonce does not currently establish nonce application or style-tag suppression. The provider does not generate a nonce or set response headers. Four dependent upstream declarations remain deferred and uncredited.'], links: [{ label: 'Read the CSPProvider contract and evidence', href: 'https://github.com/sveltery/base/blob/main/docs/csp-provider.md' }] },
     ],
   },
   {

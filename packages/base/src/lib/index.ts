@@ -24,3 +24,5 @@ export { DirectionProvider, useDirection } from './direction-provider/index.js';
 export type { DirectionProviderProps, TextDirection } from './direction-provider/index.js';
 export { Accordion } from './accordion/index.js';
 export type { AccordionValue, AccordionRootProps, AccordionRootState, AccordionItemProps, AccordionItemState, AccordionHeaderProps, AccordionHeaderState, AccordionTriggerProps, AccordionTriggerState, AccordionPanelProps, AccordionPanelState, AccordionRootChangeEventReason, AccordionRootChangeEventDetails, AccordionItemChangeEventReason, AccordionItemChangeEventDetails } from './accordion/index.js';
+export { CSPProvider } from './csp-provider/index.js';
+export type { CSPProviderProps, CSPProviderState } from './csp-provider/index.js';

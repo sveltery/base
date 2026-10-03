@@ -29,3 +29,5 @@ The [catalog ledger](docs/catalog.md) accounts for every pinned root export modu
 [DirectionProvider](docs/direction-provider.md) supplies nearest-provider text direction through a retained Svelte reader, without adding a DOM element. Its [dedicated evidence](parity/direction-provider/README.md) separates two ordinary declarations from adapted type checks and divergent timing characterization; complete control RTL integration remains deferred.
 
 [Accordion](docs/accordion.md) adds Root, Item, Header, Trigger and Panel with array values and cancellable Item-before-Root callbacks. Its [dedicated evidence](parity/accordion/README.md) separates 38 portable ordinary declarations / 42 variants from deferred React.Activity, parameterized, conformance, type and final-head acceptance gates.
+
+[CSPProvider](docs/csp-provider.md) adds a wrapperless provider and optional private CSP context foundation. Its [separate evidence](parity/csp-provider/README.md) keeps all four ScrollArea/Select-dependent ordinary declarations deferred with zero credit; downstream style/script integration remains unimplemented.
