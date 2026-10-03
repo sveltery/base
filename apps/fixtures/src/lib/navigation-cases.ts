@@ -7,7 +7,7 @@ export function navigationCase(scenario: string) {
     grouped: scenario.startsWith('group-') || scenario.includes('toggles') || scenario.includes('wrapped'),
     controlled: scenario.includes('controlled'),
     accept: scenario.includes('accept'),
-    defaultValue: scenario.includes('default') ? ['two'] : scenario.includes('multiple') ? ['one'] : undefined,
+    defaultValue: scenario.includes('omitted') ? undefined : scenario.includes('default') ? ['two'] : scenario.includes('multiple') ? ['one'] : undefined,
     multiple: scenario.includes('multiple'),
     missingValues: scenario.includes('omitted') || scenario.includes('warning'),
     initialized: scenario.includes('warning'),

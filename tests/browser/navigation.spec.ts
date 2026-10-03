@@ -7,6 +7,15 @@ async function setup(page: Page, scenario: string, reference: boolean, direction
   await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
 }
 async function calls(page: Page): Promise<NavigationCall[]> { return JSON.parse(await page.getByTestId('calls').innerText()); }
+async function trustedClick(page: Page, selector: string) {
+  const target = page.locator(selector);
+  await expect(target).toBeVisible();
+  await target.scrollIntoViewIfNeeded();
+  const box = await target.boundingBox();
+  expect(box).not.toBeNull();
+  // Locator.click waits for aria-disabled to clear; native pointer input must still run.
+  await page.mouse.click(box!.x + box!.width / 2, box!.y + box!.height / 2);
+}
 async function pressed(page: Page, expected: string[]) {
   for (const value of ['one', 'two', 'three']) await expect(page.locator(`#${value}`)).toHaveAttribute('aria-pressed', String(expected.includes(value)));
 }
@@ -138,7 +147,7 @@ for (const reference of [false, true]) {
     await expect(page.locator('#two')).toHaveAttribute('aria-disabled', 'true');
     await page.locator('#two').hover();
     await expect.poll(async () => JSON.parse(await page.getByTestId('input-events').innerText()).hover).toBeGreaterThan(0);
-    await page.locator('#two').click(); await page.locator('#two').focus(); await page.keyboard.press('Enter'); await page.keyboard.press('Space');
+    await trustedClick(page, '#two'); await page.locator('#two').focus(); await page.keyboard.press('Enter'); await page.keyboard.press('Space');
     expect(JSON.parse(await page.getByTestId('input-events').innerText())).toMatchObject({ clicks: 0, keydowns: 0 });
   });
   test(`Toolbar Source ${framework} custom button Enter and Space each dispatch one real click`, async ({ page }) => {
@@ -175,9 +184,9 @@ for (const reference of [false, true]) {
   });
   test(`Toolbar Input Source ${framework} disabled pointer focus and checkbox defaults resume when enabled`, async ({ page }) => {
     await setup(page, 'toolbar-input-disabled', reference); await page.locator('#before').focus();
-    await page.locator('#tested-input').click(); await expect(page.locator('#before')).toBeFocused();
+    await trustedClick(page, '#tested-input'); await expect(page.locator('#before')).toBeFocused();
     await page.getByRole('button', { name: 'Enable input', exact: true }).click(); await page.locator('#tested-input').click(); await expect(page.locator('#tested-input')).toBeFocused();
-    await setup(page, 'toolbar-input-checkbox', reference); await page.locator('#tested-input').click(); await expect(page.locator('#tested-input')).not.toBeChecked();
+    await setup(page, 'toolbar-input-checkbox', reference); await trustedClick(page, '#tested-input'); await expect(page.locator('#tested-input')).not.toBeChecked();
     await page.getByRole('button', { name: 'Enable input', exact: true }).click(); await page.locator('#tested-input').click(); await expect(page.locator('#tested-input')).toBeChecked();
   });
   test(`Toolbar Input Source ${framework} disabled vertical arrows and Tab escape`, async ({ page }) => {
