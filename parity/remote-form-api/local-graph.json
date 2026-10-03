@@ -2673,7 +2673,7 @@
     },
     {
       "local": "packages/base/src/lib/remote-forms/RemoteBooleanControl.svelte",
-      "sha256": "da1b601d7977206c8e0d4b113bae4f8f434f01b9ac5db89bfa873d6d8f11be10",
+      "sha256": "2ec88d564588075320eafa7929bdcf82f3930eb067632875a8052244e804c068",
       "imports": [
         {
           "specifier": "../checkbox/root/CheckboxRoot.svelte",

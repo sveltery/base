@@ -12,7 +12,7 @@ function render(props: ComponentProps<typeof Fixture>) {
   const component = mount(Fixture, { target, props }); flushSync();
   disposals.push(() => unmount(component));
   const form = target.querySelector('form')!;
-  const input = target.querySelector<HTMLInputElement>('input[type="checkbox"]')!;
+  const input = target.querySelector<HTMLInputElement>('input')!;
   const read = (name: string) => JSON.parse(target.querySelector(`[data-${name}]`)!.textContent!);
   return { target, component, form, input, read };
 }
@@ -28,6 +28,30 @@ it('actual Kit manual boolean descriptor stays controlled through initially unde
   view.input.click(); await tick();
   expect(view.read('phase')).toEqual([{ value: 'on', checked: true, successfulValues: [['b:enabled', 'on']] }]);
   expect(warn).not.toHaveBeenCalled();
+});
+
+it('authored radio renders keep selection with the actual Group and omit checkbox-only visible-host props', async () => {
+  const listeners = vi.spyOn(EventTarget.prototype, 'addEventListener');
+  const view = render({ mode: 'radio', initial: { choice: 3 } });
+  const first = view.target.querySelector<HTMLElement>('[data-option="3"]')!;
+  const second = view.target.querySelector<HTMLElement>('[data-option="4"]')!;
+  expect(first.getAttribute('aria-checked')).toBe('true');
+  expect(first.getAttribute('data-render-checked')).toBe('true');
+  for (const root of [first, second]) {
+    expect(root.hasAttribute('checked')).toBe(false);
+    expect(root.hasAttribute('defaultchecked')).toBe(false);
+    expect('defaultChecked' in root).toBe(false);
+  }
+  expect(listeners.mock.calls.some(([type]) => type === 'CheckedChange')).toBe(false);
+  expect([...new FormData(view.form)]).toEqual([['n:choice', '3']]);
+  view.component.ownerSet({ choice: 4 }); flushSync();
+  expect(first.getAttribute('aria-checked')).toBe('false');
+  expect(second.getAttribute('aria-checked')).toBe('true');
+  expect([...new FormData(view.form)]).toEqual([['n:choice', '4']]);
+  first.click(); await tick();
+  expect(view.read('owner')).toEqual({ choice: 3 });
+  expect(view.read('changes')).toEqual([3]);
+  expect([...new FormData(view.form)]).toEqual([['n:choice', '3']]);
 });
 
 it.each([{}, { choices: [] }, { choices: ['a'] }])('actual Kit manual array option preserves whole-array registration for %j', (initial) => {
