@@ -150,6 +150,11 @@ test('actual mixed-input Kit radio spreads preserve numeric source identity thro
   await expect.poll(() => json(page, 'manual-numeric-radio-owner')).toBe(4);
   expect(await json(page, 'manual-numeric-radio-changes')).toEqual([{ value: 3, type: 'click' }, { value: 3, type: 'click' }, { value: 4, type: 'click' }]);
   await expect(four).toHaveAttribute('aria-checked', 'true'); await expect(three).toHaveAttribute('aria-checked', 'false');
+  for (const host of [three, four]) {
+    expect(await host.getAttribute('checked')).toBeNull();
+    expect(await host.getAttribute('defaultchecked')).toBeNull();
+    expect(await host.evaluate((node) => Object.hasOwn(node, 'defaultChecked'))).toBe(false);
+  }
   await expect(page.locator('#manual-numeric-radio input[name="n:choice"]')).toHaveCount(2);
   await expect(page.locator('#manual-numeric-radio input[name="n:choice"]:checked')).toHaveCount(1);
   expect(await page.locator('#manual-numeric-radio').evaluate((node: HTMLFormElement) => new FormData(node).getAll('n:choice'))).toEqual(['4']);
