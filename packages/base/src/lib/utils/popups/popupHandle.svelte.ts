@@ -1,6 +1,7 @@
 // Ported from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
 import { DEV } from 'esm-env';
+import { createSubscriber } from 'svelte/reactivity';
 import { AnimationFrame } from '../useAnimationFrame.js';
 import {
   createChangeEventDetails,
@@ -84,11 +85,12 @@ export class BasePopupHandle<
    * Store of the root that currently controls the handle: the most recently attached one still
    * mounted, or `null` when no root is attached. Imperative methods are no-ops while this is `null`.
    */
-  private attachedStoreValue: Store | null = $state.raw(null);
+  private attachedStoreValue: Store | null = null;
 
   /**
    * Listeners notified when `attachedStore` changes, so detached triggers can follow the store pointer.
    */
+  // eslint-disable-next-line svelte/prefer-svelte-reactivity -- Original imperative subscription registry does not participate in native reactive reads.
   private readonly storeListeners = new Set<() => void>();
 
   /**
@@ -119,7 +121,10 @@ export class BasePopupHandle<
    * used while no root is attached.
    * @internal
    */
+  private readonly trackStore = createSubscriber(update => this.subscribeStore(update));
+
   get store(): HandleStore {
+    this.trackStore();
     return this.attachedStoreValue ?? this.fallbackStore;
   }
 

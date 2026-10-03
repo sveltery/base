@@ -1,5 +1,6 @@
 // Native snapshot boundary for Base UI v1.8.0 usePopupHandleStore (MIT).
-// The handle store pointer is a native $state.raw field; subscriptions remain public to imperative consumers.
+// The original plain store pointer is observed by native createSubscriber in the handle getter.
+// onMount chooses the committed pointer after the source-compatible inert server snapshot.
 import { onMount } from 'svelte';
 import type { PopupHandleStoreProvider } from './popupHandle.svelte.js';
 export function usePopupHandleStore<HandleStore>(getHandle: () => PopupHandleStoreProvider<HandleStore> | undefined) {

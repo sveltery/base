@@ -206,7 +206,6 @@ function getTabbableIn(container: HTMLElement, dir: 1 | -1): FocusableElement | 
 
   const active = activeElement(ownerDocument(container)) as FocusableElement;
   const index = list.indexOf(active);
-  // eslint-disable-next-line no-nested-ternary
   const nextIndex = index === -1 ? (dir === 1 ? 0 : len - 1) : index + dir;
 
   return list[nextIndex];
@@ -255,7 +254,7 @@ export function getTabbableBeforeElement(
   return getTabbableNearElement(referenceElement, -1);
 }
 
-export function isOutsideEvent(event: FocusEvent | FocusEvent, container?: Element) {
+export function isOutsideEvent(event: FocusEvent, container?: Element) {
   const containerElement = container || (event.currentTarget as Element);
   const relatedTarget = event.relatedTarget as HTMLElement | null;
   return !relatedTarget || !contains(containerElement, relatedTarget);

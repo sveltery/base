@@ -10,7 +10,7 @@ type Listener<T> = (state: T) => void;
 export class Store<State> {
   /**
    * Creates a store with the given initial state, constructing the class it is called on.
-   * Calling it on a generic base class (e.g. `ReactStore.create(...)`) constructs that
+   * Calling it on a generic base class (e.g. `SvelteStore.create(...)`) constructs that
    * class but degrades the inferred instance type to `Store`; use `new` there instead.
    */
   static create<T, This extends Store<T>>(this: new (state: T) => This, state: T): This {
@@ -20,12 +20,12 @@ export class Store<State> {
   /**
    * The current state of the store.
    * This property is updated immediately when the state changes as a result of calling {@link setState}, {@link update}, or {@link set}.
-   * To subscribe to state changes, use the {@link useState} method. The value returned by {@link useState} is updated after the component renders (similarly to React's useState).
-   * The values can be used directly (to avoid subscribing to the store) in effects or event handlers.
+   * This authoritative snapshot remains plain source state. Native selected reads
+   * subscribe through SvelteStore; imperative reads and notifications stay synchronous.
    *
    * Do not modify properties in state directly. Instead, use the provided methods to ensure proper state management and listener notification.
    */
-  state: State = $state.raw(undefined as State);
+  state: State;
 
   private listeners: Set<Listener<State>>;
 
@@ -34,6 +34,7 @@ export class Store<State> {
 
   constructor(state: State) {
     this.state = state;
+    // eslint-disable-next-line svelte/prefer-svelte-reactivity -- Original imperative subscription registry does not participate in native reactive reads.
     this.listeners = new Set();
     this.updateTick = 0;
   }

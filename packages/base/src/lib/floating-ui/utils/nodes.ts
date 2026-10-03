@@ -2,8 +2,6 @@
 // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
 import type { FloatingNodeType } from '../types.js';
 
-/* eslint-disable @typescript-eslint/no-loop-func */
-
 export function getNodeChildren(
   nodes: Array<FloatingNodeType>,
   id: string | undefined,

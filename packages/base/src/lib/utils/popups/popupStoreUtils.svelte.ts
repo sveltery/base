@@ -1,6 +1,9 @@
 // Business body from Base UI v1.8.0 popupStoreUtils.ts at
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
 import type { PopupStoreState } from './store.js';
+import { EMPTY_OBJECT } from '../empty.js';
+import { useFloatingParentNodeId } from '../../floating-ui/components/FloatingTree.svelte.js';
+import { useSyncedFloatingRootContext } from '../../floating-ui/hooks/useSyncedFloatingRootContext.svelte.js';
 import { useStableCallback } from '../useStableCallback.js';
 import { useIsoLayoutEffect } from '../useIsoLayoutEffect.svelte.js';
 import { useTransitionStatus } from '../../internals/useTransitionStatus.svelte.js';
@@ -11,7 +14,7 @@ import type { InteractionType } from '../useEnhancedClickHandler.js';
 import type { PopupTriggerDataStore } from './store.js';
 
 type PopupStoreWithOpen<State extends PopupStoreState<unknown>> = PopupTriggerDataStore<State> & {
-  setOpen(open: boolean, eventDetails: BaseUIChangeEventDetails<string>): void;
+  setOpen(open: boolean, eventDetails: BaseUIChangeEventDetails<'none'>): void;
   useSyncedValues<const Key extends keyof State>(getValues: () => Pick<State, Key>): void;
 };
 
@@ -160,7 +163,6 @@ export function useTriggerDataForwarding<
       } as Pick<Readonly<State>, Key | 'activeTriggerElement'>;
       store.update(changes);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, () => [isMountedByThisTrigger, store, triggerElementRef, ...Object.values(stateUpdates)]);
 
   return { registerTrigger, get isMountedByThisTrigger() { return isMountedByThisTrigger; } };
@@ -324,3 +326,24 @@ export function createDefaultInitialFocus(popupRef: { current: HTMLElement | nul
   return (interactionType: InteractionType) => interactionType === 'touch' ? popupRef.current : true;
 }
 export const FOCUSABLE_POPUP_PROPS = { tabindex: -1, 'data-base-ui-focusable': '' };
+
+/** Native once-only Root ownership, with the actual shared floating-root state synchronization. */
+export function usePopupRootStore<State extends PopupStoreState<unknown>, SetOpenEventDetails extends BaseUIChangeEventDetails<string>, Store extends PopupTriggerDataStore<State> & { setOpen(open: boolean, details: SetOpenEventDetails): void }>(
+  createStore: (floatingId: string | undefined, nested: boolean) => Store,
+  floatingId: string | undefined,
+  treatPopupAsFloatingElement = false,
+) {
+  const nested = useFloatingParentNodeId() != null;
+  const store = createStore(floatingId, nested);
+  useSyncedFloatingRootContext({ popupStore: store, treatPopupAsFloatingElement, floatingRootContext: store.state.floatingRootContext, floatingId, nested, onOpenChange: store.setOpen as (open: boolean, details: BaseUIChangeEventDetails<string>) => void });
+  return store;
+}
+
+/** Source interaction props are reset when the rendered interactions owner leaves. */
+export function usePopupInteractionProps<State extends PopupStoreState<unknown>, const Key extends keyof State>(
+  store: PopupStoreWithOpen<State>,
+  getStatePart: () => Pick<State, Key | 'activeTriggerProps' | 'inactiveTriggerProps' | 'popupProps'>,
+) {
+  store.useSyncedValues(getStatePart);
+  useIsoLayoutEffect(() => () => { store.update({ activeTriggerProps: EMPTY_OBJECT, inactiveTriggerProps: EMPTY_OBJECT, popupProps: EMPTY_OBJECT } as Pick<State, 'activeTriggerProps' | 'inactiveTriggerProps' | 'popupProps'>); }, () => [store]);
+}

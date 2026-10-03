@@ -1,14 +1,12 @@
 // Ported from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
-import { SvelteMap } from 'svelte/reactivity';
 import { DEV } from 'esm-env';
 /**
  * Development-only reverse index of element to registered id, keyed by the owning map.
  *
  * Registration would otherwise have to scan every entry to detect an element claimed by two ids,
  * making the mount of many triggers sharing one handle quadratic. Kept module-scoped, lazily
- * initialized, and read only from `process.env.NODE_ENV` guards so production builds drop it along
- * with the checks.
+ * initialized, and read only from development guards so production builds drop it with the checks.
  */
 let devElementIdsByMap: WeakMap<PopupTriggerMap, WeakMap<Element, string>> | undefined;
 
@@ -30,10 +28,11 @@ function getDevElementIds(map: PopupTriggerMap) {
  * while `hasElement` and `hasMatchingElement` are linear in the number of triggers.
  */
 export class PopupTriggerMap {
-  private idMap: SvelteMap<string, Element>;
+  private idMap: Map<string, Element>;
 
   constructor() {
-    this.idMap = new SvelteMap();
+    // eslint-disable-next-line svelte/prefer-svelte-reactivity -- Original imperative registry; source triggerCount notifications own selected reads.
+    this.idMap = new Map();
   }
 
   /**
@@ -48,7 +47,6 @@ export class PopupTriggerMap {
       const existingId = elementIds.get(element);
       if (existingId !== undefined && existingId !== id) {
         // TODO: fix mui/no-guarded-throw
-        // eslint-disable-next-line mui/no-guarded-throw
         throw new Error(
           'Base UI: A trigger element cannot be registered under multiple IDs in PopupTriggerMap.',
         );
