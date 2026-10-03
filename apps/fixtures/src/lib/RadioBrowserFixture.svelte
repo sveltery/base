@@ -116,6 +116,7 @@
     </Field.Root>
   </Fieldset.Root>
 {/snippet}
+<form id="external-form"></form>
 <main data-hydrated={hydrated} data-renderer="svelte5.57.1">
 <DirectionProvider direction={current.rtl ? 'rtl' : 'ltr'}>
   {#if withForm}<Form id="form" onFormSubmit={values => onSubmit?.(values)}>{@render content()}<button type="submit" id="submit">Submit</button><button type="reset" id="reset">Reset</button></Form>{:else}{@render content()}{/if}
