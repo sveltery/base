@@ -1,5 +1,7 @@
 // Ported from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
+import { DEV } from 'esm-env';
+
 interface NavigatorUAData {
   readonly brands: ReadonlyArray<{ brand: string; version: string }>;
   readonly mobile: boolean;
@@ -27,7 +29,7 @@ function readRawData(): RawNavigatorData {
     return { userAgent: '', platform: '', maxTouchPoints: 0 };
   }
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (DEV) {
     const uaData = (navigator as Navigator & { userAgentData?: NavigatorUAData | undefined })
       .userAgentData;
 

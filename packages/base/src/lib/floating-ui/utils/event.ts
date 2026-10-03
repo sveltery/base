@@ -2,7 +2,7 @@
 // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
 import { platform } from '../../utils/platform/index.js';
 
-export function stopEvent(event: Event | Event) {
+export function stopEvent(event: Event) {
   event.preventDefault();
   event.stopPropagation();
 }
@@ -52,7 +52,7 @@ export function isMouseLikePointerType(pointerType: string | undefined, strict?:
   return values.includes(pointerType);
 }
 
-export function isClickLikeEvent(event: Event | Event) {
+export function isClickLikeEvent(event: Event) {
   const type = event.type;
   return type === 'click' || type === 'mousedown' || type === 'keydown' || type === 'keyup';
 }
