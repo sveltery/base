@@ -136,6 +136,36 @@ it('retains -0 as previous value and calls the callback before committing the ob
   expect(component.snapshot().readsInsideCallback).toEqual([1, 2]);
 });
 
+it('uses the latest value-change handler and tracks previous values while a handler is absent', async () => {
+  const { component } = await setup();
+  const first = vi.fn();
+  const second = vi.fn();
+  component.setValueChangeCallback(first);
+  await tick();
+  expect(first).not.toHaveBeenCalled();
+  component.setChanged(1);
+  await tick();
+  expect(first).toHaveBeenCalledExactlyOnceWith(0);
+
+  component.setValueChangeCallback(second);
+  await tick();
+  expect(second).not.toHaveBeenCalled();
+  component.setChanged(2);
+  await tick();
+  expect(second).toHaveBeenCalledExactlyOnceWith(1);
+  expect(first).toHaveBeenCalledTimes(1);
+
+  component.setValueChangeCallback(undefined);
+  component.setChanged(3);
+  await tick();
+  expect(second).toHaveBeenCalledTimes(1);
+  component.setValueChangeCallback(second);
+  component.setChanged(4);
+  await tick();
+  expect(second).toHaveBeenLastCalledWith(3);
+  expect(second).toHaveBeenCalledTimes(2);
+});
+
 it('owns refs and timeout cancellation/reset/teardown per component', async () => {
   vi.useFakeTimers();
   const { component } = await setup();
