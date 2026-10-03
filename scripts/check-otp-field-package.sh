@@ -10,7 +10,7 @@ import { readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 const dir = process.argv[2];
 const tarball = readdirSync(dir).find(name => name.endsWith('.tgz'));
-writeFileSync(join(dir, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(dir,tarball)}`, svelte:'5.57.1', 'svelte-check':'4.7.6', typescript:'5.9.3' } }));
+writeFileSync(join(dir, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(dir,tarball)}`, svelte:'5.57.1', 'svelte-check':'4.7.6', typescript:'5.9.3', jsdom:'30.1.1' } }));
 JS
 pnpm --dir "$otp_consumer_dir" --ignore-workspace install --ignore-scripts >/dev/null
 pnpm --dir "$otp_consumer_dir" --ignore-workspace install --frozen-lockfile --ignore-scripts >/dev/null
@@ -71,3 +71,31 @@ assert(!metadata.dependencies.react);
 console.log('OTP packed root/subpath strict types and SSR consumer: PASS');
 JS
 node --import "$PWD/scripts/svelte-ssr-loader.mjs" "$otp_consumer_dir/check.mjs"
+
+# Installed private helper diagnostic: OTP consumes this module; no public export is added.
+# Browser-style navigator and real jsdom events must not require a Node process global.
+cat > "$otp_consumer_dir/native-event.mjs" <<'JS'
+import assert from 'node:assert/strict';
+import { JSDOM } from 'jsdom';
+const dom = new JSDOM('<div><input></div>');
+const nodeProcess = globalThis.process;
+Object.defineProperty(globalThis, 'navigator', { configurable: true, value: dom.window.navigator });
+try {
+  globalThis.process = undefined;
+  const { platform } = await import('./node_modules/@sveltery/base/dist/utils/platform/index.js');
+  const { stopEvent, isClickLikeEvent } = await import('./node_modules/@sveltery/base/dist/floating-ui/utils/event.js');
+  assert.equal(platform.env.jsdom, true);
+  const parent = dom.window.document.querySelector('div');
+  const input = parent.querySelector('input');
+  const seen = [];
+  parent.addEventListener('keydown', () => seen.push('parent'));
+  input.addEventListener('keydown', event => { seen.push('input'); stopEvent(event); });
+  const event = new dom.window.KeyboardEvent('keydown', { key:'ArrowRight', bubbles:true, cancelable:true });
+  assert.equal(input.dispatchEvent(event), false);
+  assert.equal(event.defaultPrevented, true);
+  assert.equal(isClickLikeEvent(event), true);
+  assert.deepEqual(seen, ['input']);
+} finally { globalThis.process = nodeProcess; dom.window.close(); }
+console.log('OTP installed private native event consumer without Node process: PASS');
+JS
+node --conditions=development "$otp_consumer_dir/native-event.mjs"
