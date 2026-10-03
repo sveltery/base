@@ -1,11 +1,12 @@
 <script lang="ts">
   import { Field, type TypedField } from './imports.js';
-  import { survey, other, transformed } from './forms.js';
+  import { survey, other, transformed, matrix, uncertainName } from './forms.js';
   import CompilerRoot from './TypedRoot.svelte';
   function namespace<Fields extends object>(): TypedField<Fields> { return { ...Field, Root: CompilerRoot }; }
   const Root = namespace<typeof survey.fields>().Root;
   const Other = namespace<typeof other.fields>().Root;
   const Transformed = namespace<typeof transformed.fields>().Root;
+  const Matrix = namespace<typeof matrix.fields>().Root;
 </script>
 <!-- reject: typo -->
 <Root name="storageTyp" as="text" />
@@ -43,3 +44,19 @@
 <Root name="size" value={42} />
 <!-- reject: transformed-output-not-input -->
 <Transformed name="quantity" as="number" />
+<!-- reject: uncertain-name-control -->
+<Other name={uncertainName} as="number" />
+<!-- reject: uncertain-name-tuple -->
+<Other name={uncertainName} as={['hidden', 42]} />
+<!-- reject: uncertain-name-value -->
+<Other name={uncertainName} as="hidden" value={42} />
+<!-- reject: multidimensional-missing-dot -->
+<Matrix name="cells[0][1]label" as="text" />
+<!-- reject: multidimensional-bracket-suffix -->
+<Matrix name="cells[0]x[1].label" as="text" />
+<!-- reject: multidimensional-empty-index -->
+<Matrix name="cells[][1].label" as="text" />
+<!-- reject: invalid-identifier-hyphen -->
+<Matrix name="bad-key" as="text" />
+<!-- reject: invalid-identifier-dollar-suffix -->
+<Matrix name="cash$amount" as="text" />

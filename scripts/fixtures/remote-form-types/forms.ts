@@ -1,4 +1,4 @@
-import type { RemoteForm } from '@sveltejs/kit';
+import type { RemoteForm, RemoteFormFields } from '@sveltejs/kit';
 
 export type Input = {
   storageType: 'cloud' | 'local';
@@ -17,6 +17,10 @@ export type Input = {
 };
 export declare const survey: RemoteForm<Input, { saved: true }>;
 export declare const other: RemoteForm<{ title: string; count: number }, { id: number }>;
+export declare const uncertainName: 'title' | 'count';
+export declare const stringName: 'storageType' | 'set';
+export declare const correlated: { name: 'title'; as: 'text' } | { name: 'count'; as: 'number' };
+export declare const matrix: { fields: RemoteFormFields<{ cells: Array<Array<{ label: string }>>; _key: string; $key: string; A1: string; 'bad-key': string; 'cash$amount': string }> };
 export declare const transformed: RemoteForm<{ quantity: string }, { quantity: number }>;
 export type Tree = { label: string; count: number; active?: boolean; value: string; issues: number; children: Tree[] };
 export declare const tree: RemoteForm<Tree, { saved: true }>;

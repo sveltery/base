@@ -40,9 +40,30 @@ type FieldAtKey<Fields, Key extends string> = Key extends keyof Fields
     ? Index extends keyof Fields ? Fields[Index] : never
     : never;
 
-type FieldAtSegment<Fields, Segment extends string> = Segment extends `${infer Key}[${infer Index}]${infer Rest}`
-  ? FieldAtSegment<FieldAtKey<Key extends '' ? Fields : FieldAtKey<Fields, Key>, Index>, Rest>
-  : Segment extends '' ? Fields : FieldAtKey<Fields, Segment>;
+type HasOnly<Text extends string, Characters extends string> = Text extends '' ? true
+  : Text extends `${infer Character}${infer Rest}`
+    ? Characters extends `${string}${Character}${string}` ? HasOnly<Rest, Characters> : false
+    : false;
+
+type IsIdentifier<Text extends string> = string extends Text ? true
+  : Text extends `${infer First}${infer Rest}`
+    ? 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_$' extends `${string}${First}${string}`
+      ? HasOnly<Rest, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789'> : false
+    : false;
+
+// Kit's logical paths use identifiers and digit-only bracket indices. Keep the symbolic
+// number index for autocomplete; each concrete Root name is checked again on lookup.
+type IsIndex<Index extends string> = `${number}` extends Index ? true
+  : Index extends '' ? false : HasOnly<Index, '0123456789'>;
+
+type FieldAtBrackets<Fields, Brackets extends string> = Brackets extends '' ? Fields
+  : Brackets extends `[${infer Index}]${infer Rest}`
+    ? IsIndex<Index> extends true ? FieldAtBrackets<FieldAtKey<Fields, Index>, Rest> : never
+    : never;
+
+type FieldAtSegment<Fields, Segment extends string> = Segment extends `${infer Key}[${infer Rest}`
+  ? IsIdentifier<Key> extends true ? FieldAtBrackets<FieldAtKey<Fields, Key>, `[${Rest}`> : never
+  : IsIdentifier<Segment> extends true ? FieldAtKey<Fields, Segment> : never;
 
 type FieldAtPath<Fields, Path extends string> = Path extends `${infer Head}.${infer Rest}`
   ? FieldAtPath<FieldAtSegment<Fields, Head>, Rest>
@@ -51,6 +72,16 @@ type FieldAtPath<Fields, Path extends string> = Path extends `${infer Head}.${in
 type FieldSelection<Fields, Name extends string> = IsAny<FieldAtPath<Fields, Name>> extends true
   ? { as?: string | readonly unknown[]; value?: unknown }
   : Selection<RemoteFieldArguments<FieldAtPath<Fields, Name>>>;
+
+type MatchesEachName<Fields, Name extends string, Option> = Name extends unknown
+  ? Option extends FieldSelection<Fields, Name> ? true : false
+  : never;
+
+// A union name can use only options valid for every selected leaf. Filter individual
+// accessor options instead of intersecting entire unions, which grows exponentially.
+type CommonFieldSelection<Fields, Name extends string, Option = FieldSelection<Fields, Name>> = Option extends unknown
+  ? false extends MatchesEachName<Fields, Name, Option> ? never : Option
+  : never;
 
 type Shorthand<Arguments> = Arguments extends readonly [infer Type extends string, ...infer Rest]
   ? ([] extends Rest ? { as: Type; value?: never } : never) |
@@ -74,7 +105,10 @@ export type RemoteFieldRootPropsForName<Fields, Name extends string> = Omit<Fiel
   name: Name;
   as?: string | readonly unknown[];
   value?: unknown;
-} & FieldSelection<Fields, NoInfer<Name>>;
+} & (
+  (Name extends unknown ? { name: Name } & FieldSelection<Fields, NoInfer<Name>> : never) |
+  CommonFieldSelection<Fields, NoInfer<Name>>
+);
 
 /** A discriminated union for finite schema paths, useful for typed props objects. */
 export type RemoteFieldRootProps<Fields, Name extends string = RemoteFieldName<Fields>> = Name extends unknown

@@ -17,4 +17,6 @@ The runtime Form snippet must use `TypedField<NoInfer<Remote['fields']>>` so con
 
 Finite schema paths supply autocomplete. Recursive schemas stop infinite autocomplete expansion at a repeated container; Root validates each supplied literal path by looking up its actual accessor, with no library depth limit and no broad string-name escape hatch. `RemoteFieldName<Fields, 'children[0].label'>` and `RemoteFieldRootProps<Fields, 'children[0].label'>` expose the same validation for explicit deep-path type aliases. The default `RemoteFieldName<Fields>` enumerates the finite leaf suggestions rather than claiming an infinite recursive union.
 
+Path validation follows Kit's identifier/dot/digit-only bracket grammar. Consumers cover missing separators, empty segments, invalid numeric spellings and valid consecutive brackets for nested arrays. Dynamic union names can use only accessor options valid for every selected leaf; a correlated props union can preserve each name's own control choice. Both native constructor inference and callable signatures are checked.
+
 The newer Kit 3.0.0 declaration check uses its public type location (`$app/server`) and tests optional defaults and tuple arguments. Runtime behavior remains verified separately against the repository's pinned Kit version; passing newer declarations is not a claim of Kit 3 runtime integration.
