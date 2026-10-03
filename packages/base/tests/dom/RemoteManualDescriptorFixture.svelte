@@ -6,7 +6,7 @@
   // @ts-expect-error Actual installed Kit helper has no declarations; test-only runtime probe.
   import { create_field_proxy } from '../../../../apps/fixtures/node_modules/@sveltejs/kit/src/runtime/form-utils.js';
   let { mode = 'boolean', initial = {}, submitted, cancel = false }: {
-    mode?: 'boolean' | 'array' | 'group';
+    mode?: 'boolean' | 'array' | 'group' | 'nested';
     initial?: Record<string, unknown>;
     submitted?: (values: Record<string, unknown>) => void;
     cancel?: boolean;
@@ -28,7 +28,7 @@
       <Field.Root name="enabled"><Field.Control {...fields.enabled.as('checkbox')} /></Field.Root>
     {:else if mode === 'array'}
       <Field.Root name="choices"><Field.Control {...fields.choices.as('checkbox', 'a')} /></Field.Root>
-    {:else}
+    {:else if mode === 'group'}
       <Field.Root name="choices">
         <CheckboxGroup value={fields.choices.value() ?? []} onValueChange={(value, details) => {
           changes.push(value);
@@ -40,6 +40,19 @@
             </Field.Control>
           </Field.Root>
         </CheckboxGroup>
+      </Field.Root>
+    {:else}
+      <Field.Root name="choices" as="checkbox" value="a">
+        <Field.Control>
+          {#snippet render(props)}
+            <CheckboxGroup value={fields.choices.value() ?? []} onValueChange={(value, details) => {
+              changes.push(value);
+              if (cancel) details.cancel(); else fields.choices.set(value);
+            }}>
+              <CheckboxRoot {...props} data-option="a" />
+            </CheckboxGroup>
+          {/snippet}
+        </Field.Control>
       </Field.Root>
     {/if}
   {/snippet}

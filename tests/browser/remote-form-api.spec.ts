@@ -4,7 +4,7 @@ async function setup(page: Page) {
   await page.goto('/remote-api');
   await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
   await expect(page.locator('#control-ref')).toHaveText('switch');
-  return page.locator('input[name="storageType"]');
+  return page.locator('#survey-form input[name="storageType"]');
 }
 async function value(page: Page, id: string) {
   return JSON.parse(await page.locator(`#${id}`).textContent() ?? 'null');
@@ -55,7 +55,7 @@ test('actual literal Kit descriptors characterize initially undefined checkbox a
   await expect(checkbox).toBeChecked();
   await page.getByRole('button', { name: 'Literal reset', exact: true }).click();
   await expect(input).toHaveValue('seed'); await expect(checkbox).not.toBeChecked();
-  expect((await value(page, 'literal-owner')).enabled ?? false).toBe(false);
+  await expect.poll(async () => (await value(page, 'literal-owner')).enabled ?? false).toBe(false);
   await test.info().attach('literal-checked-reset.json', { body: JSON.stringify(await page.locator('#literal-reset-form').evaluate((form: HTMLFormElement) => {
     const control = form.querySelector<HTMLInputElement>('input[type="checkbox"]')!;
     return { checked: control.checked, defaultChecked: control.defaultChecked, html: control.outerHTML, successfulValues: [...new FormData(form)] };
