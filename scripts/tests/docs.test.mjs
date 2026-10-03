@@ -10,7 +10,7 @@ test('docs API matches actual local types and all public parts', () => {
     new URL('../../packages/base/src/lib/dialog/index.parts.ts', import.meta.url),
     'utf8',
   );
-  const names = [...exports.matchAll(/export const (\w+) = \w+Component;/g)]
+  const names = [...exports.matchAll(/export const (\w+)(?:: typeof \w+Component)? = \w+Component;/g)]
     .map((match) => match[1])
     .sort();
   assert.deepEqual(
