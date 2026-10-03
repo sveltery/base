@@ -6,7 +6,8 @@
   import { saveInput } from './input.remote.js';
   let { data } = $props(); let hydrated = $state(false);
   let events = $state<{ channel: string; value: string; remote: string | undefined; canceled?: boolean; reason?: string; type?: string }[]>([]);
-  let resets = $state(0); let invalid = $state(0);
+  let resets = $state(0); let resetSettled = $state(0); let invalid = $state(0);
+  let resetObservation = $state<{ formData: string | null; remote: string | null; issues: unknown[]; canceled: boolean } | null>(null);
   let phases = $state<{ phase: string; trusted: boolean; eventPhase: number; name: string; value: string; defaultValue: string; formData: string | null; remote: string | undefined; getter: string; sameForm: boolean }[]>([]);
   const formAttachmentKey = createAttachmentKey(); const targetAttachmentKey = createAttachmentKey();
   function observe(phase: string, event: Event) {
@@ -16,9 +17,20 @@
       sameForm: input.form === saveInput.element }));
   }
   function observeForm(node: HTMLFormElement) {
+    let connected = true;
     const capture = (event: Event) => observe('form:capture', event); const bubble = (event: Event) => observe('form:bubble-after-Kit', event);
+    // Observe after the listener microtask, public tick and native task. Record
+    // actual SDK values at that boundary so a premature marker fails the tests.
+    const reset = async (event: Event) => {
+      await Promise.resolve(); await tick(); await new Promise(resolve => setTimeout(resolve, 0));
+      if (connected) {
+        resetObservation = { formData: new FormData(node).get('email') as string | null, remote: saveInput.fields.email.value() ?? null, issues: saveInput.fields.email.issues() ?? [], canceled: event.defaultPrevented };
+        resetSettled++;
+      }
+    };
     node.addEventListener('input', capture, true); node.addEventListener('input', bubble);
-    return () => { node.removeEventListener('input', capture, true); node.removeEventListener('input', bubble); };
+    node.addEventListener('reset', reset);
+    return () => { connected = false; node.removeEventListener('input', capture, true); node.removeEventListener('input', bubble); node.removeEventListener('reset', reset); };
   }
   function observeTarget(node: HTMLInputElement) {
     let connected = true;
@@ -48,5 +60,7 @@
   <output data-testid="issues">{JSON.stringify(saveInput.fields.email.issues() ?? [])}</output>
   <output data-testid="result">{JSON.stringify(saveInput.result ?? null)}</output>
   <output data-testid="events">{JSON.stringify(events)}</output><output data-testid="resets">{resets}</output><output data-testid="invalid">{invalid}</output>
+  <output data-testid="reset-settled">{resetSettled}</output>
+  <output data-testid="reset-observation">{JSON.stringify(resetObservation)}</output>
   <output data-testid="phases">{JSON.stringify(phases)}</output>
 </main>

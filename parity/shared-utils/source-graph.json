@@ -1,0 +1,186 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "recordedBeforeImplementation": true,
+  "scope": "shared utility closure; no assertion parity credited",
+  "externalOriginalBoundary": [
+    "react",
+    "global timer APIs",
+    "process.env.NODE_ENV"
+  ],
+  "externalNativeBoundary": [
+    "svelte",
+    "Svelte rune compiler",
+    "esm-env",
+    "global timer APIs"
+  ],
+  "modules": [
+    {
+      "source": "packages/utils/src/useControlled.ts",
+      "sha256": "487bc45fa3ef1a70177867bb03598230f9926601aed8e3c7f46470feb225f886",
+      "local": "packages/base/src/lib/utils/useControlled.svelte.ts",
+      "runtimeEdges": [
+        "react",
+        "./error"
+      ],
+      "typeEdges": [
+        "react"
+      ],
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [
+        "svelte",
+        "esm-env",
+        "./error.js"
+      ],
+      "localSha256": "f74b9a8aa08b323835613037c871a6b85c938555c788c0a8ff51825c1863fd35"
+    },
+    {
+      "source": "packages/utils/src/useStableCallback.ts",
+      "sha256": "908cbd177f86c961983d0124a859f733d341be49e58bc5a553255f47725419c1",
+      "local": "packages/base/src/lib/utils/useStableCallback.ts",
+      "runtimeEdges": [
+        "./safeReact",
+        "./useRefWithInit"
+      ],
+      "typeEdges": [],
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [
+        "svelte"
+      ],
+      "localSha256": "b790a02da99e0e9365bc05d35a434ef37dcffb2a4db8186b1327b949a994d05e"
+    },
+    {
+      "source": "packages/utils/src/useTimeout.ts",
+      "sha256": "8d9e4159d9f883e18035811e9f2b4d180afb0d724b55d86dbf4fda52c355e156",
+      "local": "packages/base/src/lib/utils/useTimeout.ts",
+      "runtimeEdges": [
+        "./useRefWithInit",
+        "./useOnMount"
+      ],
+      "typeEdges": [],
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [
+        "./useRefWithInit.js",
+        "./useOnMount.js"
+      ],
+      "localSha256": "a04448de8715b8728243ee6e33572c57bc5b151674628304f6c3906966738c78"
+    },
+    {
+      "source": "packages/utils/src/useIsoLayoutEffect.ts",
+      "sha256": "13a0ab28d24b04617dc290ad151c145f2435d1e0c381123847af74344ea4b9a0",
+      "local": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+      "runtimeEdges": [
+        "react"
+      ],
+      "typeEdges": [
+        "react"
+      ],
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [
+        "svelte"
+      ],
+      "localSha256": "0d24dd22dad18fc54341aaedb964a25829ae62322f10bf110a4fd8bde65dd1f3"
+    },
+    {
+      "source": "packages/utils/src/useRefWithInit.ts",
+      "sha256": "183cb6e86ab1f8044a431d5b4115c750f7848c9835d519881b3c7a66dae98354",
+      "local": "packages/base/src/lib/utils/useRefWithInit.ts",
+      "runtimeEdges": [
+        "react"
+      ],
+      "typeEdges": [
+        "react"
+      ],
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [],
+      "localSha256": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036"
+    },
+    {
+      "source": "packages/utils/src/error.ts",
+      "sha256": "957b3369d680d50a26cce3b4e9add608b2e829cb299636bde056e76297002847",
+      "local": "packages/base/src/lib/utils/error.ts",
+      "runtimeEdges": [
+        "./createLogOnce"
+      ],
+      "typeEdges": [],
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [
+        "./createLogOnce.js"
+      ],
+      "localSha256": "de9eeee73db42c056c110eb94f3aef8b51ae3003e97d5140bfaf876bdde52c69"
+    },
+    {
+      "source": "packages/utils/src/createLogOnce.ts",
+      "sha256": "6e5e5b4c34d3407fe2379b58749d4da26c49c49383b7501964132a2e725660b1",
+      "local": "packages/base/src/lib/utils/createLogOnce.ts",
+      "runtimeEdges": [],
+      "typeEdges": [],
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [
+        "esm-env"
+      ],
+      "localSha256": "a3c52188a495927ef9b49765ca1e70bc384b37b68a5c896ca86df15852a279b1"
+    },
+    {
+      "source": "packages/utils/src/useOnMount.ts",
+      "sha256": "9d621d059249ec6ad10dbf35eef28153a8bc6ef893574d26a060385d4d13472b",
+      "local": "packages/base/src/lib/utils/useOnMount.ts",
+      "runtimeEdges": [
+        "react",
+        "./empty"
+      ],
+      "typeEdges": [
+        "react"
+      ],
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [
+        "svelte"
+      ],
+      "localSha256": "a7ba4007eff27b601eebcb76755886a23a4dd8548a54f67e15fa1cd648e0e695"
+    },
+    {
+      "source": "packages/utils/src/empty.ts",
+      "sha256": "7d7c8625346dc2344dc551004c5c5da82878ab814818b7a8df4ad7082979ead6",
+      "local": "packages/base/src/lib/utils/empty.ts",
+      "runtimeEdges": [],
+      "typeEdges": [],
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [],
+      "localSha256": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b"
+    },
+    {
+      "source": "packages/utils/src/safeReact.ts",
+      "sha256": "b2923526a5b42e0d4f341ccb6c26e11d4b34991f206353320bb821026bbbc81f",
+      "local": null,
+      "runtimeEdges": [
+        "react"
+      ],
+      "typeEdges": [
+        "react"
+      ],
+      "status": "replaced React framework compatibility layer; native setup boundary",
+      "localRuntimeEdges": []
+    },
+    {
+      "source": "packages/react/src/internals/useValueChanged.ts",
+      "sha256": "fa36f17e32a4a0b3f8edabe219810a505cefa9c926d3ae807310c6013f57de6d",
+      "local": "packages/base/src/lib/internals/useValueChanged.svelte.ts",
+      "runtimeEdges": [
+        "react",
+        "@base-ui/utils/useIsoLayoutEffect",
+        "@base-ui/utils/useStableCallback"
+      ],
+      "typeEdges": [
+        "react"
+      ],
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [
+        "svelte",
+        "../utils/useIsoLayoutEffect.svelte.js",
+        "../utils/useStableCallback.js",
+        "../utils/useRefWithInit.js"
+      ],
+      "localSha256": "340a8f5ed100094c283f167c8a8a3e196708cdf238eeadc93f148ee31c4274c9"
+    }
+  ],
+  "reviewStatus": "independent final-head source review pending"
+}

@@ -1,0 +1,326 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "observedHead": "3c9c8e7bb15d697c692abd972fe6ecd228b8a8a6",
+  "renderer": {
+    "react": "19.2.8",
+    "reactDom": "19.2.8",
+    "baseUi": "1.8.0",
+    "native": "Svelte5.57.1",
+    "environment": "pairedJSDOM; not securedChromium"
+  },
+  "ordinaryDeclarationCredit": 0,
+  "originalSources": [
+    {
+      "source": "packages/react/src/radio-group/RadioGroup.tsx",
+      "sha256": "de05cca09ad00a4abb1bf731bb9761e526af2f874622588baa070b88037514a8",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/radio-group/RadioGroup.tsx"
+    },
+    {
+      "source": "packages/react/src/radio/root/RadioRoot.tsx",
+      "sha256": "7549c73833316834561db9abbffd3f50a61107d582d963551692068b8d66f50b",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/radio/root/RadioRoot.tsx"
+    },
+    {
+      "source": "packages/utils/src/useStableCallback.ts",
+      "sha256": "908cbd177f86c961983d0124a859f733d341be49e58bc5a553255f47725419c1",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useStableCallback.ts"
+    },
+    {
+      "source": "packages/utils/src/useMergedRefs.ts",
+      "sha256": "5fa12ae01abedc23ba814e9c59f015cf14d306044638b56c977780de43275ba3",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useMergedRefs.ts"
+    }
+  ],
+  "contract": "Stable group inputRef replacement does not republish the representative until a later registration/value action, in actual original Source and native port. No source ref-refresh effect is invented.",
+  "decision": "User native-Svelte directive and delegated PM decision: preserve source stable replacement behavior and native live-prop cleanup; no React render-snapshot emulation, refresh effect or representative stack. Retained ref limitations are observable and uncorrected.",
+  "probes": [
+    {
+      "file": "radio-3c-input-ref-probe.log",
+      "sha256": "de3c1047f4ce76090fd435ee41a10ee2a3f066c816c7bbb734b1b3cbe93b46dc"
+    },
+    {
+      "file": "radio-3c-input-ref-probe-positive.log",
+      "sha256": "7933b3178aa200947a538cd326ed61f620e6592602d7a468213a3e58bc0d4344"
+    },
+    {
+      "file": "GroupInputRefProbeFixture.svelte",
+      "sha256": "0dc5bd391b888dc6afc9a6fef316a06f6193f7c6a04e149f8089ae46d397e010",
+      "sourceText": "probes/GroupInputRefProbeFixture.svelte.txt",
+      "temporaryCopyTo": "packages/base/tests/dom/GroupInputRefProbeFixture.svelte"
+    },
+    {
+      "file": "group-input-ref-probe.test.ts",
+      "sha256": "c5437501ee18f42f6f90e35db2aa5056764b810295567cee3b700e77121c245b",
+      "sourceText": "probes/group-input-ref-probe.test.ts.txt",
+      "temporaryCopyTo": "packages/base/tests/dom/group-input-ref-probe.test.ts"
+    },
+    {
+      "file": "group-input-ref-probe-reference.ts",
+      "sha256": "714c18227113d97841efc18276ea5d59432b803e27c837a8e8433a35ec8190a1",
+      "sourceText": "probes/group-input-ref-probe-reference.ts.txt",
+      "temporaryCopyTo": "apps/fixtures/src/lib/group-input-ref-probe-reference.ts"
+    }
+  ],
+  "observations": [
+    {
+      "mode": "cleanup",
+      "rawSha256": "ad6d18757aae626af46204dc98e4575587dd4a26a6ca88e763027685a1de9ca5",
+      "vectors": [
+        {
+          "framework": "react",
+          "initial": {
+            "calls": [
+              "old a",
+              "old a"
+            ],
+            "oldValue": null,
+            "newValue": null,
+            "selected": "true"
+          },
+          "replaced": {
+            "calls": [
+              "old a",
+              "old a"
+            ],
+            "oldValue": null,
+            "newValue": null,
+            "selected": "true"
+          },
+          "selected": {
+            "calls": [
+              "old a",
+              "old a",
+              "new b"
+            ],
+            "oldValue": null,
+            "newValue": null,
+            "selected": "false"
+          },
+          "unmounted": {
+            "calls": [
+              "old a",
+              "old a",
+              "new b",
+              "old cleanup a",
+              "old null"
+            ],
+            "oldValue": null,
+            "newValue": null,
+            "selected": null
+          }
+        },
+        {
+          "framework": "svelte",
+          "initial": {
+            "calls": [
+              "old a",
+              "old a"
+            ],
+            "oldValue": null,
+            "newValue": null,
+            "selected": "true"
+          },
+          "replaced": {
+            "calls": [
+              "old a",
+              "old a"
+            ],
+            "oldValue": null,
+            "newValue": null,
+            "selected": "true"
+          },
+          "selected": {
+            "calls": [
+              "old a",
+              "old a",
+              "new b"
+            ],
+            "oldValue": null,
+            "newValue": null,
+            "selected": "false"
+          },
+          "unmounted": {
+            "calls": [
+              "old a",
+              "old a",
+              "new b",
+              "old cleanup a",
+              "new null"
+            ],
+            "oldValue": null,
+            "newValue": null,
+            "selected": null
+          }
+        }
+      ]
+    },
+    {
+      "mode": "legacy",
+      "rawSha256": "123402c2f58d70ee629e7a730122b11aea7c3435995da2c1b13ee687d51aa0f4",
+      "vectors": [
+        {
+          "framework": "react",
+          "initial": {
+            "calls": [
+              "old a",
+              "old a"
+            ],
+            "oldValue": null,
+            "newValue": null,
+            "selected": "true"
+          },
+          "replaced": {
+            "calls": [
+              "old a",
+              "old a"
+            ],
+            "oldValue": null,
+            "newValue": null,
+            "selected": "true"
+          },
+          "selected": {
+            "calls": [
+              "old a",
+              "old a",
+              "new b"
+            ],
+            "oldValue": null,
+            "newValue": null,
+            "selected": "false"
+          },
+          "unmounted": {
+            "calls": [
+              "old a",
+              "old a",
+              "new b",
+              "old null"
+            ],
+            "oldValue": null,
+            "newValue": null,
+            "selected": null
+          }
+        },
+        {
+          "framework": "svelte",
+          "initial": {
+            "calls": [
+              "old a",
+              "old a"
+            ],
+            "oldValue": null,
+            "newValue": null,
+            "selected": "true"
+          },
+          "replaced": {
+            "calls": [
+              "old a",
+              "old a"
+            ],
+            "oldValue": null,
+            "newValue": null,
+            "selected": "true"
+          },
+          "selected": {
+            "calls": [
+              "old a",
+              "old a",
+              "new b"
+            ],
+            "oldValue": null,
+            "newValue": null,
+            "selected": "false"
+          },
+          "unmounted": {
+            "calls": [
+              "old a",
+              "old a",
+              "new b",
+              "new null"
+            ],
+            "oldValue": null,
+            "newValue": null,
+            "selected": null
+          }
+        }
+      ]
+    },
+    {
+      "mode": "object",
+      "rawSha256": "22ed00ce307d361763de72a8f4a272f399f065331d2087926f9abff2d1678f0c",
+      "vectors": [
+        {
+          "framework": "react",
+          "initial": {
+            "calls": [],
+            "oldValue": "a",
+            "newValue": null,
+            "selected": "true"
+          },
+          "replaced": {
+            "calls": [],
+            "oldValue": "a",
+            "newValue": null,
+            "selected": "true"
+          },
+          "selected": {
+            "calls": [],
+            "oldValue": "a",
+            "newValue": "b",
+            "selected": "false"
+          },
+          "unmounted": {
+            "calls": [],
+            "oldValue": null,
+            "newValue": "b",
+            "selected": null
+          }
+        },
+        {
+          "framework": "svelte",
+          "initial": {
+            "calls": [],
+            "oldValue": "a",
+            "newValue": null,
+            "selected": "true"
+          },
+          "replaced": {
+            "calls": [],
+            "oldValue": "a",
+            "newValue": null,
+            "selected": "true"
+          },
+          "selected": {
+            "calls": [],
+            "oldValue": "a",
+            "newValue": "b",
+            "selected": "false"
+          },
+          "unmounted": {
+            "calls": [],
+            "oldValue": "a",
+            "newValue": null,
+            "selected": null
+          }
+        }
+      ]
+    }
+  ],
+  "execution": {
+    "stableReplacementProbe": {
+      "passed": 3,
+      "failed": 0,
+      "meaning": "Actual source/native initial, stable selected replacement and immediate group teardown agree across callback cleanup/legacy/object refs."
+    },
+    "extendedPositiveSelectionProbe": {
+      "passed": 0,
+      "failed": 3,
+      "meaning": "Stable replacement and subsequent selection-b checks pass in both. Deliberate whole-vector equality fails only after teardown because React captures old props while Svelte reads live props; both vectors retained rather than changing expectations or runtime."
+    }
+  },
+  "limitations": [
+    "Replacing a group inputRef while selected a remains mounted leaves old assigned and new unassigned in both renderers.",
+    "After subsequent selection-b, both publish new b. On teardown source legacy callbacks receive old null while native receives new null; cleanup-returning refs invoke old cleanup a plus source old null versus native new null.",
+    "After subsequent selection-b and group teardown, source object refs leave new disconnected b while clearing old a; native leaves old disconnected a while clearing new b. No exhaustive ref replacement/reset semantics claimed."
+  ],
+  "reproduction": "The archived source text is intentionally outside compiled library/app/test scope. On this exact-head checkout with the pinned workspace dependencies, copy each sourceText to temporaryCopyTo, source scripts/toolchain.sh, then run pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/group-input-ref-probe.test.ts. Full-vector equality intentionally reports the three recorded teardown differences; stable replacement and positive selection assertions pass. Remove only those temporary files after the probe. Do not treat this red characterization as an unexplained implementation failure or alter runtime to erase it."
+}

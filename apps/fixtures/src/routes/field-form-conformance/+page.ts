@@ -1,0 +1,1 @@
+export function load({ url }: { url: URL }) { return { part: url.searchParams.get('part') ?? 'Field.Root', scenario: url.searchParams.get('case') ?? 'props-default', reference: url.searchParams.has('reference') }; }

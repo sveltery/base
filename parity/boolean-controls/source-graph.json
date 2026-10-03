@@ -1,0 +1,4850 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "roots": [
+    "packages/react/src/switch/index.ts",
+    "packages/react/src/checkbox/index.ts",
+    "packages/react/src/checkbox-group/index.ts"
+  ],
+  "modules": [
+    {
+      "source": "packages/react/src/checkbox-group/CheckboxGroup.tsx",
+      "sha256": "23c54dbeb6d394ce90766a13e810a5428ee2e957833e3fb31af023bc713ccc73",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/checkbox-group/CheckboxGroup.tsx",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/useControlled",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useControlled.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/empty",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/empty.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/areArraysEqual",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/areArraysEqual.ts"
+        },
+        {
+          "specifier": "../internals/useBaseUiId",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/useBaseUiId.ts"
+        },
+        {
+          "specifier": "../internals/useRenderElement",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/useRenderElement.tsx"
+        },
+        {
+          "specifier": "./CheckboxGroupContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/checkbox-group/CheckboxGroupContext.ts"
+        },
+        {
+          "specifier": "../field/root/FieldRoot",
+          "kind": "type",
+          "resolved": "packages/react/src/field/root/FieldRoot.tsx"
+        },
+        {
+          "specifier": "../field/root/useFieldValidation",
+          "kind": "runtime",
+          "resolved": "packages/react/src/field/root/useFieldValidation.ts"
+        },
+        {
+          "specifier": "../internals/field-root-context/FieldRootContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "../internals/field-register-control/useRegisterFieldControl",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/field-register-control/useRegisterFieldControl.ts"
+        },
+        {
+          "specifier": "../internals/labelable-provider/LabelableContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/labelable-provider/LabelableContext.ts"
+        },
+        {
+          "specifier": "../internals/labelable-provider/useLabelableId",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/labelable-provider/useLabelableId.ts"
+        },
+        {
+          "specifier": "../internals/types",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/types.ts"
+        },
+        {
+          "specifier": "../internals/field-constants/constants",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/field-constants/constants.ts"
+        },
+        {
+          "specifier": "./useCheckboxGroupParent",
+          "kind": "runtime",
+          "resolved": "packages/react/src/checkbox-group/useCheckboxGroupParent.ts"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../internals/reasons",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/reasons.ts"
+        },
+        {
+          "specifier": "../internals/form-context/FormContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/form-context/FormContext.ts"
+        },
+        {
+          "specifier": "../internals/useValueChanged",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/useValueChanged.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/checkbox-group/CheckboxGroupContext.ts",
+      "sha256": "def52637625625f806ab48c3d0273690455cb4828896568fd7d11b4de00d3fb3",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/checkbox-group/CheckboxGroupContext.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "../field/root/useFieldValidation",
+          "kind": "type",
+          "resolved": "packages/react/src/field/root/useFieldValidation.ts"
+        },
+        {
+          "specifier": "./useCheckboxGroupParent",
+          "kind": "type",
+          "resolved": "packages/react/src/checkbox-group/useCheckboxGroupParent.ts"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../internals/reasons",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/reasons.ts"
+        },
+        {
+          "specifier": "../internals/labelable-provider/LabelableContext",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/labelable-provider/LabelableContext.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/checkbox-group/index.ts",
+      "sha256": "67150b117acb3cfbc2d5793f691f8437e159b0fac156200b3c2e4da9b9cb6c7b",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/checkbox-group/index.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./CheckboxGroup",
+          "kind": "runtime",
+          "resolved": "packages/react/src/checkbox-group/CheckboxGroup.tsx"
+        },
+        {
+          "specifier": "./CheckboxGroup",
+          "kind": "type",
+          "resolved": "packages/react/src/checkbox-group/CheckboxGroup.tsx"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/checkbox-group/useCheckboxGroupParent.ts",
+      "sha256": "12b97aa2147ed90dd99042fc00c5d49566485dc828062336f21b2f8563ad3f26",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/checkbox-group/useCheckboxGroupParent.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/empty",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/empty.ts"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../internals/reasons",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/reasons.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/checkbox/index.parts.ts",
+      "sha256": "21c03c556be3eb842c9d910c84148f5398faf499867e09b93805c8b14c211312",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/checkbox/index.parts.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./root/CheckboxRoot",
+          "kind": "runtime",
+          "resolved": "packages/react/src/checkbox/root/CheckboxRoot.tsx"
+        },
+        {
+          "specifier": "./indicator/CheckboxIndicator",
+          "kind": "runtime",
+          "resolved": "packages/react/src/checkbox/indicator/CheckboxIndicator.tsx"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/checkbox/index.ts",
+      "sha256": "801f54b8dfafface6d0a71f60be61631fbf8462f31623db2313d10e2f326cee9",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/checkbox/index.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./index.parts",
+          "kind": "runtime",
+          "resolved": "packages/react/src/checkbox/index.parts.ts"
+        },
+        {
+          "specifier": "./root/CheckboxRoot",
+          "kind": "type",
+          "resolved": "packages/react/src/checkbox/root/CheckboxRoot.tsx"
+        },
+        {
+          "specifier": "./indicator/CheckboxIndicator",
+          "kind": "type",
+          "resolved": "packages/react/src/checkbox/indicator/CheckboxIndicator.tsx"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/checkbox/indicator/CheckboxIndicator.tsx",
+      "sha256": "b20c77ea5c435c2f8843c2387fb1bd1cdfef97a45b5c1549d26427a9a497eec8",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/checkbox/indicator/CheckboxIndicator.tsx",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "../root/CheckboxRootContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/checkbox/root/CheckboxRootContext.ts"
+        },
+        {
+          "specifier": "../../internals/useRenderElement",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/useRenderElement.tsx"
+        },
+        {
+          "specifier": "../utils/getCheckboxStateAttributesMapping",
+          "kind": "runtime",
+          "resolved": "packages/react/src/checkbox/utils/getCheckboxStateAttributesMapping.ts"
+        },
+        {
+          "specifier": "../root/CheckboxRoot",
+          "kind": "type",
+          "resolved": "packages/react/src/checkbox/root/CheckboxRoot.tsx"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/types.ts"
+        },
+        {
+          "specifier": "../../internals/useOpenChangeComplete",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/useOpenChangeComplete.tsx"
+        },
+        {
+          "specifier": "../../internals/useTransitionStatus",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/useTransitionStatus.ts"
+        },
+        {
+          "specifier": "../../internals/getStateAttributesProps",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/getStateAttributesProps.ts"
+        },
+        {
+          "specifier": "../../internals/stateAttributesMapping",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/stateAttributesMapping.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/checkbox/root/CheckboxRoot.tsx",
+      "sha256": "4cfe969f4d1b3f046f3024d37fd48f4dc9abe6961877cda54290856e40d76605",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/checkbox/root/CheckboxRoot.tsx",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/empty",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/empty.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useControlled",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useControlled.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useMergedRefs",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useMergedRefs.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/visuallyHidden",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/visuallyHidden.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/owner",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/owner.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/getDefaultFormSubmitter",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/getDefaultFormSubmitter.ts"
+        },
+        {
+          "specifier": "../utils/getCheckboxStateAttributesMapping",
+          "kind": "runtime",
+          "resolved": "packages/react/src/checkbox/utils/getCheckboxStateAttributesMapping.ts"
+        },
+        {
+          "specifier": "../../utils/dispatchClickWithModifiers",
+          "kind": "runtime",
+          "resolved": "packages/react/src/utils/dispatchClickWithModifiers.ts"
+        },
+        {
+          "specifier": "../../internals/useRenderElement",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/useRenderElement.tsx"
+        },
+        {
+          "specifier": "../../internals/useBaseUiId",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/useBaseUiId.ts"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/types.ts"
+        },
+        {
+          "specifier": "../../merge-props",
+          "kind": "runtime",
+          "resolved": "packages/react/src/merge-props/index.ts"
+        },
+        {
+          "specifier": "../../internals/use-button/useButton",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/use-button/useButton.ts"
+        },
+        {
+          "specifier": "../../field/root/FieldRoot",
+          "kind": "type",
+          "resolved": "packages/react/src/field/root/FieldRoot.tsx"
+        },
+        {
+          "specifier": "../../internals/field-root-context/FieldRootContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "../../internals/field-register-control/useRegisterFieldControl",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/field-register-control/useRegisterFieldControl.ts"
+        },
+        {
+          "specifier": "../../field/item/FieldItemContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/field/item/FieldItemContext.ts"
+        },
+        {
+          "specifier": "../../internals/form-context/FormContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/form-context/FormContext.ts"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/LabelableContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/labelable-provider/LabelableContext.ts"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/useAriaLabelledBy",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/labelable-provider/useAriaLabelledBy.ts"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/useLabelableId",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/labelable-provider/useLabelableId.ts"
+        },
+        {
+          "specifier": "../../checkbox-group/CheckboxGroupContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/checkbox-group/CheckboxGroupContext.ts"
+        },
+        {
+          "specifier": "./CheckboxRootContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/checkbox/root/CheckboxRootContext.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/reasons.ts"
+        },
+        {
+          "specifier": "../../internals/useValueChanged",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/useValueChanged.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/checkbox/root/CheckboxRootContext.ts",
+      "sha256": "0582115ff2d4589f78c1d02c76b952e9d5139ffc0547e8a4454dc92367600a98",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/checkbox/root/CheckboxRootContext.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "./CheckboxRoot",
+          "kind": "type",
+          "resolved": "packages/react/src/checkbox/root/CheckboxRoot.tsx"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/checkbox/root/CheckboxRootDataAttributes.ts",
+      "sha256": "36e308e793f426ad5805e8b2768e52a23af3de6724e436739207e666d241fca4",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/checkbox/root/CheckboxRootDataAttributes.ts",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/react/src/checkbox/utils/getCheckboxStateAttributesMapping.ts",
+      "sha256": "cdd9a81d4b594da5006743c9e8fa7d70fdad42e4560f949d45cf419f5d5f688d",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/checkbox/utils/getCheckboxStateAttributesMapping.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../../internals/getStateAttributesProps",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/getStateAttributesProps.ts"
+        },
+        {
+          "specifier": "../root/CheckboxRoot",
+          "kind": "type",
+          "resolved": "packages/react/src/checkbox/root/CheckboxRoot.tsx"
+        },
+        {
+          "specifier": "../../internals/field-constants/constants",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/field-constants/constants.ts"
+        },
+        {
+          "specifier": "../root/CheckboxRootDataAttributes",
+          "kind": "runtime",
+          "resolved": "packages/react/src/checkbox/root/CheckboxRootDataAttributes.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/field/control/FieldControlDataAttributes.ts",
+      "sha256": "cbdf610a0e3492927587685b1d4f9bf8ae5ac2cba01e5f39e4001de9f9d0b1d3",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/field/control/FieldControlDataAttributes.ts",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/react/src/field/item/FieldItemContext.ts",
+      "sha256": "4e83a82491828c93404c8ba0b1cbb740b549d15e51f38848f94cde225eda7749",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/field/item/FieldItemContext.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/field/root/FieldRoot.tsx",
+      "sha256": "1f9861ae4813ab53a0092c5c5c760716a80fa618a11343f065f4ad4dee62a36e",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/field/root/FieldRoot.tsx",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "../../internals/field-root-context/FieldRootContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "../../internals/field-constants/constants",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/field-constants/constants.ts"
+        },
+        {
+          "specifier": "../../fieldset/root/FieldsetRootContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/fieldset/root/FieldsetRootContext.ts"
+        },
+        {
+          "specifier": "../../form",
+          "kind": "type",
+          "resolved": "packages/react/src/form/index.ts"
+        },
+        {
+          "specifier": "../../internals/form-context/FormContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/form-context/FormContext.ts"
+        },
+        {
+          "specifier": "../../internals/labelable-provider",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/labelable-provider/index.ts"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/types.ts"
+        },
+        {
+          "specifier": "../../internals/useRenderElement",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/useRenderElement.tsx"
+        },
+        {
+          "specifier": "./useFieldValidation",
+          "kind": "runtime",
+          "resolved": "packages/react/src/field/root/useFieldValidation.ts"
+        },
+        {
+          "specifier": "../../internals/field-register-control/useFieldControlRegistration",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/field-register-control/useFieldControlRegistration.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/field/root/useFieldValidation.ts",
+      "sha256": "f34d2c7c03621494f8a8ca8867c3a66a8b7c8089b022e851211db5429b63de89",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/field/root/useFieldValidation.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/empty",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/empty.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useTimeout",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useTimeout.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useRefWithInit",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useRefWithInit.ts"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/LabelableContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/labelable-provider/LabelableContext.ts"
+        },
+        {
+          "specifier": "../../merge-props",
+          "kind": "runtime",
+          "resolved": "packages/react/src/merge-props/index.ts"
+        },
+        {
+          "specifier": "../../internals/field-constants/constants",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/field-constants/constants.ts"
+        },
+        {
+          "specifier": "../../internals/form-context/FormContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/form-context/FormContext.ts"
+        },
+        {
+          "specifier": "../../form",
+          "kind": "type",
+          "resolved": "packages/react/src/form/index.ts"
+        },
+        {
+          "specifier": "../utils/getCombinedFieldValidityData",
+          "kind": "runtime",
+          "resolved": "packages/react/src/field/utils/getCombinedFieldValidityData.ts"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/types.ts"
+        },
+        {
+          "specifier": "./FieldRoot",
+          "kind": "type",
+          "resolved": "packages/react/src/field/root/FieldRoot.tsx"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/field/utils/getCombinedFieldValidityData.ts",
+      "sha256": "ad1121fec3eb304d56da1e2aeadb647bcb6e0a0ae87c45dca4773b002b840f3a",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/field/utils/getCombinedFieldValidityData.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../root/FieldRoot",
+          "kind": "type",
+          "resolved": "packages/react/src/field/root/FieldRoot.tsx"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/fieldset/root/FieldsetRootContext.ts",
+      "sha256": "f4d9dbeb41dc4bab42b3ba6dca1ce51ff83c009a6f7e5507a2b1f840e3708dcc",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/fieldset/root/FieldsetRootContext.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/components/FloatingDelayGroup.tsx",
+      "sha256": "14d8f2c810ae738d26d3d41b645d3983958fee8693432b676768e0643cd848d5",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/components/FloatingDelayGroup.tsx",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/useTimeout",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useTimeout.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "../hooks/useHoverShared",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useHoverShared.ts"
+        },
+        {
+          "specifier": "../types",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/types.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/reasons.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx",
+      "sha256": "6ecb04f1ed908009718134b26fa2aa48eaf723010a65c4d541c5674290d47933",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "@base-ui/utils/addEventListener",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/addEventListener.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/mergeCleanups",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/mergeCleanups.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useMergedRefs",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useMergedRefs.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useValueAsRef",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useValueAsRef.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useTimeout",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useTimeout.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/platform",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/platform/index.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useEnhancedClickHandler",
+          "kind": "type",
+          "resolved": "packages/utils/src/useEnhancedClickHandler.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useAnimationFrame",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useAnimationFrame.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/owner",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/owner.ts"
+        },
+        {
+          "specifier": "../../utils/FocusGuard",
+          "kind": "runtime",
+          "resolved": "packages/react/src/utils/FocusGuard.tsx"
+        },
+        {
+          "specifier": "../utils/element",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/element.ts"
+        },
+        {
+          "specifier": "../utils/event",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/event.ts"
+        },
+        {
+          "specifier": "../utils/tabbable",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/tabbable.ts"
+        },
+        {
+          "specifier": "../utils/nodes",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/nodes.ts"
+        },
+        {
+          "specifier": "../utils/composite",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/composite.ts"
+        },
+        {
+          "specifier": "../types",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/types.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/reasons.ts"
+        },
+        {
+          "specifier": "../utils/createAttribute",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/createAttribute.ts"
+        },
+        {
+          "specifier": "../utils/enqueueFocus",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/enqueueFocus.ts"
+        },
+        {
+          "specifier": "../utils/markOthers",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/markOthers.ts"
+        },
+        {
+          "specifier": "./FloatingPortal",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingPortal.tsx"
+        },
+        {
+          "specifier": "./FloatingTree",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingTree.tsx"
+        },
+        {
+          "specifier": "../components/FloatingTreeStore",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingTreeStore.ts"
+        },
+        {
+          "specifier": "../../internals/constants",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/constants.ts"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/types.ts"
+        },
+        {
+          "specifier": "../../utils/resolveRef",
+          "kind": "runtime",
+          "resolved": "packages/react/src/utils/resolveRef.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/components/FloatingPortal.tsx",
+      "sha256": "602600ea7e232bec066b961eddc5dce4bb654a88694a902e369e0e3ca6b2e13c",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/components/FloatingPortal.tsx",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "react-dom",
+          "kind": "runtime",
+          "resolved": "external:react-dom"
+        },
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "@base-ui/utils/addEventListener",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/addEventListener.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/mergeCleanups",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/mergeCleanups.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useId",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useId.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/empty",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/empty.ts"
+        },
+        {
+          "specifier": "../../utils/FocusGuard",
+          "kind": "runtime",
+          "resolved": "packages/react/src/utils/FocusGuard.tsx"
+        },
+        {
+          "specifier": "../utils/tabbable",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/tabbable.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/reasons.ts"
+        },
+        {
+          "specifier": "../utils/createAttribute",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/createAttribute.ts"
+        },
+        {
+          "specifier": "../../internals/useRenderElement",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/useRenderElement.tsx"
+        },
+        {
+          "specifier": "../../internals/constants",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/constants.ts"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/components/FloatingRootStore.ts",
+      "sha256": "1ed4e09c006f812df8f7e14afa4f9da3adaedc3537fd5c3c9bdb8d3603235c6e",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/components/FloatingRootStore.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/store",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/store/index.ts"
+        },
+        {
+          "specifier": "../types",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/types.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../utils/createEventEmitter",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/createEventEmitter.ts"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/types.ts"
+        },
+        {
+          "specifier": "../../utils/popups",
+          "kind": "type",
+          "resolved": "packages/react/src/utils/popups/index.ts"
+        },
+        {
+          "specifier": "../utils",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils.ts"
+        },
+        {
+          "specifier": "../../internals/useTransitionStatus",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/useTransitionStatus.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/components/FloatingTree.tsx",
+      "sha256": "0bf2b2b744cf1004f1f05893f795f8aede95aa85b9b7ebfd7e4a2c53c26fd548",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/components/FloatingTree.tsx",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/useId",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useId.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useRefWithInit",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useRefWithInit.ts"
+        },
+        {
+          "specifier": "../types",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/types.ts"
+        },
+        {
+          "specifier": "./FloatingTreeStore",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingTreeStore.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/components/FloatingTreeStore.ts",
+      "sha256": "2bff8cd44fbf2d39afda9e3f6b0f638c54266aba324ae9154b5df3deba5a0125",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/components/FloatingTreeStore.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "../types",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/types.ts"
+        },
+        {
+          "specifier": "../utils/createEventEmitter",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/createEventEmitter.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/gridNavigation.ts",
+      "sha256": "770979ed938192b076a31c02d5b965dcc322c0ea1143ad5c797d4f1087e5f5b3",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/hooks/gridNavigation.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "type",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "../utils/composite",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/composite.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useClick.ts",
+      "sha256": "9cc6a80220399b7c06d8919a7814becb1bd3df8bcb893444ac7466366a62b1ed",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/hooks/useClick.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/useAnimationFrame",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useAnimationFrame.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useTimeout",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useTimeout.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/empty",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/empty.ts"
+        },
+        {
+          "specifier": "../types",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/types.ts"
+        },
+        {
+          "specifier": "../utils/element",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/element.ts"
+        },
+        {
+          "specifier": "../utils/event",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/event.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/reasons.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useClientPoint.ts",
+      "sha256": "05c9506381cb9940d9737161d44899a7eb971e6db085fbeca81ee97de4470884",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/hooks/useClientPoint.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/addEventListener",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/addEventListener.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "../types",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/types.ts"
+        },
+        {
+          "specifier": "../utils/element",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/element.ts"
+        },
+        {
+          "specifier": "../utils/event",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/event.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useDismiss.ts",
+      "sha256": "caff943d9f6525ac0ad8c73c046679fc1354fd83b1b3422a217982e9da6757d5",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/hooks/useDismiss.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/addEventListener",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/addEventListener.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/mergeCleanups",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/mergeCleanups.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/owner",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/owner.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useTimeout",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useTimeout.ts"
+        },
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "@base-ui/utils/platform",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/platform/index.ts"
+        },
+        {
+          "specifier": "../components/FloatingTree",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingTree.tsx"
+        },
+        {
+          "specifier": "../components/FloatingTreeStore",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingTreeStore.ts"
+        },
+        {
+          "specifier": "../types",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/types.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/types.ts"
+        },
+        {
+          "specifier": "../../internals/reasons",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/reasons.ts"
+        },
+        {
+          "specifier": "../utils/createAttribute",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/createAttribute.ts"
+        },
+        {
+          "specifier": "../utils/element",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/element.ts"
+        },
+        {
+          "specifier": "../utils/event",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/event.ts"
+        },
+        {
+          "specifier": "../utils/nodes",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/nodes.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useFloating.ts",
+      "sha256": "03ba78f0e21f618c5873c9acc568c0d2ddb79b8518cd1ca65c68bc27ff14507b",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/hooks/useFloating.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "@floating-ui/react-dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/react-dom"
+        },
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "../components/FloatingRootStore",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingRootStore.ts"
+        },
+        {
+          "specifier": "../components/FloatingTree",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingTree.tsx"
+        },
+        {
+          "specifier": "../types",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/types.ts"
+        },
+        {
+          "specifier": "./useFloatingRootContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useFloatingRootContext.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useFloatingRootContext.ts",
+      "sha256": "90bd769413b4c22b6e1273ddd874914be911cf106a8123353ae60638d0b82420",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/hooks/useFloatingRootContext.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "@base-ui/utils/useId",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useId.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useRefWithInit",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useRefWithInit.ts"
+        },
+        {
+          "specifier": "../../utils/popups",
+          "kind": "runtime",
+          "resolved": "packages/react/src/utils/popups/index.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../components/FloatingTree",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingTree.tsx"
+        },
+        {
+          "specifier": "../components/FloatingRootStore",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingRootStore.ts"
+        },
+        {
+          "specifier": "../types",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useFocus.ts",
+      "sha256": "2003b943a94451bf49cdb4e83f836646872b5f774a09baa1e08674f5a5cc04ce",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/hooks/useFocus.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/addEventListener",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/addEventListener.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/platform",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/platform/index.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/mergeCleanups",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/mergeCleanups.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/owner",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/owner.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useTimeout",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useTimeout.ts"
+        },
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "../types",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/types.ts"
+        },
+        {
+          "specifier": "../utils/createAttribute",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/createAttribute.ts"
+        },
+        {
+          "specifier": "../utils/element",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/element.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/reasons.ts"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useHover.ts",
+      "sha256": "e0858bc9abe95aff495b5679741d50730309a3c77b7337ea75056ad71ad66335",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/hooks/useHover.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/addEventListener",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/addEventListener.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/mergeCleanups",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/mergeCleanups.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/owner",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/owner.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useTimeout",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useTimeout.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useValueAsRef",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useValueAsRef.ts"
+        },
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/reasons.ts"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/types.ts"
+        },
+        {
+          "specifier": "../components/FloatingTree",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingTree.tsx"
+        },
+        {
+          "specifier": "../types",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/types.ts"
+        },
+        {
+          "specifier": "../utils/element",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/element.ts"
+        },
+        {
+          "specifier": "./useHoverShared",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useHoverShared.ts"
+        },
+        {
+          "specifier": "./useHoverShared",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useHoverShared.ts"
+        },
+        {
+          "specifier": "./useHoverShared",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useHoverShared.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useHoverFloatingInteraction.ts",
+      "sha256": "9a244dbacb63b7cfd3cf4715d289a0fcf257c39a6d8f4864b1385ba0b300d0aa",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/hooks/useHoverFloatingInteraction.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/addEventListener",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/addEventListener.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/mergeCleanups",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/mergeCleanups.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/owner",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/owner.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useTimeout",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useTimeout.ts"
+        },
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/reasons.ts"
+        },
+        {
+          "specifier": "../components/FloatingTree",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingTree.tsx"
+        },
+        {
+          "specifier": "../types",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/types.ts"
+        },
+        {
+          "specifier": "../utils/element",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/element.ts"
+        },
+        {
+          "specifier": "../utils/nodes",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/nodes.ts"
+        },
+        {
+          "specifier": "./useHoverInteractionSharedState",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useHoverInteractionSharedState.ts"
+        },
+        {
+          "specifier": "./useHoverShared",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useHoverShared.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useHoverInteractionSharedState.ts",
+      "sha256": "b987cb5c94f6154bd0e8c4aca2a44dfbc0ff6fff96a8697dc3447d1fbfe3420e",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/hooks/useHoverInteractionSharedState.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "@base-ui/utils/useOnMount",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useOnMount.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useRefWithInit",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useRefWithInit.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useTimeout",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useTimeout.ts"
+        },
+        {
+          "specifier": "../types",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/types.ts"
+        },
+        {
+          "specifier": "../utils",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useHoverReferenceInteraction.ts",
+      "sha256": "4fac47f406b11c9c4c3c1af6c859b8771e481792c2a591107e39241d0b1088d2",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/hooks/useHoverReferenceInteraction.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "react-dom",
+          "kind": "runtime",
+          "resolved": "external:react-dom"
+        },
+        {
+          "specifier": "@base-ui/utils/addEventListener",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/addEventListener.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/mergeCleanups",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/mergeCleanups.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/owner",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/owner.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useValueAsRef",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useValueAsRef.ts"
+        },
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/reasons.ts"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/types.ts"
+        },
+        {
+          "specifier": "../components/FloatingTree",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingTree.tsx"
+        },
+        {
+          "specifier": "../components/FloatingTreeStore",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingTreeStore.ts"
+        },
+        {
+          "specifier": "../types",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/types.ts"
+        },
+        {
+          "specifier": "../utils/element",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/element.ts"
+        },
+        {
+          "specifier": "../utils/event",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/event.ts"
+        },
+        {
+          "specifier": "./useHoverInteractionSharedState",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useHoverInteractionSharedState.ts"
+        },
+        {
+          "specifier": "./useHoverShared",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useHoverShared.ts"
+        },
+        {
+          "specifier": "./useHoverShared",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useHoverShared.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useHoverShared.ts",
+      "sha256": "24d8edb07cb31c4f2b82ef77bea6db76e4a6ae2bacfa097dd4b01c50de5d2478",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/hooks/useHoverShared.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "../utils/event",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/event.ts"
+        },
+        {
+          "specifier": "../types",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/types.ts"
+        },
+        {
+          "specifier": "../utils/element",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/element.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useListNavigation.ts",
+      "sha256": "fda8cf48adddf095bf345a909617f79cd6e4626ad6c5dcd9078c00bae3e6709c",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/hooks/useListNavigation.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/useAnimationFrame",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useAnimationFrame.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/owner",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/owner.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useValueAsRef",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useValueAsRef.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/platform",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/platform/index.ts"
+        },
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/reasons.ts"
+        },
+        {
+          "specifier": "../components/FloatingTree",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingTree.tsx"
+        },
+        {
+          "specifier": "../components/FloatingTreeStore",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingTreeStore.ts"
+        },
+        {
+          "specifier": "../types",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/types.ts"
+        },
+        {
+          "specifier": "../utils/composite",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/composite.ts"
+        },
+        {
+          "specifier": "./gridNavigation",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/hooks/gridNavigation.ts"
+        },
+        {
+          "specifier": "../utils/constants",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/constants.ts"
+        },
+        {
+          "specifier": "../utils/element",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/element.ts"
+        },
+        {
+          "specifier": "../utils/enqueueFocus",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/enqueueFocus.ts"
+        },
+        {
+          "specifier": "../utils/event",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/event.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useSyncedFloatingRootContext.ts",
+      "sha256": "e9538f143d37f7c9ebfd5f87bb2fbb49d03bad14591a610e567bc4680bf1329f",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/hooks/useSyncedFloatingRootContext.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/store",
+          "kind": "type",
+          "resolved": "packages/utils/src/store/index.ts"
+        },
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "../../types",
+          "kind": "runtime",
+          "resolved": "packages/react/src/types/index.ts"
+        },
+        {
+          "specifier": "../../utils/popups",
+          "kind": "runtime",
+          "resolved": "packages/react/src/utils/popups/index.ts"
+        },
+        {
+          "specifier": "../components/FloatingRootStore",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingRootStore.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useTypeahead.ts",
+      "sha256": "29a224805520309419060b303296a31a44186b4b40c86aae1855cdcea007d58b",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/hooks/useTypeahead.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useTimeout",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useTimeout.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/empty",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/empty.ts"
+        },
+        {
+          "specifier": "../utils/composite",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/composite.ts"
+        },
+        {
+          "specifier": "../types",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/types.ts"
+        },
+        {
+          "specifier": "../utils/element",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/element.ts"
+        },
+        {
+          "specifier": "../utils/event",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/event.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/index.ts",
+      "sha256": "adb74f4f9d5ac57defc928c2c4f05f8f650a15421c1e4e6ec9d3e94b1d2421cc",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/index.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "./components/FloatingDelayGroup",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingDelayGroup.tsx"
+        },
+        {
+          "specifier": "./components/FloatingFocusManager",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx"
+        },
+        {
+          "specifier": "./components/FloatingPortal",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingPortal.tsx"
+        },
+        {
+          "specifier": "./components/FloatingTree",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingTree.tsx"
+        },
+        {
+          "specifier": "./components/FloatingTreeStore",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingTreeStore.ts"
+        },
+        {
+          "specifier": "./hooks/useClick",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useClick.ts"
+        },
+        {
+          "specifier": "./hooks/useClientPoint",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useClientPoint.ts"
+        },
+        {
+          "specifier": "./hooks/useDismiss",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useDismiss.ts"
+        },
+        {
+          "specifier": "./hooks/useFloating",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useFloating.ts"
+        },
+        {
+          "specifier": "./hooks/useFloatingRootContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useFloatingRootContext.ts"
+        },
+        {
+          "specifier": "./hooks/useSyncedFloatingRootContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useSyncedFloatingRootContext.ts"
+        },
+        {
+          "specifier": "./hooks/useFocus",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useFocus.ts"
+        },
+        {
+          "specifier": "./hooks/useHoverFloatingInteraction",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useHoverFloatingInteraction.ts"
+        },
+        {
+          "specifier": "./hooks/useHoverReferenceInteraction",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useHoverReferenceInteraction.ts"
+        },
+        {
+          "specifier": "./hooks/useHover",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useHover.ts"
+        },
+        {
+          "specifier": "./hooks/useListNavigation",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useListNavigation.ts"
+        },
+        {
+          "specifier": "./hooks/useTypeahead",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useTypeahead.ts"
+        },
+        {
+          "specifier": "./safePolygon",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/safePolygon.ts"
+        },
+        {
+          "specifier": "./types",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/types.ts"
+        },
+        {
+          "specifier": "@floating-ui/react-dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/react-dom"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/safePolygon.ts",
+      "sha256": "682e2a9ff611e947ebe7f2bfc367f8df0060021c0e38a140f60003cfcac853a9",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/safePolygon.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "@base-ui/utils/useTimeout",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useTimeout.ts"
+        },
+        {
+          "specifier": "./types",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/types.ts"
+        },
+        {
+          "specifier": "./hooks/useHoverShared",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useHoverShared.ts"
+        },
+        {
+          "specifier": "./utils/element",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/element.ts"
+        },
+        {
+          "specifier": "./utils/nodes",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/nodes.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/types.ts",
+      "sha256": "45be5f5fc58eaec333ec9d4e4c8313f91b9670937cec7743a8115c524b29265c",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/types.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "@floating-ui/react-dom",
+          "kind": "type",
+          "resolved": "external:@floating-ui/react-dom"
+        },
+        {
+          "specifier": "react",
+          "kind": "type",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "./components/FloatingTreeStore",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingTreeStore.ts"
+        },
+        {
+          "specifier": "./components/FloatingRootStore",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingRootStore.ts"
+        },
+        {
+          "specifier": ".",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/index.ts"
+        },
+        {
+          "specifier": "./components/FloatingDelayGroup",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingDelayGroup.tsx"
+        },
+        {
+          "specifier": "./components/FloatingFocusManager",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx"
+        },
+        {
+          "specifier": "./components/FloatingPortal",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingPortal.tsx"
+        },
+        {
+          "specifier": "./hooks/useClientPoint",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useClientPoint.ts"
+        },
+        {
+          "specifier": "./hooks/useDismiss",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useDismiss.ts"
+        },
+        {
+          "specifier": "./hooks/useFocus",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useFocus.ts"
+        },
+        {
+          "specifier": "./hooks/useHover",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useHover.ts"
+        },
+        {
+          "specifier": "./hooks/useHoverShared",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useHoverShared.ts"
+        },
+        {
+          "specifier": "./hooks/useHoverFloatingInteraction",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useHoverFloatingInteraction.ts"
+        },
+        {
+          "specifier": "./hooks/useHoverReferenceInteraction",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useHoverReferenceInteraction.ts"
+        },
+        {
+          "specifier": "./hooks/useListNavigation",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useListNavigation.ts"
+        },
+        {
+          "specifier": "./hooks/useTypeahead",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useTypeahead.ts"
+        },
+        {
+          "specifier": "./hooks/useFloatingRootContext",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useFloatingRootContext.ts"
+        },
+        {
+          "specifier": "./safePolygon",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/safePolygon.ts"
+        },
+        {
+          "specifier": "./components/FloatingTree",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingTree.tsx"
+        },
+        {
+          "specifier": "@floating-ui/react-dom",
+          "kind": "type",
+          "resolved": "external:@floating-ui/react-dom"
+        },
+        {
+          "specifier": "@floating-ui/react-dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/react-dom"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/utils.ts",
+      "sha256": "9e46e6faa5dfb04b8be61311426c25cf3f69351bbd2e27fd3af523b99ba5a20d",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/utils.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "./utils/element",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/element.ts"
+        },
+        {
+          "specifier": "./utils/nodes",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/nodes.ts"
+        },
+        {
+          "specifier": "./utils/event",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/event.ts"
+        },
+        {
+          "specifier": "./utils/composite",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/composite.ts"
+        },
+        {
+          "specifier": "./utils/tabbable",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/tabbable.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/utils/composite.ts",
+      "sha256": "37b1dc55a5290245459ce608f8dda0af5d746e5b89b87b51b442cdef2d9d09d1",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/utils/composite.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "@floating-ui/utils",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils"
+        },
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "../types",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/types.ts"
+        },
+        {
+          "specifier": "./event",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/event.ts"
+        },
+        {
+          "specifier": "./constants",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/constants.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/utils/constants.ts",
+      "sha256": "ee99e2e0b1fcbed2edbf65bc9713f46199299099d918fa8bd39c3aa33368f20b",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/utils/constants.ts",
+      "reachability": "type",
+      "imports": []
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/utils/createAttribute.ts",
+      "sha256": "d4d5b40c4b97d656eead0fe91a5b27d4d85860e8e396eee274619a3b40f73726",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/utils/createAttribute.ts",
+      "reachability": "type",
+      "imports": []
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/utils/createEventEmitter.ts",
+      "sha256": "e746c6156536daf0a7d205d1daf25bcac1244b8958b5edf3d719982cdb7e3505",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/utils/createEventEmitter.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "../types",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/utils/element.ts",
+      "sha256": "327171478f561a3f0e9d74ddbd14c31e4e7263309d6813484d1ce5c406df51f0",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/utils/element.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "@base-ui/utils/platform",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/platform/index.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/shadowDom",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/shadowDom.ts"
+        },
+        {
+          "specifier": "./constants",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/constants.ts"
+        },
+        {
+          "specifier": "../../utils/popups",
+          "kind": "type",
+          "resolved": "packages/react/src/utils/popups/index.ts"
+        },
+        {
+          "specifier": "../../tooltip/trigger/TooltipTriggerDataAttributes",
+          "kind": "runtime",
+          "resolved": "packages/react/src/tooltip/trigger/TooltipTriggerDataAttributes.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/utils/enqueueFocus.ts",
+      "sha256": "5bed83959e1b56d276bf6ea5edd5bf285077f576e3f8be3de8f0e23d2491ad99",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/utils/enqueueFocus.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "@base-ui/utils/empty",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/empty.ts"
+        },
+        {
+          "specifier": "./tabbable",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/utils/tabbable.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/utils/event.ts",
+      "sha256": "be6f5d7635aa248e3c8aae845778522c50cd4132d71548d4719ef93b1c8eddde",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/utils/event.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "@base-ui/utils/platform",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/platform/index.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/utils/markOthers.ts",
+      "sha256": "f9609aa96d9ab7ae63a2a61a8e3c54138a091d74490b71c2df2670e34b92b4ed",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/utils/markOthers.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "@base-ui/utils/owner",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/owner.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/utils/nodes.ts",
+      "sha256": "f2ff4ef47af247991ac0940745e71e5e56d94d76f2ee008da58a5d951328b32c",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/utils/nodes.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "../types",
+          "kind": "type",
+          "resolved": "packages/react/src/floating-ui-react/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/utils/tabbable.ts",
+      "sha256": "4991f9e1c049a525fcb1d70f7a05f78e6f56e62921b4f15fafa68e0ba89af80f",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/utils/tabbable.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "@base-ui/utils/owner",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/owner.ts"
+        },
+        {
+          "specifier": "./element",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/element.ts"
+        },
+        {
+          "specifier": "./composite",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/composite.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/form/Form.tsx",
+      "sha256": "c8a77589d2a3de310b46623154e38ddf6b9fc4c7ff71299f690411949d23898b",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/form/Form.tsx",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/empty",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/empty.ts"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../internals/reasons",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/reasons.ts"
+        },
+        {
+          "specifier": "../internals/types",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/types.ts"
+        },
+        {
+          "specifier": "../internals/form-context/FormContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/form-context/FormContext.ts"
+        },
+        {
+          "specifier": "../internals/useRenderElement",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/useRenderElement.tsx"
+        },
+        {
+          "specifier": "../internals/useValueChanged",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/useValueChanged.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/form/index.ts",
+      "sha256": "307b2a028920f531705827c9d9e43ea26193e734bffbac98170b9718f90ea9f8",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/form/index.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "./Form",
+          "kind": "runtime",
+          "resolved": "packages/react/src/form/Form.tsx"
+        },
+        {
+          "specifier": "./Form",
+          "kind": "type",
+          "resolved": "packages/react/src/form/Form.tsx"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/composite/root/CompositeRootContext.ts",
+      "sha256": "751bbbd1fa2b4ae5c5674dc878d302b59b0e15b5771763cccbaf2362eee1b9fa",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/composite/root/CompositeRootContext.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/constants.ts",
+      "sha256": "b384749020843f2c3d8df62c0e8fa844c4dbb133ef511bee5fe6b3743e44e88e",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/constants.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "type",
+          "resolved": "external:react"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/createBaseUIEventDetails.ts",
+      "sha256": "77bdb11a11ef1dfe9bc1a82db4754766cffbb91c27c3aeaea215e4e07cec2b2d",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/createBaseUIEventDetails.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "@base-ui/utils/empty",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/empty.ts"
+        },
+        {
+          "specifier": "./reasons",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/reasons.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/field-constants/constants.ts",
+      "sha256": "c6f1fc10dbd8b45a6c3fdb83f441a19880c4501d1776f725dbfdae4fd742f3fb",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/field-constants/constants.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../../field/control/FieldControlDataAttributes",
+          "kind": "runtime",
+          "resolved": "packages/react/src/field/control/FieldControlDataAttributes.ts"
+        },
+        {
+          "specifier": "../../field/root/FieldRoot",
+          "kind": "type",
+          "resolved": "packages/react/src/field/root/FieldRoot.tsx"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/field-register-control/useFieldControlRegistration.ts",
+      "sha256": "a49c20dc0a508dc11b73bdac52043aa4b1ba94d1baf8a43c2095f42726ca1cd6",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/field-register-control/useFieldControlRegistration.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "../../field/utils/getCombinedFieldValidityData",
+          "kind": "runtime",
+          "resolved": "packages/react/src/field/utils/getCombinedFieldValidityData.ts"
+        },
+        {
+          "specifier": "../form-context/FormContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/form-context/FormContext.ts"
+        },
+        {
+          "specifier": "../../field/root/FieldRoot",
+          "kind": "type",
+          "resolved": "packages/react/src/field/root/FieldRoot.tsx"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/field-register-control/useRegisterFieldControl.ts",
+      "sha256": "830625bb0728b4cc6976a8c27148172ac06b74c880569f74c75cfa1201140804",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/field-register-control/useRegisterFieldControl.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useRefWithInit",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useRefWithInit.ts"
+        },
+        {
+          "specifier": "../field-root-context/FieldRootContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "./useFieldControlRegistration",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/field-register-control/useFieldControlRegistration.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/field-root-context/FieldRootContext.ts",
+      "sha256": "578d7ea53808a70bf6f439b4d679c78a025e2d8219a0e8459b92f948c6a3c959",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/field-root-context/FieldRootContext.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/empty",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/empty.ts"
+        },
+        {
+          "specifier": "../noop",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/noop.ts"
+        },
+        {
+          "specifier": "../field-constants/constants",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/field-constants/constants.ts"
+        },
+        {
+          "specifier": "../../field/root/FieldRoot",
+          "kind": "type",
+          "resolved": "packages/react/src/field/root/FieldRoot.tsx"
+        },
+        {
+          "specifier": "../../form",
+          "kind": "type",
+          "resolved": "packages/react/src/form/index.ts"
+        },
+        {
+          "specifier": "../../field/root/useFieldValidation",
+          "kind": "type",
+          "resolved": "packages/react/src/field/root/useFieldValidation.ts"
+        },
+        {
+          "specifier": "../types",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/types.ts"
+        },
+        {
+          "specifier": "../field-register-control/useFieldControlRegistration",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/field-register-control/useFieldControlRegistration.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/form-context/FormContext.ts",
+      "sha256": "bc1c728160e21caebb1641eada2a029b2987ecde498e8745dff9b72ad3f46539",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/form-context/FormContext.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "../../field/root/FieldRoot",
+          "kind": "type",
+          "resolved": "packages/react/src/field/root/FieldRoot.tsx"
+        },
+        {
+          "specifier": "../noop",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/noop.ts"
+        },
+        {
+          "specifier": "../../form/Form",
+          "kind": "type",
+          "resolved": "packages/react/src/form/Form.tsx"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/getStateAttributesProps.ts",
+      "sha256": "ae0c62d85ecb1d58d833c49a8753929df86a7539e94e272fdfe692d6ae89abcb",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/getStateAttributesProps.ts",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/react/src/internals/labelable-provider/index.ts",
+      "sha256": "4d8302189e162dc309f8c7d4bd0f7e10ee164a53226ce577690970a823ca0316",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/labelable-provider/index.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "./LabelableProvider",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/labelable-provider/LabelableProvider.tsx"
+        },
+        {
+          "specifier": "./useAriaLabelledBy",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/labelable-provider/useAriaLabelledBy.ts"
+        },
+        {
+          "specifier": "./LabelableContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/labelable-provider/LabelableContext.ts"
+        },
+        {
+          "specifier": "./useLabelableId",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/labelable-provider/useLabelableId.ts"
+        },
+        {
+          "specifier": "./useLabel",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/labelable-provider/useLabel.ts"
+        },
+        {
+          "specifier": "./useLabel",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/labelable-provider/useLabel.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/labelable-provider/LabelableContext.ts",
+      "sha256": "c8c7814fd72a66386f30c784f3cafcaa473d7a385dc441be610154086d99663d",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/labelable-provider/LabelableContext.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "../noop",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/noop.ts"
+        },
+        {
+          "specifier": "../types",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/labelable-provider/LabelableProvider.tsx",
+      "sha256": "f098e676a1e108ef96774499f3ee44cc9adba246b33dc81018b836bc99cbc2d1",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/labelable-provider/LabelableProvider.tsx",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useRefWithInit",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useRefWithInit.ts"
+        },
+        {
+          "specifier": "../types",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/types.ts"
+        },
+        {
+          "specifier": "../useBaseUiId",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/useBaseUiId.ts"
+        },
+        {
+          "specifier": "./LabelableContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/labelable-provider/LabelableContext.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/labelable-provider/useAriaLabelledBy.ts",
+      "sha256": "a9d450fe75db2a5577eb73a2badc21b7b205cf4216c4781be60d4d636694597b",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/labelable-provider/useAriaLabelledBy.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "../useBaseUiId",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/useBaseUiId.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/labelable-provider/useLabel.ts",
+      "sha256": "e8bc584b4cc36db672b97f1f460da09f61a2d35f4c7432c038a89cfc8cd4c741",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/labelable-provider/useLabel.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "@base-ui/utils/owner",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/owner.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "../../floating-ui-react/utils",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils.ts"
+        },
+        {
+          "specifier": "../../utils/useRegisteredLabelId",
+          "kind": "runtime",
+          "resolved": "packages/react/src/utils/useRegisteredLabelId.ts"
+        },
+        {
+          "specifier": "./LabelableContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/labelable-provider/LabelableContext.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/labelable-provider/useLabelableId.ts",
+      "sha256": "e3a9d52c70bccc823163dbc132fbe9b64a3ec6e64e90a79c9acb08fdf2672faf",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/labelable-provider/useLabelableId.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useRefWithInit",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useRefWithInit.ts"
+        },
+        {
+          "specifier": "../noop",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/noop.ts"
+        },
+        {
+          "specifier": "../useBaseUiId",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/useBaseUiId.ts"
+        },
+        {
+          "specifier": "./LabelableContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/labelable-provider/LabelableContext.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/noop.ts",
+      "sha256": "268edb20da01bc632fc8335f808298027500d577ad3872d340080c40a21fc3a0",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/noop.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "@base-ui/utils/empty",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/empty.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/reason-parts.ts",
+      "sha256": "1cddfb9a98326bc5e586c2bdb66fb3a58913038f8ee7368ec57bbaf972521e06",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/reason-parts.ts",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/react/src/internals/reasons.ts",
+      "sha256": "694b1512f2dd9c999e97899e1fe9ea0f189fbe8476fcbc0f957cd786806c4abf",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/reasons.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./reason-parts",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/reason-parts.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/stateAttributesMapping.ts",
+      "sha256": "722dc0fed9ce97ed42b5b59418a01596c99b0cb8c5c5bb638737878dfe2d43bc",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/stateAttributesMapping.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./useTransitionStatus",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/useTransitionStatus.ts"
+        },
+        {
+          "specifier": "./getStateAttributesProps",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/getStateAttributesProps.ts"
+        },
+        {
+          "specifier": "./TransitionStatusDataAttributes",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/TransitionStatusDataAttributes.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/TransitionStatusDataAttributes.ts",
+      "sha256": "cf240c33e54cbfae687b7f9b1bdaf7329c1cda7630481ca68d105723d75440d7",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/TransitionStatusDataAttributes.ts",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/react/src/internals/types.ts",
+      "sha256": "ed0c29125011488378a038fe179287809ef624d9d84389d83d7207b25e3d416a",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/types.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "type",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "../types",
+          "kind": "type",
+          "resolved": "packages/react/src/types/index.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/use-button/index.ts",
+      "sha256": "bfd5490017aa66ebc7d42c86e9309e15109eb1a0d5058fed586704adf93c8d23",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/use-button/index.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./useButton",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/use-button/useButton.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/use-button/useButton.ts",
+      "sha256": "eba51ce4ed0d2082dda17180bbbbe2bf91318c2b33eae2d114c0e4ebbe3203e6",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/use-button/useButton.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/error",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/error.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/safeReact",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/safeReact.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "../../merge-props",
+          "kind": "runtime",
+          "resolved": "packages/react/src/merge-props/index.ts"
+        },
+        {
+          "specifier": "../composite/root/CompositeRootContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/composite/root/CompositeRootContext.ts"
+        },
+        {
+          "specifier": "../types",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/types.ts"
+        },
+        {
+          "specifier": "../../utils/useFocusableWhenDisabled",
+          "kind": "runtime",
+          "resolved": "packages/react/src/utils/useFocusableWhenDisabled.ts"
+        },
+        {
+          "specifier": "../../utils/dispatchClickWithModifiers",
+          "kind": "runtime",
+          "resolved": "packages/react/src/utils/dispatchClickWithModifiers.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/useAnimationsFinished.ts",
+      "sha256": "58fef3cb8defbbbe84c80126a6b0aff767293b692a19d97f078a190e62a3d7a6",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/useAnimationsFinished.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "react-dom",
+          "kind": "runtime",
+          "resolved": "external:react-dom"
+        },
+        {
+          "specifier": "@base-ui/utils/useAnimationFrame",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useAnimationFrame.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "../utils/resolveRef",
+          "kind": "runtime",
+          "resolved": "packages/react/src/utils/resolveRef.ts"
+        },
+        {
+          "specifier": "./TransitionStatusDataAttributes",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/TransitionStatusDataAttributes.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/useBaseUiId.ts",
+      "sha256": "c935ee27e3dfee2307e108dc82a36ec2a1f3e76b4692de188e5d3cdc4511157f",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/useBaseUiId.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "@base-ui/utils/useId",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useId.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/useOpenChangeComplete.tsx",
+      "sha256": "809be9e6b5a1a6238d9f239c162e2489d7da6e5f20383fbe65e85933e7259d89",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/useOpenChangeComplete.tsx",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "./useAnimationsFinished",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/useAnimationsFinished.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/useRenderElement.tsx",
+      "sha256": "0b55dc232a0d630a666a13873213d1bdde040e973031f2b307a64cc157644a4c",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/useRenderElement.tsx",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/useMergedRefs",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useMergedRefs.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/getReactElementRef",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/getReactElementRef.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/mergeObjects",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/mergeObjects.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/warn",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/warn.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/empty",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/empty.ts"
+        },
+        {
+          "specifier": "./types",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/types.ts"
+        },
+        {
+          "specifier": "./getStateAttributesProps",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/getStateAttributesProps.ts"
+        },
+        {
+          "specifier": "../utils/resolveClassName",
+          "kind": "runtime",
+          "resolved": "packages/react/src/utils/resolveClassName.ts"
+        },
+        {
+          "specifier": "../utils/resolveStyle",
+          "kind": "runtime",
+          "resolved": "packages/react/src/utils/resolveStyle.ts"
+        },
+        {
+          "specifier": "../merge-props",
+          "kind": "runtime",
+          "resolved": "packages/react/src/merge-props/index.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/useTransitionStatus.ts",
+      "sha256": "07ffaf4fcf96a3d4d24aa2dabb696f2e082f312149225e45372a12a0d3cfe4e1",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/useTransitionStatus.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useAnimationFrame",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useAnimationFrame.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/useValueChanged.ts",
+      "sha256": "fa36f17e32a4a0b3f8edabe219810a505cefa9c926d3ae807310c6013f57de6d",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/useValueChanged.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/merge-props/index.ts",
+      "sha256": "4881819e46f8b81cc6e90add34bc5a87cf924596e007785da31eed500414222f",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/merge-props/index.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./mergeProps",
+          "kind": "runtime",
+          "resolved": "packages/react/src/merge-props/mergeProps.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.ts",
+      "sha256": "cdc8fc165df88ddc4034fb2242ebf1ef32b504755404c343abf965cb3e4c90ce",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/merge-props/mergeProps.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/mergeObjects",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/mergeObjects.ts"
+        },
+        {
+          "specifier": "../internals/types",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/switch/index.parts.ts",
+      "sha256": "8049f78a15fdc3afe6c0b96bb97a48ce6934a34aa9fdbcdae8dd69f0fa365d85",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/switch/index.parts.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./root/SwitchRoot",
+          "kind": "runtime",
+          "resolved": "packages/react/src/switch/root/SwitchRoot.tsx"
+        },
+        {
+          "specifier": "./thumb/SwitchThumb",
+          "kind": "runtime",
+          "resolved": "packages/react/src/switch/thumb/SwitchThumb.tsx"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/switch/index.ts",
+      "sha256": "65c5924b60bb9c0e103c04e2e84ecc907005851d1870faa49b36456a1e64a3f4",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/switch/index.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./index.parts",
+          "kind": "runtime",
+          "resolved": "packages/react/src/switch/index.parts.ts"
+        },
+        {
+          "specifier": "./root/SwitchRoot",
+          "kind": "type",
+          "resolved": "packages/react/src/switch/root/SwitchRoot.tsx"
+        },
+        {
+          "specifier": "./thumb/SwitchThumb",
+          "kind": "type",
+          "resolved": "packages/react/src/switch/thumb/SwitchThumb.tsx"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/switch/root/SwitchRoot.tsx",
+      "sha256": "d9352dc42ff97c129b7dadfccbae8dcd5d5e9ebe9d6969db48ee8708b292b39d",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/switch/root/SwitchRoot.tsx",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/useControlled",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useControlled.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useMergedRefs",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useMergedRefs.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/visuallyHidden",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/visuallyHidden.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/empty",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/empty.ts"
+        },
+        {
+          "specifier": "../../internals/useRenderElement",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/useRenderElement.tsx"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/types.ts"
+        },
+        {
+          "specifier": "../../internals/useBaseUiId",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/useBaseUiId.ts"
+        },
+        {
+          "specifier": "../../internals/use-button",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/use-button/index.ts"
+        },
+        {
+          "specifier": "./SwitchRootContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/switch/root/SwitchRootContext.ts"
+        },
+        {
+          "specifier": "../stateAttributesMapping",
+          "kind": "runtime",
+          "resolved": "packages/react/src/switch/stateAttributesMapping.ts"
+        },
+        {
+          "specifier": "../../utils/dispatchClickWithModifiers",
+          "kind": "runtime",
+          "resolved": "packages/react/src/utils/dispatchClickWithModifiers.ts"
+        },
+        {
+          "specifier": "../../field/root/FieldRoot",
+          "kind": "type",
+          "resolved": "packages/react/src/field/root/FieldRoot.tsx"
+        },
+        {
+          "specifier": "../../internals/field-root-context/FieldRootContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "../../internals/field-register-control/useRegisterFieldControl",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/field-register-control/useRegisterFieldControl.ts"
+        },
+        {
+          "specifier": "../../internals/form-context/FormContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/form-context/FormContext.ts"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/LabelableContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/labelable-provider/LabelableContext.ts"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/useAriaLabelledBy",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/labelable-provider/useAriaLabelledBy.ts"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/useLabelableId",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/labelable-provider/useLabelableId.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/reasons.ts"
+        },
+        {
+          "specifier": "../../types",
+          "kind": "type",
+          "resolved": "packages/react/src/types/index.ts"
+        },
+        {
+          "specifier": "../../internals/useValueChanged",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/useValueChanged.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/switch/root/SwitchRootContext.ts",
+      "sha256": "64cd112c6ab6d45955f5f315f2d721441e3bad01661218f707e89ad112163ded",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/switch/root/SwitchRootContext.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "./SwitchRoot",
+          "kind": "type",
+          "resolved": "packages/react/src/switch/root/SwitchRoot.tsx"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/switch/root/SwitchRootDataAttributes.ts",
+      "sha256": "d6a154138888fee92d80ddb62dd286d40d362bc445949cdba42991a5ff5899a6",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/switch/root/SwitchRootDataAttributes.ts",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/react/src/switch/stateAttributesMapping.ts",
+      "sha256": "69e2d4981b0fe3bb73050fa974e87ac558013b83215874312b67097b04bcdd9a",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/switch/stateAttributesMapping.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./root/SwitchRoot",
+          "kind": "type",
+          "resolved": "packages/react/src/switch/root/SwitchRoot.tsx"
+        },
+        {
+          "specifier": "../internals/getStateAttributesProps",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/getStateAttributesProps.ts"
+        },
+        {
+          "specifier": "../internals/field-constants/constants",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/field-constants/constants.ts"
+        },
+        {
+          "specifier": "./root/SwitchRootDataAttributes",
+          "kind": "runtime",
+          "resolved": "packages/react/src/switch/root/SwitchRootDataAttributes.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/switch/thumb/SwitchThumb.tsx",
+      "sha256": "33eaa10d52f9176172b58fc873c359b00622577d6f6d7b1cfabc86555072b70f",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/switch/thumb/SwitchThumb.tsx",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "../root/SwitchRoot",
+          "kind": "type",
+          "resolved": "packages/react/src/switch/root/SwitchRoot.tsx"
+        },
+        {
+          "specifier": "../root/SwitchRootContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/switch/root/SwitchRootContext.ts"
+        },
+        {
+          "specifier": "../../internals/useRenderElement",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/useRenderElement.tsx"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/types.ts"
+        },
+        {
+          "specifier": "../stateAttributesMapping",
+          "kind": "runtime",
+          "resolved": "packages/react/src/switch/stateAttributesMapping.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/tooltip/trigger/TooltipTriggerDataAttributes.ts",
+      "sha256": "862b7dc7f1e0ba84331e9003fdafdf4352fb83defca1bd76789a98ff785b4b73",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/tooltip/trigger/TooltipTriggerDataAttributes.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "../../utils/popupStateMapping",
+          "kind": "runtime",
+          "resolved": "packages/react/src/utils/popupStateMapping.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/types/index.ts",
+      "sha256": "ffc973365f8dbc5af24db40fa4553ee7fc1f154feb1803ff6a9bb5d5cd918587",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/types/index.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "type",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/createBaseUIEventDetails.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/utils/CommonPopupDataAttributes.ts",
+      "sha256": "619d78f85d65a83fb5a62868357893b08a7a7a69b81b7a1228599c90513d3146",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/CommonPopupDataAttributes.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "../internals/TransitionStatusDataAttributes",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/TransitionStatusDataAttributes.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/utils/CommonTriggerDataAttributes.ts",
+      "sha256": "0fd89dd6f186d143114b4bcca4e6ed529856949b954a897da3066c16e96128c7",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/CommonTriggerDataAttributes.ts",
+      "reachability": "type",
+      "imports": []
+    },
+    {
+      "source": "packages/react/src/utils/dispatchClickWithModifiers.ts",
+      "sha256": "f395a0babfbb8b5a9e58f6db3e78fd9fdef34d2570cf71884068319af1fc0fba",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/dispatchClickWithModifiers.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "@base-ui/utils/owner",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/owner.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/utils/FocusGuard.tsx",
+      "sha256": "80c4e93b1c90577cf77b211049a84c8f7bc3ada4b8c92996df9b500aa5eafb51",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/FocusGuard.tsx",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/platform",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/platform/index.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/visuallyHidden",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/visuallyHidden.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/utils/popups/index.ts",
+      "sha256": "fa35d774e4e8e1ad60d1f96e7a5a0fef3715e154ce5c1d466c4e9a957043dc7a",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/popups/index.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "./inlineRect",
+          "kind": "runtime",
+          "resolved": "packages/react/src/utils/popups/inlineRect.ts"
+        },
+        {
+          "specifier": "./popupHandle",
+          "kind": "runtime",
+          "resolved": "packages/react/src/utils/popups/popupHandle.ts"
+        },
+        {
+          "specifier": "./popupStoreUtils",
+          "kind": "runtime",
+          "resolved": "packages/react/src/utils/popups/popupStoreUtils.ts"
+        },
+        {
+          "specifier": "./popupTriggerMap",
+          "kind": "runtime",
+          "resolved": "packages/react/src/utils/popups/popupTriggerMap.ts"
+        },
+        {
+          "specifier": "./store",
+          "kind": "runtime",
+          "resolved": "packages/react/src/utils/popups/store.ts"
+        },
+        {
+          "specifier": "./usePopupHandleStore",
+          "kind": "runtime",
+          "resolved": "packages/react/src/utils/popups/usePopupHandleStore.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/utils/popups/inlineRect.ts",
+      "sha256": "e8055b91fecf2e15f4d3db038dacea94245282f63f435b0c2873327b3ba2a8d7",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/popups/inlineRect.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@floating-ui/react-dom",
+          "kind": "type",
+          "resolved": "external:@floating-ui/react-dom"
+        },
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/utils/popups/popupHandle.ts",
+      "sha256": "be7343ab9cf8c6b7a440424e6a6acd82c8ab75fe7637059288a740814ab08629",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/popups/popupHandle.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "@base-ui/utils/useAnimationFrame",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useAnimationFrame.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/reasons.ts"
+        },
+        {
+          "specifier": "./popupTriggerMap",
+          "kind": "type",
+          "resolved": "packages/react/src/utils/popups/popupTriggerMap.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/utils/popups/popupStoreUtils.ts",
+      "sha256": "f73b74be0af3b9d09a3a92167964e85d49657a2f26d94f0f531b43a0ac04afa2",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/popups/popupStoreUtils.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "react-dom",
+          "kind": "runtime",
+          "resolved": "external:react-dom"
+        },
+        {
+          "specifier": "@base-ui/utils/store",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/store/index.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/empty",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/empty.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useEnhancedClickHandler",
+          "kind": "type",
+          "resolved": "packages/utils/src/useEnhancedClickHandler.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useId",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useId.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useRefWithInit",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useRefWithInit.ts"
+        },
+        {
+          "specifier": "../../floating-ui-react/utils/constants",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/utils/constants.ts"
+        },
+        {
+          "specifier": "../../floating-ui-react/components/FloatingTree",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingTree.tsx"
+        },
+        {
+          "specifier": "../../floating-ui-react/hooks/useSyncedFloatingRootContext",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/hooks/useSyncedFloatingRootContext.ts"
+        },
+        {
+          "specifier": "../../internals/useTransitionStatus",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/useTransitionStatus.ts"
+        },
+        {
+          "specifier": "../../internals/useOpenChangeComplete",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/useOpenChangeComplete.tsx"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/types.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/reasons.ts"
+        },
+        {
+          "specifier": "./store",
+          "kind": "runtime",
+          "resolved": "packages/react/src/utils/popups/store.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/utils/popups/popupTriggerMap.ts",
+      "sha256": "8bc64fd00e6f2cfe8804e4bee1c6dd30e3f05d5f09594f6ecb49ba84f8fe2782",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/popups/popupTriggerMap.ts",
+      "reachability": "type",
+      "imports": []
+    },
+    {
+      "source": "packages/react/src/utils/popups/store.ts",
+      "sha256": "7442f91d07feddcd10c5932242267e392cb7d0b5eeffc70fa5f16d5183a1f61f",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/popups/store.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "@base-ui/utils/store",
+          "kind": "type",
+          "resolved": "packages/utils/src/store/index.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/empty",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/empty.ts"
+        },
+        {
+          "specifier": "../../floating-ui-react",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/index.ts"
+        },
+        {
+          "specifier": "../../floating-ui-react/components/FloatingRootStore",
+          "kind": "runtime",
+          "resolved": "packages/react/src/floating-ui-react/components/FloatingRootStore.ts"
+        },
+        {
+          "specifier": "../../internals/useTransitionStatus",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/useTransitionStatus.ts"
+        },
+        {
+          "specifier": "./popupTriggerMap",
+          "kind": "runtime",
+          "resolved": "packages/react/src/utils/popups/popupTriggerMap.ts"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/utils/popups/usePopupHandleStore.ts",
+      "sha256": "35dc720afb42a840e0a9f4a45f01710a6a0f5be86d79318b664ac83a28eb4c42",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/popups/usePopupHandleStore.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "use-sync-external-store/shim",
+          "kind": "runtime",
+          "resolved": "external:use-sync-external-store/shim"
+        },
+        {
+          "specifier": "@base-ui/utils/empty",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/empty.ts"
+        },
+        {
+          "specifier": "./popupHandle",
+          "kind": "type",
+          "resolved": "packages/react/src/utils/popups/popupHandle.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/utils/popupStateMapping.ts",
+      "sha256": "1425fefe2044a37e310f64fb0599068cd6a75677e4b8097766f290d60ac31d5b",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/popupStateMapping.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "../internals/getStateAttributesProps",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/getStateAttributesProps.ts"
+        },
+        {
+          "specifier": "../internals/stateAttributesMapping",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/stateAttributesMapping.ts"
+        },
+        {
+          "specifier": "../internals/useTransitionStatus",
+          "kind": "type",
+          "resolved": "packages/react/src/internals/useTransitionStatus.ts"
+        },
+        {
+          "specifier": "./CommonPopupDataAttributes",
+          "kind": "runtime",
+          "resolved": "packages/react/src/utils/CommonPopupDataAttributes.ts"
+        },
+        {
+          "specifier": "./CommonTriggerDataAttributes",
+          "kind": "runtime",
+          "resolved": "packages/react/src/utils/CommonTriggerDataAttributes.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/utils/resolveClassName.ts",
+      "sha256": "8a4b38bd68c8f1e7268c9587951c5e78349fd51c6f3befef597b3c3b60ac3b41",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/resolveClassName.ts",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/react/src/utils/resolveRef.ts",
+      "sha256": "fb0a9525bf7c002fe9e82d5c74235c5620b0b83f106cdec67b77071a05140312",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/resolveRef.ts",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/react/src/utils/resolveStyle.ts",
+      "sha256": "e8cb3f94b27439c43a3a26b82f21c09fe152871c202aef91f8907da3f8734cf0",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/resolveStyle.ts",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/react/src/utils/useFocusableWhenDisabled.ts",
+      "sha256": "21e071c8b1547c8473ade8e4d3a415df8ca73767d6125a305c63fa8a620e5ba6",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/useFocusableWhenDisabled.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/utils/useRegisteredLabelId.ts",
+      "sha256": "400156404e561e86b73303a22a78d555793b86844efc9fd574f79acd912a56f7",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/useRegisteredLabelId.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "type",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "../internals/useBaseUiId",
+          "kind": "runtime",
+          "resolved": "packages/react/src/internals/useBaseUiId.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/addEventListener.ts",
+      "sha256": "a2d30e30e8151a62347f67620d568bd1550f5069af3652a57892ed9de42f3dcc",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/addEventListener.ts",
+      "reachability": "type",
+      "imports": []
+    },
+    {
+      "source": "packages/utils/src/areArraysEqual.ts",
+      "sha256": "2edc0f6f199b353ec557a7c9e4943ed4af5449da8c488076647a3f77fd3dac75",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/areArraysEqual.ts",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/utils/src/createLogOnce.ts",
+      "sha256": "6e5e5b4c34d3407fe2379b58749d4da26c49c49383b7501964132a2e725660b1",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/createLogOnce.ts",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/utils/src/empty.ts",
+      "sha256": "7d7c8625346dc2344dc551004c5c5da82878ab814818b7a8df4ad7082979ead6",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/empty.ts",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/utils/src/error.ts",
+      "sha256": "957b3369d680d50a26cce3b4e9add608b2e829cb299636bde056e76297002847",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/error.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./createLogOnce",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/createLogOnce.ts"
+        },
+        {
+          "specifier": "./createLogOnce",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/createLogOnce.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/fastHooks.ts",
+      "sha256": "5996a39bc1566948151d73ebc58102173851c9b59aa6b0741d2a9fe0ea4fab2d",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/fastHooks.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "./useRefWithInit",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useRefWithInit.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/getDefaultFormSubmitter.ts",
+      "sha256": "320e28b2d224852b62899dc160ee976343b5732c3cda4053dc352b8ec50e4aac",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/getDefaultFormSubmitter.ts",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/utils/src/getReactElementRef.ts",
+      "sha256": "6ea0078fe8f8a0feee703f968779a863b30789a6fac4e4f51de13690064af364",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/getReactElementRef.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "./reactVersion",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/reactVersion.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/mergeCleanups.ts",
+      "sha256": "10dfcbfde4190ebaa09982d84f33523e4b6395dfba7c5998b7d41d158699e5cf",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/mergeCleanups.ts",
+      "reachability": "type",
+      "imports": []
+    },
+    {
+      "source": "packages/utils/src/mergeObjects.ts",
+      "sha256": "0e9b1568370f5c1ea28710bae245380281ae366187bfb871b99a14fe6b5b49fa",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/mergeObjects.ts",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/utils/src/owner.ts",
+      "sha256": "94a825206d926b388459df70639476133442c28c83a7e3be750399cb323ea623",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/owner.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/platform/engine.ts",
+      "sha256": "e943a35942d211e61f511a5d5aca78e9262db4187e8d2c1a1b7791718a7bc3d7",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/platform/engine.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "./shared",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/platform/shared.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/platform/env.ts",
+      "sha256": "4e06a24df446a27d2b282491ebdf5a213c9c3c155a11ba2007d47dbb675dd438",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/platform/env.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "./shared",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/platform/shared.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/platform/index.ts",
+      "sha256": "8f801696b9cd0c681fc4ec36dca1e0eecfafee3f28c73729ec9c3501dbaf6ddb",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/platform/index.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "./parts",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/platform/parts.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/platform/media-query.ts",
+      "sha256": "cb5f9941ec4c24667d7d4061392fbe2b57064c333cf4e94435d2239a0ed45a65",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/platform/media-query.ts",
+      "reachability": "type",
+      "imports": []
+    },
+    {
+      "source": "packages/utils/src/platform/os.ts",
+      "sha256": "724d78845a13a6b7d27ad7eff40a3bfdc4d5c46c8143a90af1914ee0a5a5c13a",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/platform/os.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "./shared",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/platform/shared.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/platform/parts.ts",
+      "sha256": "5102b62f441c8d8710a3db052e1dfcf0b4498eb3e9d533b1c444321b989eceb2",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/platform/parts.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "./os",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/platform/os.ts"
+        },
+        {
+          "specifier": "./engine",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/platform/engine.ts"
+        },
+        {
+          "specifier": "./screen-reader",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/platform/screen-reader.ts"
+        },
+        {
+          "specifier": "./env",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/platform/env.ts"
+        },
+        {
+          "specifier": "./media-query",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/platform/media-query.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/platform/screen-reader.ts",
+      "sha256": "36dd99107aca1638e9520f0136dd294a03f3268ab8d44d0202f7be601c892f7a",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/platform/screen-reader.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "./os",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/platform/os.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/platform/shared.ts",
+      "sha256": "f12352abb325a222ba5f371c920945c5d03175ee70e133c54e01a23fd51a13ad",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/platform/shared.ts",
+      "reachability": "type",
+      "imports": []
+    },
+    {
+      "source": "packages/utils/src/reactVersion.ts",
+      "sha256": "e52b2ae447fe83a4b5a927a013405446542ef474b76a75540b7216bc561df889",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/reactVersion.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/safeReact.ts",
+      "sha256": "b2923526a5b42e0d4f341ccb6c26e11d4b34991f206353320bb821026bbbc81f",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/safeReact.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/shadowDom.ts",
+      "sha256": "00307496a294b1bde9a09e4d0263cae4bf1eb75f43f5c9b85b37c712210e4e8a",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/shadowDom.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/store/createSelector.ts",
+      "sha256": "15ae9ca5cee84e8b20003628f2290ecdfeddcf35a9f61d0f2d8c0812c88d25dd",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/store/createSelector.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "reselect",
+          "kind": "type",
+          "resolved": "external:reselect"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/store/createSelectorMemoized.ts",
+      "sha256": "9e918b1a429825cd084ed08f4b08fe1fcc35b3d2cb730da8edcd593004a37f97",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/store/createSelectorMemoized.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "reselect",
+          "kind": "runtime",
+          "resolved": "external:reselect"
+        },
+        {
+          "specifier": "reselect",
+          "kind": "type",
+          "resolved": "external:reselect"
+        },
+        {
+          "specifier": "./createSelector",
+          "kind": "type",
+          "resolved": "packages/utils/src/store/createSelector.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/store/index.ts",
+      "sha256": "81557d67ad01b2d1a73f3998dcfed6843370d0182648df0a8ee8948353585148",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/store/index.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "./createSelector",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/store/createSelector.ts"
+        },
+        {
+          "specifier": "./createSelectorMemoized",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/store/createSelectorMemoized.ts"
+        },
+        {
+          "specifier": "./useStore",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/store/useStore.ts"
+        },
+        {
+          "specifier": "./Store",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/store/Store.ts"
+        },
+        {
+          "specifier": "./ReactStore",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/store/ReactStore.ts"
+        },
+        {
+          "specifier": "./StoreInspector",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/store/StoreInspector.tsx"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/store/ReactStore.ts",
+      "sha256": "bfac0796ebaf8d8233efcfd27e9cd4e0510dd54945f62312570afa224af57992",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/store/ReactStore.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "./Store",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/store/Store.ts"
+        },
+        {
+          "specifier": "./useStore",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/store/useStore.ts"
+        },
+        {
+          "specifier": "../useStableCallback",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "../useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "../empty",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/empty.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/store/Store.ts",
+      "sha256": "7e65da0884d198cb05775bad8b6a072dc31986263db5394194dbbc91df22b5d3",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/store/Store.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "./useStore",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/store/useStore.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/store/StoreInspector.tsx",
+      "sha256": "5dd0c8bd933a0f5eeb72813136216c20c8ea88d4b14c44045b1268ab6adee5a3",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/store/StoreInspector.tsx",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "react-dom",
+          "kind": "runtime",
+          "resolved": "external:react-dom"
+        },
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "use-sync-external-store/shim",
+          "kind": "runtime",
+          "resolved": "external:use-sync-external-store/shim"
+        },
+        {
+          "specifier": "../mergeCleanups",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/mergeCleanups.ts"
+        },
+        {
+          "specifier": "../owner",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/owner.ts"
+        },
+        {
+          "specifier": "../addEventListener",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/addEventListener.ts"
+        },
+        {
+          "specifier": "./Store",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/store/Store.ts"
+        },
+        {
+          "specifier": "../useForcedRerendering",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useForcedRerendering.ts"
+        },
+        {
+          "specifier": "../useStableCallback",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "../useAnimationFrame",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useAnimationFrame.ts"
+        },
+        {
+          "specifier": "../useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "../useTimeout",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useTimeout.ts"
+        },
+        {
+          "specifier": "../empty",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/empty.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/store/useStore.ts",
+      "sha256": "3679e4277c44da5fba4af9d567f2d990d1170f260e2d473ac293378e4aeb32ce",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/store/useStore.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "use-sync-external-store/shim",
+          "kind": "runtime",
+          "resolved": "external:use-sync-external-store/shim"
+        },
+        {
+          "specifier": "use-sync-external-store/shim/with-selector",
+          "kind": "runtime",
+          "resolved": "external:use-sync-external-store/shim/with-selector"
+        },
+        {
+          "specifier": "../reactVersion",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/reactVersion.ts"
+        },
+        {
+          "specifier": "../fastHooks",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/fastHooks.ts"
+        },
+        {
+          "specifier": "./Store",
+          "kind": "type",
+          "resolved": "packages/utils/src/store/Store.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/useAnimationFrame.ts",
+      "sha256": "229943cee6d42305da4db33ed395ff8ccdde915c2e4e922c5af0c7b0aeeddf82",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useAnimationFrame.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./useRefWithInit",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useRefWithInit.ts"
+        },
+        {
+          "specifier": "./useOnMount",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useOnMount.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/useControlled.ts",
+      "sha256": "487bc45fa3ef1a70177867bb03598230f9926601aed8e3c7f46470feb225f886",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useControlled.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "./error",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/error.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/useEnhancedClickHandler.ts",
+      "sha256": "1d35635736029e0bb81832231ff823d546b0091ce5333d745090929de264fc87",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useEnhancedClickHandler.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/useForcedRerendering.ts",
+      "sha256": "00446b176b03c2d603f3f6dd5fbfda0b2792f1540774ab720aad8e4fcee91ba5",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useForcedRerendering.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/useId.ts",
+      "sha256": "7d01ffb745d3404ba406ebbd12ddfc8eb73325c3adea3dbda0868e2bad2eef05",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useId.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "./safeReact",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/safeReact.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/useIsoLayoutEffect.ts",
+      "sha256": "13a0ab28d24b04617dc290ad151c145f2435d1e0c381123847af74344ea4b9a0",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useIsoLayoutEffect.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/useMergedRefs.ts",
+      "sha256": "5fa12ae01abedc23ba814e9c59f015cf14d306044638b56c977780de43275ba3",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useMergedRefs.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "./useRefWithInit",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useRefWithInit.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/useOnMount.ts",
+      "sha256": "9d621d059249ec6ad10dbf35eef28153a8bc6ef893574d26a060385d4d13472b",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useOnMount.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "./empty",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/empty.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/useRefWithInit.ts",
+      "sha256": "183cb6e86ab1f8044a431d5b4115c750f7848c9835d519881b3c7a66dae98354",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useRefWithInit.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/useStableCallback.ts",
+      "sha256": "908cbd177f86c961983d0124a859f733d341be49e58bc5a553255f47725419c1",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useStableCallback.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./safeReact",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/safeReact.ts"
+        },
+        {
+          "specifier": "./useRefWithInit",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useRefWithInit.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/useTimeout.ts",
+      "sha256": "8d9e4159d9f883e18035811e9f2b4d180afb0d724b55d86dbf4fda52c355e156",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useTimeout.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./useRefWithInit",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useRefWithInit.ts"
+        },
+        {
+          "specifier": "./useOnMount",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useOnMount.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/useValueAsRef.ts",
+      "sha256": "ad85f215ea605641c7f579a0dd50841427a01c7412eee127b34c51318e744777",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useValueAsRef.ts",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "./useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "./useRefWithInit",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/useRefWithInit.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/visuallyHidden.ts",
+      "sha256": "4aa9c2cedd7087b2f1587548abb488604654ac61bc4ef6c30587317b6673764a",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/visuallyHidden.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "resolved": "external:react"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/warn.ts",
+      "sha256": "4e5565f4957742aaa2795bae3f37bfbc88dac51528550b3406ed5cef92474c00",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/warn.ts",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./createLogOnce",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/createLogOnce.ts"
+        },
+        {
+          "specifier": "./createLogOnce",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/createLogOnce.ts"
+        }
+      ]
+    }
+  ]
+}

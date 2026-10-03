@@ -1,5 +1,6 @@
 // Real Kit 2.70.3 remote forms, native Svelte comparator. No upstream parity credit.
 import { expect, test } from '@playwright/test';
+const unpatched = process.env.KIT_SUBMIT_EXPECT_UNPATCHED === '1';
 for (const native of [true, false]) {
   const label = native ? 'Native' : 'Input'; const query = native ? '?native' : '';
   test(`${label} direct remote field spreads retain keystrokes, callback ordering and programmatic updates`, async ({ page }) => {
@@ -27,12 +28,28 @@ for (const native of [true, false]) {
     await page.goto(`/input-remote?${native ? 'native&' : ''}${canceled ? 'canceled-reset' : ''}`); await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
     const input = page.getByRole('textbox', { name: 'Email', exact: true }); await input.fill('reject@example.com');
     await page.getByRole('button', { name: 'Validate', exact: true }).click(); await expect(page.getByTestId('issues')).toContainText('Email rejected by server');
-    const events = await page.getByTestId('events').textContent(); await page.getByRole('button', { name: 'Reset', exact: true }).click();
-    await expect(input).toHaveValue(canceled ? 'reject@example.com' : 'seed@example.com'); await expect(page.getByTestId('remote-value')).toHaveText('reject@example.com');
-    // Trusted reset activation checkpoints Kit's await tick before native reset's default action.
-    // The native comparator retains remote owner while DOM uses its native reset default.
-    // Kit clears issues even for a canceled reset, matching its actual native comparator.
+    const events = await page.getByTestId('events').textContent();
+    const requests: string[] = [];
+    page.on('request', request => { if (request.method() === 'POST') requests.push(request.url()); });
+    const settled = Number(await page.getByTestId('reset-settled').textContent());
+    await page.getByRole('button', { name: 'Reset', exact: true }).click();
+    await expect(page.getByTestId('reset-settled')).toHaveText(String(settled + 1));
+    const expectedOwner = canceled || unpatched ? 'reject@example.com' : 'seed@example.com';
+    expect(JSON.parse(await page.getByTestId('reset-observation').textContent() ?? 'null')).toEqual({
+      formData: canceled ? 'reject@example.com' : 'seed@example.com', remote: expectedOwner, issues: [], canceled,
+    });
+    await expect(input).toHaveValue(canceled ? 'reject@example.com' : 'seed@example.com');
+    // Original Kit keeps its stale owner; the explicit compatibility patch copies
+    // native defaults. Both lanes preserve canceled reset's original issues clearing.
+    await expect(page.getByTestId('remote-value')).toHaveText(expectedOwner);
     await expect(page.getByTestId('issues')).toHaveText('[]'); await expect(page.getByTestId('events')).toHaveText(events ?? '[]');
+    await expect(page.getByTestId('resets')).toHaveText('1');
+    await expect(page.getByTestId('result')).toHaveText('null');
+    expect(requests).toHaveLength(0);
+    await input.fill('after-reset@example.com');
+    await expect(input).toHaveValue('after-reset@example.com');
+    await expect(page.getByTestId('remote-value')).toHaveText('after-reset@example.com');
+    expect(requests).toHaveLength(0);
   });
 }
 test('Input value-detail cancellation preserves direct remote state and native edit', async ({ page }) => {
