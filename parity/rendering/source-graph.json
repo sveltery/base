@@ -67,7 +67,7 @@
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/empty.ts",
       "reachability": "runtime",
       "imports": [],
-      "localDestination": "packages/base/src/lib/utils/empty.ts (shared utility PR46 final b3bdfb2)"
+      "localDestination": "packages/base/src/lib/utils/empty.ts (merged shared utility PR46 reviewed head 64662d3)"
     },
     {
       "source": "packages/react/src/internals/reasons.ts",
@@ -186,7 +186,7 @@
           "resolved": "external:react"
         }
       ],
-      "localDestination": "packages/base/src/lib/utils/useRefWithInit.ts (shared utility PR46 final b3bdfb2)"
+      "localDestination": "packages/base/src/lib/utils/useRefWithInit.ts (merged shared utility PR46 reviewed head 64662d3)"
     },
     {
       "source": "packages/utils/src/getReactElementRef.ts",
@@ -319,5 +319,5 @@
       "localDestination": "packages/base/src/lib/merge-props/mergeProps.ts"
     }
   ],
-  "status": "Original source closure originally traced before bodies in UseRender source checkpoint e22061a; focused foundation extracted from actual owned source port. Utility dependency PR46 final b3bdfb266b1a6e51eb77459d66f6c727eddfddac; independent source/native/maintainability review pending."
+  "status": "Original source closure originally traced before bodies in UseRender source checkpoint e22061a; focused foundation extracted from actual owned source port. Utility dependency PR46 reviewed head 64662d38915f3a14260e38ed28d5e62a747ef23a, verified main merge ef1af34ccb4e4873e17713dc400101fb49ff1a48; fresh independent source/native/maintainability review pending."
 }
