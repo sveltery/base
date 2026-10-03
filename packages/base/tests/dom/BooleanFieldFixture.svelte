@@ -9,17 +9,35 @@
   import type { HTMLButtonAttributes } from 'svelte/elements';
   import type { Snippet } from 'svelte';
   import type { SwitchRootProps } from '../../src/lib/switch/types.js';
-  let { family = 'switch', scenario = 'field', rootProps = {}, submit, canceled = false, validation, errors = {} }: {
-    family?: 'switch' | 'checkbox'; scenario?: string; rootProps?: CheckboxRootProps;
-    submit?: (values: FormValues) => void; canceled?: boolean;
-    validation?: (value: unknown) => string | null; errors?: Record<string, string>;
+  let {
+    family = 'switch',
+    scenario = 'field',
+    rootProps = {},
+    submit,
+    canceled = false,
+    validation,
+    errors = {},
+  }: {
+    family?: 'switch' | 'checkbox';
+    scenario?: string;
+    rootProps?: CheckboxRootProps;
+    submit?: (values: FormValues) => void;
+    canceled?: boolean;
+    validation?: (value: unknown) => string | null;
+    errors?: Record<string, string>;
   } = $props();
   let visible = $state(true);
   let controlledChecked = $state(false);
   let groupValue = $state<string[]>([]);
-  export function hide() { visible = false; }
-  export function setChecked(value: boolean) { controlledChecked = value; }
-  export function setGroupValue(value: string[]) { groupValue = value; }
+  export function hide() {
+    visible = false;
+  }
+  export function setChecked(value: boolean) {
+    controlledChecked = value;
+  }
+  export function setGroupValue(value: string[]) {
+    groupValue = value;
+  }
 </script>
 {#snippet nativeButton(props: Record<string | symbol, unknown>, _state: unknown, children: Snippet | undefined)}<button {...props as HTMLButtonAttributes}>{@render children?.()}</button>{/snippet}
 {#snippet control(props: CheckboxRootProps)}

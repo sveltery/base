@@ -2,7 +2,10 @@
 // in Base UI v1.8.0 CheckboxRoot.tsx:322-363. MIT: THIRD_PARTY_NOTICES.md.
 import type { BaseUIEvent } from '../../internals/types.js';
 import { getDefaultFormSubmitter } from '../../utils/getDefaultFormSubmitter.js';
-export function useEnterSubmit(controlRef: { current: HTMLElement | null }, inputRef: { current: HTMLInputElement | null }) {
+export function useEnterSubmit(
+  controlRef: { current: HTMLElement | null },
+  inputRef: { current: HTMLInputElement | null },
+) {
   const submissions = new WeakSet<Event>();
   $effect(() => {
     const element = controlRef.current;

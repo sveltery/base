@@ -22,10 +22,26 @@
   import { useValueChanged } from '../../internals/useValueChanged.svelte.js';
   import type { SwitchRootProps, SwitchRootState } from '../types.js';
   let {
-    checked: checkedProp, class: classProp, defaultChecked, 'aria-labelledby': ariaLabelledByProp,
-    form, id: idProp, inputRef: externalInputRef, name: nameProp, nativeButton = false,
-    onCheckedChange, readOnly = false, required = false, disabled: disabledProp = false,
-    render, uncheckedValue, value, style, children, ref = $bindable(), ...elementProps
+    checked: checkedProp,
+    class: classProp,
+    defaultChecked,
+    'aria-labelledby': ariaLabelledByProp,
+    form,
+    id: idProp,
+    inputRef: externalInputRef,
+    name: nameProp,
+    nativeButton = false,
+    onCheckedChange,
+    readOnly = false,
+    required = false,
+    disabled: disabledProp = false,
+    render,
+    uncheckedValue,
+    value,
+    style,
+    children,
+    ref = $bindable(),
+    ...elementProps
   }: SwitchRootProps = $props();
   const formContext = useFormContext();
   const field = useFieldRootContext();
@@ -39,26 +55,59 @@
   const getControlId = useLabelableId(() => ({ id: idProp }), `${id}-input`);
   const controlId = $derived(getControlId());
   const hiddenInputId = $derived(nativeButton ? undefined : controlId);
-  const [getChecked, setCheckedState] = useControlled(() => ({ controlled: checkedProp, default: Boolean(defaultChecked), name: 'Switch', state: 'checked' }));
+  const [getChecked, setCheckedState] = useControlled(() => ({
+    controlled: checkedProp,
+    default: Boolean(defaultChecked),
+    name: 'Switch',
+    state: 'checked',
+  }));
   const checked = $derived(getChecked());
-  useRegisterFieldControl(switchRef, () => id, () => checked, undefined, () => !disabled, () => nameProp);
-  useIsoLayoutEffect(() => field.setFilled(checked), () => [checked, field.setFilled]);
-  useValueChanged(() => checked, () => () => {
-    formContext.clearErrors(name);
-    field.setDirty(checked !== field.validityData.initialValue);
-    field.validation.change(checked);
-  });
-  const { getButtonProps, buttonRef } = useButton(() => ({ disabled, native: nativeButton }));
-  const getAriaLabelledBy = useAriaLabelledBy(() => ({ explicitAriaLabelledBy: ariaLabelledByProp ?? undefined, labelId: labelable.labelId, labelSource: inputRef.current, enableFallback: !nativeButton, generatedLabelId: `${controlId}-label` }));
+  useRegisterFieldControl(
+    switchRef,
+    () => id,
+    () => checked,
+    undefined,
+    () => !disabled,
+    () => nameProp,
+  );
+  useIsoLayoutEffect(
+    () => field.setFilled(checked),
+    () => [checked, field.setFilled],
+  );
+  useValueChanged(
+    () => checked,
+    () => () => {
+      formContext.clearErrors(name);
+      field.setDirty(checked !== field.validityData.initialValue);
+      field.validation.change(checked);
+    },
+  );
+  const { getButtonProps, buttonRef } = useButton(() => ({
+    disabled,
+    native: nativeButton,
+  }));
+  const getAriaLabelledBy = useAriaLabelledBy(() => ({
+    explicitAriaLabelledBy: ariaLabelledByProp ?? undefined,
+    labelId: labelable.labelId,
+    labelSource: inputRef.current,
+    enableFallback: !nativeButton,
+    generatedLabelId: `${controlId}-label`,
+  }));
   const rootProps = $derived({
-    id: nativeButton ? controlId : id, role: 'switch', 'aria-checked': checked,
-    'aria-readonly': readOnly || undefined, 'aria-required': required || undefined,
+    id: nativeButton ? controlId : id,
+    role: 'switch',
+    'aria-checked': checked,
+    'aria-readonly': readOnly || undefined,
+    'aria-required': required || undefined,
     'aria-labelledby': getAriaLabelledBy(),
-    onfocus() { if (!disabled) field.setFocused(true); },
+    onfocus() {
+      if (!disabled) field.setFocused(true);
+    },
     onblur() {
       const element = inputRef.current;
       if (!element || disabled) return;
-      field.setTouched(true); field.setFocused(false);
+      field.setTouched(true);
+      field.setFocused(false);
       if (field.validationMode === 'onBlur') void field.validation.commit(element.checked);
     },
     onclick(event: MouseEvent) {
@@ -70,30 +119,72 @@
   });
   const inputProps = $derived({
     ...field.validation.getValidationProps(disabled),
-    checked, disabled, form, id: hiddenInputId, name, required,
+    checked,
+    disabled,
+    form,
+    id: hiddenInputId,
+    name,
+    required,
     style: toNativeStyle(name ? visuallyHiddenInput : visuallyHidden),
-    tabindex: -1, type: 'checkbox', 'aria-hidden': true,
+    tabindex: -1,
+    type: 'checkbox',
+    'aria-hidden': true,
     onclick(event: MouseEvent) {
       // The hidden input's activation is a single native click. Cancellation
       // uses the browser's checkbox rollback before input/change reach Kit.
       event.stopPropagation();
       if (event.defaultPrevented) return;
-      if (readOnly) { event.preventDefault(); return; }
+      if (readOnly) {
+        event.preventDefault();
+        return;
+      }
       const nextChecked = (event.currentTarget as HTMLInputElement).checked;
       const details = createChangeEventDetails(REASONS.none, event);
       onCheckedChange?.(nextChecked, details);
-      if (details.isCanceled) { event.preventDefault(); return; }
+      if (details.isCanceled) {
+        event.preventDefault();
+        return;
+      }
       setCheckedState(nextChecked);
     },
-    onfocus() { switchRef.current?.focus(); },
+    onfocus() {
+      switchRef.current?.focus();
+    },
     ...(value !== undefined ? { value } : {}),
   });
-  const rootState: SwitchRootState = $derived({ ...field.state, checked, disabled, readOnly, required });
+  const rootState: SwitchRootState = $derived({
+    ...field.state,
+    checked,
+    disabled,
+    readOnly,
+    required,
+  });
   setSwitchRootContext(() => rootState);
-  const forwardedRef = { get current() { return ref ?? null; }, set current(element: HTMLElement | null) { ref = element; } };
+  const forwardedRef = {
+    get current() {
+      return ref ?? null;
+    },
+    set current(element: HTMLElement | null) {
+      ref = element;
+    },
+  };
   const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({ state: rootState, ref: [forwardedRef, switchRef, buttonRef], props: [rootProps, elementProps, getButtonProps, (props: Record<string, unknown>) => field.validation.getValidationProps(disabled, props)], stateAttributesMapping });
-  const hiddenParams = $derived({ props: inputProps, ref: [inputRef, externalInputRef, field.validation.inputRef] });
+  const params = $derived({
+    state: rootState,
+    ref: [forwardedRef, switchRef, buttonRef],
+    props: [
+      rootProps,
+      elementProps,
+      getButtonProps,
+      (props: Record<string, unknown>) =>
+        field.validation.getValidationProps(disabled, props),
+    ],
+    stateAttributesMapping,
+  });
+  const hiddenParams = $derived({
+    props: inputProps,
+    ref: [inputRef, externalInputRef, field.validation.inputRef],
+  });
 </script>
 <RenderElement tag="span" {componentProps} {params} {children} />
 {#if !checked && name && uncheckedValue !== undefined}

@@ -7,11 +7,16 @@ export interface CompositeRootContext {
   relayKeyboardEvent(event: KeyboardEvent): void;
 }
 const key = Symbol('base-ui-composite-root');
-export function setCompositeRootContext(value: CompositeRootContext) { setContext(key, value); }
+export function setCompositeRootContext(value: CompositeRootContext) {
+  setContext(key, value);
+}
 export function useCompositeRootContext(optional: true): CompositeRootContext | undefined;
 export function useCompositeRootContext(optional?: false): CompositeRootContext;
 export function useCompositeRootContext(optional = false) {
   const context = getContext<CompositeRootContext | undefined>(key);
-  if (context === undefined && !optional) throw new Error('Base UI: CompositeRootContext is missing. Composite parts must be placed within <Composite.Root>.');
+  if (context === undefined && !optional)
+    throw new Error(
+      'Base UI: CompositeRootContext is missing. Composite parts must be placed within <Composite.Root>.',
+    );
   return context;
 }

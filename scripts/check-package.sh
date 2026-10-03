@@ -190,3 +190,6 @@ bash scripts/check-csp-provider-package.sh
 
 # Installed public source Field/Form/Fieldset anatomy, SSR and 31 named types.
 bash "$sveltery_repo_root/scripts/check-field-form-package.sh" --public
+
+# Real source checked families: public subpaths/types and SSR without browser globals.
+bash "$sveltery_repo_root/scripts/check-boolean-controls-package.sh"
