@@ -36,6 +36,7 @@
   const form = scenario === 'external-form' ? 'external-form' : undefined;
   let hydrated = $state(false);
   let calls = $state<unknown[]>([]);
+  let ancestorClicks = $state(0);
   let submissions = $state<unknown[]>([]);
   onMount(() => {
     hydrated = true;
@@ -119,13 +120,14 @@
 <form id="external-form"></form>
 <main data-hydrated={hydrated} data-renderer="svelte5.57.1">
 <DirectionProvider direction={current.rtl ? 'rtl' : 'ltr'}>
-  {#if withForm}<Form id="form" onFormSubmit={values => onSubmit?.(values)}>{@render content()}<button type="submit" id="submit">Submit</button><button type="reset" id="reset">Reset</button></Form>{:else}{@render content()}{/if}
+  {#if withForm}<Form id="form" onclick={() => ancestorClicks += 1} onFormSubmit={values => onSubmit?.(values)}>{@render content()}<button type="submit" id="submit">Submit</button><button type="reset" id="reset">Reset</button></Form>{:else}{@render content()}{/if}
 </DirectionProvider>
 
 <button onclick={() => update({ items: ['c', 'a', 'b'] })}>Reorder</button>
 <button onclick={() => update({ items: ['a', 'c'] })}>Remove selected</button>
 <button onclick={() => update({ items: [] })}>Remove all</button>
 <button onclick={() => setValue('c')}>Programmatic</button>
+<output id="ancestor-clicks">{ancestorClicks}</output>
 <output id="calls">{JSON.stringify(calls)}</output>
 <output id="submissions">{JSON.stringify(submissions)}</output>
 </main>

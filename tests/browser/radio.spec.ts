@@ -71,7 +71,7 @@ for (const framework of ['react', 'svelte']) {
         ),
     ).toEqual(['b']);
   });
-  test(`${framework} source RadioGroup:38 one value callback, one visible click and hidden native input`, async ({
+  test(`${framework} source RadioGroup:38 one value callback and authored ancestor handler with native delegated observations`, async ({
     page,
   }) => {
     await open(page);
@@ -97,13 +97,15 @@ for (const framework of ['react', 'svelte']) {
     ).toBe('a');
     await expect(page.locator('#form')).toHaveAttribute(
       'data-click-events',
-      '1',
+      '2',
     );
+    await expect(page.locator('#ancestor-clicks')).toHaveText('1');
     await page.getByTestId('radio-a').click();
     await expect(page.locator('#form')).toHaveAttribute(
       'data-click-events',
-      '2',
+      '4',
     );
+    await expect(page.locator('#ancestor-clicks')).toHaveText('2');
     await expect(page.locator('#calls')).toHaveText(
       '[{"value":"a","reason":"none","type":"click","shiftKey":false}]',
     );

@@ -21,18 +21,17 @@ export type RadioGroupProps<Value = any> = Omit<
   'class' | 'style' | 'children'
 > &
   BaseUIComponentProps<RadioGroupState> & {
-    children?: Snippet;
-    ref?: HTMLElement | null;
-    disabled?: boolean;
-    readOnly?: boolean;
-    required?: boolean;
-    name?: string;
-    form?: string;
-    value?: Value;
-    defaultValue?: Value;
-    onValueChange?: (
-      value: Value,
-      details: RadioGroupChangeEventDetails,
-    ) => void;
-    inputRef?: MergedRef<HTMLInputElement> | null;
+    children?: Snippet | undefined;
+    ref?: HTMLElement | null | undefined;
+    disabled?: boolean | undefined;
+    readOnly?: boolean | undefined;
+    required?: boolean | undefined;
+    name?: string | undefined;
+    form?: string | undefined;
+    value?: Value | undefined;
+    defaultValue?: Value | undefined;
+    onValueChange?:
+      | ((value: Value, details: RadioGroupChangeEventDetails) => void)
+      | undefined;
+    inputRef?: MergedRef<HTMLInputElement> | null | undefined;
   };

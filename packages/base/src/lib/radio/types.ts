@@ -20,14 +20,14 @@ export type RadioRootProps<Value = any> = Omit<
   'class' | 'style' | 'children'
 > &
   BaseUIComponentProps<RadioRootState> & {
-    children?: Snippet;
-    ref?: HTMLElement | null;
+    children?: Snippet | undefined;
+    ref?: HTMLElement | null | undefined;
     value: Value;
-    disabled?: boolean;
-    required?: boolean;
-    readOnly?: boolean;
-    inputRef?: MergedRef<HTMLInputElement> | null;
-    nativeButton?: boolean;
+    disabled?: boolean | undefined;
+    required?: boolean | undefined;
+    readOnly?: boolean | undefined;
+    inputRef?: MergedRef<HTMLInputElement> | null | undefined;
+    nativeButton?: boolean | undefined;
   };
 export interface RadioIndicatorState extends RadioRootState {
   transitionStatus: TransitionStatus;
@@ -37,7 +37,7 @@ export type RadioIndicatorProps = Omit<
   'class' | 'style' | 'children'
 > &
   BaseUIComponentProps<RadioIndicatorState> & {
-    children?: Snippet;
-    ref?: HTMLElement | null;
-    keepMounted?: boolean;
+    children?: Snippet | undefined;
+    ref?: HTMLElement | null | undefined;
+    keepMounted?: boolean | undefined;
   };

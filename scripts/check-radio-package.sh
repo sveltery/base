@@ -66,7 +66,13 @@ exact<true, typeof rootValueDefault>(rootValueDefault);
 exact<true, typeof groupValueDefault>(groupValueDefault);
 const nullableGroupRef: GroupTypes.RadioGroupProps<string> = { value: 'disk', inputRef: null };
 const nullableRootRef: RadioTypes.RadioRootProps<number> = { value: 42, inputRef: null };
-void [defaultGroupProps, defaultRootProps, nullableGroupRef, nullableRootRef];
+// The pin permits explicitly undefined optional props even with exact optional checking.
+const undefinedRoot: RadioTypes.RadioRootProps<number> = { value: 42, disabled: undefined, required: undefined, readOnly: undefined, nativeButton: undefined, inputRef: undefined, ref: undefined, children: undefined, class: undefined, style: undefined, render: undefined };
+const undefinedGroup: GroupTypes.RadioGroupProps<number> = { value: undefined, defaultValue: undefined, disabled: undefined, readOnly: undefined, required: undefined, name: undefined, form: undefined, onValueChange: undefined, inputRef: undefined, ref: undefined, children: undefined, class: undefined, style: undefined, render: undefined };
+const undefinedIndicator: RadioTypes.RadioIndicatorProps = { keepMounted: undefined, ref: undefined, children: undefined, class: undefined, style: undefined, render: undefined };
+// @ts-expect-error Explicit undefined optional flags do not permit null flags.
+const invalidNullFlag: RadioTypes.RadioRootProps<number> = { value: 42, required: null };
+void [defaultGroupProps, defaultRootProps, nullableGroupRef, nullableRootRef, undefinedRoot, undefinedGroup, undefinedIndicator, invalidNullFlag];
 const typed: ComponentProps<typeof RadioGroup<number>> = { value: 4, onValueChange(value, details) { exact<number, typeof value>(value); exact<Event, typeof details.event>(details.event); } };
 // @ts-expect-error A number-valued group cannot be controlled by a string.
 const invalid: ComponentProps<typeof RadioGroup<number>> = { value: 'wrong' };
@@ -96,7 +102,7 @@ assert.throws(() => render(RadioIndicator).body, /RadioRootContext is missing/);
 console.log('Isolated public Radio/RadioGroup namespaces, generic options, eight type exports, SSR, MIT and runtime boundary: PASS');
 JS
 cat > "$radio_consumer/tsconfig.json" <<'JSON'
-{"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"skipLibCheck":true,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts"]}
+{"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"exactOptionalPropertyTypes":true,"skipLibCheck":true,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts"]}
 JSON
 node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$radio_consumer/check.mjs"
 node "$sveltery_repo_root/packages/base/node_modules/svelte-check/bin/svelte-check" --workspace "$radio_consumer" --tsconfig ./tsconfig.json

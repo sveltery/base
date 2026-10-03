@@ -3683,7 +3683,7 @@
       "additionalLocalCounterparts": [
         {
           "local": "packages/base/src/lib/radio-group/types.ts",
-          "localSha256": "16410a154bb8138b03741d0ebf26465dac4065ce26b575b1568fab9261b14fd9",
+          "localSha256": "5d880bf3561fc190a1059c66042c1f82357d2003d2bc4eee6ef757da28f3861f",
           "correspondence": "Native public props/state aliases split from the original component source; source generic defaults and nullable hidden input refs retained."
         }
       ],
@@ -3823,7 +3823,7 @@
       "additionalLocalCounterparts": [
         {
           "local": "packages/base/src/lib/radio/types.ts",
-          "localSha256": "9d32395ff2c5e8921ad28c2614515f988e4286270ce1cd0dd379d6b583cbae0d",
+          "localSha256": "fc7094b918d1ad4033455a9578cb6eb91061a0eafdd472f4a384e4fd5d225cb4",
           "correspondence": "Native public props/state aliases split from the original component source; source generic defaults and nullable hidden input refs retained."
         }
       ],
@@ -3963,11 +3963,11 @@
       ],
       "local": "packages/base/src/lib/radio/root/RadioRoot.svelte",
       "correspondence": "Source-ordered Root state/hidden input/Field/Item/label/button/CompositeItem composition. Native onclick owns one radio activation; cancellation prevents its default before input/change.",
-      "localSha256": "0032352926870b8e3a72c8623d0744eb170c8cbfbc2459ef441428e41dc23475",
+      "localSha256": "3e4683f16b1e8939fbb0ad1eb012518f33c971988be8af3d574726de53dd484d",
       "additionalLocalCounterparts": [
         {
           "local": "packages/base/src/lib/radio/types.ts",
-          "localSha256": "9d32395ff2c5e8921ad28c2614515f988e4286270ce1cd0dd379d6b583cbae0d",
+          "localSha256": "fc7094b918d1ad4033455a9578cb6eb91061a0eafdd472f4a384e4fd5d225cb4",
           "correspondence": "Native public props/state aliases split from the original component source; source generic defaults and nullable hidden input refs retained."
         }
       ],

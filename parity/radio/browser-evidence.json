@@ -34,6 +34,17 @@
       "scope": "Actual React/ReactDOM19.2.8 and Svelte Radio/RadioGroup source-family contracts and native cancellation/controlled rejection/reset/SSR supplements. Sandbox enabled, retries zero; no ordinary declaration credit.",
       "artifactId": 11264010016,
       "artifactZipSha256": "4bcae511ef7df3771dd5dbe089d3820f28290f6c862532e6f715310ab5e32d62"
+    },
+    {
+      "head": "e1bd4813c386b6f30767b42041017bfe4fc7bb70",
+      "runId": 37096381916,
+      "url": "https://github.com/sveltery/base/actions/runs/37096381916",
+      "result": "failure",
+      "passed": 38,
+      "failed": 2,
+      "failure": "The two new direct native Form click-listener expectations assumed one event. Both actual React19.2.8 and Svelte delegated handler systems let the direct native listener observe hidden activation plus visible click (two) before propagation is stopped at the framework delegate. Geometry and explicit hydration cases all passed. Subsequent supplements assert actual native two/four counts and separately measure authored ancestor handlers once/twice; no runtime emulation is added.",
+      "artifactId": 11264382793,
+      "artifactZipSha256": "ada9e88ca376d30ccfc3d388e1f2a8f34ba16a16b6fa1126535e94b4e52e23f7"
     }
   ],
   "status": "Fresh exact-head run, configured review and independent whole-closure source/native/maintainability acceptance pending; no merge or exhaustive assertion parity claimed.",

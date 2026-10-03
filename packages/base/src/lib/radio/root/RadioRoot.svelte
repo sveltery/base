@@ -135,7 +135,8 @@
     required,
     readonly: readOnly,
     onclick(event: MouseEvent) {
-      // The source's hidden activation must not create a second ancestor click.
+      // Stop the framework-delegated ancestor handler for this hidden activation.
+      // Direct native listeners below the delegate have already observed the click.
       // Native click cancellation rolls radio activation back before input/change.
       event.stopPropagation();
       if (event.defaultPrevented) return;

@@ -31,6 +31,7 @@ export function mountRadioReference(node: HTMLElement, scenario: string) {
     const [owner, setOwner] = useState(initial);
     const [items, setItems] = useState(['a', 'b', 'c']);
     const [calls, setCalls] = useState<unknown[]>([]);
+    const [ancestorClicks, setAncestorClicks] = useState(0);
     const [submissions, setSubmissions] = useState<unknown[]>([]);
     return h(
       'main',
@@ -46,6 +47,7 @@ export function mountRadioReference(node: HTMLElement, scenario: string) {
           Form,
           {
             id: 'form',
+            onClick: () => setAncestorClicks((previous) => previous + 1),
             onFormSubmit: (values) =>
               setSubmissions((previous) => [...previous, values]),
           },
@@ -127,6 +129,7 @@ export function mountRadioReference(node: HTMLElement, scenario: string) {
       h('button', { onClick: () => setItems(['a', 'c']) }, 'Remove selected'),
       h('button', { onClick: () => setItems([]) }, 'Remove all'),
       h('button', { onClick: () => setOwner('c') }, 'Programmatic'),
+      h('output', { id: 'ancestor-clicks' }, ancestorClicks),
       h('output', { id: 'calls' }, JSON.stringify(calls)),
       h('output', { id: 'submissions' }, JSON.stringify(submissions)),
     );
