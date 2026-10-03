@@ -39,7 +39,7 @@ export const docs: Doc[] = [
         id: 'status',
         title: 'A foundation in progress',
         paragraphs: [
-          'Dialog, Button, Toast, standalone Input, Separator and Toggle, Progress, Collapsible, Meter, Avatar, Accordion, DirectionProvider and the CSPProvider context foundation have bounded implementations. Full upstream compatibility is unfinished. The repository catalog ledger records the exact exported scope and deferred behavior; Drawer, Field, Form and the remaining catalog are unimplemented.',
+          'The repository catalog accounts for 23 bounded modules and 19 unimplemented modules, including providers and utilities. Field, Form, Fieldset, Checkbox, CheckboxGroup, Switch, Radio and RadioGroup are available alongside UseRender composition and the earlier components. Remote Form exposes typed Field children and control descriptors. Complete upstream compatibility remains unfinished; the catalog ledger records each exported scope and its limits.',
           'The package is private and unpublished. APIs may change. Use this workspace to evaluate the current slice; check the repository contracts before depending on a behavior.',
         ],
         links: [
@@ -232,6 +232,16 @@ export const docs: Doc[] = [
           },
         ],
       },
+    ],
+  },
+  {
+    slug: 'components/use-render', group: 'Components', title: 'UseRender',
+    description: 'Render a native host or compose a replacement snippet with state and actual element references.',
+    sections: [
+      { id: 'host', title: 'Render a host', paragraphs: ['UseRender renders a div by default. Choose an HTML or SVG tag with defaultTagName, pass native attributes in props and pass component state through state. True state values become empty data attributes; other truthy values stringify.'], code: '<script lang="ts">\n  import { UseRender } from "@sveltery/base/use-render";\n</script>\n<UseRender defaultTagName="button" props={{ class: "action" }} state={{ active: true }}>\n  Action\n</UseRender>' },
+      { id: 'compose', title: 'Compose a snippet', paragraphs: ['A replacement snippet receives merged host props, current state and children. Spread the supplied props onto its actual host to forward attachments. Use mergeProps to add replacement-owned native props last. Keep snippet identity stable and update reactive arguments to retain its host and refs.'], code: '<script lang="ts">\n  import { UseRender, mergeProps } from "@sveltery/base";\n</script>\n<UseRender state={{ active: true }}>\n  {#snippet render(supplied, state, children)}\n    <span {...mergeProps(supplied, { class: "owned" })} data-selected={state.active}>\n      {@render children?.()}\n    </span>\n  {/snippet}\n  Content\n</UseRender>' },
+      { id: 'refs', title: 'Observe the actual element', paragraphs: ['Use bind:element for the resolved host, or pass callback/object refs and arrays through ref. Callback cleanup supersedes null delivery. Disabled rendering removes its host and skips new render/state work. A default button receives type=button; a default image receives alt="". Replacement snippets own their defaults.'] },
+      { id: 'limits', title: 'Compatibility limits', paragraphs: ['UseRender is a native Svelte component representation of a React hook. Changed snippet identity replaces the native host even when the tag matches. Full owner unmount or host replacement inside an unchanged snippet can call cleanup after removal. React return typing, lazy/Flight/RSC and diagnostics remain unimplemented. Public props accepts an ordinary object; ordered getters and class/style callbacks remain private.'], links: [{ label: 'Read the UseRender contract and evidence', href: 'https://github.com/sveltery/base/blob/main/docs/use-render.md' }] },
     ],
   },
   {

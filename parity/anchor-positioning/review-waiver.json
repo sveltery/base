@@ -9,12 +9,13 @@
     "decision": "The PM authorized the rest of the project under the existing recorded quota-exhaustion exception. The resumed developer independently verified the current literal quota response on PR #53 on 2026-10-03; independent exact-head source/native/maintainability and PM gates remain mandatory."
   },
   "evidence": {
-    "comment": "https://github.com/sveltery/base/pull/53#issuecomment-5972706324",
-    "commentId": 5972706324,
+    "comment": "https://github.com/sveltery/base/pull/44#issuecomment-5973072941",
+    "commentId": 5973072941,
     "actor": "chatgpt-codex-connector[bot]",
     "literal": "You have reached your Codex usage limits for code reviews.",
     "observedAt": "2026-10-03",
-    "scopeNote": "Current actual quota evidence is shared from PR #53; it does not mark any PR #44 review passed. The existing PR #44 P1 is repaired and still requires independent assessment."
+    "scopeNote": "The configured review was attempted when PR #44 became ready at reviewed candidate 211172b93532ec7429665d48e1d745191443bdc4 and returned the literal quota exhaustion. This is not a passed review. The existing P1 is repaired and still requires independent assessment.",
+    "priorCurrentQuotaComment": "https://github.com/sveltery/base/pull/53#issuecomment-5972706324"
   },
   "mandatoryGates": [
     "Independent review of the exact final candidate",

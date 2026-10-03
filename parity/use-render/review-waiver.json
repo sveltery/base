@@ -1,0 +1,29 @@
+{
+  "status": "quota-waived",
+  "scope": "Configured automatic Codex PR code review for UseRender PR #40 only. A waiver is never a passed review or product approval.",
+  "pr": "https://github.com/sveltery/base/pull/40",
+  "ordinaryDeclarationCredit": 0,
+  "basis": {
+    "existingPolicyRecord": "parity/csp-provider/review-waiver.json",
+    "instruction": "Configured automatic review must pass unless actual quota exhaustion invokes the user's exception; a waiver is not approval.",
+    "decision": "The PM independently verified the current quota reply on PR53 and authorized this scoped exception for PR40 while the same quota exhaustion persists. The developer independently read that actual reply during PR40 continuation on 2026-10-03."
+  },
+  "evidence": {
+    "comment": "https://github.com/sveltery/base/pull/53#issuecomment-5972706324",
+    "commentId": 5972706324,
+    "actor": "chatgpt-codex-connector[bot]",
+    "createdAt": "2026-10-03T19:27:28Z",
+    "literal": "You have reached your Codex usage limits for code reviews."
+  },
+  "mandatoryGates": [
+    "Fresh independent exact-head review of the complete original and actual used source closure, native Svelte behavior and maintainability",
+    "Current exact-head Standards and Verification",
+    "Meaningful secured hosted Chromium acceptance with one worker and zero retries",
+    "Actual installed public root/subpath strict native types, SSR, hydration and DOM consumers",
+    "Current-main normal integration",
+    "PM exact-head approval and normal expected-head owner merge",
+    "Exact post-merge CI"
+  ],
+  "behavioralDifferenceApproval": false,
+  "limitations": "Do not repeat automatic review requests while the independently verified quota condition persists. This record waives only that configured review gate; all independent, execution, public consumer and PM gates remain mandatory."
+}
