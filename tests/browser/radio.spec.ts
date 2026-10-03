@@ -1,6 +1,64 @@
 // Exact pinned source-family witness and native supplements; MIT: parity/radio/UPSTREAM_LICENSE.
 import { expect, test } from '@playwright/test';
 for (const framework of ['react', 'svelte']) {
+  test(`${framework} nested Composite shared host preserves outer metadata, repeated updates and navigation`, async ({
+    page,
+  }) => {
+    await page.goto(
+      `/composite-nested${framework === 'react' ? '?reference=react' : ''}`,
+    );
+    await expect(page.locator('main[data-hydrated="true"]')).toBeVisible();
+    if (framework === 'react') {
+      await expect(page.locator('main')).toHaveAttribute(
+        'data-renderer',
+        '19.2.8/19.2.8',
+      );
+    }
+    const snapshots: unknown[] = [];
+    const readMap = async () =>
+      JSON.parse(await page.locator('#nested-map').innerText()) as Record<
+        string,
+        unknown
+      >[];
+    const assertOuter = async (phase: string) => {
+      await expect
+        .poll(async () =>
+          (await readMap()).find((item) => item.testId === 'shared'),
+        )
+        .toMatchObject({
+          owner: 'outer',
+          disabled: true,
+          focusableWhenDisabled: true,
+          index: 1,
+        });
+      await expect.poll(async () => (await readMap()).length).toBe(3);
+      await page.getByTestId('first').focus();
+      await page.getByTestId('first').press('ArrowRight');
+      await expect(page.getByTestId('shared')).toBeFocused();
+      snapshots.push({ phase, map: await readMap(), focused: 'shared' });
+    };
+    await assertOuter('mount');
+    for (let revision = 1; revision <= 3; revision += 1) {
+      await page.locator('#update-inner').click();
+      await assertOuter(`inner-update-${revision}`);
+    }
+    await page.locator('#toggle-shared').click();
+    await expect(page.getByTestId('shared')).toHaveCount(0);
+    await expect.poll(async () => (await readMap()).length).toBe(2);
+    snapshots.push({ phase: 'removed', map: await readMap() });
+    await page.locator('#toggle-shared').click();
+    await assertOuter('reinsert');
+    await page.locator('#replace-host').click();
+    await expect(page.getByTestId('shared')).toHaveJSProperty(
+      'tagName',
+      'SPAN',
+    );
+    await assertOuter('replace-host');
+    await test.info().attach('nested-composite-source-lifecycle', {
+      body: JSON.stringify({ framework, snapshots }),
+      contentType: 'application/json',
+    });
+  });
   const open = async (
     page: import('@playwright/test').Page,
     scenario = 'default',

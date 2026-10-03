@@ -1,7 +1,7 @@
 {
   "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "ordinaryDeclarationCredit": 0,
-  "scope": "Actual selected local Radio import graph and expanded authored Field/Form composition after approved PR48/PR51 main integration; includes type-only edges and native Svelte modules. Original source graph remains separate and unchanged. Type queries, including typeof import of the actual Field namespace, are followed as type-only edges.",
+  "scope": "Actual selected local Radio import graph and expanded authored Field/Form composition after approved PR48/PR51 main integration; includes type-only edges and native Svelte modules. Original source graph remains separate and unchanged. Type queries, including typeof import of the actual Field namespace, are followed as type-only edges. PR50 native ref-composition successor adds the real useRenderElement-to-nativeRefAttachment runtime edge; original source graph remains unchanged.",
   "actual": {
     "roots": [
       "packages/base/src/lib/radio/index.ts",
@@ -795,8 +795,8 @@
       },
       {
         "source": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-        "sha256": "961f7c5dfbcc5beb0eae8c45174170e15b5c053b4c0eb8725b57f622dc5d0eed",
-        "lines": 24,
+        "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319",
+        "lines": 40,
         "imports": [
           {
             "specifier": "svelte",
@@ -1058,8 +1058,8 @@
       },
       {
         "source": "packages/base/src/lib/internals/useRenderElement.ts",
-        "sha256": "f8f222b15896d43db235bdfd9498b2cb26d8d24c77ba1ea3626d54126791e281",
-        "lines": 133,
+        "sha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
+        "lines": 157,
         "imports": [
           {
             "specifier": "../utils/useMergedRefs.js",
@@ -1100,6 +1100,11 @@
             "specifier": "./nativeProps.js",
             "kind": "runtime",
             "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+          },
+          {
+            "specifier": "./nativeRefAttachment.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts"
           },
           {
             "specifier": "./types.js",
@@ -1875,7 +1880,7 @@
         "imports": []
       }
     ],
-    "edges": 256,
+    "edges": 257,
     "externals": [
       "esm-env",
       "svelte",
@@ -3383,8 +3388,8 @@
       },
       {
         "source": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-        "sha256": "961f7c5dfbcc5beb0eae8c45174170e15b5c053b4c0eb8725b57f622dc5d0eed",
-        "lines": 24,
+        "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319",
+        "lines": 40,
         "imports": [
           {
             "specifier": "svelte",
@@ -3646,8 +3651,8 @@
       },
       {
         "source": "packages/base/src/lib/internals/useRenderElement.ts",
-        "sha256": "f8f222b15896d43db235bdfd9498b2cb26d8d24c77ba1ea3626d54126791e281",
-        "lines": 133,
+        "sha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
+        "lines": 157,
         "imports": [
           {
             "specifier": "../utils/useMergedRefs.js",
@@ -3688,6 +3693,11 @@
             "specifier": "./nativeProps.js",
             "kind": "runtime",
             "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+          },
+          {
+            "specifier": "./nativeRefAttachment.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts"
           },
           {
             "specifier": "./types.js",
@@ -4503,7 +4513,7 @@
         "imports": []
       }
     ],
-    "edges": 375,
+    "edges": 376,
     "externals": [
       "esm-env",
       "svelte",

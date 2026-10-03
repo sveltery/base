@@ -1888,7 +1888,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-      "sha256": "961f7c5dfbcc5beb0eae8c45174170e15b5c053b4c0eb8725b57f622dc5d0eed",
+      "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319",
       "imports": [
         {
           "specifier": "svelte",
@@ -2138,7 +2138,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/useRenderElement.ts",
-      "sha256": "f8f222b15896d43db235bdfd9498b2cb26d8d24c77ba1ea3626d54126791e281",
+      "sha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
       "imports": [
         {
           "specifier": "../utils/useMergedRefs.js",
@@ -2179,6 +2179,11 @@
           "specifier": "./nativeProps.js",
           "kind": "runtime",
           "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        },
+        {
+          "specifier": "./nativeRefAttachment.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts"
         },
         {
           "specifier": "./types.js",

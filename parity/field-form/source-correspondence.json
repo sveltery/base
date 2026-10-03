@@ -1992,12 +1992,28 @@
   },
   "sharedRendererDependency": {
     "pr": "https://github.com/sveltery/base/pull/47",
-    "status": "Canonical PR47 independently reviewed and normally merged; unchanged runtime inherited. Shared explicit-undefined type repair separately reviewed at8619e34.",
+    "status": "Canonical PR47 independently reviewed and normally merged. Core inherited that runtime unchanged; proposed PR50 adds a separate bounded source ref-order/lifetime fidelity repair, pending fresh final-head helper review and gates. Shared explicit-undefined type repair separately reviewed at8619e34.",
     "historicalSourceHead": "e71d643afb22b4d3afd88f88b46caa4d0f102fd9",
     "historicalLocalCherryPick": "26a2a1995eb34253bb37ebb9bbaf43732e94f781",
     "sourceHead": "5bfb47f3aba7d39e2dbd34d59dcbcf7f4fe1768e",
     "normalMainMerge": "cabcd911ac2ee9ab9b3874e1ce1022f90a487af0",
-    "historicalStatus": "canonical dependency consumed unchanged; final utility/render delivery and rebase pending"
+    "historicalStatus": "canonical dependency consumed unchanged; final utility/render delivery and rebase pending",
+    "nativeRefCompositionSuccessor": {
+      "pr": "https://github.com/sveltery/base/pull/50",
+      "previousHead": "3061aeb6512c2f1cbc38c67737da05e962b8b5ec",
+      "localBodies": [
+        {
+          "local": "packages/base/src/lib/internals/useRenderElement.ts",
+          "sha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9"
+        },
+        {
+          "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+          "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319"
+        }
+      ],
+      "change": "Canonical forwarded library ref attachments participate after inner refs in the same source cleanup/reattachment lifecycle. Authored attachment reactivity and bound-host publication remain native. Canonical source useMergedRefs algorithms and Field/Form runtime are unchanged.",
+      "status": "Implemented pending fresh exact-head independent source/native/helper review and gates; earlier core evidence remains historical."
+    }
   },
   "nativeExtensions": [
     {
