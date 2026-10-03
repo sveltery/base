@@ -26,7 +26,7 @@ export function useAnchorPositioning(readOptions: () => AnchorPositioningOptions
       getConfig: (isCurrent: (node: HTMLElement) => boolean) =>
         createPositioningPolicy(currentOptions, () => currentArrow, isCurrent, currentMountSide),
       whileElementsMounted: (reference: Reference, floating: HTMLElement, update: () => void) =>
-        autoUpdate(reference, floating, update, getAutoUpdateOptions(floating, currentOptions.disableAnchorTracking)),
+        autoUpdate(reference, floating, update, getAutoUpdateOptions(currentOptions.disableAnchorTracking)),
     };
   });
 

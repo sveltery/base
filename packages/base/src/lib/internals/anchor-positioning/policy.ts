@@ -289,13 +289,12 @@ export function createPositioningPolicy(options: AnchorPositioningOptions & { di
   return { placement, strategy: positionMethod, middleware: middleware.filter((item): item is Middleware => item != null) };
 }
 
-/** Preserve ancestorResize's default even when anchor tracking is disabled. */
-export function getAutoUpdateOptions(floating: HTMLElement, disabled = false): AutoUpdateOptions {
-  const win = floating.ownerDocument.defaultView;
+/** Preserve source ambient constructor checks and ancestorResize's default. */
+export function getAutoUpdateOptions(disabled = false): AutoUpdateOptions {
   return {
     ancestorScroll: !disabled,
-    elementResize: !disabled && typeof win?.ResizeObserver !== 'undefined',
-    layoutShift: !disabled && typeof win?.IntersectionObserver !== 'undefined',
+    elementResize: !disabled && typeof ResizeObserver !== 'undefined',
+    layoutShift: !disabled && typeof IntersectionObserver !== 'undefined',
   };
 }
 export { autoUpdate, inline };
