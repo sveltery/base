@@ -10,9 +10,7 @@ const key = Symbol('base-ui-composite-root');
 export function setCompositeRootContext(value: CompositeRootContext) {
   setContext(key, value);
 }
-export function useCompositeRootContext(
-  optional: true,
-): CompositeRootContext | undefined;
+export function useCompositeRootContext(optional: true): CompositeRootContext | undefined;
 export function useCompositeRootContext(optional?: false): CompositeRootContext;
 export function useCompositeRootContext(optional = false) {
   const context = getContext<CompositeRootContext | undefined>(key);
