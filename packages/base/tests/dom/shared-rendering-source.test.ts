@@ -40,11 +40,13 @@ it('lets native attachments observe updated attributes and removed hosts during 
   app.setParams({ enabled: false }); flushSync(); expect(observations).toEqual([['first', true, 'after'], ['second', false, 'after']]);
 });
 it('preserves enumerable native attachments from all source objects and their teardown', async () => {
-  const firstKey = createAttachmentKey(), secondKey = createAttachmentKey();
-  const firstCleanup = vi.fn(), secondCleanup = vi.fn(), first = vi.fn(() => firstCleanup), second = vi.fn(() => secondCleanup);
-  const { app, host } = render({ params: { props: [{ [firstKey]: first }, { [secondKey]: second }] } });
+  const firstKey = createAttachmentKey(), secondKey = createAttachmentKey(), hiddenKey = createAttachmentKey();
+  const firstCleanup = vi.fn(), secondCleanup = vi.fn(), first = vi.fn(() => firstCleanup), second = vi.fn(() => secondCleanup), hidden = vi.fn();
+  const laterProps = Object.defineProperty({ [secondKey]: second }, hiddenKey, { value: hidden, enumerable: false });
+  const { app, host } = render({ params: { props: [{ [firstKey]: first }, laterProps] } });
   expect(first).toHaveBeenCalledWith(host()); expect(second).toHaveBeenCalledWith(host());
-  await unmount(app); apps.splice(apps.indexOf(app), 1); expect(firstCleanup).toHaveBeenCalledTimes(1); expect(secondCleanup).toHaveBeenCalledTimes(1);
+  expect(hidden).not.toHaveBeenCalled();
+  await unmount(app); apps.splice(apps.indexOf(app), 1); expect(firstCleanup).toHaveBeenCalledTimes(1); expect(secondCleanup).toHaveBeenCalledTimes(1); expect(hidden).not.toHaveBeenCalled();
 });
 it('uses native literal input default and reset ownership without a controlled restore layer', () => {
   const { host } = render({ tag: 'input', params: { props: { defaultValue: 'default' } } });
