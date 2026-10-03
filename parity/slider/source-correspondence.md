@@ -35,3 +35,11 @@ This is the pre-implementation dependency milestone. Every planned body and exec
 | Unselected recursive floating/type/barrel exports | No local import unless selected business dependency | Explicitly unselected, no dead copies | Original closure kept complete; final actual local graph proves used paths |
 
 Original helper/component/test hashes are evidence only. Final source/native/maintainability review, exact required checks, secured paired official Chrome browser cases, SSR/hydration, and isolated packed consumers must clear the final head. This milestone establishes no completed implementation or parity.
+
+## Authorized shared native leaves
+
+PM granted new exact Source business leaves `utils/valueToPercent.ts`, `utils/resolveAriaLabelledBy.ts`, `utils/warn.ts` using canonical createLogOnce, and the real used native hydration boundaries `utils/useIsHydrating.svelte.ts`/`internals/PrehydrationScript.svelte`. The pre-implementation original records retain their hashes.
+
+`floating-ui-react/utils/element.ts#matchesFocusVisible` is extracted into one canonical `floating-ui/utils/matchesFocusVisible.ts` with its original platform/null/JSDOM/catch branches. Dialog's element facade will re-export that same leaf rather than keeping a second definition; unrelated PopupTriggerMap/store modules are not Slider imports. Actual PR55 platform/event dependencies remain unmerged development dependencies until accepted on actual main.
+
+Compiled Svelte raw markup places hydration HTML markers inside a dynamic script's text, while literal script markup treats interpolation as raw script text. The approved native boundary renders one whole script tag through native `{@html}` so markers stay outside the executable body. The immutable positioning body remains identical and trusted. The nonce attribute is escaped. Native HTML insertion is inert on fresh CSR; the SSR parser executes the body once, and native onMount removes the script. The client retains the same script payload as SSR to avoid native raw-HTML hydration hash mismatches; Source React uses a browser stub and suppressHydrationWarning. This native representation/payload difference was authorized by PM under the user's native-Svelte directive and earns zero ordinary assertion credit. SSR/parser/CSR/hydration/nonce/position execution checks remain pending.
