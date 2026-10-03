@@ -172,7 +172,7 @@
       "source": "packages/react/src/internals/labelable-provider/LabelableProvider.tsx",
       "sourceSha256": "f098e676a1e108ef96774499f3ee44cc9adba246b33dc81018b836bc99cbc2d1",
       "symbol": "LabelableProvider/createLabelableProvider",
-      "local": "packages/base/src/lib/internals/labelable-provider/LabelableProvider.svelte; packages/base/src/lib/internals/labelable-provider/LabelableProvider.svelte.ts",
+      "local": "packages/base/src/lib/internals/labelable-provider/LabelableProvider.svelte; packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
       "adaptation": "Source provider and actual selection/state body; native initialized id and live parent messages.",
       "status": "written-unverified",
       "imports": [

@@ -51,11 +51,11 @@
   let validityData = $state.raw<FieldValidityData>({ state: DEFAULT_VALIDITY_STATE, error: '', errors: [], value: null, initialValue: null });
   function setValidityData(value: FieldValidityData | ((previous: FieldValidityData) => FieldValidityData)) { validityData = typeof value === 'function' ? value(validityData) : value; }
   const valid = $derived(!invalid && (disabled ? null : validityData.state.valid));
-  const state: FieldRootState = $derived({ disabled, touched, dirty, valid, filled, focused });
+  const fieldRootState: FieldRootState = $derived({ disabled, touched, dirty, valid, filled, focused });
   const validation = useFieldValidation({
     setValidityData, validate, get validityData() { return validityData; },
     get validationDebounceTime() { return validationDebounceTime; }, get invalid() { return invalid; },
-    markedDirtyRef, get state() { return state; }, shouldValidateOnChange,
+    markedDirtyRef, get state() { return fieldRootState; }, shouldValidateOnChange,
     get validationMode() { return validationMode; }, registeredFieldIdRef,
   });
   const [validateFieldControl, registerFieldControl] = useFieldControlRegistration({
@@ -77,11 +77,11 @@
     get disabled() { return disabled; }, setTouched, setDirty,
     setFilled(value) { filled = value; }, setFocused(value) { focused = value; },
     get validationMode() { return validationMode; }, shouldValidateOnChange,
-    get state() { return state; }, registerFieldControl, validation,
+    get state() { return fieldRootState; }, registerFieldControl, validation,
   };
   setFieldRootContext(contextValue);
   const componentProps = $derived({ ...elementProps, render, class: classProp, style });
   const forwardedRef = { get current() { return ref; }, set current(value: HTMLElement | null | undefined) { ref = value; } };
-  const params = $derived({ ref: forwardedRef, state, props: elementProps, stateAttributesMapping: fieldValidityMapping });
+  const params = $derived({ ref: forwardedRef, state: fieldRootState, props: elementProps, stateAttributesMapping: fieldValidityMapping });
 </script>
 <RenderElement tag="div" {componentProps} {params} {children} />

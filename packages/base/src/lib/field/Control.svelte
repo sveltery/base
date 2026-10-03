@@ -28,7 +28,7 @@
   const form = useFormContext();
   const disabled = $derived(Boolean(field.disabled || disabledProp));
   const name = $derived(field.name ?? nameProp);
-  const state: FieldControlState = $derived({ ...field.state, disabled });
+  const controlState: FieldControlState = $derived({ ...field.state, disabled });
   const labelable = useLabelableContext();
   const instanceId = $props.id();
   const getId = useLabelableId(() => ({ id: idProp }), useBaseUiId(undefined, instanceId));
@@ -38,14 +38,14 @@
   const value = $derived(isControlled ? getValueUnwrapped() : undefined);
   const serializedValue = $derived(value == null ? undefined : String(value));
   const getValueFromInput = useStableCallback(() => field.validation.inputRef.current?.value);
-  useRegisterFieldControl(field.validation.inputRef, () => id, () => serializedValue, getValueFromInput, () => !disabled, () => nameProp);
+  useRegisterFieldControl(field.validation.inputRef, () => id, () => serializedValue, getValueFromInput, () => !disabled, () => nameProp ?? undefined);
   useIsoLayoutEffect(() => {
     const currentValue = serializedValue ?? field.validation.inputRef.current?.value;
     if (currentValue !== undefined) field.setFilled(currentValue !== '');
   }, () => [serializedValue, field.validation.inputRef, field.setFilled]);
   useValueChanged(() => serializedValue, () => {
     if (serializedValue === undefined) return;
-    form.clearErrors(name);
+    form.clearErrors(name ?? undefined);
     field.setDirty(serializedValue !== (field.validityData.initialValue ?? ''));
     field.validation.change(serializedValue);
   });
@@ -68,7 +68,7 @@
       field.setDirty(inputValue !== (field.validityData.initialValue ?? ''));
       field.setFilled(inputValue !== '');
       if (!event.defaultPrevented && !details.isCanceled) {
-        form.clearErrors(name);
+        form.clearErrors(name ?? undefined);
         field.validation.change(inputValue);
       }
     },
@@ -103,7 +103,7 @@
   const forwardedRef = { get current() { return ref; }, set current(value: HTMLElement | null | undefined) { ref = value; } };
   const componentProps = $derived({ ...elementProps, render, class: classProp, style });
   const params = $derived({
-    ref: [forwardedRef, inputRef], state,
+    ref: [forwardedRef, inputRef], state: controlState,
     props: [internal, elementProps, (props: Record<string, unknown>) => field.validation.getValidationProps(disabled, props)],
     stateAttributesMapping: fieldValidityMapping,
   });

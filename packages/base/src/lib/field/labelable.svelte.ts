@@ -1,6 +1,6 @@
 // Base UI v1.8.0 LabelableProvider adaptation; MIT: THIRD_PARTY_NOTICES.md.
 import { useLabelableContext, type LabelableContext as SourceLabelableContext } from '../internals/labelable-provider/LabelableContext.js';
-import { createLabelableProvider } from '../internals/labelable-provider/LabelableProvider.svelte.js';
+import { createLabelableProvider } from '../internals/labelable-provider/createLabelableProvider.svelte.js';
 export interface LabelableContext {
   readonly controlId: string | null;
   readonly labelId: string | undefined;
