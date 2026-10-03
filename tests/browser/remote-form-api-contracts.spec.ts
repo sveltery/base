@@ -41,7 +41,7 @@ test('native array checkboxes retain the whole accessor array through set and th
   const red = page.getByLabel('Native red', { exact: true }), blue = page.getByLabel('Native blue', { exact: true });
   await red.check();
   await expect.poll(() => json(page, 'native-choice-owner')).toEqual(['red']);
-  expect(await json(page, 'native-choice-changes')).toEqual([{ value: ['red'], type: 'input' }]);
+  expect(await json(page, 'native-choice-changes')).toEqual([{ value: ['red'], type: 'click' }]);
   await page.getByRole('button', { name: 'Set native blue', exact: true }).click();
   await expect(red).not.toBeChecked(); await expect(blue).toBeChecked();
   await red.check();
