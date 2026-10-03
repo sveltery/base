@@ -88,7 +88,7 @@ for (const reference of [false, true]) {
 test('supplement: Svelte Button render attachments and bound DOM ref survive hydration', async ({ page }) => {
   const button = await setup(page, 'attachment', false); await expect(button).toHaveAttribute('data-consumer-attached'); await expect(page.getByTestId('ref')).toHaveText('tested-button'); expect((await calls(page)).attached).toBe(1);
 });
-// Supplemental upstream correction: chorded left mousedown has no new pointerdown.
+// Supplemental pinned-source restoration: chorded left mousedown has no new pointerdown.
 // Pointer Events §4.1.1.1: https://www.w3.org/TR/pointerevents3/#chorded-button-interactions
 for (const reference of [false, true]) for (const scenario of ['custom-disabled', 'native-focusable']) test(`supplement: ${reference ? 'React reference' : 'Svelte'} Button disabled chorded mouse fallback ${scenario}`, async ({ page }) => {
   const button = await setup(page, scenario, reference);
@@ -113,10 +113,10 @@ for (const reference of [false, true]) for (const scenario of ['custom-disabled'
     await expect(button).toHaveAttribute('data-pointerdowns', '0');
     await expect(button).toHaveAttribute('data-mousedown-trusted', 'true');
     await expect(button).toHaveAttribute('data-mousedown-button', '0');
-    // The pinned React reference retains its observed gap; it earns no parity
-    // credit for this supplemental correction. Svelte cancels the fallback.
-    if (reference) await expect(button).toBeFocused(); else await expect(button).not.toBeFocused();
-    await expect(button).toHaveAttribute('data-mousedown-prevented', String(!reference));
+    // Preserve the pinned business quirk: callback suppression leaves default focus uncanceled.
+    // This supplemental restoration earns no ordinary source declaration credit.
+    await expect(button).toBeFocused();
+    await expect(button).toHaveAttribute('data-mousedown-prevented', 'false');
     expect((await calls(page)).mouse).toBe(0);
   } finally { await page.mouse.up({ button: 'left' }); await page.mouse.up({ button: 'right' }); }
 });

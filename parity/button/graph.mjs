@@ -3,7 +3,7 @@ import ts from '../../packages/base/node_modules/typescript/lib/typescript.js';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
-import { dirname, relative, resolve } from 'node:path';
+import { dirname, resolve } from 'node:path';
 
 const pin = '47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c';
 const root = resolve(import.meta.dirname, '../..');
@@ -74,7 +74,7 @@ const graph = {
   roots,
   modules: upstream ? trace(roots, true) : JSON.parse(readFileSync(destination, 'utf8')).modules,
   externalBoundaries: {
-    original: ['React framework/hooks/elements/types → native Svelte runes/context/snippets/attachments/element declarations', '@floating-ui/utils/dom isHTMLElement → existing canonical native helper host tag checks; no Floating UI runtime in Button', 'JavaScript and native DOM built-ins'],
+    original: ['React framework/hooks/elements/types → native Svelte runes/context/snippets/attachments/element declarations', '@floating-ui/utils/dom isHTMLElement/getWindow → canonical native helper host tag checks and utils/owner ownerDocument/defaultView; no Floating UI runtime in Button', 'JavaScript and native DOM built-ins'],
     native: ['svelte public APIs and rune compiler', 'svelte/attachments', 'svelte/elements type declarations', 'esm-env DEV/BROWSER', 'JavaScript and native DOM built-ins'],
   },
 };

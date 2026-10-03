@@ -964,7 +964,7 @@
   "externalBoundaries": {
     "original": [
       "React framework/hooks/elements/types → native Svelte runes/context/snippets/attachments/element declarations",
-      "@floating-ui/utils/dom isHTMLElement → existing canonical native helper host tag checks; no Floating UI runtime in Button",
+      "@floating-ui/utils/dom isHTMLElement/getWindow → canonical native helper host tag checks and utils/owner ownerDocument/defaultView; no Floating UI runtime in Button",
       "JavaScript and native DOM built-ins"
     ],
     "native": [
