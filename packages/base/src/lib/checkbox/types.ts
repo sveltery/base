@@ -21,23 +21,24 @@ export type CheckboxRootProps = Omit<
   'class' | 'style' | 'children' | 'onchange'
 > &
   BaseUIComponentProps<CheckboxRootState> & {
-    children?: Snippet;
-    ref?: HTMLElement | null;
-    id?: string;
-    name?: string;
-    form?: string;
-    checked?: boolean;
-    defaultChecked?: boolean;
-    disabled?: boolean;
-    onCheckedChange?: (checked: boolean, details: CheckboxRootChangeEventDetails) => void;
-    readOnly?: boolean;
-    required?: boolean;
-    indeterminate?: boolean;
-    inputRef?: MergedRef<HTMLInputElement>;
-    parent?: boolean;
-    uncheckedValue?: string;
-    value?: string;
-    nativeButton?: boolean;
+    children?: Snippet | undefined;
+    ref?: HTMLElement | null | undefined;
+    id?: string | undefined;
+    name?: string | undefined;
+    form?: string | undefined;
+    checked?: boolean | undefined;
+    defaultChecked?: boolean | undefined;
+    disabled?: boolean | undefined;
+    onCheckedChange?:
+      ((checked: boolean, details: CheckboxRootChangeEventDetails) => void) | undefined;
+    readOnly?: boolean | undefined;
+    required?: boolean | undefined;
+    indeterminate?: boolean | undefined;
+    inputRef?: MergedRef<HTMLInputElement> | null | undefined;
+    parent?: boolean | undefined;
+    uncheckedValue?: string | undefined;
+    value?: string | undefined;
+    nativeButton?: boolean | undefined;
   };
 export interface CheckboxIndicatorState extends CheckboxRootState {
   transitionStatus: TransitionStatus;
@@ -47,7 +48,7 @@ export type CheckboxIndicatorProps = Omit<
   'class' | 'style' | 'children'
 > &
   BaseUIComponentProps<CheckboxIndicatorState> & {
-    children?: Snippet;
-    ref?: HTMLSpanElement | null;
-    keepMounted?: boolean;
+    children?: Snippet | undefined;
+    ref?: HTMLSpanElement | null | undefined;
+    keepMounted?: boolean | undefined;
   };

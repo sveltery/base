@@ -36,6 +36,25 @@ for (const reference of [false, true])
     }) => {
       const control = await setup(page, family, 'default', reference);
       await expect(page.locator('#form input[type="checkbox"]')).toHaveCount(1);
+      expect(
+        await page.locator('#form input[type="checkbox"]').evaluate((input) => {
+          const element = input as HTMLInputElement;
+          const bounds = element.getBoundingClientRect();
+          return {
+            width: element.style.width,
+            height: element.style.height,
+            margin: element.style.margin,
+            position: getComputedStyle(element).position,
+            bounds: [bounds.width, bounds.height],
+          };
+        }),
+      ).toEqual({
+        width: '1px',
+        height: '1px',
+        margin: '-1px',
+        position: 'absolute',
+        bounds: [1, 1],
+      });
       await expect(page.locator('#label')).toHaveAttribute('for', 'control-input');
       await expect(control).toHaveAttribute('aria-labelledby', 'label');
       await expect(control).toHaveAttribute('aria-describedby', 'description');
@@ -49,7 +68,7 @@ for (const reference of [false, true])
         { checked: true, type: 'click', reason: 'none' },
       ]);
     });
-    test(`${prefix} cancel rolls native activation back without input events or dirty state`, async ({
+    test(`${prefix} canceled checked activation records the native input phase and Field state`, async ({
       page,
     }) => {
       const control = await setup(page, family, 'cancel', reference);
@@ -201,9 +220,12 @@ for (const reference of [false, true])
         }),
       );
       await page.locator('#reset').click();
-      await expect(control).toHaveAttribute('aria-checked', 'true');
-      await expect(page.locator('#form input[type="checkbox"]')).toBeChecked();
-      expect(await data(page)).toEqual([['enabled', 'yes']]);
+      // Same canceled native reset-button result as the literal Svelte witness.
+      await expect(control).toHaveAttribute('aria-checked', String(reference));
+      expect(await page.locator('#form input[type="checkbox"]').isChecked()).toBe(
+        reference,
+      );
+      expect(await data(page)).toEqual([['enabled', reference ? 'yes' : 'no']]);
       control = await setup(page, family, 'controlled-reject', reference);
       await control.click();
       await expect(control).toHaveAttribute('aria-checked', 'false');
@@ -224,6 +246,27 @@ for (const reference of [false, true])
   }
 for (const reference of [false, true]) {
   const prefix = reference ? 'React19.2.8' : 'Svelte';
+  test(`${prefix} CheckboxGroup retains owned selection while native reset changes successful values`, async ({
+    page,
+  }) => {
+    await setup(page, 'checkbox', 'group', reference);
+    const child = page.locator('[data-child="a"]');
+    await child.click();
+    await expect(child).toHaveAttribute('aria-checked', 'true');
+    await page
+      .locator('#group-form')
+      .evaluate((form) => (form as HTMLFormElement).reset());
+    await expect(
+      page.locator('#group-form input[type="checkbox"]').nth(1),
+    ).not.toBeChecked();
+    await expect(child).toHaveAttribute('aria-checked', 'true');
+    await expect(child).toHaveAttribute('data-filled', '');
+    expect(await data(page, 'group-form')).toEqual([]);
+    await page.locator('#group-submit').click();
+    expect(await json(page, 'submissions')).toEqual([
+      { choices: reference ? ['a'] : [] },
+    ]);
+  });
   test(`${prefix} CheckboxGroup parent and children share one array Field registration`, async ({
     page,
   }) => {
@@ -283,8 +326,30 @@ for (const reference of [false, true]) {
     await control.focus();
     await control.press('Enter');
     await expect(control).toHaveAttribute('aria-checked', 'false');
-    expect(await json(page, 'submissions')).toEqual(
-      reference ? [] : [{ enabled: false }],
-    );
+    expect(await json(page, 'submissions')).toEqual([{ enabled: false }]);
   });
 }
+test('literal Svelte binding measures canceled native reset button separately from imperative reset', async ({
+  page,
+}) => {
+  await setup(page, 'checkbox', 'literal-bind-reset', false);
+  const input = page.locator('#form input[type="checkbox"]');
+  await input.click();
+  await expect(page.locator('#owner')).toHaveText('true');
+  await page
+    .locator('#form')
+    .evaluate((form) =>
+      form.addEventListener('reset', (event) => event.preventDefault(), { once: true }),
+    );
+  await page.locator('#reset').click();
+  await expect(page.locator('#owner')).toHaveText('false');
+  await expect(input).not.toBeChecked();
+  await input.click();
+  await expect(page.locator('#owner')).toHaveText('true');
+  await page.locator('#form').evaluate((form) => {
+    form.addEventListener('reset', (event) => event.preventDefault(), { once: true });
+    HTMLFormElement.prototype.reset.call(form);
+  });
+  await expect(page.locator('#owner')).toHaveText('true');
+  await expect(input).toBeChecked();
+});

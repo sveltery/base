@@ -62,3 +62,26 @@ for (const family of ['checkbox', 'switch'] as const) {
     );
   });
 }
+it('actual source CheckboxGroup reset leaves its owned logical child selection while native successful values reset', async () => {
+  const view = await render('checkbox', 'group');
+  const child = view.host.querySelector<HTMLElement>('[data-child="a"]')!;
+  const values: string[] = [];
+  view.host
+    .querySelector('#group-form')!
+    .addEventListener('input', (event) =>
+      values.push((event.target as HTMLInputElement).value),
+    );
+  child.click();
+  await vi.waitFor(() => expect(child.getAttribute('aria-checked')).toBe('true'));
+  const form = view.host.querySelector<HTMLFormElement>('#group-form')!;
+  const inputs = [
+    ...form.querySelectorAll<HTMLInputElement>('input[type="checkbox"]'),
+  ].slice(1);
+  expect(inputs[0].checked).toBe(true);
+  expect(inputs[0].defaultChecked).toBe(false);
+  expect(values).toEqual(['']);
+  form.reset();
+  expect(inputs.map((input) => input.checked)).toEqual([false, false]);
+  expect(child.getAttribute('aria-checked')).toBe('true');
+  expect(Array.from(new FormData(form).entries())).toEqual([]);
+});

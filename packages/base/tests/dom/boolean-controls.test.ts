@@ -53,6 +53,10 @@ for (const family of ['switch', 'checkbox'] as const)
     });
     it('uses source field label/description IDs and focuses visible control', () => {
       const view = render(family);
+      expect(view.input().style.width).toBe('1px');
+      expect(view.input().style.height).toBe('1px');
+      expect(view.input().style.margin).toBe('-1px');
+      expect(getComputedStyle(view.input()).position).toBe('absolute');
       const label = view.host.querySelector<HTMLLabelElement>('[data-label]')!;
       expect(label.htmlFor).toBe(view.input().id);
       expect(view.root().getAttribute('aria-labelledby')).toBe(label.id);
@@ -227,6 +231,80 @@ for (const family of ['switch', 'checkbox'] as const)
     });
   });
 describe('CheckboxGroup actual source composition', () => {
+  it('re-registers a live child value in the original native-input registry', async () => {
+    const submit = vi.fn();
+    const view = render('checkbox', { scenario: 'group', submit });
+    view.component.setGroupValue(['a']);
+    flushSync();
+    await tick();
+    view.component.setChildValue('c');
+    view.component.setGroupValue(['c']);
+    flushSync();
+    await tick();
+    expect(new FormData(view.form()).getAll('choices')).toEqual(['c']);
+    view.host.querySelector<HTMLButtonElement>('[type="submit"]')!.click();
+    flushSync();
+    await tick();
+    expect(submit.mock.calls[0][0]).toEqual({ choices: ['c'] });
+  });
+  it('records the native group input event before Svelte flushes the checked-dependent value', async () => {
+    const view = render('checkbox', { scenario: 'group' });
+    const values: string[] = [];
+    view
+      .form()
+      .addEventListener('input', (event) =>
+        values.push((event.target as HTMLInputElement).value),
+      );
+    const child = [...view.host.querySelectorAll<HTMLElement>('[role="checkbox"]')][1];
+    child.click();
+    expect(values).toEqual(['']);
+    flushSync();
+    await tick();
+    expect(new FormData(view.form()).getAll('choices')).toEqual(['a']);
+  });
+  it.each(['group', 'group-uncontrolled'])(
+    'records native %s reset while the group owns child state',
+    async (scenario) => {
+      const submit = vi.fn();
+      const view = render('checkbox', { scenario, submit });
+      if (scenario === 'group') view.component.setGroupValue(['a']);
+      flushSync();
+      await tick();
+      const children = () =>
+        [...view.host.querySelectorAll<HTMLElement>('[role="checkbox"]')].slice(1);
+      const inputs = () =>
+        [...view.host.querySelectorAll<HTMLInputElement>('input[type="checkbox"]')].slice(
+          1,
+        );
+      expect(children().map((child) => child.getAttribute('aria-checked'))).toEqual([
+        'true',
+        'false',
+      ]);
+      expect(inputs().map((input) => input.defaultChecked)).toEqual([false, false]);
+      view.form().reset();
+      flushSync();
+      await tick();
+      expect(inputs().map((input) => input.checked)).toEqual([false, false]);
+      expect(children().map((child) => child.getAttribute('aria-checked'))).toEqual([
+        'true',
+        'false',
+      ]);
+      expect(new FormData(view.form()).getAll('choices')).toEqual([]);
+      view.host.querySelector<HTMLButtonElement>('[type="submit"]')!.click();
+      flushSync();
+      await tick();
+      expect(submit.mock.calls[0][0]).toEqual({ choices: [] });
+      if (scenario === 'group') {
+        view.component.setGroupValue([]);
+        flushSync();
+        await tick();
+        expect(children().map((child) => child.getAttribute('aria-checked'))).toEqual([
+          'false',
+          'false',
+        ]);
+      }
+    },
+  );
   it('registers one array Field and distinct native inputs/labels', async () => {
     const submit = vi.fn();
     const view = render('checkbox', { scenario: 'group', submit });

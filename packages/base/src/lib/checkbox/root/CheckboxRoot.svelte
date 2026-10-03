@@ -142,11 +142,15 @@
   );
   const inputRef = $state<{ current: HTMLInputElement | null }>({ current: null });
   const registeredInputValue = $derived(groupContext ? value : undefined);
-  const registerInput = $derived((element: HTMLInputElement | null) =>
-    element
-      ? validation.registerInput(element, { controlRef, value: registeredInputValue })
-      : undefined,
-  );
+  const registerInput = $derived.by(() => {
+    // Read the original callback dependencies before returning the native ref.
+    const currentValidation = validation;
+    const inputValue = registeredInputValue;
+    return (element: HTMLInputElement | null) =>
+      element
+        ? currentValidation.registerInput(element, { controlRef, value: inputValue })
+        : undefined;
+  });
   const getAriaLabelledBy = useAriaLabelledBy(() => ({
     explicitAriaLabelledBy: ariaLabelledByProp ?? undefined,
     labelId: labelable.labelId,

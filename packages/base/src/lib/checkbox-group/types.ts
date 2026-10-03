@@ -15,11 +15,12 @@ export type CheckboxGroupProps = Omit<
   'class' | 'style' | 'children'
 > &
   BaseUIComponentProps<CheckboxGroupState> & {
-    children?: Snippet;
-    ref?: HTMLDivElement | null;
-    value?: string[];
-    defaultValue?: string[];
-    onValueChange?: (value: string[], details: CheckboxGroupChangeEventDetails) => void;
-    allValues?: string[];
-    disabled?: boolean;
+    children?: Snippet | undefined;
+    ref?: HTMLDivElement | null | undefined;
+    value?: string[] | undefined;
+    defaultValue?: string[] | undefined;
+    onValueChange?:
+      ((value: string[], details: CheckboxGroupChangeEventDetails) => void) | undefined;
+    allValues?: string[] | undefined;
+    disabled?: boolean | undefined;
   };

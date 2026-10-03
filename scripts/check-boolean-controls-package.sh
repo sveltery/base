@@ -46,13 +46,46 @@ const switchEqual: Equal<[Root.SwitchRootProps, Root.SwitchRootState, Root.Switc
 const checkboxEqual: Equal<[Root.CheckboxRootProps, Root.CheckboxRootState, Root.CheckboxIndicatorProps, Root.CheckboxIndicatorState, Root.CheckboxRootChangeEventDetails, Root.CheckboxRootChangeEventReason], [CheckboxModule.CheckboxRootProps, CheckboxModule.CheckboxRootState, CheckboxModule.CheckboxIndicatorProps, CheckboxModule.CheckboxIndicatorState, CheckboxModule.CheckboxRootChangeEventDetails, CheckboxModule.CheckboxRootChangeEventReason]> = true;
 const groupEqual: Equal<[Root.CheckboxGroupProps, Root.CheckboxGroupState, Root.CheckboxGroupChangeEventDetails, Root.CheckboxGroupChangeEventReason], [GroupModule.CheckboxGroupProps, GroupModule.CheckboxGroupState, GroupModule.CheckboxGroupChangeEventDetails, GroupModule.CheckboxGroupChangeEventReason]> = true;
 const propsEqual: Equal<ComponentProps<typeof Root.Switch.Root>, Root.SwitchRootProps> = true;
+// The pinned source permits explicit undefined with exact optional property checking.
+const undefinedSwitch: Root.SwitchRootProps = {
+  class: undefined, style: undefined, render: undefined,
+  children: undefined, ref: undefined, id: undefined, checked: undefined,
+  defaultChecked: undefined, disabled: undefined, inputRef: undefined,
+  name: undefined, form: undefined, nativeButton: undefined,
+  onCheckedChange: undefined, readOnly: undefined, required: undefined,
+  uncheckedValue: undefined, value: undefined,
+};
+const undefinedCheckbox: Root.CheckboxRootProps = {
+  ...undefinedSwitch, indeterminate: undefined, parent: undefined,
+};
+const undefinedGroup: Root.CheckboxGroupProps = {
+  class: undefined, style: undefined, render: undefined,
+  children: undefined, ref: undefined, value: undefined, defaultValue: undefined,
+  onValueChange: undefined, allValues: undefined, disabled: undefined,
+};
+const undefinedThumb: Root.SwitchThumbProps = {
+  class: undefined, style: undefined, render: undefined, children: undefined, ref: undefined,
+};
+const undefinedIndicator: Root.CheckboxIndicatorProps = {
+  class: undefined, style: undefined, render: undefined,
+  children: undefined, ref: undefined, keepMounted: undefined,
+};
+const nullableSwitchRefs: Root.SwitchRootProps = { inputRef: null, ref: null };
+const nullableCheckboxRefs: Root.CheckboxRootProps = { inputRef: null, ref: null };
+const callbackSwitchRef: Root.SwitchRootProps = {
+  inputRef(input) { const element: HTMLInputElement | null = input; void element; },
+};
+const objectCheckboxRef: Root.CheckboxRootProps = { inputRef: { current: null } };
 // @ts-expect-error A checked form control takes a boolean, not a text value.
 const invalidChecked: Root.SwitchRootProps = { checked: 'true' };
 // @ts-expect-error CheckboxGroup uses string arrays.
 const invalidArray: Root.CheckboxGroupProps = { value: [1] };
 // @ts-expect-error Switch has no indeterminate prop.
 const invalidIndeterminate: Root.SwitchRootProps = { indeterminate: true };
-void [switchEqual, checkboxEqual, groupEqual, propsEqual, invalidChecked, invalidArray, invalidIndeterminate];
+void [switchEqual, checkboxEqual, groupEqual, propsEqual, undefinedSwitch,
+  undefinedCheckbox, undefinedGroup, undefinedThumb, undefinedIndicator,
+  nullableSwitchRefs, nullableCheckboxRefs, callbackSwitchRef, objectCheckboxRef,
+  invalidChecked, invalidArray, invalidIndeterminate];
 TS
 cat > "$boolean_consumer/check.mjs" <<'JS'
 import assert from 'node:assert/strict';
@@ -73,7 +106,7 @@ assert.match(body, /type="hidden"[^>]*name="outside"[^>]*value="no"/);
 assert.match(body, /Enabled/); assert.match(body, /Boolean setting/); assert.match(body, /data-indeterminate/);
 JS
 cat > "$boolean_consumer/tsconfig.json" <<'JSON'
-{"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"skipLibCheck":true,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts"]}
+{"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"exactOptionalPropertyTypes":true,"skipLibCheck":true,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts"]}
 JSON
 node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$boolean_consumer/check.mjs"
 node "$sveltery_repo_root/packages/base/node_modules/svelte-check/bin/svelte-check" --workspace "$boolean_consumer" --tsconfig ./tsconfig.json

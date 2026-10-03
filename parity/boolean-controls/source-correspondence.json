@@ -484,7 +484,7 @@
         }
       ],
       "local": "packages/base/src/lib/checkbox/root/CheckboxRoot.svelte",
-      "localSha256": "4ecdc8bb2b05062b43eb9033f826e0fa4d1bb242105205dab5e30a57bcbe3fe3",
+      "localSha256": "a36b319df5260003cf385ea81c73c499a4dbb95fa3f11dadf2c6edd2f4fb5eb8",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -2790,7 +2790,7 @@
         }
       ],
       "local": "packages/base/src/lib/form/Form.svelte",
-      "localSha256": "db6d9e302ed17138c621c050024b63a5013b33fe7ff91dafba635218e498cfee",
+      "localSha256": "99eea09d790e9e56f2718344e87af6c9b248ac066b90bc4409921a6ea1fbd07e",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3401,7 +3401,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/types.ts",
-      "localSha256": "4706fb0c2fc29aa8312f0b22103a2fb88ab38bb126e7f3bb0b583091227634c2",
+      "localSha256": "d20a002ee70ffc90ea8dbd4acefcb2923c79d69de94047aa521a90f8eadab817",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4063,7 +4063,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/types.ts",
-      "localSha256": "4706fb0c2fc29aa8312f0b22103a2fb88ab38bb126e7f3bb0b583091227634c2",
+      "localSha256": "d20a002ee70ffc90ea8dbd4acefcb2923c79d69de94047aa521a90f8eadab817",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4547,7 +4547,7 @@
         }
       ],
       "local": "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
-      "localSha256": "81104b9e17ac22fbafc7e34451636441b214127fdfda8ec77100aa4899390375",
+      "localSha256": "aeca27deeaadde0c42a027ac7f4788e2a3c62d533db235cada05dd9a70e1e1e2",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -5432,7 +5432,7 @@
         }
       ],
       "local": "packages/base/src/lib/utils/visuallyHidden.ts",
-      "localSha256": "56022292e75f4aea7e384bcd6f58f37c7b2f57f0dabde7c5bee67542ad2829dc",
+      "localSha256": "8f49185df1c0536608090368454cc3d30a3bfc1991b23a4b5e5239184ead8020",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },

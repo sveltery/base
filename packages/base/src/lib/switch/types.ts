@@ -19,21 +19,22 @@ export type SwitchRootProps = Omit<
   'class' | 'style' | 'children' | 'onchange'
 > &
   BaseUIComponentProps<SwitchRootState> & {
-    children?: Snippet;
-    ref?: HTMLElement | null;
-    id?: string;
-    checked?: boolean;
-    defaultChecked?: boolean;
-    disabled?: boolean;
-    inputRef?: MergedRef<HTMLInputElement>;
-    name?: string;
-    form?: string;
-    nativeButton?: boolean;
-    onCheckedChange?: (checked: boolean, details: SwitchRootChangeEventDetails) => void;
-    readOnly?: boolean;
-    required?: boolean;
-    uncheckedValue?: string;
-    value?: string;
+    children?: Snippet | undefined;
+    ref?: HTMLElement | null | undefined;
+    id?: string | undefined;
+    checked?: boolean | undefined;
+    defaultChecked?: boolean | undefined;
+    disabled?: boolean | undefined;
+    inputRef?: MergedRef<HTMLInputElement> | null | undefined;
+    name?: string | undefined;
+    form?: string | undefined;
+    nativeButton?: boolean | undefined;
+    onCheckedChange?:
+      ((checked: boolean, details: SwitchRootChangeEventDetails) => void) | undefined;
+    readOnly?: boolean | undefined;
+    required?: boolean | undefined;
+    uncheckedValue?: string | undefined;
+    value?: string | undefined;
   };
 export type SwitchThumbState = SwitchRootState;
 export type SwitchThumbProps = Omit<
@@ -41,6 +42,6 @@ export type SwitchThumbProps = Omit<
   'class' | 'style' | 'children'
 > &
   BaseUIComponentProps<SwitchThumbState> & {
-    children?: Snippet;
-    ref?: HTMLSpanElement | null;
+    children?: Snippet | undefined;
+    ref?: HTMLSpanElement | null | undefined;
   };

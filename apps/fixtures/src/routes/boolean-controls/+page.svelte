@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import Fixture from '../../lib/BooleanControlsBrowserFixture.svelte';
+  import NativeResetFixture from '../../lib/NativeCheckboxResetFixture.svelte';
   let { data } = $props();
   let host = $state<HTMLElement>();
   onMount(() => {
@@ -19,7 +20,9 @@
     };
   });
 </script>
-{#if data.reference}<section bind:this={host}></section>{:else}<Fixture family={data.family} scenario={data.scenario} />{/if}
+{#if data.reference}<section bind:this={host}></section>
+{:else if data.scenario === 'literal-bind-reset'}<NativeResetFixture />
+{:else}<Fixture family={data.family} scenario={data.scenario} />{/if}
 
 <style>
   :global([data-control]), :global([data-parent-control]), :global([data-child]) { display: inline-block; min-width: 40px; min-height: 30px; border: 1px solid; margin: 8px; }
