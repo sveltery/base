@@ -6,7 +6,7 @@
   import type { RemoteControlProps } from './control.types.js';
   let { ref = $bindable(), ...props }: RemoteControlProps = $props();
   const remote = useRemoteFieldContext();
-  const kind = $derived(props.as ?? props.type ?? remote?.kind);
+  const kind = $derived(props.type ?? remote?.kind);
   const scalarCheckbox = $derived(kind === 'checkbox' && remote?.descriptor?.value === undefined && !Array.isArray(remote?.accessor?.value()));
 </script>
 {#if scalarCheckbox}

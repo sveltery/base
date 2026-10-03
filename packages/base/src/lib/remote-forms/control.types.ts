@@ -9,9 +9,9 @@ type NativeInputAttributes = {
 };
 
 export interface RemoteControlState extends FieldRootState {
-  checked?: boolean;
-  readOnly?: boolean;
-  required?: boolean;
+  checked?: boolean | undefined;
+  readOnly?: boolean | undefined;
+  required?: boolean | undefined;
 }
 
 /** Native attributes retain the source open-record contract. Only semantic
@@ -21,7 +21,6 @@ export type RemoteControlRenderProps = Record<string, unknown> & Pick<SwitchRoot
 
 export interface RemoteControlProps extends Omit<SwitchRootProps, 'render' | 'children' | 'value' | 'class' | 'style' | Extract<keyof SwitchRootProps, `on:${string}`>>,
   Omit<NativeInputAttributes, keyof SwitchRootProps | 'children' | 'value' | 'class' | 'style'> {
-    as?: string | undefined;
     value?: FieldControlProps['value'];
     class?: ClassValue | ((state: RemoteControlState) => ClassValue | undefined) | undefined;
     style?: NativeStyle | ((state: RemoteControlState) => NativeStyle | undefined) | undefined;

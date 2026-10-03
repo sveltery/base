@@ -18,8 +18,8 @@
   }
   const semanticProps: RemoteControlRenderProps = $derived.by(() => {
     // Descriptor input-only attributes must never land on the visible family host.
-    const { type: _type, files: _files, value, defaultValue: _defaultValue, as: _as, ...attributes } = descriptor;
-    void [_type, _files, _defaultValue, _as];
+    const { type: _type, files: _files, value, defaultValue: _defaultValue, ...attributes } = descriptor;
+    void [_type, _files, _defaultValue];
     return {
       ...attributes,
       checked: remote?.accessor && !Object.hasOwn(props, 'checked')
