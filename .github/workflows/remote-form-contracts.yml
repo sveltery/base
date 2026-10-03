@@ -35,6 +35,8 @@ jobs:
         run: bash scripts/bootstrap.sh
       - name: Build public library
         run: pnpm --filter @sveltery/base build
+      - name: Actual packed public consumer and explicit Kit patch setup
+        run: bash scripts/check-remote-form-contracts-package.sh
       - name: Install official secured Chromium
         run: pnpm exec playwright install --with-deps chromium
       - name: Entire original remote suite and public developer experience contracts

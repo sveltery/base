@@ -104,7 +104,7 @@
   <button onclick={() => { authoritative = !authoritative; }}>Toggle authoritative errors</button>
   <output id="nested-issues">{JSON.stringify(preflight.fields.issues() ?? [])}</output><output id="nested-result">{JSON.stringify(preflight.result ?? null)}</output>
 
-  {#each [first, second] as remote, index}
+  {#each [first, second] as remote, index (remote)}
     <Form id={`isolated-${index}`} {remote} {...remote}>
       {#snippet children(Field)}
         <Field.Root name="message" as="text" value={index === 0 ? 'first-seed' : 'second-seed'}><Field.Label>Isolated {index}</Field.Label><Field.Control /><Field.Error id={`isolated-error-${index}`} /></Field.Root>

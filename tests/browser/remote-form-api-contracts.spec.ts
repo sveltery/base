@@ -62,6 +62,10 @@ test('real CheckboxGroup reports source callbacks, metadata, successful hidden v
   await page.getByRole('button', { name: 'Set styled blue', exact: true }).click();
   await expect(page.getByRole('checkbox', { name: 'Styled blue', exact: true })).toHaveAttribute('aria-checked', 'true');
   await page.getByRole('checkbox', { name: 'Styled red', exact: true }).click();
+  await test.info().attach('styled-checkbox-group-native-measurement', {
+    contentType: 'application/json',
+    body: JSON.stringify({ owner: await json(page, 'styled-choice-owner'), callbacks: await json(page, 'styled-choice-changes'), nativeInputPhase: JSON.parse(await form.getAttribute('data-input-phase') ?? 'null'), successfulValues: await form.evaluate((node: HTMLFormElement) => new FormData(node).getAll('a:choices')) }),
+  });
   await expect.poll(() => json(page, 'styled-choice-owner')).toEqual(['red', 'blue']);
   expect(await json(page, 'styled-choice-changes')).toEqual([{ value: ['blue', 'red'], type: 'click', reason: 'none' }]);
   await expect.poll(async () => (await json(page, 'styled-choice-state')).dirty).toBe(true);
