@@ -1,7 +1,6 @@
 // Base UI v1.8.0 Field adaptation; MIT: THIRD_PARTY_NOTICES.md.
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLLabelAttributes, HTMLInputAttributes, ClassValue } from 'svelte/elements';
-import type { ElementProps } from '../dialog/types.js';
 import type { BaseUIChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
 import type { NativeFieldProps } from './props.js';
 import type { FormValidationMode, FormValues } from '../form/types.js';
@@ -14,35 +13,35 @@ export interface FieldValidityData {
 }
 export interface FieldRootActions { validate(): void }
 export type FieldRootProps = NativeFieldProps<FieldRootState, HTMLAttributes<HTMLDivElement>> & {
-  disabled?: boolean;
-  name?: string;
-  validate?: (value: unknown, formValues: FormValues) => string | string[] | null | void | Promise<string | string[] | null | void>;
-  validationMode?: FormValidationMode;
-  validationDebounceTime?: number;
-  invalid?: boolean;
-  dirty?: boolean;
-  touched?: boolean;
-  actionsRef?: { current: FieldRootActions | null };
+  disabled?: boolean | undefined;
+  name?: string | undefined;
+  validate?: ((value: unknown, formValues: FormValues) => string | string[] | null | void | Promise<string | string[] | null | void>) | undefined;
+  validationMode?: FormValidationMode | undefined;
+  validationDebounceTime?: number | undefined;
+  invalid?: boolean | undefined;
+  dirty?: boolean | undefined;
+  touched?: boolean | undefined;
+  actionsRef?: { current: FieldRootActions | null } | undefined;
 };
-export type FieldControlProps = Omit<ElementProps<FieldControlState, HTMLInputAttributes>, 'class' | 'disabled' | 'value' | 'defaultValue'> & {
-  class?: ClassValue | ((state: FieldControlState) => ClassValue | undefined);
-  disabled?: boolean;
-  value?: string | number | readonly string[] | null;
-  defaultValue?: string | number | readonly string[] | null;
-  onValueChange?: (value: string, details: FieldControlChangeEventDetails) => void;
+export type FieldControlProps = Omit<NativeFieldProps<FieldControlState, HTMLInputAttributes>, 'disabled' | 'value' | 'defaultValue'> & {
+  class?: ClassValue | ((state: FieldControlState) => ClassValue | undefined) | undefined;
+  disabled?: boolean | undefined;
+  value?: string | number | readonly string[] | null | undefined;
+  defaultValue?: string | number | readonly string[] | null | undefined;
+  onValueChange?: ((value: string, details: FieldControlChangeEventDetails) => void) | undefined;
 };
 export type FieldControlState = FieldRootState;
 export type FieldControlChangeEventReason = 'none';
 export type FieldControlChangeEventDetails = BaseUIChangeEventDetails<FieldControlChangeEventReason>;
 export type FieldLabelState = FieldRootState;
-export type FieldLabelProps = NativeFieldProps<FieldLabelState, HTMLLabelAttributes> & { nativeLabel?: boolean };
+export type FieldLabelProps = NativeFieldProps<FieldLabelState, HTMLLabelAttributes> & { nativeLabel?: boolean | undefined };
 export type FieldDescriptionState = FieldRootState;
 export type FieldDescriptionProps = NativeFieldProps<FieldDescriptionState, HTMLAttributes<HTMLParagraphElement>>;
 export type FieldItemState = FieldRootState;
-export type FieldItemProps = NativeFieldProps<FieldItemState, HTMLAttributes<HTMLDivElement>> & { disabled?: boolean };
+export type FieldItemProps = NativeFieldProps<FieldItemState, HTMLAttributes<HTMLDivElement>> & { disabled?: boolean | undefined };
 export type FieldTransitionStatus = 'starting' | 'ending' | 'idle' | undefined;
 export interface FieldErrorState extends FieldRootState { transitionStatus: FieldTransitionStatus }
-export type FieldErrorProps = NativeFieldProps<FieldErrorState, HTMLAttributes<HTMLDivElement>> & { match?: boolean | keyof ValidityState };
+export type FieldErrorProps = NativeFieldProps<FieldErrorState, HTMLAttributes<HTMLDivElement>> & { match?: boolean | keyof ValidityState | undefined };
 export interface FieldValidityState extends Omit<FieldValidityData, 'state'> {
   validity: FieldValidityData['state']; transitionStatus: FieldTransitionStatus;
 }

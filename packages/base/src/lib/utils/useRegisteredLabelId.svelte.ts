@@ -9,9 +9,10 @@ export function useRegisteredLabelId(
 ) {
   const id = $derived(useBaseUiId(getIdProp(), nativeId));
   useIsoLayoutEffect(() => {
-    setLabelId(id);
+    const installedId = id;
+    setLabelId(installedId);
     return () => {
-      setLabelId((currentId) => currentId === id ? undefined : currentId);
+      setLabelId((currentId) => currentId === installedId ? undefined : currentId);
     };
   }, () => [id, setLabelId]);
   return () => id;

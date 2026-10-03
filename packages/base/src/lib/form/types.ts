@@ -9,12 +9,14 @@ export interface FormActions { validate(fieldName?: string): void }
 export type FormState = Record<never, never>;
 export type FormSubmitEventReason = 'none';
 export type FormSubmitEventDetails = BaseUIGenericEventDetails<FormSubmitEventReason>;
-export type FormValues = Record<string, unknown>;
-export type FormProps<Values extends object = FormValues> = Omit<NativeFieldProps<FormState, HTMLFormAttributes>, 'render'> & {
-  render?: Snippet<[HTMLFormAttributes & { noValidate?: boolean } & Record<string | symbol, unknown>, FormState, Snippet | undefined]>;
-  noValidate?: boolean;
-  validationMode?: FormValidationMode;
-  errors?: FormErrors;
-  onFormSubmit?: (formValues: Values, details: FormSubmitEventDetails) => void;
-  actionsRef?: { current: FormActions | null };
+// Unparameterized source Form.Values intentionally permits schema-free field access.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Preserve the pinned public default.
+export type FormValues = Record<string, any>;
+export type FormProps<Values extends FormValues = FormValues> = Omit<NativeFieldProps<FormState, HTMLFormAttributes>, 'render'> & {
+  render?: Snippet<[HTMLFormAttributes & { noValidate?: boolean | undefined } & Record<string | symbol, unknown>, FormState, Snippet | undefined]> | undefined;
+  noValidate?: boolean | undefined;
+  validationMode?: FormValidationMode | undefined;
+  errors?: FormErrors | undefined;
+  onFormSubmit?: ((formValues: Values, details: FormSubmitEventDetails) => void) | undefined;
+  actionsRef?: { current: FormActions | null } | undefined;
 };

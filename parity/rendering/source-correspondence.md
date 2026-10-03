@@ -92,3 +92,7 @@ Each caller below still supplies its own state attributes and requires a separat
 - `packages/base/src/lib/toast/Title.svelte`
 - `packages/base/src/lib/toast/Viewport.svelte`
 - `packages/base/src/lib/toggle/Toggle.svelte`
+
+## Dependent source type fidelity repair
+
+PR41 restores the pinned `BaseUIComponentProps` class/style/render explicit-undefined contracts, including an undefined class callback result. Installed Svelte 5.57.1 `ClassValue` does not itself include direct undefined. This is a type-only delta from canonical PR47, recorded in the local closure hash and checked by the packed exact-optional consumer; every rendering runtime body remains unchanged. The new type delta requires fresh review and does not borrow the earlier PR47 review or assertion credit.

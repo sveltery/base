@@ -30,8 +30,9 @@
   const transition = useTransitionStatus(() => rendered);
   useIsoLayoutEffect(() => {
     if (!rendered || !id) return;
-    setMessageIds(v => v.concat(id));
-    return () => { setMessageIds(v => v.filter(item => item !== id)); };
+    const installedId = id;
+    setMessageIds(v => v.concat(installedId));
+    return () => { setMessageIds(v => v.filter(item => item !== installedId)); };
   }, () => [rendered, id, setMessageIds]);
   const errorRef = $state<{ current: HTMLElement | null }>({ current: null });
   let lastRenderedMessage = $state.raw<string | string[] | null>(null);
