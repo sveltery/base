@@ -2228,8 +2228,8 @@
         }
       ],
       "local": "packages/base/src/lib/form/index.ts",
-      "correspondence": "Reused canonical Field/Form/shared-utility source dependency; Source component and type export relationships. See parity/field-form/source-correspondence.json",
-      "localSha256": "babff9ff865ed56ea73321d8f1ea99590cd74202cd689ea32f902a6b2252d166",
+      "correspondence": "Reused canonical Field/Form/shared-utility source dependency; Source component and type export relationships. See parity/field-form/source-correspondence.json Approved PR51 type-only remote-field reexports are separately mapped in localTypeExtensions; runtime export/business bodies unchanged.",
+      "localSha256": "adef7fd51c09119a7fa5517cb78fef9b7fee550977d1205f2ee47d016439bc83",
       "status": "implemented-awaiting-exact-head-review"
     },
     {
@@ -2346,7 +2346,7 @@
       ],
       "local": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
       "correspondence": "Same highlighted roving tab index/focus/hover and shared list-item registration.",
-      "localSha256": "58ec383752005e6d8ba523465fae142b1078ef77bdcc61e548ffb1b4f485f017",
+      "localSha256": "d0faf967447c35339c6ad06b8cc6218cf2002613844a4bdb7b1453fd5262afc3",
       "status": "implemented-awaiting-exact-head-review"
     },
     {
@@ -2615,7 +2615,7 @@
       ],
       "local": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
       "correspondence": "Source initial active/default/disabled index, map/replacement preservation, orientation/modifier/text-caret/RTL/loop/grid/Home-End/scroll/focus algorithm. Native state and live parameter readers replace render snapshots.",
-      "localSha256": "c74699f875b45f04a747a92bb9a452c0695133ff415a4defa164ca2d12124d6d",
+      "localSha256": "8db12d19818afe6509addc02e10a55082126da9be7a40d03f9a8f62a6e6b5d78",
       "status": "implemented-awaiting-exact-head-review"
     },
     {
@@ -3001,8 +3001,8 @@
         }
       ],
       "local": "packages/base/src/lib/internals/labelable-provider/useAriaLabelledBy.svelte.ts",
-      "correspondence": "Canonical Boolean-owned label lookup/association; native MutationObserver observes actual external DOM label changes.",
-      "localSha256": "116d1951d670c27e10d371ce535b5923c59002831971ffca9801a4ac6c69b566",
+      "correspondence": "Canonical Boolean-owned label lookup/association; native MutationObserver observes actual external DOM label changes. Approved PR48 native observer follows labelSource.getRootNode(), including ShadowRoot; original precedence and label-selection functions are unchanged.",
+      "localSha256": "bfb47e6426f7df82b1738fb2dcbef7133166addc4a7d54a84deab26655f2bf0e",
       "status": "implemented-awaiting-exact-head-review"
     },
     {
@@ -3679,7 +3679,7 @@
       ],
       "local": "packages/base/src/lib/radio-group/RadioGroup.svelte",
       "correspondence": "Source controlled state/callback cancellation, representative ref registry, eligible form values, Field registration/value tracking and CompositeRoot ownership.",
-      "localSha256": "bb5903860e44f148beaf487baafdb74c487bb42b5427ca88d6f966c5ec012758",
+      "localSha256": "35ec21ae0c7e49df3454fe5360843171cf829a34b7bc44bb804d4510e7468111",
       "additionalLocalCounterparts": [
         {
           "local": "packages/base/src/lib/radio-group/types.ts",
@@ -3963,7 +3963,7 @@
       ],
       "local": "packages/base/src/lib/radio/root/RadioRoot.svelte",
       "correspondence": "Source-ordered Root state/hidden input/Field/Item/label/button/CompositeItem composition. Native onclick owns one radio activation; cancellation prevents its default before input/change.",
-      "localSha256": "10c8455458fb9a26c93cd28ad0c41caa1f8fca63e38d81aebb218dc75a65c18c",
+      "localSha256": "e6a1b213f783d001f3fbe171fc8e51ee4b763ec1a3e0d3f7150bf6ecaa063622",
       "additionalLocalCounterparts": [
         {
           "local": "packages/base/src/lib/radio/types.ts",
@@ -4120,8 +4120,8 @@
         }
       ],
       "local": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts",
-      "correspondence": "Canonical source-derived single native click preserving modifier properties; no activation replay/React tracker.",
-      "localSha256": "625f637b49fdcf6b85e6863491c0d488e157dbd7dad31d67f524762d6c3a02ee",
+      "correspondence": "Canonical source-derived single native click preserving modifier properties; no activation replay/React tracker. Reuses approved canonical ownerWindow for the same native PointerEvent/MouseEvent constructor; modifier/default/dispatch order unchanged.",
+      "localSha256": "60aab2aa25eb9c0aeaa0a57fc8ccd37aab747577ea22f019aff163946cabd373",
       "status": "implemented-awaiting-exact-head-review"
     },
     {
@@ -4695,8 +4695,8 @@
         }
       ],
       "local": "packages/base/src/lib/utils/owner.ts",
-      "correspondence": "Reused canonical Field/Form/shared-utility source dependency; Original used function body unchanged; ownerWindow is outside this used-symbol closure. See parity/field-form/source-correspondence.json",
-      "localSha256": "642b0886fc8f79ecd8cd2588363a965c48ae7034d8b600106b4d4e7013c1abd1",
+      "correspondence": "Reused canonical ownerDocument body and approved Boolean-owned ownerWindow native helper. Pinned owner.ts reexports getWindow as ownerWindow from @floating-ui/utils/dom; dispatchClickWithModifiers now directly imports and calls the shared local ownerWindow for its actual Element target. Native ownerDocument/defaultView/window lookup replaces that selected DOM boundary without a Floating/React runtime import. The separate Field-only correspondence selects ownerDocument; ownerWindow is part of the actual Radio closure.",
+      "localSha256": "4f32738229316fe875cf72e949caa4aa7d2fcdf924a2bd5b7f01e88ca5424185",
       "status": "implemented-awaiting-exact-head-review"
     },
     {
@@ -5424,6 +5424,28 @@
       "local": null,
       "correspondence": "Unselected transitive barrel exports retained in the full original module graph. Actual Radio consumes only contains/getTarget, list/grid helpers, transition status and explicitly mapped canonical rendering/Field helpers; no Radio business import uses this module export. Unrelated floating/popup/platform modules remain outside this component scope.",
       "status": "explicit-unused-framework-or-barrel-boundary"
+    }
+  ],
+  "localTypeExtensions": [
+    {
+      "local": "packages/base/src/lib/remote-forms/types.ts",
+      "localSha256": "d8acd95ea2deb62f2db7a96276100d6820c8e3fe262b4ccffa4dbc97c6956d33",
+      "reachability": "type",
+      "origin": "User-authorized typed remote Field API; approved PR51 head 9b45c9d45e4ad4b66ea6766eba12303a290a63a1, normal main merge 9c8186f540aecab7ade38b246e310a6826ed4bcb. See parity/field-form/source-correspondence.md#typed-remote-field-contract-pr51.",
+      "runtimeImports": 0,
+      "ordinaryDeclarationCredit": 0
+    }
+  ],
+  "publicTypeExportEndpoints": [
+    {
+      "local": "packages/base/src/lib/form/index.ts",
+      "localSha256": "adef7fd51c09119a7fa5517cb78fef9b7fee550977d1205f2ee47d016439bc83",
+      "correspondence": "Actual public endpoint for the approved PR51 six type-only exports; root endpoint also retains the approved Boolean and Radio namespaces. Public publication endpoint is separate from selected Radio runtime import roots."
+    },
+    {
+      "local": "packages/base/src/lib/index.ts",
+      "localSha256": "335473a35aefdbb9354afccf9353cd8c073385bd05f0638d16393e229794cb48",
+      "correspondence": "Actual public endpoint for the approved PR51 six type-only exports; root endpoint also retains the approved Boolean and Radio namespaces. Public publication endpoint is separate from selected Radio runtime import roots."
     }
   ]
 }

@@ -4902,8 +4902,8 @@
         }
       ],
       "local": "packages/base/src/lib/utils/shadowDom.ts",
-      "localSha256": "7b553536663772d9a2a89d0847ed389bf38587f717d90251849edd263bb655f9",
-      "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
+      "localSha256": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1",
+      "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes. Final Radio integration reuses the reviewed full shared module, adding contains/isShadowRoot while retaining the original Boolean-used activeElement/getTarget business bodies. Whole-body hash includes the additive source closure; no second helper implementation.",
       "status": "implemented-awaiting-exact-head-review"
     },
     {

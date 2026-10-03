@@ -7,8 +7,10 @@
   import { Form } from '../../src/lib/form/index.js';
   import { Fieldset } from '../../src/lib/fieldset/index.js';
   import DirectionProvider from '../../src/lib/direction-provider/DirectionProvider.svelte';
-  import type { RadioGroupChangeEventDetails } from '../../src/lib/radio-group/types.js';
+  import type { RadioGroupChangeEventDetails, RadioGroupProps } from '../../src/lib/radio-group/types.js';
   import type { HTMLAttributes } from 'svelte/elements';
+  import type { FieldRootProps } from '../../src/lib/field/types.js';
+  import type { RadioRootProps } from '../../src/lib/radio/types.js';
   const Group = RadioGroup<string | null>;
   let {
     initial = 'b',
@@ -33,6 +35,11 @@
     label = true,
     description = true,
     keepMounted = false,
+    validationMode,
+    validate,
+    groupFocusProps = {},
+    renderGroup = false,
+    radioFocusProps = {},
   }: {
     initial?: string | null;
     controlled?: boolean;
@@ -59,6 +66,11 @@
     label?: boolean;
     description?: boolean;
     keepMounted?: boolean;
+    validationMode?: FieldRootProps['validationMode'];
+    validate?: FieldRootProps['validate'];
+    groupFocusProps?: Pick<RadioGroupProps<string | null>, 'onfocusin' | 'onfocusout' | 'onfocus' | 'onblur'>;
+    renderGroup?: boolean;
+    radioFocusProps?: Pick<RadioRootProps<string>, 'onfocusin'>;
   } = $props();
   let owner = $state(untrack(() => initial));
   let current = $state.raw(
@@ -97,21 +109,24 @@
   }
 </script>
 {#snippet content()}
+  {#snippet groupHost(props: Record<string | symbol, unknown>, _state: unknown, children: import('svelte').Snippet | undefined)}
+    <section {...props as HTMLAttributes<HTMLElement>}>{@render children?.()}</section>
+  {/snippet}
   <Fieldset.Root disabled={current.fieldsetDisabled}>
     <Fieldset.Legend id="legend">Legend</Fieldset.Legend>
-    <Field.Root name={current.fieldName} id="field" invalid={current.invalid}>
+    <Field.Root name={current.fieldName} id="field" invalid={current.invalid} {validationMode} {validate}>
       {#if current.label}<Field.Label id="group-label">Group</Field.Label>{/if}
       {#if current.description}<Field.Description id="description">Description</Field.Description>{/if}
       <Group
         id="radio-group" defaultValue={current.initial}
         value={current.controlled ? owner : undefined}
         disabled={current.disabled} readOnly={current.readOnly} required={current.required}
-        name={current.groupName} onValueChange={changed} {inputRef}
+        name={current.groupName} onValueChange={changed} {inputRef} {...groupFocusProps} render={renderGroup ? groupHost : undefined}
       >
         {#each current.items as value (value)}
           <Field.Item>
             <Field.Label id={`label-${value}`}>{value}</Field.Label>
-            <Radio.Root {value} id={`input-${value}`} data-testid={`radio-${value}`} nativeButton={current.nativeButton} disabled={current.disabledFirst && value === 'a'}>
+            <Radio.Root {value} id={`input-${value}`} data-testid={`radio-${value}`} nativeButton={current.nativeButton} disabled={current.disabledFirst && value === 'a'} {...radioFocusProps}>
               {#snippet render(props, _state, children)}
                 {#if current.nativeButton}<button {...props as HTMLAttributes<HTMLButtonElement>}>{@render children?.()}</button>{:else}<span {...props as HTMLAttributes<HTMLSpanElement>}>{@render children?.()}</span>{/if}
               {/snippet}

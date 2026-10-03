@@ -169,10 +169,10 @@
     'aria-disabled': disabled || undefined,
     'aria-readonly': readOnly || undefined,
     'aria-labelledby': ariaLabelledBy,
-    onfocus() {
+    onfocusin() {
       field.setFocused(true);
     },
-    onblur(event: FocusEvent) {
+    onfocusout(event: FocusEvent) {
       if (
         !contains(
           event.currentTarget as Element,
