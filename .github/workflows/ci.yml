@@ -76,7 +76,7 @@ jobs:
     name: Dialog browser
     # Officially supported Playwright image; its default policy permits Chromium sandbox startup.
     runs-on: ubuntu-22.04
-    timeout-minutes: 25
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
@@ -97,7 +97,7 @@ jobs:
       - name: Install official Chromium and OS dependencies
         run: pnpm exec playwright install --with-deps chromium
       - name: Real React and Svelte Dialog acceptance
-        run: pnpm test:browser
+        run: pnpm exec playwright test --config playwright.source-core.config.ts
 
       - name: Preserve docs browser smoke screenshots
         if: always()

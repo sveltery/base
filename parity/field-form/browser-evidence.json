@@ -1,0 +1,502 @@
+{
+  "testedCommit": "f2515eb481880e88a94bdf9f377077817814d749",
+  "workflowRun": "https://github.com/sveltery/base/actions/runs/37062305053",
+  "jobId": 111021610531,
+  "artifactId": 11250293868,
+  "artifactZipSha256": "6a79b8f236323eae63d1d2e1a6df72de4b4fc31a5aab4df472df7b995f4610e2",
+  "rawResultsSha256": "93c6c5252bf6c2cdaf0521c5682576751005e657a014818cc669fdee594379c9",
+  "rawLogSha256": "ccb89d236dcdc38cfc87a4e58a4ecaeea06e27b262c67a8959014a9629457c71",
+  "stats": {
+    "startTime": "2026-10-02T20:43:25.190Z",
+    "duration": 37022.205,
+    "expected": 44,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "workers": 1,
+  "retries": 0,
+  "security": "playwright chromiumSandbox=true; official Chromium installed; no sandbox bypass",
+  "accounting": {
+    "pairedReactSvelteSupplements": 34,
+    "kitAcceptanceSupplements": 9,
+    "kitDiagnostic": 1,
+    "ordinaryDeclarationCredit": 0,
+    "helperCredit": 0,
+    "typeCredit": 0
+  },
+  "artifactFiles": [
+    ".checks/field-form/browser-results.json",
+    ".checks/field-form/browser.log"
+  ],
+  "traces": "trace policy retain-on-failure; all assertions passed, so no failure traces were created. Diagnostic payload is embedded as an inline base64 attachment in the actual JSON.",
+  "kitDiagnosticDecision": "Unresolved requirement failure: invalid Field prevented the native submit callback but Kit still performed a server operation and reset after success. Recording the payload does not accept this behavior.",
+  "counterInterpretation": "Three earlier accepted Kit cases had already incremented the shared server module counter to3. The diagnostic made one POST and produced effectCount4, establishing a fourth operation.",
+  "kitInvalidSubmitObservation": {
+    "requests": 1,
+    "result": {
+      "email": "blocked@example.com",
+      "effectCount": 4
+    },
+    "fieldValidity": {
+      "value": "seed@example.com",
+      "state": {
+        "badInput": false,
+        "customError": false,
+        "patternMismatch": false,
+        "rangeOverflow": false,
+        "rangeUnderflow": false,
+        "stepMismatch": false,
+        "tooLong": false,
+        "tooShort": false,
+        "typeMismatch": false,
+        "valid": true,
+        "valueMissing": false
+      },
+      "error": "",
+      "errors": [],
+      "initialValue": "seed@example.com",
+      "validity": {
+        "badInput": false,
+        "customError": false,
+        "patternMismatch": false,
+        "rangeOverflow": false,
+        "rangeUnderflow": false,
+        "stepMismatch": false,
+        "tooLong": false,
+        "tooShort": false,
+        "typeMismatch": false,
+        "valid": true,
+        "valueMissing": false
+      },
+      "transitionStatus": "ending"
+    },
+    "events": [
+      {
+        "stage": "consumer-input",
+        "value": "blocked@example.com",
+        "remote": "blocked@example.com"
+      },
+      {
+        "stage": "value-change",
+        "value": "blocked@example.com",
+        "remote": "blocked@example.com",
+        "reason": "none"
+      },
+      {
+        "stage": "capture",
+        "type": "submit",
+        "defaultPrevented": false,
+        "value": "blocked@example.com"
+      },
+      {
+        "stage": "after-attachments",
+        "type": "submit",
+        "defaultPrevented": true,
+        "value": "blocked@example.com",
+        "valid": false,
+        "validationMessage": "Blocked by Field"
+      }
+    ],
+    "nativeSubmit": "0",
+    "resets": "1"
+  },
+  "executions": [
+    {
+      "file": "field-form-remote.spec.ts",
+      "line": 9,
+      "title": "Kit default direct descriptors serialize each trusted edit and programmatic updates",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form-remote.spec.ts",
+      "line": 20,
+      "title": "Kit default server failure leaves input/result/reset state intact and surfaces issues",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form-remote.spec.ts",
+      "line": 28,
+      "title": "Kit default native and canceled reset retain their actual framework semantics",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form-remote.spec.ts",
+      "line": 9,
+      "title": "Kit replacement direct descriptors serialize each trusted edit and programmatic updates",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form-remote.spec.ts",
+      "line": 20,
+      "title": "Kit replacement server failure leaves input/result/reset state intact and surfaces issues",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form-remote.spec.ts",
+      "line": 28,
+      "title": "Kit replacement native and canceled reset retain their actual framework semantics",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form-remote.spec.ts",
+      "line": 9,
+      "title": "Kit native direct descriptors serialize each trusted edit and programmatic updates",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form-remote.spec.ts",
+      "line": 20,
+      "title": "Kit native server failure leaves input/result/reset state intact and surfaces issues",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form-remote.spec.ts",
+      "line": 28,
+      "title": "Kit native native and canceled reset retain their actual framework semantics",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form-remote.spec.ts",
+      "line": 34,
+      "title": "diagnostic Kit Form invalid submit preserves raw request, listener and server-effect observations",
+      "category": "diagnostic",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 11,
+      "title": "Svelte label/control associations and message cleanup follow changed and removed explicit ids",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 19,
+      "title": "Svelte required submit blocks callbacks, focuses/selects the invalid control and revalidates on change",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 25,
+      "title": "Svelte custom validation boundary onBlur and visible messages",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 25,
+      "title": "Svelte custom validation boundary onChange and visible messages",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 25,
+      "title": "Svelte custom validation boundary onSubmit and visible messages",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 34,
+      "title": "Svelte async validation publishes neutral pending state and ignores superseded results",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 39,
+      "title": "Svelte debounce is canceled when the actual control disappears",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 43,
+      "title": "Svelte Form external errors are visible and cleared by native edits; empty arrays do not invalidate",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 49,
+      "title": "Svelte disabled Fieldset excludes controls from consolidated values and reenabling keeps baseline",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 55,
+      "title": "Svelte controlled-reject only owner values update Field",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 55,
+      "title": "Svelte controlled-accept only owner values update Field",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 55,
+      "title": "Svelte controlled-rewrite only owner values update Field",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 55,
+      "title": "Svelte controlled-input-accept only owner values update Field",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 55,
+      "title": "Svelte controlled-replacement-accept only owner values update Field",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 62,
+      "title": "Svelte textarea replacement and named actions validate the current DOM value",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 68,
+      "title": "Svelte native reset restores an uncontrolled default without fabricating a change callback or clearing Field state",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 72,
+      "title": "Svelte native FormData ownership and contextual onFormSubmit projection remain distinct after reassociation",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 11,
+      "title": "React label/control associations and message cleanup follow changed and removed explicit ids",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 19,
+      "title": "React required submit blocks callbacks, focuses/selects the invalid control and revalidates on change",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 25,
+      "title": "React custom validation boundary onBlur and visible messages",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 25,
+      "title": "React custom validation boundary onChange and visible messages",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 25,
+      "title": "React custom validation boundary onSubmit and visible messages",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 34,
+      "title": "React async validation publishes neutral pending state and ignores superseded results",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 39,
+      "title": "React debounce is canceled when the actual control disappears",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 43,
+      "title": "React Form external errors are visible and cleared by native edits; empty arrays do not invalidate",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 49,
+      "title": "React disabled Fieldset excludes controls from consolidated values and reenabling keeps baseline",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 55,
+      "title": "React controlled-reject only owner values update Field",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 55,
+      "title": "React controlled-accept only owner values update Field",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 55,
+      "title": "React controlled-rewrite only owner values update Field",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 55,
+      "title": "React controlled-input-accept only owner values update Field",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 55,
+      "title": "React controlled-replacement-accept only owner values update Field",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 62,
+      "title": "React textarea replacement and named actions validate the current DOM value",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 68,
+      "title": "React native reset restores an uncontrolled default without fabricating a change callback or clearing Field state",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    },
+    {
+      "file": "field-form.spec.ts",
+      "line": 72,
+      "title": "React native FormData ownership and contextual onFormSubmit projection remain distinct after reassociation",
+      "category": "supplement",
+      "expectedStatus": "passed",
+      "actualStatus": "passed",
+      "retry": 0
+    }
+  ]
+}

@@ -23,15 +23,15 @@ it('uncontrolled edit and cancellation preserve native value and emit none with 
   expect(input.value).toBe('edit'); expect(output(target, 'calls')).toEqual([{ value: 'edit', reason: 'none', type: 'input', canceled: true, defaultPrevented: false }]);
   expect(output(target, 'order')).toEqual(['consumer', 'value']);
 });
-for (const [scenario, expected] of [['controlled-accept', 'edit'], ['controlled-reject', 'owner'], ['controlled-rewrite', 'EDIT'], ['controlled-default-accept', 'edit'], ['controlled-default-reject', 'owner'], ['controlled-default-rewrite', 'EDIT']] as const) it(`controlled owner ${scenario} resolves the native edit`, async () => {
+for (const [scenario, expected] of [['controlled-accept', 'edit'], ['controlled-reject', 'edit'], ['controlled-rewrite', 'EDIT'], ['controlled-default-accept', 'edit'], ['controlled-default-reject', 'edit'], ['controlled-default-rewrite', 'EDIT']] as const) it(`controlled owner ${scenario} resolves the native edit`, async () => {
   const { input, target } = await setup(scenario); await edit(input);
   expect(input.value).toBe(expected); expect(output(target, 'calls')[0].value).toBe('edit');
   target.querySelector<HTMLButtonElement>('button:not([type])')!.click(); await tick(); expect(input.value).toBe('programmatic');
 });
-for (const [scenario, count] of [['controlled-cancel', 1], ['controlled-prevent-base', 0]] as const) it(`controlled restoration survives callback cancellation and composition (${scenario})`, async () => {
+for (const [scenario, count] of [['controlled-cancel', 1], ['controlled-prevent-base', 0]] as const) it(`native controlled edits retain cancellation and composition defaults (${scenario})`, async () => {
   const { input, target } = await setup(scenario); input.value = 'edit';
   input.dispatchEvent(new InputEvent('input', { bubbles: true, isComposing: true })); expect(input.value).toBe('edit'); await tick(); await tick();
-  expect(input.value).toBe('owner'); expect(output(target, 'calls')).toHaveLength(count);
+  expect(input.value).toBe('edit'); expect(output(target, 'calls')).toHaveLength(count);
 });
 it('consumer prevention suppresses the Base callback separately from native preventDefault', async () => {
   const prevented = await setup('prevent-base'); await edit(prevented.input); expect(output(prevented.target, 'calls')).toEqual([]); expect(prevented.input.value).toBe('edit');

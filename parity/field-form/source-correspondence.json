@@ -1,0 +1,2072 @@
+{
+  "upstreamCommit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "sourceCheckpointOnly": true,
+  "ordinaryDeclarationCredit": 0,
+  "recordStatusInterpretation": "All records[].status values are historical construction statuses from the source reconstruction checkpoint; current bounded source status is recorded in boundedSourceCoreEvidence. They are not current pending gates.",
+  "records": [
+    {
+      "source": "packages/react/src/input/Input.tsx",
+      "sourceSha256": "db7ca0caefffbd5638a5bc14c758a0c96afd4262b06ab9f4a2c8a43173da6112",
+      "symbol": "Input",
+      "local": "packages/base/src/lib/input/Input.svelte",
+      "adaptation": "Thin wrapper forwards props/ref to real Field.Control; native bind:ref.",
+      "status": "written-unverified",
+      "imports": [
+        "react",
+        "../internals/types",
+        "../field"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "../internals/types",
+          "kind": "type",
+          "symbols": "{ BaseUIComponentProps }"
+        },
+        {
+          "specifier": "../field",
+          "kind": "runtime",
+          "symbols": "{ Field, type FieldControlState }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/field/control/FieldControl.tsx",
+      "sourceSha256": "2785b4d150271399100964b5673d5ffa803b9acd123ba82c60f8e62f643da00f",
+      "symbol": "FieldControl",
+      "local": "packages/base/src/lib/field/Control.svelte",
+      "adaptation": "Ordered business body, live getters/runes, native oninput. Native DOM ownership remains Svelte.",
+      "status": "written-unverified",
+      "imports": [
+        "react",
+        "@base-ui/utils/useControlled",
+        "@base-ui/utils/useIsoLayoutEffect",
+        "@base-ui/utils/owner",
+        "@base-ui/utils/useStableCallback",
+        "@base-ui/utils/useTimeout",
+        "../root/FieldRoot",
+        "../../internals/field-root-context/FieldRootContext",
+        "../../internals/field-register-control/useRegisterFieldControl",
+        "../../internals/form-context/FormContext",
+        "../../internals/labelable-provider/LabelableContext",
+        "../../internals/labelable-provider/useLabelableId",
+        "../../internals/field-constants/constants",
+        "../../internals/types",
+        "../../internals/useRenderElement",
+        "../../internals/useValueChanged",
+        "../../internals/createBaseUIEventDetails",
+        "../../internals/reasons",
+        "../../internals/createBaseUIEventDetails",
+        "../../floating-ui-react/utils"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/useControlled",
+          "kind": "runtime",
+          "symbols": "{ useControlled }"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "symbols": "{ useIsoLayoutEffect }"
+        },
+        {
+          "specifier": "@base-ui/utils/owner",
+          "kind": "runtime",
+          "symbols": "{ ownerDocument }"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "symbols": "{ useStableCallback }"
+        },
+        {
+          "specifier": "@base-ui/utils/useTimeout",
+          "kind": "runtime",
+          "symbols": "{ useTimeout }"
+        },
+        {
+          "specifier": "../root/FieldRoot",
+          "kind": "type",
+          "symbols": "{ type FieldRootState }"
+        },
+        {
+          "specifier": "../../internals/field-root-context/FieldRootContext",
+          "kind": "runtime",
+          "symbols": "{ useFieldRootContext }"
+        },
+        {
+          "specifier": "../../internals/field-register-control/useRegisterFieldControl",
+          "kind": "runtime",
+          "symbols": "{ useRegisterFieldControl }"
+        },
+        {
+          "specifier": "../../internals/form-context/FormContext",
+          "kind": "runtime",
+          "symbols": "{ useFormContext }"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/LabelableContext",
+          "kind": "runtime",
+          "symbols": "{ useLabelableContext }"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/useLabelableId",
+          "kind": "runtime",
+          "symbols": "{ useLabelableId }"
+        },
+        {
+          "specifier": "../../internals/field-constants/constants",
+          "kind": "runtime",
+          "symbols": "{ fieldValidityMapping }"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "runtime",
+          "symbols": "{ BaseUIComponentProps }"
+        },
+        {
+          "specifier": "../../internals/useRenderElement",
+          "kind": "runtime",
+          "symbols": "{ useRenderElement }"
+        },
+        {
+          "specifier": "../../internals/useValueChanged",
+          "kind": "runtime",
+          "symbols": "{ useValueChanged }"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails",
+          "kind": "runtime",
+          "symbols": "{ createChangeEventDetails }"
+        },
+        {
+          "specifier": "../../internals/reasons",
+          "kind": "runtime",
+          "symbols": "{ REASONS }"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails",
+          "kind": "type",
+          "symbols": "{ BaseUIChangeEventDetails }"
+        },
+        {
+          "specifier": "../../floating-ui-react/utils",
+          "kind": "runtime",
+          "symbols": "{ activeElement }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/field/root/FieldRoot.tsx",
+      "sourceSha256": "1f9861ae4813ab53a0092c5c5c760716a80fa618a11343f065f4ad4dee62a36e",
+      "symbol": "FieldRoot/FieldRootInner",
+      "local": "packages/base/src/lib/field/Root.svelte; packages/base/src/lib/field/root/FieldRootInner.svelte",
+      "adaptation": "Actual outer LabelableProvider and inner field lifetime; native state/getter context and imperative attachment refs.",
+      "status": "written-unverified",
+      "imports": [
+        "react",
+        "@base-ui/utils/useIsoLayoutEffect",
+        "@base-ui/utils/useStableCallback",
+        "../../internals/field-root-context/FieldRootContext",
+        "../../internals/field-constants/constants",
+        "../../fieldset/root/FieldsetRootContext",
+        "../../form",
+        "../../internals/form-context/FormContext",
+        "../../internals/labelable-provider",
+        "../../internals/types",
+        "../../internals/useRenderElement",
+        "./useFieldValidation",
+        "../../internals/field-register-control/useFieldControlRegistration"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "symbols": "{ useIsoLayoutEffect }"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "symbols": "{ useStableCallback }"
+        },
+        {
+          "specifier": "../../internals/field-root-context/FieldRootContext",
+          "kind": "runtime",
+          "symbols": "{ FieldRootContext }"
+        },
+        {
+          "specifier": "../../internals/field-constants/constants",
+          "kind": "runtime",
+          "symbols": "{\n  DEFAULT_VALIDITY_STATE,\n  fieldValidityMapping,\n}"
+        },
+        {
+          "specifier": "../../fieldset/root/FieldsetRootContext",
+          "kind": "runtime",
+          "symbols": "{ useFieldsetRootContext }"
+        },
+        {
+          "specifier": "../../form",
+          "kind": "type",
+          "symbols": "{ Form }"
+        },
+        {
+          "specifier": "../../internals/form-context/FormContext",
+          "kind": "runtime",
+          "symbols": "{ useFormContext }"
+        },
+        {
+          "specifier": "../../internals/labelable-provider",
+          "kind": "runtime",
+          "symbols": "{ LabelableProvider }"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "runtime",
+          "symbols": "{ BaseUIComponentProps }"
+        },
+        {
+          "specifier": "../../internals/useRenderElement",
+          "kind": "runtime",
+          "symbols": "{ useRenderElement }"
+        },
+        {
+          "specifier": "./useFieldValidation",
+          "kind": "runtime",
+          "symbols": "{ useFieldValidation }"
+        },
+        {
+          "specifier": "../../internals/field-register-control/useFieldControlRegistration",
+          "kind": "runtime",
+          "symbols": "{ useFieldControlRegistration }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/field/root/useFieldValidation.ts",
+      "sourceSha256": "f34d2c7c03621494f8a8ca8867c3a66a8b7c8089b022e851211db5429b63de89",
+      "symbol": "useFieldValidation and nested helpers",
+      "local": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
+      "adaptation": "Source ordered validation functions; live parameter getters, reactive native input ref, original Map registry.",
+      "status": "written-unverified",
+      "imports": [
+        "react",
+        "@base-ui/utils/empty",
+        "@base-ui/utils/useTimeout",
+        "@base-ui/utils/useStableCallback",
+        "@base-ui/utils/useRefWithInit",
+        "../../internals/labelable-provider/LabelableContext",
+        "../../merge-props",
+        "../../internals/field-constants/constants",
+        "../../internals/form-context/FormContext",
+        "../../form",
+        "../utils/getCombinedFieldValidityData",
+        "../../internals/types",
+        "./FieldRoot"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/empty",
+          "kind": "runtime",
+          "symbols": "{ EMPTY_OBJECT }"
+        },
+        {
+          "specifier": "@base-ui/utils/useTimeout",
+          "kind": "runtime",
+          "symbols": "{ useTimeout }"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "symbols": "{ useStableCallback }"
+        },
+        {
+          "specifier": "@base-ui/utils/useRefWithInit",
+          "kind": "runtime",
+          "symbols": "{ useRefWithInit }"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/LabelableContext",
+          "kind": "runtime",
+          "symbols": "{ useLabelableContext }"
+        },
+        {
+          "specifier": "../../merge-props",
+          "kind": "runtime",
+          "symbols": "{ mergeProps }"
+        },
+        {
+          "specifier": "../../internals/field-constants/constants",
+          "kind": "runtime",
+          "symbols": "{ DEFAULT_VALIDITY_STATE }"
+        },
+        {
+          "specifier": "../../internals/form-context/FormContext",
+          "kind": "runtime",
+          "symbols": "{ useFormContext }"
+        },
+        {
+          "specifier": "../../form",
+          "kind": "type",
+          "symbols": "{ Form }"
+        },
+        {
+          "specifier": "../utils/getCombinedFieldValidityData",
+          "kind": "runtime",
+          "symbols": "{ getCombinedFieldValidityData }"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "type",
+          "symbols": "{ HTMLProps }"
+        },
+        {
+          "specifier": "./FieldRoot",
+          "kind": "type",
+          "symbols": "{ FieldValidityData, FieldRootState }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/field-register-control/useFieldControlRegistration.ts",
+      "sourceSha256": "a49c20dc0a508dc11b73bdac52043aa4b1ba94d1baf8a43c2095f42726ca1cd6",
+      "symbol": "useFieldControlRegistration",
+      "local": "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts",
+      "adaptation": "Source registration lifetime, first baseline, no delete/readd on value changes; getter params.",
+      "status": "written-unverified",
+      "imports": [
+        "react",
+        "@base-ui/utils/useIsoLayoutEffect",
+        "@base-ui/utils/useStableCallback",
+        "../../field/utils/getCombinedFieldValidityData",
+        "../form-context/FormContext",
+        "../../field/root/FieldRoot"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "symbols": "{ useIsoLayoutEffect }"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "symbols": "{ useStableCallback }"
+        },
+        {
+          "specifier": "../../field/utils/getCombinedFieldValidityData",
+          "kind": "runtime",
+          "symbols": "{ getCombinedFieldValidityData }"
+        },
+        {
+          "specifier": "../form-context/FormContext",
+          "kind": "runtime",
+          "symbols": "{ useFormContext }"
+        },
+        {
+          "specifier": "../../field/root/FieldRoot",
+          "kind": "type",
+          "symbols": "{ FieldValidityData }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/field-register-control/useRegisterFieldControl.ts",
+      "sourceSha256": "830625bb0728b4cc6976a8c27148172ac06b74c880569f74c75cfa1201140804",
+      "symbol": "useRegisterFieldControl",
+      "local": "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts",
+      "adaptation": "Separate source update/lifetime effects and dependencies; native getter inputs.",
+      "status": "written-unverified",
+      "imports": [
+        "@base-ui/utils/useIsoLayoutEffect",
+        "@base-ui/utils/useRefWithInit",
+        "../field-root-context/FieldRootContext",
+        "./useFieldControlRegistration"
+      ],
+      "importEdges": [
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "symbols": "{ useIsoLayoutEffect }"
+        },
+        {
+          "specifier": "@base-ui/utils/useRefWithInit",
+          "kind": "runtime",
+          "symbols": "{ useRefWithInit }"
+        },
+        {
+          "specifier": "../field-root-context/FieldRootContext",
+          "kind": "runtime",
+          "symbols": "{ useFieldRootContext }"
+        },
+        {
+          "specifier": "./useFieldControlRegistration",
+          "kind": "type",
+          "symbols": "{ FieldControlRegistration }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/field-root-context/FieldRootContext.ts",
+      "sourceSha256": "578d7ea53808a70bf6f439b4d679c78a025e2d8219a0e8459b92f948c6a3c959",
+      "symbol": "useFieldRootContext/DEFAULT_FIELD_ROOT_CONTEXT",
+      "local": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts",
+      "adaptation": "Source default validation/state/noops retained; native Svelte context key.",
+      "status": "written-unverified",
+      "imports": [
+        "react",
+        "@base-ui/utils/empty",
+        "../noop",
+        "../field-constants/constants",
+        "../../field/root/FieldRoot",
+        "../../form",
+        "../../field/root/useFieldValidation",
+        "../types",
+        "../field-register-control/useFieldControlRegistration"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/empty",
+          "kind": "runtime",
+          "symbols": "{ EMPTY_OBJECT }"
+        },
+        {
+          "specifier": "../noop",
+          "kind": "runtime",
+          "symbols": "{ NOOP }"
+        },
+        {
+          "specifier": "../field-constants/constants",
+          "kind": "runtime",
+          "symbols": "{ DEFAULT_FIELD_ROOT_STATE, DEFAULT_VALIDITY_STATE }"
+        },
+        {
+          "specifier": "../../field/root/FieldRoot",
+          "kind": "type",
+          "symbols": "{ FieldValidityData, FieldRootState }"
+        },
+        {
+          "specifier": "../../form",
+          "kind": "type",
+          "symbols": "{ Form }"
+        },
+        {
+          "specifier": "../../field/root/useFieldValidation",
+          "kind": "type",
+          "symbols": "{ UseFieldValidationReturnValue }"
+        },
+        {
+          "specifier": "../types",
+          "kind": "type",
+          "symbols": "{ HTMLProps }"
+        },
+        {
+          "specifier": "../field-register-control/useFieldControlRegistration",
+          "kind": "type",
+          "symbols": "{ FieldControlRegistration }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/form-context/FormContext.ts",
+      "sourceSha256": "bc1c728160e21caebb1641eada2a029b2987ecde498e8745dff9b72ad3f46539",
+      "symbol": "useFormContext/DEFAULT_FORM_CONTEXT",
+      "local": "packages/base/src/lib/internals/form-context/FormContext.ts",
+      "adaptation": "Source default and real native getter context; one canonical owner.",
+      "status": "written-unverified",
+      "imports": [
+        "react",
+        "../../field/root/FieldRoot",
+        "../noop",
+        "../../form/Form"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "../../field/root/FieldRoot",
+          "kind": "type",
+          "symbols": "{ FieldValidityData }"
+        },
+        {
+          "specifier": "../noop",
+          "kind": "runtime",
+          "symbols": "{ NOOP }"
+        },
+        {
+          "specifier": "../../form/Form",
+          "kind": "type",
+          "symbols": "{ Form }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/labelable-provider/LabelableContext.ts",
+      "sourceSha256": "c8c7814fd72a66386f30c784f3cafcaa473d7a385dc441be610154086d99663d",
+      "symbol": "useLabelableContext/DEFAULT_LABELABLE_CONTEXT",
+      "local": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts",
+      "adaptation": "Source default retained; Svelte context lookup.",
+      "status": "written-unverified",
+      "imports": [
+        "react",
+        "../noop",
+        "../types"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "../noop",
+          "kind": "runtime",
+          "symbols": "{ NOOP }"
+        },
+        {
+          "specifier": "../types",
+          "kind": "runtime",
+          "symbols": "{ HTMLProps }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/labelable-provider/LabelableProvider.tsx",
+      "sourceSha256": "f098e676a1e108ef96774499f3ee44cc9adba246b33dc81018b836bc99cbc2d1",
+      "symbol": "LabelableProvider/createLabelableProvider",
+      "local": "packages/base/src/lib/internals/labelable-provider/LabelableProvider.svelte; packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
+      "adaptation": "Source provider and actual selection/state body; native initialized id and live parent messages.",
+      "status": "written-unverified",
+      "imports": [
+        "react",
+        "@base-ui/utils/useStableCallback",
+        "@base-ui/utils/useRefWithInit",
+        "../types",
+        "../useBaseUiId",
+        "./LabelableContext"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "symbols": "{ useStableCallback }"
+        },
+        {
+          "specifier": "@base-ui/utils/useRefWithInit",
+          "kind": "runtime",
+          "symbols": "{ useRefWithInit }"
+        },
+        {
+          "specifier": "../types",
+          "kind": "runtime",
+          "symbols": "{ HTMLProps }"
+        },
+        {
+          "specifier": "../useBaseUiId",
+          "kind": "runtime",
+          "symbols": "{ useBaseUiId }"
+        },
+        {
+          "specifier": "./LabelableContext",
+          "kind": "runtime",
+          "symbols": "{ LabelableContext, useLabelableContext }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/labelable-provider/useLabelableId.ts",
+      "sourceSha256": "e3a9d52c70bccc823163dbc132fbe9b64a3ec6e64e90a79c9acb08fdf2672faf",
+      "symbol": "useLabelableId",
+      "local": "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
+      "adaptation": "Source selection/register/unregister/null/enabled branches; stable component Svelte id.",
+      "status": "written-unverified",
+      "imports": [
+        "react",
+        "@base-ui/utils/useIsoLayoutEffect",
+        "@base-ui/utils/useStableCallback",
+        "@base-ui/utils/useRefWithInit",
+        "../noop",
+        "../useBaseUiId",
+        "./LabelableContext"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "symbols": "{ useIsoLayoutEffect }"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "symbols": "{ useStableCallback }"
+        },
+        {
+          "specifier": "@base-ui/utils/useRefWithInit",
+          "kind": "runtime",
+          "symbols": "{ useRefWithInit }"
+        },
+        {
+          "specifier": "../noop",
+          "kind": "runtime",
+          "symbols": "{ NOOP }"
+        },
+        {
+          "specifier": "../useBaseUiId",
+          "kind": "runtime",
+          "symbols": "{ useBaseUiId }"
+        },
+        {
+          "specifier": "./LabelableContext",
+          "kind": "runtime",
+          "symbols": "{ useLabelableContext }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/field-constants/constants.ts",
+      "sourceSha256": "c6f1fc10dbd8b45a6c3fdb83f441a19880c4501d1776f725dbfdae4fd742f3fb",
+      "symbol": "constants/fieldValidityMapping",
+      "local": "packages/base/src/lib/internals/field-constants/constants.ts",
+      "adaptation": "Original defaults and mapping; source data-attribute names inlined as constants.",
+      "status": "written-unverified",
+      "imports": [
+        "../../field/control/FieldControlDataAttributes",
+        "../../field/root/FieldRoot"
+      ],
+      "importEdges": [
+        {
+          "specifier": "../../field/control/FieldControlDataAttributes",
+          "kind": "runtime",
+          "symbols": "* as FieldControlDataAttributes"
+        },
+        {
+          "specifier": "../../field/root/FieldRoot",
+          "kind": "type",
+          "symbols": "{ FieldRootState }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/field/utils/getCombinedFieldValidityData.ts",
+      "sourceSha256": "ad1121fec3eb304d56da1e2aeadb647bcb6e0a0ae87c45dca4773b002b840f3a",
+      "symbol": "getCombinedFieldValidityData",
+      "local": "packages/base/src/lib/field/utils/getCombinedFieldValidityData.ts",
+      "adaptation": "Original function body unchanged; native type path.",
+      "status": "written-unverified",
+      "imports": [
+        "../root/FieldRoot"
+      ],
+      "importEdges": [
+        {
+          "specifier": "../root/FieldRoot",
+          "kind": "type",
+          "symbols": "{ FieldValidityData }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/useBaseUiId.ts",
+      "sourceSha256": "c935ee27e3dfee2307e108dc82a36ec2a1f3e76b4692de188e5d3cdc4511157f",
+      "symbol": "useBaseUiId",
+      "local": "packages/base/src/lib/internals/useBaseUiId.ts",
+      "adaptation": "Calls shared native useId with base-ui prefix and stable component seed.",
+      "status": "written-unverified",
+      "imports": [
+        "@base-ui/utils/useId"
+      ],
+      "importEdges": [
+        {
+          "specifier": "@base-ui/utils/useId",
+          "kind": "runtime",
+          "symbols": "{ useId }"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/useId.ts",
+      "sourceSha256": "7d01ffb745d3404ba406ebbd12ddfc8eb73325c3adea3dbda0868e2bad2eef05",
+      "symbol": "useId",
+      "local": "packages/base/src/lib/utils/useId.ts",
+      "adaptation": "Native Svelte $props.id replaces React.useId; unsupported React17 fallback omitted, no global counter.",
+      "status": "written-unverified",
+      "imports": [
+        "react",
+        "./safeReact"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "./safeReact",
+          "kind": "runtime",
+          "symbols": "{ SafeReact }"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/owner.ts",
+      "sourceSha256": "94a825206d926b388459df70639476133442c28c83a7e3be750399cb323ea623",
+      "symbol": "ownerDocument",
+      "local": "packages/base/src/lib/utils/owner.ts",
+      "adaptation": "Original used function body unchanged; ownerWindow is outside this used-symbol closure.",
+      "status": "written-unverified",
+      "imports": [
+        "@floating-ui/utils/dom"
+      ],
+      "importEdges": []
+    },
+    {
+      "source": "packages/utils/src/shadowDom.ts",
+      "sourceSha256": "00307496a294b1bde9a09e4d0263cae4bf1eb75f43f5c9b85b37c712210e4e8a",
+      "symbol": "activeElement/getTarget",
+      "local": "packages/base/src/lib/utils/shadowDom.ts",
+      "adaptation": "Original used shadow-DOM functions unchanged; source useLabel now shares getTarget.",
+      "status": "written-unverified",
+      "imports": [
+        "@floating-ui/utils/dom"
+      ],
+      "importEdges": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "symbols": "{ isShadowRoot }"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/useControlled.ts",
+      "sourceSha256": "487bc45fa3ef1a70177867bb03598230f9926601aed8e3c7f46470feb225f886",
+      "symbol": "useControlled",
+      "local": "packages/base/src/lib/utils/useControlled.svelte.ts",
+      "adaptation": "shared-utils dependency: initial mode/default/state/declared warnings; live getter API",
+      "status": "integrated-dependency-pending-final-review",
+      "imports": [
+        "react",
+        "./error"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "./error",
+          "kind": "runtime",
+          "symbols": "{ error }"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/useStableCallback.ts",
+      "sourceSha256": "908cbd177f86c961983d0124a859f733d341be49e58bc5a553255f47725419c1",
+      "symbol": "useStableCallback",
+      "local": "packages/base/src/lib/utils/useStableCallback.ts",
+      "adaptation": "shared-utils dependency: native initialized callback, stable untracked live closure",
+      "status": "integrated-dependency-pending-final-review",
+      "imports": [
+        "./safeReact",
+        "./useRefWithInit"
+      ],
+      "importEdges": [
+        {
+          "specifier": "./safeReact",
+          "kind": "runtime",
+          "symbols": "{ SafeReact }"
+        },
+        {
+          "specifier": "./useRefWithInit",
+          "kind": "runtime",
+          "symbols": "{ useRefWithInit }"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/useTimeout.ts",
+      "sourceSha256": "8d9e4159d9f883e18035811e9f2b4d180afb0d724b55d86dbf4fda52c355e156",
+      "symbol": "Timeout/useTimeout",
+      "local": "packages/base/src/lib/utils/useTimeout.ts",
+      "adaptation": "shared-utils dependency: actual class and native automatic teardown",
+      "status": "integrated-dependency-pending-final-review",
+      "imports": [
+        "./useRefWithInit",
+        "./useOnMount"
+      ],
+      "importEdges": [
+        {
+          "specifier": "./useRefWithInit",
+          "kind": "runtime",
+          "symbols": "{ useRefWithInit }"
+        },
+        {
+          "specifier": "./useOnMount",
+          "kind": "runtime",
+          "symbols": "{ useOnMount }"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/useIsoLayoutEffect.ts",
+      "sourceSha256": "13a0ab28d24b04617dc290ad151c145f2435d1e0c381123847af74344ea4b9a0",
+      "symbol": "useIsoLayoutEffect",
+      "local": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+      "adaptation": "shared-utils dependency: post-DOM native effect, source dependency getter",
+      "status": "integrated-dependency-pending-final-review",
+      "imports": [
+        "react"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/useRefWithInit.ts",
+      "sourceSha256": "183cb6e86ab1f8044a431d5b4115c750f7848c9835d519881b3c7a66dae98354",
+      "symbol": "useRefWithInit",
+      "local": "packages/base/src/lib/utils/useRefWithInit.ts",
+      "adaptation": "shared-utils dependency: one native initialization",
+      "status": "integrated-dependency-pending-final-review",
+      "imports": [
+        "react"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/empty.ts",
+      "sourceSha256": "7d7c8625346dc2344dc551004c5c5da82878ab814818b7a8df4ad7082979ead6",
+      "symbol": "NOOP/EMPTY_OBJECT/EMPTY_ARRAY",
+      "local": "packages/base/src/lib/utils/empty.ts",
+      "adaptation": "shared-utils dependency: unchanged source constants",
+      "status": "integrated-dependency-pending-final-review",
+      "imports": [],
+      "importEdges": []
+    },
+    {
+      "source": "packages/react/src/internals/useValueChanged.ts",
+      "sourceSha256": "fa36f17e32a4a0b3f8edabe219810a505cefa9c926d3ae807310c6013f57de6d",
+      "symbol": "useValueChanged",
+      "local": "packages/base/src/lib/internals/useValueChanged.svelte.ts",
+      "adaptation": "shared-utils dependency: callback before previous update",
+      "status": "integrated-dependency-pending-final-review",
+      "imports": [
+        "react",
+        "@base-ui/utils/useIsoLayoutEffect",
+        "@base-ui/utils/useStableCallback"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "symbols": "{ useIsoLayoutEffect }"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "symbols": "{ useStableCallback }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/useRenderElement.tsx",
+      "sourceSha256": "0b55dc232a0d630a666a13873213d1bdde040e973031f2b307a64cc157644a4c",
+      "symbol": "useRenderElement and helper closure",
+      "local": "packages/base/src/lib/internals/useRenderElement.ts; packages/base/src/lib/internals/RenderElement.svelte",
+      "adaptation": "shared renderer dependency: source ordered props/ref/mapping stages, native literal input host",
+      "status": "integrated-dependency-pending-final-review",
+      "imports": [
+        "react",
+        "@base-ui/utils/useMergedRefs",
+        "@base-ui/utils/getReactElementRef",
+        "@base-ui/utils/mergeObjects",
+        "@base-ui/utils/warn",
+        "@base-ui/utils/empty",
+        "./types",
+        "./getStateAttributesProps",
+        "../utils/resolveClassName",
+        "../utils/resolveStyle",
+        "../merge-props"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/useMergedRefs",
+          "kind": "runtime",
+          "symbols": "{ useMergedRefs, useMergedRefsN }"
+        },
+        {
+          "specifier": "@base-ui/utils/getReactElementRef",
+          "kind": "runtime",
+          "symbols": "{ getReactElementRef }"
+        },
+        {
+          "specifier": "@base-ui/utils/mergeObjects",
+          "kind": "runtime",
+          "symbols": "{ mergeObjects }"
+        },
+        {
+          "specifier": "@base-ui/utils/warn",
+          "kind": "runtime",
+          "symbols": "{ warn }"
+        },
+        {
+          "specifier": "@base-ui/utils/empty",
+          "kind": "runtime",
+          "symbols": "{ EMPTY_OBJECT }"
+        },
+        {
+          "specifier": "./types",
+          "kind": "type",
+          "symbols": "{ BaseUIComponentProps, ComponentRenderFn, HTMLProps }"
+        },
+        {
+          "specifier": "./getStateAttributesProps",
+          "kind": "runtime",
+          "symbols": "{ getStateAttributesProps, StateAttributesMapping }"
+        },
+        {
+          "specifier": "../utils/resolveClassName",
+          "kind": "runtime",
+          "symbols": "{ resolveClassName }"
+        },
+        {
+          "specifier": "../utils/resolveStyle",
+          "kind": "runtime",
+          "symbols": "{ resolveStyle }"
+        },
+        {
+          "specifier": "../merge-props",
+          "kind": "runtime",
+          "symbols": "{ mergeProps, mergePropsN, mergeClassNames }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/form/Form.tsx",
+      "sourceSha256": "c8a77589d2a3de310b46623154e38ddf6b9fc4c7ff71299f690411949d23898b",
+      "symbol": "Form/comesBeforeInSameTree",
+      "local": "packages/base/src/lib/form/Form.svelte",
+      "adaptation": "Ordered source validation/focus/cancellation/callback body; native state, refs, effects, getters. No Kit URL detection or stopImmediatePropagation guard.",
+      "status": "written-unverified",
+      "imports": [
+        "react",
+        "@base-ui/utils/useStableCallback",
+        "@base-ui/utils/empty",
+        "../internals/createBaseUIEventDetails",
+        "../internals/reasons",
+        "../internals/types",
+        "../internals/form-context/FormContext",
+        "../internals/useRenderElement",
+        "../internals/useValueChanged"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "symbols": "{ useStableCallback }"
+        },
+        {
+          "specifier": "@base-ui/utils/empty",
+          "kind": "runtime",
+          "symbols": "{ EMPTY_OBJECT }"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails",
+          "kind": "runtime",
+          "symbols": "{\n  createGenericEventDetails,\n  type BaseUIGenericEventDetails,\n}"
+        },
+        {
+          "specifier": "../internals/reasons",
+          "kind": "runtime",
+          "symbols": "{ REASONS }"
+        },
+        {
+          "specifier": "../internals/types",
+          "kind": "type",
+          "symbols": "{ BaseUIComponentProps }"
+        },
+        {
+          "specifier": "../internals/form-context/FormContext",
+          "kind": "runtime",
+          "symbols": "{ FormContext }"
+        },
+        {
+          "specifier": "../internals/useRenderElement",
+          "kind": "runtime",
+          "symbols": "{ useRenderElement }"
+        },
+        {
+          "specifier": "../internals/useValueChanged",
+          "kind": "runtime",
+          "symbols": "{ useValueChanged }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/field/label/FieldLabel.tsx",
+      "sourceSha256": "74b9a2aaa0f596409bfa9b78de5b4152cf1fc8500ddcd9bda5218d81f20293c7",
+      "symbol": "FieldLabel",
+      "local": "packages/base/src/lib/field/Label.svelte",
+      "adaptation": "Source useLabel, shared development error logger, native ref/effect and shared renderer.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "react",
+        "@base-ui/utils/error",
+        "@base-ui/utils/safeReact",
+        "../root/FieldRoot",
+        "../../internals/field-root-context/FieldRootContext",
+        "../../internals/field-constants/constants",
+        "../../internals/types",
+        "../../internals/useRenderElement",
+        "../../internals/labelable-provider/LabelableContext",
+        "../../internals/labelable-provider/useLabel",
+        "../item/FieldItemContext"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/error",
+          "kind": "runtime",
+          "symbols": "{ error }"
+        },
+        {
+          "specifier": "@base-ui/utils/safeReact",
+          "kind": "runtime",
+          "symbols": "{ SafeReact }"
+        },
+        {
+          "specifier": "../root/FieldRoot",
+          "kind": "type",
+          "symbols": "{ FieldRootState }"
+        },
+        {
+          "specifier": "../../internals/field-root-context/FieldRootContext",
+          "kind": "runtime",
+          "symbols": "{ useFieldRootContext }"
+        },
+        {
+          "specifier": "../../internals/field-constants/constants",
+          "kind": "runtime",
+          "symbols": "{ fieldValidityMapping }"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "type",
+          "symbols": "{ BaseUIComponentProps }"
+        },
+        {
+          "specifier": "../../internals/useRenderElement",
+          "kind": "runtime",
+          "symbols": "{ useRenderElement }"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/LabelableContext",
+          "kind": "runtime",
+          "symbols": "{ useLabelableContext }"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/useLabel",
+          "kind": "runtime",
+          "symbols": "{ useLabel }"
+        },
+        {
+          "specifier": "../item/FieldItemContext",
+          "kind": "runtime",
+          "symbols": "{ useFieldItemContext }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/field/item/FieldItem.tsx",
+      "sourceSha256": "cc182a1ce4f90cb755307bd44ae3ae74f60a99330ae12fb38f271a51f4993486",
+      "symbol": "FieldItem",
+      "local": "packages/base/src/lib/field/Item.svelte",
+      "adaptation": "Actual LabelableProvider composition with canonical source FieldItemContext; shared renderer.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "react",
+        "../root/FieldRoot",
+        "../../internals/field-root-context/FieldRootContext",
+        "../../internals/field-constants/constants",
+        "../../internals/types",
+        "../../internals/useRenderElement",
+        "./FieldItemContext",
+        "../../internals/labelable-provider"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "../root/FieldRoot",
+          "kind": "type",
+          "symbols": "{ type FieldRootState }"
+        },
+        {
+          "specifier": "../../internals/field-root-context/FieldRootContext",
+          "kind": "runtime",
+          "symbols": "{ useFieldRootContext }"
+        },
+        {
+          "specifier": "../../internals/field-constants/constants",
+          "kind": "runtime",
+          "symbols": "{ fieldValidityMapping }"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "type",
+          "symbols": "{ BaseUIComponentProps }"
+        },
+        {
+          "specifier": "../../internals/useRenderElement",
+          "kind": "runtime",
+          "symbols": "{ useRenderElement }"
+        },
+        {
+          "specifier": "./FieldItemContext",
+          "kind": "runtime",
+          "symbols": "{ FieldItemContext }"
+        },
+        {
+          "specifier": "../../internals/labelable-provider",
+          "kind": "runtime",
+          "symbols": "{ LabelableProvider }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/field/item/FieldItemContext.ts",
+      "sourceSha256": "4e83a82491828c93404c8ba0b1cbb740b549d15e51f38848f94cde225eda7749",
+      "symbol": "useFieldItemContext",
+      "local": "packages/base/src/lib/field/item/FieldItemContext.ts",
+      "adaptation": "Source exact disabled:false default; native getter context.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "react"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/field/description/FieldDescription.tsx",
+      "sourceSha256": "415eb6cbbe77d429746142c0e731045a0fe11533378956a306256f70df9d2f17",
+      "symbol": "FieldDescription",
+      "local": "packages/base/src/lib/field/Description.svelte",
+      "adaptation": "Source message-id registration/cleanup and contexts; shared renderer. Native effect cleanup captures the installed registration ID, matching the pinned render closure rather than reading a live rune during teardown.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "react",
+        "@base-ui/utils/useIsoLayoutEffect",
+        "../root/FieldRoot",
+        "../../internals/field-root-context/FieldRootContext",
+        "../../internals/labelable-provider/LabelableContext",
+        "../../internals/field-constants/constants",
+        "../../internals/types",
+        "../../internals/useBaseUiId",
+        "../../internals/useRenderElement",
+        "../item/FieldItemContext"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "symbols": "{ useIsoLayoutEffect }"
+        },
+        {
+          "specifier": "../root/FieldRoot",
+          "kind": "type",
+          "symbols": "{ type FieldRootState }"
+        },
+        {
+          "specifier": "../../internals/field-root-context/FieldRootContext",
+          "kind": "runtime",
+          "symbols": "{ useFieldRootContext }"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/LabelableContext",
+          "kind": "runtime",
+          "symbols": "{ useLabelableContext }"
+        },
+        {
+          "specifier": "../../internals/field-constants/constants",
+          "kind": "runtime",
+          "symbols": "{ fieldValidityMapping }"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "type",
+          "symbols": "{ BaseUIComponentProps }"
+        },
+        {
+          "specifier": "../../internals/useBaseUiId",
+          "kind": "runtime",
+          "symbols": "{ useBaseUiId }"
+        },
+        {
+          "specifier": "../../internals/useRenderElement",
+          "kind": "runtime",
+          "symbols": "{ useRenderElement }"
+        },
+        {
+          "specifier": "../item/FieldItemContext",
+          "kind": "runtime",
+          "symbols": "{ useFieldItemContext }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/field/validity/FieldValidity.tsx",
+      "sourceSha256": "8a10780f9da25a7d019b7d2a08d562f7f0923d6b6fed78bf036c13293f4d57f6",
+      "symbol": "FieldValidity",
+      "local": "packages/base/src/lib/field/Validity.svelte",
+      "adaptation": "Source combined validity and stable public state derivation; shared source transition helper.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "react",
+        "../../internals/field-root-context/FieldRootContext",
+        "../utils/getCombinedFieldValidityData",
+        "../root/FieldRoot",
+        "../../internals/useTransitionStatus"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "../../internals/field-root-context/FieldRootContext",
+          "kind": "runtime",
+          "symbols": "{ useFieldRootContext }"
+        },
+        {
+          "specifier": "../utils/getCombinedFieldValidityData",
+          "kind": "runtime",
+          "symbols": "{ getCombinedFieldValidityData }"
+        },
+        {
+          "specifier": "../root/FieldRoot",
+          "kind": "type",
+          "symbols": "{ FieldValidityData }"
+        },
+        {
+          "specifier": "../../internals/useTransitionStatus",
+          "kind": "runtime",
+          "symbols": "{ type TransitionStatus, useTransitionStatus }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/field/error/FieldError.tsx",
+      "sourceSha256": "fd4823039d4e6ea67479782d336ee3f1c04662f6def97c2910a612083e80cc4b",
+      "symbol": "FieldError",
+      "local": "packages/base/src/lib/field/Error.svelte",
+      "adaptation": "Source rendering/match/error ordering/message-key retention, message registration and completion helpers; native unkeyed list. Native effect cleanup captures the installed registration ID, matching the pinned render closure rather than reading a live rune during teardown.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "react",
+        "@base-ui/utils/useIsoLayoutEffect",
+        "../root/FieldRoot",
+        "../../internals/field-root-context/FieldRootContext",
+        "../../internals/labelable-provider/LabelableContext",
+        "../../internals/field-constants/constants",
+        "../../internals/form-context/FormContext",
+        "../../internals/types",
+        "../../internals/getStateAttributesProps",
+        "../../internals/useRenderElement",
+        "../../internals/useBaseUiId",
+        "../../internals/useOpenChangeComplete",
+        "../../internals/stateAttributesMapping",
+        "../../internals/useTransitionStatus"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "symbols": "{ useIsoLayoutEffect }"
+        },
+        {
+          "specifier": "../root/FieldRoot",
+          "kind": "type",
+          "symbols": "{ type FieldRootState }"
+        },
+        {
+          "specifier": "../../internals/field-root-context/FieldRootContext",
+          "kind": "runtime",
+          "symbols": "{ useFieldRootContext }"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/LabelableContext",
+          "kind": "runtime",
+          "symbols": "{ useLabelableContext }"
+        },
+        {
+          "specifier": "../../internals/field-constants/constants",
+          "kind": "runtime",
+          "symbols": "{ fieldValidityMapping }"
+        },
+        {
+          "specifier": "../../internals/form-context/FormContext",
+          "kind": "runtime",
+          "symbols": "{ useFormContext }"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "type",
+          "symbols": "{ BaseUIComponentProps }"
+        },
+        {
+          "specifier": "../../internals/getStateAttributesProps",
+          "kind": "type",
+          "symbols": "{ StateAttributesMapping }"
+        },
+        {
+          "specifier": "../../internals/useRenderElement",
+          "kind": "runtime",
+          "symbols": "{ useRenderElement }"
+        },
+        {
+          "specifier": "../../internals/useBaseUiId",
+          "kind": "runtime",
+          "symbols": "{ useBaseUiId }"
+        },
+        {
+          "specifier": "../../internals/useOpenChangeComplete",
+          "kind": "runtime",
+          "symbols": "{ useOpenChangeComplete }"
+        },
+        {
+          "specifier": "../../internals/stateAttributesMapping",
+          "kind": "runtime",
+          "symbols": "{ transitionStatusMapping }"
+        },
+        {
+          "specifier": "../../internals/useTransitionStatus",
+          "kind": "runtime",
+          "symbols": "{ type TransitionStatus, useTransitionStatus }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/fieldset/root/FieldsetRoot.tsx",
+      "sourceSha256": "670a976b982ba32841cedc257e83a0d2fa2d0a2e7cf0398574737f2ef9bf266c",
+      "symbol": "FieldsetRoot",
+      "local": "packages/base/src/lib/fieldset/Root.svelte",
+      "adaptation": "Source parent-disabled precedence, legend state/context and ordered shared renderer props.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "react",
+        "./FieldsetRootContext",
+        "../../internals/types",
+        "../../internals/useRenderElement"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "./FieldsetRootContext",
+          "kind": "runtime",
+          "symbols": "{ FieldsetRootContext, useFieldsetRootContext }"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "type",
+          "symbols": "{ BaseUIComponentProps }"
+        },
+        {
+          "specifier": "../../internals/useRenderElement",
+          "kind": "runtime",
+          "symbols": "{ useRenderElement }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/fieldset/root/FieldsetRootContext.ts",
+      "sourceSha256": "f4d9dbeb41dc4bab42b3ba6dca1ce51ff83c009a6f7e5507a2b1f840e3708dcc",
+      "symbol": "useFieldsetRootContext",
+      "local": "packages/base/src/lib/fieldset/root/FieldsetRootContext.ts",
+      "adaptation": "Source required/optional context and missing-context error; native context with functional setter.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "react"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/fieldset/legend/FieldsetLegend.tsx",
+      "sourceSha256": "feea18985193fbb3cec39b66829108170a3499c02ca65905d65e57b9369ab02c",
+      "symbol": "FieldsetLegend",
+      "local": "packages/base/src/lib/fieldset/Legend.svelte",
+      "adaptation": "Source shared useRegisteredLabelId and renderer.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "react",
+        "../../internals/useRenderElement",
+        "../root/FieldsetRootContext",
+        "../../internals/types",
+        "../../utils/useRegisteredLabelId"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "../../internals/useRenderElement",
+          "kind": "runtime",
+          "symbols": "{ useRenderElement }"
+        },
+        {
+          "specifier": "../root/FieldsetRootContext",
+          "kind": "runtime",
+          "symbols": "{ useFieldsetRootContext }"
+        },
+        {
+          "specifier": "../../internals/types",
+          "kind": "type",
+          "symbols": "{ BaseUIComponentProps }"
+        },
+        {
+          "specifier": "../../utils/useRegisteredLabelId",
+          "kind": "runtime",
+          "symbols": "{ useRegisteredLabelId }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/labelable-provider/useLabel.ts",
+      "sourceSha256": "e8bc584b4cc36db672b97f1f460da09f61a2d35f4c7432c038a89cfc8cd4c741",
+      "symbol": "useLabel/focusElementWithVisible",
+      "local": "packages/base/src/lib/internals/labelable-provider/useLabel.svelte.ts",
+      "adaptation": "Source pointer/selection/control-focus business; native event names, realm-safe HTMLElement check, live getter props.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "react",
+        "@floating-ui/utils/dom",
+        "@base-ui/utils/owner",
+        "@base-ui/utils/useStableCallback",
+        "../../floating-ui-react/utils",
+        "../../utils/useRegisteredLabelId",
+        "./LabelableContext"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "symbols": "{ isHTMLElement }"
+        },
+        {
+          "specifier": "@base-ui/utils/owner",
+          "kind": "runtime",
+          "symbols": "{ ownerDocument }"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "symbols": "{ useStableCallback }"
+        },
+        {
+          "specifier": "../../floating-ui-react/utils",
+          "kind": "runtime",
+          "symbols": "{ getTarget }"
+        },
+        {
+          "specifier": "../../utils/useRegisteredLabelId",
+          "kind": "runtime",
+          "symbols": "{ useRegisteredLabelId }"
+        },
+        {
+          "specifier": "./LabelableContext",
+          "kind": "runtime",
+          "symbols": "{ useLabelableContext }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/utils/useRegisteredLabelId.ts",
+      "sourceSha256": "400156404e561e86b73303a22a78d555793b86844efc9fd574f79acd912a56f7",
+      "symbol": "useRegisteredLabelId",
+      "local": "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
+      "adaptation": "Source registration and conditional cleanup through canonical layout helper and native stable id. Native effect cleanup captures the installed registration ID, matching the pinned render closure rather than reading a live rune during teardown.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "react",
+        "@base-ui/utils/useIsoLayoutEffect",
+        "../internals/useBaseUiId"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "type",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "symbols": "{ useIsoLayoutEffect }"
+        },
+        {
+          "specifier": "../internals/useBaseUiId",
+          "kind": "runtime",
+          "symbols": "{ useBaseUiId }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/useTransitionStatus.ts",
+      "sourceSha256": "07ffaf4fcf96a3d4d24aa2dabb696f2e082f312149225e45372a12a0d3cfe4e1",
+      "symbol": "useTransitionStatus",
+      "local": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+      "adaptation": "Source mounted/status/idle/deferred/initial-open branches; native derived/pre-DOM/post-DOM state and rAF scheduling.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "react",
+        "@base-ui/utils/useIsoLayoutEffect",
+        "@base-ui/utils/useAnimationFrame"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "symbols": "{ useIsoLayoutEffect }"
+        },
+        {
+          "specifier": "@base-ui/utils/useAnimationFrame",
+          "kind": "runtime",
+          "symbols": "{ AnimationFrame }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/useOpenChangeComplete.tsx",
+      "sourceSha256": "809be9e6b5a1a6238d9f239c162e2489d7da6e5f20383fbe65e85933e7259d89",
+      "symbol": "useOpenChangeComplete",
+      "local": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+      "adaptation": "Source enabled/open/abort/completion lifecycle with native post-DOM synchronization.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "react",
+        "@base-ui/utils/useStableCallback",
+        "./useAnimationsFinished"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "symbols": "{ useStableCallback }"
+        },
+        {
+          "specifier": "./useAnimationsFinished",
+          "kind": "runtime",
+          "symbols": "{ useAnimationsFinished }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/useAnimationsFinished.ts",
+      "sourceSha256": "58fef3cb8defbbbe84c80126a6b0aff767293b692a19d97f078a190e62a3d7a6",
+      "symbol": "useAnimationsFinished",
+      "local": "packages/base/src/lib/internals/useAnimationsFinished.ts",
+      "adaptation": "Source animation replacement/starting-style observation/abort branches; native Svelte rendering replaces ReactDOM flushSync and global batching queue.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "react",
+        "react-dom",
+        "@base-ui/utils/useAnimationFrame",
+        "@base-ui/utils/useStableCallback",
+        "../utils/resolveRef",
+        "./TransitionStatusDataAttributes"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "runtime",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "react-dom",
+          "kind": "runtime",
+          "symbols": "* as ReactDOM"
+        },
+        {
+          "specifier": "@base-ui/utils/useAnimationFrame",
+          "kind": "runtime",
+          "symbols": "{ useAnimationFrame }"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "kind": "runtime",
+          "symbols": "{ useStableCallback }"
+        },
+        {
+          "specifier": "../utils/resolveRef",
+          "kind": "runtime",
+          "symbols": "{ resolveRef }"
+        },
+        {
+          "specifier": "./TransitionStatusDataAttributes",
+          "kind": "runtime",
+          "symbols": "* as TransitionStatusDataAttributes"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/useAnimationFrame.ts",
+      "sourceSha256": "229943cee6d42305da4db33ed395ff8ccdde915c2e4e922c5af0c7b0aeeddf82",
+      "symbol": "AnimationFrame/useAnimationFrame",
+      "local": "packages/base/src/lib/utils/useAnimationFrame.ts",
+      "adaptation": "Source instance request/cancel/currentId/dispose/ref/mount shape; native rAF replaces source process-global framework scheduler. Scheduler timing/exception differences have zero parity credit.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "./useRefWithInit",
+        "./useOnMount"
+      ],
+      "importEdges": [
+        {
+          "specifier": "./useRefWithInit",
+          "kind": "runtime",
+          "symbols": "{ useRefWithInit }"
+        },
+        {
+          "specifier": "./useOnMount",
+          "kind": "runtime",
+          "symbols": "{ useOnMount }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/utils/resolveRef.ts",
+      "sourceSha256": "fb0a9525bf7c002fe9e82d5c74235c5620b0b83f106cdec67b77071a05140312",
+      "symbol": "resolveRef",
+      "local": "packages/base/src/lib/utils/resolveRef.ts",
+      "adaptation": "Original used function unchanged; native ref-object type.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [],
+      "importEdges": []
+    },
+    {
+      "source": "packages/react/src/internals/stateAttributesMapping.ts",
+      "sourceSha256": "722dc0fed9ce97ed42b5b59418a01596c99b0cb8c5c5bb638737878dfe2d43bc",
+      "symbol": "transitionStatusMapping",
+      "local": "packages/base/src/lib/internals/stateAttributesMapping.ts",
+      "adaptation": "Source mapping unchanged; native transition type path.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [
+        "./useTransitionStatus",
+        "./getStateAttributesProps",
+        "./TransitionStatusDataAttributes"
+      ],
+      "importEdges": [
+        {
+          "specifier": "./useTransitionStatus",
+          "kind": "type",
+          "symbols": "{ TransitionStatus }"
+        },
+        {
+          "specifier": "./getStateAttributesProps",
+          "kind": "type",
+          "symbols": "{ StateAttributesMapping }"
+        },
+        {
+          "specifier": "./TransitionStatusDataAttributes",
+          "kind": "runtime",
+          "symbols": "* as TransitionStatusDataAttributes"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/TransitionStatusDataAttributes.ts",
+      "sourceSha256": "cf240c33e54cbfae687b7f9b1bdaf7329c1cda7630481ca68d105723d75440d7",
+      "symbol": "TransitionStatusDataAttributes",
+      "local": "packages/base/src/lib/internals/TransitionStatusDataAttributes.ts",
+      "adaptation": "Exact source constants.",
+      "status": "source-checkpoint-executed-pending-independent-review",
+      "imports": [],
+      "importEdges": []
+    },
+    {
+      "source": "packages/react/src/internals/createBaseUIEventDetails.ts",
+      "sourceSha256": "77bdb11a11ef1dfe9bc1a82db4754766cffbb91c27c3aeaea215e4e07cec2b2d",
+      "symbol": "createChangeEventDetails/createGenericEventDetails/ReasonToEvent",
+      "local": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+      "adaptation": "Source business functions and event-reason conditional types; native Event and canonical shared EMPTY_OBJECT.",
+      "status": "source-checkpoint-pending-independent-review",
+      "imports": [
+        "@base-ui/utils/empty",
+        "./reasons"
+      ],
+      "importEdges": [
+        {
+          "specifier": "@base-ui/utils/empty",
+          "kind": "runtime",
+          "symbols": "{ EMPTY_OBJECT }"
+        },
+        {
+          "specifier": "./reasons",
+          "kind": "runtime",
+          "symbols": "{ REASONS }"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/reasons.ts",
+      "sourceSha256": "694b1512f2dd9c999e97899e1fe9ea0f189fbe8476fcbc0f957cd786806c4abf",
+      "symbol": "REASONS",
+      "local": "packages/base/src/lib/internals/reasons.ts",
+      "adaptation": "Original reexport shape; native module extensions.",
+      "status": "source-checkpoint-pending-independent-review",
+      "imports": [
+        "./reason-parts"
+      ],
+      "importEdges": [
+        {
+          "specifier": "./reason-parts",
+          "kind": "runtime",
+          "symbols": "* as REASONS"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/reason-parts.ts",
+      "sourceSha256": "1cddfb9a98326bc5e586c2bdb66fb3a58913038f8ee7368ec57bbaf972521e06",
+      "symbol": "reason constants",
+      "local": "packages/base/src/lib/internals/reason-parts.ts",
+      "adaptation": "Exact source constants reused.",
+      "status": "source-checkpoint-pending-independent-review",
+      "imports": [],
+      "importEdges": []
+    },
+    {
+      "source": "packages/react/src/internals/noop.ts",
+      "sourceSha256": "268edb20da01bc632fc8335f808298027500d577ad3872d340080c40a21fc3a0",
+      "symbol": "NOOP alias",
+      "local": "packages/base/src/lib/utils/empty.ts",
+      "adaptation": "Original alias points to same canonical shared NOOP; no redundant runtime facade.",
+      "status": "source-checkpoint-pending-independent-review",
+      "imports": [
+        "@base-ui/utils/empty"
+      ],
+      "importEdges": []
+    },
+    {
+      "source": "packages/react/src/field/control/FieldControlDataAttributes.ts",
+      "sourceSha256": "cbdf610a0e3492927587685b1d4f9bf8ae5ac2cba01e5f39e4001de9f9d0b1d3",
+      "symbol": "field validity attribute names",
+      "local": "packages/base/src/lib/internals/field-constants/constants.ts",
+      "adaptation": "Used exact valid/invalid string constants inlined; other state attrs generated by canonical source getStateAttributesProps.",
+      "status": "source-checkpoint-pending-independent-review",
+      "imports": [],
+      "importEdges": []
+    },
+    {
+      "source": "packages/react/src/field/index.ts",
+      "sourceSha256": "efd415bc76741a4543cb10a20a9cd75a478f4b0703cc3325c57f51f730634ca1",
+      "symbol": "Field public module/type exports",
+      "local": "packages/base/src/lib/field/index.ts",
+      "adaptation": "Source namespace/type relationships plus native named component exports.",
+      "status": "source-checkpoint-pending-independent-review",
+      "imports": [
+        "./index.parts",
+        "./root/FieldRoot",
+        "./label/FieldLabel",
+        "./description/FieldDescription",
+        "./error/FieldError",
+        "./control/FieldControl",
+        "./validity/FieldValidity",
+        "./item/FieldItem"
+      ],
+      "importEdges": []
+    },
+    {
+      "source": "packages/react/src/field/index.parts.ts",
+      "sourceSha256": "ed070b74dc6328c7dafcc7cec7eb427acab5ef9eab49e1120f0a8c2e49aad774",
+      "symbol": "Field parts",
+      "local": "packages/base/src/lib/field/index.parts.ts",
+      "adaptation": "Exact source part composition; native component filenames.",
+      "status": "source-checkpoint-pending-independent-review",
+      "imports": [
+        "./root/FieldRoot",
+        "./label/FieldLabel",
+        "./error/FieldError",
+        "./description/FieldDescription",
+        "./control/FieldControl",
+        "./validity/FieldValidity",
+        "./item/FieldItem",
+        "./root/FieldRoot"
+      ],
+      "importEdges": []
+    },
+    {
+      "source": "packages/react/src/form/index.ts",
+      "sourceSha256": "307b2a028920f531705827c9d9e43ea26193e734bffbac98170b9718f90ea9f8",
+      "symbol": "Form public exports",
+      "local": "packages/base/src/lib/form/index.ts",
+      "adaptation": "Source component and type export relationships.",
+      "status": "source-checkpoint-pending-independent-review",
+      "imports": [
+        "./Form",
+        "./Form"
+      ],
+      "importEdges": []
+    },
+    {
+      "source": "packages/react/src/fieldset/index.ts",
+      "sourceSha256": "36c6543f9c61ae7f71f9c87099264f055e8b5abefa4b6d386903e529547fad2c",
+      "symbol": "Fieldset public exports",
+      "local": "packages/base/src/lib/fieldset/index.ts",
+      "adaptation": "Source namespace/type relationships plus native named component exports.",
+      "status": "source-checkpoint-pending-independent-review",
+      "imports": [
+        "./index.parts",
+        "./root/FieldsetRoot",
+        "./legend/FieldsetLegend"
+      ],
+      "importEdges": []
+    },
+    {
+      "source": "packages/react/src/fieldset/index.parts.ts",
+      "sourceSha256": "d6ec23306755f49305be519fe7b0187c63bb4fdd48b23514c576e75ce2d14abe",
+      "symbol": "Fieldset parts",
+      "local": "packages/base/src/lib/fieldset/index.parts.ts",
+      "adaptation": "Exact source part composition; native component filenames.",
+      "status": "source-checkpoint-pending-independent-review",
+      "imports": [
+        "./root/FieldsetRoot",
+        "./legend/FieldsetLegend"
+      ],
+      "importEdges": []
+    },
+    {
+      "source": "packages/react/src/internals/types.ts",
+      "sourceSha256": "ed0c29125011488378a038fe179287809ef624d9d84389d83d7207b25e3d416a",
+      "symbol": "BaseUIComponentProps/WithBaseUIEvent",
+      "local": "packages/base/src/lib/internals/types.ts; packages/base/src/lib/dialog/types.ts; packages/base/src/lib/field/props.ts",
+      "adaptation": "Source business type relationships; native Snippet, Event, ClassValue, CSS string, attachment/ref representational boundaries. Shared renderer owns canonical rendering types.",
+      "status": "source-checkpoint-pending-independent-review",
+      "imports": [
+        "react",
+        "../types"
+      ],
+      "importEdges": [
+        {
+          "specifier": "react",
+          "kind": "type",
+          "symbols": "* as React"
+        },
+        {
+          "specifier": "../types",
+          "kind": "type",
+          "symbols": "{ BaseUIEvent, ComponentRenderFn, HTMLProps }"
+        }
+      ]
+    }
+  ],
+  "sharedUtilityDependency": {
+    "pr": "https://github.com/sveltery/base/pull/46",
+    "decision": "Canonical PR46 independently reviewed and normally merged; unchanged runtime inherited by reviewed source core.",
+    "liveCallbackFixSource": "72889961123096955875ade8b1b4b2062736c2fa",
+    "historicalSourceHead": "b3bdfb266b1a6e51eb77459d66f6c727eddfddac",
+    "historicalLocalCherryPicks": [
+      "d02624d",
+      "aafa25d",
+      "06e9a11",
+      "102a879"
+    ],
+    "sourceHead": "64662d38915f3a14260e38ed28d5e62a747ef23a",
+    "normalMainMerge": "ef1af34ccb4e4873e17713dc400101fb49ff1a48",
+    "historicalDecision": "PM authorized reviewable dependency integration; final merge gates remain pending"
+  },
+  "sharedRendererDependency": {
+    "pr": "https://github.com/sveltery/base/pull/47",
+    "status": "Canonical PR47 independently reviewed and normally merged; unchanged runtime inherited. Shared explicit-undefined type repair separately reviewed at8619e34.",
+    "historicalSourceHead": "e71d643afb22b4d3afd88f88b46caa4d0f102fd9",
+    "historicalLocalCherryPick": "26a2a1995eb34253bb37ebb9bbaf43732e94f781",
+    "sourceHead": "5bfb47f3aba7d39e2dbd34d59dcbcf7f4fe1768e",
+    "normalMainMerge": "cabcd911ac2ee9ab9b3874e1ce1022f90a487af0",
+    "historicalStatus": "canonical dependency consumed unchanged; final utility/render delivery and rebase pending"
+  },
+  "nativeExtensions": [
+    {
+      "local": "packages/base/src/lib/internals/field-control-name/FieldControlNameContext.ts",
+      "sourceSymbol": null,
+      "classification": "Sveltery native serialization context extension",
+      "businessNamePreserved": true,
+      "providerOptional": true,
+      "hasKitImportOrPrefixLogic": false,
+      "ordinaryDeclarationCredit": 0,
+      "tests": "packages/base/tests/dom/field-control-name.test.ts"
+    }
+  ],
+  "reviewRepairs": {
+    "supersededCandidate": "89a55125520efb0fa7b198b2a3e6c917a6174107",
+    "registrationCleanup": "Description, Error and useRegisteredLabelId capture the installed registration ID; simultaneous message replacement/removal and remaining-legend ownership are new supplemental regressions.",
+    "publicTypes": "Pinned schema-free Form.Values/default Form constraint and explicit-undefined own prop contracts restored; shared rendering class/style/render delta is type-only, not covered by the prior PR47 review.",
+    "ordinaryDeclarationCredit": 0,
+    "status": "Repair covered by fresh8619e34 full-closure review and runtime-identical8438374 local/public/browser/CI gates; ordinary credit0 and owner merge approval pending.",
+    "historicalStatus": "fresh-final-head-review-and-browser-gates-required"
+  },
+  "historicalResumedCheckpointEvidence": {
+    "libraryCheck": "0 errors/0 warnings, /tmp/field-source-resume-check1.log",
+    "focusedFieldDom": "79 passing executions, /tmp/field-source-resume-dom2.log",
+    "nativeInputDom": "108 passing executions after current dist rebuild, /tmp/field-resume-native1.log",
+    "ordinaryDeclarationCredit": 0,
+    "unresolved": [
+      "final utility/renderer delivery/rebase",
+      "complete source closure independent review",
+      "remote Form API runtime/types/consumers",
+      "Kit cancellation requirement",
+      "secured final browser/CI/public consumer gates"
+    ]
+  },
+  "boundedSourceCoreEvidence": {
+    "scope": "Complete Field/Form/Fieldset business closure and thin Input composition; remote API/B2/library parity remain incomplete",
+    "sourceTypeRepairHead": "8619e34f45619299ba45bd5572c89de3957e3116",
+    "runtimeIdenticalBudgetHead": "8438374fa5c5e6db2483932db77eeaf0592e5713",
+    "independentReview": {
+      "status": "clean source/native/maintainability full-closure review",
+      "originalModules": 70,
+      "localModules": 79,
+      "includesSharedTypeRepair": true
+    },
+    "localVerification": "Full verification, standards, builds, original type assertions, SSR/hydration, strict exact-optional installed public consumers and source/provenance checks passed",
+    "focusedSourceBrowser": {
+      "run": 37099273060,
+      "passed": 442,
+      "failed": 0
+    },
+    "wholeCI": {
+      "run": 37099273059,
+      "jobsPassed": 8,
+      "combinedBrowserPassed": 2020,
+      "workers": 1,
+      "retries": 0,
+      "sandbox": true
+    },
+    "historicalTimeout": {
+      "run": 37097630121,
+      "passedBeforeTimeout": 1919,
+      "collected": 2020,
+      "conclusion": "incomplete; no full acceptance"
+    },
+    "ordinaryDeclarationCredit": 0,
+    "pending": [
+      "Exact successor documentation/metadata standards, verification and configured review",
+      "Explicit PM approval before owner merge",
+      "Full typed remote API and actual remote-function acceptance in PR52; explicit proposed SDK49 opt-in remains separate"
+    ]
+  }
+}

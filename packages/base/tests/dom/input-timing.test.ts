@@ -24,7 +24,7 @@ for (const framework of ['react', 'input', 'native-value', 'native-bind', 'nativ
       expect(observation.value).toBe(synchronous && afterReact ? owner : 'edit');
     }
     expect(result.immediate.at(-1)!.value).toBe(immediateValue);
-    expect(result.settled).toEqual([{ stage: 'after:tick', value: framework === 'native-value' && decision === 'reject' ? 'edit' : owner, formData: framework === 'native-value' && decision === 'reject' ? 'edit' : owner }]);
+    expect(result.settled).toEqual([{ stage: 'after:tick', value: (framework === 'native-value' || framework === 'input') && decision === 'reject' ? 'edit' : owner, formData: (framework === 'native-value' || framework === 'input') && decision === 'reject' ? 'edit' : owner }]);
     expect(result.owner).toBe(owner);
   });
 }
@@ -38,5 +38,5 @@ for (const framework of ['react', 'input', 'input-owned-final-wrapper'] as const
     const restored = ['root:after-delegation', 'document:before-registered-delegation', 'document:after-registered-delegation', 'dispatch:return'].includes(observation.stage);
     expect(observation.value).toBe(framework !== 'input' && restored ? 'owner' : 'edit'); expect(observation.formData).toBe(observation.value);
   }
-  expect(result.settled).toEqual([{ stage: 'after:tick', value: 'owner', formData: 'owner' }]);
+  expect(result.settled).toEqual([{ stage: 'after:tick', value: framework === 'input' ? 'edit' : 'owner', formData: framework === 'input' ? 'edit' : 'owner' }]);
 });

@@ -1,0 +1,603 @@
+{
+  "upstream": {
+    "repository": "https://github.com/mui/base-ui",
+    "tag": "v1.8.0",
+    "commit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+    "license": "MIT"
+  },
+  "fixture": "packages/base/tests/dom/FieldValidationSourceFixture.svelte",
+  "fixtureSha256": "0a47514d2cf7c90bb341a2c9cf676a8605723d3a9888433aedd72b73cf25f666",
+  "scope": "Sixteen Error, five Validity and one Item complete ordinary native declaration adaptations. The stale-custom-error template remains one declaration with both onBlur/onSubmit executions (23 total). Native badInput and two Error animation declarations remain separately unported. No grouped supplement or skipped assertion earns ordinary credit.",
+  "ordinaryDeclarationSites": 22,
+  "nativeExecutions": 23,
+  "ordinaryDeclarationCredit": 0,
+  "ports": [
+    {
+      "id": "packages/react/src/field/error/FieldError.test.tsx:18",
+      "title": "should set aria-describedby on the control automatically",
+      "bodySha256": "b611a8879248debd889fb3cf93ff581d175cdf253be55f1e6f548baa0b370e5d",
+      "sourceAssertionLines": [
+        26
+      ],
+      "port": "packages/base/tests/dom/field-validation-source.test.ts",
+      "portDeclarationLine": 29,
+      "portBodySha256": "dd137f2f6b44c4f5b61fc71b1501365340fe5454754ec523e8bd31a8a57af398",
+      "portAssertionLines": [
+        30
+      ],
+      "fixture": "packages/base/tests/dom/FieldValidationSourceFixture.svelte",
+      "fixtureScenario": "error-aria",
+      "executions": [
+        "native"
+      ],
+      "adaptation": "JSX/React renderer/state become native Svelte fixtures and flushSync. React change events become native input events; focus/blur and submit click use actual DOM methods. Native attributes/text/list state implement DOM matchers; visible assertions retain ancestor style/hidden checks. Validity render callback and Item render state are observed through native snippets. Every source assertion and ordered interaction remains mapped.",
+      "status": "native-dom-port-passing-local-pending-final-gates",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "id": "packages/react/src/field/error/FieldError.test.tsx:32",
+      "title": "should show error messages by default",
+      "bodySha256": "9fad73814280b916275cdb007494d8c5793daeaee80bef96f1d37d617e36113d",
+      "sourceAssertionLines": [
+        43,
+        51,
+        54
+      ],
+      "port": "packages/base/tests/dom/field-validation-source.test.ts",
+      "portDeclarationLine": 32,
+      "portBodySha256": "7713521bf924dbdca66714200b889e664558aaaa953b5b124530d4eb77eaf246",
+      "portAssertionLines": [
+        33,
+        34,
+        35
+      ],
+      "fixture": "packages/base/tests/dom/FieldValidationSourceFixture.svelte",
+      "fixtureScenario": "error-show",
+      "executions": [
+        "native"
+      ],
+      "adaptation": "JSX/React renderer/state become native Svelte fixtures and flushSync. React change events become native input events; focus/blur and submit click use actual DOM methods. Native attributes/text/list state implement DOM matchers; visible assertions retain ancestor style/hidden checks. Validity render callback and Item render state are observed through native snippets. Every source assertion and ordered interaction remains mapped.",
+      "status": "native-dom-port-passing-local-pending-final-gates",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "id": "packages/react/src/field/error/FieldError.test.tsx:58",
+      "title": "should only render when `match` matches constraint validation",
+      "bodySha256": "e015946bf114f29c558a1278700f0be174f07899776a0971a9fe45499ad652ac",
+      "sourceAssertionLines": [
+        69,
+        72,
+        78,
+        81
+      ],
+      "port": "packages/base/tests/dom/field-validation-source.test.ts",
+      "portDeclarationLine": 37,
+      "portBodySha256": "44598604de9e16d3bdf67e01f133b49ae570c7a9a233b8ce5ae53487fe9940ac",
+      "portAssertionLines": [
+        38,
+        39,
+        40,
+        41
+      ],
+      "fixture": "packages/base/tests/dom/FieldValidationSourceFixture.svelte",
+      "fixtureScenario": "error-constraint",
+      "executions": [
+        "native"
+      ],
+      "adaptation": "JSX/React renderer/state become native Svelte fixtures and flushSync. React change events become native input events; focus/blur and submit click use actual DOM methods. Native attributes/text/list state implement DOM matchers; visible assertions retain ancestor style/hidden checks. Validity render callback and Item render state are observed through native snippets. Every source assertion and ordered interaction remains mapped.",
+      "status": "native-dom-port-passing-local-pending-final-gates",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "id": "packages/react/src/field/error/FieldError.test.tsx:84",
+      "title": "should show custom errors",
+      "bodySha256": "96908ab14ea660f1252c5f8c4b07a027d0aa5f1c9925b1318724afdb6941f0c9",
+      "sourceAssertionLines": [
+        100,
+        103
+      ],
+      "port": "packages/base/tests/dom/field-validation-source.test.ts",
+      "portDeclarationLine": 43,
+      "portBodySha256": "7abeae7cf9b05b0f13a363aea8c07dabd47e08d95ddd34319d08429527afde57",
+      "portAssertionLines": [
+        44,
+        45
+      ],
+      "fixture": "packages/base/tests/dom/FieldValidationSourceFixture.svelte",
+      "fixtureScenario": "error-custom",
+      "executions": [
+        "native"
+      ],
+      "adaptation": "JSX/React renderer/state become native Svelte fixtures and flushSync. React change events become native input events; focus/blur and submit click use actual DOM methods. Native attributes/text/list state implement DOM matchers; visible assertions retain ancestor style/hidden checks. Validity render callback and Item render state are observed through native snippets. Every source assertion and ordered interaction remains mapped.",
+      "status": "native-dom-port-passing-local-pending-final-gates",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "id": "packages/react/src/field/error/FieldError.test.tsx:106",
+      "title": "uses `match={false}` as the default slot for Form errors",
+      "bodySha256": "72e33a6a0002372046dd15e0ee744a63eff019a9a9b1dfc0235d7e90580ca11d",
+      "sourceAssertionLines": [
+        121,
+        122,
+        123,
+        124
+      ],
+      "port": "packages/base/tests/dom/field-validation-source.test.ts",
+      "portDeclarationLine": 47,
+      "portBodySha256": "254c41be8dde3a3b2dbe4a3c0be1dab1c4ccd282b3bf4f0dae79102455ee6026",
+      "portAssertionLines": [
+        48,
+        49,
+        49,
+        50
+      ],
+      "fixture": "packages/base/tests/dom/FieldValidationSourceFixture.svelte",
+      "fixtureScenario": "error-form-false",
+      "executions": [
+        "native"
+      ],
+      "adaptation": "JSX/React renderer/state become native Svelte fixtures and flushSync. React change events become native input events; focus/blur and submit click use actual DOM methods. Native attributes/text/list state implement DOM matchers; visible assertions retain ancestor style/hidden checks. Validity render callback and Item render state are observed through native snippets. Every source assertion and ordered interaction remains mapped.",
+      "status": "native-dom-port-passing-local-pending-final-gates",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "id": "packages/react/src/field/error/FieldError.test.tsx:127",
+      "title": "uses an omitted `match` as the default slot for Form errors",
+      "bodySha256": "e3ceea431943a5e013b24a09e9fc00895432dd43075fb79e12924e8e881b712e",
+      "sourceAssertionLines": [
+        142,
+        143,
+        144,
+        145
+      ],
+      "port": "packages/base/tests/dom/field-validation-source.test.ts",
+      "portDeclarationLine": 52,
+      "portBodySha256": "668caa4ea5ada90b0251afd22890e28bd025329fb6a32e1bbe2b6b9f75cbe82c",
+      "portAssertionLines": [
+        53,
+        54,
+        54,
+        55
+      ],
+      "fixture": "packages/base/tests/dom/FieldValidationSourceFixture.svelte",
+      "fixtureScenario": "error-form-omitted",
+      "executions": [
+        "native"
+      ],
+      "adaptation": "JSX/React renderer/state become native Svelte fixtures and flushSync. React change events become native input events; focus/blur and submit click use actual DOM methods. Native attributes/text/list state implement DOM matchers; visible assertions retain ancestor style/hidden checks. Validity render callback and Item render state are observed through native snippets. Every source assertion and ordered interaction remains mapped.",
+      "status": "native-dom-port-passing-local-pending-final-gates",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "id": "packages/react/src/field/error/FieldError.test.tsx:148",
+      "title": "uses the Field.Control name fallback for Form errors",
+      "bodySha256": "d9fedeb6373996c543788b50d963d4f52306c084c97cf2c5cabaaf5f3561e1e4",
+      "sourceAssertionLines": [
+        160,
+        161,
+        165,
+        166
+      ],
+      "port": "packages/base/tests/dom/field-validation-source.test.ts",
+      "portDeclarationLine": 57,
+      "portBodySha256": "f0a265823d375be69b2e50324003b9567a095b08ecf4f482fd5d2ad79be2c7be",
+      "portAssertionLines": [
+        58,
+        59,
+        60,
+        60
+      ],
+      "fixture": "packages/base/tests/dom/FieldValidationSourceFixture.svelte",
+      "fixtureScenario": "error-fallback",
+      "executions": [
+        "native"
+      ],
+      "adaptation": "JSX/React renderer/state become native Svelte fixtures and flushSync. React change events become native input events; focus/blur and submit click use actual DOM methods. Native attributes/text/list state implement DOM matchers; visible assertions retain ancestor style/hidden checks. Validity render callback and Item render state are observed through native snippets. Every source assertion and ordered interaction remains mapped.",
+      "status": "native-dom-port-passing-local-pending-final-gates",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "id": "packages/react/src/field/error/FieldError.test.tsx:169",
+      "title": "ignores inherited Form error properties",
+      "bodySha256": "4d553fc132be8451f061242e69e245204cb4832d6f5a5a11a86408ce0a88a398",
+      "sourceAssertionLines": [
+        179,
+        180
+      ],
+      "port": "packages/base/tests/dom/field-validation-source.test.ts",
+      "portDeclarationLine": 62,
+      "portBodySha256": "fa164b8cfeaaddea2e3ed87de441729e3e7e19e45af7ca2c22b74215e9b1b966",
+      "portAssertionLines": [
+        63,
+        63
+      ],
+      "fixture": "packages/base/tests/dom/FieldValidationSourceFixture.svelte",
+      "fixtureScenario": "error-inherited",
+      "executions": [
+        "native"
+      ],
+      "adaptation": "JSX/React renderer/state become native Svelte fixtures and flushSync. React change events become native input events; focus/blur and submit click use actual DOM methods. Native attributes/text/list state implement DOM matchers; visible assertions retain ancestor style/hidden checks. Validity render callback and Item render state are observed through native snippets. Every source assertion and ordered interaction remains mapped.",
+      "status": "native-dom-port-passing-local-pending-final-gates",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "id": "packages/react/src/field/error/FieldError.test.tsx:183",
+      "title": "renders Form error arrays as a list",
+      "bodySha256": "70ba1d4e59f1aae986c7e0223b3d1af056f04ddc429b60288ee0959b11b329a3",
+      "sourceAssertionLines": [
+        194,
+        195,
+        196,
+        197
+      ],
+      "port": "packages/base/tests/dom/field-validation-source.test.ts",
+      "portDeclarationLine": 65,
+      "portBodySha256": "c1a218ca017394bb83beae96320b2f0e954bd3070845cfe0dae427712b8cca48",
+      "portAssertionLines": [
+        67,
+        67,
+        68,
+        68
+      ],
+      "fixture": "packages/base/tests/dom/FieldValidationSourceFixture.svelte",
+      "fixtureScenario": "error-form-list",
+      "executions": [
+        "native"
+      ],
+      "adaptation": "JSX/React renderer/state become native Svelte fixtures and flushSync. React change events become native input events; focus/blur and submit click use actual DOM methods. Native attributes/text/list state implement DOM matchers; visible assertions retain ancestor style/hidden checks. Validity render callback and Item render state are observed through native snippets. Every source assertion and ordered interaction remains mapped.",
+      "status": "native-dom-port-passing-local-pending-final-gates",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "id": "packages/react/src/field/error/FieldError.test.tsx:200",
+      "title": "renders single-item Form error arrays as text",
+      "bodySha256": "fbd9543407e2c3705a44eeecf23f146a3ac7ca4bff422e0773949910bc8bee13",
+      "sourceAssertionLines": [
+        210,
+        211
+      ],
+      "port": "packages/base/tests/dom/field-validation-source.test.ts",
+      "portDeclarationLine": 70,
+      "portBodySha256": "19e933bc08c8d5cbe6a5b5b5b5a5de9b49cca37b278e326e19f5d3a86aefdedd",
+      "portAssertionLines": [
+        71,
+        71
+      ],
+      "fixture": "packages/base/tests/dom/FieldValidationSourceFixture.svelte",
+      "fixtureScenario": "error-form-single",
+      "executions": [
+        "native"
+      ],
+      "adaptation": "JSX/React renderer/state become native Svelte fixtures and flushSync. React change events become native input events; focus/blur and submit click use actual DOM methods. Native attributes/text/list state implement DOM matchers; visible assertions retain ancestor style/hidden checks. Validity render callback and Item render state are observed through native snippets. Every source assertion and ordered interaction remains mapped.",
+      "status": "native-dom-port-passing-local-pending-final-gates",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "id": "packages/react/src/field/error/FieldError.test.tsx:214",
+      "title": "renders client validation error arrays as a list",
+      "bodySha256": "ae3d6b24fb0ee28a6912b923e3a69e44f0000419586ef04ec91b5d1cc8a0355d",
+      "sourceAssertionLines": [
+        228,
+        229,
+        230,
+        231
+      ],
+      "port": "packages/base/tests/dom/field-validation-source.test.ts",
+      "portDeclarationLine": 73,
+      "portBodySha256": "a68acc20d93b89a27e93e7e22d4a0fa418045e57aef2ce574eff437babc8f9de",
+      "portAssertionLines": [
+        75,
+        75,
+        76,
+        76
+      ],
+      "fixture": "packages/base/tests/dom/FieldValidationSourceFixture.svelte",
+      "fixtureScenario": "error-client-list",
+      "executions": [
+        "native"
+      ],
+      "adaptation": "JSX/React renderer/state become native Svelte fixtures and flushSync. React change events become native input events; focus/blur and submit click use actual DOM methods. Native attributes/text/list state implement DOM matchers; visible assertions retain ancestor style/hidden checks. Validity render callback and Item render state are observed through native snippets. Every source assertion and ordered interaction remains mapped.",
+      "status": "native-dom-port-passing-local-pending-final-gates",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "id": "packages/react/src/field/error/FieldError.test.tsx:234",
+      "title": "does not register an empty error id",
+      "bodySha256": "adb2c11849268f90a1565344e87548c5c0a7c01b297fa19b1f3123c800eb778d",
+      "sourceAssertionLines": [
+        242
+      ],
+      "port": "packages/base/tests/dom/field-validation-source.test.ts",
+      "portDeclarationLine": 78,
+      "portBodySha256": "a5900f1a98c481e95b93c10b964dea8d6bc05f579a639d0e90122ad99fac3447",
+      "portAssertionLines": [
+        79
+      ],
+      "fixture": "packages/base/tests/dom/FieldValidationSourceFixture.svelte",
+      "fixtureScenario": "error-empty-id",
+      "executions": [
+        "native"
+      ],
+      "adaptation": "JSX/React renderer/state become native Svelte fixtures and flushSync. React change events become native input events; focus/blur and submit click use actual DOM methods. Native attributes/text/list state implement DOM matchers; visible assertions retain ancestor style/hidden checks. Validity render callback and Item render state are observed through native snippets. Every source assertion and ordered interaction remains mapped.",
+      "status": "native-dom-port-passing-local-pending-final-gates",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "id": "packages/react/src/field/error/FieldError.test.tsx:248",
+      "title": "ignores empty Form error arrays",
+      "bodySha256": "253a55a8342e50417f6aa958365dc3bbd62446498629f86173bc1ab52b59067d",
+      "sourceAssertionLines": [
+        258,
+        259
+      ],
+      "port": "packages/base/tests/dom/field-validation-source.test.ts",
+      "portDeclarationLine": 81,
+      "portBodySha256": "2729ff2f1a07041b7932c7ad30a48130f271440a0212721bd0838356c727c181",
+      "portAssertionLines": [
+        82,
+        82
+      ],
+      "fixture": "packages/base/tests/dom/FieldValidationSourceFixture.svelte",
+      "fixtureScenario": "error-empty-list",
+      "executions": [
+        "native"
+      ],
+      "adaptation": "JSX/React renderer/state become native Svelte fixtures and flushSync. React change events become native input events; focus/blur and submit click use actual DOM methods. Native attributes/text/list state implement DOM matchers; visible assertions retain ancestor style/hidden checks. Validity render callback and Item render state are observed through native snippets. Every source assertion and ordered interaction remains mapped.",
+      "status": "native-dom-port-passing-local-pending-final-gates",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "id": "packages/react/src/field/error/FieldError.test.tsx:262",
+      "title": "uses `match={false}` as the default slot for client validation errors",
+      "bodySha256": "becaaa8dc622ab72d038097d5c35fac01f7324801ff3031759a35342c97ade01",
+      "sourceAssertionLines": [
+        273,
+        277
+      ],
+      "port": "packages/base/tests/dom/field-validation-source.test.ts",
+      "portDeclarationLine": 84,
+      "portBodySha256": "c05bdcc3fea0ed13e648ec371006eafb9d6bba8196de10a5a1428efe928c4a56",
+      "portAssertionLines": [
+        85,
+        85
+      ],
+      "fixture": "packages/base/tests/dom/FieldValidationSourceFixture.svelte",
+      "fixtureScenario": "error-client-false",
+      "executions": [
+        "native"
+      ],
+      "adaptation": "JSX/React renderer/state become native Svelte fixtures and flushSync. React change events become native input events; focus/blur and submit click use actual DOM methods. Native attributes/text/list state implement DOM matchers; visible assertions retain ancestor style/hidden checks. Validity render callback and Item render state are observed through native snippets. Every source assertion and ordered interaction remains mapped.",
+      "status": "native-dom-port-passing-local-pending-final-gates",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "id": "packages/react/src/field/error/FieldError.test.tsx:280",
+      "title": "uses the client validation path for specific matches when Form errors are present",
+      "bodySha256": "4f93b54d461a7440863fc17346d710c3aef6428d6f83e4710cd25d31a490ef6f",
+      "sourceAssertionLines": [
+        294,
+        295,
+        296
+      ],
+      "port": "packages/base/tests/dom/field-validation-source.test.ts",
+      "portDeclarationLine": 87,
+      "portBodySha256": "84f4136c61bb8e699ae264db4334b8d2268585c4741d248cb211aacde5af3ad9",
+      "portAssertionLines": [
+        88,
+        89,
+        89
+      ],
+      "fixture": "packages/base/tests/dom/FieldValidationSourceFixture.svelte",
+      "fixtureScenario": "error-client-specific",
+      "executions": [
+        "native"
+      ],
+      "adaptation": "JSX/React renderer/state become native Svelte fixtures and flushSync. React change events become native input events; focus/blur and submit click use actual DOM methods. Native attributes/text/list state implement DOM matchers; visible assertions retain ancestor style/hidden checks. Validity render callback and Item render state are observed through native snippets. Every source assertion and ordered interaction remains mapped.",
+      "status": "native-dom-port-passing-local-pending-final-gates",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "id": "packages/react/src/field/error/FieldError.test.tsx:299",
+      "title": "always renders the error message when `match` is true",
+      "bodySha256": "b6c2796792ff7217e1723c1d39234d06b3ad6c809ac173289805136ffe67ca76",
+      "sourceAssertionLines": [
+        307
+      ],
+      "port": "packages/base/tests/dom/field-validation-source.test.ts",
+      "portDeclarationLine": 91,
+      "portBodySha256": "e1050962eb77db9e62988a9f14cbca2404ab522a791dcc7e56a6ee048db0dae1",
+      "portAssertionLines": [
+        92
+      ],
+      "fixture": "packages/base/tests/dom/FieldValidationSourceFixture.svelte",
+      "fixtureScenario": "error-always",
+      "executions": [
+        "native"
+      ],
+      "adaptation": "JSX/React renderer/state become native Svelte fixtures and flushSync. React change events become native input events; focus/blur and submit click use actual DOM methods. Native attributes/text/list state implement DOM matchers; visible assertions retain ancestor style/hidden checks. Validity render callback and Item render state are observed through native snippets. Every source assertion and ordered interaction remains mapped.",
+      "status": "native-dom-port-passing-local-pending-final-gates",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "id": "packages/react/src/field/item/FieldItem.test.tsx:22",
+      "title": "reflects disabled state on the item",
+      "bodySha256": "dd38da12af6bf8c368b8e01fb129854b6a7b9a7011609b3faaf2dcdf639bdd4d",
+      "sourceAssertionLines": [
+        38,
+        39
+      ],
+      "port": "packages/base/tests/dom/field-validation-source.test.ts",
+      "portDeclarationLine": 96,
+      "portBodySha256": "eede77965707ede40d86592aa21195567e09074d7fb4d42f301fe9dfc2029447",
+      "portAssertionLines": [
+        98,
+        98
+      ],
+      "fixture": "packages/base/tests/dom/FieldValidationSourceFixture.svelte",
+      "fixtureScenario": "item-disabled",
+      "executions": [
+        "native"
+      ],
+      "adaptation": "JSX/React renderer/state become native Svelte fixtures and flushSync. React change events become native input events; focus/blur and submit click use actual DOM methods. Native attributes/text/list state implement DOM matchers; visible assertions retain ancestor style/hidden checks. Validity render callback and Item render state are observed through native snippets. Every source assertion and ordered interaction remains mapped.",
+      "status": "native-dom-port-passing-local-pending-final-gates",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "id": "packages/react/src/field/validity/FieldValidity.test.tsx:11",
+      "title": "`surfaces valueMissing immediately after a stale custom error in ${validationMode} mode`",
+      "bodySha256": "df4014d78aaf5c98fc092a4b77a1935be6af807d8f14adb5419008290edf5054",
+      "sourceAssertionLines": [
+        39,
+        40,
+        41,
+        42,
+        47,
+        48,
+        51,
+        52,
+        53,
+        61,
+        62,
+        65,
+        66
+      ],
+      "port": "packages/base/tests/dom/field-validation-source.test.ts",
+      "portDeclarationLine": 103,
+      "portBodySha256": "a857b485f50a30faaf4154eff57b0528ed0590a7805ed75af7feb300ba385eef",
+      "portAssertionLines": [
+        107,
+        107,
+        108,
+        108,
+        110,
+        110,
+        111,
+        111,
+        112,
+        114,
+        114,
+        115,
+        115
+      ],
+      "fixture": "packages/base/tests/dom/FieldValidationSourceFixture.svelte",
+      "fixtureScenario": "validity-stale",
+      "executions": [
+        "onBlur",
+        "onSubmit"
+      ],
+      "adaptation": "JSX/React renderer/state become native Svelte fixtures and flushSync. React change events become native input events; focus/blur and submit click use actual DOM methods. Native attributes/text/list state implement DOM matchers; visible assertions retain ancestor style/hidden checks. Validity render callback and Item render state are observed through native snippets. Every source assertion and ordered interaction remains mapped.",
+      "status": "native-dom-port-passing-local-pending-final-gates",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "id": "packages/react/src/field/validity/FieldValidity.test.tsx:103",
+      "title": "should pass validity data",
+      "bodySha256": "9fe18f82c722d86b2dbf5856b2b69228a4a9f5a70a0fb59c4ad8b76f6a99188e",
+      "sourceAssertionLines": [
+        118,
+        122,
+        123,
+        124,
+        129,
+        130,
+        131
+      ],
+      "port": "packages/base/tests/dom/field-validation-source.test.ts",
+      "portDeclarationLine": 119,
+      "portBodySha256": "76e56b8a569531e4e963e58f4b74b91ac6244adc318061af6883533010b37421",
+      "portAssertionLines": [
+        121,
+        122,
+        122,
+        123,
+        124,
+        124,
+        124
+      ],
+      "fixture": "packages/base/tests/dom/FieldValidationSourceFixture.svelte",
+      "fixtureScenario": "validity-required",
+      "executions": [
+        "native"
+      ],
+      "adaptation": "JSX/React renderer/state become native Svelte fixtures and flushSync. React change events become native input events; focus/blur and submit click use actual DOM methods. Native attributes/text/list state implement DOM matchers; visible assertions retain ancestor style/hidden checks. Validity render callback and Item render state are observed through native snippets. Every source assertion and ordered interaction remains mapped.",
+      "status": "native-dom-port-passing-local-pending-final-gates",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "id": "packages/react/src/field/validity/FieldValidity.test.tsx:136",
+      "title": "should pass validity data",
+      "bodySha256": "6842b7309be23c1079c41961a8b06d4ab795f935a91fec87d649bd77f373fd16",
+      "sourceAssertionLines": [
+        148,
+        154,
+        155,
+        156
+      ],
+      "port": "packages/base/tests/dom/field-validation-source.test.ts",
+      "portDeclarationLine": 128,
+      "portBodySha256": "5359563e6f4aeb8e4831ae62697e212c15fade48aca1472d5ba00802f74b5123",
+      "portAssertionLines": [
+        130,
+        131,
+        131,
+        131
+      ],
+      "fixture": "packages/base/tests/dom/FieldValidationSourceFixture.svelte",
+      "fixtureScenario": "validity-required",
+      "executions": [
+        "native"
+      ],
+      "adaptation": "JSX/React renderer/state become native Svelte fixtures and flushSync. React change events become native input events; focus/blur and submit click use actual DOM methods. Native attributes/text/list state implement DOM matchers; visible assertions retain ancestor style/hidden checks. Validity render callback and Item render state are observed through native snippets. Every source assertion and ordered interaction remains mapped.",
+      "status": "native-dom-port-passing-local-pending-final-gates",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "id": "packages/react/src/field/validity/FieldValidity.test.tsx:159",
+      "title": "should correctly pass errors when validate function returns a string",
+      "bodySha256": "9121594d0f8014ce6df05ccb3dac13c43e7adb79868d34c2c89995d2f017da70",
+      "sourceAssertionLines": [
+        174,
+        175
+      ],
+      "port": "packages/base/tests/dom/field-validation-source.test.ts",
+      "portDeclarationLine": 133,
+      "portBodySha256": "db1021ca16f62b67bf805605f5c5295fed73d192347629e7a474f02128f1ee43",
+      "portAssertionLines": [
+        135,
+        135
+      ],
+      "fixture": "packages/base/tests/dom/FieldValidationSourceFixture.svelte",
+      "fixtureScenario": "validity-custom",
+      "executions": [
+        "native"
+      ],
+      "adaptation": "JSX/React renderer/state become native Svelte fixtures and flushSync. React change events become native input events; focus/blur and submit click use actual DOM methods. Native attributes/text/list state implement DOM matchers; visible assertions retain ancestor style/hidden checks. Validity render callback and Item render state are observed through native snippets. Every source assertion and ordered interaction remains mapped.",
+      "status": "native-dom-port-passing-local-pending-final-gates",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "id": "packages/react/src/field/validity/FieldValidity.test.tsx:178",
+      "title": "should correctly pass errors when validate function returns an array of strings",
+      "bodySha256": "2780642000ccb0d49d6b9bdc75f8982281b16ac060febe3ceb6ce0ee8fa7c189",
+      "sourceAssertionLines": [
+        193,
+        194
+      ],
+      "port": "packages/base/tests/dom/field-validation-source.test.ts",
+      "portDeclarationLine": 137,
+      "portBodySha256": "37768f46566a496c74caf03023b99c3a64105836576c3d9fb9f0cb3dfc2cc360",
+      "portAssertionLines": [
+        139,
+        139
+      ],
+      "fixture": "packages/base/tests/dom/FieldValidationSourceFixture.svelte",
+      "fixtureScenario": "validity-custom",
+      "executions": [
+        "native"
+      ],
+      "adaptation": "JSX/React renderer/state become native Svelte fixtures and flushSync. React change events become native input events; focus/blur and submit click use actual DOM methods. Native attributes/text/list state implement DOM matchers; visible assertions retain ancestor style/hidden checks. Validity render callback and Item render state are observed through native snippets. Every source assertion and ordered interaction remains mapped.",
+      "status": "native-dom-port-passing-local-pending-final-gates",
+      "ordinaryDeclarationCredit": 0
+    }
+  ]
+}

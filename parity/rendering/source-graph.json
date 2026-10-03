@@ -617,12 +617,12 @@
       },
       {
         "local": "packages/base/src/lib/internals/types.ts",
-        "sha256": "4706fb0c2fc29aa8312f0b22103a2fb88ab38bb126e7f3bb0b583091227634c2",
+        "sha256": "d20a002ee70ffc90ea8dbd4acefcb2923c79d69de94047aa521a90f8eadab817",
         "reachability": [
           "type"
         ],
         "category": "native-type-boundary",
-        "provenance": "Native Snippet/ClassValue/Event/symbol-keyed prop representations for the pinned Base UI rendering type scope.",
+        "provenance": "Native Snippet/ClassValue/Event/symbol-keyed prop representations for the pinned Base UI rendering type scope; PR41 restores the source class/style/render explicit-undefined contracts. Canonical runtime bodies remain unchanged.",
         "originalSources": [
           "packages/react/src/internals/types.ts",
           "packages/react/src/types/index.ts"

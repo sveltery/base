@@ -93,21 +93,21 @@
     },
     {
       "upstreamModule": "field",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "Field",
+      "evidence": "parity/field-form/source-correspondence.md"
     },
     {
       "upstreamModule": "fieldset",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "Fieldset",
+      "evidence": "parity/field-form/source-correspondence.md"
     },
     {
       "upstreamModule": "form",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "Form",
+      "evidence": "parity/field-form/source-correspondence.md"
     },
     {
       "upstreamModule": "input",
