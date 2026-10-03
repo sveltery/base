@@ -6795,7 +6795,7 @@
       "local": [
         {
           "local": "packages/base/src/lib/number-field/input/NumberFieldInput.svelte",
-          "sha256": "5240d8d5972a3cc64266eceee31c65c9c0498409ef8d7bfae7ef0eca6e277c95"
+          "sha256": "1bb1b9400b40989524a67034a85f4b8556be2d730c4759c033d50516b0567eb6"
         },
         {
           "local": "packages/base/src/lib/number-field/types.ts",
@@ -7072,7 +7072,7 @@
       "local": [
         {
           "local": "packages/base/src/lib/number-field/root/NumberFieldRoot.svelte",
-          "sha256": "1669133abc231b7184485b2278015df913b8a6253e6651d71e99cd8628001671"
+          "sha256": "83c5dbc1f0f96a71cb6732a298b71565a00709db87bbce5ba56337ec6cf782eb"
         },
         {
           "local": "packages/base/src/lib/number-field/types.ts",
@@ -10128,7 +10128,7 @@
       "local": [
         {
           "local": "packages/base/src/lib/number-field/root/NumberFieldRoot.svelte",
-          "sha256": "1669133abc231b7184485b2278015df913b8a6253e6651d71e99cd8628001671"
+          "sha256": "83c5dbc1f0f96a71cb6732a298b71565a00709db87bbce5ba56337ec6cf782eb"
         }
       ],
       "correspondence": "Native inputRevision rune invalidates formatted external text synchronization; actual source setValue calls it after the same cancellation/order branches.",
@@ -10580,7 +10580,7 @@
       "local": [
         {
           "local": "packages/base/src/lib/number-field/root/NumberFieldRoot.svelte",
-          "sha256": "1669133abc231b7184485b2278015df913b8a6253e6651d71e99cd8628001671"
+          "sha256": "83c5dbc1f0f96a71cb6732a298b71565a00709db87bbce5ba56337ec6cf782eb"
         }
       ],
       "correspondence": "Native live numeric/format readers and one same-interaction transient numeric slot preserve source commitValue write authority until DOM sync; no React render/ref tracking.",
@@ -10655,7 +10655,7 @@
       "local": [
         {
           "local": "packages/base/src/lib/number-field/input/NumberFieldInput.svelte",
-          "sha256": "5240d8d5972a3cc64266eceee31c65c9c0498409ef8d7bfae7ef0eca6e277c95"
+          "sha256": "1bb1b9400b40989524a67034a85f4b8556be2d730c4759c033d50516b0567eb6"
         },
         {
           "local": "packages/base/src/lib/utils/createLogOnce.ts",
@@ -13168,7 +13168,7 @@
       },
       {
         "local": "packages/base/src/lib/number-field/input/NumberFieldInput.svelte",
-        "sha256": "5240d8d5972a3cc64266eceee31c65c9c0498409ef8d7bfae7ef0eca6e277c95",
+        "sha256": "1bb1b9400b40989524a67034a85f4b8556be2d730c4759c033d50516b0567eb6",
         "reachability": [
           "runtime"
         ],
@@ -13273,7 +13273,7 @@
       },
       {
         "local": "packages/base/src/lib/number-field/root/NumberFieldRoot.svelte",
-        "sha256": "1669133abc231b7184485b2278015df913b8a6253e6651d71e99cd8628001671",
+        "sha256": "83c5dbc1f0f96a71cb6732a298b71565a00709db87bbce5ba56337ec6cf782eb",
         "reachability": [
           "runtime"
         ],

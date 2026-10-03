@@ -362,7 +362,7 @@
         return;
       }
 
-      let pastedData = '';
+      let pastedData: string;
 
       try {
         pastedData = event.clipboardData?.getData('text/plain') ?? '';

@@ -76,6 +76,7 @@
   const getAllowedNonNumericKeys = useStableCallback(() => {
     const parts = getFormatParts(locale, format);
 
+    // eslint-disable-next-line svelte/prefer-svelte-reactivity -- This pure per-call source whitelist is not reactive component state.
     const keys = new Set<string>(BASE_NON_NUMERIC_SYMBOLS);
     const addAll = (chars: readonly string[]) => chars.forEach((char) => keys.add(char));
 
