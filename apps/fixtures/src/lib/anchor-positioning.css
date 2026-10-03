@@ -6,3 +6,4 @@
 .anchor-positioning .floating { width: 140px; height: 70px; background: lightblue; max-width: var(--available-width); max-height: var(--available-height); }
 .anchor-positioning .arrow { width: 10px; height: 10px; background: navy; }
 .anchor-positioning .floating[data-closed=true] { display: none; }
+.anchor-positioning .floating.adaptive { transition-property: opacity; transition-duration: 100ms; }

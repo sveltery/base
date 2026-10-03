@@ -5,6 +5,7 @@
   let { scenario = 'default' }: { scenario?: string } = $props();
   let hydrated = $state(false);
   let open = $state(untrack(() => scenario !== 'closed'));
+  let exiting = $state(false);
   let direction = $state<'ltr' | 'rtl'>(untrack(() => scenario === 'logical' ? 'rtl' : 'ltr'));
   let domDirection = $state<'ltr' | 'rtl'>(untrack(() => scenario === 'rtl' || scenario === 'mismatch' ? 'rtl' : 'ltr'));
   let sideOffset = $state(0);
@@ -16,7 +17,9 @@
 </script>
 
 <main class="anchor-positioning" data-hydrated={hydrated}>
-  <button onclick={() => open = !open}>Toggle open</button>
+  <button onclick={() => { open = !open; exiting = false; }}>Toggle open</button>
+  <button onclick={() => { open = false; exiting = true; }}>Begin exit</button>
+  <button onclick={() => exiting = false}>Finish exit</button>
   <button onclick={() => sideOffset = 12}>Set offset</button>
   <button onclick={() => direction = direction === 'ltr' ? 'rtl' : 'ltr'}>Toggle provider direction</button>
   <button onclick={() => domDirection = domDirection === 'ltr' ? 'rtl' : 'ltr'}>Toggle DOM direction</button>
@@ -25,6 +28,6 @@
   <button onclick={() => realArrow = !realArrow}>Toggle arrow</button>
   <button onclick={() => shown = !shown}>Toggle foundation</button>
   <DirectionProvider {direction}>
-    {#if shown}<Probe {scenario} {open} {domDirection} {sideOffset} {replacement} {wide} {realArrow} />{/if}
+    {#if shown}<Probe {scenario} {open} mounted={open || exiting} {domDirection} {sideOffset} {replacement} {wide} {realArrow} />{/if}
   </DirectionProvider>
 </main>

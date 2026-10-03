@@ -1,5 +1,5 @@
 // Derived from Base UI 1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: parity/anchor-positioning/UPSTREAM_LICENSE.
-import { autoUpdate, flip, limitShift, offset, shift as floatingShift, size, type Middleware, type MiddlewareState, type Placement, type AutoUpdateOptions, type Side as PhysicalSide } from '@floating-ui/dom';
+import { autoUpdate, inline, flip, limitShift, offset, shift as floatingShift, size, type Middleware, type MiddlewareState, type Placement, type AutoUpdateOptions, type Side as PhysicalSide } from '@floating-ui/dom';
 import { getSide, getAlignment, getSideAxis } from '@floating-ui/utils';
 import { baseArrow as arrow } from './arrow.js';
 import { hide } from './hide.js';
@@ -32,12 +32,20 @@ function getOffsetData(state: MiddlewareState, sideParam: Side, isRtl: boolean) 
   return data;
 }
 
-export function createPositioningPolicy(options: AnchorPositioningOptions & { direction?: 'ltr' | 'rtl' }, getArrow: () => Element | null, isCurrent: (floating: HTMLElement) => boolean) {
+export function getPhysicalSide(side: Side, isRtl: boolean): PhysicalSide {
+  return ({
+    top: 'top', right: 'right', bottom: 'bottom', left: 'left',
+    'inline-end': isRtl ? 'left' : 'right',
+    'inline-start': isRtl ? 'right' : 'left',
+  } satisfies Record<Side, PhysicalSide>)[side];
+}
+
+export function createPositioningPolicy(options: AnchorPositioningOptions & { direction?: 'ltr' | 'rtl' }, getArrow: () => Element | null, isCurrent: (floating: HTMLElement) => boolean, mountSide: PhysicalSide | null = null) {
   const {
     positionMethod = 'absolute', side: sideParam = 'bottom', sideOffset = 0,
     align = 'center', alignOffset = 0, collisionBoundary,
     collisionPadding: collisionPaddingParam = 5, sticky = false, arrowPadding = 5,
-    collisionAvoidance, shift,
+    collisionAvoidance, shift, inline, adaptiveOrigin,
   } = options;
   const isRtl = options.direction === 'rtl';
   const collisionAvoidanceSide = collisionAvoidance.side || 'flip';
@@ -46,17 +54,7 @@ export function createPositioningPolicy(options: AnchorPositioningOptions & { di
   const shiftCrossAxis = shift?.crossAxis ?? false;
   const shiftRootBoundary = shift?.rootBoundary;
 
-  const side =
-    (
-      {
-        top: 'top',
-        right: 'right',
-        bottom: 'bottom',
-        left: 'left',
-        'inline-end': isRtl ? 'left' : 'right',
-        'inline-start': isRtl ? 'right' : 'left',
-      } satisfies Record<Side, PhysicalSide>
-    )[sideParam];
+  const side = mountSide || getPhysicalSide(sideParam, isRtl);
 
   const placement = align === 'center' ? side : (`${side}-${align}` as Placement);
 
@@ -100,6 +98,7 @@ export function createPositioningPolicy(options: AnchorPositioningOptions & { di
   } as const;
 
   const middleware: Array<Middleware | null | undefined> = [];
+  if (inline) middleware.push(inline);
   middleware.push(
     offset(
       (state) => {
@@ -284,6 +283,7 @@ export function createPositioningPolicy(options: AnchorPositioningOptions & { di
       },
     },
     hide,
+    adaptiveOrigin,
   );
 
   return { placement, strategy: positionMethod, middleware: middleware.filter((item): item is Middleware => item != null) };
@@ -298,4 +298,4 @@ export function getAutoUpdateOptions(floating: HTMLElement, disabled = false): A
     layoutShift: !disabled && typeof win?.IntersectionObserver !== 'undefined',
   };
 }
-export { autoUpdate };
+export { autoUpdate, inline };

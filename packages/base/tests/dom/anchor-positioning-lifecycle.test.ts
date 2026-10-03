@@ -77,6 +77,21 @@ describe('native anchor lifecycle supplements', () => {
     const style = controller.elements.floating!.style;
     expect([style.position, style.left, style.top, style.opacity, style.transform]).toEqual(['fixed', '0px', '0px', '0', '']);
   });
+  it('preserves positioned output throughout logical closing until mounted presence ends', async () => {
+    const { controller, component } = setup(); await settle();
+    let resolveExit!: (value: ReturnType<typeof computed>) => void;
+    engine.compute.mockImplementationOnce(() => new Promise(resolve => resolveExit = resolve));
+    component.setOptions({ ...base, open: false, mounted: true }); flushSync();
+    expect(controller.isPositioned).toBe(true);
+    expect(controller.elements.floating!.style.transform).toBe('translate(10px, 10px)');
+    expect(controller.elements.floating!.style.opacity).toBe('');
+    resolveExit(computed(20)); await settle(); await settle();
+    expect(controller.isPositioned).toBe(true);
+    expect(controller.elements.floating!.style.transform).toBe('translate(20px, 20px)');
+    component.setOptions({ ...base, open: false, mounted: false }); flushSync();
+    expect(controller.isPositioned).toBe(false);
+    expect(controller.elements.floating!.style.opacity).toBe('0');
+  });
   it('publishes the latest request only and cancels pending work on teardown', async () => {
     const { controller } = setup(); await settle();
     let resolveOlder!: (value: ReturnType<typeof computed>) => void;

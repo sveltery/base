@@ -3,7 +3,7 @@
     "repository": "https://github.com/mui/base-ui",
     "commit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c"
   },
-  "trace": "All imports recursively; named barrel edges resolve only the consumed symbols; namespace imports trace all namespace exports. Unused named reexports are not dependencies. Type-only source edges stay separate; non-type imports resolving interfaces/type aliases are type edges. All imports of reached source modules are included conservatively even if the imported function is not on the consumed path.",
+  "trace": "All imports recursively; named barrel edges resolve only the consumed symbols; namespace imports trace all namespace exports. Unused named reexports are not dependencies. Type-only source edges stay separate; non-type imports resolving interfaces/type aliases are type edges. All imports of reached source modules are included conservatively even if the imported function is not on the consumed path. Supplemental owned geometry root adaptiveOriginMiddleware.ts traced before porting; its Floating Middleware type resolves to the already-inspected external boundary.",
   "modules": [
     {
       "source": "packages/react/src/floating-ui-react/components/FloatingRootStore.ts",
@@ -1204,6 +1204,16 @@
         {
           "name": "createLatestRef",
           "kind": "FunctionDeclaration"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/utils/adaptiveOriginMiddleware.ts",
+      "sha256": "47962a9afe25fb86a4a001345099783fa3894d7ba3840b3b2f92c645998ea4c8",
+      "symbols": [
+        {
+          "name": "adaptiveOrigin",
+          "kind": "Variable"
         }
       ]
     }
@@ -2439,6 +2449,46 @@
       "via": "packages/react/src/utils/CommonPositionerCssVars.ts",
       "symbol": "*",
       "to": "packages/react/src/utils/CommonPositionerCssVars.ts",
+      "kind": "runtime"
+    },
+    {
+      "from": "packages/react/src/utils/adaptiveOriginMiddleware.ts",
+      "specifier": "@base-ui/utils/owner",
+      "via": "packages/utils/src/owner.ts",
+      "symbol": "ownerDocument",
+      "to": "packages/utils/src/owner.ts",
+      "kind": "runtime"
+    },
+    {
+      "from": "packages/react/src/utils/adaptiveOriginMiddleware.ts",
+      "specifier": "@base-ui/utils/owner",
+      "via": "packages/utils/src/owner.ts",
+      "symbol": "ownerWindow",
+      "to": "packages/utils/src/owner.ts",
+      "kind": "runtime"
+    },
+    {
+      "from": "packages/react/src/utils/adaptiveOriginMiddleware.ts",
+      "specifier": "@floating-ui/utils",
+      "via": "@floating-ui/utils",
+      "symbol": "getSide",
+      "to": "@floating-ui/utils",
+      "kind": "runtime"
+    },
+    {
+      "from": "packages/react/src/utils/adaptiveOriginMiddleware.ts",
+      "specifier": "../floating-ui-react",
+      "via": "@floating-ui/react-dom",
+      "symbol": "Middleware",
+      "to": "@floating-ui/react-dom",
+      "kind": "type"
+    },
+    {
+      "from": "packages/react/src/utils/adaptiveOriginMiddleware.ts",
+      "specifier": "./adaptiveOriginConstants",
+      "via": "packages/react/src/utils/adaptiveOriginConstants.ts",
+      "symbol": "DEFAULT_SIDES",
+      "to": "packages/react/src/utils/adaptiveOriginConstants.ts",
       "kind": "runtime"
     }
   ],

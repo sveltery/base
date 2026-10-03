@@ -1,5 +1,5 @@
 // Private, framework-neutral contract derived from Base UI 1.8.0; MIT: parity/anchor-positioning/UPSTREAM_LICENSE.
-import type { MiddlewareData, Padding, Placement, Rect, Strategy, VirtualElement } from '@floating-ui/dom';
+import type { Middleware, MiddlewareData, Padding, Placement, Rect, Strategy, VirtualElement } from '@floating-ui/dom';
 
 export type Side = 'top' | 'bottom' | 'left' | 'right' | 'inline-start' | 'inline-end';
 export type Align = 'start' | 'center' | 'end';
@@ -16,6 +16,7 @@ export type CollisionAvoidance =
   | { side: 'shift'; align?: 'shift' | 'none'; fallbackAxisSide?: 'start' | 'end' | 'none' };
 
 export interface AnchorPositioningOptions {
+  /** Logical popup state; geometry remains positioned through mounted exit presence. */
   open: boolean;
   /** Logical presence, including an exit transition; distinct from an attached keepMounted host. */
   mounted: boolean;
@@ -33,6 +34,12 @@ export interface AnchorPositioningOptions {
   arrowPadding?: number;
   disableAnchorTracking?: boolean;
   shift?: { crossAxis?: boolean; rootBoundary?: 'layoutViewport' };
+  /** Runs before offsets/collision policy, preserving the selected inline line box. */
+  inline?: Middleware;
+  /** Runs after hiding policy and selects the output coordinate edges. */
+  adaptiveOrigin?: Middleware;
+  /** Retain a collision-selected side until logical presence ends. */
+  lazyFlip?: boolean;
   /** Output adapter switch used by future Viewport consumers. */
   transform?: boolean;
 }

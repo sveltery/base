@@ -14,12 +14,12 @@ async function positioned(page: Page) {
 async function geometry(page: Page) {
   return page.getByTestId('floating').evaluate(node => {
     const floating = node.getBoundingClientRect();
-    const anchor = document.querySelector('[data-testid="anchor"]')!.getBoundingClientRect();
+    const anchor = (node.getRootNode() as Document | ShadowRoot).querySelector('[data-testid="anchor"]')!.getBoundingClientRect();
     const style = (node as HTMLElement).style;
     return { dx: floating.x - anchor.x, dy: floating.y - anchor.y, width: floating.width, height: floating.height,
       anchorWidth: style.getPropertyValue('--anchor-width'), anchorHeight: style.getPropertyValue('--anchor-height'),
       availableWidth: style.getPropertyValue('--available-width'), availableHeight: style.getPropertyValue('--available-height'),
-      origin: style.getPropertyValue('--transform-origin'), transform: style.transform, top: style.top, left: style.left, position: style.position };
+      origin: style.getPropertyValue('--transform-origin'), transform: style.transform, top: style.top, left: style.left, right: style.right, bottom: style.bottom, position: style.position };
   });
 }
 async function offsets(page: Page, dx: number, dy: number) {
@@ -113,6 +113,48 @@ for (const reference of [false, true]) {
     await page.evaluate(() => window.dispatchEvent(new Event('resize')));
     await expect(page.getByTestId('arrow')).toHaveCount(0); expect((await geometry(page)).origin).toBe('70px 0px');
     await setup(page, 'start', reference); await offsets(page, 0, 30); expect((await geometry(page)).origin).toBe('0% 0px');
+  });
+  test(`anchor foundation ${framework} preserves geometry and updates during mounted exit presence`, async ({ page }) => {
+    await setup(page, 'default', reference); await offsets(page, -30, 30);
+    await page.getByRole('button', { name: 'Begin exit', exact: true }).click();
+    await expect(page.getByTestId('floating')).toHaveAttribute('data-open', 'false');
+    await expect(page.getByTestId('floating')).toHaveAttribute('data-mounted', 'true');
+    await positioned(page); await offsets(page, -30, 30);
+    await page.getByRole('button', { name: 'Set offset', exact: true }).click(); await offsets(page, -30, 42);
+    await page.getByRole('button', { name: 'Finish exit', exact: true }).click();
+    await expect(page.getByTestId('floating')).toHaveAttribute('data-positioned', 'false');
+    expect(await geometry(page)).toMatchObject({ position: 'fixed', top: '0px', left: '0px', transform: '' });
+  });
+  test(`anchor foundation ${framework} inline line boxes run before measured offsets`, async ({ page }) => {
+    await setup(page, 'inline', reference); await offsets(page, -50, 30);
+    await expect.poll(async () => (await geometry(page)).anchorWidth).toBe('40px');
+    await expect.poll(async () => (await geometry(page)).anchorHeight).toBe('15px');
+    await page.getByRole('button', { name: 'Set offset', exact: true }).click(); await offsets(page, -50, 42);
+  });
+  test(`anchor foundation ${framework} adaptive origins preserve top and left geometry`, async ({ page }) => {
+    await setup(page, 'adaptive-top', reference); await offsets(page, -30, -70);
+    const top = await geometry(page);
+    expect(top.transform).toBe(''); expect(top.top).toBe(''); expect(top.bottom).toMatch(/^\d+(?:\.\d+)?px$/);
+    await setup(page, 'adaptive-left', reference); await offsets(page, -140, -20);
+    const left = await geometry(page);
+    expect(left.transform).toBe(''); expect(left.left).toBe(''); expect(left.right).toMatch(/^\d+(?:\.\d+)?px$/);
+  });
+  test(`anchor foundation ${framework} lazy flip retains collision side until presence resets`, async ({ page }) => {
+    await setup(page, 'lazy', reference); await offsets(page, -30, -70);
+    await page.getByRole('button', { name: 'Replace anchor', exact: true }).click();
+    await expect(page.getByTestId('floating')).toHaveAttribute('data-side', 'top'); await offsets(page, -30, -70);
+    await page.getByRole('button', { name: 'Toggle open', exact: true }).click();
+    await expect(page.getByTestId('floating')).toHaveAttribute('data-positioned', 'false');
+    await page.getByRole('button', { name: 'Toggle open', exact: true }).click();
+    await positioned(page); await expect(page.getByTestId('floating')).toHaveAttribute('data-side', 'bottom'); await offsets(page, -30, 30);
+  });
+  test(`anchor foundation ${framework} default DOM platform measures inside ShadowRoot and cleans up`, async ({ page }) => {
+    await page.goto(`/anchor-positioning?shadow${reference ? '&reference' : ''}`);
+    await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true'); await positioned(page); await offsets(page, -30, 30);
+    await page.getByRole('button', { name: 'Resize anchor', exact: true }).click(); await offsets(page, -15, 30);
+    await page.getByTestId('board').evaluate(node => { node.scrollTop = 100; }); await offsets(page, -15, 30);
+    await page.getByRole('button', { name: 'Toggle foundation', exact: true }).click(); await expect(page.getByTestId('floating')).toHaveCount(0);
+    await page.evaluate(() => window.dispatchEvent(new Event('resize')));
   });
   test(`anchor foundation ${framework} measures and rounds through the actual owner window`, async ({ page }) => {
     await page.goto(`/anchor-positioning?owner-window${reference ? '&reference' : ''}`);

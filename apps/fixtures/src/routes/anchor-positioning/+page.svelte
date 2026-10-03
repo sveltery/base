@@ -17,7 +17,12 @@
       win.document.head.append(style);
       node = win.document.createElement('div'); win.document.body.append(node);
     }
-    if (!node || (!data.reference && !data.ownerWindow)) return;
+    if (data.shadow && node) {
+      const shadow = node.attachShadow({ mode: 'open' });
+      const style = document.createElement('style'); style.textContent = fixtureCss; shadow.append(style);
+      node = document.createElement('div'); shadow.append(node);
+    }
+    if (!node || (!data.reference && !data.ownerWindow && !data.shadow)) return;
     const target = node; let stopped = false; let cleanup: (() => void) | undefined;
     if (!data.reference) {
       const component = mount(Fixture, { target, props: { scenario: data.scenario } });
@@ -29,4 +34,4 @@
     return () => { stopped = true; cleanup?.(); };
   });
 </script>
-{#if data.ownerWindow}<iframe title="Anchor owner window" style="width: 760px; height: 540px" bind:this={frame}></iframe>{:else if data.reference}<div bind:this={host}></div>{:else}<Fixture scenario={data.scenario} />{/if}
+{#if data.ownerWindow}<iframe title="Anchor owner window" style="width: 760px; height: 540px" bind:this={frame}></iframe>{:else if data.reference || data.shadow}<div bind:this={host}></div>{:else}<Fixture scenario={data.scenario} />{/if}
