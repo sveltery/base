@@ -1,3 +1,7 @@
+import type { Component, ComponentProps } from 'svelte';
+import { Field } from '../../../../packages/base/src/lib/field/index.js';
+import type { FieldRootProps } from '../../../../packages/base/src/lib/field/types.js';
+import type { TypedField } from '../../../../packages/base/src/lib/remote-forms/types.js';
 import type { RemoteForm, RemoteFormFields } from '@sveltejs/kit';
 import type { RemoteFieldArguments, RemoteFieldName, RemoteFieldRootProps } from '../../../../packages/base/src/lib/remote-forms/types.js';
 
@@ -19,6 +23,10 @@ type Input = {
 type Props = RemoteFieldRootProps<RemoteFormFields<Input>>;
 const accept = (_props: Props) => {};
 accept({ name: 'storageType', as: 'password' });
+accept({ name: 'storageType' });
+accept({ name: 'settings.quota' });
+// @ts-expect-error Without as, value is not a field state replacement.
+accept({ name: 'size', value: 42 });
 accept({ name: 'storageType', as: 'radio', value: 'cloud' });
 accept({ name: 'storageType', as: 'radio', value: 'another-string' });
 accept({ name: 'size', as: 'number' });
@@ -83,3 +91,11 @@ const helperName: RemoteFieldName<RemoteFormFields<{ title: string }>> = 'value'
 declare const remote: RemoteForm<Input, { saved: true }>;
 const same: RemoteFieldArguments<typeof remote.fields.size> = ['hidden', 42];
 void [other, notOther, third, badThird, nestedName, helperName, same];
+
+// A single broad runtime component safely implements every narrower schema-bound Root.
+type RuntimeRoot = Component<FieldRootProps & { as?: string | readonly unknown[]; value?: unknown }>;
+function bind<Fields>(Root: RuntimeRoot, namespace: Omit<typeof Field, 'Root'>): TypedField<Fields> {
+  return { ...namespace, Root };
+}
+const plain: ComponentProps<typeof Field.Root> = { name: 'external-library-name', invalid: true };
+void [bind, plain];

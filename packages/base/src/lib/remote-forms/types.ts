@@ -40,7 +40,7 @@ type Shorthand<Arguments> = Arguments extends readonly [infer Type extends strin
   : never;
 
 type Selection<Arguments> = Arguments extends readonly unknown[]
-  ? Shorthand<Arguments> | { as: Readonly<Arguments>; value?: never }
+  ? Shorthand<Arguments> | { as: Readonly<Arguments>; value?: never } | { as?: undefined; value?: never }
   : never;
 
 /** Logical leaf names use Kit's dotted object paths and bracketed array indices. */
@@ -49,7 +49,11 @@ export type RemoteFieldName<Fields> = FieldSelections<Fields> extends infer Sele
   : never;
 
 /** A field name selects the allowed `.as()` argument tuples for that exact accessor. */
-export type RemoteFieldRootProps<Fields> = Omit<FieldRootProps, 'name' | 'as' | 'value'> & FieldSelections<Fields>;
+export type RemoteFieldRootProps<Fields> = Omit<FieldRootProps, 'name' | 'as' | 'value'> & {
+  name: string;
+  as?: string | readonly unknown[];
+  value?: unknown;
+} & FieldSelections<Fields>;
 
 /** Other parts keep their real component types; only Root is narrowed by the remote fields. */
 export type TypedField<Fields, Namespace = typeof import('../field/index.parts.js')> = Omit<Namespace, 'Root'> & {
