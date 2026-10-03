@@ -2,6 +2,7 @@ import type { Snippet } from 'svelte';
 import type { ClassValue, HTMLInputAttributes } from 'svelte/elements';
 import type { FieldControlChangeEventDetails, FieldControlProps, FieldRootState } from '../field/types.js';
 import type { NativeStyle } from '../internals/nativeProps.js';
+import type { HTMLProps } from '../internals/types.js';
 import type { SwitchRootProps } from '../switch/types.js';
 
 type NativeInputAttributes = {
@@ -16,7 +17,7 @@ export interface RemoteControlState extends FieldRootState {
 
 /** Native attributes retain the source open-record contract. Only semantic
  * fields shared with checked families receive a concrete contextual type. */
-export type RemoteControlRenderProps = Record<string, unknown> & Pick<SwitchRootProps,
+export type RemoteControlRenderProps = HTMLProps & Pick<SwitchRootProps,
   'checked' | 'defaultChecked' | 'onCheckedChange' | 'name' | 'disabled' | 'required' | 'readOnly' | 'form' | 'inputRef' | 'nativeButton' | 'uncheckedValue'>;
 
 export interface RemoteControlProps extends Omit<SwitchRootProps, 'render' | 'children' | 'value' | 'class' | 'style' | Extract<keyof SwitchRootProps, `on:${string}`>>,

@@ -1,6 +1,64 @@
 // Exact pinned source-family witness and native supplements; MIT: parity/radio/UPSTREAM_LICENSE.
 import { expect, test } from '@playwright/test';
 for (const framework of ['react', 'svelte']) {
+  test(`${framework} nested Composite shared host preserves outer metadata, repeated updates and navigation`, async ({
+    page,
+  }) => {
+    await page.goto(
+      `/composite-nested${framework === 'react' ? '?reference=react' : ''}`,
+    );
+    await expect(page.locator('main[data-hydrated="true"]')).toBeVisible();
+    if (framework === 'react') {
+      await expect(page.locator('main')).toHaveAttribute(
+        'data-renderer',
+        '19.2.8/19.2.8',
+      );
+    }
+    const snapshots: unknown[] = [];
+    const readMap = async () =>
+      JSON.parse(await page.locator('#nested-map').innerText()) as Record<
+        string,
+        unknown
+      >[];
+    const assertOuter = async (phase: string) => {
+      await expect
+        .poll(async () =>
+          (await readMap()).find((item) => item.testId === 'shared'),
+        )
+        .toMatchObject({
+          owner: 'outer',
+          disabled: true,
+          focusableWhenDisabled: true,
+          index: 1,
+        });
+      await expect.poll(async () => (await readMap()).length).toBe(3);
+      await page.getByTestId('first').focus();
+      await page.getByTestId('first').press('ArrowRight');
+      await expect(page.getByTestId('shared')).toBeFocused();
+      snapshots.push({ phase, map: await readMap(), focused: 'shared' });
+    };
+    await assertOuter('mount');
+    for (let revision = 1; revision <= 3; revision += 1) {
+      await page.locator('#update-inner').click();
+      await assertOuter(`inner-update-${revision}`);
+    }
+    await page.locator('#toggle-shared').click();
+    await expect(page.getByTestId('shared')).toHaveCount(0);
+    await expect.poll(async () => (await readMap()).length).toBe(2);
+    snapshots.push({ phase: 'removed', map: await readMap() });
+    await page.locator('#toggle-shared').click();
+    await assertOuter('reinsert');
+    await page.locator('#replace-host').click();
+    await expect(page.getByTestId('shared')).toHaveJSProperty(
+      'tagName',
+      'SPAN',
+    );
+    await assertOuter('replace-host');
+    await test.info().attach('nested-composite-source-lifecycle', {
+      body: JSON.stringify({ framework, snapshots }),
+      contentType: 'application/json',
+    });
+  });
   const open = async (
     page: import('@playwright/test').Page,
     scenario = 'default',
@@ -15,6 +73,187 @@ for (const framework of ['react', 'svelte']) {
         '19.2.8/19.2.8',
       );
   };
+  test(`${framework} group descendant focus and containment preserve onBlur validation`, async ({
+    page,
+  }) => {
+    await open(page, 'onblur');
+    const field = page.locator('#field');
+    await expect(field).not.toHaveAttribute('data-focused');
+    await expect(field).not.toHaveAttribute('data-touched');
+    await expect(page.locator('#validation-calls')).toHaveText('0');
+    await page.getByTestId('radio-b').focus();
+    await expect(field).toHaveAttribute('data-focused', '');
+    await expect(field).not.toHaveAttribute('data-touched');
+    await page.getByTestId('radio-c').focus();
+    await expect(field).toHaveAttribute('data-focused', '');
+    await expect(field).not.toHaveAttribute('data-touched');
+    await expect(page.locator('#validation-calls')).toHaveText('0');
+    await expect(page.getByTestId('radio-b')).toHaveAttribute(
+      'aria-checked',
+      'true',
+    );
+    await page.locator('#submit').focus();
+    await expect(field).not.toHaveAttribute('data-focused');
+    await expect(field).toHaveAttribute('data-touched', '');
+    await expect(page.locator('#validation-calls')).toHaveText('1');
+    await expect(page.locator('#error')).toHaveText('Blur error: b');
+  });
+  for (const renderOverride of [false, true]) {
+    test(`${framework} group ${renderOverride ? 'rendered' : 'default'} focus consumer order, cancellation and currentTarget`, async ({
+      page,
+    }) => {
+      for (const prevent of [false, true]) {
+        await open(
+          page,
+          `focus-group-${renderOverride ? 'render' : 'default'}${prevent ? '-cancel' : ''}`,
+        );
+        const field = page.locator('#field');
+        const textbox = page.locator('#focus-textbox');
+        await textbox.evaluate((element) =>
+          (element as HTMLInputElement).setSelectionRange(5, 5),
+        );
+        await textbox.focus();
+        await expect(page.locator('#focus-calls')).toHaveText(
+          JSON.stringify([
+            {
+              phase: 'enter',
+              currentTarget: 'radio-group',
+              tag: renderOverride ? 'SECTION' : 'DIV',
+              focused: false,
+              touched: false,
+              selection: [5, 5],
+            },
+          ]),
+        );
+        if (prevent) await expect(field).not.toHaveAttribute('data-focused');
+        else await expect(field).toHaveAttribute('data-focused', '');
+        expect(
+          await textbox.evaluate((element) => {
+            const input = element as HTMLInputElement;
+            return [input.selectionStart, input.selectionEnd];
+          }),
+        ).toEqual(prevent ? [5, 5] : [0, 5]);
+        await page.locator('#submit').focus();
+        await expect(page.locator('#focus-calls')).toHaveText(
+          JSON.stringify([
+            {
+              phase: 'enter',
+              currentTarget: 'radio-group',
+              tag: renderOverride ? 'SECTION' : 'DIV',
+              focused: false,
+              touched: false,
+              selection: [5, 5],
+            },
+            {
+              phase: 'leave',
+              currentTarget: 'radio-group',
+              tag: renderOverride ? 'SECTION' : 'DIV',
+              focused: !prevent,
+              touched: false,
+              selection: prevent ? [5, 5] : [0, 5],
+            },
+          ]),
+        );
+        await expect(field).not.toHaveAttribute('data-focused');
+        if (prevent) await expect(field).not.toHaveAttribute('data-touched');
+        else await expect(field).toHaveAttribute('data-touched', '');
+        await expect(page.locator('#validation-calls')).toHaveText(
+          prevent ? '0' : '1',
+        );
+        await test
+          .info()
+          .attach(`group-focus-${prevent ? 'canceled' : 'accepted'}`, {
+            body: JSON.stringify(
+              {
+                framework,
+                renderOverride,
+                prevent,
+                callbacks: JSON.parse(
+                  (await page.locator('#focus-calls').textContent()) ?? '[]',
+                ),
+                validationCalls: Number(
+                  await page.locator('#validation-calls').textContent(),
+                ),
+              },
+              null,
+              2,
+            ),
+            contentType: 'application/json',
+          });
+      }
+    });
+  }
+  for (const mode of ['focus', 'arrow', 'cancel', 'disabled', 'readonly']) {
+    test(`${framework} nested textbox ${mode} focus preserves source roving and activation guards`, async ({
+      page,
+    }) => {
+      await open(page, `focus-item-${mode}`);
+      const field = page.locator('#field');
+      const textbox = page.locator('#focus-textbox');
+      await textbox.evaluate((element) =>
+        (element as HTMLInputElement).setSelectionRange(5, 5),
+      );
+      if (mode !== 'focus') {
+        await page.getByTestId('radio-b').dispatchEvent('keydown', {
+          key: 'ArrowRight',
+          ctrlKey: true,
+          bubbles: true,
+          cancelable: true,
+        });
+        await expect(field).toHaveAttribute('data-focused', '');
+      }
+      await textbox.focus();
+      await expect(page.locator('#focus-calls')).toHaveText('["radio-c"]');
+      await expect(page.getByTestId('radio-c')).toHaveAttribute(
+        'tabindex',
+        mode === 'cancel' ? '-1' : '0',
+      );
+      await expect(page.getByTestId('radio-b')).toHaveAttribute(
+        'tabindex',
+        mode === 'cancel' ? '0' : '-1',
+      );
+      expect(
+        await textbox.evaluate((element) => {
+          const input = element as HTMLInputElement;
+          return [input.selectionStart, input.selectionEnd];
+        }),
+      ).toEqual(mode === 'cancel' ? [5, 5] : [0, 5]);
+      await expect(
+        page.getByTestId(mode === 'arrow' ? 'radio-c' : 'radio-b'),
+      ).toHaveAttribute('aria-checked', 'true');
+      if (mode === 'arrow')
+        await expect(field).toHaveAttribute('data-touched', '');
+      else await expect(field).not.toHaveAttribute('data-touched');
+      const calls = await page.locator('#calls').textContent();
+      expect(JSON.parse(calls ?? '[]')).toHaveLength(mode === 'arrow' ? 1 : 0);
+      await test.info().attach('nested-focus-source-observations', {
+        body: JSON.stringify(
+          {
+            framework,
+            mode,
+            selection: await textbox.evaluate((element) => {
+              const input = element as HTMLInputElement;
+              return [input.selectionStart, input.selectionEnd];
+            }),
+            bTabindex: await page
+              .getByTestId('radio-b')
+              .getAttribute('tabindex'),
+            cTabindex: await page
+              .getByTestId('radio-c')
+              .getAttribute('tabindex'),
+            checked: mode === 'arrow' ? 'c' : 'b',
+            touched: await field.evaluate((element) =>
+              element.hasAttribute('data-touched'),
+            ),
+            calls: JSON.parse(calls ?? '[]'),
+          },
+          null,
+          2,
+        ),
+        contentType: 'application/json',
+      });
+    });
+  }
   for (const scenario of ['standalone-empty', 'standalone-nonempty']) {
     for (const action of ['visible', 'hidden']) {
       test(`${framework} ${scenario} ${action} activation preserves source Field touch contract`, async ({
@@ -74,15 +313,65 @@ for (const framework of ['react', 'svelte']) {
             (await input.getAttribute('data-native-events')) ?? '[]',
           ),
         };
-        expect(observations.nativeEvents).toEqual(
-          selected ? [] : ['input', 'change'],
-        );
         await test.info().attach('standalone-native-observations', {
           body: JSON.stringify(observations, null, 2),
           contentType: 'application/json',
         });
+        expect(observations.nativeEvents).toEqual(
+          selected || (framework === 'react' && action === 'hidden')
+            ? []
+            : ['input', 'change'],
+        );
       });
     }
+  }
+  for (const action of ['visible', 'hidden']) {
+    test(`${framework} literal controlled-false radio ${action} activation records native phase`, async ({
+      page,
+    }) => {
+      await open(page, 'standalone-nonempty');
+      const input = page.locator('#literal-input');
+      expect(await input.isChecked()).toBe(false);
+      await input.evaluate((element) => {
+        const input = element as HTMLInputElement;
+        input.dataset.nativeEvents = '[]';
+        for (const type of ['input', 'change']) {
+          input.addEventListener(type, () => {
+            input.dataset.nativeEvents = JSON.stringify([
+              ...JSON.parse(input.dataset.nativeEvents ?? '[]'),
+              type,
+            ]);
+          });
+        }
+      });
+      if (action === 'visible') await page.getByTestId('literal-radio').click();
+      else
+        await input.evaluate((element) =>
+          (element as HTMLInputElement).click(),
+        );
+      await expect(page.locator('#literal-calls')).toHaveText('1');
+      const observations = {
+        framework,
+        action,
+        checked: await input.isChecked(),
+        changeCallbacks: Number(
+          await page.locator('#literal-calls').textContent(),
+        ),
+        nativeEvents: JSON.parse(
+          (await input.getAttribute('data-native-events')) ?? '[]',
+        ),
+      };
+      await test.info().attach('literal-radio-native-observations', {
+        body: JSON.stringify(observations, null, 2),
+        contentType: 'application/json',
+      });
+      expect(observations.checked).toBe(framework === 'svelte');
+      // Measured before assigning the same native observer expectation to the
+      // source component: React's direct controlled-false activation differs.
+      expect(observations.nativeEvents).toEqual(
+        framework === 'react' && action === 'hidden' ? [] : ['input', 'change'],
+      );
+    });
   }
   test(`${framework} native hidden input CSS preserves source one-pixel geometry`, async ({
     page,

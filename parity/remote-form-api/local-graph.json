@@ -1,7 +1,7 @@
 {
   "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "ordinaryDeclarationCredit": 0,
-  "status": "implementation-checkpoint-awaiting-full-final-review",
+  "status": "actual-used-runtime-and-type-closure",
   "entries": [
     "packages/base/src/lib/form/Form.svelte",
     "packages/base/src/lib/remote-forms/index.parts.ts",
@@ -886,7 +886,7 @@
     },
     {
       "local": "packages/base/src/lib/field/props.ts",
-      "sha256": "a651c0f7ca9379f2e1153a3b758837f21910f7974c2cadc1187832a68ef7eda3",
+      "sha256": "ed3d25745d68f38c06c0f21ae46e9457147a07503e34ae52fd17dee7256d1357",
       "imports": [
         {
           "specifier": "svelte/elements",
@@ -897,6 +897,11 @@
           "specifier": "../dialog/types.js",
           "kind": "type",
           "resolved": "packages/base/src/lib/dialog/types.ts"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
         }
       ]
     },
@@ -1330,7 +1335,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
-      "sha256": "58ec383752005e6d8ba523465fae142b1078ef77bdcc61e548ffb1b4f485f017",
+      "sha256": "d0faf967447c35339c6ad06b8cc6218cf2002613844a4bdb7b1453fd5262afc3",
       "imports": [
         {
           "specifier": "../../../utils/useMergedRefs.js",
@@ -1487,7 +1492,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
-      "sha256": "c74699f875b45f04a747a92bb9a452c0695133ff415a4defa164ca2d12124d6d",
+      "sha256": "8db12d19818afe6509addc02e10a55082126da9be7a40d03f9a8f62a6e6b5d78",
       "imports": [
         {
           "specifier": "../../../utils/useStableCallback.js",
@@ -1795,7 +1800,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/labelable-provider/useAriaLabelledBy.svelte.ts",
-      "sha256": "116d1951d670c27e10d371ce535b5923c59002831971ffca9801a4ac6c69b566",
+      "sha256": "bfb47e6426f7df82b1738fb2dcbef7133166addc4a7d54a84deab26655f2bf0e",
       "imports": []
     },
     {
@@ -1888,7 +1893,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-      "sha256": "961f7c5dfbcc5beb0eae8c45174170e15b5c053b4c0eb8725b57f622dc5d0eed",
+      "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319",
       "imports": [
         {
           "specifier": "svelte",
@@ -2003,7 +2008,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/types.ts",
-      "sha256": "d20a002ee70ffc90ea8dbd4acefcb2923c79d69de94047aa521a90f8eadab817",
+      "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
       "imports": [
         {
           "specifier": "svelte",
@@ -2138,7 +2143,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/useRenderElement.ts",
-      "sha256": "f8f222b15896d43db235bdfd9498b2cb26d8d24c77ba1ea3626d54126791e281",
+      "sha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
       "imports": [
         {
           "specifier": "../utils/useMergedRefs.js",
@@ -2179,6 +2184,11 @@
           "specifier": "./nativeProps.js",
           "kind": "runtime",
           "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        },
+        {
+          "specifier": "./nativeRefAttachment.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts"
         },
         {
           "specifier": "./types.js",
@@ -2263,7 +2273,7 @@
     },
     {
       "local": "packages/base/src/lib/radio-group/RadioGroup.svelte",
-      "sha256": "0afb14aa88cf4c40d55490dc0d911f7591a606b401ce18f6b3f1cd153a87ea07",
+      "sha256": "703c7296c5980c2b029a05d024e4d01aadc577a1c0ca25b7a2b95cc48d37f5e5",
       "imports": [
         {
           "specifier": "../internals/composite/root/CompositeRoot.svelte",
@@ -2411,7 +2421,7 @@
     },
     {
       "local": "packages/base/src/lib/radio/root/RadioRoot.svelte",
-      "sha256": "10c8455458fb9a26c93cd28ad0c41caa1f8fca63e38d81aebb218dc75a65c18c",
+      "sha256": "e6a1b213f783d001f3fbe171fc8e51ee4b763ec1a3e0d3f7150bf6ecaa063622",
       "imports": [
         {
           "specifier": "../../internals/RenderElement.svelte",
@@ -2610,7 +2620,7 @@
     },
     {
       "local": "packages/base/src/lib/remote-forms/control.types.ts",
-      "sha256": "ee0dc541d8a117ea60bb3a30dd6128647078a4ec316ec7e9697b0479166c9b6d",
+      "sha256": "00cf77f4cb8b407b63862f741bb8249dcc32d6eaf78e99324a99f860c67c9874",
       "imports": [
         {
           "specifier": "svelte",
@@ -2631,6 +2641,11 @@
           "specifier": "../internals/nativeProps.js",
           "kind": "type",
           "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
         },
         {
           "specifier": "../switch/types.js",
@@ -2787,7 +2802,7 @@
     },
     {
       "local": "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte",
-      "sha256": "bb92a632985729ce56254f42e4476b53033b28f4fb57b5ab6fdea8d37bab4045",
+      "sha256": "8b7b061b7d5eb9767098431d4c3415b5446dbe5be74de175c03e98528547038c",
       "imports": [
         {
           "specifier": "../internals/RenderElement.svelte",
@@ -2913,6 +2928,11 @@
           "specifier": "svelte",
           "kind": "type",
           "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
         }
       ]
     },
@@ -2954,7 +2974,7 @@
     },
     {
       "local": "packages/base/src/lib/remote-forms/RemoteTextControl.svelte",
-      "sha256": "2dbb360477c7ad9b56d2d7a2bd2ef41e3f087843f7ad24685a2f0cd23419d6ec",
+      "sha256": "46a8443f2c9dafaef3dee6635550a8d76a6a275e12e6311e2ab726f8dcfeaa7f",
       "imports": [
         {
           "specifier": "../field/Control.svelte",
@@ -2990,17 +3010,27 @@
           "specifier": "./control.types.js",
           "kind": "type",
           "resolved": "packages/base/src/lib/remote-forms/control.types.ts"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
         }
       ]
     },
     {
       "local": "packages/base/src/lib/remote-forms/runtime.ts",
-      "sha256": "9ed35ac275d7af4458b76506ce8f8bfefd2329ac38613e4b47c0c33d49a6ad4d",
+      "sha256": "8e0b21e16d8706f7eb835c61df55e2caed81e86be2837006364721cf89806782",
       "imports": [
         {
           "specifier": "../form/types.js",
           "kind": "type",
           "resolved": "packages/base/src/lib/form/types.ts"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
         }
       ]
     },

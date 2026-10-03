@@ -468,14 +468,15 @@
       },
       {
         "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-        "sha256": "961f7c5dfbcc5beb0eae8c45174170e15b5c053b4c0eb8725b57f622dc5d0eed",
+        "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319",
         "reachability": [
           "runtime"
         ],
         "category": "native-framework-boundary",
-        "provenance": "Sveltery attachment publication/identity adapter; Svelte owns attach/detach lifetime and canonical useMergedRefs owns actual callback/object fanout.",
+        "provenance": "Sveltery native attachment publication/identity adapter. A private marker identifies only canonical library ref attachments for ordered source fanout; authored Svelte attachments retain native dependency tracking and lifetime. Svelte owns attach/detach, and unchanged canonical useMergedRefs owns callback/object cleanup.",
         "originalSources": [],
         "functions": [
+          "isNativeRefAttachment",
           "createRefAttachment"
         ],
         "imports": [
@@ -617,12 +618,12 @@
       },
       {
         "local": "packages/base/src/lib/internals/types.ts",
-        "sha256": "d20a002ee70ffc90ea8dbd4acefcb2923c79d69de94047aa521a90f8eadab817",
+        "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
         "reachability": [
           "type"
         ],
         "category": "native-type-boundary",
-        "provenance": "Native Snippet/ClassValue/Event/symbol-keyed prop representations for the pinned Base UI rendering type scope; PR41 restores the source class/style/render explicit-undefined contracts. Canonical runtime bodies remain unchanged.",
+        "provenance": "Native Snippet/ClassValue/Event/symbol-keyed prop representations for the pinned Base UI rendering type scope; PR41 restores the source class/style/render explicit-undefined contracts. Canonical runtime bodies remain unchanged. PR52 retains unknown string values and reuses the actual Svelte HTMLAttributes attachment symbol slot; the host generic is confined to native callbacks, with no runtime change.",
         "originalSources": [
           "packages/react/src/internals/types.ts",
           "packages/react/src/types/index.ts"
@@ -644,7 +645,8 @@
             "resolved": "external:svelte/elements",
             "runtimeNames": [],
             "typeNames": [
-              "ClassValue"
+              "ClassValue",
+              "HTMLAttributes"
             ]
           },
           {
@@ -669,7 +671,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/useRenderElement.ts",
-        "sha256": "f8f222b15896d43db235bdfd9498b2cb26d8d24c77ba1ea3626d54126791e281",
+        "sha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
         "reachability": [
           "runtime"
         ],
@@ -764,6 +766,15 @@
             "runtimeNames": [
               "mergeNativeStyles",
               "toNativeClass"
+            ],
+            "typeNames": []
+          },
+          {
+            "specifier": "./nativeRefAttachment.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+            "runtimeNames": [
+              "isNativeRefAttachment"
             ],
             "typeNames": []
           },
@@ -1071,6 +1082,20 @@
       ],
       "behavior": "Top-level primitive false/0/NaN/true/bigint stringifies; null/undefined remain absent; nested falsy values and unsupported nested primitives are omitted; arrays recursively flatten; object for-in includes inherited truthy keys. Each prop is normalized before unchanged source string concatenation. Empty-class SSR/client timing remains Svelte-owned.",
       "status": "Native reference/unit/actual rendered-host probes, zero unchanged Base UI assertion credit; fresh final-head source/native/maintainability review required."
+    },
+    "nativeRefCompositionRepair": {
+      "proposedPr": "https://github.com/sveltery/base/pull/50",
+      "previousHead": "3061aeb6512c2f1cbc38c67737da05e962b8b5ec",
+      "originalContract": "CompositeItem.tsx compositeRef before forwarded refs; identity-sensitive useCompositeListItem ref callback reattaches the complete chain on inner metadata changes. CompositeRoot.test.tsx1377-1416 retains outer metadata/navigation on a shared host.",
+      "repair": "Consume marked canonical ref attachments into the existing source useMergedRefsN lifecycle after inner refs. No registry algorithm, ownership stack, source fanout change or independent authored-attachment effect.",
+      "checks": [
+        "packages/base/tests/dom/composite-nested-source.test.ts",
+        "packages/base/tests/dom/forwarded-native-ref.test.ts",
+        "packages/base/tests/dom/shared-rendering-source.test.ts",
+        "packages/base/tests/dom/ref-contract.test.ts",
+        "tests/browser/radio.spec.ts"
+      ],
+      "status": "Implemented; fresh exact-head independent helper/source review and execution gates pending. Original graph and ordinary assertion credit unchanged."
     }
   }
 }

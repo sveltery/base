@@ -13,6 +13,8 @@
   const Group = RadioGroup<string | null>;
   let { scenario: scenarioProp = 'default' }: { scenario?: string } = $props();
   const scenario = untrack(() => scenarioProp);
+  const groupFocusScenario = scenario.startsWith('focus-group');
+  const itemFocusScenario = scenario.startsWith('focus-item');
   const initial = scenario.includes('empty') ? null : 'b';
   const controlled = scenario.startsWith('controlled');
   const ownerAccepts = !scenario.includes('reject');
@@ -39,6 +41,30 @@
   let calls = $state<unknown[]>([]);
   let ancestorClicks = $state(0);
   let submissions = $state<unknown[]>([]);
+  let validationCalls = $state(0);
+  let focusCalls = $state<unknown[]>([]);
+  function groupFocus(phase: string, event: FocusEvent & { preventBaseUIHandler(): void }) {
+    const host = event.currentTarget as HTMLElement;
+    const textbox = event.target as HTMLInputElement;
+    const field = document.querySelector('#field')!;
+    focusCalls.push({
+      phase,
+      currentTarget: host.id,
+      tag: host.tagName,
+      focused: field.hasAttribute('data-focused'),
+      touched: field.hasAttribute('data-touched'),
+      selection: [textbox.selectionStart, textbox.selectionEnd],
+    });
+    if (scenario.includes('cancel')) event.preventBaseUIHandler();
+  }
+  function itemFocus(event: FocusEvent & { preventBaseUIHandler(): void }) {
+    focusCalls.push((event.currentTarget as HTMLElement).getAttribute('data-testid'));
+    if (scenario.includes('cancel')) event.preventBaseUIHandler();
+  }
+  function validate(value: unknown) {
+    validationCalls += 1;
+    return `Blur error: ${String(value)}`;
+  }
   onMount(() => {
     hydrated = true;
   });
@@ -90,9 +116,14 @@
   }
 </script>
 {#snippet content()}
+  {#snippet groupHost(props: Record<string | symbol, unknown>, _state: unknown, children: import('svelte').Snippet | undefined)}
+    <section {...props as HTMLAttributes<HTMLElement>}>{@render children?.()}</section>
+  {/snippet}
   <Fieldset.Root disabled={current.fieldsetDisabled}>
     <Fieldset.Legend id="legend">Legend</Fieldset.Legend>
-    <Field.Root name={current.fieldName} id="field" invalid={current.invalid}>
+    <Field.Root name={current.fieldName} id="field" invalid={current.invalid}
+      validationMode={scenario === 'onblur' || groupFocusScenario ? 'onBlur' : undefined}
+      validate={scenario === 'onblur' || groupFocusScenario ? validate : undefined}>
       {#if current.label}<Field.Label id="group-label">Group</Field.Label>{/if}
       {#if current.description}<Field.Description id="description">Description</Field.Description>{/if}
       <Group
@@ -100,18 +131,23 @@
         value={current.controlled ? owner : undefined}
         disabled={current.disabled} readOnly={current.readOnly} required={current.required}
         name={current.groupName} onValueChange={changed} {inputRef} {form}
+        render={scenario.startsWith('focus-group-render') ? groupHost : undefined}
+        onfocusin={groupFocusScenario ? event => groupFocus('enter', event) : undefined}
+        onfocusout={groupFocusScenario ? event => groupFocus('leave', event) : undefined}
       >
         {#each current.items as value (value)}
           <Field.Item>
             <Field.Label id={`label-${value}`}>{value}</Field.Label>
-            <Radio.Root {value} id={`input-${value}`} data-testid={`radio-${value}`} nativeButton={current.nativeButton} disabled={current.disabledFirst && value === 'a'}>
+            <Radio.Root {value} id={`input-${value}`} data-testid={`radio-${value}`} nativeButton={current.nativeButton} disabled={current.disabledFirst && value === 'a'} onfocusin={itemFocusScenario ? itemFocus : undefined}>
               {#snippet render(props, _state, children)}
                 {#if current.nativeButton}<button {...props as HTMLAttributes<HTMLButtonElement>}>{@render children?.()}</button>{:else}<span {...props as HTMLAttributes<HTMLSpanElement>}>{@render children?.()}</span>{/if}
               {/snippet}
               <Radio.Indicator data-testid={`indicator-${value}`} keepMounted={current.keepMounted} />
+              {#if itemFocusScenario && value === 'c'}<input id="focus-textbox" type="text" value="hello" />{/if}
             </Radio.Root>
           </Field.Item>
         {/each}
+        {#if groupFocusScenario}<input id="focus-textbox" type="text" value="hello" />{/if}
       </Group>
       <Field.Error id="error" />
       <Field.Validity>{#snippet children(state)}<output id="validity">{JSON.stringify(state)}</output>{/snippet}</Field.Validity>
@@ -134,5 +170,7 @@
 <output id="ancestor-clicks">{ancestorClicks}</output>
 <output id="calls">{JSON.stringify(calls)}</output>
 <output id="submissions">{JSON.stringify(submissions)}</output>
+  <output id="validation-calls">{validationCalls}</output>
+  <output id="focus-calls">{JSON.stringify(focusCalls)}</output>
 {/if}
 </main>

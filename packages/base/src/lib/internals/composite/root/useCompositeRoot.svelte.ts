@@ -352,7 +352,7 @@ export function useCompositeRoot(
   function getProps(): HTMLProps {
     return {
       ref: useMergedRefs(rootRef, getParameters().rootRef),
-      onfocus(event: FocusEvent) {
+      onfocusin(event: FocusEvent) {
         const element = rootRef.current;
         const target = getTarget(event);
         if (!element || target == null || !isNativeInput(target)) return;

@@ -1992,12 +1992,42 @@
   },
   "sharedRendererDependency": {
     "pr": "https://github.com/sveltery/base/pull/47",
-    "status": "Canonical PR47 independently reviewed and normally merged; unchanged runtime inherited. Shared explicit-undefined type repair separately reviewed at8619e34.",
+    "status": "Canonical PR47 independently reviewed and normally merged; the bounded canonical native ref-order/lifetime repair normally delivered by PR50 at674b85c8 after approval5402081047. Shared explicit-undefined type repair separately reviewed at8619e34. Remote facade acceptance is separate.",
     "historicalSourceHead": "e71d643afb22b4d3afd88f88b46caa4d0f102fd9",
     "historicalLocalCherryPick": "26a2a1995eb34253bb37ebb9bbaf43732e94f781",
     "sourceHead": "5bfb47f3aba7d39e2dbd34d59dcbcf7f4fe1768e",
     "normalMainMerge": "cabcd911ac2ee9ab9b3874e1ce1022f90a487af0",
-    "historicalStatus": "canonical dependency consumed unchanged; final utility/render delivery and rebase pending"
+    "historicalStatus": "canonical dependency consumed unchanged; final utility/render delivery and rebase pending",
+    "nativeRefCompositionSuccessor": {
+      "pr": "https://github.com/sveltery/base/pull/50",
+      "previousHead": "3061aeb6512c2f1cbc38c67737da05e962b8b5ec",
+      "localBodies": [
+        {
+          "local": "packages/base/src/lib/internals/useRenderElement.ts",
+          "sha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9"
+        },
+        {
+          "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+          "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319"
+        }
+      ],
+      "change": "Canonical forwarded library ref attachments participate after inner refs in the same source cleanup/reattachment lifecycle. Authored attachment reactivity and bound-host publication remain native. Canonical source useMergedRefs algorithms and Field/Form runtime are unchanged.",
+      "status": "Bounded canonical source/native ref transport normally delivered; final remote facade closure review belongs to PR52.",
+      "historicalStatus": "Implemented pending fresh exact-head independent source/native/helper review and gates; earlier core evidence remains historical.",
+      "normalMainDelivery": {
+        "approvedHead": "041cfe4e4cd2329e2c32c49f7c64a32ac139f989",
+        "approvalReview": 5402081047,
+        "merge": "674b85c8f246274f29c9a06a22d550874e7b694f",
+        "parents": [
+          "f1277cd4bed6747865d9d617ca7adf5194e3c2ba",
+          "041cfe4e4cd2329e2c32c49f7c64a32ac139f989"
+        ],
+        "tree": "87420b2b84097829b8f9bbe9823e5fc9cf60cd47",
+        "approvedTreeIdentical": true,
+        "configuredReview": "quota-waived; not passed; parity/radio/review-waiver.json",
+        "ordinaryDeclarationCredit": 0
+      }
+    }
   },
   "nativeExtensions": [
     {
@@ -2016,7 +2046,7 @@
     "registrationCleanup": "Description, Error and useRegisteredLabelId capture the installed registration ID; simultaneous message replacement/removal and remaining-legend ownership are new supplemental regressions.",
     "publicTypes": "Pinned schema-free Form.Values/default Form constraint and explicit-undefined own prop contracts restored; shared rendering class/style/render delta is type-only, not covered by the prior PR47 review.",
     "ordinaryDeclarationCredit": 0,
-    "status": "Repair covered by fresh8619e34 full-closure review and runtime-identical8438374 local/public/browser/CI gates; ordinary credit0 and owner merge approval pending.",
+    "status": "Repair covered by fresh8619e34 full-closure review and runtime-identical8438374 local/public/browser/CI gates; bounded source-core normally merged ae07f45 after approval5399418213; ordinary credit0 and remote acceptance separate.",
     "historicalStatus": "fresh-final-head-review-and-browser-gates-required"
   },
   "historicalResumedCheckpointEvidence": {
@@ -2064,9 +2094,27 @@
     },
     "ordinaryDeclarationCredit": 0,
     "pending": [
+      "Complete runtime remote API and actual remote-function acceptance remain separate from the delivered source core, typed helper, checked families and SDK opt-in"
+    ],
+    "historicalCandidatePending": [
       "Exact successor documentation/metadata standards, verification and configured review",
       "Explicit PM approval before owner merge",
       "Full typed remote API and actual remote-function acceptance in PR52; explicit proposed SDK49 opt-in remains separate"
-    ]
+    ],
+    "normalMainDelivery": {
+      "approvedHead": "27e4707606e6ee239721ae17b89da51f5df5487a",
+      "approvalReview": 5399418213,
+      "merge": "ae07f45ed3e90418baf281f825480c0439a5308b",
+      "parents": [
+        "cabcd911ac2ee9ab9b3874e1ce1022f90a487af0",
+        "27e4707606e6ee239721ae17b89da51f5df5487a"
+      ],
+      "tree": "e3c6859802ae82e3f1605be87b89735ac0a17b8e",
+      "approvedTreeIdentical": true,
+      "finalMetadataStandardsJob": 111147785777,
+      "finalMetadataVerificationJob": 111147785914,
+      "configuredReview": 5966441369,
+      "scope": "Bounded source-core delivery; no remote API or ordinary assertion acceptance"
+    }
   }
 }

@@ -17,7 +17,7 @@ export function useCompositeItem(
       const isHighlighted = root.highlightedIndex === item.index();
       return {
         tabindex: isHighlighted ? 0 : -1,
-        onfocus() {
+        onfocusin() {
           root.onHighlightedIndexChange(item.index());
         },
         onmousemove() {

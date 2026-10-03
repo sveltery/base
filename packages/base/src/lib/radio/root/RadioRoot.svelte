@@ -109,7 +109,7 @@
       const input = inputRef.current;
       if (input) dispatchClickWithModifiers(input, event);
     },
-    onfocus(event: FocusEvent) {
+    onfocusin(event: FocusEvent) {
       if (event.defaultPrevented || disabled || readOnly || !group?.touched)
         return;
       inputRef.current?.click();

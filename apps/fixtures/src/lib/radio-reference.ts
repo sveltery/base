@@ -2,20 +2,31 @@
 import {
   createElement as h,
   useEffect,
+  useRef,
   useState,
   version as reactVersion,
+  type MouseEvent as ReactMouseEvent,
 } from 'react';
 import { version as reactDomVersion } from 'react-dom';
 import { createRoot } from 'react-dom/client';
-import { Radio } from '@base-ui/react/radio';
-import { RadioGroup } from '@base-ui/react/radio-group';
+import { Radio, type RadioRootProps } from '@base-ui/react/radio';
+import { RadioGroup, type RadioGroupProps } from '@base-ui/react/radio-group';
 import { Field } from '@base-ui/react/field';
 import { Fieldset } from '@base-ui/react/fieldset';
 import { Form } from '@base-ui/react/form';
 import { DirectionProvider } from '@base-ui/react/direction-provider';
+import { CompositeRoot } from '@base-ui/react/internals/composite';
 const Group = RadioGroup<string | null>;
-export function mountRadioReference(node: HTMLElement, scenario: string) {
+export function mountRadioReference(
+  node: HTMLElement,
+  scenario: string,
+  focusProps: Pick<RadioGroupProps<string | null>, 'onFocus' | 'onBlur'> = {},
+  renderOverride = false,
+  radioFocusProps: Pick<RadioRootProps, 'onFocus'> = {},
+) {
   function Fixture() {
+    const groupFocusScenario = scenario.startsWith('focus-group');
+    const itemFocusScenario = scenario.startsWith('focus-item');
     const initial = scenario.includes('empty') ? null : 'b';
     const controlled = scenario.startsWith('controlled');
     const cancel = scenario.includes('cancel');
@@ -33,6 +44,31 @@ export function mountRadioReference(node: HTMLElement, scenario: string) {
     const [calls, setCalls] = useState<unknown[]>([]);
     const [ancestorClicks, setAncestorClicks] = useState(0);
     const [submissions, setSubmissions] = useState<unknown[]>([]);
+    const literalInput = useRef<HTMLInputElement>(null);
+    const [literalCalls, setLiteralCalls] = useState(0);
+    const [validationCalls, setValidationCalls] = useState(0);
+    const [focusCalls, setFocusCalls] = useState<unknown[]>([]);
+    const observeGroupFocus =
+      (phase: string): RadioGroupProps<string | null>['onFocus'] =>
+      (event) => {
+        const textbox = event.target as unknown as HTMLInputElement;
+        const field = node.querySelector('#field')!;
+        const observation = {
+          phase,
+          currentTarget: event.currentTarget.id,
+          tag: event.currentTarget.tagName,
+          focused: field.hasAttribute('data-focused'),
+          touched: field.hasAttribute('data-touched'),
+          selection: [textbox.selectionStart, textbox.selectionEnd],
+        };
+        setFocusCalls((previous) => [...previous, observation]);
+        if (scenario.includes('cancel')) event.preventBaseUIHandler();
+      };
+    const observeItemFocus: RadioRootProps['onFocus'] = (event) => {
+      const currentTarget = event.currentTarget.getAttribute('data-testid');
+      setFocusCalls((previous) => [...previous, currentTarget]);
+      if (scenario.includes('cancel')) event.preventBaseUIHandler();
+    };
     if (scenario.startsWith('standalone-')) {
       return h(
         'main',
@@ -52,6 +88,33 @@ export function mountRadioReference(node: HTMLElement, scenario: string) {
             },
             'Standalone',
           ),
+        ),
+        h(
+          'section',
+          { 'aria-label': 'Literal React radio baseline' },
+          h(
+            'button',
+            {
+              type: 'button',
+              ...{ 'data-testid': 'literal-radio' },
+              onClick(event: ReactMouseEvent<HTMLButtonElement>) {
+                event.preventDefault();
+                literalInput.current?.click();
+              },
+            },
+            'Literal activation',
+          ),
+          h('input', {
+            id: 'literal-input',
+            ref: literalInput,
+            type: 'radio',
+            value: 'a',
+            checked: false,
+            hidden: true,
+            onClick: (event) => event.stopPropagation(),
+            onChange: () => setLiteralCalls((previous) => previous + 1),
+          }),
+          h('output', { id: 'literal-calls' }, literalCalls),
         ),
       );
     }
@@ -79,7 +142,21 @@ export function mountRadioReference(node: HTMLElement, scenario: string) {
             h(Fieldset.Legend, { id: 'legend' }, 'Legend'),
             h(
               Field.Root,
-              { name: 'choice', id: 'field' },
+              {
+                name: 'choice',
+                id: 'field',
+                validationMode:
+                  scenario.startsWith('onblur') || groupFocusScenario
+                    ? 'onBlur'
+                    : undefined,
+                validate:
+                  scenario.startsWith('onblur') || groupFocusScenario
+                    ? (value: unknown) => {
+                        setValidationCalls((previous) => previous + 1);
+                        return `Blur error: ${String(value)}`;
+                      }
+                    : undefined,
+              },
               h(Field.Label, { id: 'group-label' }, 'Group'),
               h(Field.Description, { id: 'description' }, 'Description'),
               h(
@@ -112,6 +189,17 @@ export function mountRadioReference(node: HTMLElement, scenario: string) {
                     )
                       setOwner(value);
                   },
+                  onFocus: groupFocusScenario
+                    ? observeGroupFocus('enter')
+                    : undefined,
+                  onBlur: groupFocusScenario
+                    ? observeGroupFocus('leave')
+                    : undefined,
+                  ...focusProps,
+                  render:
+                    renderOverride || scenario.startsWith('focus-group-render')
+                      ? h('section')
+                      : undefined,
                 },
                 items.map((value) =>
                   h(
@@ -127,14 +215,32 @@ export function mountRadioReference(node: HTMLElement, scenario: string) {
                         nativeButton,
                         disabled: disabledFirst && value === 'a',
                         render: nativeButton ? h('button') : h('span'),
+                        onFocus: itemFocusScenario
+                          ? observeItemFocus
+                          : undefined,
+                        ...radioFocusProps,
                       },
                       h(Radio.Indicator, {
                         ...{ 'data-testid': `indicator-${value}` },
                         keepMounted: scenario.includes('keep'),
                       }),
+                      itemFocusScenario && value === 'c'
+                        ? h('input', {
+                            id: 'focus-textbox',
+                            type: 'text',
+                            defaultValue: 'hello',
+                          })
+                        : null,
                     ),
                   ),
                 ),
+                groupFocusScenario
+                  ? h('input', {
+                      id: 'focus-textbox',
+                      type: 'text',
+                      defaultValue: 'hello',
+                    })
+                  : null,
               ),
               h(Field.Error, { id: 'error' }),
               h(Field.Validity, {
@@ -154,9 +260,30 @@ export function mountRadioReference(node: HTMLElement, scenario: string) {
       h('output', { id: 'ancestor-clicks' }, ancestorClicks),
       h('output', { id: 'calls' }, JSON.stringify(calls)),
       h('output', { id: 'submissions' }, JSON.stringify(submissions)),
+      h('output', { id: 'validation-calls' }, validationCalls),
+      h('output', { id: 'focus-calls' }, JSON.stringify(focusCalls)),
     );
   }
   const root = createRoot(node);
   root.render(h(Fixture));
+  return () => root.unmount();
+}
+
+export function mountCompositeFocusReference(
+  node: HTMLElement,
+  renderOverride: boolean,
+) {
+  const root = createRoot(node);
+  root.render(
+    h(CompositeRoot, {
+      props: [{ id: 'composite' }],
+      render: renderOverride ? h('section') : undefined,
+      children: h('input', {
+        id: 'textbox',
+        type: 'text',
+        defaultValue: 'hello',
+      }),
+    }),
+  );
   return () => root.unmount();
 }

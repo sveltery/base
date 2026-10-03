@@ -65,6 +65,8 @@ for (const renderer of ['react', 'svelte']) {
         // A rejected standalone nonempty activation keeps each renderer's native
         // checked behavior; no React restoration is introduced in Svelte.
         expect(input.checked).toBe(selected || renderer === 'svelte');
+        // JSDOM emits both events for nonempty direct React activation; secured
+        // Chromium and literal renderer witnesses are characterized separately.
         expect(nativeEvents).toEqual(selected ? [] : ['input', 'change']);
       });
     }
