@@ -128,7 +128,9 @@ for (const reference of [false, true]) {
   test(`anchor foundation ${framework} inline line boxes run before measured offsets`, async ({ page }) => {
     await setup(page, 'inline', reference); await offsets(page, -50, 30);
     await expect.poll(async () => (await geometry(page)).anchorWidth).toBe('40px');
-    await expect.poll(async () => (await geometry(page)).anchorHeight).toBe('15px');
+    // Floating core 1.8.0 inline() uses the last line's width for bottom placement
+    // while retaining first.top..last.bottom height for connected line boxes.
+    await expect.poll(async () => (await geometry(page)).anchorHeight).toBe('30px');
     await page.getByRole('button', { name: 'Set offset', exact: true }).click(); await offsets(page, -50, 42);
   });
   test(`anchor foundation ${framework} adaptive origins preserve top and left geometry`, async ({ page }) => {
