@@ -16,11 +16,11 @@
   let submitted = false;
   let submitCount = 0;
   const context: FormContext = {
-    get element() { return element; },
+    elementRef: { get current() { return element; }, set current(value) { element = value; } },
     get errors() { return errors ?? {}; },
     get validationMode() { return validationMode; },
-    get submitCount() { return submitCount; },
-    fields,
+    submitCountRef: { get current() { return submitCount; }, set current(value) { submitCount = value; } },
+    formRef: { current: { fields } },
     clearErrors(name) {
       if (!name || !errors || !Object.hasOwn(errors, name)) return;
       const next = { ...errors };
@@ -35,7 +35,7 @@
     for (const field of fields.values()) {
       if (field.validityData.state.valid !== false) continue;
       hasInvalid = true;
-      const control = field.control;
+      const control = field.controlRef.current;
       if (control) {
         const position = first ? control.compareDocumentPosition(first) : 0;
         if (!first || (!(position & 1) && (position & 4))) first = control;

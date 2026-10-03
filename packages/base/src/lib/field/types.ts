@@ -1,8 +1,9 @@
 // Base UI v1.8.0 Field adaptation; MIT: THIRD_PARTY_NOTICES.md.
 import type { Snippet } from 'svelte';
-import type { HTMLAttributes, HTMLLabelAttributes } from 'svelte/elements';
+import type { HTMLAttributes, HTMLLabelAttributes, HTMLInputAttributes, ClassValue } from 'svelte/elements';
+import type { ElementProps } from '../dialog/types.js';
+import type { BaseUIChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
 import type { NativeFieldProps } from './props.js';
-import type { InputProps, InputChangeEventReason, InputChangeEventDetails } from '../input/types.js';
 import type { FormValidationMode, FormValues } from '../form/types.js';
 export interface FieldRootState {
   disabled: boolean; touched: boolean; dirty: boolean; filled: boolean; focused: boolean; valid: boolean | null;
@@ -23,10 +24,16 @@ export type FieldRootProps = NativeFieldProps<FieldRootState, HTMLAttributes<HTM
   touched?: boolean;
   actionsRef?: { current: FieldRootActions | null };
 };
-export type FieldControlProps = InputProps;
+export type FieldControlProps = Omit<ElementProps<FieldControlState, HTMLInputAttributes>, 'class' | 'disabled' | 'value' | 'defaultValue'> & {
+  class?: ClassValue | ((state: FieldControlState) => ClassValue | undefined);
+  disabled?: boolean;
+  value?: string | number | readonly string[] | null;
+  defaultValue?: string | number | readonly string[] | null;
+  onValueChange?: (value: string, details: FieldControlChangeEventDetails) => void;
+};
 export type FieldControlState = FieldRootState;
-export type FieldControlChangeEventReason = InputChangeEventReason;
-export type FieldControlChangeEventDetails = InputChangeEventDetails;
+export type FieldControlChangeEventReason = 'none';
+export type FieldControlChangeEventDetails = BaseUIChangeEventDetails<FieldControlChangeEventReason>;
 export type FieldLabelState = FieldRootState;
 export type FieldLabelProps = NativeFieldProps<FieldLabelState, HTMLLabelAttributes> & { nativeLabel?: boolean };
 export type FieldDescriptionState = FieldRootState;
