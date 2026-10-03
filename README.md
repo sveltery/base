@@ -16,7 +16,7 @@ The [catalog ledger](docs/catalog.md) accounts for every pinned root export modu
 
 [Standalone Toggle](parity/toggle/README.md) adds controlled/uncontrolled pressed state with cancellable callbacks and disabled behavior. Its public root/subpath API is bounded; ToggleGroup, Toolbar and complete conformance remain deferred, and final-head acceptance is recorded in PR #27.
 
-[Standalone Input](docs/input.md) preserves a native input and native Svelte default/reset behavior, including direct SvelteKit remote form field spreads in fixtures. Input delegates to the real Field.Control, sharing Field/Form registration, optional contextual validation and label/message integration. Native input ownership stays with Svelte; the typed remote Field namespace is tracked separately in [PR52](https://github.com/sveltery/base/pull/52).
+[Standalone Input](docs/input.md) preserves a native input and native Svelte default/reset behavior, including direct SvelteKit remote form field spreads in fixtures. Input delegates to the real Field.Control, sharing Field/Form registration, optional contextual validation and label/message integration. Native input ownership stays with Svelte. The [typed remote Field namespace](docs/field-form.md#using-a-remote-form) adds accessor-derived names, bare controls and real Switch render overrides; its bounded delivery evidence is recorded separately in [PR52](https://github.com/sveltery/base/pull/52).
 
 [Progress](docs/progress.md) adds Root, Label, Track, Indicator and Value against the immutable v1.8.0 pin. Its [dedicated declaration and conformance evidence](parity/progress/README.md) remains separately accounted; final-head acceptance is recorded in PR #28.
 

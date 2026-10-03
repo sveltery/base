@@ -29,6 +29,6 @@ while(queue.length) {
  visit(ast);
  records.set(file,{local:file,sha256:createHash('sha256').update(text).digest('hex'),imports});
 }
-const output={pin:'47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c',ordinaryDeclarationCredit:0,status:'implementation-checkpoint-awaiting-full-final-review',entries,sourceRecords:['../field-form/source-correspondence.json','../boolean-controls/source-correspondence.json','../radio/source-correspondence.json','../rendering/source-graph.json','../shared-utils/source-graph.json'],records:[...records.values()].sort((a,b)=>a.local.localeCompare(b.local))};
+const output={pin:'47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c',ordinaryDeclarationCredit:0,status:'actual-used-runtime-and-type-closure',entries,sourceRecords:['../field-form/source-correspondence.json','../boolean-controls/source-correspondence.json','../radio/source-correspondence.json','../rendering/source-graph.json','../shared-utils/source-graph.json'],records:[...records.values()].sort((a,b)=>a.local.localeCompare(b.local))};
 writeFileSync(root+'/parity/remote-form-api/local-graph.json',JSON.stringify(output,null,2)+'\n');
 console.log(`${records.size} actual used runtime/type modules`);

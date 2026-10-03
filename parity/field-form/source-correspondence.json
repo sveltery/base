@@ -1992,7 +1992,7 @@
   },
   "sharedRendererDependency": {
     "pr": "https://github.com/sveltery/base/pull/47",
-    "status": "Canonical PR47 independently reviewed and normally merged. Core inherited that runtime unchanged; proposed PR50 adds a separate bounded source ref-order/lifetime fidelity repair, pending fresh final-head helper review and gates. Shared explicit-undefined type repair separately reviewed at8619e34.",
+    "status": "Canonical PR47 independently reviewed and normally merged; the bounded canonical native ref-order/lifetime repair normally delivered by PR50 at674b85c8 after approval5402081047. Shared explicit-undefined type repair separately reviewed at8619e34. Remote facade acceptance is separate.",
     "historicalSourceHead": "e71d643afb22b4d3afd88f88b46caa4d0f102fd9",
     "historicalLocalCherryPick": "26a2a1995eb34253bb37ebb9bbaf43732e94f781",
     "sourceHead": "5bfb47f3aba7d39e2dbd34d59dcbcf7f4fe1768e",
@@ -2012,7 +2012,21 @@
         }
       ],
       "change": "Canonical forwarded library ref attachments participate after inner refs in the same source cleanup/reattachment lifecycle. Authored attachment reactivity and bound-host publication remain native. Canonical source useMergedRefs algorithms and Field/Form runtime are unchanged.",
-      "status": "Implemented pending fresh exact-head independent source/native/helper review and gates; earlier core evidence remains historical."
+      "status": "Bounded canonical source/native ref transport normally delivered; final remote facade closure review belongs to PR52.",
+      "historicalStatus": "Implemented pending fresh exact-head independent source/native/helper review and gates; earlier core evidence remains historical.",
+      "normalMainDelivery": {
+        "approvedHead": "041cfe4e4cd2329e2c32c49f7c64a32ac139f989",
+        "approvalReview": 5402081047,
+        "merge": "674b85c8f246274f29c9a06a22d550874e7b694f",
+        "parents": [
+          "f1277cd4bed6747865d9d617ca7adf5194e3c2ba",
+          "041cfe4e4cd2329e2c32c49f7c64a32ac139f989"
+        ],
+        "tree": "87420b2b84097829b8f9bbe9823e5fc9cf60cd47",
+        "approvedTreeIdentical": true,
+        "configuredReview": "quota-waived; not passed; parity/radio/review-waiver.json",
+        "ordinaryDeclarationCredit": 0
+      }
     }
   },
   "nativeExtensions": [
