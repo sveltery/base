@@ -24,6 +24,7 @@
   import { useLabelableId } from "../../internals/labelable-provider/useLabelableId.svelte.js";
   import { useBaseUiId } from "../../internals/useBaseUiId.js";
   import RenderElement from "../../internals/RenderElement.svelte";
+  import type { HTMLProps } from "../../internals/types.js";
   import { useValueChanged } from "../../internals/useValueChanged.svelte.js";
   import {
     createChangeEventDetails,
@@ -32,6 +33,7 @@
   import { REASONS } from "../../internals/reasons.js";
   import { setOTPFieldRootContext } from "./OTPFieldRootContext.js";
   import { rootStateAttributesMapping } from "../utils/stateAttributesMapping.js";
+  import OTPFieldNativeInput from "../utils/OTPFieldNativeInput.svelte";
   import {
     getOTPValidationConfig,
     normalizeOTPValue,
@@ -451,6 +453,9 @@
   }
 </script>
 <RenderElement tag="div" {componentProps} {params} {children} />
+{#snippet nativeHiddenInput(supplied: HTMLProps)}
+  <OTPFieldNativeInput {supplied} />
+{/snippet}
 {#if hasValidLength}
-  <RenderElement tag="input" params={{ ref: field.validation.inputRef, props: hiddenInputProps }} />
+  <RenderElement tag="input" componentProps={{ render: nativeHiddenInput }} params={{ ref: field.validation.inputRef, props: hiddenInputProps }} />
 {/if}

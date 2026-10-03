@@ -173,6 +173,36 @@ for (const framework of ["react", "svelte"]) {
       2,
     );
   });
+  for (const [scenario, raw, expected, phases, patternMismatch] of [
+    ["complete", "123x456", "123456", ["invalid"], false],
+    ["cancel", "34", "12", ["change"], true],
+  ] as const) {
+    it(`${framework} source/native OTP hidden ${scenario} autofill preserves authoritative serialization`, async () => {
+      const s = setup(scenario);
+      s.run(() => {
+        Object.getOwnPropertyDescriptor(
+          HTMLInputElement.prototype,
+          "value",
+        )!.set!.call(s.hidden(), raw);
+        s.hidden().dispatchEvent(
+          new InputEvent("input", {
+            bubbles: true,
+            inputType: "insertReplacementText",
+            data: raw,
+          }),
+        );
+      });
+      await tick();
+      expect(s.values()).toBe(expected);
+      expect(s.hidden().value).toBe(expected);
+      expect(new FormData(s.host.querySelector("form")!).get("otp")).toBe(
+        expected,
+      );
+      expect(s.hidden().validity.patternMismatch).toBe(patternMismatch);
+      expect(s.calls().map((call) => call.phase)).toEqual(phases);
+      expect(s.calls()[0].value).toBe(raw);
+    });
+  }
   it(`${framework} source/native OTP canceled typing with native binding`, async () => {
     const s = setup("cancel");
     s.focus(0);

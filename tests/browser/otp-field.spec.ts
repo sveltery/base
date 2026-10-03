@@ -303,6 +303,94 @@ for (const framework of ["react", "svelte"]) {
     expect(await values(page)).toBe("");
     await expect(slots(page).last()).toBeFocused();
   });
+  for (const trusted of [false, true]) {
+    for (const canceled of [false, true]) {
+      test(`${framework} OTP hidden ${trusted ? "trusted insertion" : "untrusted autofill"} ${canceled ? "cancellation" : "unchanged normalization"} preserves serialization and validity`, async ({
+        page,
+      }) => {
+        const scenario = canceled
+          ? "cancel"
+          : trusted
+            ? "normalize-complete"
+            : "complete";
+        const raw = canceled ? "34" : trusted ? "abcdef" : "123x456";
+        const expected = canceled ? "12" : trusted ? "ABCDEF" : "123456";
+        await open(page, scenario);
+        await hidden(page).evaluate((node) => {
+          node.addEventListener(
+            "input",
+            (event) => {
+              const input = node as HTMLInputElement;
+              input.dataset.witnessRaw = input.value;
+              input.dataset.witnessTrusted = String(event.isTrusted);
+            },
+            { capture: true, once: true },
+          );
+        });
+        if (trusted) {
+          await hidden(page).evaluate((node) => {
+            // The hidden input normally hands focus to slot0. Suppress only that
+            // focus event while driving real Chrome text insertion into this host.
+            const keepFocus = (event: Event) => {
+              if (event.target === node) event.stopImmediatePropagation();
+            };
+            for (const type of ["focus", "focusin"])
+              document.addEventListener(type, keepFocus, true);
+            const input = node as HTMLInputElement;
+            input.focus();
+            for (const type of ["focus", "focusin"])
+              document.removeEventListener(type, keepFocus, true);
+            input.setSelectionRange(0, input.value.length);
+          });
+          await expect(hidden(page)).toBeFocused();
+          await page.keyboard.insertText(raw);
+        } else {
+          await hidden(page).evaluate((node, value) => {
+            Object.getOwnPropertyDescriptor(
+              HTMLInputElement.prototype,
+              "value",
+            )!.set!.call(node, value);
+            node.dispatchEvent(
+              new InputEvent("input", {
+                bubbles: true,
+                inputType: "insertReplacementText",
+                data: value,
+              }),
+            );
+          }, raw);
+        }
+        await expect(hidden(page)).toHaveValue(expected);
+        expect(await values(page)).toBe(expected);
+        expect(
+          await hidden(page).evaluate((node) => {
+            const input = node as HTMLInputElement;
+            return {
+              raw: input.dataset.witnessRaw,
+              trusted: input.dataset.witnessTrusted,
+              serialized: new FormData(input.form!).get("otp"),
+              patternMismatch: input.validity.patternMismatch,
+              valid: input.validity.valid,
+            };
+          }),
+        ).toEqual({
+          raw,
+          trusted: String(trusted),
+          serialized: expected,
+          patternMismatch: canceled,
+          valid: !canceled,
+        });
+        const observed = await calls(page);
+        expect(observed.map((call) => call.phase)).toEqual(
+          canceled ? ["change"] : trusted ? [] : ["invalid"],
+        );
+        if (observed.length > 0) {
+          expect(observed[0].value).toBe(raw);
+          expect(observed[0].trusted).toBe(trusted);
+          expect(observed[0].reason).toBe("input-change");
+        }
+      });
+    }
+  }
   test(`${framework} OTP Field focus containment touched validation and Form values`, async ({
     page,
   }) => {

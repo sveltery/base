@@ -18,7 +18,9 @@ import { Form } from "@base-ui/react/form";
 import { DirectionProvider } from "@base-ui/react/direction-provider";
 export function mountOTPFieldReference(node: HTMLElement, scenario: string) {
   function Fixture() {
-    const initial = scenario.includes("complete")
+    const initial = scenario === "normalize-complete"
+      ? "ABCDEF"
+      : scenario.includes("complete")
       ? "123456"
       : scenario.includes("empty") ||
           scenario.startsWith("controlled") ||
@@ -60,7 +62,7 @@ export function mountOTPFieldReference(node: HTMLElement, scenario: string) {
       ...(scenario === "none" || scenario === "onblur" || scenario === "unicode"
         ? { validationType: "none" }
         : {}),
-      ...(scenario === "normalize"
+      ...(scenario.startsWith("normalize")
         ? {
             validationType: "alphanumeric",
             normalizeValue: (value) => value.toUpperCase(),

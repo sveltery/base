@@ -13,7 +13,9 @@
   let calls = $state<unknown[]>([]);
   let submissions = $state<unknown[]>([]);
   let validations = $state<unknown[]>([]);
-  const initial = scenario.includes("complete")
+  const initial = scenario === "normalize-complete"
+    ? "ABCDEF"
+    : scenario.includes("complete")
     ? "123456"
     : scenario.includes("empty") ||
         scenario.startsWith("controlled") ||
@@ -32,7 +34,7 @@
     ...(scenario === "none" || scenario === "onblur" || scenario === "unicode"
       ? { validationType: "none" }
       : {}),
-    ...(scenario === "normalize"
+    ...(scenario.startsWith("normalize")
       ? {
           validationType: "alphanumeric",
           normalizeValue: (value) => value.toUpperCase(),
