@@ -22,6 +22,7 @@ for (const reference of [false, true]) for (const keep of [false, true]) it(`${r
   main.closureCommand('second'); await settle();
   expect(original?.isConnected).toBe(false);
   await vi.waitFor(() => expect(document.querySelector('[data-testid=closure-completed]')?.textContent).toBe('[true,true]'));
+  await vi.waitFor(() => expect(document.activeElement?.id).toBe('closure-close'));
   document.getElementById('closure-close')!.click(); await settle();
   expect(document.activeElement?.id).toBe('closure-close');
   main.closureCommand('unmount'); await settle();

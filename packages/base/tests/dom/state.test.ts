@@ -1,12 +1,15 @@
 import { afterEach, expect, it } from 'vitest';
 import { mount, tick, unmount } from 'svelte';
 import Fixture from '../../../../apps/fixtures/src/lib/StateFixture.svelte';
+import { mountStateReference } from '../../../../apps/fixtures/src/lib/state-reference.js';
 // Actual Svelte companion wiring; synthetic jsdom input earns no browser credit.
 const mounted: ReturnType<typeof mount>[] = [];
+const sourceCleanups: (() => void)[] = [];
 async function settle() { await tick(); await new Promise(resolve => setTimeout(resolve, 60)); await tick(); }
-async function setup(scenario: string) {
+async function setup(scenario: string, reference = false) {
   const target = document.createElement('section'); document.body.append(target);
-  mounted.push(mount(Fixture, { target, props: { scenario } }));
+  if (reference) sourceCleanups.push(mountStateReference(target, scenario));
+  else mounted.push(mount(Fixture, { target, props: { scenario } }));
   await settle();
 }
 function button(name: string) { return [...document.querySelectorAll<HTMLElement>('button, [role=button]')].find(node => node.textContent === name)!; }
@@ -15,7 +18,7 @@ async function click(name: string) { button(name).click(); await settle(); }
 async function control(name: string) { await (document.querySelector('main') as HTMLElement & { controlOwner: (name: string) => Promise<void> }).controlOwner(name); await settle(); }
 function calls() { return JSON.parse(document.querySelector('[data-testid=calls]')!.textContent!) as { open: boolean; reason: string; triggerIsUndefined: boolean }[]; }
 function popup() { return document.querySelector<HTMLElement>('[role=dialog]'); }
-afterEach(async () => { for (const component of mounted.splice(0)) await unmount(component); document.body.replaceChildren(); });
+afterEach(async () => { for (const stop of sourceCleanups.splice(0)) stop(); for (const component of mounted.splice(0)) await unmount(component); document.body.replaceChildren(); });
 for (const scenario of ['ownership', 'missing', 'native', 'custom', 'undefined', 'prevent', 'closed']) it(`state companion: ${scenario}`, async () => {
   await setup(scenario);
   if (scenario === 'ownership') {
@@ -52,20 +55,24 @@ for (const scenario of ['ownership', 'missing', 'native', 'custom', 'undefined',
     }
   }
 });
-for (const initiallyOpen of [false, true]) it(`cancellation exposes unchanged internal state when controlled input is released (${initiallyOpen})`, async () => {
-  await setup('controlled');
+for (const reference of [false, true]) for (const initiallyOpen of [false, true]) it(`${reference ? 'React reference' : 'Svelte'}: cancellation and a released controlled prop retain the original held snapshot (${initiallyOpen})`, async () => {
+  await setup('controlled', reference);
   if (initiallyOpen) { await click('Open'); await control('Owner open'); }
   const before = calls().length;
   await control('Toggle cancel');
+  const beforeOrder = JSON.parse(document.querySelector('[data-testid=order]')!.textContent!).length;
   if (initiallyOpen) { document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); await settle(); }
   else await click('Open');
   expect(calls()).toHaveLength(before + 1);
   expect(document.querySelector('[data-testid=owner]')!.textContent).toBe(String(initiallyOpen));
   const order = JSON.parse(document.querySelector('[data-testid=order]')!.textContent!);
-  expect(order.slice(initiallyOpen ? 2 : 0)).toEqual([{ channel: 'consumer', open: !initiallyOpen, before: String(initiallyOpen), reason: initiallyOpen ? 'escape-key' : 'trigger-press', canceled: true }]);
+  expect(order.slice(beforeOrder)).toEqual([{ channel: 'consumer', open: !initiallyOpen, before: String(initiallyOpen), reason: initiallyOpen ? 'escape-key' : 'trigger-press', canceled: true }]);
   await control('Release control'); expect(Boolean(popup())).toBe(initiallyOpen);
   await control('Toggle cancel');
   if (initiallyOpen) { document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); await settle(); }
   else await click('Open');
-  expect(Boolean(popup())).toBe(!initiallyOpen);
+  // ReactStore synchronization skips undefined, retaining the last controlled value.
+  // Switching modes is diagnosed upstream; do not invent release behavior here.
+  expect(Boolean(popup())).toBe(initiallyOpen);
+  expect(calls().at(-1)?.open).toBe(!initiallyOpen);
 });
