@@ -6,9 +6,10 @@ const visuallyHiddenBase: Record<string, string | number> = {
   whiteSpace: 'nowrap',
   border: 0,
   padding: 0,
-  width: 1,
-  height: 1,
-  margin: -1,
+  // Native CSS strings require explicit units for the source's nonzero lengths.
+  width: '1px',
+  height: '1px',
+  margin: '-1px',
 };
 
 export const visuallyHidden: Record<string, string | number> = {
