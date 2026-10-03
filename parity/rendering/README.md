@@ -1,0 +1,7 @@
+# Shared rendering source dependency
+
+This focused internal foundation is based on shared utility PR #46 at immutable source checkpoint `b3bdfb266b1a6e51eb77459d66f6c727eddfddac`. It contains no public UseRender API/export scope or runtime dependency changes. Dependent Field.Control and UseRender consume the same canonical source renderer.
+
+Read the complete [source correspondence](source-correspondence.md), hashed recursive [original graph](source-graph.json), native difference record [R-01](../../docs/upstream-differences.md#r-01-source-rendering-foundation-with-native-host-lifecycle) and [MIT license](UPSTREAM_LICENSE). All legacy mapping callers remain explicitly listed and structurally incomplete pending their own component audits. Native host primitives/defaults are intentionally used at the small framework boundary; no React DOM replay/tracking/ref commit machinery is introduced.
+
+Local initial checkpoint: built library and library diagnostics pass; seven source getter ownership/writability probes and five actual native host probes pass. These are supplemental source/runtime checks, not ordinary declaration credit. Inherited full repository/SSR/hydration/package checks, secured paired browser CI, exact-head independent source/native/maintainability review and PM approval remain pending. Exact head and CI links are attached to the draft PR externally; no tracked self-hash cycle.
