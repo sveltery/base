@@ -27,6 +27,7 @@
   import type { RemoteControlProps, RemoteControlState } from './control.types.js';
   import type { HTMLSelectAttributes } from 'svelte/elements';
   import type { Snippet } from 'svelte';
+  import type { HTMLProps } from '../internals/types.js';
   let { kind, ref = $bindable(), render, onValueChange, onCheckedChange, children, ...props }: RemoteControlProps & { kind: string } = $props();
   const remote = useRemoteFieldContext();
   const field = useFieldRootContext();
@@ -122,10 +123,10 @@
     stateAttributesMapping: fieldValidityMapping,
   });
 </script>
-{#snippet renderNative(native: Record<string | symbol, unknown>, state: RemoteControlState, content: Snippet | undefined)}
+{#snippet renderNative(native: HTMLProps, state: RemoteControlState, content: Snippet | undefined)}
   {@render render!(native, state, content)}
 {/snippet}
-{#snippet selectHost(native: Record<string | symbol, unknown>)}
+{#snippet selectHost(native: HTMLProps)}
   <select {...native as HTMLSelectAttributes}>{@render children?.()}</select>
 {/snippet}
 <RenderElement tag={kind.startsWith('select') ? 'select' : 'input'} {componentProps} {params} {children} />

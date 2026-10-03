@@ -6,6 +6,7 @@
   import type { FieldControlState } from '../field/types.js';
   import type { Snippet } from 'svelte';
   import type { RemoteControlProps } from './control.types.js';
+  import type { HTMLProps } from '../internals/types.js';
   let { ref = $bindable(), render, style, onValueChange, ...props }: RemoteControlProps = $props();
   const remote = useRemoteFieldContext();
   const controlProps = $derived.by(() => {
@@ -20,7 +21,7 @@
   });
   setFieldControlNameContext({ get name() { return controlProps.name ?? undefined; } });
 </script>
-{#snippet renderText(nativeProps: Record<string | symbol, unknown>, state: FieldControlState, content: Snippet | undefined)}
+{#snippet renderText(nativeProps: HTMLProps, state: FieldControlState, content: Snippet | undefined)}
   {@render render!(nativeProps, state, content)}
 {/snippet}
 <FieldControl {...controlProps} style={typeof style === 'function' ? (state) => toNativeStyle(style(state)) : toNativeStyle(style)} render={render ? renderText : undefined} onValueChange={(value, details) => onValueChange?.(value, details)} bind:ref />

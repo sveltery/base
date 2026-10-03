@@ -13,13 +13,13 @@ const tarball = readdirSync(destination).find(name => name.endsWith('.tgz'));
 writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: {
   '@sveltery/base': `file:${join(destination, tarball)}`, '@sveltejs/kit': kit, svelte: '5.57.1', '@types/node': '24.10.1'
 } }));
-for (const [source, name] of [['apps/fixtures/src/lib/RemoteFormApiTypeFixture.svelte', 'Positive.svelte'], ['scripts/fixtures/remote-form-api/Negative.svelte', 'Negative.svelte']]) {
+for (const [source, name] of [['apps/fixtures/src/lib/RemoteFormApiTypeFixture.svelte', 'Positive.svelte'], ['scripts/fixtures/remote-form-api/NativeHosts.svelte', 'NativeHosts.svelte'], ['scripts/fixtures/remote-form-api/Negative.svelte', 'Negative.svelte']]) {
   let text = readFileSync(source, 'utf8');
   if (kit.startsWith('3.')) text = text.replace("from '@sveltejs/kit'", "from '$app/server'").replace('<script lang="ts">', '<script lang="ts">\n  import type {} from \'@sveltejs/kit\';');
   writeFileSync(join(destination, name), text);
 }
 const compilerOptions = { target: 'ESNext', lib: ['ESNext', 'DOM', 'DOM.Iterable'], module: 'ESNext', moduleResolution: 'Bundler', strict: true, exactOptionalPropertyTypes: true, skipLibCheck: false, allowJs: true, types: ['svelte', 'node'] };
-for (const kind of ['positive', 'negative']) writeFileSync(join(destination, `tsconfig.${kind}.json`), JSON.stringify({ compilerOptions, include: [kind === 'positive' ? 'Positive.svelte' : 'Negative.svelte'] }));
+for (const kind of ['positive', 'negative']) writeFileSync(join(destination, `tsconfig.${kind}.json`), JSON.stringify({ compilerOptions, include: kind === 'positive' ? ['Positive.svelte', 'NativeHosts.svelte'] : ['Negative.svelte'] }));
 JS
 pnpm --dir "$remote_api_consumer" --ignore-workspace install --ignore-scripts > /dev/null
 pnpm --dir "$remote_api_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null

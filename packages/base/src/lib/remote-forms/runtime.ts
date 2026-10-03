@@ -1,4 +1,5 @@
 import type { FormErrors } from '../form/types.js';
+import type { HTMLProps } from '../internals/types.js';
 
 /** Public remote metadata is structural; the library imports no SvelteKit runtime. */
 export interface RemoteIssue {
@@ -6,7 +7,7 @@ export interface RemoteIssue {
   readonly path: readonly (string | number)[];
 }
 
-export type RemoteDescriptor = Record<string | symbol, unknown>;
+export type RemoteDescriptor = HTMLProps;
 export interface RemoteAccessor {
   as(...args: unknown[]): RemoteDescriptor;
   value(): unknown;
