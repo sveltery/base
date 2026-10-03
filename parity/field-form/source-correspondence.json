@@ -275,7 +275,7 @@
       "symbol": "useControlled",
       "local": "packages/base/src/lib/utils/useControlled.svelte.ts",
       "adaptation": "shared-utils dependency: initial mode/default/state/declared warnings; live getter API",
-      "status": "pending-separate-dependency-review",
+      "status": "integrated-dependency-pending-final-review",
       "imports": [
         "react",
         "./error"
@@ -287,7 +287,7 @@
       "symbol": "useStableCallback",
       "local": "packages/base/src/lib/utils/useStableCallback.ts",
       "adaptation": "shared-utils dependency: native initialized callback, stable untracked live closure",
-      "status": "pending-separate-dependency-review",
+      "status": "integrated-dependency-pending-final-review",
       "imports": [
         "./safeReact",
         "./useRefWithInit"
@@ -299,7 +299,7 @@
       "symbol": "Timeout/useTimeout",
       "local": "packages/base/src/lib/utils/useTimeout.ts",
       "adaptation": "shared-utils dependency: actual class and native automatic teardown",
-      "status": "pending-separate-dependency-review",
+      "status": "integrated-dependency-pending-final-review",
       "imports": [
         "./useRefWithInit",
         "./useOnMount"
@@ -311,7 +311,7 @@
       "symbol": "useIsoLayoutEffect",
       "local": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
       "adaptation": "shared-utils dependency: post-DOM native effect, source dependency getter",
-      "status": "pending-separate-dependency-review",
+      "status": "integrated-dependency-pending-final-review",
       "imports": [
         "react"
       ]
@@ -322,7 +322,7 @@
       "symbol": "useRefWithInit",
       "local": "packages/base/src/lib/utils/useRefWithInit.ts",
       "adaptation": "shared-utils dependency: one native initialization",
-      "status": "pending-separate-dependency-review",
+      "status": "integrated-dependency-pending-final-review",
       "imports": [
         "react"
       ]
@@ -333,7 +333,7 @@
       "symbol": "NOOP/EMPTY_OBJECT/EMPTY_ARRAY",
       "local": "packages/base/src/lib/utils/empty.ts",
       "adaptation": "shared-utils dependency: unchanged source constants",
-      "status": "pending-separate-dependency-review",
+      "status": "integrated-dependency-pending-final-review",
       "imports": []
     },
     {
@@ -342,7 +342,7 @@
       "symbol": "useValueChanged",
       "local": "packages/base/src/lib/internals/useValueChanged.svelte.ts",
       "adaptation": "shared-utils dependency: callback before previous update",
-      "status": "pending-separate-dependency-review",
+      "status": "integrated-dependency-pending-final-review",
       "imports": [
         "react",
         "@base-ui/utils/useIsoLayoutEffect",
@@ -389,5 +389,15 @@
         "../internals/useValueChanged"
       ]
     }
-  ]
+  ],
+  "sharedUtilityDependency": {
+    "pr": "https://github.com/sveltery/base/pull/46",
+    "sourceHead": "b3bdfb266b1a6e51eb77459d66f6c727eddfddac",
+    "localCherryPicks": [
+      "d02624d",
+      "aafa25d",
+      "06e9a11"
+    ],
+    "decision": "PM authorized reviewable dependency integration; final merge gates remain pending"
+  }
 }

@@ -108,7 +108,8 @@ it('Root:2509 touched/focused/dirty/filled follow native edits and externally co
 });
 it('Control controlled rejected edits do not change field state; accepted programmatic values do', async () => {
   const validate = vi.fn(() => null), onValueChange = vi.fn(); const { component, edit, input, field } = setup({ controlled: true, initial: 'seed', mode: 'onChange', validate, onValueChange });
-  edit('rejected'); await tick(); expect(input().value).toBe('seed'); expect(field().hasAttribute('data-dirty')).toBe(false); expect(validate).not.toHaveBeenCalled();
+  edit('rejected'); await tick(); expect(input().value).toBe('rejected'); // Native Svelte DOM retains the edit; Field business state still follows owner.
+  expect(field().hasAttribute('data-dirty')).toBe(false); expect(validate).not.toHaveBeenCalled();
   component.setValue('accepted'); flushSync(); expect(input().value).toBe('accepted'); expect(field().hasAttribute('data-dirty')).toBe(true);
   expect(validate).toHaveBeenLastCalledWith('accepted', { email: 'accepted' }); expect(onValueChange).toHaveBeenCalledTimes(1);
 });

@@ -1,0 +1,39 @@
+{
+  "sourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "decision": "User 2026-10-03 native Svelte default direction; keep Base UI business logic/composition, remove renderer ownership emulation",
+  "historicalRecords": [
+    {
+      "historicalFile": "parity/input/native-defaults/historical/input-event-phase.test.ts",
+      "originalFile": "packages/base/tests/dom/input-event-phase.test.ts",
+      "sha256": "70b088859c9f2edeae279959d22af6d0b5c383635eca8fcf291a6ecff1dee10c",
+      "referenceHead": "c69d2826e217726de5a300be9f7bf817a910b8bd",
+      "activeCurrentSuite": false,
+      "ordinaryCredit": 0
+    },
+    {
+      "historicalFile": "parity/input/native-defaults/historical/input-reset-limit.test.ts",
+      "originalFile": "packages/base/tests/dom/input-reset-limit.test.ts",
+      "sha256": "080eb0822333d0d55d4c5fb6b38693e9ace1875d5421c8c03d467dbdabc16388",
+      "referenceHead": "c69d2826e217726de5a300be9f7bf817a910b8bd",
+      "activeCurrentSuite": false,
+      "ordinaryCredit": 0
+    },
+    {
+      "historicalFile": "parity/input/native-defaults/historical/input-reset-observation.test.ts",
+      "originalFile": "packages/base/tests/dom/input-reset-observation.test.ts",
+      "sha256": "9452dd0e41c768b6d70528559d2da6f34dec76d95e2c7e0092b4c9d94ea9952b",
+      "referenceHead": "c69d2826e217726de5a300be9f7bf817a910b8bd",
+      "activeCurrentSuite": false,
+      "ordinaryCredit": 0
+    }
+  ],
+  "retainedHistoricalExpectedFailureWitnesses": 4,
+  "currentExpectedFailureExemptions": 0,
+  "newCheckedLifecycleSourceVariants": 12,
+  "newCheckedLifecycleNativeComparisonVariants": 12,
+  "newConsumerMutationSourceVariants": 14,
+  "newConsumerMutationNativeComparisonVariants": 24,
+  "nativeResetReassociationVariants": 18,
+  "ordinaryCredit": 0,
+  "executionStatus": "pending shared renderer dependency"
+}
