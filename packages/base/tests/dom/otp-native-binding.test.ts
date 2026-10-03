@@ -1,6 +1,6 @@
 // Native functional binding characterization; no business implementation copied.
 import { afterEach, expect, it, vi } from "vitest";
-import { flushSync, mount, unmount } from "svelte";
+import { flushSync, mount, tick, unmount } from "svelte";
 import Probe from "./OTPBindingProbe.svelte";
 const cleanups: (() => Promise<void>)[] = [];
 afterEach(async () => {
@@ -9,7 +9,7 @@ afterEach(async () => {
 });
 for (const bound of [false, true]) {
   for (const cancel of [false, true]) {
-    it(`native ${bound ? "functional binding" : "value spread"} ${cancel ? "canceled" : "same first character"} input`, () => {
+    it(`native ${bound ? "functional binding" : "value spread"} ${cancel ? "canceled" : "same first character"} input`, async () => {
       const host = document.createElement("div");
       document.body.append(host);
       const onChange = vi.fn();
@@ -26,6 +26,8 @@ for (const bound of [false, true]) {
       expect(onChange).toHaveBeenCalledExactlyOnceWith("123456");
       expect(component.value()).toBe(cancel ? "12" : "123456");
       expect(input.value).toBe(bound && !cancel ? "1" : "123456");
+      await tick();
+      expect(input.value).toBe(bound ? "1" : "123456");
     });
   }
 }

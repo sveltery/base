@@ -2,6 +2,7 @@
   // Source-ordered port of Base UI v1.8.0 OTPFieldInput.tsx at
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
   import { DEV } from "esm-env";
+  import { on } from "svelte/events";
   import type { HTMLInputAttributes } from "svelte/elements";
   import type { HTMLProps } from "../../internals/types.js";
   import { createLogOnce } from "../../utils/createLogOnce.js";
@@ -333,7 +334,21 @@
       ref = value;
     },
   };
-  const componentProps = $derived({ render: render ?? nativeInput, class: classProp, style });
+  // A native action registers the merged input listener before Svelte installs the
+  // binding listener. Trusted browser events can yield between those listeners.
+  function listenInput(node: HTMLInputElement, getHandler: () => unknown) {
+    return {
+      destroy: on(node, "input", (event) => {
+        const handler = getHandler() as ((event: Event) => void) | undefined;
+        handler?.(event);
+      }),
+    };
+  }
+  const componentProps = $derived({
+    render: render ?? nativeInput,
+    class: classProp,
+    style,
+  });
   const params = $derived({
     ref: [forwardedRef, listItem.ref, inputRef],
     state: inputState,
@@ -344,6 +359,8 @@
 {#snippet nativeInput(supplied: HTMLProps)}
   <!-- The original composed input handler owns the whole code. Native binding reads the
        merged slot value after a whole-value update, including an unchanged first character. -->
-  <input {...supplied as HTMLInputAttributes} bind:value={() => supplied.value as string, () => undefined} />
+  <input {...{ ...supplied, oninput: undefined } as HTMLInputAttributes}
+    use:listenInput={() => supplied.oninput}
+    bind:value={() => supplied.value as string, () => undefined} />
 {/snippet}
 <RenderElement tag="input" {componentProps} {params} />

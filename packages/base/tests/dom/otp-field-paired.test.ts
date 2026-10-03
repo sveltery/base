@@ -1,6 +1,6 @@
 // Actual React19.2.8/Base UI1.8.0 and native Svelte runtime probes; supplemental credit only.
 import { afterEach, expect, it, vi } from "vitest";
-import { flushSync, mount, unmount } from "svelte";
+import { flushSync, mount, tick, unmount } from "svelte";
 import {
   mountOTPFieldReference,
   flushOTPFieldReference as flushReact,
@@ -173,12 +173,13 @@ for (const framework of ["react", "svelte"]) {
       2,
     );
   });
-  it(`${framework} source/native OTP canceled typing renderer vector`, () => {
+  it(`${framework} source/native OTP canceled typing with native binding`, async () => {
     const s = setup("cancel");
     s.focus(0);
     s.input(0, "3");
     expect(s.hidden().value).toBe("12");
-    expect(s.values()).toBe(framework === "react" ? "12" : "32");
+    await tick();
+    expect(s.values()).toBe("12");
     expect(document.activeElement).toBe(s.slots()[0]);
   });
   it(`${framework} source/native OTP controlled deferred acceptance and completion`, () => {

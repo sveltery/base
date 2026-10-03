@@ -50,7 +50,7 @@ export function mountOTPFieldReference(node: HTMLElement, scenario: string) {
     ) =>
       setCalls((previous) => [
         ...previous,
-        { phase, value, reason, type: event.type },
+        { phase, value, reason, type: event.type, trusted: event.isTrusted },
       ]);
     const rootProps: Partial<OTPFieldRootProps> = {
       ...(scenario === "alpha" ? { validationType: "alpha" } : {}),

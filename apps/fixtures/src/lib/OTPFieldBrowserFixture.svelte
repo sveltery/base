@@ -80,7 +80,7 @@
     hydrated = true;
   });
   function record(phase: string, value: string, reason: string, event: Event) {
-    calls.push({ phase, value, reason, type: event.type });
+    calls.push({ phase, value, reason, type: event.type, trusted: event.isTrusted });
   }
 </script>
 <main data-hydrated={hydrated} data-renderer="svelte">

@@ -33,6 +33,7 @@ for (const framework of ["react", "svelte"]) {
       phase: string;
       value: string;
       reason: string;
+      trusted: boolean;
     }[];
   test(`${framework} OTP source defaults, metadata, SSR hydration and shared Separator`, async ({
     page,
@@ -104,6 +105,7 @@ for (const framework of ["react", "svelte"]) {
       "change",
       "complete",
     ]);
+    expect((await calls(page)).every((call) => call.trusted)).toBe(true);
     await page.keyboard.press("Tab");
     await expect(page.locator("#submit")).toBeFocused();
   });
@@ -166,6 +168,7 @@ for (const framework of ["react", "svelte"]) {
       ["change", "129956", "input-paste"],
       ["complete", "129956", "input-paste"],
     ]);
+    expect((await calls(page)).every((call) => !call.trusted)).toBe(true);
     await paste(page, 0, "129956");
     expect(
       (await calls(page)).filter((call) => call.phase === "change"),
@@ -239,13 +242,14 @@ for (const framework of ["react", "svelte"]) {
       (await calls(page)).filter((call) => call.phase === "complete"),
     ).toHaveLength(0);
   });
-  test(`${framework} OTP native canceled typing renderer witness earns zero parity credit`, async ({
+  test(`${framework} OTP native binding canceled typing preserves source whole value and one callback`, async ({
     page,
   }) => {
     await open(page, "cancel");
     await slots(page).first().fill("3");
     await expect(hidden(page)).toHaveValue("12");
-    expect(await values(page)).toBe(framework === "react" ? "12" : "32");
+    await expect(slots(page).first()).toHaveValue("1");
+    expect(await values(page)).toBe("12");
     await expect(slots(page).first()).toBeFocused();
     expect((await calls(page)).map((call) => [call.phase, call.value])).toEqual(
       [["change", "32"]],
@@ -461,6 +465,7 @@ for (const framework of ["react", "svelte"]) {
         );
       });
     await expect(hidden(page)).toHaveValue("1");
+    expect((await calls(page)).every((call) => !call.trusted)).toBe(true);
     expect((await calls(page)).map((call) => call.phase)).toEqual([
       "invalid",
       "change",

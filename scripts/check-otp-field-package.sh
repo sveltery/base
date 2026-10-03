@@ -27,7 +27,7 @@ cat > "$otp_consumer_dir/Consumer.svelte" <<'SVELTE'
 <Subpath.Root length={2} defaultValue="12"><Subpath.Input {...input}/><Subpath.Input/></Subpath.Root>
 <OTPFieldRoot length={1} defaultValue="a" validationType="alpha">
   {#snippet render(props,_state,children)}<section {...props as HTMLAttributes<HTMLElement>}>{@render children?.()}</section>{/snippet}
-  <OTPFieldInput>{#snippet render(props,state)}<input bind:value={() => props.value as string, () => undefined} {...props as HTMLInputAttributes} data-index={state.index}/>{/snippet}</OTPFieldInput>
+  <OTPFieldInput>{#snippet render(props,state)}<input {...props as HTMLInputAttributes} data-index={state.index}/>{/snippet}</OTPFieldInput>
 </OTPFieldRoot>
 SVELTE
 cat > "$otp_consumer_dir/types.ts" <<'TS'
