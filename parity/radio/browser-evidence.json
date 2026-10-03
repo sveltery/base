@@ -45,6 +45,17 @@
       "failure": "The two new direct native Form click-listener expectations assumed one event. Both actual React19.2.8 and Svelte delegated handler systems let the direct native listener observe hidden activation plus visible click (two) before propagation is stopped at the framework delegate. Geometry and explicit hydration cases all passed. Subsequent supplements assert actual native two/four counts and separately measure authored ancestor handlers once/twice; no runtime emulation is added.",
       "artifactId": 11264382793,
       "artifactZipSha256": "ada9e88ca376d30ccfc3d388e1f2a8f34ba16a16b6fa1126535e94b4e52e23f7"
+    },
+    {
+      "head": "c226300841874aa9998c90645572ec7c36ef12bc",
+      "runId": 37097771552,
+      "url": "https://github.com/sveltery/base/actions/runs/37097771552",
+      "result": "success",
+      "passed": 40,
+      "failed": 0,
+      "scope": "Secured actual React/ReactDOM19.2.8 and Svelte contracts and native supplements; subsequent independent source review found uncovered standalone empty-value Field touch guard. This passing historical run is not final acceptance.",
+      "artifactId": 11265135846,
+      "artifactZipSha256": "1ddf818721202c84d8277b7a664c09df80f64314f1ab62ca5aa8729314c3c2ac"
     }
   ],
   "status": "Fresh exact-head run, configured review and independent whole-closure source/native/maintainability acceptance pending; no merge or exhaustive assertion parity claimed.",
@@ -63,6 +74,21 @@
       "name": "Field Form source core acceptance",
       "result": "failure",
       "failure": "Inherited error-payload browser read repaired by the source owner in449d850; actual runtime and exact array assertions are unchanged."
+    }
+  ],
+  "sourceFidelityRepairs": [
+    {
+      "previousHead": "c226300841874aa9998c90645572ec7c36ef12bc",
+      "source": "packages/react/src/radio/root/RadioRoot.tsx",
+      "contract": "Already selected computed state, including standalone value empty-string, skips change and Field touch.",
+      "preRepairPairedJSDOM": {
+        "variants": 8,
+        "passed": 6,
+        "failed": 2,
+        "failure": "Svelte standalone selected-empty visible and hidden clicks incorrectly set Field touched; actual React19.2.8 remains untouched. All nonempty and React variants pass."
+      },
+      "repair": "Use existing computed checked in native activation guard; no native currentTarget.checked test, new state owner, tracking or replay.",
+      "supplementAccounting": "Paired standalone variants are native supplements with zero unchanged ordinary declaration credit; new exact-head secured evidence and independent review remain required."
     }
   ]
 }

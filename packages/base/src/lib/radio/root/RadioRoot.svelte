@@ -145,7 +145,8 @@
         return;
       }
       // Native radio click also runs when already selected; source onChange does not.
-      if (group?.checkedValue === value) return;
+      // Use the computed source state, including the standalone empty-value fallback.
+      if (checked) return;
       const details = createChangeEventDetails(REASONS.none, event);
       group?.setCheckedValue(value, details);
       if (details.isCanceled) {

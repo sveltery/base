@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount, untrack } from 'svelte';
+  import StandaloneFixture from './RadioStandaloneBrowserFixture.svelte';
   // Pinned Radio/RadioGroup assertion fixture adapter; MIT: parity/radio/UPSTREAM_LICENSE.
   import { Radio } from '@sveltery/base/radio';
   import { RadioGroup } from '@sveltery/base/radio-group';
@@ -119,6 +120,9 @@
 {/snippet}
 <form id="external-form"></form>
 <main data-hydrated={hydrated} data-renderer="svelte5.57.1">
+{#if scenario.startsWith('standalone-')}
+  <StandaloneFixture value={scenario === 'standalone-empty' ? '' : 'a'} />
+{:else}
 <DirectionProvider direction={current.rtl ? 'rtl' : 'ltr'}>
   {#if withForm}<Form id="form" onclick={() => ancestorClicks += 1} onFormSubmit={values => onSubmit?.(values)}>{@render content()}<button type="submit" id="submit">Submit</button><button type="reset" id="reset">Reset</button></Form>{:else}{@render content()}{/if}
 </DirectionProvider>
@@ -130,4 +134,5 @@
 <output id="ancestor-clicks">{ancestorClicks}</output>
 <output id="calls">{JSON.stringify(calls)}</output>
 <output id="submissions">{JSON.stringify(submissions)}</output>
+{/if}
 </main>
