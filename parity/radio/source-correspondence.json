@@ -3447,8 +3447,20 @@
         }
       ],
       "local": "packages/base/src/lib/internals/useRenderElement.ts; packages/base/src/lib/internals/RenderElement.svelte",
-      "correspondence": "Reused canonical Field/Form/shared-utility source dependency; shared renderer dependency: source ordered props/ref/mapping stages, native literal input host See parity/field-form/source-correspondence.json",
-      "status": "implemented-awaiting-exact-head-review"
+      "correspondence": "Reused canonical Field/Form/shared-utility source dependency; shared renderer dependency: source ordered props/ref/mapping stages, native literal input host See parity/field-form/source-correspondence.json PR50 source ref-order/lifetime fidelity repair folds canonical forwarded attachments after inner refs into the existing source fanout. Native authored attachments remain independent. Full mapping: parity/rendering/source-correspondence.md.",
+      "status": "implemented-awaiting-exact-head-review",
+      "additionalLocalCounterparts": [
+        {
+          "local": "packages/base/src/lib/internals/useRenderElement.ts",
+          "localSha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
+          "correspondence": "Used canonical renderer source stage and native ref transport boundary; only library-marked forwarded attachments join source fanout."
+        },
+        {
+          "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+          "localSha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319",
+          "correspondence": "Used canonical renderer source stage and native ref transport boundary; only library-marked forwarded attachments join source fanout."
+        }
+      ]
     },
     {
       "source": "packages/react/src/internals/useTransitionStatus.ts",

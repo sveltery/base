@@ -8,6 +8,7 @@ import { resolveClassName } from '../utils/resolveClassName.js';
 import { resolveStyle } from '../utils/resolveStyle.js';
 import { mergeProps, mergePropsN, mergeClassNames } from '../merge-props/index.js';
 import { mergeNativeStyles, toNativeClass } from './nativeProps.js';
+import { isNativeRefAttachment } from './nativeRefAttachment.js';
 import type { BaseUIComponentProps, ComponentRenderFn, HTMLProps } from './types.js';
 
 /** Native setup owner of the single merged-ref storage shared by both source ref branches. */
@@ -49,11 +50,34 @@ export function createRenderElement<Host extends Element = Element>() {
       : EMPTY_OBJECT;
 
     if (typeof document !== 'undefined') {
+      // Opaque native snippets forward canonical ref attachments instead of React refs.
+      // Fold those forwarded refs into this source lifecycle after the inner refs,
+      // so an inner ref update also detaches/reattaches its forwarded outer refs.
+      // Ordinary authored Svelte attachments retain their own native effect/lifetime.
+      const forwardedRefs: MergedRef<Host>[] = [];
+      const nativeProps = outProps as Record<PropertyKey, unknown>;
+      for (const key of Object.getOwnPropertySymbols(nativeProps)) {
+        const attachment = nativeProps[key];
+        if (isNativeRefAttachment(attachment)) {
+          // Native attachments always return cleanup. Source fanout invokes them
+          // with a host on attach and that returned cleanup on detach, never null.
+          forwardedRefs.push(attachment as MergedRef<Host>);
+          delete nativeProps[key];
+        }
+      }
+
       if (!enabled) {
         void useMergedRefs(null, null);
       } else if (Array.isArray(ref)) {
         // Native snippets have no cloneable embedded ref; preserve the source slot for fixed/N memo identity.
-        outProps.ref = useMergedRefsN([outProps.ref, null, ...ref]);
+        outProps.ref = useMergedRefsN([outProps.ref, null, ...ref, ...forwardedRefs]);
+      } else if (forwardedRefs.length > 0) {
+        outProps.ref = useMergedRefsN([
+          outProps.ref,
+          null,
+          ref as MergedRef<Host> | null | undefined,
+          ...forwardedRefs,
+        ]);
       } else {
         outProps.ref = useMergedRefs(outProps.ref, null, ref as MergedRef<Host> | null | undefined);
       }

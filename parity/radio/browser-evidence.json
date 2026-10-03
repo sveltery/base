@@ -111,9 +111,19 @@
       "scope": "Actual React/ReactDOM19.2.8 + BaseUI1.8.0 and native Svelte Radio/Composite source-family focus/activation/validation/geometry/SSR supplements; sandbox enabled, retries zero. Runtime/types/assertions identical to reviewed154cba6. Historical delivery before canonical Boolean/type/SDK refresh; zero ordinary credit.",
       "artifactId": 11267086987,
       "artifactZipSha256": "c439aead7ad33ce0bd33886e8fb55d8fa743d2da25f8643920d084a9e839f4b8"
+    },
+    {
+      "head": "3061aeb6512c2f1cbc38c67737da05e962b8b5ec",
+      "runId": 37110592152,
+      "jobId": 111167568578,
+      "passed": 68,
+      "failed": 0,
+      "artifactId": 11269058293,
+      "artifactZipSha256": "10abcabeec1b154ec8a0d4ea3a1e21f897c851c02a8df0c4869e4e40ecfe23d2",
+      "status": "Historical secured milestone. Subsequent independent source review found genuine nested shared-host ref fidelity gap; this green run does not clear that repair."
     }
   ],
-  "status": "Independent source/native/public/maintainability review is clear at154cba6; historical85bc delivery passed all8 wholeCI jobs, secured68, sourcecore442 and configured review. The successor consumes approved actual-main Boolean/type/SDK dependencies and reconciles affected shared hashes/type-only closure. Fresh exact successor checks and bounded dependency/identity review plus PM approval remain required. Zero ordinary declaration credit; exhaustive component assertion parity is not claimed.",
+  "status": "Historical source/native/public review at154 and canonical dependency refresh remain recorded. Published306 secured68 passed before independent review reproduced a genuine shared-host ref ordering/lifetime gap. The successor repairs canonical native ref transport, retaining source registration/focus business and ordinary credit0; fresh helper review, secured70 and required exact-head gates plus PM approval remain pending.",
   "inheritedDevelopmentGates": [
     {
       "head": "49d23aa034332b0dba6e7675687e490f9e87879e",
@@ -165,6 +175,26 @@
       },
       "repair": "Use native focusin on Group, CompositeRoot, CompositeItem and visible Radio Root, and native focusout on Group; all business bodies, containment and setter/commit order remain unchanged. Direct hidden input focus remains native onfocus.",
       "supplementAccounting": "Meaningful paired source/native focus supplements have zero unchanged ordinary declaration credit; fresh exact-head secured and independent affected-closure review required."
+    },
+    {
+      "previousHead": "3061aeb6512c2f1cbc38c67737da05e962b8b5ec",
+      "sources": [
+        "packages/react/src/internals/composite/item/CompositeItem.tsx",
+        "packages/react/src/internals/composite/list/useCompositeListItem.ts",
+        "packages/react/src/internals/useRenderElement.tsx",
+        "packages/utils/src/useMergedRefs.ts"
+      ],
+      "contract": "Inner composite ref precedes forwarded outer ref; inner metadata update reattaches the full ref chain, preserving outer shared-host metadata and navigation. Original CompositeRoot.test.tsx1377-1416.",
+      "preRepairPairedJSDOM": {
+        "variants": 2,
+        "passed": 1,
+        "failed": 1,
+        "observations": "nested-ref-pre-repair-observations.json",
+        "ownerLogSha256": "7d920db7959e1cea8f7beff3b40c4853d92f60fbd2577545a31540103c629c6e",
+        "failure": "Native inner ownership/focusableWhenDisabled metadata replaced source outer ownership; navigation skipped shared. Actual React19.2.8 retained outer through inner update."
+      },
+      "repair": "Mark only canonical library ref attachments and fold forwarded refs after inner refs into the existing source merged-ref lifecycle. Source registry Map algorithm, merged-ref fanout/cleanup and four focus business bodies unchanged; authored native attachment effects remain independent.",
+      "supplementAccounting": "Paired lifecycle mount/three inner updates/removal/reinsert/host replacement/navigation plus native authored-reactivity/binding/cleanup regressions are adaptations/supplements with ordinary credit0. Secured adds two paired cases for70; fresh exact-head review/gates pending."
     }
   ],
   "reviewedDeliveryCheckpoint": {
