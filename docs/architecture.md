@@ -4,7 +4,7 @@ The foundation checkpoint now has a [contained Dialog draft](dialog-first-slice.
 
 Reference upstream: mui/base-ui v1.8.0, tag object `5af893738de5c4513f8a315ffc54b979c165d1b5`, commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. See [the source inventory](upstream-contracts.md).
 
-Current implementation and review must follow the [source-porting gate](source-porting.md): start from pinned component and helper bodies, preserve the dependency structure, and audit already landed implementations. Historical foundation and test-first checkpoints below do not waive that requirement.
+Current implementation and review must follow the [source-porting gate](source-porting.md): start from pinned source, preserve component composition and business logic, prefer native Svelte primitives and element defaults, and assess maintainability. Audit already landed implementations; historical foundation and test-first checkpoints below do not waive these requirements.
 
 The first implementation step is composition plus state and overlay ownership, then a complete Dialog vertical slice. Use Svelte runes and per-Root context for reactive state; isolate stable imperative callbacks and DOM references. Effective controlled Dialog state follows the pinned popup store contract. Separate logical open, mounted presence, transition status, trigger ownership, and focus return. Resolve IDs using SSR-stable Svelte facilities, then verify hydration rather than relying on a process counter.
 
