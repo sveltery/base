@@ -163,7 +163,7 @@ settings:
   excludeLinksFromLockfile: false
 
 patchedDependencies:
-  '@sveltejs/kit@2.70.3': 7ed88e8328172c26f8fc808a8fe568ef49d169bf6bee737ee5094ba0c733e1a8
+  '@sveltejs/kit@2.70.3': f679b4bccc1926662325774381dc3995f282c9f4bafae020e26707c1f00b0d19
 
 importers:
 
@@ -184,10 +184,10 @@ importers:
         version: 1.8.0(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@sveltejs/adapter-auto':
         specifier: 7.0.1
-        version: 7.0.1(@sveltejs/kit@2.70.3(patch_hash=7ed88e8328172c26f8fc808a8fe568ef49d169bf6bee737ee5094ba0c733e1a8)(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.1)(vite@8.3.1(@types/node@26.6.3)))(svelte@5.57.1)(typescript@5.9.3)(vite@8.3.1(@types/node@26.6.3)))
+        version: 7.0.1(@sveltejs/kit@2.70.3(patch_hash=f679b4bccc1926662325774381dc3995f282c9f4bafae020e26707c1f00b0d19)(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.1)(vite@8.3.1(@types/node@26.6.3)))(svelte@5.57.1)(typescript@5.9.3)(vite@8.3.1(@types/node@26.6.3)))
       '@sveltejs/kit':
         specifier: 2.70.3
-        version: 2.70.3(patch_hash=7ed88e8328172c26f8fc808a8fe568ef49d169bf6bee737ee5094ba0c733e1a8)(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.1)(vite@8.3.1(@types/node@26.6.3)))(svelte@5.57.1)(typescript@5.9.3)(vite@8.3.1(@types/node@26.6.3))
+        version: 2.70.3(patch_hash=f679b4bccc1926662325774381dc3995f282c9f4bafae020e26707c1f00b0d19)(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.1)(vite@8.3.1(@types/node@26.6.3)))(svelte@5.57.1)(typescript@5.9.3)(vite@8.3.1(@types/node@26.6.3))
       '@sveltejs/vite-plugin-svelte':
         specifier: 7.3.1
         version: 7.3.1(svelte@5.57.1)(vite@8.3.1(@types/node@26.6.3))
@@ -1260,11 +1260,11 @@ snapshots:
     dependencies:
       acorn: 8.18.0
 
-  '@sveltejs/adapter-auto@7.0.1(@sveltejs/kit@2.70.3(patch_hash=7ed88e8328172c26f8fc808a8fe568ef49d169bf6bee737ee5094ba0c733e1a8)(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.1)(vite@8.3.1(@types/node@26.6.3)))(svelte@5.57.1)(typescript@5.9.3)(vite@8.3.1(@types/node@26.6.3)))':
+  '@sveltejs/adapter-auto@7.0.1(@sveltejs/kit@2.70.3(patch_hash=f679b4bccc1926662325774381dc3995f282c9f4bafae020e26707c1f00b0d19)(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.1)(vite@8.3.1(@types/node@26.6.3)))(svelte@5.57.1)(typescript@5.9.3)(vite@8.3.1(@types/node@26.6.3)))':
     dependencies:
-      '@sveltejs/kit': 2.70.3(patch_hash=7ed88e8328172c26f8fc808a8fe568ef49d169bf6bee737ee5094ba0c733e1a8)(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.1)(vite@8.3.1(@types/node@26.6.3)))(svelte@5.57.1)(typescript@5.9.3)(vite@8.3.1(@types/node@26.6.3))
+      '@sveltejs/kit': 2.70.3(patch_hash=f679b4bccc1926662325774381dc3995f282c9f4bafae020e26707c1f00b0d19)(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.1)(vite@8.3.1(@types/node@26.6.3)))(svelte@5.57.1)(typescript@5.9.3)(vite@8.3.1(@types/node@26.6.3))
 
-  '@sveltejs/kit@2.70.3(patch_hash=7ed88e8328172c26f8fc808a8fe568ef49d169bf6bee737ee5094ba0c733e1a8)(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.1)(vite@8.3.1(@types/node@26.6.3)))(svelte@5.57.1)(typescript@5.9.3)(vite@8.3.1(@types/node@26.6.3))':
+  '@sveltejs/kit@2.70.3(patch_hash=f679b4bccc1926662325774381dc3995f282c9f4bafae020e26707c1f00b0d19)(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.1)(vite@8.3.1(@types/node@26.6.3)))(svelte@5.57.1)(typescript@5.9.3)(vite@8.3.1(@types/node@26.6.3))':
     dependencies:
       '@standard-schema/spec': 1.1.0
       '@sveltejs/acorn-typescript': 1.0.13(acorn@8.18.0)
