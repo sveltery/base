@@ -1,0 +1,57 @@
+name: Anchor positioning geometry
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: anchor-positioning-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  anchor-positioning-browser:
+    name: Secured anchor positioning geometry
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+        with:
+          version: 12.6.0
+          run_install: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Frozen workspace install
+        run: bash scripts/bootstrap.sh
+      - name: Build actual native library
+        run: pnpm --filter @sveltery/base build
+      - name: Source provenance and no-browser SSR guards
+        run: node --test scripts/tests/anchor-positioning-*.test.mjs
+      - name: Native lifecycle ownership and race guards
+        run: pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/anchor-positioning-lifecycle.test.ts tests/dom/anchor-positioning-wiring.test.ts tests/dom/anchor-positioning-hide.test.ts
+      - name: Private packaged engine and type boundary
+        run: bash scripts/check-anchor-positioning-package.sh
+      - name: Install official Chromium and OS dependencies
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Record actual reference and secure browser settings
+        run: node scripts/anchor-positioning-environment.mjs
+      - name: Paired actual React and native Svelte geometry
+        run: pnpm exec playwright test tests/browser/anchor-positioning.spec.ts --max-failures=5
+      - name: Preserve anchor positioning evidence and traces
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: anchor-positioning-evidence
+          path: |
+            test-results/anchor-positioning-*/
+            .checks/anchor-positioning-environment.json
+          if-no-files-found: warn
+          retention-days: 14
