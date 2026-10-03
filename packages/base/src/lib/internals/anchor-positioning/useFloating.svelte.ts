@@ -7,7 +7,7 @@ import { untrack } from 'svelte';
 import type { PositioningResult, Reference } from './types.js';
 
 interface NativeFloatingOptions {
-  open: boolean;
+  open?: boolean;
   mounted: boolean;
   transform?: boolean;
   /** Middleware writes must obey the same lifetime/request ownership as coordinates. */
@@ -29,6 +29,8 @@ export function useFloating(readOptions: () => NativeFloatingOptions) {
   let generation = 0;
   let request = 0;
   let updateCurrent: (() => Promise<void>) | undefined;
+  let measuredReference: Reference | null = null;
+  let measuredFloating: HTMLElement | null = null;
   const options = $derived(readOptions());
   const reference = $derived(positionReference ?? domReference);
 
@@ -37,9 +39,20 @@ export function useFloating(readOptions: () => NativeFloatingOptions) {
     const currentReference = reference;
     const currentFloating = floating;
     const lifetime = ++generation;
-    data = { ...untrack(() => data), isPositioned: false };
     updateCurrent = undefined;
-    if (!currentOptions.mounted || !currentReference || !currentFloating) return;
+    if (!currentOptions.mounted || !currentReference || !currentFloating) {
+      data = { ...untrack(() => data), isPositioned: false };
+      measuredReference = null;
+      measuredFloating = null;
+      return;
+    }
+    // Retain positioned output while options change on the same present hosts.
+    // In particular, logical closing must not move a mounted exit transition.
+    if (currentReference !== measuredReference || currentFloating !== measuredFloating) {
+      data = { ...untrack(() => data), isPositioned: false };
+      measuredReference = currentReference;
+      measuredFloating = currentFloating;
+    }
 
     const update = async () => {
       const revision = ++request;
@@ -50,7 +63,7 @@ export function useFloating(readOptions: () => NativeFloatingOptions) {
         // Omit platform: DOM 1.8.0 owns the default browser geometry implementation.
         const computed = await computePosition(currentReference, currentFloating, config);
         if (!isCurrent(currentFloating)) return;
-        data = { ...computed, isPositioned: currentOptions.open };
+        data = { ...computed, isPositioned: currentOptions.open !== false };
         error = null;
       } catch (cause) {
         if (isCurrent(currentFloating)) error = cause;

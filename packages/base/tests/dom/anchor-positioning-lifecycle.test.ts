@@ -24,7 +24,7 @@ beforeEach(() => {
   engine.compute.mockResolvedValue(computed(10));
   engine.autoUpdate.mockImplementation((_reference, _floating, update) => { update(); return engine.cleanup; });
 });
-afterEach(async () => { for (const cleanup of cleanups.splice(0)) await cleanup(); document.body.replaceChildren(); });
+afterEach(async () => { for (const cleanup of cleanups.splice(0)) await cleanup(); document.body.replaceChildren(); vi.unstubAllGlobals(); });
 
 describe('native anchor lifecycle supplements', () => {
   it('keeps DOM and virtual position references separate across position replacement', async () => {
@@ -77,6 +77,21 @@ describe('native anchor lifecycle supplements', () => {
     const style = controller.elements.floating!.style;
     expect([style.position, style.left, style.top, style.opacity, style.transform]).toEqual(['fixed', '0px', '0px', '0', '']);
   });
+  it('preserves positioned output throughout logical closing until mounted presence ends', async () => {
+    const { controller, component } = setup(); await settle();
+    let resolveExit!: (value: ReturnType<typeof computed>) => void;
+    engine.compute.mockImplementationOnce(() => new Promise(resolve => resolveExit = resolve));
+    component.setOptions({ ...base, open: false, mounted: true }); flushSync();
+    expect(controller.isPositioned).toBe(true);
+    expect(controller.elements.floating!.style.transform).toBe('translate(10px, 10px)');
+    expect(controller.elements.floating!.style.opacity).toBe('');
+    resolveExit(computed(20)); await settle(); await settle();
+    expect(controller.isPositioned).toBe(true);
+    expect(controller.elements.floating!.style.transform).toBe('translate(20px, 20px)');
+    component.setOptions({ ...base, open: false, mounted: false }); flushSync();
+    expect(controller.isPositioned).toBe(false);
+    expect(controller.elements.floating!.style.opacity).toBe('0');
+  });
   it('publishes the latest request only and cancels pending work on teardown', async () => {
     const { controller } = setup(); await settle();
     let resolveOlder!: (value: ReturnType<typeof computed>) => void;
@@ -99,13 +114,28 @@ describe('native anchor lifecycle supplements', () => {
     expect(controller.elements.floating).toBe(second); expect(second.style.getPropertyValue('--available-height')).toBe('123px');
     if (typeof releaseSecond === 'function') releaseSecond(); flushSync(); expect(controller.elements.floating).toBe(null);
   });
-  it('uses the floating host owner window for observers and retains default ancestorResize', () => {
+  it.each([false, true])('uses actual-engine ambient observers and retains default ancestorResize when tracking is disabled=%s', async disabled => {
+    vi.stubGlobal('ResizeObserver', undefined);
+    vi.stubGlobal('IntersectionObserver', undefined);
     const iframe = document.createElement('iframe'); document.body.append(iframe);
-    const win = iframe.contentWindow!; const floating = win.document.createElement('div');
+    const win = iframe.contentWindow!;
+    const reference = win.document.createElement('button');
+    const floating = win.document.createElement('div');
+    win.document.body.append(reference, floating);
     Object.defineProperty(win, 'ResizeObserver', { value: class {}, configurable: true });
     Object.defineProperty(win, 'IntersectionObserver', { value: class {}, configurable: true });
-    expect(getAutoUpdateOptions(floating)).toEqual({ ancestorScroll: true, elementResize: true, layoutShift: true });
-    expect(getAutoUpdateOptions(floating, true)).toEqual({ ancestorScroll: false, elementResize: false, layoutShift: false });
-    expect(getAutoUpdateOptions(floating, true)).not.toHaveProperty('ancestorResize');
+    const options = getAutoUpdateOptions(disabled);
+    expect(options).toEqual({ ancestorScroll: !disabled, elementResize: false, layoutShift: false });
+    expect(options).not.toHaveProperty('ancestorResize');
+    const { autoUpdate } = await vi.importActual<typeof import('@floating-ui/dom')>('@floating-ui/dom');
+    const update = vi.fn();
+    const release = autoUpdate(reference, floating, update, options);
+    try {
+      expect(update).toHaveBeenCalledTimes(1);
+      win.dispatchEvent(new Event('resize'));
+      expect(update).toHaveBeenCalledTimes(2);
+    } finally { release(); }
+    win.dispatchEvent(new Event('resize'));
+    expect(update).toHaveBeenCalledTimes(2);
   });
 });

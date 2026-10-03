@@ -17,8 +17,9 @@ The immutable Base UI 1.8.0 [root index](https://github.com/mui/base-ui/blob/47b
 | [Accordion](accordion.md) | Root/Item/Header/Trigger/Panel, array values and bounded motion; external React.Activity and complete conformance remain deferred. |
 | [DirectionProvider](direction-provider.md) | Nearest-provider direction, default ltr and a retained callable reader; primitive hook typing and same-turn timing differ, and directional control integration remains deferred. |
 | [CSPProvider](csp-provider.md) | Provider/context foundation with reactive optional nonce and style flag; ScrollArea/Select/script consumers and all four ordinary CSP assertions remain deferred. |
+| [UseRender](use-render.md) | Native component/default host and replacement snippets; React return typing, lazy/Flight/RSC and diagnostics remain deferred, and native identity/teardown observations differ. |
 | [Field](field-form.md) | Source Root/Control/Label/Description/Error/Validity/Item, contexts, registration and optional validation; downstream families and final ordinary credit remain bounded. |
-| [Form](field-form.md) | Source synchronous validation/focus/submit callbacks and external error ownership; enhanced remote cancellation and typed remote namespace are separate unfinished integration. |
+| [Form](field-form.md) | Source validation/focus/submit callbacks and external error ownership, plus typed remote Field children and control descriptors; Kit 2.70.3 cancellation/reset requires the explicit application patch, and complete upstream parity remains unclaimed. |
 | [Fieldset](field-form.md) | Source nested disabled precedence, legend association and native rendering; downstream assertions remain separate. |
 | [Checkbox](boolean-controls.md) | Source Root/Indicator and actual Field integration; original assertion credit and final source/browser acceptance remain pending. |
 | [Switch](boolean-controls.md) | Source Root/Thumb boolean form control with one hidden checkbox, validation and checked callbacks; full parity remains incomplete. |
@@ -26,7 +27,7 @@ The immutable Base UI 1.8.0 [root index](https://github.com/mui/base-ui/blob/47b
 | [Radio and RadioGroup](radio.md) | Source Root/Indicator/Group through actual Composite list/navigation and Field registration; native activation differences and assertion acceptance are separately recorded. |
 | merge-props | Bounded native prop/event merge foundation; see [contracts](upstream-contracts.md). |
 
-These 22 modules are bounded and the remaining 20 are unimplemented. No module is labeled fully compatible. Field, Form and Fieldset now have bounded source ports and public exports. The catalog denominator includes modules such as direction-provider and use-render; it is not a component count or a passing-test denominator. All unimplemented names remain visible in the machine-readable ledger.
+These 23 modules are bounded and the remaining 19 are unimplemented. No module is labeled fully compatible. Field, Form and Fieldset now have bounded source ports and public exports. The catalog denominator includes modules such as direction-provider and use-render; it is not a component count or a passing-test denominator. All unimplemented names remain visible in the machine-readable ledger.
 
 The [ordinary assertion inventory](../parity/README.md) is separately scoped. Shared conformance helpers, paired framework executions and local supplements do not inflate its declaration credit. The dedicated Toggle ledger records five standalone declarations separately from the shared ordinary inventory; its two ToggleGroup-dependent declarations remain deferred and uncredited. Full Input/Field/Form integration and remaining controls require their own bounded characterization and review.
 

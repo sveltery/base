@@ -33,7 +33,7 @@ test('private anchor foundation keeps immutable source/assertions and zero defer
   assert.doesNotMatch(controller.replace(/\/\/[^\n]*/g, ''), /platform\s*:/); assert.match(controller, /await computePosition\(currentReference, currentFloating, config\)/);
   const anchor = read('packages/base/src/lib/internals/anchor-positioning/useAnchorPositioning.svelte.ts');
   assert.match(anchor, /const position = useFloating\(/);
-  assert.match(anchor, /createPositioningPolicy\(currentOptions, \(\) => currentArrow, isCurrent\)/);
+  assert.match(anchor, /createPositioningPolicy\(currentOptions, \(\) => currentArrow, isCurrent, currentMountSide\)/);
   const pkg = JSON.parse(read('packages/base/package.json')); assert.equal(pkg.exports['./anchor-positioning'], undefined);
   assert.equal(pkg.dependencies['@floating-ui/dom'], '1.8.0'); assert.equal(pkg.dependencies['@floating-ui/utils'], '0.2.12');
 });

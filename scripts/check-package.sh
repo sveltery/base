@@ -188,7 +188,10 @@ bash "$sveltery_repo_root/scripts/check-direction-provider-package.sh" --public
 # Shared CSP provider foundation: actual public root/subpath consumer, not a private-entry stand-in.
 bash scripts/check-csp-provider-package.sh
 
-# Installed public Dialog root/subpath Handle factory, payload snippets and erased namespace types.
+# Installed public UseRender root/subpath, SSR, native DOM and nine type aliases.
+bash "$sveltery_repo_root/scripts/check-use-render-package.sh" --public
+
+# Installed public Dialog nine parts, payload handles, SSR, native DOM and strict types.
 bash scripts/check-dialog-handles-package.sh
 # Installed public source Field/Form/Fieldset anatomy, SSR and 31 named types.
 bash "$sveltery_repo_root/scripts/check-field-form-package.sh" --public
