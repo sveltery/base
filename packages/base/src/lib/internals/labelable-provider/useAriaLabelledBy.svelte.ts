@@ -29,9 +29,9 @@ export function useAriaLabelledBy(
     update();
     if (!labelSource || explicitAriaLabelledBy || labelId || !enableFallback) return;
     // React's every-commit effect observes label DOM changes. The native port
-    // observes the actual external label associations, including sibling mounts.
+    // observes the actual label tree, including labels inside a shadow root.
     const observer = new labelSource.ownerDocument.defaultView!.MutationObserver(update);
-    observer.observe(labelSource.ownerDocument.documentElement, {
+    observer.observe(labelSource.getRootNode(), {
       childList: true,
       subtree: true,
       attributes: true,

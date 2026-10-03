@@ -31,6 +31,31 @@ async function data(page: Page, id = 'form') {
 for (const reference of [false, true])
   for (const family of ['switch', 'checkbox'] as const) {
     const prefix = `${reference ? 'React19.2.8' : 'Svelte'} ${family}`;
+    test(`${prefix} native label association follows the control's actual shadow tree`, async ({
+      page,
+    }) => {
+      const control = await setup(page, family, 'shadow-label', reference);
+      await expect(page.locator('[data-shadow-host] input[type="checkbox"]')).toHaveCount(
+        1,
+      );
+      await expect(control).not.toHaveAttribute('aria-labelledby');
+      await page.getByRole('button', { name: 'Mount label', exact: true }).click();
+      await expect(control).toHaveAttribute('aria-labelledby', 'native-label-a');
+      await page.getByRole('button', { name: 'Change label id', exact: true }).click();
+      await expect(control).toHaveAttribute('aria-labelledby', 'native-label-b');
+      await page.getByRole('button', { name: 'Unlink label', exact: true }).click();
+      await expect(control).not.toHaveAttribute('aria-labelledby');
+      await page.getByRole('button', { name: 'Link label', exact: true }).click();
+      await expect(control).toHaveAttribute('aria-labelledby', 'native-label-b');
+      await page.getByRole('button', { name: 'Clear label id', exact: true }).click();
+      await expect(control).toHaveAttribute('aria-labelledby', 'label-control-label');
+      await expect(page.locator('[data-shadow-host] label')).toHaveAttribute(
+        'id',
+        'label-control-label',
+      );
+      await page.getByRole('button', { name: 'Remove label', exact: true }).click();
+      await expect(control).not.toHaveAttribute('aria-labelledby');
+    });
     test(`${prefix} native click owns one checked Field, labels and successful controls`, async ({
       page,
     }) => {
