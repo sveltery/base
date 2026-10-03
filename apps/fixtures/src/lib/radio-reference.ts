@@ -25,6 +25,8 @@ export function mountRadioReference(
   radioFocusProps: Pick<RadioRootProps, 'onFocus'> = {},
 ) {
   function Fixture() {
+    const groupFocusScenario = scenario.startsWith('focus-group');
+    const itemFocusScenario = scenario.startsWith('focus-item');
     const initial = scenario.includes('empty') ? null : 'b';
     const controlled = scenario.startsWith('controlled');
     const cancel = scenario.includes('cancel');
@@ -45,6 +47,28 @@ export function mountRadioReference(
     const literalInput = useRef<HTMLInputElement>(null);
     const [literalCalls, setLiteralCalls] = useState(0);
     const [validationCalls, setValidationCalls] = useState(0);
+    const [focusCalls, setFocusCalls] = useState<unknown[]>([]);
+    const observeGroupFocus =
+      (phase: string): RadioGroupProps<string | null>['onFocus'] =>
+      (event) => {
+        const textbox = event.target as unknown as HTMLInputElement;
+        const field = node.querySelector('#field')!;
+        const observation = {
+          phase,
+          currentTarget: event.currentTarget.id,
+          tag: event.currentTarget.tagName,
+          focused: field.hasAttribute('data-focused'),
+          touched: field.hasAttribute('data-touched'),
+          selection: [textbox.selectionStart, textbox.selectionEnd],
+        };
+        setFocusCalls((previous) => [...previous, observation]);
+        if (scenario.includes('cancel')) event.preventBaseUIHandler();
+      };
+    const observeItemFocus: RadioRootProps['onFocus'] = (event) => {
+      const currentTarget = event.currentTarget.getAttribute('data-testid');
+      setFocusCalls((previous) => [...previous, currentTarget]);
+      if (scenario.includes('cancel')) event.preventBaseUIHandler();
+    };
     if (scenario.startsWith('standalone-')) {
       return h(
         'main',
@@ -121,15 +145,17 @@ export function mountRadioReference(
               {
                 name: 'choice',
                 id: 'field',
-                validationMode: scenario.startsWith('onblur')
-                  ? 'onBlur'
-                  : undefined,
-                validate: scenario.startsWith('onblur')
-                  ? (value: unknown) => {
-                      setValidationCalls((previous) => previous + 1);
-                      return `Blur error: ${String(value)}`;
-                    }
-                  : undefined,
+                validationMode:
+                  scenario.startsWith('onblur') || groupFocusScenario
+                    ? 'onBlur'
+                    : undefined,
+                validate:
+                  scenario.startsWith('onblur') || groupFocusScenario
+                    ? (value: unknown) => {
+                        setValidationCalls((previous) => previous + 1);
+                        return `Blur error: ${String(value)}`;
+                      }
+                    : undefined,
               },
               h(Field.Label, { id: 'group-label' }, 'Group'),
               h(Field.Description, { id: 'description' }, 'Description'),
@@ -163,8 +189,17 @@ export function mountRadioReference(
                     )
                       setOwner(value);
                   },
+                  onFocus: groupFocusScenario
+                    ? observeGroupFocus('enter')
+                    : undefined,
+                  onBlur: groupFocusScenario
+                    ? observeGroupFocus('leave')
+                    : undefined,
                   ...focusProps,
-                  render: renderOverride ? h('section') : undefined,
+                  render:
+                    renderOverride || scenario.startsWith('focus-group-render')
+                      ? h('section')
+                      : undefined,
                 },
                 items.map((value) =>
                   h(
@@ -180,15 +215,32 @@ export function mountRadioReference(
                         nativeButton,
                         disabled: disabledFirst && value === 'a',
                         render: nativeButton ? h('button') : h('span'),
+                        onFocus: itemFocusScenario
+                          ? observeItemFocus
+                          : undefined,
                         ...radioFocusProps,
                       },
                       h(Radio.Indicator, {
                         ...{ 'data-testid': `indicator-${value}` },
                         keepMounted: scenario.includes('keep'),
                       }),
+                      itemFocusScenario && value === 'c'
+                        ? h('input', {
+                            id: 'focus-textbox',
+                            type: 'text',
+                            defaultValue: 'hello',
+                          })
+                        : null,
                     ),
                   ),
                 ),
+                groupFocusScenario
+                  ? h('input', {
+                      id: 'focus-textbox',
+                      type: 'text',
+                      defaultValue: 'hello',
+                    })
+                  : null,
               ),
               h(Field.Error, { id: 'error' }),
               h(Field.Validity, {
@@ -209,6 +261,7 @@ export function mountRadioReference(
       h('output', { id: 'calls' }, JSON.stringify(calls)),
       h('output', { id: 'submissions' }, JSON.stringify(submissions)),
       h('output', { id: 'validation-calls' }, validationCalls),
+      h('output', { id: 'focus-calls' }, JSON.stringify(focusCalls)),
     );
   }
   const root = createRoot(node);
