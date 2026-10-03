@@ -224,6 +224,25 @@ for (const reference of [false, true])
   }
 for (const reference of [false, true]) {
   const prefix = reference ? 'React19.2.8' : 'Svelte';
+  test(`${prefix} CheckboxGroup retains owned selection while native reset changes successful values`, async ({
+    page,
+  }) => {
+    await setup(page, 'checkbox', 'group', reference);
+    const child = page.locator('[data-child="a"]');
+    await child.click();
+    await expect(child).toHaveAttribute('aria-checked', 'true');
+    await page
+      .locator('#group-form')
+      .evaluate((form) => (form as HTMLFormElement).reset());
+    await expect(
+      page.locator('#group-form input[type="checkbox"]').nth(1),
+    ).not.toBeChecked();
+    await expect(child).toHaveAttribute('aria-checked', 'true');
+    await expect(child).toHaveAttribute('data-filled', '');
+    expect(await data(page, 'group-form')).toEqual([]);
+    await page.locator('#group-submit').click();
+    expect(await json(page, 'submissions')).toEqual([{ choices: [] }]);
+  });
   test(`${prefix} CheckboxGroup parent and children share one array Field registration`, async ({
     page,
   }) => {

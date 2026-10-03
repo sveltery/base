@@ -46,11 +46,11 @@
 {/snippet}
 {#if scenario === 'controlled'}
   {@render control({ ...rootProps, checked: controlledChecked, onCheckedChange: (next, details) => { rootProps.onCheckedChange?.(next, details); if (!details.isCanceled) controlledChecked = next; } })}
-{:else if scenario === 'group'}
+{:else if scenario === 'group' || scenario === 'group-uncontrolled'}
   <Form onFormSubmit={(values) => submit?.(values)}>
     <Field.Root name="choices" validate={validation}>
       <Field.Label>Choices</Field.Label>
-      <CheckboxGroup value={groupValue} allValues={['a', 'b']} onValueChange={(next, details) => { if (canceled) details.cancel(); if (!details.isCanceled) groupValue = next; }}>
+      <CheckboxGroup value={scenario === 'group' ? groupValue : undefined} defaultValue={['a']} allValues={['a', 'b']} onValueChange={(next, details) => { if (canceled) details.cancel(); if (!details.isCanceled) groupValue = next; }}>
         <Checkbox.Root parent data-parent-control />
         <Field.Item><Checkbox.Root value="a" id="child-a" /><Field.Label>A</Field.Label></Field.Item>
         <Field.Item disabled={rootProps.disabled}><Checkbox.Root value="b" id="child-b" /><Field.Label>B</Field.Label></Field.Item>
