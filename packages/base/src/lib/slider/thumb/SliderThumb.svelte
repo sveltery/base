@@ -12,6 +12,8 @@
   import { useBaseUiId } from "../../internals/useBaseUiId.js";
   import { useIsHydrating } from "../../utils/useIsHydrating.svelte.js";
   import RenderElement from "../../internals/RenderElement.svelte";
+  import SliderThumbNativeInput from "./SliderThumbNativeInput.svelte";
+  import type { HTMLProps } from "../../internals/types.js";
   import { valueToPercent } from "../../utils/valueToPercent.js";
   import {
     ARROW_DOWN,
@@ -566,10 +568,17 @@
 
 {#snippet contents()}
   {@render children?.()}
-  <RenderElement tag="input" params={inputParams} />
+  <RenderElement
+    tag="input"
+    componentProps={{ render: nativeInput }}
+    params={inputParams}
+  />
   {#if inset && last && renderBeforeHydration}<PrehydrationScript
       script={prehydrationScript}
     />{/if}
+{/snippet}
+{#snippet nativeInput(supplied: HTMLProps)}
+  <SliderThumbNativeInput {supplied} />
 {/snippet}
 <RenderElement
   tag="div"

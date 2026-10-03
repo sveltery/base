@@ -4,10 +4,20 @@
   let { data } = $props();
   let host = $state<HTMLElement>();
   onMount(() => {
-    if (!data.reference || !host) return;
+    if ((!data.reference && !data.scenario.includes("fresh-client")) || !host)
+      return;
     const node = host;
     let disposed = false;
     let cleanup: (() => void) | undefined;
+    if (!data.reference) {
+      void import("../../lib/slider-hydration.js").then(({ mountSlider }) => {
+        if (!disposed) cleanup = mountSlider(node, data.scenario);
+      });
+      return () => {
+        disposed = true;
+        cleanup?.();
+      };
+    }
     void import("../../lib/slider-reference.js").then(
       ({ mountSliderReference }) => {
         if (!disposed) cleanup = mountSliderReference(node, data.scenario);
@@ -20,9 +30,9 @@
   });
 </script>
 
-{#if data.reference}<section bind:this={host}></section>{:else}<Fixture
-    scenario={data.scenario}
-  />{/if}
+{#if data.reference || data.scenario.includes("fresh-client")}<section
+    bind:this={host}
+  ></section>{:else}<Fixture scenario={data.scenario} />{/if}
 
 <style>
   :global(#slider-control) {

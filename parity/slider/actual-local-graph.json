@@ -2176,6 +2176,7 @@
       "local": "packages/base/src/lib/internals/field-control-name/FieldControlNameContext.ts",
       "sha256": "c2e281c241321a8fd4148eb0f536dabb56be359deccc0e8a5f23ec4d207c48a8",
       "reachability": [
+        "runtime",
         "type"
       ],
       "declarations": [
@@ -2786,7 +2787,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/PrehydrationScript.svelte",
-      "sha256": "e3f002c88285f79f82b009b2b7fc38e15ab8d46d39cfe958bae8d4aee803e336",
+      "sha256": "2b37072e8cb05af6fdb577941c8f79f5be974f34032b588b27b11c6f67eb35e2",
       "reachability": [
         "runtime"
       ],
@@ -4994,7 +4995,7 @@
     },
     {
       "local": "packages/base/src/lib/slider/thumb/SliderThumb.svelte",
-      "sha256": "b93b9dbe489e9c8c677b5e44b3bfabad1afaa4a29b5eb1487eddc3146d81a82f",
+      "sha256": "7856e86a53a0c28ebaeb8db06259d7eba352b0ad2df6512e13f5c3bd9bd210a8",
       "reachability": [
         "runtime"
       ],
@@ -5100,6 +5101,22 @@
           "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
         },
         {
+          "specifier": "./SliderThumbNativeInput.svelte",
+          "kind": "runtime",
+          "names": [
+            "SliderThumbNativeInput"
+          ],
+          "resolved": "packages/base/src/lib/slider/thumb/SliderThumbNativeInput.svelte"
+        },
+        {
+          "specifier": "../../internals/types.js",
+          "kind": "type",
+          "names": [
+            "HTMLProps"
+          ],
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
           "specifier": "../../utils/valueToPercent.js",
           "kind": "runtime",
           "names": [
@@ -5146,6 +5163,14 @@
             "PrehydrationScript"
           ],
           "resolved": "packages/base/src/lib/internals/PrehydrationScript.svelte"
+        },
+        {
+          "specifier": "../../internals/field-control-name/FieldControlNameContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFieldControlNativeName"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-control-name/FieldControlNameContext.ts"
         },
         {
           "specifier": "../../internals/field-root-context/FieldRootContext.js",
@@ -5246,6 +5271,42 @@
       ],
       "declarations": [],
       "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/slider/thumb/SliderThumbNativeInput.svelte",
+      "sha256": "0c3cb3fb835d6a73a3bd403f6c226227c67b0ad694cc7275ce7acdf75931a3af",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "listenInput"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte/events",
+          "kind": "runtime",
+          "names": [
+            "on"
+          ],
+          "resolved": "external:svelte/events"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "names": [
+            "HTMLInputAttributes"
+          ],
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../../internals/types.js",
+          "kind": "type",
+          "names": [
+            "HTMLProps"
+          ],
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        }
+      ]
     },
     {
       "local": "packages/base/src/lib/slider/track/SliderTrack.svelte",

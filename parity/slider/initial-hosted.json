@@ -1,0 +1,16 @@
+{
+  "head": "e4ab8fe1f51c3a39417bbc999187f86acc73f353",
+  "run": "https://github.com/sveltery/base/actions/runs/37156358371",
+  "artifact": "https://github.com/sveltery/base/actions/runs/37156358371/artifacts/11286172489",
+  "job": 111300425004,
+  "observed": { "passed": 53, "failed": 15, "workers": 1, "retries": 0, "chromiumSandbox": true, "browser": "Chrome for Testing 153.0.8010.12", "runner": "Ubuntu 22.04", "react": "19.2.8", "reactDom": "19.2.8" },
+  "rawJobLogSha256": "d4e925bb36e03ff5ff4e370f59973ce04c953e13c600c3c4f77ff3517b738d86",
+  "findings": [
+    { "kind": "fidelity repair", "cases": ["cancel actual hidden input", "controlled-reject actual hidden input"], "react": "DOM and FormData restore 40 after attempted 80", "initialNative": "DOM and FormData retain attempted 80", "repair": "Native local binding reads the composed accepted value; public native event action runs the original Source handler before binding." },
+    { "kind": "supplement expectation correction", "cases": ["all Slider parts labels"], "both": "Root local Slider.Label supplies slider-root-label; nested inputs prefer field-label." },
+    { "kind": "supplement browser observation correction", "cases": ["nonce SSR parser"], "both": "Browsers hide the nonce content attribute from selectors; inspect HTMLScriptElement.nonce, and verify strict-CSP execution and parser positions." },
+    { "kind": "native lifecycle characterization pending independent review", "cases": ["edge", "range-edge", "range-edge-vertical", "range-edge-rtl", "edge-client"], "react": "Positions remain at original 300px inset percentages after control resizes to 500px.", "native": "The same Source geometry algorithm with native reactive host attachment lifetime updates inset percentages for 500px.", "credit": 0, "status": "Record exact observer/geometry evidence in follow-up; no business algorithm or pinned Source expectation is silently changed." }
+  ],
+  "ordinaryComponentAssertionCredit": 0,
+  "decision": "Initial red checkpoint retained. Neither this run nor modified native supplemental expectations establish final acceptance."
+}

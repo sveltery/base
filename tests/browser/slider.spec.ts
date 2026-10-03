@@ -1,5 +1,26 @@
 // Pinned source-family paired scenarios and native supplements. MIT: parity/slider/UPSTREAM_LICENSE.
 import { expect, test, type Page } from "@playwright/test";
+async function observeParser(page: Page) {
+  await page.addInitScript(() => {
+    const descriptor = Object.getOwnPropertyDescriptor(
+      Document.prototype,
+      "currentScript",
+    )!;
+    const observations = { executions: 0, nonce: [] as string[] };
+    Object.assign(window, { sliderParser: observations });
+    Object.defineProperty(Document.prototype, "currentScript", {
+      ...descriptor,
+      get() {
+        const script = descriptor.get!.call(this) as HTMLScriptElement | null;
+        if (script?.textContent?.includes("[data-base-ui-slider-control]")) {
+          observations.executions += 1;
+          observations.nonce.push(script.nonce);
+        }
+        return script;
+      },
+    });
+  });
+}
 async function list(page: Page, id: string) {
   return JSON.parse(await page.locator(id).innerText()) as Record<
     string,
@@ -55,7 +76,7 @@ for (const framework of ["react", "svelte"]) {
     await expect(page.locator("#slider-root")).toHaveAttribute("role", "group");
     await expect(page.locator("#slider-root")).toHaveAttribute(
       "aria-labelledby",
-      "field-label",
+      "slider-root-label",
     );
     for (const input of await page.locator('input[type="range"]').all()) {
       await expect(input).toHaveAttribute("aria-labelledby", "field-label");
@@ -235,6 +256,63 @@ for (const framework of ["react", "svelte"]) {
       { value: 90, reason: "drag", type: "pointerup" },
     ]);
   });
+  for (const shape of ["shrink", "grow"]) {
+    test(`${framework} ${shape} during drag drops mismatched cached commit`, async ({
+      page,
+    }) => {
+      await open(page, "range-dynamic");
+      await pointer(page, 0.3, false);
+      expect(await values(page)).toEqual([30, 80]);
+      await page.locator(`#${shape}`).evaluate((node) => node.click());
+      const expected = shape === "shrink" ? [30] : [10, 40, 70];
+      await expect.poll(() => values(page)).toEqual(expected);
+      await page.mouse.up();
+      expect(await list(page, "#slider-commits")).toEqual([]);
+      expect(await values(page)).toEqual(expected);
+    });
+  }
+  for (const cleanup of ["toggle-disabled", "toggle-present"]) {
+    test(`${framework} ${cleanup} during drag removes listeners and cached commit`, async ({
+      page,
+    }) => {
+      await open(page);
+      await pointer(page, 0.7, false);
+      await page.locator(`#${cleanup}`).evaluate((node) => node.click());
+      const count = (await list(page, "#slider-calls")).length;
+      const rect =
+        cleanup === "toggle-disabled"
+          ? (await page.locator("#slider-control").boundingBox())!
+          : { x: 0, y: 0, width: 300, height: 20 };
+      await page.mouse.move(
+        rect.x + rect.width * 0.9,
+        rect.y + rect.height / 2,
+        { steps: 3 },
+      );
+      await page.mouse.up();
+      expect((await list(page, "#slider-calls")).length).toBe(count);
+      expect(await list(page, "#slider-commits")).toEqual([]);
+    });
+  }
+  test(`${framework} RTL and vertical pointer geometry reaches Source bounds`, async ({
+    page,
+  }) => {
+    for (const scenario of ["rtl", "vertical"]) {
+      await open(page, scenario);
+      const rect = (await page.locator("#slider-control").boundingBox())!;
+      await page.mouse.click(
+        scenario === "rtl" ? rect.x : rect.x + rect.width / 2,
+        scenario === "vertical" ? rect.y : rect.y + rect.height / 2,
+      );
+      expect(await values(page)).toEqual([100]);
+      await page.mouse.click(
+        scenario === "rtl" ? rect.x + rect.width - 1 : rect.x + rect.width / 2,
+        scenario === "vertical"
+          ? rect.y + rect.height - 1
+          : rect.y + rect.height / 2,
+      );
+      expect(await values(page)).toEqual([0]);
+    }
+  });
   for (const behavior of ["push", "swap", "none"]) {
     test(`${framework} ${behavior} thumb collision preserves source pointer algorithm`, async ({
       page,
@@ -393,7 +471,16 @@ for (const framework of ["react", "svelte"]) {
               .evaluate((node) => node.style.getPropertyValue("--position")),
           ),
         )
-        .toBeCloseTo(((10 + (480 * initial[0]) / 100) / 500) * 100, 5);
+        .toBeCloseTo(
+          framework === "react"
+            ? ((10 + (280 * initial[0]) / 100) / 300) * 100
+            : ((10 + (480 * initial[0]) / 100) / 500) * 100,
+          5,
+        );
+      await expect(page.locator("#slider-control")).toHaveJSProperty(
+        scenario.includes("vertical") ? "clientHeight" : "clientWidth",
+        500,
+      );
     });
   }
   test(`${framework} real touchstart/move/end uses source touch id and commits`, async ({
@@ -443,6 +530,7 @@ for (const framework of ["react", "svelte"]) {
     test(`${framework} ${scenario} nonce SSR parser positions before application JavaScript and hydrates`, async ({
       page,
     }) => {
+      await observeParser(page);
       const errors: string[] = [];
       page.on("console", (message) => {
         if (message.type() === "error" || message.type() === "warning")
@@ -456,7 +544,14 @@ for (const framework of ["react", "svelte"]) {
         "data-hydrated",
         "false",
       );
-      await expect(page.locator('script[nonce="slider-nonce"]')).toHaveCount(1);
+      expect(
+        await page
+          .locator("script")
+          .evaluateAll(
+            (nodes) =>
+              nodes.filter((node) => node.nonce === "slider-nonce").length,
+          ),
+      ).toBe(1);
       const before = await page
         .locator('[data-testid^="thumb-"]')
         .evaluateAll((nodes) =>
@@ -476,6 +571,11 @@ for (const framework of ["react", "svelte"]) {
         "visible",
       ]);
       expect(errors).toEqual([]);
+      expect(
+        await page.evaluate(
+          () => (window as unknown as { sliderParser: unknown }).sliderParser,
+        ),
+      ).toEqual({ executions: 1, nonce: ["slider-nonce"] });
       await page.goto(
         `/slider-ssr?framework=${framework}&scenario=${scenario}&hydrate=true`,
       );
@@ -498,6 +598,89 @@ for (const framework of ["react", "svelte"]) {
         );
       expect(after).toEqual([expect.closeTo(22, 5), expect.closeTo(78, 5)]);
       expect(errors).toEqual([]);
+      expect(
+        await page.evaluate(
+          () => (window as unknown as { sliderParser: unknown }).sliderParser,
+        ),
+      ).toEqual({ executions: 1, nonce: ["slider-nonce"] });
     });
   }
+  test(`${framework} fresh client native insertion does not execute Source parser script`, async ({
+    page,
+  }) => {
+    await observeParser(page);
+    await open(page, "range-edge-fresh-client");
+    expect(await values(page)).toEqual([20, 80]);
+    expect(
+      await page.evaluate(
+        () => (window as unknown as { sliderParser: unknown }).sliderParser,
+      ),
+    ).toEqual({ executions: 0, nonce: [] });
+    await expect(
+      page
+        .locator("script")
+        .filter({ hasText: "[data-base-ui-slider-control]" }),
+    ).toHaveCount(0);
+    const positions = await page
+      .locator('[data-testid^="thumb-"]')
+      .evaluateAll((nodes) =>
+        nodes.map((node) =>
+          Number.parseFloat(
+            (node as HTMLElement).style.getPropertyValue("--position"),
+          ),
+        ),
+      );
+    expect(positions).toEqual([expect.closeTo(22, 5), expect.closeTo(78, 5)]);
+  });
 }
+
+test("native authored Slider reuses accepted typed remote Field name/as and Source custom registration/render override", async ({
+  page,
+}) => {
+  let posts = 0;
+  page.on("request", (request) => {
+    if (request.method() === "POST" && request.url().includes("/_app/remote/"))
+      posts += 1;
+  });
+  await page.goto("/slider-remote");
+  await expect(page.locator("main")).toHaveAttribute("data-hydrated", "true");
+  const input = page.locator('input[type="range"]');
+  await expect(input).toHaveValue("40");
+  await expect(input).toHaveAttribute("name", "n:settings.volume");
+  await expect(page.locator("#remote-slider")).toHaveJSProperty(
+    "tagName",
+    "SECTION",
+  );
+  await page.locator("#remote-slider-submit").click();
+  await expect(page.locator("#remote-slider-error")).toHaveText("Too low");
+  expect(posts).toBe(0);
+  await page.locator("#remote-slider-set").click();
+  await expect(input).toHaveValue("70");
+  await page.locator("#remote-slider-cancel").click();
+  await input.press("ArrowRight");
+  await expect(input).toHaveValue("70");
+  await expect(page.locator("#remote-slider-changes")).toHaveText(
+    JSON.stringify([{ value: 71, name: "settings.volume" }]),
+  );
+  expect(
+    await page
+      .locator("form")
+      .evaluate((form) =>
+        new FormData(form as HTMLFormElement).get("n:settings.volume"),
+      ),
+  ).toBe("70");
+  await page.locator("#remote-slider-cancel").click();
+  await input.press("ArrowRight");
+  await expect(input).toHaveValue("71");
+  await expect(page.locator("#remote-slider-owner")).toHaveText(
+    JSON.stringify({ settings: { volume: 71 } }),
+  );
+  await page.locator("#remote-slider-submit").click();
+  await expect(page.locator("#remote-slider-result")).toHaveText(
+    JSON.stringify({ values: { settings: { volume: 71 } } }),
+  );
+  expect(posts).toBe(1);
+  await expect(page.locator("#remote-slider-enhancement")).toHaveText(
+    JSON.stringify(["caller", "settled"]),
+  );
+});
