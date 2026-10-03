@@ -1,0 +1,1419 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "ordinaryDeclarationCredit": 0,
+  "status": "immutable original declaration sites; variants and execution counts stay separate",
+  "files": [
+    {
+      "source": "packages/react/src/tabs/indicator/TabsIndicator.test.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/tabs/indicator/TabsIndicator.test.tsx",
+      "sha256": "49cba9125fa7068c650ccb28d8cbe2bcfd966cd63e2ffc775750622f55b295ab",
+      "declarations": [
+        {
+          "line": 13,
+          "callee": "describeConformance",
+          "name": "<Tabs.Indicator />",
+          "sha256": "ee72e36bdb7fccb3a46ad858984a1c004532eb671e83cee60e6e6f48ffe02029",
+          "kind": "conformance",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 28,
+          "callee": "it",
+          "name": "'exposes null active tab state when the selected value has no matching tab'",
+          "sha256": "0b59007b7fbff2863568fd4de0b02d34846d92f7a0970f67d82d6a5c0f238fe0",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 60,
+          "callee": "it",
+          "name": "'should not render when no tab is active'",
+          "sha256": "1acadad0e919722233bfc175336d3468f13b78d0944b332d7a1f6d35f1cb8995",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 177,
+          "callee": "it",
+          "name": "'should set CSS variables corresponding to the active tab'",
+          "sha256": "add149dd7bf84c104851e6d2d569e6ed48e965e2e1d82d018d66df26be050b59",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 199,
+          "callee": "it",
+          "name": "'should update the position and movement variables when the active tab changes'",
+          "sha256": "9c63ace2b9d28110e9feeef3f086c8c8658632e98aa7d9a6c7a898cd819e754b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 227,
+          "callee": "it",
+          "name": "'should update the position variables when the tab list is resized'",
+          "sha256": "55bc2519066e968c313e2fc49f6cb5a08d3f46ce2478758fdeeae5097169ba5e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 258,
+          "callee": "it",
+          "name": "'should account for scroll and border when the tab list is transformed'",
+          "sha256": "296c292230e19d39e099af65e41ee68831db75dfded6dd21d24e2ed06107e567",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 305,
+          "callee": "it",
+          "name": "'accounts for a scrolled container between the tab list and the active tab'",
+          "sha256": "328f859695ee22d853de956cbf8d4bb01970f35010ca822c6f1e3a8644a9e407",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 344,
+          "callee": "it",
+          "name": "'overlays the active tab when an ancestor has a 2D rotation'",
+          "sha256": "5f6af5755940e6c05987a2acfc6485eedd5259c24ba0b1bcd9d7242a0bbcedff",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 354,
+          "callee": "it",
+          "name": "'overlays the active tab when an ancestor has a size-preserving flip'",
+          "sha256": "db5899259942a70abc1553b1435fc76c796d5c71d7534ee474d067e98240bc20",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 364,
+          "callee": "it",
+          "name": "'sets transformed offsets relative to the tab list when the list is not the offset parent'",
+          "sha256": "2713979dd7f17d7fb27f7aafce9ed1736d7b4b0d39d6a26d1f02951882f3a362",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 382,
+          "callee": "it",
+          "name": "'overlays the active tab when an ancestor uses the rotate longhand'",
+          "sha256": "a8414d5b21cf0408c926fa6165f9904abdc8fa921af2028a1b6cd785bc487619",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 392,
+          "callee": "it",
+          "name": "'overlays the active tab when an ancestor uses a flipping scale longhand'",
+          "sha256": "51da06911a5070c1672aa922ea87b3dc456a42034571f6d48150d70326e0606d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 402,
+          "callee": "it",
+          "name": "'overlays the active tab when an ancestor has a 3D rotation (#4837)'",
+          "sha256": "5f67f43d5cf01d5bc72d4a64424a4ab8351b521072dfafe65900f632b01ad3db",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 412,
+          "callee": "it",
+          "name": "'follows the active tab when it has its own transform translation'",
+          "sha256": "d8b7ba5daad2392e385b17be4073b286094b00e3b126259131aeaea545456ff3",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 446,
+          "callee": "it",
+          "name": "'follows the active tab when it uses the translate longhand'",
+          "sha256": "5159449c239c66f9813a551c219876e4cecd24096f83d3c3769608af1a48479e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 473,
+          "callee": "it",
+          "name": "'follows the active tab when the translate longhand uses percentages'",
+          "sha256": "5f6b577d112b5c16e7a157863a895c9c00a25583a60b61688cb6bbae726ce9b6",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 501,
+          "callee": "it",
+          "name": "'updates position when a different tab resizes'",
+          "sha256": "aa91c996f38fc8ca808a3d1bec02cf1354c5b360c9510eac3027e8fe78c72b5f",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 538,
+          "callee": "it",
+          "name": "'keeps observing a tab whose rendered element type changes'",
+          "sha256": "e960855ec0b27d3e093663d0dca67c92d31567ef8e167cf7c572613ca6ff2c9a",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 597,
+          "callee": "it",
+          "name": "'falls back to offset positions when the tab list is scaled to zero'",
+          "sha256": "776788217db81164bb516d23091844b8c30248a4599522f14ae8167fbcf4b36c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 638,
+          "callee": "it",
+          "name": "'updates position when a new tab is inserted and then resized'",
+          "sha256": "e8e5e20a9b5a794e707765f20c03d4ec386a78f4744ac354944cc04024e2dd2a",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 694,
+          "callee": "it",
+          "name": "'updates all indicators when a different tab resizes'",
+          "sha256": "82a4e44f3fb0a204d53d04e26094e885923e0990f8e192912479814fe3a90133",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 735,
+          "callee": "it",
+          "name": "'perf: single tab resize does not fan out excessive indicator rerenders'",
+          "sha256": "6207c9a0675ef535459f29081e6089b646ca92571a1802f49279108b98007a54",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 792,
+          "callee": "it",
+          "name": "'renders the inline pre-hydration script during server-side rendering'",
+          "sha256": "08eae24bab7fb5e83419f13a57a0c74ef39d7d65fb653ca414a757a14b67194c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 808,
+          "callee": "it.skipIf(!isJSDOM)",
+          "name": "'inlines the script contents during server-side rendering'",
+          "sha256": "5f86e3028d68375384f86488b7489f26f49d6bd67bf4648f86d7ce853b649734",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 808,
+          "callee": "it.skipIf",
+          "name": "!isJSDOM",
+          "sha256": "bcb41b6ed34c3d27133810ed8ff33381f4e39220c9197524a842f7ae965646b7",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 824,
+          "callee": "it",
+          "name": "'applies the CSP nonce to the pre-hydration script'",
+          "sha256": "d079e742a7d4d93d79fa79aa0028b4d30fd706920d4fbe72ac6bf22492d5bc42",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 844,
+          "callee": "it.skipIf(!isJSDOM)",
+          "name": "'keeps the script during hydration and removes it afterwards'",
+          "sha256": "3aaa7b35ba38d85d7db99303203395522880f3250c41c82687ef0aef9a789b8b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 844,
+          "callee": "it.skipIf",
+          "name": "!isJSDOM",
+          "sha256": "bcb41b6ed34c3d27133810ed8ff33381f4e39220c9197524a842f7ae965646b7",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 901,
+          "callee": "it",
+          "name": "'positions the indicator once a hidden streamed segment becomes visible'",
+          "sha256": "b5099bdece8ac63af4d0ac37a43ff819dfbd9c271b70c409fcfbfb9408cf4d09",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 915,
+          "callee": "it",
+          "name": "'does not resurrect the indicator when the captured tab is no longer active'",
+          "sha256": "94898884d3e54242ccd8ed84938a9402c5a2dd289669b1aa9e4d9fc4bd35b787",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 929,
+          "callee": "it",
+          "name": "'stops once hydration has revealed the indicator'",
+          "sha256": "3b5e78f7cd282a2161a45d41582c03a6fe81dc9306ef293cc862406b64fe3e6b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 952,
+          "callee": "it",
+          "name": "'keeps observing until the active tab is fully measurable'",
+          "sha256": "207f7500c9a9b161a2ce232ab6a51d455954731a05af49b1bea90a7f7e6d200c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/tabs/list/TabsList.test.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/tabs/list/TabsList.test.tsx",
+      "sha256": "b3285ba4ba1e49fd27ad5c6db4caac058dce79fd45cc59fb86e4f1977e0cdd0e",
+      "declarations": [
+        {
+          "line": 10,
+          "callee": "describeConformance",
+          "name": "<Tabs.List />",
+          "sha256": "1aa14b52080d2a48b192d9c57d50889463ed61683545e68d4fbf41560bc7fcf0",
+          "kind": "conformance",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 16,
+          "callee": "it",
+          "name": "'sets the aria-selected attribute on the active tab'",
+          "sha256": "d5929d96164e071fdb74d760272d41a8e2e892b28fc106a3d4f3e3b5388fef61",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 62,
+          "callee": "it",
+          "name": "'does not wrap focus past the first tab when `loopFocus` is false'",
+          "sha256": "036987616754ad6587b5f367c80e9985caa4ed25ed6b21e299b208266347e1e9",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 85,
+          "callee": "it",
+          "name": "'does not wrap focus past the last tab when `loopFocus` is false'",
+          "sha256": "316d59e2eebef7ad972c8c655044011ddb4381025aa508c06148b0d9bf8d97db",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 110,
+          "callee": "it",
+          "name": "'moves focus to a tab disabled with the `disabled` prop'",
+          "sha256": "4a88e419061a8be06ef502f9cbc13f02e48cdbe6bdfca011b5b731f90277dbc7",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 132,
+          "callee": "it",
+          "name": "'skips a natively disabled tab in a single keypress'",
+          "sha256": "188973d7b6f67bff4db614736d5b65134130ac1ee94087a3bb569b850f0a19d1",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 161,
+          "callee": "it",
+          "name": "'moves the tab stop off a hidden successor when the highlighted tab is removed'",
+          "sha256": "37b56779d9b8c9ea0e6f8814902b54ea7fa57d498074380bfb03e8655907da53",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 190,
+          "callee": "it",
+          "name": "'can fall back to a tab that is focusable when disabled'",
+          "sha256": "e03970a9331e79ea2fa426533ae5d07e41d6622aa7a9996779bcfacd7a1db722",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 213,
+          "callee": "it",
+          "name": "'keeps the tab stop on the selected tab when focus is inside the list'",
+          "sha256": "b9c26c0ac5afbd2330e823713f97377902a8cd78c6e101727cd9856c0bad5ceb",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 240,
+          "callee": "it",
+          "name": "'keeps tracking a successor through subsequent removals'",
+          "sha256": "eca0397f3720abd76ea1f6cf221acdff64443d08b707583f82cf132b7bb6cd30",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 267,
+          "callee": "it",
+          "name": "'can be named via `aria-label`'",
+          "sha256": "9b49f5cd6106e0cd8998e94a37fefdcef09d2d182d059ba31bfd67ef2ae62d23",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 279,
+          "callee": "it",
+          "name": "'can be named via `aria-labelledby`'",
+          "sha256": "4057ccc30ec20e00ded4257aed6714b1b65a290ce864214ce50f23cb10d4f198",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/tabs/panel/TabsPanel.test.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/tabs/panel/TabsPanel.test.tsx",
+      "sha256": "eff752526b30056ad5e40641b2f8789d05e4e7d341718c3daf59422a5be01ecb",
+      "declarations": [
+        {
+          "line": 10,
+          "callee": "describeConformance",
+          "name": "<Tabs.Panel value=\"1\" keepMounted />",
+          "sha256": "17247dbcd1ded74a057b3bf8168dc2129bebf62dd83afbbb9bf1d54c55fd27c1",
+          "kind": "conformance",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 15,
+          "callee": "it",
+          "name": "'throws a descriptive error when rendered outside <Tabs.Root>'",
+          "sha256": "ab4664f3ee4dfd6fa12779b13c187a91960a69a2125f0947953d2583d6b25969",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 28,
+          "callee": "it",
+          "name": "'keeps the surviving registration when a shadowed panel unmounts'",
+          "sha256": "8a5184e4f06d995faa879a760147e0f8f831107c3eccf5478f3d93fa43568ae8",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 64,
+          "callee": "it",
+          "name": "'sets the panel index data attribute'",
+          "sha256": "6f52f16b287bd5943567b62b1eae4a7c882a0641556b8bf96c98456ec34d4c47",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 78,
+          "callee": "it.skipIf(reactMajor < 19)",
+          "name": "'renders a panel that suspends when opened with the boundary outside the root'",
+          "sha256": "a66a89f5964dc66996c18582c3636b88874a3a8ef68fcec833faa36f0758d2e4",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 78,
+          "callee": "it.skipIf",
+          "name": "reactMajor < 19",
+          "sha256": "f55307cc23aef4be7ad8ea394f37bf40d32bf792bf5ec56c88a59bf48093862b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 149,
+          "callee": "it",
+          "name": "'triggers enter animation via data-starting-style when mounting'",
+          "sha256": "c4a72508cd58536e92c4b6c3d94f4153a8159be5be44bf00352461aa9cae3cdd",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 201,
+          "callee": "it",
+          "name": "'applies data-ending-style before unmount'",
+          "sha256": "f1b035e26663f2ac204d1ec266a40eaac58bb9a7039ae460a0f501b7c1672f25",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/tabs/root/TabsRoot.test.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/tabs/root/TabsRoot.test.tsx",
+      "sha256": "a7ec9fe52272ff13d12b17f2f86a01de3d01728062557529cc677ebaeb14a2a1",
+      "declarations": [
+        {
+          "line": 25,
+          "callee": "describeConformance",
+          "name": "<Tabs.Root value={0} />",
+          "sha256": "c33912790589c62b59e2bb10779054b8eb686d94c25494e3d362fa1c5f4877e8",
+          "kind": "conformance",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 31,
+          "callee": "it",
+          "name": "'should accept a null child'",
+          "sha256": "3db972a3166583f8e37699d89831d4890832a62672cc5d923a033ad745a5089e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 44,
+          "callee": "it",
+          "name": "'should support empty children'",
+          "sha256": "e239cfeba54a6f74bf36077d3e64a58079dc1f2f666519b8ffd87d9f4d0e3b4f",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 49,
+          "callee": "it",
+          "name": "'puts the selected child in tab order'",
+          "sha256": "ce434bdf9e336c0c2776db41a4e0f8b18f6ec0fb5ed0557020847f0e2e3ea9c4",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 66,
+          "callee": "it",
+          "name": "'sets the aria-labelledby attribute on tab panels to the corresponding tab id'",
+          "sha256": "6cfc33978f556072992883531e763dc8f46f40f8a8b7a1d9c2da5c6ec6c2153b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 91,
+          "callee": "it",
+          "name": "'sets the aria-controls attribute on tabs to the corresponding tab panel id'",
+          "sha256": "1aa89534d3671817edf4f3cea0dec05a6caa3820fe3bd02bce35f29ad3b78b53",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 116,
+          "callee": "it",
+          "name": "'sets aria-controls on the first tab when no value is provided'",
+          "sha256": "ea5c555eeae7b2c6ecf9e16065b8c1190d8c3ad444642296e5d086c6f9e98145",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 137,
+          "callee": "it",
+          "name": "'syncs aria-controls to the mounted tab panel when keepMounted is false'",
+          "sha256": "e191a8206541302ff2c2ee41eaf317346c200e8f45667157c50f9abb833e6bdc",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 166,
+          "callee": "it",
+          "name": "'cleans and replaces panel registrations in Strict Mode'",
+          "sha256": "65ba937a196ec761e7b22a561acbefa6f953172ce50eb5dfa7a10bc76fa13173",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 235,
+          "callee": "it",
+          "name": "'should pass selected prop to children'",
+          "sha256": "4bbdb13cd647ca4fa60b4f32dad5e843a671a524de45cec72b39edcfaed99370",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 251,
+          "callee": "it",
+          "name": "'should support values of different types'",
+          "sha256": "d84c62a6d20e097ae5d6e825d77842339efb345d69a240d8e9ac3340eb9b76bb",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 285,
+          "callee": "it",
+          "name": "'should select the second tab when the first one is disabled'",
+          "sha256": "7ae07d8df67bc9face0545a43051076fd7729a947fb1f82ac7a31f1128dc233a",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 313,
+          "callee": "it",
+          "name": "'should select the third tab when first two tabs are disabled'",
+          "sha256": "2b287de877133834c20867efaef8da6b19c61ab87a2f94660c41b6d9dee1400b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 346,
+          "callee": "it",
+          "name": "'should still honor explicit defaultValue even if it points to a disabled tab'",
+          "sha256": "f3a93d2544e182ae7a5287a72a937d057b5e155cdd47c0594fef1395908c8556",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 374,
+          "callee": "it",
+          "name": "'continues honoring an initially disabled explicit defaultValue after defaultValue changes'",
+          "sha256": "57a4da7b02ce2c20f220f2d8e03c68cb50e1c78acbe4c347af95c1af8c9d643a",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 403,
+          "callee": "it",
+          "name": "'should still honor explicit value prop even if it points to a disabled tab'",
+          "sha256": "b3f81c4e6962267c1fd16b5b452887824e5459f1107d3688d944b3f956a76bd1",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 431,
+          "callee": "it",
+          "name": "'does not set tabIndex=0 on disabled tabs when they are programmatically selected'",
+          "sha256": "6346eabb7c2c339a69b00e822e38ce0c294df49bf744450dcc15c26c1c88cf67",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 466,
+          "callee": "it",
+          "name": "'does not select any tab when all tabs are disabled'",
+          "sha256": "a2fa6297b55fe4c4460e7730cef25f86c28a5b53cad0d73a904caf376350ca44",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 508,
+          "callee": "it",
+          "name": "'when `activateOnFocus = true` should call onValueChange on pointerdown'",
+          "sha256": "ca1d869b80fea42bf3383f437180aafea876741221f856f89727bbfa9adec39c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 525,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "'should call onValueChange when clicking'",
+          "sha256": "f1202acba22f9f400d5bbb50e83cf8f5b47d95e025c17cb91a7447e2275fa92b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 525,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 543,
+          "callee": "it",
+          "name": "'should not call onValueChange on non-main button clicks'",
+          "sha256": "df8319b1e2def464d2ceaa313802e4783c695485047c23a2ab9ceff93104120e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 559,
+          "callee": "it",
+          "name": "'should not call onValueChange when already active'",
+          "sha256": "a5796c7e0122dcd10b7df31e5d76714ee4085045630cf784791b056f2a3140a1",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 575,
+          "callee": "it",
+          "name": "'when `activateOnFocus = true` should call onValueChange if an unactive tab gets focused'",
+          "sha256": "e14aaaacb700d5bb86f967d41cc25e61b30c69dd3174795450ae41e98418ee19",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 600,
+          "callee": "it",
+          "name": "'when `activateOnFocus = false` should not call onValueChange if an unactive tab gets focused'",
+          "sha256": "2e60094f547af310efb17711c14d7e8a819251c2912a2e17fca1dcd59d890840",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 621,
+          "callee": "it",
+          "name": "'calls onValueChange when auto-selecting the first tab on mount'",
+          "sha256": "e39afbf99e85ea23e4455d6819011e8320123877d1392968927dc2e7d1ed9582",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 643,
+          "callee": "it",
+          "name": "'calls onValueChange with the selected value when the implicit default matches a later tab'",
+          "sha256": "368f40c108c724b6d415049e30845faeae036ad4714c0a3cab05a2ce27e62a94",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 665,
+          "callee": "it",
+          "name": "'calls onValueChange when the implicit first tab is disabled'",
+          "sha256": "4464b10f081b2a2c8d384c0f46b41e7d6e16c7b7867499a937092f04197e7aec",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 689,
+          "callee": "it",
+          "name": "'does not cancel automatic value changes'",
+          "sha256": "427ca963bc93bb2cfa1753e2345ab6ba9d2396cce010ca9286efdd2fd2bf5747",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 720,
+          "callee": "it",
+          "name": "'does not move an uncontrolled selection when a user-initiated change is canceled'",
+          "sha256": "41ccb95aac100f29dc526698cf20247b907d2640b474432ce55279cfbca2089f",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 750,
+          "callee": "it",
+          "name": "'calls onValueChange with null when all tabs are initially disabled'",
+          "sha256": "a985462a9f31514f100e2c00e3aee189edef07e1333405193c11cb51cb855d73",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 776,
+          "callee": "it",
+          "name": "'does not emit missing when an enabled tab appears after all tabs were disabled'",
+          "sha256": "1d56aef0d183506f2cb6098e88b44097ce9a7bb5257ec461854bf5a6c3cf8d13",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 808,
+          "callee": "it",
+          "name": "'does not call onValueChange on initial render when defaultValue is provided'",
+          "sha256": "489efdb95cb76ce986a45f6fecea780f33e2f73547eec8cde4913f1255456976",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 827,
+          "callee": "it",
+          "name": "'does not call onValueChange on initial render when defaultValue is null'",
+          "sha256": "eadedac90e3b19cbcb21a1f19068d056f5dfe26ac18b55683d1295aef773dbbc",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 846,
+          "callee": "it",
+          "name": "'treats defaultValue={undefined} as an implicit default when the first tab is disabled'",
+          "sha256": "bf8de17f320f6d29767d9808499e2488226bb4648173c8bbb02cb58454436202",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 871,
+          "callee": "it",
+          "name": "'calls onValueChange when the selected tab becomes disabled'",
+          "sha256": "4ffdfb1c0e9bb94f3b9ad52fc01d863b7258f79272b24eb68cf54f47cd851463",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 904,
+          "callee": "it",
+          "name": "'calls onValueChange when an explicit disabled default becomes disabled again'",
+          "sha256": "8965e047816e21bdf2364345c4f0c7b250c8637684cfc2c4806797c6b85aa358",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 940,
+          "callee": "it",
+          "name": "'calls onValueChange when the selected tab becomes disabled with keepMounted panels'",
+          "sha256": "44525071471bc4d8140228cd41f7364624ff923c16169b6c1e44c66f0e863ad5",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 977,
+          "callee": "it",
+          "name": "'calls onValueChange when the selected tab is removed'",
+          "sha256": "f0da1b1c78fed6615df18cec89f5ca83c9619943e8ffecb627940856499ec84c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1008,
+          "callee": "it",
+          "name": "'calls onValueChange with null when the selected tab is removed and no tabs remain'",
+          "sha256": "aeafd3d19c7c786b1e229e1db4b4319679ce12ebe9835b5634689be91342ec01",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1038,
+          "callee": "it",
+          "name": "'calls onValueChange with null when a populated tab list is replaced by an empty one'",
+          "sha256": "48f7d8bde2aa9425b3d07f0969003afdd0826311e3c1ca708c8cae6483dccf5d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1072,
+          "callee": "it",
+          "name": "'calls onValueChange when an explicit defaultValue points at a tab that is never present'",
+          "sha256": "1f9f0c1a824771145aa15adf1246c1ab4457e2194b30542ad035f558f9510e58",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1094,
+          "callee": "it",
+          "name": "'does not emit a second change when the fallback resolves to the current value'",
+          "sha256": "2f8576325fc03db5aed7095b39d5566b2da400b0254a0958fb3db66dd6385894",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1121,
+          "callee": "it",
+          "name": "'does not call onValueChange when a controlled selected tab becomes disabled'",
+          "sha256": "a3675ad7e02a7aab3107e92831b54dbba266836dd8912849620100618bb16d68",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1147,
+          "callee": "it",
+          "name": "'keeps a roving focus entry point when a controlled selected tab is removed'",
+          "sha256": "c3993cb3e291a6d007990d8ed7707b689d426870fd6422ef8fdf3923d16f01fa",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1188,
+          "callee": "it",
+          "name": "'does not add aria-orientation by default'",
+          "sha256": "696fcb2ef84c3ca57664426837c6527cc3372c761926b6850574bc5e21efd8a0",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1200,
+          "callee": "it",
+          "name": "'adds the proper aria-orientation when vertical'",
+          "sha256": "fefd91d19c7f91c5c5bf64c6055d64102aaec09e266661feb0dd4ce87b8757e0",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1214,
+          "callee": "it",
+          "name": "'selects the clicked tab'",
+          "sha256": "71aa48c4e75322da246b3ce15e611da336a9d157e219df49767668dac7e6db3e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1244,
+          "callee": "it",
+          "name": "'does not select the clicked disabled tab'",
+          "sha256": "47ae848b0bc0a7f303697d33256c8426d50f11e57a7a15f13e5ec3e3f62594ac",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1290,
+          "callee": "it",
+          "name": "'moves focus to the last tab without activating it if focus is on the first tab'",
+          "sha256": "98eb4998d38a0afd23521394f7c6fc83991ffa5765bbe2e4439fa14d5a2a1564",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1324,
+          "callee": "it",
+          "name": "'moves focus to the previous tab without activating it'",
+          "sha256": "23c529e498448b0e42b2605f655ff68a63843e0f108d7161fd93d2bab084de6c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1358,
+          "callee": "it",
+          "name": "'moves focus to a disabled tab without activating it'",
+          "sha256": "1755107606fbfc5062efa0bd614cbed9ba6892d716d5d8ecbfa475b1b4c51efa",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1391,
+          "callee": "it",
+          "name": "'moves focus to the last tab while activating it if focus is on the first tab'",
+          "sha256": "2d9dd5819131a927228c585450154f992cd47320137c946e42b3b25077858dc4",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1426,
+          "callee": "it",
+          "name": "'moves focus to the previous tab while activating it'",
+          "sha256": "6c055768d850005dfecd1bdbc7692653a6168641d706ac365d5e218a1d3d5563",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1462,
+          "callee": "it",
+          "name": "'moves focus to a disabled tab without activating it'",
+          "sha256": "41adb85970b667c17b58e68bdfcaa55a0a76521d0bb843a7483bd35a28cf7587",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1493,
+          "callee": "it",
+          "name": "'moves focus to the first tab without activating it if focus is on the last tab'",
+          "sha256": "1498246c1aae007821cb7fbe08385ed3a0091321cee566ba91fd88078e9bf4e5",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1527,
+          "callee": "it",
+          "name": "'moves focus to the next tab without activating it'",
+          "sha256": "20035c0cef602eddcd37629e22771f987825d7fba1a1d8958723f00ebc8a93b1",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1561,
+          "callee": "it",
+          "name": "'moves focus to a disabled tab without activating it'",
+          "sha256": "3b1eaf560218043d7209d1a3988032b2ddeae4bd3871a1cf74abc2686f8370cc",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1601,
+          "callee": "it",
+          "name": "'moves focus to the first tab while activating it if focus is on the last tab'",
+          "sha256": "14b8e92eadd8cc15f39ee8a07288d609bf8478fb2f801251612d3a4049681c59",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1636,
+          "callee": "it",
+          "name": "'moves focus to the next tab while activating it'",
+          "sha256": "347d89766e59d4f3c6ce295a41f1b1e7b4e980c824ee1169b0510be898fdaaa7",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1672,
+          "callee": "it",
+          "name": "'moves focus to a disabled tab without activating it'",
+          "sha256": "fc93e00dc786d89e48a66e1989ec537fed50de943a7b8cc069bb7cfe77bf7de1",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1713,
+          "callee": "it",
+          "name": "`does not move focus when modifier key: ${modifierKey} is pressed`",
+          "sha256": "0dc9301b8a5998cb9945b25275d01d1c6adda0402b14c7dcd5bb43e729163519",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1755,
+          "callee": "it",
+          "name": "'when `activateOnFocus = false`, moves focus to the first tab without activating it'",
+          "sha256": "2bf24233e1878bf0cf2ff4001a62907b1caedeb13d005f6000f35ad5da87b467",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1783,
+          "callee": "it",
+          "name": "'when `activateOnFocus = true`, moves focus to the first tab while activating it'",
+          "sha256": "2f0b3c7ab805570e251067d9b392f7a51e401f6e3b73209fb4843d8f1236239c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1813,
+          "callee": "it",
+          "name": "`when \\`activateOnFocus = ${activateOnFocusProp}\\`, moves focus to a disabled tab without activating it`",
+          "sha256": "c3d15a53320e99b07bf1ca74d03d5e36b769ac56d277424b8ef7242ab2b647dd",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1844,
+          "callee": "it",
+          "name": "'when `activateOnFocus = false`, moves focus to the last tab without activating it'",
+          "sha256": "7116d4266d536b94a3c4c49f43e0ff16dc16c11e203bdd2c936bc27eb0083efc",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1872,
+          "callee": "it",
+          "name": "'when `activateOnFocus = true`, moves focus to the last tab while activating it'",
+          "sha256": "a06cbbaaec85f75735fa47bfd702e7d3cef6e9244bbcab0e0761527ac0b3fe32",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1902,
+          "callee": "it",
+          "name": "`when \\`activateOnFocus = ${activateOnFocusProp}\\`, moves focus to a disabled tab without activating it`",
+          "sha256": "2b60c1f325f763c1fc3449eac9c24477f4165d6b6b22482ec7c4315cef77acb1",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1933,
+          "callee": "it",
+          "name": "'should allow to focus first tab when there are no active tabs'",
+          "sha256": "bbc91273bdf06c78dd520359d0ec17f0d0589b2ad5bdc0a2e0d4edd03541ab7f",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1977,
+          "callee": "it",
+          "name": "'should set the `data-activation-direction` attribute on the tabs root with orientation=horizontal'",
+          "sha256": "d3123b18aa7b4366287cad671143c693337e3cf06b28671ee9624632f0595d05",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2015,
+          "callee": "it",
+          "name": "'should set the `data-activation-direction` attribute on the tabs root with orientation=vertical'",
+          "sha256": "3b4674a1a4de7ccf001aaf7d445634eaa19c3a8fcd04759aac981a7a7c25164a",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2053,
+          "callee": "it",
+          "name": "'should update `data-activation-direction` on programmatic value changes with orientation=horizontal'",
+          "sha256": "333235827082532a019f92fbb69ca7377ff126cb14c1b834b441a14b38aa2c29",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2093,
+          "callee": "it",
+          "name": "'should update `data-activation-direction` on programmatic value changes with orientation=vertical'",
+          "sha256": "65c4e830b27c959c97b10aa1e5f22f0e64e326946295a095b9a86e8c4a522fb9",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2133,
+          "callee": "it",
+          "name": "'keeps activation direction none after automatic disabled fallback'",
+          "sha256": "d326f070533569e977d19d82be413d9c96b4bc4d18f97fb06e71bcb579ba2b45",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2159,
+          "callee": "it",
+          "name": "'resets `data-activation-direction` when the selection is cleared and restored'",
+          "sha256": "40b5a51e7f9c25f25c9bdf3a4fa3bb76d5b98475201a9641b6d4154c67cd1cc9",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2186,
+          "callee": "it",
+          "name": "'should update `data-activation-direction` on programmatic change after a canceled click'",
+          "sha256": "853fe21c93e2f0a9400e400cd3535f4ca64b1df087a0f687a9b93bf1845c0397",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2217,
+          "callee": "it",
+          "name": "'should update `data-activation-direction` on programmatic change after a controlled parent ignores click'",
+          "sha256": "d8f0299d6972538fedcbd7a9a5fa7faccfe8b277982423a070e86ee9bacd0073",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2241,
+          "callee": "it",
+          "name": "'should compute correct direction when adding and selecting a new tab in one controlled update'",
+          "sha256": "0675798af39ea21a6b00001e9c7422e2a58cbf2a9446836b0ec193df4f1656c4",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2292,
+          "callee": "it",
+          "name": "'should compute correct direction on final render when adding and selecting a new tab in one controlled update with out of order string values'",
+          "sha256": "4f74420a639ac3ecae47ff936cace8fb4ad784b8eef79507109be0c501bc3b3f",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2341,
+          "callee": "it",
+          "name": "'keeps a nested root independent from the one hosting its panel'",
+          "sha256": "6783c8b705f9a55b6b5ea2cdd12e614370167dc1d1b9533dc722a932c8e6a40d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2398,
+          "callee": "it",
+          "name": "'works inside Popover'",
+          "sha256": "7f947d3d4b913a7be5a9859ec7b0565915763cd8fdaf529a4ffd2d99e363bae6",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2442,
+          "callee": "it",
+          "name": "'works inside Dialog'",
+          "sha256": "e7fc84812c7902dd1d6089387f8eebb8de00613fc30cee53fa982fb212e39521",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2485,
+          "callee": "it.each([true, false])",
+          "name": "'keeps controlled async activation and focus aligned with activateOnFocus=%s'",
+          "sha256": "24f9d3c6bbb4df7ea4624d2d72ce13a5f2391fca75252134731ee1c04eabcd0a",
+          "kind": "parameterized",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2485,
+          "callee": "it.each",
+          "name": "[true, false]",
+          "sha256": "b3c0b75c47a62b86d5b069bb8ae8ec1ece63bb86c8a28108ea985c0db6d0ad08",
+          "kind": "parameterized",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2534,
+          "callee": "it",
+          "name": "'when focus is outside the tablist, highlight follows the new active tab (tabIndex=0 moves)'",
+          "sha256": "7d4be4bbcef5af89b160066b0b2984d0bd562bc1f3c9147e910e2a19cd79ac2a",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2564,
+          "callee": "it",
+          "name": "'when focus is inside the tablist, highlight stays put on external change and arrow keys continue from the focused tab'",
+          "sha256": "4fa977389383bcff335f67287aba9a92337020aa603bb3eaf5621a18afefcec1",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/tabs/tab/TabsTab.test.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/tabs/tab/TabsTab.test.tsx",
+      "sha256": "74902a5515e99f5cd6f8a49e405395ce44b81a6e68496805448a154e9c9f8e30",
+      "declarations": [
+        {
+          "line": 21,
+          "callee": "describeConformance",
+          "name": "<Tabs.Tab value=\"1\" />",
+          "sha256": "1a4730435f903b85c3fe71d4c078320f232d6ddafa9a248d004d18a21f85803c",
+          "kind": "conformance",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 34,
+          "callee": "it",
+          "name": "'renders as an anchor and toggles selection when `nativeButton` is false'",
+          "sha256": "4ecd31857e543ff0c094a078ff5602300af2dd00668eb7c88c4cb83f2447d41a",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 59,
+          "callee": "it",
+          "name": "'renders a react-router Link'",
+          "sha256": "afd3d5beb92c0bc15dd64da44d9fc891df077584d889238fc9640b2ad2c0b631",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 75,
+          "callee": "it",
+          "name": "'settles when the rendered component recreates its merged ref'",
+          "sha256": "a87a46470a1dde0e7957211f40d17027278bfdae3d56895945b720852636b358",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 101,
+          "callee": "it",
+          "name": "'throws a descriptive error when rendered outside <Tabs.List>'",
+          "sha256": "4b117cbc19cfc51d687fd0beb1e470c449c178a1dabbcfa31a9731dee991b346",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 136,
+          "callee": "it",
+          "name": "'does not re-commit the value when the active tab is pressed'",
+          "sha256": "b3bdf7fa3a06b3e60651c009d0137f8f2fe86b4a5aebfc22cb1e03adb3c17ae4",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 147,
+          "callee": "it",
+          "name": "'does not activate a disabled tab that is pressed and focused'",
+          "sha256": "479bef2dbee1a58f3437fd41a47970270d252f653bd40687c2995b2e13cee9c0",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 164,
+          "callee": "it",
+          "name": "'does not activate a tab focused by a held secondary-button press'",
+          "sha256": "03340b912cf02fe4818cf0338d1e626b8e1760590742cfd3a8f699539c24d6bf",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 178,
+          "callee": "it",
+          "name": "'activates on focus again once a secondary-button press has ended'",
+          "sha256": "41e59e5fb644cd997a1248d6436e0dac16ac54fdefcce6a895692bb1e9ccf8d1",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 196,
+          "callee": "it",
+          "name": "'activates on focus again once a secondary-button press is cancelled'",
+          "sha256": "463068cd7eac1b71965dc784c455651af7a528b36b68b92e93e74080c91b20c8",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 215,
+          "callee": "it.each([\n      ['Enter', '{Enter}'],\n      ['Space', ' '],\n    ])",
+          "name": "'activates the focused tab with %s when `activateOnFocus` is false'",
+          "sha256": "b132203261931710bf4bc0d73b50a85c660f33a6131109dd72c9afa2419def91",
+          "kind": "parameterized",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 215,
+          "callee": "it.each",
+          "name": "[\n      ['Enter', '{Enter}'],\n      ['Space', ' '],\n    ]",
+          "sha256": "fe457544c0a8d24b7458f3366ddc62dccb3e791e7b7133c3a1f8bbe3208200ff",
+          "kind": "parameterized",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 245,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "'exposes tab activation direction through the render prop'",
+          "sha256": "869df8fe973967afeec24af3b68400a7461ed03173c13ece0004779eeb4c5635",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 245,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    }
+  ]
+}

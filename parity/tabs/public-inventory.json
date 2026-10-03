@@ -1,0 +1,547 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "parts": [
+    "Root",
+    "List",
+    "Tab",
+    "Panel",
+    "Indicator"
+  ],
+  "files": [
+    {
+      "source": "packages/react/src/tabs/index.parts.ts",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/tabs/index.parts.ts",
+      "sha256": "196bdd34d4c2c06a141fdbfae606d5ff131060fcccda9d0035aef120082d69fd",
+      "exports": [
+        {
+          "text": "export { TabsRoot as Root } from './root/TabsRoot';",
+          "typeOnly": false,
+          "module": "'./root/TabsRoot'"
+        },
+        {
+          "text": "export { TabsTab as Tab } from './tab/TabsTab';",
+          "typeOnly": false,
+          "module": "'./tab/TabsTab'"
+        },
+        {
+          "text": "export { TabsIndicator as Indicator } from './indicator/TabsIndicator';",
+          "typeOnly": false,
+          "module": "'./indicator/TabsIndicator'"
+        },
+        {
+          "text": "export { TabsPanel as Panel } from './panel/TabsPanel';",
+          "typeOnly": false,
+          "module": "'./panel/TabsPanel'"
+        },
+        {
+          "text": "export { TabsList as List } from './list/TabsList';",
+          "typeOnly": false,
+          "module": "'./list/TabsList'"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/tabs/index.ts",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/tabs/index.ts",
+      "sha256": "72d236f3ef91214ee39a134c01248b2d5689b69f849d60f69c3c70676fe5ff42",
+      "exports": [
+        {
+          "text": "export * as Tabs from './index.parts';",
+          "typeOnly": false,
+          "module": "'./index.parts'"
+        },
+        {
+          "text": "export type * from './root/TabsRoot';",
+          "typeOnly": true,
+          "module": "'./root/TabsRoot'"
+        },
+        {
+          "text": "export type * from './indicator/TabsIndicator';",
+          "typeOnly": true,
+          "module": "'./indicator/TabsIndicator'"
+        },
+        {
+          "text": "export type * from './tab/TabsTab';",
+          "typeOnly": true,
+          "module": "'./tab/TabsTab'"
+        },
+        {
+          "text": "export type * from './panel/TabsPanel';",
+          "typeOnly": true,
+          "module": "'./panel/TabsPanel'"
+        },
+        {
+          "text": "export type * from './list/TabsList';",
+          "typeOnly": true,
+          "module": "'./list/TabsList'"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/tabs/indicator/TabsIndicator.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/tabs/indicator/TabsIndicator.tsx",
+      "sha256": "72617625b558a6c0d22bd99858eb1b046d58d0b3fdbe750b516006079a8114ae",
+      "exports": [
+        {
+          "text": "export const TabsIndicator = React.forwardRef(function TabsIndicator(\n  componentProps: TabsIndicator.Props,\n  forwardedRef: React.ForwardedRef<HTMLSpanElement>,\n) {\n  const {\n    className,\n    render,\n    renderBeforeHydration = false,\n    style: styleProp,\n    ...elementProps\n  } = componentProps;\n\n  const { getTabElementBySelectedValue, orientation, tabActivationDirection, value } =\n    useTabsRootContext();\n\n  const { tabsListElement, registerIndicatorUpdateListener } = useTabsListContext();\n\n  const rerender = useForcedRerendering();\n\n  React.useEffect(() => {\n    return registerIndicatorUpdateListener(rerender);\n  }, [registerIndicatorUpdateListener, rerender]);\n\n  let left = 0;\n  let right = 0;\n  let top = 0;\n  let bottom = 0;\n  let width = 0;\n  let height = 0;\n\n  let isTabSelected = false;\n\n  if (value != null && tabsListElement != null) {\n    const activeTab = getTabElementBySelectedValue(value);\n\n    if (activeTab != null) {\n      isTabSelected = true;\n\n      const { width: computedWidth, height: computedHeight } = getCssDimensions(activeTab);\n      const { width: tabListWidth, height: tabListHeight } = getCssDimensions(tabsListElement);\n      const tabRect = activeTab.getBoundingClientRect();\n      const tabsListRect = tabsListElement.getBoundingClientRect();\n      const scaleX = tabListWidth > 0 ? tabsListRect.width / tabListWidth : 1;\n      const scaleY = tabListHeight > 0 ? tabsListRect.height / tabListHeight : 1;\n\n      // Layout offsets are immune to transforms, but lose sub-pixel precision.\n      const layoutOffset = getLayoutOffset(activeTab, tabsListElement);\n      left = layoutOffset.left;\n      top = layoutOffset.top;\n\n      const rectLeft =\n        (tabRect.left - tabsListRect.left) / scaleX +\n        tabsListElement.scrollLeft -\n        tabsListElement.clientLeft;\n      const rectTop =\n        (tabRect.top - tabsListRect.top) / scaleY +\n        tabsListElement.scrollTop -\n        tabsListElement.clientTop;\n\n      // The rect-based offset is sub-pixel-precise but is derived from projected viewport\n      // geometry: a rotation, skew, flip, perspective, or 3D transform on the tab or any\n      // ancestor warps it beyond what the scale division can undo. When it agrees with the\n      // layout offset (up to layout rounding), no distortion is in effect and the more\n      // precise value is safe to use. A tab list scaled to zero divides by zero just above,\n      // and the resulting `NaN`/`Infinity` fails this same check, leaving the layout offset\n      // in place — so a degenerate scale needs no guard of its own.\n      //\n      // The active tab's own translation moves the rect but not the layout offset, so\n      // strip it from the comparison. This lets the indicator follow tab-local animations\n      // (e.g. `transform: translateX(12px)` on the selected tab) — the indicator is a\n      // sibling of the tab and does not inherit its transform.\n      const tabTranslation = getActiveTabTranslation(activeTab);\n      if (\n        Math.abs(rectLeft - tabTranslation.x - left) <= MAX_LAYOUT_ROUNDING_ERROR &&\n        Math.abs(rectTop - tabTranslation.y - top) <= MAX_LAYOUT_ROUNDING_ERROR\n      ) {\n        left = rectLeft;\n        top = rectTop;\n      }\n\n      width = computedWidth;\n      height = computedHeight;\n      right = tabsListElement.scrollWidth - left - width;\n      bottom = tabsListElement.scrollHeight - top - height;\n    }\n  }\n\n  const activeTabPosition = isTabSelected ? { left, right, top, bottom } : null;\n\n  const activeTabSize = isTabSelected ? { width, height } : null;\n\n  const style: React.CSSProperties | undefined = isTabSelected\n    ? ({\n        [TabsIndicatorCssVars.activeTabLeft]: `${left}px`,\n        [TabsIndicatorCssVars.activeTabRight]: `${right}px`,\n        [TabsIndicatorCssVars.activeTabTop]: `${top}px`,\n        [TabsIndicatorCssVars.activeTabBottom]: `${bottom}px`,\n        [TabsIndicatorCssVars.activeTabWidth]: `${width}px`,\n        [TabsIndicatorCssVars.activeTabHeight]: `${height}px`,\n      } as React.CSSProperties)\n    : undefined;\n\n  const displayIndicator = isTabSelected && width > 0 && height > 0;\n\n  const state: TabsIndicatorState = {\n    orientation,\n    activeTabPosition,\n    activeTabSize,\n    tabActivationDirection,\n  };\n\n  const element = useRenderElement('span', componentProps, {\n    state,\n    ref: forwardedRef,\n    props: [\n      {\n        role: 'presentation',\n        style,\n        hidden: !displayIndicator, // do not display the indicator before the layout is settled\n      },\n      elementProps,\n      {\n        suppressHydrationWarning: true,\n      },\n    ],\n    stateAttributesMapping,\n  });\n\n  if (value == null) {\n    return null;\n  }\n\n  return (\n    <React.Fragment>\n      {element}\n      {renderBeforeHydration && <PrehydrationScript script={prehydrationScript} />}\n    </React.Fragment>\n  );\n});",
+          "names": [
+            "TabsIndicator"
+          ]
+        },
+        {
+          "text": "export interface TabsIndicatorState extends TabsRootState {\n  /**\n   * The active tab position.\n   */\n  activeTabPosition: TabsTab.Position | null;\n  /**\n   * The active tab size.\n   */\n  activeTabSize: TabsTab.Size | null;\n  /**\n   * The component orientation.\n   */\n  orientation: TabsRoot.Orientation;\n}",
+          "names": [
+            "TabsIndicatorState"
+          ]
+        },
+        {
+          "text": "export interface TabsIndicatorProps extends BaseUIComponentProps<'span', TabsIndicatorState> {\n  /**\n   * Whether to render itself before React hydrates.\n   * This minimizes the time that the indicator isn't visible after server-side rendering.\n   * @default false\n   */\n  renderBeforeHydration?: boolean | undefined;\n}",
+          "names": [
+            "TabsIndicatorProps"
+          ]
+        },
+        {
+          "text": "export namespace TabsIndicator {\n  export type State = TabsIndicatorState;\n  export type Props = TabsIndicatorProps;\n}",
+          "names": [
+            "TabsIndicator"
+          ]
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/tabs/indicator/TabsIndicatorCssVars.ts",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/tabs/indicator/TabsIndicatorCssVars.ts",
+      "sha256": "8845d542898d04d9d9bc730bd454c25e61d79483461535534c7dc6d2b446d903",
+      "exports": [
+        {
+          "text": "export const activeTabLeft = '--active-tab-left';",
+          "names": [
+            "activeTabLeft"
+          ]
+        },
+        {
+          "text": "export const activeTabRight = '--active-tab-right';",
+          "names": [
+            "activeTabRight"
+          ]
+        },
+        {
+          "text": "export const activeTabTop = '--active-tab-top';",
+          "names": [
+            "activeTabTop"
+          ]
+        },
+        {
+          "text": "export const activeTabBottom = '--active-tab-bottom';",
+          "names": [
+            "activeTabBottom"
+          ]
+        },
+        {
+          "text": "export const activeTabWidth = '--active-tab-width';",
+          "names": [
+            "activeTabWidth"
+          ]
+        },
+        {
+          "text": "export const activeTabHeight = '--active-tab-height';",
+          "names": [
+            "activeTabHeight"
+          ]
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/tabs/indicator/TabsIndicatorDataAttributes.ts",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/tabs/indicator/TabsIndicatorDataAttributes.ts",
+      "sha256": "88114cee4b4f0a11978d579d1d7f0aeab30c580b5b7a2263bd345213d65df615",
+      "exports": [
+        {
+          "text": "export const activationDirection = 'data-activation-direction';",
+          "names": [
+            "activationDirection"
+          ]
+        },
+        {
+          "text": "export const orientation = 'data-orientation';",
+          "names": [
+            "orientation"
+          ]
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/tabs/indicator/prehydrationScript.min.ts",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/tabs/indicator/prehydrationScript.min.ts",
+      "sha256": "c0b2e929d4eacad065521a8fb1fc82f65595a83634336ad8d5c650d8380556f7",
+      "exports": [
+        {
+          "text": "export const script = '!function(){const t=document.currentScript.previousElementSibling;if(!t)return;const e=t.closest(\\'[role=\"tablist\"]\\');if(!e)return;const n=e.querySelector(\"[data-active]\");if(!n)return;const o=getComputedStyle(n);if(\"none\"!==o.transform||\"none\"!==o.translate||\"none\"!==o.rotate||\"none\"!==o.scale)return;function r(t){let e=0,n=0,o=t;for(;null!=o;){e+=o.offsetLeft,n+=o.offsetTop;const t=o.offsetParent;null!=t&&(e+=t.clientLeft,n+=t.clientTop),o=t}return{left:e,top:n}}function i(){const{width:o,height:i}=function(t){const e=getComputedStyle(t);let n=parseFloat(e.width)||0,o=parseFloat(e.height)||0;return(Math.round(n)!==t.offsetWidth||Math.round(o)!==t.offsetHeight)&&(n=t.offsetWidth,o=t.offsetHeight),{width:n,height:o}}(n),l=function(t,e){const n=r(t),o=r(e);let i=n.left-o.left-e.clientLeft,l=n.top-o.top-e.clientTop,s=t.parentElement;for(;null!=s&&s!==e;)i-=s.scrollLeft,l-=s.scrollTop,s=s.parentElement;return{left:i,top:l}}(n,e),s=Math.min(l.left,e.scrollWidth-o),f=Math.min(l.top,e.scrollHeight-i),c=e.scrollWidth-s-o,u=e.scrollHeight-f-i;function h(e,n){t.style.setProperty(`--active-tab-${e}`,`${n}px`)}return h(\"left\",s),h(\"right\",c),h(\"top\",f),h(\"bottom\",u),h(\"width\",o),h(\"height\",i),o>0&&i>0&&(t.removeAttribute(\"hidden\"),!0)}if(i()||\"undefined\"==typeof ResizeObserver)return;let l,s;function f(){s.disconnect(),clearTimeout(l)}s=new ResizeObserver(()=>{t.isConnected&&t.hasAttribute(\"hidden\")&&n.hasAttribute(\"data-active\")?i()&&f():f()}),s.observe(n),l=setTimeout(f,1e4)}();';",
+          "names": [
+            "script"
+          ]
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/tabs/indicator/prehydrationScript.template.js",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/tabs/indicator/prehydrationScript.template.js",
+      "sha256": "0612789e60135aac660b518a18bdf65bb94d94ec9f3acc1137ebd61784559bd2",
+      "exports": []
+    },
+    {
+      "source": "packages/react/src/tabs/list/TabsList.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/tabs/list/TabsList.tsx",
+      "sha256": "8938f7b8e9265043859e87469d4762f5bc820f4d866e1784f5b3e19c61182361",
+      "exports": [
+        {
+          "text": "export const TabsList = React.forwardRef(function TabsList(\n  componentProps: TabsList.Props,\n  forwardedRef: React.ForwardedRef<HTMLDivElement>,\n) {\n  const {\n    activateOnFocus = false,\n    className,\n    loopFocus = true,\n    render,\n    style,\n    ...elementProps\n  } = componentProps;\n\n  const { orientation, setTabMap, tabActivationDirection } = useTabsRootContext();\n\n  const [highlightedTabIndex, setHighlightedTabIndex] = React.useState(0);\n  const [tabsListElement, setTabsListElement] = React.useState<HTMLElement | null>(null);\n\n  const indicatorUpdateListenersRef = React.useRef(new Set<() => void>());\n  const tabResizeObserverElementsRef = React.useRef(new Set<HTMLElement>());\n  const resizeObserverRef = React.useRef<ResizeObserver | null>(null);\n\n  useIsoLayoutEffect(() => {\n    if (typeof ResizeObserver === 'undefined') {\n      return undefined;\n    }\n\n    const resizeObserver = new ResizeObserver(() => {\n      indicatorUpdateListenersRef.current.forEach((listener) => {\n        listener();\n      });\n    });\n\n    resizeObserverRef.current = resizeObserver;\n\n    if (tabsListElement) {\n      resizeObserver.observe(tabsListElement);\n    }\n\n    tabResizeObserverElementsRef.current.forEach((element) => {\n      resizeObserver.observe(element);\n    });\n\n    return () => {\n      resizeObserver.disconnect();\n      resizeObserverRef.current = null;\n    };\n  }, [tabsListElement]);\n\n  const registerIndicatorUpdateListener = useStableCallback((listener: () => void) => {\n    indicatorUpdateListenersRef.current.add(listener);\n    return () => {\n      indicatorUpdateListenersRef.current.delete(listener);\n    };\n  });\n\n  const registerTabResizeObserverElement = useStableCallback((element: HTMLElement) => {\n    tabResizeObserverElementsRef.current.add(element);\n    resizeObserverRef.current?.observe(element);\n    return () => {\n      tabResizeObserverElementsRef.current.delete(element);\n      resizeObserverRef.current?.unobserve(element);\n    };\n  });\n\n  const state: TabsListState = {\n    orientation,\n    tabActivationDirection,\n  };\n\n  const defaultProps: HTMLProps = {\n    'aria-orientation': orientation === 'vertical' ? 'vertical' : undefined,\n    role: 'tablist',\n  };\n\n  const tabsListContextValue: TabsListContext = React.useMemo(\n    () => ({\n      activateOnFocus,\n      registerIndicatorUpdateListener,\n      registerTabResizeObserverElement,\n      tabsListElement,\n    }),\n    [\n      activateOnFocus,\n      registerIndicatorUpdateListener,\n      registerTabResizeObserverElement,\n      tabsListElement,\n    ],\n  );\n\n  return (\n    <TabsListContext.Provider value={tabsListContextValue}>\n      <CompositeRoot\n        render={render}\n        className={className}\n        style={style}\n        state={state}\n        refs={[forwardedRef, setTabsListElement]}\n        props={[defaultProps, elementProps]}\n        stateAttributesMapping={tabsStateAttributesMapping}\n        highlightedIndex={highlightedTabIndex}\n        enableHomeAndEndKeys\n        loopFocus={loopFocus}\n        orientation={orientation}\n        onHighlightedIndexChange={setHighlightedTabIndex}\n        onMapChange={setTabMap}\n        disabledIndices={EMPTY_ARRAY}\n      />\n    </TabsListContext.Provider>\n  );\n});",
+          "names": [
+            "TabsList"
+          ]
+        },
+        {
+          "text": "export interface TabsListState extends TabsRootState {}",
+          "names": [
+            "TabsListState"
+          ]
+        },
+        {
+          "text": "export interface TabsListProps extends BaseUIComponentProps<'div', TabsListState> {\n  /**\n   * Whether to automatically change the active tab on arrow key focus.\n   * Otherwise, tabs will be activated using <kbd>Enter</kbd> or <kbd>Space</kbd> key press.\n   * @default false\n   */\n  activateOnFocus?: boolean | undefined;\n  /**\n   * Whether to loop keyboard focus back to the first item\n   * when the end of the list is reached while using the arrow keys.\n   * @default true\n   */\n  loopFocus?: boolean | undefined;\n}",
+          "names": [
+            "TabsListProps"
+          ]
+        },
+        {
+          "text": "export namespace TabsList {\n  export type State = TabsListState;\n  export type Props = TabsListProps;\n}",
+          "names": [
+            "TabsList"
+          ]
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/tabs/list/TabsListContext.ts",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/tabs/list/TabsListContext.ts",
+      "sha256": "2776925ba5f765941d4999d49f3d23a386519a11793e8e15a01566aab04c956d",
+      "exports": [
+        {
+          "text": "export interface TabsListContext {\n  activateOnFocus: boolean;\n  registerIndicatorUpdateListener: (listener: () => void) => () => void;\n  registerTabResizeObserverElement: (element: HTMLElement) => () => void;\n  tabsListElement: HTMLElement | null;\n}",
+          "names": [
+            "TabsListContext"
+          ]
+        },
+        {
+          "text": "export const TabsListContext = React.createContext<TabsListContext | undefined>(undefined);",
+          "names": [
+            "TabsListContext"
+          ]
+        },
+        {
+          "text": "export function useTabsListContext() {\n  const context = React.useContext(TabsListContext);\n  if (context === undefined) {\n    throw new Error(\n      'Base UI: TabsListContext is missing. TabsList parts must be placed within <Tabs.List>.',\n    );\n  }\n\n  return context;\n}",
+          "names": [
+            "useTabsListContext"
+          ]
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/tabs/list/TabsListDataAttributes.ts",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/tabs/list/TabsListDataAttributes.ts",
+      "sha256": "88114cee4b4f0a11978d579d1d7f0aeab30c580b5b7a2263bd345213d65df615",
+      "exports": [
+        {
+          "text": "export const activationDirection = 'data-activation-direction';",
+          "names": [
+            "activationDirection"
+          ]
+        },
+        {
+          "text": "export const orientation = 'data-orientation';",
+          "names": [
+            "orientation"
+          ]
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/tabs/panel/TabsPanel.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/tabs/panel/TabsPanel.tsx",
+      "sha256": "e38e40ad9682199945ab91e0f25a519ce9f94b2e85059a05a3dcf1527b6a4aae",
+      "exports": [
+        {
+          "text": "export const TabsPanel = React.forwardRef(function TabsPanel(\n  componentProps: TabsPanel.Props,\n  forwardedRef: React.ForwardedRef<HTMLDivElement>,\n) {\n  const { className, value, render, keepMounted = false, style, ...elementProps } = componentProps;\n\n  const {\n    value: selectedValue,\n    getTabIdByPanelValue,\n    orientation,\n    tabActivationDirection,\n    registerMountedTabPanel,\n  } = useTabsRootContext();\n\n  const id = useBaseUiId();\n\n  const { ref: listItemRef, index } = useCompositeListItem();\n\n  const open = value === selectedValue;\n  const { mounted, transitionStatus, setMounted } = useTransitionStatus(open);\n  const hidden = !mounted;\n\n  const correspondingTabId = getTabIdByPanelValue(value);\n\n  const state: TabsPanelState = {\n    hidden,\n    orientation,\n    tabActivationDirection,\n    transitionStatus,\n  };\n\n  const panelRef = React.useRef<HTMLDivElement | null>(null);\n\n  const element = useRenderElement('div', componentProps, {\n    state,\n    ref: [forwardedRef, listItemRef, panelRef],\n    props: [\n      {\n        'aria-labelledby': correspondingTabId,\n        hidden,\n        id,\n        role: 'tabpanel',\n        tabIndex: open ? 0 : -1,\n        inert: inertValue(!open),\n        // Computed key: a plain literal key fails the DOM-props excess property check.\n        [TabsPanelDataAttributes.index as string]: index,\n      },\n      elementProps,\n    ],\n    stateAttributesMapping,\n  });\n\n  useOpenChangeComplete({\n    open,\n    ref: panelRef,\n    onComplete() {\n      if (!open) {\n        setMounted(false);\n      }\n    },\n  });\n\n  useIsoLayoutEffect(() => {\n    // On React 17 `useId` resolves in a passive effect, so `id` is still\n    // undefined during this layout effect on the first commit. Skip the\n    // registration until the effect re-runs with the resolved id.\n    if (id == null || (hidden && !keepMounted)) {\n      return undefined;\n    }\n\n    return registerMountedTabPanel(value, id);\n  }, [hidden, keepMounted, value, id, registerMountedTabPanel]);\n\n  const shouldRender = keepMounted || mounted;\n  if (!shouldRender) {\n    return null;\n  }\n\n  return element;\n});",
+          "names": [
+            "TabsPanel"
+          ]
+        },
+        {
+          "text": "export interface TabsPanelMetadata {\n  id?: string | undefined;\n  value: TabsTab.Value;\n}",
+          "names": [
+            "TabsPanelMetadata"
+          ]
+        },
+        {
+          "text": "export interface TabsPanelState extends TabsRootState {\n  /**\n   * Whether the component is hidden.\n   */\n  hidden: boolean;\n  /**\n   * The transition status of the component.\n   */\n  transitionStatus: TransitionStatus;\n}",
+          "names": [
+            "TabsPanelState"
+          ]
+        },
+        {
+          "text": "export interface TabsPanelProps extends BaseUIComponentProps<'div', TabsPanelState> {\n  /**\n   * The value of the TabPanel. It will be shown when the Tab with the corresponding value is active.\n   */\n  value: TabsTab.Value;\n  /**\n   * Whether to keep the HTML element in the DOM while the panel is hidden.\n   * @default false\n   */\n  keepMounted?: boolean | undefined;\n}",
+          "names": [
+            "TabsPanelProps"
+          ]
+        },
+        {
+          "text": "export namespace TabsPanel {\n  export type Metadata = TabsPanelMetadata;\n  export type State = TabsPanelState;\n  export type Props = TabsPanelProps;\n}",
+          "names": [
+            "TabsPanel"
+          ]
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/tabs/panel/TabsPanelDataAttributes.ts",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/tabs/panel/TabsPanelDataAttributes.ts",
+      "sha256": "5e2b8f74048f260400cf9612082e78b4e8cc39aa935835174ec9f67aa7168b4b",
+      "exports": [
+        {
+          "text": "export const index = 'data-index';",
+          "names": [
+            "index"
+          ]
+        },
+        {
+          "text": "export const activationDirection = 'data-activation-direction';",
+          "names": [
+            "activationDirection"
+          ]
+        },
+        {
+          "text": "export const orientation = 'data-orientation';",
+          "names": [
+            "orientation"
+          ]
+        },
+        {
+          "text": "export const hidden = 'data-hidden';",
+          "names": [
+            "hidden"
+          ]
+        },
+        {
+          "text": "export const startingStyle = TransitionStatusDataAttributes.startingStyle;",
+          "names": [
+            "startingStyle"
+          ]
+        },
+        {
+          "text": "export const endingStyle = TransitionStatusDataAttributes.endingStyle;",
+          "names": [
+            "endingStyle"
+          ]
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/tabs/root/TabsRoot.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/tabs/root/TabsRoot.tsx",
+      "sha256": "27a8e9f09878ffe87006d70c9bb614cdb8995730117379a94a40e570a463a18a",
+      "exports": [
+        {
+          "text": "export const TabsRoot = React.forwardRef(function TabsRoot(\n  componentProps: TabsRoot.Props,\n  forwardedRef: React.ForwardedRef<HTMLDivElement>,\n) {\n  const {\n    className,\n    defaultValue: defaultValueProp = 0,\n    onValueChange: onValueChangeProp,\n    orientation = 'horizontal',\n    render,\n    value: valueProp,\n    style,\n    ...elementProps\n  } = componentProps;\n\n  // Track whether the user explicitly provided a defined `defaultValue` prop.\n  // Used to determine if we should honor a disabled tab selection.\n  const hasExplicitDefaultValueProp = componentProps.defaultValue !== undefined;\n\n  const tabPanelRefs = React.useRef<(HTMLElement | null)[]>([]);\n  const [mountedTabPanels, setMountedTabPanels] = React.useState(\n    () => new Map<TabsTab.Value, string>(),\n  );\n\n  const [value, setValue] = useControlled({\n    controlled: valueProp,\n    default: defaultValueProp,\n    name: 'Tabs',\n    state: 'value',\n  });\n\n  const isControlled = valueProp !== undefined;\n\n  const [tabMap, setTabMap] = React.useState(\n    () => new Map<Node, CompositeMetadata<TabsTab.Metadata>>(),\n  );\n  const lastKnownTabElementRef = React.useRef<Node | undefined>(undefined);\n\n  // Used for activation direction detection via tab element positions.\n  const getTabElementBySelectedValue = React.useCallback(\n    (selectedValue: TabsTab.Value): HTMLElement | null => findTabElement(tabMap, selectedValue),\n    [tabMap],\n  );\n\n  const [activationDirectionState, setActivationDirectionState] = React.useState(() => ({\n    previousValue: value,\n    tabActivationDirection: 'none' as TabsTab.ActivationDirection,\n  }));\n  const { previousValue, tabActivationDirection: committedTabActivationDirection } =\n    activationDirectionState;\n\n  let tabActivationDirection = committedTabActivationDirection;\n  let directionComputationIncomplete = false;\n\n  // Compute activation direction during render when value changes so children see\n  // the correct direction on their very first render after the selection update.\n  // The previous value snapshot is stored in state and synced after commit.\n  // https://github.com/mui/base-ui/issues/3873\n  if (previousValue !== value) {\n    tabActivationDirection = computeActivationDirection(previousValue, value, orientation, tabMap);\n\n    // When a new tab is added and selected in the same controlled update,\n    // the tab element may not yet be registered in tabMap, so direction was\n    // computed from a value-based fallback. Keep the previous value snapshot\n    // stale so we re-compute from DOM positions once tabMap is up to date.\n    directionComputationIncomplete =\n      previousValue != null && value != null && getTabElementBySelectedValue(value) == null;\n  }\n\n  const nextPreviousValue = directionComputationIncomplete ? previousValue : value;\n  const shouldSyncActivationDirectionState =\n    previousValue !== nextPreviousValue ||\n    committedTabActivationDirection !== tabActivationDirection;\n\n  useIsoLayoutEffect(() => {\n    if (!shouldSyncActivationDirectionState) {\n      return;\n    }\n\n    setActivationDirectionState({\n      previousValue: nextPreviousValue,\n      tabActivationDirection,\n    });\n  }, [nextPreviousValue, shouldSyncActivationDirectionState, tabActivationDirection]);\n\n  const onValueChange = useStableCallback(\n    (newValue: TabsTab.Value, eventDetails: TabsRoot.ChangeEventDetails) => {\n      const activationDirection = computeActivationDirection(value, newValue, orientation, tabMap);\n\n      eventDetails.activationDirection = activationDirection;\n\n      onValueChangeProp?.(newValue, eventDetails);\n\n      if (eventDetails.isCanceled) {\n        return;\n      }\n\n      setValue(newValue);\n    },\n  );\n\n  const notifyAutomaticValueChange = useStableCallback(\n    (nextValue: TabsTab.Value, reason: TabsRoot.ChangeEventReason) => {\n      onValueChangeProp?.(\n        nextValue,\n        createChangeEventDetails(reason, undefined, undefined, {\n          activationDirection: 'none',\n        }),\n      );\n    },\n  );\n\n  const registerMountedTabPanel = useStableCallback(\n    (panelValue: TabsTab.Value, panelId: string) => {\n      setMountedTabPanels((prev) => {\n        const next = new Map(prev);\n        next.set(panelValue, panelId);\n        return next;\n      });\n\n      return () => {\n        setMountedTabPanels((prev) => {\n          // Another panel with the same value took ownership in the meantime;\n          // leave its registration in place.\n          if (prev.get(panelValue) !== panelId) {\n            return prev;\n          }\n\n          const next = new Map(prev);\n          next.delete(panelValue);\n          return next;\n        });\n      };\n    },\n  );\n\n  // get the `id` attribute of <Tabs.Panel> to set as the value of `aria-controls` on <Tabs.Tab>\n  const getTabPanelIdByValue = React.useCallback(\n    (tabValue: TabsTab.Value) => {\n      return mountedTabPanels.get(tabValue);\n    },\n    [mountedTabPanels],\n  );\n\n  // get the `id` attribute of <Tabs.Tab> to set as the value of `aria-labelledby` on <Tabs.Panel>\n  const getTabIdByPanelValue = React.useCallback(\n    (tabPanelValue: TabsTab.Value) => {\n      for (const tabMetadata of tabMap.values()) {\n        if (tabPanelValue === tabMetadata.value) {\n          return tabMetadata.id;\n        }\n      }\n      return undefined;\n    },\n    [tabMap],\n  );\n\n  const tabsContextValue: TabsRootContext = React.useMemo(\n    () => ({\n      getTabElementBySelectedValue,\n      getTabIdByPanelValue,\n      getTabPanelIdByValue,\n      onValueChange,\n      orientation,\n      registerMountedTabPanel,\n      setTabMap,\n      tabActivationDirection,\n      value,\n    }),\n    [\n      getTabElementBySelectedValue,\n      getTabIdByPanelValue,\n      getTabPanelIdByValue,\n      onValueChange,\n      orientation,\n      registerMountedTabPanel,\n      setTabMap,\n      tabActivationDirection,\n      value,\n    ],\n  );\n\n  const selectedTabMetadata = React.useMemo(() => {\n    for (const tabMetadata of tabMap.values()) {\n      if (tabMetadata.value === value) {\n        return tabMetadata;\n      }\n    }\n    return undefined;\n  }, [tabMap, value]);\n\n  // Find the first non-disabled tab value.\n  // Used as a fallback when the current selection is disabled or missing.\n  const firstEnabledTabValue = React.useMemo(() => {\n    for (const tabMetadata of tabMap.values()) {\n      if (!tabMetadata.disabled) {\n        return tabMetadata.value;\n      }\n    }\n    return undefined;\n  }, [tabMap]);\n\n  // Implicit uncontrolled selections are still automatic changes, so notify\n  // once when the tabs first register. Explicit defaults are treated as user-owned.\n  const shouldNotifyInitialValueChangeRef = React.useRef(!hasExplicitDefaultValueProp);\n  // useControlled warns if defaultValue changes after mount, but the\n  // disabled-default honor policy below still needs a stable initial value.\n  const initialDefaultValueRef = React.useRef(defaultValueProp);\n  // An explicit defaultValue can intentionally point at a disabled tab on mount.\n  // Once that selection becomes valid, later disabled states should fall back.\n  const shouldHonorDisabledDefaultValueRef = React.useRef(hasExplicitDefaultValueProp);\n  const didRegisterTabsRef = React.useRef(false);\n\n  // Uncontrolled roots own automatic fallback. Controlled roots keep the exact\n  // value supplied by the parent, even when that tab is disabled or missing.\n  useIsoLayoutEffect(() => {\n    if (isControlled) {\n      return;\n    }\n\n    function commitAutomaticValueChange(\n      fallbackValue: TabsTab.Value,\n      fallbackReason: TabsRoot.ChangeEventReason,\n    ) {\n      setValue(fallbackValue);\n      // Automatic fallbacks are not directional transitions; reset the direction\n      // alongside the value so the batched commit keeps both in sync.\n      setActivationDirectionState({\n        previousValue: fallbackValue,\n        tabActivationDirection: 'none',\n      });\n      notifyAutomaticValueChange(fallbackValue, fallbackReason);\n      // Mark the initial notification as delivered only after the consumer\n      // callback returns. The fallback value is queued first so automatic\n      // consistency updates are not cancelable through a throwing handler.\n      shouldNotifyInitialValueChangeRef.current = false;\n    }\n\n    if (tabMap.size === 0) {\n      // A Suspense boundary outside the root can clean up layout effects while\n      // keeping the previous tabs connected. Don't treat that as removal.\n      if (\n        didRegisterTabsRef.current &&\n        value !== null &&\n        !lastKnownTabElementRef.current?.isConnected\n      ) {\n        commitAutomaticValueChange(null, REASONS.missing);\n      }\n      return;\n    }\n\n    didRegisterTabsRef.current = true;\n    lastKnownTabElementRef.current = tabMap.keys().next().value;\n\n    const selectionIsDisabled = selectedTabMetadata?.disabled;\n    const selectionIsMissing = selectedTabMetadata == null && value !== null;\n\n    if (!selectionIsDisabled && value === initialDefaultValueRef.current) {\n      shouldHonorDisabledDefaultValueRef.current = false;\n    }\n\n    if (\n      shouldHonorDisabledDefaultValueRef.current &&\n      selectionIsDisabled &&\n      value === initialDefaultValueRef.current\n    ) {\n      return;\n    }\n\n    const shouldNotifyInitialValueChange = shouldNotifyInitialValueChangeRef.current;\n\n    if (selectionIsDisabled || selectionIsMissing) {\n      const fallbackValue = firstEnabledTabValue ?? null;\n\n      if (value === fallbackValue) {\n        // Already at the fallback value; no commit or notification needed,\n        // but record that the implicit-initial transition has resolved.\n        shouldNotifyInitialValueChangeRef.current = false;\n        return;\n      }\n\n      let fallbackReason: TabsRoot.ChangeEventReason = REASONS.missing;\n\n      if (shouldNotifyInitialValueChange) {\n        fallbackReason = REASONS.initial;\n      } else if (selectionIsDisabled) {\n        fallbackReason = REASONS.disabled;\n      }\n\n      commitAutomaticValueChange(fallbackValue, fallbackReason);\n      return;\n    }\n\n    if (shouldNotifyInitialValueChange && selectedTabMetadata != null) {\n      notifyAutomaticValueChange(value, REASONS.initial);\n      shouldNotifyInitialValueChangeRef.current = false;\n    }\n  }, [\n    firstEnabledTabValue,\n    isControlled,\n    notifyAutomaticValueChange,\n    selectedTabMetadata,\n    setValue,\n    tabMap,\n    value,\n  ]);\n\n  const state: TabsRootState = {\n    orientation,\n    tabActivationDirection,\n  };\n\n  const element = useRenderElement('div', componentProps, {\n    state,\n    ref: forwardedRef,\n    props: elementProps,\n    stateAttributesMapping: tabsStateAttributesMapping,\n  });\n\n  return (\n    <TabsRootContext.Provider value={tabsContextValue}>\n      <CompositeList<TabsPanel.Metadata> elementsRef={tabPanelRefs}>{element}</CompositeList>\n    </TabsRootContext.Provider>\n  );\n});",
+          "names": [
+            "TabsRoot"
+          ]
+        },
+        {
+          "text": "export type TabsRootOrientation = BaseOrientation;",
+          "names": [
+            "TabsRootOrientation"
+          ]
+        },
+        {
+          "text": "export interface TabsRootState {\n  /**\n   * The component orientation.\n   */\n  orientation: TabsRoot.Orientation;\n  /**\n   * The direction used for tab activation.\n   */\n  tabActivationDirection: TabsTab.ActivationDirection;\n}",
+          "names": [
+            "TabsRootState"
+          ]
+        },
+        {
+          "text": "export interface TabsRootProps extends BaseUIComponentProps<'div', TabsRootState> {\n  /**\n   * The value of the currently active `Tab`. Use when the component is controlled.\n   * When the value is `null`, no Tab will be active.\n   */\n  value?: TabsTab.Value | undefined;\n  /**\n   * The default value. Use when the component is not controlled.\n   * When the value is `null`, no Tab will be active.\n   * @default 0\n   */\n  defaultValue?: TabsTab.Value | undefined;\n  /**\n   * The component orientation (layout flow direction).\n   * @default 'horizontal'\n   */\n  orientation?: TabsRoot.Orientation | undefined;\n  /**\n   * Callback invoked when new value is being set.\n   *\n   * The event `reason` is `'none'` for user-initiated changes, such as a click\n   * or keyboard navigation; `'initial'` for the first automatic selection or\n   * fallback in uncontrolled roots when `defaultValue` is omitted or\n   * `undefined`, including when the implicit initial value is disabled or\n   * missing; `'disabled'` for automatic fallback when the selected tab becomes\n   * disabled in uncontrolled roots; or `'missing'` for automatic fallback when\n   * the selected tab is removed, or when an explicit `defaultValue` never\n   * matches a mounted tab in uncontrolled roots.\n   *\n   * For automatic changes, the selected value can be `null` when no enabled Tab\n   * is available as a fallback.\n   *\n   * Automatic changes cannot be canceled; calling `eventDetails.cancel()` for\n   * `'initial'`, `'disabled'`, or `'missing'` has no effect.\n   */\n  onValueChange?:\n    ((value: TabsTab.Value, eventDetails: TabsRoot.ChangeEventDetails) => void) | undefined;\n}",
+          "names": [
+            "TabsRootProps"
+          ]
+        },
+        {
+          "text": "export type TabsRootChangeEventReason =\n  typeof REASONS.none | typeof REASONS.disabled | typeof REASONS.missing | typeof REASONS.initial;",
+          "names": [
+            "TabsRootChangeEventReason"
+          ]
+        },
+        {
+          "text": "export type TabsRootChangeEventDetails = BaseUIChangeEventDetails<\n  TabsRoot.ChangeEventReason,\n  { activationDirection: TabsTab.ActivationDirection }\n>;",
+          "names": [
+            "TabsRootChangeEventDetails"
+          ]
+        },
+        {
+          "text": "export namespace TabsRoot {\n  export type State = TabsRootState;\n  export type Props = TabsRootProps;\n  export type Orientation = TabsRootOrientation;\n  export type ChangeEventReason = TabsRootChangeEventReason;\n  export type ChangeEventDetails = TabsRootChangeEventDetails;\n}",
+          "names": [
+            "TabsRoot"
+          ]
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/tabs/root/TabsRootContext.ts",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/tabs/root/TabsRootContext.ts",
+      "sha256": "6a740a6d4936584a3bc28a20b5647372781ffce3febce41fed4ab2266d54dc89",
+      "exports": [
+        {
+          "text": "export interface TabsRootContext {\n  /**\n   * The currently active tab's value.\n   */\n  value: TabsTab.Value;\n  /**\n   * Callback for setting new value.\n   */\n  onValueChange: (value: TabsTab.Value, eventDetails: TabsRoot.ChangeEventDetails) => void;\n  /**\n   * The component orientation (layout flow direction).\n   */\n  orientation: 'horizontal' | 'vertical';\n  /**\n   * Gets the element of the Tab with the given value.\n   */\n  getTabElementBySelectedValue: (selectedValue: TabsTab.Value) => HTMLElement | null;\n  /**\n   * Gets the `id` attribute of the Tab that corresponds to the given TabPanel value.\n   */\n  getTabIdByPanelValue: (panelValue: TabsTab.Value) => string | undefined;\n  /**\n   * Gets the `id` attribute of the TabPanel that corresponds to the given Tab value.\n   */\n  getTabPanelIdByValue: (tabValue: TabsTab.Value) => string | undefined;\n  registerMountedTabPanel: (panelValue: TabsTab.Value, panelId: string) => () => void;\n  setTabMap: (map: Map<Node, CompositeMetadata<TabsTab.Metadata>>) => void;\n  /**\n   * The position of the active tab relative to the previously active tab.\n   */\n  tabActivationDirection: TabsTab.ActivationDirection;\n}",
+          "names": [
+            "TabsRootContext"
+          ]
+        },
+        {
+          "text": "export const TabsRootContext = React.createContext<TabsRootContext | undefined>(undefined);",
+          "names": [
+            "TabsRootContext"
+          ]
+        },
+        {
+          "text": "export function useTabsRootContext() {\n  const context = React.useContext(TabsRootContext);\n  if (context === undefined) {\n    throw new Error(\n      'Base UI: TabsRootContext is missing. Tabs parts must be placed within <Tabs.Root>.',\n    );\n  }\n\n  return context;\n}",
+          "names": [
+            "useTabsRootContext"
+          ]
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/tabs/root/TabsRootDataAttributes.ts",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/tabs/root/TabsRootDataAttributes.ts",
+      "sha256": "88114cee4b4f0a11978d579d1d7f0aeab30c580b5b7a2263bd345213d65df615",
+      "exports": [
+        {
+          "text": "export const activationDirection = 'data-activation-direction';",
+          "names": [
+            "activationDirection"
+          ]
+        },
+        {
+          "text": "export const orientation = 'data-orientation';",
+          "names": [
+            "orientation"
+          ]
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/tabs/root/stateAttributesMapping.ts",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/tabs/root/stateAttributesMapping.ts",
+      "sha256": "e8d2f6db7c21bff9beabad39c422e05682e771d81ee643076d1c39596cfe82fc",
+      "exports": [
+        {
+          "text": "export const tabsStateAttributesMapping: StateAttributesMapping<TabsRootState> = {\n  tabActivationDirection: (dir) => ({\n    [TabsRootDataAttributes.activationDirection]: dir,\n  }),\n};",
+          "names": [
+            "tabsStateAttributesMapping"
+          ]
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/tabs/tab/TabsTab.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/tabs/tab/TabsTab.tsx",
+      "sha256": "fca61d1dba92d9618e763652637d4d3a0a69e217335eea6c0af13b71038c3ef7",
+      "exports": [
+        {
+          "text": "export const TabsTab = React.forwardRef(function TabsTab(\n  componentProps: TabsTab.Props,\n  forwardedRef: React.ForwardedRef<HTMLElement>,\n) {\n  const {\n    className,\n    disabled = false,\n    render,\n    value,\n    id: idProp,\n    nativeButton = true,\n    style,\n    ...elementProps\n  } = componentProps;\n\n  const {\n    value: activeTabValue,\n    getTabPanelIdByValue,\n    onValueChange,\n    orientation,\n    tabActivationDirection,\n  } = useTabsRootContext();\n\n  const { activateOnFocus, registerTabResizeObserverElement, tabsListElement } =\n    useTabsListContext();\n\n  const { highlightedIndex, onHighlightedIndexChange } = useCompositeRootContext();\n\n  const id = useBaseUiId(idProp);\n\n  const tabMetadata = React.useMemo(() => ({ disabled, id, value }), [disabled, id, value]);\n\n  const {\n    compositeProps,\n    compositeRef,\n    index,\n    // hook is used instead of the CompositeItem component\n    // because the index is needed for Tab internals\n  } = useCompositeItem<TabsTab.Metadata>({\n    metadata: tabMetadata,\n  });\n\n  const active = value === activeTabValue;\n\n  const isNavigatingRef = React.useRef(false);\n  const unobserveTabElementRef = React.useRef<(() => void) | null>(null);\n\n  // Registered from the ref callback rather than an effect so the observer\n  // follows the rendered element when the `render` prop swaps the host element.\n  const observeTabElement = useStableCallback((element: HTMLElement | null) => {\n    unobserveTabElementRef.current?.();\n    unobserveTabElementRef.current = element ? registerTabResizeObserverElement(element) : null;\n  });\n\n  // Keep the highlighted item in sync with the currently active tab\n  // when the value prop changes externally (controlled mode)\n  useIsoLayoutEffect(() => {\n    if (isNavigatingRef.current) {\n      isNavigatingRef.current = false;\n      return;\n    }\n\n    if (!(active && index > -1 && highlightedIndex !== index)) {\n      return;\n    }\n\n    // If focus is currently within the tabs list, don't override the roving\n    // focus highlight. This keeps keyboard navigation relative to the focused\n    // item after an external/asynchronous selection change.\n    const listElement = tabsListElement;\n    if (listElement != null) {\n      const activeEl = activeElement(ownerDocument(listElement));\n      if (activeEl && contains(listElement, activeEl)) {\n        return;\n      }\n    }\n\n    // Don't highlight disabled tabs to prevent them from interfering with keyboard navigation.\n    // Keyboard focus (tabIndex) should remain on an enabled tab even when a disabled tab is selected.\n    if (!disabled) {\n      onHighlightedIndexChange(index);\n    }\n  }, [active, index, highlightedIndex, onHighlightedIndexChange, disabled, tabsListElement]);\n\n  const { getButtonProps, buttonRef } = useButton({\n    disabled,\n    native: nativeButton,\n    focusableWhenDisabled: true,\n  });\n\n  const tabPanelId = getTabPanelIdByValue(value);\n\n  const isPressingRef = React.useRef(false);\n  const isMainButtonRef = React.useRef(false);\n\n  // Both callers guard on `!active`, so the current value is never re-committed.\n  function activate(event: React.SyntheticEvent) {\n    onValueChange(\n      value,\n      createChangeEventDetails(REASONS.none, event.nativeEvent, undefined, {\n        activationDirection: 'none',\n      }),\n    );\n  }\n\n  function onClick(event: React.MouseEvent<HTMLButtonElement>) {\n    if (active || disabled) {\n      return;\n    }\n\n    activate(event);\n  }\n\n  function onFocus(event: React.FocusEvent<HTMLButtonElement>) {\n    if (active || disabled) {\n      return;\n    }\n\n    if (\n      activateOnFocus &&\n      (!isPressingRef.current || // keyboard or touch focus\n        isMainButtonRef.current) // main mouse button focus\n    ) {\n      activate(event);\n    }\n  }\n\n  function onPointerDown(event: React.PointerEvent<HTMLButtonElement>) {\n    if (active || disabled) {\n      return;\n    }\n\n    isPressingRef.current = true;\n    // Secondary presses (context menu, middle click) may focus the tab, but\n    // must not activate it with `activateOnFocus`.\n    isMainButtonRef.current = event.button === 0;\n\n    // Registered for every button so a secondary press doesn't leave the tab\n    // stuck in the pressing state, which would suppress later focus activation.\n    const doc = ownerDocument(event.currentTarget);\n\n    function handlePointerEnd() {\n      isPressingRef.current = false;\n      isMainButtonRef.current = false;\n      doc.removeEventListener('pointerup', handlePointerEnd);\n      doc.removeEventListener('pointercancel', handlePointerEnd);\n    }\n\n    doc.addEventListener('pointerup', handlePointerEnd);\n    doc.addEventListener('pointercancel', handlePointerEnd);\n  }\n\n  const state: TabsTabState = {\n    disabled,\n    active,\n    orientation,\n    tabActivationDirection,\n  };\n\n  const element = useRenderElement('button', componentProps, {\n    state,\n    ref: [forwardedRef, buttonRef, compositeRef, observeTabElement],\n    props: [\n      compositeProps,\n      {\n        role: 'tab',\n        'aria-controls': tabPanelId,\n        'aria-selected': active,\n        id,\n        onClick,\n        onFocus,\n        onPointerDown,\n        [ACTIVE_COMPOSITE_ITEM as string]: active ? '' : undefined,\n        onKeyDownCapture() {\n          isNavigatingRef.current = true;\n        },\n      },\n      elementProps,\n      getButtonProps,\n    ],\n    stateAttributesMapping: tabsStateAttributesMapping,\n  });\n\n  return element;\n});",
+          "names": [
+            "TabsTab"
+          ]
+        },
+        {
+          "text": "export type TabsTabValue = any | null;",
+          "names": [
+            "TabsTabValue"
+          ]
+        },
+        {
+          "text": "export type TabsTabActivationDirection = 'left' | 'right' | 'up' | 'down' | 'none';",
+          "names": [
+            "TabsTabActivationDirection"
+          ]
+        },
+        {
+          "text": "export interface TabsTabPosition {\n  left: number;\n  right: number;\n  top: number;\n  bottom: number;\n}",
+          "names": [
+            "TabsTabPosition"
+          ]
+        },
+        {
+          "text": "export interface TabsTabSize {\n  width: number;\n  height: number;\n}",
+          "names": [
+            "TabsTabSize"
+          ]
+        },
+        {
+          "text": "export interface TabsTabMetadata {\n  disabled: boolean;\n  id: string | undefined;\n  value: TabsTab.Value | undefined;\n}",
+          "names": [
+            "TabsTabMetadata"
+          ]
+        },
+        {
+          "text": "export interface TabsTabState {\n  /**\n   * Whether the component should ignore user interaction.\n   */\n  disabled: boolean;\n  /**\n   * Whether the component is active.\n   */\n  active: boolean;\n  /**\n   * The component orientation.\n   */\n  orientation: TabsRoot.Orientation;\n  /**\n   * The direction used for tab activation.\n   */\n  tabActivationDirection: TabsTab.ActivationDirection;\n}",
+          "names": [
+            "TabsTabState"
+          ]
+        },
+        {
+          "text": "export interface TabsTabProps\n  extends NativeButtonProps, BaseUIComponentProps<'button', TabsTabState> {\n  /**\n   * The value of the Tab.\n   */\n  value: TabsTab.Value;\n  /**\n   * Whether the Tab is disabled.\n   *\n   * If a first Tab on a `<Tabs.List>` is disabled, it won't initially be selected.\n   * Instead, the next enabled Tab will be selected.\n   * However, it does not work like this during server-side rendering, as it is not known\n   * during pre-rendering which Tabs are disabled.\n   * To work around it, ensure that `defaultValue` or `value` on `<Tabs.Root>` is set to an enabled Tab's value.\n   */\n  disabled?: boolean | undefined;\n}",
+          "names": [
+            "TabsTabProps"
+          ]
+        },
+        {
+          "text": "export namespace TabsTab {\n  export type Value = TabsTabValue;\n  export type ActivationDirection = TabsTabActivationDirection;\n  export type Position = TabsTabPosition;\n  export type Size = TabsTabSize;\n  export type Metadata = TabsTabMetadata;\n  export type State = TabsTabState;\n  export type Props = TabsTabProps;\n}",
+          "names": [
+            "TabsTab"
+          ]
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/tabs/tab/TabsTabDataAttributes.ts",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/tabs/tab/TabsTabDataAttributes.ts",
+      "sha256": "56559cd9945aa825701ca803e8588b37b965847ead101a8997913a2b9f506119",
+      "exports": [
+        {
+          "text": "export const activationDirection = 'data-activation-direction';",
+          "names": [
+            "activationDirection"
+          ]
+        },
+        {
+          "text": "export const orientation = 'data-orientation';",
+          "names": [
+            "orientation"
+          ]
+        },
+        {
+          "text": "export const disabled = 'data-disabled';",
+          "names": [
+            "disabled"
+          ]
+        },
+        {
+          "text": "export const active = 'data-active';",
+          "names": [
+            "active"
+          ]
+        }
+      ]
+    }
+  ],
+  "ordinaryDeclarationCredit": 0
+}
