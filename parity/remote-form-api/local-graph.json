@@ -1330,7 +1330,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
-      "sha256": "58ec383752005e6d8ba523465fae142b1078ef77bdcc61e548ffb1b4f485f017",
+      "sha256": "d0faf967447c35339c6ad06b8cc6218cf2002613844a4bdb7b1453fd5262afc3",
       "imports": [
         {
           "specifier": "../../../utils/useMergedRefs.js",
@@ -1487,7 +1487,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
-      "sha256": "c74699f875b45f04a747a92bb9a452c0695133ff415a4defa164ca2d12124d6d",
+      "sha256": "8db12d19818afe6509addc02e10a55082126da9be7a40d03f9a8f62a6e6b5d78",
       "imports": [
         {
           "specifier": "../../../utils/useStableCallback.js",
@@ -1795,7 +1795,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/labelable-provider/useAriaLabelledBy.svelte.ts",
-      "sha256": "116d1951d670c27e10d371ce535b5923c59002831971ffca9801a4ac6c69b566",
+      "sha256": "bfb47e6426f7df82b1738fb2dcbef7133166addc4a7d54a84deab26655f2bf0e",
       "imports": []
     },
     {
@@ -2263,7 +2263,7 @@
     },
     {
       "local": "packages/base/src/lib/radio-group/RadioGroup.svelte",
-      "sha256": "0afb14aa88cf4c40d55490dc0d911f7591a606b401ce18f6b3f1cd153a87ea07",
+      "sha256": "703c7296c5980c2b029a05d024e4d01aadc577a1c0ca25b7a2b95cc48d37f5e5",
       "imports": [
         {
           "specifier": "../internals/composite/root/CompositeRoot.svelte",
@@ -2411,7 +2411,7 @@
     },
     {
       "local": "packages/base/src/lib/radio/root/RadioRoot.svelte",
-      "sha256": "10c8455458fb9a26c93cd28ad0c41caa1f8fca63e38d81aebb218dc75a65c18c",
+      "sha256": "e6a1b213f783d001f3fbe171fc8e51ee4b763ec1a3e0d3f7150bf6ecaa063622",
       "imports": [
         {
           "specifier": "../../internals/RenderElement.svelte",
