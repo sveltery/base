@@ -7,6 +7,7 @@
   let enhancements = $state<string[]>([]);
   const effects = contractEffects();
   const first = isolated.for('first'), second = isolated.for('second');
+  const manual = isolated.for('manual');
   const preflight = nested.preflight({ '~standard': { version: 1, vendor: 'nested-preflight', validate(value) {
     const issues: { message: string; path: (string | number)[] }[] = [];
     if (value && typeof value === 'object' && 'profile' in value && value.profile && typeof value.profile === 'object' && 'email' in value.profile && value.profile.email === 'preflight-reject') issues.push({ message: 'Preflight email error', path: ['profile', 'email'] });
@@ -113,6 +114,13 @@
     </Form>
     <output id={`isolated-result-${index}`}>{JSON.stringify(remote.result ?? null)}</output>
   {/each}
+
+  <Form id="manual" remote={manual} {...manual} errors={{ message: 'Manual logical field error' }}>
+    {#snippet children(Field)}
+      <Field.Root name="message" as="text" value="manual-seed"><Field.Label>Manual message</Field.Label><Field.Control id="authored-control-id" name="authored-native-name" /><Field.Error id="manual-error" /></Field.Root>
+    {/snippet}
+  </Form>
+  <button onclick={() => manual.fields.message.set('manual-next')}>Set manual logical value</button>
 
   <Form id="enhanced" remote={enhanced} {...enhanced.enhance(async (remote) => { enhancements.push('caller'); await remote.submit().updates(effects); enhancements.push('updated'); remote.element.reset(); enhancements.push('custom-js'); })}>
     {#snippet children(Field)}

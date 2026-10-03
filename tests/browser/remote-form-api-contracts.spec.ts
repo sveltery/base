@@ -156,6 +156,19 @@ test('remote.for IDs keep live fields, errors and results isolated', async ({ pa
   await expect(first).toHaveValue('server-reject'); await expect(page.locator('#isolated-error-0')).toHaveText('Server message error'); expect(await json(page, 'isolated-result-0')).toBeNull();
 });
 
+test('authored native name and ID override keep source errors and programmatic values logical', async ({ page }) => {
+  await setup(page);
+  const control = page.getByLabel('Manual message', { exact: true });
+  await expect(control).toHaveAttribute('id', 'authored-control-id');
+  await expect(control).toHaveAttribute('name', 'authored-native-name');
+  await expect(control).toHaveAttribute('aria-invalid', 'true');
+  await expect(control).toHaveAttribute('aria-describedby', /manual-error/);
+  await expect(page.locator('#manual-error')).toHaveText('Manual logical field error');
+  await page.getByRole('button', { name: 'Set manual logical value', exact: true }).click();
+  await expect(control).toHaveValue('manual-next');
+  await expect(page.locator('#manual-error')).toHaveCount(0);
+});
+
 test('original enhance preserves query updates, custom JS, pending, result, submitter and reset', async ({ page }) => {
   await setup(page);
   const input = page.getByLabel('Enhanced message', { exact: true }), before = (await json(page, 'contract-effects')).enhanced ?? 0, requests = posts(page);
