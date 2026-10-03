@@ -1,0 +1,2548 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "ordinaryDeclarationCredit": 0,
+  "status": "immutable original declaration sites; variants and execution counts stay separate",
+  "files": [
+    {
+      "source": "packages/react/src/slider/control/SliderControl.test.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/slider/control/SliderControl.test.tsx",
+      "sha256": "64ca327af04c4d35bb2cb526c4be1b62d82fee75209cc1965e15724fe4c4620c",
+      "declarations": [
+        {
+          "line": 11,
+          "callee": "describeConformance",
+          "name": "<Slider.Control />",
+          "sha256": "0ce2010ec2f085acc3f78016c9cde575364c9a8bf89544a14ab99b683c3f1733",
+          "kind": "conformance",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 18,
+          "callee": "it",
+          "name": "'does not apply a tabIndex by default'",
+          "sha256": "ae484744f630980e06225b6c24781f192c0a0f9db4292ac26a7a2689d615206d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 30,
+          "callee": "it",
+          "name": "'throws a descriptive error when rendered outside <Slider.Root>'",
+          "sha256": "e6faca638409819dfff58ff60ef10d5b62b2e0e266490a93aceb426a6238e2c1",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 42,
+          "callee": "it",
+          "name": "'moves the first of several thumbs stacked at the maximum'",
+          "sha256": "3a61a1304c65e231fe2f2bcc9630191a229354a646aea762ccfa0329ef61af43",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 69,
+          "callee": "it",
+          "name": "'clears the grabbed offset when swapping to a thumb that is not rendered'",
+          "sha256": "9ee71ce19a608f556aa38397bb1997e35a2735dbe00d9de573444ce7fca26f4d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 99,
+          "callee": "it",
+          "name": "'ignores a drag when collision behavior cannot satisfy the minimum distance'",
+          "sha256": "775a81321d035ad23945b22f342de7dc7364e80259057aa7c4b1a920054a49d6",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 143,
+          "callee": "it",
+          "name": "`accounts for the thumb size when pressing an inset ${name} control`",
+          "sha256": "f8926c01fe31083f204872ccf4cba48b4d2b81d596d000e79596825f2aa749dd",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 172,
+          "callee": "it",
+          "name": "'releases pointer capture when the interaction ends'",
+          "sha256": "05500dc9c3939bfb069183848f8e305050ebf774bf4d1ca41e09ac76ee57032d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 207,
+          "callee": "it",
+          "name": "'degrades safely when a custom render function drops the control ref'",
+          "sha256": "b9ad248f6d6ec15716b3056959f195d538fcdeee2041ed05c3f47990ff94e46a",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 227,
+          "callee": "it.skipIf(isJSDOM || typeof Touch === 'undefined')",
+          "name": "'handles touch interactions that originate on a text node'",
+          "sha256": "c1b6a5662cf96f7047e52c498273f90487fee33bb7fb6d1361315aeda3e51d06",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 227,
+          "callee": "it.skipIf",
+          "name": "isJSDOM || typeof Touch === 'undefined'",
+          "sha256": "8639092660d48550bd40eac61a8aecc6baeb7b9383f5e6461ee2867a4606eb4b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 254,
+          "callee": "it.skipIf(isJSDOM || typeof Touch === 'undefined')",
+          "name": "'ignores touch interactions when no thumbs are composed'",
+          "sha256": "d12cded26a9d74b8b4184014247e35851b4ebc6a5d84d54103b3936f3fd620e2",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 254,
+          "callee": "it.skipIf",
+          "name": "isJSDOM || typeof Touch === 'undefined'",
+          "sha256": "8639092660d48550bd40eac61a8aecc6baeb7b9383f5e6461ee2867a4606eb4b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 281,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "'does not resurrect a removed thumb value when the range shrinks mid-drag'",
+          "sha256": "6fe4eabafb61131de04772f4bfd71dbdf97e9a3c91461a9bbc6b25c3b9129a75",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 281,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 346,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "'does not commit a stale value when the range shrinks mid-drag and the pressed thumb stays valid'",
+          "sha256": "91b16932299086803d8efeba8b0f90144e4d7a5591a46cbab68f5219b21a45ee",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 346,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 407,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "'clears cached interaction state when the controlled range grows mid-drag'",
+          "sha256": "ffb1c2af0a9e5ea2a961b39edf0dc689d13a46300bbc9a2d34e55740d4cfcd9b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 407,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/slider/indicator/SliderIndicator.test.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/slider/indicator/SliderIndicator.test.tsx",
+      "sha256": "9a5b5b0a982d350c9b6686ff08f3afc77a6df84d4ca7275339c725f02b644a29",
+      "declarations": [
+        {
+          "line": 11,
+          "callee": "describeConformance",
+          "name": "<Slider.Indicator />",
+          "sha256": "a116f8dda6a0beaebb83d965d36477c2a7c8fa636891afef3aab7a7ca9e61d5e",
+          "kind": "conformance",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 24,
+          "callee": "it.skipIf(isJSDOM).each(parityCases)",
+          "name": "'preserves keyboard and indicator parity for $axis $alignment $valueShape sliders'",
+          "sha256": "feadc350a3341b47106c62271625509760f045a259b34cf63fa346e76bea1478",
+          "kind": "parameterized",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 24,
+          "callee": "it.skipIf(isJSDOM).each",
+          "name": "parityCases",
+          "sha256": "9ebf8deadefa8059e187749ff487720e649ccb2ce7c0478d597c429af1576c0b",
+          "kind": "parameterized",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 24,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/slider/label/SliderLabel.test.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/slider/label/SliderLabel.test.tsx",
+      "sha256": "1b5bf744bd715fe7eda0a7268f60d1fd66aab619b3078e8399fcde0b69f42d00",
+      "declarations": [
+        {
+          "line": 10,
+          "callee": "describeConformance",
+          "name": "<Slider.Label />",
+          "sha256": "b55a130afdb2392b28d8e7b3e431bed4b28ffe689a7a6e212f56f6a9ead07fc4",
+          "kind": "conformance",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 24,
+          "callee": "it",
+          "name": "'focuses the registered thumb when composed within a Field'",
+          "sha256": "740d2373c88c8395156c3bc6a3f24925975f34eb1f5b77fd47cdd02f260488c4",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 43,
+          "callee": "it",
+          "name": "'does nothing when a Field slider has no thumb to focus'",
+          "sha256": "3a44d5432034d533df616cd284b3d1531461d2695a78a5d7faebd44cea945618",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/slider/root/SliderRoot.spec.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/slider/root/SliderRoot.spec.tsx",
+      "sha256": "f67e156bd91d412589a5ecd1b5bf15f27daf9b3f55dacff57f402ba04835808f",
+      "declarations": [
+        {
+          "line": 9,
+          "callee": "expectType",
+          "name": "v",
+          "sha256": "eb4e4dab20e64253e6e6cc2abca48b6cd917f615a0e207ff6c9f241f9e60976d",
+          "kind": "type",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 12,
+          "callee": "expectType",
+          "name": "v",
+          "sha256": "eb4e4dab20e64253e6e6cc2abca48b6cd917f615a0e207ff6c9f241f9e60976d",
+          "kind": "type",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 16,
+          "callee": "expectType",
+          "name": "v",
+          "sha256": "9c4132c1ad0e73619ebf7e0f9a2d26c2a46196d28170604a172708f6da1ecbd7",
+          "kind": "type",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 19,
+          "callee": "expectType",
+          "name": "v",
+          "sha256": "9c4132c1ad0e73619ebf7e0f9a2d26c2a46196d28170604a172708f6da1ecbd7",
+          "kind": "type",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 23,
+          "callee": "expectType",
+          "name": "v",
+          "sha256": "eb4e4dab20e64253e6e6cc2abca48b6cd917f615a0e207ff6c9f241f9e60976d",
+          "kind": "type",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 26,
+          "callee": "expectType",
+          "name": "v",
+          "sha256": "eb4e4dab20e64253e6e6cc2abca48b6cd917f615a0e207ff6c9f241f9e60976d",
+          "kind": "type",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 30,
+          "callee": "expectType",
+          "name": "v",
+          "sha256": "9c4132c1ad0e73619ebf7e0f9a2d26c2a46196d28170604a172708f6da1ecbd7",
+          "kind": "type",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 33,
+          "callee": "expectType",
+          "name": "v",
+          "sha256": "9c4132c1ad0e73619ebf7e0f9a2d26c2a46196d28170604a172708f6da1ecbd7",
+          "kind": "type",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 37,
+          "callee": "expectType",
+          "name": "v",
+          "sha256": "eb4e4dab20e64253e6e6cc2abca48b6cd917f615a0e207ff6c9f241f9e60976d",
+          "kind": "type",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 40,
+          "callee": "expectType",
+          "name": "v",
+          "sha256": "9c4132c1ad0e73619ebf7e0f9a2d26c2a46196d28170604a172708f6da1ecbd7",
+          "kind": "type",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 83,
+          "callee": "expectType",
+          "name": "v",
+          "sha256": "ac290cc1372ea03026ae8c3619e9b6241a80254476f8b55d128c4a505a1ec582",
+          "kind": "type",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 88,
+          "callee": "expectType",
+          "name": "v",
+          "sha256": "ac290cc1372ea03026ae8c3619e9b6241a80254476f8b55d128c4a505a1ec582",
+          "kind": "type",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/slider/root/SliderRoot.test.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/slider/root/SliderRoot.test.tsx",
+      "sha256": "9ab0d0ad65019b3678a5cdc0c4696a2f96aad8c1e6f92a4ee6eb384a09e72b0b",
+      "declarations": [
+        {
+          "line": 86,
+          "callee": "describeConformance",
+          "name": "<Slider.Root defaultValue={50} />",
+          "sha256": "d7e213de9cd951dd0fb20c8517ad08bf8b6d406fe755330785da2ec4ef5b75ca",
+          "kind": "conformance",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 91,
+          "callee": "it",
+          "name": "'warns when max is not greater than min'",
+          "sha256": "d88465428b82f04fdb8d7e8caf752a4d2536bb3f44ea6389677925765dae867b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 100,
+          "callee": "it",
+          "name": "'does not link Slider.Label before hydration'",
+          "sha256": "e154d26ccff831110a18fd61cc333814297c9fe8dded209c7777e39763d60068",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 123,
+          "callee": "it.skipIf(isJSDOM || isWebKit)",
+          "name": "'should not break when initial value is out of range'",
+          "sha256": "956aac81b514a45f45e68231d6d7660d75ebbfb25bba50215cb44a28cec31c68",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 123,
+          "callee": "it.skipIf",
+          "name": "isJSDOM || isWebKit",
+          "sha256": "9e1d6382911d909ab8f04adb209d6a5200d640f4b32363d909c3d70b1aa761ea",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 147,
+          "callee": "it",
+          "name": "'has the correct aria attributes'",
+          "sha256": "5730c6c7e4b8863f587e49c4d0042c14ffe7e65a701a3a8c535e5374dc5b0bea",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 173,
+          "callee": "it",
+          "name": "'should update aria-valuenow'",
+          "sha256": "23ec7ab1e1699ae9c89b0c39be932ca6635901a312e006829a34f11ade57bc52",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 188,
+          "callee": "it",
+          "name": "'should set default aria-valuetext on range slider thumbs'",
+          "sha256": "116459df50afbddbbc34db2f1829fcfad9bea5727ca0e583a9cf73ca2d82426a",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 199,
+          "callee": "it",
+          "name": "'should handle RTL'",
+          "sha256": "7e4e1c7daa5f5f69ba33d30250cfa76e3e54a6a2906d075c4b0a6c25bf39743d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 233,
+          "callee": "it",
+          "name": "'should render data-disabled on all subcomponents'",
+          "sha256": "705653827b3949f0153968402e03cb9661311fdf7d55f58fe40ec530810975b0",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 258,
+          "callee": "it.skipIf(!isJSDOM)",
+          "name": "'explicitly blurs the focused thumb when disabled'",
+          "sha256": "d34da8b038ff01f190a81c382159d9cdc7679f694ccf6b511db01f3dc41e7320",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 258,
+          "callee": "it.skipIf",
+          "name": "!isJSDOM",
+          "sha256": "bcb41b6ed34c3d27133810ed8ff33381f4e39220c9197524a842f7ae965646b7",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 274,
+          "callee": "it.skipIf(isJSDOM || isWebKit)",
+          "name": "'should not respond to drag events after becoming disabled'",
+          "sha256": "76279845b3123c3494a6371ee3312e94187020e8310348190458cd4af95d60bb",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 274,
+          "callee": "it.skipIf",
+          "name": "isJSDOM || isWebKit",
+          "sha256": "9e1d6382911d909ab8f04adb209d6a5200d640f4b32363d909c3d70b1aa761ea",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 310,
+          "callee": "it.skipIf(isJSDOM || isWebKit)",
+          "name": "'should not respond to drag events if disabled'",
+          "sha256": "bec7f31d3c09eb9f1936ba33296d42890e631f8e4871c9c58196845233f99095",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 310,
+          "callee": "it.skipIf",
+          "name": "isJSDOM || isWebKit",
+          "sha256": "9e1d6382911d909ab8f04adb209d6a5200d640f4b32363d909c3d70b1aa761ea",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 336,
+          "callee": "it",
+          "name": "'does not drag a thumb disabled via the `disabled` prop'",
+          "sha256": "ba4550b9c769b3aed9b6c5dffe40dcfbd64ec06206dc5d0916ea80951969665d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 364,
+          "callee": "it.skipIf(isJSDOM || isWebKit)",
+          "name": "'does not drag a disabled thumb with touch events'",
+          "sha256": "1b6dd2370fa6110b90c8d8e003ae517c2d6d73d5bf37fadeccd3e10afb41e3c3",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 364,
+          "callee": "it.skipIf",
+          "name": "isJSDOM || isWebKit",
+          "sha256": "9e1d6382911d909ab8f04adb209d6a5200d640f4b32363d909c3d70b1aa761ea",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 402,
+          "callee": "it",
+          "name": "'does not change a single disabled thumb when pressing the track'",
+          "sha256": "2c4c17cf45fc7305389d6efbc664b66feafa25860db15bfba66ca7fe2c760bb2",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 429,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "'does not select a disabled thumb when pressing the track'",
+          "sha256": "21849062b8de9d91c238ccf25b058e2eeb4fa77811e7469302e3b4541af27630",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 429,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 464,
+          "callee": "it",
+          "name": "'sets the `aria-orientation` attribute'",
+          "sha256": "79499614edc118e201f318daf22496b3a4b36614b76cf53115ab075e06463305",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 471,
+          "callee": "it",
+          "name": "'sets the data-orientation attribute'",
+          "sha256": "391d98e863b2028a7cc46b3418d3bf5504d2775e32f72f73dca752ee4e4ce7f5",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 482,
+          "callee": "it.skipIf(isJSDOM || !/WebKit/.test(window.navigator.userAgent))",
+          "name": "'does not set the orientation via appearance for WebKit browsers'",
+          "sha256": "68d50648b71236b40f82b22a7cc796f51d19949cd10a26c5519d2b5f2b36e542",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 482,
+          "callee": "it.skipIf",
+          "name": "isJSDOM || !/WebKit/.test(window.navigator.userAgent)",
+          "sha256": "de0894e4666ffe5ec1fbd6e0742d417065dbfb82eaeeb70d4696fd563924eb8e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 497,
+          "callee": "it.skipIf(isJSDOM || isWebKit)",
+          "name": "'should report the right position'",
+          "sha256": "57be210a6ab3daeda0e7e4fcc8e5e5d1fb70253e61e2d31a9a0f71df516effba",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 497,
+          "callee": "it.skipIf",
+          "name": "isJSDOM || isWebKit",
+          "sha256": "9e1d6382911d909ab8f04adb209d6a5200d640f4b32363d909c3d70b1aa761ea",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 533,
+          "callee": "it",
+          "name": "'supports non-integer values'",
+          "sha256": "c97c9f48cfadeb8ff02a700e6ee2727f9ba5a0d7478e322b6970593ba314b464",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 548,
+          "callee": "it.skipIf(isJSDOM || isWebKit)",
+          "name": "'should round value to step precision'",
+          "sha256": "2c41b6805a4a1c87f86addc0904cd00c43982c56eba26f2cfa5be166129e5215",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 548,
+          "callee": "it.skipIf",
+          "name": "isJSDOM || isWebKit",
+          "sha256": "9e1d6382911d909ab8f04adb209d6a5200d640f4b32363d909c3d70b1aa761ea",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 584,
+          "callee": "it.skipIf(isJSDOM || isWebKit)",
+          "name": "'should not fail to round value to step precision when step is very small'",
+          "sha256": "d880e0e767ceeba114defd06c8194ebd8e5dabedc47e5da52b005a887ceff539",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 584,
+          "callee": "it.skipIf",
+          "name": "isJSDOM || isWebKit",
+          "sha256": "9e1d6382911d909ab8f04adb209d6a5200d640f4b32363d909c3d70b1aa761ea",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 621,
+          "callee": "it.skipIf(isJSDOM || isWebKit)",
+          "name": "'should not fail to round value to step precision when step is very small and negative'",
+          "sha256": "7e59e19241c4e5545f03d90683c5abea6a42d248d8f8f7f22eb4baf71c8e5a90",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 621,
+          "callee": "it.skipIf",
+          "name": "isJSDOM || isWebKit",
+          "sha256": "9e1d6382911d909ab8f04adb209d6a5200d640f4b32363d909c3d70b1aa761ea",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 660,
+          "callee": "it",
+          "name": "'sets the max attribute on the input'",
+          "sha256": "544856a283ddcaf147bca0470d45e81e526f552119cc7d2d66d1a526dab4fb63",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 665,
+          "callee": "it",
+          "name": "'should not go more than the max'",
+          "sha256": "b03aa0079dca8985e5f6c63356f59a67e21e97ff89c7eeaf001a2aa0a7445019",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 678,
+          "callee": "it.skipIf(isJSDOM || isWebKit)",
+          "name": "'should reach right edge value'",
+          "sha256": "6e1bf007e753302f8a0b4c5019e7bcfc856d16f1df96a890b20153966862b0d7",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 678,
+          "callee": "it.skipIf",
+          "name": "isJSDOM || isWebKit",
+          "sha256": "9e1d6382911d909ab8f04adb209d6a5200d640f4b32363d909c3d70b1aa761ea",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 724,
+          "callee": "it",
+          "name": "'sets the min attribute on the input'",
+          "sha256": "86042585a7d9b649dc7483a8c949f572d779d3d3c9416467655d1148c4f0ac17",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 729,
+          "callee": "it",
+          "name": "'should use min as the step origin'",
+          "sha256": "89fa83e7b5cdcac7dc3346681a001a5d6eccce54f18cd092168e165c3e20a9e1",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 740,
+          "callee": "it",
+          "name": "'should not go less than the min'",
+          "sha256": "84846cd5e5b06acc7c43eb455b50ce4ef8b868b7d120d314cff31831512a245f",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 752,
+          "callee": "it",
+          "name": "'clamps range values that fall outside the min and max bounds'",
+          "sha256": "fa02ebf17fc07abefc95eee8aa4b4996ae033baef0440893a3a825a6007b288d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 762,
+          "callee": "it",
+          "name": "'should enforce a minimum difference between range slider values'",
+          "sha256": "7ee0fffd23a5e0d9bb98091267900dab4892dc6055778dff89f0ee19ab2b2c03",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 795,
+          "callee": "it",
+          "name": "'single value'",
+          "sha256": "0a0c0f1633fb6f7161c84b2375c9dadb3c278fae75311afc3ddd561d6395477a",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 838,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "'array value'",
+          "sha256": "0c9bb009930c0dee94d963b0553fa729d9f2728cc9d0280d33d77c4250dafe86",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 838,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 888,
+          "callee": "it",
+          "name": "'does not commit a canceled change'",
+          "sha256": "4da9b6eafb41587536daf9303639d22a0dc4288092060023cfb6199f04a31107",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 916,
+          "callee": "it",
+          "name": "'does not commit when keyboard interaction leaves the value unchanged'",
+          "sha256": "130567b23bb6ac82911b24d7a7038d50f930aee91d2a7dbcfbb913aa5eadeb5f",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 944,
+          "callee": "it",
+          "name": "'does not commit when keyboard interaction leaves a range value unchanged'",
+          "sha256": "5ffdc058d2edb611b7a36e03e378cf3845f56a65608ca9a740b89edd0480359f",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 969,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "'does not commit when thumb press leaves the value unchanged'",
+          "sha256": "c3c66391350aaf6232379eacdf30893c0a04320adca22c4fe3b1b742f0d06e7c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 969,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1009,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "'does not commit a canceled track press'",
+          "sha256": "efccec49e7ab1f0c4d81c1a5d70b3c9c7a393aad7fb29225f99b66d453970300",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1009,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1050,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "'does not commit a canceled drag'",
+          "sha256": "792e39b712f205513aac89fb3fcca8c29695a4d99376020f4c8d740007e5b4eb",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1050,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1105,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "'commits the last applied value when a later move is canceled'",
+          "sha256": "7c1e8235a6bd03d889fd4972b571661ba411261fc6267962955175e58f02080e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1105,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1151,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "'commits the last applied range value when a later move is canceled'",
+          "sha256": "2ca371e3af8a8049e2cbf39ed3b700e8f2321c9ad19f806beda88726ae5a2cee",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1151,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1206,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "'should call handlers'",
+          "sha256": "18d55ba2aa03829c1c0f526829f8b76391369925926d3e6479a878caf6902893",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1206,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1250,
+          "callee": "it.skipIf(isJSDOM || isWebKit)",
+          "name": "'should support touch events'",
+          "sha256": "9e215aa1dc55c9d9a41b98ae1542554a2744a00df0d7f0c819b712a536af4be1",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1250,
+          "callee": "it.skipIf",
+          "name": "isJSDOM || isWebKit",
+          "sha256": "9e1d6382911d909ab8f04adb209d6a5200d640f4b32363d909c3d70b1aa761ea",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1314,
+          "callee": "it.skipIf(isJSDOM || isWebKit)",
+          "name": "'should only listen to changes from the same touchpoint'",
+          "sha256": "d99a19b60d1d7681e9e89e6e61578e13cbe67c54f20edcb3cc47d2d9e0250d51",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1314,
+          "callee": "it.skipIf",
+          "name": "isJSDOM || isWebKit",
+          "sha256": "9e1d6382911d909ab8f04adb209d6a5200d640f4b32363d909c3d70b1aa761ea",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1372,
+          "callee": "it.skipIf(isJSDOM || isWebKit)",
+          "name": "'does not call onValueCommitted on outside taps after a touch interaction'",
+          "sha256": "b92a77714e68982ffba4a4dda684aff2a34178ddaccf0ab2037cfb6c5fcebf86",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1372,
+          "callee": "it.skipIf",
+          "name": "isJSDOM || isWebKit",
+          "sha256": "9e1d6382911d909ab8f04adb209d6a5200d640f4b32363d909c3d70b1aa761ea",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1414,
+          "callee": "it.skipIf(isJSDOM || isWebKit)",
+          "name": "'removes the document touchend listener after a touch interaction'",
+          "sha256": "ef4cb9c66d84b21c217e7de3f8194257774077cef009053d99de5f185e1b11a7",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1414,
+          "callee": "it.skipIf",
+          "name": "isJSDOM || isWebKit",
+          "sha256": "9e1d6382911d909ab8f04adb209d6a5200d640f4b32363d909c3d70b1aa761ea",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1471,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "'should hedge against a dropped mouseup event'",
+          "sha256": "573226d42c999f7349d7853b4670b97228b74152e192512318bffcf7ac7b3701",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1471,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1502,
+          "callee": "it.skipIf(isJSDOM || isWebKit)",
+          "name": "'should focus the slider when touching'",
+          "sha256": "0549cb8e9011db9243e5aabc3cb5f91abce40d2431db30150c714afa52a6e59f",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1502,
+          "callee": "it.skipIf",
+          "name": "isJSDOM || isWebKit",
+          "sha256": "9e1d6382911d909ab8f04adb209d6a5200d640f4b32363d909c3d70b1aa761ea",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1517,
+          "callee": "it",
+          "name": "'should focus the slider when dragging'",
+          "sha256": "2c2fbb1f6b431c7442ab7cc4486c031026afd2798b54220d83a46d2a87a9ccb7",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1535,
+          "callee": "it.skipIf(isJSDOM || isWebKit)",
+          "name": "'should not override the event.target on touch events'",
+          "sha256": "1f3285b6179d1246cc69551ace7450ee4c2a925e85787631ae0604dc286312fe",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1535,
+          "callee": "it.skipIf",
+          "name": "isJSDOM || isWebKit",
+          "sha256": "9e1d6382911d909ab8f04adb209d6a5200d640f4b32363d909c3d70b1aa761ea",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1576,
+          "callee": "it",
+          "name": "'should not override the event.target on mouse events'",
+          "sha256": "f80bb4f306599cd365639247f990d4a172449d8b9f4423a4d5c1ff51c9c53454",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1610,
+          "callee": "it",
+          "name": "'should not apply data-dragging for click modality'",
+          "sha256": "7cbd71fc2156ac62a7f7766a2a82d03b228ad7e6e2ce0c3d3a443ece7831dd56",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1629,
+          "callee": "it",
+          "name": "'should apply data-dragging for dragging modality'",
+          "sha256": "3560bd41acc4a1a366e531d4784676cc2f05d27450ae2c5034e1fdcaf778c781",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1663,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "'is called when clicking on the control'",
+          "sha256": "5696865c640c5e221213e7ef30d2e06d2d4db6cf402d21463420bd1a4e9bcc40",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1663,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1679,
+          "callee": "it",
+          "name": "'is not called when clicking on the thumb'",
+          "sha256": "7c5ee60499fddeb09186ac97095ee1bf9e98c533b49956dbec0cb0391f037af0",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1696,
+          "callee": "it",
+          "name": "'should not react to right clicks'",
+          "sha256": "6395bca2135bba09813ec057a980c765abc71ee03a2e46fa1cfeb5f43308b9d9",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1712,
+          "callee": "it",
+          "name": "'provides the change reason for input events'",
+          "sha256": "2635db24fb3935a5b5d23671e8bc95cc3f1e7ad6680ae84fcf74ef6743685f46",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1728,
+          "callee": "it",
+          "name": "'provides the change reason for keyboard interactions'",
+          "sha256": "e859a88c84662b62c79fef27f24692a7a7b4de32a2de374ffe12fa1a3e6c4aa4",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1746,
+          "callee": "it.skipIf(isJSDOM || isWebKit)",
+          "name": "'shows :focus-visible after keyboard interaction following a pointer press'",
+          "sha256": "6e69e8b0ef99b58be1d66af64ca0b6fff3092a4048392ac43ef8d78058327bc6",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1746,
+          "callee": "it.skipIf",
+          "name": "isJSDOM || isWebKit",
+          "sha256": "9e1d6382911d909ab8f04adb209d6a5200d640f4b32363d909c3d70b1aa761ea",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1781,
+          "callee": "it",
+          "name": "'provides the change reason for track presses'",
+          "sha256": "547bb4b6fd0ce6d744426c14ba6f2a9da559113b6cd6a41167082e7daec3f327",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1807,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "'drags the intended thumb when 3 thumbs are present'",
+          "sha256": "254748489fe9bfacef9ba346ea173a3cb35359caf8b40c23e705691dcb6b73a6",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1807,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1856,
+          "callee": "it.skipIf(isJSDOM).each(['thumb drag', 'track press'])",
+          "name": "'keeps focus and the active index on the logical thumb after a swap from a %s'",
+          "sha256": "c9657551699018e857456576e1627294dfa8aabfaf549540b7605443798ede90",
+          "kind": "parameterized",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1856,
+          "callee": "it.skipIf(isJSDOM).each",
+          "name": "['thumb drag', 'track press']",
+          "sha256": "4b1e1b90b2b3128fd8b8be0e40a0e9ccb8aef7b2e5b18397079b9a93f49ba694",
+          "kind": "parameterized",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1856,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1918,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "'keeps the original pressed thumb after a canceled swap and commits the next accepted move'",
+          "sha256": "b92603e679329e7ad112a46b9cebc48478f81faa55eeaca3b1fb34010fc15d9d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1918,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1972,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "'should fire only when the value changes'",
+          "sha256": "6c38cabf8293c83006b750a0f16c7e1e904bae552aa402f32278ceb7ce5c219b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1972,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2007,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "`is called even if the ${valueLabel} did not change`",
+          "sha256": "ef1bef6badb3622f8888533d3702d74cfbfeccfcfbb41cb3a26aa3621156fa6c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2007,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2043,
+          "callee": "it",
+          "name": "'should pass \"name\" and \"value\" as part of the event.target for onValueChange'",
+          "sha256": "185d33db2371f7d10087320a465e7ef515623d5e747579b90e3de9df4b5eead9",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2071,
+          "callee": "it.skipIf(!isJSDOM)",
+          "name": "'should not rely on the global event when cloning change events'",
+          "sha256": "59160b240e591bbebe4a0945715d9c970a0eb1e79e212616ad110c69ea8b1b6c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2071,
+          "callee": "it.skipIf",
+          "name": "!isJSDOM",
+          "sha256": "bcb41b6ed34c3d27133810ed8ff33381f4e39220c9197524a842f7ae965646b7",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2128,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "'should handle keyboard changes inside a shadow root'",
+          "sha256": "9acb5a6d3aa2a1e27372a73e7295f09a37eb40996975f3423ec56b955cec0b40",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2128,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2165,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "'onValueCommitted is called with the same value as the latest onValueChange when pointerUp occurs at a different location than onValueChange'",
+          "sha256": "8098b70014c5f0dea287954a1f14eb765ab46acaf2052c91184b48b9e1c66e4b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2165,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2225,
+          "callee": "it",
+          "name": "`key: ${key} decrements the value`",
+          "sha256": "4ce280e9d6222cc49b04c5af5ed372363d3b5a10149060c5fe579923ca92face",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2257,
+          "callee": "it",
+          "name": "`key: ${key} decrements the value by largeStep when Shift is pressed`",
+          "sha256": "a285fde550b86ac2af79b8d6caec6f5bdfca8630b3ae5be67a80c0149b18f232",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2290,
+          "callee": "it",
+          "name": "`key: ${key} stops at min when decrementing while Shift is pressed`",
+          "sha256": "93f834e0a5aa766aa95a89c8c802947cb102c10cc0c62c3ce860c933222323ad",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2326,
+          "callee": "it",
+          "name": "`key: ${key} increments the value`",
+          "sha256": "ea77a3700ec97209c98ccc21aac8068dc761706cc056a62b0cf74cae3f59fb81",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2358,
+          "callee": "it",
+          "name": "`key: ${key} rounds fractional values to the configured step`",
+          "sha256": "d8a0afc1817aebb0c85fbf6b8d7d3f703c2ff63a2455eed8d9d15ebc239a467e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2393,
+          "callee": "it",
+          "name": "`key: ${key} increments the value by largeStep when Shift is pressed`",
+          "sha256": "bff57942e43b92b9e085c4fab62eae4e299fb353f8e8b6b2571187b4cbcafca5",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2426,
+          "callee": "it",
+          "name": "`key: ${key} stops at max when incrementing while Shift is pressed`",
+          "sha256": "66ab1210efcc2755c376b9c22837f2218cd664d00d195d0b8d11ffc64027d2d3",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2462,
+          "callee": "it",
+          "name": "'sets value to max in a single value slider'",
+          "sha256": "03742d527a723919609994365b536124b9ec7d00b405c0c8d805e40ce0c46862",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2495,
+          "callee": "it",
+          "name": "'sets value to the maximum possible value in a range slider'",
+          "sha256": "992c73abb9ba6aba2af1e29bb24812dd5f2b733d54c53ad79ac5153ebfc97bbd",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2534,
+          "callee": "it",
+          "name": "'sets value to min in a single value slider'",
+          "sha256": "5cf0679f483e8a5ed5437b73ec961649ca742beddb7a16cc40ea73cf7e0c1126",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2567,
+          "callee": "it",
+          "name": "'sets value to the minimum possible value in a range slider'",
+          "sha256": "850aa684447a72f5eae5d727bba7bff2549576b2fc168da19f2932ff89d2e558",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2607,
+          "callee": "it",
+          "name": "'increments the value by largeStep'",
+          "sha256": "62b0a9c980ef5b8ea55f2d4d1d39850bdc454e423f49c6720099ef71d539549d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2640,
+          "callee": "it",
+          "name": "'preserves largeStep increments when step uses a different grid'",
+          "sha256": "ec0c409b42290fdcdc54dde3cd818ced21ff240b4ab2fd96836306a23b99999c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2674,
+          "callee": "it",
+          "name": "'does not exceed max'",
+          "sha256": "d566b92166fa8869c59646add6d2d5773691447a9b2d10e911e295f8af6b51e6",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2710,
+          "callee": "it",
+          "name": "'decrements the value by largeStep'",
+          "sha256": "c6208ecdba302c3a038e0b3c1c2f5723fb20782df736a479938f12b0e5de6b93",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2743,
+          "callee": "it",
+          "name": "'does not go below min'",
+          "sha256": "d680e824047156652375d745c3e9f044626370a7480c7c8bdd36c8deb5715ff5",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2780,
+          "callee": "it",
+          "name": "'keypresses should correct invalid values'",
+          "sha256": "7bb9c68932af7c774c98ec2541caa3f502e71fad1615c48acfae36c77dd58a50",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2808,
+          "callee": "it",
+          "name": "'formats the value'",
+          "sha256": "6120a2a49b05c435d084c20e5920832031daf1ec18d72e7cf50aa7a7daa9da6a",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2821,
+          "callee": "it",
+          "name": "'recomputes the thumb aria text when the format option changes'",
+          "sha256": "69b3135db06177649032441aa6c49275ce14637cda395a804c285db5d19efa04",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2836,
+          "callee": "it",
+          "name": "'formats range values'",
+          "sha256": "ee3badab6908707f89829547fbf33344956c8e1e06f904383f78bd86068448a0",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2852,
+          "callee": "it",
+          "name": "'sets the locale when formatting a single value'",
+          "sha256": "64922e6dc7ee2e1576ac6bfe0dddd88b5c1f65b114b385e4813fde2c52e1a172",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2865,
+          "callee": "it",
+          "name": "'sets the locale when formatting a range value'",
+          "sha256": "f8ac14ba6b6768dede2b2d75088937bf3ccb167538f923f3e531bbeefa1440c9",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2882,
+          "callee": "it",
+          "name": "'clears external errors on change'",
+          "sha256": "ad752bf94dcb1ef0fa04cf27e6d7e0ac8562feb317808b8b2a1e1dc8ff86ea1c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2911,
+          "callee": "it",
+          "name": "'should include the slider value'",
+          "sha256": "1387c365bdbadd9a4f352ca64b7614d3fb57472825ca787c3870f9d13c3cd8d1",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2935,
+          "callee": "it",
+          "name": "'should include range slider value'",
+          "sha256": "0b7912dafdfba962f585b0ce5d670384094af338c37899c36524a9c36588934e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2960,
+          "callee": "it",
+          "name": "'submits clamped range slider values to onFormSubmit'",
+          "sha256": "0e918542dc90da81573d14ef70252269ecd7c29d0026b03b96a9ad5fa80f7894",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 2986,
+          "callee": "it",
+          "name": "'submits a clamped single-thumb slider value to onFormSubmit'",
+          "sha256": "512b46dc895eb5b9bad03d7184803c12dccee416d112cb6fe40e52c22a108043",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 3011,
+          "callee": "it",
+          "name": "'submits to an external form when `form` is provided'",
+          "sha256": "d7ef2794f574ed63dc677b2fd52f3897ab2e05347ef8352976f1f67517fb5599",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 3042,
+          "callee": "it",
+          "name": "'should receive disabled prop from Field.Root'",
+          "sha256": "646e71191d6a97068f52795c717b02dfbc1a67bc891cfa4d3e07a4b88a4d51b8",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 3057,
+          "callee": "it",
+          "name": "'should receive name prop from Field.Root'",
+          "sha256": "1aff3a5db2ae4c59184311bf03ce744433b96f6e8267e1a0ce44e00a4e515d50",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 3071,
+          "callee": "it",
+          "name": "'[data-touched]'",
+          "sha256": "afd953f5657ea688e8fbe8e1571fbccdb996171cfab4da565da3bbb00d098067",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 3091,
+          "callee": "it",
+          "name": "'[data-dirty]'",
+          "sha256": "6ec7e9b3076f33563607e07eb8ae190276e6def5c3071c9209f0300ef745cb4c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 3112,
+          "callee": "it",
+          "name": "'[data-dirty] with a range value'",
+          "sha256": "63d05caeb41b06dfbae32247edfb8482b8160fdd54ed2d659251eeb040ec54a1",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 3138,
+          "callee": "it",
+          "name": "'[data-focused]'",
+          "sha256": "5b004464a242a0568392ed225b9d84bd548ee452200f72673eaf092c7daac78c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 3164,
+          "callee": "it",
+          "name": "'validationMode=onSubmit'",
+          "sha256": "3e250880657d19ee836480ac258c3187212e5daac76aa72f3d80b469328a0088",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 3212,
+          "callee": "it",
+          "name": "'moves focus to the range input on invalid submit'",
+          "sha256": "36f60cbaa7ef4a45448517133e938723888719cf0f47b01117e65fd83c49621a",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 3236,
+          "callee": "it",
+          "name": "'validationMode=onBlur'",
+          "sha256": "e5691d4dd16087762fefd67d96584f0b1973d028e4fbe18bc4759721ab0d5408",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 3261,
+          "callee": "it",
+          "name": "'validationMode=onChange'",
+          "sha256": "f93ee264e8c1a623cf5cc39bb03c654faf28c165fad6a7f0164b32fe7efa9bf4",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 3283,
+          "callee": "it",
+          "name": "'validates once when changed by the user'",
+          "sha256": "f32cc134428d975d5f13fedb9cd3f422ea47f664dcacad5a4c9d18e97a5f4fe3",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 3306,
+          "callee": "it",
+          "name": "'validates once with an array value for range sliders when changed by the user'",
+          "sha256": "6654d5f90a64844e96d1b49655691387a6a99631edb8a30b7cc887be676b0de4",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 3330,
+          "callee": "it",
+          "name": "'revalidates when the controlled value changes externally'",
+          "sha256": "93794ea1480dea31b1f06ef2436b8c7aa3bda2f147da5819ed32e10aa7e6a697",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 3368,
+          "callee": "it",
+          "name": "'receives an array value for range sliders'",
+          "sha256": "8fa9e76a428ae4cf474d735e1eaff5ae62732b8671d4f6fa48d9b64ec5951e04",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 3392,
+          "callee": "it",
+          "name": "'does not call validate on change when validationMode is omitted'",
+          "sha256": "79da15b3d1c4771b3671645fa1042bda7bc90b30530e309761c9e12ab460cb33",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 3419,
+          "callee": "it",
+          "name": "'Field.Label'",
+          "sha256": "0ebce66ff9f94ca997e7c20f0d00ddc637d9933b851b03ab7921daa8a976878b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 3437,
+          "callee": "it",
+          "name": "'Slider.Label'",
+          "sha256": "565573fe68e8517f1d150af9c1c70c401b5e6f32f443cc7816f8a77303ba4a62",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 3453,
+          "callee": "it",
+          "name": "'Slider.Label focuses slider on click'",
+          "sha256": "f24c19890be7776cd8b07d9847889cced1785b538410dcad905508e77e299aa9",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 3468,
+          "callee": "it",
+          "name": "'Slider.Label does not focus a thumb on click for range sliders'",
+          "sha256": "61b8007406f0e0d2104552a3e9697b33851869de4c1ef48f070be28975f3dda2",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 3488,
+          "callee": "it",
+          "name": "'does not set aria-labelledby when getAriaLabel is provided'",
+          "sha256": "4976fdaaade0b9da4c6bacdd861ae543c3b00f7d7a16d961f669f13a365d923d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 3508,
+          "callee": "it",
+          "name": "'does not set fallback aria-labelledby when no label is rendered'",
+          "sha256": "be6c0a8d07af020a09f0260a91a76e96349e522a911519d76e390b6d73d3a371",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 3522,
+          "callee": "it",
+          "name": "'updates Slider.Label linkage when root id changes'",
+          "sha256": "01394755d9f89a432a295add2aa648e19a73848d3a551b6cf8a1f6ae58abfd03",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 3549,
+          "callee": "it",
+          "name": "'Field.Description'",
+          "sha256": "7cadbd786d27c430a4a0e2521cd0c44178831a8c4dda0963b27d534592d30cc8",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/slider/thumb/SliderThumb.test.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/slider/thumb/SliderThumb.test.tsx",
+      "sha256": "1c1ddd4942c0d4bc8ead3ee40616a1667f8803a971487f7bed0459b279d69cc3",
+      "declarations": [
+        {
+          "line": 25,
+          "callee": "describeConformance",
+          "name": "<Slider.Thumb />",
+          "sha256": "656f74ba3bfbd22c9ca6678415464df20e0dbed75d838d5fd3913af6896be4ea",
+          "kind": "conformance",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 32,
+          "callee": "it",
+          "name": "'sets the thumb index data attribute'",
+          "sha256": "05c1a42607a73261e42193e40cbafa82a88872c198c2bdfd53c5696e0d655279",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 44,
+          "callee": "it",
+          "name": "'settles when the rendered component recreates its merged ref'",
+          "sha256": "91e5b30973bad2e38660a8af688235dc6757ac7c8aa58b08f88990b523c3238d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 58,
+          "callee": "it",
+          "name": "`forwards ${attr} to the input`",
+          "sha256": "6eaf0d18263cd47d07fae5920f6e0756105cd9b35ec0cc3927786c45e9ef0233",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 74,
+          "callee": "it",
+          "name": "'prefers getAriaValueText over a direct aria-valuetext prop'",
+          "sha256": "ef297f336d381a3a3d5fa8d59365649e5d3b7538f06fc4f9d33db0f046609aca",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 90,
+          "callee": "it",
+          "name": "'forwards key events that the slider does not handle'",
+          "sha256": "4eef18f48611c04a5a1b91b2636dd42beae4e495da5a5d320eb2943ab2522c4d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 109,
+          "callee": "it",
+          "name": "`forwards handled ${key} key events`",
+          "sha256": "48cc14cf539cb8124000662d97ff62784a53b739306e8838dc13f9be516570f1",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 129,
+          "callee": "it",
+          "name": "'allows preventing the internal key handling'",
+          "sha256": "98df0f0d689f614ca031f6848c1af51598cb2e6fd51f76bae97b6f4e1dca9232",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 152,
+          "callee": "it",
+          "name": "'does not commit NaN when more thumbs are rendered than values'",
+          "sha256": "bd6fe1e3564e3c1f35b9c055cd9fc7ec3785a0780f8aad5fbf9fdfb72e06e301",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 190,
+          "callee": "it",
+          "name": "'single thumb'",
+          "sha256": "8fcd4ff092fb7a6c1a4157c2c56b65d705b335ece0b598bb7c36c873cf267db5",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 218,
+          "callee": "it",
+          "name": "'multiple thumbs'",
+          "sha256": "91b144aaa01dc87c866f79ada36c8bd5956099aa65053474f1894b7eac699ad5",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 254,
+          "callee": "it",
+          "name": "'does not emit extra blur and focus events when restoring focus-visible'",
+          "sha256": "6d1100b54a6e2ff5e24de9d483da40eafcfaee54db492df1af849a8565b89aeb",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 295,
+          "callee": "it",
+          "name": "'forwards focus and blur to the input so `currentTarget` is the input'",
+          "sha256": "e6c0e9a7d7e36902aa45c8bb6e5296721a876294c0594c1874128d9b054da477",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 318,
+          "callee": "it",
+          "name": "'does not commit field validation when moving focus between range thumbs'",
+          "sha256": "cf4fa7110a20ffccee5ee11c29dd4131c3b0eaaa776e2dbe113cd43ef71457f7",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 349,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "'commits field validation when focus moves from a thumb to an arbitrary Control child'",
+          "sha256": "305c0b1c18767b086e41ec035937b99d06e89fdcee8d274f54a1e853f7284b82",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 349,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 394,
+          "callee": "it",
+          "name": "'handles change events'",
+          "sha256": "0aa22b70460323a71f03fa68f334905b85082cade233be8a12d9e5332ada78b5",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 411,
+          "callee": "it",
+          "name": "'does not change the value beyond min and max'",
+          "sha256": "b9abee867ae5213c594b23a53289c7ee77ab34b342e7cb44262fa39d906f3585",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 437,
+          "callee": "it",
+          "name": "'handles non-integer values'",
+          "sha256": "b0f80e9c0aecccac83c4e2e7ab5633f8b0462238532aa66e6376ea03e985b557",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 470,
+          "callee": "it",
+          "name": "'does not apply tabIndex to the thumb element by default'",
+          "sha256": "2a6b35bb83bcb60f2f621801cfaeace0bbe149288b3769773fa26e84b155f63b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 483,
+          "callee": "it",
+          "name": "'can be removed from the tab sequence'",
+          "sha256": "e54606452a02c68165da9829cc9fc965beecb4ea5a93c3be7c614fd8599eaa5e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 500,
+          "callee": "it",
+          "name": "'renders the nested input as a sibling to children'",
+          "sha256": "48bb1f0d4ad333025d23c8a873d1afeb269c2ba0bd9c0b5560caad7f667307c7",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 516,
+          "callee": "it",
+          "name": "'renders the nested input when using the short form render prop'",
+          "sha256": "13641dc86d6555e34c0138451058fbe642347a60afc00eb7cee7ed6db0a822ab",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 532,
+          "callee": "it",
+          "name": "'renders the nested input when using the long form render prop'",
+          "sha256": "552ad75666b7bc82255d62716fe8a7020854d06bb674878066092a40596ed805",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 550,
+          "callee": "it",
+          "name": "'can focus the input element'",
+          "sha256": "7c4b0cfa4e57ea61625ef80deac1324c4236434e4ed8052554bf1b45b7083e13",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 580,
+          "callee": "it",
+          "name": "'preserves the grab offset when dragging a vertical thumb'",
+          "sha256": "e2eed62c92eb7824d99024f25faca201dcdeb18702cc5521b69c2f4e7fb2e191",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 606,
+          "callee": "it",
+          "name": "'relies on DOM order before any thumb is used'",
+          "sha256": "df33df8c9b7b8b9451af273f5f561cade6aeb79526a670d02b1d6bf0d636e47e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 620,
+          "callee": "it",
+          "name": "'keeps the most recently active thumb on top after focus moves away'",
+          "sha256": "1e1c463c8d606af0e2043d7ddb4e49d48493591a2d83219de205ecd9d72e5734",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 648,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "'recomputes inset positions when the slider becomes visible'",
+          "sha256": "1fc7e6e05658d5e0e5b45a6cfcfb7171e771d15737d78577609793bbcc86b9f2",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 648,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 696,
+          "callee": "it.skipIf(isJSDOM)",
+          "name": "'recomputes range inset positions when the slider becomes visible'",
+          "sha256": "f0b96f237f0c14915344663d9b91a1711b8c35266375e45d8ed18d8b038800d3",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 696,
+          "callee": "it.skipIf",
+          "name": "isJSDOM",
+          "sha256": "a98f41578ca79e40c9861da5c606b83a0aa7a03db9b4d60eabd38c83ba864651",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 772,
+          "callee": "it",
+          "name": "'single thumb'",
+          "sha256": "882c6db742a9c6cfd9f55519f4df0797a828e55d36e648e87aad3eb0b9600165",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 822,
+          "callee": "it",
+          "name": "'multiple thumbs'",
+          "sha256": "c4e7160dd8e89a632fa4b8cba0a79b0712b6d19362d5f5b0a535b4ed2fa04691",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 885,
+          "callee": "it",
+          "name": "'prevents thumbs from passing each other when set to \"none\"'",
+          "sha256": "baec2eb9302e03015600719071cdef4fbfbc69fe49eb367a3a7ff2463ce14aff",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 926,
+          "callee": "it",
+          "name": "'pushes adjacent thumbs forward when set to \"push\"'",
+          "sha256": "16500523bb291e36390c49299a4906bcc22fadb6cfbcec17c108846c9c6cd185",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 967,
+          "callee": "it",
+          "name": "'allows thumbs to swap when set to \"swap\"'",
+          "sha256": "552fa5a8c307e1003bc037f029e16dd2d98e5ed656505f8eaae0b1da3964a450",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1008,
+          "callee": "it",
+          "name": "'maintains minimum steps between values when swapping'",
+          "sha256": "6f5e079ce4011cdc794b9f786079f3f994ae815903c2b9453eac7ea28343b68a",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1062,
+          "callee": "it",
+          "name": "'single thumb'",
+          "sha256": "f6fe4e2debee0fc99e64e58755e9f503d75b8b34f0ead81862291e6c498e3578",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1094,
+          "callee": "it",
+          "name": "'multiple thumbs'",
+          "sha256": "1e11b1829bd66f379b4d3274da6f1b8e3b6134218231ee5bf0e1963e41f51e2d",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1134,
+          "callee": "it",
+          "name": "'thumb should not go out of bounds when the controlled value goes out of bounds'",
+          "sha256": "770f07b0ce895d3499eb1a879c64291a3176a28c7a1d377b8282561029083ac6",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1172,
+          "callee": "it",
+          "name": "'single thumb'",
+          "sha256": "b427554b446afd6829b92ee9ffbe00b45ce14adc45a23e4a88c1a12fe41b50d3",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1193,
+          "callee": "it",
+          "name": "'renders the inline pre-hydration script for edge-aligned thumbs'",
+          "sha256": "6f209bc45ff714ff6f4801cdac632a29158950eb82bb9f175debd908916386f3",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1215,
+          "callee": "it",
+          "name": "'renders a single pre-hydration script with the last thumb'",
+          "sha256": "5d5cec15a9802544625858954880fe860ebaf79faca30b2a3e9517da62dfb685",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 1243,
+          "callee": "it",
+          "name": "'multiple thumbs'",
+          "sha256": "739407c2e39d8efb8b1a4ee43702bac428d84108140db26a7ae4f423d5632b82",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/slider/track/SliderTrack.test.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/slider/track/SliderTrack.test.tsx",
+      "sha256": "9c94cb8d70febdecd2e9647e0a6fc964b933b2ec114cdbd5fd0693606783d552",
+      "declarations": [
+        {
+          "line": 8,
+          "callee": "describeConformance",
+          "name": "<Slider.Track />",
+          "sha256": "ac503775ca1a9df38a78481209af699e43e90f1f33436a158fcfba4d1be33f4c",
+          "kind": "conformance",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/slider/utils/getPushedThumbValues.test.ts",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/slider/utils/getPushedThumbValues.test.ts",
+      "sha256": "f77febe2754c7f0085aedbc0e3afeb3472bc1d2adcb667c7965183b1d80cbdea",
+      "declarations": [
+        {
+          "line": 5,
+          "callee": "it",
+          "name": "'pushes the next thumb forward when moving past it'",
+          "sha256": "6f329b18b4c05526144f9a990720eec831d7ee5fd47b25369b29e1f2543013bd",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 11,
+          "callee": "it",
+          "name": "'ensures minimum distance between thumbs while pushing forward'",
+          "sha256": "fc7cb61fea1c47023eeb82aefd62090b4100fa24775bdb42cae1ff3b60b0b87c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 17,
+          "callee": "it",
+          "name": "'pushes previous thumbs backward when moving before them'",
+          "sha256": "d618c49ffd0a0bdd959e70066301137afb72d122d69fb782d13cf021bb22b3d5",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 23,
+          "callee": "it",
+          "name": "'pushes multiple thumbs in sequence'",
+          "sha256": "b5d802e0f4c8314270306d3e6b97309e40d2eb451cc199e5801301477de4ea9e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 29,
+          "callee": "it",
+          "name": "'allows fractional minimum distances'",
+          "sha256": "b11482bd944a1e4f45101c17836912fc50b09b960d2ec4a03b88ff2e143bb16e",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 36,
+          "callee": "it",
+          "name": "'restores pushed thumbs towards their initial value when space allows'",
+          "sha256": "551a31c7da6195f6778dbff74d1a5e895cf3ebcd65c25f8fce7a41d9f5f819f6",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/slider/utils/getSliderValue.test.ts",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/slider/utils/getSliderValue.test.ts",
+      "sha256": "a90e1caa663e07c3446cdb7e30bf49df42ee2d1e6ad8f64d28c3b8fc82fb0ff6",
+      "declarations": [
+        {
+          "line": 5,
+          "callee": "it",
+          "name": "'clamps a single value to the min/max range'",
+          "sha256": "1e7083183d034abd475eae07db15f47e94435aa42da5ab99cbe013499ac12821",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 11,
+          "callee": "it",
+          "name": "'does not let a thumb cross a neighbour whose value is 0'",
+          "sha256": "715642f57c4226de86e8f37a924c376f22978af371ff0313f413d4cc975c45da",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 16,
+          "callee": "it",
+          "name": "'bounds a thumb between its real neighbours'",
+          "sha256": "be48b1b51b5982e70fc0e7c68760e7a562655fea2a396e076e5bef69e6d9558c",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 22,
+          "callee": "it",
+          "name": "'leaves the outer edges unbounded by missing neighbours'",
+          "sha256": "37288effc9f52901dfb5037cbbdd99a3ddfefee40fded5e42fec9787a18b4713",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/slider/utils/resolveThumbCollision.test.ts",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/slider/utils/resolveThumbCollision.test.ts",
+      "sha256": "0c147eeb0786b310f634108fc09e8b8152d9cfca90b91eb3d8440b556ea7190d",
+      "declarations": [
+        {
+          "line": 5,
+          "callee": "it",
+          "name": "'prevents thumbs from passing each other when behavior is \"none\"'",
+          "sha256": "bb482c7432c40775cb8ce22893bd169d2827c8d091a81e66928444b652aec3ad",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 24,
+          "callee": "it",
+          "name": "'pushes thumbs forward without cling when behavior is \"push\"'",
+          "sha256": "100a34ed125245de811c9db3f53eb58486f5d007b6c19f5a8daf495630e65b73",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 43,
+          "callee": "it",
+          "name": "'keeps pushed thumbs in place when moving backward in push mode'",
+          "sha256": "c5057cd139e13d075be826ebd2f0954e11f0487f068d1909c866076c1b4a446f",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 80,
+          "callee": "it",
+          "name": "'swaps thumbs when behavior is \"swap\"'",
+          "sha256": "e04f81ebd413aa6324f2b0fd091473f2ae464bc82ecd99eea2756a012d386c92",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 99,
+          "callee": "it",
+          "name": "'maintains swap continuity with minimum steps when provided current and initial values'",
+          "sha256": "e0033cc2b586351641650aa4d4400e779a6916e18b42999e96b29f14ad096a0b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 139,
+          "callee": "it",
+          "name": "'does not swap before reaching neighbour value with minimum steps'",
+          "sha256": "b1a7769408cb67a60853e8f17322a9d70f9429fb0e18e79b44cd00774b014c0a",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 148,
+          "callee": "it",
+          "name": "'swaps once reaching the neighbour value with minimum steps'",
+          "sha256": "95e735fdda3e5e9dfba768fa61e990ea9cdd743131b6a60d6fc445653d05ebb2",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 157,
+          "callee": "it",
+          "name": "'does not swap backward before reaching neighbour value with minimum steps'",
+          "sha256": "ef2f3249db15e02f066fb6752657385f352745c96b8ad01376ca42ec0deb7c0f",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 166,
+          "callee": "it",
+          "name": "'swaps backward once reaching the neighbour value with minimum steps'",
+          "sha256": "4bdd30de30099809cd35c38a7ccea7293890072b8becb1ddbfa9637c212dcebc",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 175,
+          "callee": "it",
+          "name": "'does not move the clamped neighbour when swapping across with minimum steps'",
+          "sha256": "8f2a60a4a301623716bef52dd4a49b37d7854f7e6f4bcd0a436b1a33f454aca6",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 198,
+          "callee": "it",
+          "name": "'uses current values when a controlled range grows during a swap interaction'",
+          "sha256": "64647893758a5c2c6a6316c649c2b6dca18699ccbea2a6bfb3a15c021526caf1",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 219,
+          "callee": "it",
+          "name": "'returns a scalar when the live values shrink to one item during an interaction'",
+          "sha256": "21fea1815ca9d91397e22ebc963e8fcf3bf61d3e28083302bed89332e7e5e4ab",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/slider/utils/roundValueToStep.test.ts",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/slider/utils/roundValueToStep.test.ts",
+      "sha256": "e81e59cdfaf3887fb9e4c0a6264fe8c52de34249fbd6dafd626989cd6a45bf20",
+      "declarations": [
+        {
+          "line": 5,
+          "callee": "it",
+          "name": "'preserves precision from the step origin'",
+          "sha256": "c1e0b911850ab8be75c0b43bc22e211645d0f1b30ec6fa2a447c88613199cd55",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 9,
+          "callee": "it",
+          "name": "'preserves decimal precision for steps greater than one'",
+          "sha256": "8ef5bba84834dec5117ac38e160379d5b15b5d38521e2e8ff48ebb16b788c5a7",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/slider/value/SliderValue.test.tsx",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/slider/value/SliderValue.test.tsx",
+      "sha256": "1bfcfeede041a8acad699dd6ab5ff70aa384163272ac2f7193c2c1f42d3d12cb",
+      "declarations": [
+        {
+          "line": 9,
+          "callee": "describeConformance",
+          "name": "<Slider.Value />",
+          "sha256": "cb11c8366b9fe0cc77bf8a4e9f437ea1c6fa2e0e4cd5c2329402f3a654ea8be7",
+          "kind": "conformance",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 16,
+          "callee": "it",
+          "name": "'renders a single value'",
+          "sha256": "29262c0b17f56f315a3df36a22e7527e266666ec0394c949531547db08ee858b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 28,
+          "callee": "it",
+          "name": "'renders a range'",
+          "sha256": "f10e3345e6dd358aeac82f8978ef77f7b9d9bb94a7d0a8971cb4d89306f74530",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 40,
+          "callee": "it",
+          "name": "'associates the output with every thumb input'",
+          "sha256": "baab557c365643338418cdac77e01c8e201c9696a0429e0288653c7e439d5f45",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 58,
+          "callee": "it",
+          "name": "'renders all thumb values'",
+          "sha256": "38ac2031a22b7390e834b1fdc08cd584ad4c0d75fd577b06ee7d886a9a1fa67b",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 70,
+          "callee": "it",
+          "name": "'recomputes the formatted output when the format option changes'",
+          "sha256": "c47abef5dbe65430fb9d3f2122153b1da0ce29abf2ad5bd7b8620b552add9e10",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 91,
+          "callee": "it",
+          "name": "'accepts a render function'",
+          "sha256": "c717ac0ade1848b686f3255e938e1515f3c9aba8684b96b03b5d3fe8b120c100",
+          "kind": "ordinary",
+          "status": "unported",
+          "ordinaryCredit": 0
+        }
+      ]
+    }
+  ]
+}

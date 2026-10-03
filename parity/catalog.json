@@ -207,9 +207,9 @@
     },
     {
       "upstreamModule": "slider",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "Slider",
+      "evidence": "parity/slider/README.md"
     },
     {
       "upstreamModule": "switch",

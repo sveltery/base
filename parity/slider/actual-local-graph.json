@@ -1,0 +1,6444 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "status": "actual used closure; Source/native/maintainability review pending",
+  "entries": [
+    "packages/base/src/lib/slider/index.ts"
+  ],
+  "modules": [
+    {
+      "local": "packages/base/src/lib/checkbox-group/CheckboxGroupContext.ts",
+      "sha256": "7e70df699399699bef7aada56b6891899ee7dd1db3084a9cf1c94d0c2f5f2e1d",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "CheckboxGroupContext",
+        "setCheckboxGroupContext",
+        "useCheckboxGroupContext"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "getContext",
+            "setContext"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../field/root/useFieldValidation.svelte.js",
+          "kind": "type",
+          "names": [
+            "UseFieldValidationReturnValue"
+          ],
+          "resolved": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts"
+        },
+        {
+          "specifier": "./useCheckboxGroupParent.svelte.js",
+          "kind": "type",
+          "names": [
+            "UseCheckboxGroupParentReturnValue"
+          ],
+          "resolved": "packages/base/src/lib/checkbox-group/useCheckboxGroupParent.svelte.ts"
+        },
+        {
+          "specifier": "../internals/labelable-provider/LabelableContext.js",
+          "kind": "type",
+          "names": [
+            "LabelableContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "names": [
+            "CheckboxGroupChangeEventDetails"
+          ],
+          "resolved": "packages/base/src/lib/checkbox-group/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/checkbox-group/types.ts",
+      "sha256": "11f60dbbc9279270d57c957da0a587b4328c6a50b6538f11a3cbccb1808d2fa2",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "CheckboxGroupState",
+        "CheckboxGroupChangeEventReason",
+        "CheckboxGroupChangeEventDetails",
+        "CheckboxGroupProps"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "names": [
+            "Snippet"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "names": [
+            "HTMLAttributes"
+          ],
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "names": [
+            "BaseUIComponentProps",
+            "WithBaseUIEvent"
+          ],
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
+          "specifier": "../field/types.js",
+          "kind": "type",
+          "names": [
+            "FieldRootState"
+          ],
+          "resolved": "packages/base/src/lib/field/types.ts"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "kind": "type",
+          "names": [
+            "BaseUIChangeEventDetails"
+          ],
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/checkbox-group/useCheckboxGroupParent.svelte.ts",
+      "sha256": "8adf195142cc9b97f5c11f32946562d3c3b42cbf7f67d6253d601550f96977b8",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "UseCheckboxGroupParentParameters",
+        "useCheckboxGroupParent",
+        "getParentProps",
+        "getChildProps",
+        "UseCheckboxGroupParentReturnValue"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "untrack"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../utils/useStableCallback.js",
+          "kind": "runtime",
+          "names": [
+            "useStableCallback"
+          ],
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../utils/empty.js",
+          "kind": "runtime",
+          "names": [
+            "EMPTY_ARRAY"
+          ],
+          "resolved": "packages/base/src/lib/utils/empty.ts"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "kind": "type",
+          "names": [
+            "BaseUIChangeEventDetails"
+          ],
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/checkbox/root/CheckboxRoot.svelte",
+      "sha256": "36fec4ac980a7ad09bb5614726f3fe7479dbc48cdec293641a90a809fa78e7d8",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "untrack"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../../internals/field-control-name/FieldControlNameContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFieldControlNativeName"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-control-name/FieldControlNameContext.ts"
+        },
+        {
+          "specifier": "../../internals/field-control-value/FieldControlValueContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFieldControlNativeValue"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-control-value/FieldControlValueContext.ts"
+        },
+        {
+          "specifier": "../../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "names": [
+            "RenderElement"
+          ],
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../../utils/useMergedRefs.js",
+          "kind": "runtime",
+          "names": [
+            "createMergedRefs"
+          ],
+          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+        },
+        {
+          "specifier": "../../internals/nativeRefAttachment.js",
+          "kind": "runtime",
+          "names": [
+            "createRefAttachment"
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts"
+        },
+        {
+          "specifier": "../../merge-props/index.js",
+          "kind": "runtime",
+          "names": [
+            "mergePropsN"
+          ],
+          "resolved": "packages/base/src/lib/merge-props/index.ts"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "names": [
+            "HTMLInputAttributes"
+          ],
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../../utils/useControlled.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useControlled"
+          ],
+          "resolved": "packages/base/src/lib/utils/useControlled.svelte.ts"
+        },
+        {
+          "specifier": "../../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useIsoLayoutEffect"
+          ],
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../../utils/visuallyHidden.js",
+          "kind": "runtime",
+          "names": [
+            "visuallyHidden",
+            "visuallyHiddenInput"
+          ],
+          "resolved": "packages/base/src/lib/utils/visuallyHidden.ts"
+        },
+        {
+          "specifier": "../../internals/nativeProps.js",
+          "kind": "runtime",
+          "names": [
+            "toNativeStyle"
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        },
+        {
+          "specifier": "../utils/useEnterSubmit.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useEnterSubmit"
+          ],
+          "resolved": "packages/base/src/lib/checkbox/utils/useEnterSubmit.svelte.ts"
+        },
+        {
+          "specifier": "../utils/getCheckboxStateAttributesMapping.js",
+          "kind": "runtime",
+          "names": [
+            "getCheckboxStateAttributesMapping"
+          ],
+          "resolved": "packages/base/src/lib/checkbox/utils/getCheckboxStateAttributesMapping.ts"
+        },
+        {
+          "specifier": "../../utils/dispatchClickWithModifiers.js",
+          "kind": "runtime",
+          "names": [
+            "dispatchClickWithModifiers"
+          ],
+          "resolved": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts"
+        },
+        {
+          "specifier": "../../internals/useBaseUiId.js",
+          "kind": "runtime",
+          "names": [
+            "useBaseUiId"
+          ],
+          "resolved": "packages/base/src/lib/internals/useBaseUiId.ts"
+        },
+        {
+          "specifier": "../../internals/use-button/useButton.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useButton"
+          ],
+          "resolved": "packages/base/src/lib/internals/use-button/useButton.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/field-root-context/FieldRootContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFieldRootContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "../../internals/field-register-control/useRegisterFieldControl.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useRegisterFieldControl"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts"
+        },
+        {
+          "specifier": "../../field/item/FieldItemContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFieldItemContext"
+          ],
+          "resolved": "packages/base/src/lib/field/item/FieldItemContext.ts"
+        },
+        {
+          "specifier": "../../internals/form-context/FormContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFormContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/form-context/FormContext.ts"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/LabelableContext.js",
+          "kind": "runtime",
+          "names": [
+            "useLabelableContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/useAriaLabelledBy.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useAriaLabelledBy"
+          ],
+          "resolved": "packages/base/src/lib/internals/labelable-provider/useAriaLabelledBy.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/useLabelableId.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useLabelableId"
+          ],
+          "resolved": "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts"
+        },
+        {
+          "specifier": "../../checkbox-group/CheckboxGroupContext.js",
+          "kind": "runtime",
+          "names": [
+            "useCheckboxGroupContext"
+          ],
+          "resolved": "packages/base/src/lib/checkbox-group/CheckboxGroupContext.ts"
+        },
+        {
+          "specifier": "./CheckboxRootContext.js",
+          "kind": "runtime",
+          "names": [
+            "setCheckboxRootContext"
+          ],
+          "resolved": "packages/base/src/lib/checkbox/root/CheckboxRootContext.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails.js",
+          "kind": "runtime",
+          "names": [
+            "createChangeEventDetails"
+          ],
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons.js",
+          "kind": "runtime",
+          "names": [
+            "REASONS"
+          ],
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        },
+        {
+          "specifier": "../../internals/useValueChanged.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useValueChanged"
+          ],
+          "resolved": "packages/base/src/lib/internals/useValueChanged.svelte.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "names": [
+            "CheckboxRootProps",
+            "CheckboxRootState"
+          ],
+          "resolved": "packages/base/src/lib/checkbox/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/checkbox/root/CheckboxRootContext.ts",
+      "sha256": "fbb7e3014465570926acda685475f426319f920a3d224017f5aa7d883a2177cd",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "setCheckboxRootContext",
+        "useCheckboxRootContext"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "getContext",
+            "setContext"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "names": [
+            "CheckboxRootState"
+          ],
+          "resolved": "packages/base/src/lib/checkbox/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/checkbox/root/CheckboxRootDataAttributes.ts",
+      "sha256": "fe19991f3e1ae6b1f9f702898a50f3d287a10e4892b64252ce16ed7bc367c19c",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [],
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/checkbox/types.ts",
+      "sha256": "d5dd1320ca6d2b45cfb6bc671c0873aae5ad495d32243a791225bbe96c2d5f17",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "CheckboxRootState",
+        "CheckboxRootChangeEventReason",
+        "CheckboxRootChangeEventDetails",
+        "CheckboxRootProps",
+        "CheckboxIndicatorState",
+        "CheckboxIndicatorProps"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "names": [
+            "Snippet"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "names": [
+            "HTMLAttributes"
+          ],
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "names": [
+            "BaseUIComponentProps",
+            "WithBaseUIEvent"
+          ],
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
+          "specifier": "../field/types.js",
+          "kind": "type",
+          "names": [
+            "FieldRootState"
+          ],
+          "resolved": "packages/base/src/lib/field/types.ts"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "kind": "type",
+          "names": [
+            "BaseUIChangeEventDetails"
+          ],
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../utils/useMergedRefs.js",
+          "kind": "type",
+          "names": [
+            "MergedRef"
+          ],
+          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+        },
+        {
+          "specifier": "../internals/useTransitionStatus.svelte.js",
+          "kind": "type",
+          "names": [
+            "TransitionStatus"
+          ],
+          "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/checkbox/utils/getCheckboxStateAttributesMapping.ts",
+      "sha256": "6d59ba1f1e83378e7a8ce1be81143afd51df7e299f20808ca24c3421b494dc97",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "getCheckboxStateAttributesMapping"
+      ],
+      "imports": [
+        {
+          "specifier": "../root/CheckboxRootDataAttributes.js",
+          "kind": "runtime",
+          "names": [
+            "CheckboxRootDataAttributes"
+          ],
+          "resolved": "packages/base/src/lib/checkbox/root/CheckboxRootDataAttributes.ts"
+        },
+        {
+          "specifier": "../../internals/getStateAttributesProps.js",
+          "kind": "type",
+          "names": [
+            "StateAttributesMapping"
+          ],
+          "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "names": [
+            "CheckboxRootState"
+          ],
+          "resolved": "packages/base/src/lib/checkbox/types.ts"
+        },
+        {
+          "specifier": "../../internals/field-constants/constants.js",
+          "kind": "runtime",
+          "names": [
+            "fieldValidityMapping"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-constants/constants.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/checkbox/utils/useEnterSubmit.svelte.ts",
+      "sha256": "dcceb14ed7d2246a76de528d74260fd5b2b5a6ded04e5eee90b4c95d703cb467",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "useEnterSubmit"
+      ],
+      "imports": [
+        {
+          "specifier": "../../internals/types.js",
+          "kind": "type",
+          "names": [
+            "BaseUIEvent"
+          ],
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
+          "specifier": "../../utils/getDefaultFormSubmitter.js",
+          "kind": "runtime",
+          "names": [
+            "getDefaultFormSubmitter"
+          ],
+          "resolved": "packages/base/src/lib/utils/getDefaultFormSubmitter.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/csp-provider/context.ts",
+      "sha256": "ef547502733a191eaa312c58a4017c1a86a5af73e58aa2d155b79842941d80b0",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "CSPContextValue",
+        "getCSPContext"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "createContext"
+          ],
+          "resolved": "external:svelte"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/dialog/types.ts",
+      "sha256": "fd700772ea1016359bc934759c01d168caa2914ff136733f30f9c108d28ae931",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "ChangeReason",
+        "ChangeEventDetails",
+        "InteractionType",
+        "FocusTarget",
+        "Actions",
+        "PopupState",
+        "PreventableHandlers",
+        "ElementProps",
+        "RootProps",
+        "ButtonProps"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "names": [
+            "Snippet"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "names": [
+            "HTMLAttributes",
+            "HTMLButtonAttributes"
+          ],
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "kind": "type",
+          "names": [
+            "BaseUIChangeEventDetails"
+          ],
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../merge-props/index.js",
+          "kind": "type",
+          "names": [
+            "PreventableEvent"
+          ],
+          "resolved": "packages/base/src/lib/merge-props/index.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/direction-provider/context.ts",
+      "sha256": "e400850423b49f956342a6efac2d8dcf2275365d23220564b6cefb8b44df47f8",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "DirectionContext",
+        "useDirection"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "createContext"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "names": [
+            "TextDirection"
+          ],
+          "resolved": "packages/base/src/lib/direction-provider/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/direction-provider/types.ts",
+      "sha256": "a56af048e882453755ad2948782af4f2f832903e031d4812b8da9fc5f4b82aae",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "TextDirection",
+        "DirectionProviderProps"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "names": [
+            "Snippet"
+          ],
+          "resolved": "external:svelte"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/field/Control.svelte",
+      "sha256": "ac623af778620dd68ea7c9234ffd9c27eb22b3406e1ee9fda4d973e823532101",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "names": [
+            "RenderElement"
+          ],
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../utils/useControlled.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useControlled"
+          ],
+          "resolved": "packages/base/src/lib/utils/useControlled.svelte.ts"
+        },
+        {
+          "specifier": "../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useIsoLayoutEffect"
+          ],
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../utils/owner.js",
+          "kind": "runtime",
+          "names": [
+            "ownerDocument"
+          ],
+          "resolved": "packages/base/src/lib/utils/owner.ts"
+        },
+        {
+          "specifier": "../utils/useStableCallback.js",
+          "kind": "runtime",
+          "names": [
+            "useStableCallback"
+          ],
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../utils/useTimeout.js",
+          "kind": "runtime",
+          "names": [
+            "useTimeout"
+          ],
+          "resolved": "packages/base/src/lib/utils/useTimeout.ts"
+        },
+        {
+          "specifier": "../internals/field-root-context/FieldRootContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFieldRootContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "../internals/field-control-name/FieldControlNameContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFieldControlNativeName"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-control-name/FieldControlNameContext.ts"
+        },
+        {
+          "specifier": "../internals/field-register-control/useRegisterFieldControl.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useRegisterFieldControl"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts"
+        },
+        {
+          "specifier": "../internals/form-context/FormContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFormContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/form-context/FormContext.ts"
+        },
+        {
+          "specifier": "../internals/labelable-provider/LabelableContext.js",
+          "kind": "runtime",
+          "names": [
+            "useLabelableContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts"
+        },
+        {
+          "specifier": "../internals/labelable-provider/useLabelableId.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useLabelableId"
+          ],
+          "resolved": "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts"
+        },
+        {
+          "specifier": "../internals/useBaseUiId.js",
+          "kind": "runtime",
+          "names": [
+            "useBaseUiId"
+          ],
+          "resolved": "packages/base/src/lib/internals/useBaseUiId.ts"
+        },
+        {
+          "specifier": "../internals/field-constants/constants.js",
+          "kind": "runtime",
+          "names": [
+            "fieldValidityMapping"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-constants/constants.ts"
+        },
+        {
+          "specifier": "../internals/useValueChanged.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useValueChanged"
+          ],
+          "resolved": "packages/base/src/lib/internals/useValueChanged.svelte.ts"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "kind": "runtime",
+          "names": [
+            "createChangeEventDetails"
+          ],
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../internals/reasons.js",
+          "kind": "runtime",
+          "names": [
+            "REASONS"
+          ],
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        },
+        {
+          "specifier": "../utils/shadowDom.js",
+          "kind": "runtime",
+          "names": [
+            "activeElement"
+          ],
+          "resolved": "packages/base/src/lib/utils/shadowDom.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "names": [
+            "FieldControlProps",
+            "FieldControlState"
+          ],
+          "resolved": "packages/base/src/lib/field/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/field/Description.svelte",
+      "sha256": "0581056a31a173472dc8f22ebfd599e74bada6250520d6d4cb82b22aba48fe0b",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "names": [
+            "RenderElement"
+          ],
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useIsoLayoutEffect"
+          ],
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../internals/field-root-context/FieldRootContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFieldRootContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "../internals/labelable-provider/LabelableContext.js",
+          "kind": "runtime",
+          "names": [
+            "useLabelableContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts"
+        },
+        {
+          "specifier": "../internals/field-constants/constants.js",
+          "kind": "runtime",
+          "names": [
+            "fieldValidityMapping"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-constants/constants.ts"
+        },
+        {
+          "specifier": "../internals/useBaseUiId.js",
+          "kind": "runtime",
+          "names": [
+            "useBaseUiId"
+          ],
+          "resolved": "packages/base/src/lib/internals/useBaseUiId.ts"
+        },
+        {
+          "specifier": "./item/FieldItemContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFieldItemContext"
+          ],
+          "resolved": "packages/base/src/lib/field/item/FieldItemContext.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "names": [
+            "FieldDescriptionProps"
+          ],
+          "resolved": "packages/base/src/lib/field/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/field/Error.svelte",
+      "sha256": "4b8a0755185330e12acf8dacc050ffae8f7b30f744aeebb54aa1c2095b09d6f3",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "names": [
+            "RenderElement"
+          ],
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useIsoLayoutEffect"
+          ],
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../internals/field-root-context/FieldRootContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFieldRootContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "../internals/labelable-provider/LabelableContext.js",
+          "kind": "runtime",
+          "names": [
+            "useLabelableContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts"
+        },
+        {
+          "specifier": "../internals/field-constants/constants.js",
+          "kind": "runtime",
+          "names": [
+            "fieldValidityMapping"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-constants/constants.ts"
+        },
+        {
+          "specifier": "../internals/form-context/FormContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFormContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/form-context/FormContext.ts"
+        },
+        {
+          "specifier": "../internals/useBaseUiId.js",
+          "kind": "runtime",
+          "names": [
+            "useBaseUiId"
+          ],
+          "resolved": "packages/base/src/lib/internals/useBaseUiId.ts"
+        },
+        {
+          "specifier": "../internals/useOpenChangeComplete.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useOpenChangeComplete"
+          ],
+          "resolved": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts"
+        },
+        {
+          "specifier": "../internals/stateAttributesMapping.js",
+          "kind": "runtime",
+          "names": [
+            "transitionStatusMapping"
+          ],
+          "resolved": "packages/base/src/lib/internals/stateAttributesMapping.ts"
+        },
+        {
+          "specifier": "../internals/useTransitionStatus.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useTransitionStatus"
+          ],
+          "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts"
+        },
+        {
+          "specifier": "./ErrorMessageList.svelte",
+          "kind": "runtime",
+          "names": [
+            "ErrorMessageList"
+          ],
+          "resolved": "packages/base/src/lib/field/ErrorMessageList.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "names": [
+            "FieldErrorProps",
+            "FieldErrorState"
+          ],
+          "resolved": "packages/base/src/lib/field/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/field/ErrorMessageList.svelte",
+      "sha256": "27bec6f8217118288cddf98c3e00c4df7efd3934c7ab3f7126cb6f23a4d601c4",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [],
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/field/index.parts.ts",
+      "sha256": "97ccc3903310c1264fefd80e4f80583358d43293c33065d6cec76e87bf6eb647",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "./Root.svelte",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/field/Root.svelte"
+        },
+        {
+          "specifier": "./Label.svelte",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/field/Label.svelte"
+        },
+        {
+          "specifier": "./Description.svelte",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/field/Description.svelte"
+        },
+        {
+          "specifier": "./Error.svelte",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/field/Error.svelte"
+        },
+        {
+          "specifier": "./Control.svelte",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/field/Control.svelte"
+        },
+        {
+          "specifier": "./Validity.svelte",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/field/Validity.svelte"
+        },
+        {
+          "specifier": "./Item.svelte",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/field/Item.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "names": [],
+          "resolved": "packages/base/src/lib/field/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/field/Item.svelte",
+      "sha256": "737b50c83d7fb7d9b68567a062eb995c1f98664a09d85a49d2b5ba1938f07fdd",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "names": [
+            "RenderElement"
+          ],
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../internals/labelable-provider/LabelableProvider.svelte",
+          "kind": "runtime",
+          "names": [
+            "LabelableProvider"
+          ],
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableProvider.svelte"
+        },
+        {
+          "specifier": "../internals/field-root-context/FieldRootContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFieldRootContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "../internals/field-constants/constants.js",
+          "kind": "runtime",
+          "names": [
+            "fieldValidityMapping"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-constants/constants.ts"
+        },
+        {
+          "specifier": "./item/FieldItemContext.js",
+          "kind": "runtime",
+          "names": [
+            "setFieldItemContext"
+          ],
+          "resolved": "packages/base/src/lib/field/item/FieldItemContext.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "names": [
+            "FieldItemProps"
+          ],
+          "resolved": "packages/base/src/lib/field/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/field/item/FieldItemContext.ts",
+      "sha256": "f1a84a8e7fd46dce276cf16590fc2c6919f3167a12ab1fbff2ad86e64ff2eaed",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "FieldItemContext",
+        "setFieldItemContext",
+        "useFieldItemContext"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "getContext",
+            "setContext"
+          ],
+          "resolved": "external:svelte"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/field/Label.svelte",
+      "sha256": "c60260581b9295db7aede4b558b02e4fd0d92ff52f3a9e8d4da5143a2ead396c",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "names": [
+            "DEV"
+          ],
+          "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "names": [
+            "RenderElement"
+          ],
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../utils/error.js",
+          "kind": "runtime",
+          "names": [
+            "error"
+          ],
+          "resolved": "packages/base/src/lib/utils/error.ts"
+        },
+        {
+          "specifier": "../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useIsoLayoutEffect"
+          ],
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../internals/field-root-context/FieldRootContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFieldRootContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "../internals/field-constants/constants.js",
+          "kind": "runtime",
+          "names": [
+            "fieldValidityMapping"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-constants/constants.ts"
+        },
+        {
+          "specifier": "../internals/labelable-provider/LabelableContext.js",
+          "kind": "runtime",
+          "names": [
+            "useLabelableContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts"
+        },
+        {
+          "specifier": "../internals/labelable-provider/useLabel.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useLabel"
+          ],
+          "resolved": "packages/base/src/lib/internals/labelable-provider/useLabel.svelte.ts"
+        },
+        {
+          "specifier": "./item/FieldItemContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFieldItemContext"
+          ],
+          "resolved": "packages/base/src/lib/field/item/FieldItemContext.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "names": [
+            "FieldLabelProps"
+          ],
+          "resolved": "packages/base/src/lib/field/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/field/props.ts",
+      "sha256": "ed3d25745d68f38c06c0f21ae46e9457147a07503e34ae52fd17dee7256d1357",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "NativeFieldProps"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "names": [
+            "ClassValue"
+          ],
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../dialog/types.js",
+          "kind": "type",
+          "names": [
+            "ElementProps"
+          ],
+          "resolved": "packages/base/src/lib/dialog/types.ts"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "names": [
+            "BaseUIComponentProps"
+          ],
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/field/Root.svelte",
+      "sha256": "1a505de7682ed523d1e2568ca19a2cf7116fc8a992b7d3de8b50eef1c1e43f54",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "../internals/labelable-provider/LabelableProvider.svelte",
+          "kind": "runtime",
+          "names": [
+            "LabelableProvider"
+          ],
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableProvider.svelte"
+        },
+        {
+          "specifier": "./root/FieldRootInner.svelte",
+          "kind": "runtime",
+          "names": [
+            "FieldRootInner"
+          ],
+          "resolved": "packages/base/src/lib/field/root/FieldRootInner.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "names": [
+            "FieldRootProps"
+          ],
+          "resolved": "packages/base/src/lib/field/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/field/root/FieldRootInner.svelte",
+      "sha256": "ad785d1c6d42b8346151701855609eaf195deae3843f8d79091d131b415e83b3",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "setValidityData"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "untrack"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "names": [
+            "RenderElement"
+          ],
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useIsoLayoutEffect"
+          ],
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../../utils/useStableCallback.js",
+          "kind": "runtime",
+          "names": [
+            "useStableCallback"
+          ],
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../../internals/field-root-context/FieldRootContext.js",
+          "kind": "runtime",
+          "names": [
+            "setFieldRootContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "../../internals/field-root-context/FieldRootContext.js",
+          "kind": "type",
+          "names": [
+            "FieldRootContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "../../internals/field-constants/constants.js",
+          "kind": "runtime",
+          "names": [
+            "DEFAULT_VALIDITY_STATE",
+            "fieldValidityMapping"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-constants/constants.ts"
+        },
+        {
+          "specifier": "../../fieldset/root/FieldsetRootContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFieldsetRootContext"
+          ],
+          "resolved": "packages/base/src/lib/fieldset/root/FieldsetRootContext.ts"
+        },
+        {
+          "specifier": "../../internals/form-context/FormContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFormContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/form-context/FormContext.ts"
+        },
+        {
+          "specifier": "./useFieldValidation.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useFieldValidation"
+          ],
+          "resolved": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/field-register-control/useFieldControlRegistration.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useFieldControlRegistration"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "names": [
+            "FieldRootActions",
+            "FieldRootProps",
+            "FieldRootState",
+            "FieldValidityData"
+          ],
+          "resolved": "packages/base/src/lib/field/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
+      "sha256": "93fd341dc439f2272b06a8857eba538900db8372306efcc6ba4b6b64d073fee1",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "HTMLProps",
+        "NativeValidationControl",
+        "RegisteredInput",
+        "RegisteredInputs",
+        "isEligibleInput",
+        "findRepresentativeInput",
+        "makeState",
+        "getNativeErrors",
+        "useFieldValidation",
+        "updateRegisteredFieldValidity",
+        "makeValidityData",
+        "setCustomValidity",
+        "clearCustomValidity",
+        "publish",
+        "getState",
+        "resolveRepresentativeInput",
+        "refreshState",
+        "UseFieldValidationParameters",
+        "UseFieldValidationReturnValue"
+      ],
+      "imports": [
+        {
+          "specifier": "../../utils/empty.js",
+          "kind": "runtime",
+          "names": [
+            "EMPTY_OBJECT"
+          ],
+          "resolved": "packages/base/src/lib/utils/empty.ts"
+        },
+        {
+          "specifier": "../../utils/useTimeout.js",
+          "kind": "runtime",
+          "names": [
+            "useTimeout"
+          ],
+          "resolved": "packages/base/src/lib/utils/useTimeout.ts"
+        },
+        {
+          "specifier": "../../utils/useStableCallback.js",
+          "kind": "runtime",
+          "names": [
+            "useStableCallback"
+          ],
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../../utils/useRefWithInit.js",
+          "kind": "runtime",
+          "names": [
+            "useRefWithInit"
+          ],
+          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/LabelableContext.js",
+          "kind": "runtime",
+          "names": [
+            "useLabelableContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts"
+        },
+        {
+          "specifier": "../../merge-props/index.js",
+          "kind": "runtime",
+          "names": [
+            "mergeProps"
+          ],
+          "resolved": "packages/base/src/lib/merge-props/index.ts"
+        },
+        {
+          "specifier": "../../internals/field-constants/constants.js",
+          "kind": "runtime",
+          "names": [
+            "DEFAULT_VALIDITY_STATE"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-constants/constants.ts"
+        },
+        {
+          "specifier": "../../internals/form-context/FormContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFormContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/form-context/FormContext.ts"
+        },
+        {
+          "specifier": "../utils/getCombinedFieldValidityData.js",
+          "kind": "runtime",
+          "names": [
+            "getCombinedFieldValidityData"
+          ],
+          "resolved": "packages/base/src/lib/field/utils/getCombinedFieldValidityData.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "names": [
+            "FieldValidityData",
+            "FieldRootState"
+          ],
+          "resolved": "packages/base/src/lib/field/types.ts"
+        },
+        {
+          "specifier": "../../form/types.js",
+          "kind": "type",
+          "names": [
+            "FormValues",
+            "FormValidationMode"
+          ],
+          "resolved": "packages/base/src/lib/form/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/field/types.ts",
+      "sha256": "25fd4710edd0d877d62c4e8874314a2c36344ad346085d5e75655ebbedf051dc",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "FieldRootState",
+        "FieldValidityData",
+        "FieldRootActions",
+        "FieldRootProps",
+        "FieldControlProps",
+        "FieldControlState",
+        "FieldControlChangeEventReason",
+        "FieldControlChangeEventDetails",
+        "FieldLabelState",
+        "FieldLabelProps",
+        "FieldDescriptionState",
+        "FieldDescriptionProps",
+        "FieldItemState",
+        "FieldItemProps",
+        "FieldTransitionStatus",
+        "FieldErrorState",
+        "FieldErrorProps",
+        "FieldValidityState",
+        "FieldValidityProps"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "names": [
+            "Snippet"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "names": [
+            "HTMLAttributes",
+            "HTMLLabelAttributes",
+            "HTMLInputAttributes",
+            "ClassValue"
+          ],
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "kind": "type",
+          "names": [
+            "BaseUIChangeEventDetails"
+          ],
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "./props.js",
+          "kind": "type",
+          "names": [
+            "NativeFieldProps"
+          ],
+          "resolved": "packages/base/src/lib/field/props.ts"
+        },
+        {
+          "specifier": "../form/types.js",
+          "kind": "type",
+          "names": [
+            "FormValidationMode",
+            "FormValues"
+          ],
+          "resolved": "packages/base/src/lib/form/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/field/utils/getCombinedFieldValidityData.ts",
+      "sha256": "f5c0e65cc854d8bb6446d2792142ecc64d603a469a576dd0fbc5f3de6bc61b7e",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "getCombinedFieldValidityData"
+      ],
+      "imports": [
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "names": [
+            "FieldValidityData"
+          ],
+          "resolved": "packages/base/src/lib/field/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/field/Validity.svelte",
+      "sha256": "cd4f22fb12d808cfe1106570579811bc11edcae63d22df48fee24a5946a724a1",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "../internals/field-root-context/FieldRootContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFieldRootContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "./utils/getCombinedFieldValidityData.js",
+          "kind": "runtime",
+          "names": [
+            "getCombinedFieldValidityData"
+          ],
+          "resolved": "packages/base/src/lib/field/utils/getCombinedFieldValidityData.ts"
+        },
+        {
+          "specifier": "../internals/useTransitionStatus.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useTransitionStatus"
+          ],
+          "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "names": [
+            "FieldValidityProps",
+            "FieldValidityState"
+          ],
+          "resolved": "packages/base/src/lib/field/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/fieldset/root/FieldsetRootContext.ts",
+      "sha256": "f5b4b87e5802c40a428e4df9463e84fd36cb649ee3cdfe6f0b153b9721e6ce6c",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "FieldsetRootContext",
+        "setFieldsetRootContext",
+        "useFieldsetRootContext",
+        "useFieldsetRootContext",
+        "useFieldsetRootContext"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "getContext",
+            "setContext"
+          ],
+          "resolved": "external:svelte"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/floating-ui/utils/event.ts",
+      "sha256": "b489c469d9e2b134b6cd97baa3a408010decf1399dbaa1367a015d70c770832e",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "stopEvent",
+        "isVirtualClick",
+        "isVirtualPointerEvent",
+        "isMouseLikePointerType",
+        "isClickLikeEvent"
+      ],
+      "imports": [
+        {
+          "specifier": "../../utils/platform/index.js",
+          "kind": "runtime",
+          "names": [
+            "platform"
+          ],
+          "resolved": "packages/base/src/lib/utils/platform/index.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/floating-ui/utils/matchesFocusVisible.ts",
+      "sha256": "b1788640106924aa5e790e88b711fdf02ce942c0ead034aa94be636188f1c3ac",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "matchesFocusVisible"
+      ],
+      "imports": [
+        {
+          "specifier": "../../utils/platform/index.js",
+          "kind": "runtime",
+          "names": [
+            "platform"
+          ],
+          "resolved": "packages/base/src/lib/utils/platform/index.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/form/types.ts",
+      "sha256": "51cb6c9cbbd82cfc923db96143f5184acb5712d5614298468c9cf391aa783f8b",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "FormValidationMode",
+        "FormErrors",
+        "FormActions",
+        "FormState",
+        "FormSubmitEventReason",
+        "FormSubmitEventDetails",
+        "FormValues",
+        "FormFieldNamespace",
+        "FormProps"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "names": [
+            "Snippet"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "names": [
+            "HTMLFormAttributes"
+          ],
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../field/props.js",
+          "kind": "type",
+          "names": [
+            "NativeFieldProps"
+          ],
+          "resolved": "packages/base/src/lib/field/props.ts"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "kind": "type",
+          "names": [
+            "BaseUIGenericEventDetails"
+          ],
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../remote-forms/types.js",
+          "kind": "type",
+          "names": [
+            "RemoteFormLike",
+            "TypedField"
+          ],
+          "resolved": "packages/base/src/lib/remote-forms/types.ts"
+        },
+        {
+          "specifier": "../remote-forms/index.parts.js",
+          "kind": "type",
+          "names": [],
+          "resolved": "packages/base/src/lib/remote-forms/index.parts.ts"
+        },
+        {
+          "specifier": "../field/index.parts.js",
+          "kind": "type",
+          "names": [],
+          "resolved": "packages/base/src/lib/field/index.parts.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/composite/composite.ts",
+      "sha256": "938a8b4ede73c5b5655a800777fe4748a94786a05bf828129de299c04cf94673",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "isHTMLElement",
+        "ModifierKey",
+        "isInputElement",
+        "isNativeInput",
+        "scrollIntoViewIfNeeded",
+        "getOffset",
+        "getStyles"
+      ],
+      "imports": [
+        {
+          "specifier": "../../direction-provider/types.js",
+          "kind": "type",
+          "names": [
+            "TextDirection"
+          ],
+          "resolved": "packages/base/src/lib/direction-provider/types.ts"
+        },
+        {
+          "specifier": "./utils/navigation.js",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/internals/composite/utils/navigation.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts",
+      "sha256": "c443b96e2b57642eed663be3a670fc7342dc4358bac081b7257bcb076c54ab17",
+      "reachability": [
+        "type",
+        "runtime"
+      ],
+      "declarations": [
+        "CompositeMetadata",
+        "CompositeListRegistration",
+        "CompositeListContextValue",
+        "setCompositeListContext",
+        "useCompositeListContext"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "getContext",
+            "setContext"
+          ],
+          "resolved": "external:svelte"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
+      "sha256": "97758d379046d9f894997ae40ef7c6f59decf48fa0d985a2c1fb5f9f068ad016",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "CompositeListItem",
+        "Parameters",
+        "createCompositeList",
+        "observe",
+        "getCompositeListSnapshot",
+        "getCommonAncestor",
+        "hasMovedNode",
+        "sortByDocumentPosition"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "onDestroy",
+            "untrack"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/reactivity",
+          "kind": "runtime",
+          "names": [
+            "SvelteMap",
+            "SvelteSet"
+          ],
+          "resolved": "external:svelte/reactivity"
+        },
+        {
+          "specifier": "./CompositeListContext.js",
+          "kind": "runtime",
+          "names": [
+            "setCompositeListContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts"
+        },
+        {
+          "specifier": "./CompositeListContext.js",
+          "kind": "type",
+          "names": [
+            "CompositeListRegistration",
+            "CompositeMetadata"
+          ],
+          "resolved": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
+      "sha256": "42f4066c8d830385f942f66b216e1b263728f1615dbd7b11cfd3a79db7242400",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "UseCompositeListItemParameters",
+        "useCompositeListItem"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "untrack"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../../../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useIsoLayoutEffect"
+          ],
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "./CompositeListContext.js",
+          "kind": "runtime",
+          "names": [
+            "useCompositeListContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts",
+      "sha256": "b08d6af5d6e71ba46076718b4426c7d2e0485a059e9204759406af1f395b6f2c",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "CompositeRootContext",
+        "setCompositeRootContext",
+        "useCompositeRootContext",
+        "useCompositeRootContext",
+        "useCompositeRootContext"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "getContext",
+            "setContext"
+          ],
+          "resolved": "external:svelte"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/composite/utils/navigation.ts",
+      "sha256": "bb61a6e117cc345c347a3a29618d01e6e608ef1027b8e6464e072d8b70b4a0aa",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "getComputedStyle",
+        "Dimensions",
+        "DisabledIndices",
+        "isDifferentGridRow",
+        "isIndexOutOfListBounds",
+        "getMinListIndex",
+        "getMaxListIndex",
+        "findNonDisabledListIndex",
+        "getGridNavigatedIndex",
+        "createGridCellMap",
+        "getGridCellIndexOfCorner",
+        "getGridCellIndices",
+        "isListIndexDisabled",
+        "isHiddenByStyles",
+        "isElementVisible"
+      ],
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "names": [
+            "DEV"
+          ],
+          "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "../../../floating-ui/utils/event.js",
+          "kind": "runtime",
+          "names": [
+            "stopEvent"
+          ],
+          "resolved": "packages/base/src/lib/floating-ui/utils/event.ts"
+        },
+        {
+          "specifier": "../composite.js",
+          "kind": "runtime",
+          "names": [
+            "ARROW_DOWN",
+            "ARROW_LEFT",
+            "ARROW_RIGHT",
+            "ARROW_UP"
+          ],
+          "resolved": "packages/base/src/lib/internals/composite/composite.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+      "sha256": "1a9cb6cde2734d421a1bfb03ece9c744584b7e115a0eb3b9de974c22ab8ee684",
+      "reachability": [
+        "type",
+        "runtime"
+      ],
+      "declarations": [
+        "ReasonToEventMap",
+        "ReasonToEvent",
+        "BaseUIChangeEventDetail",
+        "BaseUIChangeEventDetails",
+        "BaseUIGenericEventDetail",
+        "BaseUIGenericEventDetails",
+        "createChangeEventDetails",
+        "createGenericEventDetails"
+      ],
+      "imports": [
+        {
+          "specifier": "../utils/empty.js",
+          "kind": "runtime",
+          "names": [
+            "EMPTY_OBJECT"
+          ],
+          "resolved": "packages/base/src/lib/utils/empty.ts"
+        },
+        {
+          "specifier": "./reasons.js",
+          "kind": "runtime",
+          "names": [
+            "REASONS"
+          ],
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/field-constants/constants.ts",
+      "sha256": "7a4e8acf35babe4f33b4850da64313dbd19be6b20cb3b4833430d103cd6bf757",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "../../field/types.js",
+          "kind": "type",
+          "names": [
+            "FieldRootState",
+            "FieldValidityData"
+          ],
+          "resolved": "packages/base/src/lib/field/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/field-control-name/FieldControlNameContext.ts",
+      "sha256": "c2e281c241321a8fd4148eb0f536dabb56be359deccc0e8a5f23ec4d207c48a8",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [
+        "FieldControlNameContext",
+        "setFieldControlNameContext",
+        "useFieldControlNativeName"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "getContext",
+            "setContext"
+          ],
+          "resolved": "external:svelte"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/field-control-value/FieldControlValueContext.ts",
+      "sha256": "e97a45c620080963320c4ee0bc8a81e5422c5cdc3ebca07cd94d062ee46cb852",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "FieldControlValueContext",
+        "setFieldControlValueContext",
+        "useFieldControlNativeValue"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "getContext",
+            "setContext"
+          ],
+          "resolved": "external:svelte"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts",
+      "sha256": "2fbe1f3900ce42aff6d9f65e489b9dcac76a90e34c2be6dcd75c4f5d5bc887fe",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "FieldControlRegistration",
+        "useFieldControlRegistration",
+        "getRegistrationValue",
+        "refreshRegistration",
+        "deleteRegistration",
+        "captureInitialValue",
+        "UseFieldControlRegistrationParameters"
+      ],
+      "imports": [
+        {
+          "specifier": "../../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useIsoLayoutEffect"
+          ],
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../../utils/useStableCallback.js",
+          "kind": "runtime",
+          "names": [
+            "useStableCallback"
+          ],
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../../field/utils/getCombinedFieldValidityData.js",
+          "kind": "runtime",
+          "names": [
+            "getCombinedFieldValidityData"
+          ],
+          "resolved": "packages/base/src/lib/field/utils/getCombinedFieldValidityData.ts"
+        },
+        {
+          "specifier": "../form-context/FormContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFormContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/form-context/FormContext.ts"
+        },
+        {
+          "specifier": "../../field/types.js",
+          "kind": "type",
+          "names": [
+            "FieldValidityData"
+          ],
+          "resolved": "packages/base/src/lib/field/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts",
+      "sha256": "b4c1ea76c59f1b6848c3a54e915324b9da25bbdbdf16f61c4cfad1a3521ada03",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [
+        "useRegisterFieldControl"
+      ],
+      "imports": [
+        {
+          "specifier": "../../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useIsoLayoutEffect"
+          ],
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../../utils/useRefWithInit.js",
+          "kind": "runtime",
+          "names": [
+            "useRefWithInit"
+          ],
+          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
+        },
+        {
+          "specifier": "../field-root-context/FieldRootContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFieldRootContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "./useFieldControlRegistration.svelte.js",
+          "kind": "type",
+          "names": [
+            "FieldControlRegistration"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts",
+      "sha256": "21aa11d932c64b362bdb2373d22bf6c108fe9a24a093b0a08a009e3d9b45f614",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [
+        "FieldRootContext",
+        "setFieldRootContext",
+        "useFieldRootContext"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "getContext",
+            "setContext"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../../utils/empty.js",
+          "kind": "runtime",
+          "names": [
+            "EMPTY_OBJECT",
+            "NOOP"
+          ],
+          "resolved": "packages/base/src/lib/utils/empty.ts"
+        },
+        {
+          "specifier": "../field-constants/constants.js",
+          "kind": "runtime",
+          "names": [
+            "DEFAULT_FIELD_ROOT_STATE",
+            "DEFAULT_VALIDITY_STATE"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-constants/constants.ts"
+        },
+        {
+          "specifier": "../../field/types.js",
+          "kind": "type",
+          "names": [
+            "FieldValidityData",
+            "FieldRootState"
+          ],
+          "resolved": "packages/base/src/lib/field/types.ts"
+        },
+        {
+          "specifier": "../../form/types.js",
+          "kind": "type",
+          "names": [
+            "FormValidationMode"
+          ],
+          "resolved": "packages/base/src/lib/form/types.ts"
+        },
+        {
+          "specifier": "../../field/root/useFieldValidation.svelte.js",
+          "kind": "type",
+          "names": [
+            "UseFieldValidationReturnValue"
+          ],
+          "resolved": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts"
+        },
+        {
+          "specifier": "../field-register-control/useFieldControlRegistration.svelte.js",
+          "kind": "type",
+          "names": [
+            "FieldControlRegistration"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/form-context/FormContext.ts",
+      "sha256": "8a0131cd002119715cb0d1a9cb051662353e75797aa4369981a30be4df29a05a",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [
+        "RegisteredField",
+        "FormContext",
+        "setFormContext",
+        "useFormContext"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "getContext",
+            "setContext"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../../utils/empty.js",
+          "kind": "runtime",
+          "names": [
+            "NOOP"
+          ],
+          "resolved": "packages/base/src/lib/utils/empty.ts"
+        },
+        {
+          "specifier": "../../field/types.js",
+          "kind": "type",
+          "names": [
+            "FieldValidityData"
+          ],
+          "resolved": "packages/base/src/lib/field/types.ts"
+        },
+        {
+          "specifier": "../../form/types.js",
+          "kind": "type",
+          "names": [
+            "FormErrors",
+            "FormValidationMode"
+          ],
+          "resolved": "packages/base/src/lib/form/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+      "sha256": "e48367a890024a54cb200eabc5c2a0ba0a397256baacfaec8b0a05ced3b10344",
+      "reachability": [
+        "type",
+        "runtime"
+      ],
+      "declarations": [
+        "StateAttributesMapping",
+        "getStateAttributesProps"
+      ],
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
+      "sha256": "2a5fb80fe0cf9ca1d598337f2fddc778833d1dba5445fb5918cae6a1ab478a4b",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "createLabelableProvider",
+        "getDescriptionProps"
+      ],
+      "imports": [
+        {
+          "specifier": "../../utils/useStableCallback.js",
+          "kind": "runtime",
+          "names": [
+            "useStableCallback"
+          ],
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../../utils/useRefWithInit.js",
+          "kind": "runtime",
+          "names": [
+            "useRefWithInit"
+          ],
+          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
+        },
+        {
+          "specifier": "./LabelableContext.js",
+          "kind": "runtime",
+          "names": [
+            "setLabelableContext",
+            "useLabelableContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts"
+        },
+        {
+          "specifier": "./LabelableContext.js",
+          "kind": "type",
+          "names": [
+            "LabelableContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts",
+      "sha256": "864b5d1ddb86b7cb3d50217a7bb3b4fbf58428ec43f78c1ec7ed3efa31750799",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [
+        "LabelableContext",
+        "setLabelableContext",
+        "useLabelableContext"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "getContext",
+            "setContext"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../../utils/empty.js",
+          "kind": "runtime",
+          "names": [
+            "NOOP"
+          ],
+          "resolved": "packages/base/src/lib/utils/empty.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/labelable-provider/LabelableProvider.svelte",
+      "sha256": "e0719f95f60e6ac6d050e92c0525f465d87c6832887515cbe62948b481915c43",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "names": [
+            "Snippet"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../useBaseUiId.js",
+          "kind": "runtime",
+          "names": [
+            "useBaseUiId"
+          ],
+          "resolved": "packages/base/src/lib/internals/useBaseUiId.ts"
+        },
+        {
+          "specifier": "./createLabelableProvider.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "createLabelableProvider"
+          ],
+          "resolved": "packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/labelable-provider/useAriaLabelledBy.svelte.ts",
+      "sha256": "bfb47e6426f7df82b1738fb2dcbef7133166addc4a7d54a84deab26655f2bf0e",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "Parameters",
+        "useAriaLabelledBy",
+        "getAriaLabelledBy",
+        "findAssociatedLabel"
+      ],
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/internals/labelable-provider/useLabel.svelte.ts",
+      "sha256": "b96abe4dcc46df31198bbd40cbc6e9278dda323f3bab6b33bc802158ab9d9b26",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [
+        "UseLabelParameters",
+        "useLabel",
+        "focusControl",
+        "handleInteraction",
+        "focusElementWithVisible"
+      ],
+      "imports": [
+        {
+          "specifier": "../../utils/owner.js",
+          "kind": "runtime",
+          "names": [
+            "ownerDocument"
+          ],
+          "resolved": "packages/base/src/lib/utils/owner.ts"
+        },
+        {
+          "specifier": "../../utils/useStableCallback.js",
+          "kind": "runtime",
+          "names": [
+            "useStableCallback"
+          ],
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../../utils/shadowDom.js",
+          "kind": "runtime",
+          "names": [
+            "getTarget"
+          ],
+          "resolved": "packages/base/src/lib/utils/shadowDom.ts"
+        },
+        {
+          "specifier": "../../utils/useRegisteredLabelId.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useRegisteredLabelId"
+          ],
+          "resolved": "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts"
+        },
+        {
+          "specifier": "./LabelableContext.js",
+          "kind": "runtime",
+          "names": [
+            "useLabelableContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts"
+        },
+        {
+          "specifier": "./LabelableContext.js",
+          "kind": "type",
+          "names": [
+            "LabelableContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
+      "sha256": "821459e698c6486f837258547fe73e1db1865bd574444ea867d03b59af8e4456",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [
+        "UseLabelableIdParameters",
+        "useLabelableId"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "untrack"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useIsoLayoutEffect"
+          ],
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../../utils/useStableCallback.js",
+          "kind": "runtime",
+          "names": [
+            "useStableCallback"
+          ],
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../../utils/useRefWithInit.js",
+          "kind": "runtime",
+          "names": [
+            "useRefWithInit"
+          ],
+          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
+        },
+        {
+          "specifier": "../../utils/empty.js",
+          "kind": "runtime",
+          "names": [
+            "NOOP"
+          ],
+          "resolved": "packages/base/src/lib/utils/empty.ts"
+        },
+        {
+          "specifier": "./LabelableContext.js",
+          "kind": "runtime",
+          "names": [
+            "useLabelableContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/nativeProps.ts",
+      "sha256": "d6b3999ffe54e8c70e0dcdac61474b3bf9f53e60f3b1207dd4f976ef5212e4eb",
+      "reachability": [
+        "type",
+        "runtime"
+      ],
+      "declarations": [
+        "NativeStyle",
+        "toNativeStyle",
+        "mergeNativeStyles",
+        "toNativeClass",
+        "copyAttachmentSymbols"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "names": [
+            "ClassValue"
+          ],
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "./resolveClassValue.js",
+          "kind": "runtime",
+          "names": [
+            "resolveClassValue"
+          ],
+          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"
+        },
+        {
+          "specifier": "../utils/mergeObjects.js",
+          "kind": "runtime",
+          "names": [
+            "mergeObjects"
+          ],
+          "resolved": "packages/base/src/lib/utils/mergeObjects.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+      "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [
+        "NativeRefAttachment",
+        "isNativeRefAttachment",
+        "createRefAttachment"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "untrack"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../utils/useMergedRefs.js",
+          "kind": "type",
+          "names": [
+            "MergedRefCallback"
+          ],
+          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/PrehydrationScript.svelte",
+      "sha256": "2b37072e8cb05af6fdb577941c8f79f5be974f34032b588b27b11c6f67eb35e2",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "escapeNonce"
+      ],
+      "imports": [
+        {
+          "specifier": "../utils/useIsHydrating.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useIsHydrating"
+          ],
+          "resolved": "packages/base/src/lib/utils/useIsHydrating.svelte.ts"
+        },
+        {
+          "specifier": "../csp-provider/context.js",
+          "kind": "runtime",
+          "names": [
+            "getCSPContext"
+          ],
+          "resolved": "packages/base/src/lib/csp-provider/context.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/reason-parts.ts",
+      "sha256": "0326d21ce4be2c41b5488c86e3687249faf3c51f5e10ae49c16e8efdc183abf5",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [],
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/internals/reasons.ts",
+      "sha256": "f1f52caeefb14448a7e7c9833e24413b923b7bbf40aa1818ca73dc93710b42e7",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [
+        "BaseUIEventReasons",
+        "BaseUIEventReason"
+      ],
+      "imports": [
+        {
+          "specifier": "./reason-parts.js",
+          "kind": "runtime",
+          "names": [
+            "REASONS"
+          ],
+          "resolved": "packages/base/src/lib/internals/reason-parts.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/RenderElement.svelte",
+      "sha256": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "untrack"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "names": [
+            "Snippet"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "names": [
+            "createAttachmentKey"
+          ],
+          "resolved": "external:svelte/attachments"
+        },
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "names": [
+            "BROWSER"
+          ],
+          "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "names": [
+            "HTMLInputAttributes"
+          ],
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "./useRenderElement.js",
+          "kind": "runtime",
+          "names": [
+            "createRenderElement"
+          ],
+          "resolved": "packages/base/src/lib/internals/useRenderElement.ts"
+        },
+        {
+          "specifier": "./useRenderElement.js",
+          "kind": "type",
+          "names": [
+            "UseRenderElementComponentProps",
+            "UseRenderElementParameters"
+          ],
+          "resolved": "packages/base/src/lib/internals/useRenderElement.ts"
+        },
+        {
+          "specifier": "./nativeRefAttachment.js",
+          "kind": "runtime",
+          "names": [
+            "createRefAttachment"
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts"
+        },
+        {
+          "specifier": "./nativeProps.js",
+          "kind": "runtime",
+          "names": [
+            "toNativeStyle"
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/resolveClassValue.ts",
+      "sha256": "584323b17cb1733a798e9ff86e9ff783d6a26d08ecf005a8c2b3c69917c1e722",
+      "reachability": [
+        "type",
+        "runtime"
+      ],
+      "declarations": [
+        "tokens",
+        "resolveClassValue"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "names": [
+            "ClassValue"
+          ],
+          "resolved": "external:svelte/elements"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/stateAttributesMapping.ts",
+      "sha256": "d04c73fe454de256e1641245b5db6a3d70824693f0da33272d0863f033b5230d",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "./useTransitionStatus.svelte.js",
+          "kind": "type",
+          "names": [
+            "TransitionStatus"
+          ],
+          "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts"
+        },
+        {
+          "specifier": "./getStateAttributesProps.js",
+          "kind": "type",
+          "names": [
+            "StateAttributesMapping"
+          ],
+          "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts"
+        },
+        {
+          "specifier": "./TransitionStatusDataAttributes.js",
+          "kind": "runtime",
+          "names": [
+            "TransitionStatusDataAttributes"
+          ],
+          "resolved": "packages/base/src/lib/internals/TransitionStatusDataAttributes.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/TransitionStatusDataAttributes.ts",
+      "sha256": "d3e4a31041bcc80ba21b330d3fedadfadaeae3f498dc09e078e70470cfb98dfe",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [],
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/internals/types.ts",
+      "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "HTMLProps",
+        "ComponentRenderFn",
+        "BaseUIEvent",
+        "WithPreventBaseUIHandler",
+        "WithBaseUIEvent",
+        "BaseUIComponentProps"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "names": [
+            "Snippet"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "names": [
+            "ClassValue",
+            "HTMLAttributes"
+          ],
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../merge-props/index.js",
+          "kind": "type",
+          "names": [
+            "PreventableEvent"
+          ],
+          "resolved": "packages/base/src/lib/merge-props/index.ts"
+        },
+        {
+          "specifier": "./nativeProps.js",
+          "kind": "type",
+          "names": [
+            "NativeStyle"
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+      "sha256": "581abfd20827eed41d9478dc30dc5a7b1b944e32d8428ac238d86625545536f1",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "UseButtonParameters",
+        "useButton",
+        "parameters",
+        "getButtonProps",
+        "isButtonElement",
+        "isValidLinkElement"
+      ],
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "names": [
+            "DEV"
+          ],
+          "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "../../utils/useStableCallback.js",
+          "kind": "runtime",
+          "names": [
+            "useStableCallback"
+          ],
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../../utils/error.js",
+          "kind": "runtime",
+          "names": [
+            "error"
+          ],
+          "resolved": "packages/base/src/lib/utils/error.ts"
+        },
+        {
+          "specifier": "../../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useIsoLayoutEffect"
+          ],
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../../merge-props/index.js",
+          "kind": "runtime",
+          "names": [
+            "makeEventPreventable",
+            "mergeProps"
+          ],
+          "resolved": "packages/base/src/lib/merge-props/index.ts"
+        },
+        {
+          "specifier": "../composite/root/CompositeRootContext.js",
+          "kind": "runtime",
+          "names": [
+            "useCompositeRootContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "names": [
+            "BaseUIEvent",
+            "HTMLProps"
+          ],
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
+          "specifier": "../../utils/useFocusableWhenDisabled.js",
+          "kind": "runtime",
+          "names": [
+            "useFocusableWhenDisabled"
+          ],
+          "resolved": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts"
+        },
+        {
+          "specifier": "../../utils/dispatchClickWithModifiers.js",
+          "kind": "runtime",
+          "names": [
+            "dispatchClickWithModifiers"
+          ],
+          "resolved": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/useAnimationsFinished.ts",
+      "sha256": "e615700a3c4e81ca22060837af8a8c859430ebd8476d6e0a6daffe7986dc3bc4",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "useAnimationsFinished",
+        "exec"
+      ],
+      "imports": [
+        {
+          "specifier": "../utils/useAnimationFrame.js",
+          "kind": "runtime",
+          "names": [
+            "useAnimationFrame"
+          ],
+          "resolved": "packages/base/src/lib/utils/useAnimationFrame.ts"
+        },
+        {
+          "specifier": "../utils/useStableCallback.js",
+          "kind": "runtime",
+          "names": [
+            "useStableCallback"
+          ],
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../utils/resolveRef.js",
+          "kind": "runtime",
+          "names": [
+            "resolveRef"
+          ],
+          "resolved": "packages/base/src/lib/utils/resolveRef.ts"
+        },
+        {
+          "specifier": "./TransitionStatusDataAttributes.js",
+          "kind": "runtime",
+          "names": [
+            "TransitionStatusDataAttributes"
+          ],
+          "resolved": "packages/base/src/lib/internals/TransitionStatusDataAttributes.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/useBaseUiId.ts",
+      "sha256": "fc6d9571f2fc0f71d6f75a8f34eb981a3e09a9a038fbb9aa8b4b83c2cbb3aaa3",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [
+        "useBaseUiId"
+      ],
+      "imports": [
+        {
+          "specifier": "../utils/useId.js",
+          "kind": "runtime",
+          "names": [
+            "useId"
+          ],
+          "resolved": "packages/base/src/lib/utils/useId.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+      "sha256": "9c8d8b8fcd70c0a9ec69a9cc0f2a6864ab19da26d4e3bd2bf9f7e6eb49831d1f",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "UseOpenChangeCompleteParameters",
+        "useOpenChangeComplete"
+      ],
+      "imports": [
+        {
+          "specifier": "../utils/useStableCallback.js",
+          "kind": "runtime",
+          "names": [
+            "useStableCallback"
+          ],
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useIsoLayoutEffect"
+          ],
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "./useAnimationsFinished.js",
+          "kind": "runtime",
+          "names": [
+            "useAnimationsFinished"
+          ],
+          "resolved": "packages/base/src/lib/internals/useAnimationsFinished.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/useRenderElement.ts",
+      "sha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [
+        "createRenderElement",
+        "useRenderElement",
+        "useRenderElementProps",
+        "resolveRenderFunctionProps",
+        "evaluateRenderProp",
+        "renderTag",
+        "NativeRenderDescriptor",
+        "UseRenderElementParameters",
+        "UseRenderElementComponentProps"
+      ],
+      "imports": [
+        {
+          "specifier": "../utils/useMergedRefs.js",
+          "kind": "runtime",
+          "names": [
+            "createMergedRefs"
+          ],
+          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+        },
+        {
+          "specifier": "../utils/useMergedRefs.js",
+          "kind": "type",
+          "names": [
+            "MergedRef",
+            "MergedRefCallback"
+          ],
+          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+        },
+        {
+          "specifier": "../utils/mergeObjects.js",
+          "kind": "runtime",
+          "names": [
+            "mergeObjects"
+          ],
+          "resolved": "packages/base/src/lib/utils/mergeObjects.ts"
+        },
+        {
+          "specifier": "../utils/empty.js",
+          "kind": "runtime",
+          "names": [
+            "EMPTY_OBJECT"
+          ],
+          "resolved": "packages/base/src/lib/utils/empty.ts"
+        },
+        {
+          "specifier": "./getStateAttributesProps.js",
+          "kind": "runtime",
+          "names": [
+            "getStateAttributesProps"
+          ],
+          "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts"
+        },
+        {
+          "specifier": "./getStateAttributesProps.js",
+          "kind": "type",
+          "names": [
+            "StateAttributesMapping"
+          ],
+          "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts"
+        },
+        {
+          "specifier": "../utils/resolveClassName.js",
+          "kind": "runtime",
+          "names": [
+            "resolveClassName"
+          ],
+          "resolved": "packages/base/src/lib/utils/resolveClassName.ts"
+        },
+        {
+          "specifier": "../utils/resolveStyle.js",
+          "kind": "runtime",
+          "names": [
+            "resolveStyle"
+          ],
+          "resolved": "packages/base/src/lib/utils/resolveStyle.ts"
+        },
+        {
+          "specifier": "../merge-props/index.js",
+          "kind": "runtime",
+          "names": [
+            "mergeProps",
+            "mergePropsN",
+            "mergeClassNames"
+          ],
+          "resolved": "packages/base/src/lib/merge-props/index.ts"
+        },
+        {
+          "specifier": "./nativeProps.js",
+          "kind": "runtime",
+          "names": [
+            "mergeNativeStyles",
+            "toNativeClass"
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        },
+        {
+          "specifier": "./nativeRefAttachment.js",
+          "kind": "runtime",
+          "names": [
+            "isNativeRefAttachment"
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "names": [
+            "BaseUIComponentProps",
+            "ComponentRenderFn",
+            "HTMLProps"
+          ],
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+      "sha256": "1236abbbe5a5e1dec17c77d51d704f3f03e48ecdd34f85a995e1dde00c60c54b",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "TransitionStatus",
+        "useTransitionStatus"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "untrack"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useIsoLayoutEffect"
+          ],
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../utils/useAnimationFrame.js",
+          "kind": "runtime",
+          "names": [
+            "AnimationFrame"
+          ],
+          "resolved": "packages/base/src/lib/utils/useAnimationFrame.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/useValueChanged.svelte.ts",
+      "sha256": "340a8f5ed100094c283f167c8a8a3e196708cdf238eeadc93f148ee31c4274c9",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [
+        "useValueChanged"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "untrack"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useIsoLayoutEffect"
+          ],
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../utils/useStableCallback.js",
+          "kind": "runtime",
+          "names": [
+            "useStableCallback"
+          ],
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../utils/useRefWithInit.js",
+          "kind": "runtime",
+          "names": [
+            "useRefWithInit"
+          ],
+          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/merge-props/index.ts",
+      "sha256": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "./mergeProps.js",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/merge-props/mergeProps.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/merge-props/mergeProps.ts",
+      "sha256": "7a097b833ae8854c5a26e34009adfb4e0297dd50f56ad5f0c1ac8afa8187f98b",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [
+        "PreventableEvent",
+        "Props",
+        "InputProps",
+        "Handler",
+        "mergeProps",
+        "mergeProps",
+        "mergeProps",
+        "mergeProps",
+        "mergeProps",
+        "mergeProps",
+        "mergeProps",
+        "mergePropsN",
+        "createInitialMergedProps",
+        "mergeInto",
+        "copyInitialProps",
+        "mutablyMergeInto",
+        "isEventHandler",
+        "isPropsGetter",
+        "resolvePropsGetter",
+        "mergeEventHandlers",
+        "wrapEventHandler",
+        "makeEventPreventable",
+        "mergeClassNames",
+        "isSyntheticEvent"
+      ],
+      "imports": [
+        {
+          "specifier": "../internals/nativeProps.js",
+          "kind": "runtime",
+          "names": [
+            "copyAttachmentSymbols",
+            "mergeNativeStyles",
+            "toNativeClass"
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        },
+        {
+          "specifier": "../utils/mergeObjects.js",
+          "kind": "runtime",
+          "names": [
+            "mergeObjects"
+          ],
+          "resolved": "packages/base/src/lib/utils/mergeObjects.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/control.types.ts",
+      "sha256": "00cf77f4cb8b407b63862f741bb8249dcc32d6eaf78e99324a99f860c67c9874",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "NativeInputAttributes",
+        "RemoteControlState",
+        "RemoteControlRenderProps",
+        "RemoteControlProps"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "names": [
+            "Snippet"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "names": [
+            "ClassValue",
+            "HTMLInputAttributes"
+          ],
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../field/types.js",
+          "kind": "type",
+          "names": [
+            "FieldControlChangeEventDetails",
+            "FieldControlProps",
+            "FieldRootState"
+          ],
+          "resolved": "packages/base/src/lib/field/types.ts"
+        },
+        {
+          "specifier": "../internals/nativeProps.js",
+          "kind": "type",
+          "names": [
+            "NativeStyle"
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "names": [
+            "HTMLProps"
+          ],
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
+          "specifier": "../switch/types.js",
+          "kind": "type",
+          "names": [
+            "SwitchRootProps"
+          ],
+          "resolved": "packages/base/src/lib/switch/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/index.parts.ts",
+      "sha256": "764ef610c588dec913e1e63478313ca70c4e4f3a488ca2f72da09b9a94485cb3",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "../field/index.parts.js",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/field/index.parts.ts"
+        },
+        {
+          "specifier": "./RemoteRoot.svelte",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/remote-forms/RemoteRoot.svelte"
+        },
+        {
+          "specifier": "./RemoteControl.svelte",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/remote-forms/RemoteControl.svelte"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/nativeControlValue.ts",
+      "sha256": "620730edb668abb6f6ccc07f880e7000c6456c7f710a0031490c7feb66aa7072",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "nativeControlValue"
+      ],
+      "imports": [
+        {
+          "specifier": "../field/root/useFieldValidation.svelte.js",
+          "kind": "type",
+          "names": [
+            "NativeValidationControl"
+          ],
+          "resolved": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/RemoteBooleanControl.svelte",
+      "sha256": "2ec88d564588075320eafa7929bdcf82f3930eb067632875a8052244e804c068",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "change"
+      ],
+      "imports": [
+        {
+          "specifier": "../checkbox/root/CheckboxRoot.svelte",
+          "kind": "runtime",
+          "names": [
+            "CheckboxRoot"
+          ],
+          "resolved": "packages/base/src/lib/checkbox/root/CheckboxRoot.svelte"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "names": [
+            "createAttachmentKey"
+          ],
+          "resolved": "external:svelte/attachments"
+        },
+        {
+          "specifier": "../internals/nativeRefAttachment.js",
+          "kind": "runtime",
+          "names": [
+            "createRefAttachment"
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts"
+        },
+        {
+          "specifier": "../internals/field-control-name/FieldControlNameContext.js",
+          "kind": "runtime",
+          "names": [
+            "setFieldControlNameContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-control-name/FieldControlNameContext.ts"
+        },
+        {
+          "specifier": "../internals/field-control-value/FieldControlValueContext.js",
+          "kind": "runtime",
+          "names": [
+            "setFieldControlValueContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-control-value/FieldControlValueContext.ts"
+        },
+        {
+          "specifier": "../internals/field-root-context/FieldRootContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFieldRootContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "./RemoteFieldContext.js",
+          "kind": "runtime",
+          "names": [
+            "useRemoteFieldContext"
+          ],
+          "resolved": "packages/base/src/lib/remote-forms/RemoteFieldContext.ts"
+        },
+        {
+          "specifier": "./control.types.js",
+          "kind": "type",
+          "names": [
+            "RemoteControlProps",
+            "RemoteControlRenderProps",
+            "RemoteControlState"
+          ],
+          "resolved": "packages/base/src/lib/remote-forms/control.types.ts"
+        },
+        {
+          "specifier": "../switch/types.js",
+          "kind": "type",
+          "names": [
+            "SwitchRootChangeEventDetails"
+          ],
+          "resolved": "packages/base/src/lib/switch/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/RemoteControl.svelte",
+      "sha256": "a2c3bf73969d002f99e7571df274a77d97d0603ec1d8c517901992ca58312527",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "./RemoteTextControl.svelte",
+          "kind": "runtime",
+          "names": [
+            "RemoteTextControl"
+          ],
+          "resolved": "packages/base/src/lib/remote-forms/RemoteTextControl.svelte"
+        },
+        {
+          "specifier": "./RemoteBooleanControl.svelte",
+          "kind": "runtime",
+          "names": [
+            "RemoteBooleanControl"
+          ],
+          "resolved": "packages/base/src/lib/remote-forms/RemoteBooleanControl.svelte"
+        },
+        {
+          "specifier": "./RemoteNativeControl.svelte",
+          "kind": "runtime",
+          "names": [
+            "RemoteNativeControl"
+          ],
+          "resolved": "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte"
+        },
+        {
+          "specifier": "./RemoteFieldContext.js",
+          "kind": "runtime",
+          "names": [
+            "useRemoteFieldContext"
+          ],
+          "resolved": "packages/base/src/lib/remote-forms/RemoteFieldContext.ts"
+        },
+        {
+          "specifier": "./control.types.js",
+          "kind": "type",
+          "names": [
+            "RemoteControlProps"
+          ],
+          "resolved": "packages/base/src/lib/remote-forms/control.types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/RemoteFieldContext.ts",
+      "sha256": "10184201edc3e9b7b2fb34d6b6f85eec21e9c2e4087d7d305b14e2976f77f98e",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "RemoteFieldContext",
+        "setRemoteFieldContext",
+        "useRemoteFieldContext"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "getContext",
+            "setContext"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "./runtime.js",
+          "kind": "type",
+          "names": [
+            "RemoteAccessor",
+            "RemoteDescriptor"
+          ],
+          "resolved": "packages/base/src/lib/remote-forms/runtime.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/RemoteFormContext.ts",
+      "sha256": "21588cc2de0950e70f6de6cd4a40a8b44bf27c7329bbb95699bad710caabb12c",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "RemoteFormContext",
+        "setRemoteFormContext",
+        "useRemoteFormContext"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "getContext",
+            "setContext"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "names": [
+            "RemoteFormLike"
+          ],
+          "resolved": "packages/base/src/lib/remote-forms/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte",
+      "sha256": "8b7b061b7d5eb9767098431d4c3415b5446dbe5be74de175c03e98528547038c",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "names": [
+            "RenderElement"
+          ],
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../internals/field-root-context/FieldRootContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFieldRootContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "../field/item/FieldItemContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFieldItemContext"
+          ],
+          "resolved": "packages/base/src/lib/field/item/FieldItemContext.ts"
+        },
+        {
+          "specifier": "../internals/form-context/FormContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFormContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/form-context/FormContext.ts"
+        },
+        {
+          "specifier": "../internals/labelable-provider/LabelableContext.js",
+          "kind": "runtime",
+          "names": [
+            "useLabelableContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts"
+        },
+        {
+          "specifier": "../internals/labelable-provider/useLabelableId.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useLabelableId"
+          ],
+          "resolved": "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts"
+        },
+        {
+          "specifier": "../internals/field-register-control/useRegisterFieldControl.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useRegisterFieldControl"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts"
+        },
+        {
+          "specifier": "../internals/field-control-name/FieldControlNameContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFieldControlNativeName"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-control-name/FieldControlNameContext.ts"
+        },
+        {
+          "specifier": "../internals/useBaseUiId.js",
+          "kind": "runtime",
+          "names": [
+            "useBaseUiId"
+          ],
+          "resolved": "packages/base/src/lib/internals/useBaseUiId.ts"
+        },
+        {
+          "specifier": "../utils/useStableCallback.js",
+          "kind": "runtime",
+          "names": [
+            "useStableCallback"
+          ],
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../utils/useTimeout.js",
+          "kind": "runtime",
+          "names": [
+            "useTimeout"
+          ],
+          "resolved": "packages/base/src/lib/utils/useTimeout.ts"
+        },
+        {
+          "specifier": "../utils/owner.js",
+          "kind": "runtime",
+          "names": [
+            "ownerDocument"
+          ],
+          "resolved": "packages/base/src/lib/utils/owner.ts"
+        },
+        {
+          "specifier": "../utils/shadowDom.js",
+          "kind": "runtime",
+          "names": [
+            "activeElement"
+          ],
+          "resolved": "packages/base/src/lib/utils/shadowDom.ts"
+        },
+        {
+          "specifier": "../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useIsoLayoutEffect"
+          ],
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../internals/useValueChanged.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useValueChanged"
+          ],
+          "resolved": "packages/base/src/lib/internals/useValueChanged.svelte.ts"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "kind": "runtime",
+          "names": [
+            "createChangeEventDetails"
+          ],
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../internals/reasons.js",
+          "kind": "runtime",
+          "names": [
+            "REASONS"
+          ],
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        },
+        {
+          "specifier": "../internals/field-constants/constants.js",
+          "kind": "runtime",
+          "names": [
+            "fieldValidityMapping"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-constants/constants.ts"
+        },
+        {
+          "specifier": "../utils/areArraysEqual.js",
+          "kind": "runtime",
+          "names": [
+            "areArraysEqual"
+          ],
+          "resolved": "packages/base/src/lib/utils/areArraysEqual.ts"
+        },
+        {
+          "specifier": "./RemoteFieldContext.js",
+          "kind": "runtime",
+          "names": [
+            "useRemoteFieldContext"
+          ],
+          "resolved": "packages/base/src/lib/remote-forms/RemoteFieldContext.ts"
+        },
+        {
+          "specifier": "./nativeControlValue.js",
+          "kind": "runtime",
+          "names": [
+            "nativeControlValue"
+          ],
+          "resolved": "packages/base/src/lib/remote-forms/nativeControlValue.ts"
+        },
+        {
+          "specifier": "../field/root/useFieldValidation.svelte.js",
+          "kind": "type",
+          "names": [
+            "NativeValidationControl"
+          ],
+          "resolved": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts"
+        },
+        {
+          "specifier": "./control.types.js",
+          "kind": "type",
+          "names": [
+            "RemoteControlProps",
+            "RemoteControlState"
+          ],
+          "resolved": "packages/base/src/lib/remote-forms/control.types.ts"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "names": [
+            "HTMLSelectAttributes"
+          ],
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "names": [
+            "Snippet"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "names": [
+            "HTMLProps"
+          ],
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/RemoteRoot.svelte",
+      "sha256": "f71fbc4d572479119a9d30646d1011637d9c3f11a0ac8c2944b8b93747de200f",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "Props"
+      ],
+      "imports": [
+        {
+          "specifier": "../field/Root.svelte",
+          "kind": "runtime",
+          "names": [
+            "Root"
+          ],
+          "resolved": "packages/base/src/lib/field/Root.svelte"
+        },
+        {
+          "specifier": "../internals/field-control-name/FieldControlNameContext.js",
+          "kind": "runtime",
+          "names": [
+            "setFieldControlNameContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-control-name/FieldControlNameContext.ts"
+        },
+        {
+          "specifier": "./RemoteFormContext.js",
+          "kind": "runtime",
+          "names": [
+            "useRemoteFormContext"
+          ],
+          "resolved": "packages/base/src/lib/remote-forms/RemoteFormContext.ts"
+        },
+        {
+          "specifier": "./RemoteFieldContext.js",
+          "kind": "runtime",
+          "names": [
+            "setRemoteFieldContext"
+          ],
+          "resolved": "packages/base/src/lib/remote-forms/RemoteFieldContext.ts"
+        },
+        {
+          "specifier": "./runtime.js",
+          "kind": "runtime",
+          "names": [
+            "remoteFieldArguments",
+            "remoteFieldPath",
+            "remoteFieldSegments",
+            "resolveRemoteAccessor"
+          ],
+          "resolved": "packages/base/src/lib/remote-forms/runtime.ts"
+        },
+        {
+          "specifier": "../field/types.js",
+          "kind": "type",
+          "names": [
+            "FieldRootProps"
+          ],
+          "resolved": "packages/base/src/lib/field/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/RemoteTextControl.svelte",
+      "sha256": "46a8443f2c9dafaef3dee6635550a8d76a6a275e12e6311e2ab726f8dcfeaa7f",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "../field/Control.svelte",
+          "kind": "runtime",
+          "names": [
+            "FieldControl"
+          ],
+          "resolved": "packages/base/src/lib/field/Control.svelte"
+        },
+        {
+          "specifier": "../internals/field-control-name/FieldControlNameContext.js",
+          "kind": "runtime",
+          "names": [
+            "setFieldControlNameContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-control-name/FieldControlNameContext.ts"
+        },
+        {
+          "specifier": "./RemoteFieldContext.js",
+          "kind": "runtime",
+          "names": [
+            "useRemoteFieldContext"
+          ],
+          "resolved": "packages/base/src/lib/remote-forms/RemoteFieldContext.ts"
+        },
+        {
+          "specifier": "../internals/nativeProps.js",
+          "kind": "runtime",
+          "names": [
+            "toNativeStyle"
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        },
+        {
+          "specifier": "../field/types.js",
+          "kind": "type",
+          "names": [
+            "FieldControlState"
+          ],
+          "resolved": "packages/base/src/lib/field/types.ts"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "names": [
+            "Snippet"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "./control.types.js",
+          "kind": "type",
+          "names": [
+            "RemoteControlProps"
+          ],
+          "resolved": "packages/base/src/lib/remote-forms/control.types.ts"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "names": [
+            "HTMLProps"
+          ],
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/runtime.ts",
+      "sha256": "8e0b21e16d8706f7eb835c61df55e2caed81e86be2837006364721cf89806782",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "RemoteIssue",
+        "RemoteDescriptor",
+        "RemoteAccessor",
+        "remoteFieldPath",
+        "resolveRemoteAccessor",
+        "remoteFieldSegments",
+        "remoteFieldArguments",
+        "remoteFormErrors"
+      ],
+      "imports": [
+        {
+          "specifier": "../form/types.js",
+          "kind": "type",
+          "names": [
+            "FormErrors"
+          ],
+          "resolved": "packages/base/src/lib/form/types.ts"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "names": [
+            "HTMLProps"
+          ],
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/types.ts",
+      "sha256": "d8acd95ea2deb62f2db7a96276100d6820c8e3fe262b4ccffa4dbc97c6956d33",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "RemoteFormLike",
+        "FieldAccessor",
+        "IsAny",
+        "RemoteFieldArguments",
+        "JoinPath",
+        "FieldPaths",
+        "FieldAtNumber",
+        "FieldAtKey",
+        "HasOnly",
+        "CanonicalIndex",
+        "CanonicalName",
+        "IsIdentifier",
+        "IsIndex",
+        "FieldAtBrackets",
+        "FieldAtSegment",
+        "FieldAtPath",
+        "FieldSelection",
+        "MatchesEachName",
+        "CommonFieldSelection",
+        "Shorthand",
+        "Selection",
+        "RemoteFieldName",
+        "RemoteFieldRootPropsForName",
+        "RemoteFieldRootProps",
+        "TypedRoot",
+        "TypedField"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "names": [
+            "Component",
+            "ComponentConstructorOptions",
+            "SvelteComponent"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../field/types.js",
+          "kind": "type",
+          "names": [
+            "FieldRootProps"
+          ],
+          "resolved": "packages/base/src/lib/field/types.ts"
+        },
+        {
+          "specifier": "../field/index.parts.js",
+          "kind": "type",
+          "names": [],
+          "resolved": "packages/base/src/lib/field/index.parts.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/slider/control/SliderControl.svelte",
+      "sha256": "fae4489f0c9ac67544ac9504aee03fde908e4e4ae155599e45165b0fefcfcb9e",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "Coords",
+        "getControlOffset",
+        "parseSize",
+        "getFingerCoords",
+        "getThumbInput",
+        "updatePressedThumb",
+        "resetPressedThumb",
+        "isTargetDisabledThumb",
+        "getFingerState",
+        "startPressing",
+        "focusThumb",
+        "setValueFromPointer",
+        "FingerState"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "untrack"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "names": [
+            "isElement"
+          ],
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "../../utils/owner.js",
+          "kind": "runtime",
+          "names": [
+            "ownerDocument",
+            "ownerWindow"
+          ],
+          "resolved": "packages/base/src/lib/utils/owner.ts"
+        },
+        {
+          "specifier": "../../utils/useAnimationFrame.js",
+          "kind": "runtime",
+          "names": [
+            "useAnimationFrame"
+          ],
+          "resolved": "packages/base/src/lib/utils/useAnimationFrame.ts"
+        },
+        {
+          "specifier": "../../utils/useStableCallback.js",
+          "kind": "runtime",
+          "names": [
+            "useStableCallback"
+          ],
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../../utils/clamp.js",
+          "kind": "runtime",
+          "names": [
+            "clamp"
+          ],
+          "resolved": "packages/base/src/lib/utils/clamp.ts"
+        },
+        {
+          "specifier": "../../utils/shadowDom.js",
+          "kind": "runtime",
+          "names": [
+            "activeElement",
+            "contains",
+            "getTarget"
+          ],
+          "resolved": "packages/base/src/lib/utils/shadowDom.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails.js",
+          "kind": "runtime",
+          "names": [
+            "createChangeEventDetails",
+            "createGenericEventDetails"
+          ],
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons.js",
+          "kind": "runtime",
+          "names": [
+            "REASONS"
+          ],
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        },
+        {
+          "specifier": "../../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "names": [
+            "RenderElement"
+          ],
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../../direction-provider/context.js",
+          "kind": "runtime",
+          "names": [
+            "useDirection"
+          ],
+          "resolved": "packages/base/src/lib/direction-provider/context.ts"
+        },
+        {
+          "specifier": "../root/SliderRootContext.js",
+          "kind": "runtime",
+          "names": [
+            "useSliderRootContext"
+          ],
+          "resolved": "packages/base/src/lib/slider/root/SliderRootContext.ts"
+        },
+        {
+          "specifier": "../root/stateAttributesMapping.js",
+          "kind": "runtime",
+          "names": [
+            "sliderStateAttributesMapping"
+          ],
+          "resolved": "packages/base/src/lib/slider/root/stateAttributesMapping.ts"
+        },
+        {
+          "specifier": "../utils/getMidpoint.js",
+          "kind": "runtime",
+          "names": [
+            "getMidpoint"
+          ],
+          "resolved": "packages/base/src/lib/slider/utils/getMidpoint.ts"
+        },
+        {
+          "specifier": "../utils/roundValueToStep.js",
+          "kind": "runtime",
+          "names": [
+            "roundValueToStep"
+          ],
+          "resolved": "packages/base/src/lib/slider/utils/roundValueToStep.ts"
+        },
+        {
+          "specifier": "../utils/validateMinimumDistance.js",
+          "kind": "runtime",
+          "names": [
+            "validateMinimumDistance"
+          ],
+          "resolved": "packages/base/src/lib/slider/utils/validateMinimumDistance.ts"
+        },
+        {
+          "specifier": "../utils/resolveThumbCollision.js",
+          "kind": "runtime",
+          "names": [
+            "resolveThumbCollision"
+          ],
+          "resolved": "packages/base/src/lib/slider/utils/resolveThumbCollision.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "names": [
+            "SliderControlProps"
+          ],
+          "resolved": "packages/base/src/lib/slider/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/slider/index.parts.ts",
+      "sha256": "b85aa8d785d5f79cd1638060d5cdff31df9d63ab8d6a5b188dcc714833c2d9d4",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "./root/SliderRoot.svelte",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/slider/root/SliderRoot.svelte"
+        },
+        {
+          "specifier": "./label/SliderLabel.svelte",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/slider/label/SliderLabel.svelte"
+        },
+        {
+          "specifier": "./value/SliderValue.svelte",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/slider/value/SliderValue.svelte"
+        },
+        {
+          "specifier": "./control/SliderControl.svelte",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/slider/control/SliderControl.svelte"
+        },
+        {
+          "specifier": "./track/SliderTrack.svelte",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/slider/track/SliderTrack.svelte"
+        },
+        {
+          "specifier": "./thumb/SliderThumb.svelte",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/slider/thumb/SliderThumb.svelte"
+        },
+        {
+          "specifier": "./indicator/SliderIndicator.svelte",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/slider/indicator/SliderIndicator.svelte"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/slider/index.ts",
+      "sha256": "b99aa71baa1caecc0c80374c0fe0e0bdd6a84c31bc38e96ce3c18d4c1822e8b4",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "./index.parts.js",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/slider/index.parts.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/slider/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/slider/indicator/SliderIndicator.svelte",
+      "sha256": "8cba36f14bc49cd4bb2a757a65d1ed32b32c0054e9b27c43c7750cf331ea2c1f",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "getIndicatorStyles"
+      ],
+      "imports": [
+        {
+          "specifier": "../../utils/valueToPercent.js",
+          "kind": "runtime",
+          "names": [
+            "valueToPercent"
+          ],
+          "resolved": "packages/base/src/lib/utils/valueToPercent.ts"
+        },
+        {
+          "specifier": "../../utils/useIsHydrating.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useIsHydrating"
+          ],
+          "resolved": "packages/base/src/lib/utils/useIsHydrating.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "names": [
+            "RenderElement"
+          ],
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../root/SliderRootContext.js",
+          "kind": "runtime",
+          "names": [
+            "useSliderRootContext"
+          ],
+          "resolved": "packages/base/src/lib/slider/root/SliderRootContext.ts"
+        },
+        {
+          "specifier": "../root/stateAttributesMapping.js",
+          "kind": "runtime",
+          "names": [
+            "sliderStateAttributesMapping"
+          ],
+          "resolved": "packages/base/src/lib/slider/root/stateAttributesMapping.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "names": [
+            "SliderIndicatorProps"
+          ],
+          "resolved": "packages/base/src/lib/slider/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/slider/label/SliderLabel.svelte",
+      "sha256": "9d366e71fb549d4591d777b79bd15d92efa9d277e1ffdb26cf9067c5e39c8588",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "focusControl"
+      ],
+      "imports": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "names": [
+            "isHTMLElement"
+          ],
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "../../utils/owner.js",
+          "kind": "runtime",
+          "names": [
+            "ownerDocument"
+          ],
+          "resolved": "packages/base/src/lib/utils/owner.ts"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/useLabel.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "focusElementWithVisible",
+            "useLabel"
+          ],
+          "resolved": "packages/base/src/lib/internals/labelable-provider/useLabel.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "names": [
+            "RenderElement"
+          ],
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../root/SliderRootContext.js",
+          "kind": "runtime",
+          "names": [
+            "useSliderRootContext"
+          ],
+          "resolved": "packages/base/src/lib/slider/root/SliderRootContext.ts"
+        },
+        {
+          "specifier": "../root/stateAttributesMapping.js",
+          "kind": "runtime",
+          "names": [
+            "sliderStateAttributesMapping"
+          ],
+          "resolved": "packages/base/src/lib/slider/root/stateAttributesMapping.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "names": [
+            "SliderLabelProps"
+          ],
+          "resolved": "packages/base/src/lib/slider/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/slider/root/SliderRoot.svelte",
+      "sha256": "1333b7bacb1fc0bfb3f627d180665a8b70f81cc4f6bb36884e2a55e4c2b1ba30",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "areValuesEqual"
+      ],
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "names": [
+            "DEV"
+          ],
+          "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "../../utils/owner.js",
+          "kind": "runtime",
+          "names": [
+            "ownerDocument"
+          ],
+          "resolved": "packages/base/src/lib/utils/owner.ts"
+        },
+        {
+          "specifier": "../../utils/useControlled.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useControlled"
+          ],
+          "resolved": "packages/base/src/lib/utils/useControlled.svelte.ts"
+        },
+        {
+          "specifier": "../../utils/useStableCallback.js",
+          "kind": "runtime",
+          "names": [
+            "useStableCallback"
+          ],
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useIsoLayoutEffect"
+          ],
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../../utils/warn.js",
+          "kind": "runtime",
+          "names": [
+            "warn"
+          ],
+          "resolved": "packages/base/src/lib/utils/warn.ts"
+        },
+        {
+          "specifier": "../../utils/clamp.js",
+          "kind": "runtime",
+          "names": [
+            "clamp"
+          ],
+          "resolved": "packages/base/src/lib/utils/clamp.ts"
+        },
+        {
+          "specifier": "../../utils/areArraysEqual.js",
+          "kind": "runtime",
+          "names": [
+            "areArraysEqual"
+          ],
+          "resolved": "packages/base/src/lib/utils/areArraysEqual.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails.js",
+          "kind": "runtime",
+          "names": [
+            "createChangeEventDetails",
+            "createGenericEventDetails"
+          ],
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/useValueChanged.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useValueChanged"
+          ],
+          "resolved": "packages/base/src/lib/internals/useValueChanged.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/useBaseUiId.js",
+          "kind": "runtime",
+          "names": [
+            "useBaseUiId"
+          ],
+          "resolved": "packages/base/src/lib/internals/useBaseUiId.ts"
+        },
+        {
+          "specifier": "../../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "names": [
+            "RenderElement"
+          ],
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../../utils/shadowDom.js",
+          "kind": "runtime",
+          "names": [
+            "activeElement",
+            "contains"
+          ],
+          "resolved": "packages/base/src/lib/utils/shadowDom.ts"
+        },
+        {
+          "specifier": "../../internals/composite/list/createCompositeList.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "createCompositeList"
+          ],
+          "resolved": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/composite/list/CompositeListContext.js",
+          "kind": "type",
+          "names": [
+            "CompositeMetadata"
+          ],
+          "resolved": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts"
+        },
+        {
+          "specifier": "../../internals/field-root-context/FieldRootContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFieldRootContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "../../internals/field-register-control/useRegisterFieldControl.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useRegisterFieldControl"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/form-context/FormContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFormContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/form-context/FormContext.ts"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/LabelableContext.js",
+          "kind": "runtime",
+          "names": [
+            "useLabelableContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts"
+        },
+        {
+          "specifier": "../../utils/resolveAriaLabelledBy.js",
+          "kind": "runtime",
+          "names": [
+            "resolveAriaLabelledBy",
+            "getDefaultLabelId"
+          ],
+          "resolved": "packages/base/src/lib/utils/resolveAriaLabelledBy.ts"
+        },
+        {
+          "specifier": "../utils/asc.js",
+          "kind": "runtime",
+          "names": [
+            "asc"
+          ],
+          "resolved": "packages/base/src/lib/slider/utils/asc.ts"
+        },
+        {
+          "specifier": "../utils/getSliderValue.js",
+          "kind": "runtime",
+          "names": [
+            "getSliderValue"
+          ],
+          "resolved": "packages/base/src/lib/slider/utils/getSliderValue.ts"
+        },
+        {
+          "specifier": "../utils/validateMinimumDistance.js",
+          "kind": "runtime",
+          "names": [
+            "validateMinimumDistance"
+          ],
+          "resolved": "packages/base/src/lib/slider/utils/validateMinimumDistance.ts"
+        },
+        {
+          "specifier": "./stateAttributesMapping.js",
+          "kind": "runtime",
+          "names": [
+            "sliderStateAttributesMapping"
+          ],
+          "resolved": "packages/base/src/lib/slider/root/stateAttributesMapping.ts"
+        },
+        {
+          "specifier": "./SliderRootContext.js",
+          "kind": "runtime",
+          "names": [
+            "setSliderRootContext"
+          ],
+          "resolved": "packages/base/src/lib/slider/root/SliderRootContext.ts"
+        },
+        {
+          "specifier": "../../internals/reasons.js",
+          "kind": "runtime",
+          "names": [
+            "REASONS"
+          ],
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        },
+        {
+          "specifier": "../../internals/types.js",
+          "kind": "type",
+          "names": [
+            "HTMLProps"
+          ],
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "names": [
+            "SliderRootProps",
+            "SliderRootState",
+            "SliderRootChangeEventDetails",
+            "SliderRootChangeEventReason",
+            "SliderRootCommitEventDetails",
+            "ThumbMetadata"
+          ],
+          "resolved": "packages/base/src/lib/slider/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/slider/root/SliderRootContext.ts",
+      "sha256": "8723d7b7336d3782604ed10e0d1a271a29737a7bcffc08e9625062be9f4a49f4",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [
+        "SliderRootContext",
+        "setSliderRootContext",
+        "useSliderRootContext"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "getContext",
+            "setContext"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../../internals/composite/list/CompositeListContext.js",
+          "kind": "type",
+          "names": [
+            "CompositeMetadata"
+          ],
+          "resolved": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts"
+        },
+        {
+          "specifier": "../../field/root/useFieldValidation.svelte.js",
+          "kind": "type",
+          "names": [
+            "UseFieldValidationReturnValue"
+          ],
+          "resolved": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "names": [
+            "SliderRootState",
+            "SliderRootChangeEventReason",
+            "SliderRootChangeEventDetails",
+            "SliderRootCommitEventDetails",
+            "ThumbMetadata"
+          ],
+          "resolved": "packages/base/src/lib/slider/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/slider/root/stateAttributesMapping.ts",
+      "sha256": "94f23ecf420334927f01b106925688fadbd53212ac044f04d4fb331a2dcc2c58",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "../../internals/getStateAttributesProps.js",
+          "kind": "type",
+          "names": [
+            "StateAttributesMapping"
+          ],
+          "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "names": [
+            "SliderRootState"
+          ],
+          "resolved": "packages/base/src/lib/slider/types.ts"
+        },
+        {
+          "specifier": "../../internals/field-constants/constants.js",
+          "kind": "runtime",
+          "names": [
+            "fieldValidityMapping"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-constants/constants.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/slider/thumb/prehydrationScript.min.ts",
+      "sha256": "72161bdbd0bbbf839d9db4cb8c2601567c672dc1ff7fd82f3ecfbbef2f792a3f",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [],
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/slider/thumb/SliderThumb.svelte",
+      "sha256": "7856e86a53a0c28ebaeb8db06259d7eba352b0ad2df6512e13f5c3bd9bd210a8",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "getDefaultAriaValueText",
+        "getNewValue"
+      ],
+      "imports": [
+        {
+          "specifier": "../../utils/useStableCallback.js",
+          "kind": "runtime",
+          "names": [
+            "useStableCallback"
+          ],
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useIsoLayoutEffect"
+          ],
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../../utils/useMergedRefs.js",
+          "kind": "runtime",
+          "names": [
+            "createMergedRefs"
+          ],
+          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+        },
+        {
+          "specifier": "../../utils/visuallyHidden.js",
+          "kind": "runtime",
+          "names": [
+            "visuallyHidden"
+          ],
+          "resolved": "packages/base/src/lib/utils/visuallyHidden.ts"
+        },
+        {
+          "specifier": "../../utils/owner.js",
+          "kind": "runtime",
+          "names": [
+            "ownerWindow"
+          ],
+          "resolved": "packages/base/src/lib/utils/owner.ts"
+        },
+        {
+          "specifier": "./prehydrationScript.min.js",
+          "kind": "runtime",
+          "names": [
+            "script"
+          ],
+          "resolved": "packages/base/src/lib/slider/thumb/prehydrationScript.min.ts"
+        },
+        {
+          "specifier": "../../utils/clamp.js",
+          "kind": "runtime",
+          "names": [
+            "clamp"
+          ],
+          "resolved": "packages/base/src/lib/utils/clamp.ts"
+        },
+        {
+          "specifier": "../../utils/formatNumber.js",
+          "kind": "runtime",
+          "names": [
+            "formatNumber"
+          ],
+          "resolved": "packages/base/src/lib/utils/formatNumber.ts"
+        },
+        {
+          "specifier": "../../merge-props/index.js",
+          "kind": "runtime",
+          "names": [
+            "mergeProps"
+          ],
+          "resolved": "packages/base/src/lib/merge-props/index.ts"
+        },
+        {
+          "specifier": "../../internals/useBaseUiId.js",
+          "kind": "runtime",
+          "names": [
+            "useBaseUiId"
+          ],
+          "resolved": "packages/base/src/lib/internals/useBaseUiId.ts"
+        },
+        {
+          "specifier": "../../utils/useIsHydrating.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useIsHydrating"
+          ],
+          "resolved": "packages/base/src/lib/utils/useIsHydrating.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "names": [
+            "RenderElement"
+          ],
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "./SliderThumbNativeInput.svelte",
+          "kind": "runtime",
+          "names": [
+            "SliderThumbNativeInput"
+          ],
+          "resolved": "packages/base/src/lib/slider/thumb/SliderThumbNativeInput.svelte"
+        },
+        {
+          "specifier": "../../internals/types.js",
+          "kind": "type",
+          "names": [
+            "HTMLProps"
+          ],
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
+          "specifier": "../../utils/valueToPercent.js",
+          "kind": "runtime",
+          "names": [
+            "valueToPercent"
+          ],
+          "resolved": "packages/base/src/lib/utils/valueToPercent.ts"
+        },
+        {
+          "specifier": "../../internals/composite/composite.js",
+          "kind": "runtime",
+          "names": [
+            "ARROW_DOWN",
+            "ARROW_UP",
+            "ARROW_RIGHT",
+            "ARROW_LEFT",
+            "HOME",
+            "END",
+            "COMPOSITE_KEYS",
+            "PAGE_UP",
+            "PAGE_DOWN"
+          ],
+          "resolved": "packages/base/src/lib/internals/composite/composite.ts"
+        },
+        {
+          "specifier": "../../internals/composite/list/useCompositeListItem.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useCompositeListItem"
+          ],
+          "resolved": "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts"
+        },
+        {
+          "specifier": "../../direction-provider/context.js",
+          "kind": "runtime",
+          "names": [
+            "useDirection"
+          ],
+          "resolved": "packages/base/src/lib/direction-provider/context.ts"
+        },
+        {
+          "specifier": "../../internals/PrehydrationScript.svelte",
+          "kind": "runtime",
+          "names": [
+            "PrehydrationScript"
+          ],
+          "resolved": "packages/base/src/lib/internals/PrehydrationScript.svelte"
+        },
+        {
+          "specifier": "../../internals/field-control-name/FieldControlNameContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFieldControlNativeName"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-control-name/FieldControlNameContext.ts"
+        },
+        {
+          "specifier": "../../internals/field-root-context/FieldRootContext.js",
+          "kind": "runtime",
+          "names": [
+            "useFieldRootContext"
+          ],
+          "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "../../utils/shadowDom.js",
+          "kind": "runtime",
+          "names": [
+            "contains"
+          ],
+          "resolved": "packages/base/src/lib/utils/shadowDom.ts"
+        },
+        {
+          "specifier": "../../floating-ui/utils/matchesFocusVisible.js",
+          "kind": "runtime",
+          "names": [
+            "matchesFocusVisible"
+          ],
+          "resolved": "packages/base/src/lib/floating-ui/utils/matchesFocusVisible.ts"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/useLabelableId.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useLabelableId"
+          ],
+          "resolved": "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts"
+        },
+        {
+          "specifier": "../utils/getMidpoint.js",
+          "kind": "runtime",
+          "names": [
+            "getMidpoint"
+          ],
+          "resolved": "packages/base/src/lib/slider/utils/getMidpoint.ts"
+        },
+        {
+          "specifier": "../utils/getSliderValue.js",
+          "kind": "runtime",
+          "names": [
+            "getSliderValue"
+          ],
+          "resolved": "packages/base/src/lib/slider/utils/getSliderValue.ts"
+        },
+        {
+          "specifier": "../utils/roundValueToStep.js",
+          "kind": "runtime",
+          "names": [
+            "getDecimalPrecision",
+            "roundValueToStep"
+          ],
+          "resolved": "packages/base/src/lib/slider/utils/roundValueToStep.ts"
+        },
+        {
+          "specifier": "../root/SliderRootContext.js",
+          "kind": "runtime",
+          "names": [
+            "useSliderRootContext"
+          ],
+          "resolved": "packages/base/src/lib/slider/root/SliderRootContext.ts"
+        },
+        {
+          "specifier": "../root/stateAttributesMapping.js",
+          "kind": "runtime",
+          "names": [
+            "sliderStateAttributesMapping"
+          ],
+          "resolved": "packages/base/src/lib/slider/root/stateAttributesMapping.ts"
+        },
+        {
+          "specifier": "./SliderThumbDataAttributes.js",
+          "kind": "runtime",
+          "names": [
+            "SliderThumbDataAttributes"
+          ],
+          "resolved": "packages/base/src/lib/slider/thumb/SliderThumbDataAttributes.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "names": [
+            "SliderThumbProps"
+          ],
+          "resolved": "packages/base/src/lib/slider/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/slider/thumb/SliderThumbDataAttributes.ts",
+      "sha256": "c71c67a2e421eef3765baa8c5751e21ceccb783559cd26791d28075ef8bda2af",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [],
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/slider/thumb/SliderThumbNativeInput.svelte",
+      "sha256": "0c3cb3fb835d6a73a3bd403f6c226227c67b0ad694cc7275ce7acdf75931a3af",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "listenInput"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte/events",
+          "kind": "runtime",
+          "names": [
+            "on"
+          ],
+          "resolved": "external:svelte/events"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "names": [
+            "HTMLInputAttributes"
+          ],
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../../internals/types.js",
+          "kind": "type",
+          "names": [
+            "HTMLProps"
+          ],
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/slider/track/SliderTrack.svelte",
+      "sha256": "4b337f12555d45ebdbf1b47787d3d1be2b2d7a1b1cf974fbbafbbae88141edc3",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "../../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "names": [
+            "RenderElement"
+          ],
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../root/SliderRootContext.js",
+          "kind": "runtime",
+          "names": [
+            "useSliderRootContext"
+          ],
+          "resolved": "packages/base/src/lib/slider/root/SliderRootContext.ts"
+        },
+        {
+          "specifier": "../root/stateAttributesMapping.js",
+          "kind": "runtime",
+          "names": [
+            "sliderStateAttributesMapping"
+          ],
+          "resolved": "packages/base/src/lib/slider/root/stateAttributesMapping.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "names": [
+            "SliderTrackProps"
+          ],
+          "resolved": "packages/base/src/lib/slider/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/slider/types.ts",
+      "sha256": "b127d1eee6910dafbd33357652ba0ea2f0eff7d9c65af2044fd6f9eb06b7f847",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [
+        "SliderRootState",
+        "SliderRootChangeEventReason",
+        "SliderRootCommitEventReason",
+        "SliderRootChangeEventCustomProperties",
+        "SliderRootChangeEventDetails",
+        "SliderRootCommitEventDetails",
+        "PartProps",
+        "SliderRootProps",
+        "SliderControlState",
+        "SliderControlProps",
+        "SliderTrackState",
+        "SliderTrackProps",
+        "SliderIndicatorState",
+        "SliderIndicatorProps",
+        "SliderLabelState",
+        "SliderLabelProps",
+        "SliderValueState",
+        "SliderValueProps",
+        "SliderThumbState",
+        "SliderThumbProps",
+        "ThumbMetadata"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "names": [
+            "Snippet"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "names": [
+            "HTMLAttributes",
+            "HTMLOutputAttributes"
+          ],
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "names": [
+            "BaseUIComponentProps",
+            "WithBaseUIEvent"
+          ],
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
+          "specifier": "../field/types.js",
+          "kind": "type",
+          "names": [
+            "FieldRootState"
+          ],
+          "resolved": "packages/base/src/lib/field/types.ts"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "kind": "type",
+          "names": [
+            "BaseUIChangeEventDetails",
+            "BaseUIGenericEventDetails"
+          ],
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../utils/useMergedRefs.js",
+          "kind": "type",
+          "names": [
+            "MergedRef"
+          ],
+          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/slider/utils/asc.ts",
+      "sha256": "61f105ce076f58c309a57bffdc6b81133ae0032dddd0059c8b7c45539e66ada9",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "asc"
+      ],
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/slider/utils/getMidpoint.ts",
+      "sha256": "9a57fc83603c5e473938c1b5edda79fd915deba1c1ecf13f3217ce8ce5512f90",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "getMidpoint"
+      ],
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/slider/utils/getPushedThumbValues.ts",
+      "sha256": "f97e0a5e2da07bdecc780fc339db6a88c1f2466fff43c030817353be44ea0850",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "getPushedThumbValues"
+      ],
+      "imports": [
+        {
+          "specifier": "../../utils/clamp.js",
+          "kind": "runtime",
+          "names": [
+            "clamp"
+          ],
+          "resolved": "packages/base/src/lib/utils/clamp.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/slider/utils/getSliderValue.ts",
+      "sha256": "562f68f97626df04527bef9568a69ab22dc897de4a0477b29375e45a2ad37aff",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "getSliderValue"
+      ],
+      "imports": [
+        {
+          "specifier": "../../utils/clamp.js",
+          "kind": "runtime",
+          "names": [
+            "clamp"
+          ],
+          "resolved": "packages/base/src/lib/utils/clamp.ts"
+        },
+        {
+          "specifier": "./asc.js",
+          "kind": "runtime",
+          "names": [
+            "asc"
+          ],
+          "resolved": "packages/base/src/lib/slider/utils/asc.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/slider/utils/resolveThumbCollision.ts",
+      "sha256": "cdb8b54a459b182fd531ec99d0e9a7aef242e16b6863600884a6263175575ec7",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "ResolveThumbCollisionResult",
+        "resolveThumbCollision"
+      ],
+      "imports": [
+        {
+          "specifier": "../../utils/clamp.js",
+          "kind": "runtime",
+          "names": [
+            "clamp"
+          ],
+          "resolved": "packages/base/src/lib/utils/clamp.ts"
+        },
+        {
+          "specifier": "./getPushedThumbValues.js",
+          "kind": "runtime",
+          "names": [
+            "getPushedThumbValues"
+          ],
+          "resolved": "packages/base/src/lib/slider/utils/getPushedThumbValues.ts"
+        },
+        {
+          "specifier": "../root/SliderRootContext.js",
+          "kind": "type",
+          "names": [
+            "SliderRootContext"
+          ],
+          "resolved": "packages/base/src/lib/slider/root/SliderRootContext.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/slider/utils/roundValueToStep.ts",
+      "sha256": "18833303f4f2e9a15b3355b6583f67c7ebeca77de893ed5f45f68dc539ef832e",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "getDecimalPrecision",
+        "roundValueToStep"
+      ],
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/slider/utils/validateMinimumDistance.ts",
+      "sha256": "93e0ff13cdf786ea06ca7c298a910b51b04666b8dbb1c45c7bb0b2a449ffc3a7",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "validateMinimumDistance"
+      ],
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/slider/value/SliderValue.svelte",
+      "sha256": "66c0ffee35f633d49cd04720aeedf1d764ec3032a33d46fe0bfbf7fb412827e0",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "../../utils/formatNumber.js",
+          "kind": "runtime",
+          "names": [
+            "formatNumber"
+          ],
+          "resolved": "packages/base/src/lib/utils/formatNumber.ts"
+        },
+        {
+          "specifier": "../../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "names": [
+            "RenderElement"
+          ],
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../root/SliderRootContext.js",
+          "kind": "runtime",
+          "names": [
+            "useSliderRootContext"
+          ],
+          "resolved": "packages/base/src/lib/slider/root/SliderRootContext.ts"
+        },
+        {
+          "specifier": "../root/stateAttributesMapping.js",
+          "kind": "runtime",
+          "names": [
+            "sliderStateAttributesMapping"
+          ],
+          "resolved": "packages/base/src/lib/slider/root/stateAttributesMapping.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "names": [
+            "SliderValueProps"
+          ],
+          "resolved": "packages/base/src/lib/slider/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/switch/types.ts",
+      "sha256": "03507c0edc0efd85c6ae7c4e6c07b2a2c34375de4dcbf454c7cee2414ac8c416",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "SwitchRootState",
+        "SwitchRootChangeEventReason",
+        "SwitchRootChangeEventDetails",
+        "SwitchRootProps",
+        "SwitchThumbState",
+        "SwitchThumbProps"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "names": [
+            "Snippet"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "names": [
+            "HTMLAttributes"
+          ],
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "names": [
+            "BaseUIComponentProps",
+            "WithBaseUIEvent"
+          ],
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
+          "specifier": "../field/types.js",
+          "kind": "type",
+          "names": [
+            "FieldRootState"
+          ],
+          "resolved": "packages/base/src/lib/field/types.ts"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "kind": "type",
+          "names": [
+            "BaseUIChangeEventDetails"
+          ],
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../utils/useMergedRefs.js",
+          "kind": "type",
+          "names": [
+            "MergedRef"
+          ],
+          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/areArraysEqual.ts",
+      "sha256": "c8709b6f9efb30e3257def214aeae097b131b112b74bd1bea965e201efb15a44",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [
+        "ItemComparer",
+        "areArraysEqual"
+      ],
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/utils/clamp.ts",
+      "sha256": "96e2dcc83d37bbe52ac6d4f65b205859eae0017c4208551f00a16195c176ec35",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "clamp"
+      ],
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/utils/createLogOnce.ts",
+      "sha256": "a3c52188a495927ef9b49765ca1e70bc384b37b68a5c896ca86df15852a279b1",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [
+        "createLogOnce",
+        "reset"
+      ],
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "names": [
+            "DEV"
+          ],
+          "resolved": "external:esm-env"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts",
+      "sha256": "60aab2aa25eb9c0aeaa0a57fc8ccd37aab747577ea22f019aff163946cabd373",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "ModifierState",
+        "dispatchClickWithModifiers"
+      ],
+      "imports": [
+        {
+          "specifier": "./owner.js",
+          "kind": "runtime",
+          "names": [
+            "ownerWindow"
+          ],
+          "resolved": "packages/base/src/lib/utils/owner.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/empty.ts",
+      "sha256": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b",
+      "reachability": [
+        "type",
+        "runtime"
+      ],
+      "declarations": [
+        "NOOP"
+      ],
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/utils/error.ts",
+      "sha256": "de9eeee73db42c056c110eb94f3aef8b51ae3003e97d5140bfaf876bdde52c69",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "./createLogOnce.js",
+          "kind": "runtime",
+          "names": [
+            "createLogOnce"
+          ],
+          "resolved": "packages/base/src/lib/utils/createLogOnce.ts"
+        },
+        {
+          "specifier": "./createLogOnce.js",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/utils/createLogOnce.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/formatNumber.ts",
+      "sha256": "393dedb1ddf8bda2d837b3a592f40817768648b86e83f032ad4639394cae7319",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "getFormatter",
+        "formatNumber"
+      ],
+      "imports": [
+        {
+          "specifier": "./stringifyLocale.js",
+          "kind": "runtime",
+          "names": [
+            "stringifyLocale"
+          ],
+          "resolved": "packages/base/src/lib/utils/stringifyLocale.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/getDefaultFormSubmitter.ts",
+      "sha256": "15c7fb04d8bacba3abc5f4f2329a3c083892e9169689a2eab60104c3517688e4",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "DefaultFormSubmitter",
+        "getDefaultFormSubmitter"
+      ],
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/utils/mergeObjects.ts",
+      "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
+      "reachability": [
+        "type",
+        "runtime"
+      ],
+      "declarations": [
+        "mergeObjects"
+      ],
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/utils/owner.ts",
+      "sha256": "4f32738229316fe875cf72e949caa4aa7d2fcdf924a2bd5b7f01e88ca5424185",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [
+        "ownerDocument",
+        "ownerWindow"
+      ],
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/engine.ts",
+      "sha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime",
+          "names": [
+            "lowerUserAgent"
+          ],
+          "resolved": "packages/base/src/lib/utils/platform/shared.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/env.ts",
+      "sha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime",
+          "names": [
+            "lowerUserAgent"
+          ],
+          "resolved": "packages/base/src/lib/utils/platform/shared.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/index.ts",
+      "sha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "./parts.js",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/utils/platform/parts.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/media-query.ts",
+      "sha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [],
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/os.ts",
+      "sha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime",
+          "names": [
+            "lowerUserAgent",
+            "lowerPlatform",
+            "maxTouchPoints"
+          ],
+          "resolved": "packages/base/src/lib/utils/platform/shared.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/parts.ts",
+      "sha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "./os.js",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/utils/platform/os.ts"
+        },
+        {
+          "specifier": "./engine.js",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/utils/platform/engine.ts"
+        },
+        {
+          "specifier": "./screen-reader.js",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/utils/platform/screen-reader.ts"
+        },
+        {
+          "specifier": "./env.js",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/utils/platform/env.ts"
+        },
+        {
+          "specifier": "./media-query.js",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/utils/platform/media-query.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/screen-reader.ts",
+      "sha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "./os.js",
+          "kind": "runtime",
+          "names": [
+            "apple"
+          ],
+          "resolved": "packages/base/src/lib/utils/platform/os.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/shared.ts",
+      "sha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "NavigatorUAData",
+        "RawNavigatorData",
+        "readRawData"
+      ],
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "names": [
+            "DEV"
+          ],
+          "resolved": "external:esm-env"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/resolveAriaLabelledBy.ts",
+      "sha256": "deaa555b8de417495905e1259b519ef768892fea1f3dbcd017777d9bc952b839",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "getDefaultLabelId",
+        "resolveAriaLabelledBy"
+      ],
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/utils/resolveClassName.ts",
+      "sha256": "b22aead630ca531851a08a63e5165e64ff8cdc9de5765ff20997f578071cb108",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [
+        "resolveClassName"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "names": [
+            "ClassValue"
+          ],
+          "resolved": "external:svelte/elements"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/resolveRef.ts",
+      "sha256": "ac85daa436a61800f824aa34ea08ff4cbe492c86c12be327de957a381acddaa7",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "resolveRef"
+      ],
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/utils/resolveStyle.ts",
+      "sha256": "cdc420598c1ae4b75a32e7f47ac8cc7f4fe444d4f006e2736f528951fb932977",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [
+        "resolveStyle"
+      ],
+      "imports": [
+        {
+          "specifier": "../internals/nativeProps.js",
+          "kind": "type",
+          "names": [
+            "NativeStyle"
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/shadowDom.ts",
+      "sha256": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [
+        "isShadowRoot",
+        "activeElement",
+        "contains",
+        "getTarget"
+      ],
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/utils/stringifyLocale.ts",
+      "sha256": "6822bbd143dfdee434bdecfea1da34fc65681d550b5dd3473f3efb6b8fb746cb",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "stringifyLocale"
+      ],
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/utils/useAnimationFrame.ts",
+      "sha256": "4de538634e157740822dc1d3896da18ea84c6a706fe79f28fa6b9e7d380038ad",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [
+        "useAnimationFrame"
+      ],
+      "imports": [
+        {
+          "specifier": "./useRefWithInit.js",
+          "kind": "runtime",
+          "names": [
+            "useRefWithInit"
+          ],
+          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
+        },
+        {
+          "specifier": "./useOnMount.js",
+          "kind": "runtime",
+          "names": [
+            "useOnMount"
+          ],
+          "resolved": "packages/base/src/lib/utils/useOnMount.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/useControlled.svelte.ts",
+      "sha256": "f74b9a8aa08b323835613037c871a6b85c938555c788c0a8ff51825c1863fd35",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [
+        "SetStateAction",
+        "Dispatch",
+        "UseControlledProps",
+        "useControlled",
+        "useControlled",
+        "useControlled",
+        "serializeToDevModeString"
+      ],
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "names": [
+            "DEV"
+          ],
+          "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "untrack"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "./error.js",
+          "kind": "runtime",
+          "names": [
+            "error"
+          ],
+          "resolved": "packages/base/src/lib/utils/error.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
+      "sha256": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "UseFocusableWhenDisabledParameters",
+        "useFocusableWhenDisabled"
+      ],
+      "imports": [
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "names": [
+            "HTMLProps"
+          ],
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/useId.ts",
+      "sha256": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [
+        "useId"
+      ],
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/utils/useIsHydrating.svelte.ts",
+      "sha256": "e6fcb8995e456cf8e315657de5fb85815aeff818b3403b30255e95ff93bf3b7c",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "useIsHydrating"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "onMount"
+          ],
+          "resolved": "external:svelte"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+      "sha256": "0d24dd22dad18fc54341aaedb964a25829ae62322f10bf110a4fd8bde65dd1f3",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [
+        "EffectCallback",
+        "useIsoLayoutEffect"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "untrack"
+          ],
+          "resolved": "external:svelte"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/useMergedRefs.ts",
+      "sha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
+      "reachability": [
+        "type",
+        "runtime"
+      ],
+      "declarations": [
+        "MergedRef",
+        "MergedRefCallback",
+        "Empty",
+        "InputRef",
+        "Result",
+        "Cleanup",
+        "ForkRef",
+        "createMergedRefs",
+        "useMergedRefs",
+        "useMergedRefs",
+        "useMergedRefs",
+        "useMergedRefs",
+        "useMergedRefsN",
+        "createForkRef",
+        "didChange",
+        "didChangeN",
+        "update"
+      ],
+      "imports": [
+        {
+          "specifier": "./useRefWithInit.js",
+          "kind": "runtime",
+          "names": [
+            "useRefWithInit"
+          ],
+          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/useOnMount.ts",
+      "sha256": "a7ba4007eff27b601eebcb76755886a23a4dd8548a54f67e15fa1cd648e0e695",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [
+        "useOnMount"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "onMount"
+          ],
+          "resolved": "external:svelte"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/useRefWithInit.ts",
+      "sha256": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036",
+      "reachability": [
+        "type",
+        "runtime"
+      ],
+      "declarations": [
+        "InitializedRef",
+        "useRefWithInit",
+        "useRefWithInit",
+        "useRefWithInit"
+      ],
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
+      "sha256": "aeca27deeaadde0c42a027ac7f4788e2a3c62d533db235cada05dd9a70e1e1e2",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [
+        "useRegisteredLabelId"
+      ],
+      "imports": [
+        {
+          "specifier": "./useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "names": [
+            "useIsoLayoutEffect"
+          ],
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../internals/useBaseUiId.js",
+          "kind": "runtime",
+          "names": [
+            "useBaseUiId"
+          ],
+          "resolved": "packages/base/src/lib/internals/useBaseUiId.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/useStableCallback.ts",
+      "sha256": "b790a02da99e0e9365bc05d35a434ef37dcffb2a4db8186b1327b949a994d05e",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [
+        "Callback",
+        "useStableCallback",
+        "createStableCallback"
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "untrack"
+          ],
+          "resolved": "external:svelte"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/useTimeout.ts",
+      "sha256": "a04448de8715b8728243ee6e33572c57bc5b151674628304f6c3906966738c78",
+      "reachability": [
+        "type"
+      ],
+      "declarations": [
+        "TimeoutId",
+        "useTimeout"
+      ],
+      "imports": [
+        {
+          "specifier": "./useRefWithInit.js",
+          "kind": "runtime",
+          "names": [
+            "useRefWithInit"
+          ],
+          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
+        },
+        {
+          "specifier": "./useOnMount.js",
+          "kind": "runtime",
+          "names": [
+            "useOnMount"
+          ],
+          "resolved": "packages/base/src/lib/utils/useOnMount.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/valueToPercent.ts",
+      "sha256": "7d68a7196cc99f9ca1e9e840daecfd2ea6a82bb1434f437f02261afa82d893aa",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [
+        "valueToPercent"
+      ],
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/utils/visuallyHidden.ts",
+      "sha256": "8f49185df1c0536608090368454cc3d30a3bfc1991b23a4b5e5239184ead8020",
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "declarations": [],
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/utils/warn.ts",
+      "sha256": "ebd7ab992fa23c267fd3a270dab1d2777e05b5dbb8ecbe1210f1c69436f13ea0",
+      "reachability": [
+        "runtime"
+      ],
+      "declarations": [],
+      "imports": [
+        {
+          "specifier": "./createLogOnce.js",
+          "kind": "runtime",
+          "names": [
+            "createLogOnce"
+          ],
+          "resolved": "packages/base/src/lib/utils/createLogOnce.ts"
+        },
+        {
+          "specifier": "./createLogOnce.js",
+          "kind": "runtime",
+          "names": [],
+          "resolved": "packages/base/src/lib/utils/createLogOnce.ts"
+        }
+      ]
+    }
+  ]
+}
