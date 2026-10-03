@@ -12,7 +12,6 @@ type Handler = (...args: unknown[]) => unknown;
 
 const EMPTY_PROPS = {};
 
-/* eslint-disable id-denylist */
 /**
  * Merges multiple sets of React props. It follows the Object.assign pattern where the rightmost object's fields overwrite
  * the conflicting ones from others. This doesn't apply to event handlers, `className` and `style` props.
@@ -88,7 +87,6 @@ export function mergeProps(a?: InputProps, b?: InputProps, c?: InputProps, d?: I
 
   return merged;
 }
-/* eslint-enable id-denylist */
 
 /**
  * Merges an arbitrary number of React props using the same logic as {@link mergeProps}.
@@ -145,7 +143,6 @@ function copyInitialProps(
   if (copiedProps.class !== undefined && typeof copiedProps.class !== 'function') copiedProps.class = toNativeClass(copiedProps.class);
 
   // `copiedProps` is our fresh own-object copy, so iterating with `for...in` is safe here.
-  // eslint-disable-next-line guard-for-in
   for (const propName in copiedProps) {
     const propValue = copiedProps[propName];
     if (isEventHandler(propName, propValue)) {
@@ -167,7 +164,6 @@ function mutablyMergeInto(
     return mergedProps;
   }
 
-  // eslint-disable-next-line guard-for-in
   for (const propName in externalProps) {
     const externalPropValue = externalProps[propName];
 
@@ -297,7 +293,6 @@ export function mergeClassNames(
 ) {
   if (theirClassName) {
     if (ourClassName) {
-      // eslint-disable-next-line prefer-template
       return theirClassName + ' ' + ourClassName;
     }
 

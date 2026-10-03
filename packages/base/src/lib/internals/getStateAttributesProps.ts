@@ -10,7 +10,6 @@ export function getStateAttributesProps<State extends object>(
 ) {
   const props: Record<string, string> = {};
 
-  /* eslint-disable-next-line guard-for-in */
   for (const key in state) {
     const value = state[key];
 
