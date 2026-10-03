@@ -8,6 +8,7 @@
   import { useStableCallback } from '../utils/useStableCallback.js';
   import { useTimeout } from '../utils/useTimeout.js';
   import { useFieldRootContext } from '../internals/field-root-context/FieldRootContext.js';
+  import { useFieldControlNativeName } from '../internals/field-control-name/FieldControlNameContext.js';
   import { useRegisterFieldControl } from '../internals/field-register-control/useRegisterFieldControl.svelte.js';
   import { useFormContext } from '../internals/form-context/FormContext.js';
   import { useLabelableContext } from '../internals/labelable-provider/LabelableContext.js';
@@ -28,6 +29,7 @@
   const form = useFormContext();
   const disabled = $derived(Boolean(field.disabled || disabledProp));
   const name = $derived(field.name ?? nameProp);
+  const getNativeName = useFieldControlNativeName();
   const controlState: FieldControlState = $derived({ ...field.state, disabled });
   const labelable = useLabelableContext();
   const instanceId = $props.id();
@@ -55,7 +57,7 @@
     if (autofocus && inputRef.current === activeElement(ownerDocument(inputRef.current))) field.setFocused(true);
   }, () => [autofocus, field.setFocused]);
   const internal = $derived({
-    id, disabled, name, ref: field.validation.inputRef,
+    id, disabled, name: getNativeName(name), ref: field.validation.inputRef,
     'aria-labelledby': labelable.labelId, autofocus,
     // Native Svelte keeps an authored reset default independent from the current value (I-02).
     ...(defaultValue !== undefined ? { defaultValue } : {}),
