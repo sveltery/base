@@ -24,7 +24,7 @@ for (const reference of [false, true]) {
   for (const scenario of [...publicCases, ...internalCases]) test(`${publicCases.includes(scenario) ? 'public ordinary' : 'internal ordinary'} ${framework} ${scenario}`, async ({ page }) => {
     const pageErrors: string[] = []; page.on('pageerror', error => pageErrors.push(error.message));
     const host = await setup(page, scenario, reference);
-    if (reference) expect((await probe(page)).renderer).toEqual({ strict: true, strictEffects: true, reactVersion: '19.3.0', animationsDisabled: true });
+    if (reference) expect((await probe(page)).renderer).toEqual({ strict: true, strictEffects: true, reactVersion: '19.2.8', animationsDisabled: true });
     if (scenario === 'disabled-getter') { await expect(host).toHaveCount(0); expect((await probe(page)).calls).toEqual([]); return; }
     if (scenario === 'enabled-toggle') {
       await expect(host).toHaveCount(0); expect((await probe(page)).refs[0]).toBeNull();
