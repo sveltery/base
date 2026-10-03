@@ -240,7 +240,7 @@
           "resolved": "packages/utils/src/reactVersion.ts"
         }
       ],
-      "localDestination": "native snippet boundary: internals/useRenderElement.ts getNativeRenderRef returns null; snippet-owned attachments resolve actual host"
+      "localDestination": "Native snippet has no cloneable embedded ref. Direct absent slot in internals/useRenderElement.ts preserves fixed/N comparator identity; snippet-owned attachments resolve the actual host."
     },
     {
       "source": "packages/utils/src/reactVersion.ts",

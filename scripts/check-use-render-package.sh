@@ -205,17 +205,18 @@ assert.equal(app.snapshot().element, current); assert.equal(app.snapshot().ref, 
 assert.deepEqual(app.snapshot().calls, [['attach', 'first', 'BUTTON', true, 'before']]);
 app.advance(); flushSync();
 assert.equal(host(), current); assert.equal(host().getAttribute('data-active'), '');
-assert.deepEqual(app.snapshot().calls, [['attach', 'first', 'BUTTON', true, 'before'], ['cleanup', 'first', 'BUTTON', true, 'before'], ['attach', 'next', 'BUTTON', true, 'changed']]);
+// Native attachment cleanup observes same-host updates and disconnected removed hosts.
+assert.deepEqual(app.snapshot().calls, [['attach', 'first', 'BUTTON', true, 'before'], ['cleanup', 'first', 'BUTTON', true, 'changed'], ['attach', 'next', 'BUTTON', true, 'changed']]);
 app.advance(); flushSync();
 assert.notEqual(host(), current); current = host(); assert.equal(current.tagName, 'SPAN');
 assert.equal(app.snapshot().element, current); assert.equal(app.snapshot().ref, current);
-assert.deepEqual(app.snapshot().calls.slice(3), [['cleanup', 'next', 'BUTTON', true, 'changed'], ['attach', 'next', 'SPAN', true, 'changed']]);
+assert.deepEqual(app.snapshot().calls.slice(3), [['cleanup', 'next', 'BUTTON', false, 'changed'], ['attach', 'next', 'SPAN', true, 'changed']]);
 app.advance(); flushSync();
 assert.equal(host(), current); assert.equal(host().getAttribute('class'), 'reactive');
 assert.equal(app.snapshot().calls.length, 5);
 app.advance(); flushSync();
 assert.equal(host(), null); assert.equal(app.snapshot().element, null); assert.equal(app.snapshot().ref, null);
-assert.deepEqual(app.snapshot().calls.slice(5), [['cleanup', 'next', 'SPAN', true, 'reactive']]);
+assert.deepEqual(app.snapshot().calls.slice(5), [['cleanup', 'next', 'SPAN', false, 'reactive']]);
 await unmount(app); assert.equal(document.querySelector('main').children.length, 0); dom.window.close();
 console.log('Installed public UseRender DOM root/subpath hosts, ref ordering, stable snippets and cleanup: PASS');
 JS
