@@ -70,6 +70,10 @@ const nullableRootRef: RadioTypes.RadioRootProps<number> = { value: 42, inputRef
 const undefinedRoot: RadioTypes.RadioRootProps<number> = { value: 42, disabled: undefined, required: undefined, readOnly: undefined, nativeButton: undefined, inputRef: undefined, ref: undefined, children: undefined, class: undefined, style: undefined, render: undefined };
 const undefinedGroup: GroupTypes.RadioGroupProps<number> = { value: undefined, defaultValue: undefined, disabled: undefined, readOnly: undefined, required: undefined, name: undefined, form: undefined, onValueChange: undefined, inputRef: undefined, ref: undefined, children: undefined, class: undefined, style: undefined, render: undefined };
 const undefinedIndicator: RadioTypes.RadioIndicatorProps = { keepMounted: undefined, ref: undefined, children: undefined, class: undefined, style: undefined, render: undefined };
+const emptyStateRoot: RadioTypes.RadioRootProps<number> = { value: 42, class: () => undefined, style: () => undefined };
+const emptyStateGroup: GroupTypes.RadioGroupProps<number> = { class: () => undefined, style: () => undefined };
+const emptyStateIndicator: RadioTypes.RadioIndicatorProps = { class: () => undefined, style: () => undefined };
+void [emptyStateRoot, emptyStateGroup, emptyStateIndicator];
 // @ts-expect-error Explicit undefined optional flags do not permit null flags.
 const invalidNullFlag: RadioTypes.RadioRootProps<number> = { value: 42, required: null };
 void [defaultGroupProps, defaultRootProps, nullableGroupRef, nullableRootRef, undefinedRoot, undefinedGroup, undefinedIndicator, invalidNullFlag];
