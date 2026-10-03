@@ -63,7 +63,7 @@ for (const reference of [false, true]) {
   for (const scenario of ['controlled-reject', 'controlled-accept', 'controlled-rewrite', 'controlled-input-accept', 'controlled-replacement-accept']) test(`${framework} ${scenario} only owner values update Field`, async ({ page }) => {
     const input = await setup(page, scenario, reference); await input.fill('edit');
     const expected = scenario.includes('accept') ? 'edit' : scenario.includes('rewrite') ? 'EDIT' : 'seed';
-    await expect(input).toHaveValue(!reference && scenario.includes('reject') ? 'edit' : expected);
+    await expect(input).toHaveValue(expected);
     if (scenario.includes('reject')) await expect(page.locator('#field')).not.toHaveAttribute('data-dirty'); else await expect(page.locator('#field')).toHaveAttribute('data-dirty', '');
     await page.getByRole('button', { name: 'Programmatic', exact: true }).click(); await expect(input).toHaveValue('programmatic'); await expect(page.locator('#field')).toHaveAttribute('data-filled', '');
   });

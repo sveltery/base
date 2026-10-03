@@ -97,7 +97,7 @@ jobs:
       - name: Install official Chromium and OS dependencies
         run: pnpm exec playwright install --with-deps chromium
       - name: Real React and Svelte Dialog acceptance
-        run: pnpm test:browser
+        run: pnpm exec playwright test --config playwright.source-core.config.ts
 
       - name: Preserve docs browser smoke screenshots
         if: always()

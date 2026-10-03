@@ -1,4 +1,4 @@
-name: Field Form acceptance
+name: Field Form source core acceptance
 
 on:
   pull_request:
@@ -37,13 +37,13 @@ jobs:
         run: pnpm --filter @sveltery/base build
       - name: Install official secured Chromium
         run: pnpm exec playwright install --with-deps chromium
-      - name: Real React Svelte and Kit Field Form acceptance and diagnostic
+      - name: Real React and Svelte source core and native Input acceptance
         env:
           PLAYWRIGHT_JSON_OUTPUT_NAME: .checks/field-form/browser-results.json
         run: |
           set -o pipefail
           mkdir -p .checks/field-form
-          pnpm exec playwright test tests/browser/field-form.spec.ts tests/browser/field-form-remote.spec.ts tests/browser/field-form-conformance.spec.ts --reporter=list,json | tee .checks/field-form/browser.log
+          pnpm exec playwright test tests/browser/field-form.spec.ts tests/browser/field-form-conformance.spec.ts tests/browser/input.spec.ts tests/browser/input-conformance.spec.ts tests/browser/input-class-value.spec.ts tests/browser/input-event-phase.spec.ts tests/browser/input-reset-observation.spec.ts tests/browser/input-timing.spec.ts --reporter=list,json | tee .checks/field-form/browser.log
       - name: Preserve actual Field Form JSON observations and traces
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2

@@ -10,6 +10,7 @@ export function createLabelableProvider(defaultId: string): LabelableContext {
   let labelId = $state<string>();
   let messageIds = $state<string[]>([]);
   const controlId = $derived(controlIdState === undefined ? defaultId : controlIdState);
+  // eslint-disable-next-line svelte/prefer-svelte-reactivity -- Source control registry is imperative; selected control state owns reactive updates.
   const registrationsRef = useRefWithInit(() => new Map<symbol, string | null>());
   const parent = useLabelableContext();
 
@@ -33,6 +34,7 @@ export function createLabelableProvider(defaultId: string): LabelableContext {
     const description = externalProps['aria-describedby'] as string | undefined;
     const ids = description ? description.split(' ') : [];
     ids.push(...parent.messageIds, ...messageIds);
+    // eslint-disable-next-line svelte/prefer-svelte-reactivity -- This temporary Set only deduplicates the current derived message array.
     return { ...externalProps, 'aria-describedby': Array.from(new Set(ids)).join(' ') || undefined };
   }
   const contextValue: LabelableContext = {
