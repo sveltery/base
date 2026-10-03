@@ -1,6 +1,6 @@
 # Shared utility execution evidence
 
-Implementation worktree: `/workspace/shared-source-utils`, branch `feat/shared-source-utils`, based on main `c3a89dd0cb7c4ce74af2a975e6ec18a245315afb`. First canonical leaf checkpoint: `b51912499a8538c9039860ed58ad3f9743679177` (initialized refs, immutable fallbacks and original closure). Runtime body hashes are recorded in [source-graph.json](source-graph.json). Final PR head and independent review will be reported through the PR; neither this evidence nor the leaf dependency checkpoint authorizes merge.
+Implementation worktree: `/workspace/shared-source-utils`, branch `feat/shared-source-utils`, based on main `c3a89dd0cb7c4ce74af2a975e6ec18a245315afb`. First canonical leaf checkpoint: `b51912499a8538c9039860ed58ad3f9743679177` (initialized refs, immutable fallbacks and original closure). Runtime body hashes are recorded in [source-graph.json](source-graph.json). Full utility source/test checkpoint: `ac0fc9b0f32f094b80a8e19f03f6fb3f980156d1`, proposed in [PR #46](https://github.com/sveltery/base/pull/46). Final head and independent review will be reported through the PR; neither this evidence nor the leaf dependency checkpoint authorizes merge.
 
 Executed 2026-10-03 with Node 24.19.0, pnpm 12.6.0 and Svelte 5.57.1:
 

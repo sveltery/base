@@ -13,4 +13,4 @@ Reference: Base UI v1.8.0 immutable `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. 
 
 No inherited upstream business bug is corrected in this helper work. Controlled initial mode, initial fallback, setter guard, default diagnostics, logging keys, timer operation order and value-change callback ordering remain source contracts. Existing components with private copies remain outside this scoped structural acceptance until their dependency closure imports and reviews the shared ports.
 
-Proposed PR and exact reviewed head will be linked when created. Full verification, CI, independent source review and dependent browser acceptance are still required; documentation is not product parity evidence.
+Proposed implementation: [PR #46](https://github.com/sveltery/base/pull/46). Runtime source checkpoint: `ac0fc9b0f32f094b80a8e19f03f6fb3f980156d1`; exact final-head review remains pending. Full verification, CI, independent source review and dependent browser acceptance are still required; documentation is not product parity evidence.
