@@ -2,6 +2,7 @@
   "upstreamCommit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "sourceCheckpointOnly": true,
   "ordinaryDeclarationCredit": 0,
+  "recordStatusInterpretation": "All records[].status values are historical construction statuses from the source reconstruction checkpoint; current bounded source status is recorded in boundedSourceCoreEvidence. They are not current pending gates.",
   "records": [
     {
       "source": "packages/react/src/input/Input.tsx",
@@ -1976,34 +1977,27 @@
   ],
   "sharedUtilityDependency": {
     "pr": "https://github.com/sveltery/base/pull/46",
-    "sourceHead": "b3bdfb266b1a6e51eb77459d66f6c727eddfddac",
-    "localCherryPicks": [
+    "decision": "Canonical PR46 independently reviewed and normally merged; unchanged runtime inherited by reviewed source core.",
+    "liveCallbackFixSource": "72889961123096955875ade8b1b4b2062736c2fa",
+    "historicalSourceHead": "b3bdfb266b1a6e51eb77459d66f6c727eddfddac",
+    "historicalLocalCherryPicks": [
       "d02624d",
       "aafa25d",
       "06e9a11",
       "102a879"
     ],
-    "decision": "PM authorized reviewable dependency integration; final merge gates remain pending",
-    "liveCallbackFixSource": "72889961123096955875ade8b1b4b2062736c2fa"
+    "sourceHead": "64662d38915f3a14260e38ed28d5e62a747ef23a",
+    "normalMainMerge": "ef1af34ccb4e4873e17713dc400101fb49ff1a48",
+    "historicalDecision": "PM authorized reviewable dependency integration; final merge gates remain pending"
   },
   "sharedRendererDependency": {
     "pr": "https://github.com/sveltery/base/pull/47",
-    "sourceHead": "e71d643afb22b4d3afd88f88b46caa4d0f102fd9",
-    "localCherryPick": "26a2a1995eb34253bb37ebb9bbaf43732e94f781",
-    "status": "canonical dependency consumed unchanged; final utility/render delivery and rebase pending"
-  },
-  "currentCheckpointEvidence": {
-    "libraryCheck": "0 errors/0 warnings, /tmp/field-source-resume-check1.log",
-    "focusedFieldDom": "79 passing executions, /tmp/field-source-resume-dom2.log",
-    "nativeInputDom": "108 passing executions after current dist rebuild, /tmp/field-resume-native1.log",
-    "ordinaryDeclarationCredit": 0,
-    "unresolved": [
-      "final utility/renderer delivery/rebase",
-      "complete source closure independent review",
-      "remote Form API runtime/types/consumers",
-      "Kit cancellation requirement",
-      "secured final browser/CI/public consumer gates"
-    ]
+    "status": "Canonical PR47 independently reviewed and normally merged; unchanged runtime inherited. Shared explicit-undefined type repair separately reviewed at8619e34.",
+    "historicalSourceHead": "e71d643afb22b4d3afd88f88b46caa4d0f102fd9",
+    "historicalLocalCherryPick": "26a2a1995eb34253bb37ebb9bbaf43732e94f781",
+    "sourceHead": "5bfb47f3aba7d39e2dbd34d59dcbcf7f4fe1768e",
+    "normalMainMerge": "cabcd911ac2ee9ab9b3874e1ce1022f90a487af0",
+    "historicalStatus": "canonical dependency consumed unchanged; final utility/render delivery and rebase pending"
   },
   "nativeExtensions": [
     {
@@ -2022,6 +2016,57 @@
     "registrationCleanup": "Description, Error and useRegisteredLabelId capture the installed registration ID; simultaneous message replacement/removal and remaining-legend ownership are new supplemental regressions.",
     "publicTypes": "Pinned schema-free Form.Values/default Form constraint and explicit-undefined own prop contracts restored; shared rendering class/style/render delta is type-only, not covered by the prior PR47 review.",
     "ordinaryDeclarationCredit": 0,
-    "status": "fresh-final-head-review-and-browser-gates-required"
+    "status": "Repair covered by fresh8619e34 full-closure review and runtime-identical8438374 local/public/browser/CI gates; ordinary credit0 and owner merge approval pending.",
+    "historicalStatus": "fresh-final-head-review-and-browser-gates-required"
+  },
+  "historicalResumedCheckpointEvidence": {
+    "libraryCheck": "0 errors/0 warnings, /tmp/field-source-resume-check1.log",
+    "focusedFieldDom": "79 passing executions, /tmp/field-source-resume-dom2.log",
+    "nativeInputDom": "108 passing executions after current dist rebuild, /tmp/field-resume-native1.log",
+    "ordinaryDeclarationCredit": 0,
+    "unresolved": [
+      "final utility/renderer delivery/rebase",
+      "complete source closure independent review",
+      "remote Form API runtime/types/consumers",
+      "Kit cancellation requirement",
+      "secured final browser/CI/public consumer gates"
+    ]
+  },
+  "boundedSourceCoreEvidence": {
+    "scope": "Complete Field/Form/Fieldset business closure and thin Input composition; remote API/B2/library parity remain incomplete",
+    "sourceTypeRepairHead": "8619e34f45619299ba45bd5572c89de3957e3116",
+    "runtimeIdenticalBudgetHead": "8438374fa5c5e6db2483932db77eeaf0592e5713",
+    "independentReview": {
+      "status": "clean source/native/maintainability full-closure review",
+      "originalModules": 70,
+      "localModules": 79,
+      "includesSharedTypeRepair": true
+    },
+    "localVerification": "Full verification, standards, builds, original type assertions, SSR/hydration, strict exact-optional installed public consumers and source/provenance checks passed",
+    "focusedSourceBrowser": {
+      "run": 37099273060,
+      "passed": 442,
+      "failed": 0
+    },
+    "wholeCI": {
+      "run": 37099273059,
+      "jobsPassed": 8,
+      "combinedBrowserPassed": 2020,
+      "workers": 1,
+      "retries": 0,
+      "sandbox": true
+    },
+    "historicalTimeout": {
+      "run": 37097630121,
+      "passedBeforeTimeout": 1919,
+      "collected": 2020,
+      "conclusion": "incomplete; no full acceptance"
+    },
+    "ordinaryDeclarationCredit": 0,
+    "pending": [
+      "Exact successor documentation/metadata standards, verification and configured review",
+      "Explicit PM approval before owner merge",
+      "Full typed remote API and actual remote-function acceptance in PR52; explicit proposed SDK49 opt-in remains separate"
+    ]
   }
 }
