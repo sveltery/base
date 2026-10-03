@@ -1,4 +1,4 @@
-<script lang="ts" generics="Values extends FormValues = FormValues">
+<script lang="ts" generics="Values extends FormValues = FormValues, Remote extends RemoteFormLike | undefined = undefined">
   // Mechanically ported from Base UI v1.8.0 form/Form.tsx.
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
   import { untrack, type Snippet } from 'svelte';
@@ -10,11 +10,23 @@
   import { setFormContext, type FormContext } from '../internals/form-context/FormContext.js';
   import RenderElement from '../internals/RenderElement.svelte';
   import { useValueChanged } from '../internals/useValueChanged.svelte.js';
-  import type { FormActions, FormErrors, FormProps, FormState, FormValues } from './types.js';
+  import type { FormActions, FormErrors, FormFieldNamespace, FormProps, FormState, FormValues } from './types.js';
+  import { setRemoteFormContext } from '../remote-forms/RemoteFormContext.js';
+  import { remoteFormErrors } from '../remote-forms/runtime.js';
+  import * as RemoteField from '../remote-forms/index.parts.js';
+  import * as Field from '../field/index.parts.js';
+  import type { RemoteFormLike, TypedField } from '../remote-forms/types.js';
   let {
-    render, class: classProp, validationMode = 'onSubmit', errors: externalErrors,
+    render, class: classProp, validationMode = 'onSubmit', errors: authoredErrors, remote,
     onsubmit, onFormSubmit, actionsRef, style, children, ref = $bindable(), ...elementProps
-  }: FormProps<Values> = $props();
+  }: FormProps<Values, Remote> = $props();
+  setRemoteFormContext({ get remote() { return remote; } });
+  const remoteErrors = $derived(remote ? remoteFormErrors(remote.fields) : undefined);
+  const externalErrors = $derived(authoredErrors !== undefined ? authoredErrors : remoteErrors);
+  function remoteFieldNamespace<Fields extends object>(): TypedField<Fields, typeof RemoteField> { return RemoteField; }
+  function namespaceFor<Current extends RemoteFormLike | undefined>(current: Current | undefined): FormFieldNamespace<Current>;
+  function namespaceFor(current: RemoteFormLike | undefined): unknown { return current ? remoteFieldNamespace<object>() : Field; }
+  const fieldNamespace = $derived(namespaceFor<Remote>(remote));
   const formRef: FormContext['formRef'] = { current: { fields: new Map() } };
   const elementRef = $state<{ current: HTMLFormElement | null }>({ current: null });
   const submittedRef = { current: false };
@@ -99,4 +111,7 @@
 {#snippet renderForm(nativeProps: Record<string | symbol, unknown>, state: FormState, content: Snippet | undefined)}
   {@render render!(nativeProps as HTMLFormAttributes & { noValidate?: boolean } & Record<string | symbol, unknown>, state, content)}
 {/snippet}
-<RenderElement tag="form" {componentProps} {params} {children} />
+{#snippet formChildren()}
+  {@render children?.(fieldNamespace)}
+{/snippet}
+<RenderElement tag="form" {componentProps} {params} children={children ? formChildren : undefined} />
