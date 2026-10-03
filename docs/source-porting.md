@@ -31,11 +31,11 @@ Trace and port Field.Control's actual dependency closure: Field/Form and labelab
 
 Keep this record beside the feature's source/assertion evidence in `parity/<feature>/`; link it from the feature docs and PR. Record every file/function in the complete closure, including reused local ports, type relationships and external dependency boundaries. Use immutable original links and name the exact local function/component. Add rows rather than concealing several algorithms under a general label such as “Svelte adaptation.”
 
-| Original file/function at the pin | Local file/function actually used | Specific necessary adaptation | Structural and observable review check |
-| --- | --- | --- | --- |
-| Immutable source link and symbol | Repository path and symbol, or explicit missing status | Exact framework boundary and reason, or none | Side-by-side body/dependency check and relevant assertion/probe identifiers |
+| Original file/function at the pin | Local file/function actually used                      | Specific necessary adaptation                | Structural and observable review check                                      |
+| --------------------------------- | ------------------------------------------------------ | -------------------------------------------- | --------------------------------------------------------------------------- |
+| Immutable source link and symbol  | Repository path and symbol, or explicit missing status | Exact framework boundary and reason, or none | Side-by-side body/dependency check and relevant assertion/probe identifiers |
 
-Also record the graph, original hashes, all missing dependencies, difference decisions and final reviewed commit. This table is a requirement and a review aid; filling it out does not itself prove structural fidelity or earn assertion credit.
+Also record the graph, original hashes, all missing dependencies and difference decisions in the repository. Record the exact final reviewed commit externally in the PR review and CI evidence; do not require a tracked record to contain its own commit hash. This table is a requirement and a review aid; filling it out does not itself prove structural fidelity or earn assertion credit.
 
 ## Final-head acceptance
 
