@@ -31,5 +31,6 @@
     "scope": "Default message-list ownership only; consumer children and render snippets retain native ownership. No React runtime dependency in the library.",
     "ordinaryCredit": 0,
     "supplement": "packages/base/tests/dom/field-error-ownership.test.ts"
-  }
+  },
+  "currentStatus": "Historical reference for removed ReactDOM child-key emulation. Current Error uses native Svelte unkeyed rows following 2026-10-03 user native-default directive; original provenance remains evidence only, no current runtime/credit claim."
 }

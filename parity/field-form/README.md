@@ -43,3 +43,5 @@ The focused guard review is addressed by native submitter property getter reads 
 ## Current source realignment checkpoint
 
 [Input and Field.Control source correspondence](source-correspondence.md) supersedes the former Input-owned Control and combined Field controller architecture. The source body ports and native defaults are under active reconstruction; shared utility/render dependencies and new exact-head gates are pending. All historical ordinary candidate credit remains zero. Historical tests and diagnostics above remain evidence of those heads, not acceptance of this new implementation.
+
+The current source Form body removes the unaccepted native Kit action guard. Its invalid-submit path retains source validation, focus, `preventDefault()` and return with ordinary propagation. The enhanced-submit no-side-effect requirement is unresolved, and the older guard experiments/runs above are historical evidence only. The native Error message list removes ReactDOM key-ownership emulation and keeps Svelte row defaults, including duplicate messages; previous source/native ownership comparisons remain reference evidence and receive no current-head parity credit.

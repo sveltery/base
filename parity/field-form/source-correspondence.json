@@ -369,6 +369,25 @@
         "../utils/resolveStyle",
         "../merge-props"
       ]
+    },
+    {
+      "source": "packages/react/src/form/Form.tsx",
+      "sourceSha256": "c8a77589d2a3de310b46623154e38ddf6b9fc4c7ff71299f690411949d23898b",
+      "symbol": "Form/comesBeforeInSameTree",
+      "local": "packages/base/src/lib/form/Form.svelte",
+      "adaptation": "Ordered source validation/focus/cancellation/callback body; native state, refs, effects, getters. No Kit URL detection or stopImmediatePropagation guard.",
+      "status": "written-unverified",
+      "imports": [
+        "react",
+        "@base-ui/utils/useStableCallback",
+        "@base-ui/utils/empty",
+        "../internals/createBaseUIEventDetails",
+        "../internals/reasons",
+        "../internals/types",
+        "../internals/form-context/FormContext",
+        "../internals/useRenderElement",
+        "../internals/useValueChanged"
+      ]
     }
   ]
 }

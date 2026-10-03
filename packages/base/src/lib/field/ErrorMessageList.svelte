@@ -1,8 +1,6 @@
 <script lang="ts">
-  // Native message-list lifetime; Base UI and React MIT notices: parity/field-form/.
-  import { ErrorMessageOwnership } from './messageOwnership.js';
+  // Native Svelte list for the Base UI FieldError message branch.
+  // Base UI v1.8.0; MIT: THIRD_PARTY_NOTICES.md.
   let { messages }: { messages: string[] } = $props();
-  const ownership = new ErrorMessageOwnership();
-  const rows = $derived(ownership.update(messages));
 </script>
-<ul>{#each rows as row (row.id)}<li>{row.key}</li>{/each}</ul>
+<ul>{#each messages as message}<li>{message}</li>{/each}</ul>

@@ -1,8 +1,10 @@
-// Separate matched ownership supplements; no ordinary source declaration credit.
+// Native-default ownership supplements; source differences earn zero ordinary credit.
+// User native-default decision 2026-10-03: no React child-key ownership emulation.
 // Base UI v1.8.0 and react-dom 19.3.0 MIT provenance: parity/field-form/.
 import { afterEach, expect, it, vi } from 'vitest';
 import { flushSync, mount, tick, unmount } from 'svelte';
 import Fixture from './FieldFormFixture.svelte';
+import NativeMessages from './NativeErrorMessagesFixture.svelte';
 import { createErrorOwnershipReference } from '../../../../apps/fixtures/src/lib/field-error-ownership-reference.js';
 const cleanups: (() => unknown)[] = [];
 afterEach(async () => { for (const cleanup of cleanups.splice(0)) await cleanup(); document.body.replaceChildren(); vi.restoreAllMocks(); });
@@ -22,18 +24,22 @@ const sequences = {
   'single message and new list': [['a','a'],['b','b'],['single'],['b','b']],
   'empty message and new list': [['a','a'],['b','b'],[],['b','b']],
 };
-for (const [name, sequence] of Object.entries(sequences)) it(`supplement native default error ownership matches the actual pin for ${name}`, async () => {
+for (const [name, sequence] of Object.entries(sequences)) it(`supplement native error rows match Svelte defaults and characterize source ownership for ${name}`, async () => {
   vi.spyOn(console, 'error').mockImplementation(() => {}); // React emits its expected duplicate-key warning.
-  const nativeHost = document.createElement('div'), referenceHost = document.createElement('div'); document.body.append(nativeHost, referenceHost);
+  const nativeHost = document.createElement('div'), referenceHost = document.createElement('div'), comparatorHost = document.createElement('div'); document.body.append(nativeHost, referenceHost, comparatorHost);
   const component = mount(Fixture, { target: nativeHost }); cleanups.push(() => unmount(component)); flushSync();
   const reference = createErrorOwnershipReference(referenceHost); cleanups.push(() => reference.unmount());
-  const nativeRows = rows(nativeHost), referenceRows = rows(referenceHost);
+  const comparator = mount(NativeMessages, { target: comparatorHost }); cleanups.push(() => unmount(comparator)); flushSync();
+  const nativeRows = rows(nativeHost), referenceRows = rows(referenceHost), comparatorRows = rows(comparatorHost);
+  let observedFrameworkDifference = false;
   for (const messages of sequence) {
     await reference.update(messages);
-    component.setErrors({ email: messages }); flushSync(); await tick(); flushSync();
-    expect(nativeRows()).toEqual(referenceRows());
+    component.setErrors({ email: messages }); comparator.update(messages); flushSync(); await tick(); flushSync();
+    expect(nativeRows()).toEqual(comparatorRows());
+    if (JSON.stringify(nativeRows()) !== JSON.stringify(referenceRows())) observedFrameworkDifference = true;
     if (messages.length === 1) expect(nativeHost.querySelector('#error')?.textContent).toBe(referenceHost.querySelector('#error')?.textContent);
   }
+  expect(observedFrameworkDifference).toBe(true); // Characterization, not parity credit.
   component.update({ error: false }); flushSync(); expect(nativeHost.querySelector('#error')).toBeNull();
   component.update({ error: true }); flushSync(); await tick(); flushSync();
   const last = sequence.at(-1)!; expect([...nativeHost.querySelectorAll('li')].map(node => node.textContent)).toEqual(last.length > 1 ? last : []);
