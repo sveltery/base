@@ -81,7 +81,7 @@ for (const framework of ['react', 'svelte']) {
     ).toHaveLength(1);
   });
   for (const scenario of ['cancel', 'native-button-cancel'])
-    test(`${framework} ${scenario} canceled activation preserves input values and emits no input/change`, async ({
+    test(`${framework} ${scenario} native cancellation preserves source value and characterizes input/change phase`, async ({
       page,
     }) => {
       await open(page, scenario);
@@ -102,7 +102,7 @@ for (const framework of ['react', 'svelte']) {
       );
       await expect(page.locator('#form')).toHaveAttribute(
         'data-input-events',
-        '0',
+        framework === 'react' ? '2' : '0',
       );
       expect(
         await page
@@ -213,6 +213,75 @@ for (const framework of ['react', 'svelte']) {
     expect(
       await page.locator('input[type="radio"]:checked').getAttribute('value'),
     ).toBe('c');
+  });
+  for (const scenario of ['default', 'controlled'])
+    test(`${framework} ${scenario} native reset follows each renderer's checked defaults`, async ({
+      page,
+    }) => {
+      await open(page, scenario);
+      const initialDefaultValues = await page
+        .locator('input[type="radio"]')
+        .evaluateAll((inputs) =>
+          inputs
+            .filter((input) => (input as HTMLInputElement).defaultChecked)
+            .map((input) => (input as HTMLInputElement).value),
+        );
+      await page.getByTestId('radio-a').click();
+      await expect(page.getByTestId('radio-a')).toHaveAttribute(
+        'aria-checked',
+        'true',
+      );
+      const calls = await page.locator('#calls').textContent();
+      const defaultValues = await page
+        .locator('input[type="radio"]')
+        .evaluateAll((inputs) =>
+          inputs
+            .filter((input) => (input as HTMLInputElement).defaultChecked)
+            .map((input) => (input as HTMLInputElement).value),
+        );
+      await page.locator('#reset').click();
+      expect(
+        await page
+          .locator('#form')
+          .evaluate((form) =>
+            new FormData(form as HTMLFormElement).getAll('choice'),
+          ),
+      ).toEqual(defaultValues);
+      await expect(page.getByTestId('radio-a')).toHaveAttribute(
+        'aria-checked',
+        'true',
+      );
+      await expect(page.locator('#calls')).toHaveText(calls ?? '[]');
+      await test.info().attach('native-reset-observation', {
+        body: JSON.stringify({
+          framework,
+          scenario,
+          initialDefaultValues,
+          defaultValues,
+        }),
+        contentType: 'application/json',
+      });
+    });
+  test(`${framework} source external form association projects null into the context owner Form`, async ({
+    page,
+  }) => {
+    await open(page, 'external-form');
+    expect(
+      await page
+        .locator('#form')
+        .evaluate((form) =>
+          new FormData(form as HTMLFormElement).getAll('choice'),
+        ),
+    ).toEqual([]);
+    expect(
+      await page
+        .locator('#external-form')
+        .evaluate((form) =>
+          new FormData(form as HTMLFormElement).getAll('choice'),
+        ),
+    ).toEqual(['b']);
+    await page.locator('#submit').click();
+    await expect(page.locator('#submissions')).toHaveText('[{"choice":null}]');
   });
   test(`${framework} native controlled rejection characterization preserves framework defaults`, async ({
     page,

@@ -38,6 +38,7 @@ export function mountRadioReference(node: HTMLElement, scenario: string) {
         'data-hydrated': hydrated,
         'data-renderer': `${reactVersion}/${reactDomVersion}`,
       },
+      h('form', { id: 'external-form' }),
       h(
         DirectionProvider,
         { direction: rtl ? 'rtl' : 'ltr' },
@@ -67,6 +68,8 @@ export function mountRadioReference(node: HTMLElement, scenario: string) {
                   readOnly,
                   required,
                   name: 'fallback',
+                  form:
+                    scenario === 'external-form' ? 'external-form' : undefined,
                   onValueChange(value, details) {
                     setCalls((previous) => [
                       ...previous,

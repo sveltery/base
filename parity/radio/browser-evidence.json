@@ -1,0 +1,22 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "renderer": { "react": "19.2.8", "reactDom": "19.2.8", "baseUi": "1.8.0" },
+  "chromiumSandbox": true,
+  "retries": 0,
+  "ordinaryDeclarationCredit": 0,
+  "developmentRuns": [
+    {
+      "head": "a98f08e77f920d989814d9d2d6d1626d27dba11a",
+      "runId": 37093701839,
+      "url": "https://github.com/sveltery/base/actions/runs/37093701839",
+      "result": "failure",
+      "passed": 29,
+      "failed": 2,
+      "failure": "Two React cancellation native-event expectations assumed zero input/change events. Actual React19.2.8 emitted input+change, retaining source and successful input value; every Svelte case passed.",
+      "nativeObservation": { "reactCanceledInputAndChangeEvents": 2, "svelteCanceledInputAndChangeEvents": 0 },
+      "artifactId": 11263618188,
+      "artifactZipSha256": "18000d46a69901e8f702e576c2184a3ba35dbdd8428012018b197546ab198716"
+    }
+  ],
+  "status": "Fresh exact-head run, configured review and independent whole-closure source/native/maintainability acceptance pending; no merge or exhaustive assertion parity claimed."
+}

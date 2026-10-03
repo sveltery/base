@@ -33,6 +33,7 @@
   const description = true;
   const keepMounted = scenario.includes('keep');
   const inputRef = undefined;
+  const form = scenario === 'external-form' ? 'external-form' : undefined;
   let hydrated = $state(false);
   let calls = $state<unknown[]>([]);
   let submissions = $state<unknown[]>([]);
@@ -96,7 +97,7 @@
         id="radio-group" defaultValue={current.initial}
         value={current.controlled ? owner : undefined}
         disabled={current.disabled} readOnly={current.readOnly} required={current.required}
-        name={current.groupName} onValueChange={changed} {inputRef}
+        name={current.groupName} onValueChange={changed} {inputRef} {form}
       >
         {#each current.items as value (value)}
           <Field.Item>

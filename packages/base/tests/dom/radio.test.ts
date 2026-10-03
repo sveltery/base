@@ -2,6 +2,7 @@
 import { afterEach, expect, it, vi } from 'vitest';
 import { flushSync, mount, tick, unmount } from 'svelte';
 import Fixture from './RadioFixture.svelte';
+import EdgesFixture from './RadioEdgesFixture.svelte';
 const cleanups: (() => Promise<void>)[] = [];
 afterEach(async () => {
   for (const cleanup of cleanups.splice(0)) await cleanup();
@@ -230,4 +231,77 @@ it('native characterization controlled rejection keeps source state and native a
   expect(radio('b').getAttribute('aria-checked')).toBe('true');
   expect(input('a').checked).toBe(true);
   expect(input('b').checked).toBe(false);
+});
+
+for (const controlled of [false, true])
+  it(`native reset ${controlled ? 'controlled' : 'uncontrolled'} follows native checked defaults without changing source value`, () => {
+    const changed = vi.fn();
+    const { form, click, host, radio } = setup({
+      controlled,
+      onChange: changed,
+    });
+    const defaults = [
+      ...host.querySelectorAll<HTMLInputElement>('input[type="radio"]'),
+    ]
+      .filter((input) => input.defaultChecked)
+      .map((input) => input.value);
+    click('a');
+    form().reset();
+    flushSync();
+    expect(new FormData(form()).getAll('choice')).toEqual(defaults);
+    expect(radio('a').getAttribute('aria-checked')).toBe('true');
+    expect(changed).toHaveBeenCalledTimes(1);
+  });
+
+it('supplement source external form association is excluded from owner Form projection', () => {
+  const submit = vi.fn();
+  const host = document.createElement('div');
+  document.body.append(host);
+  const component = mount(EdgesFixture, {
+    target: host,
+    props: { onSubmit: submit },
+  });
+  cleanups.push(() => unmount(component));
+  flushSync();
+  const ownerForm = host.querySelector<HTMLFormElement>('#owner-form')!;
+  const externalForm = host.querySelector<HTMLFormElement>('#external-form')!;
+  expect(new FormData(externalForm).getAll('external')).toEqual(['a']);
+  expect(new FormData(ownerForm).getAll('external')).toEqual([]);
+  ownerForm.dispatchEvent(
+    new Event('submit', { bubbles: true, cancelable: true }),
+  );
+  flushSync();
+  expect(submit).toHaveBeenLastCalledWith({
+    external: null,
+    object: { storage: 'cloud', size: 42 },
+    nullable: null,
+  });
+});
+it('supplement source null/object serialization, context-free empty fallback and external labels', async () => {
+  const host = document.createElement('div');
+  document.body.append(host);
+  const component = mount(EdgesFixture, { target: host });
+  cleanups.push(() => unmount(component));
+  flushSync();
+  const radio = (name: string) =>
+    host.querySelector<HTMLElement>(`[data-testid="${name}-radio"]`)!;
+  const input = (name: string) =>
+    radio(name).nextElementSibling as HTMLInputElement;
+  expect(input('object').value).toBe('{"storage":"cloud","size":42}');
+  expect(input('null').value).toBe('');
+  expect(radio('null').getAttribute('aria-checked')).toBe('true');
+  radio('nonnull').click();
+  flushSync();
+  expect(radio('null').getAttribute('aria-checked')).toBe('false');
+  expect(radio('nonnull').getAttribute('aria-checked')).toBe('true');
+  expect(radio('standalone').getAttribute('aria-checked')).toBe('true');
+  expect(radio('standalone').querySelector('[data-checked]')).not.toBe(null);
+  await tick();
+  flushSync();
+  const external = radio('external');
+  const labelledBy = external.getAttribute('aria-labelledby');
+  expect(labelledBy).not.toBe(null);
+  expect(host.querySelector(`#${labelledBy}`)?.textContent).toBe(
+    'External option',
+  );
 });
