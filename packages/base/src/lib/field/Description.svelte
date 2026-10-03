@@ -17,8 +17,9 @@
   const descriptionState = $derived({ ...fieldRootContext.state, disabled: fieldRootContext.disabled || fieldItemContext.disabled });
   useIsoLayoutEffect(() => {
     if (!id) return;
-    setMessageIds(v => v.concat(id));
-    return () => { setMessageIds(v => v.filter(item => item !== id)); };
+    const installedId = id;
+    setMessageIds(v => v.concat(installedId));
+    return () => { setMessageIds(v => v.filter(item => item !== installedId)); };
   }, () => [id, setMessageIds]);
   const forwardedRef = { get current() { return ref ?? null; }, set current(value: HTMLElement | null) { ref = value; } };
   const componentProps = $derived({ render, class: classProp, style });

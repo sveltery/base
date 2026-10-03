@@ -10,7 +10,7 @@ type WithPreventBaseUIHandler<T> = T extends (event: infer E) => infer Return
   ? E extends Event ? (event: BaseUIEvent<E>) => Return : T : T;
 export type WithBaseUIEvent<T> = { [Key in keyof T]: WithPreventBaseUIHandler<T[Key]> };
 export interface BaseUIComponentProps<State> {
-  class?: ClassValue | ((state: State) => ClassValue);
-  style?: NativeStyle | ((state: State) => NativeStyle | undefined);
-  render?: ComponentRenderFn<HTMLProps, State>;
+  class?: ClassValue | ((state: State) => ClassValue | undefined) | undefined;
+  style?: NativeStyle | ((state: State) => NativeStyle | undefined) | undefined;
+  render?: ComponentRenderFn<HTMLProps, State> | undefined;
 }
