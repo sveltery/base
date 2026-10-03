@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "executedHead": "afc4752015b0996731d4af77a5cd636c6169aaab",
+  "sourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "pullRequest": "https://github.com/sveltery/base/pull/58",
+  "run": "https://github.com/sveltery/base/actions/runs/37156713054",
+  "job": "https://github.com/sveltery/base/actions/runs/37156713054/job/111301485011",
+  "artifactId": 11285567811,
+  "artifactZipSHA256": "f82920f85dd72c3d7e0354c00f1d68d14b243517989a29800ae9e5411ecd0f79",
+  "runner": "ubuntu-22.04",
+  "browser": "Chromium 153.0.8010.12",
+  "chromiumSandbox": true,
+  "workers": 1,
+  "retries": 0,
+  "react": "19.2.8",
+  "reactDOM": "19.2.8",
+  "baseUI": "1.8.0",
+  "svelte": "5.57.1",
+  "kit": "2.70.3",
+  "originalModuleHashes": 155,
+  "originalAssertionFileHashes": 14,
+  "passed": 46,
+  "failed": 0,
+  "skipped": 0,
+  "flaky": 0,
+  "ordinaryDeclarationCredit": 0,
+  "nativePrevention": [
+    {
+      "framework": "react",
+      "visible": "2",
+      "numeric": 2
+    },
+    {
+      "framework": "svelte",
+      "visible": "8",
+      "numeric": 2
+    }
+  ],
+  "acceptance": "Executed bounded checkpoint only; dependency main integration, exact final-head CI and fresh whole-closure review remain required.",
+  "files": {
+    "afc4752-browser-results.json": "0a5bf2b33f89a6a0f6bdbcfb087125fd2eea2c784911f3790e2c47170232d19a",
+    "afc4752-browser.log": "fe5c3a7070820155e986f46d339562f8a523cf7643e66be59d8c63f1dfb7ae45"
+  }
+}
