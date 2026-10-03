@@ -11,7 +11,7 @@ export interface UseOpenChangeCompleteParameters {
 }
 export function useOpenChangeComplete(parameters: UseOpenChangeCompleteParameters) {
   const onComplete = useStableCallback(() => parameters.onComplete());
-  const runOnceAnimationsFinish = useAnimationsFinished(parameters.ref, () => parameters.open ?? false, parameters.batch);
+  const runOnceAnimationsFinish = useAnimationsFinished(parameters.ref, () => parameters.open ?? false, () => parameters.batch ?? false);
   useIsoLayoutEffect(() => {
     if (parameters.enabled === false) return;
     const abortController = new AbortController();

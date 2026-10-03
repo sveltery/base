@@ -9,3 +9,7 @@
   });
 </script>
 <div bind:this={host}></div>
+<style>
+  :global(.reference-animated) { transition: opacity 200ms; }
+  :global(.reference-animated[data-starting-style]), :global(.reference-animated[data-ending-style]) { opacity: 0; }
+</style>
