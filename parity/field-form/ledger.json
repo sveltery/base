@@ -5,7 +5,7 @@
     "commit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
     "license": "MIT"
   },
-  "scope": "All 209 immutable ordinary declaration sites accounted for. Forty-two complete native DOM body adaptations are separately mapped in fieldset-ports.json, primitive-ports.json and validation-ports.json and await final gates with zero credit. The stale-error template has both source mode executions but remains one declaration. Consumer/lifecycle classifications identify concrete blockers, not approved differences or completed parity; no grouped supplement is credited.",
+  "scope": "All 209 immutable ordinary declaration sites accounted for. Forty-two complete native DOM body adaptations are separately mapped in fieldset-ports.json, primitive-ports.json and validation-ports.json and await ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance with zero credit; bounded source/public/closure/browser gates passed separately. The stale-error template has both source mode executions but remains one declaration. Consumer/lifecycle classifications identify concrete blockers, not approved differences or completed parity; no grouped supplement is credited.",
   "counts": {
     "deferred-react-lifecycle-contract": 8,
     "unported": 124,
@@ -361,7 +361,7 @@
         24
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-primitives-source.test.ts",
@@ -381,7 +381,7 @@
         38
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-primitives-source.test.ts",
@@ -401,7 +401,7 @@
         51
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-primitives-source.test.ts",
@@ -421,7 +421,7 @@
         63
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-primitives-source.test.ts",
@@ -441,7 +441,7 @@
         26
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-validation-source.test.ts",
@@ -463,7 +463,7 @@
         54
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-validation-source.test.ts",
@@ -488,7 +488,7 @@
         81
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-validation-source.test.ts",
@@ -512,7 +512,7 @@
         103
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-validation-source.test.ts",
@@ -536,7 +536,7 @@
         124
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-validation-source.test.ts",
@@ -562,7 +562,7 @@
         145
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-validation-source.test.ts",
@@ -588,7 +588,7 @@
         166
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-validation-source.test.ts",
@@ -612,7 +612,7 @@
         180
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-validation-source.test.ts",
@@ -636,7 +636,7 @@
         197
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-validation-source.test.ts",
@@ -660,7 +660,7 @@
         211
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-validation-source.test.ts",
@@ -684,7 +684,7 @@
         231
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-validation-source.test.ts",
@@ -707,7 +707,7 @@
         242
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-validation-source.test.ts",
@@ -728,7 +728,7 @@
         259
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-validation-source.test.ts",
@@ -750,7 +750,7 @@
         277
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-validation-source.test.ts",
@@ -773,7 +773,7 @@
         296
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-validation-source.test.ts",
@@ -795,7 +795,7 @@
         307
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-validation-source.test.ts",
@@ -847,7 +847,7 @@
         39
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-validation-source.test.ts",
@@ -922,7 +922,7 @@
         27
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-primitives-source.test.ts",
@@ -943,7 +943,7 @@
         46
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-primitives-source.test.ts",
@@ -965,7 +965,7 @@
         68
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-primitives-source.test.ts",
@@ -987,7 +987,7 @@
         78
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-primitives-source.test.ts",
@@ -1008,7 +1008,7 @@
         91
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-primitives-source.test.ts",
@@ -1028,7 +1028,7 @@
         108
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-primitives-source.test.ts",
@@ -1048,7 +1048,7 @@
         128
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-primitives-source.test.ts",
@@ -1069,7 +1069,7 @@
         149
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-primitives-source.test.ts",
@@ -1091,7 +1091,7 @@
         176
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-primitives-source.test.ts",
@@ -2736,7 +2736,7 @@
         66
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-validation-source.test.ts",
@@ -2795,7 +2795,7 @@
         131
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-validation-source.test.ts",
@@ -2824,7 +2824,7 @@
         156
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-validation-source.test.ts",
@@ -2848,7 +2848,7 @@
         175
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-validation-source.test.ts",
@@ -2870,7 +2870,7 @@
         194
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/field-validation-source.test.ts",
@@ -2891,7 +2891,7 @@
         24
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/fieldset-source.test.ts",
@@ -2911,7 +2911,7 @@
         37
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/fieldset-source.test.ts",
@@ -2933,7 +2933,7 @@
         66
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/fieldset-source.test.ts",
@@ -2955,7 +2955,7 @@
         73
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/fieldset-source.test.ts",
@@ -3004,7 +3004,7 @@
         29
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/fieldset-source.test.ts",
@@ -3025,7 +3025,7 @@
         43
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/fieldset-source.test.ts",
@@ -3050,7 +3050,7 @@
         83
       ],
       "status": "native-dom-port-pending-final-gates",
-      "reason": "Complete native DOM body and assertion adaptation passes locally; public package, current-main integration and final independent review remain pending. No ordinary credit is awarded yet.",
+      "reason": "Complete native DOM body and assertion adaptation passed locally; bounded source/public/closure/browser gates passed at8619e34/8438374. Ordinary-assertion-specific final review, execution accounting and approved main-merge acceptance remain pending. No ordinary credit is awarded.",
       "dependencies": [],
       "port": {
         "file": "packages/base/tests/dom/fieldset-source.test.ts",
@@ -3679,28 +3679,28 @@
     "invocationMappings": 135,
     "plannedRealReactSvelteExecutions": 270,
     "ordinaryDeclarationCredit": 0,
-    "status": "uncredited-pending-execution"
+    "status": "bounded-source-270-conformance-executions-passed-ordinary-helper-credit-accounting-pending"
   },
   "typeAssertions": [
     {
       "id": "packages/react/src/form/Form.spec.tsx:12",
       "assertion": "expectType<string, typeof values.name>(values.name)",
       "port": "packages/base/tests/field-form.types.ts",
-      "status": "passing-internal-svelte-check-public-tarball-pending",
+      "status": "source-type-check-and-public-contract-consumers-passed-unchanged-body-public-execution-and-credit-accounting-separate",
       "ordinaryDeclarationCredit": 0
     },
     {
       "id": "packages/react/src/form/Form.spec.tsx:13",
       "assertion": "expectType<number, typeof values.age>(values.age)",
       "port": "packages/base/tests/field-form.types.ts",
-      "status": "passing-internal-svelte-check-public-tarball-pending",
+      "status": "source-type-check-and-public-contract-consumers-passed-unchanged-body-public-execution-and-credit-accounting-separate",
       "ordinaryDeclarationCredit": 0
     },
     {
       "id": "packages/react/src/form/Form.spec.tsx:22",
       "assertion": "expectType<boolean | undefined, typeof props.noValidate>(props.noValidate)",
       "port": "packages/base/tests/field-form.types.ts",
-      "status": "passing-internal-svelte-check-public-tarball-pending",
+      "status": "source-type-check-and-public-contract-consumers-passed-unchanged-body-public-execution-and-credit-accounting-separate",
       "ordinaryDeclarationCredit": 0
     }
   ],
