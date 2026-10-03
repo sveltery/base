@@ -104,6 +104,24 @@ for (const framework of ['react', 'svelte']) {
     await page.getByTestId('visible').fill('3'); await page.locator('#submit').click(); await expect(page.locator('#number-submissions')).toHaveText('[{"amount":3}]');
     await open(page, 'validation'); await page.getByTestId('visible').fill('7'); await page.locator('#outside').click(); await expect(page.locator('#number-error')).toHaveText('Seven unavailable');
   });
+  for (const scenario of ['rounding-blur', 'rounding-blur-controlled', 'rounding-blur-async', 'rounding-blur-async-controlled']) test(`${framework} source ${scenario} preserves settled validity and releases the one-change guard`, async ({ page }) => {
+    await open(page, scenario); const input = page.getByTestId('visible');
+    await expect(input).toHaveValue('1.23'); await expect(page.locator('input[type="number"]')).toHaveValue('1.234');
+    await input.focus(); await page.locator('#outside').click();
+    const validity = async () => JSON.parse(await page.locator('#validity').innerText());
+    const rejected = { value: 1.23, initialValue: 1.234, state: { valid: false, customError: true }, error: 'Rounded amount rejected', errors: ['Rounded amount rejected'] };
+    await expect.poll(validity).toMatchObject(rejected);
+    await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+    expect(await validity()).toMatchObject(rejected); await expect(page.locator('input[type="number"]')).toHaveValue('1.23');
+    await expect(page.locator('#number-validation-calls')).toHaveText('[{"value":1.23,"values":{"amount":1.234}}]');
+    const eventType = framework === 'react' ? 'focusout' : 'blur';
+    expect(await traces(page)).toEqual([{ kind: 'change', value: 1.23, reason: 'input-blur', type: eventType }, { kind: 'commit', value: 1.23, reason: 'input-blur', type: eventType }]);
+    if (scenario.includes('controlled')) {
+      await page.locator('#owner-update').click(); await expect(input).toHaveValue('42');
+      await expect.poll(validity).toMatchObject({ value: 42, initialValue: 1.234, state: { valid: true, customError: false }, error: '', errors: [] });
+      await expect(page.locator('#number-validation-calls')).toHaveText('[{"value":1.23,"values":{"amount":1.234}}]');
+    }
+  });
   test(`${framework} source external native form owns the hidden numeric input`, async ({ page }) => {
     await open(page, 'external-form'); expect(await page.locator('#external-number-form').evaluate(form => [...new FormData(form as HTMLFormElement)])).toEqual([['amount', '2']]);
     expect(await page.locator('#number-form').evaluate(form => [...new FormData(form as HTMLFormElement)])).toEqual([]);

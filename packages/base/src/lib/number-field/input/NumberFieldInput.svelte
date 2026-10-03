@@ -90,6 +90,10 @@
         return;
       }
 
+      // These source comparisons use the numeric value from before this handler's updates.
+      // Capture it once so a native live read after setValue cannot clear the revalidation guard.
+      const valueBeforeBlur = value;
+
       setTouched(true);
       setFocused(false);
 
@@ -114,7 +118,7 @@
         }
         // Don't report a commit when blurring an already-empty field that the user never
         // interacted with: nothing was cleared and no programmatic change is pending.
-        if (hadManualInput || hadPendingProgrammaticChange || value !== null) {
+        if (hadManualInput || hadPendingProgrammaticChange || valueBeforeBlur !== null) {
           onValueCommitted(null, createGenericEventDetails(REASONS.inputClear, event));
         }
         return;
@@ -135,7 +139,7 @@
         // display, so keep the authoritative numeric value as-is rather than re-parsing the
         // rounded text and discarding precision (e.g. focus/blur with no edits, or blur after
         // a programmatic change).
-        committed = value;
+        committed = valueBeforeBlur;
       } else if (hasRoundingOptions) {
         // Explicit rounding options apply to the committed value, whether typed or external.
         committed = removeFloatingPointErrors(parsedValue, formatOptions);
@@ -144,7 +148,7 @@
       }
 
       const nextEventDetails = createGenericEventDetails(REASONS.inputBlur, event);
-      const shouldUpdateValue = value !== committed;
+      const shouldUpdateValue = valueBeforeBlur !== committed;
       const shouldCommit = hadManualInput || shouldUpdateValue || hadPendingProgrammaticChange;
 
       // Use the stored value after `setValue` clamps it.
@@ -160,7 +164,7 @@
         committedValue = lastChangedValueRef.current;
         // If validation normalized back to the current value, `useValueChanged` won't fire to
         // reset the flag, so reset it here or the next external change won't revalidate.
-        if (committedValue === value) {
+        if (committedValue === valueBeforeBlur) {
           blockRevalidationRef.current = false;
         }
       }

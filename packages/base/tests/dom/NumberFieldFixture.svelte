@@ -9,7 +9,7 @@
   let { initial = 2, controlled = false, reject = false, cancel = false, options = {}, validationMode = 'onSubmit', validate, onChange, onCommit, preventInput = false, preventKey = false, preventStepper = false, replacement = false, withScrub = false, inputRef }: {
     initial?: number | undefined; controlled?: boolean; reject?: boolean; cancel?: boolean;
     options?: NumberFieldRootProps; validationMode?: FormValidationMode;
-    validate?: (value: unknown, values: Record<string, unknown>) => string | null;
+    validate?: (value: unknown, values: Record<string, unknown>) => string | null | Promise<string | null>;
     onChange?: (value: number | null, details: NumberFieldRootChangeEventDetails) => void;
     onCommit?: (value: number | null, details: NumberFieldRootCommitEventDetails) => void;
     preventInput?: boolean; preventKey?: boolean; preventStepper?: boolean; replacement?: boolean; withScrub?: boolean;

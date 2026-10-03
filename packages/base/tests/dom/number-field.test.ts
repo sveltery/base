@@ -124,6 +124,23 @@ it('supplement actual Field custom validation receives numeric value and entire 
   edit('7'); blur(); await tick(); flushSync();
   expect(validate).toHaveBeenCalledWith(7, { amount: 7 }); expect(host.querySelector('#number-error')!.textContent).toBe('Seven unavailable');
 });
+for (const asyncValidation of [false, true]) for (const controlled of [false, true]) it(`source rounding-on-blur retains complete ${asyncValidation ? 'async' : 'sync'} custom validity after synchronization (${controlled ? 'controlled' : 'uncontrolled'})`, async () => {
+  const validate = vi.fn(() => asyncValidation ? Promise.resolve('Rounded amount rejected') : 'Rounded amount rejected');
+  const { input, hidden, blur, host, component, traces } = setup({ initial: 1.234, controlled, validationMode: 'onBlur', options: { step: 'any', locale: 'en-US', format: { maximumFractionDigits: 2 } }, validate });
+  expect(input().value).toBe('1.23'); expect(hidden().value).toBe('1.234');
+  blur(); await tick(); await Promise.resolve(); flushSync();
+  const validity = () => JSON.parse(host.querySelector('#validity')!.textContent!);
+  expect(validate).toHaveBeenCalledTimes(1); expect(validate).toHaveBeenCalledWith(1.23, { amount: 1.234 });
+  expect(hidden().value).toBe('1.23'); expect(input().value).toBe('1.23');
+  expect(validity()).toMatchObject({ value: 1.23, initialValue: 1.234, state: { valid: false, customError: true }, error: 'Rounded amount rejected', errors: ['Rounded amount rejected'] });
+  expect(traces()).toEqual([{ kind: 'change', value: 1.23, reason: 'input-blur', type: 'blur' }, { kind: 'commit', value: 1.23, reason: 'input-blur', type: 'blur' }]);
+  if (controlled) {
+    component.setOwner(4); flushSync(); await tick(); flushSync();
+    expect(hidden().value).toBe('4'); expect(input().value).toBe('4');
+    expect(validity()).toMatchObject({ value: 4, initialValue: 1.234, state: { valid: true, customError: false }, error: '', errors: [] });
+    expect(validate).toHaveBeenCalledTimes(1);
+  }
+});
 function pointer(target: EventTarget, type: string, options: Partial<PointerEvent> = {}) {
   const event = new MouseEvent(type, { bubbles: true, cancelable: true });
   for (const [key, value] of Object.entries({ pointerType: 'mouse', movementX: 0, movementY: 0, ...options })) Object.defineProperty(event, key, { value });
