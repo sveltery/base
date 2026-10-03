@@ -1,0 +1,28 @@
+{
+  "status": "quota-waived",
+  "scope": "Configured automatic Codex PR code review for OTP Field PR #54 only. A waiver is not a passed review or product approval.",
+  "pr": "https://github.com/sveltery/base/pull/54",
+  "basis": {
+    "requirementsPage": "page_a2f16e7472408191ba98a44acf7220c8",
+    "section": "Definition of done for a slice, item 4",
+    "instruction": "Configured automatic review must pass unless actual quota exhaustion invokes the user's exception; a waiver is not approval.",
+    "decision": "Apply the user's recorded quota exception, independently verified by the PM in the current project conversation; all other exact-head gates remain mandatory."
+  },
+  "evidence": {
+    "comment": "https://github.com/sveltery/base/pull/54#issuecomment-5973248070",
+    "commentId": 5973248070,
+    "actor": "chatgpt-codex-connector[bot]",
+    "createdAt": "2026-10-03T20:35:48Z",
+    "literal": "You have reached your Codex usage limits for code reviews.",
+    "requestedHead": "3944e11ba9a6e46ee2a0287a61b76911d716e7e3"
+  },
+  "mandatoryGates": [
+    "Independent review of the exact final candidate",
+    "All current exact-head CI and secured paired browser acceptance",
+    "Real public root/subpath consumers",
+    "Accepted shared dependency and current-main merge synchronization",
+    "PM exact-head merge approval",
+    "Exact post-merge CI"
+  ],
+  "behavioralDifferenceApproval": false
+}

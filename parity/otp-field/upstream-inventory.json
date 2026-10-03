@@ -1,0 +1,928 @@
+{
+  "sourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "tests": [
+    {
+      "path": "packages/react/src/otp-field/root/OTPFieldRoot.test.tsx",
+      "sha256": "a1399bad0ad4f5190f12cc25ccdff9170340e966f9f5e4a00c6653dd7f8d4c5f",
+      "declarations": [
+        {
+          "line": 60,
+          "title": "splits the default value across inputs",
+          "kind": "ordinary",
+          "sha256": "00fa53700c1a59095896e46b94b98627635b85034f0044f673379de0886bcca3"
+        },
+        {
+          "line": 67,
+          "title": "clamps an overlong default value to the rendered slot count",
+          "kind": "ordinary",
+          "sha256": "6e205227ef7951d6b6b55161a24ea84adb43158b68b3c912b69f1467e75d0d76"
+        },
+        {
+          "line": 81,
+          "title": "assigns slot indexes from render order when omitted",
+          "kind": "ordinary",
+          "sha256": "315febe3558351562a0585990d0f3f244aa9b19717045080eb7b70f93df42869"
+        },
+        {
+          "line": 94,
+          "title": "supports grouped layouts without affecting slot counting",
+          "kind": "ordinary",
+          "sha256": "bd80b7287ea2c9bdccb306509d0ea2da84e2996e6c058263ffc703d3a2ac0b89"
+        },
+        {
+          "line": 120,
+          "title": "updates the rendered value in controlled mode",
+          "kind": "ordinary",
+          "sha256": "1210d6402775386faa16bf9e82a2955f201efe3dc6d774066105c9494f64b9cc"
+        },
+        {
+          "line": 132,
+          "title": "supports alphabetic values when set to `alpha`",
+          "kind": "ordinary",
+          "sha256": "046719e0d9818fad1d2ec303a4763a648ceee1ba590fd20ce0dc17f27d88cc67"
+        },
+        {
+          "line": 139,
+          "title": "supports typing alphabetic values when set to `alpha`",
+          "kind": "ordinary",
+          "sha256": "266726f1ab0db9eeaa52b1be50a8dae1755da1ef0b3c98ae3c127f7477f48f80"
+        },
+        {
+          "line": 148,
+          "title": "supports alphanumeric values when set to `alphanumeric`",
+          "kind": "ordinary",
+          "sha256": "802a57739130cef70c3a203b7edcefc2a29b10e0aac30deae8381017fc354b57"
+        },
+        {
+          "line": 157,
+          "title": "applies single-character validation to each visible slot",
+          "kind": "ordinary",
+          "sha256": "0ba353267601e61e7aa451f08fc250d4b91bb6d644b158877fc8b396dcea2723"
+        },
+        {
+          "line": 167,
+          "title": "renders the hidden validation input with an alphanumeric pattern during SSR",
+          "kind": "ordinary",
+          "sha256": "08abb4093a48ccc6db919597a3e967164c416597fc4e406b9c4fe840b7f24cc7"
+        },
+        {
+          "line": 190,
+          "title": "omits the hidden validation pattern when set to `none`",
+          "kind": "ordinary",
+          "sha256": "7c8a7781f6e50a16aca0ed59ae5bd5d827df7edd6febfe469797ba130b82c81c"
+        },
+        {
+          "line": 199,
+          "title": "allows a custom inputMode when validation is set to `none`",
+          "kind": "ordinary",
+          "sha256": "0359cd18b3cc62757d526425d9671cb16e2519fb335c2ac0ed5f861b6ec75a3f"
+        },
+        {
+          "line": 209,
+          "title": "allows overriding the built-in inputMode when needed",
+          "kind": "ordinary",
+          "sha256": "90b2f26b594b38c08766eab7f610828e25b4099427e43fcb0c1f8504284de3a8"
+        },
+        {
+          "line": 222,
+          "title": "supports custom normalization when `validationType` is `none`",
+          "kind": "ordinary",
+          "sha256": "5411aea51dd08878ee22089e7272d9a057ee59855c35bc724d0f2ffc3a525d9a"
+        },
+        {
+          "line": 236,
+          "title": "composes with built-in validation and advances focus",
+          "kind": "ordinary",
+          "sha256": "d779683d5e68674dd91ef588c1aad0c069020e84b74017a79e5c7a9ae066daee"
+        },
+        {
+          "line": 258,
+          "title": "composes built-in validation and custom normalization for pasted values",
+          "kind": "ordinary",
+          "sha256": "90dc43429cc238d5e8ac69f17c8632bfccb3ef39b68779599d35b1c9c61073fa"
+        },
+        {
+          "line": 272,
+          "title": "composes built-in validation and custom normalization from a non-first slot",
+          "kind": "ordinary",
+          "sha256": "a0e11d6d435519084c292714e3e17541c37dd696499791ffd25ffc659998fe84"
+        },
+        {
+          "line": 295,
+          "title": "fires `input-change` when typing",
+          "kind": "ordinary",
+          "sha256": "ccbfdbb4feed8783490f74bf241d2f2a1fd3ad645a4c85e100f8d82a3f6c0866"
+        },
+        {
+          "line": 308,
+          "title": "fires `input-clear` when clearing a slot by input",
+          "kind": "ordinary",
+          "sha256": "4049d71cc9780ed35861d464ea608a4b3f8c01fde2a6abbb650f8714ebe2c880"
+        },
+        {
+          "line": 323,
+          "title": "fires when typing is normalized before the OTP value updates",
+          "kind": "ordinary",
+          "sha256": "d5ca1f6074bf5197006623e5f2fe56115b12c64eaaf92407537aefeef9705cd2"
+        },
+        {
+          "line": 337,
+          "title": "fires when custom normalization removes characters",
+          "kind": "ordinary",
+          "sha256": "f2b4bec437ac2143f61f4e246843bdbc2ae1c38486015781bb46ebc02d146d98"
+        },
+        {
+          "line": 358,
+          "title": "fires when custom normalization removes characters after built-in validation",
+          "kind": "ordinary",
+          "sha256": "6fc7242a88aad916cba5ef8bf55509512d671b6eb978f3a4ae8969a8b0da10af"
+        },
+        {
+          "line": 378,
+          "title": "fires when built-in validation removes characters before custom normalization expands the value",
+          "kind": "ordinary",
+          "sha256": "fb79dfccedfbda13ff30da4f6b2311c5d970fd63877cf3405edc3838519bfefe"
+        },
+        {
+          "line": 398,
+          "title": "fires when custom normalization removes all characters after built-in validation",
+          "kind": "ordinary",
+          "sha256": "a204a713b6c4b99988dbabbb54fdb7a7ac37315d994fa482aa05849b26d9b425"
+        },
+        {
+          "line": 418,
+          "title": "fires `input-paste` when pasted text is normalized before the OTP value updates",
+          "kind": "ordinary",
+          "sha256": "072a99dea49baa277e02199b796d987bffa11e9c4f82befda69e9cd789dffe6b"
+        },
+        {
+          "line": 432,
+          "title": "fires `input-paste` when custom normalization removes characters after built-in validation",
+          "kind": "ordinary",
+          "sha256": "3c095c0f5791cc880baa8e52e29cbea5635003d479e17e000873952bc9bf5318"
+        },
+        {
+          "line": 454,
+          "title": "fires when typing completes the OTP",
+          "kind": "ordinary",
+          "sha256": "cb3a7ea655aaa3805cdeca8a1f311f65a936c5380196b7c1e4f7d9f77c75d2d9"
+        },
+        {
+          "line": 467,
+          "title": "fires `input-paste` when pasting completes the OTP",
+          "kind": "ordinary",
+          "sha256": "f80cfb9475a2f5347f47a1e16cc07f28aaac03d837a643d1896bb09350e1ef66"
+        },
+        {
+          "line": 480,
+          "title": "fires `input-paste` when a complete paste replaces a complete OTP",
+          "kind": "ordinary",
+          "sha256": "60e092dbf1d65e0e61d986533326bc475646a43e071c7e2bf2ebb3f89f0e7c47"
+        },
+        {
+          "line": 499,
+          "title": "fires `input-paste` when pasting into a middle slot completes the OTP",
+          "kind": "ordinary",
+          "sha256": "3f103bdf320e758a1039e2c4998f51cb750017090e11edcf882e69975d06fe64"
+        },
+        {
+          "line": 517,
+          "title": "does not fire when a completion-making paste is canceled",
+          "kind": "ordinary",
+          "sha256": "90bdadd46c89535dabaa0e156c537d9ffb3b043cfb1a80daacd7a3f10e2b8ba1"
+        },
+        {
+          "line": 535,
+          "title": "does not fire before the OTP becomes complete",
+          "kind": "ordinary",
+          "sha256": "8c36b7bd5c91fe56f7880921ce58de733ce3c1488eda57e8f16ac1e61e083f86"
+        },
+        {
+          "line": 546,
+          "title": "does not fire later for a stale controlled completion attempt",
+          "kind": "ordinary",
+          "sha256": "021141061f3504a5cce08e283ac8107fcb5db14634101dbbf64fe7c40865a473"
+        },
+        {
+          "line": 586,
+          "title": "fires after an asynchronously accepted controlled completion",
+          "kind": "ordinary",
+          "sha256": "5b21ba04f5097168d295cca5d863b49c005ef0bfa278a5ec794c8a29f0866b61"
+        },
+        {
+          "line": 625,
+          "title": "does not fire again when a controlled value changes from one complete value to another",
+          "kind": "ordinary",
+          "sha256": "1ecd4e1c388c4bbf1bfd588baf6ff2f946a39c2d4dd6df42c03403914e0b5087"
+        },
+        {
+          "line": 651,
+          "title": "associates Field.Label with the first slot",
+          "kind": "ordinary",
+          "sha256": "4aa53101a4c29523eb841e85a3c0cbc4daa8484cb578476e2ae489a592d114cf"
+        },
+        {
+          "line": 665,
+          "title": "applies the Field description to the group",
+          "kind": "ordinary",
+          "sha256": "ca0aa5a8b5069e59d73a932656739577dbbd90e73fb1071d2e54ff0f40c73d8d"
+        },
+        {
+          "line": 682,
+          "title": "validates the latest value only after focus leaves the OTP field in onBlur mode",
+          "kind": "ordinary",
+          "sha256": "4d9808930c0a28827feeadec4d6363198208d87d93600212592e81dfd6657217"
+        },
+        {
+          "line": 716,
+          "title": "forwards root `aria-describedby` to the group",
+          "kind": "ordinary",
+          "sha256": "4247ee3a91abf6849d7a8e87a1fcae53eca16229b268bafc7052795236b5e28b"
+        },
+        {
+          "line": 722,
+          "title": "forwards root `aria-labelledby` to the group only",
+          "kind": "ordinary",
+          "sha256": "2f6c6c7b2c5de4f5b77b8240e692b66e9bc7f41406a60526d05e98738a855ee3"
+        },
+        {
+          "line": 740,
+          "title": "applies the default autocomplete to the first slot only",
+          "kind": "ordinary",
+          "sha256": "65a215e71a6d14183fcd57f66d0543f9630fb2f6de9d324e55f12d882c85d2ec"
+        },
+        {
+          "line": 749,
+          "title": "allows overriding the autocomplete attribute",
+          "kind": "ordinary",
+          "sha256": "dfc54a653828966142ad17d6085b3e9a40d96098a11259214dcc5efaad643598"
+        },
+        {
+          "line": 762,
+          "title": "disables every slot and prevents value changes",
+          "kind": "ordinary",
+          "sha256": "a74b5a95025a915af5fe77e21c45bc66e77ef14e7301a1833fd3625a6129c23c"
+        },
+        {
+          "line": 780,
+          "title": "marks every slot as readonly and prevents value changes",
+          "kind": "ordinary",
+          "sha256": "7b9bd6f994b4442f257da0a1e22a35aed54c7def5c17f4993da7c947ef073e77"
+        },
+        {
+          "line": 796,
+          "title": "tracks focus state when a readonly slot receives focus",
+          "kind": "ordinary",
+          "sha256": "beb423870fbe179581ac600ea7be3611379776af6d73cf5d37af07e2475a4967"
+        },
+        {
+          "line": 812,
+          "title": "renders password slot inputs when enabled",
+          "kind": "ordinary",
+          "sha256": "1226d9a50c9a6b9e9828f963ba4500d0ba1a0c56250e74189f9a54a36fab1eb8"
+        },
+        {
+          "line": 820,
+          "title": "allows overriding the input type on individual slots",
+          "kind": "ordinary",
+          "sha256": "b8f84584818f0de9b81548a013ae45c0f2f4dfd4ff76f7c416be9d050e021c98"
+        },
+        {
+          "line": 834,
+          "title": "fills consecutive slots when typing multiple characters into the first input",
+          "kind": "ordinary",
+          "sha256": "fb49a9048d237e7a8e158ed6d92264cbd255ae0af4a0e6882b4af4531b6d1e0b"
+        },
+        {
+          "line": 844,
+          "title": "replaces consecutive slots when typing multiple characters into a later input",
+          "kind": "ordinary",
+          "sha256": "cc57907b902aedb7010d2a05d70e9bdf270ca34513631bfe0437a89638f1d1c0"
+        },
+        {
+          "line": 856,
+          "title": "fills consecutive slots when pasting a code",
+          "kind": "ordinary",
+          "sha256": "f531cc6b6b04b779533057743b5451efc75832abdf7bdc6db325bee3405a3444"
+        },
+        {
+          "line": 872,
+          "title": "removes a character and moves focus to the previous slot with backspace",
+          "kind": "ordinary",
+          "sha256": "2047a3834bdd6a47acd195357d251d5b18785323a6e7488512255ca03ab0b387"
+        },
+        {
+          "line": 892,
+          "title": "does not fire `onValueChange` for Delete on an empty slot",
+          "kind": "ordinary",
+          "sha256": "370a3b0ef45236bd55bcbd1c90d60e3734cd2dc694d7ddc36fd7561a3fb116d8"
+        },
+        {
+          "line": 909,
+          "title": "does not fire `onValueChange` for Backspace on an already-empty first slot",
+          "kind": "ordinary",
+          "sha256": "41636f5835e1f0a7d3769fac6f68748bb5778c4ab1d1112c92ed81fd889bd3a7"
+        },
+        {
+          "line": 927,
+          "title": "does not move focus later for a stale controlled change",
+          "kind": "ordinary",
+          "sha256": "1e1218f360cdfe7981628ce304b6ed9a762d2887cc7e2301644149dc2f73e65a"
+        },
+        {
+          "line": 966,
+          "title": "moves focus after an asynchronously accepted controlled change",
+          "kind": "ordinary",
+          "sha256": "273d97b78e296b3821de9bfbbb90fa5386511f7ad97b3173e3caa0ecaab8bc8d"
+        },
+        {
+          "line": 1008,
+          "title": "blocks form submission while the code is incomplete",
+          "kind": "ordinary",
+          "sha256": "6b140c3a6f6b8380bacb8b4ef9b85efbc02af9da2e672e41d860b6aadcfa7b4f"
+        },
+        {
+          "line": 1019,
+          "title": "allows form submission when the code is complete",
+          "kind": "ordinary",
+          "sha256": "3145c02f889502c8e6fe7bde840a514ae951edd57cd529eee006d56201c3a537"
+        },
+        {
+          "line": 1030,
+          "title": "renders the hidden validation input with the provided name",
+          "kind": "ordinary",
+          "sha256": "c30141549e64bf31b1536f81b8a4339e4a3b2d72b6613398ab97dde85c58aa28"
+        },
+        {
+          "line": 1036,
+          "title": "redirects hidden validation input focus to the first visible slot",
+          "kind": "ordinary",
+          "sha256": "d492f7d32e5adec9ac24e448f696e2dad7e42307b2e161d713c09908c7f1ddc3"
+        },
+        {
+          "line": 1051,
+          "title": "accepts valid hidden-input autofill and preserves focus when autofill is cleared",
+          "kind": "ordinary",
+          "sha256": "1f6257c5bd3cb22f6632895411558c6f3413d56a7e2fd60c52038612b36377f5"
+        },
+        {
+          "line": 1078,
+          "title": "handles password manager autofill through the hidden input",
+          "kind": "ordinary",
+          "sha256": "e67287beafae66ed0f42876cb47c8cfe41ca10783ae1a4c014298da85ad66b9d"
+        },
+        {
+          "line": 1113,
+          "title": "composes validation and custom normalization during hidden input autofill",
+          "kind": "ordinary",
+          "sha256": "d1a16e76f0ed89f7303f15553343803b7b236053579f8b3789aaac9e5d64f789"
+        },
+        {
+          "line": 1150,
+          "title": "ignores hidden-input autofill when $lockState $label",
+          "kind": "parameterized-declaration",
+          "sha256": "eb9b6d7bc5f74007339742a9fcb23c356aeface1a4474ec6deb73eab3bab76c4"
+        },
+        {
+          "line": 1223,
+          "title": "does not auto-submit the owning form when the OTP becomes complete by default",
+          "kind": "ordinary",
+          "sha256": "8b412292a87f95b817b9890c2cdcd75fdb6f5219cdcca043069eda2f99162f3a"
+        },
+        {
+          "line": 1243,
+          "title": "submits the completed named OTP value from the owning form when enabled",
+          "kind": "ordinary",
+          "sha256": "07fcc60e38e5aa68bb8579d944caaba0a2b9f16fabbc1773063f1ef2b7862813"
+        },
+        {
+          "line": 1265,
+          "title": "keeps the completed value when the owning form has no requestSubmit method",
+          "kind": "ordinary",
+          "sha256": "892dbb7123a30fd7988fe4b2381225abe77dee3276ce4f3e158f1030883174d2"
+        },
+        {
+          "line": 1288,
+          "title": "does not call flushSync inside a layout effect when auto-submitting a Base UI Form",
+          "kind": "ordinary",
+          "sha256": "3ef6529ae24b30e5f65c0472054022b82d5045d753c29e29905331eed65737e3"
+        },
+        {
+          "line": 1315,
+          "title": "blocks invalid Base UI Form auto-submit without calling flushSync inside a layout effect",
+          "kind": "ordinary",
+          "sha256": "3ae335dc5fe17510996d8ad8f29788e30bb5b266c576cd76ec14d776be0098b3"
+        },
+        {
+          "line": 1344,
+          "title": "keeps focus on the first invalid field when auto-submit is blocked",
+          "kind": "ordinary",
+          "sha256": "af178eaeffc4e8e2a11c65694d6b16293afe5fe219b7b89bcd3fb83d20934772"
+        },
+        {
+          "line": 1369,
+          "title": "does not submit the owning form before the OTP becomes complete when enabled",
+          "kind": "ordinary",
+          "sha256": "546f8fb260ddd271b5bb8ad49a6eee5b2f222b8e6fdc286d5fe66075db214d86"
+        },
+        {
+          "line": 1391,
+          "title": "submits an associated external form when used with `autoSubmit`",
+          "kind": "ordinary",
+          "sha256": "46c7f8f70f7f1726e7667688ace81c708292859126199df576a40f5917abab36"
+        },
+        {
+          "line": 1415,
+          "title": "does not submit an ancestor form when the explicit form id is not a form",
+          "kind": "ordinary",
+          "sha256": "84ec14ebd14fe830367e1ccc83d08d4e2a15a43eea3330c8bedb4d41118b08dc"
+        },
+        {
+          "line": 1439,
+          "title": "renders visible inputs with unique IDs",
+          "kind": "ordinary",
+          "sha256": "446fb235f1ef3826dda92931b4ff9137d11696bafe31e7809214b0ff20e4e805"
+        },
+        {
+          "line": 1460,
+          "title": "renders a hidden validation input with the provided length",
+          "kind": "ordinary",
+          "sha256": "6113db56ab01bb41e0e1aa9556aeb832af4d16f1929183860594dbc1a1b48d7b"
+        },
+        {
+          "line": 1482,
+          "title": "updates standalone filled and focused state on the root",
+          "kind": "ordinary",
+          "sha256": "5793cefa26ce1ad0ae8009395d45a3f0279603c571f2c3c92fbc49076ae28991"
+        },
+        {
+          "line": 1515,
+          "title": "sets `data-complete` when all slots are filled",
+          "kind": "ordinary",
+          "sha256": "56927a9ff10c906e9cc535415d5287fc2921aa95de65806525a481094f89e5c1"
+        },
+        {
+          "line": 1521,
+          "title": "renders a fallback hidden input id when name is not provided",
+          "kind": "ordinary",
+          "sha256": "baaddd278e926215e9b6598805b891a45b2c6eaebc0a0a5a258ef2b6d3b92179"
+        },
+        {
+          "line": 1527,
+          "title": "warns when length does not match the rendered input count",
+          "kind": "ordinary",
+          "sha256": "5cdc952fbb47a83fe7f07d3e87f234d0d11f3aec772d284cca3716013c0dbf80"
+        },
+        {
+          "line": 1552,
+          "title": "warns with singular input wording when one input is rendered",
+          "kind": "ordinary",
+          "sha256": "1cdf7c37dd11b74d4a54761fa1df76ae0d28e3a8ed9333713ed0bae3c0be0cbf"
+        },
+        {
+          "line": 1574,
+          "title": "warns when length is not a positive integer (%p)",
+          "kind": "parameterized-declaration",
+          "sha256": "9c4069fddd73c95e9732179396ac8f6a4909263741a732ccb0c75f7bec3ebdd4"
+        }
+      ],
+      "conformanceHelperCalls": 1,
+      "typeExpectErrors": 0
+    },
+    {
+      "path": "packages/react/src/otp-field/root/OTPFieldRoot.react17.test.tsx",
+      "sha256": "5f6153259ab6819b3eb26d7c3f439c2170f6a0e37d648a23e60495112b25cdbc",
+      "declarations": [
+        {
+          "line": 21,
+          "title": "omits generated slot ids during SSR until the client fallback is assigned",
+          "kind": "ordinary",
+          "sha256": "095b6899118cc52e052fb31a04e4de260fc91c6059b626315e87fccdd41b45c8"
+        }
+      ],
+      "conformanceHelperCalls": 0,
+      "typeExpectErrors": 0
+    },
+    {
+      "path": "packages/react/src/otp-field/input/OTPFieldInput.test.tsx",
+      "sha256": "5b6f6ed5e1bf6248ba6316b0667c3dc337c8a7d4933d200660f5aa1808193f8a",
+      "declarations": [
+        {
+          "line": 71,
+          "title": "renders one textbox per slot",
+          "kind": "ordinary",
+          "sha256": "411cc1cdcc151874f5281247c01bd5b0796ebc7dd594236b36cda8f64e6118f8"
+        },
+        {
+          "line": 77,
+          "title": "moves focus with arrow keys",
+          "kind": "ordinary",
+          "sha256": "2b845fafbb6f7cfc13882415e9f0c71dce108c665fb33f2f0b35b51a65f749cf"
+        },
+        {
+          "line": 93,
+          "title": "moves focus with arrow keys in RTL",
+          "kind": "ordinary",
+          "sha256": "d065751d7d4ff82553f140c4803fccd035bf881a1b46b3c63db2a8a8b39f9a2d"
+        },
+        {
+          "line": 113,
+          "title": "redirects focus to the first empty slot when a later empty slot is focused",
+          "kind": "ordinary",
+          "sha256": "96a090f8d8eca394907801786acf6aa5f3f792cbbd22e75fc2058712c9e794d6"
+        },
+        {
+          "line": 125,
+          "title": "moves focus to the next slot after typing",
+          "kind": "ordinary",
+          "sha256": "f880fcc7ece37f409bf994c2c54b3cc10fe21a4bc45db2afcaeb076dc843b1bb"
+        },
+        {
+          "line": 139,
+          "title": "selects the last slot after typing into it for the first time",
+          "kind": "ordinary",
+          "sha256": "79b27abe54d76a955794c116b05a572dde716bb75a36cc6ac9df74b0fb2571f1"
+        },
+        {
+          "line": 156,
+          "title": "keeps focus in place when typing is canceled",
+          "kind": "ordinary",
+          "sha256": "a9f3af1ddd808509de6119ed32e5cca8b43a1e4c4586d3078903977679c736a6"
+        },
+        {
+          "line": 177,
+          "title": "keeps the filled slot selected when typing an invalid character",
+          "kind": "ordinary",
+          "sha256": "a53df5b6b16e01c601fea303b89e7955d52b03a22c70be454be68c99ba325c34"
+        },
+        {
+          "line": 194,
+          "title": "selects the slot value on mousedown",
+          "kind": "ordinary",
+          "sha256": "a8e5ad1e98567273f922a7254da6a67c148312e4f01a440732f8a88899dc9647"
+        },
+        {
+          "line": 205,
+          "title": "allows a composed mousedown handler to prevent focus",
+          "kind": "ordinary",
+          "sha256": "d364297a4ea8f165614c09d6a3db2196a168afcf1470d2eeee7d2f733a193b5f"
+        },
+        {
+          "line": 223,
+          "title": "allows a composed focus handler to prevent internal focus state",
+          "kind": "ordinary",
+          "sha256": "0c9fb588677cc0d3359b62dfae651de14c8d6348cf4ce4c3018563aa26c50371"
+        },
+        {
+          "line": 245,
+          "title": "allows a composed blur handler to preserve internal focus state",
+          "kind": "ordinary",
+          "sha256": "2836925870619f95db7ac719a4bf847a52de9789817e02dc7cd8c853ca9623ab"
+        },
+        {
+          "line": 276,
+          "title": "moves focus to the next slot when typing the same character into a filled slot",
+          "kind": "ordinary",
+          "sha256": "4c8c5490185786442cd1eca60fc5c129685cf838d594aa5062dfa89aa153be32"
+        },
+        {
+          "line": 292,
+          "title": "moves focus to the field boundary with %s",
+          "kind": "parameterized-declaration",
+          "sha256": "065bdb0e1dfa5791db56ecc0ca52f9ada2abfb61c2db9267b971401f908f39a3"
+        },
+        {
+          "line": 308,
+          "title": "stops propagation when ArrowDown moves focus to the empty end slot",
+          "kind": "ordinary",
+          "sha256": "15c298d369dfaf9d2d567a29c6cdf92cd4af5d1d4a3a762a309f8595414946a2"
+        },
+        {
+          "line": 328,
+          "title": "keeps focus on the empty end slot with ArrowDown",
+          "kind": "ordinary",
+          "sha256": "8a373a56463a46344580fc25e41769f0d32d2253e1328a675606de60fe1ae565"
+        },
+        {
+          "line": 341,
+          "title": "keeps focus on the final slot with ArrowDown when the value is complete",
+          "kind": "ordinary",
+          "sha256": "bf409eda75c0b7f35673760776b91d7454c34f3909c62b2711d55e0960169a18"
+        },
+        {
+          "line": 354,
+          "title": "does not reselect the final slot when typing the same character",
+          "kind": "ordinary",
+          "sha256": "8895a3f2031abfac344643649ad6204561d8b9ef3e2210b11b100e41569cb348"
+        },
+        {
+          "line": 376,
+          "title": "moves focus to the first slot with Home",
+          "kind": "ordinary",
+          "sha256": "8b5aa4cba5d42a1f990383891baf227751f1ed84fe2b90bf700c38d83a87e530"
+        },
+        {
+          "line": 390,
+          "title": "moves focus to the empty end slot with End",
+          "kind": "ordinary",
+          "sha256": "a448e0df3e6f977aaabd17f42349232fabceddb2af2cc183cf5dbe9ff6204c20"
+        },
+        {
+          "line": 404,
+          "title": "moves focus to the field boundaries with %s + arrow keys",
+          "kind": "parameterized-declaration",
+          "sha256": "fe8ed01439d62e089d690486ccff2c2eb32df9483ec7e3254f30287a657478ed"
+        },
+        {
+          "line": 423,
+          "title": "moves focus to the field boundaries with %s + arrow keys in RTL",
+          "kind": "parameterized-declaration",
+          "sha256": "36c1dcd39e39c2f0d0cccef02251096753ca9ee283e4fa81b4f3696c8762d722"
+        },
+        {
+          "line": 446,
+          "title": "keeps arrow and home/end navigation working in readonly mode",
+          "kind": "ordinary",
+          "sha256": "a3c8eef631bbf904c14c523683cbe026bda497ba6f0fe2d4afd48a41a1052aec"
+        },
+        {
+          "line": 471,
+          "title": "leaves vertical arrow navigation unhandled in disabled mode",
+          "kind": "ordinary",
+          "sha256": "5179061860938d8f857980ff1481c2920fc0051a29f805e88ea4015f9498beb8"
+        },
+        {
+          "line": 498,
+          "title": "blocks Delete and Backspace from changing the value in readonly mode",
+          "kind": "ordinary",
+          "sha256": "2597176c140517eae3745a4bf59e1adc09500fc745d516123a853ad81dc9d773"
+        },
+        {
+          "line": 516,
+          "title": "blocks paste from changing the value in readonly mode",
+          "kind": "ordinary",
+          "sha256": "2df412c54fd4b2e435f8f2b2b76a5c3d73b8881e6af3860d78ea5563e08e2376"
+        },
+        {
+          "line": 531,
+          "title": "warns in development when clipboard text cannot be read during paste handling",
+          "kind": "ordinary",
+          "sha256": "5f918e921aa2ab3eb2892f26ffc5bb9747da6780429137d138f50c9f2e0247ed"
+        },
+        {
+          "line": 560,
+          "title": "ignores a paste event when clipboard text is unavailable",
+          "kind": "ordinary",
+          "sha256": "20bc7b635eddc2708f5560ae943b985b403b809b987e13f770010f6f90b7ac45"
+        },
+        {
+          "line": 570,
+          "title": "allows tabbing out of the field from the active slot",
+          "kind": "ordinary",
+          "sha256": "7d786c96813d6b47ed19369b2f1f7e1ef503c6a0f46aa847b640e5522cbb146a"
+        },
+        {
+          "line": 594,
+          "title": "deletes the current character and moves focus to the previous slot on backspace",
+          "kind": "ordinary",
+          "sha256": "ad16629da2f52f9c75ffe3640e86613925edb58ccf2209a202d5d8881b88776a"
+        },
+        {
+          "line": 609,
+          "title": "deletes the previous filled slot when backspacing on an empty non-first slot",
+          "kind": "ordinary",
+          "sha256": "3f97885a31d22e6b0be7e7fdbff0d2d3405dd2626dcd9b69d28ea43ad9bf495f"
+        },
+        {
+          "line": 624,
+          "title": "clears all slots with %s + Backspace",
+          "kind": "parameterized-declaration",
+          "sha256": "cd1a7b6a13ca5657199f9b2ae38052273910dea85b32ec60c8a731fd267df127"
+        },
+        {
+          "line": 639,
+          "title": "keeps focus in place when backspace is canceled",
+          "kind": "ordinary",
+          "sha256": "d11eb9a582f7e9b7ad227c8d9a634b17a7572ae77e3b7fb96e14701fd03e2452"
+        },
+        {
+          "line": 661,
+          "title": "deletes the current character with Delete without moving focus",
+          "kind": "ordinary",
+          "sha256": "711dd37fe9346ad411b064e05c9092c01b009bd37822e67ea997e97a3fd56db0"
+        },
+        {
+          "line": 678,
+          "title": "selects the previous slot value after backspacing into the first slot",
+          "kind": "ordinary",
+          "sha256": "16eddc25139f4478b2e5f3868d396819cffe036d04fbe13c10492964b7ab017a"
+        },
+        {
+          "line": 694,
+          "title": "keeps focus in place when paste is canceled",
+          "kind": "ordinary",
+          "sha256": "0b1fa25b441107247cfc6470690685685bc060d39aa75605d0ae136e507fbbc9"
+        },
+        {
+          "line": 715,
+          "title": "replaces values from the middle when pasting into a later slot",
+          "kind": "ordinary",
+          "sha256": "857d82b593833c212ebf7821f7ca3414930db2ff694b411ad2d75efc18dad018"
+        },
+        {
+          "line": 730,
+          "title": "marks each input as complete when all slots are filled",
+          "kind": "ordinary",
+          "sha256": "8406be6778ad84ba4f10f29240078c7612723c967735da0eabe492182b6a75c2"
+        },
+        {
+          "line": 738,
+          "title": "adds disabled and readonly state attributes to each slot",
+          "kind": "ordinary",
+          "sha256": "a378ba11ad45e66fe52d0bd23da090bcbfd5e3d80118ef6423609174502a3626"
+        },
+        {
+          "line": 752,
+          "title": "applies the Field label to every slot",
+          "kind": "ordinary",
+          "sha256": "e22b5d196788a4d8a757421b70645405c2e2f0fc29935aac3ad866c9c276045c"
+        },
+        {
+          "line": 771,
+          "title": "applies a native label to every slot",
+          "kind": "ordinary",
+          "sha256": "5a28fe06e10cbc2c0baffa0275a5f113c5d479f26b3c21fd565603cbf1e7bbba"
+        },
+        {
+          "line": 793,
+          "title": "keeps the shared label on the first slot even if an aria-label is provided",
+          "kind": "ordinary",
+          "sha256": "fabb5a2c31b45cacc0043200a097e09c5c379e29d454e536f509564bca271b83"
+        },
+        {
+          "line": 815,
+          "title": "warns when aria-label is provided on the first slot without an associated label",
+          "kind": "ordinary",
+          "sha256": "6b2efa2d9e53bcada1acd4002d46959bcbf3408019fc6d71d4c906afc60d1ad2"
+        },
+        {
+          "line": 844,
+          "title": "does not warn for a first-slot aria-label when a native label is associated",
+          "kind": "ordinary",
+          "sha256": "d1d6d4e454d96bfe18ec205a1cfeca174d1d76704f20b1423943e0b7f14a8e1f"
+        },
+        {
+          "line": 868,
+          "title": "does not warn for a first-slot aria-label when Field.Label is associated",
+          "kind": "ordinary",
+          "sha256": "f0bded0905326d13de65f242b446ff8ebf6105d801a8c7969b2bae0fabd6de6d"
+        },
+        {
+          "line": 892,
+          "title": "throws a descriptive error when rendered outside <OTPField.Root>",
+          "kind": "ordinary",
+          "sha256": "e54b4090bbe045260dcdc3e24d910ad5921fe4a72e354f683a5ba24561843bb8"
+        }
+      ],
+      "conformanceHelperCalls": 1,
+      "typeExpectErrors": 0
+    },
+    {
+      "path": "packages/react/src/otp-field/utils/otp.test.ts",
+      "sha256": "5af4280be590568d488d01e16d464ed7b6bfd07304e98f78ac9a98b82fb5f573",
+      "declarations": [
+        {
+          "line": 5,
+          "title": "removes whitespace from pasted values",
+          "kind": "ordinary",
+          "sha256": "4e5e4ca571c72faed9dbac77d35981fa980fa3f94b071fdb5829094832f74064"
+        },
+        {
+          "line": 9,
+          "title": "returns an empty string when stripping nullish values",
+          "kind": "ordinary",
+          "sha256": "491c62c7116cb0e1ff6ab059b933838e07581bf35751ec6a5564f12fbe3ec62e"
+        },
+        {
+          "line": 14,
+          "title": "normalizes, filters, and clamps numeric values",
+          "kind": "ordinary",
+          "sha256": "79db8127065aa54bd834876d870261ad8f9cb055eed8af8609fd2cc74b5acacd"
+        },
+        {
+          "line": 18,
+          "title": "normalizes alphabetic values",
+          "kind": "ordinary",
+          "sha256": "f2021edcbf942847c80ea335bb32a29acac952b1aebf3c861e2c34571795c22d"
+        },
+        {
+          "line": 22,
+          "title": "normalizes alphanumeric values",
+          "kind": "ordinary",
+          "sha256": "8494a97ca97aa5f156583a4479f102a05bcc27bb69af87f7f7cca9f0b21ba596"
+        },
+        {
+          "line": 26,
+          "title": "returns an empty string for nullish input values",
+          "kind": "ordinary",
+          "sha256": "cddd59fc891d3ae265362659908d7edffe456f0d4872fdacd529ad1827f821ea"
+        },
+        {
+          "line": 31,
+          "title": "uses custom normalization when validationType is none",
+          "kind": "ordinary",
+          "sha256": "92174fff4e5bf2a3adb79ca3d082de68f1dad3892baee961d65ae5dbb586dac7"
+        },
+        {
+          "line": 39,
+          "title": "applies custom normalization after built-in validation",
+          "kind": "ordinary",
+          "sha256": "82c60611b32bb80ebae624f9950c976a1210c9139c2fa8634b2d0c660112ced7"
+        },
+        {
+          "line": 47,
+          "title": "filters custom normalization output through built-in validation",
+          "kind": "ordinary",
+          "sha256": "01f035693c83e39cbb84e408865e33a5d7d1657b73af95d8056c9c7f0e011e78"
+        },
+        {
+          "line": 51,
+          "title": "clamps values after custom normalization",
+          "kind": "ordinary",
+          "sha256": "1ff3cc8a0ba67c98deaa85c648fd0e37f68a319666361973a812466ec56fe660"
+        },
+        {
+          "line": 55,
+          "title": "returns an empty string for negative lengths",
+          "kind": "ordinary",
+          "sha256": "4fbe1c3760c830c2d7d1902a488ddb55a649d6ceb508931573675d5f76d85c02"
+        },
+        {
+          "line": 59,
+          "title": "replaces values from the middle of the OTP",
+          "kind": "ordinary",
+          "sha256": "1e20ef2873239d7dbda5912b9798d084a52e3ce7bd89d0cdeed75e40e8f9e5ea"
+        },
+        {
+          "line": 63,
+          "title": "replaces values from the first slot",
+          "kind": "ordinary",
+          "sha256": "15b4d3b5bcad0e57c3ea44faa9b3165e5a5210053f71c7631b3ca1ae6d915595"
+        },
+        {
+          "line": 67,
+          "title": "replaces values at the last slot",
+          "kind": "ordinary",
+          "sha256": "a4e7ef930c59705aefdad8f58b463751e27a1adc4c60b850c092cfc59a465ade"
+        },
+        {
+          "line": 71,
+          "title": "applies custom normalization when replacing OTP values",
+          "kind": "ordinary",
+          "sha256": "60a74e4b207ad65ff10ab1912e81b1b67139e8b783347c9c3549d3b432558520"
+        },
+        {
+          "line": 77,
+          "title": "preserves suffix characters when custom normalization removes part of a middle replacement",
+          "kind": "ordinary",
+          "sha256": "b099015bdaf61ee667bf173764ea9123c33558dc82fedd5070ea270a16f2eef6"
+        },
+        {
+          "line": 83,
+          "title": "removes a character from the first slot",
+          "kind": "ordinary",
+          "sha256": "b113eb3bf574b585eeaf979f05bfb90a201619184b1ba225acfa64def715cecf"
+        },
+        {
+          "line": 87,
+          "title": "removes a character from the last slot",
+          "kind": "ordinary",
+          "sha256": "e1627357898e32b4d940d22a663f13cbac266ce89aa97cc4a7f63efdd6103e9b"
+        },
+        {
+          "line": 91,
+          "title": "leaves the value unchanged when removing an out-of-bounds index",
+          "kind": "ordinary",
+          "sha256": "6b72a6b337c2dabb38d2d34d29e8f73f8544c017a5cb3e1cd5340769b38c60cf"
+        }
+      ],
+      "conformanceHelperCalls": 0,
+      "typeExpectErrors": 0
+    },
+    {
+      "path": "packages/react/src/otp-field/root/OTPFieldRoot.spec.tsx",
+      "sha256": "f7bd23698fe133dd9bad79829e6946b5b1d32c00c55ea0384050c8adadf3c6e0",
+      "declarations": [],
+      "conformanceHelperCalls": 0,
+      "typeExpectErrors": 3
+    },
+    {
+      "path": "packages/react/src/otp-field/input/OTPFieldInput.spec.tsx",
+      "sha256": "b452388674abb85e3a051aeb3dba17ba673e0eeb8a88777bf0bba5e11357dd6b",
+      "declarations": [],
+      "conformanceHelperCalls": 0,
+      "typeExpectErrors": 1
+    }
+  ],
+  "credit": "Inventory only; no execution/acceptance credit."
+}

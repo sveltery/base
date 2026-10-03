@@ -45,3 +45,5 @@ export { Radio, RadioRoot, RadioIndicator } from './radio/index.js';
 export type * from './radio/types.js';
 export { RadioGroup } from './radio-group/index.js';
 export type * from './radio-group/types.js';
+export { OTPField, OTPFieldRoot, OTPFieldInput } from './otp-field/index.js';
+export type * from './otp-field/types.js';
