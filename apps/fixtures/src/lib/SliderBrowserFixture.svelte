@@ -146,7 +146,9 @@
             ? validate
             : undefined}
         >
-          {#if scenario.includes("field-label")}<Field.Label id="field-label"
+          {#if scenario.includes("field-label")}<Field.Label
+              id="field-label"
+              nativeLabel={!scenario.includes("non-native")}
               >Field volume</Field.Label
             >{/if}
           <Field.Description id="slider-description"

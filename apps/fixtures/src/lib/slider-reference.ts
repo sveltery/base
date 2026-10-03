@@ -81,6 +81,15 @@ export function SliderReferenceFixture({
   const [referenceCalls, setReferenceCalls] = useState<string[]>([]);
   const rootRef = useRef<HTMLDivElement>(null);
   const controlRef = useRef<HTMLDivElement>(null);
+  const controlReference = useCallback((node: HTMLDivElement | null) => {
+    controlRef.current = node;
+    if (typeof window !== "undefined")
+      (
+        window as unknown as {
+          sliderLayout?: { event: string; node: string | null }[];
+        }
+      ).sliderLayout?.push({ event: "control-ref", node: node?.id ?? null });
+  }, []);
   useEffect(() => setHydrated(true), []);
   function changed(
     value: number | readonly number[],
@@ -121,6 +130,15 @@ export function SliderReferenceFixture({
       : null;
   }
   const inputReference = useCallback((input: HTMLInputElement | null) => {
+    if (typeof window !== "undefined")
+      (
+        window as unknown as {
+          sliderLayout?: { event: string; node: string | null }[];
+        }
+      ).sliderLayout?.push({
+        event: "input-ref",
+        node: input?.parentElement?.id ?? null,
+      });
     if (!input) {
       setReferenceCalls((previous) => [...previous, "null"]);
       return;
@@ -178,13 +196,17 @@ export function SliderReferenceFixture({
             ref: rootRef,
             render: scenario.includes("render") ? renderer : undefined,
           },
-          h(Slider.Label, { className: "slider-label", ...{ "data-testid": "slider-label" } }, "Volume"),
+          h(
+            Slider.Label,
+            { className: "slider-label", ...{ "data-testid": "slider-label" } },
+            "Volume",
+          ),
           h(
             Slider.Control,
             {
               id: "slider-control",
               className: vertical ? "vertical" : "horizontal",
-              ref: controlRef,
+              ref: controlReference,
               onPointerDown: scenario.includes("handler-cancel")
                 ? (event) => event.preventBaseUIHandler()
                 : undefined,
@@ -230,7 +252,14 @@ export function SliderReferenceFixture({
             : undefined,
       },
       scenario.includes("field-label")
-        ? h(Field.Label, { id: "field-label" }, "Field volume")
+        ? h(
+            Field.Label,
+            {
+              id: "field-label",
+              nativeLabel: !scenario.includes("non-native"),
+            },
+            "Field volume",
+          )
         : null,
       h(Field.Description, { id: "slider-description" }, "Adjust volume"),
       slider,

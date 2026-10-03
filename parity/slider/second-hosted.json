@@ -1,0 +1,11 @@
+{
+  "head": "d137ee607166cf63ee9e98b3625cbab8c52556fc",
+  "run": "https://github.com/sveltery/base/actions/runs/37157211297",
+  "job": 111302952138,
+  "rawJobLogSha256": "fd817f7f271d7a9e80e84667df49c502af016a67c5a4e20342cc994035dd93ec",
+  "observed": { "passed": 79, "failed": 2, "workers": 1, "retries": 0, "chromiumSandbox": true, "browser": "Chrome for Testing 153.0.8010.12", "runner": "Ubuntu 22.04", "react": "19.2.8", "reactDom": "19.2.8" },
+  "verified": ["Native cancel and rejected-control actual hidden input edits restore Source DOM/FormData", "Source callback order, cloned target, keyboard, pointer and touch reasons", "Range collision helpers and min-distance/precision", "Real custom Source Field/Form registration/validation", "Native remote typed Field name/as, custom render, fields.set, cancellation and enhanced zero/positive POST", "SSR strict-CSP nonce parser executes once in each framework without application JavaScript", "Native/React actual range hydration preserves positions and has no console warnings/errors", "Fresh native insertion is inert and removed; React fresh CSR has no parser script", "Actual native inset ResizeObserver geometry updates after control resize; React retains original inset percentages", "Mid-drag shrink/grow drops mismatched cached commits", "Disable/removal detaches pointer listeners and cached commit"],
+  "remainingFailures": "Both frameworks' authored input aria-labelledby expectation said field-label. Actual native Field.Label uses its Source for relationship; local Slider.Label supplies slider-root-label. Corrected only this supplement expectation and added actual non-native Field.Label precedence case.",
+  "ordinaryComponentAssertionCredit": 0,
+  "decision": "Follow-up red checkpoint retained; final secured browser result, full closure independent review and PM approval remain pending."
+}

@@ -79,7 +79,10 @@ for (const framework of ["react", "svelte"]) {
       "slider-root-label",
     );
     for (const input of await page.locator('input[type="range"]').all()) {
-      await expect(input).toHaveAttribute("aria-labelledby", "field-label");
+      await expect(input).toHaveAttribute(
+        "aria-labelledby",
+        "slider-root-label",
+      );
       await expect(input).toHaveAttribute(
         "aria-describedby",
         "slider-description",
@@ -146,6 +149,46 @@ for (const framework of ["react", "svelte"]) {
       await expect(input).toHaveValue(scenario === "fractional" ? "2" : "100");
     });
   }
+  test(`${framework} non-native Field label takes Source aria precedence over local Slider label`, async ({
+    page,
+  }) => {
+    await open(page, "range-field-label-non-native");
+    await expect(page.locator("#slider-root")).toHaveAttribute(
+      "aria-labelledby",
+      "field-label",
+    );
+    for (const input of await page.locator('input[type="range"]').all())
+      await expect(input).toHaveAttribute("aria-labelledby", "field-label");
+  });
+  test(`${framework} external native form association keeps Source name and canceled serialization`, async ({
+    page,
+  }) => {
+    await open(page, "external-cancel");
+    const input = page.locator('input[type="range"]');
+    await expect(input).toHaveAttribute("form", "external-slider-form");
+    await expect(input).toHaveAttribute("name", "fallback");
+    await nativeInput(page, 0, 80);
+    expect(await values(page)).toEqual([40]);
+    expect(
+      await page
+        .locator("#external-slider-form")
+        .evaluate((form) =>
+          new FormData(form as HTMLFormElement).get("fallback"),
+        ),
+    ).toBe("40");
+    expect(
+      await page
+        .locator("#slider-form")
+        .evaluate((form) =>
+          new FormData(form as HTMLFormElement).has("fallback"),
+        ),
+    ).toBe(false);
+    expect((await list(page, "#slider-calls"))[0]).toMatchObject({
+      targetName: "fallback",
+      value: 80,
+    });
+    expect(await list(page, "#slider-commits")).toEqual([]);
+  });
   test(`${framework} range keyboard obeys neighbour bounds and minimum steps`, async ({
     page,
   }) => {
@@ -159,6 +202,120 @@ for (const framework of ["react", "svelte"]) {
     await inputs.nth(0).press("ArrowRight");
     expect(await values(page)).toEqual([75, 80]);
     expect((await list(page, "#slider-calls")).length).toBe(count);
+  });
+  test(`${framework} actual parent-ref and observer lifetime diagnostic keeps Source geometry separate from native framework timing`, async ({
+    page,
+  }, testInfo) => {
+    await page.addInitScript(() => {
+      const records: { event: string; node: string | null }[] = [];
+      Object.assign(window, { sliderLayout: records });
+      const NativeObserver = ResizeObserver;
+      window.ResizeObserver = class extends NativeObserver {
+        constructor(callback: ResizeObserverCallback) {
+          super((entries, observer) => {
+            records.push({
+              event: "resize-callback",
+              node: entries.map((entry) => entry.target.id).join(","),
+            });
+            callback(entries, observer);
+          });
+          records.push({ event: "observer-constructor", node: null });
+        }
+        observe(target: Element, options?: ResizeObserverOptions) {
+          records.push({ event: "observe", node: target.id });
+          super.observe(target, options);
+        }
+        disconnect() {
+          records.push({ event: "disconnect", node: null });
+          super.disconnect();
+        }
+      };
+      const originalRect = Element.prototype.getBoundingClientRect;
+      Element.prototype.getBoundingClientRect = function () {
+        if (this.id === "slider-control" || this.id === "thumb-0")
+          records.push({ event: "measure", node: this.id });
+        return originalRect.call(this);
+      };
+    });
+    await open(page, "edge-fresh-client");
+    const initial = await page.evaluate(
+      () =>
+        (
+          window as unknown as {
+            sliderLayout: { event: string; node: string | null }[];
+          }
+        ).sliderLayout,
+    );
+    const observedControl = initial.filter(
+      (record) =>
+        record.event === "observe" && record.node === "slider-control",
+    );
+    expect(observedControl.length).toBe(framework === "react" ? 0 : 1);
+    if (framework === "react") {
+      expect(
+        initial.findIndex(
+          (record) => record.event === "input-ref" && record.node === "thumb-0",
+        ),
+      ).toBeLessThan(
+        initial.findIndex(
+          (record) =>
+            record.event === "control-ref" && record.node === "slider-control",
+        ),
+      );
+      expect(
+        initial.findIndex(
+          (record) =>
+            record.event === "control-ref" && record.node === "slider-control",
+        ),
+      ).toBeLessThan(
+        initial.findIndex(
+          (record) => record.event === "measure" && record.node === "thumb-0",
+        ),
+      );
+    }
+    await page.locator("#slider-control").evaluate((node) => {
+      node.style.width = "500px";
+    });
+    await page.evaluate(
+      () =>
+        new Promise<void>((resolve) =>
+          requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+        ),
+    );
+    const observation = await page.evaluate(() => ({
+      records: (window as unknown as { sliderLayout: unknown }).sliderLayout,
+      controlWidth: document
+        .querySelector("#slider-control")!
+        .getBoundingClientRect().width,
+      position: Number.parseFloat(
+        (
+          document.querySelector("#thumb-0") as HTMLElement
+        ).style.getPropertyValue("--position"),
+      ),
+    }));
+    expect(observation.controlWidth).toBe(500);
+    expect(observation.position).toBeCloseTo(
+      framework === "react" ? 40.666666666666664 : 40.4,
+      5,
+    );
+    await page.locator('input[type="range"]').press("ArrowRight");
+    await expect(page.locator('input[type="range"]')).toHaveValue("41");
+    const afterValueChange = await page
+      .getByTestId("thumb-0")
+      .evaluate((node) =>
+        Number.parseFloat(node.style.getPropertyValue("--position")),
+      );
+    expect(afterValueChange).toBeCloseTo(41.36, 5);
+    await testInfo.attach("actual-parent-ref-observer-diagnostic", {
+      contentType: "application/json",
+      body: JSON.stringify({
+        framework,
+        immutableSource: "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+        initial,
+        after: observation,
+        afterValueChange,
+      }),
+    });
   });
   for (const scenario of [
     "cancel",
@@ -346,6 +503,42 @@ for (const framework of ["react", "svelte"]) {
         });
     });
   }
+  test(`${framework} max-stacked thumbs choose Source lower index`, async ({
+    page,
+  }) => {
+    await open(page, "max-stack");
+    await pointer(page, 0.5);
+    expect(await values(page)).toEqual([50, 100]);
+    expect((await list(page, "#slider-calls"))[0]).toMatchObject({
+      value: [50, 100],
+      activeThumbIndex: 0,
+    });
+  });
+  test(`${framework} canceled swap does not leak active index into later drag moves`, async ({
+    page,
+  }) => {
+    await open(page, "swap-cancel");
+    const thumb = (await page.getByTestId("thumb-0").boundingBox())!;
+    const rect = (await page.locator("#slider-control").boundingBox())!;
+    await page.mouse.move(
+      thumb.x + thumb.width / 2,
+      thumb.y + thumb.height / 2,
+    );
+    await page.mouse.down();
+    await page.mouse.move(rect.x + rect.width * 0.7, rect.y + rect.height / 2, {
+      steps: 4,
+    });
+    await page.mouse.move(rect.x + rect.width * 0.3, rect.y + rect.height / 2, {
+      steps: 4,
+    });
+    await page.mouse.up();
+    expect(await values(page)).toEqual([20, 40]);
+    expect((await list(page, "#slider-calls")).at(-1)).toMatchObject({
+      value: [30, 40],
+      activeThumbIndex: 0,
+    });
+    expect(await list(page, "#slider-commits")).toEqual([]);
+  });
   for (const scenario of [
     "disabled",
     "field-disabled",
@@ -522,6 +715,58 @@ for (const framework of ["react", "svelte"]) {
       { value: 60, reason: "drag", type: "touchend" },
     ]);
   });
+  test(`${framework} trusted browser touch changes and commits through actual native touch boundary`, async ({
+    page,
+  }) => {
+    await open(page);
+    const rect = (await page.locator("#slider-control").boundingBox())!;
+    await page.evaluate(() =>
+      document.addEventListener(
+        "touchstart",
+        (event) => {
+          Object.assign(window, { sliderTrustedTouch: event.isTrusted });
+        },
+        { once: true },
+      ),
+    );
+    const session = await page.context().newCDPSession(page);
+    await session.send("Emulation.setTouchEmulationEnabled", {
+      enabled: true,
+      maxTouchPoints: 1,
+    });
+    const point = (percentage: number) => [
+      {
+        x: rect.x + rect.width * percentage,
+        y: rect.y + rect.height / 2,
+        id: 13,
+      },
+    ];
+    await session.send("Input.dispatchTouchEvent", {
+      type: "touchStart",
+      touchPoints: point(0.3),
+    });
+    for (const percentage of [0.4, 0.5, 0.6])
+      await session.send("Input.dispatchTouchEvent", {
+        type: "touchMove",
+        touchPoints: point(percentage),
+      });
+    await session.send("Input.dispatchTouchEvent", {
+      type: "touchEnd",
+      touchPoints: [],
+    });
+    expect(
+      await page.evaluate(
+        () =>
+          (window as unknown as { sliderTrustedTouch: boolean })
+            .sliderTrustedTouch,
+      ),
+    ).toBe(true);
+    expect(await values(page)).toEqual([60]);
+    expect(await list(page, "#slider-commits")).toEqual([
+      { value: 60, reason: "drag", type: "touchend" },
+    ]);
+    await session.detach();
+  });
   for (const scenario of [
     "range-edge",
     "range-edge-vertical",
@@ -651,6 +896,17 @@ test("native authored Slider reuses accepted typed remote Field name/as and Sour
     "tagName",
     "SECTION",
   );
+  await page.locator("#remote-slider-disabled").click();
+  await expect(input).toBeDisabled();
+  expect(
+    await page
+      .locator("#remote-slider-form")
+      .evaluate((form) =>
+        new FormData(form as HTMLFormElement).has("n:settings.volume"),
+      ),
+  ).toBe(false);
+  await page.locator("#remote-slider-disabled").click();
+  await expect(input).toBeEnabled();
   await page.locator("#remote-slider-submit").click();
   await expect(page.locator("#remote-slider-error")).toHaveText("Too low");
   expect(posts).toBe(0);

@@ -44,6 +44,17 @@ declare const thumb: Sub.SliderThumbProps; exact<Root.SliderThumbProps,typeof th
 declare const value: Sub.SliderValueProps; exact<Root.SliderValueProps,typeof value>(value);
 declare const change: Sub.SliderRootChangeEventDetails; exact<Root.SliderRootChangeEventDetails,typeof change>(change);
 declare const commit: Sub.SliderRootCommitEventDetails; exact<Root.SliderRootCommitEventDetails,typeof commit>(commit);
+declare const rootState: Sub.SliderRootState; exact<Root.SliderRootState,typeof rootState>(rootState);
+declare const labelState: Sub.SliderLabelState; exact<Root.SliderLabelState,typeof labelState>(labelState);
+declare const controlState: Sub.SliderControlState; exact<Root.SliderControlState,typeof controlState>(controlState);
+declare const trackState: Sub.SliderTrackState; exact<Root.SliderTrackState,typeof trackState>(trackState);
+declare const indicatorState: Sub.SliderIndicatorState; exact<Root.SliderIndicatorState,typeof indicatorState>(indicatorState);
+declare const thumbState: Sub.SliderThumbState; exact<Root.SliderThumbState,typeof thumbState>(thumbState);
+declare const valueState: Sub.SliderValueState; exact<Root.SliderValueState,typeof valueState>(valueState);
+declare const custom: Sub.SliderRootChangeEventCustomProperties; exact<Root.SliderRootChangeEventCustomProperties,typeof custom>(custom);
+declare const changeReason: Sub.SliderRootChangeEventReason; exact<Root.SliderRootChangeEventReason,typeof changeReason>(changeReason);
+declare const commitReason: Sub.SliderRootCommitEventReason; exact<Root.SliderRootCommitEventReason,typeof commitReason>(commitReason);
+declare const metadata: Sub.ThumbMetadata; exact<Root.ThumbMetadata,typeof metadata>(metadata);
 const scalar: ComponentProps<typeof Slider.Root<number>> = {value:40,onValueChange(value,details) {const number:number=value; const event:Event=details.event; details.cancel(); void [number,event];}};
 const tuple: Sub.SliderRootProps<readonly [number,number]> = {defaultValue:[20,80],value:undefined,onValueCommitted(values,details) {const tuple:readonly [number,number]=values; const reason:Sub.SliderRootCommitEventReason=details.reason; void [tuple,reason];}};
 const explicitUndefined: Sub.SliderRootProps = {defaultValue:undefined,value:undefined,disabled:undefined,format:undefined,locale:undefined,max:undefined,min:undefined,minStepsBetweenValues:undefined,name:undefined,form:undefined,orientation:undefined,step:undefined,largeStep:undefined,thumbAlignment:undefined,thumbCollisionBehavior:undefined,onValueChange:undefined,onValueCommitted:undefined,render:undefined,class:undefined,style:undefined,children:undefined,ref:undefined};
