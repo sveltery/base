@@ -14,7 +14,7 @@ export interface UseButtonParameters {
   native?: boolean; composite?: boolean;
 }
 export function useButton(getParameters: () => UseButtonParameters = () => ({})) {
-  const elementRef: { current: HTMLElement | null } = { current: null };
+  const elementRef = $state<{ current: HTMLElement | null }>({ current: null });
   const compositeRootContext = useCompositeRootContext(true);
   function parameters() {
     const { disabled = false, focusableWhenDisabled, tabIndex = 0, native: isNativeButton = true, composite: compositeProp } = getParameters();
@@ -23,7 +23,7 @@ export function useButton(getParameters: () => UseButtonParameters = () => ({}))
     return { disabled, isNativeButton, isCompositeItem, focusableWhenDisabledProps };
   }
   if (DEV) $effect(() => {
-    const { isNativeButton } = parameters();
+    const isNativeButton = getParameters().native ?? true;
     const element = elementRef.current;
     if (!element) return;
     if (isNativeButton && !isButtonElement(element)) error('A component that acts as a button expected a native <button> because the `nativeButton` prop is true. Use a real <button> in the `render` prop, or set `nativeButton` to `false`.');

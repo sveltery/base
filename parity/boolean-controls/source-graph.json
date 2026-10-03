@@ -683,7 +683,7 @@
       "source": "packages/react/src/field/utils/getCombinedFieldValidityData.ts",
       "sha256": "ad1121fec3eb304d56da1e2aeadb647bcb6e0a0ae87c45dca4773b002b840f3a",
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/field/utils/getCombinedFieldValidityData.ts",
-      "reachability": "type",
+      "reachability": "runtime",
       "imports": [
         {
           "specifier": "../root/FieldRoot",
@@ -3032,7 +3032,7 @@
       "source": "packages/react/src/internals/noop.ts",
       "sha256": "268edb20da01bc632fc8335f808298027500d577ad3872d340080c40a21fc3a0",
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/noop.ts",
-      "reachability": "type",
+      "reachability": "runtime",
       "imports": [
         {
           "specifier": "@base-ui/utils/empty",
@@ -3045,7 +3045,7 @@
       "source": "packages/react/src/internals/reason-parts.ts",
       "sha256": "1cddfb9a98326bc5e586c2bdb66fb3a58913038f8ee7368ec57bbaf972521e06",
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/reason-parts.ts",
-      "reachability": "type",
+      "reachability": "runtime",
       "imports": []
     },
     {
@@ -3088,7 +3088,7 @@
       "source": "packages/react/src/internals/TransitionStatusDataAttributes.ts",
       "sha256": "cf240c33e54cbfae687b7f9b1bdaf7329c1cda7630481ca68d105723d75440d7",
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/TransitionStatusDataAttributes.ts",
-      "reachability": "type",
+      "reachability": "runtime",
       "imports": []
     },
     {
@@ -3189,7 +3189,7 @@
       "source": "packages/react/src/internals/useAnimationsFinished.ts",
       "sha256": "58fef3cb8defbbbe84c80126a6b0aff767293b692a19d97f078a190e62a3d7a6",
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/useAnimationsFinished.ts",
-      "reachability": "type",
+      "reachability": "runtime",
       "imports": [
         {
           "specifier": "react",
@@ -4065,7 +4065,7 @@
       "source": "packages/react/src/utils/resolveRef.ts",
       "sha256": "fb0a9525bf7c002fe9e82d5c74235c5620b0b83f106cdec67b77071a05140312",
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/resolveRef.ts",
-      "reachability": "type",
+      "reachability": "runtime",
       "imports": []
     },
     {
@@ -4623,7 +4623,7 @@
       "source": "packages/utils/src/useAnimationFrame.ts",
       "sha256": "229943cee6d42305da4db33ed395ff8ccdde915c2e4e922c5af0c7b0aeeddf82",
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useAnimationFrame.ts",
-      "reachability": "type",
+      "reachability": "runtime",
       "imports": [
         {
           "specifier": "./useRefWithInit",
@@ -4734,7 +4734,7 @@
       "source": "packages/utils/src/useOnMount.ts",
       "sha256": "9d621d059249ec6ad10dbf35eef28153a8bc6ef893574d26a060385d4d13472b",
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useOnMount.ts",
-      "reachability": "type",
+      "reachability": "runtime",
       "imports": [
         {
           "specifier": "react",
@@ -4783,7 +4783,7 @@
       "source": "packages/utils/src/useTimeout.ts",
       "sha256": "8d9e4159d9f883e18035811e9f2b4d180afb0d724b55d86dbf4fda52c355e156",
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useTimeout.ts",
-      "reachability": "type",
+      "reachability": "runtime",
       "imports": [
         {
           "specifier": "./useRefWithInit",
