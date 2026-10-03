@@ -1,0 +1,12 @@
+{
+  "runtimeHead": "8f8ba533bd0c368463b58493fe2324d83da9cde3",
+  "consumerScript": "scripts/check-slider-package.sh",
+  "scriptSha256": "14ae70a2f0df3b042670a692ecb49dbf0b45ce436accde54033b46c7d99f81a0",
+  "compiler": { "strict": true, "exactOptionalPropertyTypes": true, "skipLibCheck": false },
+  "exitCode": 0,
+  "stdoutSha256": "2764e08d1398b66455c42c3cde8b0e52eed3430a8a30918e78ff2decfd2d0c33",
+  "checked": ["Public installed root/subpath all seven parts and twenty named types", "Fourteen intended TypeScript diagnostics and three intended native markup diagnostics", "SSR exact immutable positioning body and MIT", "Literal installed real DOM callbacks, controlled changes, FormData, output and inputRef cleanup"],
+  "independentCheck": "Fresh whole-closure reviewer separately executed skipLibCheck:false strict/exact-optional installed consumer and all14TS/3markup negatives, SSR/realDOM/platform boundary checks before owner strengthened the persisted gate.",
+  "ordinaryCredit": 0,
+  "decision": "Strengthened owner package gate passes on unchanged frozen runtime. This is type/native consumer evidence, not complete original component assertion parity or final PM acceptance."
+}

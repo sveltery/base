@@ -1,0 +1,14 @@
+{
+  "head": "8c9cda6c507d2776c31a6ae926a77fd83c303486",
+  "run": "https://github.com/sveltery/base/actions/runs/37160440410",
+  "job": 111312587809,
+  "rawJobLogSha256": "fbaa097f975fcfec4ebd572d4856f4010d950be7b9918d5eccf2526079c239bb",
+  "artifact": 11287493491,
+  "artifactDigest": "sha256:fbb74b1a95b5515f21e763aa911531d3f493c52b9bb2b8777f4c80e549bc8c51",
+  "observed": { "passed": 126, "failed": 1, "workers": 1, "retries": 0, "chromiumSandbox": true, "browser": "Chrome for Testing 153.0.8010.12", "runner": "Ubuntu 22.04", "react": "19.2.8", "reactDom": "19.2.8" },
+  "remainingFailure": "Only actual Source React reactive rejected-swap final input1 focus supplement failed; native passed. Both callback/index/commit vectors remained correct. The fixture started with an unfocused Thumb.",
+  "sourceBranch": "Pinned SliderControl pressedOnFocusedThumb checks actual activeElement: true prevents the default; false queues focusFrame.request with the initial finger index0. Independent review confirms that pending initial closure can restore0 after a subsequent swap focuses1. This is a Source-also-failing authored setup/timing witness, not a native runtime repair.",
+  "supplementCorrection": "Focus actual input0 before the press, exercising the Source pressedOnFocusedThumb branch; retain strict final focused input1 in BOTH Source/native reactive/plain swap cases. Actual focus is included in the official JSON diagnostic. No product, helper, geometry, collision or focus algorithm changes are made.",
+  "ordinaryComponentAssertionCredit": 0,
+  "decision": "Historical126/1 witness retained. Source assertion expectations are not weakened; only the authored initial focus setup selects the verified deterministic original branch. Current focus witness and final exact-head integration/review/required checks/PM remain pending."
+}

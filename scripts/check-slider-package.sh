@@ -105,7 +105,7 @@ assert(readFileSync(new URL('./node_modules/@sveltery/base/THIRD_PARTY_NOTICES.m
 console.log('Isolated installed Slider root/subpath, all Source parts/types, SSR, immutable positioning script and MIT: PASS');
 JS
 cat > "$slider_consumer/tsconfig.json" <<'JSON'
-{"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"exactOptionalPropertyTypes":true,"skipLibCheck":true,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts"]}
+{"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"exactOptionalPropertyTypes":true,"skipLibCheck":false,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts"]}
 JSON
 node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$slider_consumer/check.mjs"
 node "$sveltery_repo_root/packages/base/node_modules/svelte-check/bin/svelte-check" --workspace "$slider_consumer" --tsconfig ./tsconfig.json

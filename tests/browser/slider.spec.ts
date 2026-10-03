@@ -631,6 +631,10 @@ for (const framework of ["react", "svelte"]) {
           page,
           `controlled-reject-${collision}${plain ? "-plain-callback" : ""}`,
         );
+        // Exercise the real Source pressedOnFocusedThumb branch. An unfocused
+        // press queues an initial-focus rAF that can race with an immediate swap.
+        await page.locator('input[type="range"]').nth(0).focus();
+        await expect(page.locator('input[type="range"]').nth(0)).toBeFocused();
         const rect = (await page.locator("#slider-control").boundingBox())!;
         const thumb = (await page.getByTestId("thumb-0").boundingBox())!;
         await page.mouse.move(
@@ -660,7 +664,19 @@ for (const framework of ["react", "svelte"]) {
           : await list(page, "#slider-commits");
         const last = calls.at(-1)!;
         await testInfo.attach("callback-cache-lifetime", {
-          body: JSON.stringify({ framework, collision, plain, calls, commits }),
+          body: JSON.stringify({
+            framework,
+            collision,
+            plain,
+            calls,
+            commits,
+            actualFocusedThumb: await page.evaluate(
+              () =>
+                document.activeElement
+                  ?.closest("[data-testid]")
+                  ?.getAttribute("data-testid") ?? null,
+            ),
+          }),
           contentType: "application/json",
         });
         expect(await values(page)).toEqual([20, 40]);
