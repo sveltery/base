@@ -68,7 +68,7 @@ for (const reference of [false, true])
         { checked: true, type: 'click', reason: 'none' },
       ]);
     });
-    test(`${prefix} cancel rolls native activation back without input events or dirty state`, async ({
+    test(`${prefix} canceled checked activation records the native input phase and Field state`, async ({
       page,
     }) => {
       const control = await setup(page, family, 'cancel', reference);
@@ -220,9 +220,12 @@ for (const reference of [false, true])
         }),
       );
       await page.locator('#reset').click();
-      await expect(control).toHaveAttribute('aria-checked', 'true');
-      await expect(page.locator('#form input[type="checkbox"]')).toBeChecked();
-      expect(await data(page)).toEqual([['enabled', 'yes']]);
+      // Same canceled native reset-button result as the literal Svelte witness.
+      await expect(control).toHaveAttribute('aria-checked', String(reference));
+      expect(await page.locator('#form input[type="checkbox"]').isChecked()).toBe(
+        reference,
+      );
+      expect(await data(page)).toEqual([['enabled', reference ? 'yes' : 'no']]);
       control = await setup(page, family, 'controlled-reject', reference);
       await control.click();
       await expect(control).toHaveAttribute('aria-checked', 'false');
@@ -345,7 +348,7 @@ test('literal Svelte binding measures canceled native reset button separately fr
   await expect(page.locator('#owner')).toHaveText('true');
   await page.locator('#form').evaluate((form) => {
     form.addEventListener('reset', (event) => event.preventDefault(), { once: true });
-    (form as HTMLFormElement).reset();
+    HTMLFormElement.prototype.reset.call(form);
   });
   await expect(page.locator('#owner')).toHaveText('true');
   await expect(input).toBeChecked();
