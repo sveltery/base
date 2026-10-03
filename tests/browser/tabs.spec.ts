@@ -20,6 +20,19 @@ const open = async (page: Page, framework: string, scenario = 'default') => {
     );
 };
 const selected = (page: Page) => page.locator('[role=tab][aria-selected=true]');
+test('native public render snippets publish element bindings and clear them on teardown', async ({
+  page,
+}) => {
+  await open(page, 'svelte');
+  await expect(page.locator('#refs')).toHaveText('tabs-list|tab-2');
+  await expect(page.getByTestId('tab-0')).toHaveClass('tabs-tab active');
+  await page.getByTestId('tab-1').click();
+  await expect(page.getByTestId('tab-1')).toHaveClass('tabs-tab active');
+  await page.locator('#unmount').click();
+  await expect(page.locator('#refs')).toHaveText('null|null');
+  await page.locator('#unmount').click();
+  await expect(page.locator('#refs')).toHaveText('tabs-list|tab-2');
+});
 async function observeParser(page: Page) {
   await page.addInitScript(() => {
     const descriptor = Object.getOwnPropertyDescriptor(
