@@ -2,7 +2,7 @@
 
 Reference: Base UI 1.8.0 immutable `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, MIT. The complete recursive runtime/type [import graph](source-graph.json), original file hashes and [declaration inventory](original-assertions.json) are committed before implementation. The [machine record](source-correspondence.json) retains every recursive source module, including unrelated barrel/type edges. Zero ordinary assertion credit is claimed.
 
-| Original module/functions at the pin | Planned used local business port/native primitive | Boundary and review |
+| Original module/functions at the pin | Actual used local business port/native primitive | Boundary and review |
 | --- | --- | --- |
 | NumberFieldRoot: getAllowedNonNumericKeys, getStepAmount, setValue, incrementValue, focusInput, handleWheel, hidden autofill | `number-field/root/NumberFieldRoot.svelte`, same functions | Preserve numeric-state/text-state division, callback/cancel/setDirty order, input-prefix clamping, pending commits, precision, non-passive wheel and hidden native submission/validity. Canonical useControlled plus native runes/context/attachments. |
 | NumberFieldRootContext, NumberFieldScrubAreaContext | Corresponding native Svelte contexts | Live getters/ref objects; original missing-provider guards and state ownership. |
@@ -22,7 +22,7 @@ Reference: Base UI 1.8.0 immutable `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, M
 | floating-utils activeElement/getTarget | Native owner-document activeElement and composed event target | Selected leaf bodies, shadow-root handling retained through canonical shadowDom helpers; unrelated Floating barrel exports remain unselected. |
 | React-only render/context/memo/ref/state/lifecycle/synthetic types/SafeReact owner stack | Native Svelte runes/context/snippets/attachments/tick/flushSync and actual native events/types | User native-Svelte directive; no forced React tracking, insertion guards or StrictMode replay. Native differences require observed evidence and zero divergent credit. |
 
-All mappings above are planned, not accepted implementation evidence. Final correspondence will name actual used paths/hashes and executed checks. External Intl and DOM APIs remain real boundaries. Required SSR/hydration, actual DOM/cancellation/Field/Form, isolated installed public consumers, secured hosted paired browser, repository checks and fresh whole-closure review remain outstanding.
+The seven-part implementation now uses the mapped paths and original bodies. The machine record names the actual recursively used local runtime/type closure and hashes, including out-of-diff helpers. Implementation and local checks do not establish accepted final source/native/maintainability review. External Intl and DOM APIs remain real boundaries. Required SSR/hydration, actual DOM/cancellation/Field/Form, isolated installed public consumers, secured hosted paired browser, repository checks and fresh whole-closure review remain outstanding.
 
 ## Shared helper implementation checkpoint
 
@@ -39,3 +39,9 @@ The numeric/locale/cache/Interval/press-and-hold helper bodies now exist at the 
 | `utils/mergeCleanups.ts` | `28eb97759c815e7a3edcb4a5ac4464473790ae9294bda5a66ba268bca8efedcb` | Actual source body; native events/live runes/lifecycle only where required. |
 
 Executed local development evidence: the canonical library builds and typechecks with zero errors/warnings after local PR55 development integration. The complete original parse/validate helper assertion bodies pass 131 executions with two retained original conditional skips. Native rendered family/Field/Form/viewport checks initially pass 18 with one original browser-only viewport branch skipped. Expanded timer/scrub tests retain source timing and cancellation and caught a corrected native portal teardown leak. These execution counts add zero ordinary declaration credit; final-family and exact-head acceptance remain outstanding.
+
+## Native live numeric reader
+
+`useValueAsRef` becomes a native live numeric reader plus one transient slot for the source stepper `commitValue` assignment. Consecutive native DOM handlers read the latest source numeric value before DOM synchronization, while the explicit dirty-text assignment still supplies the base for that same step interaction. The actual post-DOM numeric/format revision clears this temporary slot. Three consecutive keyboard dispatches without intervening flush produce commits 3, 4, 5. This is a small used framework boundary, not another value controller.
+
+The pinned family never imports its legacy `utils/constants.ts` or standalone part DataAttributes files. Their unselected source status is explicit in the machine record; no dead copies remain. Canonical source state mapping generates the actual scrubbing/disabled/required/readOnly/Field validity attributes.
