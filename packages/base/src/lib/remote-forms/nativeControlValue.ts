@@ -9,7 +9,11 @@ export function nativeControlValue(control: NativeValidationControl, option: unk
   if (control.tagName === 'TEXTAREA') return control.value;
   const input = control as HTMLInputElement;
   if (input.type === 'file') return input.multiple ? Array.from(input.files ?? []) : input.files?.[0];
-  if (input.type === 'radio') return typeof option === 'number' ? Number(input.value) : input.value;
+  if (input.type === 'radio') {
+    const selected = Array.from(input.form?.elements ?? input.ownerDocument.querySelectorAll('input'))
+      .find((element): element is HTMLInputElement => element instanceof input.ownerDocument.defaultView!.HTMLInputElement && element.type === 'radio' && element.form === input.form && element.name === input.name && element.checked);
+    return selected ? typeof option === 'number' ? Number(selected.value) : selected.value : undefined;
+  }
   if (input.type === 'checkbox') {
     // Native option checkboxes share the browser's form/name grouping. The
     // accessor still owns the logical array used by programmatic registration.

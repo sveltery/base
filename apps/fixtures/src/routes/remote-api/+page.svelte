@@ -17,10 +17,10 @@
         <Field.Control required /><Field.Error id="storage-error" />
         <Field.Validity>{#snippet children(state)}<output id="storage-state">{JSON.stringify(state)}</output>{/snippet}</Field.Validity>
       </Field.Root>
-      <Field.Root name="enabled" as="checkbox" value={false}>
+      <Field.Root name="enabled" as="checkbox">
         <Field.Label>Enabled</Field.Label>
         <Field.Control bind:ref={control} onCheckedChange={(checked, details) => { changes.push({ checked, type: details.event.type }); if (cancelChecked) details.cancel(); }}>
-          {#snippet render(props)}<Switch.Root {...props}><Switch.Thumb /></Switch.Root>{/snippet}
+          {#snippet render(props)}<Switch.Root {...props} style="display:inline-block;width:40px;height:24px;background:lightgray;border-radius:12px"><Switch.Thumb style="display:block;width:18px;height:18px;background:black;border-radius:50%" /></Switch.Root>{/snippet}
         </Field.Control>
         <Field.Error id="enabled-error" />
         <Field.Validity>{#snippet children(state)}<output id="enabled-state">{JSON.stringify(state)}</output>{/snippet}</Field.Validity>

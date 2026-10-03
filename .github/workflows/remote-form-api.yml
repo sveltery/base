@@ -55,3 +55,30 @@ jobs:
             test-results/remote-form-api-*/
           if-no-files-found: warn
           retention-days: 14
+  installed-api-types:
+    name: Remote API installed types (Kit ${{ matrix.kit }})
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        kit: ['2.70.3', '3.0.0']
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+        with:
+          version: 12.6.0
+          run_install: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Frozen workspace install
+        run: bash scripts/bootstrap.sh
+      - name: Build actual library declarations
+        run: pnpm --filter @sveltery/base build
+      - name: Packed actual Form namespace and render consumers
+        run: bash scripts/check-remote-form-api.sh '${{ matrix.kit }}'
