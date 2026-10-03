@@ -218,6 +218,12 @@ importers:
 
   packages/base:
     dependencies:
+      '@floating-ui/dom':
+        specifier: 1.8.0
+        version: 1.8.0
+      '@floating-ui/utils':
+        specifier: 0.2.12
+        version: 0.2.12
       esm-env:
         specifier: 1.2.2
         version: 1.2.2

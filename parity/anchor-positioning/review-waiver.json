@@ -1,0 +1,29 @@
+{
+  "status": "quota-waived",
+  "scope": "Configured automatic Codex PR code review for anchor positioning PR #44 only. A waiver is not a passed review or product approval.",
+  "pr": "https://github.com/sveltery/base/pull/44",
+  "basis": {
+    "requirementsPage": "page_a2f16e7472408191ba98a44acf7220c8",
+    "section": "Definition of done for a slice, item 4",
+    "instruction": "Configured automatic review must pass unless actual quota exhaustion invokes the user's exception; a waiver is not approval.",
+    "decision": "The PM authorized the rest of the project under the existing recorded quota-exhaustion exception. The resumed developer independently verified the current literal quota response on PR #53 on 2026-10-03; independent exact-head source/native/maintainability and PM gates remain mandatory."
+  },
+  "evidence": {
+    "comment": "https://github.com/sveltery/base/pull/44#issuecomment-5973072941",
+    "commentId": 5973072941,
+    "actor": "chatgpt-codex-connector[bot]",
+    "literal": "You have reached your Codex usage limits for code reviews.",
+    "observedAt": "2026-10-03",
+    "scopeNote": "The configured review was attempted when PR #44 became ready at reviewed candidate 211172b93532ec7429665d48e1d745191443bdc4 and returned the literal quota exhaustion. This is not a passed review. The existing P1 is repaired and still requires independent assessment.",
+    "priorCurrentQuotaComment": "https://github.com/sveltery/base/pull/53#issuecomment-5972706324"
+  },
+  "mandatoryGates": [
+    "Independent review of the exact final candidate",
+    "All current exact-head CI and secured paired browser acceptance",
+    "Real public root/subpath consumers",
+    "Current-main merge synchronization",
+    "PM exact-head merge approval",
+    "Exact post-merge CI"
+  ],
+  "behavioralDifferenceApproval": false
+}
