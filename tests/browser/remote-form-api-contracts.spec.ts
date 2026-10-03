@@ -131,6 +131,24 @@ test('real numeric RadioGroup keeps Kit numeric names and one successful selecti
   await positive(page, 'Save numeric radio', 'numeric-radio-result', 'numericRadio', { choice: 2 });
 });
 
+test('actual mixed-input Kit radio spreads preserve numeric source identity through set and the next toggle', async ({ page }) => {
+  await setup(page);
+  const three = page.getByRole('radio', { name: 'Manual radio three', exact: true }), four = page.getByRole('radio', { name: 'Manual radio four', exact: true });
+  await three.click();
+  await expect.poll(() => json(page, 'manual-numeric-radio-owner')).toBe(3);
+  expect(await json(page, 'manual-numeric-radio-changes')).toEqual([{ value: 3, type: 'click' }]);
+  await page.getByRole('button', { name: 'Set manual radio four', exact: true }).click();
+  await expect(four).toHaveAttribute('aria-checked', 'true'); await expect(three).toHaveAttribute('aria-checked', 'false');
+  await three.click(); await four.click();
+  await expect.poll(() => json(page, 'manual-numeric-radio-owner')).toBe(4);
+  expect(await json(page, 'manual-numeric-radio-changes')).toEqual([{ value: 3, type: 'click' }, { value: 3, type: 'click' }, { value: 4, type: 'click' }]);
+  await expect(four).toHaveAttribute('aria-checked', 'true'); await expect(three).toHaveAttribute('aria-checked', 'false');
+  await expect(page.locator('#manual-numeric-radio input[name="n:choice"]')).toHaveCount(2);
+  await expect(page.locator('#manual-numeric-radio input[name="n:choice"]:checked')).toHaveCount(1);
+  expect(await page.locator('#manual-numeric-radio').evaluate((node: HTMLFormElement) => new FormData(node).getAll('n:choice'))).toEqual(['4']);
+  await positive(page, 'Save manual numeric radio', 'manual-numeric-radio-result', 'manualNumericRadio', { choice: 4 });
+});
+
 test('selects preserve authored options, multiple selection, native render props and live set', async ({ page }) => {
   await setup(page);
   const single = page.getByLabel('Single color', { exact: true }), multiple = page.getByLabel('Multiple colors', { exact: true }), custom = page.getByLabel('Custom select', { exact: true });

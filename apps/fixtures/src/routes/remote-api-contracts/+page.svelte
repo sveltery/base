@@ -1,10 +1,11 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { Form, Checkbox, CheckboxGroup, Radio, RadioGroup } from '@sveltery/base';
-  import { nativeChoices, styledChoices, nativeRadio, styledRadio, numericRadio, selects, uploads, nested, isolated, enhanced, contractEffects } from './contracts.remote.js';
+  import { nativeChoices, styledChoices, nativeRadio, styledRadio, numericRadio, manualNumericRadio, selects, uploads, nested, isolated, enhanced, contractEffects } from './contracts.remote.js';
   let hydrated = $state(false), authoritative = $state(false);
   let nativeChanges = $state<unknown[]>([]), groupChanges = $state<unknown[]>([]), radioChanges = $state<unknown[]>([]);
   let numericRadioChanges = $state<unknown[]>([]);
+  let manualNumericRadioChanges = $state<unknown[]>([]);
   let cancelStyledOption = $state(false), canceledChecks = $state<unknown[]>([]);
   let enhancements = $state<string[]>([]);
   const effects = contractEffects();
@@ -95,6 +96,24 @@
   <output id="numeric-radio-changes">{JSON.stringify(numericRadioChanges)}</output>
   <output id="numeric-radio-result">{JSON.stringify(numericRadio.result ?? null)}</output>
 
+  <Form id="manual-numeric-radio" remote={manualNumericRadio} {...manualNumericRadio}>
+    {#snippet children(Field)}
+      <Field.Root name="choice">
+        <Field.Label>Manual styled radio numbers</Field.Label>
+        <RadioGroup value={manualNumericRadio.fields.choice.value()} onValueChange={(value: string | number, details) => { manualNumericRadioChanges.push({ value, type: details.event.type }); manualNumericRadio.fields.choice.set(value); }}>
+          <Field.Control {...manualNumericRadio.fields.choice.as('radio', 3)} name={manualNumericRadio.fields.choice.as('number').name}>{#snippet render(props)}<Radio.Root {...props} value={props.value} aria-label="Manual radio three"><Radio.Indicator>Three</Radio.Indicator></Radio.Root>{/snippet}</Field.Control>
+          <Field.Control {...manualNumericRadio.fields.choice.as('radio', 4)} name={manualNumericRadio.fields.choice.as('number').name}>{#snippet render(props)}<Radio.Root {...props} value={props.value} aria-label="Manual radio four"><Radio.Indicator>Four</Radio.Indicator></Radio.Root>{/snippet}</Field.Control>
+        </RadioGroup>
+        <Field.Error />
+      </Field.Root>
+      <button type="submit">Save manual numeric radio</button>
+    {/snippet}
+  </Form>
+  <button onclick={() => manualNumericRadio.fields.choice.set(4)}>Set manual radio four</button>
+  <output id="manual-numeric-radio-owner">{JSON.stringify(manualNumericRadio.fields.choice.value() ?? null)}</output>
+  <output id="manual-numeric-radio-changes">{JSON.stringify(manualNumericRadioChanges)}</output>
+  <output id="manual-numeric-radio-result">{JSON.stringify(manualNumericRadio.result ?? null)}</output>
+
   <Form id="selects" remote={selects} {...selects}>
     {#snippet children(Field)}
       <Field.Root name="single" as="select" value="red"><Field.Label>Single color</Field.Label><Field.Control><option value="red">Red</option><option value="blue">Blue</option></Field.Control></Field.Root>
@@ -154,7 +173,7 @@
 </main>
 
 <style>
-  :global(#styled-choices [role='checkbox']), :global(#styled-radio [role='radio']), :global(#numeric-radio [role='radio']) {
+  :global(#styled-choices [role='checkbox']), :global(#styled-radio [role='radio']), :global(#numeric-radio [role='radio']), :global(#manual-numeric-radio [role='radio']) {
     display: inline-flex;
     min-width: 7rem;
     min-height: 2rem;

@@ -45,6 +45,14 @@ export const numericRadio = form(contractSchema<NumericSelection>((value) => {
     ? { value: { choice } } : { issues: [{ message: 'Choose one number', path: ['choice'] }] };
 }), async (values) => ({ values, effects: effect('numericRadio') }));
 
+// The actual Kit conditional accessor type permits radio on this input union.
+type ManualNumericSelection = { choice?: string | number };
+export const manualNumericRadio = form(contractSchema<ManualNumericSelection>((value) => {
+  const choice = record(value) ? value.choice : undefined;
+  return choice === 3 || choice === 4
+    ? { value: { choice } } : { issues: [{ message: 'Choose three or four', path: ['choice'] }] };
+}), async (values) => ({ values, effects: effect('manualNumericRadio') }));
+
 type Selects = { single?: string; multiple?: string[]; custom?: string };
 export const selects = form(contractSchema<Selects>((value) => {
   if (!record(value) || typeof value.single !== 'string' || typeof value.custom !== 'string' || !strings(value.multiple)) {
