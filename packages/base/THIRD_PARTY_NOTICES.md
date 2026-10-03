@@ -1,5 +1,9 @@
 # Third-party notices
 
+Radio Root/Indicator and RadioGroup, actual CompositeRoot/List/Item registration, list and opt-in grid navigation algorithms, native radio activation, Field validation/value registration, label/shadow DOM/serialization helpers and assertion adapters derive from Base UI v1.8.0 immutable commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. Complete original hashes and deliberate native Svelte replacements are recorded in parity/radio/source-graph.json and source-correspondence.md, with the full MIT license. Shared button/label business helpers reuse the canonical checked-control source port. Complete upstream assertion parity remains unclaimed.
+
+Shared rendering foundation, state-attribute mapping, class/style resolution, object/prop merging and callback/object ref fanout derive from packages/react/src/internals/useRenderElement, getStateAttributesProps, utils/resolveClassName/resolveStyle, merge-props and packages/utils/mergeObjects/useMergedRefs at Base UI v1.8.0 immutable commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. The actual used common source modules, complete original runtime/type closure and necessary native Svelte host boundaries are recorded in parity/rendering/source-correspondence.md and source-graph.json, with the full MIT license. Initialized refs/immutable fallbacks reuse the canonical shared-utils port; no public UseRender API is included in this dependency foundation.
+
 CSPProvider and its optional CSP context contract derive from packages/react/src/csp-provider and internals/csp-context at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. Immutable source/test hashes and the MIT license are preserved in parity/csp-provider. The four ScrollArea/Select-dependent ordinary tests remain deferred; local context/SSR/browser/consumer probes are supplemental.
 
 DirectionProvider, its direction context/callable reader and assertion/type adapters derive from packages/react/src/direction-provider and internals/direction-context at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT attribution and complete immutable source/assertion hashes are preserved in parity/direction-provider.
@@ -16,7 +20,7 @@ Progress parts, range normalization, formatting, ID registration, visually hidde
 
 Toggle standalone state, callbacks, disabled behavior and assertion ports derive from toggle/Toggle.tsx, toggle/Toggle.test.tsx, utils/useControlled.ts and internals/use-button/useButton.ts at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. Their MIT notice and immutable source/assertion hashes also appear in parity/toggle.
 
-Standalone Input native/control behavior, default state, IDs, value callbacks and conformance adapters derive from input/Input.tsx, input/Input.test.tsx, field/control/FieldControl.tsx, internals/field-root-context/FieldRootContext.ts and label/state helpers at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. Their source hashes and MIT license are retained in parity/input. Field/Form contextual integration remains unimplemented.
+Standalone Input native/control behavior, default state, IDs, value callbacks and conformance adapters derive from input/Input.tsx, input/Input.test.tsx, field/control/FieldControl.tsx, internals/field-root-context/FieldRootContext.ts and label/state helpers at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. Their source hashes and MIT license are retained in parity/input. Input now composes the actual Field.Control source port. Field/Form/Fieldset contexts, validation, registration, labelable providers, labels/messages and conditional error/transition helpers derive from the complete pinned source bodies mapped in parity/field-form/source-correspondence.json; native Svelte rendering/lifecycle boundaries are documented there. Final source/feature acceptance remains pending.
 
 Separator orientation, role, state attributes and assertion/conformance ports derive from separator/Separator.tsx, separator/Separator.test.tsx, separator/SeparatorDataAttributes.ts and test conformance helpers at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. Their MIT notice and exact source hashes also appear in parity/separator.
 
@@ -43,3 +47,5 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+Shared controlled state, stable callbacks, initialized refs, timeouts, mount/layout synchronization, value-change tracking, development logging and immutable fallbacks derive from packages/utils/src and packages/react/src/internals/useValueChanged.ts at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT license, original dependency hashes and explicit native framework replacements are preserved in parity/shared-utils.

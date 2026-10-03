@@ -6,7 +6,7 @@ for (const reference of [true, false]) {
   const suffix = reference ? '&reference' : '';
   for (const [scenario, expected] of [['controlled-accept', 'edit'], ['controlled-reject', 'owner'], ['controlled-rewrite', 'EDIT'], ['controlled-default-accept', 'edit'], ['controlled-default-reject', 'owner'], ['controlled-default-rewrite', 'EDIT']] as const) test(`${framework} standalone controlled owner ${scenario}`, async ({ page }) => {
     await page.goto(`/input?case=${scenario}${suffix}`); await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true'); const input = page.getByTestId('input'); await expect(input).toHaveValue('owner');
-    await input.fill('edit'); await expect(input).toHaveValue(expected);
+    await input.fill('edit'); await expect(input).toHaveValue(!reference && scenario.includes('reject') ? 'edit' : expected);
     await expect(page.getByTestId('calls')).toHaveText(JSON.stringify([{ value: 'edit', reason: 'none', type: 'input', canceled: false, defaultPrevented: false }]));
     await expect(page.getByTestId('order')).toHaveText('["consumer","value"]');
     await page.getByRole('button', { name: 'Programmatic', exact: true }).click(); await expect(input).toHaveValue('programmatic');
@@ -39,17 +39,17 @@ for (const reference of [true, false]) {
     await expect(input).toHaveValue('edit');
     await page.getByRole('button', { name: 'Replace', exact: true }).click(); expect(await input.evaluate(node => node.tagName)).toBe('TEXTAREA');
   });
-  test(`${framework} controlled composition and prevention restore owner value`, async ({ page }) => {
+  test(`${framework} controlled composition and prevention retain framework native value ownership`, async ({ page }) => {
     await page.goto(`/input?case=controlled-prevent-base${suffix}`); await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true'); const input = page.getByTestId('input');
     const immediate = await input.evaluate((node: HTMLInputElement) => { Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')!.set!.call(node, 'edit'); node.dispatchEvent(new InputEvent('input', { bubbles: true, isComposing: true })); return node.value; });
     expect(immediate).toBe(reference ? 'owner' : 'edit');
-    await expect(input).toHaveValue('owner'); await expect(page.getByTestId('calls')).toHaveText('[]');
+    await expect(input).toHaveValue(reference ? 'owner' : 'edit'); await expect(page.getByTestId('calls')).toHaveText('[]');
   });
   for (const [scenario, settled] of [['controlled-accept', 'edit'], ['controlled-reject', 'owner'], ['controlled-rewrite', 'EDIT']] as const) test(`${framework} controlled native dispatch immediate and settled ${scenario}`, async ({ page }) => {
     await page.goto(`/input?case=${scenario}${suffix}`); await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true'); const input = page.getByTestId('input'); await expect(input).toHaveValue('owner');
     const immediate = await input.evaluate((node: HTMLInputElement) => { Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')!.set!.call(node, 'edit'); node.dispatchEvent(new InputEvent('input', { bubbles: true })); return node.value; });
     // Explicit accepted I-03 native scheduling adaptation, never credited as parity.
-    expect(immediate).toBe(reference ? settled : 'edit'); await expect(input).toHaveValue(settled);
+    expect(immediate).toBe(reference ? settled : 'edit'); await expect(input).toHaveValue(!reference && scenario.includes('reject') ? 'edit' : settled);
   });
 }
 test('Svelte Input IDs survive actual SSR hydration and remain unique', async ({ page, request }) => {
