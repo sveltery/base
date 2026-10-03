@@ -28,13 +28,12 @@ const popupHandlers: Popup = { onpointerdown(event) { const element: HTMLElement
 const invalidButton: Trigger = { type: 'link' };
 // @ts-expect-error Native pointer handlers must retain PointerEvent inference.
 const invalidPointer: Trigger = { onpointerdown(event: KeyboardEvent) { void event; } };
-// @ts-expect-error CSS object conversion is unsupported; use a CSS string.
-const invalidStyle: Trigger = { style: { width: 20 } };
+const nativeStyle: Trigger = { style: { width: 20, opacity: 0.5 } };
 function eventTypes(details: ChangeEventDetails) {
   if (details.reason === 'escape-key') { const event: KeyboardEvent = details.event; void event; }
   if (details.reason === 'outside-press') { const event: MouseEvent | PointerEvent | TouchEvent = details.event; void event; }
 }
-void [root, invalidRoot, invalidOpen, trigger, nativeButton, popupHandlers, invalidButton, invalidPointer, invalidStyle, eventTypes, apiEquality];
+void [root, invalidRoot, invalidOpen, trigger, nativeButton, popupHandlers, invalidButton, invalidPointer, nativeStyle, eventTypes, apiEquality];
 // ShadowRoot container/ref and disabled render replacement remain typed public APIs.
 type Portal = ComponentProps<typeof Dialog.Portal>;
 type Close = ComponentProps<typeof Dialog.Close>;
