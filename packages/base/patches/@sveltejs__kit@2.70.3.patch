@@ -1,0 +1,12 @@
+diff --git a/src/runtime/client/remote-functions/form.svelte.js b/src/runtime/client/remote-functions/form.svelte.js
+index e2b7fb0944fe079a273bc280de0ae17882da1ae4..6b1616f44bd386ad1041005c49249740b695f686 100644
+--- a/src/runtime/client/remote-functions/form.svelte.js
++++ b/src/runtime/client/remote-functions/form.svelte.js
+@@ -376,6 +376,7 @@ export function form(id) {
+ 
+ 			/** @param {SubmitEvent} event */
+ 			const handle_submit = async (event) => {
++				if (event.defaultPrevented) return;
+ 				const form = /** @type {HTMLFormElement} */ (event.target);
+ 				const method = event.submitter?.hasAttribute('formmethod')
+ 					? /** @type {HTMLButtonElement | HTMLInputElement} */ (event.submitter).formMethod
