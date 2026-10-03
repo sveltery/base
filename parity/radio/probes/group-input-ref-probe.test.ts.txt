@@ -1,0 +1,40 @@
+import { expect, it } from 'vitest';
+import { mount, unmount, flushSync, tick } from 'svelte';
+import Fixture from './GroupInputRefProbeFixture.svelte';
+import {mountProbe} from '../../../../apps/fixtures/src/lib/group-input-ref-probe-reference.js';
+import fs from 'node:fs';
+async function settle(){flushSync();await tick();await Promise.resolve();flushSync();await tick();}
+for(const mode of ['cleanup','legacy','object']) {
+  it(`actual source/native ${mode} ref replacement`,async()=>{
+    const observations=[];
+    for(const framework of ['react','svelte']) {
+      const host=document.createElement('main');document.body.append(host);
+      const calls:string[]=[];
+      const first={current:null as HTMLInputElement|null}, second={current:null as HTMLInputElement|null};
+      const callback=(name:string)=>(node:HTMLInputElement|null)=>{
+        calls.push(`${name} ${node?.value??'null'}`);
+        if(mode==='cleanup'&&node)return ()=>{calls.push(`${name} cleanup ${node.value}`)};
+      };
+      const oldRef=mode==='object'?first:callback('old');
+      const newRef=mode==='object'?second:callback('new');
+      const app=framework==='react'?mountProbe(host,oldRef):mount(Fixture,{target:host,props:{initial:oldRef}});
+      if(framework==='react')expect([app.version,app.domVersion]).toEqual(['19.2.8','19.2.8']);
+      await settle();
+      const snapshot=()=>({calls:[...calls],oldValue:first.current?.value??null,newValue:second.current?.value??null,selected:host.querySelector('[data-testid="a"]')?.getAttribute('aria-checked')??null});
+      const initial=snapshot();
+      app.replace(newRef);await settle();
+      const replaced=snapshot();
+      const secondInput=host.querySelectorAll<HTMLInputElement>('input[type=radio]')[1];
+      secondInput.click();await settle();
+      const selected=snapshot();
+      if(mode==='object')expect(second.current).toBe(secondInput);
+      else expect(calls.some(call=>call==='new b')).toBe(true);
+      if(framework==='react')app.unmount();else await unmount(app);
+      await settle();
+      observations.push({framework,initial,replaced,selected,unmounted:snapshot()});host.remove();
+    }
+    fs.writeFileSync(`/tmp/radio-3c-input-ref-${mode}-observations.json`,JSON.stringify(observations,null,2)+'\n');
+    const {framework:_,...react}=observations[0]; const{framework:__,...svelte}=observations[1];
+    expect(svelte).toEqual(react);
+  });
+}

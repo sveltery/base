@@ -41,3 +41,6 @@ The candidate also consumes approved SDK PR #49 from actual main `f1277cd4bed674
 
 
 Shared-host nested Composite rendering preserves the source inner-ref then forwarded-outer-ref order across inner metadata updates, so the outer item's navigation metadata remains authoritative. The canonical native ref transport now composes that complete cleanup/reattachment lifecycle while retaining independently tracked authored Svelte attachments. This fidelity repair follows a reproduced gap at `3061aeb`; its prior 68-case green run remains historical. Fresh70-case secured acceptance and independent final helper/source review are required before PM approval.
+
+
+Replacing a group `inputRef` while its selected Radio stays mounted does not immediately move the representative ref, matching the pinned original. A subsequent selection publishes the replacement. Teardown uses Svelte's live prop closure, while React's original cleanup captures the old prop: callbacks may clear different ref identities, and object refs may retain a disconnected old or replacement input. [The compatibility record](upstream-differences.md#ra-01-source-radio-composition-and-native-checked-event-ownership) preserves both observed limitations. There is no reactive ref-refresh API or React snapshot emulation.
