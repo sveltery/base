@@ -1,0 +1,195 @@
+Running 46 tests using 1 worker
+2026-10-03T03:57:25.1771239Z 
+2026-10-03T03:57:28.1834887Z   ✓   1 tests/browser/boolean-controls.spec.ts:34:5 › Svelte switch native click owns one checked Field, labels and successful controls (2.5s)
+2026-10-03T03:57:29.2643899Z   ✓   2 tests/browser/boolean-controls.spec.ts:52:5 › Svelte switch cancel rolls native activation back without input events or dirty state (1.1s)
+2026-10-03T03:57:30.6851645Z   ✓   3 tests/browser/boolean-controls.spec.ts:70:5 › Svelte switch controlled owner and required validation preserve boolean registration (1.4s)
+2026-10-03T03:57:31.7823120Z   ✓   4 tests/browser/boolean-controls.spec.ts:90:5 › Svelte switch source external errors clear on accepted checked change and registration cleans up (1.1s)
+2026-10-03T03:57:32.7474899Z   ✓   5 tests/browser/boolean-controls.spec.ts:106:5 › Svelte switch keyboard Space checks root and Enter follows component semantics (954ms)
+2026-10-03T03:57:34.2833767Z   ✓   6 tests/browser/boolean-controls.spec.ts:122:5 › Svelte switch custom native button has one hidden input and keyboard activation (1.5s)
+2026-10-03T03:57:35.6439339Z   ✓   7 tests/browser/boolean-controls.spec.ts:140:5 › Svelte switch readonly and disabled controls exclude checked changes (1.4s)
+2026-10-03T03:57:37.1689220Z   ✓   8 tests/browser/boolean-controls.spec.ts:151:5 › Svelte switch authored native defaults and reset have an explicit framework boundary (1.5s)
+2026-10-03T03:57:43.2337259Z   ✘   9 tests/browser/boolean-controls.spec.ts:193:5 › Svelte switch canceled form reset and rejected controlled owner are measured (6.0s)
+2026-10-03T03:57:44.8291763Z   ✓  10 tests/browser/boolean-controls.spec.ts:34:5 › Svelte checkbox native click owns one checked Field, labels and successful controls (1.2s)
+2026-10-03T03:57:46.0245661Z   ✓  11 tests/browser/boolean-controls.spec.ts:52:5 › Svelte checkbox cancel rolls native activation back without input events or dirty state (1.2s)
+2026-10-03T03:57:47.4863159Z   ✓  12 tests/browser/boolean-controls.spec.ts:70:5 › Svelte checkbox controlled owner and required validation preserve boolean registration (1.5s)
+2026-10-03T03:57:48.5973137Z   ✓  13 tests/browser/boolean-controls.spec.ts:90:5 › Svelte checkbox source external errors clear on accepted checked change and registration cleans up (1.1s)
+2026-10-03T03:57:49.6002415Z   ✓  14 tests/browser/boolean-controls.spec.ts:106:5 › Svelte checkbox keyboard Space checks root and Enter follows component semantics (993ms)
+2026-10-03T03:57:50.6488284Z   ✓  15 tests/browser/boolean-controls.spec.ts:122:5 › Svelte checkbox custom native button has one hidden input and keyboard activation (1.0s)
+2026-10-03T03:57:52.2382617Z   ✓  16 tests/browser/boolean-controls.spec.ts:140:5 › Svelte checkbox readonly and disabled controls exclude checked changes (1.6s)
+2026-10-03T03:57:53.8039272Z   ✓  17 tests/browser/boolean-controls.spec.ts:151:5 › Svelte checkbox authored native defaults and reset have an explicit framework boundary (1.6s)
+2026-10-03T03:57:59.9424221Z   ✘  18 tests/browser/boolean-controls.spec.ts:193:5 › Svelte checkbox canceled form reset and rejected controlled owner are measured (6.1s)
+2026-10-03T03:58:01.6090900Z   ✓  19 tests/browser/boolean-controls.spec.ts:34:5 › React19.2.8 switch native click owns one checked Field, labels and successful controls (1.2s)
+2026-10-03T03:58:02.7393662Z   ✓  20 tests/browser/boolean-controls.spec.ts:52:5 › React19.2.8 switch cancel rolls native activation back without input events or dirty state (1.1s)
+2026-10-03T03:58:04.3480251Z   ✓  21 tests/browser/boolean-controls.spec.ts:70:5 › React19.2.8 switch controlled owner and required validation preserve boolean registration (1.6s)
+2026-10-03T03:58:05.4979295Z   ✓  22 tests/browser/boolean-controls.spec.ts:90:5 › React19.2.8 switch source external errors clear on accepted checked change and registration cleans up (1.1s)
+2026-10-03T03:58:06.5254842Z   ✓  23 tests/browser/boolean-controls.spec.ts:106:5 › React19.2.8 switch keyboard Space checks root and Enter follows component semantics (1.0s)
+2026-10-03T03:58:07.5834021Z   ✓  24 tests/browser/boolean-controls.spec.ts:122:5 › React19.2.8 switch custom native button has one hidden input and keyboard activation (1.1s)
+2026-10-03T03:58:09.1160609Z   ✓  25 tests/browser/boolean-controls.spec.ts:140:5 › React19.2.8 switch readonly and disabled controls exclude checked changes (1.5s)
+2026-10-03T03:58:10.7225631Z   ✓  26 tests/browser/boolean-controls.spec.ts:151:5 › React19.2.8 switch authored native defaults and reset have an explicit framework boundary (1.6s)
+2026-10-03T03:58:12.3336904Z   ✓  27 tests/browser/boolean-controls.spec.ts:193:5 › React19.2.8 switch canceled form reset and rejected controlled owner are measured (1.6s)
+2026-10-03T03:58:13.4394035Z   ✓  28 tests/browser/boolean-controls.spec.ts:34:5 › React19.2.8 checkbox native click owns one checked Field, labels and successful controls (1.1s)
+2026-10-03T03:58:14.5743490Z   ✓  29 tests/browser/boolean-controls.spec.ts:52:5 › React19.2.8 checkbox cancel rolls native activation back without input events or dirty state (1.1s)
+2026-10-03T03:58:16.1661109Z   ✓  30 tests/browser/boolean-controls.spec.ts:70:5 › React19.2.8 checkbox controlled owner and required validation preserve boolean registration (1.6s)
+2026-10-03T03:58:17.3861545Z   ✓  31 tests/browser/boolean-controls.spec.ts:90:5 › React19.2.8 checkbox source external errors clear on accepted checked change and registration cleans up (1.2s)
+2026-10-03T03:58:18.5154320Z   ✓  32 tests/browser/boolean-controls.spec.ts:106:5 › React19.2.8 checkbox keyboard Space checks root and Enter follows component semantics (1.1s)
+2026-10-03T03:58:19.6950987Z   ✓  33 tests/browser/boolean-controls.spec.ts:122:5 › React19.2.8 checkbox custom native button has one hidden input and keyboard activation (1.2s)
+2026-10-03T03:58:21.4060871Z   ✓  34 tests/browser/boolean-controls.spec.ts:140:5 › React19.2.8 checkbox readonly and disabled controls exclude checked changes (1.7s)
+2026-10-03T03:58:23.1717073Z   ✓  35 tests/browser/boolean-controls.spec.ts:151:5 › React19.2.8 checkbox authored native defaults and reset have an explicit framework boundary (1.8s)
+2026-10-03T03:58:24.8645969Z   ✓  36 tests/browser/boolean-controls.spec.ts:193:5 › React19.2.8 checkbox canceled form reset and rejected controlled owner are measured (1.7s)
+2026-10-03T03:58:25.9158701Z   ✓  37 tests/browser/boolean-controls.spec.ts:227:3 › Svelte CheckboxGroup retains owned selection while native reset changes successful values (1.0s)
+2026-10-03T03:58:26.9724436Z   ✓  38 tests/browser/boolean-controls.spec.ts:246:3 › Svelte CheckboxGroup parent and children share one array Field registration (1.0s)
+2026-10-03T03:58:28.2796751Z   ✓  39 tests/browser/boolean-controls.spec.ts:265:3 › Svelte ancestor default prevention cancels Checkbox Enter submission (1.3s)
+2026-10-03T03:58:29.6171410Z   ✓  40 tests/browser/boolean-controls.spec.ts:277:3 › Svelte actual stopPropagation native boundary is recorded separately (1.3s)
+2026-10-03T03:58:30.6134125Z   ✓  41 tests/browser/boolean-controls.spec.ts:295:3 › Svelte later native window handler cannot retroactively change Svelte submission (989ms)
+2026-10-03T03:58:31.7495467Z   ✘  42 tests/browser/boolean-controls.spec.ts:227:3 › React19.2.8 CheckboxGroup retains owned selection while native reset changes successful values (1.1s)
+2026-10-03T03:58:33.4114637Z   ✓  43 tests/browser/boolean-controls.spec.ts:246:3 › React19.2.8 CheckboxGroup parent and children share one array Field registration (1.2s)
+2026-10-03T03:58:35.0099709Z   ✓  44 tests/browser/boolean-controls.spec.ts:265:3 › React19.2.8 ancestor default prevention cancels Checkbox Enter submission (1.6s)
+2026-10-03T03:58:36.5027300Z   ✓  45 tests/browser/boolean-controls.spec.ts:277:3 › React19.2.8 actual stopPropagation native boundary is recorded separately (1.5s)
+2026-10-03T03:58:37.6452959Z   ✘  46 tests/browser/boolean-controls.spec.ts:295:3 › React19.2.8 later native window handler cannot retroactively change Svelte submission (1.1s)
+2026-10-03T03:58:37.7083900Z 
+2026-10-03T03:58:37.7088071Z 
+2026-10-03T03:58:37.7096402Z   1) tests/browser/boolean-controls.spec.ts:193:5 › Svelte switch canceled form reset and rejected controlled owner are measured 
+2026-10-03T03:58:37.7097229Z 
+2026-10-03T03:58:37.7097571Z     Error: expect(locator).toHaveAttribute(expected) failed
+2026-10-03T03:58:37.7097913Z 
+2026-10-03T03:58:37.7098069Z     Locator:  locator('[data-control]')
+2026-10-03T03:58:37.7098304Z     Expected: "true"
+2026-10-03T03:58:37.7098549Z     Received: "false"
+2026-10-03T03:58:37.7098795Z     Timeout:  5000ms
+2026-10-03T03:58:37.7098946Z 
+2026-10-03T03:58:37.7099043Z     Call log:
+2026-10-03T03:58:37.7099466Z       - Expect "toHaveAttribute" locator('[data-control]') with timeout 5000ms
+2026-10-03T03:58:37.7100031Z       - waiting for locator('[data-control]')
+2026-10-03T03:58:37.7101424Z         14 × locator resolved to <span tabindex="0" role="switch" id="base-ui-s3" data-control="" data-touched="" data-unchecked="" aria-checked="false" aria-labelledby="label" aria-describedby="description">…</span>
+2026-10-03T03:58:37.7102503Z            - unexpected value "false"
+2026-10-03T03:58:37.7102725Z 
+2026-10-03T03:58:37.7102732Z 
+2026-10-03T03:58:37.7102840Z       202 |       );
+2026-10-03T03:58:37.7103216Z       203 |       await page.locator('#reset').click();
+2026-10-03T03:58:37.7103845Z     > 204 |       await expect(control).toHaveAttribute('aria-checked', 'true');
+2026-10-03T03:58:37.7104178Z           |                             ^
+2026-10-03T03:58:37.7104533Z       205 |       await expect(page.locator('#form input[type="checkbox"]')).toBeChecked();
+2026-10-03T03:58:37.7104939Z       206 |       expect(await data(page)).toEqual([['enabled', 'yes']]);
+2026-10-03T03:58:37.7105331Z       207 |       control = await setup(page, family, 'controlled-reject', reference);
+2026-10-03T03:58:37.7105793Z         at /home/runner/work/base/base/tests/browser/boolean-controls.spec.ts:204:29
+2026-10-03T03:58:37.7106037Z 
+2026-10-03T03:58:37.7106358Z     Error Context: test-results/boolean-controls-Svelte-sw-ebd45-ntrolled-owner-are-measured/error-context.md
+2026-10-03T03:58:37.7106943Z 
+2026-10-03T03:58:37.7107448Z     attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+2026-10-03T03:58:37.7108318Z     test-results/boolean-controls-Svelte-sw-ebd45-ntrolled-owner-are-measured/trace.zip
+2026-10-03T03:58:37.7108891Z     Usage:
+2026-10-03T03:58:37.7109029Z 
+2026-10-03T03:58:37.7109615Z         pnpm exec playwright show-trace test-results/boolean-controls-Svelte-sw-ebd45-ntrolled-owner-are-measured/trace.zip
+2026-10-03T03:58:37.7110282Z 
+2026-10-03T03:58:37.7110739Z     ────────────────────────────────────────────────────────────────────────────────────────────────
+2026-10-03T03:58:37.7111096Z 
+2026-10-03T03:58:37.7111629Z   2) tests/browser/boolean-controls.spec.ts:193:5 › Svelte checkbox canceled form reset and rejected controlled owner are measured 
+2026-10-03T03:58:37.7112242Z 
+2026-10-03T03:58:37.7112465Z     Error: expect(locator).toHaveAttribute(expected) failed
+2026-10-03T03:58:37.7112768Z 
+2026-10-03T03:58:37.7112931Z     Locator:  locator('[data-control]')
+2026-10-03T03:58:37.7113169Z     Expected: "true"
+2026-10-03T03:58:37.7113349Z     Received: "false"
+2026-10-03T03:58:37.7113977Z     Timeout:  5000ms
+2026-10-03T03:58:37.7114143Z 
+2026-10-03T03:58:37.7114406Z     Call log:
+2026-10-03T03:58:37.7114835Z       - Expect "toHaveAttribute" locator('[data-control]') with timeout 5000ms
+2026-10-03T03:58:37.7115404Z       - waiting for locator('[data-control]')
+2026-10-03T03:58:37.7117005Z         14 × locator resolved to <span tabindex="0" role="checkbox" id="base-ui-s3" data-control="" data-touched="" data-unchecked="" aria-checked="false" aria-labelledby="label" aria-describedby="description">…</span>
+2026-10-03T03:58:37.7117689Z            - unexpected value "false"
+2026-10-03T03:58:37.7117838Z 
+2026-10-03T03:58:37.7117843Z 
+2026-10-03T03:58:37.7117909Z       202 |       );
+2026-10-03T03:58:37.7118139Z       203 |       await page.locator('#reset').click();
+2026-10-03T03:58:37.7118481Z     > 204 |       await expect(control).toHaveAttribute('aria-checked', 'true');
+2026-10-03T03:58:37.7118787Z           |                             ^
+2026-10-03T03:58:37.7119171Z       205 |       await expect(page.locator('#form input[type="checkbox"]')).toBeChecked();
+2026-10-03T03:58:37.7119847Z       206 |       expect(await data(page)).toEqual([['enabled', 'yes']]);
+2026-10-03T03:58:37.7120485Z       207 |       control = await setup(page, family, 'controlled-reject', reference);
+2026-10-03T03:58:37.7120928Z         at /home/runner/work/base/base/tests/browser/boolean-controls.spec.ts:204:29
+2026-10-03T03:58:37.7121164Z 
+2026-10-03T03:58:37.7121484Z     Error Context: test-results/boolean-controls-Svelte-ch-a1c42-ntrolled-owner-are-measured/error-context.md
+2026-10-03T03:58:37.7121819Z 
+2026-10-03T03:58:37.7122157Z     attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+2026-10-03T03:58:37.7122653Z     test-results/boolean-controls-Svelte-ch-a1c42-ntrolled-owner-are-measured/trace.zip
+2026-10-03T03:58:37.7122996Z     Usage:
+2026-10-03T03:58:37.7123085Z 
+2026-10-03T03:58:37.7123437Z         pnpm exec playwright show-trace test-results/boolean-controls-Svelte-ch-a1c42-ntrolled-owner-are-measured/trace.zip
+2026-10-03T03:58:37.7124016Z 
+2026-10-03T03:58:37.7124291Z     ────────────────────────────────────────────────────────────────────────────────────────────────
+2026-10-03T03:58:37.7124507Z 
+2026-10-03T03:58:37.7125019Z   3) tests/browser/boolean-controls.spec.ts:227:3 › React19.2.8 CheckboxGroup retains owned selection while native reset changes successful values 
+2026-10-03T03:58:37.7125424Z 
+2026-10-03T03:58:37.7125578Z     Error: expect(received).toEqual(expected) // deep equality
+2026-10-03T03:58:37.7125774Z 
+2026-10-03T03:58:37.7125847Z     - Expected  - 1
+2026-10-03T03:58:37.7126086Z     + Received  + 3
+2026-10-03T03:58:37.7126234Z 
+2026-10-03T03:58:37.7126341Z       Array [
+2026-10-03T03:58:37.7126701Z         Object {
+2026-10-03T03:58:37.7126925Z     -     "choices": Array [],
+2026-10-03T03:58:37.7127126Z     +     "choices": Array [
+2026-10-03T03:58:37.7127303Z     +       "a",
+2026-10-03T03:58:37.7127464Z     +     ],
+2026-10-03T03:58:37.7127881Z         },
+2026-10-03T03:58:37.7128028Z       ]
+2026-10-03T03:58:37.7128113Z 
+2026-10-03T03:58:37.7128273Z       242 |     expect(await data(page, 'group-form')).toEqual([]);
+2026-10-03T03:58:37.7128589Z       243 |     await page.locator('#group-submit').click();
+2026-10-03T03:58:37.7128970Z     > 244 |     expect(await json(page, 'submissions')).toEqual([{ choices: [] }]);
+2026-10-03T03:58:37.7129403Z           |                                             ^
+2026-10-03T03:58:37.7129623Z       245 |   });
+2026-10-03T03:58:37.7129993Z       246 |   test(`${prefix} CheckboxGroup parent and children share one array Field registration`, async ({
+2026-10-03T03:58:37.7130359Z       247 |     page,
+2026-10-03T03:58:37.7130669Z         at /home/runner/work/base/base/tests/browser/boolean-controls.spec.ts:244:45
+2026-10-03T03:58:37.7130903Z 
+2026-10-03T03:58:37.7131214Z     Error Context: test-results/boolean-controls-React19-2-90027-t-changes-successful-values/error-context.md
+2026-10-03T03:58:37.7131541Z 
+2026-10-03T03:58:37.7131997Z     attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+2026-10-03T03:58:37.7132500Z     test-results/boolean-controls-React19-2-90027-t-changes-successful-values/trace.zip
+2026-10-03T03:58:37.7132837Z     Usage:
+2026-10-03T03:58:37.7132923Z 
+2026-10-03T03:58:37.7133263Z         pnpm exec playwright show-trace test-results/boolean-controls-React19-2-90027-t-changes-successful-values/trace.zip
+2026-10-03T03:58:37.7133620Z 
+2026-10-03T03:58:37.7133891Z     ────────────────────────────────────────────────────────────────────────────────────────────────
+2026-10-03T03:58:37.7134108Z 
+2026-10-03T03:58:37.7134549Z   4) tests/browser/boolean-controls.spec.ts:295:3 › React19.2.8 later native window handler cannot retroactively change Svelte submission 
+2026-10-03T03:58:37.7134921Z 
+2026-10-03T03:58:37.7135074Z     Error: expect(received).toEqual(expected) // deep equality
+2026-10-03T03:58:37.7135265Z 
+2026-10-03T03:58:37.7135340Z     - Expected  - 1
+2026-10-03T03:58:37.7135539Z     + Received  + 5
+2026-10-03T03:58:37.7135641Z 
+2026-10-03T03:58:37.7135720Z     - Array []
+2026-10-03T03:58:37.7135875Z     + Array [
+2026-10-03T03:58:37.7136026Z     +   Object {
+2026-10-03T03:58:37.7136193Z     +     "enabled": false,
+2026-10-03T03:58:37.7136368Z     +   },
+2026-10-03T03:58:37.7136705Z     + ]
+2026-10-03T03:58:37.7136823Z 
+2026-10-03T03:58:37.7136933Z       303 |     await control.press('Enter');
+2026-10-03T03:58:37.7137266Z       304 |     await expect(control).toHaveAttribute('aria-checked', 'false');
+2026-10-03T03:58:37.7137621Z     > 305 |     expect(await json(page, 'submissions')).toEqual(
+2026-10-03T03:58:37.7137904Z           |                                             ^
+2026-10-03T03:58:37.7138168Z       306 |       reference ? [] : [{ enabled: false }],
+2026-10-03T03:58:37.7138394Z       307 |     );
+2026-10-03T03:58:37.7138551Z       308 |   });
+2026-10-03T03:58:37.7138845Z         at /home/runner/work/base/base/tests/browser/boolean-controls.spec.ts:305:45
+2026-10-03T03:58:37.7139094Z 
+2026-10-03T03:58:37.7139407Z     Error Context: test-results/boolean-controls-React19-2-46eef-ly-change-Svelte-submission/error-context.md
+2026-10-03T03:58:37.7139743Z 
+2026-10-03T03:58:37.7140058Z     attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+2026-10-03T03:58:37.7140548Z     test-results/boolean-controls-React19-2-46eef-ly-change-Svelte-submission/trace.zip
+2026-10-03T03:58:37.7140883Z     Usage:
+2026-10-03T03:58:37.7140967Z 
+2026-10-03T03:58:37.7141309Z         pnpm exec playwright show-trace test-results/boolean-controls-React19-2-46eef-ly-change-Svelte-submission/trace.zip
+2026-10-03T03:58:37.7141674Z 
+2026-10-03T03:58:37.7141938Z     ────────────────────────────────────────────────────────────────────────────────────────────────
+2026-10-03T03:58:37.7142152Z 
+2026-10-03T03:58:37.7142221Z   4 failed
+2026-10-03T03:58:37.7142699Z     tests/browser/boolean-controls.spec.ts:193:5 › Svelte switch canceled form reset and rejected controlled owner are measured 
+2026-10-03T03:58:37.7143708Z     tests/browser/boolean-controls.spec.ts:193:5 › Svelte checkbox canceled form reset and rejected controlled owner are measured 
+2026-10-03T03:58:37.7144629Z     tests/browser/boolean-controls.spec.ts:227:3 › React19.2.8 CheckboxGroup retains owned selection while native reset changes successful values 
+2026-10-03T03:58:37.7145622Z     tests/browser/boolean-controls.spec.ts:295:3 › React19.2.8 later native window handler cannot retroactively change Svelte submission 
+2026-10-03T03:58:37.7146151Z   42 passed (1.3m)
+2026-10-03T03:58:37.7328767Z 
