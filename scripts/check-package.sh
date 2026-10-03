@@ -190,3 +190,6 @@ bash scripts/check-csp-provider-package.sh
 
 # Installed public source Field/Form/Fieldset anatomy, SSR and 31 named types.
 bash "$sveltery_repo_root/scripts/check-field-form-package.sh" --public
+
+# Actual installed public Radio/RadioGroup source composition and typed consumer.
+bash "$sveltery_repo_root/scripts/check-radio-package.sh"

@@ -1,4 +1,4 @@
-<script lang="ts" generics="State extends object">
+<script lang="ts" generics="State extends object = Record<string, unknown>">
   // Base UI v1.8.0 CompositeItem source composition; MIT: THIRD_PARTY_NOTICES.md.
   import type { Snippet } from 'svelte';
   import type { BaseUIComponentProps, HTMLProps } from '../../types.js';
@@ -10,28 +10,30 @@
     render,
     class: classProp,
     style,
-    state,
+    state = {} as State,
     props = [],
     refs = [],
     metadata,
     stateAttributesMapping,
     tag = 'div',
     children,
-  }: BaseUIComponentProps<State> & {
-    state: State;
-    props?: readonly (HTMLProps | ((props: HTMLProps) => HTMLProps))[];
-    refs?: readonly MergedRef<HTMLElement>[];
-    metadata?: Record<string, unknown>;
-    stateAttributesMapping?: StateAttributesMapping<State>;
-    tag?: string;
-    children?: Snippet;
-  } = $props();
+    ...elementProps
+  }: HTMLProps &
+    BaseUIComponentProps<State> & {
+      state?: State;
+      props?: readonly (HTMLProps | ((props: HTMLProps) => HTMLProps))[];
+      refs?: readonly MergedRef<HTMLElement>[];
+      metadata?: Record<string, unknown>;
+      stateAttributesMapping?: StateAttributesMapping<State>;
+      tag?: string;
+      children?: Snippet;
+    } = $props();
   const composite = useCompositeItem(() => ({ metadata }));
   const componentProps = $derived({ render, class: classProp, style });
   const params = $derived({
     state,
     ref: [composite.compositeRef, ...refs],
-    props: [composite.compositeProps, ...props],
+    props: [composite.compositeProps, ...props, elementProps],
     stateAttributesMapping,
   });
 </script>

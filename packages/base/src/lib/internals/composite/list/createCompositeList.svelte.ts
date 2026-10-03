@@ -1,6 +1,7 @@
 // Ported from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT: THIRD_PARTY_NOTICES.md; parity/radio/source-correspondence.md.
 import { onDestroy, untrack } from 'svelte';
+import { SvelteMap, SvelteSet } from 'svelte/reactivity';
 import {
   setCompositeListContext,
   type CompositeListRegistration,
@@ -18,8 +19,8 @@ interface Parameters {
 }
 export function createCompositeList(getParameters: () => Parameters) {
   let mapTick = $state(0);
-  const listeners = new Set<(map: Map<Element, CompositeMetadata>) => void>();
-  const map = new Map<Element, CompositeListRegistration>();
+  const listeners = new SvelteSet<(map: Map<Element, CompositeMetadata>) => void>();
+  const map = new SvelteMap<Element, CompositeListRegistration>();
   const nextIndexRef = { current: 0 };
   const isDirtyRef = { current: true };
   const itemsRef: { current: readonly CompositeListItem[] | null } = {
@@ -46,7 +47,7 @@ export function createCompositeList(getParameters: () => Parameters) {
   };
 
   const syncRefs = (items: readonly CompositeListItem[]) => {
-    const nextMap = new Map<Element, CompositeMetadata>();
+    const nextMap = new SvelteMap<Element, CompositeMetadata>();
     const { elementsRef, labelsRef } = getParameters();
 
     elementsRef.current.length = 0;
@@ -121,7 +122,7 @@ export function createCompositeList(getParameters: () => Parameters) {
     // A reorder that changes item indexes must invert at least one adjacent pair
     // from the previous sorted order. Observing each pair's common parent catches
     // both direct item moves and ancestor wrapper moves at the boundary.
-    const roots = new Set<Element>();
+    const roots = new SvelteSet<Element>();
     for (let i = 1; i < sortedNodes.length; i += 1) {
       const root = getCommonAncestor(sortedNodes[i - 1], sortedNodes[i]);
       if (root) {
@@ -194,7 +195,7 @@ export function createCompositeList(getParameters: () => Parameters) {
 function getCompositeListSnapshot(
   map: Map<Element, CompositeListRegistration>,
 ) {
-  const reservedIndices = new Set<number>();
+  const reservedIndices = new SvelteSet<number>();
   const items: CompositeListItem[] = [];
   const automaticItems: CompositeListItem[] = [];
 

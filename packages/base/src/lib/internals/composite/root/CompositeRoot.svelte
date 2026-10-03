@@ -1,4 +1,4 @@
-<script lang="ts" generics="State extends object">
+<script lang="ts" generics="State extends object = Record<string, unknown>">
   // Base UI v1.8.0 CompositeRoot source composition; MIT: THIRD_PARTY_NOTICES.md.
   import type { Snippet } from 'svelte';
   import type { BaseUIComponentProps, HTMLProps } from '../../types.js';
@@ -19,7 +19,7 @@
     style,
     refs = [],
     props = [],
-    state,
+    state = {} as State,
     stateAttributesMapping,
     highlightedIndex,
     onHighlightedIndexChange,
@@ -36,11 +36,13 @@
     highlightItemOnHover = false,
     tag = 'div',
     children,
-  }: BaseUIComponentProps<State> &
+    ...elementProps
+  }: HTMLProps &
+    BaseUIComponentProps<State> &
     Omit<UseCompositeRootParameters, 'direction'> & {
       refs?: readonly MergedRef<HTMLElement>[];
       props?: readonly (HTMLProps | ((props: HTMLProps) => HTMLProps))[];
-      state: State;
+      state?: State;
       stateAttributesMapping?: StateAttributesMapping<State>;
       onMapChange?: (map: Map<Element, CompositeMetadata>) => void;
       highlightItemOnHover?: boolean;
@@ -83,7 +85,7 @@
   const params = $derived({
     state,
     ref: refs,
-    props: [composite.getProps(), ...props],
+    props: [composite.getProps(), ...props, elementProps],
     stateAttributesMapping,
   });
 </script>

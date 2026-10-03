@@ -33,3 +33,8 @@ export { Form } from './form/index.js';
 export type * from './form/types.js';
 export { Fieldset, FieldsetRoot, FieldsetLegend } from './fieldset/index.js';
 export type * from './fieldset/types.js';
+
+export { Radio, RadioRoot, RadioIndicator } from './radio/index.js';
+export type * from './radio/types.js';
+export { RadioGroup } from './radio-group/index.js';
+export type * from './radio-group/types.js';

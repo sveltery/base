@@ -122,7 +122,6 @@ export function gridNavigation(
           cols,
           // Choose the corner closest to the movement direction so spanning items
           // do not immediately resolve back to themselves.
-          // eslint-disable-next-line no-nested-ternary
           event.key === ARROW_DOWN
             ? 'bl'
             : event.key === (rtl ? ARROW_LEFT : ARROW_RIGHT)

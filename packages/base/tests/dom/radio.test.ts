@@ -221,3 +221,13 @@ it('supplement Radio Enter is canceled without activation and Space activates on
   flushSync();
   expect(changed).toHaveBeenCalledTimes(1);
 });
+it('native characterization controlled rejection keeps source state and native activated input', () => {
+  const { radio, input, click } = setup({
+    controlled: true,
+    ownerAccepts: false,
+  });
+  click('a');
+  expect(radio('b').getAttribute('aria-checked')).toBe('true');
+  expect(input('a').checked).toBe(true);
+  expect(input('b').checked).toBe(false);
+});
