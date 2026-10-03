@@ -79,7 +79,9 @@ for (const framework of ['react', 'svelte']) {
           contentType: 'application/json',
         });
         expect(observations.nativeEvents).toEqual(
-          selected ? [] : ['input', 'change'],
+          selected || (framework === 'react' && action === 'hidden')
+            ? []
+            : ['input', 'change'],
         );
       });
     }
@@ -125,13 +127,11 @@ for (const framework of ['react', 'svelte']) {
         contentType: 'application/json',
       });
       expect(observations.checked).toBe(framework === 'svelte');
-      // This first witness records the secured browser vector before assigning
-      // a renderer-specific event expectation to the source supplement.
-      expect(
-        observations.nativeEvents.every(
-          (type: string) => type === 'input' || type === 'change',
-        ),
-      ).toBe(true);
+      // Measured before assigning the same native observer expectation to the
+      // source component: React's direct controlled-false activation differs.
+      expect(observations.nativeEvents).toEqual(
+        framework === 'react' && action === 'hidden' ? [] : ['input', 'change'],
+      );
     });
   }
   test(`${framework} native hidden input CSS preserves source one-pixel geometry`, async ({

@@ -67,6 +67,17 @@
       "failure": "The React standalone nonempty direct-hidden activation passes source Field touch/filled/logical checked assertions but emits no native input/change events in secured Chromium, contrary to the two-event JSDOM-derived supplement expectation. Visible nested React activation and all Svelte variants pass. The source computed-checked guard remains correct and unchanged. Literal exact-renderer baselines are added before correcting the native observer expectation.",
       "artifactId": 11265870339,
       "artifactZipSha256": "9e7ef2d2d26fd05ac50280056a966d4406af97a9612c5e37bfc49f808483490c"
+    },
+    {
+      "head": "4b94274b4385056eef8e72159f5ae265c98b52d9",
+      "runId": 37100980521,
+      "url": "https://github.com/sveltery/base/actions/runs/37100980521",
+      "result": "failure",
+      "passed": 51,
+      "failed": 1,
+      "failure": "Witness-only intermediate retained the deliberately unchanged React direct-hidden source native-event expectation until literal renderer measurement. All four literal witnesses passed: React direct no native events, nested input+change; Svelte both input+change. Source touch/checked contracts passed.",
+      "artifactId": 11266875566,
+      "artifactZipSha256": "0037777bdadd5506b6e28f7980ce9aab9a83d3033f7ed84ffff8f363619ff86d"
     }
   ],
   "status": "Fresh exact-head run, configured review and independent whole-closure source/native/maintainability acceptance pending; no merge or exhaustive assertion parity claimed.",
