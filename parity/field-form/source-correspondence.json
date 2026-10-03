@@ -2016,7 +2016,7 @@
     "registrationCleanup": "Description, Error and useRegisteredLabelId capture the installed registration ID; simultaneous message replacement/removal and remaining-legend ownership are new supplemental regressions.",
     "publicTypes": "Pinned schema-free Form.Values/default Form constraint and explicit-undefined own prop contracts restored; shared rendering class/style/render delta is type-only, not covered by the prior PR47 review.",
     "ordinaryDeclarationCredit": 0,
-    "status": "Repair covered by fresh8619e34 full-closure review and runtime-identical8438374 local/public/browser/CI gates; ordinary credit0 and owner merge approval pending.",
+    "status": "Repair covered by fresh8619e34 full-closure review and runtime-identical8438374 local/public/browser/CI gates; bounded source-core normally merged ae07f45 after approval5399418213; ordinary credit0 and remote acceptance separate.",
     "historicalStatus": "fresh-final-head-review-and-browser-gates-required"
   },
   "historicalResumedCheckpointEvidence": {
@@ -2064,9 +2064,27 @@
     },
     "ordinaryDeclarationCredit": 0,
     "pending": [
+      "Complete runtime remote API and actual remote-function acceptance remain separate from the delivered source core, typed helper, checked families and SDK opt-in"
+    ],
+    "historicalCandidatePending": [
       "Exact successor documentation/metadata standards, verification and configured review",
       "Explicit PM approval before owner merge",
       "Full typed remote API and actual remote-function acceptance in PR52; explicit proposed SDK49 opt-in remains separate"
-    ]
+    ],
+    "normalMainDelivery": {
+      "approvedHead": "27e4707606e6ee239721ae17b89da51f5df5487a",
+      "approvalReview": 5399418213,
+      "merge": "ae07f45ed3e90418baf281f825480c0439a5308b",
+      "parents": [
+        "cabcd911ac2ee9ab9b3874e1ce1022f90a487af0",
+        "27e4707606e6ee239721ae17b89da51f5df5487a"
+      ],
+      "tree": "e3c6859802ae82e3f1605be87b89735ac0a17b8e",
+      "approvedTreeIdentical": true,
+      "finalMetadataStandardsJob": 111147785777,
+      "finalMetadataVerificationJob": 111147785914,
+      "configuredReview": 5966441369,
+      "scope": "Bounded source-core delivery; no remote API or ordinary assertion acceptance"
+    }
   }
 }
