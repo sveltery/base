@@ -23,3 +23,19 @@ Reference: Base UI 1.8.0 immutable `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, M
 | React-only render/context/memo/ref/state/lifecycle/synthetic types/SafeReact owner stack | Native Svelte runes/context/snippets/attachments/tick/flushSync and actual native events/types | User native-Svelte directive; no forced React tracking, insertion guards or StrictMode replay. Native differences require observed evidence and zero divergent credit. |
 
 All mappings above are planned, not accepted implementation evidence. Final correspondence will name actual used paths/hashes and executed checks. External Intl and DOM APIs remain real boundaries. Required SSR/hydration, actual DOM/cancellation/Field/Form, isolated installed public consumers, secured hosted paired browser, repository checks and fresh whole-closure review remain outstanding.
+
+## Shared helper implementation checkpoint
+
+The numeric/locale/cache/Interval/press-and-hold helper bodies now exist at the canonical shared paths above. NumberField is their real consumer in the working family. `addEventListener.ts` and `mergeCleanups.ts` reuse exact published Dialog42 checkpoint `17006204a66c9ddb77cade10f83605b51925569a` bytes at the same canonical paths, under the Root-coordinated development dependency lease. That checkpoint is unaccepted pending whole-closure review; no second implementation is introduced. Platform is the normally locally integrated published PR55 `35ba718b3d6e425cab5729eb46fb1c30be2c042c`, explicitly an unmerged development dependency pending normal accepted main integration.
+
+| Canonical shared leaf | SHA-256 | Business/native boundary |
+| --- | --- | --- |
+| `utils/clamp.ts` | `96e2dcc83d37bbe52ac6d4f65b205859eae0017c4208551f00a16195c176ec35` | Actual source body; native events/live runes/lifecycle only where required. |
+| `utils/stringifyLocale.ts` | `6822bbd143dfdee434bdecfea1da34fc65681d550b5dd3473f3efb6b8fb746cb` | Actual source body; native events/live runes/lifecycle only where required. |
+| `utils/formatNumber.ts` | `393dedb1ddf8bda2d837b3a592f40817768648b86e83f032ad4639394cae7319` | Actual source body; native events/live runes/lifecycle only where required. |
+| `utils/useInterval.ts` | `cd770d55465d31d370e1f9822e6af07040d5bc0e15adfed70535d8b3df24d797` | Actual source body; native events/live runes/lifecycle only where required. |
+| `internals/usePressAndHold.svelte.ts` | `6f9d6fe34087723aaec3382d4c493db593b616fe19ce610b4009834e9bed6788` | Actual source body; native events/live runes/lifecycle only where required. |
+| `utils/addEventListener.ts` | `77880d75a5c8c5ac2d924e69d7cc7662c616b953d4895c8e6a24de53de4502bf` | Actual source body; native events/live runes/lifecycle only where required. |
+| `utils/mergeCleanups.ts` | `28eb97759c815e7a3edcb4a5ac4464473790ae9294bda5a66ba268bca8efedcb` | Actual source body; native events/live runes/lifecycle only where required. |
+
+Executed local development evidence: the canonical library builds and typechecks with zero errors/warnings after local PR55 development integration. The complete original parse/validate helper assertion bodies pass 131 executions with two retained original conditional skips. Native rendered family/Field/Form/viewport checks initially pass 18 with one original browser-only viewport branch skipped. Expanded timer/scrub tests retain source timing and cancellation and caught a corrected native portal teardown leak. These execution counts add zero ordinary declaration credit; final-family and exact-head acceptance remain outstanding.
