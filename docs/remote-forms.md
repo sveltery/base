@@ -38,6 +38,8 @@ Pass the original SvelteKit remote form to `Form.remote` and spread its original
 
 Use an optional boolean in the Kit input schema: unchecked HTML checkboxes omit their value. Let the schema supply any false default. Remote fields own live values, including `fields.set(...)`; the real rendered controls own their source callbacks, validation registration, focus and metadata. A styled scalar checkbox or Switch has one real semantic root and one native form input.
 
+Original accessor spreads also work on Control (`{...survey.fields.enabled.as('checkbox')}`). When a remote checkbox descriptor's own `checked` accessor initially returns `undefined`, Control supplies a stable false checked value so subsequent remote updates remain controlled. The same initial undefined value supplied explicitly is indistinguishable from that descriptor; defined authored overrides retain their source precedence. This normalization belongs to the remote Control boundary.
+
 `as="text" value="seed"` is shorthand for `as={['text', 'seed']}`. Root accepts the tuples supported by the chosen schema accessor, including the required option value for radio and array checkbox fields. File descriptors accept `as="file"` or `as="file multiple"` without a value. Root without `as` supplies the logical Field context without selecting a native descriptor, which is useful around an authored group.
 
 Text, number and range controls use the source Field.Control through the thin Input composition. Native radio, array checkbox, select, multiple select and file hosts use the narrow native host adapter and the same source registration/validation helpers. Authored select options remain native Svelte children:

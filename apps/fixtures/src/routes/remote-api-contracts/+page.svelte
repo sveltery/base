@@ -5,6 +5,7 @@
   let hydrated = $state(false), authoritative = $state(false);
   let nativeChanges = $state<unknown[]>([]), groupChanges = $state<unknown[]>([]), radioChanges = $state<unknown[]>([]);
   let numericRadioChanges = $state<unknown[]>([]);
+  let cancelStyledOption = $state(false), canceledChecks = $state<unknown[]>([]);
   let enhancements = $state<string[]>([]);
   const effects = contractEffects();
   const first = isolated.for('first'), second = isolated.for('second');
@@ -22,7 +23,7 @@
   <Form id="native-choices" remote={nativeChoices} {...nativeChoices}>
     {#snippet children(Field)}
       <Field.Root name="choices" as="checkbox" value="red"><Field.Label>Native red</Field.Label><Field.Control onValueChange={(value, details) => nativeChanges.push({ value, type: details.event.type })} /><Field.Error /></Field.Root>
-      <Field.Root name="choices" as={['checkbox', 'blue']}><Field.Label>Native blue</Field.Label><Field.Control /></Field.Root>
+      <Field.Root name="choices" as={['checkbox', 'blue']}><Field.Label>Native blue</Field.Label><Field.Control {...nativeChoices.fields.choices.as('checkbox', 'blue')} /></Field.Root>
       <button type="submit">Save native choices</button>
     {/snippet}
   </Form>
@@ -37,7 +38,7 @@
         <Field.Label>Styled colors</Field.Label><Field.Description>Choose colors</Field.Description>
         <CheckboxGroup id="styled-choice-group" class={(state) => [state.dirty && 'source-dirty', state.filled && 'source-filled'].filter(Boolean).join(' ')} value={(styledChoices.fields.choices.value() ?? []).filter((value): value is string => value !== undefined)} onValueChange={(value, details) => { groupChanges.push({ value, type: details.event.type, reason: details.reason }); styledChoices.fields.choices.set(value); }}>
           <Field.Root name="choices" as="checkbox" value="red"><Field.Control>{#snippet render(props)}<Checkbox.Root {...props} aria-label="Styled red"><Checkbox.Indicator>Red</Checkbox.Indicator></Checkbox.Root>{/snippet}</Field.Control></Field.Root>
-          <Field.Root name="choices" as="checkbox" value="blue"><Field.Control>{#snippet render(props)}<Checkbox.Root {...props} aria-label="Styled blue"><Checkbox.Indicator>Blue</Checkbox.Indicator></Checkbox.Root>{/snippet}</Field.Control></Field.Root>
+          <Field.Root name="choices" as="checkbox" value="blue"><Field.Control {...styledChoices.fields.choices.as('checkbox', 'blue')} onCheckedChange={(value, details) => { if (cancelStyledOption) { canceledChecks.push({ value, type: details.event.type }); details.cancel(); } }}>{#snippet render(props)}<Checkbox.Root {...props} aria-label="Styled blue"><Checkbox.Indicator>Blue</Checkbox.Indicator></Checkbox.Root>{/snippet}</Field.Control></Field.Root>
         </CheckboxGroup>
         <Field.Error id="styled-choice-error" /><Field.Validity>{#snippet children(state)}<output id="styled-choice-state">{JSON.stringify(state)}</output>{/snippet}</Field.Validity>
       </Field.Root>
@@ -45,9 +46,11 @@
     {/snippet}
   </Form>
   <button onclick={() => styledChoices.fields.choices.set(['blue'])}>Set styled blue</button>
+  <button onclick={() => { cancelStyledOption = !cancelStyledOption; }}>Toggle styled option cancellation</button>
   <output id="styled-choice-owner">{JSON.stringify(styledChoices.fields.choices.value() ?? null)}</output>
   <output id="styled-choice-changes">{JSON.stringify(groupChanges)}</output>
   <output id="styled-choice-result">{JSON.stringify(styledChoices.result ?? null)}</output>
+  <output id="styled-choice-canceled-checks">{JSON.stringify(canceledChecks)}</output>
 
   <Form id="native-radio" remote={nativeRadio} {...nativeRadio}>
     {#snippet children(Field)}

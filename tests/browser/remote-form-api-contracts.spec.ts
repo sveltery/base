@@ -39,6 +39,11 @@ test('public remote controls SSR real native names and preserve file input defau
 test('native array checkboxes retain the whole accessor array through set and the next toggle', async ({ page }) => {
   await setup(page);
   const red = page.getByLabel('Native red', { exact: true }), blue = page.getByLabel('Native blue', { exact: true });
+  await expect(blue).not.toBeChecked();
+  await blue.check();
+  await expect.poll(() => json(page, 'native-choice-owner')).toEqual(['blue']);
+  await blue.uncheck();
+  await expect.poll(() => json(page, 'native-choice-owner')).toEqual([]);
   await red.check();
   await expect.poll(() => json(page, 'native-choice-owner')).toEqual(['red']);
   expect(await json(page, 'native-choice-changes')).toEqual([{ value: ['red'], type: 'click' }]);
@@ -56,7 +61,10 @@ test('real CheckboxGroup reports source callbacks, metadata, successful hidden v
   await form.evaluate((node: HTMLFormElement) => {
     node.addEventListener('input', (event) => {
       const target = event.target;
-      if (target instanceof HTMLInputElement) node.dataset.inputPhase = JSON.stringify({ value: target.value, checked: target.checked, values: new FormData(node).getAll('choices[]') });
+      if (target instanceof HTMLInputElement) {
+        node.dataset.inputPhase = JSON.stringify({ value: target.value, checked: target.checked, values: new FormData(node).getAll('choices[]') });
+        node.dataset.inputCount = String(Number(node.dataset.inputCount ?? 0) + 1);
+      }
     });
   });
   await page.getByRole('button', { name: 'Set styled blue', exact: true }).click();
@@ -81,6 +89,16 @@ test('real CheckboxGroup reports source callbacks, metadata, successful hidden v
     { value: ['red'], type: 'click', reason: 'none' },
     { value: ['red', 'blue'], type: 'click', reason: 'none' },
   ]);
+  const inputCount = await form.getAttribute('data-input-count'), requests = posts(page);
+  await page.getByRole('button', { name: 'Toggle styled option cancellation', exact: true }).click();
+  await page.getByRole('checkbox', { name: 'Styled blue', exact: true }).click();
+  expect(await json(page, 'styled-choice-canceled-checks')).toEqual([{ value: false, type: 'click' }]);
+  await expect(page.getByRole('checkbox', { name: 'Styled blue', exact: true })).toHaveAttribute('aria-checked', 'true');
+  expect(await json(page, 'styled-choice-owner')).toEqual(['red', 'blue']);
+  expect(await json(page, 'styled-choice-changes')).toHaveLength(3);
+  expect(await form.getAttribute('data-input-count')).toBe(inputCount);
+  expect(requests).toHaveLength(0);
+  await page.getByRole('button', { name: 'Toggle styled option cancellation', exact: true }).click();
   await positive(page, 'Save styled choices', 'styled-choice-result', 'styledChoices', { choices: ['red', 'blue'] });
 });
 
