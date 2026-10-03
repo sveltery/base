@@ -661,7 +661,7 @@
       "local": [
         "packages/base/src/lib/internals/useAnimationsFinished.ts"
       ],
-      "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
+      "decision": "Original individual flush and same-microtask pendingCallbacks batching, abort-at-flush, replacement-animation, starting-style and raw fallback branches are retained. Native Svelte flushSync replaces ReactDOM.flushSync; live open/batch readers replace rendered closures. Actual pinned DOM/abort comparisons verify both commit policies.",
       "reviewStatus": "final source/native/maintainability review pending"
     },
     {
@@ -681,7 +681,7 @@
       "local": [
         "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts"
       ],
-      "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
+      "decision": "Original enabled/open dependency ownership and AbortController cleanup; native effects and live open/batch readers replace React hooks while retaining completion ordering.",
       "reviewStatus": "final source/native/maintainability review pending"
     },
     {

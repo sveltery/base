@@ -125,5 +125,6 @@
     }
   }
 </script>
-{#if shouldRenderGuards}<FocusGuard data-type="outside" ref={beforeOutsideRef} onfocus={beforeOutsideFocus}/><span role={portalOwnerRole} aria-owns={portalNodeId} style={toNativeStyle(ownerVisuallyHidden)}></span>{/if}
-{#if shouldRenderGuards}<FocusGuard data-type="outside" ref={afterOutsideRef} onfocus={afterOutsideFocus}/>{/if}
+<!-- Source onFocus supplies native focusin to the shared outside-guard business callbacks. -->
+{#if shouldRenderGuards}<FocusGuard data-type="outside" ref={beforeOutsideRef} onfocusin={beforeOutsideFocus}/><span role={portalOwnerRole} aria-owns={portalNodeId} style={toNativeStyle(ownerVisuallyHidden)}></span>{/if}
+{#if shouldRenderGuards}<FocusGuard data-type="outside" ref={afterOutsideRef} onfocusin={afterOutsideFocus}/>{/if}

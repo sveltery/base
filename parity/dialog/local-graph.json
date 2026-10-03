@@ -820,7 +820,7 @@
     },
     {
       "local": "packages/base/src/lib/floating-ui/components/FloatingFocusManager.svelte",
-      "sha256": "0477ddfdaf6d21e2701ca3d3e33aaa3b673553cdb32b1dfdab295d6ade8197dc",
+      "sha256": "02e830d2f21614164344019f3bdd4420c4e0c58ddf49b12023c2202fcc236da8",
       "imports": [
         {
           "specifier": "svelte",
@@ -841,7 +841,7 @@
     },
     {
       "local": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
-      "sha256": "ad6f8996ebe9eb719ea58fe5dd447c2c807a5cb5685d3049610c9cdfde326818",
+      "sha256": "56ef7993c9378f0710f7724a40280f8ba31fa7fb515b218802d7935c3a95f75b",
       "imports": [
         {
           "specifier": "svelte",
@@ -1682,8 +1682,13 @@
     },
     {
       "local": "packages/base/src/lib/internals/useAnimationsFinished.ts",
-      "sha256": "e615700a3c4e81ca22060837af8a8c859430ebd8476d6e0a6daffe7986dc3bc4",
+      "sha256": "409aec4223eca26f66b6c1f5824cdaf8df68c916f66a2efb75617b255129ebf9",
       "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
         {
           "specifier": "../utils/useAnimationFrame.js",
           "kind": "runtime",
@@ -1719,7 +1724,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
-      "sha256": "9c8d8b8fcd70c0a9ec69a9cc0f2a6864ab19da26d4e3bd2bf9f7e6eb49831d1f",
+      "sha256": "5e966dd1b10cbc1ed448d3583ca948a384d812f9e71afc1e128395485575931f",
       "imports": [
         {
           "specifier": "../utils/useStableCallback.js",

@@ -1,4 +1,4 @@
-import { afterEach, expect, it } from 'vitest';
+import { afterEach, expect, it, vi } from 'vitest';
 import { mount, tick, unmount } from 'svelte';
 import Fixture from './Fixture.svelte';
 import { mountDialogSourceBusinessReference, mountDialogSourcePayloadReference } from '../../../../apps/fixtures/src/lib/dialog-source-business-reference.js';
@@ -73,6 +73,40 @@ for (const reference of [true, false]) {
     } });
     escape(); await settle(); expect(popup.hidden).toBe(true);
     expect(calls).toEqual([undefined, undefined]);
+    expect(log.filter(entry => entry.channel === 'complete' && entry.open === false)).toHaveLength(1);
+  });
+  it(`${framework}: return focus waits for close completion, then reopening starts a new close cycle`, async () => {
+    const log = await setup(reference, true);
+    await vi.waitFor(() => expect(log.filter(entry => entry.channel === 'complete' && entry.open)).toHaveLength(1));
+    const popup = document.querySelector<HTMLElement>('[role=dialog]')!;
+    let finish!: () => void;
+    let animations: { playState: AnimationPlayState; finished: Promise<void> }[] = [{ playState: 'running', finished: new Promise<void>(resolve => { finish = resolve; }) }];
+    Object.defineProperty(popup, 'getAnimations', { value: () => animations });
+    escape(); await settle();
+    expect(document.activeElement?.id).toBe('closer'); expect(popup.hidden).toBe(false);
+    animations = []; finish();
+    await vi.waitFor(() => expect(document.activeElement?.id).toBe('opener'));
+    expect(log.filter(entry => entry.channel === 'complete' && entry.open === false)).toHaveLength(1);
+    document.getElementById('opener')!.click(); await settle();
+    await vi.waitFor(() => expect(log.filter(entry => entry.channel === 'complete' && entry.open)).toHaveLength(2));
+    escape(); await settle();
+    expect(log.filter(entry => entry.channel === 'complete' && entry.open === false)).toHaveLength(2);
+  });
+  it(`${framework}: reopening during an outstanding physical close animation aborts its completion`, async () => {
+    const log = await setup(reference, true);
+    await vi.waitFor(() => expect(log.filter(entry => entry.channel === 'complete' && entry.open)).toHaveLength(1));
+    const popup = document.querySelector<HTMLElement>('[role=dialog]')!;
+    let cancel!: (reason?: unknown) => void;
+    let animations: { playState: AnimationPlayState; finished: Promise<void> }[] = [{ playState: 'running', finished: new Promise<void>((_resolve, reject) => { cancel = reject; }) }];
+    Object.defineProperty(popup, 'getAnimations', { value: () => animations });
+    escape(); await settle();
+    expect(document.activeElement?.id).toBe('closer'); expect(popup.hidden).toBe(false);
+    document.getElementById('opener')!.click(); await settle();
+    animations = []; cancel(new Error('Close animation replaced by opening')); await settle();
+    expect(popup.hidden).toBe(false);
+    expect(log.filter(entry => entry.channel === 'complete' && entry.open === false)).toHaveLength(0);
+    escape(); await settle();
+    expect(popup.hidden).toBe(true);
     expect(log.filter(entry => entry.channel === 'complete' && entry.open === false)).toHaveLength(1);
   });
   it(`${framework}: deferred close retains focus until the source focus manager actually tears down`, async () => {
