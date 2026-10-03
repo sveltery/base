@@ -1,0 +1,435 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "publicParts": [
+    "Root",
+    "Trigger",
+    "Backdrop",
+    "Close",
+    "Description",
+    "Popup",
+    "Portal",
+    "Title",
+    "Viewport",
+    "Handle",
+    "createHandle"
+  ],
+  "files": [
+    {
+      "source": "packages/react/src/alert-dialog/handle.ts",
+      "sha256": "e3a862dd798aaa721cb9f8ebde4e9f52e7019387567a1017d05be1be9eab1408",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/alert-dialog/handle.ts"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/index.parts.ts",
+      "sha256": "251fb799f14925282af5761c0e63eba6d70be2f1a92687d0c4f1a869d05c8021",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/alert-dialog/index.parts.ts"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/index.ts",
+      "sha256": "e0623a7cbb4f65e98f58e9c06c029ba2999dbe264f884c3741d2df22a1c202ff",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/alert-dialog/index.ts"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.spec.tsx",
+      "sha256": "c3a56ad7ad11a894419631f360dc1ce16fd59cfe45ce28e0202d756359114b10",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/alert-dialog/root/AlertDialogRoot.spec.tsx"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sha256": "a22c5648bf7cb02af47b246d321da47c83dfa2a2a6c4b2bab487caea40bec43c",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.tsx",
+      "sha256": "cfe430b43fa0c7c6a0d6a21fad42f7097ea1878be7d217396c4569801713571d",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/alert-dialog/root/AlertDialogRoot.tsx"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/trigger/AlertDialogTrigger.tsx",
+      "sha256": "33e689c25168c2626baf77b9e10b3bfeb1154105ee1502ed435a665eddc56919",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/alert-dialog/trigger/AlertDialogTrigger.tsx"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/trigger/AlertDialogTriggerDataAttributes.ts",
+      "sha256": "0daaa0a8ecb1f779fefb85d63978e94d43dc10de13e3d81ded7eb0aa886612eb",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/alert-dialog/trigger/AlertDialogTriggerDataAttributes.ts"
+    }
+  ],
+  "ordinaryDeclarations": [
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:32",
+      "line": 32,
+      "callee": "it",
+      "sha256": "70bb9ecbbf257b820f44dafd484562a02c7d2e81f0e43e2708d38ed08861a6b3",
+      "body": "it('ARIA attributes', async () => {\n    await render(\n      <AlertDialog.Root open>\n        <AlertDialog.Trigger />\n        <AlertDialog.Portal>\n          <AlertDialog.Backdrop />\n          <AlertDialog.Popup>\n            <AlertDialog.Title>title text</AlertDialog.Title>\n            <AlertDialog.Description>description text</AlertDialog.Description>\n          </AlertDialog.Popup>\n        </AlertDialog.Portal>\n      </AlertDialog.Root>,\n    );\n\n    const popup = screen.queryByRole('alertdialog');\n    expect(popup).not.toBe(null);\n\n    expect(screen.getByText('title text').getAttribute('id')).toBe(\n      popup?.getAttribute('aria-labelledby'),\n    );\n    expect(screen.getByText('description text').getAttribute('id')).toBe(\n      popup?.getAttribute('aria-describedby'),\n    );\n  })",
+      "status": "unported; no credit",
+      "name": "ARIA attributes"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:57",
+      "line": 57,
+      "callee": "it",
+      "sha256": "3b498d6b20bad852a1354b2dda2eaa8128197d2f539547320644688f8c35afa6",
+      "body": "it('synchronizes trigger ARIA attributes in controlled mode', async () => {\n    await render(\n      <AlertDialog.Root open triggerId=\"trigger-2\">\n        <AlertDialog.Trigger id=\"trigger-1\">Trigger 1</AlertDialog.Trigger>\n        <AlertDialog.Trigger id=\"trigger-2\">Trigger 2</AlertDialog.Trigger>\n        <AlertDialog.Portal>\n          <AlertDialog.Popup>Dialog</AlertDialog.Popup>\n        </AlertDialog.Portal>\n      </AlertDialog.Root>,\n    );\n\n    const trigger1 = screen.getByText('Trigger 1');\n    const trigger2 = screen.getByText('Trigger 2');\n    const popup = screen.getByRole('alertdialog');\n\n    expect(trigger1).toHaveAttribute('aria-expanded', 'false');\n    expect(trigger1).not.toHaveAttribute('aria-controls');\n    expect(trigger2).toHaveAttribute('aria-expanded', 'true');\n    expect(trigger2.getAttribute('aria-controls')).toBe(popup.getAttribute('id'));\n  })",
+      "status": "unported; no credit",
+      "name": "synchronizes trigger ARIA attributes in controlled mode"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:78",
+      "line": 78,
+      "callee": "it",
+      "sha256": "9473c34be762fa3962a91642c5cfb8361ba392664b5fc55b34167de009e471fd",
+      "body": "it('synchronizes trigger ARIA attributes when initially open with a handle', async () => {\n    const handle = AlertDialog.createHandle();\n\n    await render(\n      <AlertDialog.Root handle={handle} defaultOpen defaultTriggerId=\"trigger\">\n        <AlertDialog.Trigger id=\"trigger\">Open</AlertDialog.Trigger>\n        <AlertDialog.Portal>\n          <AlertDialog.Popup>Dialog</AlertDialog.Popup>\n        </AlertDialog.Portal>\n      </AlertDialog.Root>,\n    );\n\n    const trigger = screen.getByText('Open');\n    const popup = screen.getByRole('alertdialog');\n\n    expect(trigger).toHaveAttribute('aria-expanded', 'true');\n    expect(trigger.getAttribute('aria-controls')).toBe(popup.getAttribute('id'));\n  })",
+      "status": "unported; no credit",
+      "name": "synchronizes trigger ARIA attributes when initially open with a handle"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:97",
+      "line": 97,
+      "callee": "it",
+      "sha256": "b3ef74c001bdad4b5d0b66cae5a825feaec0048b6fc254ad3d5fe8fcf69cf156",
+      "body": "it('synchronizes detached trigger ARIA attributes when initially open with a handle', async () => {\n    const handle = AlertDialog.createHandle();\n\n    await render(\n      <React.Fragment>\n        <AlertDialog.Trigger handle={handle} id=\"trigger\">\n          Open\n        </AlertDialog.Trigger>\n        <AlertDialog.Root handle={handle} defaultOpen defaultTriggerId=\"trigger\">\n          <AlertDialog.Portal>\n            <AlertDialog.Popup>Dialog</AlertDialog.Popup>\n          </AlertDialog.Portal>\n        </AlertDialog.Root>\n      </React.Fragment>,\n    );\n\n    const trigger = screen.getByText('Open');\n    const popup = screen.getByRole('alertdialog');\n\n    expect(trigger).toHaveAttribute('aria-expanded', 'true');\n    expect(trigger.getAttribute('aria-controls')).toBe(popup.getAttribute('id'));\n    expect(handle.isOpen).toBe(true);\n  })",
+      "status": "unported; no credit",
+      "name": "synchronizes detached trigger ARIA attributes when initially open with a handle"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:121",
+      "line": 121,
+      "callee": "it",
+      "sha256": "e8418c14fc9e9a4788cdbbcb4f5099f6e5bb3e8d046b33bb1b5aea45c7bdb017",
+      "body": "it('renders a viewport', async () => {\n    await render(\n      <AlertDialog.Root open>\n        <AlertDialog.Portal>\n          <AlertDialog.Viewport data-testid=\"viewport\">\n            <AlertDialog.Popup>Dialog</AlertDialog.Popup>\n          </AlertDialog.Viewport>\n        </AlertDialog.Portal>\n      </AlertDialog.Root>,\n    );\n\n    expect(screen.getByTestId('viewport')).toContain(screen.getByRole('alertdialog'));\n  })",
+      "status": "unported; no credit",
+      "name": "renders a viewport"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:136",
+      "line": 136,
+      "callee": "it",
+      "sha256": "f9c2ccec1c1b11eaadc70cbfeb94967fbc0c2a93b6ba7b70ae8f7a4fa8e9ff3f",
+      "body": "it('calls onOpenChange with the new open state', async () => {\n      const handleOpenChange = vi.fn();\n\n      const { user } = await render(\n        <AlertDialog.Root onOpenChange={handleOpenChange}>\n          <AlertDialog.Trigger>Open</AlertDialog.Trigger>\n          <AlertDialog.Portal>\n            <AlertDialog.Popup>\n              <AlertDialog.Close>Close</AlertDialog.Close>\n            </AlertDialog.Popup>\n          </AlertDialog.Portal>\n        </AlertDialog.Root>,\n      );\n\n      expect(handleOpenChange.mock.calls.length).toBe(0);\n\n      const openButton = screen.getByText('Open');\n      await user.click(openButton);\n\n      expect(handleOpenChange.mock.calls.length).toBe(1);\n      expect(handleOpenChange.mock.calls[0][0]).toBe(true);\n\n      const closeButton = screen.getByText('Close');\n      await user.click(closeButton);\n\n      expect(handleOpenChange.mock.calls.length).toBe(2);\n      expect(handleOpenChange.mock.calls[1][0]).toBe(false);\n    })",
+      "status": "unported; no credit",
+      "name": "calls onOpenChange with the new open state"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:165",
+      "line": 165,
+      "callee": "it",
+      "sha256": "c95585197b037e9b6d1de9ca7d5f79525db203751217ab5d4acbd40c95408189",
+      "body": "it('calls onOpenChange with the reason for change when clicked on trigger and close button', async () => {\n      const handleOpenChange = vi.fn();\n\n      const { user } = await render(\n        <AlertDialog.Root onOpenChange={handleOpenChange}>\n          <AlertDialog.Trigger id=\"open-trigger\">Open</AlertDialog.Trigger>\n          <AlertDialog.Portal>\n            <AlertDialog.Popup>\n              <AlertDialog.Close>Close</AlertDialog.Close>\n            </AlertDialog.Popup>\n          </AlertDialog.Portal>\n        </AlertDialog.Root>,\n      );\n\n      const openButton = screen.getByText('Open');\n      await user.click(openButton);\n\n      expect(handleOpenChange.mock.calls.length).toBe(1);\n      expect(handleOpenChange.mock.calls[0][1].reason).toBe(REASONS.triggerPress);\n      expect(handleOpenChange.mock.calls[0][1].trigger).toBe(openButton);\n      expect(handleOpenChange.mock.calls[0][1].trigger?.id).toBe('open-trigger');\n\n      const closeButton = screen.getByText('Close');\n      await user.click(closeButton);\n\n      expect(handleOpenChange.mock.calls.length).toBe(2);\n      expect(handleOpenChange.mock.calls[1][1].reason).toBe(REASONS.closePress);\n      expect(handleOpenChange.mock.calls[1][1].trigger).toBe(openButton);\n      expect(handleOpenChange.mock.calls[1][1].trigger?.id).toBe('open-trigger');\n    })",
+      "status": "unported; no credit",
+      "name": "calls onOpenChange with the reason for change when clicked on trigger and close button"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:196",
+      "line": 196,
+      "callee": "it",
+      "sha256": "554678596484363721c3335b52cb1b1c0423408d266f8a07abe610beede68926",
+      "body": "it('calls onOpenChange with the reason for change when pressed Esc while the dialog is open', async () => {\n      const handleOpenChange = vi.fn();\n\n      const { user } = await render(\n        <AlertDialog.Root defaultOpen onOpenChange={handleOpenChange}>\n          <AlertDialog.Trigger>Open</AlertDialog.Trigger>\n          <AlertDialog.Portal>\n            <AlertDialog.Popup>\n              <AlertDialog.Close>Close</AlertDialog.Close>\n            </AlertDialog.Popup>\n          </AlertDialog.Portal>\n        </AlertDialog.Root>,\n      );\n\n      await user.keyboard('[Escape]');\n\n      expect(handleOpenChange.mock.calls.length).toBe(1);\n      expect(handleOpenChange.mock.calls[0][1].reason).toBe(REASONS.escapeKey);\n    })",
+      "status": "unported; no credit",
+      "name": "calls onOpenChange with the reason for change when pressed Esc while the dialog is open"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:216",
+      "line": 216,
+      "callee": "it",
+      "sha256": "4425b30231c228137974763feb71e00f4a6d24ecf19a7cbcdc1d1f56c842ef53",
+      "body": "it('does not close when the backdrop is clicked', async () => {\n      const handleOpenChange = vi.fn();\n\n      const { user } = await render(\n        <AlertDialog.Root defaultOpen onOpenChange={handleOpenChange}>\n          <AlertDialog.Trigger>Open</AlertDialog.Trigger>\n          <AlertDialog.Portal>\n            <AlertDialog.Popup>\n              <AlertDialog.Close>Close</AlertDialog.Close>\n            </AlertDialog.Popup>\n          </AlertDialog.Portal>\n        </AlertDialog.Root>,\n      );\n\n      await user.click(screen.getByRole('presentation', { hidden: true }));\n\n      expect(handleOpenChange.mock.calls.length).toBe(0);\n      expect(screen.queryByRole('alertdialog')).not.toBe(null);\n    })",
+      "status": "unported; no credit",
+      "name": "does not close when the backdrop is clicked"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:236",
+      "line": 236,
+      "callee": "it",
+      "sha256": "839387402511e1e96f1b9d35252d236c21cdbbcdbbd7d32ced253c7acaafbe9a",
+      "body": "it('keeps the trigger data-popup-open attribute and handle.isOpen when a controlled close is vetoed', async () => {\n      const handle = AlertDialog.createHandle();\n\n      function TestCase() {\n        const [open, setOpen] = React.useState(false);\n\n        return (\n          <AlertDialog.Root\n            handle={handle}\n            open={open}\n            onOpenChange={(nextOpen) => {\n              if (nextOpen) {\n                setOpen(true);\n              }\n            }}\n          >\n            <AlertDialog.Trigger>Open</AlertDialog.Trigger>\n            <AlertDialog.Portal>\n              <AlertDialog.Popup>\n                <AlertDialog.Title>Confirm</AlertDialog.Title>\n                <AlertDialog.Close>Cancel</AlertDialog.Close>\n              </AlertDialog.Popup>\n            </AlertDialog.Portal>\n          </AlertDialog.Root>\n        );\n      }\n\n      const { user } = await render(<TestCase />);\n\n      const trigger = screen.getByRole('button', { name: 'Open' });\n      await user.click(trigger);\n\n      await screen.findByRole('alertdialog');\n      expect(trigger).toHaveAttribute('data-popup-open');\n      expect(handle.isOpen).toBe(true);\n\n      await user.click(screen.getByRole('button', { name: 'Cancel' }));\n\n      expect(screen.getByRole('alertdialog')).toHaveAttribute('data-open');\n      expect(trigger).toHaveAttribute('data-popup-open');\n      expect(handle.isOpen).toBe(true);\n    })",
+      "status": "unported; no credit",
+      "name": "keeps the trigger data-popup-open attribute and handle.isOpen when a controlled close is vetoed"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:281",
+      "line": 281,
+      "callee": "it",
+      "sha256": "028eb744b4b3ba048e30da3b5230579fd5b9e08a2c7e2e3e99b48ac9e1b66cd1",
+      "body": "it('unmounts the alert dialog when the `unmount` method is called', async () => {\n      const actionsRef = React.createRef<AlertDialog.Root.Actions>();\n\n      const { user } = await render(\n        <AlertDialog.Root\n          actionsRef={actionsRef}\n          onOpenChange={(open, details) => {\n            if (!open) {\n              details.preventUnmountOnClose();\n            }\n          }}\n        >\n          <AlertDialog.Trigger>Open</AlertDialog.Trigger>\n          <AlertDialog.Portal>\n            <AlertDialog.Popup />\n          </AlertDialog.Portal>\n        </AlertDialog.Root>,\n      );\n\n      const trigger = screen.getByText('Open');\n      await user.click(trigger);\n\n      await waitFor(() => {\n        expect(screen.queryByRole('alertdialog')).not.toBe(null);\n      });\n\n      await user.click(trigger);\n\n      await waitFor(() => {\n        expect(screen.queryByRole('alertdialog')).not.toBe(null);\n      });\n\n      await act(async () => actionsRef.current?.unmount());\n\n      await waitFor(() => {\n        expect(screen.queryByRole('alertdialog')).toBe(null);\n      });\n    })",
+      "status": "unported; no credit",
+      "name": "unmounts the alert dialog when the `unmount` method is called"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:320",
+      "line": 320,
+      "callee": "it",
+      "sha256": "dd97532d40a0a61d08713c9dfa282e4594a500a0c934d25e7d244ee2075e4ca5",
+      "body": "it('clears manual unmount state after the `unmount` method is called', async () => {\n      const actionsRef = React.createRef<AlertDialog.Root.Actions>();\n      let shouldPreventUnmount = true;\n\n      const { user } = await render(\n        <AlertDialog.Root\n          actionsRef={actionsRef}\n          onOpenChange={(open, details) => {\n            if (!open && shouldPreventUnmount) {\n              shouldPreventUnmount = false;\n              details.preventUnmountOnClose();\n            }\n          }}\n        >\n          <AlertDialog.Trigger>Open</AlertDialog.Trigger>\n          <AlertDialog.Portal>\n            <AlertDialog.Popup>\n              <AlertDialog.Close>Close</AlertDialog.Close>\n            </AlertDialog.Popup>\n          </AlertDialog.Portal>\n        </AlertDialog.Root>,\n      );\n\n      const trigger = screen.getByText('Open');\n      await user.click(trigger);\n      expect(await screen.findByRole('alertdialog')).not.toBe(null);\n\n      await user.click(screen.getByText('Close'));\n      await waitFor(() => {\n        expect(screen.queryByRole('alertdialog')).not.toBe(null);\n      });\n\n      await act(async () => actionsRef.current?.unmount());\n      await waitFor(() => {\n        expect(screen.queryByRole('alertdialog')).toBe(null);\n      });\n\n      await user.click(trigger);\n      expect(await screen.findByRole('alertdialog')).not.toBe(null);\n\n      await user.click(screen.getByText('Close'));\n      await waitFor(() => {\n        expect(screen.queryByRole('alertdialog')).toBe(null);\n      });\n    })",
+      "status": "unported; no credit",
+      "name": "clears manual unmount state after the `unmount` method is called"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:366",
+      "line": 366,
+      "callee": "it",
+      "sha256": "ec4e3f4b921618e138c85e3c0daa0835a0b85eccbf3259e6a27223fa9510c153",
+      "body": "it('closes the alert dialog when the `close` method is called', async () => {\n      const actionsRef = React.createRef<AlertDialog.Root.Actions>();\n\n      await render(\n        <AlertDialog.Root defaultOpen actionsRef={actionsRef}>\n          <AlertDialog.Portal>\n            <AlertDialog.Popup />\n          </AlertDialog.Portal>\n        </AlertDialog.Root>,\n      );\n\n      expect(screen.queryByRole('alertdialog')).not.toBe(null);\n\n      await act(async () => actionsRef.current?.close());\n\n      await waitFor(() => {\n        expect(screen.queryByRole('alertdialog')).toBe(null);\n      });\n    })",
+      "status": "unported; no credit",
+      "name": "closes the alert dialog when the `close` method is called"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:390",
+      "line": 390,
+      "callee": "it",
+      "sha256": "e158dd3b8f70a8dd996fc646038ac8ce21a36198f96a7bbcc82296f0e4c9b818",
+      "body": "it('opens the alert dialog with any trigger', async () => {\n      const { user } = await render(\n        <AlertDialog.Root>\n          <AlertDialog.Trigger>Trigger 1</AlertDialog.Trigger>\n          <AlertDialog.Trigger>Trigger 2</AlertDialog.Trigger>\n          <AlertDialog.Trigger>Trigger 3</AlertDialog.Trigger>\n\n          <AlertDialog.Portal>\n            <AlertDialog.Popup>\n              Alert dialog content\n              <AlertDialog.Close>Close</AlertDialog.Close>\n            </AlertDialog.Popup>\n          </AlertDialog.Portal>\n        </AlertDialog.Root>,\n      );\n\n      const trigger1 = screen.getByRole('button', { name: 'Trigger 1' });\n      const trigger2 = screen.getByRole('button', { name: 'Trigger 2' });\n      const trigger3 = screen.getByRole('button', { name: 'Trigger 3' });\n\n      expect(screen.queryByText('Alert dialog content')).toBe(null);\n\n      await user.click(trigger1);\n      await waitFor(() => {\n        expect(screen.queryByText('Alert dialog content')).not.toBe(null);\n      });\n      await user.click(screen.getByText('Close'));\n      await waitFor(() => {\n        expect(screen.queryByText('Alert dialog content')).toBe(null);\n      });\n\n      await user.click(trigger2);\n      await waitFor(() => {\n        expect(screen.queryByText('Alert dialog content')).not.toBe(null);\n      });\n      await user.click(screen.getByText('Close'));\n      await waitFor(() => {\n        expect(screen.queryByText('Alert dialog content')).toBe(null);\n      });\n\n      await user.click(trigger3);\n      await waitFor(() => {\n        expect(screen.queryByText('Alert dialog content')).not.toBe(null);\n      });\n    })",
+      "status": "unported; no credit",
+      "name": "opens the alert dialog with any trigger"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:436",
+      "line": 436,
+      "callee": "it",
+      "sha256": "f179d10dcfafced41e30cc33592c78bc2e90d85999c31521cc6de9c640312813",
+      "body": "it('sets the payload and renders content based on its value', async () => {\n      const { user } = await render(\n        <AlertDialog.Root>\n          {({ payload }: NumberPayload) => (\n            <React.Fragment>\n              <AlertDialog.Trigger payload={1}>Trigger 1</AlertDialog.Trigger>\n              <AlertDialog.Trigger payload={2}>Trigger 2</AlertDialog.Trigger>\n\n              <AlertDialog.Portal>\n                <AlertDialog.Popup>\n                  <span data-testid=\"content\">{payload}</span>\n                  <AlertDialog.Close>Close</AlertDialog.Close>\n                </AlertDialog.Popup>\n              </AlertDialog.Portal>\n            </React.Fragment>\n          )}\n        </AlertDialog.Root>,\n      );\n\n      const trigger1 = screen.getByRole('button', { name: 'Trigger 1' });\n      const trigger2 = screen.getByRole('button', { name: 'Trigger 2' });\n\n      await user.click(trigger1);\n      await waitFor(() => {\n        expect(screen.getByTestId('content').textContent).toBe('1');\n      });\n\n      await user.click(trigger2);\n      await waitFor(() => {\n        expect(screen.getByTestId('content').textContent).toBe('2');\n      });\n    })",
+      "status": "unported; no credit",
+      "name": "sets the payload and renders content based on its value"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:469",
+      "line": 469,
+      "callee": "it",
+      "sha256": "afd563cc86ac84548cb78ce09ac6b8b8932b201dc15a39d857cc4be40e6d0bbb",
+      "body": "it('reuses the popup DOM node when switching triggers', async () => {\n      const { user } = await render(\n        <AlertDialog.Root>\n          {({ payload }: NumberPayload) => (\n            <React.Fragment>\n              <AlertDialog.Trigger payload={1}>Trigger 1</AlertDialog.Trigger>\n              <AlertDialog.Trigger payload={2}>Trigger 2</AlertDialog.Trigger>\n\n              <AlertDialog.Portal>\n                <AlertDialog.Popup data-testid=\"alert-dialog-popup\">\n                  <span>{payload}</span>\n                </AlertDialog.Popup>\n              </AlertDialog.Portal>\n            </React.Fragment>\n          )}\n        </AlertDialog.Root>,\n      );\n\n      const trigger1 = screen.getByRole('button', { name: 'Trigger 1' });\n      const trigger2 = screen.getByRole('button', { name: 'Trigger 2' });\n\n      await user.click(trigger1);\n      const popupElement = screen.getByTestId('alert-dialog-popup');\n\n      await user.click(trigger2);\n      expect(screen.getByTestId('alert-dialog-popup')).toBe(popupElement);\n    })",
+      "status": "unported; no credit",
+      "name": "reuses the popup DOM node when switching triggers"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:497",
+      "line": 497,
+      "callee": "it",
+      "sha256": "3cbcbecafc621edb315c00746c06ac93c448bb63395fc1db6b8acd05c532e46b",
+      "body": "it('synchronizes ARIA attributes on the active trigger', async () => {\n      const { user } = await render(\n        <AlertDialog.Root>\n          <AlertDialog.Trigger>Trigger 1</AlertDialog.Trigger>\n          <AlertDialog.Trigger>Trigger 2</AlertDialog.Trigger>\n\n          <AlertDialog.Portal>\n            <AlertDialog.Popup data-testid=\"alert-dialog-popup\">\n              Alert dialog content\n            </AlertDialog.Popup>\n          </AlertDialog.Portal>\n        </AlertDialog.Root>,\n      );\n\n      const trigger1 = screen.getByRole('button', { name: 'Trigger 1' });\n      const trigger2 = screen.getByRole('button', { name: 'Trigger 2' });\n\n      expect(trigger1).toHaveAttribute('aria-expanded', 'false');\n      expect(trigger2).toHaveAttribute('aria-expanded', 'false');\n\n      await user.click(trigger1);\n\n      const dialog = await screen.findByRole('alertdialog');\n      const trigger1Controls = trigger1.getAttribute('aria-controls');\n      expect(trigger1Controls).not.toBe(null);\n      expect(dialog.getAttribute('id')).toBe(trigger1Controls);\n      await waitFor(() => {\n        expect(trigger1).toHaveAttribute('aria-expanded', 'true');\n      });\n      expect(trigger2).toHaveAttribute('aria-expanded', 'false');\n    })",
+      "status": "unported; no credit",
+      "name": "synchronizes ARIA attributes on the active trigger"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:600",
+      "line": 600,
+      "callee": "it",
+      "sha256": "aa5dc6d7a7b3db63d6f2923790566b553926b8b51bc23a10759b6cd7f0f5a3a3",
+      "body": "it('opens the alert dialog with any trigger', async () => {\n      const testDialog = AlertDialog.createHandle();\n      const { user } = await render(\n        <div>\n          <AlertDialog.Trigger handle={testDialog}>Trigger 1</AlertDialog.Trigger>\n          <AlertDialog.Trigger handle={testDialog}>Trigger 2</AlertDialog.Trigger>\n          <AlertDialog.Trigger handle={testDialog}>Trigger 3</AlertDialog.Trigger>\n\n          <AlertDialog.Root handle={testDialog}>\n            <AlertDialog.Portal>\n              <AlertDialog.Popup>\n                Alert dialog content\n                <AlertDialog.Close>Close</AlertDialog.Close>\n              </AlertDialog.Popup>\n            </AlertDialog.Portal>\n          </AlertDialog.Root>\n        </div>,\n      );\n\n      const trigger1 = screen.getByRole('button', { name: 'Trigger 1' });\n      const trigger2 = screen.getByRole('button', { name: 'Trigger 2' });\n      const trigger3 = screen.getByRole('button', { name: 'Trigger 3' });\n\n      expect(screen.queryByText('Alert dialog content')).toBe(null);\n\n      await user.click(trigger1);\n      await waitFor(() => {\n        expect(screen.queryByText('Alert dialog content')).not.toBe(null);\n      });\n      await user.click(screen.getByText('Close'));\n      await waitFor(() => {\n        expect(screen.queryByText('Alert dialog content')).toBe(null);\n      });\n\n      await user.click(trigger2);\n      await waitFor(() => {\n        expect(screen.queryByText('Alert dialog content')).not.toBe(null);\n      });\n      await user.click(screen.getByText('Close'));\n      await waitFor(() => {\n        expect(screen.queryByText('Alert dialog content')).toBe(null);\n      });\n\n      await user.click(trigger3);\n      await waitFor(() => {\n        expect(screen.queryByText('Alert dialog content')).not.toBe(null);\n      });\n    })",
+      "status": "unported; no credit",
+      "name": "opens the alert dialog with any trigger"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:649",
+      "line": 649,
+      "callee": "it",
+      "sha256": "8236f6a99e849c176a5d5c08a9a1e69a41ec2ae95168cc64b048edc43480f60b",
+      "body": "it('attaches fresh root state when the root remounts after being unmounted while open', async () => {\n      const testDialog = AlertDialog.createHandle();\n\n      function App() {\n        const [mounted, setMounted] = React.useState(true);\n\n        return (\n          <div>\n            <AlertDialog.Trigger handle={testDialog} id=\"trigger\">\n              Trigger\n            </AlertDialog.Trigger>\n            {!mounted && (\n              <button type=\"button\" onClick={() => setMounted(true)}>\n                Remount root\n              </button>\n            )}\n\n            {mounted && (\n              <AlertDialog.Root handle={testDialog}>\n                <AlertDialog.Portal>\n                  <AlertDialog.Popup>\n                    Alert dialog content\n                    <button type=\"button\" onClick={() => setMounted(false)}>\n                      Unmount root\n                    </button>\n                  </AlertDialog.Popup>\n                </AlertDialog.Portal>\n              </AlertDialog.Root>\n            )}\n          </div>\n        );\n      }\n\n      const { user } = await render(<App />);\n      const trigger = screen.getByRole('button', { name: 'Trigger' });\n\n      await user.click(trigger);\n\n      let popup = await screen.findByRole('alertdialog');\n      expect(trigger.getAttribute('aria-controls')).toBe(popup.getAttribute('id'));\n\n      await user.click(within(popup).getByRole('button', { name: 'Unmount root' }));\n      expect(screen.queryByRole('alertdialog')).toBe(null);\n\n      await user.click(screen.getByRole('button', { name: 'Remount root' }));\n      expect(screen.queryByRole('alertdialog')).toBe(null);\n\n      await user.click(trigger);\n\n      popup = await screen.findByRole('alertdialog');\n      expect(trigger.getAttribute('aria-controls')).toBe(popup.getAttribute('id'));\n\n      await user.click(screen.getByRole('presentation', { hidden: true }));\n      await flushMicrotasks();\n\n      expect(screen.queryByRole('alertdialog')).not.toBe(null);\n      expect(testDialog.isOpen).toBe(true);\n    })",
+      "status": "unported; no credit",
+      "name": "attaches fresh root state when the root remounts after being unmounted while open"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:708",
+      "line": 708,
+      "callee": "it",
+      "sha256": "1cabd76a00dec2eed3cdea0fbaa71b58121f1ca2b2b1a695db42dde88973b949",
+      "body": "it('keeps detached triggers clickable when reparented (remove wrappers)', async () => {\n      const testDialog = AlertDialog.createHandle();\n      const { user, setProps } = await render(\n        <DetachedTriggerReparentingTest handle={testDialog} nesting={3} />,\n      );\n\n      await openAndCloseDialog(user);\n\n      await setProps({ nesting: 2 });\n      await openAndCloseDialog(user);\n\n      await setProps({ nesting: 1 });\n      await openAndCloseDialog(user);\n\n      await setProps({ nesting: 0 });\n      await openAndCloseDialog(user);\n    })",
+      "status": "unported; no credit",
+      "name": "keeps detached triggers clickable when reparented (remove wrappers)"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:726",
+      "line": 726,
+      "callee": "it",
+      "sha256": "076ae45c222045606e8d66e1b8cee388cdd29a33ab8dabc79d209a2959cb6c9a",
+      "body": "it('keeps detached triggers clickable when reparented (add wrappers)', async () => {\n      const testDialog = AlertDialog.createHandle();\n      const { user, setProps } = await render(\n        <DetachedTriggerReparentingTest handle={testDialog} nesting={0} />,\n      );\n\n      await openAndCloseDialog(user);\n\n      await setProps({ nesting: 1 });\n      await openAndCloseDialog(user);\n\n      await setProps({ nesting: 2 });\n      await openAndCloseDialog(user);\n\n      await setProps({ nesting: 3 });\n      await openAndCloseDialog(user);\n    })",
+      "status": "unported; no credit",
+      "name": "keeps detached triggers clickable when reparented (add wrappers)"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:744",
+      "line": 744,
+      "callee": "it",
+      "sha256": "43fdc7949904279dbb17ecc762c421688699d5dde24921477ffded1347f98c28",
+      "body": "it('keeps detached triggers clickable during Fast Refresh-like handle recreation', async () => {\n      function DetachedTriggerTest({\n        handle,\n      }: {\n        handle: ReturnType<typeof AlertDialog.createHandle>;\n      }) {\n        return (\n          <React.Fragment>\n            <AlertDialog.Trigger handle={handle}>Trigger</AlertDialog.Trigger>\n            <AlertDialog.Root handle={handle}>\n              <AlertDialog.Portal>\n                <AlertDialog.Popup>\n                  Alert dialog content\n                  <AlertDialog.Close>Close</AlertDialog.Close>\n                </AlertDialog.Popup>\n              </AlertDialog.Portal>\n            </AlertDialog.Root>\n          </React.Fragment>\n        );\n      }\n\n      const handleA = AlertDialog.createHandle();\n      const { user, setProps } = await render(<DetachedTriggerTest handle={handleA} />);\n\n      await openAndCloseDialog(user);\n\n      await setProps({ handle: AlertDialog.createHandle() });\n      await openAndCloseDialog(user);\n\n      await setProps({ handle: AlertDialog.createHandle() });\n      await openAndCloseDialog(user);\n    })",
+      "status": "unported; no credit",
+      "name": "keeps detached triggers clickable during Fast Refresh-like handle recreation"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:777",
+      "line": 777,
+      "callee": "it",
+      "sha256": "dac0228a1fc68103f6b7879b4d2719327a72dd6a5c7cd6647e7c9c819a74f739",
+      "body": "it('keeps detached triggers clickable when reparented during Fast Refresh-like handle recreation', async () => {\n      const handleA = AlertDialog.createHandle();\n      const { user, setProps } = await render(\n        <DetachedTriggerReparentingTest handle={handleA} nesting={3} />,\n      );\n\n      await openAndCloseDialog(user);\n\n      await setProps({ handle: AlertDialog.createHandle(), nesting: 2 });\n      await openAndCloseDialog(user);\n\n      await setProps({ handle: AlertDialog.createHandle(), nesting: 1 });\n      await openAndCloseDialog(user);\n\n      await setProps({ handle: AlertDialog.createHandle(), nesting: 0 });\n      await openAndCloseDialog(user);\n    })",
+      "status": "unported; no credit",
+      "name": "keeps detached triggers clickable when reparented during Fast Refresh-like handle recreation"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:795",
+      "line": 795,
+      "callee": "it",
+      "sha256": "1325be427aca0115dcbe75a78320abe7072a146cf34b0a07e909f2ad709531c8",
+      "body": "it('sets the payload and renders content based on its value', async () => {\n      const testDialog = AlertDialog.createHandle<number>();\n      const { user } = await render(\n        <div>\n          <AlertDialog.Trigger handle={testDialog} payload={1}>\n            Trigger 1\n          </AlertDialog.Trigger>\n          <AlertDialog.Trigger handle={testDialog} payload={2}>\n            Trigger 2\n          </AlertDialog.Trigger>\n\n          <AlertDialog.Root handle={testDialog}>\n            {({ payload }: NumberPayload) => (\n              <AlertDialog.Portal>\n                <AlertDialog.Popup>\n                  <span data-testid=\"content\">{payload}</span>\n                  <AlertDialog.Close>Close</AlertDialog.Close>\n                </AlertDialog.Popup>\n              </AlertDialog.Portal>\n            )}\n          </AlertDialog.Root>\n        </div>,\n      );\n\n      const trigger1 = screen.getByRole('button', { name: 'Trigger 1' });\n      const trigger2 = screen.getByRole('button', { name: 'Trigger 2' });\n\n      await user.click(trigger1);\n      await waitFor(() => {\n        expect(screen.getByTestId('content').textContent).toBe('1');\n      });\n\n      await user.click(trigger2);\n      await waitFor(() => {\n        expect(screen.getByTestId('content').textContent).toBe('2');\n      });\n    })",
+      "status": "unported; no credit",
+      "name": "sets the payload and renders content based on its value"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:833",
+      "line": 833,
+      "callee": "it",
+      "sha256": "2c608391e613d0723615cef203172e7612048eecf9bda713eb9be2b5b0dbd13e",
+      "body": "it('reuses the popup DOM node when switching triggers', async () => {\n      const testDialog = AlertDialog.createHandle<number>();\n      const { user } = await render(\n        <React.Fragment>\n          <AlertDialog.Trigger handle={testDialog} payload={1}>\n            Trigger 1\n          </AlertDialog.Trigger>\n          <AlertDialog.Trigger handle={testDialog} payload={2}>\n            Trigger 2\n          </AlertDialog.Trigger>\n\n          <AlertDialog.Root handle={testDialog}>\n            {({ payload }: NumberPayload) => (\n              <AlertDialog.Portal>\n                <AlertDialog.Popup data-testid=\"alert-dialog-popup\">\n                  <span>{payload}</span>\n                </AlertDialog.Popup>\n              </AlertDialog.Portal>\n            )}\n          </AlertDialog.Root>\n        </React.Fragment>,\n      );\n\n      const trigger1 = screen.getByRole('button', { name: 'Trigger 1' });\n      const trigger2 = screen.getByRole('button', { name: 'Trigger 2' });\n\n      await user.click(trigger1);\n      const popupElement = screen.getByTestId('alert-dialog-popup');\n\n      await user.click(trigger2);\n      expect(screen.getByTestId('alert-dialog-popup')).toBe(popupElement);\n    })",
+      "status": "unported; no credit",
+      "name": "reuses the popup DOM node when switching triggers"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:868",
+      "line": 868,
+      "callee": "it",
+      "sha256": "f200d81e249b4a3eb5c0d28edb9cf1e2e37db5ee8320de97a32f974c867684f1",
+      "body": "it('enforces alert dialog state for handle-backed roots', async () => {\n      const handle = AlertDialog.createHandle();\n\n      const { user } = await render(\n        <React.Fragment>\n          <AlertDialog.Trigger handle={handle}>Open</AlertDialog.Trigger>\n          <AlertDialog.Root handle={handle}>\n            <AlertDialogState data-testid=\"alert-dialog-state\" />\n            <AlertDialog.Portal>\n              <AlertDialog.Popup>Content</AlertDialog.Popup>\n            </AlertDialog.Portal>\n          </AlertDialog.Root>\n        </React.Fragment>,\n      );\n\n      expect(screen.getByTestId('alert-dialog-state')).toHaveAttribute('data-modal', 'true');\n      expect(screen.getByTestId('alert-dialog-state')).toHaveAttribute(\n        'data-disable-pointer-dismissal',\n        'true',\n      );\n      expect(screen.getByTestId('alert-dialog-state')).toHaveAttribute('data-role', 'alertdialog');\n\n      await user.click(screen.getByRole('button', { name: 'Open' }));\n\n      expect(await screen.findByRole('alertdialog')).not.toBe(null);\n      expect(handle.isOpen).toBe(true);\n\n      await user.click(screen.getByRole('presentation', { hidden: true }));\n      await flushMicrotasks();\n\n      expect(screen.queryByRole('alertdialog')).not.toBe(null);\n      expect(handle.isOpen).toBe(true);\n    })",
+      "status": "unported; no credit",
+      "name": "enforces alert dialog state for handle-backed roots"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:902",
+      "line": 902,
+      "callee": "it",
+      "sha256": "fbbd348640a3f3654937591a357b8830540f640e0aa0539bdc7c73d88461bfb5",
+      "body": "it('keeps the alert dialog open when the backdrop is clicked', async () => {\n      const handle = AlertDialog.createHandle();\n\n      const { user } = await render(\n        <React.Fragment>\n          <AlertDialog.Trigger handle={handle}>Open</AlertDialog.Trigger>\n          <AlertDialog.Root handle={handle}>\n            <AlertDialog.Portal>\n              <AlertDialog.Popup>\n                <AlertDialog.Close>Close</AlertDialog.Close>\n              </AlertDialog.Popup>\n            </AlertDialog.Portal>\n          </AlertDialog.Root>\n        </React.Fragment>,\n      );\n\n      const trigger = screen.getByRole('button', { name: 'Open' });\n      await user.click(trigger);\n\n      expect(await screen.findByRole('alertdialog')).not.toBe(null);\n\n      const backdrop = await screen.findByRole('presentation', { hidden: true });\n      await user.click(backdrop);\n      await flushMicrotasks();\n\n      expect(screen.queryByRole('alertdialog')).not.toBe(null);\n      expect(handle.isOpen).toBe(true);\n    })",
+      "status": "unported; no credit",
+      "name": "keeps the alert dialog open when the backdrop is clicked"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:931",
+      "line": 931,
+      "callee": "it",
+      "sha256": "34d2d9cd0065db66405cbdffb96696eaaf4377cf8f8b4d4f52a4fddbe56c135f",
+      "body": "it('opens and closes the dialog', async () => {\n      const dialog = AlertDialog.createHandle();\n      await render(\n        <div>\n          <AlertDialog.Trigger handle={dialog} id=\"trigger\">\n            Trigger\n          </AlertDialog.Trigger>\n          <AlertDialog.Root handle={dialog}>\n            <AlertDialog.Portal>\n              <AlertDialog.Popup data-testid=\"content\">Content</AlertDialog.Popup>\n            </AlertDialog.Portal>\n          </AlertDialog.Root>\n        </div>,\n      );\n\n      const trigger = screen.getByRole('button', { name: 'Trigger' });\n      expect(screen.queryByRole('alertdialog')).toBe(null);\n\n      await act(() => dialog.open('trigger'));\n      await waitFor(() => {\n        expect(screen.queryByRole('alertdialog')).not.toBe(null);\n      });\n\n      expect(screen.getByTestId('content').textContent).toBe('Content');\n      expect(trigger).toHaveAttribute('aria-expanded', 'true');\n\n      await act(() => dialog.close());\n      await waitFor(() => {\n        expect(screen.queryByRole('alertdialog')).toBe(null);\n      });\n\n      expect(trigger).toHaveAttribute('aria-expanded', 'false');\n    })",
+      "status": "unported; no credit",
+      "name": "opens and closes the dialog"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:965",
+      "line": 965,
+      "callee": "it",
+      "sha256": "742b9bf71f668bd36de6fb1142345dcba603f30b2fd8a107ef9369ea5d8ff679",
+      "body": "it('sets the payload associated with the trigger', async () => {\n      const dialog = AlertDialog.createHandle<number>();\n      await render(\n        <div>\n          <AlertDialog.Trigger handle={dialog} id=\"trigger1\" payload={1}>\n            Trigger 1\n          </AlertDialog.Trigger>\n          <AlertDialog.Trigger handle={dialog} id=\"trigger2\" payload={2}>\n            Trigger 2\n          </AlertDialog.Trigger>\n          <AlertDialog.Root handle={dialog}>\n            {({ payload }: { payload: number | undefined }) => (\n              <AlertDialog.Portal>\n                <AlertDialog.Popup data-testid=\"content\">{payload}</AlertDialog.Popup>\n              </AlertDialog.Portal>\n            )}\n          </AlertDialog.Root>\n        </div>,\n      );\n\n      const trigger1 = screen.getByRole('button', { name: 'Trigger 1' });\n      const trigger2 = screen.getByRole('button', { name: 'Trigger 2' });\n      expect(screen.queryByRole('alertdialog')).toBe(null);\n\n      await act(() => dialog.open('trigger2'));\n      await waitFor(() => {\n        expect(screen.queryByRole('alertdialog')).not.toBe(null);\n      });\n\n      expect(screen.getByTestId('content').textContent).toBe('2');\n      expect(trigger2).toHaveAttribute('aria-expanded', 'true');\n      expect(trigger1).not.toHaveAttribute('aria-expanded', 'true');\n\n      await act(() => dialog.close());\n      await waitFor(() => {\n        expect(screen.queryByRole('alertdialog')).toBe(null);\n      });\n\n      expect(trigger2).toHaveAttribute('aria-expanded', 'false');\n    })",
+      "status": "unported; no credit",
+      "name": "sets the payload associated with the trigger"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:1006",
+      "line": 1006,
+      "callee": "it",
+      "sha256": "b7d8273e7ae2796e44a48299f6ebcbc6eb6cdff3c924b194a2a1787edc0752bd",
+      "body": "it('sets the payload programmatically', async () => {\n      const dialog = AlertDialog.createHandle<number>();\n      await render(\n        <div>\n          <AlertDialog.Trigger handle={dialog} id=\"trigger1\" payload={1}>\n            Trigger 1\n          </AlertDialog.Trigger>\n          <AlertDialog.Trigger handle={dialog} id=\"trigger2\" payload={2}>\n            Trigger 2\n          </AlertDialog.Trigger>\n          <AlertDialog.Root handle={dialog}>\n            {({ payload }: { payload: number | undefined }) => (\n              <AlertDialog.Portal>\n                <AlertDialog.Popup data-testid=\"content\">{payload}</AlertDialog.Popup>\n              </AlertDialog.Portal>\n            )}\n          </AlertDialog.Root>\n        </div>,\n      );\n\n      const trigger1 = screen.getByRole('button', { name: 'Trigger 1' });\n      const trigger2 = screen.getByRole('button', { name: 'Trigger 2' });\n      expect(screen.queryByRole('alertdialog')).toBe(null);\n\n      await act(() => dialog.openWithPayload(8));\n      await waitFor(() => {\n        expect(screen.queryByRole('alertdialog')).not.toBe(null);\n      });\n\n      expect(screen.getByTestId('content').textContent).toBe('8');\n      expect(trigger1).not.toHaveAttribute('aria-expanded', 'true');\n      expect(trigger2).not.toHaveAttribute('aria-expanded', 'true');\n\n      await act(() => dialog.close());\n      await waitFor(() => {\n        expect(screen.queryByRole('alertdialog')).toBe(null);\n      });\n    })",
+      "status": "unported; no credit",
+      "name": "sets the payload programmatically"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:1047",
+      "line": 1047,
+      "callee": "it",
+      "sha256": "3e44ea0849d8e35dbbefc4e268219ecbf72b2758f6589a4db846d23a8e848c5b",
+      "body": "it('makes other interactive elements on the page inert when a modal dialog is open', async () => {\n      await render(\n        <AlertDialog.Root defaultOpen>\n          <AlertDialog.Trigger>Open Dialog</AlertDialog.Trigger>\n          <AlertDialog.Portal>\n            <AlertDialog.Popup>\n              <AlertDialog.Close>Close Dialog</AlertDialog.Close>\n            </AlertDialog.Popup>\n          </AlertDialog.Portal>\n        </AlertDialog.Root>,\n      );\n\n      expect(screen.getByRole('presentation', { hidden: true })).not.toBe(null);\n    })",
+      "status": "unported; no credit",
+      "name": "makes other interactive elements on the page inert when a modal dialog is open"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:1064",
+      "line": 1064,
+      "callee": "it",
+      "sha256": "bdfb3599c0f9cc5d8a508f5326243cc1c26ec8a73e41e0e0ae2aa5c2b0241214",
+      "body": "it('is called on close when there is no exit animation defined', async () => {\n      const onOpenChangeComplete = vi.fn();\n\n      function Test() {\n        const [open, setOpen] = React.useState(true);\n        return (\n          <div>\n            <button onClick={() => setOpen(false)}>Close</button>\n            <AlertDialog.Root open={open} onOpenChangeComplete={onOpenChangeComplete}>\n              <AlertDialog.Portal>\n                <AlertDialog.Popup data-testid=\"popup\" />\n              </AlertDialog.Portal>\n            </AlertDialog.Root>\n          </div>\n        );\n      }\n\n      const { user } = await render(<Test />);\n\n      const closeButton = screen.getByText('Close');\n      await user.click(closeButton);\n\n      await waitFor(() => {\n        expect(screen.queryByTestId('popup')).toBe(null);\n      });\n\n      expect(onOpenChangeComplete.mock.calls[0][0]).toBe(true);\n      expect(onOpenChangeComplete.mock.lastCall?.[0]).toBe(false);\n    })",
+      "status": "unported; no credit",
+      "name": "is called on close when there is no exit animation defined"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:1094",
+      "line": 1094,
+      "callee": "it",
+      "sha256": "6dd3d8f81cf101d3891bfa349fbce95a000b2468e30cfac12fb3d54693176f85",
+      "body": "it('is called on close when the exit animation finishes', async () => {\n      globalThis.BASE_UI_ANIMATIONS_DISABLED = false;\n\n      const onOpenChangeComplete = vi.fn();\n\n      function Test() {\n        const style = `\n          @keyframes test-anim {\n            to {\n              opacity: 0;\n            }\n          }\n\n          .animation-test-indicator[data-ending-style] {\n            animation: test-anim 1ms;\n          }\n        `;\n\n        const [open, setOpen] = React.useState(true);\n\n        return (\n          <div>\n            {/* eslint-disable-next-line react/no-danger */}\n            <style dangerouslySetInnerHTML={{ __html: style }} />\n            <button onClick={() => setOpen(false)}>Close</button>\n            <AlertDialog.Root open={open} onOpenChangeComplete={onOpenChangeComplete}>\n              <AlertDialog.Portal>\n                <AlertDialog.Popup className=\"animation-test-indicator\" data-testid=\"popup\" />\n              </AlertDialog.Portal>\n            </AlertDialog.Root>\n          </div>\n        );\n      }\n\n      const { user } = await render(<Test />);\n\n      expect(screen.getByTestId('popup')).not.toBe(null);\n\n      // Wait for open animation to finish\n      await waitFor(() => {\n        expect(onOpenChangeComplete.mock.calls[0][0]).toBe(true);\n      });\n\n      const closeButton = screen.getByText('Close');\n      await user.click(closeButton);\n\n      await waitFor(() => {\n        expect(screen.queryByTestId('popup')).toBe(null);\n      });\n\n      expect(onOpenChangeComplete.mock.lastCall?.[0]).toBe(false);\n    })",
+      "status": "unported; no credit",
+      "name": "is called on close when the exit animation finishes"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:1147",
+      "line": 1147,
+      "callee": "it",
+      "sha256": "e6143f1bd389e226c76c7256de4fc33b3c3476f2b8c6721bed1a55f9ac45d7a4",
+      "body": "it('is called on open when there is no enter animation defined', async () => {\n      const onOpenChangeComplete = vi.fn();\n\n      function Test() {\n        const [open, setOpen] = React.useState(false);\n        return (\n          <div>\n            <button onClick={() => setOpen(true)}>Open</button>\n            <AlertDialog.Root open={open} onOpenChangeComplete={onOpenChangeComplete}>\n              <AlertDialog.Portal>\n                <AlertDialog.Popup data-testid=\"popup\" />\n              </AlertDialog.Portal>\n            </AlertDialog.Root>\n          </div>\n        );\n      }\n\n      const { user } = await render(<Test />);\n\n      const openButton = screen.getByText('Open');\n      await user.click(openButton);\n\n      await waitFor(() => {\n        expect(screen.queryByTestId('popup')).not.toBe(null);\n      });\n\n      expect(onOpenChangeComplete.mock.calls.length).toBe(2);\n      expect(onOpenChangeComplete.mock.calls[0][0]).toBe(true);\n    })",
+      "status": "unported; no credit",
+      "name": "is called on open when there is no enter animation defined"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:1177",
+      "line": 1177,
+      "callee": "it",
+      "sha256": "80d9572b0752df0e7e8b412b02f5d53fcea037f70b87c73bde29b5a3d2029d59",
+      "body": "it('is called on open when the enter animation finishes', async () => {\n      globalThis.BASE_UI_ANIMATIONS_DISABLED = false;\n\n      const onOpenChangeComplete = vi.fn();\n\n      function Test() {\n        const style = `\n          @keyframes test-anim {\n            from {\n              opacity: 0;\n            }\n          }\n\n          .animation-test-indicator[data-starting-style] {\n            animation: test-anim 1ms;\n          }\n        `;\n\n        const [open, setOpen] = React.useState(false);\n\n        return (\n          <div>\n            {/* eslint-disable-next-line react/no-danger */}\n            <style dangerouslySetInnerHTML={{ __html: style }} />\n            <button onClick={() => setOpen(true)}>Open</button>\n            <AlertDialog.Root\n              open={open}\n              onOpenChange={setOpen}\n              onOpenChangeComplete={onOpenChangeComplete}\n            >\n              <AlertDialog.Portal>\n                <AlertDialog.Popup className=\"animation-test-indicator\" data-testid=\"popup\" />\n              </AlertDialog.Portal>\n            </AlertDialog.Root>\n          </div>\n        );\n      }\n\n      const { user } = await render(<Test />);\n\n      const openButton = screen.getByText('Open');\n      await user.click(openButton);\n\n      // Wait for open animation to finish\n      await waitFor(() => {\n        expect(onOpenChangeComplete.mock.calls[0][0]).toBe(true);\n      });\n\n      expect(screen.queryByTestId('popup')).not.toBe(null);\n    })",
+      "status": "unported; no credit",
+      "name": "is called on open when the enter animation finishes"
+    }
+  ],
+  "parameterizedExpansions": [],
+  "conformanceHelperCalls": [
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx:17",
+      "line": 17,
+      "callee": "popupConformanceTests",
+      "sha256": "92212d06e9c4cb0433dec96abe65dac825db6476daccb0de9df21d41dcea0975",
+      "body": "popupConformanceTests({\n    createComponent: (props) => (\n      <AlertDialog.Root {...props.root}>\n        <AlertDialog.Trigger {...props.trigger}>Open dialog</AlertDialog.Trigger>\n        <AlertDialog.Portal {...props.portal}>\n          <AlertDialog.Popup {...props.popup}>Dialog</AlertDialog.Popup>\n        </AlertDialog.Portal>\n      </AlertDialog.Root>\n    ),\n    render,\n    triggerMouseAction: 'click',\n    expectedPopupRole: 'alertdialog',\n    expectedAriaHasPopupValue: 'dialog',\n  })",
+      "status": "unported; no credit"
+    }
+  ],
+  "typeAssertions": [
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.spec.tsx",
+      "sourceId": "packages/react/src/alert-dialog/root/AlertDialogRoot.spec.tsx:18",
+      "line": 18,
+      "callee": "expectType",
+      "sha256": "8d0c222bb2d74a9722cb16a5ca006f50199befaed9c86336dd227b71adf64bae",
+      "body": "expectType<number | undefined, typeof payload>(payload)",
+      "status": "unported; no credit"
+    }
+  ],
+  "ordinaryDeclarationCredit": 0,
+  "supplementalCredit": 0
+}
