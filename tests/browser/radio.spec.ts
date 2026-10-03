@@ -15,6 +15,35 @@ for (const framework of ['react', 'svelte']) {
         '19.2.8/19.2.8',
       );
   };
+  test(`${framework} native hidden input CSS preserves source one-pixel geometry`, async ({
+    page,
+  }) => {
+    await open(page);
+    const geometry = await page
+      .locator('input[type="radio"]')
+      .evaluateAll((inputs) =>
+        inputs.map((element) => {
+          const input = element as HTMLInputElement;
+          const bounds = input.getBoundingClientRect();
+          return {
+            width: input.style.width,
+            height: input.style.height,
+            margin: input.style.margin,
+            actualWidth: bounds.width,
+            actualHeight: bounds.height,
+          };
+        }),
+      );
+    expect(geometry).toEqual(
+      Array.from({ length: 3 }, () => ({
+        width: '1px',
+        height: '1px',
+        margin: '-1px',
+        actualWidth: 1,
+        actualHeight: 1,
+      })),
+    );
+  });
   test(`${framework} source RadioRoot:18 checked data attributes and hidden successful control`, async ({
     page,
   }) => {
@@ -46,6 +75,15 @@ for (const framework of ['react', 'svelte']) {
     page,
   }) => {
     await open(page);
+    await page.locator('#form').evaluate((form) => {
+      form.setAttribute('data-click-events', '0');
+      form.addEventListener('click', () =>
+        form.setAttribute(
+          'data-click-events',
+          String(Number(form.getAttribute('data-click-events')) + 1),
+        ),
+      );
+    });
     await page.getByTestId('radio-a').click();
     await expect(page.getByTestId('radio-a')).toHaveAttribute(
       'aria-checked',
@@ -57,7 +95,15 @@ for (const framework of ['react', 'svelte']) {
     expect(
       await page.locator('input[type="radio"]:checked').getAttribute('value'),
     ).toBe('a');
+    await expect(page.locator('#form')).toHaveAttribute(
+      'data-click-events',
+      '1',
+    );
     await page.getByTestId('radio-a').click();
+    await expect(page.locator('#form')).toHaveAttribute(
+      'data-click-events',
+      '2',
+    );
     await expect(page.locator('#calls')).toHaveText(
       '[{"value":"a","reason":"none","type":"click","shiftKey":false}]',
     );
@@ -313,4 +359,26 @@ test('Svelte SSR/no JavaScript radios preserve native initial successful input v
     await page.locator('input[type="radio"][checked]').getAttribute('value'),
   ).toBe('b');
   await context.close();
+});
+
+test('Svelte source SSR hydration preserves initial values without hydration warnings', async ({
+  page,
+}) => {
+  const diagnostics: string[] = [];
+  page.on('console', (message) => {
+    if (/hydration/i.test(message.text())) diagnostics.push(message.text());
+  });
+  const response = await page.goto('/radio');
+  expect(response).not.toBe(null);
+  const serverMarkup = await response!.text();
+  expect(serverMarkup).toMatch(/value="b"[^>]*checked/);
+  await expect(page.locator('main[data-hydrated="true"]')).toBeVisible();
+  expect(
+    await page
+      .locator('#form')
+      .evaluate((form) =>
+        new FormData(form as HTMLFormElement).getAll('choice'),
+      ),
+  ).toEqual(['b']);
+  expect(diagnostics).toEqual([]);
 });

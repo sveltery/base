@@ -305,3 +305,14 @@ it('supplement source null/object serialization, context-free empty fallback and
     'External option',
   );
 });
+
+it('supplement native hidden radio lengths preserve the source pixel geometry', () => {
+  const { host } = setup();
+  for (const input of host.querySelectorAll<HTMLInputElement>(
+    'input[type="radio"]',
+  )) {
+    expect(input.style.width).toBe('1px');
+    expect(input.style.height).toBe('1px');
+    expect(input.style.margin).toBe('-1px');
+  }
+});

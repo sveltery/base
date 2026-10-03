@@ -22,7 +22,7 @@ Radio exposes `Root` and `Indicator`; `RadioGroup` owns the selected value and t
 </Field.Root>
 ```
 
-The source Field name takes precedence over the group name, while the optional remote serialization context affects only native hidden input names. Each Radio owns one native radio input; RadioGroup owns the logical value, registration and validation. `inputRef` exposes the representative native input. `value`/`defaultValue`, `onValueChange` and event-detail cancellation retain the source API. Options may use strings, numbers, objects or null; hidden values use the source serialization helper.
+The source Field name takes precedence over the group name, while the optional remote serialization context affects only native hidden input names. Each Radio owns one native radio input; RadioGroup owns the logical value, registration and validation. `inputRef` exposes the representative native input and accepts null. The named props aliases retain the source permissive generic default; explicit generic arguments preserve value and callback type checks. `value`/`defaultValue`, `onValueChange` and event-detail cancellation retain the source API. Options may use strings, numbers, objects or null; hidden values use the source serialization helper.
 
 Root renders a span by default. A native Svelte `render` snippet receives merged props, state and children; use `nativeButton` when rendering an actual button. `Indicator` follows source transition presence and supports `keepMounted`. Arrow keys select and move among enabled options with RTL direction, while Space activates on keyup and Enter does not select. Selectable options and labels are authored rather than inferred from schema metadata.
 

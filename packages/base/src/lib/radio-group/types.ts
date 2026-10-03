@@ -15,7 +15,8 @@ export interface RadioGroupState extends FieldRootState {
 export type RadioGroupChangeEventReason = 'none';
 export type RadioGroupChangeEventDetails =
   BaseUIChangeEventDetails<RadioGroupChangeEventReason>;
-export type RadioGroupProps<Value = unknown> = Omit<
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Preserve the pinned public generic default.
+export type RadioGroupProps<Value = any> = Omit<
   WithBaseUIEvent<HTMLAttributes<HTMLDivElement>>,
   'class' | 'style' | 'children'
 > &
@@ -33,5 +34,5 @@ export type RadioGroupProps<Value = unknown> = Omit<
       value: Value,
       details: RadioGroupChangeEventDetails,
     ) => void;
-    inputRef?: MergedRef<HTMLInputElement>;
+    inputRef?: MergedRef<HTMLInputElement> | null;
   };

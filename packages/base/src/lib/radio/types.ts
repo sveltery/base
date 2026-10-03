@@ -14,7 +14,8 @@ export interface RadioRootState extends FieldRootState {
   readOnly: boolean;
   required: boolean;
 }
-export type RadioRootProps<Value = unknown> = Omit<
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Preserve the pinned public generic default.
+export type RadioRootProps<Value = any> = Omit<
   WithBaseUIEvent<HTMLAttributes<HTMLElement>>,
   'class' | 'style' | 'children'
 > &
@@ -25,7 +26,7 @@ export type RadioRootProps<Value = unknown> = Omit<
     disabled?: boolean;
     required?: boolean;
     readOnly?: boolean;
-    inputRef?: MergedRef<HTMLInputElement>;
+    inputRef?: MergedRef<HTMLInputElement> | null;
     nativeButton?: boolean;
   };
 export interface RadioIndicatorState extends RadioRootState {

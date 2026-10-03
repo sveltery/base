@@ -30,9 +30,9 @@ cat > "$radio_consumer/Consumer.svelte" <<'SVELTE'
   const NumberRoot = Radio.Root<number>;
 </script>
 <Form><Field.Root name="storageType"><Field.Label>Storage</Field.Label><RadioGroup defaultValue="disk">
-  <Radio.Root value="disk"><Radio.Indicator />Disk</Radio.Root><SubRadio.Root value="cloud">Cloud</SubRadio.Root>
+  <Radio.Root value="disk" inputRef={null}><Radio.Indicator />Disk</Radio.Root><SubRadio.Root value="cloud">Cloud</SubRadio.Root>
 </RadioGroup></Field.Root></Form>
-<SubGroup defaultValue={null}><SubRadio.Root value={null} id="null-option">None</SubRadio.Root></SubGroup>
+<SubGroup defaultValue={null} inputRef={null}><SubRadio.Root value={null} id="null-option">None</SubRadio.Root></SubGroup>
 <NumberGroup name="size" value={42} onValueChange={(value, details) => { const n: number = value; const event: Event = details.event; void [n, event]; }}>
   <NumberRoot value={42} nativeButton>
     {#snippet render(props, _state, children)}<button {...props as HTMLAttributes<HTMLButtonElement>}>{@render children?.()}</button>{/snippet}
@@ -55,6 +55,18 @@ declare const groupState: GroupTypes.RadioGroupState; exact<Root.RadioGroupState
 declare const groupProps: GroupTypes.RadioGroupProps; exact<Root.RadioGroupProps, typeof groupProps>(groupProps);
 declare const reason: GroupTypes.RadioGroupChangeEventReason; exact<Root.RadioGroupChangeEventReason, typeof reason>(reason);
 declare const details: GroupTypes.RadioGroupChangeEventDetails; exact<Root.RadioGroupChangeEventDetails, typeof details>(details);
+// Source defaults must accept strict string callbacks without explicit generic arguments.
+const stringCallback = (value: string) => value.toUpperCase();
+const defaultGroupProps: GroupTypes.RadioGroupProps = { value: 'disk', onValueChange: stringCallback };
+const defaultRootProps: RadioTypes.RadioRootProps = { value: { storage: 'cloud' }, inputRef: null };
+type IsAny<T> = 0 extends (1 & T) ? true : false;
+declare const rootValueDefault: IsAny<RadioTypes.RadioRootProps['value']>;
+declare const groupValueDefault: IsAny<GroupTypes.RadioGroupProps['value']>;
+exact<true, typeof rootValueDefault>(rootValueDefault);
+exact<true, typeof groupValueDefault>(groupValueDefault);
+const nullableGroupRef: GroupTypes.RadioGroupProps<string> = { value: 'disk', inputRef: null };
+const nullableRootRef: RadioTypes.RadioRootProps<number> = { value: 42, inputRef: null };
+void [defaultGroupProps, defaultRootProps, nullableGroupRef, nullableRootRef];
 const typed: ComponentProps<typeof RadioGroup<number>> = { value: 4, onValueChange(value, details) { exact<number, typeof value>(value); exact<Event, typeof details.event>(details.event); } };
 // @ts-expect-error A number-valued group cannot be controlled by a string.
 const invalid: ComponentProps<typeof RadioGroup<number>> = { value: 'wrong' };

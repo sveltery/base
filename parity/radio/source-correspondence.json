@@ -3680,6 +3680,13 @@
       "local": "packages/base/src/lib/radio-group/RadioGroup.svelte",
       "correspondence": "Source controlled state/callback cancellation, representative ref registry, eligible form values, Field registration/value tracking and CompositeRoot ownership.",
       "localSha256": "bb5903860e44f148beaf487baafdb74c487bb42b5427ca88d6f966c5ec012758",
+      "additionalLocalCounterparts": [
+        {
+          "local": "packages/base/src/lib/radio-group/types.ts",
+          "localSha256": "16410a154bb8138b03741d0ebf26465dac4065ce26b575b1568fab9261b14fd9",
+          "correspondence": "Native public props/state aliases split from the original component source; source generic defaults and nullable hidden input refs retained."
+        }
+      ],
       "status": "implemented-awaiting-exact-head-review"
     },
     {
@@ -3813,6 +3820,13 @@
       "local": "packages/base/src/lib/radio/indicator/RadioIndicator.svelte",
       "correspondence": "Same Root state, transition presence, animation completion and keepMounted branches using canonical native helpers.",
       "localSha256": "eb936736c1fdb3a804eee427469a0b02a8b2b6376db04cf4754d873154a4eb11",
+      "additionalLocalCounterparts": [
+        {
+          "local": "packages/base/src/lib/radio/types.ts",
+          "localSha256": "9d32395ff2c5e8921ad28c2614515f988e4286270ce1cd0dd379d6b583cbae0d",
+          "correspondence": "Native public props/state aliases split from the original component source; source generic defaults and nullable hidden input refs retained."
+        }
+      ],
       "status": "implemented-awaiting-exact-head-review"
     },
     {
@@ -3950,6 +3964,13 @@
       "local": "packages/base/src/lib/radio/root/RadioRoot.svelte",
       "correspondence": "Source-ordered Root state/hidden input/Field/Item/label/button/CompositeItem composition. Native onclick owns one radio activation; cancellation prevents its default before input/change.",
       "localSha256": "0032352926870b8e3a72c8623d0744eb170c8cbfbc2459ef441428e41dc23475",
+      "additionalLocalCounterparts": [
+        {
+          "local": "packages/base/src/lib/radio/types.ts",
+          "localSha256": "9d32395ff2c5e8921ad28c2614515f988e4286270ce1cd0dd379d6b583cbae0d",
+          "correspondence": "Native public props/state aliases split from the original component source; source generic defaults and nullable hidden input refs retained."
+        }
+      ],
       "status": "implemented-awaiting-exact-head-review"
     },
     {
@@ -5380,7 +5401,7 @@
       ],
       "local": "packages/base/src/lib/utils/visuallyHidden.ts",
       "correspondence": "Canonical source hidden/native-input CSS objects normalized at the shared native host boundary.",
-      "localSha256": "56022292e75f4aea7e384bcd6f58f37c7b2f57f0dabde7c5bee67542ad2829dc",
+      "localSha256": "8f49185df1c0536608090368454cc3d30a3bfc1991b23a4b5e5239184ead8020",
       "status": "implemented-awaiting-exact-head-review"
     },
     {
