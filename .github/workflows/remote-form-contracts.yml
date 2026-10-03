@@ -54,7 +54,7 @@ jobs:
         run: |
           set -o pipefail
           mkdir -p .checks/remote-contracts
-          pnpm exec playwright test tests/browser/field-form-remote.spec.ts tests/browser/remote-form-api.spec.ts tests/browser/remote-form-api-contracts.spec.ts --reporter=list,json | tee .checks/remote-contracts/browser.log
+          pnpm exec playwright test tests/browser/field-form-remote.spec.ts tests/browser/remote-form-api.spec.ts tests/browser/remote-form-api-contracts.spec.ts tests/browser/remote-native-propagation.spec.ts --reporter=list,json | tee .checks/remote-contracts/browser.log
       - name: Preserve actual JSON observations and traces
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
