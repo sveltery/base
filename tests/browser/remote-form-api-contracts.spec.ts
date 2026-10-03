@@ -27,7 +27,14 @@ test('public remote controls SSR real native names and preserve file input defau
   const html = await (await request.get('/remote-api-contracts')).text();
   expect(html).toContain('name="choices[]"');
   expect(html).toContain('name="items[0].label"');
-  expect(html).toContain('id="manual-email"');
+  const association = await page.evaluate((markup) => {
+    const document = new DOMParser().parseFromString(markup, 'text/html');
+    const label = Array.from(document.querySelectorAll('label')).find((node) => node.textContent?.trim() === 'Nested email');
+    const control = document.querySelector<HTMLInputElement>('input[name="profile.email"]');
+    return { labelFor: label?.htmlFor, controlId: control?.id };
+  }, html);
+  expect(association.controlId).toBeTruthy();
+  expect(association.labelFor).toBe(association.controlId);
   await setup(page);
   await expect(page.locator('#uploads input[type="file"]')).toHaveCount(2);
   for (const input of await page.locator('#uploads input[type="file"]').all()) {

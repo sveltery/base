@@ -66,7 +66,7 @@
     {#snippet children(Field)}
       <Field.Root name="choice">
         <Field.Label>Styled radio colors</Field.Label>
-        <RadioGroup value={styledRadio.fields.choice.value()} onValueChange={(value: string, details) => { radioChanges.push({ value, type: details.event.type }); styledRadio.fields.choice.set(value); }}>
+        <RadioGroup value={styledRadio.fields.choice.value() ?? null} onValueChange={(value: string | null, details) => { radioChanges.push({ value, type: details.event.type }); if (value !== null) styledRadio.fields.choice.set(value); }}>
           <Field.Root name="choice" as="radio" value="red"><Field.Control>{#snippet render(props)}<Radio.Root {...props} value="red" aria-label="Styled radio red"><Radio.Indicator>Red</Radio.Indicator></Radio.Root>{/snippet}</Field.Control></Field.Root>
           <Field.Root name="choice" as="radio" value="blue"><Field.Control>{#snippet render(props)}<Radio.Root {...props} value="blue" aria-label="Styled radio blue"><Radio.Indicator>Blue</Radio.Indicator></Radio.Root>{/snippet}</Field.Control></Field.Root>
         </RadioGroup>
@@ -83,9 +83,9 @@
     {#snippet children(Field)}
       <Field.Root name="choice" as="number">
         <Field.Label>Styled radio numbers</Field.Label>
-        <RadioGroup value={numericRadio.fields.choice.value()} onValueChange={(value: number, details) => { numericRadioChanges.push({ value, type: details.event.type }); numericRadio.fields.choice.set(value); }}>
-          <Radio.Root value={1} aria-label="Styled radio one"><Radio.Indicator>One</Radio.Indicator></Radio.Root>
-          <Radio.Root value={2} aria-label="Styled radio two"><Radio.Indicator>Two</Radio.Indicator></Radio.Root>
+        <RadioGroup value={numericRadio.fields.choice.value() ?? null} onValueChange={(value: number | null, details) => { numericRadioChanges.push({ value, type: details.event.type }); if (value !== null) numericRadio.fields.choice.set(value); }}>
+          <Field.Item><Radio.Root value={1}><Radio.Indicator>One</Radio.Indicator></Radio.Root><Field.Label>Styled radio one</Field.Label></Field.Item>
+          <Field.Item><Radio.Root value={2}><Radio.Indicator>Two</Radio.Indicator></Radio.Root><Field.Label>Styled radio two</Field.Label></Field.Item>
         </RadioGroup>
         <Field.Error />
       </Field.Root>
@@ -100,9 +100,9 @@
     {#snippet children(Field)}
       <Field.Root name="choice">
         <Field.Label>Manual styled radio numbers</Field.Label>
-        <RadioGroup value={manualNumericRadio.fields.choice.value()} onValueChange={(value: string | number, details) => { manualNumericRadioChanges.push({ value, type: details.event.type }); manualNumericRadio.fields.choice.set(value); }}>
-          <Field.Control {...manualNumericRadio.fields.choice.as('radio', 3)} name={manualNumericRadio.fields.choice.as('number').name}>{#snippet render(props)}<Radio.Root {...props} value={props.value} aria-label="Manual radio three"><Radio.Indicator>Three</Radio.Indicator></Radio.Root>{/snippet}</Field.Control>
-          <Field.Control {...manualNumericRadio.fields.choice.as('radio', 4)} name={manualNumericRadio.fields.choice.as('number').name}>{#snippet render(props)}<Radio.Root {...props} value={props.value} aria-label="Manual radio four"><Radio.Indicator>Four</Radio.Indicator></Radio.Root>{/snippet}</Field.Control>
+        <RadioGroup value={manualNumericRadio.fields.choice.value() ?? null} onValueChange={(value: string | number | null, details) => { manualNumericRadioChanges.push({ value, type: details.event.type }); if (value !== null) manualNumericRadio.fields.choice.set(value); }}>
+          <Field.Item><Field.Control {...manualNumericRadio.fields.choice.as('radio', 3)} name={manualNumericRadio.fields.choice.as('number').name}>{#snippet render(props)}<Radio.Root {...props} value={props.value}><Radio.Indicator>Three</Radio.Indicator></Radio.Root>{/snippet}</Field.Control><Field.Label>Manual radio three</Field.Label></Field.Item>
+          <Field.Item><Field.Control {...manualNumericRadio.fields.choice.as('radio', 4)} name={manualNumericRadio.fields.choice.as('number').name}>{#snippet render(props)}<Radio.Root {...props} value={props.value}><Radio.Indicator>Four</Radio.Indicator></Radio.Root>{/snippet}</Field.Control><Field.Label>Manual radio four</Field.Label></Field.Item>
         </RadioGroup>
         <Field.Error />
       </Field.Root>
