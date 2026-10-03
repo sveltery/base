@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { useDirection } from '../../../../packages/base/src/lib/direction-provider/context.js';
   import { createAnchorPositioning } from '../../../../packages/base/src/lib/internals/anchor-positioning/controller.svelte.js';
   import { positioningAttachments } from '../../../../packages/base/src/lib/internals/anchor-positioning/attachments.js';
   import type { Reference } from '../../../../packages/base/src/lib/internals/anchor-positioning/types.js';
@@ -7,7 +6,6 @@
     scenario: string; open: boolean; domDirection: 'ltr' | 'rtl'; sideOffset: number;
     replacement: boolean; wide: boolean; realArrow: boolean;
   } = $props();
-  const direction = useDirection();
   let anchor = $state<HTMLButtonElement>();
   const virtual = $derived(anchor ? {
     contextElement: anchor,
@@ -15,7 +13,6 @@
   } satisfies Reference : null);
   const positioning = createAnchorPositioning(() => ({
     open, mounted: open, keepMounted: true,
-    direction: direction(),
     anchor: scenario === 'virtual' ? virtual : undefined,
     side: scenario === 'logical' ? 'inline-start' : 'bottom',
     align: ['start', 'rtl', 'mismatch'].includes(scenario) ? 'start' : 'center',

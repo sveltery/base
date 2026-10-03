@@ -29,8 +29,11 @@ test('private anchor foundation keeps immutable source/assertions and zero defer
   for (const license of ['UPSTREAM_LICENSE', 'FLOATING_UI_LICENSE']) assert.match(read(`parity/anchor-positioning/${license}`), /Permission is hereby granted/);
   for (const path of ['packages/base/tests/dom/anchor-positioning-lifecycle.test.ts', 'tests/browser/anchor-positioning.spec.ts', 'scripts/check-anchor-positioning-package.sh']) assert.ok(existsSync(new URL(path, root)));
   const browser = read('tests/browser/anchor-positioning.spec.ts'); assert.doesNotMatch(browser, /(?:test|describe)\.(?:skip|fixme|only)\s*\(/);
-  const controller = read('packages/base/src/lib/internals/anchor-positioning/controller.svelte.ts');
-  assert.doesNotMatch(controller.replace(/\/\/[^\n]*/g, ''), /platform\s*:/); assert.match(controller, /await computePosition\(currentReference, currentFloating, policy\)/);
+  const controller = read('packages/base/src/lib/internals/anchor-positioning/useFloating.svelte.ts');
+  assert.doesNotMatch(controller.replace(/\/\/[^\n]*/g, ''), /platform\s*:/); assert.match(controller, /await computePosition\(currentReference, currentFloating, config\)/);
+  const anchor = read('packages/base/src/lib/internals/anchor-positioning/useAnchorPositioning.svelte.ts');
+  assert.match(anchor, /const position = useFloating\(/);
+  assert.match(anchor, /createPositioningPolicy\(currentOptions, \(\) => currentArrow, isCurrent\)/);
   const pkg = JSON.parse(read('packages/base/package.json')); assert.equal(pkg.exports['./anchor-positioning'], undefined);
   assert.equal(pkg.dependencies['@floating-ui/dom'], '1.8.0'); assert.equal(pkg.dependencies['@floating-ui/utils'], '0.2.12');
 });

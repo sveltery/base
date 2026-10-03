@@ -1,8 +1,10 @@
 // Actual installed Base UI 1.8.0 reference, corresponding to immutable pin 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // Fixture-only React/private-source imports; MIT: parity/anchor-positioning/UPSTREAM_LICENSE.
-import { createElement as h, StrictMode, useEffect, useRef, useState } from 'react';
+import { createElement as h, StrictMode, useCallback, useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { DirectionProvider } from '@base-ui/react/direction-provider';
+// Keep public provider and private hook in the same module graph. Mixing a Vite-optimized
+// public entry with a direct private entry creates two independent DirectionContext objects.
+import { DirectionProvider } from '../../node_modules/@base-ui/react/direction-provider/DirectionProvider.mjs';
 import { useAnchorPositioningWithHook } from '../../node_modules/@base-ui/react/internals/useAnchorPositioning.mjs';
 import { useFloating } from '../../node_modules/@base-ui/react/floating-ui-react/hooks/useFloating.mjs';
 import type { UseFloatingOptions } from '../../node_modules/@base-ui/react/floating-ui-react/types.mjs';
@@ -20,7 +22,7 @@ function Probe({ scenario, open, domDirection, sideOffset, replacement, wide, re
     anchor: scenario === 'virtual' ? () => anchor.current ? {
       contextElement: anchor.current,
       getBoundingClientRect: () => anchor.current!.getBoundingClientRect(),
-    } : null : anchor,
+    } : null : undefined,
     mounted: open, keepMounted: true,
     side: scenario === 'logical' ? 'inline-start' : 'bottom',
     align: ['start', 'rtl', 'mismatch'].includes(scenario) ? 'start' : 'center',
@@ -30,8 +32,14 @@ function Probe({ scenario, open, domDirection, sideOffset, replacement, wide, re
     disableAnchorTracking: scenario === 'disabled',
     shift: scenario === 'layout' ? { rootBoundary: 'layoutViewport' } : scenario === 'cross-axis' ? { rootBoundary: 'layoutViewport', crossAxis: true } : undefined,
   }, scenario === 'top-left' ? usePositionWithOutput : useFloating);
+  // Real anchored roots register their host in the Floating store. A lone external ref
+  // does not exercise that default reference path or the source setReference replacement body.
+  const setReference = useCallback((node: HTMLButtonElement | null) => {
+    anchor.current = node;
+    positioning.refs.setReference(node);
+  }, [positioning.refs.setReference]);
   return h('div', { className: 'board', 'data-testid': 'board' }, h('div', { className: 'stage' },
-    h('button', { ref: anchor, key: String(replacement), className: `anchor${replacement ? ' replacement' : ''}${scenario === 'collision' ? ' collision' : ''}`, style: { width: wide ? '110px' : '80px' }, 'data-testid': 'anchor' }, 'Anchor'),
+    h('button', { ref: setReference, key: String(replacement), className: `anchor${replacement ? ' replacement' : ''}${scenario === 'collision' ? ' collision' : ''}`, style: { width: wide ? '110px' : '80px' }, 'data-testid': 'anchor' }, 'Anchor'),
     h('div', { className: 'floating', dir: domDirection, 'data-testid': 'floating', 'data-closed': !open,
       'data-positioned': positioning.isPositioned, 'data-side': positioning.side, 'data-align': positioning.align,
       'data-hidden': positioning.anchorHidden, 'data-arrow-uncentered': positioning.arrowUncentered,

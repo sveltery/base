@@ -32,7 +32,7 @@ function getOffsetData(state: MiddlewareState, sideParam: Side, isRtl: boolean) 
   return data;
 }
 
-export function createPositioningPolicy(options: AnchorPositioningOptions, getArrow: () => Element | null, isCurrent: (floating: HTMLElement) => boolean) {
+export function createPositioningPolicy(options: AnchorPositioningOptions & { direction?: 'ltr' | 'rtl' }, getArrow: () => Element | null, isCurrent: (floating: HTMLElement) => boolean) {
   const {
     positionMethod = 'absolute', side: sideParam = 'bottom', sideOffset = 0,
     align = 'center', alignOffset = 0, collisionBoundary,

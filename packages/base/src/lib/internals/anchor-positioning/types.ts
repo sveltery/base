@@ -21,7 +21,6 @@ export interface AnchorPositioningOptions {
   mounted: boolean;
   keepMounted?: boolean;
   anchor?: Anchor;
-  direction?: 'ltr' | 'rtl';
   positionMethod?: Strategy;
   side?: Side;
   align?: Align;

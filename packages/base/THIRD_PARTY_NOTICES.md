@@ -1,5 +1,7 @@
 # Third-party notices
 
+The private anchor positioning body, collision/size/transform-origin policy, CSS constants and custom arrow/hide middleware derive from Base UI v1.8.0 useAnchorPositioning and floating-ui-react at commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. Native Svelte geometry synchronization and device-pixel output also reference Floating UI react-dom 2.1.9 and DOM/core 1.8.0/utils 0.2.12. Source correspondence, immutable source/assertion hashes and both original MIT notices are retained in parity/anchor-positioning. FloatingRootStore/tree/popup interaction composition remains incomplete. The MIT permission and disclaimer below also apply to the Floating UI-derived portions, Copyright (c) 2021-present Floating UI contributors.
+
 CSPProvider and its optional CSP context contract derive from packages/react/src/csp-provider and internals/csp-context at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. Immutable source/test hashes and the MIT license are preserved in parity/csp-provider. The four ScrollArea/Select-dependent ordinary tests remain deferred; local context/SSR/browser/consumer probes are supplemental.
 
 DirectionProvider, its direction context/callable reader and assertion/type adapters derive from packages/react/src/direction-provider and internals/direction-context at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT attribution and complete immutable source/assertion hashes are preserved in parity/direction-provider.
