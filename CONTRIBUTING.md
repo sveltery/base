@@ -1,6 +1,6 @@
 # Contributing
 
-This is an experimental, unofficial Svelte 5 port. Start with the [architecture](docs/architecture.md), [pinned upstream contracts](docs/upstream-contracts.md), and [parity inventory](parity/README.md). Preserve upstream MIT attribution when porting code or assertions.
+This is an experimental, unofficial Svelte 5 port. Start with the [architecture](docs/architecture.md), [source-porting gate](docs/source-porting.md), [pinned upstream contracts](docs/upstream-contracts.md), and [parity inventory](parity/README.md). Preserve upstream MIT attribution when porting code or assertions.
 
 Use Node 24.x and pnpm 12.6.0. From a fresh checkout:
 
@@ -11,6 +11,16 @@ bash .github/standards/check.sh
 ```
 
 Keep pull requests focused. Explain the behavior before and after, link the upstream contract or issue, and distinguish upstream assertion ports from new regressions. Update parity claims only with executed evidence. An independent reviewer must examine the exact final commit; rerun relevant checks after changes.
+
+## Source-first implementation and review
+
+Before writing implementation code, read the original component and recursively trace its imports at Base UI v1.8.0 `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. Copy the pinned source with its MIT notices and mechanically port the component, internal dependencies and shared helper bodies. Keep comparable module boundaries, names, operation order, branches, state, cancellation and upstream quirks. Port each shared upstream helper once and reuse it. In particular, Input delegates to a real Field.Control port; a standalone replacement algorithm or constant Field state does not fulfill that source dependency.
+
+Use native Svelte primitives, lifecycle and rendering facilities where the framework requires them, with small shared adapters that make each necessary substitution explicit and preserve observable contracts. Retain a [source-correspondence table](docs/source-porting.md#source-correspondence-record) linking every original file/function to its used local port, specific adaptation and review check. Missing helpers or internal components keep the component incomplete. Unused copied modules and cosmetic relocation of custom algorithms provide no structural evidence. Earlier PM approvals and native API decisions do not waive this requirement.
+
+Source and upstream tests are both binding. Independent review at the final PR head must inspect the full component dependency closure, including reused helpers outside the diff, and confirm structural fidelity alongside the required CI, browser, SSR, type and public-package gates. Preserve assertion provenance and the separate ordinary, parameterized, conformance and supplemental accounting. Record intentional differences under the existing policy below; a passing divergent assertion earns no parity credit. Apply the [landed-feature audit checklist](docs/source-porting.md#landed-feature-audit) before claiming existing implementations meet the source gate.
+
+## Svelte and repository checks
 
 Use native Svelte 5 state, derived values, snippets and event props. Use an effect for synchronization with an external system, with cleanup for listeners, observers and timers. Avoid effects that merely copy reactive state. Check SSR without browser globals, hydration, controlled and uncontrolled updates, cancellation, callback ordering, focus restoration, nesting and teardown where applicable. Browser assertions must exercise a rendered component and fail when the behavior is broken.
 
