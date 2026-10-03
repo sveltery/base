@@ -55,7 +55,9 @@ type CanonicalName<Path extends string> = Path extends `${infer Head}[${infer In
   ? `${Head}[${`${number}` extends Index ? CanonicalIndex : Index}]${CanonicalName<Rest>}`
   : Path;
 
-type IsIdentifier<Text extends string> = string extends Text ? true
+// Kit rejects these segments during deep_set, even when the schema declares them.
+type IsIdentifier<Text extends string> = Text extends '__proto__' | 'constructor' | 'prototype' ? false
+  : string extends Text ? true
   : Text extends `${infer First}${infer Rest}`
     ? 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_$' extends `${string}${First}${string}`
       ? HasOnly<Rest, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789'> : false

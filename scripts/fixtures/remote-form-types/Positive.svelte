@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Field, type TypedField } from './imports.js';
-  import { survey, other, transformed, matrix, uncertainName, stringName, correlated } from './forms.js';
+  import { survey, other, transformed, matrix, blocked, uncertainName, stringName, correlated } from './forms.js';
   import CompilerRoot from './TypedRoot.svelte';
   function namespace<Fields extends object>(): TypedField<Fields> { return { ...Field, Root: CompilerRoot }; }
   const Root = namespace<typeof survey.fields>().Root;
@@ -8,6 +8,7 @@
   const Transformed = namespace<typeof transformed.fields>().Root;
   const Typed = namespace<typeof survey.fields>();
   const Matrix = namespace<typeof matrix.fields>().Root;
+  const Blocked = namespace<typeof blocked.fields>().Root;
 </script>
 <Root name="storageType" as="text"><Field.Control /></Root>
 <Root name="storageType" as="radio" value="cloud" />
@@ -39,6 +40,10 @@
 <Matrix name="_key" as="text" />
 <Matrix name="$key" as="text" />
 <Matrix name="A1" as="text" />
+<Blocked name="Constructor" as="text" />
+<Blocked name="nested.constructorValue" as="text" />
+<Blocked name="rows[0].prototypeValue" as="text" />
 <Transformed name="quantity" as="text" />
 <Typed.Root name="enabled" as="checkbox"><Typed.Label>Enabled</Typed.Label><Typed.Control /><Typed.Error /></Typed.Root>
 <Field.Root name="external-library-name" invalid><Field.Control id="external-control" value="manual" /></Field.Root>
+<Field.Root name="constructor"><Field.Control value="ordinary-native-field" /></Field.Root>
