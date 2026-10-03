@@ -21,7 +21,7 @@ export function createRenderElement<Host extends Element = Element>() {
   ): NativeRenderDescriptor<State, Host> | null {
     // Snippets are native opaque render functions: React lazy/Flight unwrapping is unavailable.
     const renderProp = componentProps.render;
-    const outProps = useRenderElementProps(componentProps, params, renderProp);
+    const outProps = useRenderElementProps(componentProps, params);
 
     if (params.enabled === false) {
       return null;
@@ -35,7 +35,6 @@ export function createRenderElement<Host extends Element = Element>() {
   function useRenderElementProps<State extends object>(
     componentProps: UseRenderElementComponentProps<State>,
     params: UseRenderElementParameters<State, Host>,
-    _renderProp: UseRenderElementComponentProps<State>['render'],
   ): HTMLProps & { ref?: MergedRefCallback<Host> | null } {
     const { class: classNameProp, style: styleProp } = componentProps;
     const { state = EMPTY_OBJECT as State, ref, props, stateAttributesMapping, enabled = true } = params;
@@ -53,9 +52,10 @@ export function createRenderElement<Host extends Element = Element>() {
       if (!enabled) {
         void useMergedRefs(null, null);
       } else if (Array.isArray(ref)) {
-        outProps.ref = useMergedRefsN([outProps.ref, getNativeRenderRef(_renderProp), ...ref]);
+        // Native snippets have no cloneable embedded ref; preserve the source slot for fixed/N memo identity.
+        outProps.ref = useMergedRefsN([outProps.ref, null, ...ref]);
       } else {
-        outProps.ref = useMergedRefs(outProps.ref, getNativeRenderRef(_renderProp), ref as MergedRef<Host> | null | undefined);
+        outProps.ref = useMergedRefs(outProps.ref, null, ref as MergedRef<Host> | null | undefined);
       }
     }
 
@@ -81,11 +81,6 @@ function resolveRenderFunctionProps(props: NonNullable<UseRenderElementParameter
     return mergePropsN(props);
   }
   return mergeProps(undefined, props as HTMLProps | ((props: HTMLProps) => HTMLProps));
-}
-
-/** Framework boundary: a snippet owns refs through native attachment props, not cloneable element metadata. */
-function getNativeRenderRef(_render: unknown): null {
-  return null;
 }
 
 function evaluateRenderProp<State, Host extends Element>(

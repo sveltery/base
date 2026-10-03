@@ -6,7 +6,8 @@ export type PreventableEvent = Event & {
   preventBaseUIHandler(): void;
   baseUIHandlerPrevented?: boolean;
 };
-type Props = Record<string | symbol, unknown>;
+// Keep the source/public string-keyed prop type; native attachment symbols are copied at runtime.
+type Props = Record<string, unknown>;
 type InputProps = Props | ((otherProps: Props) => Props) | undefined;
 type Handler = (...args: unknown[]) => unknown;
 
