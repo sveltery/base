@@ -7,7 +7,7 @@ import { dirname, posix, resolve } from 'node:path';
 const require = createRequire(new URL('../../packages/base/package.json', import.meta.url));
 const ts = require('typescript');
 const pin = '47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c';
-const upstream = resolve(process.argv[2] ?? '/workspace/direction-provider-upstream');
+const upstream = resolve(process.argv.slice(2).find(argument => !argument.startsWith('--')) ?? '/workspace/direction-provider-upstream');
 const sha = text => createHash('sha256').update(text).digest('hex');
 const files = new Set(execFileSync('git', ['-C', upstream, 'ls-tree', '-r', '--name-only', pin], {encoding:'utf8'}).trim().split('\n'));
 const roots = ['packages/react/src/toggle/index.ts','packages/react/src/toggle-group/index.ts','packages/react/src/toolbar/index.ts'];

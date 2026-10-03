@@ -4445,9 +4445,12 @@
       ],
       "local": "packages/base/src/lib/utils/shadowDom.ts",
       "selection": "selected-reused-closure",
-      "correspondence": "Radio selects contains/getTarget and Composite selects the list helpers by direct shared imports. Unused source barrel exports do not create local floating-UI runtime imports. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "correspondence": "Only selected getTarget/composite DOM readers are used through canonical shadowDom.ts; conservative original floating barrel exports are unselected and introduce no popup runtime.",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/utils/shadowDom.ts": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1"
+      },
+      "localHashes": {
         "packages/base/src/lib/utils/shadowDom.ts": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1"
       }
     },
@@ -4533,8 +4536,11 @@
       "local": "packages/base/src/lib/internals/composite/utils/navigation.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Full source list bounds/disabled visibility/explicit overrides plus cell/row/grid navigation business bodies. Native owner-window getComputedStyle and Math.floor replace equivalent dependency helpers. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/internals/composite/utils/navigation.ts": "93cd21a5e97c64c93a2272adf51a38b3c51142e860443247b260bf297e95203d"
+      },
+      "localHashes": {
         "packages/base/src/lib/internals/composite/utils/navigation.ts": "93cd21a5e97c64c93a2272adf51a38b3c51142e860443247b260bf297e95203d"
       }
     },
@@ -4679,9 +4685,12 @@
       ],
       "local": "packages/base/src/lib/utils/shadowDom.ts",
       "selection": "selected-reused-closure",
-      "correspondence": "Radio selects contains/getTarget and Composite selects the list helpers by direct shared imports. Unused source barrel exports do not create local floating-UI runtime imports. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "correspondence": "Only selected getTarget/composite DOM readers are used through canonical shadowDom.ts; conservative original floating barrel exports are unselected and introduce no popup runtime.",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/utils/shadowDom.ts": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1"
+      },
+      "localHashes": {
         "packages/base/src/lib/utils/shadowDom.ts": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1"
       }
     },
@@ -4744,8 +4753,11 @@
       "local": "packages/base/src/lib/internals/composite/utils/navigation.ts",
       "selection": "selected-stopEvent-only",
       "correspondence": "Only stopEvent is used by the inherited opt-in grid helper; other pointer/platform functions are unselected and not Toolbar business dependencies.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/internals/composite/utils/navigation.ts": "93cd21a5e97c64c93a2272adf51a38b3c51142e860443247b260bf297e95203d"
+      },
+      "localHashes": {
         "packages/base/src/lib/internals/composite/utils/navigation.ts": "93cd21a5e97c64c93a2272adf51a38b3c51142e860443247b260bf297e95203d"
       }
     },
@@ -4958,8 +4970,11 @@
       "local": "packages/base/src/lib/internals/composite/composite.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Source constants/native textbox discrimination, offset/margin/padding and RTL scrolling. Owner-window style lookup substitutes @floating-ui DOM helper only. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/internals/composite/composite.ts": "938a8b4ede73c5b5655a800777fe4748a94786a05bf828129de299c04cf94673"
+      },
+      "localHashes": {
         "packages/base/src/lib/internals/composite/composite.ts": "938a8b4ede73c5b5655a800777fe4748a94786a05bf828129de299c04cf94673"
       }
     },
@@ -4972,8 +4987,11 @@
       "local": "packages/base/src/lib/internals/composite/constants.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Same active-item constant. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/internals/composite/constants.ts": "bf9445674ea41f593d2948d874d80077cb90932a20f820bd0ec1d84a39ebb7ab"
+      },
+      "localHashes": {
         "packages/base/src/lib/internals/composite/constants.ts": "bf9445674ea41f593d2948d874d80077cb90932a20f820bd0ec1d84a39ebb7ab"
       }
     },
@@ -5058,8 +5076,11 @@
       "local": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
       "selection": "selected-reused-closure",
       "correspondence": "Same ref-first registration and ordered composite/authored/render props through canonical RenderElement. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/internals/composite/item/CompositeItem.svelte": "7447799f42b23f8003e251196e03199f8d703b77fda61d6d3422e657f95a5319"
+      },
+      "localHashes": {
         "packages/base/src/lib/internals/composite/item/CompositeItem.svelte": "7447799f42b23f8003e251196e03199f8d703b77fda61d6d3422e657f95a5319"
       }
     },
@@ -5132,8 +5153,11 @@
       "local": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Same highlighted roving tab index/focus/hover and shared list-item registration. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts": "d0faf967447c35339c6ad06b8cc6218cf2002613844a4bdb7b1453fd5262afc3"
+      },
+      "localHashes": {
         "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts": "d0faf967447c35339c6ad06b8cc6218cf2002613844a4bdb7b1453fd5262afc3"
       }
     },
@@ -5206,8 +5230,11 @@
       "local": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Same registration/snapshot/explicit-index reservation/document sort/labels/listeners/reorder observation algorithm. Once-only setup plus native effect/owned cleanup replace provider rendering and StrictMode replay guards. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts": "97758d379046d9f894997ae40ef7c6f59decf48fa0d985a2c1fb5f9f068ad016"
+      },
+      "localHashes": {
         "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts": "97758d379046d9f894997ae40ef7c6f59decf48fa0d985a2c1fb5f9f068ad016"
       }
     },
@@ -5228,8 +5255,11 @@
       "local": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Same registry/subscription/next-index context including actual provided behavior and source no-provider fallback. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/internals/composite/list/CompositeListContext.ts": "c443b96e2b57642eed663be3a670fc7342dc4358bac081b7257bcb076c54ab17"
+      },
+      "localHashes": {
         "packages/base/src/lib/internals/composite/list/CompositeListContext.ts": "c443b96e2b57642eed663be3a670fc7342dc4358bac081b7257bcb076c54ab17"
       }
     },
@@ -5274,8 +5304,11 @@
       "local": "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Same guessed/explicit/automatic index and identity-sensitive callback registration; live getter/derived ref replaces useState/useCallback. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts": "42f4066c8d830385f942f66b216e1b263728f1615dbd7b11cfd3a79db7242400"
+      },
+      "localHashes": {
         "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts": "42f4066c8d830385f942f66b216e1b263728f1615dbd7b11cfd3a79db7242400"
       }
     },
@@ -5428,8 +5461,11 @@
       "local": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
       "selection": "selected-reused-closure",
       "correspondence": "Same actual Root helper/List/context/render composition. Native component setup replaces React provider/useMemo wrappers. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte": "5075468a96b01787b1789e48ee6dfecd178a7ec76ee7726c3a064b9cf663fe12"
+      },
+      "localHashes": {
         "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte": "5075468a96b01787b1789e48ee6dfecd178a7ec76ee7726c3a064b9cf663fe12"
       }
     },
@@ -5450,8 +5486,11 @@
       "local": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Canonical shared checked-control context now supplied by real CompositeRoot. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts": "b08d6af5d6e71ba46076718b4426c7d2e0485a059e9204759406af1f395b6f2c"
+      },
+      "localHashes": {
         "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts": "b08d6af5d6e71ba46076718b4426c7d2e0485a059e9204759406af1f395b6f2c"
       }
     },
@@ -5520,8 +5559,11 @@
       "local": "packages/base/src/lib/internals/composite/root/gridNavigation.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Full opt-in spanning/dense grid algorithm retained; no React runtime dependency. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/internals/composite/root/gridNavigation.ts": "11aa223e4f95a23b0287fee822bdda9f4b37cb6d33f99d02c9f7da8964949e9f"
+      },
+      "localHashes": {
         "packages/base/src/lib/internals/composite/root/gridNavigation.ts": "11aa223e4f95a23b0287fee822bdda9f4b37cb6d33f99d02c9f7da8964949e9f"
       }
     },
@@ -5746,8 +5788,11 @@
       "local": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Source initial active/default/disabled index, map/replacement preservation, orientation/modifier/text-caret/RTL/loop/grid/Home-End/scroll/focus algorithm. Native state and live parameter readers replace render snapshots. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts": "8db12d19818afe6509addc02e10a55082126da9be7a40d03f9a8f62a6e6b5d78"
+      },
+      "localHashes": {
         "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts": "8db12d19818afe6509addc02e10a55082126da9be7a40d03f9a8f62a6e6b5d78"
       }
     },
@@ -5805,8 +5850,11 @@
       "local": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; Source business functions and event-reason conditional types; native Event and canonical shared EMPTY_OBJECT. See parity/field-form/source-correspondence.json Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/internals/createBaseUIEventDetails.ts": "1a9cb6cde2734d421a1bfb03ece9c744584b7e115a0eb3b9de974c22ab8ee684"
+      },
+      "localHashes": {
         "packages/base/src/lib/internals/createBaseUIEventDetails.ts": "1a9cb6cde2734d421a1bfb03ece9c744584b7e115a0eb3b9de974c22ab8ee684"
       }
     },
@@ -5827,8 +5875,11 @@
       "local": "packages/base/src/lib/direction-provider/context.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Canonical source-derived direction provider/reader; live getter replaces React hook context value. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/direction-provider/context.ts": "e400850423b49f956342a6efac2d8dcf2275365d23220564b6cefb8b44df47f8"
+      },
+      "localHashes": {
         "packages/base/src/lib/direction-provider/context.ts": "e400850423b49f956342a6efac2d8dcf2275365d23220564b6cefb8b44df47f8"
       }
     },
@@ -5841,8 +5892,11 @@
       "local": "packages/base/src/lib/internals/getStateAttributesProps.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Canonical source renderer state mapping. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/internals/getStateAttributesProps.ts": "e48367a890024a54cb200eabc5c2a0ba0a397256baacfaec8b0a05ced3b10344"
+      },
+      "localHashes": {
         "packages/base/src/lib/internals/getStateAttributesProps.ts": "e48367a890024a54cb200eabc5c2a0ba0a397256baacfaec8b0a05ced3b10344"
       }
     },
@@ -5855,8 +5909,11 @@
       "local": "packages/base/src/lib/internals/reason-parts.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; Exact source constants reused. See parity/field-form/source-correspondence.json Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/internals/reason-parts.ts": "0326d21ce4be2c41b5488c86e3687249faf3c51f5e10ae49c16e8efdc183abf5"
+      },
+      "localHashes": {
         "packages/base/src/lib/internals/reason-parts.ts": "0326d21ce4be2c41b5488c86e3687249faf3c51f5e10ae49c16e8efdc183abf5"
       }
     },
@@ -5877,8 +5934,11 @@
       "local": "packages/base/src/lib/internals/reasons.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; Original reexport shape; native module extensions. See parity/field-form/source-correspondence.json Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/internals/reasons.ts": "f1f52caeefb14448a7e7c9833e24413b923b7bbf40aa1818ca73dc93710b42e7"
+      },
+      "localHashes": {
         "packages/base/src/lib/internals/reasons.ts": "f1f52caeefb14448a7e7c9833e24413b923b7bbf40aa1818ca73dc93710b42e7"
       }
     },
@@ -5972,14 +6032,17 @@
           "edge": "import"
         }
       ],
-      "local": "packages/base/src/lib/internals/types.ts; packages/base/src/lib/dialog/types.ts; packages/base/src/lib/field/props.ts",
+      "local": "packages/base/src/lib/internals/types.ts",
       "selection": "selected-reused-closure",
-      "correspondence": "Reused canonical Field/Form/shared-utility source dependency; Source business type relationships; native Snippet, Event, ClassValue, CSS string, attachment/ref representational boundaries. Shared renderer owns canonical rendering types. See parity/field-form/source-correspondence.json Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "correspondence": "Selected Source BaseUIComponentProps/HTMLProps/Event details relationships. Native Snippet, Event, ClassValue, CSS/attachment/ref representations; no Field or Dialog type dependency.",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
         "packages/base/src/lib/internals/types.ts": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
         "packages/base/src/lib/dialog/types.ts": "fd700772ea1016359bc934759c01d168caa2914ff136733f30f9c108d28ae931",
         "packages/base/src/lib/field/props.ts": "ed3d25745d68f38c06c0f21ae46e9457147a07503e34ae52fd17dee7256d1357"
+      },
+      "localHashes": {
+        "packages/base/src/lib/internals/types.ts": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3"
       }
     },
     {
@@ -6004,9 +6067,12 @@
       "local": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Direct canonical helper import replaces barrel reexport. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
         "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "581abfd20827eed41d9478dc30dc5a7b1b944e32d8428ac238d86625545536f1"
+      },
+      "localHashes": {
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "ee71d7077c51139162152716111472919bf80b71e6e9cde62d15ff0b7ce56f59"
       }
     },
     {
@@ -6154,9 +6220,12 @@
       "local": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Same canonical Boolean-owned source button helper; live getter/native events replace React snapshots and synthetic event machinery. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
         "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "581abfd20827eed41d9478dc30dc5a7b1b944e32d8428ac238d86625545536f1"
+      },
+      "localHashes": {
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "ee71d7077c51139162152716111472919bf80b71e6e9cde62d15ff0b7ce56f59"
       }
     },
     {
@@ -6251,8 +6320,11 @@
       "local": "packages/base/src/lib/internals/useBaseUiId.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; Calls shared native useId with base-ui prefix and stable component seed. See parity/field-form/source-correspondence.json Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/internals/useBaseUiId.ts": "fc6d9571f2fc0f71d6f75a8f34eb981a3e09a9a038fbb9aa8b4b83c2cbb3aaa3"
+      },
+      "localHashes": {
         "packages/base/src/lib/internals/useBaseUiId.ts": "fc6d9571f2fc0f71d6f75a8f34eb981a3e09a9a038fbb9aa8b4b83c2cbb3aaa3"
       }
     },
@@ -6461,8 +6533,12 @@
       "local": "packages/base/src/lib/internals/useRenderElement.ts; packages/base/src/lib/internals/RenderElement.svelte",
       "selection": "selected-reused-closure",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; shared renderer dependency: source ordered props/ref/mapping stages, native literal input host See parity/field-form/source-correspondence.json PR50 source ref-order/lifetime fidelity repair folds canonical forwarded attachments after inner refs into the existing source fanout. Native authored attachments remain independent. Full mapping: parity/rendering/source-correspondence.md. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/internals/useRenderElement.ts": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
+        "packages/base/src/lib/internals/RenderElement.svelte": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5"
+      },
+      "localHashes": {
         "packages/base/src/lib/internals/useRenderElement.ts": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
         "packages/base/src/lib/internals/RenderElement.svelte": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5"
       }
@@ -6528,8 +6604,11 @@
       "local": "packages/base/src/lib/merge-props/index.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Canonical reexport/implementation boundary. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/merge-props/index.ts": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68"
+      },
+      "localHashes": {
         "packages/base/src/lib/merge-props/index.ts": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68"
       }
     },
@@ -6575,12 +6654,15 @@
           "edge": "import"
         }
       ],
-      "local": "packages/base/src/lib/merge-props/index.ts",
+      "local": "packages/base/src/lib/merge-props/mergeProps.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Canonical source ordered prop/event merge body, native event keys and attachments. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
         "packages/base/src/lib/merge-props/index.ts": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68"
+      },
+      "localHashes": {
+        "packages/base/src/lib/merge-props/mergeProps.ts": "7a097b833ae8854c5a26e34009adfb4e0297dd50f56ad5f0c1ac8afa8187f98b"
       }
     },
     {
@@ -6612,8 +6694,11 @@
       "local": "packages/base/src/lib/separator/index.ts",
       "selection": "owned-runtime-and-types",
       "correspondence": "Existing public single Separator export.",
-      "status": "planned-before-implementation",
+      "status": "implemented-awaiting-independent-exact-head-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/separator/index.ts": "7cf0255b6470bec86eeffb2ba4d2df166e90c35cdce2409f4cb776f77c9e988b"
+      },
+      "localHashes": {
         "packages/base/src/lib/separator/index.ts": "7cf0255b6470bec86eeffb2ba4d2df166e90c35cdce2409f4cb776f77c9e988b"
       }
     },
@@ -6662,10 +6747,14 @@
       "local": "packages/base/src/lib/separator/Separator.svelte; packages/base/src/lib/separator/types.ts",
       "selection": "owned-runtime-and-types",
       "correspondence": "Narrow source audit: replace legacy Element/manual class/state-attrs wrapper with used canonical RenderElement. Actual role/ARIA/defaults already correct; no behavior bug claimed.",
-      "status": "planned-before-implementation",
+      "status": "implemented-awaiting-independent-exact-head-review",
       "baseLocalHashes": {
         "packages/base/src/lib/separator/Separator.svelte": "2f921d5a72d87da073e5d9ff0528122f2c7cc42309dcca9532aa0dfe1b8a2abc",
         "packages/base/src/lib/separator/types.ts": "a654dfef71404694b8cbd754fb7ec7bf1592f8c2ca154dd40137dc6d95dfa092"
+      },
+      "localHashes": {
+        "packages/base/src/lib/separator/Separator.svelte": "b42e090098cee72fcb49e7ab2a020a1eabdea6fddddcf972c5f763ebc3fd48d9",
+        "packages/base/src/lib/separator/types.ts": "b349b520840d7d7b3bbda5127105404312370ae300efe23bb354536c2d8c56dc"
       }
     },
     {
@@ -6697,8 +6786,11 @@
       "local": "packages/base/src/lib/toggle-group/index.ts",
       "selection": "owned-runtime-and-types",
       "correspondence": "Preserve standalone generic ToggleGroup and type-only exports.",
-      "status": "planned-before-implementation",
-      "baseLocalHashes": {}
+      "status": "implemented-awaiting-independent-exact-head-review",
+      "baseLocalHashes": {},
+      "localHashes": {
+        "packages/base/src/lib/toggle-group/index.ts": "eb6704fcba814d66839e0efe22d44efb35ab3e70f6daa741f57f3ffd96289023"
+      }
     },
     {
       "source": "packages/react/src/toggle-group/ToggleGroup.tsx",
@@ -6857,8 +6949,12 @@
       "local": "packages/base/src/lib/toggle-group/ToggleGroup.svelte; packages/base/src/lib/toggle-group/types.ts",
       "selection": "owned-runtime-and-types",
       "correspondence": "Retain original single/multiple setter algorithm and callback cancellation; real Toolbar root/group readers; provided live native context; actual RenderElement in Toolbar versus CompositeRoot standalone, Home/End only standalone.",
-      "status": "planned-before-implementation",
-      "baseLocalHashes": {}
+      "status": "implemented-awaiting-independent-exact-head-review",
+      "baseLocalHashes": {},
+      "localHashes": {
+        "packages/base/src/lib/toggle-group/ToggleGroup.svelte": "9f164706fc4c861cbfa215107680bd061a50307de53af17cedf89b29a0485012",
+        "packages/base/src/lib/toggle-group/types.ts": "31f48c53d49de3da61a0e944b0bdd24e59b618ddfdaeb9fe300aa4af95c6e35e"
+      }
     },
     {
       "source": "packages/react/src/toggle-group/ToggleGroupContext.ts",
@@ -6901,8 +6997,11 @@
       "local": "packages/base/src/lib/toggle-group/ToggleGroupContext.ts",
       "selection": "owned-runtime-and-types",
       "correspondence": "Native optional Svelte context with live value/disabled/initialized getters and real setter; source absent-context fallback retained.",
-      "status": "planned-before-implementation",
-      "baseLocalHashes": {}
+      "status": "implemented-awaiting-independent-exact-head-review",
+      "baseLocalHashes": {},
+      "localHashes": {
+        "packages/base/src/lib/toggle-group/ToggleGroupContext.ts": "56fa414f4b5e8e5624f678a7cd6657cc5f8b31a17c879605cec2fd07450eac3e"
+      }
     },
     {
       "source": "packages/react/src/toggle/index.ts",
@@ -6933,8 +7032,11 @@
       "local": "packages/base/src/lib/toggle/index.ts",
       "selection": "owned-runtime-and-types",
       "correspondence": "Preserve public Toggle and generic native Props/state/detail exports.",
-      "status": "planned-before-implementation",
+      "status": "implemented-awaiting-independent-exact-head-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/toggle/index.ts": "5e0cf519839cfe2d95047b94522b5f70165de0f701d572dc223a1f1d1f704538"
+      },
+      "localHashes": {
         "packages/base/src/lib/toggle/index.ts": "5e0cf519839cfe2d95047b94522b5f70165de0f701d572dc223a1f1d1f704538"
       }
     },
@@ -7095,10 +7197,14 @@
       "local": "packages/base/src/lib/toggle/Toggle.svelte; packages/base/src/lib/toggle/types.ts",
       "selection": "owned-runtime-and-types",
       "correspondence": "Source value/id + real ToggleGroup reader; canonical useControlled/useButton; own callback then group with same cancelable details; CompositeItem group branch and RenderElement standalone branch; $props.id(), runes, native snippets and bindable host ref.",
-      "status": "planned-before-implementation",
+      "status": "implemented-awaiting-independent-exact-head-review",
       "baseLocalHashes": {
         "packages/base/src/lib/toggle/Toggle.svelte": "8d96d9cc51ee8b1463cb56a2a48d4da47191f7a9756505b2bce41c46bd0b2f60",
         "packages/base/src/lib/toggle/types.ts": "5eca12c5fd4d7b7eedf850f7fb29fe4ac9f0f85dd567bc80b3b1e861c2d1420b"
+      },
+      "localHashes": {
+        "packages/base/src/lib/toggle/Toggle.svelte": "0b75e099acb1b62751dc8f5ae84559b342cb4d3bb8ff5ffc21347da1a0fbcccd",
+        "packages/base/src/lib/toggle/types.ts": "f82cbee1e7c2ce7d88cfb87489a5947fb07fa67d82122c52fadc3864cf360950"
       }
     },
     {
@@ -7206,8 +7312,12 @@
       "local": "packages/base/src/lib/toolbar/button/ToolbarButton.svelte; packages/base/src/lib/toolbar/types.ts",
       "selection": "owned-runtime-and-types",
       "correspondence": "Retain true focusable default, Root/Group disabled OR, metadata and state.focusable; canonical useButton and CompositeItem with original forwardedRef then buttonRef order; render-only disabled forwarding.",
-      "status": "planned-before-implementation",
-      "baseLocalHashes": {}
+      "status": "implemented-awaiting-independent-exact-head-review",
+      "baseLocalHashes": {},
+      "localHashes": {
+        "packages/base/src/lib/toolbar/button/ToolbarButton.svelte": "452ffed6ea4bf216fcf5d130d4facf9b12a2458fd5662287674774837faa7166",
+        "packages/base/src/lib/toolbar/types.ts": "c7cc1b91797831826e2605d119313666bce3f67185583beff516a80af9104e78"
+      }
     },
     {
       "source": "packages/react/src/toolbar/group/ToolbarGroup.tsx",
@@ -7286,8 +7396,12 @@
       "local": "packages/base/src/lib/toolbar/group/ToolbarGroup.svelte; packages/base/src/lib/toolbar/types.ts",
       "selection": "owned-runtime-and-types",
       "correspondence": "Source toolbarDisabled || own disabled; intentionally does not read outer Group; real own provider and canonical RenderElement role=group.",
-      "status": "planned-before-implementation",
-      "baseLocalHashes": {}
+      "status": "implemented-awaiting-independent-exact-head-review",
+      "baseLocalHashes": {},
+      "localHashes": {
+        "packages/base/src/lib/toolbar/group/ToolbarGroup.svelte": "03acb9ef74482ed56a93309759a165ef6159e9678a963f502763d7c9e574c12e",
+        "packages/base/src/lib/toolbar/types.ts": "c7cc1b91797831826e2605d119313666bce3f67185583beff516a80af9104e78"
+      }
     },
     {
       "source": "packages/react/src/toolbar/group/ToolbarGroupContext.ts",
@@ -7306,8 +7420,11 @@
       "local": "packages/base/src/lib/toolbar/group/ToolbarGroupContext.ts",
       "selection": "owned-runtime-and-types",
       "correspondence": "Native optional context lookup and live disabled getter.",
-      "status": "planned-before-implementation",
-      "baseLocalHashes": {}
+      "status": "implemented-awaiting-independent-exact-head-review",
+      "baseLocalHashes": {},
+      "localHashes": {
+        "packages/base/src/lib/toolbar/group/ToolbarGroupContext.ts": "bfba6dcfb67c6c5d8eb4abdd43a0a1fc0c5502f884ffe6d0ef4d37070611874f"
+      }
     },
     {
       "source": "packages/react/src/toolbar/index.parts.ts",
@@ -7403,8 +7520,11 @@
       "local": "packages/base/src/lib/toolbar/index.parts.ts",
       "selection": "owned-runtime-and-types",
       "correspondence": "Resolve all six original part exports; Orientation native type.",
-      "status": "planned-before-implementation",
-      "baseLocalHashes": {}
+      "status": "implemented-awaiting-independent-exact-head-review",
+      "baseLocalHashes": {},
+      "localHashes": {
+        "packages/base/src/lib/toolbar/index.parts.ts": "93f09e28e9b91f96171d4cf02c8cc2de4702436edc119df96223cd4f9bd0a93b"
+      }
     },
     {
       "source": "packages/react/src/toolbar/index.ts",
@@ -7477,8 +7597,11 @@
       "local": "packages/base/src/lib/toolbar/index.ts",
       "selection": "owned-runtime-and-types",
       "correspondence": "Preserve public Toolbar namespace and type-only exports; no invented parts.",
-      "status": "planned-before-implementation",
-      "baseLocalHashes": {}
+      "status": "implemented-awaiting-independent-exact-head-review",
+      "baseLocalHashes": {},
+      "localHashes": {
+        "packages/base/src/lib/toolbar/index.ts": "37e47173408b85ca5d3e8d3b17e2ca32265a84bab99b038335266211db0323dc"
+      }
     },
     {
       "source": "packages/react/src/toolbar/input/ToolbarInput.tsx",
@@ -7573,8 +7696,12 @@
       "local": "packages/base/src/lib/toolbar/input/ToolbarInput.svelte; packages/base/src/lib/toolbar/types.ts",
       "selection": "owned-runtime-and-types",
       "correspondence": "Native CompositeItem input, original useFocusableWhenDisabled(composite=true,native=false), disabled pointer/click cancellation. No public Input/Field dependency. Native input renderer owns value/defaultValue/reset/hydration.",
-      "status": "planned-before-implementation",
-      "baseLocalHashes": {}
+      "status": "implemented-awaiting-independent-exact-head-review",
+      "baseLocalHashes": {},
+      "localHashes": {
+        "packages/base/src/lib/toolbar/input/ToolbarInput.svelte": "4848415a5e4a3c9a31ea8c20c906b6f1e01dc3d5847ef9cc5a582631f315de91",
+        "packages/base/src/lib/toolbar/types.ts": "c7cc1b91797831826e2605d119313666bce3f67185583beff516a80af9104e78"
+      }
     },
     {
       "source": "packages/react/src/toolbar/link/ToolbarLink.tsx",
@@ -7641,8 +7768,12 @@
       "local": "packages/base/src/lib/toolbar/link/ToolbarLink.svelte; packages/base/src/lib/toolbar/types.ts",
       "selection": "owned-runtime-and-types",
       "correspondence": "Source unconditional link metadata disabled=false/focusable=true; reads only Root orientation; native link CompositeItem without invented disabled business.",
-      "status": "planned-before-implementation",
-      "baseLocalHashes": {}
+      "status": "implemented-awaiting-independent-exact-head-review",
+      "baseLocalHashes": {},
+      "localHashes": {
+        "packages/base/src/lib/toolbar/link/ToolbarLink.svelte": "a2ffbfbcb8d6788e40112721629bb05d316e521a285f7be8a659e39b156a4430",
+        "packages/base/src/lib/toolbar/types.ts": "c7cc1b91797831826e2605d119313666bce3f67185583beff516a80af9104e78"
+      }
     },
     {
       "source": "packages/react/src/toolbar/root/ToolbarRoot.tsx",
@@ -7717,8 +7848,12 @@
       "local": "packages/base/src/lib/toolbar/root/ToolbarRoot.svelte; packages/base/src/lib/toolbar/types.ts",
       "selection": "owned-runtime-and-types",
       "correspondence": "Actual CompositeRoot + map-change callback. Derive disabledIndices from original disabled && !focusableWhenDisabled metadata branch; native raw Map state and live context getters.",
-      "status": "planned-before-implementation",
-      "baseLocalHashes": {}
+      "status": "implemented-awaiting-independent-exact-head-review",
+      "baseLocalHashes": {},
+      "localHashes": {
+        "packages/base/src/lib/toolbar/root/ToolbarRoot.svelte": "c4f0432d7d4adefe0a4f2b2b8daf543790fa3ea84587fcd9d3326f8ea950b76a",
+        "packages/base/src/lib/toolbar/types.ts": "c7cc1b91797831826e2605d119313666bce3f67185583beff516a80af9104e78"
+      }
     },
     {
       "source": "packages/react/src/toolbar/root/ToolbarRootContext.ts",
@@ -7749,8 +7884,11 @@
       "local": "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts",
       "selection": "owned-runtime-and-types",
       "correspondence": "Svelte get/setContext; exact required missing guard and optional reader overload.",
-      "status": "planned-before-implementation",
-      "baseLocalHashes": {}
+      "status": "implemented-awaiting-independent-exact-head-review",
+      "baseLocalHashes": {},
+      "localHashes": {
+        "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts": "ac7081f4de2f79dcdf425ee5ca7690db2d577f9363f2ef03b75f3b5395adc6cb"
+      }
     },
     {
       "source": "packages/react/src/toolbar/separator/ToolbarSeparator.tsx",
@@ -7809,8 +7947,12 @@
       "local": "packages/base/src/lib/toolbar/separator/ToolbarSeparator.svelte; packages/base/src/lib/toolbar/types.ts",
       "selection": "owned-runtime-and-types",
       "correspondence": "Thin real Separator composition with opposite-toolbar orientation default, then caller override, original forwarding.",
-      "status": "planned-before-implementation",
-      "baseLocalHashes": {}
+      "status": "implemented-awaiting-independent-exact-head-review",
+      "baseLocalHashes": {},
+      "localHashes": {
+        "packages/base/src/lib/toolbar/separator/ToolbarSeparator.svelte": "2623e45fee7b042408f986bcf164b0b7eb34d4a843dabd50b8a00c0dd1ae62f4",
+        "packages/base/src/lib/toolbar/types.ts": "c7cc1b91797831826e2605d119313666bce3f67185583beff516a80af9104e78"
+      }
     },
     {
       "source": "packages/react/src/tooltip/trigger/TooltipTriggerDataAttributes.ts",
@@ -7927,8 +8069,11 @@
       "local": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Canonical source-derived single native click preserving modifier properties; no activation replay/React tracker. Reuses approved canonical ownerWindow for the same native PointerEvent/MouseEvent constructor; modifier/default/dispatch order unchanged. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/utils/dispatchClickWithModifiers.ts": "60aab2aa25eb9c0aeaa0a57fc8ccd37aab747577ea22f019aff163946cabd373"
+      },
+      "localHashes": {
         "packages/base/src/lib/utils/dispatchClickWithModifiers.ts": "60aab2aa25eb9c0aeaa0a57fc8ccd37aab747577ea22f019aff163946cabd373"
       }
     },
@@ -8632,8 +8777,11 @@
       "local": "packages/base/src/lib/utils/resolveClassName.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Canonical state class resolver/native ClassValue boundary. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/utils/resolveClassName.ts": "b22aead630ca531851a08a63e5165e64ff8cdc9de5765ff20997f578071cb108"
+      },
+      "localHashes": {
         "packages/base/src/lib/utils/resolveClassName.ts": "b22aead630ca531851a08a63e5165e64ff8cdc9de5765ff20997f578071cb108"
       }
     },
@@ -8658,8 +8806,11 @@
       "local": "packages/base/src/lib/utils/resolveStyle.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Canonical state style resolver/native CSS boundary. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/utils/resolveStyle.ts": "cdc420598c1ae4b75a32e7f47ac8cc7f4fe444d4f006e2736f528951fb932977"
+      },
+      "localHashes": {
         "packages/base/src/lib/utils/resolveStyle.ts": "cdc420598c1ae4b75a32e7f47ac8cc7f4fe444d4f006e2736f528951fb932977"
       }
     },
@@ -8680,8 +8831,11 @@
       "local": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Canonical Boolean-owned source focusability branches. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/utils/useFocusableWhenDisabled.ts": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c"
+      },
+      "localHashes": {
         "packages/base/src/lib/utils/useFocusableWhenDisabled.ts": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c"
       }
     },
@@ -8706,8 +8860,11 @@
       "local": "packages/base/src/lib/utils/createLogOnce.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; native source port; source review pending See parity/shared-utils/source-graph.json Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/utils/createLogOnce.ts": "a3c52188a495927ef9b49765ca1e70bc384b37b68a5c896ca86df15852a279b1"
+      },
+      "localHashes": {
         "packages/base/src/lib/utils/createLogOnce.ts": "a3c52188a495927ef9b49765ca1e70bc384b37b68a5c896ca86df15852a279b1"
       }
     },
@@ -8720,8 +8877,11 @@
       "local": "packages/base/src/lib/utils/empty.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; native source port; source review pending See parity/shared-utils/source-graph.json Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/utils/empty.ts": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b"
+      },
+      "localHashes": {
         "packages/base/src/lib/utils/empty.ts": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b"
       }
     },
@@ -8759,8 +8919,11 @@
       "local": "packages/base/src/lib/utils/error.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; native source port; source review pending See parity/shared-utils/source-graph.json Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/utils/error.ts": "de9eeee73db42c056c110eb94f3aef8b51ae3003e97d5140bfaf876bdde52c69"
+      },
+      "localHashes": {
         "packages/base/src/lib/utils/error.ts": "de9eeee73db42c056c110eb94f3aef8b51ae3003e97d5140bfaf876bdde52c69"
       }
     },
@@ -8837,8 +9000,11 @@
       "local": "packages/base/src/lib/utils/isElementDisabled.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Same disabled and aria-disabled predicate. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/utils/isElementDisabled.ts": "c2f6141d744cb16e458208163d616cefa465b8da0445658c4d9282a05a1b616e"
+      },
+      "localHashes": {
         "packages/base/src/lib/utils/isElementDisabled.ts": "c2f6141d744cb16e458208163d616cefa465b8da0445658c4d9282a05a1b616e"
       }
     },
@@ -8863,8 +9029,11 @@
       "local": "packages/base/src/lib/utils/mergeObjects.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Canonical source identity-preserving object merge. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/utils/mergeObjects.ts": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746"
+      },
+      "localHashes": {
         "packages/base/src/lib/utils/mergeObjects.ts": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746"
       }
     },
@@ -8890,8 +9059,11 @@
       "local": "packages/base/src/lib/utils/owner.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Reused canonical ownerDocument body and approved Boolean-owned ownerWindow native helper. Pinned owner.ts reexports getWindow as ownerWindow from @floating-ui/utils/dom; dispatchClickWithModifiers now directly imports and calls the shared local ownerWindow for its actual Element target. Native ownerDocument/defaultView/window lookup replaces that selected DOM boundary without a Floating/React runtime import. The separate Field-only correspondence selects ownerDocument; ownerWindow is part of the actual Radio closure. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/utils/owner.ts": "4f32738229316fe875cf72e949caa4aa7d2fcdf924a2bd5b7f01e88ca5424185"
+      },
+      "localHashes": {
         "packages/base/src/lib/utils/owner.ts": "4f32738229316fe875cf72e949caa4aa7d2fcdf924a2bd5b7f01e88ca5424185"
       }
     },
@@ -9157,8 +9329,11 @@
       "local": "packages/base/src/lib/utils/shadowDom.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Full used activeElement/contains/getTarget source bodies. Native ShadowRoot node predicate replaces equivalent @floating-ui helper. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/utils/shadowDom.ts": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1"
+      },
+      "localHashes": {
         "packages/base/src/lib/utils/shadowDom.ts": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1"
       }
     },
@@ -9741,8 +9916,11 @@
       "local": "packages/base/src/lib/utils/useControlled.svelte.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; native source port; source review pending See parity/shared-utils/source-graph.json Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/utils/useControlled.svelte.ts": "f74b9a8aa08b323835613037c871a6b85c938555c788c0a8ff51825c1863fd35"
+      },
+      "localHashes": {
         "packages/base/src/lib/utils/useControlled.svelte.ts": "f74b9a8aa08b323835613037c871a6b85c938555c788c0a8ff51825c1863fd35"
       }
     },
@@ -9815,8 +9993,11 @@
       "local": "packages/base/src/lib/utils/useId.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; Native Svelte $props.id replaces React.useId; unsupported React17 fallback omitted, no global counter. See parity/field-form/source-correspondence.json Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/utils/useId.ts": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90"
+      },
+      "localHashes": {
         "packages/base/src/lib/utils/useId.ts": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90"
       }
     },
@@ -9837,8 +10018,11 @@
       "local": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; native source port; source review pending See parity/shared-utils/source-graph.json Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts": "0d24dd22dad18fc54341aaedb964a25829ae62322f10bf110a4fd8bde65dd1f3"
+      },
+      "localHashes": {
         "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts": "0d24dd22dad18fc54341aaedb964a25829ae62322f10bf110a4fd8bde65dd1f3"
       }
     },
@@ -9871,8 +10055,11 @@
       "local": "packages/base/src/lib/utils/useMergedRefs.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Canonical source ref-fanout/cleanup storage, native attachment lifetime. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/utils/useMergedRefs.ts": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2"
+      },
+      "localHashes": {
         "packages/base/src/lib/utils/useMergedRefs.ts": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2"
       }
     },
@@ -9925,8 +10112,11 @@
       "local": "packages/base/src/lib/utils/useRefWithInit.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; native source port; source review pending See parity/shared-utils/source-graph.json Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/utils/useRefWithInit.ts": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036"
+      },
+      "localHashes": {
         "packages/base/src/lib/utils/useRefWithInit.ts": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036"
       }
     },
@@ -9964,8 +10154,11 @@
       "local": "packages/base/src/lib/utils/useStableCallback.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; native source port; source review pending See parity/shared-utils/source-graph.json Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
-      "status": "requires-final-entire-closure-review",
+      "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
+        "packages/base/src/lib/utils/useStableCallback.ts": "b790a02da99e0e9365bc05d35a434ef37dcffb2a4db8186b1327b949a994d05e"
+      },
+      "localHashes": {
         "packages/base/src/lib/utils/useStableCallback.ts": "b790a02da99e0e9365bc05d35a434ef37dcffb2a4db8186b1327b949a994d05e"
       }
     },
@@ -10161,5 +10354,29 @@
     "react": "Native Svelte runes/context/snippets/attachments/lifecycle; React19.2.8 fixture only.",
     "@floating-ui/utils": "Selected DOM predicate/current owner styles and Math.floor substitutions already in Composite; runtime dependency 0.2.12; entire used inherited closure reviewed again.",
     "tabbable": "Unselected original floating utility barrel reexport; no Toolbar runtime import."
-  }
+  },
+  "nativeClosure": "native-closure.json",
+  "nativeRepresentationModules": [
+    {
+      "local": "packages/base/src/lib/direction-provider/types.ts",
+      "sha256": "a56af048e882453755ad2948782af4f2f832903e031d4812b8da9fc5f4b82aae",
+      "correspondence": "Native direction public context type selected by shared composite."
+    },
+    {
+      "local": "packages/base/src/lib/internals/nativeProps.ts",
+      "sha256": "d6b3999ffe54e8c70e0dcdac61474b3bf9f53e60f3b1207dd4f976ef5212e4eb",
+      "correspondence": "Svelte native ClassValue/CSS/attachment prop representation selected by canonical renderer."
+    },
+    {
+      "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+      "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319",
+      "correspondence": "Native attachment/cleanup/ref forwarding lifetime selected by canonical renderer; no React clone/ref machinery."
+    },
+    {
+      "local": "packages/base/src/lib/internals/resolveClassValue.ts",
+      "sha256": "584323b17cb1733a798e9ff86e9ff783d6a26d08ecf005a8c2b3c69917c1e722",
+      "correspondence": "Svelte native ClassValue/CSS/attachment prop representation selected by canonical renderer."
+    }
+  ],
+  "reviewStatus": "Implemented native Source composition; immutable pre-code evidence retained. Local hashes and actual 66-module runtime/type closure are final-review candidates, not acceptance. Ordinary declaration credit stays zero; source selections and authored supplements are separately recorded."
 }
