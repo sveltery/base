@@ -21,6 +21,7 @@ if [[ "${1:-}" == '--public' ]]; then
   cat > "$render_consumer/PublicTypes.ts" <<'TS'
 import type * as Root from '@sveltery/base';
 import type * as Subpath from '@sveltery/base/use-render';
+import type { HTMLAttributes } from 'svelte/elements';
 type Equal<A, B> = (<T>() => T extends A ? 1 : 2) extends (<T>() => T extends B ? 1 : 2) ? true : false;
 type Assert<T extends true> = T;
 type State = { active: boolean; count: number };
@@ -35,7 +36,33 @@ type PublicAgreement = [
   Assert<Equal<Root.UseRenderStateAttributesMapping<State>, Subpath.UseRenderStateAttributesMapping<State>>>,
   Assert<Equal<Root.UseRenderElementProps<'button'>, Subpath.UseRenderElementProps<'button'>>>,
   Assert<Equal<Root.UseRenderComponentProps<'button', State>, Subpath.UseRenderComponentProps<'button', State>>>,
+  Assert<Equal<Root.UseRenderComponentProps<'button', State, { id: string }>, Subpath.UseRenderComponentProps<'button', State, { id: string }>>>,
+  Assert<Equal<Root.UseRenderParameters<State, SVGSVGElement, false>, Subpath.UseRenderParameters<State, SVGSVGElement, false>>>,
+  Assert<Equal<Root.UseRenderState, Subpath.UseRenderState>>,
+  Assert<Equal<Root.HTMLProps, Subpath.HTMLProps>>,
+  Assert<Equal<Root.HTMLProps, Root.UseRenderHostProps>>,
+  Assert<Equal<Root.HTMLProps[string], unknown>>,
+  Assert<Equal<Root.HTMLProps[symbol], HTMLAttributes<any>[symbol]>>,
+  Assert<Equal<Root.ComponentRenderFn<{ id: string }, State>, Subpath.ComponentRenderFn<{ id: string }, State>>>,
+  Assert<Equal<Root.UseRender.Props<State, SVGSVGElement>, Root.UseRenderProps<State, SVGSVGElement>>>,
+  Assert<Equal<Root.UseRender.Parameters<State, SVGSVGElement, false>, Root.UseRenderParameters<State, SVGSVGElement, false>>>,
+  Assert<Equal<Root.UseRender.State, Root.UseRenderState>>,
+  Assert<Equal<Root.UseRender.RenderProp<State>, Root.UseRenderRenderProp<State>>>,
+  Assert<Equal<Root.UseRender.ElementProps<'button'>, Root.UseRenderElementProps<'button'>>>,
+  Assert<Equal<Root.UseRender.ComponentProps<'button', State, { id: string }>, Root.UseRenderComponentProps<'button', State, { id: string }>>>,
 ];
+const disabled: Root.UseRenderParameters<State, SVGSVGElement, false> = { enabled: false, state: undefined, props: undefined, ref: undefined, render: undefined, defaultTagName: undefined, stateAttributesMapping: undefined };
+// @ts-expect-error The preserved enabled parameter constrains its value.
+const invalidEnabled: Root.UseRender.Parameters<State, SVGSVGElement, false> = { enabled: true };
+const customRender: Root.UseRenderComponentProps<'button', State, { id: string }> = {
+  render: null as unknown as Root.ComponentRenderFn<{ id: string }, State>,
+};
+const nativeAttachment: Root.HTMLProps = { [Symbol()]: (host: HTMLSpanElement) => { void host; return () => {}; } };
+// @ts-expect-error Arbitrary string props remain unknown.
+const arbitraryString: string = nativeAttachment.id;
+// @ts-expect-error A symbol prop is a native attachment slot, not arbitrary data.
+const invalidAttachment: Root.HTMLProps = { [Symbol()]: 123 };
+void [disabled, invalidEnabled, customRender, arbitraryString, invalidAttachment];
 // @ts-expect-error Private closure parameters are not public root exports.
 import type { RenderElementProps as RootPrivate } from '@sveltery/base';
 // @ts-expect-error Private closure parameters are not public subpath exports.
@@ -128,7 +155,7 @@ assert.match(render(First, { props: { ref: refs } }).body, /<div/);
 assert.equal(refReads, 0, 'SSR must not resolve the browser-only merged ref array');
 JS
 cat > "$render_consumer/tsconfig.json" <<'JSON'
-{"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"skipLibCheck":true,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts"]}
+{"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"exactOptionalPropertyTypes":true,"noUncheckedIndexedAccess":true,"skipLibCheck":false,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts"]}
 JSON
 node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$render_consumer/check.mjs"
 node "$sveltery_repo_root/packages/base/node_modules/svelte-check/bin/svelte-check" --workspace "$render_consumer" --tsconfig ./tsconfig.json
@@ -138,7 +165,6 @@ if [[ "${1:-}" == '--public' ]]; then
   import { UseRender, type UseRenderHostProps, type UseRenderRef } from '@sveltery/base';
   import { UseRender as Subpath } from '@sveltery/base/use-render';
   import type { Snippet } from 'svelte';
-  import type { HTMLAttributes } from 'svelte/elements';
   let stage = $state(0), element = $state<Element | null>();
   const object: { current: Element | null } = { current: null };
   const calls: unknown[][] = [];
@@ -155,7 +181,7 @@ if [[ "${1:-}" == '--public' ]]; then
   export function snapshot() { return { element, ref: object.current, calls }; }
 </script>
 {#snippet replacement(supplied: UseRenderHostProps, _state: { active: boolean }, children: Snippet | undefined)}
-  <span {...supplied as HTMLAttributes<HTMLSpanElement>}>{@render children?.()}</span>
+  <span {...supplied}>{@render children?.()}</span>
 {/snippet}
 <UseRender defaultTagName="button" enabled={stage < 4} props={{ id: 'packed-live', class: stage === 0 ? 'before' : stage < 3 ? 'changed' : 'reactive' }} state={{ active: stage > 0 }} ref={[stage === 0 ? first : next, object]} render={stage >= 2 ? replacement : undefined} bind:element>Packed live children</UseRender>
 <Subpath defaultTagName="svg" props={{ id: 'packed-live-svg' }}><title>Packed live SVG</title></Subpath>
@@ -223,7 +249,7 @@ JS
   node --conditions=browser --import "$render_consumer/dom-loader.mjs" "$render_consumer/dom-check.mjs" "$sveltery_repo_root/packages/base/package.json"
 fi
 if [[ "${1:-}" == '--public' ]]; then
-  echo 'Isolated tarball UseRender public root/subpath SSR, DOM, nine type aliases and private exclusions: PASS'
+  echo 'Isolated tarball UseRender public root/subpath SSR, DOM, strict native types, namespace aliases and private exclusions: PASS'
 else
   echo 'Isolated tarball UseRender internal entry SSR and types: PASS (public integration is a separate gate)'
 fi

@@ -27,7 +27,7 @@ export type { AccordionValue, AccordionRootProps, AccordionRootState, AccordionI
 export { CSPProvider } from './csp-provider/index.js';
 export type { CSPProviderProps, CSPProviderState } from './csp-provider/index.js';
 export { UseRender } from './use-render/index.js';
-export type { UseRenderProps, UseRenderRef, UseRenderRefs, UseRenderRenderProp, UseRenderHostProps, UseRenderTagName, UseRenderStateAttributesMapping, UseRenderElementProps, UseRenderComponentProps } from './use-render/index.js';
+export type { UseRenderProps, UseRenderParameters, UseRenderState, UseRenderRef, UseRenderRefs, UseRenderRenderProp, UseRenderHostProps, UseRenderTagName, UseRenderStateAttributesMapping, UseRenderElementProps, UseRenderComponentProps, HTMLProps, ComponentRenderFn } from './use-render/index.js';
 
 export { Field, FieldRoot, FieldLabel, FieldDescription, FieldError, FieldControl, FieldValidity, FieldItem } from './field/index.js';
 export type * from './field/types.js';

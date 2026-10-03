@@ -2,6 +2,7 @@
 import { readFileSync } from 'node:fs';
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { execFileSync } from 'node:child_process';
 const trace = JSON.parse(readFileSync(new URL('../../parity/use-render/upstream-inventory.json', import.meta.url), 'utf8'));
 test('UseRender immutable ordinary, parameterized and type scopes remain separate', () => {
   assert.equal(trace.upstream.commit, '47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c');
@@ -22,4 +23,8 @@ test('UseRender portable browser cases map exactly to bounded candidate scopes',
   const browser = readFileSync(new URL('../../tests/browser/use-render.spec.ts', import.meta.url), 'utf8');
   assert(browser.includes('chromiumSandbox') === false); // Sandbox stays owned by the shared strict Playwright config.
   assert.match(readFileSync(new URL('../../playwright.config.ts', import.meta.url), 'utf8'), /chromiumSandbox: true/);
+});
+test('UseRender graph matches the actual canonical runtime and type closure', () => {
+  const result = execFileSync(process.execPath, [new URL('../../parity/use-render/graph.mjs', import.meta.url).pathname, '--check'], { encoding: 'utf8' });
+  assert.match(result, /21 immutable source modules, 19 actual used local modules/);
 });

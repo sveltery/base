@@ -1,27 +1,27 @@
-# Shared rendering source closure
+# UseRender source and actual dependency closure
 
-This refactor starts from Base UI v1.8.0 immutable pin `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, MIT, before implementation. [source-graph.json](source-graph.json) records recursively resolved runtime and type edges and original SHA-256 hashes. Existing assertion inventory is independent evidence. No structural acceptance or ordinary assertion credit is claimed by this mapping.
+This feature starts from Base UI v1.8.0 immutable pin `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, MIT, [source-graph.json](source-graph.json) records all 21 recursively resolved original runtime/type modules and their immutable SHA-256 hashes, plus a separate 19-module actual used local closure. Reproduce the original assertion trace with `inventory.mjs`; reproduce or check the actual closure with `node parity/use-render/graph.mjs [upstream-path] --check`. Existing assertion inventory is independent evidence. No structural acceptance or ordinary assertion credit is claimed by this mapping.
 
-Dependency order: canonical `empty`, `useRefWithInit`, `createLogOnce` from the shared utility owner; `mergeObjects`, class/style adapters and `getStateAttributesProps`; source-bodied `mergeProps`/`mergePropsN`; source-bodied `useMergedRefs`/`useMergedRefsN`; `useRenderElement`; native markup boundary; thin public `UseRender` and legacy `dialog/Element` adapters.
+Dependency order: canonical `empty` and `useRefWithInit` from normally merged PR46; `mergeObjects`, class/style adapters and `getStateAttributesProps`; source-bodied `mergeProps`/`mergePropsN`; source-bodied `useMergedRefs`/`useMergedRefsN`; `useRenderElement`; native markup boundary; thin public `UseRender` and the private fixture call-shape adapter. Canonical renderer/ref/types come unchanged from normally merged PR47/50 and current main; this feature adds no parallel renderer.
 
 | Original module/functions at the immutable pin | Used local destination | Necessary adaptation | Source/observable check |
 | --- | --- | --- | --- |
-| [react/src/use-render/useRender.ts](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/use-render/useRender.ts): `useRender`, exported parameter/render/element/component/return/state types | `use-render/UseRender.svelte`, `use-render/types.ts` | Component forwards all parameters to shared renderer; native snippets and markup replace ReactElement return. Seven return assertions remain divergent. | Thin wrapper, public types, SSR, installed package consumers. |
+| [react/src/use-render/useRender.ts](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/use-render/useRender.ts): `useRender`, exported parameter/render/element/component/state types and original return assertions | `use-render/UseRender.svelte`, `use-render/types.ts` | Component forwards all parameters to shared renderer; native snippets and markup replace ReactElement return. UseRenderParameters retains enabled/host/state relationships; ComponentProps retains the third render-function-props generic. Feasible type-only namespace aliases and canonical HTMLProps/ComponentRenderFn reexports are restored. Seven React return assertions remain divergent. | Thin wrapper, public types, SSR, installed package consumers. |
 | [react/src/internals/useRenderElement.tsx](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/useRenderElement.tsx): `useRenderElement`, `useRenderElementProps`, `resolveRenderFunctionProps` | `internals/useRenderElement.ts` | A setup-time instance owns merged-ref storage; output is a native render descriptor consumed by `internals/RenderElement.svelte`. | Side-by-side ordered stages, getter ownership/frozen failures, native refs/defaults. |
 | Same: `evaluateRenderProp`, `renderTag` | Same functions in `internals/useRenderElement.ts` plus `internals/RenderElement.svelte` | Native tag/snippet descriptor is the sole framework rendering boundary; default button/image props retain source order. | Default tags, invalid render guard, snippet props/state, actual host identity. |
 | Same: `unwrapLazyRenderProp`, `warnIfRenderPropLooksLikeComponent`, React lazy/component patterns | Explicit unavailable React-only scope; no unused runtime copies | Snippets are opaque and cannot clone/unwrap React Flight elements or diagnose React hook ownership. | Twelve lazy/Flight/RSC/diagnostic sites/fifteen variants remain unimplemented; no parity claim. |
 | [react/src/internals/getStateAttributesProps.ts](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/getStateAttributesProps.ts): mapping type, `getStateAttributesProps` | `internals/getStateAttributesProps.ts` | None: source `for...in`, direct mapping `hasOwnProperty`, null/falsy/lowercase rules. | Native state attribute probes, mapping error behavior. |
-| [react/src/utils/resolveClassName.ts](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/resolveClassName.ts): `resolveClassName` | `utils/resolveClassName.ts` | Native ClassValue normalization happens separately at native merge/markup boundary. | State callback order and class string order. |
+| [react/src/utils/resolveClassName.ts](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/resolveClassName.ts): `resolveClassName` | `utils/resolveClassName.ts` | Canonical `nativeProps.toNativeClass` uses inherited `resolveClassValue` at the native merge/markup boundary. | State callback order and class string order. |
 | [react/src/utils/resolveStyle.ts](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/resolveStyle.ts): `resolveStyle` | `utils/resolveStyle.ts` | Native CSS string/object type replaces React CSSProperties, same function/callback branch. | Style callback order and cascade. |
 | [utils/src/mergeObjects.ts](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/mergeObjects.ts): `mergeObjects` | `utils/mergeObjects.ts` | None; one-sided object identity retained. | Frozen/style/ref accessor probes. |
 | [react/src/merge-props/mergeProps.ts](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/merge-props/mergeProps.ts): `mergeProps`, `mergePropsN`, `createInitialMergedProps`, `copyInitialProps`, `mergeInto`, `mutablyMergeInto`, `isPropsGetter`, `resolvePropsGetter`, event/class functions | `merge-props/mergeProps.ts`; `index.ts` reexports | Lowercase native event keys and native Event brand replace React synthetic event representation. Native `class`/CSS strings and enumerable attachment symbols are isolated extensions. | Shared slot-zero/EMPTY_PROPS/for-in/getter ownership and ordered handlers/class/style tests. |
 | [utils/src/useMergedRefs.ts](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useMergedRefs.ts): `useMergedRefs`, `useMergedRefsN`, `createForkRef`, `didChange`, `didChangeN`, `update` | `utils/useMergedRefs.ts` | Setup factory owns one source `useRefWithInit` value. Native attachments call the source callback; source cleanup remains in `update`. | Fixed/N memo identity, ref order/cleanup and actual host teardown. |
-| [utils/src/useRefWithInit.ts](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useRefWithInit.ts): `useRefWithInit` | `utils/useRefWithInit.ts` (shared utility source `b519124`, cherry-pick `cfa673f`) | One call in native setup factory instead of React hook rerenders. | Initializer ownership and instance isolation. |
-| [utils/src/empty.ts](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/empty.ts): `NOOP`, `EMPTY_ARRAY`, `EMPTY_OBJECT` | `utils/empty.ts` (same shared utility checkpoint) | None. | Frozen singleton and disabled-stage behavior. |
+| [utils/src/useRefWithInit.ts](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useRefWithInit.ts): `useRefWithInit` | `utils/useRefWithInit.ts` (canonical normally merged PR46) | One call in native setup factory instead of React hook rerenders. | Initializer ownership and instance isolation. |
+| [utils/src/empty.ts](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/empty.ts): `NOOP`, `EMPTY_ARRAY`, `EMPTY_OBJECT` | `utils/empty.ts` (canonical normally merged PR46) | None. | Frozen singleton and disabled-stage behavior. |
 | [utils/src/warn.ts](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/warn.ts), `createLogOnce.ts`: `warn`, `createLogOnce`, `reset` | React-specific renderer diagnostic boundary; shared `utils/createLogOnce.ts` belongs to the Field utility closure | React function/component hook diagnostic has no native snippet equivalent; no unused copied warning dependency. | Explicit unavailable scope; no dead copied diagnostics. |
 | [utils/src/getReactElementRef.ts](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/getReactElementRef.ts), `reactVersion.ts`: `getReactElementRef`, `isReactVersionAtLeast` | Explicit React element boundary; no runtime copies | Native snippets own refs via attachments; direct absent second slot preserves the tested fixed/N comparator identity without a constant helper or metadata access. | Supplied + snippet-owned actual host refs and source positional/length semantics. |
-| [react/src/internals/types.ts](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/types.ts), [react/src/types/index.ts](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/types/index.ts): `HTMLProps`, `ComponentRenderFn`, `BaseUIEvent`, `WithBaseUIEvent`, component types | `use-render/types.ts`, `internals/useRenderElement.ts`, shared `merge-props/mergeProps.ts` | Native event/element/snippet types; unrelated exports are outside render scope and remain inventoried type edges. | Public/internal type check and isolated consumer. |
-| Type-only transitive event details/reasons exports | Existing `internals/createBaseUIEventDetails.ts`, `reasons.ts`, `reason-parts.ts` | Existing source ports; not renderer runtime imports. | Graph retains type-only reachability; inherited review remains required. |
+| [react/src/internals/types.ts](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/types.ts), [react/src/types/index.ts](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/types/index.ts): `HTMLProps`, `ComponentRenderFn`, `BaseUIEvent`, `WithBaseUIEvent`, component types | `internals/types.ts` canonical HTMLProps/ComponentRenderFn/WithBaseUIEvent, `use-render/types.ts`, shared renderer/merge-props | String props stay unknown; symbols reuse only the native Svelte HTMLAttributes<any>[symbol] attachment slot. Native event/element/snippet types are reused; unrelated original type-only exports remain inventoried original edges. | Public/internal type check and isolated consumer. |
+| Type-only transitive event details/reasons exports | Existing `internals/createBaseUIEventDetails.ts`, `reasons.ts`, `reason-parts.ts` | Original type-only reachability is retained in the immutable graph; these unrelated exports are not imported by the actual native UseRender closure. | Original hashes preserved; local graph truthfully omits unused type-only source exports. |
 
 ## Native adapter and legacy consumers
 
@@ -31,49 +31,18 @@ The native markup adapter renders a literal `<input>` for a default input tag so
 
 Legacy `dialog/Element.svelte` callers already supply their own attributes and therefore temporarily suppress generic auto attributes with an explicitly labeled mapping adapter. This is an intermediate convergence step only. Those consumers still require their own pinned mapping/dependency audit and are not structurally cleared by the common renderer change. The fresh Field.Control port uses its real `fieldValidityMapping` and ordered source parameters directly.
 
-Shared utility dependency is original `b51912499a8538c9039860ed58ad3f9743679177`, cherry-picked as `cfa673f`. Canonical body implementation is now used; independent final-head source review and full execution gates remain pending.
+Canonical source dependencies were integrated through a normal merge of actual main containing PR46, PR47, PR41, PR48–53. The local graph records the actual body hashes, imports/exports, runtime/type reachability, declarations and provenance for every used module. No historical cherry-pick body is substituted for current canonical code.
 
+## Native boundaries and public type surface
 
-### Temporary legacy suppression ledger
+| Actual used module/functions | Correspondence and purpose | Executed check |
+| --- | --- | --- |
+| `internals/nativeRefAttachment.ts`: `createRefAttachment`, `isNativeRefAttachment` | Canonical native lifetime/publication adapter from main. Only marked library callbacks join unchanged source `useMergedRefsN` after inner refs; ordinary authored attachments keep native lifetime. | Current shared forwarded-ref/Composite probes and UseRender actual host/ref/cleanup cases. |
+| `internals/nativeProps.ts`: `toNativeClass`, `toNativeStyle`, `mergeNativeStyles`, `copyAttachmentSymbols` | Canonical native representation adapter, using one real ClassValue helper and one source `mergeObjects`; no feature-local copies. | Current renderer class/style/symbol probes and uncast packed native host snippet. |
+| `internals/resolveClassValue.ts`: `tokens`, `resolveClassValue` | Inherited Sveltery MIT class materialization, mapped to Svelte 5.57.1 and clsx 2.1.1 references in the canonical rendering record; no Base UI counterpart. | Existing native class comparison tests; immutable reference hashes remain in this graph. |
+| `internals/RenderElement.svelte` | Canonical native markup/runic/snippet/attachment boundary; literal input and dynamic intrinsic hosts replace React rendering machinery. | UseRender DOM, SSR/hydration and installed package checks. |
+| `use-render/UseRender.svelte`, private `use-render/RenderElement.svelte` | Thin public parameter forwarding and private call-shape adapter, both composed over the same canonical component. The private adapter is used by the bounded internal assertion fixtures. | Public/internal ordinary predicates and callback/gating supplements. |
+| `use-render/index.ts`, `types.ts`; canonical `internals/types.ts` | Root/subpath agree on 11 named UseRender aliases and canonical HTMLProps/ComponentRenderFn. UseRender exposes feasible Props/Parameters/State/RenderProp/ElementProps/ComponentProps type-only aliases; no React ReturnValue. | Installed strict types, exact optional/indexed access, enabled narrowing, third generic, unknown strings/native symbols and private exclusions. |
+| Public `svelte`, `svelte/attachments`, type-only `svelte/elements`, `esm-env` and JavaScript/DOM built-ins | Versioned canonical external boundaries retained in the local graph. Runtime uses no React, Kit, Svelte internals, extra class dependency or per-component attachment engine. | Package runtime boundary/MIT, actual SSR/client hosts and workspace build. |
 
-Each caller below still supplies its own state attributes and requires a separate component source/mapping audit. Input is listed only in this branch until the Field owner replaces it with the thin wrapper and real Field.Control. The new Field components must not use this legacy adapter.
-
-- `packages/base/src/lib/accordion/Header.svelte`
-- `packages/base/src/lib/accordion/Item.svelte`
-- `packages/base/src/lib/accordion/Panel.svelte`
-- `packages/base/src/lib/accordion/Root.svelte`
-- `packages/base/src/lib/accordion/Trigger.svelte`
-- `packages/base/src/lib/avatar/Fallback.svelte`
-- `packages/base/src/lib/avatar/Image.svelte`
-- `packages/base/src/lib/avatar/Root.svelte`
-- `packages/base/src/lib/button/Button.svelte`
-- `packages/base/src/lib/collapsible/Panel.svelte`
-- `packages/base/src/lib/collapsible/Root.svelte`
-- `packages/base/src/lib/collapsible/Trigger.svelte`
-- `packages/base/src/lib/dialog/Backdrop.svelte`
-- `packages/base/src/lib/dialog/Close.svelte`
-- `packages/base/src/lib/dialog/Description.svelte`
-- `packages/base/src/lib/dialog/Popup.svelte`
-- `packages/base/src/lib/dialog/Portal.svelte`
-- `packages/base/src/lib/dialog/Title.svelte`
-- `packages/base/src/lib/dialog/Trigger.svelte`
-- `packages/base/src/lib/input/Input.svelte`
-- `packages/base/src/lib/meter/Indicator.svelte`
-- `packages/base/src/lib/meter/Label.svelte`
-- `packages/base/src/lib/meter/Root.svelte`
-- `packages/base/src/lib/meter/Track.svelte`
-- `packages/base/src/lib/meter/Value.svelte`
-- `packages/base/src/lib/progress/Indicator.svelte`
-- `packages/base/src/lib/progress/Label.svelte`
-- `packages/base/src/lib/progress/Root.svelte`
-- `packages/base/src/lib/progress/Track.svelte`
-- `packages/base/src/lib/progress/Value.svelte`
-- `packages/base/src/lib/separator/Separator.svelte`
-- `packages/base/src/lib/toast/Action.svelte`
-- `packages/base/src/lib/toast/Close.svelte`
-- `packages/base/src/lib/toast/Content.svelte`
-- `packages/base/src/lib/toast/Description.svelte`
-- `packages/base/src/lib/toast/Root.svelte`
-- `packages/base/src/lib/toast/Title.svelte`
-- `packages/base/src/lib/toast/Viewport.svelte`
-- `packages/base/src/lib/toggle/Toggle.svelte`
+Legacy component-specific mapping audits remain outside this feature and are listed in the canonical [rendering correspondence](../rendering/source-correspondence.md). Thin Input and real Field.Control now use the source Field mapping directly; they are not temporary legacy UseRender consumers. Public composition and source business order are required independently of passing assertions. Fresh exact-head source/native/maintainability review and execution gates remain mandatory.
