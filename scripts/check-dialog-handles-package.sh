@@ -93,14 +93,13 @@ cat > "$dialog_consumer/DOMConsumer.svelte" <<'SVELTE'
 <script lang="ts">
   import { Dialog as RootEntry } from '@sveltery/base';
   import * as Dialog from '@sveltery/base/dialog';
-  import type { HTMLProps } from './node_modules/@sveltery/base/dist/internals/types.js';
   let { handle, container }: { handle: Dialog.Handle<number>; container: HTMLElement } = $props();
   let actions = $state<Dialog.Root.Actions | null>(null);
   let portal = $state<HTMLElement | null>(null), viewport = $state<HTMLElement | null>(null);
   const changes: [string, boolean][] = [];
   export function snapshot() { return { actions, portal, viewport, changes }; }
 </script>
-{#snippet host(props: HTMLProps)}
+{#snippet host(props: Record<string | symbol, unknown>)}
   <div id="installed-wrapper"><section {...props} id="installed-portal"></section></div>
 {/snippet}
 <RootEntry.Trigger {handle} payload={7} id="installed-trigger">Open</RootEntry.Trigger>

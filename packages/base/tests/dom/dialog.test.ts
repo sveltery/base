@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { mount, tick, unmount } from 'svelte';
 import Fixture from './Fixture.svelte';
 import type { ChangeEventDetails } from '../../src/lib/dialog/types.js';
@@ -62,8 +62,11 @@ describe('contained Dialog supplemental DOM wiring', () => {
     expect(document.querySelector<HTMLElement>('[role=dialog]')!.hidden).toBe(true);
     expect(log).toEqual([]);
     click('opener'); await settle(); expect(document.querySelector<HTMLElement>('[role=dialog]')!.hidden).toBe(false);
+    // This is a completed-opening case. Closing before its frame completes
+    // legitimately aborts that callback, especially under full-suite load.
+    await vi.waitFor(() => expect(log.filter(x => x.channel === 'complete').map(x => x.open)).toEqual([true]));
     click('closer'); await settle(); expect(document.querySelector<HTMLElement>('[role=dialog]')!.hidden).toBe(true);
-    expect(log.filter(x => x.channel === 'complete').map(x => x.open)).toEqual([true, false]);
+    await vi.waitFor(() => expect(log.filter(x => x.channel === 'complete').map(x => x.open)).toEqual([true, false]));
   });
   it('nested cleanup preserves parent lock, counts and one Escape ownership', async () => {
     const { component } = setup({ nested: true }); await settle(); click('opener'); await settle();

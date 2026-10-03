@@ -231,7 +231,7 @@
         "packages/base/src/lib/floating-ui/components/FloatingPortalContext.ts",
         "packages/base/src/lib/floating-ui/components/PortalContent.svelte"
       ],
-      "decision": "Original container/guard/focus-state business body; two native mount/unmount portal boundaries. Actual replacement id is observed because snippets are opaque.",
+      "decision": "Original container/guard/focus-state business body; two native mount/unmount portal boundaries. Actual replacement id is observed because snippets are opaque. Paired wrapper/inner-host probe verifies React outer-element ID inspection omits aria-owns whereas native attached-host ID observation preserves its actual relationship; inherent renderer difference, zero unchanged-source credit.",
       "reviewStatus": "final source/native/maintainability review pending"
     },
     {
