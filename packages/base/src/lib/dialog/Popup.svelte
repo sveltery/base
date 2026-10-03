@@ -3,8 +3,8 @@
   import Element from './Element.svelte';
   import { portal, root } from './context.js';
   import { attachOverlay } from '../overlay/dialog-overlay.svelte.js';
-  import type { ElementProps, FocusTarget, PopupState } from './types.js';
-  let { children, render, initialFocus, finalFocus, id, ref = $bindable(), ...props }: ElementProps<PopupState> & { initialFocus?: FocusTarget; finalFocus?: FocusTarget } = $props();
+  import type { DialogPopupProps } from './types.js';
+  let { children, render, initialFocus, finalFocus, id, ref = $bindable(), ...props }: DialogPopupProps = $props();
   const controller = root();
   const portalContext = portal();
   const generatedId = controller.generatedPopupId;

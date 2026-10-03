@@ -3,6 +3,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { mount, tick, unmount, type ComponentProps } from 'svelte';
 import { createDialogHandle } from '../../src/lib/dialog/handle.svelte.js';
 import Fixture from './DialogHandleFixture.svelte';
+import BackdropStateFixture from './DialogBackdropStateFixture.svelte';
 const instances: ReturnType<typeof mount>[] = [];
 async function settle() { await tick(); await new Promise(resolve => setTimeout(resolve, 70)); await tick(); }
 function setup(props: ComponentProps<typeof Fixture>) {
@@ -97,4 +98,10 @@ it('D:230 does not warn for a detached payload open in production', () => {
     process.env.NODE_ENV = originalEnvironment;
     consoleWarn.mockRestore();
   }
+});
+
+it('Backdrop forwards exactly the pinned open and transitionStatus state keys', async () => {
+  const host = document.createElement('section'); document.body.append(host);
+  instances.push(mount(BackdropStateFixture, { target: host })); await settle();
+  expect(document.querySelector('[data-testid=state-backdrop]')!.className).toBe('open transitionStatus');
 });

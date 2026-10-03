@@ -7,10 +7,10 @@ import { checkAccordionApi, extractAccordionApi } from '../../parity/accordion/d
 test('docs API matches actual local types and all public parts', () => {
   checkDialogApi();
   const exports = readFileSync(
-    new URL('../../packages/base/src/lib/dialog/index.ts', import.meta.url),
+    new URL('../../packages/base/src/lib/dialog/index.parts.ts', import.meta.url),
     'utf8',
   );
-  const names = [...exports.matchAll(/export \{ default as (\w+) \}/g)]
+  const names = [...exports.matchAll(/export const (\w+) = \w+Component;/g)]
     .map((match) => match[1])
     .sort();
   assert.deepEqual(

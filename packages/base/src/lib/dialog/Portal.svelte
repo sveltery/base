@@ -4,8 +4,8 @@
   import { PORTAL, root } from './context.js';
   import type { PortalContext, PortalFocusManager } from './context.js';
   import { preserveTabOrder } from '../overlay/portal-focus.js';
-  import type { ElementProps } from './types.js';
-  let { children, render, keepMounted = false, container, ref = $bindable(), ...props }: ElementProps & { keepMounted?: boolean; container?: HTMLElement | ShadowRoot | { current: HTMLElement | ShadowRoot | null } | null } = $props();
+  import type { DialogPortalProps } from './types.js';
+  let { children, render, keepMounted = false, container, ref = $bindable(), ...props }: DialogPortalProps = $props();
   const controller = root();
   const parent = getContext<PortalContext | undefined>(PORTAL);
   let focusManager = $state.raw<PortalFocusManager | null>(null);

@@ -187,3 +187,6 @@ bash "$sveltery_repo_root/scripts/check-direction-provider-package.sh" --public
 
 # Shared CSP provider foundation: actual public root/subpath consumer, not a private-entry stand-in.
 bash scripts/check-csp-provider-package.sh
+
+# Installed public Dialog root/subpath Handle factory, payload snippets and erased namespace types.
+bash scripts/check-dialog-handles-package.sh

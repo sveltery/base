@@ -1,9 +1,3 @@
-export { default as Root } from './Root.svelte';
-export { default as Trigger } from './Trigger.svelte';
-export { default as Portal } from './Portal.svelte';
-export { default as Popup } from './Popup.svelte';
-export { default as Backdrop } from './Backdrop.svelte';
-export { default as Title } from './Title.svelte';
-export { default as Description } from './Description.svelte';
-export { default as Close } from './Close.svelte';
-export type { RootProps, ElementProps, PopupState, ButtonProps, ChangeEventDetails, ChangeReason, Actions, FocusTarget, InteractionType } from './types.js';
+export * from './index.parts.js';
+export * as Dialog from './index.parts.js';
+export type { RootProps, TriggerProps, ElementProps, PopupState, ButtonProps, ChangeEventDetails, ChangeReason, Actions, FocusTarget, InteractionType, DialogRootProps, DialogRootState, DialogRootActions, DialogRootChangeEventReason, DialogRootChangeEventDetails, DialogTriggerProps, DialogTriggerState, DialogPortalProps, DialogPortalState, DialogPopupProps, DialogPopupState, DialogBackdropProps, DialogBackdropState, DialogTitleProps, DialogTitleState, DialogDescriptionProps, DialogDescriptionState, DialogCloseProps, DialogCloseState } from './types.js';

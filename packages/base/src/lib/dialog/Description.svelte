@@ -2,8 +2,8 @@
   import { onDestroy } from 'svelte';
   import Element from './Element.svelte';
   import { root } from './context.js';
-  import type { ElementProps } from './types.js';
-  let { children, render, id, ref = $bindable(), ...props }: ElementProps = $props();
+  import type { DialogDescriptionProps } from './types.js';
+  let { children, render, id, ref = $bindable(), ...props }: DialogDescriptionProps = $props();
   const controller = root();
   const generated = $props.id();
   const resolvedId = $derived(id ?? `base-ui-${generated}`);

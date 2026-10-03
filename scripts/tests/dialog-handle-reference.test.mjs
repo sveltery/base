@@ -150,3 +150,13 @@ for (const popup of ['absent', 'remove-on-close']) test(`pinned close with Popup
     assert.equal(handle.store.select('mounted'), false); assert.equal(completions.filter(value => !value).length, 1);
   });
 });
+
+test('pinned Backdrop forwards exactly the open and transitionStatus state keys', async () => {
+  await fixture(async ({ React, Dialog, root, document, act, settle }) => {
+    const h = React.createElement;
+    await act(async () => root.render(h(React.StrictMode, null, h(Dialog.Root, { defaultOpen: true },
+      h(Dialog.Portal, null, h(Dialog.Backdrop, { 'data-testid': 'state-backdrop', className: state => Object.keys(state).sort().join(' ') }), h(Dialog.Popup, null, 'Dialog'))))));
+    await settle();
+    assert.equal(document.querySelector('[data-testid=state-backdrop]').className, 'open transitionStatus');
+  });
+});
