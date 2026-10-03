@@ -48,6 +48,7 @@ const groupEqual: Equal<[Root.CheckboxGroupProps, Root.CheckboxGroupState, Root.
 const propsEqual: Equal<ComponentProps<typeof Root.Switch.Root>, Root.SwitchRootProps> = true;
 // The pinned source permits explicit undefined with exact optional property checking.
 const undefinedSwitch: Root.SwitchRootProps = {
+  class: undefined, style: undefined, render: undefined,
   children: undefined, ref: undefined, id: undefined, checked: undefined,
   defaultChecked: undefined, disabled: undefined, inputRef: undefined,
   name: undefined, form: undefined, nativeButton: undefined,
@@ -58,11 +59,15 @@ const undefinedCheckbox: Root.CheckboxRootProps = {
   ...undefinedSwitch, indeterminate: undefined, parent: undefined,
 };
 const undefinedGroup: Root.CheckboxGroupProps = {
+  class: undefined, style: undefined, render: undefined,
   children: undefined, ref: undefined, value: undefined, defaultValue: undefined,
   onValueChange: undefined, allValues: undefined, disabled: undefined,
 };
-const undefinedThumb: Root.SwitchThumbProps = { children: undefined, ref: undefined };
+const undefinedThumb: Root.SwitchThumbProps = {
+  class: undefined, style: undefined, render: undefined, children: undefined, ref: undefined,
+};
 const undefinedIndicator: Root.CheckboxIndicatorProps = {
+  class: undefined, style: undefined, render: undefined,
   children: undefined, ref: undefined, keepMounted: undefined,
 };
 const nullableSwitchRefs: Root.SwitchRootProps = { inputRef: null, ref: null };
