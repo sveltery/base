@@ -99,7 +99,7 @@ TS
 fi
 cat > "$render_consumer/Consumer.svelte" <<'SVELTE'
 <script lang="ts">
-  import { First, Second, type UseRenderProps, type UseRenderRef, type UseRenderStateAttributesMapping, type UseRenderElementProps, type UseRenderComponentProps, type UseRenderHostProps } from './imports.js';
+  import { First, Second, type UseRenderProps, type UseRenderRef, type UseRenderStateAttributesMapping, type UseRenderElementProps, type UseRenderComponentProps, type UseRenderHostProps, type UseRenderTagName } from './imports.js';
   import { mergeProps } from '@sveltery/base/merge-props';
   let element = $state<SVGSVGElement | null>();
   const sourceState = { active: true, itemCount: 5 };
@@ -129,6 +129,7 @@ cat > "$render_consumer/Consumer.svelte" <<'SVELTE'
 <Second {...config} bind:element><title>Packed SVG</title></Second>
 <First defaultTagName="img" props={{ id: 'packed-image' }}/>
 <First props={{ id: 'packed-empty-class', class: '' }}/>
+<First defaultTagName={null as unknown as UseRenderTagName} props={{ id: 'packed-null-tag' }}/>
 <Second enabled={false} props={{ id: 'disabled' }}/>
 <First state={{ active: true }} props={{ class: 'base', id: 'replacement' }}>
   {#snippet render(supplied: UseRenderHostProps, currentState, children)}
@@ -147,6 +148,7 @@ assert.match(body, /type="button"/); assert.match(body, /Packed children/);
 assert.match(body, /data-item-count="5"/); assert.match(body, /<svg/); assert.match(body, /Packed SVG/);
 assert.match(body, /alt=""/); assert.doesNotMatch(body, /id="disabled"/);
 assert.match(body, /id="packed-empty-class" class=""/);
+assert.match(body, /<div[^>]*id="packed-null-tag"/);
 assert.match(body, /class="owned base"/); assert.match(body, /data-state="true"/);
 let refReads = 0;
 const refs = [];

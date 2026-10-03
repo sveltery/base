@@ -947,7 +947,7 @@
       },
       {
         "local": "packages/base/src/lib/use-render/RenderElement.svelte",
-        "sha256": "0c0aa8235448f494e5fa1efe5aaf3a2078bc53afc7e67a610a556dd227bc0ad7",
+        "sha256": "e6eccccbbd9ccb57d48f1138fa478e0ff1666444a11f38d96cadf4e45f9ca12c",
         "reachability": [
           "runtime"
         ],
@@ -1053,7 +1053,7 @@
       },
       {
         "local": "packages/base/src/lib/use-render/UseRender.svelte",
-        "sha256": "0fd1318480e3d990782ff6011b771da28f94b6656dd1bb6416339e02fda00257",
+        "sha256": "6aaa0850574a34a30d5c872f82140c322d7a18d90e8fa62b65a4512e445cee28",
         "reachability": [
           "runtime"
         ],

@@ -7,7 +7,7 @@ import { createAttachmentKey } from 'svelte/attachments';
 import Fixture from './UseRenderFixture.svelte';
 import OuterFixture from './UseRenderOuterFixture.svelte';
 import type { PreventableEvent } from '../../src/lib/merge-props/index.js';
-import type { UseRenderRef } from '../../src/lib/use-render/types.js';
+import type { UseRenderRef, UseRenderTagName } from '../../src/lib/use-render/types.js';
 
 const apps: ReturnType<typeof mount>[] = [];
 afterEach(async () => { for (const app of apps.splice(0)) await unmount(app); document.body.replaceChildren(); });
@@ -27,6 +27,12 @@ it('public: all refs resolve the actual replacement host', () => {
   expect(refs.map(ref => ref.current)).toEqual([host(), host()]);
 });
 it('public: div is the implicit default tag', () => { expect(render().host().tagName).toBe('DIV'); });
+it('supplement: the pinned nullish default tag fallback remains reactive for untyped callers', () => {
+  const { app, host } = render({ options: { defaultTagName: null as unknown as UseRenderTagName } });
+  expect(host().tagName).toBe('DIV');
+  app.setOptions({ defaultTagName: 'span' }); flushSync(); expect(host().tagName).toBe('SPAN');
+  app.setOptions({ defaultTagName: null as unknown as UseRenderTagName }); flushSync(); expect(host().tagName).toBe('DIV');
+});
 it('public: defaultTagName changes across rerenders', () => {
   const { app, host } = render(); app.setOptions({ defaultTagName: 'span' }); flushSync(); expect(host().tagName).toBe('SPAN');
 });

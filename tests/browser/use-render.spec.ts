@@ -16,6 +16,7 @@ for (const reference of [false, true]) test(`supplement ${reference ? 'React' : 
   const actualRef = () => page.locator('main').evaluate(node => (node as HTMLElement & { renderRefProbe(): { tag: string; id: string; connected: boolean; same: boolean } | null }).renderRefProbe());
   await page.goto(url); await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true'); await expect(page.locator('#ssr-render')).toHaveText('SSR children'); expect(await actualRef()).toEqual({ tag: 'BUTTON', id: 'ssr-render', connected: true, same: true });
   expect(await page.locator('#ssr-svg').evaluate(node => node instanceof SVGElement)).toBe(true); await expect(page.locator('#ssr-svg title')).toHaveText('SVG children');
+  expect(markup).toMatch(/<div[^>]*id="ssr-null-tag"/); await expect(page.locator('#ssr-null-tag')).toHaveJSProperty('tagName', 'DIV');
   await page.getByRole('button', { name: 'Remove', exact: true }).click(); await expect(page.locator('#ssr-render')).toHaveCount(0); expect(await actualRef()).toBeNull(); expect(errors).toEqual([]);
 });
 async function probe(page: Page): Promise<Snapshot> { return page.locator('main').evaluate(node => (node as HTMLElement & { renderProbe(): Snapshot }).renderProbe()); }
