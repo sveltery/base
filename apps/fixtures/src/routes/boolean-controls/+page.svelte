@@ -2,10 +2,11 @@
   import { onMount } from 'svelte';
   import Fixture from '../../lib/BooleanControlsBrowserFixture.svelte';
   import NativeResetFixture from '../../lib/NativeCheckboxResetFixture.svelte';
+  import LabelsFixture from '../../lib/BooleanLabelsBrowserFixture.svelte';
   let { data } = $props();
   let host = $state<HTMLElement>();
   onMount(() => {
-    if (!data.reference || !host) return;
+    if (!data.reference || !host || data.scenario === 'shadow-label') return;
     const node = host;
     let disposed = false;
     let cleanup: (() => void) | undefined;
@@ -20,7 +21,8 @@
     };
   });
 </script>
-{#if data.reference}<section bind:this={host}></section>
+{#if data.scenario === 'shadow-label'}<LabelsFixture family={data.family} reference={data.reference} />
+{:else if data.reference}<section bind:this={host}></section>
 {:else if data.scenario === 'literal-bind-reset'}<NativeResetFixture />
 {:else}<Fixture family={data.family} scenario={data.scenario} />{/if}
 
