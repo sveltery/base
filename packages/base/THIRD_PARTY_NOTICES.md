@@ -1,5 +1,7 @@
 # Third-party notices
 
+Shared rendering foundation, state-attribute mapping, class/style resolution, object/prop merging and callback/object ref fanout derive from packages/react/src/internals/useRenderElement, getStateAttributesProps, utils/resolveClassName/resolveStyle, merge-props and packages/utils/mergeObjects/useMergedRefs at Base UI v1.8.0 immutable commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. The actual used common source modules, complete original runtime/type closure and necessary native Svelte host boundaries are recorded in parity/rendering/source-correspondence.md and source-graph.json, with the full MIT license. Initialized refs/immutable fallbacks reuse the canonical shared-utils port; no public UseRender API is included in this dependency foundation.
+
 CSPProvider and its optional CSP context contract derive from packages/react/src/csp-provider and internals/csp-context at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. Immutable source/test hashes and the MIT license are preserved in parity/csp-provider. The four ScrollArea/Select-dependent ordinary tests remain deferred; local context/SSR/browser/consumer probes are supplemental.
 
 DirectionProvider, its direction context/callable reader and assertion/type adapters derive from packages/react/src/direction-provider and internals/direction-context at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT attribution and complete immutable source/assertion hashes are preserved in parity/direction-provider.
