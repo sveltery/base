@@ -12,7 +12,27 @@ import TabsListComponent from './list/TabsList.svelte';
 export const TabsList = TabsListComponent;
 export type * from './types.js';
 
-import type { TabsRootProps, TabsRootState, TabsRootOrientation, TabsRootChangeEventReason, TabsRootChangeEventDetails, TabsTabValue, TabsTabActivationDirection, TabsTabPosition, TabsTabSize, TabsTabMetadata, TabsTabState, TabsTabProps, TabsListState, TabsListProps, TabsPanelMetadata, TabsPanelState, TabsPanelProps, TabsIndicatorState, TabsIndicatorProps } from './types.js';
+import type {
+  TabsRootProps,
+  TabsRootState,
+  TabsRootOrientation,
+  TabsRootChangeEventReason,
+  TabsRootChangeEventDetails,
+  TabsTabValue,
+  TabsTabActivationDirection,
+  TabsTabPosition,
+  TabsTabSize,
+  TabsTabMetadata,
+  TabsTabState,
+  TabsTabProps,
+  TabsListState,
+  TabsListProps,
+  TabsPanelMetadata,
+  TabsPanelState,
+  TabsPanelProps,
+  TabsIndicatorState,
+  TabsIndicatorProps,
+} from './types.js';
 // Source public namespace type names; namespaces contain no runtime values.
 /* eslint-disable @typescript-eslint/no-namespace */
 export namespace TabsRoot {

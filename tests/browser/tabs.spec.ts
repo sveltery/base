@@ -56,6 +56,194 @@ async function geometry(page: Page) {
   });
 }
 for (const framework of ['react', 'svelte']) {
+  for (const [scenario, forward, backward] of [
+    ['default', 'right', 'left'],
+    ['rtl', 'left', 'right'],
+    ['vertical', 'down', 'up'],
+  ]) {
+    test(`${framework} Source activation direction follows actual DOM order ${scenario}`, async ({
+      page,
+    }) => {
+      await open(page, framework, scenario);
+      await page.getByTestId('tab-2').click();
+      await expect(page.locator('#tabs-root')).toHaveAttribute(
+        'data-activation-direction',
+        forward,
+      );
+      await page.getByTestId('tab-0').click();
+      await expect(page.locator('#tabs-root')).toHaveAttribute(
+        'data-activation-direction',
+        backward,
+      );
+      expect((await calls(page)).map((entry) => entry.direction)).toEqual([
+        forward,
+        backward,
+      ]);
+      await page.locator('#reorder').click();
+      await page.getByTestId('tab-2').click();
+      await expect(page.locator('#tabs-root')).toHaveAttribute(
+        'data-activation-direction',
+        backward,
+      );
+    });
+  }
+  test(`${framework} Source focus cancellation uses the composed bubbling focus handler`, async ({
+    page,
+  }) => {
+    await open(page, framework, 'activate-prevent-focus-prevent-handler');
+    await page.getByTestId('tab-1').focus();
+    await expect(page.getByTestId('tab-1')).toBeFocused();
+    await expect(selected(page)).toHaveAttribute('data-testid', 'tab-0');
+    expect(await calls(page)).toEqual([]);
+  });
+  test(`${framework} Source controlled highlight respects focus inside a composed shadow descendant`, async ({
+    page,
+  }) => {
+    await open(page, framework, 'controlled-custom');
+    await page.getByTestId('tab-1').evaluate((element) => {
+      const shadow = element.attachShadow({ mode: 'open' });
+      const input = document.createElement('input');
+      input.setAttribute('aria-label', 'Shadow textbox');
+      shadow.append(input);
+      input.focus();
+    });
+    await expect(page.getByTestId('tab-1')).toHaveAttribute('tabindex', '0');
+    await page
+      .locator('#external')
+      .evaluate((element) => (element as HTMLElement).click());
+    await expect(selected(page)).toHaveAttribute('data-testid', 'tab-2');
+    await expect(page.getByTestId('tab-1')).toHaveAttribute('tabindex', '0');
+    await expect(
+      page.getByRole('textbox', { name: 'Shadow textbox' }),
+    ).toBeFocused();
+  });
+  test(`${framework} Source navigation scrolls the actual list to the focused item`, async ({
+    page,
+  }) => {
+    await open(page, framework);
+    await page.locator('#tabs-list').evaluate((element) => {
+      (element as HTMLElement).style.width = '150px';
+      for (const wrapper of element.querySelectorAll<HTMLElement>(
+        '.tab-wrapper',
+      ))
+        wrapper.style.flexShrink = '0';
+    });
+    await page.getByTestId('tab-0').focus();
+    await page.getByTestId('tab-0').press('End');
+    await expect(page.getByTestId('tab-2')).toBeFocused();
+    expect(
+      await page
+        .locator('#tabs-list')
+        .evaluate((element) => element.scrollLeft),
+    ).toBeGreaterThan(0);
+    const list = await page.locator('#tabs-list').boundingBox(),
+      tab = await page.getByTestId('tab-2').boundingBox();
+    expect(tab!.x + tab!.width).toBeLessThanOrEqual(list!.x + list!.width + 1);
+    await page.getByTestId('tab-2').press('Home');
+    await expect(page.getByTestId('tab-0')).toBeFocused();
+    expect(
+      await page
+        .locator('#tabs-list')
+        .evaluate((element) => element.scrollLeft),
+    ).toBe(0);
+  });
+  for (const transform of [
+    'scale(1.5)',
+    'scale(0.6,1.2)',
+    'rotate(12deg)',
+    'skewX(18deg)',
+    'scaleX(-1)',
+    'perspective(800px) rotateY(20deg)',
+    'scale(0)',
+  ]) {
+    test(`${framework} Source Indicator preserves transformed ancestor layout ${transform}`, async ({
+      page,
+    }) => {
+      await open(page, framework);
+      await page.locator('#tabs-root').evaluate((element, value) => {
+        (element as HTMLElement).style.transform = value;
+      }, transform);
+      await page
+        .getByTestId('tab-2')
+        .evaluate((element) => (element as HTMLElement).click());
+      const values = await geometry(page);
+      expect(Object.values(values).every(Number.isFinite)).toBe(true);
+      expect(values.width).toBe(100);
+      expect(values.height).toBe(40);
+      if (transform !== 'scale(0)') {
+        const tab = await page.getByTestId('tab-2').boundingBox(),
+          bubble = await page.getByTestId('indicator').boundingBox();
+        for (const key of ['x', 'y', 'width', 'height'] as const)
+          expect(Math.abs(tab![key] - bubble![key])).toBeLessThanOrEqual(1);
+      }
+    });
+  }
+  test(`${framework} Source Indicator subtracts inner scrolling after selected-value recomputation`, async ({
+    page,
+  }) => {
+    await open(page, framework);
+    await page
+      .locator('.tab-wrapper')
+      .first()
+      .evaluate((element) => {
+        const wrapper = element as HTMLElement;
+        wrapper.style.cssText = 'width:60px;overflow:auto;flex-shrink:0';
+        wrapper.scrollLeft = 20;
+      });
+    await page.getByTestId('tab-2').click();
+    await page
+      .getByTestId('tab-0')
+      .evaluate((element) => (element as HTMLElement).click());
+    const tab = await page.getByTestId('tab-0').boundingBox(),
+      bubble = await page.getByTestId('indicator').boundingBox();
+    expect(Math.abs(tab!.x - bubble!.x)).toBeLessThanOrEqual(1);
+    expect(Math.abs(tab!.y - bubble!.y)).toBeLessThanOrEqual(1);
+  });
+  test(`${framework} Source Panel exit keeps association/inert until finish and reopening cancels old completion`, async ({
+    page,
+  }) => {
+    const errors: string[] = [];
+    page.on('pageerror', (error) => errors.push(error.message));
+    await open(page, framework, 'transition');
+    const panel = page.getByTestId('panel-0');
+    const panelId = await panel.getAttribute('id');
+    await page.getByTestId('tab-1').click();
+    await expect(panel).toHaveAttribute('data-ending-style', '');
+    await expect(panel).toHaveAttribute('inert', '');
+    await expect(panel).toHaveAttribute('tabindex', '-1');
+    await expect(page.getByTestId('tab-0')).toHaveAttribute(
+      'aria-controls',
+      panelId!,
+    );
+    await page.getByTestId('tab-0').click();
+    await expect(panel).not.toHaveAttribute('inert');
+    await expect(panel).not.toHaveAttribute('data-ending-style');
+    await page.waitForTimeout(900);
+    await expect(panel).toBeVisible();
+    await expect(page.getByTestId('tab-0')).toHaveAttribute(
+      'aria-controls',
+      panelId!,
+    );
+    await page.getByTestId('tab-2').click();
+    await expect(panel).toHaveCount(0);
+    await expect(page.getByTestId('tab-0')).not.toHaveAttribute(
+      'aria-controls',
+    );
+    await page.getByTestId('tab-0').click();
+    await expect(panel).toBeVisible();
+    await page.getByTestId('tab-1').click();
+    await page.locator('#unmount').click();
+    await page.waitForTimeout(900);
+    await expect(page.locator('#tabs-root')).toHaveCount(0);
+    expect(errors).toEqual([]);
+  });
+  test(`${framework} native fresh mount honors autofocus on the actual rendered button`, async ({
+    page,
+  }) => {
+    await open(page, framework, 'fresh-client-autofocus');
+    await expect(page.getByTestId('tab-2')).toBeFocused();
+    await expect(selected(page)).toHaveAttribute('data-testid', 'tab-0');
+  });
   for (const [scenario, expected, reason] of [
     ['default', 0, null],
     ['selected-last', 2, null],

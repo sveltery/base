@@ -200,3 +200,6 @@ bash "$sveltery_repo_root/scripts/check-boolean-controls-package.sh"
 
 # Installed public schema-derived remote form types, including recursive/exact optional contracts.
 bash "$sveltery_repo_root/scripts/check-remote-form-types.sh" --public
+
+# Installed public Tabs Source aliases, strict generated declarations and native SSR consumer.
+bash "$sveltery_repo_root/scripts/check-tabs-package.sh"

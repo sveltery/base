@@ -43,8 +43,7 @@
           : [],
   );
   let calls = $state<unknown[]>([]),
-    events = $state<string[]>([]),
-    indicatorStates = $state('');
+    events = $state<string[]>([]);
   let tabRef = $state<HTMLElement | null>(),
     listRef = $state<HTMLElement | null>();
   const keep = scenario.includes('keep');
@@ -115,7 +114,7 @@
             {#if scenario.includes('multiple-indicators')}<Tabs.Indicator data-testid="indicator-two" class="tabs-indicator" />{/if}
           </Tabs.List>
           {#each items as index (index)}
-            {#if index !== 0 || !dropOriginal}<Tabs.Panel value={values[index]} data-testid={`panel-${index}`} keepMounted={keep} style={scenario.includes('transition') ? 'transition:opacity 120ms;opacity:1' : undefined}>
+            {#if index !== 0 || !dropOriginal}<Tabs.Panel value={values[index]} data-testid={`panel-${index}`} keepMounted={keep} style={scenario.includes('transition') ? 'transition:opacity 800ms;opacity:1' : undefined}>
               Panel {index}<input aria-label={`Panel field ${index}`} value={`seed ${index}`} />
             </Tabs.Panel>{/if}
           {/each}
@@ -129,5 +128,5 @@
   <output id="events">{JSON.stringify(events)}</output>
   <output id="owner">{JSON.stringify(owner)}</output>
   <output id="refs">{`${listRef?.id ?? 'null'}|${tabRef?.id ?? 'null'}`}</output>
-  <output id="indicator-state">{indicatorStates}</output>
+
 </main>

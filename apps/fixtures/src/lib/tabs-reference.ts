@@ -232,7 +232,7 @@ export function TabsReferenceFixture({
                       ...{ 'data-testid': `panel-${index}` },
                       keepMounted: keep,
                       style: scenario.includes('transition')
-                        ? { transition: 'opacity 120ms', opacity: 1 }
+                        ? { transition: 'opacity 800ms', opacity: 1 }
                         : undefined,
                     },
                     `Panel ${index}`,

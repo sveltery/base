@@ -1,0 +1,3193 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "status": "Actual local runtime/type AST closure; immutable pre-code Source plan retained unchanged. Mechanical identity is not manual body review or final acceptance.",
+  "localClosure": {
+    "scope": "Actual recursive runtime and type imports from all public Tabs parts and Source component aliases. Svelte script imports are parsed with the TypeScript AST; native template imports enter through those script imports. Broad shared type edges remain distinguished from runtime.",
+    "roots": [
+      "packages/base/src/lib/tabs/index.ts"
+    ],
+    "modules": [
+      {
+        "local": "packages/base/src/lib/csp-provider/context.ts",
+        "sha256": "ef547502733a191eaa312c58a4017c1a86a5af73e58aa2d155b79842941d80b0",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/internals/csp-context/CSPContext.tsx"
+        ],
+        "declarations": [
+          "CSPContextValue",
+          "getCSPContext"
+        ],
+        "imports": [
+          {
+            "specifier": "svelte",
+            "kind": "runtime",
+            "resolved": "external:svelte",
+            "names": [
+              "createContext"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/direction-provider/context.ts",
+        "sha256": "e400850423b49f956342a6efac2d8dcf2275365d23220564b6cefb8b44df47f8",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/internals/direction-context/DirectionContext.tsx"
+        ],
+        "declarations": [
+          "DirectionContext",
+          "useDirection"
+        ],
+        "imports": [
+          {
+            "specifier": "svelte",
+            "kind": "runtime",
+            "resolved": "external:svelte",
+            "names": [
+              "createContext"
+            ]
+          },
+          {
+            "specifier": "./types.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/direction-provider/types.ts",
+            "names": [
+              "TextDirection"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/direction-provider/types.ts",
+        "sha256": "a56af048e882453755ad2948782af4f2f832903e031d4812b8da9fc5f4b82aae",
+        "reachability": [
+          "type"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/internals/direction-context/DirectionContext.tsx"
+        ],
+        "declarations": [
+          "TextDirection",
+          "DirectionProviderProps"
+        ],
+        "imports": [
+          {
+            "specifier": "svelte",
+            "kind": "type",
+            "resolved": "external:svelte",
+            "names": [
+              "Snippet"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/internals/composite/composite.ts",
+        "sha256": "938a8b4ede73c5b5655a800777fe4748a94786a05bf828129de299c04cf94673",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/internals/composite/composite.ts"
+        ],
+        "declarations": [
+          "isHTMLElement",
+          "ModifierKey",
+          "isInputElement",
+          "isNativeInput",
+          "scrollIntoViewIfNeeded",
+          "getOffset",
+          "getStyles"
+        ],
+        "imports": [
+          {
+            "specifier": "../../direction-provider/types.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/direction-provider/types.ts",
+            "names": [
+              "TextDirection"
+            ]
+          },
+          {
+            "specifier": "./utils/navigation.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/composite/utils/navigation.ts",
+            "names": [
+              "isIndexOutOfListBounds",
+              "isListIndexDisabled",
+              "findNonDisabledListIndex",
+              "getMaxListIndex",
+              "getMinListIndex"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/internals/composite/constants.ts",
+        "sha256": "bf9445674ea41f593d2948d874d80077cb90932a20f820bd0ec1d84a39ebb7ab",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/internals/composite/constants.ts"
+        ],
+        "declarations": [],
+        "imports": []
+      },
+      {
+        "local": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
+        "sha256": "d0faf967447c35339c6ad06b8cc6218cf2002613844a4bdb7b1453fd5262afc3",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/internals/composite/item/useCompositeItem.ts"
+        ],
+        "declarations": [
+          "useCompositeItem"
+        ],
+        "imports": [
+          {
+            "specifier": "../../../utils/useMergedRefs.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/useMergedRefs.ts",
+            "names": [
+              "createMergedRefs"
+            ]
+          },
+          {
+            "specifier": "../root/CompositeRootContext.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts",
+            "names": [
+              "useCompositeRootContext"
+            ]
+          },
+          {
+            "specifier": "../list/useCompositeListItem.svelte.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
+            "names": [
+              "useCompositeListItem"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts",
+        "sha256": "c443b96e2b57642eed663be3a670fc7342dc4358bac081b7257bcb076c54ab17",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/internals/composite/list/CompositeListContext.ts"
+        ],
+        "declarations": [
+          "CompositeMetadata",
+          "CompositeListRegistration",
+          "CompositeListContextValue",
+          "setCompositeListContext",
+          "useCompositeListContext"
+        ],
+        "imports": [
+          {
+            "specifier": "svelte",
+            "kind": "runtime",
+            "resolved": "external:svelte",
+            "names": [
+              "getContext",
+              "setContext"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
+        "sha256": "97758d379046d9f894997ae40ef7c6f59decf48fa0d985a2c1fb5f9f068ad016",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/internals/composite/list/CompositeList.tsx"
+        ],
+        "declarations": [
+          "CompositeListItem",
+          "Parameters",
+          "createCompositeList",
+          "observe",
+          "getCompositeListSnapshot",
+          "getCommonAncestor",
+          "hasMovedNode",
+          "sortByDocumentPosition"
+        ],
+        "imports": [
+          {
+            "specifier": "svelte",
+            "kind": "runtime",
+            "resolved": "external:svelte",
+            "names": [
+              "onDestroy",
+              "untrack"
+            ]
+          },
+          {
+            "specifier": "svelte/reactivity",
+            "kind": "runtime",
+            "resolved": "external:svelte/reactivity",
+            "names": [
+              "SvelteMap",
+              "SvelteSet"
+            ]
+          },
+          {
+            "specifier": "./CompositeListContext.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts",
+            "names": [
+              "setCompositeListContext"
+            ]
+          },
+          {
+            "specifier": "./CompositeListContext.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts",
+            "names": [
+              "CompositeListRegistration",
+              "CompositeMetadata"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
+        "sha256": "42f4066c8d830385f942f66b216e1b263728f1615dbd7b11cfd3a79db7242400",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/internals/composite/list/useCompositeListItem.ts"
+        ],
+        "declarations": [
+          "UseCompositeListItemParameters",
+          "useCompositeListItem"
+        ],
+        "imports": [
+          {
+            "specifier": "svelte",
+            "kind": "runtime",
+            "resolved": "external:svelte",
+            "names": [
+              "untrack"
+            ]
+          },
+          {
+            "specifier": "../../../utils/useIsoLayoutEffect.svelte.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+            "names": [
+              "useIsoLayoutEffect"
+            ]
+          },
+          {
+            "specifier": "./CompositeListContext.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts",
+            "names": [
+              "useCompositeListContext"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
+        "sha256": "5075468a96b01787b1789e48ee6dfecd178a7ec76ee7726c3a064b9cf663fe12",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/internals/composite/root/CompositeRoot.tsx"
+        ],
+        "declarations": [],
+        "imports": [
+          {
+            "specifier": "svelte",
+            "kind": "type",
+            "resolved": "external:svelte",
+            "names": [
+              "Snippet"
+            ]
+          },
+          {
+            "specifier": "../../types.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/internals/types.ts",
+            "names": [
+              "BaseUIComponentProps",
+              "HTMLProps"
+            ]
+          },
+          {
+            "specifier": "../../../utils/useMergedRefs.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/utils/useMergedRefs.ts",
+            "names": [
+              "MergedRef"
+            ]
+          },
+          {
+            "specifier": "../../getStateAttributesProps.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+            "names": [
+              "StateAttributesMapping"
+            ]
+          },
+          {
+            "specifier": "../../RenderElement.svelte",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
+            "names": [
+              "RenderElement"
+            ]
+          },
+          {
+            "specifier": "../../../direction-provider/context.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/direction-provider/context.ts",
+            "names": [
+              "useDirection"
+            ]
+          },
+          {
+            "specifier": "../list/createCompositeList.svelte.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
+            "names": [
+              "createCompositeList"
+            ]
+          },
+          {
+            "specifier": "../list/CompositeListContext.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts",
+            "names": [
+              "CompositeMetadata"
+            ]
+          },
+          {
+            "specifier": "./useCompositeRoot.svelte.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
+            "names": [
+              "useCompositeRoot"
+            ]
+          },
+          {
+            "specifier": "./useCompositeRoot.svelte.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
+            "names": [
+              "UseCompositeRootParameters"
+            ]
+          },
+          {
+            "specifier": "./CompositeRootContext.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts",
+            "names": [
+              "setCompositeRootContext"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts",
+        "sha256": "b08d6af5d6e71ba46076718b4426c7d2e0485a059e9204759406af1f395b6f2c",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/internals/composite/root/CompositeRootContext.ts"
+        ],
+        "declarations": [
+          "CompositeRootContext",
+          "setCompositeRootContext",
+          "useCompositeRootContext",
+          "useCompositeRootContext",
+          "useCompositeRootContext"
+        ],
+        "imports": [
+          {
+            "specifier": "svelte",
+            "kind": "runtime",
+            "resolved": "external:svelte",
+            "names": [
+              "getContext",
+              "setContext"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/internals/composite/root/gridNavigation.ts",
+        "sha256": "11aa223e4f95a23b0287fee822bdda9f4b37cb6d33f99d02c9f7da8964949e9f",
+        "reachability": [
+          "type"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/internals/composite/root/useCompositeRoot.ts"
+        ],
+        "declarations": [
+          "CompositeGridElementsRef",
+          "CompositeGridOnLoop",
+          "CompositeGridItemSize",
+          "CompositeGridConfig",
+          "CompositeGridNavigationState",
+          "CompositeGridNavigator",
+          "gridNavigation"
+        ],
+        "imports": [
+          {
+            "specifier": "../utils/navigation.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/composite/utils/navigation.ts",
+            "names": [
+              "createGridCellMap",
+              "getGridCellIndexOfCorner",
+              "getGridCellIndices",
+              "getGridNavigatedIndex",
+              "isListIndexDisabled"
+            ]
+          },
+          {
+            "specifier": "../composite.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/composite/composite.ts",
+            "names": [
+              "ARROW_DOWN",
+              "ARROW_LEFT",
+              "ARROW_RIGHT"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
+        "sha256": "8db12d19818afe6509addc02e10a55082126da9be7a40d03f9a8f62a6e6b5d78",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/internals/composite/root/useCompositeRoot.ts"
+        ],
+        "declarations": [
+          "UseCompositeRootParameters",
+          "useCompositeRoot",
+          "getProps",
+          "getFallbackIndex",
+          "isModifierKeySet"
+        ],
+        "imports": [
+          {
+            "specifier": "../../../utils/useStableCallback.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/useStableCallback.ts",
+            "names": [
+              "useStableCallback"
+            ]
+          },
+          {
+            "specifier": "../../../utils/isElementDisabled.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/isElementDisabled.ts",
+            "names": [
+              "isElementDisabled"
+            ]
+          },
+          {
+            "specifier": "../../../utils/useMergedRefs.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/useMergedRefs.ts",
+            "names": [
+              "createMergedRefs"
+            ]
+          },
+          {
+            "specifier": "../../../utils/useMergedRefs.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/utils/useMergedRefs.ts",
+            "names": [
+              "MergedRef"
+            ]
+          },
+          {
+            "specifier": "../../../direction-provider/types.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/direction-provider/types.ts",
+            "names": [
+              "TextDirection"
+            ]
+          },
+          {
+            "specifier": "../../../utils/shadowDom.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/shadowDom.ts",
+            "names": [
+              "getTarget"
+            ]
+          },
+          {
+            "specifier": "../composite.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/composite/composite.ts",
+            "names": [
+              "COMPOSITE_KEYS",
+              "ARROW_DOWN",
+              "ARROW_LEFT",
+              "ARROW_RIGHT",
+              "ARROW_UP",
+              "END",
+              "HOME",
+              "MODIFIER_KEYS",
+              "findNonDisabledListIndex",
+              "getMaxListIndex",
+              "getMinListIndex",
+              "isListIndexDisabled",
+              "isIndexOutOfListBounds",
+              "isNativeInput",
+              "scrollIntoViewIfNeeded"
+            ]
+          },
+          {
+            "specifier": "../composite.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/internals/composite/composite.ts",
+            "names": [
+              "ModifierKey"
+            ]
+          },
+          {
+            "specifier": "../constants.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/composite/constants.ts",
+            "names": [
+              "ACTIVE_COMPOSITE_ITEM"
+            ]
+          },
+          {
+            "specifier": "../list/CompositeListContext.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts",
+            "names": [
+              "CompositeMetadata"
+            ]
+          },
+          {
+            "specifier": "../../types.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/internals/types.ts",
+            "names": [
+              "HTMLProps"
+            ]
+          },
+          {
+            "specifier": "./gridNavigation.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/internals/composite/root/gridNavigation.ts",
+            "names": [
+              "CompositeGridNavigator"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/internals/composite/utils/navigation.ts",
+        "sha256": "93cd21a5e97c64c93a2272adf51a38b3c51142e860443247b260bf297e95203d",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/floating-ui-react/utils/composite.ts",
+          "packages/react/src/floating-ui-react/utils/constants.ts"
+        ],
+        "declarations": [
+          "getComputedStyle",
+          "Dimensions",
+          "stopEvent",
+          "DisabledIndices",
+          "isDifferentGridRow",
+          "isIndexOutOfListBounds",
+          "getMinListIndex",
+          "getMaxListIndex",
+          "findNonDisabledListIndex",
+          "getGridNavigatedIndex",
+          "createGridCellMap",
+          "getGridCellIndexOfCorner",
+          "getGridCellIndices",
+          "isListIndexDisabled",
+          "isHiddenByStyles",
+          "isElementVisible"
+        ],
+        "imports": [
+          {
+            "specifier": "esm-env",
+            "kind": "runtime",
+            "resolved": "external:esm-env",
+            "names": [
+              "DEV"
+            ]
+          },
+          {
+            "specifier": "../composite.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/composite/composite.ts",
+            "names": [
+              "ARROW_DOWN",
+              "ARROW_LEFT",
+              "ARROW_RIGHT",
+              "ARROW_UP"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+        "sha256": "1a9cb6cde2734d421a1bfb03ece9c744584b7e115a0eb3b9de974c22ab8ee684",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/internals/createBaseUIEventDetails.ts"
+        ],
+        "declarations": [
+          "ReasonToEventMap",
+          "ReasonToEvent",
+          "BaseUIChangeEventDetail",
+          "BaseUIChangeEventDetails",
+          "BaseUIGenericEventDetail",
+          "BaseUIGenericEventDetails",
+          "createChangeEventDetails",
+          "createGenericEventDetails"
+        ],
+        "imports": [
+          {
+            "specifier": "../utils/empty.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/empty.ts",
+            "names": [
+              "EMPTY_OBJECT"
+            ]
+          },
+          {
+            "specifier": "./reasons.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/reasons.ts",
+            "names": [
+              "REASONS"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+        "sha256": "e48367a890024a54cb200eabc5c2a0ba0a397256baacfaec8b0a05ced3b10344",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "source-business-port",
+        "provenance": "Used source-bodied port from the immutable Base UI pin; native framework/representation changes are specified in source-correspondence.md.",
+        "originalSources": [
+          "packages/react/src/internals/getStateAttributesProps.ts"
+        ],
+        "declarations": [
+          "StateAttributesMapping",
+          "getStateAttributesProps"
+        ],
+        "imports": []
+      },
+      {
+        "local": "packages/base/src/lib/internals/nativeProps.ts",
+        "sha256": "d6b3999ffe54e8c70e0dcdac61474b3bf9f53e60f3b1207dd4f976ef5212e4eb",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "native-representation-adapter",
+        "provenance": "Sveltery ClassValue/CSS-string/enumerable-attachment-symbol conversion around source string/object merge algorithms; no corresponding Base UI module.",
+        "originalSources": [],
+        "declarations": [
+          "NativeStyle",
+          "toNativeStyle",
+          "mergeNativeStyles",
+          "toNativeClass",
+          "copyAttachmentSymbols"
+        ],
+        "imports": [
+          {
+            "specifier": "svelte/elements",
+            "kind": "type",
+            "resolved": "external:svelte/elements",
+            "names": [
+              "ClassValue"
+            ]
+          },
+          {
+            "specifier": "./resolveClassValue.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/resolveClassValue.ts",
+            "names": [
+              "resolveClassValue"
+            ]
+          },
+          {
+            "specifier": "../utils/mergeObjects.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/mergeObjects.ts",
+            "names": [
+              "mergeObjects"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+        "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "native-framework-boundary",
+        "provenance": "Sveltery native attachment publication/identity adapter. A private marker identifies only canonical library ref attachments for ordered source fanout; authored Svelte attachments retain native dependency tracking and lifetime. Svelte owns attach/detach, and unchanged canonical useMergedRefs owns callback/object cleanup.",
+        "originalSources": [],
+        "declarations": [
+          "NativeRefAttachment",
+          "isNativeRefAttachment",
+          "createRefAttachment"
+        ],
+        "imports": [
+          {
+            "specifier": "svelte",
+            "kind": "runtime",
+            "resolved": "external:svelte",
+            "names": [
+              "untrack"
+            ]
+          },
+          {
+            "specifier": "../utils/useMergedRefs.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/utils/useMergedRefs.ts",
+            "names": [
+              "MergedRefCallback"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/internals/PrehydrationScript.svelte",
+        "sha256": "2b37072e8cb05af6fdb577941c8f79f5be974f34032b588b27b11c6f67eb35e2",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/internals/PrehydrationScript.tsx"
+        ],
+        "declarations": [
+          "escapeNonce"
+        ],
+        "imports": [
+          {
+            "specifier": "../utils/useIsHydrating.svelte.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/useIsHydrating.svelte.ts",
+            "names": [
+              "useIsHydrating"
+            ]
+          },
+          {
+            "specifier": "../csp-provider/context.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/csp-provider/context.ts",
+            "names": [
+              "getCSPContext"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/internals/reason-parts.ts",
+        "sha256": "0326d21ce4be2c41b5488c86e3687249faf3c51f5e10ae49c16e8efdc183abf5",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/internals/reason-parts.ts"
+        ],
+        "declarations": [],
+        "imports": []
+      },
+      {
+        "local": "packages/base/src/lib/internals/reasons.ts",
+        "sha256": "f1f52caeefb14448a7e7c9833e24413b923b7bbf40aa1818ca73dc93710b42e7",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/internals/reason-parts.ts",
+          "packages/react/src/internals/reasons.ts"
+        ],
+        "declarations": [
+          "BaseUIEventReasons",
+          "BaseUIEventReason"
+        ],
+        "imports": [
+          {
+            "specifier": "./reason-parts.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/reason-parts.ts",
+            "names": [
+              "REASONS"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/internals/RenderElement.svelte",
+        "sha256": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "native-framework-boundary",
+        "provenance": "Sveltery native markup boundary for source render descriptors: Svelte runes, snippets, dynamic/literal hosts and attachments replace React element evaluation/lifetime.",
+        "originalSources": [],
+        "declarations": [],
+        "imports": [
+          {
+            "specifier": "svelte",
+            "kind": "runtime",
+            "resolved": "external:svelte",
+            "names": [
+              "untrack"
+            ]
+          },
+          {
+            "specifier": "svelte",
+            "kind": "type",
+            "resolved": "external:svelte",
+            "names": [
+              "Snippet"
+            ]
+          },
+          {
+            "specifier": "svelte/attachments",
+            "kind": "runtime",
+            "resolved": "external:svelte/attachments",
+            "names": [
+              "createAttachmentKey"
+            ]
+          },
+          {
+            "specifier": "esm-env",
+            "kind": "runtime",
+            "resolved": "external:esm-env",
+            "names": [
+              "BROWSER"
+            ]
+          },
+          {
+            "specifier": "svelte/elements",
+            "kind": "type",
+            "resolved": "external:svelte/elements",
+            "names": [
+              "HTMLInputAttributes"
+            ]
+          },
+          {
+            "specifier": "./useRenderElement.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/useRenderElement.ts",
+            "names": [
+              "createRenderElement"
+            ]
+          },
+          {
+            "specifier": "./useRenderElement.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/internals/useRenderElement.ts",
+            "names": [
+              "UseRenderElementComponentProps",
+              "UseRenderElementParameters"
+            ]
+          },
+          {
+            "specifier": "./nativeRefAttachment.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+            "names": [
+              "createRefAttachment"
+            ]
+          },
+          {
+            "specifier": "./nativeProps.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/nativeProps.ts",
+            "names": [
+              "toNativeStyle"
+            ]
+          }
+        ],
+        "nativePrimitives": [
+          "$props",
+          "$derived.by",
+          "$bindable",
+          "{@render} snippets",
+          "literal <input>",
+          "<svelte:element>",
+          "enumerable attachment props"
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/internals/resolveClassValue.ts",
+        "sha256": "584323b17cb1733a798e9ff86e9ff783d6a26d08ecf005a8c2b3c69917c1e722",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "inherited-native-representation-adapter",
+        "provenance": "Original Sveltery helper introduced in commit 1248b805cdb343f5153c36c003a3d753f11a97f9 under the repository MIT license. tokens/resolveClassValue materialize Svelte ClassValue before the source string-only class concatenation; no original Base UI file or upstream assertion credit.",
+        "originalSources": [],
+        "declarations": [
+          "tokens",
+          "resolveClassValue"
+        ],
+        "imports": [
+          {
+            "specifier": "svelte/elements",
+            "kind": "type",
+            "resolved": "external:svelte/elements",
+            "names": [
+              "ClassValue"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/internals/stateAttributesMapping.ts",
+        "sha256": "d04c73fe454de256e1641245b5db6a3d70824693f0da33272d0863f033b5230d",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/internals/stateAttributesMapping.ts"
+        ],
+        "declarations": [],
+        "imports": [
+          {
+            "specifier": "./useTransitionStatus.svelte.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+            "names": [
+              "TransitionStatus"
+            ]
+          },
+          {
+            "specifier": "./getStateAttributesProps.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+            "names": [
+              "StateAttributesMapping"
+            ]
+          },
+          {
+            "specifier": "./TransitionStatusDataAttributes.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/TransitionStatusDataAttributes.ts",
+            "names": [
+              "TransitionStatusDataAttributes"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/internals/TransitionStatusDataAttributes.ts",
+        "sha256": "d3e4a31041bcc80ba21b330d3fedadfadaeae3f498dc09e078e70470cfb98dfe",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/internals/TransitionStatusDataAttributes.ts"
+        ],
+        "declarations": [],
+        "imports": []
+      },
+      {
+        "local": "packages/base/src/lib/internals/types.ts",
+        "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
+        "reachability": [
+          "type"
+        ],
+        "category": "native-type-boundary",
+        "provenance": "Native Snippet/ClassValue/Event/symbol-keyed prop representations for the pinned Base UI rendering type scope; PR41 restores the source class/style/render explicit-undefined contracts. Canonical runtime bodies remain unchanged. PR52 retains unknown string values and reuses the actual Svelte HTMLAttributes attachment symbol slot; the host generic is confined to native callbacks, with no runtime change.",
+        "originalSources": [
+          "packages/react/src/internals/types.ts",
+          "packages/react/src/types/index.ts"
+        ],
+        "declarations": [
+          "HTMLProps",
+          "ComponentRenderFn",
+          "BaseUIEvent",
+          "WithPreventBaseUIHandler",
+          "WithBaseUIEvent",
+          "BaseUIComponentProps"
+        ],
+        "imports": [
+          {
+            "specifier": "svelte",
+            "kind": "type",
+            "resolved": "external:svelte",
+            "names": [
+              "Snippet"
+            ]
+          },
+          {
+            "specifier": "svelte/elements",
+            "kind": "type",
+            "resolved": "external:svelte/elements",
+            "names": [
+              "ClassValue",
+              "HTMLAttributes"
+            ]
+          },
+          {
+            "specifier": "../merge-props/index.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/merge-props/index.ts",
+            "names": [
+              "PreventableEvent"
+            ]
+          },
+          {
+            "specifier": "./nativeProps.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/internals/nativeProps.ts",
+            "names": [
+              "NativeStyle"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+        "sha256": "581abfd20827eed41d9478dc30dc5a7b1b944e32d8428ac238d86625545536f1",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/internals/use-button/useButton.ts"
+        ],
+        "declarations": [
+          "UseButtonParameters",
+          "useButton",
+          "parameters",
+          "getButtonProps",
+          "isButtonElement",
+          "isValidLinkElement"
+        ],
+        "imports": [
+          {
+            "specifier": "esm-env",
+            "kind": "runtime",
+            "resolved": "external:esm-env",
+            "names": [
+              "DEV"
+            ]
+          },
+          {
+            "specifier": "../../utils/useStableCallback.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/useStableCallback.ts",
+            "names": [
+              "useStableCallback"
+            ]
+          },
+          {
+            "specifier": "../../utils/error.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/error.ts",
+            "names": [
+              "error"
+            ]
+          },
+          {
+            "specifier": "../../utils/useIsoLayoutEffect.svelte.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+            "names": [
+              "useIsoLayoutEffect"
+            ]
+          },
+          {
+            "specifier": "../../merge-props/index.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/merge-props/index.ts",
+            "names": [
+              "makeEventPreventable",
+              "mergeProps"
+            ]
+          },
+          {
+            "specifier": "../composite/root/CompositeRootContext.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts",
+            "names": [
+              "useCompositeRootContext"
+            ]
+          },
+          {
+            "specifier": "../types.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/internals/types.ts",
+            "names": [
+              "BaseUIEvent",
+              "HTMLProps"
+            ]
+          },
+          {
+            "specifier": "../../utils/useFocusableWhenDisabled.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
+            "names": [
+              "useFocusableWhenDisabled"
+            ]
+          },
+          {
+            "specifier": "../../utils/dispatchClickWithModifiers.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts",
+            "names": [
+              "dispatchClickWithModifiers"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/internals/useAnimationsFinished.ts",
+        "sha256": "e615700a3c4e81ca22060837af8a8c859430ebd8476d6e0a6daffe7986dc3bc4",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/internals/useAnimationsFinished.ts"
+        ],
+        "declarations": [
+          "useAnimationsFinished",
+          "exec"
+        ],
+        "imports": [
+          {
+            "specifier": "../utils/useAnimationFrame.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/useAnimationFrame.ts",
+            "names": [
+              "useAnimationFrame"
+            ]
+          },
+          {
+            "specifier": "../utils/useStableCallback.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/useStableCallback.ts",
+            "names": [
+              "useStableCallback"
+            ]
+          },
+          {
+            "specifier": "../utils/resolveRef.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/resolveRef.ts",
+            "names": [
+              "resolveRef"
+            ]
+          },
+          {
+            "specifier": "./TransitionStatusDataAttributes.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/TransitionStatusDataAttributes.ts",
+            "names": [
+              "TransitionStatusDataAttributes"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+        "sha256": "9c8d8b8fcd70c0a9ec69a9cc0f2a6864ab19da26d4e3bd2bf9f7e6eb49831d1f",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/internals/useOpenChangeComplete.tsx"
+        ],
+        "declarations": [
+          "UseOpenChangeCompleteParameters",
+          "useOpenChangeComplete"
+        ],
+        "imports": [
+          {
+            "specifier": "../utils/useStableCallback.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/useStableCallback.ts",
+            "names": [
+              "useStableCallback"
+            ]
+          },
+          {
+            "specifier": "../utils/useIsoLayoutEffect.svelte.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+            "names": [
+              "useIsoLayoutEffect"
+            ]
+          },
+          {
+            "specifier": "./useAnimationsFinished.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/useAnimationsFinished.ts",
+            "names": [
+              "useAnimationsFinished"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/internals/useRenderElement.ts",
+        "sha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "source-business-port",
+        "provenance": "Used source-bodied port from the immutable Base UI pin; native framework/representation changes are specified in source-correspondence.md.",
+        "originalSources": [
+          "packages/react/src/internals/useRenderElement.tsx"
+        ],
+        "declarations": [
+          "createRenderElement",
+          "useRenderElement",
+          "useRenderElementProps",
+          "resolveRenderFunctionProps",
+          "evaluateRenderProp",
+          "renderTag",
+          "NativeRenderDescriptor",
+          "UseRenderElementParameters",
+          "UseRenderElementComponentProps"
+        ],
+        "imports": [
+          {
+            "specifier": "../utils/useMergedRefs.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/useMergedRefs.ts",
+            "names": [
+              "createMergedRefs"
+            ]
+          },
+          {
+            "specifier": "../utils/useMergedRefs.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/utils/useMergedRefs.ts",
+            "names": [
+              "MergedRef",
+              "MergedRefCallback"
+            ]
+          },
+          {
+            "specifier": "../utils/mergeObjects.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/mergeObjects.ts",
+            "names": [
+              "mergeObjects"
+            ]
+          },
+          {
+            "specifier": "../utils/empty.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/empty.ts",
+            "names": [
+              "EMPTY_OBJECT"
+            ]
+          },
+          {
+            "specifier": "./getStateAttributesProps.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+            "names": [
+              "getStateAttributesProps"
+            ]
+          },
+          {
+            "specifier": "./getStateAttributesProps.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+            "names": [
+              "StateAttributesMapping"
+            ]
+          },
+          {
+            "specifier": "../utils/resolveClassName.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/resolveClassName.ts",
+            "names": [
+              "resolveClassName"
+            ]
+          },
+          {
+            "specifier": "../utils/resolveStyle.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/resolveStyle.ts",
+            "names": [
+              "resolveStyle"
+            ]
+          },
+          {
+            "specifier": "../merge-props/index.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/merge-props/index.ts",
+            "names": [
+              "mergeProps",
+              "mergePropsN",
+              "mergeClassNames"
+            ]
+          },
+          {
+            "specifier": "./nativeProps.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/nativeProps.ts",
+            "names": [
+              "mergeNativeStyles",
+              "toNativeClass"
+            ]
+          },
+          {
+            "specifier": "./nativeRefAttachment.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+            "names": [
+              "isNativeRefAttachment"
+            ]
+          },
+          {
+            "specifier": "./types.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/internals/types.ts",
+            "names": [
+              "BaseUIComponentProps",
+              "ComponentRenderFn",
+              "HTMLProps"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+        "sha256": "1236abbbe5a5e1dec17c77d51d704f3f03e48ecdd34f85a995e1dde00c60c54b",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/internals/useTransitionStatus.ts"
+        ],
+        "declarations": [
+          "TransitionStatus",
+          "useTransitionStatus"
+        ],
+        "imports": [
+          {
+            "specifier": "svelte",
+            "kind": "runtime",
+            "resolved": "external:svelte",
+            "names": [
+              "untrack"
+            ]
+          },
+          {
+            "specifier": "../utils/useIsoLayoutEffect.svelte.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+            "names": [
+              "useIsoLayoutEffect"
+            ]
+          },
+          {
+            "specifier": "../utils/useAnimationFrame.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/useAnimationFrame.ts",
+            "names": [
+              "AnimationFrame"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/merge-props/index.ts",
+        "sha256": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "source-business-port",
+        "provenance": "Used source-bodied port from the immutable Base UI pin; native framework/representation changes are specified in source-correspondence.md.",
+        "originalSources": [
+          "packages/react/src/merge-props/index.ts"
+        ],
+        "declarations": [],
+        "imports": [
+          {
+            "specifier": "./mergeProps.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/merge-props/mergeProps.ts",
+            "names": [
+              "*"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/merge-props/mergeProps.ts",
+        "sha256": "7a097b833ae8854c5a26e34009adfb4e0297dd50f56ad5f0c1ac8afa8187f98b",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "source-business-port",
+        "provenance": "Used source-bodied port from the immutable Base UI pin; native framework/representation changes are specified in source-correspondence.md.",
+        "originalSources": [
+          "packages/react/src/merge-props/mergeProps.ts"
+        ],
+        "declarations": [
+          "PreventableEvent",
+          "Props",
+          "InputProps",
+          "Handler",
+          "mergeProps",
+          "mergeProps",
+          "mergeProps",
+          "mergeProps",
+          "mergeProps",
+          "mergeProps",
+          "mergeProps",
+          "mergePropsN",
+          "createInitialMergedProps",
+          "mergeInto",
+          "copyInitialProps",
+          "mutablyMergeInto",
+          "isEventHandler",
+          "isPropsGetter",
+          "resolvePropsGetter",
+          "mergeEventHandlers",
+          "wrapEventHandler",
+          "makeEventPreventable",
+          "mergeClassNames",
+          "isSyntheticEvent"
+        ],
+        "imports": [
+          {
+            "specifier": "../internals/nativeProps.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/nativeProps.ts",
+            "names": [
+              "copyAttachmentSymbols",
+              "mergeNativeStyles",
+              "toNativeClass"
+            ]
+          },
+          {
+            "specifier": "../utils/mergeObjects.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/mergeObjects.ts",
+            "names": [
+              "mergeObjects"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/tabs/index.parts.ts",
+        "sha256": "258c7e057b525c7f3fe4e3e8d57b8f14b20ca6598c8da76644fb8c9b7cc0ee1c",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "tabs-source-business-or-public-contract",
+        "provenance": "Actual Source Tabs business port or native Svelte public/context representation.",
+        "originalSources": [
+          "packages/react/src/tabs/index.parts.ts"
+        ],
+        "declarations": [],
+        "imports": [
+          {
+            "specifier": "./index.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/tabs/index.ts",
+            "names": [
+              "Root",
+              "Tab",
+              "Indicator",
+              "Panel",
+              "List"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/tabs/index.ts",
+        "sha256": "7401e1ce2b38b8542fca64967132dc52d0afeea20f42a898b7b5b68c7fc1ce8d",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "tabs-source-business-or-public-contract",
+        "provenance": "Actual Source Tabs business port or native Svelte public/context representation.",
+        "originalSources": [
+          "packages/react/src/tabs/index.ts"
+        ],
+        "declarations": [
+          "TabsRoot",
+          "State",
+          "Props",
+          "Orientation",
+          "ChangeEventReason",
+          "ChangeEventDetails",
+          "TabsList",
+          "State",
+          "Props",
+          "TabsTab",
+          "Value",
+          "ActivationDirection",
+          "Position",
+          "Size",
+          "Metadata",
+          "State",
+          "Props",
+          "TabsPanel",
+          "Metadata",
+          "State",
+          "Props",
+          "TabsIndicator",
+          "State",
+          "Props"
+        ],
+        "imports": [
+          {
+            "specifier": "./index.parts.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/tabs/index.parts.ts",
+            "names": [
+              "*"
+            ]
+          },
+          {
+            "specifier": "./root/TabsRoot.svelte",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/tabs/root/TabsRoot.svelte",
+            "names": [
+              "TabsRootComponent"
+            ]
+          },
+          {
+            "specifier": "./tab/TabsTab.svelte",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/tabs/tab/TabsTab.svelte",
+            "names": [
+              "TabsTabComponent"
+            ]
+          },
+          {
+            "specifier": "./indicator/TabsIndicator.svelte",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/tabs/indicator/TabsIndicator.svelte",
+            "names": [
+              "TabsIndicatorComponent"
+            ]
+          },
+          {
+            "specifier": "./panel/TabsPanel.svelte",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/tabs/panel/TabsPanel.svelte",
+            "names": [
+              "TabsPanelComponent"
+            ]
+          },
+          {
+            "specifier": "./list/TabsList.svelte",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/tabs/list/TabsList.svelte",
+            "names": [
+              "TabsListComponent"
+            ]
+          },
+          {
+            "specifier": "./types.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/tabs/types.ts",
+            "names": [
+              "*"
+            ]
+          },
+          {
+            "specifier": "./types.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/tabs/types.ts",
+            "names": [
+              "TabsRootProps",
+              "TabsRootState",
+              "TabsRootOrientation",
+              "TabsRootChangeEventReason",
+              "TabsRootChangeEventDetails",
+              "TabsTabValue",
+              "TabsTabActivationDirection",
+              "TabsTabPosition",
+              "TabsTabSize",
+              "TabsTabMetadata",
+              "TabsTabState",
+              "TabsTabProps",
+              "TabsListState",
+              "TabsListProps",
+              "TabsPanelMetadata",
+              "TabsPanelState",
+              "TabsPanelProps",
+              "TabsIndicatorState",
+              "TabsIndicatorProps"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/tabs/indicator/prehydrationScript.min.ts",
+        "sha256": "b7c862ba34e3e0bfe325021aef689978898019ce6e27c79b8a743a8bcb242ba8",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "tabs-source-business-or-public-contract",
+        "provenance": "Actual Source Tabs business port or native Svelte public/context representation.",
+        "originalSources": [
+          "packages/react/src/tabs/indicator/prehydrationScript.min.ts"
+        ],
+        "declarations": [],
+        "imports": []
+      },
+      {
+        "local": "packages/base/src/lib/tabs/indicator/TabsIndicator.svelte",
+        "sha256": "82e0d95d6786d6113e785e4cb3c010bab4313ae3029f289d924062cf45b7e5b4",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "tabs-source-business-or-public-contract",
+        "provenance": "Actual Source Tabs business port or native Svelte public/context representation.",
+        "originalSources": [
+          "packages/react/src/tabs/indicator/TabsIndicator.tsx"
+        ],
+        "declarations": [
+          "rerender",
+          "getLayoutOffset",
+          "getCumulativeOffset",
+          "getActiveTabTranslation",
+          "resolveTranslateLength"
+        ],
+        "imports": [
+          {
+            "specifier": "svelte",
+            "kind": "runtime",
+            "resolved": "external:svelte",
+            "names": [
+              "untrack"
+            ]
+          },
+          {
+            "specifier": "@floating-ui/utils/dom",
+            "kind": "runtime",
+            "resolved": "external:@floating-ui/utils/dom",
+            "names": [
+              "getParentNode",
+              "isHTMLElement",
+              "isLastTraversableNode"
+            ]
+          },
+          {
+            "specifier": "../../utils/owner.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/owner.ts",
+            "names": [
+              "ownerWindow"
+            ]
+          },
+          {
+            "specifier": "../../utils/getCssDimensions.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/getCssDimensions.ts",
+            "names": [
+              "getCssDimensions"
+            ]
+          },
+          {
+            "specifier": "../../utils/getElementTransform.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/getElementTransform.ts",
+            "names": [
+              "getElementTransform"
+            ]
+          },
+          {
+            "specifier": "../../internals/RenderElement.svelte",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
+            "names": [
+              "RenderElement"
+            ]
+          },
+          {
+            "specifier": "../../internals/PrehydrationScript.svelte",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/PrehydrationScript.svelte",
+            "names": [
+              "PrehydrationScript"
+            ]
+          },
+          {
+            "specifier": "./prehydrationScript.min.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/tabs/indicator/prehydrationScript.min.ts",
+            "names": [
+              "prehydrationScript"
+            ]
+          },
+          {
+            "specifier": "../root/TabsRootContext.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/tabs/root/TabsRootContext.ts",
+            "names": [
+              "useTabsRootContext"
+            ]
+          },
+          {
+            "specifier": "../list/TabsListContext.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/tabs/list/TabsListContext.ts",
+            "names": [
+              "useTabsListContext"
+            ]
+          },
+          {
+            "specifier": "../root/stateAttributesMapping.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/tabs/root/stateAttributesMapping.ts",
+            "names": [
+              "tabsStateAttributesMapping"
+            ]
+          },
+          {
+            "specifier": "./TabsIndicatorCssVars.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/tabs/indicator/TabsIndicatorCssVars.ts",
+            "names": [
+              "TabsIndicatorCssVars"
+            ]
+          },
+          {
+            "specifier": "../types.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/tabs/types.ts",
+            "names": [
+              "TabsIndicatorProps",
+              "TabsIndicatorState"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/tabs/indicator/TabsIndicatorCssVars.ts",
+        "sha256": "0683a9902b2c84796222a27a1912e11df29aa6bb6039663ab0286aba718f1e87",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "tabs-source-business-or-public-contract",
+        "provenance": "Actual Source Tabs business port or native Svelte public/context representation.",
+        "originalSources": [
+          "packages/react/src/tabs/indicator/TabsIndicatorCssVars.ts"
+        ],
+        "declarations": [],
+        "imports": []
+      },
+      {
+        "local": "packages/base/src/lib/tabs/list/TabsList.svelte",
+        "sha256": "a551fd37b5dad298de9496304ba552e009e7a5ae9b69c77c7514ce4a67775395",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "tabs-source-business-or-public-contract",
+        "provenance": "Actual Source Tabs business port or native Svelte public/context representation.",
+        "originalSources": [
+          "packages/react/src/tabs/list/TabsList.tsx"
+        ],
+        "declarations": [
+          "registerIndicatorUpdateListener",
+          "registerTabResizeObserverElement",
+          "setTabsListElement"
+        ],
+        "imports": [
+          {
+            "specifier": "svelte",
+            "kind": "runtime",
+            "resolved": "external:svelte",
+            "names": [
+              "untrack"
+            ]
+          },
+          {
+            "specifier": "../../internals/composite/root/CompositeRoot.svelte",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
+            "names": [
+              "CompositeRoot"
+            ]
+          },
+          {
+            "specifier": "../../utils/empty.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/empty.ts",
+            "names": [
+              "EMPTY_ARRAY"
+            ]
+          },
+          {
+            "specifier": "../root/TabsRootContext.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/tabs/root/TabsRootContext.ts",
+            "names": [
+              "useTabsRootContext"
+            ]
+          },
+          {
+            "specifier": "../root/stateAttributesMapping.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/tabs/root/stateAttributesMapping.ts",
+            "names": [
+              "tabsStateAttributesMapping"
+            ]
+          },
+          {
+            "specifier": "./TabsListContext.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/tabs/list/TabsListContext.ts",
+            "names": [
+              "setTabsListContext"
+            ]
+          },
+          {
+            "specifier": "../types.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/tabs/types.ts",
+            "names": [
+              "TabsListProps",
+              "TabsListState"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/tabs/list/TabsListContext.ts",
+        "sha256": "f3d8e2670881c67538cad343be2a7c6245bbe618c9f1d1d499735e935e901bf4",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "tabs-source-business-or-public-contract",
+        "provenance": "Actual Source Tabs business port or native Svelte public/context representation.",
+        "originalSources": [
+          "packages/react/src/tabs/list/TabsListContext.ts"
+        ],
+        "declarations": [
+          "TabsListContext",
+          "setTabsListContext",
+          "useTabsListContext"
+        ],
+        "imports": [
+          {
+            "specifier": "svelte",
+            "kind": "runtime",
+            "resolved": "external:svelte",
+            "names": [
+              "getContext",
+              "setContext"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/tabs/panel/TabsPanel.svelte",
+        "sha256": "6d5638f4d87554051cc47167c16faeefcb7b0a106d3b194e52cbb2218f1dfaaa",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "tabs-source-business-or-public-contract",
+        "provenance": "Actual Source Tabs business port or native Svelte public/context representation.",
+        "originalSources": [
+          "packages/react/src/tabs/panel/TabsPanel.tsx"
+        ],
+        "declarations": [],
+        "imports": [
+          {
+            "specifier": "../../internals/RenderElement.svelte",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
+            "names": [
+              "RenderElement"
+            ]
+          },
+          {
+            "specifier": "../../internals/composite/list/useCompositeListItem.svelte.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
+            "names": [
+              "useCompositeListItem"
+            ]
+          },
+          {
+            "specifier": "../../internals/useTransitionStatus.svelte.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+            "names": [
+              "useTransitionStatus"
+            ]
+          },
+          {
+            "specifier": "../../internals/useOpenChangeComplete.svelte.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+            "names": [
+              "useOpenChangeComplete"
+            ]
+          },
+          {
+            "specifier": "../../utils/useIsoLayoutEffect.svelte.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+            "names": [
+              "useIsoLayoutEffect"
+            ]
+          },
+          {
+            "specifier": "../../internals/stateAttributesMapping.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/stateAttributesMapping.ts",
+            "names": [
+              "transitionStatusMapping"
+            ]
+          },
+          {
+            "specifier": "../root/TabsRootContext.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/tabs/root/TabsRootContext.ts",
+            "names": [
+              "useTabsRootContext"
+            ]
+          },
+          {
+            "specifier": "../root/stateAttributesMapping.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/tabs/root/stateAttributesMapping.ts",
+            "names": [
+              "tabsStateAttributesMapping"
+            ]
+          },
+          {
+            "specifier": "./TabsPanelDataAttributes.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/tabs/panel/TabsPanelDataAttributes.ts",
+            "names": [
+              "TabsPanelDataAttributes"
+            ]
+          },
+          {
+            "specifier": "../types.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/tabs/types.ts",
+            "names": [
+              "TabsPanelProps",
+              "TabsPanelState"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/tabs/panel/TabsPanelDataAttributes.ts",
+        "sha256": "90fad6942e4ba18aebe4f6b97d34b2f71bcc5b5088e7cd3baeee2dfea3f2727d",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "tabs-source-business-or-public-contract",
+        "provenance": "Actual Source Tabs business port or native Svelte public/context representation.",
+        "originalSources": [
+          "packages/react/src/tabs/panel/TabsPanelDataAttributes.ts"
+        ],
+        "declarations": [],
+        "imports": [
+          {
+            "specifier": "../../internals/stateAttributesMapping.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/stateAttributesMapping.ts",
+            "names": [
+              "TransitionStatusDataAttributes"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/tabs/root/stateAttributesMapping.ts",
+        "sha256": "2cc891d15902e623fb1a668e11f3a63cfc736a1be3ff30e65b31d5f36480e96b",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "tabs-source-business-or-public-contract",
+        "provenance": "Actual Source Tabs business port or native Svelte public/context representation.",
+        "originalSources": [
+          "packages/react/src/tabs/root/stateAttributesMapping.ts"
+        ],
+        "declarations": [],
+        "imports": [
+          {
+            "specifier": "../../internals/getStateAttributesProps.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+            "names": [
+              "StateAttributesMapping"
+            ]
+          },
+          {
+            "specifier": "../types.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/tabs/types.ts",
+            "names": [
+              "TabsRootState"
+            ]
+          },
+          {
+            "specifier": "./TabsRootDataAttributes.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/tabs/root/TabsRootDataAttributes.ts",
+            "names": [
+              "TabsRootDataAttributes"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/tabs/root/TabsRoot.svelte",
+        "sha256": "bb02d3fd753c03904d8886cb7840a77d8e08a9e550de7267336fcc33da3d1c79",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "tabs-source-business-or-public-contract",
+        "provenance": "Actual Source Tabs business port or native Svelte public/context representation.",
+        "originalSources": [
+          "packages/react/src/tabs/root/TabsRoot.tsx"
+        ],
+        "declarations": [
+          "onValueChange",
+          "notifyAutomaticValueChange",
+          "registerMountedTabPanel",
+          "getTabIdByPanelValue",
+          "commitAutomaticValueChange",
+          "findTabElement",
+          "computeActivationDirection"
+        ],
+        "imports": [
+          {
+            "specifier": "svelte",
+            "kind": "runtime",
+            "resolved": "external:svelte",
+            "names": [
+              "untrack"
+            ]
+          },
+          {
+            "specifier": "svelte/reactivity",
+            "kind": "runtime",
+            "resolved": "external:svelte/reactivity",
+            "names": [
+              "SvelteMap"
+            ]
+          },
+          {
+            "specifier": "../../utils/useControlled.svelte.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/useControlled.svelte.ts",
+            "names": [
+              "useControlled"
+            ]
+          },
+          {
+            "specifier": "../../internals/RenderElement.svelte",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
+            "names": [
+              "RenderElement"
+            ]
+          },
+          {
+            "specifier": "../../internals/composite/list/createCompositeList.svelte.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
+            "names": [
+              "createCompositeList"
+            ]
+          },
+          {
+            "specifier": "../../internals/composite/list/CompositeListContext.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts",
+            "names": [
+              "CompositeMetadata"
+            ]
+          },
+          {
+            "specifier": "../../internals/createBaseUIEventDetails.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+            "names": [
+              "createChangeEventDetails"
+            ]
+          },
+          {
+            "specifier": "../../internals/reasons.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/reasons.ts",
+            "names": [
+              "REASONS"
+            ]
+          },
+          {
+            "specifier": "./TabsRootContext.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/tabs/root/TabsRootContext.ts",
+            "names": [
+              "setTabsRootContext"
+            ]
+          },
+          {
+            "specifier": "./stateAttributesMapping.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/tabs/root/stateAttributesMapping.ts",
+            "names": [
+              "tabsStateAttributesMapping"
+            ]
+          },
+          {
+            "specifier": "../types.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/tabs/types.ts",
+            "names": [
+              "TabsRootProps",
+              "TabsRootState",
+              "TabsTabMetadata",
+              "TabsTabValue",
+              "TabsTabActivationDirection",
+              "TabsRootChangeEventDetails",
+              "TabsRootChangeEventReason"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/tabs/root/TabsRootContext.ts",
+        "sha256": "c69eff5c6491415cb8d7ed7453f0a7fd9342ec6a97d697c31e5b835d55c33be4",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "tabs-source-business-or-public-contract",
+        "provenance": "Actual Source Tabs business port or native Svelte public/context representation.",
+        "originalSources": [
+          "packages/react/src/tabs/root/TabsRootContext.ts"
+        ],
+        "declarations": [
+          "TabsRootContext",
+          "setTabsRootContext",
+          "useTabsRootContext"
+        ],
+        "imports": [
+          {
+            "specifier": "svelte",
+            "kind": "runtime",
+            "resolved": "external:svelte",
+            "names": [
+              "getContext",
+              "setContext"
+            ]
+          },
+          {
+            "specifier": "../../internals/composite/list/CompositeListContext.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts",
+            "names": [
+              "CompositeMetadata"
+            ]
+          },
+          {
+            "specifier": "../types.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/tabs/types.ts",
+            "names": [
+              "TabsRootChangeEventDetails",
+              "TabsRootOrientation",
+              "TabsTabValue",
+              "TabsTabActivationDirection"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/tabs/root/TabsRootDataAttributes.ts",
+        "sha256": "fd9737a9bdb3b128c706286a21efc6f651abcf79621779998c870fb2df6d4d36",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "tabs-source-business-or-public-contract",
+        "provenance": "Actual Source Tabs business port or native Svelte public/context representation.",
+        "originalSources": [
+          "packages/react/src/tabs/root/TabsRootDataAttributes.ts"
+        ],
+        "declarations": [],
+        "imports": []
+      },
+      {
+        "local": "packages/base/src/lib/tabs/tab/TabsTab.svelte",
+        "sha256": "ad178fc8448aaaa73158e68acd339c3bb7ea070ae7af2ca5983769254b3d01e5",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "tabs-source-business-or-public-contract",
+        "provenance": "Actual Source Tabs business port or native Svelte public/context representation.",
+        "originalSources": [
+          "packages/react/src/tabs/tab/TabsTab.tsx"
+        ],
+        "declarations": [
+          "observeTabElement",
+          "activate",
+          "onClick",
+          "onFocus",
+          "onPointerDown",
+          "handlePointerEnd"
+        ],
+        "imports": [
+          {
+            "specifier": "../../utils/owner.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/owner.ts",
+            "names": [
+              "ownerDocument"
+            ]
+          },
+          {
+            "specifier": "../../utils/shadowDom.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/shadowDom.ts",
+            "names": [
+              "activeElement",
+              "contains"
+            ]
+          },
+          {
+            "specifier": "../../utils/useIsoLayoutEffect.svelte.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+            "names": [
+              "useIsoLayoutEffect"
+            ]
+          },
+          {
+            "specifier": "../../internals/use-button/useButton.svelte.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+            "names": [
+              "useButton"
+            ]
+          },
+          {
+            "specifier": "../../internals/composite/item/useCompositeItem.svelte.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
+            "names": [
+              "useCompositeItem"
+            ]
+          },
+          {
+            "specifier": "../../internals/composite/root/CompositeRootContext.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts",
+            "names": [
+              "useCompositeRootContext"
+            ]
+          },
+          {
+            "specifier": "../../internals/composite/constants.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/composite/constants.ts",
+            "names": [
+              "ACTIVE_COMPOSITE_ITEM"
+            ]
+          },
+          {
+            "specifier": "../../internals/createBaseUIEventDetails.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+            "names": [
+              "createChangeEventDetails"
+            ]
+          },
+          {
+            "specifier": "../../internals/reasons.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/reasons.ts",
+            "names": [
+              "REASONS"
+            ]
+          },
+          {
+            "specifier": "../../internals/RenderElement.svelte",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
+            "names": [
+              "RenderElement"
+            ]
+          },
+          {
+            "specifier": "../root/TabsRootContext.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/tabs/root/TabsRootContext.ts",
+            "names": [
+              "useTabsRootContext"
+            ]
+          },
+          {
+            "specifier": "../list/TabsListContext.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/tabs/list/TabsListContext.ts",
+            "names": [
+              "useTabsListContext"
+            ]
+          },
+          {
+            "specifier": "../root/stateAttributesMapping.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/tabs/root/stateAttributesMapping.ts",
+            "names": [
+              "tabsStateAttributesMapping"
+            ]
+          },
+          {
+            "specifier": "../types.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/tabs/types.ts",
+            "names": [
+              "TabsTabProps",
+              "TabsTabState"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/tabs/types.ts",
+        "sha256": "51994ff83fde78059f2398904d9f36c4999cf27e2ad18b7d30c60ae48e7b9a7a",
+        "reachability": [
+          "type"
+        ],
+        "category": "tabs-source-business-or-public-contract",
+        "provenance": "Actual Source Tabs business port or native Svelte public/context representation.",
+        "originalSources": [
+          "packages/react/src/tabs/root/TabsRoot.tsx",
+          "packages/react/src/tabs/list/TabsList.tsx",
+          "packages/react/src/tabs/tab/TabsTab.tsx",
+          "packages/react/src/tabs/panel/TabsPanel.tsx",
+          "packages/react/src/tabs/indicator/TabsIndicator.tsx"
+        ],
+        "declarations": [
+          "TabsTabValue",
+          "TabsTabActivationDirection",
+          "TabsRootOrientation",
+          "TabsTabPosition",
+          "TabsTabSize",
+          "TabsTabMetadata",
+          "TabsPanelMetadata",
+          "TabsRootState",
+          "TabsListState",
+          "TabsTabState",
+          "TabsPanelState",
+          "TabsIndicatorState",
+          "ElementProps",
+          "TabsRootChangeEventReason",
+          "TabsRootChangeEventDetails",
+          "TabsRootProps",
+          "TabsListProps",
+          "TabsTabProps",
+          "TabsPanelProps",
+          "TabsIndicatorProps"
+        ],
+        "imports": [
+          {
+            "specifier": "svelte",
+            "kind": "type",
+            "resolved": "external:svelte",
+            "names": [
+              "Snippet"
+            ]
+          },
+          {
+            "specifier": "svelte/elements",
+            "kind": "type",
+            "resolved": "external:svelte/elements",
+            "names": [
+              "HTMLAttributes",
+              "HTMLButtonAttributes"
+            ]
+          },
+          {
+            "specifier": "../internals/types.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/internals/types.ts",
+            "names": [
+              "BaseUIComponentProps",
+              "WithBaseUIEvent"
+            ]
+          },
+          {
+            "specifier": "../internals/createBaseUIEventDetails.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+            "names": [
+              "BaseUIChangeEventDetails"
+            ]
+          },
+          {
+            "specifier": "../internals/useTransitionStatus.svelte.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+            "names": [
+              "TransitionStatus"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/utils/createLogOnce.ts",
+        "sha256": "a3c52188a495927ef9b49765ca1e70bc384b37b68a5c896ca86df15852a279b1",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/utils/src/createLogOnce.ts"
+        ],
+        "declarations": [
+          "createLogOnce",
+          "reset"
+        ],
+        "imports": [
+          {
+            "specifier": "esm-env",
+            "kind": "runtime",
+            "resolved": "external:esm-env",
+            "names": [
+              "DEV"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts",
+        "sha256": "60aab2aa25eb9c0aeaa0a57fc8ccd37aab747577ea22f019aff163946cabd373",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/utils/dispatchClickWithModifiers.ts"
+        ],
+        "declarations": [
+          "ModifierState",
+          "dispatchClickWithModifiers"
+        ],
+        "imports": [
+          {
+            "specifier": "./owner.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/owner.ts",
+            "names": [
+              "ownerWindow"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/utils/empty.ts",
+        "sha256": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "source-business-port",
+        "provenance": "Used source-bodied port from the immutable Base UI pin; native framework/representation changes are specified in source-correspondence.md.",
+        "originalSources": [
+          "packages/utils/src/empty.ts"
+        ],
+        "declarations": [
+          "NOOP"
+        ],
+        "imports": []
+      },
+      {
+        "local": "packages/base/src/lib/utils/error.ts",
+        "sha256": "de9eeee73db42c056c110eb94f3aef8b51ae3003e97d5140bfaf876bdde52c69",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/utils/src/error.ts"
+        ],
+        "declarations": [],
+        "imports": [
+          {
+            "specifier": "./createLogOnce.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/createLogOnce.ts",
+            "names": [
+              "createLogOnce"
+            ]
+          },
+          {
+            "specifier": "./createLogOnce.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/createLogOnce.ts",
+            "names": [
+              "reset"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/utils/getCssDimensions.ts",
+        "sha256": "f5f7b8ba4da86949dfa6ac61b706fdebf079e7a03a78b0d7ab3dd4cb66c10829",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/utils/getCssDimensions.ts"
+        ],
+        "declarations": [
+          "getCssDimensions"
+        ],
+        "imports": [
+          {
+            "specifier": "@floating-ui/utils",
+            "kind": "runtime",
+            "resolved": "external:@floating-ui/utils",
+            "names": [
+              "round"
+            ]
+          },
+          {
+            "specifier": "@floating-ui/utils",
+            "kind": "type",
+            "resolved": "external:@floating-ui/utils",
+            "names": [
+              "Dimensions"
+            ]
+          },
+          {
+            "specifier": "@floating-ui/utils/dom",
+            "kind": "runtime",
+            "resolved": "external:@floating-ui/utils/dom",
+            "names": [
+              "getComputedStyle",
+              "isHTMLElement"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/utils/getElementTransform.ts",
+        "sha256": "f5a36e0acc88293e77789e9a3599602176d35fd393e7fa843c5583cfedfe6f61",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/utils/getElementTransform.ts"
+        ],
+        "declarations": [
+          "getElementTransform"
+        ],
+        "imports": [
+          {
+            "specifier": "./owner.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/owner.ts",
+            "names": [
+              "ownerWindow"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/utils/isElementDisabled.ts",
+        "sha256": "c2f6141d744cb16e458208163d616cefa465b8da0445658c4d9282a05a1b616e",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/utils/src/isElementDisabled.ts"
+        ],
+        "declarations": [
+          "isElementDisabled"
+        ],
+        "imports": []
+      },
+      {
+        "local": "packages/base/src/lib/utils/mergeObjects.ts",
+        "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "source-business-port",
+        "provenance": "Used source-bodied port from the immutable Base UI pin; native framework/representation changes are specified in source-correspondence.md.",
+        "originalSources": [
+          "packages/utils/src/mergeObjects.ts"
+        ],
+        "declarations": [
+          "mergeObjects"
+        ],
+        "imports": []
+      },
+      {
+        "local": "packages/base/src/lib/utils/owner.ts",
+        "sha256": "4f32738229316fe875cf72e949caa4aa7d2fcdf924a2bd5b7f01e88ca5424185",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/utils/src/owner.ts"
+        ],
+        "declarations": [
+          "ownerDocument",
+          "ownerWindow"
+        ],
+        "imports": []
+      },
+      {
+        "local": "packages/base/src/lib/utils/resolveClassName.ts",
+        "sha256": "b22aead630ca531851a08a63e5165e64ff8cdc9de5765ff20997f578071cb108",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "source-business-port",
+        "provenance": "Used source-bodied port from the immutable Base UI pin; native framework/representation changes are specified in source-correspondence.md.",
+        "originalSources": [
+          "packages/react/src/utils/resolveClassName.ts"
+        ],
+        "declarations": [
+          "resolveClassName"
+        ],
+        "imports": [
+          {
+            "specifier": "svelte/elements",
+            "kind": "type",
+            "resolved": "external:svelte/elements",
+            "names": [
+              "ClassValue"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/utils/resolveRef.ts",
+        "sha256": "ac85daa436a61800f824aa34ea08ff4cbe492c86c12be327de957a381acddaa7",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/utils/resolveRef.ts"
+        ],
+        "declarations": [
+          "resolveRef"
+        ],
+        "imports": []
+      },
+      {
+        "local": "packages/base/src/lib/utils/resolveStyle.ts",
+        "sha256": "cdc420598c1ae4b75a32e7f47ac8cc7f4fe444d4f006e2736f528951fb932977",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "source-business-port",
+        "provenance": "Used source-bodied port from the immutable Base UI pin; native framework/representation changes are specified in source-correspondence.md.",
+        "originalSources": [
+          "packages/react/src/utils/resolveStyle.ts"
+        ],
+        "declarations": [
+          "resolveStyle"
+        ],
+        "imports": [
+          {
+            "specifier": "../internals/nativeProps.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/internals/nativeProps.ts",
+            "names": [
+              "NativeStyle"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/utils/shadowDom.ts",
+        "sha256": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/floating-ui-react/utils.ts",
+          "packages/react/src/floating-ui-react/utils/element.ts",
+          "packages/utils/src/shadowDom.ts"
+        ],
+        "declarations": [
+          "isShadowRoot",
+          "activeElement",
+          "contains",
+          "getTarget"
+        ],
+        "imports": []
+      },
+      {
+        "local": "packages/base/src/lib/utils/useAnimationFrame.ts",
+        "sha256": "4de538634e157740822dc1d3896da18ea84c6a706fe79f28fa6b9e7d380038ad",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/utils/src/useAnimationFrame.ts"
+        ],
+        "declarations": [
+          "useAnimationFrame"
+        ],
+        "imports": [
+          {
+            "specifier": "./useRefWithInit.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/useRefWithInit.ts",
+            "names": [
+              "useRefWithInit"
+            ]
+          },
+          {
+            "specifier": "./useOnMount.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/useOnMount.ts",
+            "names": [
+              "useOnMount"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/utils/useControlled.svelte.ts",
+        "sha256": "f74b9a8aa08b323835613037c871a6b85c938555c788c0a8ff51825c1863fd35",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/utils/src/useControlled.ts"
+        ],
+        "declarations": [
+          "SetStateAction",
+          "Dispatch",
+          "UseControlledProps",
+          "useControlled",
+          "useControlled",
+          "useControlled",
+          "serializeToDevModeString"
+        ],
+        "imports": [
+          {
+            "specifier": "esm-env",
+            "kind": "runtime",
+            "resolved": "external:esm-env",
+            "names": [
+              "DEV"
+            ]
+          },
+          {
+            "specifier": "svelte",
+            "kind": "runtime",
+            "resolved": "external:svelte",
+            "names": [
+              "untrack"
+            ]
+          },
+          {
+            "specifier": "./error.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/error.ts",
+            "names": [
+              "error"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
+        "sha256": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/utils/useFocusableWhenDisabled.ts"
+        ],
+        "declarations": [
+          "UseFocusableWhenDisabledParameters",
+          "useFocusableWhenDisabled"
+        ],
+        "imports": [
+          {
+            "specifier": "../internals/types.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/internals/types.ts",
+            "names": [
+              "HTMLProps"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/utils/useIsHydrating.svelte.ts",
+        "sha256": "e6fcb8995e456cf8e315657de5fb85815aeff818b3403b30255e95ff93bf3b7c",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/utils/useIsHydrating.ts"
+        ],
+        "declarations": [
+          "useIsHydrating"
+        ],
+        "imports": [
+          {
+            "specifier": "svelte",
+            "kind": "runtime",
+            "resolved": "external:svelte",
+            "names": [
+              "onMount"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+        "sha256": "0d24dd22dad18fc54341aaedb964a25829ae62322f10bf110a4fd8bde65dd1f3",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/utils/src/useIsoLayoutEffect.ts"
+        ],
+        "declarations": [
+          "EffectCallback",
+          "useIsoLayoutEffect"
+        ],
+        "imports": [
+          {
+            "specifier": "svelte",
+            "kind": "runtime",
+            "resolved": "external:svelte",
+            "names": [
+              "untrack"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/utils/useMergedRefs.ts",
+        "sha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "source-business-port",
+        "provenance": "Used source-bodied port from the immutable Base UI pin; native framework/representation changes are specified in source-correspondence.md.",
+        "originalSources": [
+          "packages/utils/src/useMergedRefs.ts"
+        ],
+        "declarations": [
+          "MergedRef",
+          "MergedRefCallback",
+          "Empty",
+          "InputRef",
+          "Result",
+          "Cleanup",
+          "ForkRef",
+          "createMergedRefs",
+          "useMergedRefs",
+          "useMergedRefs",
+          "useMergedRefs",
+          "useMergedRefs",
+          "useMergedRefsN",
+          "createForkRef",
+          "didChange",
+          "didChangeN",
+          "update"
+        ],
+        "imports": [
+          {
+            "specifier": "./useRefWithInit.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/useRefWithInit.ts",
+            "names": [
+              "useRefWithInit"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/utils/useOnMount.ts",
+        "sha256": "a7ba4007eff27b601eebcb76755886a23a4dd8548a54f67e15fa1cd648e0e695",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/utils/src/useOnMount.ts"
+        ],
+        "declarations": [
+          "useOnMount"
+        ],
+        "imports": [
+          {
+            "specifier": "svelte",
+            "kind": "runtime",
+            "resolved": "external:svelte",
+            "names": [
+              "onMount"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/utils/useRefWithInit.ts",
+        "sha256": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "shared-native-framework-replacement",
+        "provenance": "Canonical merged PR46 native setup/ref owner; source overload/initializer behavior retained without React persistent-hook sentinel machinery.",
+        "originalSources": [
+          "packages/utils/src/useRefWithInit.ts"
+        ],
+        "declarations": [
+          "InitializedRef",
+          "useRefWithInit",
+          "useRefWithInit",
+          "useRefWithInit"
+        ],
+        "imports": []
+      },
+      {
+        "local": "packages/base/src/lib/utils/useStableCallback.ts",
+        "sha256": "b790a02da99e0e9365bc05d35a434ef37dcffb2a4db8186b1327b949a994d05e",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/utils/src/useStableCallback.ts"
+        ],
+        "declarations": [
+          "Callback",
+          "useStableCallback",
+          "createStableCallback"
+        ],
+        "imports": [
+          {
+            "specifier": "svelte",
+            "kind": "runtime",
+            "resolved": "external:svelte",
+            "names": [
+              "untrack"
+            ]
+          }
+        ]
+      }
+    ],
+    "externalBoundaries": [
+      {
+        "specifier": "@floating-ui/utils",
+        "decision": "Existing locked direct Floating UI utility dependency; selected dimensions/DOM traversal algorithms retained. No dependency or lock change."
+      },
+      {
+        "specifier": "@floating-ui/utils/dom",
+        "decision": "Existing locked direct Floating UI utility dependency; selected dimensions/DOM traversal algorithms retained. No dependency or lock change."
+      },
+      {
+        "specifier": "esm-env",
+        "decision": "Native Svelte/runtime environment representation."
+      },
+      {
+        "specifier": "svelte",
+        "decision": "Native Svelte/runtime environment representation."
+      },
+      {
+        "specifier": "svelte/attachments",
+        "decision": "Native Svelte/runtime environment representation."
+      },
+      {
+        "specifier": "svelte/elements",
+        "decision": "Native Svelte/runtime environment representation."
+      },
+      {
+        "specifier": "svelte/reactivity",
+        "decision": "Native Svelte/runtime environment representation."
+      }
+    ],
+    "nativeClassReference": {
+      "helper": "packages/base/src/lib/internals/resolveClassValue.ts",
+      "helperSha256": "584323b17cb1733a798e9ff86e9ff783d6a26d08ecf005a8c2b3c69917c1e722",
+      "localIntroduction": "1248b805cdb343f5153c36c003a3d753f11a97f9",
+      "libraryLicense": "repository MIT LICENSE; original Sveltery helper, not a Base UI copied body",
+      "svelte": {
+        "version": "5.57.1",
+        "packageFile": "src/internal/shared/attributes.js",
+        "sha256": "c2d87d8265614027e0ee8317a4e6c7f64a827664d17882eefdfe7fe81a4114ea",
+        "functions": [
+          "clsx",
+          "to_class"
+        ]
+      },
+      "clsx": {
+        "version": "2.1.1",
+        "packageFile": "dist/clsx.mjs",
+        "sha256": "d949e5cdbfebc76a6642b1901095e900fc3f2262d8dc0373aa44850a9bc75522",
+        "scope": "Existing dependency of the pinned Svelte reference; imported only by Svelte comparison code, not added to library dependencies."
+      },
+      "checks": [
+        "packages/base/tests/rendering-native-class.test.ts",
+        "packages/base/tests/dom/rendering-native-class.test.ts",
+        "packages/base/tests/dom/NativeClassComparisonFixture.svelte"
+      ],
+      "behavior": "Top-level primitive false/0/NaN/true/bigint stringifies; null/undefined remain absent; nested falsy values and unsupported nested primitives are omitted; arrays recursively flatten; object for-in includes inherited truthy keys. Each prop is normalized before unchanged source string concatenation. Empty-class SSR/client timing remains Svelte-owned.",
+      "status": "Native reference/unit/actual rendered-host probes, zero unchanged Base UI assertion credit; fresh final-head source/native/maintainability review required."
+    },
+    "nativeRefCompositionRepair": {
+      "implementation": "Canonical current-main internals/useRenderElement and nativeRefAttachment, normally merged in PR50. Marked library attachments join source fanout after inner refs; authored attachments retain native lifetime.",
+      "checks": [
+        "packages/base/tests/dom/composite-nested-source.test.ts",
+        "packages/base/tests/dom/forwarded-native-ref.test.ts",
+        "packages/base/tests/dom/shared-rendering-source.test.ts",
+        "packages/base/tests/dom/ref-contract.test.ts",
+        "tests/browser/radio.spec.ts"
+      ],
+      "ordinaryDeclarationCredit": 0
+    }
+  }
+}

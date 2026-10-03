@@ -1,5 +1,7 @@
 # Tabs source-first dependency plan
 
+This is the unchanged historical pre-code plan. The successor [actual Source correspondence](actual-source-correspondence.md) and [actual runtime/type import closure](actual-local-graph.json) record implementation identities and developer body comparison separately; exact-head independent acceptance remains required.
+
 Reference: Base UI 1.8.0 immutable `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, MIT ([license](UPSTREAM_LICENSE)). This record was created before runtime code from actual Source AST imports, runtime/type edges, barrel exports and source bodies. [Full graph](source-graph.json), [every-module selected plan](source-correspondence.json), [all-part public/type source inventory](public-inventory.json), and [original test-site hashes](original-assertions.json) retain separate provenance. Mechanical tracing is not a claim of manual body review or assertion execution.
 
 All five public parts are owned here. Root preserves controlled/default and disabled/missing fallback ownership, activation-direction computation and mounted-panel registration. List uses the canonical real CompositeRoot/List/item/navigation stack, with actual observer registration. Tab uses real useCompositeItem and useButton, keeping focus/pointer/click/cancel order. Panel uses real transition/animation completion helpers and source panel association registration. Indicator preserves Source geometry branches, shared dimensions/transform helpers and its exact source prehydration script.
