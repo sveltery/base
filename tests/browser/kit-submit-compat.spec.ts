@@ -7,6 +7,8 @@ async function setup(page: Page, parameters: Record<string, string> = {}) {
   await page.goto(`/kit-submit-compat?${params}`);
   await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
   await expect(page.locator('#compat-attached')).toHaveText('true');
+  await expect(page.locator('#compat-email')).toHaveAttribute('id', 'compat-email');
+  await expect(page.locator('#compat-form label')).toHaveAttribute('for', 'compat-email');
   const requests: string[] = [];
   page.on('request', request => {
     if (request.method() === 'POST' && new URL(request.url()).pathname.includes('/remote/')) requests.push(request.url());
@@ -55,8 +57,8 @@ for (const mode of ['default', 'replacement']) {
       await expect(page.locator('#compat-resets')).toHaveText('1');
       return;
     }
-    await expectNoRequest(page, before, requests, 'blocked@example.com');
     await expect(input).toBeFocused();
+    await expectNoRequest(page, before, requests, 'blocked@example.com');
     await expect(input).toHaveAttribute('aria-invalid', 'true');
     await expect(page.locator('#compat-error')).toContainText('Blocked by Field');
     await expect(page.locator('#compat-form')).toHaveAttribute('data-observed', '1');
@@ -162,7 +164,13 @@ if (!unpatched) {
       await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'false');
       await expect(page.locator('#compat-form')).toHaveAttribute('method', 'POST');
       await expect(page.locator('#compat-form')).toHaveAttribute('action', /\?\/remote=/);
-      await expect(page.locator('#compat-email')).toHaveValue('seed@example.com');
+      // Base UI intentionally uses the provider ID until control registration runs,
+      // keeping the label associated in SSR before adopting the authored ID on hydration.
+      const control = page.locator('#compat-form input[name="email"][type="email"]');
+      await expect(control).toHaveValue('seed@example.com');
+      const controlId = await control.getAttribute('id');
+      expect(controlId).toBeTruthy();
+      await expect(page.locator('#compat-form label')).toHaveAttribute('for', controlId!);
       await expect(page.locator('#compat-result')).toHaveText('null');
     } finally { await context.close(); }
   });
