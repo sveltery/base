@@ -649,3 +649,23 @@ it("supplement mounted native Root and Input refs release on teardown", () => {
   expect(input.isConnected).toBe(false);
   expect(s.host.querySelectorAll("input")).toHaveLength(0);
 });
+
+it("supplement native functional binding settles accepted unchanged first character before completion", () => {
+  const onChange = vi.fn();
+  const s = setup({ initial: "12", onChange });
+  s.input(0, "1234");
+  expect(s.values()).toBe("1234");
+  expect(s.slot(0).value).toBe("1");
+  expect(onChange).toHaveBeenCalledTimes(1);
+  s.input(0, "12345");
+  expect(s.values()).toBe("12345");
+  expect(s.slot(0).value).toBe("1");
+  expect(onChange).toHaveBeenCalledTimes(2);
+});
+it("supplement authored input snippet retains caller-owned native value spread", () => {
+  const s = setup({ initial: "12", customRender: true });
+  s.input(0, "1234");
+  expect(s.hidden().value).toBe("1234");
+  expect(s.slot(0).value).toBe("1234");
+  expect(s.slot(0).getAttribute("data-render-index")).toBe("0");
+});

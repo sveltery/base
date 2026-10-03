@@ -43,15 +43,17 @@ All parts use `class`, native style objects/strings, Svelte render snippets and 
   {/snippet}
   <OTPField.Input>
     {#snippet render(props, state)}
-      <input {...props as HTMLInputAttributes} data-slot-index={state.index} />
+      <input {...props as HTMLInputAttributes}
+        bind:value={() => props.value as string, () => undefined}
+        data-slot-index={state.index} />
     {/snippet}
   </OTPField.Input>
   <OTPField.Input />
 </OTPField.Root>
 ```
 
-The canonical render props are an open native `HTMLProps` record with attachment symbols; cast them to the chosen native host's Svelte attributes when spreading. React element cloning, React17 ID fallback and synthetic-event/controlled-value restoration are native substitutions. Canceled edits stop the source value/focus/completion change, while a native slot's already edited DOM value follows Svelte defaults. Native focus/blur events are not cancelable; use `event.preventBaseUIHandler()` to suppress the internal composed handler. These differences earn no unchanged upstream assertion credit.
+The canonical render props are an open native `HTMLProps` record with attachment symbols; cast them to the chosen native host's Svelte attributes when spreading. React element cloning, React17 ID fallback and synthetic-event/controlled-value restoration are native substitutions. Canceled edits stop the source value/focus/completion change, while a native slot's already edited DOM value follows Svelte defaults. Native focus/blur events are not cancelable; use `event.preventBaseUIHandler()` to suppress the internal composed handler. Default Input uses native functional `bind:value` with the merged slot value and the existing source input handler owning the whole code. It settles accepted multi-character edits before external native validity/submission, including an unchanged first logical character. A render override owns its native input composition; an input value spread alone follows Svelte spread semantics. These differences earn no unchanged upstream assertion credit.
 
 For an external SvelteKit remote owner, use the manual Root with the complete string and its real setter, for example `value={survey.fields.code.value() ?? ''}` and `onValueChange={(value) => survey.fields.code.set(value)}` inside the caller's logical Field/Form. Compound Root has no native text-input descriptor contract: its visible root is a group and each visible input holds one character. Native SDK descriptors remain appropriate for native input hosts; do not assume spreading a text descriptor onto the group represents the whole code. Automatic typed remote control routing is unchanged. Applications relying on the already documented Kit 2.70.3 synchronous cancellation/native reset compatibility must explicitly apply [that consumer patch](sveltekit-submit-compat.md); Base adds no SDK shim.
 
-The pin clamps by code points but renders/replaces/removes slots using JavaScript string indexing and detects completion using UTF-16 length. That original Unicode quirk is preserved. The inherited Separator's existing bounded renderer acceptance remains separate from OTP business acceptance. No claim of exhaustive unchanged assertion parity, React17 commit machinery, or full remote/B2 completion is made.
+The pin clamps by code points but renders/replaces/removes slots using JavaScript string indexing and detects completion using UTF-16 length. That original Unicode bug is preserved and reproduced in both actual runtimes ([issue #56](https://github.com/sveltery/base/issues/56)). The inherited Separator's existing bounded renderer acceptance remains separate from OTP business acceptance. No claim of exhaustive unchanged assertion parity, React17 commit machinery, or full remote/B2 completion is made.

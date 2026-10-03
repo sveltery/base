@@ -341,6 +341,32 @@ for (const framework of ["react", "svelte"]) {
         ]),
     ).toEqual([]);
   });
+  test(`${framework} OTP source/native binding settles an unchanged first slot before external submission`, async ({
+    page,
+  }) => {
+    await open(page, "external-form-unchanged");
+    await slots(page).first().fill("123456");
+    await expect(hidden(page)).toHaveValue("123456");
+    await expect(slots(page).first()).toHaveValue("1");
+    expect(
+      await slots(page)
+        .first()
+        .evaluate(
+          (input) => (input as HTMLInputElement).validity.patternMismatch,
+        ),
+    ).toBe(false);
+    await expect(page.locator("#submissions")).toHaveText('[{"otp":"123456"}]');
+  });
+  test(`${framework} OTP preserves original code-point clamp versus UTF16 slots/completion`, async ({
+    page,
+  }) => {
+    await open(page, "unicode");
+    await paste(page, 0, "😀x");
+    await expect(hidden(page)).toHaveValue("😀x");
+    expect(await values(page)).toBe("😀");
+    await expect(page.getByTestId("root")).not.toHaveAttribute("data-complete");
+    expect((await calls(page)).map((call) => call.phase)).toEqual(["change"]);
+  });
   test(`${framework} OTP mask, native labels, group-only aria label and slot override`, async ({
     page,
   }) => {

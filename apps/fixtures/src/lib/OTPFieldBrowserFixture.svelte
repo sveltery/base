@@ -17,7 +17,9 @@
     ? "123456"
     : scenario.includes("empty") ||
         scenario.startsWith("controlled") ||
-        scenario === "auto-submit"
+        scenario === "auto-submit" ||
+        scenario === "external-form" ||
+        scenario === "unicode"
       ? ""
       : scenario === "alpha"
         ? "ab"
@@ -27,7 +29,7 @@
   const rootProps: Partial<OTPFieldRootProps> = {
     ...(scenario === "alpha" ? { validationType: "alpha" } : {}),
     ...(scenario === "alphanumeric" ? { validationType: "alphanumeric" } : {}),
-    ...(scenario === "none" || scenario === "onblur"
+    ...(scenario === "none" || scenario === "onblur" || scenario === "unicode"
       ? { validationType: "none" }
       : {}),
     ...(scenario === "normalize"
@@ -43,8 +45,8 @@
     readOnly: scenario === "readonly",
     mask: scenario === "mask",
     required: scenario === "required",
-    autoSubmit: scenario === "auto-submit" || scenario === "external-form",
-    ...(scenario === "external-form" ? { form: "external-form" } : {}),
+    autoSubmit: scenario === "auto-submit" || scenario.startsWith("external-form"),
+    ...(scenario.startsWith("external-form") ? { form: "external-form" } : {}),
     ...(scenario === "native-label" ? { id: "code" } : {}),
     ...(scenario === "aria-group" ? { "aria-labelledby": "external-label" } : {}),
   };
@@ -84,7 +86,7 @@
 <main data-hydrated={hydrated} data-renderer="svelte">
   <span id="external-label">External group label</span>
   {#if scenario === 'native-label'}<label for="code">Native code</label>{/if}
-  <Fixture bind:this={fixture} {rootProps} {slotProps} {initial} {withField} controlled={scenario.startsWith('controlled')} accept={!scenario.includes('reject')} deferred={scenario.includes('deferred')} cancel={scenario === 'cancel'} rtl={scenario === 'rtl'} grouped={scenario === 'grouped'} customRender={scenario === 'render'}
+  <Fixture bind:this={fixture} length={scenario === "unicode" ? 2 : 6} {rootProps} {slotProps} {initial} {withField} controlled={scenario.startsWith('controlled')} accept={!scenario.includes('reject')} deferred={scenario.includes('deferred')} cancel={scenario === 'cancel'} rtl={scenario === 'rtl'} grouped={scenario === 'grouped'} customRender={scenario === 'render'}
     fieldProps={{ validationMode: scenario === 'onblur' ? 'onBlur' : 'onSubmit', validate: scenario === 'onblur' ? value => { validations.push(value); return `Error: ${String(value)}`; } : undefined }}
     onChange={(value, details) => record('change', value, details.reason, details.event)}
     onInvalid={(value, details) => record('invalid', value, details.reason, details.event)}

@@ -33,3 +33,5 @@ The [catalog ledger](docs/catalog.md) accounts for every pinned root export modu
 [CSPProvider](docs/csp-provider.md) adds a wrapperless provider and optional private CSP context foundation. Its [separate evidence](parity/csp-provider/README.md) keeps all four ScrollArea/Select-dependent ordinary declarations deferred with zero credit; downstream style/script integration remains unimplemented.
 
 [UseRender](docs/use-render.md) exposes a bounded native Svelte component at the root and `@sveltery/base/use-render`; its private closure and explicit identity/teardown differences remain separate from unchanged upstream assertions. React return typing, lazy/Flight/RSC and diagnostics remain unimplemented.
+
+[OTP Field](docs/otp-field.md) adds source Root/Input and shared Separator with actual Field/Form validation and Composite slot registration; native renderer differences and assertion acceptance are recorded separately.

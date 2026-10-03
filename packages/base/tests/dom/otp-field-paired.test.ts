@@ -1,5 +1,5 @@
 // Actual React19.2.8/Base UI1.8.0 and native Svelte runtime probes; supplemental credit only.
-import { afterEach, expect, it } from "vitest";
+import { afterEach, expect, it, vi } from "vitest";
 import { flushSync, mount, unmount } from "svelte";
 import {
   mountOTPFieldReference,
@@ -10,6 +10,7 @@ const cleanups: (() => void | Promise<void>)[] = [];
 afterEach(async () => {
   for (const cleanup of cleanups.splice(0)) await cleanup();
   document.body.replaceChildren();
+  vi.restoreAllMocks();
 });
 for (const framework of ["react", "svelte"]) {
   function setup(scenario = "default") {
@@ -96,6 +97,65 @@ for (const framework of ["react", "svelte"]) {
     expect(s.calls().map((call) => call.phase)).toEqual(["change", "complete"]);
     expect(document.activeElement).toBe(s.slots()[5]);
     expect(s.hidden().name).toBe("otp");
+  });
+  it(`${framework} source/native OTP external form sees settled validation value`, () => {
+    const s = setup("external-form");
+    const snapshots: unknown[] = [];
+    const external = s.host.querySelector<HTMLFormElement>("#external-form")!;
+    const original = external.requestSubmit.bind(external);
+    vi.spyOn(external, "requestSubmit").mockImplementation(() => {
+      snapshots.push(
+        Array.from(external.elements)
+          .filter(
+            (element): element is HTMLInputElement =>
+              element instanceof HTMLInputElement,
+          )
+          .map((input) => ({
+            value: input.value,
+            name: input.name,
+            pattern: input.pattern,
+            valid: input.validity.valid,
+          })),
+      );
+      original();
+    });
+    s.input(0, "123456");
+    expect(snapshots).toEqual([
+      [
+        ...Array.from({ length: 6 }, (_, index) => ({
+          value: String(index + 1),
+          name: "",
+          pattern: "\\d{1}",
+          valid: true,
+        })),
+        { value: "123456", name: "otp", pattern: "\\d{6}", valid: true },
+      ],
+    ]);
+    expect(s.host.querySelector("#submissions")!.textContent).toBe(
+      '[{"otp":"123456"}]',
+    );
+  });
+  it(`${framework} source/native OTP binding settles an unchanged first slot before submission`, () => {
+    const s = setup("external-form-unchanged");
+    s.input(0, "123456");
+    expect(s.hidden().value).toBe("123456");
+    expect(s.slots()[0].value).toBe("1");
+    expect(s.slots()[0].validity.patternMismatch).toBe(false);
+    expect(s.host.querySelector("#submissions")!.textContent).toBe(
+      '[{"otp":"123456"}]',
+    );
+  });
+  it(`${framework} source/native preserves code-point clamp and UTF16 slot/completion bug`, () => {
+    const s = setup("unicode");
+    s.paste(0, "😀x");
+    expect(s.hidden().value).toBe("😀x");
+    expect(s.values()).toBe("😀");
+    expect(s.calls().map((call) => call.phase)).toEqual(["change"]);
+    expect(
+      s.host
+        .querySelector('[data-testid="root"]')!
+        .hasAttribute("data-complete"),
+    ).toBe(false);
   });
   it(`${framework} source/native OTP normalized paste preserves suffix`, () => {
     const s = setup("complete");

@@ -39,7 +39,7 @@ export const docs: Doc[] = [
         id: 'status',
         title: 'A foundation in progress',
         paragraphs: [
-          'The repository catalog accounts for 23 bounded modules and 19 unimplemented modules, including providers and utilities. Field, Form, Fieldset, Checkbox, CheckboxGroup, Switch, Radio and RadioGroup are available alongside UseRender composition and the earlier components. Remote Form exposes typed Field children and control descriptors. Complete upstream compatibility remains unfinished; the catalog ledger records each exported scope and its limits.',
+          'The repository catalog accounts for 24 bounded modules and 18 unimplemented modules, including providers and utilities. Field, Form, Fieldset, Checkbox, CheckboxGroup, Switch, Radio, RadioGroup and OTPField are available alongside UseRender composition and the earlier components. Remote Form exposes typed Field children and control descriptors. Complete upstream compatibility remains unfinished; the catalog ledger records each exported scope and its limits.',
           'The package is private and unpublished. APIs may change. Use this workspace to evaluate the current slice; check the repository contracts before depending on a behavior.',
         ],
         links: [
@@ -232,6 +232,16 @@ export const docs: Doc[] = [
           },
         ],
       },
+    ],
+  },
+  {
+    slug: 'components/otp-field', group: 'Components', title: 'OTP Field',
+    description: 'Enter a verification code across individual character inputs.',
+    sections: [
+      { id: 'code', title: 'Enter a code', paragraphs: ['OTPField.Root owns the complete string and requires length to match the number of OTPField.Input parts. Inputs derive their index from render and DOM order; Separator supports grouped layouts.'], code: '<script lang="ts">\n  import { OTPField, Field } from "@sveltery/base";\n  let code = $state("");\n</script>\n<Field.Root name="code">\n  <Field.Label>Verification code</Field.Label>\n  <OTPField.Root length={6} value={code} onValueChange={(value) => code = value} required>\n    {#each [0, 1, 2, 3, 4, 5] as slot (slot)}<OTPField.Input />{/each}\n  </OTPField.Root>\n  <Field.Error />\n</Field.Root>' },
+      { id: 'validation', title: 'Validation and completion', paragraphs: ['Numeric validation is the default. Alpha, alphanumeric and none are also supported; normalizeValue runs after filtering and should be idempotent. Root supplies complete-code form serialization and validation while Field supplies labels, errors and metadata. onValueChange supports cancellation; onValueComplete follows the applied update. autoSubmit requests the owning or explicitly associated form.'] },
+      { id: 'composition', title: 'Compose the inputs', paragraphs: ['Use native Svelte event props, class and style callbacks, bindable actual-element refs and render snippets. Input uses native readonly and inputmode attributes; Root owns readOnly and inputMode for all slots. A Root replacement snippet forwards props into its group host; an Input snippet forwards props into its native input.'] },
+      { id: 'limits', title: 'Compatibility limits', paragraphs: ['The complete Root/Input business algorithms use the real shared Field/Form and Composite helpers. Native canceled typing can retain an already edited slot DOM value; native focus and blur require preventBaseUIHandler to suppress internal handlers. Original UTF16 slot/completion quirks remain. Use a manual complete-string Root value/onValueChange for an external remote owner; automatic typed remote routing is unchanged. Full unchanged assertion parity remains incomplete.'], links: [{ label: 'Read the OTP Field contract and evidence', href: 'https://github.com/sveltery/base/blob/main/docs/otp-field.md' }] },
     ],
   },
   {

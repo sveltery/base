@@ -2,6 +2,7 @@
 import { expect, it } from "vitest";
 import { render } from "svelte/server";
 import Fixture from "./ssr/OTPField.svelte";
+import Missing from "./ssr/OTPFieldMissing.svelte";
 it("Root:1439 SSR visible slots have unique IDs and stable suffix relationships", () => {
   const html = render(Fixture).body;
   const ids = [...html.matchAll(/ id="([^"]+)"/g)].map((match) => match[1]);
@@ -31,4 +32,10 @@ it("supplement native React17 substitution generates IDs on server, preserving s
     -1,
   )![0];
   expect(lastGroup).not.toContain("data-complete");
+});
+
+it("Input:892 missing Root throws the original descriptive error", () => {
+  expect(() => render(Missing).body).toThrowError(
+    "Base UI: OTPFieldRootContext is missing. OTPField parts must be placed within <OTPField.Root>.",
+  );
 });

@@ -22,7 +22,9 @@ export function mountOTPFieldReference(node: HTMLElement, scenario: string) {
       ? "123456"
       : scenario.includes("empty") ||
           scenario.startsWith("controlled") ||
-          scenario === "auto-submit"
+          scenario === "auto-submit" ||
+          scenario === "external-form" ||
+          scenario === "unicode"
         ? ""
         : scenario === "alpha"
           ? "ab"
@@ -31,7 +33,9 @@ export function mountOTPFieldReference(node: HTMLElement, scenario: string) {
             : "12";
     const [owner, setOwner] = useState(initial);
     const [pending, setPending] = useState<string>();
-    const [items, setItems] = useState([0, 1, 2, 3, 4, 5]);
+    const [items, setItems] = useState(
+      scenario === "unicode" ? [0, 1] : [0, 1, 2, 3, 4, 5],
+    );
     const [alive, setAlive] = useState(true);
     const [hydrated, setHydrated] = useState(false);
     const [calls, setCalls] = useState<unknown[]>([]);
@@ -53,7 +57,7 @@ export function mountOTPFieldReference(node: HTMLElement, scenario: string) {
       ...(scenario === "alphanumeric"
         ? { validationType: "alphanumeric" }
         : {}),
-      ...(scenario === "none" || scenario === "onblur"
+      ...(scenario === "none" || scenario === "onblur" || scenario === "unicode"
         ? { validationType: "none" }
         : {}),
       ...(scenario === "normalize"
@@ -69,8 +73,11 @@ export function mountOTPFieldReference(node: HTMLElement, scenario: string) {
       readOnly: scenario === "readonly",
       mask: scenario === "mask",
       required: scenario === "required",
-      autoSubmit: scenario === "auto-submit" || scenario === "external-form",
-      ...(scenario === "external-form" ? { form: "external-form" } : {}),
+      autoSubmit:
+        scenario === "auto-submit" || scenario.startsWith("external-form"),
+      ...(scenario.startsWith("external-form")
+        ? { form: "external-form" }
+        : {}),
       ...(scenario === "native-label" ? { id: "code" } : {}),
       ...(scenario === "aria-group"
         ? { "aria-labelledby": "external-label" }
@@ -118,7 +125,7 @@ export function mountOTPFieldReference(node: HTMLElement, scenario: string) {
     const otp = h(
       OTPField.Root,
       {
-        length: 6,
+        length: scenario === "unicode" ? 2 : 6,
         name: "fallback",
         defaultValue: initial,
         value: scenario.startsWith("controlled") ? owner : undefined,
@@ -224,12 +231,10 @@ export function mountOTPFieldReference(node: HTMLElement, scenario: string) {
           id: "external-form",
           onSubmit: (event) => {
             event.preventDefault();
-            setSubmissions((previous) => [
-              ...previous,
-              Object.fromEntries(
-                new FormData(event.currentTarget as HTMLFormElement),
-              ),
-            ]);
+            const values = Object.fromEntries(
+              new FormData(event.currentTarget as HTMLFormElement),
+            );
+            setSubmissions((previous) => [...previous, values]);
           },
         },
         h("button", {}, "External submit"),
