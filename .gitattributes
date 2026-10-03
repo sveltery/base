@@ -1,5 +1,7 @@
 # Preserve byte-exact diagnostic logs, including their terminal blank lines.
 parity/input/reset-limit/**/*.log whitespace=-blank-at-eof
+# Unified patch context prefixes intentionally precede blank lines and upstream tabs.
+packages/base/patches/*.patch whitespace=-blank-at-eol,-space-before-tab
 
 # Keep these immutable terminal captures byte-exact; retain all other whitespace checks.
 parity/boolean-controls/browser-8b88b30-observation.log whitespace=-blank-at-eol
