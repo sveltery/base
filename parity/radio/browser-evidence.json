@@ -176,6 +176,8 @@
     "coreFocusedPassed": 442,
     "deliveryIdentity": "All library runtime/types, fixture source, DOM/runtime tests, Radio browser assertions, original Radio graph/correspondence/assertions, package manifests/lockfiles and workflows unchanged from reviewed head; only approved source-core and Radio status documentation/evidence reconciliation.",
     "mergeApproval": "pending-exact-final-delivery-head",
-    "subsequentActualMainRefresh": "Approved Boolean48 normal main ad193ec and typedField51 normal main9c8186f add shared label observer-root fidelity repair, canonical ownerWindow click reuse, and a separately mapped type-only module. Radio-owned runtime/types/focus fixtures/assertions and immutable original graph/ledger remain unchanged; the earlier core-only delivery identity statement applies to85bc, not this successor."
+    "subsequentActualMainRefresh": "Approved Boolean48 normal main ad193ec and typedField51 normal main9c8186f add shared label observer-root fidelity repair, canonical ownerWindow click reuse, and a separately mapped type-only module. Radio-owned runtime/types/focus fixtures/assertions and immutable original graph/ledger remain unchanged; the earlier core-only delivery identity statement applies to85bc, not this successor.",
+    "approvedSdkMain": "f1277cd4bed6747865d9d617ca7adf5194e3c2ba",
+    "sdkIntegrationIdentity": "Normally merged SDK49 opt-in patch, lock/workspace settings, primary original reset archive and source compatibility prose are preserved. Radio-owned bodies/focus fixtures/assertions and all106 expanded source/type bodies remain identical to held0aee2c7; the four focus bodies remain exact154/85bc. Required final-head gates and independent bounded identity review remain pending."
   }
 }

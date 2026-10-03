@@ -262,3 +262,5 @@ The complete affected closure and native/public/maintainability review are clear
 
 
 The final Radio dependency refresh consumes normally merged PR48/PR51 source helpers and public type-only exports. Native label observation follows the control's actual root node, including shadow trees; constructor ownership uses the canonical ownerWindow helper. These approved shared dependencies preserve original source selection and dispatch business bodies. The reviewed Radio focus bodies/assertions are unchanged; actual local hashes and the separate type-only extension are reconciled, with zero new ordinary credit. Fresh exact successor gates and bounded dependency/identity review remain required before Radio PM approval.
+
+Approved SDK PR49 is normally merged in actual main `f1277cd4bed6747865d9d617ca7adf5194e3c2ba` and consumed as a canonical dependency by the final Radio candidate. Its existing F-01 decision, primary original reset archive and explicit opt-in limits are preserved verbatim. SDK adds no Radio or Base runtime behavior; exact final Radio gates and PM merge approval remain pending.

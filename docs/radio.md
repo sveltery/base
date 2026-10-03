@@ -36,3 +36,5 @@ The [complete source graph and correspondence](../parity/radio/source-correspond
 
 
 The final dependency refresh also includes the approved Boolean controls and type-only remote Field contracts. The source label helper observes the control's actual document or shadow root, and native click construction reuses canonical ownerWindow. Radio's four reviewed focus bodies and browser assertions remain unchanged. Current local graph hashes distinguish those reused helpers from the added type-only module; exact successor-head gates and PM approval remain pending.
+
+The candidate also consumes approved SDK PR #49 from actual main `f1277cd4bed6747865d9d617ca7adf5194e3c2ba`. Its version-specific Kit compatibility patch stays an explicit application opt-in. Radio adds no SDK or Kit runtime dependency; the reviewed source body and native assertion identities are retained.
