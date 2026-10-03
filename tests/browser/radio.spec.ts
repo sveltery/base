@@ -15,6 +15,75 @@ for (const framework of ['react', 'svelte']) {
         '19.2.8/19.2.8',
       );
   };
+  for (const scenario of ['standalone-empty', 'standalone-nonempty']) {
+    for (const action of ['visible', 'hidden']) {
+      test(`${framework} ${scenario} ${action} activation preserves source Field touch contract`, async ({
+        page,
+      }) => {
+        await open(page, scenario);
+        const field = page.locator('#standalone-field');
+        const radio = page.getByTestId('standalone-radio');
+        const input = page.locator('#standalone-input');
+        const selected = scenario === 'standalone-empty';
+        await expect(radio).toHaveAttribute('aria-checked', String(selected));
+        await expect(field).not.toHaveAttribute('data-touched');
+        expect(await input.isChecked()).toBe(selected);
+        expect(
+          await field.evaluate((element) =>
+            element.hasAttribute('data-filled'),
+          ),
+        ).toBe(selected);
+        await input.evaluate((element) => {
+          const input = element as HTMLInputElement;
+          input.dataset.nativeEvents = '[]';
+          for (const type of ['input', 'change']) {
+            input.addEventListener(type, () => {
+              input.dataset.nativeEvents = JSON.stringify([
+                ...JSON.parse(input.dataset.nativeEvents ?? '[]'),
+                type,
+              ]);
+            });
+          }
+        });
+        if (action === 'visible') await radio.click();
+        else
+          await input.evaluate((element) =>
+            (element as HTMLInputElement).click(),
+          );
+        await expect(radio).toHaveAttribute('aria-checked', String(selected));
+        if (selected) await expect(field).not.toHaveAttribute('data-touched');
+        else await expect(field).toHaveAttribute('data-touched', '');
+        expect(await input.isChecked()).toBe(
+          selected || framework === 'svelte',
+        );
+        expect(
+          await field.evaluate((element) =>
+            element.hasAttribute('data-filled'),
+          ),
+        ).toBe(selected);
+        const observations = {
+          framework,
+          scenario,
+          action,
+          checked: await input.isChecked(),
+          ariaChecked: await radio.getAttribute('aria-checked'),
+          touched: await field.evaluate((element) =>
+            element.hasAttribute('data-touched'),
+          ),
+          nativeEvents: JSON.parse(
+            (await input.getAttribute('data-native-events')) ?? '[]',
+          ),
+        };
+        expect(observations.nativeEvents).toEqual(
+          selected ? [] : ['input', 'change'],
+        );
+        await test.info().attach('standalone-native-observations', {
+          body: JSON.stringify(observations, null, 2),
+          contentType: 'application/json',
+        });
+      });
+    }
+  }
   test(`${framework} native hidden input CSS preserves source one-pixel geometry`, async ({
     page,
   }) => {

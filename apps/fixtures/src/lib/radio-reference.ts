@@ -33,6 +33,28 @@ export function mountRadioReference(node: HTMLElement, scenario: string) {
     const [calls, setCalls] = useState<unknown[]>([]);
     const [ancestorClicks, setAncestorClicks] = useState(0);
     const [submissions, setSubmissions] = useState<unknown[]>([]);
+    if (scenario.startsWith('standalone-')) {
+      return h(
+        'main',
+        {
+          'data-hydrated': hydrated,
+          'data-renderer': `${reactVersion}/${reactDomVersion}`,
+        },
+        h(
+          Field.Root,
+          { id: 'standalone-field' },
+          h(
+            Radio.Root,
+            {
+              value: scenario === 'standalone-empty' ? '' : 'a',
+              id: 'standalone-input',
+              ...{ 'data-testid': 'standalone-radio' },
+            },
+            'Standalone',
+          ),
+        ),
+      );
+    }
     return h(
       'main',
       {
