@@ -211,6 +211,20 @@ for (const family of ['switch', 'checkbox'] as const)
       view.click();
       expect(view.root().getAttribute('aria-checked')).toBe('true');
     });
+    it('detaches merged hidden-input refs and authored cleanup exactly once', async () => {
+      const detached = vi.fn();
+      const external = vi.fn((input: HTMLInputElement | null) =>
+        input ? detached : undefined,
+      );
+      const view = render(family, { rootProps: { inputRef: external } });
+      expect(external).toHaveBeenCalledTimes(1);
+      expect(external.mock.calls[0][0]).toBe(view.input());
+      view.component.hide();
+      flushSync();
+      await tick();
+      expect(detached).toHaveBeenCalledTimes(1);
+      expect(external).toHaveBeenCalledTimes(1);
+    });
   });
 describe('CheckboxGroup actual source composition', () => {
   it('registers one array Field and distinct native inputs/labels', async () => {
@@ -377,3 +391,40 @@ describe('Checkbox native Enter submission boundary', () => {
     expect(submit).toHaveBeenCalledTimes(1);
   });
 });
+
+for (const family of ['switch', 'checkbox'] as const)
+  it(`${family} serializes provider names while logical errors/registry remain source-owned`, async () => {
+    const { default: NameFixture } = await import('./BooleanNativeNameFixture.svelte');
+    const submit = vi.fn();
+    const target = document.createElement('div');
+    document.body.append(target);
+    const component = mount(NameFixture, { target, props: { family, submit } });
+    cleanups.push(() => unmount(component));
+    flushSync();
+    const input = target.querySelector<HTMLInputElement>('input[type="checkbox"]')!;
+    const root = target.querySelector<HTMLElement>(`[role="${family}"]`)!;
+    const form = target.querySelector('form')!;
+    expect(input.name).toBe('b:enabled');
+    expect(new FormData(form).getAll('b:enabled')).toEqual(['false']);
+    expect(target.textContent).toContain('logical error');
+    root.click();
+    flushSync();
+    await tick();
+    expect(target.textContent).not.toContain('logical error');
+    expect(new FormData(form).getAll('b:enabled')).toEqual(['true']);
+    target.querySelector<HTMLButtonElement>('[type="submit"]')!.click();
+    flushSync();
+    await tick();
+    expect(submit.mock.calls[0][0]).toEqual({ enabled: true });
+    component.setNativeName('b:other');
+    flushSync();
+    expect(input.name).toBe('b:other');
+    expect(new FormData(form).get('b:other')).toBe('true');
+    component.setNativeName('');
+    flushSync();
+    expect(input.name).toBe('');
+    expect(new FormData(form).getAll('enabled')).toEqual([]);
+    component.setNativeName(undefined);
+    flushSync();
+    expect(input.name).toBe('enabled');
+  });

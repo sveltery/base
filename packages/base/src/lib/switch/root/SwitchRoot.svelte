@@ -1,7 +1,11 @@
 <script lang="ts">
   // Source-ordered business port of Base UI v1.8.0 SwitchRoot.tsx at
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
+  import { useFieldControlNativeName } from '../../internals/field-control-name/FieldControlNameContext.js';
   import RenderElement from '../../internals/RenderElement.svelte';
+  import { createMergedRefs } from '../../utils/useMergedRefs.js';
+  import { createRefAttachment } from '../../internals/nativeRefAttachment.js';
+  import type { HTMLInputAttributes } from 'svelte/elements';
   import { useControlled } from '../../utils/useControlled.svelte.js';
   import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
   import { visuallyHidden, visuallyHiddenInput } from '../../utils/visuallyHidden.js';
@@ -48,6 +52,8 @@
   const labelable = useLabelableContext();
   const disabled = $derived(Boolean(field.disabled || disabledProp));
   const name = $derived(field.name ?? nameProp);
+  const getNativeName = useFieldControlNativeName();
+  const nativeName = $derived(getNativeName(name));
   const inputRef = $state<{ current: HTMLInputElement | null }>({ current: null });
   const switchRef = $state<{ current: HTMLElement | null }>({ current: null });
   const instanceId = $props.id();
@@ -119,11 +125,11 @@
   });
   const inputProps = $derived({
     ...field.validation.getValidationProps(disabled),
-    checked,
+    defaultChecked,
     disabled,
     form,
     id: hiddenInputId,
-    name,
+    name: nativeName,
     required,
     style: toNativeStyle(name ? visuallyHiddenInput : visuallyHidden),
     tabindex: -1,
@@ -181,13 +187,22 @@
     ],
     stateAttributesMapping,
   });
-  const hiddenParams = $derived({
-    props: inputProps,
-    ref: [inputRef, externalInputRef, field.validation.inputRef],
-  });
+  const { useMergedRefs } = createMergedRefs<HTMLInputElement>();
+  const resolveInputAttachment = createRefAttachment<HTMLInputElement>(() => {});
+  const inputAttachment = $derived(
+    resolveInputAttachment(
+      useMergedRefs(inputRef, externalInputRef, field.validation.inputRef),
+    ),
+  );
 </script>
 <RenderElement tag="span" {componentProps} {params} {children} />
 {#if !checked && name && uncheckedValue !== undefined}
-  <input type="hidden" {form} {name} value={uncheckedValue} {disabled} />
+  <input type="hidden" {form} name={nativeName} value={uncheckedValue} {disabled} />
 {/if}
-<RenderElement tag="input" params={hiddenParams} />
+<!-- Native binding owns checkbox DOM/default/hydration and form-reset behavior. -->
+<input
+  {...inputProps as HTMLInputAttributes}
+  type="checkbox"
+  {@attach inputAttachment}
+  bind:checked={getChecked, setCheckedState}
+/>

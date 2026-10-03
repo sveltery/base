@@ -2,7 +2,12 @@
   // Source-ordered business port of Base UI v1.8.0 CheckboxRoot.tsx at
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
   import { untrack } from 'svelte';
+  import { useFieldControlNativeName } from '../../internals/field-control-name/FieldControlNameContext.js';
   import RenderElement from '../../internals/RenderElement.svelte';
+  import { createMergedRefs } from '../../utils/useMergedRefs.js';
+  import { createRefAttachment } from '../../internals/nativeRefAttachment.js';
+  import { mergePropsN } from '../../merge-props/index.js';
+  import type { HTMLInputAttributes } from 'svelte/elements';
   import { useControlled } from '../../utils/useControlled.svelte.js';
   import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
   import { visuallyHidden, visuallyHiddenInput } from '../../utils/visuallyHidden.js';
@@ -62,6 +67,8 @@
     Boolean(field.disabled || fieldItem.disabled || groupContext?.disabled || disabledProp),
   );
   const name = $derived(field.name ?? nameProp);
+  const getNativeName = useFieldControlNativeName();
+  const nativeName = $derived(getNativeName(name));
   const value = $derived(valueProp ?? name);
   const instanceId = $props.id();
   const id = useBaseUiId(undefined, instanceId);
@@ -89,10 +96,12 @@
   const groupOnChange = $derived(groupProps.onCheckedChange);
   const otherGroupProps = $derived.by(() => {
     // These belong to checked state/callback logic, not host attributes.
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars -- source checked props are intentionally omitted from host attributes
       checked: _checked,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars -- source checked props are intentionally omitted from host attributes
       indeterminate: _indeterminate,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars -- source callback stays in checked business logic
       onCheckedChange: _onCheckedChange,
       ...other
     } = groupProps as {
@@ -162,10 +171,10 @@
     },
   );
   const inputProps = $derived({
-    checked,
+    defaultChecked,
     disabled,
     form,
-    name: parent ? undefined : name,
+    name: parent ? undefined : nativeName,
     id: nativeButton ? undefined : controlId,
     required,
     style: toNativeStyle(name ? visuallyHiddenInput : visuallyHidden),
@@ -305,17 +314,29 @@
     ],
     stateAttributesMapping,
   });
-  const hiddenParams = $derived({
-    props: [
+  const hiddenInputProps = $derived(
+    mergePropsN([
       inputProps,
       labelable.getDescriptionProps,
       (props: Record<string, unknown>) => validation.getValidationProps(disabled, props),
-    ],
-    ref: [inputRefProp, inputRef, parent ? undefined : registerInput],
-  });
+    ]),
+  );
+  const { useMergedRefs } = createMergedRefs<HTMLInputElement>();
+  const resolveInputAttachment = createRefAttachment<HTMLInputElement>(() => {});
+  const inputAttachment = $derived(
+    resolveInputAttachment(
+      useMergedRefs(inputRefProp, inputRef, parent ? undefined : registerInput),
+    ),
+  );
 </script>
 <RenderElement tag="span" {componentProps} {params} {children} />
 {#if !checked && !groupContext && name && !parent && uncheckedValue !== undefined}
-  <input type="hidden" {form} {name} value={uncheckedValue} {disabled} />
+  <input type="hidden" {form} name={nativeName} value={uncheckedValue} {disabled} />
 {/if}
-<RenderElement tag="input" params={hiddenParams} />
+<!-- Native binding owns checkbox DOM/default/hydration and form-reset behavior. -->
+<input
+  {...hiddenInputProps as HTMLInputAttributes}
+  type="checkbox"
+  {@attach inputAttachment}
+  bind:checked={getChecked, setCheckedState}
+/>
