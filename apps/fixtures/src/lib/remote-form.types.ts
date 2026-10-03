@@ -1,7 +1,5 @@
-import type { Component, ComponentProps } from 'svelte';
+import type { ComponentProps } from 'svelte';
 import { Field } from '../../../../packages/base/src/lib/field/index.js';
-import type { FieldRootProps } from '../../../../packages/base/src/lib/field/types.js';
-import type { TypedField } from '../../../../packages/base/src/lib/remote-forms/types.js';
 import type { RemoteForm, RemoteFormFields } from '@sveltejs/kit';
 import type { RemoteFieldArguments, RemoteFieldName, RemoteFieldRootProps } from '../../../../packages/base/src/lib/remote-forms/types.js';
 
@@ -88,14 +86,42 @@ const nestedName: Name = 'rows[4].active';
 // @ts-expect-error Root helper methods are not field names when not in the schema.
 const helperName: RemoteFieldName<RemoteFormFields<{ title: string }>> = 'value';
 
-declare const remote: RemoteForm<Input, { saved: true }>;
-const same: RemoteFieldArguments<typeof remote.fields.size> = ['hidden', 42];
+type Remote = RemoteForm<Input, { saved: true }>;
+const same: RemoteFieldArguments<Remote['fields']['size']> = ['hidden', 42];
 void [other, notOther, third, badThird, nestedName, helperName, same];
 
-// A single broad runtime component safely implements every narrower schema-bound Root.
-type RuntimeRoot = Component<FieldRootProps & { as?: string | readonly unknown[]; value?: unknown }>;
-function bind<Fields>(Root: RuntimeRoot, namespace: Omit<typeof Field, 'Root'>): TypedField<Fields> {
-  return { ...namespace, Root };
-}
 const plain: ComponentProps<typeof Field.Root> = { name: 'external-library-name', invalid: true };
-void [bind, plain];
+void plain;
+
+// Form output does not change the remote input field's control choices.
+type Transformed = RemoteForm<{ quantity: string }, { quantity: number }>;
+const transformedInput: RemoteFieldRootProps<Transformed['fields']> = { name: 'quantity', as: 'text' };
+// @ts-expect-error The output transformation does not turn a string input into a number field.
+const transformedOutput: RemoteFieldRootProps<Transformed['fields']> = { name: 'quantity', as: 'number' };
+void [transformedInput, transformedOutput];
+
+// Optional value/default arguments in newer public signatures also retain shorthand DX.
+type OptionalFields = {
+  flag: { as(...args: [type: 'checkbox', value?: boolean]): object };
+  choice: { as(...args: [type: 'radio', value: string, checked?: boolean]): object };
+};
+const optionalBoolean: RemoteFieldRootProps<OptionalFields> = { name: 'flag', as: 'checkbox' };
+const optionalValue: RemoteFieldRootProps<OptionalFields> = { name: 'flag', as: 'checkbox', value: false };
+const optionalChecked: RemoteFieldRootProps<OptionalFields> = { name: 'choice', as: ['radio', 'cloud', true] };
+const radioShorthand: RemoteFieldRootProps<OptionalFields> = { name: 'choice', as: 'radio', value: 'cloud' };
+// @ts-expect-error Required radio options stay required even when checked is optional.
+const missingOptionalRadio: RemoteFieldRootProps<OptionalFields> = { name: 'choice', as: 'radio' };
+void [optionalBoolean, optionalValue, optionalChecked, radioShorthand, missingOptionalRadio];
+
+// Recursive schema paths are checked on demand, instead of enumerating an infinite union.
+type Tree = { label: string; count: number; children: Tree[] };
+type TreeFields = RemoteFormFields<Tree>;
+const recursive: RemoteFieldRootProps<TreeFields, 'children[0].children[1].count'> = { name: 'children[0].children[1].count', as: 'number' };
+// @ts-expect-error A recursive path still selects its exact leaf type.
+const recursiveWrongAs: RemoteFieldRootProps<TreeFields, 'children[0].children[1].count'> = { name: 'children[0].children[1].count', as: 'text' };
+// @ts-expect-error A typo does not produce an unchecked string-name escape hatch.
+const recursiveTypo: RemoteFieldRootProps<TreeFields, 'children[0].typo'> = { name: 'children[0].typo', as: 'text' };
+const recursiveName: RemoteFieldName<TreeFields, 'children[0].label'> = 'children[0].label';
+// @ts-expect-error The explicit-name validator rejects recursive path typos.
+const invalidRecursiveName: RemoteFieldName<TreeFields, 'children[0].typo'> = 'children[0].typo';
+void [recursive, recursiveWrongAs, recursiveTypo, recursiveName, invalidRecursiveName];
