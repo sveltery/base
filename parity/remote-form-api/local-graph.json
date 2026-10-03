@@ -2673,7 +2673,7 @@
     },
     {
       "local": "packages/base/src/lib/remote-forms/RemoteBooleanControl.svelte",
-      "sha256": "3f4e3a1b71d822a6bf3593db75ecba13508842de53d365606917cd6212ea94ba",
+      "sha256": "da1b601d7977206c8e0d4b113bae4f8f434f01b9ac5db89bfa873d6d8f11be10",
       "imports": [
         {
           "specifier": "../checkbox/root/CheckboxRoot.svelte",
@@ -2699,11 +2699,6 @@
           "specifier": "../internals/field-control-value/FieldControlValueContext.js",
           "kind": "runtime",
           "resolved": "packages/base/src/lib/internals/field-control-value/FieldControlValueContext.ts"
-        },
-        {
-          "specifier": "../checkbox-group/CheckboxGroupContext.js",
-          "kind": "runtime",
-          "resolved": "packages/base/src/lib/checkbox-group/CheckboxGroupContext.ts"
         },
         {
           "specifier": "../internals/field-root-context/FieldRootContext.js",

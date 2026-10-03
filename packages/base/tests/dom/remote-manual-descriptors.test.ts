@@ -38,8 +38,8 @@ it.each([{}, { choices: [] }, { choices: ['a'] }])('actual Kit manual array opti
   expect(view.target.querySelector('[role="checkbox"]')).toBeNull();
 });
 
-it('remote styled group serializes the constant option before its one native input, with authored cancellation intact', async () => {
-  const view = render({ mode: 'group' });
+it.each(['group', 'nested'] as const)('remote styled %s placement serializes the constant option before its one native input, with authored cancellation intact', async (mode) => {
+  const view = render({ mode });
   expect(view.input.value).toBe('a');
   view.input.click(); await tick();
   expect(view.read('owner')).toEqual({ choices: ['a'] });
@@ -50,7 +50,7 @@ it('remote styled group serializes the constant option before its one native inp
   expect([...new FormData(view.form)]).toEqual([]);
   expect(view.read('phase')).toHaveLength(2);
 
-  const canceled = render({ mode: 'group', cancel: true });
+  const canceled = render({ mode, cancel: true });
   canceled.input.click(); await tick();
   expect(canceled.input.checked).toBe(false);
   expect(canceled.read('owner')).toEqual({});
