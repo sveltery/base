@@ -113,3 +113,25 @@ cat > "$radio_consumer/tsconfig.json" <<'JSON'
 JSON
 node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$radio_consumer/check.mjs"
 node "$sveltery_repo_root/packages/base/node_modules/svelte-check/bin/svelte-check" --workspace "$radio_consumer" --tsconfig ./tsconfig.json
+
+# Diagnostic import of the installed private shared utility (no public export is added).
+# Test the native environment boundary with browser-style globals and no Node process.
+node --conditions=development --input-type=module - "$radio_consumer/node_modules/@sveltery/base" <<'JS'
+import assert from 'node:assert/strict';
+import { pathToFileURL } from 'node:url';
+const installed = pathToFileURL(`${process.argv[2]}/dist/`);
+const nodeProcess = globalThis.process;
+Object.defineProperty(globalThis, 'navigator', { configurable: true, value: {
+  userAgent: 'Legacy ignored', platform: 'Legacy ignored', maxTouchPoints: 2,
+  userAgentData: { brands: [{ brand: 'Chromium', version: '153' }], platform: 'MacIntel' },
+} });
+try {
+  globalThis.process = undefined;
+  const { platform } = await import(new URL('utils/platform/index.js', installed));
+  const { stopEvent, isClickLikeEvent } = await import(new URL('floating-ui/utils/event.js', installed));
+  assert.equal(platform.os.ios, true); assert.equal(platform.os.mac, false); assert.equal(platform.engine.blink, true);
+  const event = new Event('keydown', { cancelable: true }); stopEvent(event);
+  assert.equal(event.defaultPrevented, true); assert.equal(event.cancelBubble, true); assert.equal(isClickLikeEvent(event), true);
+} finally { globalThis.process = nodeProcess; }
+console.log('Installed private native interaction platform imports without Node process and retains UA-CH/event branches: PASS');
+JS
