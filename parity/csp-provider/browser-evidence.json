@@ -1,0 +1,38 @@
+{
+  "kind": "supplemental-secured-browser-source-checkpoint",
+  "sourceHead": "d77182579f151bf08c9b7d192e5feff5bd2f3ede",
+  "run": 37056606091,
+  "runUrl": "https://github.com/sveltery/base/actions/runs/37056606091",
+  "job": 111002877487,
+  "jobName": "Dialog browser",
+  "jobUrl": "https://github.com/sveltery/base/actions/runs/37056606091/job/111002877487",
+  "runConclusion": "success",
+  "jobConclusion": "success",
+  "command": "pnpm test:browser",
+  "browser": "official Playwright Chromium on Ubuntu 22.04",
+  "chromiumSandbox": true,
+  "retries": 0,
+  "cspExecutions": 5,
+  "ordinaryDeclarationCredit": 0,
+  "completeSuiteExecutions": 1238,
+  "completeSuiteResult": "1238 passed (14.1m)",
+  "checkpointCheckout": "2026-10-02T19:49:55.7293901Z HEAD is now at d771825 Require actual SSR markup in CSP hydration witness",
+  "cspPassedLogLines": [
+    "2026-10-02T19:52:36.2864463Z   \u2713   180 tests/browser/csp-provider.spec.ts:5:3 \u203a CSP supplement Svelte: wrapperless defaults, nested shadowing and live updates (620ms)",
+    "2026-10-02T19:52:36.8946103Z   \u2713   181 tests/browser/csp-provider.spec.ts:25:3 \u203a CSP supplement Svelte: teardown and remount preserve scope (597ms)",
+    "2026-10-02T19:52:38.2065088Z   \u2713   182 tests/browser/csp-provider.spec.ts:5:3 \u203a CSP supplement React: wrapperless defaults, nested shadowing and live updates (1.3s)",
+    "2026-10-02T19:52:39.5086011Z   \u2713   183 tests/browser/csp-provider.spec.ts:25:3 \u203a CSP supplement React: teardown and remount preserve scope (1.3s)",
+    "2026-10-02T19:52:40.0230798Z   \u2713   184 tests/browser/csp-provider.spec.ts:36:1 \u203a CSP supplement Svelte: hydration preserves SSR probe nodes and has no hydration errors (504ms)"
+  ],
+  "completeSuiteLogLine": "2026-10-02T20:04:39.2296608Z   1238 passed (14.1m)",
+  "limitations": "This source checkpoint does not establish final integrated current-main acceptance, downstream style/script CSP behavior, ordinary declaration credit, other-browser parity or assistive-technology coverage.",
+  "sourceHashes": {
+    "tests/browser/csp-provider.spec.ts": "b5acfbecd2049455b9e460df3cd69a5fe2da9b3ce489a8a7e0e5ea1c3eca270d",
+    "apps/fixtures/src/lib/CSPFixture.svelte": "f0ccdd23cb915bbc77cf44d6ee0beff27498385016ec67304f19f62ef9beec1d",
+    "apps/fixtures/src/lib/CSPProbe.svelte": "398321392452effa95c9dd4544efcdfa9cf6a310345d0d881c3f7c51cc110975",
+    "apps/fixtures/src/lib/csp-reference.ts": "f35d47f6f2f16481448f3766309ef87acf6adb55ff1013119c8936fdfc879e94",
+    "packages/base/src/lib/csp-provider/CSPProvider.svelte": "9cfa7804bb3d6e14ab42ed8ae14b18386287c2b0e8f78066fa7fd7dd63059e38",
+    "packages/base/src/lib/csp-provider/context.ts": "ef547502733a191eaa312c58a4017c1a86a5af73e58aa2d155b79842941d80b0",
+    "playwright.config.ts": "3cee92fbf24f17b40087b8f79193696e20b488435fb9a260af2a4cca88eb5858"
+  }
+}

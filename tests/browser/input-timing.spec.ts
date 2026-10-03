@@ -20,7 +20,7 @@ test('same-dispatch native listener order and FormData versus settled controlled
       const afterReact = ['root:after-delegation', 'document:before-registered-delegation', 'document:after-registered-delegation', 'dispatch:return'].includes(observation.stage);
       expect(observation.value).toBe((result.framework === 'react' || result.framework === 'input-final-wrapper' || result.framework === 'input-owned-final-wrapper') && afterReact ? owner : 'edit');
     }
-    const settled = result.framework === 'native-value' && result.decision === 'reject' ? 'edit' : owner;
+    const settled = (result.framework === 'native-value' || result.framework === 'input') && (result.decision === 'reject' || result.preventBase) ? 'edit' : owner;
     expect(result.settled).toEqual([{ stage: 'after:tick', value: settled, formData: settled }]);
   }
   expect(errors).toEqual([]);

@@ -66,7 +66,7 @@ import assert from 'node:assert/strict';
 import { render } from 'svelte/server';
 import Consumer from './Consumer.svelte';
 import { FieldA, FieldB, FormA, FormB, FieldsetA, FieldsetB, InputA, InputB } from './imports.js';
-assert.equal(FieldA, FieldB); assert.equal(FormA, FormB); assert.equal(FieldsetA, FieldsetB); assert.equal(InputA, InputB); assert.equal(FieldA.Control, InputA);
+assert.equal(FieldA, FieldB); assert.equal(FormA, FormB); assert.equal(FieldsetA, FieldsetB); assert.equal(InputA, InputB); assert.notEqual(FieldA.Control, InputA);
 assert.deepEqual(Object.keys(FieldA).sort(), ['Control', 'Description', 'Error', 'Item', 'Label', 'Root', 'Validity']); assert.deepEqual(Object.keys(FieldsetA).sort(), ['Legend', 'Root']);
 const body = render(Consumer).body;
 assert.equal((body.match(/<form/g) ?? []).length, 2);

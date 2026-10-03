@@ -82,6 +82,7 @@ export function useFieldValidation(
 
   const timeout = useTimeout();
   const inputRef = $state<{ current: HTMLInputElement | null }>({ current: null });
+  // eslint-disable-next-line svelte/prefer-svelte-reactivity -- Source registration Map is imperative and does not subscribe rendering.
   const registeredInputs = useRefWithInit<RegisteredInputs>(() => new Map()).current;
   const validationCommitIdRef = { current: 0 };
   // Tracks the message installed by Base UI and the custom message it displaced.

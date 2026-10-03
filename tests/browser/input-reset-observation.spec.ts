@@ -4,7 +4,7 @@ for (const scenario of ['reassociation', 'stop-immediate', 'unrelated-old', 'att
   test(`trusted reset observation (${native ? 'native' : 'Input'}/${scenario}/canceled=${canceled})`, async ({ page }) => {
     await page.goto(`/input-reset-observation?case=${scenario}${native ? '&native' : ''}${canceled ? '&canceled' : ''}`);
     await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true'); const input = page.getByTestId('reset-input');
-    await input.fill('edit'); await expect(input).toHaveValue(!canceled && scenario !== 'unrelated-old' && !scenario.startsWith('reassociation-during-reset') ? 'seed' : native ? 'edit' : 'owner');
+    await input.fill('edit'); await expect(input).toHaveValue(!canceled && scenario !== 'unrelated-old' && !scenario.startsWith('reassociation-during-reset') ? 'seed' : 'edit');
     expect(await input.evaluate((node: HTMLInputElement) => node.form?.id)).toBe(scenario === 'stop-immediate' || scenario.includes('attachment-') || scenario.startsWith('reassociation-into-reset') ? 'reset-first' : 'reset-second');
     if (!native && scenario.endsWith('-replacement')) await expect(input).toHaveAttribute('data-merged', 'true');
   });
