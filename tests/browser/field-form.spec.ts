@@ -116,8 +116,8 @@ for (const initialClient of [false, true]) test(`supplement Field.Error messages
       await expect(page.locator('#validity')).toContainText(`"value":"${value}"`);
       await nativeList.getByRole('button', { name: 'Client messages', exact: true }).click();
       await check(value, ['same', 'same'], clientReactRows);
-      expect((await read(page, 'validity')).validity.errors).toEqual(['same', 'same']);
-      expect((await read(reference, 'validity')).validity.errors).toEqual(['same', 'same']);
+      expect((await read(page, 'validity')).errors).toEqual(['same', 'same']);
+      expect((await read(reference, 'validity')).errors).toEqual(['same', 'same']);
     }
     await reference.getByRole('button', { name: 'Empty errors', exact: true }).click();
     await page.getByRole('button', { name: 'Empty errors', exact: true }).click();
