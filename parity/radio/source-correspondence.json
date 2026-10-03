@@ -4695,7 +4695,7 @@
         }
       ],
       "local": "packages/base/src/lib/utils/owner.ts",
-      "correspondence": "Reused canonical Field/Form/shared-utility source dependency; Original used function body unchanged; ownerWindow is outside this used-symbol closure. See parity/field-form/source-correspondence.json",
+      "correspondence": "Reused canonical ownerDocument body and approved Boolean-owned ownerWindow native helper. Pinned owner.ts reexports getWindow as ownerWindow from @floating-ui/utils/dom; dispatchClickWithModifiers now directly imports and calls the shared local ownerWindow for its actual Element target. Native ownerDocument/defaultView/window lookup replaces that selected DOM boundary without a Floating/React runtime import. The separate Field-only correspondence selects ownerDocument; ownerWindow is part of the actual Radio closure.",
       "localSha256": "4f32738229316fe875cf72e949caa4aa7d2fcdf924a2bd5b7f01e88ca5424185",
       "status": "implemented-awaiting-exact-head-review"
     },
