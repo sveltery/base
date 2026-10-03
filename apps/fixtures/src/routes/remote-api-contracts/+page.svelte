@@ -131,3 +131,13 @@
   <output id="enhanced-pending">{enhanced.pending}</output><output id="enhanced-result">{JSON.stringify(enhanced.result ?? null)}</output><output id="enhancement-events">{JSON.stringify(enhancements)}</output>
   <button onclick={() => effects.refresh()}>Read contract effects</button><output id="contract-effects">{JSON.stringify(effects.current ?? {})}</output>
 </main>
+
+<style>
+  :global(#styled-choices [role='checkbox']), :global(#styled-radio [role='radio']) {
+    display: inline-flex;
+    min-width: 7rem;
+    min-height: 2rem;
+    align-items: center;
+    border: 1px solid currentColor;
+  }
+</style>
