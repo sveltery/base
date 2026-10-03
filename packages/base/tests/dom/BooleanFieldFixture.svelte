@@ -29,6 +29,7 @@
   let visible = $state(true);
   let controlledChecked = $state(false);
   let groupValue = $state<string[]>([]);
+  let childValue = $state('a');
   export function hide() {
     visible = false;
   }
@@ -37,6 +38,9 @@
   }
   export function setGroupValue(value: string[]) {
     groupValue = value;
+  }
+  export function setChildValue(value: string) {
+    childValue = value;
   }
 </script>
 {#snippet nativeButton(props: Record<string | symbol, unknown>, _state: unknown, children: Snippet | undefined)}<button {...props as HTMLButtonAttributes}>{@render children?.()}</button>{/snippet}
@@ -52,7 +56,7 @@
       <Field.Label>Choices</Field.Label>
       <CheckboxGroup value={scenario === 'group' ? groupValue : undefined} defaultValue={['a']} allValues={['a', 'b']} onValueChange={(next, details) => { if (canceled) details.cancel(); if (!details.isCanceled) groupValue = next; }}>
         <Checkbox.Root parent data-parent-control />
-        <Field.Item><Checkbox.Root value="a" id="child-a" /><Field.Label>A</Field.Label></Field.Item>
+        <Field.Item><Checkbox.Root value={childValue} id="child-a" /><Field.Label>A</Field.Label></Field.Item>
         <Field.Item disabled={rootProps.disabled}><Checkbox.Root value="b" id="child-b" /><Field.Label>B</Field.Label></Field.Item>
       </CheckboxGroup>
       <Field.Error />

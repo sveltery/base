@@ -484,7 +484,7 @@
         }
       ],
       "local": "packages/base/src/lib/checkbox/root/CheckboxRoot.svelte",
-      "localSha256": "4ecdc8bb2b05062b43eb9033f826e0fa4d1bb242105205dab5e30a57bcbe3fe3",
+      "localSha256": "a36b319df5260003cf385ea81c73c499a4dbb95fa3f11dadf2c6edd2f4fb5eb8",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -5432,7 +5432,7 @@
         }
       ],
       "local": "packages/base/src/lib/utils/visuallyHidden.ts",
-      "localSha256": "56022292e75f4aea7e384bcd6f58f37c7b2f57f0dabde7c5bee67542ad2829dc",
+      "localSha256": "8f49185df1c0536608090368454cc3d30a3bfc1991b23a4b5e5239184ead8020",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
