@@ -33,6 +33,8 @@ test('typed remote namespace hydrates and renders one semantic Switch input', as
   await expect(page.getByRole('switch')).toHaveAttribute('aria-checked', 'true');
   await page.getByRole('button', { name: 'Reset', exact: true }).click();
   await expect(input).toHaveValue('seed');
+  await expect.poll(async () => (await value(page, 'reset-phases')).filter((phase: { form: string; phase: string }) => phase.form === 'survey-form' && phase.phase === 'task').length).toBe(1);
+  await test.info().attach('source-reset-phases.json', { body: JSON.stringify(await value(page, 'reset-phases')), contentType: 'application/json' });
   await test.info().attach('source-switch-reset.json', { body: JSON.stringify(await page.locator('#survey-form').evaluate((form: HTMLFormElement) => {
     const control = form.querySelector<HTMLInputElement>('input[type="checkbox"]')!;
     return { checked: control.checked, defaultChecked: control.defaultChecked, html: control.outerHTML, successfulValues: [...new FormData(form)] };
@@ -55,11 +57,26 @@ test('actual literal Kit descriptors characterize initially undefined checkbox a
   await expect(checkbox).toBeChecked();
   await page.getByRole('button', { name: 'Literal reset', exact: true }).click();
   await expect(input).toHaveValue('seed'); await expect(checkbox).not.toBeChecked();
+  await expect.poll(async () => (await value(page, 'reset-phases')).filter((phase: { form: string; phase: string }) => phase.form === 'literal-reset-form' && phase.phase === 'task').length).toBe(1);
+  await test.info().attach('literal-reset-phases.json', { body: JSON.stringify(await value(page, 'reset-phases')), contentType: 'application/json' });
   await expect.poll(async () => (await value(page, 'literal-owner')).enabled ?? false).toBe(false);
   await test.info().attach('literal-checked-reset.json', { body: JSON.stringify(await page.locator('#literal-reset-form').evaluate((form: HTMLFormElement) => {
     const control = form.querySelector<HTMLInputElement>('input[type="checkbox"]')!;
     return { checked: control.checked, defaultChecked: control.defaultChecked, html: control.outerHTML, successfulValues: [...new FormData(form)] };
   })), contentType: 'application/json' });
+});
+
+test('literal Kit descriptor reset from a public programmatic call observes native defaults', async ({ page }) => {
+  await setup(page);
+  await page.getByRole('button', { name: 'Literal replace values', exact: true }).click();
+  await page.getByRole('button', { name: 'Literal set enabled', exact: true }).click();
+  await expect(page.locator('#literal-enabled')).toBeChecked();
+  await page.locator('#literal-reset-form').evaluate((form: HTMLFormElement) => HTMLFormElement.prototype.reset.call(form));
+  await expect(page.locator('#literal-text')).toHaveValue('seed');
+  await expect(page.locator('#literal-enabled')).not.toBeChecked();
+  await expect.poll(async () => (await value(page, 'reset-phases')).filter((phase: { form: string; phase: string }) => phase.form === 'literal-reset-form' && phase.phase === 'task').length).toBe(1);
+  await test.info().attach('literal-programmatic-reset-phases.json', { body: JSON.stringify(await value(page, 'reset-phases')), contentType: 'application/json' });
+  await expect.poll(async () => (await value(page, 'literal-owner')).enabled ?? false).toBe(false);
 });
 
 test('checked cancellation precedes native input and Kit ownership', async ({ page }) => {
