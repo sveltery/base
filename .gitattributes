@@ -7,3 +7,7 @@ packages/base/patches/*.patch whitespace=-blank-at-eol,-space-before-tab
 parity/boolean-controls/browser-8b88b30-observation.log whitespace=-blank-at-eol
 parity/boolean-controls/browser-b103288-observation.log whitespace=-blank-at-eol
 parity/boolean-controls/browser-b9c3185-observation.log whitespace=-blank-at-eol
+
+# Preserve exact red hosted native-submit evidence, including timestamped terminal spaces.
+parity/field-form/native-submit-flow/browser-77c5c10.log whitespace=-blank-at-eol
+parity/field-form/native-submit-flow/browser-5741289.log whitespace=-blank-at-eol

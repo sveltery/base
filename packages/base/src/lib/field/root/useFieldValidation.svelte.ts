@@ -12,6 +12,8 @@ import { getCombinedFieldValidityData } from '../utils/getCombinedFieldValidityD
 import type { FieldValidityData, FieldRootState } from '../types.js';
 import type { FormValues, FormValidationMode } from '../../form/types.js';
 type HTMLProps = Record<string, unknown>;
+/** Native form controls share the constraint APIs used by the source validation body. */
+export type NativeValidationControl = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 const validityKeys = Object.keys(DEFAULT_VALIDITY_STATE) as Array<keyof ValidityState>;
 
 export type RegisteredInput = {
@@ -19,7 +21,7 @@ export type RegisteredInput = {
   value: string | undefined;
 };
 
-export type RegisteredInputs = Map<HTMLInputElement, RegisteredInput>;
+export type RegisteredInputs = Map<NativeValidationControl, RegisteredInput>;
 
 /**
  * Whether an input participates in the surrounding Base UI Form. Inputs that are effectively
@@ -28,7 +30,7 @@ export type RegisteredInputs = Map<HTMLInputElement, RegisteredInput>;
  * registration is context-driven, so portaled inputs (for example inside a dialog) still belong to
  * the form for both validation and values projected into `onFormSubmit`.
  */
-export function isEligibleInput(input: HTMLInputElement, formElement: HTMLFormElement | null) {
+export function isEligibleInput(input: NativeValidationControl, formElement: HTMLFormElement | null) {
   if (input.matches(':disabled')) {
     return false;
   }
@@ -50,8 +52,8 @@ export function isEligibleInput(input: HTMLInputElement, formElement: HTMLFormEl
 function findRepresentativeInput(
   inputs: RegisteredInputs,
   formElement: HTMLFormElement | null,
-): HTMLInputElement | null {
-  let fallback: HTMLInputElement | null = null;
+): NativeValidationControl | null {
+  let fallback: NativeValidationControl | null = null;
   for (const input of inputs.keys()) {
     if (!isEligibleInput(input, formElement)) {
       continue;
@@ -68,7 +70,7 @@ function makeState(customError: boolean): Record<keyof ValidityState, boolean> {
   return { ...DEFAULT_VALIDITY_STATE, valid: !customError, customError };
 }
 
-function getNativeErrors(element: HTMLInputElement | null): string[] {
+function getNativeErrors(element: NativeValidationControl | null): string[] {
   return element && element.validationMessage ? [element.validationMessage] : [];
 }
 
@@ -86,13 +88,13 @@ export function useFieldValidation(
   const registeredInputs = useRefWithInit<RegisteredInputs>(() => new Map()).current;
   const validationCommitIdRef = { current: 0 };
   // Tracks the message installed by Base UI and the custom message it displaced.
-  const customValidityRef = { current: null as [element: HTMLInputElement, message: string, displaced: string] | null };
+  const customValidityRef = { current: null as [element: NativeValidationControl, message: string, displaced: string] | null };
 
   // Groups register several inputs against a single field so focus, validation, and form-value
   // projection can use the same live controls. This also ensures a `required` checkbox can't be
   // satisfied by another input in the group, matching native per-checkbox behavior.
   const registerInput = useStableCallback(
-    (element: HTMLInputElement, registration: RegisteredInput) => {
+    (element: NativeValidationControl, registration: RegisteredInput) => {
       registeredInputs.set(element, registration);
       return () => {
         registeredInputs.delete(element);
@@ -149,7 +151,7 @@ export function useFieldValidation(
       };
     }
 
-    function setCustomValidity(element: HTMLInputElement, message: string) {
+    function setCustomValidity(element: NativeValidationControl, message: string) {
       // Never reinstall a native constraint message as custom validity.
       const displaced = element.validity.customError ? element.validationMessage : '';
       const ownedMessage = message.replace(/\r\n?/g, '\n');
@@ -176,7 +178,7 @@ export function useFieldValidation(
       params.setValidityData(nextValidityData);
     }
 
-    function getState(el: HTMLInputElement) {
+    function getState(el: NativeValidationControl) {
       const computedState = validityKeys.reduce(
         (acc, key) => {
           acc[key] = el.validity[key];
@@ -384,7 +386,7 @@ export interface UseFieldValidationReturnValue {
   getValidationProps(disabled: boolean, props?: HTMLProps): HTMLProps;
   inputRef: { current: HTMLInputElement | null };
   registeredInputs: RegisteredInputs;
-  registerInput(element: HTMLInputElement, registration: RegisteredInput): void | (() => void);
+  registerInput(element: NativeValidationControl, registration: RegisteredInput): void | (() => void);
   getInputControl(): HTMLElement | null;
   commit(value: unknown): Promise<void>;
   change(value: unknown, cancelPending?: boolean): void;

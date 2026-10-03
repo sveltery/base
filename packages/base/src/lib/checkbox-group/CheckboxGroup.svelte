@@ -76,7 +76,7 @@
     for (const [input, registration] of field.validation.registeredInputs) {
       if (
         registration.value !== undefined &&
-        input.checked &&
+        'checked' in input && input.checked &&
         isEligibleInput(input, formElement)
       )
         successfulValues.add(registration.value);

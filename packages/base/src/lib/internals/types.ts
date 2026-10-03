@@ -1,9 +1,12 @@
 // Native type representations of pinned Base UI shared rendering types (MIT).
 import type { Snippet } from 'svelte';
-import type { ClassValue } from 'svelte/elements';
+import type { ClassValue, HTMLAttributes } from 'svelte/elements';
 import type { PreventableEvent } from '../merge-props/index.js';
 import type { NativeStyle } from './nativeProps.js';
-export type HTMLProps = Record<string | symbol, unknown>;
+// A render snippet chooses its own native host. Reuse Svelte's attachment slot
+// while leaving arbitrary string props unknown, as in the source open record.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Svelte's unknown-host attachment slot accepts the snippet's actual element type.
+export type HTMLProps = Record<string, unknown> & { [key: symbol]: HTMLAttributes<any>[symbol] };
 export type ComponentRenderFn<Props, State> = Snippet<[Props, State, Snippet | undefined]>;
 export type BaseUIEvent<E extends Event> = E & PreventableEvent;
 type WithPreventBaseUIHandler<T> = T extends (event: infer E) => infer Return

@@ -99,16 +99,6 @@
       "svelte": "./dist/fieldset/index.js",
       "default": "./dist/fieldset/index.js"
     },
-    "./radio": {
-      "types": "./dist/radio/index.d.ts",
-      "svelte": "./dist/radio/index.js",
-      "default": "./dist/radio/index.js"
-    },
-    "./radio-group": {
-      "types": "./dist/radio-group/index.d.ts",
-      "svelte": "./dist/radio-group/index.js",
-      "default": "./dist/radio-group/index.js"
-    },
     "./checkbox": {
       "types": "./dist/checkbox/index.d.ts",
       "svelte": "./dist/checkbox/index.js",
@@ -123,6 +113,16 @@
       "types": "./dist/switch/index.d.ts",
       "svelte": "./dist/switch/index.js",
       "default": "./dist/switch/index.js"
+    },
+    "./radio": {
+      "types": "./dist/radio/index.d.ts",
+      "svelte": "./dist/radio/index.js",
+      "default": "./dist/radio/index.js"
+    },
+    "./radio-group": {
+      "types": "./dist/radio-group/index.d.ts",
+      "svelte": "./dist/radio-group/index.js",
+      "default": "./dist/radio-group/index.js"
     }
   },
   "svelte": "./dist/index.js",

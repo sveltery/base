@@ -618,12 +618,12 @@
       },
       {
         "local": "packages/base/src/lib/internals/types.ts",
-        "sha256": "d20a002ee70ffc90ea8dbd4acefcb2923c79d69de94047aa521a90f8eadab817",
+        "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
         "reachability": [
           "type"
         ],
         "category": "native-type-boundary",
-        "provenance": "Native Snippet/ClassValue/Event/symbol-keyed prop representations for the pinned Base UI rendering type scope; PR41 restores the source class/style/render explicit-undefined contracts. Canonical runtime bodies remain unchanged.",
+        "provenance": "Native Snippet/ClassValue/Event/symbol-keyed prop representations for the pinned Base UI rendering type scope; PR41 restores the source class/style/render explicit-undefined contracts. Canonical runtime bodies remain unchanged. PR52 retains unknown string values and reuses the actual Svelte HTMLAttributes attachment symbol slot; the host generic is confined to native callbacks, with no runtime change.",
         "originalSources": [
           "packages/react/src/internals/types.ts",
           "packages/react/src/types/index.ts"
@@ -645,7 +645,8 @@
             "resolved": "external:svelte/elements",
             "runtimeNames": [],
             "typeNames": [
-              "ClassValue"
+              "ClassValue",
+              "HTMLAttributes"
             ]
           },
           {

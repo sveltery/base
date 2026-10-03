@@ -35,10 +35,11 @@ export type { RemoteFormLike, RemoteFieldArguments, RemoteFieldName, RemoteField
 export { Fieldset, FieldsetRoot, FieldsetLegend } from './fieldset/index.js';
 export type * from './fieldset/types.js';
 
+export * from './checkbox/index.js';
+export * from './checkbox-group/index.js';
+export * from './switch/index.js';
+
 export { Radio, RadioRoot, RadioIndicator } from './radio/index.js';
 export type * from './radio/types.js';
 export { RadioGroup } from './radio-group/index.js';
 export type * from './radio-group/types.js';
-export * from './checkbox/index.js';
-export * from './checkbox-group/index.js';
-export * from './switch/index.js';

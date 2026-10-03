@@ -174,13 +174,13 @@ for (const mode of ['', 'formReplacement']) for (const remoteDocument of [false,
   }, remoteDocument);
   expect(observation.action).toBe(observation.documentURL); expect(observation.action).not.toBe(observation.baseURI); expect(observation.remoteDocument).toBe(remoteDocument);
   await page.getByRole('button', { name: 'Submit', exact: true }).click(); await expect(input).toBeFocused(); await page.waitForTimeout(300);
-  expect(requests).toHaveLength(0); expect(await readCounter(page) - before).toBe(0); await expectLaterListeners(page, 1);
+  expect(requests).toHaveLength(0); expect(await readCounter(page) - before).toBe(0); await expectLaterListeners(page, remoteDocument ? 0 : 1);
   await expect(page.locator('#remote-result')).toHaveText('null'); await expect(page.locator('#remote-resets')).toHaveText('0'); await expect(page.locator('#remote-native-submit')).toHaveText('0');
   await expect(input).toHaveValue('blocked@example.com'); await expect(input).toHaveAttribute('aria-invalid', 'true');
   if (!remoteDocument) await page.locator('#remote-form').evaluate((form: HTMLFormElement) => {
     document.getElementById('boundary-base')!.remove(); form.querySelector('button[type="submit"]')!.removeAttribute('formaction');
   });
-  await expectNextValidSubmit(page, input, before, requests, 1);
+  await expectNextValidSubmit(page, input, before, requests, remoteDocument ? 0 : 1);
 });
 for (const tag of ['button', 'input'] as const) test(`acceptance Kit native ${tag} submitter reflected overrides preserve method action target selection and the next valid submit`, async ({ page }) => {
   const input = await setup(page); const before = await readCounter(page); const requests: string[] = [];
@@ -190,7 +190,7 @@ for (const tag of ['button', 'input'] as const) test(`acceptance Kit native ${ta
     const submitter = document.createElement(name); submitter.id = 'boundary-submitter'; submitter.type = 'submit'; form.append(submitter);
   }, tag);
   let later = 0;
-  for (const [attribute, value] of [
+  for (const [attribute, value, suppress] of [
     ['formmethod', '', false], ['formmethod', 'invalid', false], ['formmethod', 'get', false], ['formmethod', 'dialog', false], ['formmethod', 'POST', true],
     ['formaction', '/ordinary', false], ['formtarget', '_blank', false], ['formtarget', '_self', true],
   ] as const) {
@@ -204,7 +204,7 @@ for (const tag of ['button', 'input'] as const) test(`acceptance Kit native ${ta
         target: submitter.hasAttribute('formtarget') ? submitter.formTarget : form.target, defaultPrevented: event.defaultPrevented };
     }, [attribute, value]);
     expect(observation.defaultPrevented).toBe(true); if (attribute === 'formmethod') expect(observation.method).toBe(value === 'POST' ? 'post' : value === 'dialog' ? 'dialog' : 'get');
-    later += 1; await expectLaterListeners(page, later);
+    later += suppress ? 0 : 1; await expectLaterListeners(page, later);
   }
   await page.waitForTimeout(300); expect(requests).toHaveLength(0); expect(await readCounter(page) - before).toBe(0);
   await expect(page.locator('#remote-result')).toHaveText('null'); await expect(page.locator('#remote-resets')).toHaveText('0');
