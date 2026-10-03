@@ -4,22 +4,35 @@ import { untrack } from 'svelte';
 import { useStableCallback } from '../utils/useStableCallback.js';
 import { EMPTY_ARRAY } from '../utils/empty.js';
 import type { BaseUIChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
-export interface UseCheckboxGroupParentParameters { allValues?: string[]; value: string[]; onValueChange?: (value: string[], details: BaseUIChangeEventDetails<'none'>) => void }
-export function useCheckboxGroupParent(getParameters: () => UseCheckboxGroupParentParameters) {
+export interface UseCheckboxGroupParentParameters {
+  allValues?: string[];
+  value: string[];
+  onValueChange?: (value: string[], details: BaseUIChangeEventDetails<'none'>) => void;
+}
+export function useCheckboxGroupParent(
+  getParameters: () => UseCheckboxGroupParentParameters,
+) {
   const uncontrolledStateRef = { current: untrack(() => getParameters().value) };
   const disabledStatesRef = { current: new Map<string, boolean>() };
   let status = $state<'on' | 'off' | 'mixed'>('mixed');
   let childIdsState = $state.raw({ registry: new Map<string, readonly string[]>() });
-  const onValueChange = useStableCallback((value: string[], details: BaseUIChangeEventDetails<'none'>) => getParameters().onValueChange?.(value, details));
+  const onValueChange = useStableCallback(
+    (value: string[], details: BaseUIChangeEventDetails<'none'>) =>
+      getParameters().onValueChange?.(value, details),
+  );
   const registerChildId = useStableCallback((childValue: string, childId: string) => {
     const childIds = childIdsState.registry;
     const ids = childIds.get(childValue);
-    if (!ids?.includes(childId)) { childIds.set(childValue, ids ? ids.concat(childId) : [childId]); childIdsState = { registry: childIds }; }
+    if (!ids?.includes(childId)) {
+      childIds.set(childValue, ids ? ids.concat(childId) : [childId]);
+      childIdsState = { registry: childIds };
+    }
     return () => {
       const registeredIds = childIds.get(childValue);
       if (!registeredIds?.includes(childId)) return;
-      const nextIds = registeredIds.filter(id => id !== childId);
-      if (nextIds.length === 0) childIds.delete(childValue); else childIds.set(childValue, nextIds);
+      const nextIds = registeredIds.filter((id) => id !== childId);
+      if (nextIds.length === 0) childIds.delete(childValue);
+      else childIds.set(childValue, nextIds);
       childIdsState = { registry: childIds };
     };
   });
@@ -29,18 +42,35 @@ export function useCheckboxGroupParent(getParameters: () => UseCheckboxGroupPare
     const indeterminate = value.length !== allValues.length && value.length > 0;
     const currentStatus = status;
     return {
-      indeterminate, checked,
-      'aria-controls': allValues.flatMap(v => childIdsState.registry.get(v) ?? EMPTY_ARRAY).join(' ') || undefined,
+      indeterminate,
+      checked,
+      'aria-controls':
+        allValues
+          .flatMap((v) => childIdsState.registry.get(v) ?? EMPTY_ARRAY)
+          .join(' ') || undefined,
       onCheckedChange(_checked: boolean, details: BaseUIChangeEventDetails<'none'>) {
         const uncontrolledState = uncontrolledStateRef.current;
-        const none = allValues.filter(v => disabledStatesRef.current.get(v) && uncontrolledState.includes(v));
-        const all = allValues.filter(v => !disabledStatesRef.current.get(v) || uncontrolledState.includes(v));
-        const allOnOrOff = uncontrolledState.length === all.length || uncontrolledState.length === 0;
-        if (allOnOrOff) { onValueChange(value.length === all.length ? none : all, details); return; }
+        const none = allValues.filter(
+          (v) => disabledStatesRef.current.get(v) && uncontrolledState.includes(v),
+        );
+        const all = allValues.filter(
+          (v) => !disabledStatesRef.current.get(v) || uncontrolledState.includes(v),
+        );
+        const allOnOrOff =
+          uncontrolledState.length === all.length || uncontrolledState.length === 0;
+        if (allOnOrOff) {
+          onValueChange(value.length === all.length ? none : all, details);
+          return;
+        }
         let nextStatus: 'on' | 'off' | 'mixed' = 'mixed';
         let nextValue = uncontrolledState;
-        if (currentStatus === 'mixed') { nextStatus = 'on'; nextValue = all; }
-        else if (currentStatus === 'on') { nextStatus = 'off'; nextValue = none; }
+        if (currentStatus === 'mixed') {
+          nextStatus = 'on';
+          nextValue = all;
+        } else if (currentStatus === 'on') {
+          nextStatus = 'off';
+          nextValue = none;
+        }
         onValueChange(nextValue, details);
         if (!details.isCanceled) status = nextStatus;
       },
@@ -52,9 +82,13 @@ export function useCheckboxGroupParent(getParameters: () => UseCheckboxGroupPare
       checked: value.includes(childValue),
       onCheckedChange(nextChecked: boolean, details: BaseUIChangeEventDetails<'none'>) {
         const newValue = value.slice();
-        if (nextChecked) newValue.push(childValue); else newValue.splice(newValue.indexOf(childValue), 1);
+        if (nextChecked) newValue.push(childValue);
+        else newValue.splice(newValue.indexOf(childValue), 1);
         onValueChange(newValue, details);
-        if (!details.isCanceled) { uncontrolledStateRef.current = newValue; status = 'mixed'; }
+        if (!details.isCanceled) {
+          uncontrolledStateRef.current = newValue;
+          status = 'mixed';
+        }
       },
     };
   }

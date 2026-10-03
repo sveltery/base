@@ -39,15 +39,15 @@
     },
     {
       "upstreamModule": "checkbox",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "Checkbox",
+      "evidence": "parity/boolean-controls/README.md"
     },
     {
       "upstreamModule": "checkbox-group",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "CheckboxGroup",
+      "evidence": "parity/boolean-controls/README.md"
     },
     {
       "upstreamModule": "collapsible",
@@ -213,9 +213,9 @@
     },
     {
       "upstreamModule": "switch",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "Switch",
+      "evidence": "parity/boolean-controls/README.md"
     },
     {
       "upstreamModule": "tabs",

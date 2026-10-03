@@ -33,3 +33,7 @@ export { Form } from './form/index.js';
 export type * from './form/types.js';
 export { Fieldset, FieldsetRoot, FieldsetLegend } from './fieldset/index.js';
 export type * from './fieldset/types.js';
+
+export * from './checkbox/index.js';
+export * from './checkbox-group/index.js';
+export * from './switch/index.js';
