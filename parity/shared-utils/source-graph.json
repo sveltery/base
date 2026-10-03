@@ -179,7 +179,7 @@
         "../utils/useStableCallback.js",
         "../utils/useRefWithInit.js"
       ],
-      "localSha256": "f7290670b79268529463eb73ee33797f33eff3917cac523c5a9268216ba073d5"
+      "localSha256": "340a8f5ed100094c283f167c8a8a3e196708cdf238eeadc93f148ee31c4274c9"
     }
   ],
   "reviewStatus": "independent final-head source review pending"

@@ -29,6 +29,11 @@
   let changePrevious: number[] = [];
   let readsInsideCallback: number[] = [];
   let mutateDuringChange = false;
+  let valueChangeCallback = $state.raw<((previous: number) => void) | undefined>((previous) => {
+    changePrevious.push(previous);
+    readsInsideCallback.push(changedValue.value);
+    if (mutateDuringChange && changedValue.value === 1) changedValue = { value: 2 };
+  });
 
   const [value, setValue] = useControlled(() => ({ controlled, default: defaultValue, name }));
   const ref = useRefWithInit((seed: string) => { initialized += 1; return { seed }; }, 'seed');
@@ -53,11 +58,7 @@
     stable();
   });
 
-  useValueChanged(() => changedValue.value, (previous) => {
-    changePrevious.push(previous);
-    readsInsideCallback.push(changedValue.value);
-    if (mutateDuringChange && changedValue.value === 1) changedValue = { value: 2 };
-  });
+  useValueChanged(() => changedValue.value, () => valueChangeCallback);
 
   export const setControlled = (next: unknown) => { controlled = next; };
   export const setDefault = (next: unknown) => { defaultValue = next; };
@@ -68,6 +69,9 @@
   export const getStable = () => stable;
   export const callOptional = () => optional();
   export const setChanged = (next: number) => { changedValue = { value: next }; };
+  export const setValueChangeCallback = (next: ((previous: number) => void) | undefined) => {
+    valueChangeCallback = next;
+  };
   export const mutateOnChange = () => { mutateDuringChange = true; };
   export const setDependency = (next: number) => { dependency = { value: next }; };
   export const setUnrelated = (next: number) => { unrelated = next; };

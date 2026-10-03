@@ -5,9 +5,12 @@ import { useIsoLayoutEffect } from '../utils/useIsoLayoutEffect.svelte.js';
 import { useStableCallback } from '../utils/useStableCallback.js';
 import { useRefWithInit } from '../utils/useRefWithInit.js';
 
-export function useValueChanged<T>(getValue: () => T, onChange: (previousValue: T) => void) {
+export function useValueChanged<T>(
+  getValue: () => T,
+  getOnChange: () => ((previousValue: T) => void) | undefined,
+) {
   const valueRef = useRefWithInit(() => untrack(getValue));
-  const onChangeCallback = useStableCallback(onChange);
+  const onChangeCallback = useStableCallback((previousValue: T) => getOnChange()?.(previousValue));
 
   useIsoLayoutEffect(() => {
     const value = getValue();
