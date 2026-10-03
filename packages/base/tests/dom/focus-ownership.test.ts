@@ -2,7 +2,7 @@ import { afterEach, expect, it } from 'vitest';
 import { mount, tick, unmount } from 'svelte';
 import Fixture from '../../../../apps/fixtures/src/lib/FocusOwnershipFixture.svelte';
 import { mountFocusOwnershipReference } from '../../../../apps/fixtures/src/lib/focus-ownership-reference.js';
-import { tabbables } from '../../src/lib/overlay/focus.js';
+import { tabbable as tabbables } from '../../src/lib/floating-ui/utils/tabbable.js';
 // Supplemental actual-component diagnostics. Hosted Chromium supplies trusted browser evidence.
 interface Commands extends HTMLElement { removeDialogPart(): void; closeDialog(): void; closeAndRemove(): void }
 const cleanup: (() => void | Promise<void>)[] = [];
@@ -74,7 +74,8 @@ it('Svelte: checked radio is the sole group stop and forward Tab is contained', 
     await setup('radio', false);
     const first = document.getElementById('radio-first')!; first.focus();
     const event = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true }); first.dispatchEvent(event);
-    expect(event.defaultPrevented).toBe(true); expect(document.activeElement).toBe(first);
+    // With tabbable content, source guards own wrapping after the browser's native Tab default.
+    expect(event.defaultPrevented).toBe(false); expect(document.activeElement).toBe(first);
     expect(tabbables(popup()!)).toEqual([first]);
     (document.getElementById('radio-second') as HTMLInputElement).checked = true;
     expect(tabbables(popup()!)).toEqual([document.getElementById('radio-second')]);

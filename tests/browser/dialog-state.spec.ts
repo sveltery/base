@@ -5,7 +5,8 @@ const cases = [
   ['C', 25, 'native'], ['C', 55, 'custom'], ['C', 89, 'undefined'],
   ['C', 118, 'prevent'], ['C', 137, 'closed'],
 ] as const;
-async function control(page: Page, name: string) { await page.getByRole('button', { name, exact: true }).evaluate((button: HTMLButtonElement) => button.click()); }
+// These uncredited ownership supplements update props without adding a virtual outside click.
+async function control(page: Page, name: string) { await page.locator('main').evaluate((node, name) => (node as HTMLElement & { controlOwner: (name: string) => Promise<void> }).controlOwner(name), name); }
 async function calls(page: Page) { return JSON.parse(await page.getByTestId('calls').innerText()) as { open: boolean; reason: string; trigger: string | null; triggerIsUndefined: boolean }[]; }
 for (const reference of [false, true]) {
   for (const [part, line, scenario] of cases) {

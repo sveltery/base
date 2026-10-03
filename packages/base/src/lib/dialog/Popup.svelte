@@ -1,25 +1,68 @@
 <script lang="ts">
-  import { onDestroy } from 'svelte';
-  import Element from './Element.svelte';
-  import { portal, root } from './context.js';
-  import { attachOverlay } from '../overlay/dialog-overlay.svelte.js';
-  import type { ElementProps, FocusTarget, PopupState } from './types.js';
-  let { children, render, initialFocus, finalFocus, id, ref = $bindable(), ...props }: ElementProps<PopupState> & { initialFocus?: FocusTarget; finalFocus?: FocusTarget } = $props();
-  const controller = root();
-  const portalContext = portal();
-  const generatedId = controller.generatedPopupId;
-  const resolvedId = $derived(id ?? generatedId);
-  const popupIdSource = () => resolvedId;
-  controller.popupIdSource = popupIdSource;
-  onDestroy(() => { if (controller.popupIdSource === popupIdSource) controller.popupIdSource = undefined; });
-  function attach(node: HTMLElement) { return attachOverlay(node, controller, () => ({ initialFocus, finalFocus }), portalContext); }
-  const internal = $derived({ id: resolvedId, role: 'dialog', tabindex: -1, hidden: !controller.mounted,
-    'aria-labelledby': controller.titleId, 'aria-describedby': controller.descriptionId,
-    'data-open': controller.open ? '' : undefined, 'data-closed': !controller.open ? '' : undefined,
-    'data-nested': controller.parent ? '' : undefined, 'data-nested-dialog-open': controller.nestedCount ? '' : undefined,
-    'data-starting-style': controller.starting ? '' : undefined, 'data-ending-style': controller.exiting ? '' : undefined,
-    style: { '--nested-dialogs': controller.nestedCount },
-    onkeydown: (event: KeyboardEvent) => { if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Home','End','PageUp','PageDown'].includes(event.key)) event.stopPropagation(); },
+  // Original DialogPopup → FloatingFocusManager business and shared renderer composition (MIT).
+  import RenderElement from '../internals/RenderElement.svelte';
+  import FloatingFocusManager from '../floating-ui/components/FloatingFocusManager.svelte';
+  import { useOpenChangeComplete } from '../internals/useOpenChangeComplete.svelte.js';
+  import { COMPOSITE_KEYS } from '../internals/composite/composite.js';
+  import { FOCUSABLE_POPUP_PROPS, createDefaultInitialFocus } from '../utils/popups/popupStoreUtils.svelte.js';
+  import { dialogStateAttributesMapping } from './utils/stateAttributesMapping.js';
+  import * as DialogPopupCssVars from './popup/DialogPopupCssVars.js';
+  import { useDialogPortalContext, useDialogRootContext } from './context.js';
+  import type { DialogPopupProps } from './types.js';
+  let { children, render, class: className, style, initialFocus, finalFocus, ref = $bindable(), ...elementProps }: DialogPopupProps = $props();
+  const store = useDialogRootContext();
+  useDialogPortalContext();
+  const open = $derived(store.select('open'));
+  const mounted = $derived(store.select('mounted'));
+  const nestedOpenDialogCount = $derived(store.select('nestedOpenDialogCount'));
+  useOpenChangeComplete({
+    get open() { return open; },
+    ref: store.context.popupRef,
+    onComplete() { if (open) store.context.onOpenChangeComplete?.(true); },
   });
+  const defaultInitialFocus = createDefaultInitialFocus(store.context.popupRef);
+  const resolvedInitialFocus = $derived(initialFocus === undefined ? defaultInitialFocus : initialFocus);
+  const state = $derived({
+    open,
+    nested: store.select('nested'),
+    transitionStatus: store.select('transitionStatus'),
+    nestedDialogOpen: nestedOpenDialogCount > 0,
+  });
+  const setPopupElement = store.useStateSetter('popupElement');
 </script>
-<Element {internal} {props} state={controller.state} {render} {children} bind:ref {attach}/>
+<FloatingFocusManager
+  context={store.select('floatingRootContext')}
+  openInteractionType={store.select('openMethod')}
+  disabled={!mounted}
+  closeOnFocusOut={!store.select('disablePointerDismissal')}
+  initialFocus={resolvedInitialFocus}
+  returnFocus={finalFocus}
+  modal={store.select('modal') !== false}
+  restoreFocus="popup"
+>
+  <RenderElement
+    tag="div"
+    componentProps={{ render, class: className, style }}
+    params={{
+      state,
+      ref: [store.context.popupRef, setPopupElement],
+      props: [
+        store.select('popupProps'),
+        {
+          id: store.state.floatingRootContext.select('floatingId'),
+          'aria-labelledby': store.select('titleElementId'),
+          'aria-describedby': store.select('descriptionElementId'),
+          role: store.select('role'),
+          ...FOCUSABLE_POPUP_PROPS,
+          hidden: !mounted,
+          onkeydown(event: KeyboardEvent) { if (COMPOSITE_KEYS.has(event.key)) event.stopPropagation(); },
+          style: { [DialogPopupCssVars.nestedDialogs]: nestedOpenDialogCount },
+        },
+        elementProps,
+      ],
+      stateAttributesMapping: dialogStateAttributesMapping,
+    }}
+    {children}
+    bind:element={ref}
+  />
+</FloatingFocusManager>

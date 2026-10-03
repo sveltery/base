@@ -1,14 +1,19 @@
 <script lang="ts">
-  import { onDestroy } from 'svelte';
-  import Element from './Element.svelte';
-  import { root } from './context.js';
-  import type { ElementProps } from './types.js';
-  let { children, render, id, ref = $bindable(), ...props }: ElementProps = $props();
-  const controller = root();
-  const generated = $props.id();
-  const resolvedId = $derived(id ?? `base-ui-${generated}`);
-  const key = {};
-  controller.descriptions.set(key, () => resolvedId);
-  onDestroy(() => controller.descriptions.delete(key));
+  // Original DialogDescription id registration/cleanup and shared renderer (MIT).
+  import RenderElement from '../internals/RenderElement.svelte';
+  import { useBaseUiId } from '../internals/useBaseUiId.js';
+  import { useDialogRootContext } from './context.js';
+  import type { DialogDescriptionProps } from './types.js';
+  let { children, render, class: className, style, id: idProp, ref = $bindable(), ...elementProps }: DialogDescriptionProps = $props();
+  const generatedId = $props.id();
+  const id = $derived(useBaseUiId(idProp ?? undefined, generatedId));
+  const store = useDialogRootContext();
+  store.useSyncedValueWithCleanup('descriptionElementId', () => id);
 </script>
-<Element tag="p" internal={{ id: resolvedId }} {props} {render} {children} bind:ref/>
+<RenderElement
+  tag="p"
+  componentProps={{ render, class: className, style }}
+  params={{ props: [{ id }, elementProps] }}
+  {children}
+  bind:element={ref}
+/>

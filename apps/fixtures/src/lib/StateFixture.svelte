@@ -2,7 +2,7 @@
   // Base UI v1.8.0 R:239/431 and C:25/55/89/118/137. MIT: parity/dialog/UPSTREAM_LICENSE.
   import { Dialog } from '@sveltery/base';
   import type { HTMLAttributes } from 'svelte/elements';
-  import { onMount } from 'svelte';
+  import { onMount, tick } from 'svelte';
   import type { Actions, ChangeEventDetails } from '@sveltery/base/dialog';
   let { scenario }: { scenario: string } = $props();
   let hydrated = $state(false);
@@ -23,9 +23,18 @@
     if (scenario === 'controlled') observe('consumer', open, details);
   }
   function attachActions(node: HTMLElement) {
-    const host = node as HTMLElement & { closeDialog?: () => void };
+    const host = node as HTMLElement & { closeDialog?: () => void; controlOwner?: (name: string) => Promise<void> };
     host.closeDialog = () => actions?.close();
-    return () => { delete host.closeDialog; };
+    host.controlOwner = controlOwner;
+    return () => { delete host.closeDialog; delete host.controlOwner; };
+  }
+  async function controlOwner(name: string) {
+    if (name === 'Owner open') owner = true;
+    else if (name === 'Owner close') owner = false;
+    else if (name === 'Toggle cancel') cancel = !cancel;
+    else if (name === 'Release control') controlled = false;
+    else throw new Error(`Unknown owner control: ${name}`);
+    await tick();
   }
   onMount(() => { hydrated = true; });
 </script>
