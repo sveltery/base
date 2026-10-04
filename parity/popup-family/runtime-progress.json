@@ -2,7 +2,7 @@
   "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "preCodeReadingCommit": "41b708601a8cbc72e74a46e550fc79b99da3d0ed",
   "publicDependencyCorrectionCommit": "70b9962b9d4ecc958a3d14dcfb89a0965b9fd1f3",
-  "status": "Three precisely leased helper families adapted; DelayGroup execution, remaining missing helpers and final inherited gates pending",
+  "status": "Four precisely leased helper families adapted; useClientPoint execution, shared portal extraction/open-change append and final inherited gates pending",
   "ordinaryDeclarationCredit": 0,
   "runtimeImplementationStarted": true,
   "helperModules": [
@@ -61,6 +61,22 @@
       "fixtureSha256": {
         "packages/base/tests/dom/PopupDelayGroupConsumer.svelte": "8496fe76c731eabf8f7127f32a2850435c4ccd667c360632fe6dfd5a15781bc4",
         "packages/base/tests/dom/PopupDelayGroupFixture.svelte": "fde1d26eff4a07a39c4e02d6e3dd8473ea6dde9a9747223ae8832c18b5eabf6d"
+      }
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useClientPoint.ts",
+      "sourceSha256": "05c9506381cb9940d9737161d44899a7eb971e6db085fbeca81ee97de4470884",
+      "local": "packages/base/src/lib/floating-ui/hooks/useClientPoint.svelte.ts",
+      "localSha256": "6a2f7924b1d9cc4154bb74ebb44b1f1ef2da6c73f7641e66fe7ea41f4311270a",
+      "decision": "Complete Source createVirtualElement/open-event/pointer/focus/openCheck/listener cleanup and enabled-state business retained. Native live readers, pointer state and one listener revision signal replace React hooks and the empty-array restart state. Native event keys and getter props match canonical interaction helpers. Cleanup captures the actual owning Source store for its declared store lifetime; it clears positionReference without a duplicate state authority or geometry driver.",
+      "wholeBodyReview": "Developer compared complete Original and complete local bodies; independent Source/native review pending",
+      "testStatus": "Complete Original helper test body and selected closure read; native adapted fixture/execution pending",
+      "ordinaryDeclarationCredit": 0,
+      "syntaxOnly": {
+        "nativeCompiler": "Module compiled with zero warnings; no useClientPoint product test executed yet",
+        "createVirtualElementEmittedBusiness": "Equal complete emitted function after TypeScript-only ref representation erasure; zero-coordinate truthiness retained",
+        "createVirtualElementBusinessSha256": "77502c27f6a1a2c847628ae2af068f9011126db55eaa4acd34cb8d5a86113d20",
+        "isMouseBasedEventEmittedBusinessSha256": "30f69e66e5ea1e0dec1f954ed7ac114dcfe18138b83886cd9d8fbac284020308"
       }
     }
   ],
