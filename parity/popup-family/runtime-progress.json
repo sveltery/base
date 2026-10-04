@@ -1,0 +1,52 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "preCodeReadingCommit": "41b708601a8cbc72e74a46e550fc79b99da3d0ed",
+  "publicDependencyCorrectionCommit": "70b9962b9d4ecc958a3d14dcfb89a0965b9fd1f3",
+  "status": "Two independent precisely leased helpers adapted; missing canonical dependencies and execution gates remain pending",
+  "ordinaryDeclarationCredit": 0,
+  "runtimeImplementationStarted": true,
+  "helperModules": [
+    {
+      "source": "packages/react/src/utils/popups/inlineRect.ts",
+      "local": "packages/base/src/lib/utils/popups/inlineRect.ts",
+      "decision": "Complete Original rect/identity/line selection/platform reset body retained. React event/ref types become native Element currentTarget events and ref objects; onFocus becomes native bubbling onfocusin. Floating UI types use the actual default DOM package. No positioning engine is added.",
+      "wholeBodyReview": "Developer compared complete Original and complete local body; independent Source/native review pending",
+      "test": "packages/base/tests/dom/popup-inline-rect.test.ts",
+      "testStatus": "All 17 Original test bodies adapted with native event/ref types; unexecuted pending canonical dependency installation",
+      "ordinaryDeclarationCredit": 0,
+      "sourceSha256": "e8055b91fecf2e15f4d3db038dacea94245282f63f435b0c2873327b3ba2a8d7",
+      "localSha256": "e7e677e1575edf7c0c090442605503b156f557b5b103bf26f27b94eeae6905f4",
+      "testSha256": "2c21797102d9ddb3b2a0b749e38bf8874a4e8fe071e79bbf68d642961bff636f"
+    },
+    {
+      "source": "packages/react/src/utils/closePart.tsx",
+      "local": "packages/base/src/lib/utils/closePart.svelte.ts",
+      "decision": "Complete Source count/register/cleanup/clamp business retained. Native state, stable setup closure, typed getContext and live hasClosePart getter replace React state/context/memo representation.",
+      "wholeBodyReview": "Developer compared complete Original and complete local body; independent Source/native review pending",
+      "testStatus": "Native lifecycle/context/eligibility witness pending; no adjacent Original direct test file",
+      "ordinaryDeclarationCredit": 0,
+      "sourceSha256": "0b30f3ff3597173625dd2064339ea2ec1cbfdda60b60d82cd4e542e008f50ba5",
+      "localSha256": "cf4f7d4a7a2d5616522a165bba1fc8a56ab08a1f746c9872f9cd8e8ad8451466"
+    }
+  ],
+  "canonicalDependencies": {
+    "menu": "Await verified PUBLIC repair successor; do not consume private local 72230bc or clone helpers",
+    "dialog": "Selected public f0 helper DEV integration only if not already an ancestor; actual-main acceptance remains separate",
+    "toolbar": "Optional selected canonical ToolbarRootContext for runtime; real Root/Button fixtures require accepted sibling implementation",
+    "portalExtraction": "Coordinator precisely approved the separate plan at public ff42 exact FullPortal body hash; runtime extraction remains unstarted until public canonical repair dependency integration"
+  },
+  "verification": {
+    "productTests": "Unexecuted",
+    "build": "Unexecuted; heavy token held by Menu",
+    "browser": "Unexecuted",
+    "packedStrictConsumers": "Unexecuted",
+    "sourceClosure": "Original pre-code reading complete; local used-body hashes and independent inherited Source/native review pending",
+    "workingTreeSyntaxOnly": {
+      "status": "Measured before runtime checkpoint commit; this is neither product execution nor accepted final-head verification",
+      "inlineRectWholeEmittedBusinessComparison": "Equal after only the declared onFocus/onMouseEnter/onMouseMove to native event-key mapping and TypeScript type/import erasure",
+      "sourceBusinessJsSha256": "cd8aae9aff42777b133013f871dfb517684148bc1e84da655e005fc32bd67b40",
+      "closePartSvelteCompiler": "Native compiled module succeeded with zero warnings",
+      "tools": "TypeScript 5.9.3 and Svelte 5.57.1 from pinned installed package tools; no project build or product test was run"
+    }
+  }
+}
