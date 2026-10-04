@@ -34,6 +34,10 @@
     "../../packages/base/tests/dom/popup-portal-realm-witness.test.ts",
     "../../packages/base/tests/dom/popup-open-change-store.ts",
     "../../packages/base/tests/dom/PopupOpenChangeFixture.svelte",
-    "../../packages/base/tests/dom/popup-open-change.test.ts"
+    "../../packages/base/tests/dom/popup-open-change.test.ts",
+    "../../packages/base/tests/dom/popup-delay-group-source.ts",
+    "../../packages/base/tests/dom/PopupDelayGroupOwnershipConsumer.svelte",
+    "../../packages/base/tests/dom/PopupDelayGroupOwnershipFixture.svelte",
+    "../../packages/base/tests/dom/popup-delay-group-ownership.test.ts"
   ]
 }
