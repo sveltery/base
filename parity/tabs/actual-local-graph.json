@@ -1229,7 +1229,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/useAnimationsFinished.ts",
-        "sha256": "e615700a3c4e81ca22060837af8a8c859430ebd8476d6e0a6daffe7986dc3bc4",
+        "sha256": "409aec4223eca26f66b6c1f5824cdaf8df68c916f66a2efb75617b255129ebf9",
         "reachability": [
           "runtime"
         ],
@@ -1239,10 +1239,19 @@
           "packages/react/src/internals/useAnimationsFinished.ts"
         ],
         "declarations": [
+          "flushBeforePaint",
           "useAnimationsFinished",
           "exec"
         ],
         "imports": [
+          {
+            "specifier": "svelte",
+            "kind": "runtime",
+            "resolved": "external:svelte",
+            "names": [
+              "flushSync"
+            ]
+          },
           {
             "specifier": "../utils/useAnimationFrame.js",
             "kind": "runtime",
@@ -1279,7 +1288,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
-        "sha256": "9c8d8b8fcd70c0a9ec69a9cc0f2a6864ab19da26d4e3bd2bf9f7e6eb49831d1f",
+        "sha256": "5e966dd1b10cbc1ed448d3583ca948a384d812f9e71afc1e128395485575931f",
         "reachability": [
           "runtime"
         ],

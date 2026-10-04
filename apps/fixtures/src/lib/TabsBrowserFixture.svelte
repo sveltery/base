@@ -87,7 +87,7 @@
   <DirectionProvider direction={scenario.includes('rtl') ? 'rtl' : 'ltr'}>
     <CSPProvider nonce="tabs-nonce">
       {#if show}
-        <Tabs.Root value={controlled ? owner : undefined} defaultValue={implicit ? undefined : initial === null ? null : values[initial] ?? initial} orientation={flow} onValueChange={change} id="tabs-root">
+        <Tabs.Root value={controlled ? owner : undefined} defaultValue={implicit ? undefined : initial === null ? null : values[initial] ?? initial} orientation={flow} onValueChange={change} id="tabs-root" dir={scenario.includes('rtl') ? 'rtl' : undefined}>
           <Tabs.List id="tabs-list" class="tabs-list" style={wide ? 'width:560px' : undefined} activateOnFocus={activation} loopFocus={!scenario.includes('no-loop')} aria-label="Example tabs" bind:ref={listRef}>
             {#each items as index (index)}
               <div class="tab-wrapper" style={scenario.includes('inner-scroll') ? 'width:110px;overflow:auto' : undefined}>

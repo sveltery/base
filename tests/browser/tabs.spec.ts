@@ -158,7 +158,12 @@ for (const framework of ['react', 'svelte']) {
       await page
         .locator('#tabs-list')
         .evaluate((element) => element.scrollLeft),
-    ).toBe(0);
+    ).toBe(4); // Source aligns the first tab offset with the content edge, retaining the 4px padding offset.
+    const first = await page.getByTestId('tab-0').boundingBox();
+    const border = await page
+      .locator('#tabs-list')
+      .evaluate((element) => element.clientLeft);
+    expect(Math.abs(first!.x - list!.x - border)).toBeLessThanOrEqual(1);
   });
   for (const transform of [
     'scale(1.5)',

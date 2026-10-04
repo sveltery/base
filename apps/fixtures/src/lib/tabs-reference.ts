@@ -191,6 +191,7 @@ export function TabsReferenceFixture({
                 orientation: flow,
                 onValueChange: change,
                 id: 'tabs-root',
+                dir: scenario.includes('rtl') ? 'rtl' : undefined,
               },
               h(
                 Tabs.List,
