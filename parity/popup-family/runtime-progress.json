@@ -70,14 +70,16 @@
       "localSha256": "6a2f7924b1d9cc4154bb74ebb44b1f1ef2da6c73f7641e66fe7ea41f4311270a",
       "decision": "Complete Source createVirtualElement/open-event/pointer/focus/openCheck/listener cleanup and enabled-state business retained. Native live readers, pointer state and one listener revision signal replace React hooks and the empty-array restart state. Native event keys and getter props match canonical interaction helpers. Cleanup captures the actual owning Source store for its declared store lifetime; it clears positionReference without a duplicate state authority or geometry driver.",
       "wholeBodyReview": "Developer compared complete Original and complete local bodies; independent Source/native review pending",
-      "testStatus": "Complete Original helper test body and selected closure read; native adapted fixture/execution pending",
+      "testStatus": "10 complete Original native-adapted helper cases pass at frozen2c075ab; failed authored fixture run preserved. Independent Source/native acceptance pending; zero family ordinary credit.",
       "ordinaryDeclarationCredit": 0,
       "syntaxOnly": {
         "nativeCompiler": "Module compiled with zero warnings; no useClientPoint product test executed yet",
         "createVirtualElementEmittedBusiness": "Equal complete emitted function after TypeScript-only ref representation erasure; zero-coordinate truthiness retained",
         "createVirtualElementBusinessSha256": "77502c27f6a1a2c847628ae2af068f9011126db55eaa4acd34cb8d5a86113d20",
         "isMouseBasedEventEmittedBusinessSha256": "30f69e66e5ea1e0dec1f954ed7ac114dcfe18138b83886cd9d8fbac284020308"
-      }
+      },
+      "test": "packages/base/tests/dom/popup-client-point.test.ts",
+      "testSha256": "d314fa55866830ae04f83f0044695cef0c26443eccf6964791534d07ccf73303"
     },
     {
       "source": "packages/react/src/utils/FloatingPortalLite.tsx",
