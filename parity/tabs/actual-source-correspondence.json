@@ -4,7 +4,7 @@
   "preCodeCommit": "f4e253b",
   "helperCheckpoint": "3d60396",
   "runtimeCheckpoint": "3706588",
-  "status": "Actual selected closure and developer side-by-side body record; exact public Dialogaa5 invocation-time animation batching repair reused under root lease, with exact ad19 open-change helper unchanged. Canonical helper Source review is CLEAR; final whole Tabs exact-head Source/native/maintainability review, gates and actual-main selected-helper seam review remain pending.",
+  "status": "Actual71 runtime/type closure after two P2 and two P3 repairs from first whole70 independent Source NOT CLEAR at8bf83e3. Generated library ID namespace and exact canonical PUBLIC59 DEV diagnostics restored; fixed-false caller and grid Source provenance corrected. Whole successor Source/native/maintainability review, exact gates and actual-main selected-helper seams remain pending.",
   "preCodePlanRetained": "source-correspondence.json (unchanged historical plan)",
   "actualLocalGraph": "actual-local-graph.json",
   "publicInventory": "public-inventory.json",
@@ -546,9 +546,17 @@
       "source": "packages/react/src/internals/composite/root/gridNavigation.ts",
       "sha256": "85fa455d31592be6afff2f9692ac24502943c614eabb66b9dc4e5e6694ec2e8a",
       "plannedSelected": false,
-      "actualLocalUses": [],
-      "decision": "Unrelated barrel/type/framework-only closure; no selected runtime body or local copy.",
-      "bodyComparison": "No actual selected business body. This is a recursive barrel/type/framework edge; mechanical import/hash evidence is not manual Source-body reading or acceptance.",
+      "actualLocalUses": [
+        {
+          "local": "packages/base/src/lib/internals/composite/root/gridNavigation.ts",
+          "sha256": "11aa223e4f95a23b0287fee822bdda9f4b37cb6d33f99d02c9f7da8964949e9f",
+          "reachability": [
+            "type"
+          ]
+        }
+      ],
+      "decision": "Actual type-reachable canonical gridNavigation body corresponds to this exact immutable Source path. Tabs selects CompositeGridNavigator type only; no grid runtime is selected.",
+      "bodyComparison": "Existing complete immutable/native gridNavigation body and type boundary were read in the independent70 audit. Corrected actual mapping from useCompositeRoot to gridNavigation; business algorithms and bytes are unchanged. Pre-code plannedSelected=false remains historical, while the actual used type edge and Original hash are recorded truthfully.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -557,13 +565,6 @@
       "sha256": "848c7a6c3543bba01f2299799a75d69986dbecc5289d70e15d41620bd732b023",
       "plannedSelected": true,
       "actualLocalUses": [
-        {
-          "local": "packages/base/src/lib/internals/composite/root/gridNavigation.ts",
-          "sha256": "11aa223e4f95a23b0287fee822bdda9f4b37cb6d33f99d02c9f7da8964949e9f",
-          "reachability": [
-            "type"
-          ]
-        },
         {
           "local": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
           "sha256": "8db12d19818afe6509addc02e10a55082126da9be7a40d03f9a8f62a6e6b5d78",
@@ -767,7 +768,7 @@
         }
       ],
       "decision": "Actual runtime/type selected implementation listed with reachability and identity; framework substitutions explicit.",
-      "bodyComparison": "Manually compared Source/native transition branches, retained mount/starting/ending state, frame cleanup, animation promise rejection/replacement recursion, AbortSignal and starting-style MutationObserver ownership. Native RAF/lifecycle and Svelte flushSync replace the framework commit primitive. Canonical public Dialogaa5 useAnimationsFinished captures batch at invocation, retaining Original boolean closure semantics while pending; pendingCallbacks, individual commit, same-microtask batching, queue-time/flush-time abort checks and callback order remain unchanged. useOpenChangeComplete retains exact public Dialogad19 bytes. Canonical independent Source equality is8/8 after two native failures/six passes before the snapshot repair; the helper Source review is CLEAR, while whole Tabs Source/native/maintainability and actual-main seam acceptance remain pending. Own mixed-batch/native teardown and paired Panel exit/reopen/teardown probes cover the used fixed-true path and earn zero unchanged ordinary credit.",
+      "bodyComparison": "Manually compared Source/native transition branches, retained mount/starting/ending state, frame cleanup, animation promise rejection/replacement recursion, AbortSignal and starting-style MutationObserver ownership. Native RAF/lifecycle and Svelte flushSync replace the framework commit primitive. Canonical public Dialogaa5 useAnimationsFinished captures batch at invocation, retaining Original boolean closure semantics while pending; pendingCallbacks, individual commit, same-microtask batching, queue-time/flush-time abort checks and callback order remain unchanged. useOpenChangeComplete retains exact public Dialogad19 bytes. Canonical independent Source equality is8/8 after two native failures/six passes before the snapshot repair; the helper Source review is CLEAR, while whole Tabs Source/native/maintainability and actual-main seam acceptance remain pending. Own mixed-batch/native teardown and paired Panel exit/reopen/teardown probes cover the used fixed-false Panel path and earn zero unchanged ordinary credit.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -785,7 +786,7 @@
         }
       ],
       "decision": "Actual runtime/type selected implementation listed with reachability and identity; framework substitutions explicit.",
-      "bodyComparison": "Manually compared Source/native transition branches, retained mount/starting/ending state, frame cleanup, animation promise rejection/replacement recursion, AbortSignal and starting-style MutationObserver ownership. Native RAF/lifecycle and Svelte flushSync replace the framework commit primitive. Canonical public Dialogaa5 useAnimationsFinished captures batch at invocation, retaining Original boolean closure semantics while pending; pendingCallbacks, individual commit, same-microtask batching, queue-time/flush-time abort checks and callback order remain unchanged. useOpenChangeComplete retains exact public Dialogad19 bytes. Canonical independent Source equality is8/8 after two native failures/six passes before the snapshot repair; the helper Source review is CLEAR, while whole Tabs Source/native/maintainability and actual-main seam acceptance remain pending. Own mixed-batch/native teardown and paired Panel exit/reopen/teardown probes cover the used fixed-true path and earn zero unchanged ordinary credit.",
+      "bodyComparison": "Manually compared Source/native transition branches, retained mount/starting/ending state, frame cleanup, animation promise rejection/replacement recursion, AbortSignal and starting-style MutationObserver ownership. Native RAF/lifecycle and Svelte flushSync replace the framework commit primitive. Canonical public Dialogaa5 useAnimationsFinished captures batch at invocation, retaining Original boolean closure semantics while pending; pendingCallbacks, individual commit, same-microtask batching, queue-time/flush-time abort checks and callback order remain unchanged. useOpenChangeComplete retains exact public Dialogad19 bytes. Canonical independent Source equality is8/8 after two native failures/six passes before the snapshot repair; the helper Source review is CLEAR, while whole Tabs Source/native/maintainability and actual-main seam acceptance remain pending. Own mixed-batch/native teardown and paired Panel exit/reopen/teardown probes cover the used fixed-false Panel path and earn zero unchanged ordinary credit.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -824,14 +825,14 @@
       "actualLocalUses": [
         {
           "local": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
-          "sha256": "581abfd20827eed41d9478dc30dc5a7b1b944e32d8428ac238d86625545536f1",
+          "sha256": "ee71d7077c51139162152716111472919bf80b71e6e9cde62d15ff0b7ce56f59",
           "reachability": [
             "runtime"
           ]
         }
       ],
       "decision": "Actual runtime/type selected implementation listed with reachability and identity; framework substitutions explicit.",
-      "bodyComparison": "Manually compared full Source/local button and disabled-focusability business: external handler then prevention checks, disabled pointer/click/key rules, native/link/role branches, composite Space dispatch and keyup suppression, currentTarget checks, modifier-click dispatch, transient native-disabled removal and actual composite context. Canonical local tag guards retain HTML path behavior; no SVG host parity claim. Only the separate owner may repair leased DEV message wording.",
+      "bodyComparison": "Manually compared full Source/local button and disabled-focusability business: external handler then prevention checks, disabled pointer/click/key rules, native/link/role branches, composite Space dispatch and keyup suppression, currentTarget checks, modifier-click dispatch, transient native-disabled removal and actual composite context. Canonical local tag guards retain HTML path behavior; no SVG host parity claim. Only the separate owner may repair leased DEV message wording. Exact canonical PUBLIC59 d00a8b0 helper ee71d7077c51139162152716111472919bf80b71e6e9cde62d15ff0b7ce56f59 restores both Source DEV explanatory paragraphs under a precise root lease. Only those diagnostic strings changed; no Button/Toolbar feature closure is integrated. React owner-stack capture remains an omitted native diagnostic representation.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -849,7 +850,7 @@
         }
       ],
       "decision": "Actual runtime/type selected implementation listed with reachability and identity; framework substitutions explicit.",
-      "bodyComparison": "Manually compared Source/native transition branches, retained mount/starting/ending state, frame cleanup, animation promise rejection/replacement recursion, AbortSignal and starting-style MutationObserver ownership. Native RAF/lifecycle and Svelte flushSync replace the framework commit primitive. Canonical public Dialogaa5 useAnimationsFinished captures batch at invocation, retaining Original boolean closure semantics while pending; pendingCallbacks, individual commit, same-microtask batching, queue-time/flush-time abort checks and callback order remain unchanged. useOpenChangeComplete retains exact public Dialogad19 bytes. Canonical independent Source equality is8/8 after two native failures/six passes before the snapshot repair; the helper Source review is CLEAR, while whole Tabs Source/native/maintainability and actual-main seam acceptance remain pending. Own mixed-batch/native teardown and paired Panel exit/reopen/teardown probes cover the used fixed-true path and earn zero unchanged ordinary credit.",
+      "bodyComparison": "Manually compared Source/native transition branches, retained mount/starting/ending state, frame cleanup, animation promise rejection/replacement recursion, AbortSignal and starting-style MutationObserver ownership. Native RAF/lifecycle and Svelte flushSync replace the framework commit primitive. Canonical public Dialogaa5 useAnimationsFinished captures batch at invocation, retaining Original boolean closure semantics while pending; pendingCallbacks, individual commit, same-microtask batching, queue-time/flush-time abort checks and callback order remain unchanged. useOpenChangeComplete retains exact public Dialogad19 bytes. Canonical independent Source equality is8/8 after two native failures/six passes before the snapshot repair; the helper Source review is CLEAR, while whole Tabs Source/native/maintainability and actual-main seam acceptance remain pending. Own mixed-batch/native teardown and paired Panel exit/reopen/teardown probes cover the used fixed-false Panel path and earn zero unchanged ordinary credit.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -857,9 +858,17 @@
       "source": "packages/react/src/internals/useBaseUiId.ts",
       "sha256": "c935ee27e3dfee2307e108dc82a36ec2a1f3e76b4692de188e5d3cdc4511157f",
       "plannedSelected": true,
-      "actualLocalUses": [],
-      "decision": "Direct native primitive boundary: Direct native stable SSR/hydration ID primitive replaces React ID machinery.",
-      "bodyComparison": "This recursive source barrel/type/framework module supplies no actual selected business body. Mechanical import inventory is not a manual reading or acceptance claim.",
+      "actualLocalUses": [
+        {
+          "local": "packages/base/src/lib/utils/useId.ts",
+          "sha256": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90",
+          "reachability": [
+            "runtime"
+          ]
+        }
+      ],
+      "decision": "Selected Source library namespace/override branch reused through canonical pure native utils/useId.ts; native $props.id() supplies the framework suffix.",
+      "bodyComparison": "Read complete immutable useBaseUiId and useId bodies and the existing canonical native helper. React19 selected nullish override/prefix branch is retained: Tab passes authored idProp and base-ui; Panel passes undefined and base-ui, preserving generated registration ownership and subsequent element prop precedence. Native $props.id() retains native SSR/hydration suffixes. React17 global counter/effect machinery is unselected and not copied. Native helper is now actually imported, not an unused body. Paired Source/native equality covers generated namespace/unique suffix and explicit Tab overrides; zero ordinary declaration credit.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -877,7 +886,7 @@
         }
       ],
       "decision": "Actual runtime/type selected implementation listed with reachability and identity; framework substitutions explicit.",
-      "bodyComparison": "Manually compared Source/native transition branches, retained mount/starting/ending state, frame cleanup, animation promise rejection/replacement recursion, AbortSignal and starting-style MutationObserver ownership. Native RAF/lifecycle and Svelte flushSync replace the framework commit primitive. Canonical public Dialogaa5 useAnimationsFinished captures batch at invocation, retaining Original boolean closure semantics while pending; pendingCallbacks, individual commit, same-microtask batching, queue-time/flush-time abort checks and callback order remain unchanged. useOpenChangeComplete retains exact public Dialogad19 bytes. Canonical independent Source equality is8/8 after two native failures/six passes before the snapshot repair; the helper Source review is CLEAR, while whole Tabs Source/native/maintainability and actual-main seam acceptance remain pending. Own mixed-batch/native teardown and paired Panel exit/reopen/teardown probes cover the used fixed-true path and earn zero unchanged ordinary credit.",
+      "bodyComparison": "Manually compared Source/native transition branches, retained mount/starting/ending state, frame cleanup, animation promise rejection/replacement recursion, AbortSignal and starting-style MutationObserver ownership. Native RAF/lifecycle and Svelte flushSync replace the framework commit primitive. Canonical public Dialogaa5 useAnimationsFinished captures batch at invocation, retaining Original boolean closure semantics while pending; pendingCallbacks, individual commit, same-microtask batching, queue-time/flush-time abort checks and callback order remain unchanged. useOpenChangeComplete retains exact public Dialogad19 bytes. Canonical independent Source equality is8/8 after two native failures/six passes before the snapshot repair; the helper Source review is CLEAR, while whole Tabs Source/native/maintainability and actual-main seam acceptance remain pending. Own mixed-batch/native teardown and paired Panel exit/reopen/teardown probes cover the used fixed-false Panel path and earn zero unchanged ordinary credit.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -915,7 +924,7 @@
         }
       ],
       "decision": "Actual runtime/type selected implementation listed with reachability and identity; framework substitutions explicit.",
-      "bodyComparison": "Manually compared Source/native transition branches, retained mount/starting/ending state, frame cleanup, animation promise rejection/replacement recursion, AbortSignal and starting-style MutationObserver ownership. Native RAF/lifecycle and Svelte flushSync replace the framework commit primitive. Canonical public Dialogaa5 useAnimationsFinished captures batch at invocation, retaining Original boolean closure semantics while pending; pendingCallbacks, individual commit, same-microtask batching, queue-time/flush-time abort checks and callback order remain unchanged. useOpenChangeComplete retains exact public Dialogad19 bytes. Canonical independent Source equality is8/8 after two native failures/six passes before the snapshot repair; the helper Source review is CLEAR, while whole Tabs Source/native/maintainability and actual-main seam acceptance remain pending. Own mixed-batch/native teardown and paired Panel exit/reopen/teardown probes cover the used fixed-true path and earn zero unchanged ordinary credit.",
+      "bodyComparison": "Manually compared Source/native transition branches, retained mount/starting/ending state, frame cleanup, animation promise rejection/replacement recursion, AbortSignal and starting-style MutationObserver ownership. Native RAF/lifecycle and Svelte flushSync replace the framework commit primitive. Canonical public Dialogaa5 useAnimationsFinished captures batch at invocation, retaining Original boolean closure semantics while pending; pendingCallbacks, individual commit, same-microtask batching, queue-time/flush-time abort checks and callback order remain unchanged. useOpenChangeComplete retains exact public Dialogad19 bytes. Canonical independent Source equality is8/8 after two native failures/six passes before the snapshot repair; the helper Source review is CLEAR, while whole Tabs Source/native/maintainability and actual-main seam acceptance remain pending. Own mixed-batch/native teardown and paired Panel exit/reopen/teardown probes cover the used fixed-false Panel path and earn zero unchanged ordinary credit.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -1114,7 +1123,7 @@
       "actualLocalUses": [
         {
           "local": "packages/base/src/lib/tabs/panel/TabsPanel.svelte",
-          "sha256": "6d5638f4d87554051cc47167c16faeefcb7b0a106d3b194e52cbb2218f1dfaaa",
+          "sha256": "f55a13435aceae79311315c9f5388c9dc1591ac82f370c0eddc0432e4d3125eb",
           "reachability": [
             "runtime"
           ]
@@ -1128,7 +1137,7 @@
         }
       ],
       "decision": "Actual runtime/type selected implementation listed with reachability and identity; framework substitutions explicit.",
-      "bodyComparison": "Full Panel body manually compared: real panel CompositeListItem index, generated ID registration and Source prop precedence, source open/mounted/hidden and keepMounted branches, source lifecycle helpers, active tabindex/inert, register cleanup ownership. Native boolean inert and $props.id replace framework representations. Canonical public Dialogaa5 animation helper captures Original invocation-time batch policy; exact public Dialogad19 open-change helper retains Source queue/individual commit composition. No local competing helper/dedup guard. Whole Tabs independent approval and actual-main selected-helper seam review remain pending.",
+      "bodyComparison": "Full Panel body manually compared: real panel CompositeListItem index, generated ID registration and Source prop precedence, source open/mounted/hidden and keepMounted branches, source lifecycle helpers, active tabindex/inert, register cleanup ownership. Native boolean inert and $props.id replace framework representations. Canonical public Dialogaa5 animation helper captures Original invocation-time batch policy; exact public Dialogad19 open-change helper retains Source queue/individual commit composition. No local competing helper/dedup guard. Whole Tabs independent approval and actual-main selected-helper seam review remain pending. Canonical pure useId(undefined, base-ui, nativeId) restores the generated Source library namespace; nativeId stays the direct $props.id() suffix, registration and element prop order unchanged. The actual completion caller omits batch and uses fixed-false default in both frameworks.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -1164,7 +1173,7 @@
         }
       ],
       "decision": "Actual runtime/type selected implementation listed with reachability and identity; framework substitutions explicit.",
-      "bodyComparison": "Manually compared Source/native transition branches, retained mount/starting/ending state, frame cleanup, animation promise rejection/replacement recursion, AbortSignal and starting-style MutationObserver ownership. Native RAF/lifecycle and Svelte flushSync replace the framework commit primitive. Canonical public Dialogaa5 useAnimationsFinished captures batch at invocation, retaining Original boolean closure semantics while pending; pendingCallbacks, individual commit, same-microtask batching, queue-time/flush-time abort checks and callback order remain unchanged. useOpenChangeComplete retains exact public Dialogad19 bytes. Canonical independent Source equality is8/8 after two native failures/six passes before the snapshot repair; the helper Source review is CLEAR, while whole Tabs Source/native/maintainability and actual-main seam acceptance remain pending. Own mixed-batch/native teardown and paired Panel exit/reopen/teardown probes cover the used fixed-true path and earn zero unchanged ordinary credit.",
+      "bodyComparison": "Manually compared Source/native transition branches, retained mount/starting/ending state, frame cleanup, animation promise rejection/replacement recursion, AbortSignal and starting-style MutationObserver ownership. Native RAF/lifecycle and Svelte flushSync replace the framework commit primitive. Canonical public Dialogaa5 useAnimationsFinished captures batch at invocation, retaining Original boolean closure semantics while pending; pendingCallbacks, individual commit, same-microtask batching, queue-time/flush-time abort checks and callback order remain unchanged. useOpenChangeComplete retains exact public Dialogad19 bytes. Canonical independent Source equality is8/8 after two native failures/six passes before the snapshot repair; the helper Source review is CLEAR, while whole Tabs Source/native/maintainability and actual-main seam acceptance remain pending. Own mixed-batch/native teardown and paired Panel exit/reopen/teardown probes cover the used fixed-false Panel path and earn zero unchanged ordinary credit.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -1236,7 +1245,7 @@
       "actualLocalUses": [
         {
           "local": "packages/base/src/lib/tabs/tab/TabsTab.svelte",
-          "sha256": "ad178fc8448aaaa73158e68acd339c3bb7ea070ae7af2ca5983769254b3d01e5",
+          "sha256": "dda67d5cefc2fbee7152501f17e319ccca7a36366a83947294b154e69513a403",
           "reachability": [
             "runtime"
           ]
@@ -1250,7 +1259,7 @@
         }
       ],
       "decision": "Actual runtime/type selected implementation listed with reachability and identity; framework substitutions explicit.",
-      "bodyComparison": "Full Tab body manually compared: real CompositeItem and useButton, metadata/id/value/disabled, active equality, composed-focus highlight containment, navigation flag, actual observer host replacement, forwarded/button/composite/observer ref order, current/disabled early returns, focus activation and primary/secondary press guards, document pointer-end listener removal. Native bubbling focusin replaces React onFocus; native Event replaces SyntheticEvent. No synthetic dispatch/checked replay.",
+      "bodyComparison": "Full Tab body manually compared: real CompositeItem and useButton, metadata/id/value/disabled, active equality, composed-focus highlight containment, navigation flag, actual observer host replacement, forwarded/button/composite/observer ref order, current/disabled early returns, focus activation and primary/secondary press guards, document pointer-end listener removal. Native bubbling focusin replaces React onFocus; native Event replaces SyntheticEvent. No synthetic dispatch/checked replay. Canonical pure useId(idProp, base-ui, nativeId) restores the Source library namespace and authored nullish override branch; nativeId is the direct stable $props.id() suffix.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -1949,9 +1958,17 @@
       "source": "packages/utils/src/useId.ts",
       "sha256": "7d01ffb745d3404ba406ebbd12ddfc8eb73325c3adea3dbda0868e2bad2eef05",
       "plannedSelected": true,
-      "actualLocalUses": [],
-      "decision": "Direct native primitive boundary: Direct native stable ID primitive; no React version/generator machinery.",
-      "bodyComparison": "This recursive source barrel/type/framework module supplies no actual selected business body. Mechanical import inventory is not a manual reading or acceptance claim.",
+      "actualLocalUses": [
+        {
+          "local": "packages/base/src/lib/utils/useId.ts",
+          "sha256": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90",
+          "reachability": [
+            "runtime"
+          ]
+        }
+      ],
+      "decision": "Selected Source library namespace/override branch reused through canonical pure native utils/useId.ts; native $props.id() supplies the framework suffix.",
+      "bodyComparison": "Read complete immutable useBaseUiId and useId bodies and the existing canonical native helper. React19 selected nullish override/prefix branch is retained: Tab passes authored idProp and base-ui; Panel passes undefined and base-ui, preserving generated registration ownership and subsequent element prop precedence. Native $props.id() retains native SSR/hydration suffixes. React17 global counter/effect machinery is unselected and not copied. Native helper is now actually imported, not an unused body. Paired Source/native equality covers generated namespace/unique suffix and explicit Tab overrides; zero ordinary declaration credit.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -2136,18 +2153,32 @@
     "prehydrationWrapper": "Exact frozen public Slider17652eca bytes; unaccepted DEV prerequisite until normally merged actual main and final normal integration.",
     "animationLifecycle": "Only canonical useAnimationsFinished is restored from public Dialogaa5c9aa0ccfcf08a12a2f22895ce8abd961c660d under precise root lease; SHA256 0ae8873174969326a7ac09377ab019af5cd575bbdfde7df9118317d0ec1c1e30. Invocation-time const batch retains Original pending callback boolean semantics. Canonical useOpenChangeComplete stays exact public Dialogad19 SHA2565e966dd1b10cbc1ed448d3583ca948a384d812f9e71afc1e128395485575931f. Native Svelte flushSync preserves Source individual/shared commit policy. Independent canonical Source review CLEAR and unchanged equality8/8 are selected-helper provenance only; full Tabs and actual-main helper seam review remain pending, with no whole Dialog feature dependency.",
     "inheritance": "Accepted repaired Field8619\u21928438374\u219249584ab and Radio041cfe4/ref +UseRenderc918675 verdict chain only where actually used. Field89a/cfbe5 BLOCKED verdicts are not clearance. Broad type closure does not select Field runtime.",
-    "newGeometryHelpers": "Root lease after f4e253b; exact Source algorithms with existing locked direct Floating UI dependency."
+    "newGeometryHelpers": "Root lease after f4e253b; exact Source algorithms with existing locked direct Floating UI dependency.",
+    "buttonDiagnostics": "Only exact canonical useButton.svelte.ts PUBLIC59 d00a8b0aca67abfdbde6ccf540131557b74e0ca3 SHA256ee71d7077c51139162152716111472919bf80b71e6e9cde62d15ff0b7ce56f59 restored under Root lease. Two Source DEV paragraphs only; algorithms/other59 files unchanged. Selected-helper seam review remains required; no whole Toolbar/Button prerequisite."
   },
   "animationLifecycleHistory": [
     {
       "checkpoint": "ad19bb37f6e9ff12b7ac68b27709042130c47b7c",
       "animationHelperSha256": "409aec4223eca26f66b6c1f5824cdaf8df68c916f66a2efb75617b255129ebf9",
-      "decision": "Historical checkpoint restored individual commit and shared queue. Later independent review confirmed P2: reading latest batch in done changed Original invocation-time policy for a mid-pending-animation batch change. Two native equality failures/six passes are retained as failed historical evidence; fixed-true Tabs tests did not prove this generic boundary. Source NOT CLEAR at that helper checkpoint. Zero ordinary declaration credit."
+      "decision": "Historical checkpoint restored individual commit and shared queue. Later independent review confirmed P2: reading latest batch in done changed Original invocation-time policy for a mid-pending-animation batch change. Two native equality failures/six passes are retained as failed historical evidence; fixed-false Tabs tests did not prove this generic boundary. Source NOT CLEAR at that helper checkpoint. Zero ordinary declaration credit."
     },
     {
       "checkpoint": "aa5c9aa0ccfcf08a12a2f22895ce8abd961c660d",
       "animationHelperSha256": "0ae8873174969326a7ac09377ab019af5cd575bbdfde7df9118317d0ec1c1e30",
       "decision": "Only runtime delta captures const batch at invocation and branches on the captured boolean in done. Canonical independent unchanged Source equality8/8 and full116 Source review CLEAR support precise selected-helper reuse. This does not establish whole Dialog main acceptance or whole70 Tabs acceptance; fresh Tabs exact-head review/gates and actual-main seam review remain pending. Zero ordinary declaration credit."
+    }
+  ],
+  "sourceReviewHistory": [
+    {
+      "head": "8bf83e3e49cde33766363965f36909da7e76ca26",
+      "verdict": "SOURCE NOT CLEAR: generated ID namespace and omitted Source button DEV paragraphs; all remaining70 full-body Source/native/maintainability scopes CLEAR. Historical verdict is not relabeled.",
+      "manualNativeModules": 70,
+      "manualNativeLines": 5014,
+      "outsidePrDiffModules": 49,
+      "freshManualOriginalModules": 74,
+      "repair": "Successor uses existing canonical pure useId with native suffixes and exact PUBLIC59 diagnostic helper, correcting fixed-false Panel caller evidence and immutable gridNavigation mapping. Actual used closure71; fresh exact successor review remains pending.",
+      "redEquality": "Before runtime repair, actual Source/native ID equality3passed/3nativefailed and actual selected diagnostic equality2nativefailed. Independent discrepancy-characterization fixtures/logs remain unchanged outside public tracking. New equality predicates are unchanged across repair; final successor receipts recorded separately.",
+      "ordinaryDeclarationCredit": 0
     }
   ]
 }

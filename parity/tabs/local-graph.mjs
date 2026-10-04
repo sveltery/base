@@ -28,7 +28,7 @@ const nativeSources = {
     'packages/react/src/internals/direction-context/DirectionContext.tsx',
   ],
   'internals/composite/root/gridNavigation.ts': [
-    'packages/react/src/internals/composite/root/useCompositeRoot.ts',
+    'packages/react/src/internals/composite/root/gridNavigation.ts',
   ],
   'internals/nativeProps.ts': [
     'packages/react/src/internals/useRenderElement.tsx',
@@ -53,6 +53,10 @@ const nativeSources = {
     'packages/react/src/tabs/indicator/TabsIndicator.tsx',
   ],
   'utils/useOnMount.ts': ['packages/utils/src/useOnMount.ts'],
+  'utils/useId.ts': [
+    'packages/utils/src/useId.ts',
+    'packages/react/src/internals/useBaseUiId.ts',
+  ],
 };
 const shared = JSON.parse(
   readFileSync(resolve(root, 'parity/rendering/source-graph.json'), 'utf8'),

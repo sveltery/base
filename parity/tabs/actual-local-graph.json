@@ -468,7 +468,7 @@
         "category": "canonical-shared-helper-or-native-adapter",
         "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
         "originalSources": [
-          "packages/react/src/internals/composite/root/useCompositeRoot.ts"
+          "packages/react/src/internals/composite/root/gridNavigation.ts"
         ],
         "declarations": [
           "CompositeGridElementsRef",
@@ -1133,7 +1133,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
-        "sha256": "581abfd20827eed41d9478dc30dc5a7b1b944e32d8428ac238d86625545536f1",
+        "sha256": "ee71d7077c51139162152716111472919bf80b71e6e9cde62d15ff0b7ce56f59",
         "reachability": [
           "runtime"
         ],
@@ -1993,7 +1993,7 @@
       },
       {
         "local": "packages/base/src/lib/tabs/panel/TabsPanel.svelte",
-        "sha256": "6d5638f4d87554051cc47167c16faeefcb7b0a106d3b194e52cbb2218f1dfaaa",
+        "sha256": "f55a13435aceae79311315c9f5388c9dc1591ac82f370c0eddc0432e4d3125eb",
         "reachability": [
           "runtime"
         ],
@@ -2042,6 +2042,14 @@
             "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
             "names": [
               "useIsoLayoutEffect"
+            ]
+          },
+          {
+            "specifier": "../../utils/useId.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/useId.ts",
+            "names": [
+              "useId"
             ]
           },
           {
@@ -2329,7 +2337,7 @@
       },
       {
         "local": "packages/base/src/lib/tabs/tab/TabsTab.svelte",
-        "sha256": "ad178fc8448aaaa73158e68acd339c3bb7ea070ae7af2ca5983769254b3d01e5",
+        "sha256": "dda67d5cefc2fbee7152501f17e319ccca7a36366a83947294b154e69513a403",
         "reachability": [
           "runtime"
         ],
@@ -2353,6 +2361,14 @@
             "resolved": "packages/base/src/lib/utils/owner.ts",
             "names": [
               "ownerDocument"
+            ]
+          },
+          {
+            "specifier": "../../utils/useId.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/useId.ts",
+            "names": [
+              "useId"
             ]
           },
           {
@@ -2959,6 +2975,23 @@
             ]
           }
         ]
+      },
+      {
+        "local": "packages/base/src/lib/utils/useId.ts",
+        "sha256": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/utils/src/useId.ts",
+          "packages/react/src/internals/useBaseUiId.ts"
+        ],
+        "declarations": [
+          "useId"
+        ],
+        "imports": []
       },
       {
         "local": "packages/base/src/lib/utils/useIsHydrating.svelte.ts",

@@ -5,6 +5,7 @@
   import { useTransitionStatus } from '../../internals/useTransitionStatus.svelte.js';
   import { useOpenChangeComplete } from '../../internals/useOpenChangeComplete.svelte.js';
   import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
+  import { useId } from '../../utils/useId.js';
   import { transitionStatusMapping } from '../../internals/stateAttributesMapping.js';
   import { useTabsRootContext } from '../root/TabsRootContext.js';
   import { tabsStateAttributesMapping } from '../root/stateAttributesMapping.js';
@@ -21,7 +22,8 @@
     ...elementProps
   }: TabsPanelProps = $props();
   const root = useTabsRootContext();
-  const id = $props.id();
+  const nativeId = $props.id();
+  const id = $derived(useId(undefined, 'base-ui', nativeId));
   const listItem = useCompositeListItem();
   const open = $derived(value === root.value);
   const transition = useTransitionStatus(() => open);

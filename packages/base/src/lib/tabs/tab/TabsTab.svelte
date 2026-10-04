@@ -1,6 +1,7 @@
 <script lang="ts">
   // Source business body: Base UI v1.8.0 TabsTab.tsx at 47b40521. MIT.
   import { ownerDocument } from '../../utils/owner.js';
+  import { useId } from '../../utils/useId.js';
   import { activeElement, contains } from '../../utils/shadowDom.js';
   import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
   import { useButton } from '../../internals/use-button/useButton.svelte.js';
@@ -29,8 +30,8 @@
   const root = useTabsRootContext(),
     list = useTabsListContext(),
     compositeRoot = useCompositeRootContext();
-  const generatedId = $props.id();
-  const id = $derived(idProp ?? generatedId);
+  const nativeId = $props.id();
+  const id = $derived(useId(idProp, 'base-ui', nativeId));
   const tabMetadata = $derived({ disabled, id, value });
   const composite = useCompositeItem(() => ({ metadata: tabMetadata }));
   const active = $derived(value === root.value);
