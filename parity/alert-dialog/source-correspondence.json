@@ -3305,9 +3305,16 @@
       "local": [
         "packages/base/src/lib/internals/useAnimationsFinished.ts"
       ],
-      "decision": "Original individual flush and same-microtask pendingCallbacks batching, abort-at-flush, replacement-animation, starting-style and raw fallback branches are retained. Native Svelte flushSync replaces ReactDOM.flushSync; live open/batch readers replace rendered closures. Actual pinned DOM/abort comparisons verify both commit policies.",
+      "decision": "Original invocation captures its batch boolean. Restore only the exact public canonical aa5c9aa helper body: native const batch = getBatch() at invocation, then !batch in done; preserve every other branch and native flush/abort ordering.",
       "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
-      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
+      "provenance": "Normal development integration of public Dialog3435232/ad19bb3, then Root-approved helper-only restore from public aa5c9aa0ccfcf08a12a2f22895ce8abd961c660d. No aa5 fixture/evidence branch import; actual prerequisite main delivery and final whole121 review remain pending.",
+      "canonicalRepair": {
+        "checkpoint": "aa5c9aa0ccfcf08a12a2f22895ce8abd961c660d",
+        "localSha256": "0ae8873174969326a7ac09377ab019af5cd575bbdfde7df9118317d0ec1c1e30",
+        "independentReport": "/workspace/sveltery-tmp/dialog-animation-review-aa5c9aa.md",
+        "independentReportSha256": "47518b062c59ad3ccb6bb80e4f95eec38275933fa49498932b60766f714600fc",
+        "scope": "Canonical captured batch policy Source P2 only; independent equality before two native failures/six passes, after eight passes; tracked twelve passes. Prior Alert c50 gates are history, not final new-head acceptance."
+      }
     },
     {
       "source": "packages/react/src/internals/useBaseUiId.ts",
