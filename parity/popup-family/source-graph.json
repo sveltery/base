@@ -33896,6 +33896,7 @@
           "line": 2,
           "syntax": "export-star",
           "emittedRuntime": true,
+          "selected": false,
           "selectedSymbols": []
         },
         {
@@ -46887,6 +46888,7 @@
           "line": 2,
           "syntax": "export-star",
           "emittedRuntime": true,
+          "selected": false,
           "selectedSymbols": []
         },
         {
@@ -50227,6 +50229,7 @@
           "line": 1,
           "syntax": "export-star",
           "emittedRuntime": true,
+          "selected": false,
           "selectedSymbols": []
         },
         {
@@ -50239,6 +50242,7 @@
           "line": 2,
           "syntax": "export-star",
           "emittedRuntime": true,
+          "selected": false,
           "selectedSymbols": []
         },
         {
@@ -50251,6 +50255,7 @@
           "line": 3,
           "syntax": "export-star",
           "emittedRuntime": true,
+          "selected": false,
           "selectedSymbols": []
         },
         {
@@ -50263,6 +50268,7 @@
           "line": 4,
           "syntax": "export-star",
           "emittedRuntime": true,
+          "selected": false,
           "selectedSymbols": []
         },
         {
@@ -50290,6 +50296,7 @@
           "line": 6,
           "syntax": "export-star",
           "emittedRuntime": true,
+          "selected": false,
           "selectedSymbols": []
         }
       ],
@@ -57002,6 +57009,7 @@
           "line": 2,
           "syntax": "export-star",
           "emittedRuntime": true,
+          "selected": false,
           "selectedSymbols": []
         },
         {
@@ -69719,6 +69727,7 @@
           "line": 2,
           "syntax": "export-star",
           "emittedRuntime": true,
+          "selected": false,
           "selectedSymbols": []
         },
         {
@@ -73039,6 +73048,7 @@
           "line": 1,
           "syntax": "export-star",
           "emittedRuntime": true,
+          "selected": false,
           "selectedSymbols": []
         },
         {
@@ -73051,6 +73061,7 @@
           "line": 2,
           "syntax": "export-star",
           "emittedRuntime": true,
+          "selected": false,
           "selectedSymbols": []
         },
         {
@@ -73063,6 +73074,7 @@
           "line": 3,
           "syntax": "export-star",
           "emittedRuntime": true,
+          "selected": false,
           "selectedSymbols": []
         },
         {
@@ -73075,6 +73087,7 @@
           "line": 4,
           "syntax": "export-star",
           "emittedRuntime": true,
+          "selected": false,
           "selectedSymbols": []
         },
         {
@@ -73102,6 +73115,7 @@
           "line": 6,
           "syntax": "export-star",
           "emittedRuntime": true,
+          "selected": false,
           "selectedSymbols": []
         }
       ],

@@ -131,7 +131,7 @@ function graph(entries, selected, runtimeProjection = false) {
     const imports = module.imports.map(edge => {
       const starNames = selected && module.pureBarrel && !previous.has('*') && edge.syntax === 'export-star' && !edge.resolved.startsWith('external:')
         ? [...previous].filter(symbol => exportedSymbols(edge.resolved).has(symbol)) : undefined;
-      const select = (!runtimeProjection || edge.emittedRuntime) && (!selected || !module.pureBarrel || edge.syntax === 'import' || previous.has('*') || (edge.syntax === 'export-star' && (starNames === undefined || starNames.length > 0)) || edge.outward?.some(symbol => previous.has(symbol)));
+      const select = Boolean((!runtimeProjection || edge.emittedRuntime) && (!selected || !module.pureBarrel || edge.syntax === 'import' || previous.has('*') || (edge.syntax === 'export-star' && (starNames === undefined || starNames.length > 0)) || edge.outward?.some(symbol => previous.has(symbol))));
       return { ...edge, selected: select, ...(starNames ? { selectedSymbols: starNames } : {}) };
     });
     records.set(request.source, { ...module, requestedSymbols: [...previous].sort(), imports });
