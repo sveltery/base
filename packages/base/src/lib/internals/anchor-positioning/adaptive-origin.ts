@@ -1,0 +1,44 @@
+// Source port: Base UI 1.8.0 adaptiveOriginMiddleware.ts at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
+// MIT: parity/anchor-positioning/UPSTREAM_LICENSE. Uses Floating UI DOM's default platform.
+import { getSide } from '@floating-ui/utils';
+import type { Middleware } from '@floating-ui/dom';
+
+export const DEFAULT_SIDES = { sideX: 'left', sideY: 'top' } as const;
+
+export const adaptiveOrigin: Middleware = {
+  name: 'adaptiveOrigin',
+  async fn(state) {
+    const {
+      x: rawX, y: rawY, rects: { floating: floatRect },
+      elements: { floating }, platform, strategy, placement,
+    } = state;
+    const win = floating.ownerDocument.defaultView!;
+    const styles = win.getComputedStyle(floating);
+    const hasTransition = styles.transitionDuration !== '0s' && styles.transitionDuration !== '';
+    if (!hasTransition) return { x: rawX, y: rawY, data: DEFAULT_SIDES };
+
+    const offsetParent = await platform.getOffsetParent?.(floating);
+    let offsetDimensions = { width: 0, height: 0 };
+    if (strategy === 'fixed' && win.visualViewport) {
+      offsetDimensions = { width: win.visualViewport.width, height: win.visualViewport.height };
+    } else if (offsetParent === win) {
+      const doc = floating.ownerDocument;
+      offsetDimensions = { width: doc.documentElement.clientWidth, height: doc.documentElement.clientHeight };
+    } else if (await platform.isElement?.(offsetParent)) {
+      offsetDimensions = await platform.getDimensions(offsetParent as Element);
+    }
+
+    const currentSide = getSide(placement);
+    let x = rawX;
+    let y = rawY;
+    if (currentSide === 'left') x = offsetDimensions.width - (rawX + floatRect.width);
+    if (currentSide === 'top') y = offsetDimensions.height - (rawY + floatRect.height);
+    return {
+      x, y,
+      data: {
+        sideX: currentSide === 'left' ? 'right' : DEFAULT_SIDES.sideX,
+        sideY: currentSide === 'top' ? 'bottom' : DEFAULT_SIDES.sideY,
+      },
+    };
+  },
+};
