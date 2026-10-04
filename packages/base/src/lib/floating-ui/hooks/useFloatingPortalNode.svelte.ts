@@ -40,6 +40,7 @@ export function useFloatingPortalNode<State extends object = Record<string, neve
   const attr = createAttribute('portal');
   const parentPortal = usePortalContext();
   // The actual host is outside a FullPortal's own provider. Capture before it.
+  // eslint-disable-next-line svelte/prefer-svelte-reactivity -- Immutable native context snapshot for a separately mounted host; no reactive Map ownership is needed.
   const hostContext = new Map(getAllContexts());
   let containerElement = $state.raw<HTMLElement | ShadowRoot | null>(null);
   let portalNode = $state.raw<HTMLElement | null>(null);

@@ -200,7 +200,7 @@
     },
     {
       "path": "packages/base/src/lib/floating-ui/hooks/useClientPoint.svelte.ts",
-      "sha256": "6a2f7924b1d9cc4154bb74ebb44b1f1ef2da6c73f7641e66fe7ea41f4311270a",
+      "sha256": "6a1953adb81d1875979353bffc2d43d1e1b73a32b55e681bfac1c433fba829a0",
       "symbols": [
         {
           "name": "createVirtualElement",
@@ -260,7 +260,7 @@
     },
     {
       "path": "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
-      "sha256": "32c9cd374708b2680ec719189a22da61e6af2719641457facdb52d75b8261ab0",
+      "sha256": "6bfb1801f9ae16f8cfb97b87357e1b09e306361e1c005355acd7a34b6390a113",
       "symbols": [
         {
           "name": "PortalContainer",
@@ -283,7 +283,7 @@
         {
           "name": "useFloatingPortalNode",
           "kind": "FunctionDeclaration",
-          "sha256": "074fb42e47543bfada87ea6aa571cde790abec3b4e475a55da99442c50e7b20e",
+          "sha256": "e907d648b7102a5add74d127ee1024dfb1355f30345c1a299f4f04ac95a17aa6",
           "scriptIndex": 0
         },
         {

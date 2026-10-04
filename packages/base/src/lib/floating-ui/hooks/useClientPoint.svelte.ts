@@ -8,6 +8,7 @@ import type { ContextData, ElementProps, FloatingContext, FloatingRootContext } 
 import { contains, getTarget } from '../utils/element.js';
 import { isMouseLikePointerType } from '../utils/event.js';
 
+/* eslint-disable no-useless-assignment -- Preserve this complete Original function, including its initial width/height assignments before the later zeroing and axis branches. */
 function createVirtualElement(
   domElement: Element | null | undefined,
   data: {
@@ -81,6 +82,7 @@ function createVirtualElement(
     },
   };
 }
+/* eslint-enable no-useless-assignment */
 
 function isMouseBasedEvent(event: Event | undefined): event is MouseEvent {
   return event != null && (event as MouseEvent).clientX != null;
