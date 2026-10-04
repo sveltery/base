@@ -25,7 +25,8 @@ const compilerOptions = {
 };
 if (source) {
   // Use the repository's installed Node declarations for the real source DEV checks.
-  const jsdom = createRequire(join(root, 'packages/base/node_modules/@types/jsdom/package.json'));
+  const tooling = createRequire(join(root, 'packages/base/package.json'));
+  const jsdom = createRequire(tooling.resolve('@types/jsdom/package.json'));
   compilerOptions.typeRoots = [dirname(dirname(jsdom.resolve('@types/node/package.json')))];
   compilerOptions.types = ['node'];
 } else {
