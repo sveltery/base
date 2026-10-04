@@ -118,6 +118,21 @@
       "archive": "full-verify-ff42fea-fixture-check-failure.log.gz",
       "rawSha256": "e815fea9d887bb2a696fb07174ccbd162275d5946856fa4dfc08cbc576f9444a",
       "rawBytes": 9461
+    },
+    {
+      "archive": "fixture-eaa0d3f-1gib-oom.log.gz",
+      "rawSha256": "fb735bfa63fd932b5ce04b585ebcdc4668dc1569b96d564d7942d00072bb9904",
+      "rawBytes": 1119
+    },
+    {
+      "archive": "anchor-eaa0d3f-menu-namespace-authoring-failure.log.gz",
+      "rawSha256": "77ed1e870de604f423f8de544a54b448f8628cd1ccf656801433351a3203a0be",
+      "rawBytes": 1652
+    },
+    {
+      "archive": "anchor-eaa0d3f-installed-lifecycle-failure.log.gz",
+      "rawSha256": "a93b1fbc359817046c1c0e8c870eace9cf9b2427b17d933e495fa852a73c52b2",
+      "rawBytes": 2027
     }
   ]
 }

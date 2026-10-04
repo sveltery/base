@@ -224,3 +224,25 @@ EOF blank line). Their cleanup is pending release of the independently reviewed
 197-body source freeze. Independent review also evaluates explicit `finalFocus`
 callback/ref replacement during a retained closing lifetime; passing the default
 deep-close probes does not settle that current-prop ownership question.
+
+## Source-independent package witness during the source freeze
+
+The local installed checker exposed an authored namespace comparison error:
+`@sveltery/base/menu` also exports its named `Menu` namespace. The checker now
+verifies `Root.Menu === Subpath.Menu`, the complete part key set and every named
+part identity. The prior checker and failed raw process are preserved; no
+existing installed lifecycle, SSR, geometry or private-boundary predicate changed.
+
+Against the unchanged `ff42fea` distribution, the corrected dependency/type
+boundary and initial SSR pass. The actual installed lifecycle then fails its
+unchanged post-unmount null-element assertion and emits two `derived_inert`
+warnings. The pure DOM driver reads destroyed derived element values during
+attachment cleanup. This is an additional native lifetime blocker, alongside
+independently reproduced retained `finalFocus` replacement and hover-store
+migration defects. Private candidate measurements are not published source
+repairs or final acceptance. The production 197 module bodies remain frozen.
+
+A separate fixture workspace check with an explicit 1 GiB heap cap exits with
+out-of-memory status 134 before diagnostics. That receipt establishes no check
+result; the corrected fixture and complete Verification require a later bounded
+2 GiB run. All three new failed raw receipts are retained losslessly.
