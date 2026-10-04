@@ -49,7 +49,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 265,
+          "line": 271,
           "title": "`${framework} R:209/256/C:81/Cn:40 corner appears and clears with actual Content ResizeObserver`",
           "bodySha256": "eb06fcdba6fb39e7cab2c6f312d46daa28470b337419c7a30b94ba286832400b",
           "status": "pending-final-head-secured-paired-execution"
@@ -68,7 +68,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 1029,
+          "line": 1035,
           "title": "`${framework} Cn:59/S:49 custom content and track renderers without refs stay usable`",
           "bodySha256": "5faa4945f3d1ee25349dc12bbf2d043d894a08f64c123316518351edf320b295",
           "status": "pending-final-head-secured-paired-execution"
@@ -98,7 +98,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 485,
+          "line": 491,
           "title": "`${framework} S:19/29/39/C:50/65 ARIA overrides and orientation`",
           "bodySha256": "a07745287d8484c8814a98715334613ec3a8caa4724601d704eab3579b694606",
           "status": "pending-final-head-secured-paired-execution"
@@ -124,7 +124,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 485,
+          "line": 491,
           "title": "`${framework} S:19/29/39/C:50/65 ARIA overrides and orientation`",
           "bodySha256": "a07745287d8484c8814a98715334613ec3a8caa4724601d704eab3579b694606",
           "status": "pending-final-head-secured-paired-execution"
@@ -143,7 +143,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 265,
+          "line": 271,
           "title": "`${framework} R:209/256/C:81/Cn:40 corner appears and clears with actual Content ResizeObserver`",
           "bodySha256": "eb06fcdba6fb39e7cab2c6f312d46daa28470b337419c7a30b94ba286832400b",
           "status": "pending-final-head-secured-paired-execution"
@@ -173,7 +173,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 434,
+          "line": 440,
           "title": "`${framework} R:67/V:139/V:270/S:76/T:579 user scroll axis states and500ms expiry`",
           "bodySha256": "6c716e8879126594a4e73fe436fcc102de1cfab48cd010930297470a3942311d",
           "status": "pending-final-head-secured-paired-execution"
@@ -199,7 +199,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 233,
+          "line": 239,
           "title": "`${framework} R:103/144/173 initial measurement before ResizeObserver and hidden-to-visible recompute`",
           "bodySha256": "ce2c1c6e9ecb1dc43b0a483a11d38c45f220483ea2fc92a357bf3f9a25d14784",
           "status": "pending-final-head-secured-paired-execution"
@@ -218,14 +218,14 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 233,
+          "line": 239,
           "title": "`${framework} R:103/144/173 initial measurement before ResizeObserver and hidden-to-visible recompute`",
           "bodySha256": "ce2c1c6e9ecb1dc43b0a483a11d38c45f220483ea2fc92a357bf3f9a25d14784",
           "status": "pending-final-head-secured-paired-execution"
         },
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 249,
+          "line": 255,
           "title": "`${framework} R:144/173 mount computation precedes first observer measurement keepMounted=${keepMounted}`",
           "bodySha256": "2600d0f7e27a8204befedbaf0ec395ef47308d39f35240310d63c53f4d61d3ec",
           "status": "pending-final-head-secured-paired-execution"
@@ -244,14 +244,14 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 233,
+          "line": 239,
           "title": "`${framework} R:103/144/173 initial measurement before ResizeObserver and hidden-to-visible recompute`",
           "bodySha256": "ce2c1c6e9ecb1dc43b0a483a11d38c45f220483ea2fc92a357bf3f9a25d14784",
           "status": "pending-final-head-secured-paired-execution"
         },
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 249,
+          "line": 255,
           "title": "`${framework} R:144/173 mount computation precedes first observer measurement keepMounted=${keepMounted}`",
           "bodySha256": "2600d0f7e27a8204befedbaf0ec395ef47308d39f35240310d63c53f4d61d3ec",
           "status": "pending-final-head-secured-paired-execution"
@@ -270,7 +270,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 265,
+          "line": 271,
           "title": "`${framework} R:209/256/C:81/Cn:40 corner appears and clears with actual Content ResizeObserver`",
           "bodySha256": "eb06fcdba6fb39e7cab2c6f312d46daa28470b337419c7a30b94ba286832400b",
           "status": "pending-final-head-secured-paired-execution"
@@ -289,7 +289,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 265,
+          "line": 271,
           "title": "`${framework} R:209/256/C:81/Cn:40 corner appears and clears with actual Content ResizeObserver`",
           "bodySha256": "eb06fcdba6fb39e7cab2c6f312d46daa28470b337419c7a30b94ba286832400b",
           "status": "pending-final-head-secured-paired-execution"
@@ -308,7 +308,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 144,
+          "line": 150,
           "title": "`${framework} R:321/349 initial real geometry, no overlay padding and exact native roles/CSS`",
           "bodySha256": "a883fc4a1fb6d9950ef7bfbb20b0eb6ec6ceeaecde9aa57d9d9e23cb0f8dabdb",
           "status": "pending-final-head-secured-paired-execution"
@@ -327,7 +327,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 144,
+          "line": 150,
           "title": "`${framework} R:321/349 initial real geometry, no overlay padding and exact native roles/CSS`",
           "bodySha256": "a883fc4a1fb6d9950ef7bfbb20b0eb6ec6ceeaecde9aa57d9d9e23cb0f8dabdb",
           "status": "pending-final-head-secured-paired-execution"
@@ -346,7 +346,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 177,
+          "line": 183,
           "title": "`${framework} R:374 logical scrollbar padding`",
           "bodySha256": "023515bab6c1ea71255a273b407768da8ccb378202083fe0991745fafd78f6c4",
           "status": "pending-final-head-secured-paired-execution"
@@ -365,7 +365,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 192,
+          "line": 198,
           "title": "`${framework} R:412 scrollbar cross-axis margin leaves source sizing unchanged`",
           "bodySha256": "c080d27e16a8f760259298f2a3b951bf3891f63c0b7be61fb7299be4db00302e",
           "status": "pending-final-head-secured-paired-execution"
@@ -384,7 +384,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 214,
+          "line": 220,
           "title": "`${framework} R:451 logical thumb margin`",
           "bodySha256": "749c3b0eccb09c015f7db24cadc8012bc5681298ac68de93e692fa64f60efbf5",
           "status": "pending-final-head-secured-paired-execution"
@@ -403,7 +403,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 414,
+          "line": 420,
           "title": "`${framework} R:899/483 RTL ranges and live direction change`",
           "bodySha256": "fb4010383b30d9f5bc393d9b53cd26a211f6e0bf6f65a32d803b5dd3e8df4bda",
           "status": "pending-final-head-secured-paired-execution"
@@ -422,7 +422,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 290,
+          "line": 296,
           "title": "`${framework} R:534 late Content mount updates overflow and tab order`",
           "bodySha256": "c4ad97bf589ff814b4f19b2882623544822dff89c6b51c55d107bdd69a9c408a",
           "status": "pending-final-head-secured-paired-execution"
@@ -441,7 +441,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 299,
+          "line": 305,
           "title": "`${framework} R:580/V:303/S:933 attributes follow both edges on every source part`",
           "bodySha256": "eefc5ac1f02d79bbfa4bfd19a3e69e89896445c76aab8013647efef523360c6a",
           "status": "pending-final-head-secured-paired-execution"
@@ -460,7 +460,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 335,
+          "line": 341,
           "title": "`${framework} R:691 near edges normalize within1px`",
           "bodySha256": "e64d735ca80df93fca07cf05da8fd71d598a0e896e3108db4cc22d18a90e0d8e",
           "status": "pending-final-head-secured-paired-execution"
@@ -479,7 +479,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 350,
+          "line": 356,
           "title": "`${framework} R:728/773/820 numeric/object threshold, metrics and reactive threshold`",
           "bodySha256": "438ffacc9de0e01641b09907a36e3cf81b373fb9fbb2f598f295252dc4c4d720",
           "status": "pending-final-head-secured-paired-execution"
@@ -498,7 +498,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 350,
+          "line": 356,
           "title": "`${framework} R:728/773/820 numeric/object threshold, metrics and reactive threshold`",
           "bodySha256": "438ffacc9de0e01641b09907a36e3cf81b373fb9fbb2f598f295252dc4c4d720",
           "status": "pending-final-head-secured-paired-execution"
@@ -517,7 +517,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 350,
+          "line": 356,
           "title": "`${framework} R:728/773/820 numeric/object threshold, metrics and reactive threshold`",
           "bodySha256": "438ffacc9de0e01641b09907a36e3cf81b373fb9fbb2f598f295252dc4c4d720",
           "status": "pending-final-head-secured-paired-execution"
@@ -536,7 +536,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 389,
+          "line": 395,
           "title": "`${framework} R:850 no overflow has no source overflow attributes`",
           "bodySha256": "7a256ff26f7a8c96e42d854e0d1740e5ff31a4926b7b8b32de2f32a87468b536",
           "status": "pending-final-head-secured-paired-execution"
@@ -555,7 +555,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 414,
+          "line": 420,
           "title": "`${framework} R:899/483 RTL ranges and live direction change`",
           "bodySha256": "fb4010383b30d9f5bc393d9b53cd26a211f6e0bf6f65a32d803b5dd3e8df4bda",
           "status": "pending-final-head-secured-paired-execution"
@@ -604,7 +604,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 485,
+          "line": 491,
           "title": "`${framework} S:19/29/39/C:50/65 ARIA overrides and orientation`",
           "bodySha256": "a07745287d8484c8814a98715334613ec3a8caa4724601d704eab3579b694606",
           "status": "pending-final-head-secured-paired-execution"
@@ -630,7 +630,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 485,
+          "line": 491,
           "title": "`${framework} S:19/29/39/C:50/65 ARIA overrides and orientation`",
           "bodySha256": "a07745287d8484c8814a98715334613ec3a8caa4724601d704eab3579b694606",
           "status": "pending-final-head-secured-paired-execution"
@@ -649,7 +649,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 485,
+          "line": 491,
           "title": "`${framework} S:19/29/39/C:50/65 ARIA overrides and orientation`",
           "bodySha256": "a07745287d8484c8814a98715334613ec3a8caa4724601d704eab3579b694606",
           "status": "pending-final-head-secured-paired-execution"
@@ -675,7 +675,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 1029,
+          "line": 1035,
           "title": "`${framework} Cn:59/S:49 custom content and track renderers without refs stay usable`",
           "bodySha256": "5faa4945f3d1ee25349dc12bbf2d043d894a08f64c123316518351edf320b295",
           "status": "pending-final-head-secured-paired-execution"
@@ -694,7 +694,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 434,
+          "line": 440,
           "title": "`${framework} R:67/V:139/V:270/S:76/T:579 user scroll axis states and500ms expiry`",
           "bodySha256": "6c716e8879126594a4e73fe436fcc102de1cfab48cd010930297470a3942311d",
           "status": "pending-final-head-secured-paired-execution"
@@ -720,7 +720,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 1042,
+          "line": 1048,
           "title": "`${framework} S:135 observes a viewport already hovered on mount`",
           "bodySha256": "fe09c9968d3844bbd775dbc050e6f547e6f3d3ea7305b3ed10f7e2b614c7a45f",
           "status": "pending-final-head-secured-paired-execution"
@@ -739,7 +739,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 473,
+          "line": 479,
           "title": "`${framework} S:163/179 hover uses event target and touch never enters hover`",
           "bodySha256": "3c55a0e7428596388d7c676d51c1d1ab21441a412221ae139a217304faebe55e",
           "status": "pending-final-head-secured-paired-execution"
@@ -758,14 +758,14 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 473,
+          "line": 479,
           "title": "`${framework} S:163/179 hover uses event target and touch never enters hover`",
           "bodySha256": "3c55a0e7428596388d7c676d51c1d1ab21441a412221ae139a217304faebe55e",
           "status": "pending-final-head-secured-paired-execution"
         },
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 1058,
+          "line": 1064,
           "title": "`${framework} S:179 hover follows event target when composed path points outside`",
           "bodySha256": "2d6c8ec3373e209a3f3587947aa4d7d4abf6a926c7074fc92b981ec5e89c8821",
           "status": "pending-final-head-secured-paired-execution"
@@ -784,7 +784,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 645,
+          "line": 651,
           "title": "`${framework} S:224/245/260/T:43 nonprimary and missing viewport/thumb remain inert`",
           "bodySha256": "60688d93e6cdee5ee44024fd114dad596c295d53dda137f46f583ebfada0aa8e",
           "status": "pending-final-head-secured-paired-execution"
@@ -803,7 +803,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 645,
+          "line": 651,
           "title": "`${framework} S:224/245/260/T:43 nonprimary and missing viewport/thumb remain inert`",
           "bodySha256": "60688d93e6cdee5ee44024fd114dad596c295d53dda137f46f583ebfada0aa8e",
           "status": "pending-final-head-secured-paired-execution"
@@ -829,7 +829,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 645,
+          "line": 651,
           "title": "`${framework} S:224/245/260/T:43 nonprimary and missing viewport/thumb remain inert`",
           "bodySha256": "60688d93e6cdee5ee44024fd114dad596c295d53dda137f46f583ebfada0aa8e",
           "status": "pending-final-head-secured-paired-execution"
@@ -855,7 +855,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 674,
+          "line": 680,
           "title": "`${framework} S:279 native composed target inside thumb skips track jump`",
           "bodySha256": "3c6eb75cc8c824c6d9657c994682754a7ace892a69b67cb090aeb0b5d3fd927c",
           "status": "pending-final-head-secured-paired-execution"
@@ -874,7 +874,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 695,
+          "line": 701,
           "title": "`${framework} S:345/407 track press marks scrolling and pointer cancellation clears the drag`",
           "bodySha256": "49f4c677feacbee213c266f3fd85aaf536426bf6f329e25c476e25dbc8bfff0c",
           "status": "pending-final-head-secured-paired-execution"
@@ -893,7 +893,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 695,
+          "line": 701,
           "title": "`${framework} S:345/407 track press marks scrolling and pointer cancellation clears the drag`",
           "bodySha256": "49f4c677feacbee213c266f3fd85aaf536426bf6f329e25c476e25dbc8bfff0c",
           "status": "pending-final-head-secured-paired-execution"
@@ -917,7 +917,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 731,
+          "line": 737,
           "title": "`${framework} S:493 parameterized ${button} track mousedown cancels focus default`",
           "bodySha256": "57ce1d099c1e7b17d2907c7d37b8bff1f13541858cc0a982f185c2ad3d2cfb77",
           "status": "pending-final-head-secured-paired-execution"
@@ -943,7 +943,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 750,
+          "line": 756,
           "title": "`${framework} S:509 thumb mousedown preserves active native focus`",
           "bodySha256": "e913ed851835653d64e08951535a5e8e2df8d6e3315b7acc5fbe17f8961b6a1c",
           "status": "pending-final-head-secured-paired-execution"
@@ -969,7 +969,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 501,
+          "line": 507,
           "title": "`${framework} S:550/564/578 track jump ${orientation}/${direction} and T:185/213 drag capture`",
           "bodySha256": "52d19f473c37b4668522574d25f0e7ddfe0be0c75e66bd5464ba6fd28bc83dba",
           "status": "pending-final-head-secured-paired-execution"
@@ -988,7 +988,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 501,
+          "line": 507,
           "title": "`${framework} S:550/564/578 track jump ${orientation}/${direction} and T:185/213 drag capture`",
           "bodySha256": "52d19f473c37b4668522574d25f0e7ddfe0be0c75e66bd5464ba6fd28bc83dba",
           "status": "pending-final-head-secured-paired-execution"
@@ -1007,7 +1007,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 501,
+          "line": 507,
           "title": "`${framework} S:550/564/578 track jump ${orientation}/${direction} and T:185/213 drag capture`",
           "bodySha256": "52d19f473c37b4668522574d25f0e7ddfe0be0c75e66bd5464ba6fd28bc83dba",
           "status": "pending-final-head-secured-paired-execution"
@@ -1026,7 +1026,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 1080,
+          "line": 1086,
           "title": "`${framework} S:598 disables snap before the initial track jump and restores it on release`",
           "bodySha256": "8531823fae1d6e5043d5c7a8644d59c92925beb992a3ce96769c4623bbb3917f",
           "status": "pending-final-head-secured-paired-execution"
@@ -1045,7 +1045,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 629,
+          "line": 635,
           "title": "`${framework} S:680/691/701/710 non-positive thumb travel ${height}px`",
           "bodySha256": "824e4662db49d51fb6b124448420106ab26d45cb9182b70212ea871f28db200c",
           "status": "pending-final-head-secured-paired-execution"
@@ -1064,7 +1064,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 629,
+          "line": 635,
           "title": "`${framework} S:680/691/701/710 non-positive thumb travel ${height}px`",
           "bodySha256": "824e4662db49d51fb6b124448420106ab26d45cb9182b70212ea871f28db200c",
           "status": "pending-final-head-secured-paired-execution"
@@ -1083,7 +1083,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 629,
+          "line": 635,
           "title": "`${framework} S:680/691/701/710 non-positive thumb travel ${height}px`",
           "bodySha256": "824e4662db49d51fb6b124448420106ab26d45cb9182b70212ea871f28db200c",
           "status": "pending-final-head-secured-paired-execution"
@@ -1102,7 +1102,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 629,
+          "line": 635,
           "title": "`${framework} S:680/691/701/710 non-positive thumb travel ${height}px`",
           "bodySha256": "824e4662db49d51fb6b124448420106ab26d45cb9182b70212ea871f28db200c",
           "status": "pending-final-head-secured-paired-execution"
@@ -1121,7 +1121,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 766,
+          "line": 772,
           "title": "`${framework} S:780/788/802/824/838/855/866/877/885/893 wheel ${orientation}/${direction}`",
           "bodySha256": "052ea9a257af575afa80a4592a39b6350a559b9c3da7a8752db0aa552950a4af",
           "status": "pending-final-head-secured-paired-execution"
@@ -1140,7 +1140,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 766,
+          "line": 772,
           "title": "`${framework} S:780/788/802/824/838/855/866/877/885/893 wheel ${orientation}/${direction}`",
           "bodySha256": "052ea9a257af575afa80a4592a39b6350a559b9c3da7a8752db0aa552950a4af",
           "status": "pending-final-head-secured-paired-execution"
@@ -1159,7 +1159,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 766,
+          "line": 772,
           "title": "`${framework} S:780/788/802/824/838/855/866/877/885/893 wheel ${orientation}/${direction}`",
           "bodySha256": "052ea9a257af575afa80a4592a39b6350a559b9c3da7a8752db0aa552950a4af",
           "status": "pending-final-head-secured-paired-execution"
@@ -1178,7 +1178,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 766,
+          "line": 772,
           "title": "`${framework} S:780/788/802/824/838/855/866/877/885/893 wheel ${orientation}/${direction}`",
           "bodySha256": "052ea9a257af575afa80a4592a39b6350a559b9c3da7a8752db0aa552950a4af",
           "status": "pending-final-head-secured-paired-execution"
@@ -1197,7 +1197,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 766,
+          "line": 772,
           "title": "`${framework} S:780/788/802/824/838/855/866/877/885/893 wheel ${orientation}/${direction}`",
           "bodySha256": "052ea9a257af575afa80a4592a39b6350a559b9c3da7a8752db0aa552950a4af",
           "status": "pending-final-head-secured-paired-execution"
@@ -1216,7 +1216,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 766,
+          "line": 772,
           "title": "`${framework} S:780/788/802/824/838/855/866/877/885/893 wheel ${orientation}/${direction}`",
           "bodySha256": "052ea9a257af575afa80a4592a39b6350a559b9c3da7a8752db0aa552950a4af",
           "status": "pending-final-head-secured-paired-execution"
@@ -1235,7 +1235,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 766,
+          "line": 772,
           "title": "`${framework} S:780/788/802/824/838/855/866/877/885/893 wheel ${orientation}/${direction}`",
           "bodySha256": "052ea9a257af575afa80a4592a39b6350a559b9c3da7a8752db0aa552950a4af",
           "status": "pending-final-head-secured-paired-execution"
@@ -1254,7 +1254,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 766,
+          "line": 772,
           "title": "`${framework} S:780/788/802/824/838/855/866/877/885/893 wheel ${orientation}/${direction}`",
           "bodySha256": "052ea9a257af575afa80a4592a39b6350a559b9c3da7a8752db0aa552950a4af",
           "status": "pending-final-head-secured-paired-execution"
@@ -1273,7 +1273,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 766,
+          "line": 772,
           "title": "`${framework} S:780/788/802/824/838/855/866/877/885/893 wheel ${orientation}/${direction}`",
           "bodySha256": "052ea9a257af575afa80a4592a39b6350a559b9c3da7a8752db0aa552950a4af",
           "status": "pending-final-head-secured-paired-execution"
@@ -1292,7 +1292,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 766,
+          "line": 772,
           "title": "`${framework} S:780/788/802/824/838/855/866/877/885/893 wheel ${orientation}/${direction}`",
           "bodySha256": "052ea9a257af575afa80a4592a39b6350a559b9c3da7a8752db0aa552950a4af",
           "status": "pending-final-head-secured-paired-execution"
@@ -1311,7 +1311,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 817,
+          "line": 823,
           "title": "`${framework} S:904 registers wheel after unkept horizontal track appears`",
           "bodySha256": "d6ca9de4304fb934a42ec964bfd19f93e39c28369ca13517c354513954e1e864",
           "status": "pending-final-head-secured-paired-execution"
@@ -1330,7 +1330,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 299,
+          "line": 305,
           "title": "`${framework} R:580/V:303/S:933 attributes follow both edges on every source part`",
           "bodySha256": "eefc5ac1f02d79bbfa4bfd19a3e69e89896445c76aab8013647efef523360c6a",
           "status": "pending-final-head-secured-paired-execution"
@@ -1379,7 +1379,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 645,
+          "line": 651,
           "title": "`${framework} S:224/245/260/T:43 nonprimary and missing viewport/thumb remain inert`",
           "bodySha256": "60688d93e6cdee5ee44024fd114dad596c295d53dda137f46f583ebfada0aa8e",
           "status": "pending-final-head-secured-paired-execution"
@@ -1405,7 +1405,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 916,
+          "line": 922,
           "title": "`${framework} V:20/T:75/T:114 user handler synchronous unmount guards`",
           "bodySha256": "af43f9aff1e9f4e1082d09932be00b9421037f16897151bb6b7ead4c54e7ac37",
           "status": "pending-final-head-secured-paired-execution"
@@ -1424,7 +1424,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 916,
+          "line": 922,
           "title": "`${framework} V:20/T:75/T:114 user handler synchronous unmount guards`",
           "bodySha256": "af43f9aff1e9f4e1082d09932be00b9421037f16897151bb6b7ead4c54e7ac37",
           "status": "pending-final-head-secured-paired-execution"
@@ -1443,7 +1443,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 501,
+          "line": 507,
           "title": "`${framework} S:550/564/578 track jump ${orientation}/${direction} and T:185/213 drag capture`",
           "bodySha256": "52d19f473c37b4668522574d25f0e7ddfe0be0c75e66bd5464ba6fd28bc83dba",
           "status": "pending-final-head-secured-paired-execution"
@@ -1462,7 +1462,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 501,
+          "line": 507,
           "title": "`${framework} S:550/564/578 track jump ${orientation}/${direction} and T:185/213 drag capture`",
           "bodySha256": "52d19f473c37b4668522574d25f0e7ddfe0be0c75e66bd5464ba6fd28bc83dba",
           "status": "pending-final-head-secured-paired-execution"
@@ -1481,7 +1481,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 590,
+          "line": 596,
           "title": "`${framework} T:306/236/374 buttonless move and stale capture guards`",
           "bodySha256": "cc9b73d8d82f29856587afeea4d69331587b9d1b0da3f86a97bd21f427a6f539",
           "status": "pending-final-head-secured-paired-execution"
@@ -1507,7 +1507,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 590,
+          "line": 596,
           "title": "`${framework} T:306/236/374 buttonless move and stale capture guards`",
           "bodySha256": "cc9b73d8d82f29856587afeea4d69331587b9d1b0da3f86a97bd21f427a6f539",
           "status": "pending-final-head-secured-paired-execution"
@@ -1533,7 +1533,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 590,
+          "line": 596,
           "title": "`${framework} T:306/236/374 buttonless move and stale capture guards`",
           "bodySha256": "cc9b73d8d82f29856587afeea4d69331587b9d1b0da3f86a97bd21f427a6f539",
           "status": "pending-final-head-secured-paired-execution"
@@ -1559,7 +1559,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 549,
+          "line": 555,
           "title": "`${framework} T:490/504/518/536/556 pointer latch and snap release source order`",
           "bodySha256": "76f06a98a8cd6dcb0b40503add05dc45c8df549cd5605518ced652f5c4cf2b52",
           "status": "pending-final-head-secured-paired-execution"
@@ -1585,7 +1585,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 549,
+          "line": 555,
           "title": "`${framework} T:490/504/518/536/556 pointer latch and snap release source order`",
           "bodySha256": "76f06a98a8cd6dcb0b40503add05dc45c8df549cd5605518ced652f5c4cf2b52",
           "status": "pending-final-head-secured-paired-execution"
@@ -1611,7 +1611,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 549,
+          "line": 555,
           "title": "`${framework} T:490/504/518/536/556 pointer latch and snap release source order`",
           "bodySha256": "76f06a98a8cd6dcb0b40503add05dc45c8df549cd5605518ced652f5c4cf2b52",
           "status": "pending-final-head-secured-paired-execution"
@@ -1637,7 +1637,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 549,
+          "line": 555,
           "title": "`${framework} T:490/504/518/536/556 pointer latch and snap release source order`",
           "bodySha256": "76f06a98a8cd6dcb0b40503add05dc45c8df549cd5605518ced652f5c4cf2b52",
           "status": "pending-final-head-secured-paired-execution"
@@ -1663,7 +1663,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 549,
+          "line": 555,
           "title": "`${framework} T:490/504/518/536/556 pointer latch and snap release source order`",
           "bodySha256": "76f06a98a8cd6dcb0b40503add05dc45c8df549cd5605518ced652f5c4cf2b52",
           "status": "pending-final-head-secured-paired-execution"
@@ -1689,7 +1689,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 434,
+          "line": 440,
           "title": "`${framework} R:67/V:139/V:270/S:76/T:579 user scroll axis states and500ms expiry`",
           "bodySha256": "6c716e8879126594a4e73fe436fcc102de1cfab48cd010930297470a3942311d",
           "status": "pending-final-head-secured-paired-execution"
@@ -1726,7 +1726,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 916,
+          "line": 922,
           "title": "`${framework} V:20/T:75/T:114 user handler synchronous unmount guards`",
           "bodySha256": "af43f9aff1e9f4e1082d09932be00b9421037f16897151bb6b7ead4c54e7ac37",
           "status": "pending-final-head-secured-paired-execution"
@@ -1745,7 +1745,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 1135,
+          "line": 1141,
           "title": "`${framework} V:45/87 pending subtree animation ${unmount ? 'after unmount' : 'recomputes overflow'}`",
           "bodySha256": "48853acf66ffe66356a4290b5e49b1b93854a7e4bf24a116af76d9987b4d9223",
           "status": "pending-final-head-secured-paired-execution"
@@ -1764,7 +1764,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 1135,
+          "line": 1141,
           "title": "`${framework} V:45/87 pending subtree animation ${unmount ? 'after unmount' : 'recomputes overflow'}`",
           "bodySha256": "48853acf66ffe66356a4290b5e49b1b93854a7e4bf24a116af76d9987b4d9223",
           "status": "pending-final-head-secured-paired-execution"
@@ -1783,7 +1783,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 434,
+          "line": 440,
           "title": "`${framework} R:67/V:139/V:270/S:76/T:579 user scroll axis states and500ms expiry`",
           "bodySha256": "6c716e8879126594a4e73fe436fcc102de1cfab48cd010930297470a3942311d",
           "status": "pending-final-head-secured-paired-execution"
@@ -1809,7 +1809,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 457,
+          "line": 463,
           "title": "`${framework} V:172/193/220/241 programmatic/touch modality attribution`",
           "bodySha256": "7c54dd6bd2f790011accdc0b9b36059eb951a01d22f013672d6661879272c0c5",
           "status": "pending-final-head-secured-paired-execution"
@@ -1835,7 +1835,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 457,
+          "line": 463,
           "title": "`${framework} V:172/193/220/241 programmatic/touch modality attribution`",
           "bodySha256": "7c54dd6bd2f790011accdc0b9b36059eb951a01d22f013672d6661879272c0c5",
           "status": "pending-final-head-secured-paired-execution"
@@ -1861,7 +1861,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 457,
+          "line": 463,
           "title": "`${framework} V:172/193/220/241 programmatic/touch modality attribution`",
           "bodySha256": "7c54dd6bd2f790011accdc0b9b36059eb951a01d22f013672d6661879272c0c5",
           "status": "pending-final-head-secured-paired-execution"
@@ -1887,7 +1887,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 457,
+          "line": 463,
           "title": "`${framework} V:172/193/220/241 programmatic/touch modality attribution`",
           "bodySha256": "7c54dd6bd2f790011accdc0b9b36059eb951a01d22f013672d6661879272c0c5",
           "status": "pending-final-head-secured-paired-execution"
@@ -1913,7 +1913,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 434,
+          "line": 440,
           "title": "`${framework} R:67/V:139/V:270/S:76/T:579 user scroll axis states and500ms expiry`",
           "bodySha256": "6c716e8879126594a4e73fe436fcc102de1cfab48cd010930297470a3942311d",
           "status": "pending-final-head-secured-paired-execution"
@@ -1939,7 +1939,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 299,
+          "line": 305,
           "title": "`${framework} R:580/V:303/S:933 attributes follow both edges on every source part`",
           "bodySha256": "eefc5ac1f02d79bbfa4bfd19a3e69e89896445c76aab8013647efef523360c6a",
           "status": "pending-final-head-secured-paired-execution"
@@ -1958,7 +1958,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 836,
+          "line": 842,
           "title": "`${framework} V:373/391/407/421/437/453/470 overscroll ${orientation}/${direction}/${edge}`",
           "bodySha256": "fa6231a1cbfa87e8510df38bc82401df049ee8d9c3dff8ff2c7125b0725e28c8",
           "status": "pending-final-head-secured-paired-execution"
@@ -1977,7 +1977,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 836,
+          "line": 842,
           "title": "`${framework} V:373/391/407/421/437/453/470 overscroll ${orientation}/${direction}/${edge}`",
           "bodySha256": "fa6231a1cbfa87e8510df38bc82401df049ee8d9c3dff8ff2c7125b0725e28c8",
           "status": "pending-final-head-secured-paired-execution"
@@ -1996,7 +1996,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 836,
+          "line": 842,
           "title": "`${framework} V:373/391/407/421/437/453/470 overscroll ${orientation}/${direction}/${edge}`",
           "bodySha256": "fa6231a1cbfa87e8510df38bc82401df049ee8d9c3dff8ff2c7125b0725e28c8",
           "status": "pending-final-head-secured-paired-execution"
@@ -2015,7 +2015,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 836,
+          "line": 842,
           "title": "`${framework} V:373/391/407/421/437/453/470 overscroll ${orientation}/${direction}/${edge}`",
           "bodySha256": "fa6231a1cbfa87e8510df38bc82401df049ee8d9c3dff8ff2c7125b0725e28c8",
           "status": "pending-final-head-secured-paired-execution"
@@ -2034,7 +2034,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 836,
+          "line": 842,
           "title": "`${framework} V:373/391/407/421/437/453/470 overscroll ${orientation}/${direction}/${edge}`",
           "bodySha256": "fa6231a1cbfa87e8510df38bc82401df049ee8d9c3dff8ff2c7125b0725e28c8",
           "status": "pending-final-head-secured-paired-execution"
@@ -2053,7 +2053,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 836,
+          "line": 842,
           "title": "`${framework} V:373/391/407/421/437/453/470 overscroll ${orientation}/${direction}/${edge}`",
           "bodySha256": "fa6231a1cbfa87e8510df38bc82401df049ee8d9c3dff8ff2c7125b0725e28c8",
           "status": "pending-final-head-secured-paired-execution"
@@ -2072,7 +2072,7 @@
       "candidatePorts": [
         {
           "path": "tests/browser/scroll-area.spec.ts",
-          "line": 836,
+          "line": 842,
           "title": "`${framework} V:373/391/407/421/437/453/470 overscroll ${orientation}/${direction}/${edge}`",
           "bodySha256": "fa6231a1cbfa87e8510df38bc82401df049ee8d9c3dff8ff2c7125b0725e28c8",
           "status": "pending-final-head-secured-paired-execution"
@@ -2104,7 +2104,7 @@
   "nativeSupplements": [
     {
       "path": "tests/browser/scroll-area.spec.ts",
-      "line": 940,
+      "line": 946,
       "title": "`${framework} native/source supplement shared renderer refs, replacement hosts and teardown`",
       "references": [],
       "bodySha256": "3b6230f3d3e3b8cec3177007f380dcc53fa0a740183536a3633aaf877212ace8",
@@ -2112,7 +2112,7 @@
     },
     {
       "path": "tests/browser/scroll-area.spec.ts",
-      "line": 981,
+      "line": 987,
       "title": "`${framework} native conformance six parts prop/ref/class/style forwarding ${mode}`",
       "references": [],
       "bodySha256": "98f6894612a9bff601520298a240d5925fd448139ac33eac71705318bdbafd94",
@@ -2120,7 +2120,7 @@
     },
     {
       "path": "tests/browser/scroll-area.spec.ts",
-      "line": 1201,
+      "line": 1207,
       "title": "`${framework} native/source supplement real mouse drag owns and releases native pointer capture`",
       "references": [],
       "bodySha256": "18af8bd96a8ddaf2e3b65b7866624f681cf178417a333f9614874af8583f9e4e",
@@ -2128,7 +2128,7 @@
     },
     {
       "path": "tests/browser/scroll-area.spec.ts",
-      "line": 1227,
+      "line": 1233,
       "title": "`${framework} native/source supplement CSP nonce and actual scrollbar stylesheet application`",
       "references": [],
       "bodySha256": "ac59c79b20d80444db01b5c22fcb6c4ff6cb32f1a6ea4af144a080bf612e2f09",
@@ -2136,7 +2136,7 @@
     },
     {
       "path": "tests/browser/scroll-area.spec.ts",
-      "line": 1238,
+      "line": 1244,
       "title": "`${framework} native renderer observation repeated roots use CSP styles and native teardown`",
       "references": [],
       "bodySha256": "40e3bb23ca4a5b0d50a0b048678e94ba354fed454e841bf64c1792bb927a4f5f",
@@ -2144,15 +2144,15 @@
     },
     {
       "path": "tests/browser/scroll-area.spec.ts",
-      "line": 1267,
+      "line": 1273,
       "title": "`${framework} native/source supplement nonce styles apply under an enforced browser CSP`",
       "references": [],
-      "bodySha256": "189a25178c5f972042109e4d31c8d35adae112be0370512b39e3cad5429870b1",
+      "bodySha256": "c1a3ba772ec885d6165e1894814429d1ab5eb5cf374d72855a2a36ca7e7413a5",
       "status": "pending-final-head-secured-paired-execution"
     },
     {
       "path": "tests/browser/scroll-area.spec.ts",
-      "line": 1289,
+      "line": 1284,
       "title": "'native SSR preserves repeated nonce styles and hydration viewport data ids'",
       "references": [],
       "bodySha256": "e0fec30749821f189595260d08c896e31f9647c5dc0b8e9201db177d4b06251d",

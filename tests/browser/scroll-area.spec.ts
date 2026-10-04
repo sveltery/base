@@ -17,18 +17,16 @@ const part = (page: Page, name: string) => page.getByTestId(name);
 const scrollbarCSS =
   '.base-ui-disable-scrollbar{scrollbar-width:none}.base-ui-disable-scrollbar::-webkit-scrollbar{display:none}';
 async function scrollbarStyles(page: Page) {
-  return page
-    .locator('style')
-    .evaluateAll(
-      (nodes, css) =>
-        nodes
-          .filter((node) => node.textContent === css)
-          .map((node) => ({
-            nonce: (node as HTMLStyleElement).nonce,
-            text: node.textContent,
-          })),
-      scrollbarCSS,
-    );
+  return page.locator('style').evaluateAll(
+    (nodes, css) =>
+      nodes
+        .filter((node) => node.textContent === css)
+        .map((node) => ({
+          nonce: (node as HTMLStyleElement).nonce,
+          text: node.textContent,
+        })),
+    scrollbarCSS,
+  );
 }
 async function configure(page: Page, patch: Partial<ScrollAreaOptions>) {
   await page.evaluate(
@@ -107,10 +105,18 @@ async function wheel(page: Page, name: string, init: WheelEventInit) {
   );
 }
 for (const framework of ['react', 'svelte'] as const) {
-  const open = async (page: Page, options: Partial<ScrollAreaOptions> = {}) => {
-    await page.goto(
-      `/scroll-area?reference=${framework}&options=${encodeURIComponent(JSON.stringify(options))}`,
+  const open = async (
+    page: Page,
+    options: Partial<ScrollAreaOptions> = {},
+    enforceNonceCSP = false,
+  ) => {
+    const response = await page.goto(
+      `/scroll-area?reference=${framework}&options=${encodeURIComponent(JSON.stringify(options))}${enforceNonceCSP ? '&csp=nonce' : ''}`,
     );
+    if (enforceNonceCSP)
+      expect(response?.headers()['content-security-policy']).toBe(
+        "style-src 'self' 'nonce-csp-nonce'; style-src-attr 'unsafe-inline'",
+      );
     await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
     if (framework === 'react')
       await expect(page.locator('main')).toHaveAttribute(
@@ -1267,18 +1273,7 @@ for (const framework of ['react', 'svelte'] as const) {
   test(`${framework} native/source supplement nonce styles apply under an enforced browser CSP`, async ({
     page,
   }) => {
-    await page.route('**/scroll-area?**', async (route) => {
-      const response = await route.fetch();
-      await route.fulfill({
-        response,
-        headers: {
-          ...response.headers(),
-          'content-security-policy':
-            "style-src 'self' 'nonce-csp-nonce'; style-src-attr 'unsafe-inline'",
-        },
-      });
-    });
-    await open(page, { nonce: 'csp-nonce', repeated: true });
+    await open(page, { nonce: 'csp-nonce', repeated: true }, true);
     for (const name of ['viewport', 'second-viewport'])
       await expect(part(page, name)).toHaveCSS('scrollbar-width', 'none');
     expect((await scrollbarStyles(page)).map((style) => style.nonce)).toEqual(

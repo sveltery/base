@@ -95,6 +95,35 @@
         "unchangedCredit": 0
       },
       "note": "No inferred original counts:113 passing collected behavior/conformance/native probes,2 failures. JSON result downloaded locally and attachments decoded. Failed gate preserved; fresh final exact-head execution remains required."
+    },
+    {
+      "head": "c07e0d25f0b7e2603274ed2ae0690154ada3360c",
+      "tree": "1044021d8c7ce52123e9cee0a01d38bd440c74d5",
+      "run": 37164427948,
+      "job": 111324330712,
+      "url": "https://github.com/sveltery/base/actions/runs/37164427948",
+      "artifact": "https://github.com/sveltery/base/actions/runs/37164427948/artifacts/11288772289",
+      "artifactSha256": "36a4432c76edd8a40e940ccbe22e12fec59a94b0032dcafb23b95717865500f3",
+      "browserExecuted": true,
+      "result": "failed",
+      "passedTests": 121,
+      "failedTests": 2,
+      "failures": [
+        {
+          "bothFrameworks": true,
+          "scenario": "Enforced browser CSP supplement",
+          "sourceProductBug": false,
+          "cause": "CSP nonce and computed scrollbar CSS assertions passed, but synthetic route.fulfill changed Chromium153 local address-space classification; real browser Vite HMR WebSocket logged ERR_BLOCKED_BY_LOCAL_NETWORK_ACCESS_CHECKS. Strict browser-error afterEach failed both test bodies.",
+          "repair": "Deliver unchanged Content-Security-Policy through an owned +page.server.ts fixture on the actual local HTTP origin; remove synthetic fulfillment. No browser flags, network policy relaxation, error filtering or nonce/style assertion weakening."
+        }
+      ],
+      "localFrozenGates": {
+        "verify": "PASS;63 script tests,219 unit tests,1176 DOM tests plus full library/fixtures/public package/runtime gates",
+        "standards": "PASS",
+        "scrollAreaInstalledPublic": "PASS strict exactOptional/noUnchecked/skipLibCheck:false root/subpath aliases/types/SSR/DOM and intended diagnostics"
+      },
+      "unchangedOriginalDeclarationCredit": 0,
+      "note": "Raw job log preserved locally, artifact linked. Failed actual browser gate remains failed; final real-header successor still requires actual hosted123-probe execution and independent whole review."
     }
   ]
 }

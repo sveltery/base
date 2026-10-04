@@ -16,7 +16,10 @@ The native public package consumer also executed SSR with three Root nonce
 styles and mounted/unmounted them in actual installed package DOM execution.
 The exact class and constant CSS string are preserved once; no React
 href/precedence hoisting engine or arbitrary HTML interpolation was added.
-An additional enforced style-src nonce browser probe is pending at the next head.
+At c07e both enforced nonce/CSS assertion bodies passed, but strict browser-error
+collection failed on Chromium local-network HMR messages caused by synthetic
+response fulfillment. The unchanged enforced policy is now delivered through
+the actual fixture HTTP server; the next full gate must execute again.
 
 Svelte's native delegated pointer events follow composedPath to the thumb. In
 the original S:279 fabricated event, React's synthetic target remains the track,
@@ -54,7 +57,7 @@ that are specific to JSX element props/wrappers/key handling/ref callbacks are
 mapped to actual native snippets/attachments and receive zero unchanged credit;
 their original bodies and hashes remain in test-helper evidence.
 
-Both failed hosted gates remain recorded in execution-history.json, including
+All failed hosted gates remain recorded in execution-history.json, including
 the subsequent113/115 run with the pointer simulation and incorrect `id`
 locator failures. The viewport's actual source relationship is `data-id`; the
 next SSR/hydration probe checks that attribute. No failed gate is waived.

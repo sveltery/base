@@ -33,9 +33,10 @@ canonical addEventListener bytes from PUBLIC17006204a66c9ddb77cade10f83605b51925
 
 Execution:12 rendered native DOM bodies, library build, installed strict public
 SSR/DOM/type/negative consumers and full local verify.sh/Standards have passed at
-their recorded implementation checkpoints; final frozen-head repetition remains
-pending. Hosted655601e executed82/92 probes; hostedb301446 executed113/115. Both
-failed gates are preserved in [execution history](execution-history.json), with
+the frozen c07e product checkpoint (63 script,219 unit,1176 DOM). The
+header-only successor preserves all56 product module bytes; its targeted fixture
+checks and actual hosted full123-probe execution remain separately required. Hosted655601e executed82/92 probes; hostedb301446 executed113/115;
+hostedc07e executed121/123. All failed gates are preserved in [execution history](execution-history.json), with
 fixture/locator/simulation corrections and measured native styles recorded in
 [native observations](native-observations.md). No failed gate is waived.
 The environment's known official Chromium download403 is not bypassed. The scoped
