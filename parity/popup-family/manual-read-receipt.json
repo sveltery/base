@@ -2,7 +2,7 @@
   "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "method": "Manual full-body reading receipt, distinct from AST discovery, local adaptation review and test execution. Every listed Original body was displayed and read in full; body hashes are immutable archive hashes.",
   "runtimeImplementationStarted": false,
-  "phaseOneComplete": false,
+  "phaseOneComplete": true,
   "ordinaryDeclarationCredit": 0,
   "familyTestsAndTypeSpecs": [
     {
@@ -270,619 +270,1578 @@
   ],
   "sourceBodies": [
     {
+      "source": "packages/react/src/direction-provider/DirectionProvider.tsx",
+      "sha256": "90405d399eeac452d78fedc389f8caf49735312a17cf3e386937b6641f65a4fc",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/direction-provider/index.parts.ts",
+      "sha256": "43b29f624b04c76170bbef38065c708bf829bd2a0d86e3d9e369a0121cb63dd5",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/direction-provider/index.ts",
+      "sha256": "3c66b7d83e4460deffff081fd6705de26945b8a1a67e11011b6239a4157d82e3",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
       "source": "packages/react/src/floating-ui-react/components/FloatingDelayGroup.tsx",
       "sha256": "14d8f2c810ae738d26d3d41b645d3983958fee8693432b676768e0643cd848d5",
-      "status": "original whole body read; local whole-body comparison pending"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx",
+      "sha256": "6ecb04f1ed908009718134b26fa2aa48eaf723010a65c4d541c5674290d47933",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/components/FloatingPortal.tsx",
+      "sha256": "602600ea7e232bec066b961eddc5dce4bb654a88694a902e369e0e3ca6b2e13c",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/components/FloatingRootStore.ts",
+      "sha256": "1ed4e09c006f812df8f7e14afa4f9da3adaedc3537fd5c3c9bdb8d3603235c6e",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/components/FloatingTree.tsx",
+      "sha256": "0bf2b2b744cf1004f1f05893f795f8aede95aa85b9b7ebfd7e4a2c53c26fd548",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/components/FloatingTreeStore.ts",
+      "sha256": "2bff8cd44fbf2d39afda9e3f6b0f638c54266aba324ae9154b5df3deba5a0125",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/gridNavigation.ts",
+      "sha256": "770979ed938192b076a31c02d5b965dcc322c0ea1143ad5c797d4f1087e5f5b3",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useClick.ts",
+      "sha256": "9cc6a80220399b7c06d8919a7814becb1bd3df8bcb893444ac7466366a62b1ed",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/floating-ui-react/hooks/useClientPoint.ts",
       "sha256": "05c9506381cb9940d9737161d44899a7eb971e6db085fbeca81ee97de4470884",
-      "status": "original whole body read; local whole-body comparison pending"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useDismiss.ts",
+      "sha256": "caff943d9f6525ac0ad8c73c046679fc1354fd83b1b3422a217982e9da6757d5",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useFloating.ts",
+      "sha256": "03ba78f0e21f618c5873c9acc568c0d2ddb79b8518cd1ca65c68bc27ff14507b",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/floating-ui-react/hooks/useFloatingRootContext.ts",
       "sha256": "90bd769413b4c22b6e1273ddd874914be911cf106a8123353ae60638d0b82420",
-      "status": "original whole body read; local whole-body comparison pending"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useFocus.ts",
+      "sha256": "2003b943a94451bf49cdb4e83f836646872b5f774a09baa1e08674f5a5cc04ce",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useHover.ts",
+      "sha256": "e0858bc9abe95aff495b5679741d50730309a3c77b7337ea75056ad71ad66335",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useHoverFloatingInteraction.ts",
+      "sha256": "9a244dbacb63b7cfd3cf4715d289a0fcf257c39a6d8f4864b1385ba0b300d0aa",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useHoverInteractionSharedState.ts",
+      "sha256": "b987cb5c94f6154bd0e8c4aca2a44dfbc0ff6fff96a8697dc3447d1fbfe3420e",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useHoverReferenceInteraction.ts",
+      "sha256": "4fac47f406b11c9c4c3c1af6c859b8771e481792c2a591107e39241d0b1088d2",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useHoverShared.ts",
+      "sha256": "24d8edb07cb31c4f2b82ef77bea6db76e4a6ae2bacfa097dd4b01c50de5d2478",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useListNavigation.ts",
+      "sha256": "fda8cf48adddf095bf345a909617f79cd6e4626ad6c5dcd9078c00bae3e6709c",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/floating-ui-react/hooks/useSyncedFloatingRootContext.ts",
       "sha256": "e9538f143d37f7c9ebfd5f87bb2fbb49d03bad14591a610e567bc4680bf1329f",
-      "status": "original whole body read; local whole-body comparison pending"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useTypeahead.ts",
+      "sha256": "29a224805520309419060b303296a31a44186b4b40c86aae1855cdcea007d58b",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/floating-ui-react/index.ts",
       "sha256": "adb74f4f9d5ac57defc928c2c4f05f8f650a15421c1e4e6ec9d3e94b1d2421cc",
-      "status": "original whole body read; local whole-body comparison pending"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/middleware/arrow.ts",
+      "sha256": "6766b250f220db9ba941ee2605e58071487a9720c63cfb1908110ca709014c2d",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/safePolygon.ts",
+      "sha256": "682e2a9ff611e947ebe7f2bfc367f8df0060021c0e38a140f60003cfcac853a9",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/types.ts",
+      "sha256": "45be5f5fc58eaec333ec9d4e4c8313f91b9670937cec7743a8115c524b29265c",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/utils.ts",
+      "sha256": "9e46e6faa5dfb04b8be61311426c25cf3f69351bbd2e27fd3af523b99ba5a20d",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/utils/composite.ts",
+      "sha256": "37b1dc55a5290245459ce608f8dda0af5d746e5b89b87b51b442cdef2d9d09d1",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/utils/constants.ts",
+      "sha256": "ee99e2e0b1fcbed2edbf65bc9713f46199299099d918fa8bd39c3aa33368f20b",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/utils/createAttribute.ts",
+      "sha256": "d4d5b40c4b97d656eead0fe91a5b27d4d85860e8e396eee274619a3b40f73726",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/utils/createEventEmitter.ts",
+      "sha256": "e746c6156536daf0a7d205d1daf25bcac1244b8958b5edf3d719982cdb7e3505",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/utils/element.ts",
+      "sha256": "327171478f561a3f0e9d74ddbd14c31e4e7263309d6813484d1ce5c406df51f0",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/utils/enqueueFocus.ts",
+      "sha256": "5bed83959e1b56d276bf6ea5edd5bf285077f576e3f8be3de8f0e23d2491ad99",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/utils/event.ts",
+      "sha256": "be6f5d7635aa248e3c8aae845778522c50cd4132d71548d4719ef93b1c8eddde",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/utils/markOthers.ts",
+      "sha256": "f9609aa96d9ab7ae63a2a61a8e3c54138a091d74490b71c2df2670e34b92b4ed",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/utils/nodes.ts",
+      "sha256": "f2ff4ef47af247991ac0940745e71e5e56d94d76f2ee008da58a5d951328b32c",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/utils/tabbable.ts",
+      "sha256": "4991f9e1c049a525fcb1d70f7a05f78e6f56e62921b4f15fafa68e0ba89af80f",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/TransitionStatusDataAttributes.ts",
+      "sha256": "cf240c33e54cbfae687b7f9b1bdaf7329c1cda7630481ca68d105723d75440d7",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/composite/composite.ts",
+      "sha256": "771259b0b6a3f23c240603241547c5442ff2aac9c1915175f520c18410112449",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/composite/root/CompositeRootContext.ts",
+      "sha256": "751bbbd1fa2b4ae5c5674dc878d302b59b0e15b5771763cccbaf2362eee1b9fa",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/constants.ts",
+      "sha256": "b384749020843f2c3d8df62c0e8fa844c4dbb133ef511bee5fe6b3743e44e88e",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/createBaseUIEventDetails.ts",
+      "sha256": "77bdb11a11ef1dfe9bc1a82db4754766cffbb91c27c3aeaea215e4e07cec2b2d",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/direction-context/DirectionContext.tsx",
+      "sha256": "2b66034708a583e4fecfb2cab7a8b22cedde0d29b4d60812e47dcfc4dede798b",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/getDisabledMountTransitionStyles.ts",
+      "sha256": "6df975899ffd457029658c3530d154aca893d3193eb5553f46bad5101ffde431",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/getStateAttributesProps.ts",
+      "sha256": "ae0c62d85ecb1d58d833c49a8753929df86a7539e94e272fdfe692d6ae89abcb",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/reason-parts.ts",
+      "sha256": "1cddfb9a98326bc5e586c2bdb66fb3a58913038f8ee7368ec57bbaf972521e06",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/reasons.ts",
+      "sha256": "694b1512f2dd9c999e97899e1fe9ea0f189fbe8476fcbc0f957cd786806c4abf",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/stateAttributesMapping.ts",
+      "sha256": "722dc0fed9ce97ed42b5b59418a01596c99b0cb8c5c5bb638737878dfe2d43bc",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/types.ts",
+      "sha256": "ed0c29125011488378a038fe179287809ef624d9d84389d83d7207b25e3d416a",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/use-button/index.ts",
+      "sha256": "bfd5490017aa66ebc7d42c86e9309e15109eb1a0d5058fed586704adf93c8d23",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/use-button/useButton.ts",
+      "sha256": "eba51ce4ed0d2082dda17180bbbbe2bf91318c2b33eae2d114c0e4ebbe3203e6",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/useAnchorPositioning.ts",
+      "sha256": "7a246214e615510eca9990f995fc9e31bd669184baf5c2322412758ebd9d3805",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/useAnimationsFinished.ts",
+      "sha256": "58fef3cb8defbbbe84c80126a6b0aff767293b692a19d97f078a190e62a3d7a6",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/internals/useBaseUiId.ts",
       "sha256": "c935ee27e3dfee2307e108dc82a36ec2a1f3e76b4692de188e5d3cdc4511157f",
-      "status": "original whole body read; local whole-body comparison pending"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/useOpenChangeComplete.tsx",
+      "sha256": "809be9e6b5a1a6238d9f239c162e2489d7da6e5f20383fbe65e85933e7259d89",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/useRenderElement.tsx",
+      "sha256": "0b55dc232a0d630a666a13873213d1bdde040e973031f2b307a64cc157644a4c",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/useTransitionStatus.ts",
+      "sha256": "07ffaf4fcf96a3d4d24aa2dabb696f2e082f312149225e45372a12a0d3cfe4e1",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/useValueChanged.ts",
+      "sha256": "fa36f17e32a4a0b3f8edabe219810a505cefa9c926d3ae807310c6013f57de6d",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/merge-props/index.ts",
+      "sha256": "4881819e46f8b81cc6e90add34bc5a87cf924596e007785da31eed500414222f",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.ts",
+      "sha256": "cdc8fc165df88ddc4034fb2242ebf1ef32b504755404c343abf965cb3e4c90ce",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/popover/arrow/PopoverArrow.tsx",
       "sha256": "7f12cfcc38f732c0badfc7e943ff6686c51454dba4fa3c7dff04dcb4d072b560",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/popover/arrow/PopoverArrowDataAttributes.ts",
       "sha256": "f68896a00dc38ed7d8ea63d8704bed200f78bc21a84d83aa832171bef2aabb7e",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/popover/backdrop/PopoverBackdrop.tsx",
       "sha256": "c6a5afe1144c2babc20d6515ed2801446b8ce93f3e1685383f722d4d8150d0ce",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/popover/backdrop/PopoverBackdropDataAttributes.ts",
       "sha256": "9726a99662394b74ca36fb5bf737c0cb6bb3cc84c074e222409a82431d1370ee",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/popover/close/PopoverClose.tsx",
       "sha256": "d877c34973693022901fa78ed55d230ea16fa061ac0f4f6e2d806687cc07eac3",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/popover/description/PopoverDescription.tsx",
       "sha256": "00d3abc670688a79bbd0196905e91a4af3cd8a52224e93827d5f7d4ab0cb271c",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/popover/index.parts.ts",
       "sha256": "1d939f1fc69167d8890d0a2dd89a957bc366eb416c0037433ba09ed90a81575b",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/popover/index.ts",
       "sha256": "cb9cbed44b7dc8563bfea3d543c2fb3dcdcce86d6ae345b0a3eb113a013d139e",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/popover/popup/PopoverPopup.tsx",
       "sha256": "d6ec235ef6a7980899ee85cfe45124c0525202a95a5f35362dbb488e1db183a4",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/popover/popup/PopoverPopupCssVars.ts",
       "sha256": "50ddd4b04d05804d6547214d05288f90cf1baa9170e2f8d6bedd46f985b2f070",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/popover/popup/PopoverPopupDataAttributes.ts",
       "sha256": "7d8f3d669a18a16cc9f779b0ffadb632aa6f0f467e05253de07ef3f06d7fac06",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/popover/portal/PopoverPortal.tsx",
       "sha256": "595deae893a3732b492d57b22a30386f32d65c57e7dbd225e73b431ae0d0b4c8",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/popover/portal/PopoverPortalContext.ts",
       "sha256": "3c336710e6158e6d2ec82674456726ca1f9d94695468ee51e6030c99067176d8",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/popover/positioner/PopoverPositioner.tsx",
       "sha256": "90343a30f82e6237713c94593b76377a25b6aaf5ed5ffbbd295de2f109a1a170",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/popover/positioner/PopoverPositionerContext.ts",
       "sha256": "06981cb5b8bc203debd0c30cf46bccf1691c3e2c976b77162aecb6795c627e67",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/popover/positioner/PopoverPositionerCssVars.ts",
       "sha256": "aee8c968d509a3d9eaa4622fc75915d5bfc72868d401cd386b5e7edef425cb53",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/popover/positioner/PopoverPositionerDataAttributes.ts",
       "sha256": "43c7ee05eba2a7ed35563caf073f311f63230c601003090badc99a1e3227cec3",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/popover/root/PopoverRoot.tsx",
       "sha256": "aecb23995fe8bfc63dc33b0143330c5fbfa451593062278c71c6b5d8807ca1cb",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/popover/root/PopoverRootContext.ts",
       "sha256": "52f8165b98eec545977a2902c2f301162705f74dcdacab04a76810418ee8b88e",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/popover/store/PopoverHandle.ts",
       "sha256": "9d5de8366d58973f203d82f24c6162f789c5578c3fbbfc82b4c69b7fa0fa1b22",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/popover/store/PopoverStore.ts",
       "sha256": "938286be46fa40df94a1adf7d8c4ae5cee7a8d4dd64c493651e22efb75aae894",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/popover/title/PopoverTitle.tsx",
       "sha256": "59af94fd0b56c07061ea2603d27e1d2ff5f9654e7f7546930fd7db402c723720",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/popover/trigger/PopoverTrigger.tsx",
       "sha256": "aea068727788161f8ea640dd117188c15e477071ead045b2d7af715b993c069c",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/popover/trigger/PopoverTriggerDataAttributes.ts",
       "sha256": "405ab86d4c97dd6becf7c042b59caa194d6dc194d56309dbd8922686880da265",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/popover/utils/constants.ts",
       "sha256": "1af64be98556f0ed1e2a6b700b04dd576fb081bac7f6a1fe2e08cdc38dd86bd4",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/popover/viewport/PopoverViewport.tsx",
       "sha256": "015e7517c764109ee8afca718e837fb65f22a64d8c449a3a489eef6971c1f65d",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/popover/viewport/PopoverViewportCssVars.ts",
       "sha256": "f9dddda047401345f05809796e771f5a204664ff6c828c82e0eb314198a1c57a",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/popover/viewport/PopoverViewportDataAttributes.ts",
       "sha256": "b0692ff6a19f283b1a5861b7b6e35ee5d32feb78ef7111acf8380deadcd7ed05",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/preview-card/arrow/PreviewCardArrow.tsx",
       "sha256": "1fcd5bbf462c672e78d5ea531edcd2adb148b7e570ed344ed9030042a5157c38",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/preview-card/arrow/PreviewCardArrowDataAttributes.ts",
       "sha256": "57353d8c0a164a3ef54aaec5fc40e850fa4400bab45c339c2d488454b32f43a5",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/preview-card/backdrop/PreviewCardBackdrop.tsx",
       "sha256": "295ff7d654abf35e28699585785120053186a1cdc695f5def24db9206a26fe6a",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/preview-card/backdrop/PreviewCardBackdropDataAttributes.ts",
       "sha256": "3ffe90d5d8fa507362c33876071465e09323ab643ac12300f8042293954dfa7f",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/preview-card/index.parts.ts",
       "sha256": "581997521618f50048d748e03e464d2199b6538c8cb1ca47216ed64a0121532e",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/preview-card/index.ts",
       "sha256": "95330bd7ed706fcd5bef069f2123cb6530ca3a534dbe601a725c9a331baacbaf",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/preview-card/popup/PreviewCardPopup.tsx",
       "sha256": "ac1a206b6cfed402ea6c0cd0f1d2468f6a52096d4d65ee1845f3eb81d86cc591",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/preview-card/popup/PreviewCardPopupDataAttributes.ts",
       "sha256": "64e6b6f28748abea49777cb70b68a1b4b6501be6cca7cdf137ef58da483e8a2b",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/preview-card/portal/PreviewCardPortal.tsx",
       "sha256": "49477359419f94ce40d3dc171ec2135f61924da90ae2e5e06964fdc0596a3615",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/preview-card/portal/PreviewCardPortalContext.ts",
       "sha256": "39045b3dfa33678c41b46a13c4ed96abadd6b7b74f2e254db4ddceac8a5c68db",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/preview-card/positioner/PreviewCardPositioner.tsx",
       "sha256": "67012a30878e1f9a3c4c072a95a3dd88c8a25318add79b0782acd89732d7642c",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/preview-card/positioner/PreviewCardPositionerContext.ts",
       "sha256": "dfbc04ed06e6a594714ec35626f511dbaf21f8f276f5d875cfb31b5be86239f4",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/preview-card/positioner/PreviewCardPositionerCssVars.ts",
       "sha256": "822f6a74c1ecd20ff9b6d66e2d808a45dc75be95fd6c25173740174ef4183c5b",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/preview-card/positioner/PreviewCardPositionerDataAttributes.ts",
       "sha256": "53ef15b66b259c18d7bdbadd05fd8936c1f9596351953db26ec789b485f300c7",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/preview-card/root/PreviewCardContext.ts",
       "sha256": "3bb22a5b5cbbac82bd7d23b68094532add5a310349a50a136699bbcf4af8847f",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/preview-card/root/PreviewCardRoot.tsx",
       "sha256": "76606fb0405f9652c14ca62c0ea16b648823d32e0e4a8b56343a70e0b7bdab61",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/preview-card/store/PreviewCardHandle.ts",
       "sha256": "b97517c360107e233af22f1a3d2196250ee6f275630c982f6c0460799bf5552f",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/preview-card/store/PreviewCardStore.ts",
       "sha256": "e1bae0450288d9b192cced89e86a90a24de5773d3f28808bfb78e95fb2f5d555",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/preview-card/trigger/PreviewCardTrigger.tsx",
       "sha256": "7a4f08a8c79f2638be398f9f3435ef37016f98ebb73e1c8322829a873c3df118",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/preview-card/trigger/PreviewCardTriggerDataAttributes.ts",
       "sha256": "0fe8afb4279d9e3d3e55f95c18a2417a0d0bca9710934cf8cedca113b4642d94",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/preview-card/utils/constants.ts",
       "sha256": "ab1a2b8ffe25726235573efc1309e8ad6c0029b13ed45fba7621785cd6cf9b9f",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/preview-card/viewport/PreviewCardViewport.tsx",
       "sha256": "5f2e3f9524086e6165f13c30c89835923770e351f8b765fa722e8b5a05101fd8",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/preview-card/viewport/PreviewCardViewportCssVars.ts",
       "sha256": "f9dddda047401345f05809796e771f5a204664ff6c828c82e0eb314198a1c57a",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/preview-card/viewport/PreviewCardViewportDataAttributes.ts",
       "sha256": "b53274e3fd16197e25b9c3ea361c119c7eb3dc51e48b620ccf8e4ab8552bdc43",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/toolbar/root/ToolbarRootContext.ts",
       "sha256": "906be7eeeafb86358632a75cd73f7ea23e907f0a06be46b045fc2a449e54665e",
-      "status": "original whole body read; local whole-body comparison pending"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/tooltip/arrow/TooltipArrow.tsx",
       "sha256": "7696b00ee98482448bc621ac66655e8cb82dff6ea73c37cce38e7f75b75adfa6",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/tooltip/arrow/TooltipArrowDataAttributes.ts",
       "sha256": "bf99e8efb9033f597d24512a4a5179495575a356d4beda688f85850904493d18",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/tooltip/index.parts.ts",
       "sha256": "1acc93db080b60e1d4ec51956f353f47f44742a61e9d970e0d50f363f14f22da",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/tooltip/index.ts",
       "sha256": "ac1beff093597b9cd9302a8c80837adada4c2db5bcea6e4abaf252fb6f4a870b",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/tooltip/popup/TooltipPopup.tsx",
       "sha256": "e3d25309e958f0827d0b178575aa185ca7f337d4e41f026f3cbe5e9250f93be1",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/tooltip/popup/TooltipPopupDataAttributes.ts",
       "sha256": "c394f85390f81b59fefac3b43c83362cd1899501986b60ddd5d3230fbc1d9b66",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/tooltip/portal/TooltipPortal.tsx",
       "sha256": "c7b1dd69fcebccc06c19d1e1f7375cace01ba518ae360a53b4dd3c0ab3e769eb",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/tooltip/portal/TooltipPortalContext.ts",
       "sha256": "cc2a3c00fba2aa681dee353da904f8888760ce5aad845374b28bc915b7b5b969",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/tooltip/positioner/TooltipPositioner.tsx",
       "sha256": "964a2bccdf4263a4aad4c5d88a1a72d0a9105753952e5ce626e9282b955ef1c9",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/tooltip/positioner/TooltipPositionerContext.ts",
       "sha256": "4dd29ac3fefa81eda238a59bcb103879650ecdfbd84153301cb60e3b6c65428b",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/tooltip/positioner/TooltipPositionerCssVars.ts",
       "sha256": "fedfef5e629de03b7760327952b1632b7fcc0c13c10343dc577294bd2b11b542",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/tooltip/positioner/TooltipPositionerDataAttributes.ts",
       "sha256": "b9408bf680bdb3c40dccd7afd1fe576850a9e92bcc5f3e806175d798fbd84fdc",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/tooltip/provider/TooltipProvider.tsx",
       "sha256": "10150670b0b1df7157ee143a982064aa247746ddc624c8a551a6b3f96bdd1c76",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/tooltip/provider/TooltipProviderContext.ts",
       "sha256": "522faf009c9784e8a4d4ede99dc73c54c26fbce9d311421cf58cd41efe8a1dc2",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/tooltip/root/TooltipRoot.tsx",
       "sha256": "4391ba32ec526475592490f5822950c23ca49dd865ccf79d6b0a1785e90658e3",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/tooltip/root/TooltipRootContext.ts",
       "sha256": "40189749820fe5fcd9dfda6c882b215d411d42b5355e9e175a070dfdbb21dd46",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/tooltip/store/TooltipHandle.ts",
       "sha256": "3dd8caa8eb7cc7cbca2b5565be59b4c970f5cc64ab4f2750291c44635577d03b",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/tooltip/store/TooltipStore.ts",
       "sha256": "9adf005491354082c19a125f8ea4c18c8beea957262869df49fbc2127a3e17bd",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/tooltip/trigger/TooltipTrigger.tsx",
       "sha256": "9691d1cbacfbf4751614d96d9aac608bb9503727c9e6741922f36980285f3a91",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/tooltip/trigger/TooltipTriggerDataAttributes.ts",
       "sha256": "862b7dc7f1e0ba84331e9003fdafdf4352fb83defca1bd76789a98ff785b4b73",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/tooltip/utils/constants.ts",
       "sha256": "390247a9bd9a973786a81cc5827fbed23bcbb3e572af20e6daf6130b0951163f",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/tooltip/viewport/TooltipViewport.tsx",
       "sha256": "8774b173f9006a1a972cc76d170fbbfa64a875bc70a70d0bbebfcb76c6af1fe1",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/tooltip/viewport/TooltipViewportCssVars.ts",
       "sha256": "f9dddda047401345f05809796e771f5a204664ff6c828c82e0eb314198a1c57a",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/tooltip/viewport/TooltipViewportDataAttributes.ts",
       "sha256": "f088bdb34bb9dd284a03d40c6ace17e4180f222945a6a589eb54fa3693764379",
-      "status": "family original whole body read; implementation/review unstarted"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/types/index.ts",
+      "sha256": "ffc973365f8dbc5af24db40fa4553ee7fc1f154feb1803ff6a9bb5d5cd918587",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/utils/CommonPopupCssVars.ts",
+      "sha256": "f9dddda047401345f05809796e771f5a204664ff6c828c82e0eb314198a1c57a",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/utils/CommonPopupDataAttributes.ts",
+      "sha256": "619d78f85d65a83fb5a62868357893b08a7a7a69b81b7a1228599c90513d3146",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/utils/CommonPositionerCssVars.ts",
+      "sha256": "457560d32ec1afda1f3880e9b284bd162f6923348830bf8983fb3a5d050ab74e",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/utils/CommonTriggerDataAttributes.ts",
+      "sha256": "0fd89dd6f186d143114b4bcca4e6ed529856949b954a897da3066c16e96128c7",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/utils/CommonViewportDataAttributes.ts",
+      "sha256": "b2b2ff787608db21ef5e579b026e6fd38c180046c2584acaa3b76c66e398d394",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/utils/FloatingPortalLite.tsx",
       "sha256": "ae9b969cfe006137d663b44f86d5f2338ee86be975ee093f06cd5ebb78101162",
-      "status": "original whole body read; local whole-body comparison pending"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/utils/FocusGuard.tsx",
+      "sha256": "80c4e93b1c90577cf77b211049a84c8f7bc3ada4b8c92996df9b500aa5eafb51",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/utils/InternalBackdrop.tsx",
+      "sha256": "dd05853455197e5e12d3b35762e02efd5e849a913eb4295a4bf229b4082552dc",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/utils/NullStore.ts",
       "sha256": "44fcb20b9cfcfc2c45d0581886a29a1d6b405627d5fb214ae4a38ab96d4b411a",
-      "status": "original whole body read; local whole-body comparison pending"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/utils/adaptiveOriginConstants.ts",
+      "sha256": "b6ef7f13689b2678fe93e2fd94be3aac1ecef978fc7bdc7e3f296e340c454449",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/utils/adaptiveOriginMiddleware.ts",
+      "sha256": "47962a9afe25fb86a4a001345099783fa3894d7ba3840b3b2f92c645998ea4c8",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/utils/closePart.tsx",
       "sha256": "0b30f3ff3597173625dd2064339ea2ec1cbfdda60b60d82cd4e542e008f50ba5",
-      "status": "original whole body read; local whole-body comparison pending"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/utils/dispatchClickWithModifiers.ts",
+      "sha256": "f395a0babfbb8b5a9e58f6db3e78fd9fdef34d2570cf71884068319af1fc0fba",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/utils/getCssDimensions.ts",
       "sha256": "54101c67f9a952982f155eff46c475ccffdd6d0a6e19ceb609e8a527fb5913af",
-      "status": "original whole body read; local whole-body comparison pending"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/utils/hideMiddleware.ts",
+      "sha256": "dbf134656768298bdbd387ba597a28b2878322169f4ca317fa6d8c735a2d822d",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/utils/popupStateMapping.ts",
+      "sha256": "1425fefe2044a37e310f64fb0599068cd6a75677e4b8097766f290d60ac31d5b",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/utils/popups/index.ts",
       "sha256": "fa35d774e4e8e1ad60d1f96e7a5a0fef3715e154ce5c1d466c4e9a957043dc7a",
-      "status": "original whole body read; local whole-body comparison pending"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/utils/popups/inlineRect.ts",
       "sha256": "e8055b91fecf2e15f4d3db038dacea94245282f63f435b0c2873327b3ba2a8d7",
-      "status": "original whole body read; local whole-body comparison pending"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/utils/popups/popupHandle.ts",
       "sha256": "be7343ab9cf8c6b7a440424e6a6acd82c8ab75fe7637059288a740814ab08629",
-      "status": "original whole body read; local whole-body comparison pending"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/utils/popups/popupStoreUtils.ts",
       "sha256": "f73b74be0af3b9d09a3a92167964e85d49657a2f26d94f0f531b43a0ac04afa2",
-      "status": "original whole body read; local whole-body comparison pending"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/utils/popups/popupTriggerMap.ts",
       "sha256": "8bc64fd00e6f2cfe8804e4bee1c6dd30e3f05d5f09594f6ecb49ba84f8fe2782",
-      "status": "original whole body read; local whole-body comparison pending"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/utils/popups/store.ts",
       "sha256": "7442f91d07feddcd10c5932242267e392cb7d0b5eeffc70fa5f16d5183a1f61f",
-      "status": "original whole body read; local whole-body comparison pending"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/utils/popups/usePopupHandleStore.ts",
       "sha256": "35dc720afb42a840e0a9f4a45f01710a6a0f5be86d79318b664ac83a28eb4c42",
-      "status": "original whole body read; local whole-body comparison pending"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/utils/popups/useTriggerFocusGuards.ts",
+      "sha256": "f2491d82873eb8e2e4dea454981b35a4671db180acf5520bc62bcfba392a3167",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/utils/resolveClassName.ts",
+      "sha256": "8a4b38bd68c8f1e7268c9587951c5e78349fd51c6f3befef597b3c3b60ac3b41",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/utils/resolveRef.ts",
+      "sha256": "fb0a9525bf7c002fe9e82d5c74235c5620b0b83f106cdec67b77071a05140312",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/utils/resolveStyle.ts",
+      "sha256": "e8cb3f94b27439c43a3a26b82f21c09fe152871c202aef91f8907da3f8734cf0",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/utils/useAnchoredPopupScrollLock.ts",
       "sha256": "b221ef284bb6d45361904eadaf30153f8466623ac7d8b56f6c265b0af82e6471",
-      "status": "original whole body read; local whole-body comparison pending"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/utils/useFocusableWhenDisabled.ts",
+      "sha256": "21e071c8b1547c8473ade8e4d3a415df8ca73767d6125a305c63fa8a620e5ba6",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/utils/useOpenInteractionType.ts",
+      "sha256": "3b5177be82f2ee8b73d5ae46d465558631afbccb5e0d6186350e95d2082068b5",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/utils/usePopupAutoResize.ts",
+      "sha256": "71ff230965711e40e79e7710953c530ae08f1dd9ae9cb0dd193c112bc81dc909",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/utils/usePopupViewport.tsx",
+      "sha256": "2a535cf26486cd69307fac727de53604c7dda16743dfeb49810d7d893146e296",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/react/src/utils/usePositioner.tsx",
       "sha256": "d2ef3d0453fd9a9af5bbcf911df0d2ed83dce3956ddda4e0df66cf1065ff5bb1",
-      "status": "original whole body read; local whole-body comparison pending"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/addEventListener.ts",
+      "sha256": "a2d30e30e8151a62347f67620d568bd1550f5069af3652a57892ed9de42f3dcc",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/createLogOnce.ts",
+      "sha256": "6e5e5b4c34d3407fe2379b58749d4da26c49c49383b7501964132a2e725660b1",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/empty.ts",
+      "sha256": "7d7c8625346dc2344dc551004c5c5da82878ab814818b7a8df4ad7082979ead6",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/error.ts",
+      "sha256": "957b3369d680d50a26cce3b4e9add608b2e829cb299636bde056e76297002847",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/fastHooks.ts",
+      "sha256": "5996a39bc1566948151d73ebc58102173851c9b59aa6b0741d2a9fe0ea4fab2d",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/getReactElementRef.ts",
+      "sha256": "6ea0078fe8f8a0feee703f968779a863b30789a6fac4e4f51de13690064af364",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/inertValue.ts",
+      "sha256": "b1ede3c193cf58318f2f8b126b5091eb5fa28e4f40abffe2837e70dc38f40001",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/mergeCleanups.ts",
+      "sha256": "10dfcbfde4190ebaa09982d84f33523e4b6395dfba7c5998b7d41d158699e5cf",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/mergeObjects.ts",
+      "sha256": "0e9b1568370f5c1ea28710bae245380281ae366187bfb871b99a14fe6b5b49fa",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/owner.ts",
+      "sha256": "94a825206d926b388459df70639476133442c28c83a7e3be750399cb323ea623",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/platform/engine.ts",
+      "sha256": "e943a35942d211e61f511a5d5aca78e9262db4187e8d2c1a1b7791718a7bc3d7",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/platform/env.ts",
+      "sha256": "4e06a24df446a27d2b282491ebdf5a213c9c3c155a11ba2007d47dbb675dd438",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/platform/index.ts",
+      "sha256": "8f801696b9cd0c681fc4ec36dca1e0eecfafee3f28c73729ec9c3501dbaf6ddb",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/platform/media-query.ts",
+      "sha256": "cb5f9941ec4c24667d7d4061392fbe2b57064c333cf4e94435d2239a0ed45a65",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/platform/os.ts",
+      "sha256": "724d78845a13a6b7d27ad7eff40a3bfdc4d5c46c8143a90af1914ee0a5a5c13a",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/platform/parts.ts",
+      "sha256": "5102b62f441c8d8710a3db052e1dfcf0b4498eb3e9d533b1c444321b989eceb2",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/platform/screen-reader.ts",
+      "sha256": "36dd99107aca1638e9520f0136dd294a03f3268ab8d44d0202f7be601c892f7a",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/platform/shared.ts",
+      "sha256": "f12352abb325a222ba5f371c920945c5d03175ee70e133c54e01a23fd51a13ad",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/reactVersion.ts",
+      "sha256": "e52b2ae447fe83a4b5a927a013405446542ef474b76a75540b7216bc561df889",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/safeReact.ts",
+      "sha256": "b2923526a5b42e0d4f341ccb6c26e11d4b34991f206353320bb821026bbbc81f",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/shadowDom.ts",
+      "sha256": "00307496a294b1bde9a09e4d0263cae4bf1eb75f43f5c9b85b37c712210e4e8a",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/utils/src/store/ReactStore.ts",
       "sha256": "bfac0796ebaf8d8233efcfd27e9cd4e0510dd54945f62312570afa224af57992",
-      "status": "original whole body read; local whole-body comparison pending"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/store/Store.ts",
+      "sha256": "7e65da0884d198cb05775bad8b6a072dc31986263db5394194dbbc91df22b5d3",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/store/StoreInspector.tsx",
+      "sha256": "5dd0c8bd933a0f5eeb72813136216c20c8ea88d4b14c44045b1268ab6adee5a3",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/store/createSelector.ts",
+      "sha256": "15ae9ca5cee84e8b20003628f2290ecdfeddcf35a9f61d0f2d8c0812c88d25dd",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/store/createSelectorMemoized.ts",
+      "sha256": "9e918b1a429825cd084ed08f4b08fe1fcc35b3d2cb730da8edcd593004a37f97",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/utils/src/store/index.ts",
       "sha256": "81557d67ad01b2d1a73f3998dcfed6843370d0182648df0a8ee8948353585148",
-      "status": "original whole body read; local whole-body comparison pending"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/store/useStore.ts",
+      "sha256": "3679e4277c44da5fba4af9d567f2d990d1170f260e2d473ac293378e4aeb32ce",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/useAnimationFrame.ts",
+      "sha256": "229943cee6d42305da4db33ed395ff8ccdde915c2e4e922c5af0c7b0aeeddf82",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/useEnhancedClickHandler.ts",
+      "sha256": "1d35635736029e0bb81832231ff823d546b0091ce5333d745090929de264fc87",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/useForcedRerendering.ts",
+      "sha256": "00446b176b03c2d603f3f6dd5fbfda0b2792f1540774ab720aad8e4fcee91ba5",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     },
     {
       "source": "packages/utils/src/useId.ts",
       "sha256": "7d01ffb745d3404ba406ebbd12ddfc8eb73325c3adea3dbda0868e2bad2eef05",
-      "status": "original whole body read; local whole-body comparison pending"
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/useIsoLayoutEffect.ts",
+      "sha256": "13a0ab28d24b04617dc290ad151c145f2435d1e0c381123847af74344ea4b9a0",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/useMergedRefs.ts",
+      "sha256": "5fa12ae01abedc23ba814e9c59f015cf14d306044638b56c977780de43275ba3",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/useOnMount.ts",
+      "sha256": "9d621d059249ec6ad10dbf35eef28153a8bc6ef893574d26a060385d4d13472b",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/usePreviousValue.ts",
+      "sha256": "e3c279c7f063f5278a887ac58be72b310327334811fd1a14ad309fc3ed6d4955",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/useRefWithInit.ts",
+      "sha256": "183cb6e86ab1f8044a431d5b4115c750f7848c9835d519881b3c7a66dae98354",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/useScrollLock.ts",
+      "sha256": "7ff4eb004f0b610f0881f7c32d2a87106c7bb97fba295fd4c1b509adca3998cb",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/useStableCallback.ts",
+      "sha256": "908cbd177f86c961983d0124a859f733d341be49e58bc5a553255f47725419c1",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/useTimeout.ts",
+      "sha256": "8d9e4159d9f883e18035811e9f2b4d180afb0d724b55d86dbf4fda52c355e156",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/useValueAsRef.ts",
+      "sha256": "ad85f215ea605641c7f579a0dd50841427a01c7412eee127b34c51318e744777",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/visuallyHidden.ts",
+      "sha256": "4aa9c2cedd7087b2f1587548abb488604654ac61bc4ef6c30587317b6673764a",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/warn.ts",
+      "sha256": "4e5565f4957742aaa2795bae3f37bfbc88dac51528550b3406ed5cef92474c00",
+      "status": "Original whole body read; local adaptation review and execution unstarted"
     }
   ],
-  "remainingSourceBodies": [
-    "packages/react/src/direction-provider/DirectionProvider.tsx",
-    "packages/react/src/direction-provider/index.parts.ts",
-    "packages/react/src/direction-provider/index.ts",
-    "packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx",
-    "packages/react/src/floating-ui-react/components/FloatingPortal.tsx",
-    "packages/react/src/floating-ui-react/components/FloatingRootStore.ts",
-    "packages/react/src/floating-ui-react/components/FloatingTree.tsx",
-    "packages/react/src/floating-ui-react/components/FloatingTreeStore.ts",
-    "packages/react/src/floating-ui-react/hooks/gridNavigation.ts",
-    "packages/react/src/floating-ui-react/hooks/useClick.ts",
-    "packages/react/src/floating-ui-react/hooks/useDismiss.ts",
-    "packages/react/src/floating-ui-react/hooks/useFloating.ts",
-    "packages/react/src/floating-ui-react/hooks/useFocus.ts",
-    "packages/react/src/floating-ui-react/hooks/useHover.ts",
-    "packages/react/src/floating-ui-react/hooks/useHoverFloatingInteraction.ts",
-    "packages/react/src/floating-ui-react/hooks/useHoverInteractionSharedState.ts",
-    "packages/react/src/floating-ui-react/hooks/useHoverReferenceInteraction.ts",
-    "packages/react/src/floating-ui-react/hooks/useHoverShared.ts",
-    "packages/react/src/floating-ui-react/hooks/useListNavigation.ts",
-    "packages/react/src/floating-ui-react/hooks/useTypeahead.ts",
-    "packages/react/src/floating-ui-react/middleware/arrow.ts",
-    "packages/react/src/floating-ui-react/safePolygon.ts",
-    "packages/react/src/floating-ui-react/types.ts",
-    "packages/react/src/floating-ui-react/utils.ts",
-    "packages/react/src/floating-ui-react/utils/composite.ts",
-    "packages/react/src/floating-ui-react/utils/constants.ts",
-    "packages/react/src/floating-ui-react/utils/createAttribute.ts",
-    "packages/react/src/floating-ui-react/utils/createEventEmitter.ts",
-    "packages/react/src/floating-ui-react/utils/element.ts",
-    "packages/react/src/floating-ui-react/utils/enqueueFocus.ts",
-    "packages/react/src/floating-ui-react/utils/event.ts",
-    "packages/react/src/floating-ui-react/utils/markOthers.ts",
-    "packages/react/src/floating-ui-react/utils/nodes.ts",
-    "packages/react/src/floating-ui-react/utils/tabbable.ts",
-    "packages/react/src/internals/TransitionStatusDataAttributes.ts",
-    "packages/react/src/internals/composite/composite.ts",
-    "packages/react/src/internals/composite/root/CompositeRootContext.ts",
-    "packages/react/src/internals/constants.ts",
-    "packages/react/src/internals/createBaseUIEventDetails.ts",
-    "packages/react/src/internals/direction-context/DirectionContext.tsx",
-    "packages/react/src/internals/getDisabledMountTransitionStyles.ts",
-    "packages/react/src/internals/getStateAttributesProps.ts",
-    "packages/react/src/internals/reason-parts.ts",
-    "packages/react/src/internals/reasons.ts",
-    "packages/react/src/internals/stateAttributesMapping.ts",
-    "packages/react/src/internals/types.ts",
-    "packages/react/src/internals/use-button/index.ts",
-    "packages/react/src/internals/use-button/useButton.ts",
-    "packages/react/src/internals/useAnchorPositioning.ts",
-    "packages/react/src/internals/useAnimationsFinished.ts",
-    "packages/react/src/internals/useOpenChangeComplete.tsx",
-    "packages/react/src/internals/useRenderElement.tsx",
-    "packages/react/src/internals/useTransitionStatus.ts",
-    "packages/react/src/internals/useValueChanged.ts",
-    "packages/react/src/merge-props/index.ts",
-    "packages/react/src/merge-props/mergeProps.ts",
-    "packages/react/src/types/index.ts",
-    "packages/react/src/utils/CommonPopupCssVars.ts",
-    "packages/react/src/utils/CommonPopupDataAttributes.ts",
-    "packages/react/src/utils/CommonPositionerCssVars.ts",
-    "packages/react/src/utils/CommonTriggerDataAttributes.ts",
-    "packages/react/src/utils/CommonViewportDataAttributes.ts",
-    "packages/react/src/utils/FocusGuard.tsx",
-    "packages/react/src/utils/InternalBackdrop.tsx",
-    "packages/react/src/utils/adaptiveOriginConstants.ts",
-    "packages/react/src/utils/adaptiveOriginMiddleware.ts",
-    "packages/react/src/utils/dispatchClickWithModifiers.ts",
-    "packages/react/src/utils/hideMiddleware.ts",
-    "packages/react/src/utils/popupStateMapping.ts",
-    "packages/react/src/utils/popups/useTriggerFocusGuards.ts",
-    "packages/react/src/utils/resolveClassName.ts",
-    "packages/react/src/utils/resolveRef.ts",
-    "packages/react/src/utils/resolveStyle.ts",
-    "packages/react/src/utils/useFocusableWhenDisabled.ts",
-    "packages/react/src/utils/useOpenInteractionType.ts",
-    "packages/react/src/utils/usePopupAutoResize.ts",
-    "packages/react/src/utils/usePopupViewport.tsx",
-    "packages/utils/src/addEventListener.ts",
-    "packages/utils/src/createLogOnce.ts",
-    "packages/utils/src/empty.ts",
-    "packages/utils/src/error.ts",
-    "packages/utils/src/fastHooks.ts",
-    "packages/utils/src/getReactElementRef.ts",
-    "packages/utils/src/inertValue.ts",
-    "packages/utils/src/mergeCleanups.ts",
-    "packages/utils/src/mergeObjects.ts",
-    "packages/utils/src/owner.ts",
-    "packages/utils/src/platform/engine.ts",
-    "packages/utils/src/platform/env.ts",
-    "packages/utils/src/platform/index.ts",
-    "packages/utils/src/platform/media-query.ts",
-    "packages/utils/src/platform/os.ts",
-    "packages/utils/src/platform/parts.ts",
-    "packages/utils/src/platform/screen-reader.ts",
-    "packages/utils/src/platform/shared.ts",
-    "packages/utils/src/reactVersion.ts",
-    "packages/utils/src/safeReact.ts",
-    "packages/utils/src/shadowDom.ts",
-    "packages/utils/src/store/Store.ts",
-    "packages/utils/src/store/StoreInspector.tsx",
-    "packages/utils/src/store/createSelector.ts",
-    "packages/utils/src/store/createSelectorMemoized.ts",
-    "packages/utils/src/store/useStore.ts",
-    "packages/utils/src/useAnimationFrame.ts",
-    "packages/utils/src/useEnhancedClickHandler.ts",
-    "packages/utils/src/useForcedRerendering.ts",
-    "packages/utils/src/useIsoLayoutEffect.ts",
-    "packages/utils/src/useMergedRefs.ts",
-    "packages/utils/src/useOnMount.ts",
-    "packages/utils/src/usePreviousValue.ts",
-    "packages/utils/src/useRefWithInit.ts",
-    "packages/utils/src/useScrollLock.ts",
-    "packages/utils/src/useStableCallback.ts",
-    "packages/utils/src/useTimeout.ts",
-    "packages/utils/src/useValueAsRef.ts",
-    "packages/utils/src/visuallyHidden.ts",
-    "packages/utils/src/warn.ts"
+  "remainingSourceBodies": [],
+  "remainingTestFixtureClosure": "No pending Original bodies in the 332-module actual-member selected test consumer graph. The wider 386-module named-export and 753-module conservative views remain archived discovery evidence; unselected sibling exports are excluded from port scope and no unread archive body is described as manually reviewed.",
+  "selectedTestFixtureBodies": [
+    {
+      "source": "packages/react/src/combobox/chips/ComboboxChipsContext.ts",
+      "sha256": "e813c7f862a9cffb3fa08aabd588855076bcfa93551e83579667df41385d4871",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/combobox/collection/ComboboxCollection.tsx",
+      "sha256": "e6dd05db5daa3d4bf617032056ff48eb6e2cfe391366df17964c7df1554dae00",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/combobox/collection/GroupCollectionContext.tsx",
+      "sha256": "4ff8457e200b4a8f41de929d23d151c0aab900e179afbe5c94af770ea5aff3be",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/combobox/index.parts.ts",
+      "sha256": "2e3d265847197e2e03362ecbf37a7ac52af911e1d93861f7f84df790be58a7da",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/combobox/index.ts",
+      "sha256": "33cde796f2dc3b85cd1530e2fc1fc4067b6b2f445ce2df30d95be9c7ba1faa9d",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/combobox/input/ComboboxInput.tsx",
+      "sha256": "9051ecdb8f39e3bf0eee72b05a3bddc2190ede5f1fe2e7b97ab2dba39bcc4c0d",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/combobox/input/ComboboxInputDataAttributes.ts",
+      "sha256": "96ca9088e79bf6b687a650c77f7e6136c7abaafd57f3e8e6177768efb97994c7",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/combobox/item/ComboboxItem.tsx",
+      "sha256": "289c2ad9901210844a84de008185792f68aec0e66db632e958c1926fe3414ab9",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/combobox/item/ComboboxItemContext.ts",
+      "sha256": "5d7833c4a8b87536d30f5461ca25bbb91fd6393f6a91029dd9bb86ddbdc64359",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/combobox/items/itemCollection.ts",
+      "sha256": "d81e8d94a3aa4b4e8eabd898a01ee565a29b9661b3c194eae5c606e7ba19595d",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/combobox/list/ComboboxList.tsx",
+      "sha256": "c7b1b84216a909b38055ec36b5a1ea403af933084d7d64fb6208f59c53b469a8",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/combobox/popup/ComboboxPopup.tsx",
+      "sha256": "85a4691ccdf7632b64a8a060e22563506284393213819b64e82b5f932772c619",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/combobox/portal/ComboboxPortal.tsx",
+      "sha256": "f7756ffdedef6549c7ed5f6adcae96a329738533bd5b4c65491900552c95ab3d",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/combobox/portal/ComboboxPortalContext.tsx",
+      "sha256": "881b6bc4234c4a1be575d407373ceff346de7f17464b61ee756c318f464485b0",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/combobox/positioner/ComboboxPositioner.tsx",
+      "sha256": "8aa636919f4b697707a275429cfddbba4ebde045ba46d3651634cb71540df560",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/combobox/positioner/ComboboxPositionerContext.tsx",
+      "sha256": "810a07d27f0d26e71a427c1a2773a75f7523ebb1ed35981001a72894e473a2ba",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/combobox/root/AriaCombobox.tsx",
+      "sha256": "b9e7ffcba3be6184e2acd2fe6c98f70574cc5487ee2ec5266145749622657570",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/combobox/root/ComboboxRoot.tsx",
+      "sha256": "6a62b47d2f3eb605470f70b7ea8530c629042b9a25f63b06725b313f40738bd8",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/combobox/root/ComboboxRootContext.tsx",
+      "sha256": "600756607d0b45940123302880ac7763313f44a7bc06565c886e51682f2edaad",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/combobox/root/utils/constants.ts",
+      "sha256": "d5e128ca8e127856cda9649a4baa291117cfc7fe6e603f14c25d9029f987c51a",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/combobox/root/utils/index.ts",
+      "sha256": "a385eed80f43c90844b71352864ca93d1be6dd63fcf01225b68599a6673ed702",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/combobox/root/utils/useFilter.ts",
+      "sha256": "4957b81a38f6b5e2ed1d615590e9c941a2e46e3505da722ef7c6b78f326a51a0",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/combobox/row/ComboboxRowContext.ts",
+      "sha256": "ae6a0a32e2e5a0fcd2a7604ff6bc0432c864a671ba4a23881043e2c38282fbaa",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/combobox/store.ts",
+      "sha256": "6a3be3810757cbea482928017396a6c31ad72d1e628a09f39d1b6e92551ef343",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/combobox/utils/ComboboxInternalDismissButton.tsx",
+      "sha256": "271355e34e7e53994194da0adb4d78017cf1565acf32253e39317e7e7da3e062",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/combobox/utils/parts.ts",
+      "sha256": "ebbebc7ae7ed670d3ddea779df7451dd40762e785566d0450950a0fc479f7b95",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/combobox/utils/stateAttributesMapping.ts",
+      "sha256": "5a576f1e3472b7606400f2711df7c7cea37f3f40603b4f8e7fe57f2ddcb9b058",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/context-menu/root/ContextMenuRoot.tsx",
+      "sha256": "e0fb4af32954da54bf8177bf9326b5862711a6fa158427e74b6ff606d023cafa",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/context-menu/root/ContextMenuRootContext.ts",
+      "sha256": "a8ed145ba0dbc46000b73f74c0485de4467d1d98443170d58304945493ef71df",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/field/control/FieldControlDataAttributes.ts",
+      "sha256": "cbdf610a0e3492927587685b1d4f9bf8ae5ac2cba01e5f39e4001de9f9d0b1d3",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/field/root/FieldRoot.tsx",
+      "sha256": "1f9861ae4813ab53a0092c5c5c760716a80fa618a11343f065f4ad4dee62a36e",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/field/root/useFieldValidation.ts",
+      "sha256": "f34d2c7c03621494f8a8ca8867c3a66a8b7c8089b022e851211db5429b63de89",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/field/utils/getCombinedFieldValidityData.ts",
+      "sha256": "ad1121fec3eb304d56da1e2aeadb647bcb6e0a0ae87c45dca4773b002b840f3a",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/fieldset/root/FieldsetRootContext.ts",
+      "sha256": "f4d9dbeb41dc4bab42b3ba6dca1ce51ff83c009a6f7e5507a2b1f840e3708dcc",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/form/Form.tsx",
+      "sha256": "c8a77589d2a3de310b46623154e38ddf6b9fc4c7ff71299f690411949d23898b",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/form/index.ts",
+      "sha256": "307b2a028920f531705827c9d9e43ea26193e734bffbac98170b9718f90ea9f8",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/index.ts",
+      "sha256": "bdc94b38f7d1ab96c528b46d28b87db4e20caaf65629acec6ffd9b5f16bb90ed",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/composite/constants.ts",
+      "sha256": "494b3845bb2c22da3ef9e8d3856ee582ee3a7b2cadbbe14bef9dcd6968bbf415",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/composite/item/CompositeItem.tsx",
+      "sha256": "036f04a428d090fe235076b64069755495005e9a0ec49b3b4a43162539c36157",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/composite/item/useCompositeItem.ts",
+      "sha256": "40cffee55d4e92efbe36bc7e9fea9708a0e640f888f8e7eb92f3e0fe48a5fc50",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/composite/list/CompositeList.tsx",
+      "sha256": "ee4a1b881541f30c7c0b3165fe66ffe88dc6a990f073a6afaa42da6199004afb",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/composite/list/CompositeListContext.ts",
+      "sha256": "b1784a885314c1674957071998093c686c28cf50761d3e9ac4f3dfc4741c47ee",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/composite/list/useCompositeListItem.ts",
+      "sha256": "dbfec49eb3286458a425639c8cd2a4a17419fed1017c88c1636929e312e36542",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/composite/root/CompositeRoot.tsx",
+      "sha256": "af03574d9028283ede87df4592b08e0d0dda801c0c9d4454fbc64eccde11b0d2",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/composite/root/gridNavigation.ts",
+      "sha256": "85fa455d31592be6afff2f9692ac24502943c614eabb66b9dc4e5e6694ec2e8a",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/composite/root/useCompositeRoot.ts",
+      "sha256": "848c7a6c3543bba01f2299799a75d69986dbecc5289d70e15d41620bd732b023",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/field-constants/constants.ts",
+      "sha256": "c6f1fc10dbd8b45a6c3fdb83f441a19880c4501d1776f725dbfdae4fd742f3fb",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/field-register-control/useFieldControlRegistration.ts",
+      "sha256": "a49c20dc0a508dc11b73bdac52043aa4b1ba94d1baf8a43c2095f42726ca1cd6",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/field-register-control/useRegisterFieldControl.ts",
+      "sha256": "830625bb0728b4cc6976a8c27148172ac06b74c880569f74c75cfa1201140804",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/field-root-context/FieldRootContext.ts",
+      "sha256": "578d7ea53808a70bf6f439b4d679c78a025e2d8219a0e8459b92f948c6a3c959",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/filter.ts",
+      "sha256": "90eaeb7368edfd6c6a0aed36cf22e3f502b98fe8fbbd866a46e0ff83eb0fa3ff",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/form-context/FormContext.ts",
+      "sha256": "bc1c728160e21caebb1641eada2a029b2987ecde498e8745dff9b72ad3f46539",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/itemEquality.ts",
+      "sha256": "beb68077d5bf5f26ea3805953ebb23d592ae8f78515e1dde90dd030a8e18777c",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/labelable-provider/index.ts",
+      "sha256": "4d8302189e162dc309f8c7d4bd0f7e10ee164a53226ce577690970a823ca0316",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/labelable-provider/LabelableContext.ts",
+      "sha256": "c8c7814fd72a66386f30c784f3cafcaa473d7a385dc441be610154086d99663d",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/labelable-provider/LabelableProvider.tsx",
+      "sha256": "f098e676a1e108ef96774499f3ee44cc9adba246b33dc81018b836bc99cbc2d1",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/labelable-provider/useLabelableId.ts",
+      "sha256": "e3a9d52c70bccc823163dbc132fbe9b64a3ec6e64e90a79c9acb08fdf2672faf",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/noop.ts",
+      "sha256": "268edb20da01bc632fc8335f808298027500d577ad3872d340080c40a21fc3a0",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/resolveValueLabel.tsx",
+      "sha256": "bc54306db732b6a1d7570f753ea57c53a2131cab78373d65a07a98839ce73a2a",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/internals/serializeValue.ts",
+      "sha256": "200e70d64db36ca0161d8dc2370a26564d8381a21409f0949192fc5e45db5fd2",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/menu/index.parts.ts",
+      "sha256": "c15049f6149015edf4a27e37c07a7ca1fd8048723be0a6762a6a659c26ede825",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/menu/index.ts",
+      "sha256": "68f31069857e89aa41cb75f8d8033c80d6f4d4c6774865a985e170a1b8887593",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/menu/item/MenuItem.tsx",
+      "sha256": "9659caa89a9fdeeb449d804599633437e47191f729b4450f91245cb2be5cc100",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/menu/item/useMenuItem.ts",
+      "sha256": "def002c3647f09a9a813e74b6b47352c1c5a01aa0298ee7be4e32e07fab4c8d0",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/menu/item/useMenuItemCommonProps.ts",
+      "sha256": "b725702925f0bff8af3b971c4c2aa84d6a81a3014e318d7bad3bcada47dc427f",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/menu/popup/MenuPopup.tsx",
+      "sha256": "3e20ba1ec7a8ea8030964f4a3f6364f94f14795ae857b0f495684ddf8efcefce",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/menu/portal/MenuPortal.tsx",
+      "sha256": "d0fd72e861b1a2cda83f9d88a3429a021f2078c61bb2d27bb1b95ca707e91bee",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/menu/portal/MenuPortalContext.ts",
+      "sha256": "12cf67055ce3d3714beaf7560962573b527cf2735bdbb722295e3c95513a738a",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/menu/positioner/MenuPositioner.tsx",
+      "sha256": "aaaa717a48c32ae91b5ac7d3684292491eeada7843118aad05e9ba9f4a143943",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/menu/positioner/MenuPositionerContext.ts",
+      "sha256": "a39dd176a7df67b456ea35b969ce3a5a6e7bbc5eb9ca29f312def526b6e921ae",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/menu/root/MenuRoot.tsx",
+      "sha256": "1ac421c640daa9cbecc0da47216995a691b20123ca2307bbdc21299c596fe54f",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/menu/root/MenuRootContext.ts",
+      "sha256": "d75b8f5cd28085ba93f72fee9286e093bf9b96fdc166670d2ce4bd3ba8e853e8",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/menu/store/MenuHandle.ts",
+      "sha256": "88bcfa9db1e81114fa84d381386e1c682398c30c23a4aa05f6d26a79cae2da6c",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/menu/store/MenuStore.ts",
+      "sha256": "c8994700db03b38238ac5696ff2cf7218b7fcd25e7f63f4e530dffc4b2da9834",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/menu/submenu-root/MenuSubmenuRootContext.ts",
+      "sha256": "262b535c2c949d868fa4a324ea9709bca4763c50a170adc97e0ce8a68acba882",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/menu/trigger/MenuTrigger.tsx",
+      "sha256": "caa4f62155184e668f1f8ea238bf067fba7089d672d36c0116d73a4d82794ee0",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/menu/utils/findRootOwnerId.ts",
+      "sha256": "d43e0c3e1f7e2974ad25a1b5b6da9581fa576b6db2687d107097842b42b0cbc3",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/menu/utils/types.ts",
+      "sha256": "9473921aa15eeb2e891bb1e7e2c354eea274c4e76fa4737274594ae2d5fbf43c",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/menubar/MenubarContext.ts",
+      "sha256": "0fcffd5eb9fa6dde8145bd9dc1a37794d75b1d8b67d23c869e312c12f9abdcf5",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/toolbar/button/ToolbarButton.tsx",
+      "sha256": "cfae20179213a9bdedc69eb151b2547956b9a061cc4941f1a56130c4bee6ed37",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/toolbar/group/ToolbarGroupContext.ts",
+      "sha256": "eb2fe8fbe347e32ead8274a310f678ae0fad7390f7b1c41504b30109d55140eb",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/toolbar/index.parts.ts",
+      "sha256": "40eaa4d90de494cd1f8617fcf1cd44b7d3f69bbce53ac28c2a3e28697fa3f313",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/toolbar/index.ts",
+      "sha256": "e5882a35fa595891bac1ba00e1cf3ed48a5dbec20d0970fd315415ecfd1d91d2",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/toolbar/root/ToolbarRoot.tsx",
+      "sha256": "215a8370a16ea53a26af92badfb28e7fbdf51a3571db0511fc5303d8800dd346",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/utils/getPseudoElementBounds.ts",
+      "sha256": "6d9309cbbd5986bd8237be793a81aec1bbe72ca41d3554b23f8a466cfe0b0db5",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/utils/scrollable.ts",
+      "sha256": "964f01cb0c96c0db0d183d4a69870f82a19ef52355fa950e122c397c976ccf84",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/react/src/utils/useMixedToggleClickHandler.ts",
+      "sha256": "c848b13e484dbc7c6f4c1facd2f0af6121a16349b167260b387a2bb51fc07b2a",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/areArraysEqual.ts",
+      "sha256": "2edc0f6f199b353ec557a7c9e4943ed4af5449da8c488076647a3f77fd3dac75",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/isElementDisabled.ts",
+      "sha256": "4b052139323bc44e55964414b7ea6a090023e5637c991ab2d31861012a736b05",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/stringifyLocale.ts",
+      "sha256": "c78c878e1a6c3169414572301c93b2da604bb816723920c22ad9143b13bbb6e0",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/useControlled.ts",
+      "sha256": "487bc45fa3ef1a70177867bb03598230f9926601aed8e3c7f46470feb225f886",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    },
+    {
+      "source": "packages/utils/src/useOnFirstRender.ts",
+      "sha256": "9abb7970e93a91f5edde2efcee28ae5fe47ff3849a50346d079fab48cd7387f2",
+      "status": "Original whole body read as test consumer dependency evidence; sibling implementation acceptance and family test execution unstarted"
+    }
   ],
-  "remainingTestFixtureClosure": "External Original test consumers and their selected business helpers remain separate dependency evidence; no sibling-family port or unchanged credit is inferred. Full selected closure review remains pending."
+  "phaseOneMeaning": "Required immutable Original body reading and pre-code scope decisions only; does not mean local Source review, missing dependency implementation, upstream sibling acceptance, test execution or unchanged credit.",
+  "leasedHelperTests": [
+    {
+      "source": "packages/react/src/floating-ui-react/components/FloatingDelayGroup.test.tsx",
+      "sha256": "218e26c4e0ebc0101885e2f8b917846c063e1c3c45163a47a6e7d9c64f88d571",
+      "status": "Original whole body read; native helper gate adaptation and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/components/FloatingPortal.test.tsx",
+      "sha256": "db64ed504ed7ac1c242d33febd00f4f857f2cbf94e3587ef6db96fecf86767e7",
+      "status": "Original whole body read; native helper gate adaptation and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useClientPoint.test.tsx",
+      "sha256": "2eeaad1f41dc5370f6198a4898c508bba0089adeee7a8c8914877cb7d5970215",
+      "status": "Original whole body read; native helper gate adaptation and execution unstarted"
+    },
+    {
+      "source": "packages/react/src/utils/popups/inlineRect.test.ts",
+      "sha256": "e2eeba14ef5d0b9e422d791a416cf3ec926f127c5fb3152bceab1fa3beb1de28",
+      "status": "Original whole body read; native helper gate adaptation and execution unstarted"
+    }
+  ],
+  "leasedHelperTestHelpers": [
+    {
+      "source": "packages/react/test/useTestInteractions.ts",
+      "sha256": "f8f457b6bd680fa2a94c15bb29111a804a2c79e86db3ac50ca8d5bca791fc71d",
+      "status": "Original whole body read; native test adapter boundary and execution unstarted"
+    }
+  ]
 }

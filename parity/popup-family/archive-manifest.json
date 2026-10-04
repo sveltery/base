@@ -767,12 +767,20 @@
       "sha256": "f4d9dbeb41dc4bab42b3ba6dca1ce51ff83c009a6f7e5507a2b1f840e3708dcc"
     },
     {
+      "source": "packages/react/src/floating-ui-react/components/FloatingDelayGroup.test.tsx",
+      "sha256": "218e26c4e0ebc0101885e2f8b917846c063e1c3c45163a47a6e7d9c64f88d571"
+    },
+    {
       "source": "packages/react/src/floating-ui-react/components/FloatingDelayGroup.tsx",
       "sha256": "14d8f2c810ae738d26d3d41b645d3983958fee8693432b676768e0643cd848d5"
     },
     {
       "source": "packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx",
       "sha256": "6ecb04f1ed908009718134b26fa2aa48eaf723010a65c4d541c5674290d47933"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/components/FloatingPortal.test.tsx",
+      "sha256": "db64ed504ed7ac1c242d33febd00f4f857f2cbf94e3587ef6db96fecf86767e7"
     },
     {
       "source": "packages/react/src/floating-ui-react/components/FloatingPortal.tsx",
@@ -797,6 +805,10 @@
     {
       "source": "packages/react/src/floating-ui-react/hooks/useClick.ts",
       "sha256": "9cc6a80220399b7c06d8919a7814becb1bd3df8bcb893444ac7466366a62b1ed"
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useClientPoint.test.tsx",
+      "sha256": "2eeaad1f41dc5370f6198a4898c508bba0089adeee7a8c8914877cb7d5970215"
     },
     {
       "source": "packages/react/src/floating-ui-react/hooks/useClientPoint.ts",
@@ -2705,6 +2717,10 @@
     {
       "source": "packages/react/src/utils/popups/index.ts",
       "sha256": "fa35d774e4e8e1ad60d1f96e7a5a0fef3715e154ce5c1d466c4e9a957043dc7a"
+    },
+    {
+      "source": "packages/react/src/utils/popups/inlineRect.test.ts",
+      "sha256": "e2eeba14ef5d0b9e422d791a416cf3ec926f127c5fb3152bceab1fa3beb1de28"
     },
     {
       "source": "packages/react/src/utils/popups/inlineRect.ts",

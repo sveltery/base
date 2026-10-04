@@ -2,7 +2,7 @@
   "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "baseMain": "74f667da95ebc5670b0cc5bee38f2225e65fd0c0",
   "ordinaryDeclarationCredit": 0,
-  "status": "pre-code boundary decisions; incomplete body-reading and ownership gates remain blocking",
+  "status": "pre-code Original whole-body reading complete for scoped Source/runtime/type/helper and selected test consumer closure; local adaptations and dependency acceptance remain incomplete",
   "modules": [
     {
       "source": "packages/react/src/direction-provider/DirectionProvider.tsx",
@@ -44,7 +44,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "DirectionProvider",
@@ -117,7 +117,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [],
       "reviewChecks": [
         "compare whole Source body, operation order, branches, state authority, cancellation and cleanup",
@@ -165,7 +165,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [],
       "reviewChecks": [
         "compare whole Source body, operation order, branches, state authority, cancellation and cleanup",
@@ -182,7 +182,7 @@
       "plannedLocal": "packages/base/src/lib/floating-ui/components/FloatingDelayGroup.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives; actual missing shared body is blocked until precise lease",
-      "manualStatus": "original whole body read; local whole-body comparison pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "ContextValue",
@@ -261,7 +261,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "getEventType",
@@ -352,7 +352,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "FocusManagerState",
@@ -443,7 +443,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "FloatingRootState",
@@ -504,7 +504,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "FloatingNodeContext",
@@ -589,7 +589,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "FloatingTreeStore",
@@ -620,7 +620,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "gridNavigation",
@@ -657,7 +657,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "UseClickProps",
@@ -687,7 +687,7 @@
       "plannedLocal": "packages/base/src/lib/floating-ui/hooks/useClientPoint.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives; actual missing shared body is blocked until precise lease",
-      "manualStatus": "original whole body read; local whole-body comparison pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "createVirtualElement",
@@ -743,7 +743,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PressType",
@@ -798,7 +798,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "useFloating",
@@ -834,7 +834,7 @@
       "plannedLocal": "packages/base/src/lib/floating-ui/hooks/useFloatingRootContext.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original whole body read; local whole-body comparison pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "UseFloatingRootContextOptions",
@@ -871,7 +871,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "isMacSafari",
@@ -907,7 +907,7 @@
       "plannedLocal": "packages/base/src/lib/floating-ui/hooks/useHover.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "UseHoverProps",
@@ -944,7 +944,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "UseHoverFloatingInteractionProps",
@@ -981,7 +981,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "HoverInteraction",
@@ -1048,7 +1048,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "UseHoverReferenceInteractionProps",
@@ -1091,7 +1091,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "HandleCloseOptions",
@@ -1176,7 +1176,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "ESCAPE",
@@ -1261,7 +1261,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original whole body read; local whole-body comparison pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "SyncedFloatingRootContextStore",
@@ -1304,7 +1304,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "UseTypeaheadProps",
@@ -1365,7 +1365,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original whole body read; local whole-body comparison pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [],
       "reviewChecks": [
         "compare whole Source body, operation order, branches, state authority, cancellation and cleanup",
@@ -1413,7 +1413,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "ArrowOptions",
@@ -1456,7 +1456,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "CURSOR_SPEED_THRESHOLD",
@@ -1541,7 +1541,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "Prettify",
@@ -1655,7 +1655,7 @@
       "plannedLocal": "packages/base/src/lib/floating-ui/utils.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [],
       "reviewChecks": [
         "compare whole Source body, operation order, branches, state authority, cancellation and cleanup",
@@ -1685,7 +1685,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "DisabledIndices",
@@ -1794,7 +1794,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "FOCUSABLE_ATTRIBUTE",
@@ -1873,7 +1873,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "createAttribute",
@@ -1910,7 +1910,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "createEventEmitter",
@@ -1947,7 +1947,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "isTargetInsideEnabledTrigger",
@@ -2026,7 +2026,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "Options",
@@ -2093,7 +2093,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "stopEvent",
@@ -2160,7 +2160,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "Undo",
@@ -2281,7 +2281,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "getNodeChildren",
@@ -2330,7 +2330,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "FocusableElement",
@@ -2535,7 +2535,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "startingStyle",
@@ -2578,7 +2578,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "ARROW_UP",
@@ -2729,7 +2729,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "CompositeRootContext",
@@ -2790,7 +2790,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "TYPEAHEAD_RESET_MS",
@@ -2905,7 +2905,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "ReasonToEventMap",
@@ -3002,7 +3002,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "TextDirection",
@@ -3051,7 +3051,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "getDisabledMountTransitionStyles",
@@ -3106,7 +3106,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "StateAttributesMapping",
@@ -3167,7 +3167,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "none",
@@ -3426,7 +3426,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "BaseUIEventReasons",
@@ -3469,7 +3469,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "STARTING_HOOK",
@@ -3536,7 +3536,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "MaybeBaseUIEvent",
@@ -3645,7 +3645,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [],
       "reviewChecks": [
         "compare whole Source body, operation order, branches, state authority, cancellation and cleanup",
@@ -3693,7 +3693,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "useButton",
@@ -3790,7 +3790,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "AVAILABLE_WIDTH_VAR",
@@ -3947,7 +3947,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "pendingCallbacks",
@@ -4014,7 +4014,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original whole body read; local whole-body comparison pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "useBaseUiId",
@@ -4069,7 +4069,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "useOpenChangeComplete",
@@ -4136,7 +4136,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "IntrinsicTagName",
@@ -4275,7 +4275,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "TransitionStatus",
@@ -4336,7 +4336,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "useValueChanged",
@@ -4391,7 +4391,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [],
       "reviewChecks": [
         "compare whole Source body, operation order, branches, state authority, cancellation and cleanup",
@@ -4439,7 +4439,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "ElementType",
@@ -4589,7 +4589,7 @@
       "plannedLocal": "packages/base/src/lib/popover/arrow/PopoverArrow.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PopoverArrow",
@@ -4631,7 +4631,7 @@
       "plannedLocal": "packages/base/src/lib/popover/arrow/PopoverArrowDataAttributes.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "open",
@@ -4679,7 +4679,7 @@
       "plannedLocal": "packages/base/src/lib/popover/backdrop/PopoverBackdrop.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PopoverBackdrop",
@@ -4721,7 +4721,7 @@
       "plannedLocal": "packages/base/src/lib/popover/backdrop/PopoverBackdropDataAttributes.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "open",
@@ -4763,7 +4763,7 @@
       "plannedLocal": "packages/base/src/lib/popover/close/PopoverClose.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PopoverClose",
@@ -4805,7 +4805,7 @@
       "plannedLocal": "packages/base/src/lib/popover/description/PopoverDescription.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PopoverDescription",
@@ -4847,7 +4847,7 @@
       "plannedLocal": "packages/base/src/lib/popover/index.parts.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [],
       "reviewChecks": [
         "compare whole Source body, operation order, branches, state authority, cancellation and cleanup",
@@ -4864,7 +4864,7 @@
       "plannedLocal": "packages/base/src/lib/popover/index.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [],
       "reviewChecks": [
         "compare whole Source body, operation order, branches, state authority, cancellation and cleanup",
@@ -4881,7 +4881,7 @@
       "plannedLocal": "packages/base/src/lib/popover/popup/PopoverPopup.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PopoverPopup",
@@ -4923,7 +4923,7 @@
       "plannedLocal": "packages/base/src/lib/popover/popup/PopoverPopupCssVars.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "popupWidth",
@@ -4953,7 +4953,7 @@
       "plannedLocal": "packages/base/src/lib/popover/popup/PopoverPopupDataAttributes.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "open",
@@ -5013,7 +5013,7 @@
       "plannedLocal": "packages/base/src/lib/popover/portal/PopoverPortal.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PopoverPortal",
@@ -5055,7 +5055,7 @@
       "plannedLocal": "packages/base/src/lib/popover/portal/PopoverPortalContext.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PopoverPortalContext",
@@ -5085,7 +5085,7 @@
       "plannedLocal": "packages/base/src/lib/popover/positioner/PopoverPositioner.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PopoverPositioner",
@@ -5127,7 +5127,7 @@
       "plannedLocal": "packages/base/src/lib/popover/positioner/PopoverPositionerContext.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PopoverPositionerContext",
@@ -5163,7 +5163,7 @@
       "plannedLocal": "packages/base/src/lib/popover/positioner/PopoverPositionerCssVars.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "availableWidth",
@@ -5223,7 +5223,7 @@
       "plannedLocal": "packages/base/src/lib/popover/positioner/PopoverPositionerDataAttributes.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "open",
@@ -5271,7 +5271,7 @@
       "plannedLocal": "packages/base/src/lib/popover/root/PopoverRoot.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PopoverRootComponent",
@@ -5349,7 +5349,7 @@
       "plannedLocal": "packages/base/src/lib/popover/root/PopoverRootContext.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PopoverRootContext",
@@ -5397,7 +5397,7 @@
       "plannedLocal": "packages/base/src/lib/popover/store/PopoverHandle.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PopoverHandle",
@@ -5427,7 +5427,7 @@
       "plannedLocal": "packages/base/src/lib/popover/store/PopoverStore.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "State",
@@ -5499,7 +5499,7 @@
       "plannedLocal": "packages/base/src/lib/popover/title/PopoverTitle.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PopoverTitle",
@@ -5541,7 +5541,7 @@
       "plannedLocal": "packages/base/src/lib/popover/trigger/PopoverTrigger.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PopoverTrigger",
@@ -5590,7 +5590,7 @@
       "plannedLocal": "packages/base/src/lib/popover/trigger/PopoverTriggerDataAttributes.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "popupOpen",
@@ -5627,7 +5627,7 @@
       "plannedLocal": "packages/base/src/lib/popover/utils/constants.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "OPEN_DELAY",
@@ -5651,7 +5651,7 @@
       "plannedLocal": "packages/base/src/lib/popover/viewport/PopoverViewport.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PopoverViewport",
@@ -5693,7 +5693,7 @@
       "plannedLocal": "packages/base/src/lib/popover/viewport/PopoverViewportCssVars.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "popupWidth",
@@ -5723,7 +5723,7 @@
       "plannedLocal": "packages/base/src/lib/popover/viewport/PopoverViewportDataAttributes.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "current",
@@ -5771,7 +5771,7 @@
       "plannedLocal": "packages/base/src/lib/preview-card/arrow/PreviewCardArrow.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PreviewCardArrow",
@@ -5813,7 +5813,7 @@
       "plannedLocal": "packages/base/src/lib/preview-card/arrow/PreviewCardArrowDataAttributes.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "open",
@@ -5861,7 +5861,7 @@
       "plannedLocal": "packages/base/src/lib/preview-card/backdrop/PreviewCardBackdrop.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PreviewCardBackdrop",
@@ -5903,7 +5903,7 @@
       "plannedLocal": "packages/base/src/lib/preview-card/backdrop/PreviewCardBackdropDataAttributes.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "open",
@@ -5945,7 +5945,7 @@
       "plannedLocal": "packages/base/src/lib/preview-card/index.parts.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [],
       "reviewChecks": [
         "compare whole Source body, operation order, branches, state authority, cancellation and cleanup",
@@ -5962,7 +5962,7 @@
       "plannedLocal": "packages/base/src/lib/preview-card/index.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [],
       "reviewChecks": [
         "compare whole Source body, operation order, branches, state authority, cancellation and cleanup",
@@ -5979,7 +5979,7 @@
       "plannedLocal": "packages/base/src/lib/preview-card/popup/PreviewCardPopup.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PreviewCardPopup",
@@ -6021,7 +6021,7 @@
       "plannedLocal": "packages/base/src/lib/preview-card/popup/PreviewCardPopupDataAttributes.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "open",
@@ -6075,7 +6075,7 @@
       "plannedLocal": "packages/base/src/lib/preview-card/portal/PreviewCardPortal.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PreviewCardPortal",
@@ -6117,7 +6117,7 @@
       "plannedLocal": "packages/base/src/lib/preview-card/portal/PreviewCardPortalContext.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PreviewCardPortalContext",
@@ -6147,7 +6147,7 @@
       "plannedLocal": "packages/base/src/lib/preview-card/positioner/PreviewCardPositioner.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PreviewCardPositioner",
@@ -6189,7 +6189,7 @@
       "plannedLocal": "packages/base/src/lib/preview-card/positioner/PreviewCardPositionerContext.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PreviewCardPositionerContext",
@@ -6225,7 +6225,7 @@
       "plannedLocal": "packages/base/src/lib/preview-card/positioner/PreviewCardPositionerCssVars.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "availableWidth",
@@ -6285,7 +6285,7 @@
       "plannedLocal": "packages/base/src/lib/preview-card/positioner/PreviewCardPositionerDataAttributes.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "open",
@@ -6333,7 +6333,7 @@
       "plannedLocal": "packages/base/src/lib/preview-card/root/PreviewCardContext.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PreviewCardRootContext",
@@ -6381,7 +6381,7 @@
       "plannedLocal": "packages/base/src/lib/preview-card/root/PreviewCardRoot.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PreviewCardRootComponent",
@@ -6453,7 +6453,7 @@
       "plannedLocal": "packages/base/src/lib/preview-card/store/PreviewCardHandle.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PreviewCardHandle",
@@ -6483,7 +6483,7 @@
       "plannedLocal": "packages/base/src/lib/preview-card/store/PreviewCardStore.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "State",
@@ -6555,7 +6555,7 @@
       "plannedLocal": "packages/base/src/lib/preview-card/trigger/PreviewCardTrigger.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PreviewCardTrigger",
@@ -6604,7 +6604,7 @@
       "plannedLocal": "packages/base/src/lib/preview-card/trigger/PreviewCardTriggerDataAttributes.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "popupOpen",
@@ -6629,7 +6629,7 @@
       "plannedLocal": "packages/base/src/lib/preview-card/utils/constants.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "OPEN_DELAY",
@@ -6659,7 +6659,7 @@
       "plannedLocal": "packages/base/src/lib/preview-card/viewport/PreviewCardViewport.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PreviewCardViewport",
@@ -6701,7 +6701,7 @@
       "plannedLocal": "packages/base/src/lib/preview-card/viewport/PreviewCardViewportCssVars.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "popupWidth",
@@ -6731,7 +6731,7 @@
       "plannedLocal": "packages/base/src/lib/preview-card/viewport/PreviewCardViewportDataAttributes.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "current",
@@ -6792,7 +6792,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original whole body read; local whole-body comparison pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "ToolbarRootContext",
@@ -6840,7 +6840,7 @@
       "plannedLocal": "packages/base/src/lib/tooltip/arrow/TooltipArrow.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "TooltipArrow",
@@ -6882,7 +6882,7 @@
       "plannedLocal": "packages/base/src/lib/tooltip/arrow/TooltipArrowDataAttributes.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "open",
@@ -6936,7 +6936,7 @@
       "plannedLocal": "packages/base/src/lib/tooltip/index.parts.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [],
       "reviewChecks": [
         "compare whole Source body, operation order, branches, state authority, cancellation and cleanup",
@@ -6953,7 +6953,7 @@
       "plannedLocal": "packages/base/src/lib/tooltip/index.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [],
       "reviewChecks": [
         "compare whole Source body, operation order, branches, state authority, cancellation and cleanup",
@@ -6970,7 +6970,7 @@
       "plannedLocal": "packages/base/src/lib/tooltip/popup/TooltipPopup.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "TooltipPopup",
@@ -7012,7 +7012,7 @@
       "plannedLocal": "packages/base/src/lib/tooltip/popup/TooltipPopupDataAttributes.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "open",
@@ -7072,7 +7072,7 @@
       "plannedLocal": "packages/base/src/lib/tooltip/portal/TooltipPortal.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "TooltipPortal",
@@ -7114,7 +7114,7 @@
       "plannedLocal": "packages/base/src/lib/tooltip/portal/TooltipPortalContext.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "TooltipPortalContext",
@@ -7144,7 +7144,7 @@
       "plannedLocal": "packages/base/src/lib/tooltip/positioner/TooltipPositioner.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "TooltipPositioner",
@@ -7186,7 +7186,7 @@
       "plannedLocal": "packages/base/src/lib/tooltip/positioner/TooltipPositionerContext.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "TooltipPositionerContext",
@@ -7222,7 +7222,7 @@
       "plannedLocal": "packages/base/src/lib/tooltip/positioner/TooltipPositionerCssVars.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "availableWidth",
@@ -7282,7 +7282,7 @@
       "plannedLocal": "packages/base/src/lib/tooltip/positioner/TooltipPositionerDataAttributes.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "open",
@@ -7330,7 +7330,7 @@
       "plannedLocal": "packages/base/src/lib/tooltip/provider/TooltipProvider.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "TooltipProvider",
@@ -7372,7 +7372,7 @@
       "plannedLocal": "packages/base/src/lib/tooltip/provider/TooltipProviderContext.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "TooltipProviderContext",
@@ -7402,7 +7402,7 @@
       "plannedLocal": "packages/base/src/lib/tooltip/root/TooltipRoot.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "TooltipRoot",
@@ -7468,7 +7468,7 @@
       "plannedLocal": "packages/base/src/lib/tooltip/root/TooltipRootContext.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "TooltipRootContext",
@@ -7516,7 +7516,7 @@
       "plannedLocal": "packages/base/src/lib/tooltip/store/TooltipHandle.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "TooltipHandle",
@@ -7546,7 +7546,7 @@
       "plannedLocal": "packages/base/src/lib/tooltip/store/TooltipStore.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "State",
@@ -7618,7 +7618,7 @@
       "plannedLocal": "packages/base/src/lib/tooltip/trigger/TooltipTrigger.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "TOOLTIP_TRIGGER_IDENTIFIER",
@@ -7685,7 +7685,7 @@
       "plannedLocal": "packages/base/src/lib/tooltip/trigger/TooltipTriggerDataAttributes.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "popupOpen",
@@ -7716,7 +7716,7 @@
       "plannedLocal": "packages/base/src/lib/tooltip/utils/constants.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "OPEN_DELAY",
@@ -7740,7 +7740,7 @@
       "plannedLocal": "packages/base/src/lib/tooltip/viewport/TooltipViewport.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "TooltipViewport",
@@ -7782,7 +7782,7 @@
       "plannedLocal": "packages/base/src/lib/tooltip/viewport/TooltipViewportCssVars.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "popupWidth",
@@ -7812,7 +7812,7 @@
       "plannedLocal": "packages/base/src/lib/tooltip/viewport/TooltipViewportDataAttributes.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "family original whole body read; implementation/review unstarted",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "current",
@@ -7891,7 +7891,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "HTMLProps",
@@ -7934,7 +7934,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "popupWidth",
@@ -7977,7 +7977,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "open",
@@ -8044,7 +8044,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "availableWidth",
@@ -8117,7 +8117,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "popupOpen",
@@ -8154,7 +8154,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "activationDirection",
@@ -8178,7 +8178,7 @@
       "plannedLocal": "packages/base/src/lib/utils/FloatingPortalLite.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives; actual missing shared body is blocked until precise lease",
-      "manualStatus": "original whole body read; local whole-body comparison pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PortalContainer",
@@ -8239,7 +8239,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "FocusGuard",
@@ -8276,7 +8276,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "InternalBackdrop",
@@ -8331,7 +8331,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original whole body read; local whole-body comparison pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "SelectorFunction",
@@ -8361,7 +8361,7 @@
       "plannedLocal": "packages/base/src/lib/utils/adaptiveOriginConstants.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "DEFAULT_SIDES",
@@ -8422,7 +8422,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "adaptiveOrigin",
@@ -8446,7 +8446,7 @@
       "plannedLocal": "packages/base/src/lib/utils/closePart.svelte",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives; actual missing shared body is blocked until precise lease",
-      "manualStatus": "original whole body read; local whole-body comparison pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "ClosePartContextValue",
@@ -8519,7 +8519,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "ModifierState",
@@ -8562,7 +8562,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original whole body read; local whole-body comparison pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "getCssDimensions",
@@ -8618,7 +8618,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "hide",
@@ -8655,7 +8655,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "TRIGGER_HOOK",
@@ -8758,7 +8758,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original whole body read; local whole-body comparison pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [],
       "reviewChecks": [
         "compare whole Source body, operation order, branches, state authority, cancellation and cleanup",
@@ -8775,7 +8775,7 @@
       "plannedLocal": "packages/base/src/lib/utils/popups/inlineRect.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives; actual missing shared body is blocked until precise lease",
-      "manualStatus": "original whole body read; local whole-body comparison pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "InlineRectCoords",
@@ -8896,7 +8896,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original whole body read; local whole-body comparison pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PopupHandleStoreProvider",
@@ -8951,7 +8951,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives; applyPopupOpenChange append is missing and requires precise lease",
-      "manualStatus": "original whole body read; local whole-body comparison pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "FOCUSABLE_POPUP_PROPS",
@@ -9096,7 +9096,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original whole body read; local whole-body comparison pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "devElementIdsByMap",
@@ -9163,7 +9163,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original whole body read; local whole-body comparison pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "PopupStoreState",
@@ -9272,7 +9272,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original whole body read; local whole-body comparison pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "usePopupHandleStore",
@@ -9303,7 +9303,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "TriggerFocusGuardStore",
@@ -9364,7 +9364,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "resolveClassName",
@@ -9419,7 +9419,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "resolveRef",
@@ -9474,7 +9474,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "resolveStyle",
@@ -9505,7 +9505,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original whole body read; local whole-body comparison pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "VIEWPORT_WIDTH_TOLERANCE_PX",
@@ -9566,7 +9566,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "useFocusableWhenDisabled",
@@ -9627,7 +9627,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "useOpenMethodTriggerProps",
@@ -9664,7 +9664,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "usePopupAutoResize",
@@ -9731,7 +9731,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "popupViewportStateMapping",
@@ -9822,7 +9822,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original whole body read; local whole-body comparison pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "UsePositionerOptions",
@@ -9865,7 +9865,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "EventTargetWithListeners",
@@ -9956,7 +9956,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "loggedMessages",
@@ -10023,7 +10023,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "NOOP",
@@ -10090,7 +10090,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "error",
@@ -10114,7 +10114,7 @@
       "plannedLocal": null,
       "actualAvailability": [],
       "decision": "native Svelte component setup; no fastComponent wrapper",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "Instance",
@@ -10192,7 +10192,7 @@
       "plannedLocal": null,
       "actualAvailability": [],
       "decision": "native snippet/attachment contract; snippets have no embedded React ref",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "getReactElementRef",
@@ -10216,7 +10216,7 @@
       "plannedLocal": "packages/base/src/lib/utils/inertValue.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "inertValue",
@@ -10253,7 +10253,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "Cleanup",
@@ -10314,7 +10314,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "mergeObjects",
@@ -10369,7 +10369,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "ownerDocument",
@@ -10424,7 +10424,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "webkit",
@@ -10491,7 +10491,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "jsdom",
@@ -10546,7 +10546,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [],
       "reviewChecks": [
         "compare whole Source body, operation order, branches, state authority, cancellation and cleanup",
@@ -10594,7 +10594,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "iOS",
@@ -10649,7 +10649,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "ios",
@@ -10740,7 +10740,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [],
       "reviewChecks": [
         "compare whole Source body, operation order, branches, state authority, cancellation and cleanup",
@@ -10788,7 +10788,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "voiceOver",
@@ -10843,7 +10843,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "NavigatorUAData",
@@ -10897,7 +10897,7 @@
       "plannedLocal": null,
       "actualAvailability": [],
       "decision": "native Svelte renderer; React version detection inapplicable",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "majorVersion",
@@ -10933,7 +10933,7 @@
       "plannedLocal": null,
       "actualAvailability": [],
       "decision": "native Svelte renderer; no React namespace object",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "SafeReact",
@@ -10988,7 +10988,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "activeElement",
@@ -11037,7 +11037,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original whole body read; local whole-body comparison pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "ReactStore",
@@ -11109,7 +11109,7 @@
       "plannedLocal": "packages/base/src/lib/utils/store/Store.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "Listener",
@@ -11157,7 +11157,7 @@
       "plannedLocal": null,
       "actualAvailability": [],
       "decision": "unselected developer UI; no family runtime port",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "STYLES",
@@ -11265,7 +11265,7 @@
       "plannedLocal": "packages/base/src/lib/utils/store/createSelector.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "Fn",
@@ -11367,7 +11367,7 @@
       "plannedLocal": "packages/base/src/lib/utils/store/createSelectorMemoized.ts",
       "actualAvailability": [],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "MEMOIZE_OPTIONS",
@@ -11446,7 +11446,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original whole body read; local whole-body comparison pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [],
       "reviewChecks": [
         "compare whole Source body, operation order, branches, state authority, cancellation and cleanup",
@@ -11463,7 +11463,7 @@
       "plannedLocal": null,
       "actualAvailability": [],
       "decision": "canonical Store read/createSubscriber subscription; no React snapshot shim",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "canUseRawUseSyncExternalStore",
@@ -11578,7 +11578,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "AnimationFrameId",
@@ -11657,7 +11657,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "InteractionType",
@@ -11687,7 +11687,7 @@
       "plannedLocal": null,
       "actualAvailability": [],
       "decision": "native state invalidation; no forced React render",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "useForcedRerendering",
@@ -11742,7 +11742,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original whole body read; local whole-body comparison pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "globalId",
@@ -11784,7 +11784,7 @@
       "plannedLocal": null,
       "actualAvailability": [],
       "decision": "native post-DOM synchronization/lifecycle where Source requires it",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "noop",
@@ -11845,7 +11845,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "Empty",
@@ -11978,7 +11978,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "useOnMount",
@@ -12009,7 +12009,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "usePreviousValue",
@@ -12033,7 +12033,7 @@
       "plannedLocal": null,
       "actualAvailability": [],
       "decision": "one native setup allocation per mounted component; no React ref hook",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "UNINITIALIZED",
@@ -12088,7 +12088,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "originalHtmlStyles",
@@ -12209,7 +12209,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "useInsertionEffect",
@@ -12300,7 +12300,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "TimeoutId",
@@ -12342,7 +12342,7 @@
       "plannedLocal": null,
       "actualAvailability": [],
       "decision": "native live getter/ref cell where needed, no snapshot-copy effect",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "useValueAsRef",
@@ -12403,7 +12403,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "visuallyHiddenBase",
@@ -12446,7 +12446,7 @@
         }
       ],
       "decision": "preserve Source business body and selected types; replace React lifecycle/render representation with native Svelte primitives",
-      "manualStatus": "original/local manual body reading pending",
+      "manualStatus": "Original whole body read; local adaptation review and execution unstarted",
       "symbols": [
         {
           "sourceSymbol": "warn",

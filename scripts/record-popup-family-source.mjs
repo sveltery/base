@@ -45,14 +45,50 @@ function moduleRecord(file) {
   const declaredExports = [];
   const line = node => ast.getLineAndCharacterOfPosition(node.getStart(ast)).line + 1;
   const record = (node, specifier, kind, selections, syntax, outward = undefined) => imports.push({ specifier, kind, symbols: selections, resolved: resolveImport(file, specifier), line: line(node), syntax, ...(outward ? { outward } : {}) });
+  // Namespace values in Original fixture consumers select their actual referenced members.
+  // A bare/escaped/dynamic namespace value remains a conservative `*` request.
+  function memberRequests(localName, importedName, declaration) {
+    const requests = new Set();
+    function inspect(node) {
+      if (node === declaration) return;
+      if (ts.isIdentifier(node) && node.text === localName) {
+        let expression = node;
+        const members = [];
+        while (true) {
+          const parent = expression.parent;
+          if (ts.isPropertyAccessExpression(parent) && parent.expression === expression) {
+            members.push(parent.name.text);
+            expression = parent;
+          } else if (ts.isElementAccessExpression(parent) && parent.expression === expression && ts.isStringLiteralLike(parent.argumentExpression)) {
+            members.push(parent.argumentExpression.text);
+            expression = parent;
+          } else if (ts.isQualifiedName(parent) && parent.left === expression) {
+            members.push(parent.right.text);
+            expression = parent;
+          } else break;
+        }
+        requests.add([...(importedName === '*' ? [] : [importedName]), ...members].join('.') || '*');
+      }
+      ts.forEachChild(node, inspect);
+    }
+    inspect(ast);
+    return [...requests].sort();
+  }
   function visit(node) {
     if (ts.isImportDeclaration(node) && ts.isStringLiteral(node.moduleSpecifier)) {
       const clause = node.importClause;
       const named = clause?.namedBindings && ts.isNamedImports(clause.namedBindings) ? clause.namedBindings.elements : undefined;
       if (named) {
-        for (const element of named) record(node, node.moduleSpecifier.text, clause.isTypeOnly || element.isTypeOnly ? 'type' : 'runtime', [(element.propertyName ?? element.name).text], 'import');
+        for (const element of named) {
+          const importedName = (element.propertyName ?? element.name).text;
+          record(node, node.moduleSpecifier.text, clause.isTypeOnly || element.isTypeOnly ? 'type' : 'runtime', [importedName], 'import');
+          imports.at(-1).consumerSymbols = memberRequests(element.name.text, importedName, node);
+        }
         if (clause.name) record(node, node.moduleSpecifier.text, clause.isTypeOnly ? 'type' : 'runtime', ['default'], 'import');
-      } else record(node, node.moduleSpecifier.text, clause?.isTypeOnly ? 'type' : 'runtime', clause?.name && !clause?.namedBindings ? ['default'] : ['*'], 'import');
+      } else {
+        record(node, node.moduleSpecifier.text, clause?.isTypeOnly ? 'type' : 'runtime', clause?.name && !clause?.namedBindings ? ['default'] : ['*'], 'import');
+        if (clause?.namedBindings && ts.isNamespaceImport(clause.namedBindings)) imports.at(-1).consumerSymbols = memberRequests(clause.namedBindings.name.text, '*', node);
+      }
     } else if (ts.isExportDeclaration(node) && node.moduleSpecifier && ts.isStringLiteral(node.moduleSpecifier)) {
       const clause = node.exportClause;
       if (clause && ts.isNamedExports(clause)) {
@@ -116,7 +152,7 @@ function exportedSymbols(file, visiting = new Set()) {
   return names;
 }
 
-function graph(entries, selected, runtimeProjection = false) {
+function graph(entries, selected, runtimeProjection = false, consumerProjection = false) {
   const requests = new Map();
   const queue = entries.map(source => ({ source, symbols: ['*'] }));
   const records = new Map();
@@ -130,9 +166,17 @@ function graph(entries, selected, runtimeProjection = false) {
     const module = moduleRecord(request.source);
     const imports = module.imports.map(edge => {
       const starNames = selected && module.pureBarrel && !previous.has('*') && edge.syntax === 'export-star' && !edge.resolved.startsWith('external:')
-        ? [...previous].filter(symbol => exportedSymbols(edge.resolved).has(symbol)) : undefined;
-      const select = Boolean((!runtimeProjection || edge.emittedRuntime) && (!selected || !module.pureBarrel || edge.syntax === 'import' || previous.has('*') || (edge.syntax === 'export-star' && (starNames === undefined || starNames.length > 0)) || edge.outward?.some(symbol => previous.has(symbol))));
-      return { ...edge, selected: select, ...(starNames ? { selectedSymbols: starNames } : {}) };
+        ? [...previous].filter(symbol => exportedSymbols(edge.resolved).has(symbol.split('.')[0])) : undefined;
+      const outwardRequests = edge.outward ? [...previous].filter(symbol => edge.outward.some(name => symbol === name || (consumerProjection && symbol.startsWith(`${name}.`)))) : [];
+      const select = Boolean((!runtimeProjection || edge.emittedRuntime) && (!selected || !module.pureBarrel || edge.syntax === 'import' || previous.has('*') || (edge.syntax === 'export-star' && (starNames === undefined || starNames.length > 0)) || outwardRequests.length));
+      let selectedSymbols = starNames;
+      if (consumerProjection && edge.syntax === 'import' && edge.consumerSymbols?.length) selectedSymbols = edge.consumerSymbols;
+      if (consumerProjection && module.pureBarrel && !previous.has('*') && edge.outward && outwardRequests.length) selectedSymbols = outwardRequests.map(symbol => {
+        const outwardName = edge.outward.find(name => symbol === name || symbol.startsWith(`${name}.`));
+        const suffix = symbol.slice(outwardName.length);
+        return edge.syntax === 'namespace-export' ? (suffix.slice(1) || '*') : `${edge.symbols[0]}${suffix}`;
+      });
+      return { ...edge, selected: select, ...(selectedSymbols ? { selectedSymbols } : {}) };
     });
     records.set(request.source, { ...module, requestedSymbols: [...previous].sort(), imports });
     for (const edge of imports) if (edge.selected && !edge.resolved.startsWith('external:')) queue.push({ source: edge.resolved, symbols: edge.selectedSymbols ?? edge.symbols });
@@ -172,19 +216,83 @@ function testInventory(roots) {
   return { pin, ordinaryDeclarationCredit: 0, method: 'AST declaration-site/body hashing. Parameterized source sites, conformance calls and type assertion calls are separate; expansions remain pending manual enumeration. No execution or parity is claimed.', ordinary, parameterized, conformance, typeAssertions };
 }
 
+function testVariantInventory(roots) {
+  const sites = [], parameterScopes = [], negativeTypeSamples = [], registrationLoops = [];
+  for (const source of roots) {
+    const body = read(source);
+    const tree = ts.createSourceFile(source, body, ts.ScriptTarget.Latest, true, source.endsWith('.tsx') ? ts.ScriptKind.TSX : ts.ScriptKind.TS);
+    const line = node => tree.getLineAndCharacterOfPosition(node.getStart(tree)).line + 1;
+    function registration(node) {
+      if (!ts.isCallExpression(node) || node.arguments.length < 2 || !node.arguments.some(argument => ts.isArrowFunction(argument) || ts.isFunctionExpression(argument))) return;
+      let callee = node.expression;
+      let parameter, guards = [];
+      while (ts.isCallExpression(callee) || ts.isPropertyAccessExpression(callee) || ts.isElementAccessExpression(callee)) {
+        if (ts.isCallExpression(callee) && ts.isPropertyAccessExpression(callee.expression)) {
+          const name = callee.expression.name.text;
+          if (['each', 'for'].includes(name)) {
+            let array = callee.arguments[0];
+            while (array && (ts.isAsExpression(array) || ts.isSatisfiesExpression(array) || ts.isParenthesizedExpression(array))) array = array.expression;
+            if (!array || !ts.isArrayLiteralExpression(array)) throw new Error(`Nonliteral registration parameter requires manual resolution: ${source}:${line(node)}`);
+            parameter = { source, line: line(callee), factory: name, rows: array.elements.map((row, index) => ({ index, literalSource: row.getText(tree), bodySha256: hash(row.getText(tree)) })) };
+          }
+          if (['skipIf', 'runIf'].includes(name)) guards.push({ factory: name, expression: callee.arguments[0]?.getText(tree) });
+        }
+        callee = callee.expression;
+      }
+      if (!ts.isIdentifier(callee) || !['it', 'test', 'describe'].includes(callee.text)) return;
+      return { kind: callee.text, parameter, guards };
+    }
+    function visit(node) {
+      const own = registration(node);
+      if (own?.kind === 'describe' && own.parameter) parameterScopes.push({ ...own.parameter, name: node.arguments[0].getText(tree), ordinaryDeclarationCredit: 0 });
+      if (own && ['it', 'test'].includes(own.kind)) {
+        const ancestors = [];
+        for (let parent = node.parent; parent; parent = parent.parent) {
+          const outer = registration(parent);
+          if (outer?.kind === 'describe' && outer.parameter) ancestors.push(outer.parameter);
+          if (ts.isForStatement(parent) || ts.isForOfStatement(parent) || ts.isForInStatement(parent) || ts.isWhileStatement(parent) || ts.isDoStatement(parent)) registrationLoops.push({ source, testLine: line(node), loopLine: line(parent), loop: parent.getText(tree), ordinaryDeclarationCredit: 0 });
+        }
+        const count = (own.parameter?.rows.length ?? 1) * ancestors.reduce((total, scope) => total * scope.rows.length, 1);
+        sites.push({ source, line: line(node), name: node.arguments[0].getText(tree), bodySha256: hash(node.getText(tree)), ownParameter: own.parameter ?? null, enclosingParameterScopes: ancestors, sourceVariantCount: count, guards: own.guards, status: 'unported and unexecuted', ordinaryDeclarationCredit: 0 });
+      }
+      ts.forEachChild(node, visit);
+    }
+    visit(tree);
+    body.split('\n').forEach((text, index) => {
+      if (text.includes('@ts-expect-error')) negativeTypeSamples.push({ source, line: index + 1, directive: text.trim(), followingSourceLine: body.split('\n')[index + 1], status: 'native packed strict negative witness unstarted', ordinaryDeclarationCredit: 0 });
+    });
+  }
+  const perFamily = Object.fromEntries(families.map(family => {
+    const own = sites.filter(site => site.source.startsWith(`packages/react/src/${family}/`));
+    return [family, { declarationSites: own.length, sourceVariantCount: own.reduce((sum, site) => sum + site.sourceVariantCount, 0), ordinaryDeclarationCredit: 0 }];
+  }));
+  return { pin, ordinaryDeclarationCredit: 0, method: 'Declaration bodies and literal it.each/describe.for rows read and hashed separately. Counts expand explicit Original parameter registration only; they are inventory obligations, not passing tests or unchanged parity credit. Source conditional skip guards remain explicit. Conformance-generated declarations are separate helper obligations. No registration loop was inferred from runtime loops inside test bodies.', perFamily, parameterScopes, sites, negativeTypeSamples, registrationLoops };
+}
+
 const directory = `${root}/parity/popup-family`;
 mkdirSync(directory, { recursive: true });
+// Namespace-use discovery is internal; the graph's selectedSymbols carries its public evidence.
+const publicRecords = modules => modules.map(module => ({ ...module, imports: module.imports.map(({ consumerSymbols, ...edge }) => edge) }));
 const sourceRoots = families.map(family => `packages/react/src/${family}/index.ts`);
 const testRoots = [...files].filter(file => families.some(family => file.startsWith(`packages/react/src/${family}/`)) && /\.(test|spec)(?:\.[\w-]+)?\.tsx?$/.test(file)).sort();
+const missingHelperTestRoots = [
+  'packages/react/src/floating-ui-react/components/FloatingDelayGroup.test.tsx',
+  'packages/react/src/floating-ui-react/components/FloatingPortal.test.tsx',
+  'packages/react/src/floating-ui-react/hooks/useClientPoint.test.tsx',
+  'packages/react/src/utils/popups/inlineRect.test.ts',
+];
 const surfaceRoots = [...files].filter(file => families.some(family => file.startsWith(`packages/react/src/${family}/`)) && /\.(ts|tsx)$/.test(file) && !/\.(test|spec)(?:\.[\w-]+)?\.tsx?$/.test(file)).sort();
 for (const [name, entries] of [['source', sourceRoots], ['test-helper', testRoots]]) {
-  const full = graph(entries, false), selected = graph(entries, true), runtime = graph(entries, true, true);
-  const payload = { pin, ordinaryDeclarationCredit: 0, roots: entries, method: 'Complete recursive TypeScript AST runtime/type/import/re-export/import-type/import-equals/literal dynamic-import edges. Full-file closure is a conservative barrel superset; selected closure follows actual named re-exports through declaration-free barrels. emittedRuntimeModules separately use TypeScript 5.9.3 import erasure (ESNext, JSX preserve, verbatimModuleSyntax false) to distinguish imports used only as types despite runtime import syntax. This projection is scope evidence, not the original build or manual symbol/body review. Non-barrel bodies remain whole modules. External package entry points stay explicit; this graph is not manual body review or implementation acceptance.', conservativeModules: full, selectedModules: selected, emittedRuntimeModules: runtime };
+  const full = graph(entries, false), selected = graph(entries, true), runtime = graph(entries, true, true), consumers = graph(entries, true, false, true);
+  const payload = { pin, ordinaryDeclarationCredit: 0, roots: entries, method: 'Complete recursive TypeScript AST runtime/type/import/re-export/import-type/import-equals/literal dynamic-import edges. Full-file closure is a conservative barrel superset; selected closure follows actual named re-exports through declaration-free barrels. emittedRuntimeModules separately use TypeScript 5.9.3 import erasure (ESNext, JSX preserve, verbatimModuleSyntax false) to distinguish imports used only as types despite runtime import syntax. This projection is scope evidence, not the original build or manual symbol/body review. Non-barrel bodies remain whole modules. External package entry points stay explicit; this graph is not manual body review or implementation acceptance.', conservativeModules: publicRecords(full), selectedModules: publicRecords(selected), emittedRuntimeModules: publicRecords(runtime) };
   writeFileSync(`${directory}/${name}-graph.json`, `${JSON.stringify(payload, null, 2)}\n`);
+  if (name === 'test-helper') writeFileSync(`${directory}/test-consumer-graph.json`, `${JSON.stringify({ pin, ordinaryDeclarationCredit: 0, roots: entries, method: 'Additional AST namespace-member demand projection for Original test consumers. Member accesses and literal element accesses retain the actually requested namespace exports; bare, escaped or dynamic namespace references retain wildcard selection. Non-barrel selected bodies remain whole modules, including complete runtime/type/helper recursion. This supplements, and does not replace, the conservative and named-export graphs. Manual body review and dependency acceptance remain separate.', selectedModules: publicRecords(consumers) }, null, 2)}\n`);
   console.log(`${name}: conservative ${full.length} modules; selected ${selected.length} modules / ${selected.reduce((sum, module) => sum + module.imports.filter(edge => edge.selected).length, 0)} selected edges; emitted runtime ${runtime.length} modules`);
 }
-writeFileSync(`${directory}/public-surface.json`, `${JSON.stringify({ pin, ordinaryDeclarationCredit: 0, method: 'All feature source files, including CSS variable and data attribute declaration modules outside entry-point imports. These are contract evidence; no unused runtime modules will be installed to mimic the archive.', modules: surfaceRoots.map(moduleRecord) }, null, 2)}\n`);
+writeFileSync(`${directory}/public-surface.json`, `${JSON.stringify({ pin, ordinaryDeclarationCredit: 0, method: 'All feature source files, including CSS variable and data attribute declaration modules outside entry-point imports. These are contract evidence; no unused runtime modules will be installed to mimic the archive.', modules: publicRecords(surfaceRoots.map(moduleRecord)) }, null, 2)}\n`);
 writeFileSync(`${directory}/assertion-inventory.json`, `${JSON.stringify(testInventory(testRoots), null, 2)}\n`);
+writeFileSync(`${directory}/assertion-variants.json`, `${JSON.stringify(testVariantInventory(testRoots), null, 2)}\n`);
+writeFileSync(`${directory}/missing-helper-test-graph.json`, `${JSON.stringify({ pin, ordinaryDeclarationCredit: 0, roots: missingHelperTestRoots, method: 'Immutable complete runtime/type/helper recursion for the four direct Original test files of the leased missing helpers and canonical portal extraction. Selected namespace-member projection only; non-barrel bodies stay complete. This is additional helper validation evidence, separate from family ordinary declarations and unchanged credit.', selectedModules: publicRecords(graph(missingHelperTestRoots, true, false, true)), assertionInventory: testInventory(missingHelperTestRoots) }, null, 2)}\n`);
 const combined = new Set([...parsed.keys(), 'LICENSE', 'packages/react/package.json', 'packages/utils/package.json', 'pnpm-lock.yaml']);
 for (const source of [...combined].sort()) {
   const target = `${directory}/upstream/${source}`;
