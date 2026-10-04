@@ -1,7 +1,8 @@
 // Test-only actual published Original1.8 private helper boundary; never imported by runtime.
 import { createRequire } from 'node:module';
 import { dirname, resolve } from 'node:path';
-const require = createRequire(new URL('../../../../apps/fixtures/package.json', import.meta.url));
+// Package DOM tests run with packages/base as cwd; Vite gives import.meta.url a browser URL.
+const require = createRequire(resolve(process.cwd(), '../../apps/fixtures/package.json'));
 const React: typeof import('../../../../apps/fixtures/node_modules/@types/react/index.js') = require('react');
 const { createRoot }: typeof import('../../../../apps/fixtures/node_modules/@types/react-dom/client.js') = require('react-dom/client');
 const packageRoot = dirname(require.resolve('@base-ui/react/package.json'));
