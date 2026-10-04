@@ -1,32 +1,52 @@
-<script lang="ts">
-  import { buttonKeys } from './button.js';
-  import Element from './Element.svelte';
-  import { root } from './context.js';
-  import type { ButtonProps } from './types.js';
-  let { children, render, disabled = false, nativeButton = true, id, ref = $bindable(), ...props }: ButtonProps = $props();
-  const generated = $props.id();
-  const controller = root();
-  const resolvedId = $derived(id ?? `base-ui-${generated}`);
-  const open = $derived(controller.open && controller.ownerId === resolvedId);
-  function activate(event: MouseEvent | KeyboardEvent) {
-    if (disabled) { event.preventDefault(); return; }
-    controller.method = event.type.startsWith('key') || (event instanceof MouseEvent && event.detail === 0) ? 'keyboard' : controller.method;
-    if (open) controller.closeMethod = controller.method;
-    controller.request(!open, 'trigger-press', event, ref ?? undefined);
-  }
-  const internal = $derived({ id: resolvedId, type: nativeButton ? 'button' : undefined, disabled: nativeButton ? disabled : undefined,
-    role: nativeButton ? undefined : 'button', tabindex: nativeButton ? undefined : disabled ? -1 : 0,
-    'aria-disabled': !nativeButton && disabled ? true : undefined, 'data-disabled': disabled ? '' : undefined,
-    'aria-haspopup': 'dialog', 'aria-expanded': open, 'aria-controls': open ? controller.popupId : undefined, 'data-popup-open': open ? '' : undefined,
-    onclick: activate,
-    onpointerdown: (e: PointerEvent) => { controller.method = e.pointerType === 'touch' ? 'touch' : e.pointerType === 'pen' ? 'pen' : 'mouse'; },
-    ...buttonKeys(() => disabled, () => nativeButton),
+<script lang="ts" generics="Payload = unknown">
+  // Original DialogTrigger composition, shared popup registration/click/button/rendering (MIT).
+  import RenderElement from '../internals/RenderElement.svelte';
+  import { useButton } from '../internals/use-button/useButton.svelte.js';
+  import { useBaseUiId } from '../internals/useBaseUiId.js';
+  import { CLICK_TRIGGER_IDENTIFIER } from '../internals/constants.js';
+  import { useDialogRootContext } from './context.js';
+  import { usePopupHandleStore } from '../utils/popups/usePopupHandleStore.svelte.js';
+  import { useTriggerDataForwarding } from '../utils/popups/popupStoreUtils.svelte.js';
+  import { useClick } from '../floating-ui/hooks/useClick.svelte.js';
+  import { useOpenMethodTriggerProps } from '../utils/useOpenInteractionType.svelte.js';
+  import { triggerOpenStateMapping } from '../utils/popupStateMapping.js';
+  import type { DialogHandleStore } from './store/DialogStore.svelte.js';
+  import type { TriggerProps } from './types.js';
+  let { children, render, class: className, style, disabled = false, nativeButton = true, id: idProp, handle, payload, ref = $bindable(), ...elementProps }: TriggerProps<Payload> = $props();
+  const generatedId = $props.id();
+  const contained = useDialogRootContext(true);
+  const handleStore = usePopupHandleStore(() => handle);
+  const store: DialogHandleStore<unknown> = $derived.by(() => {
+    const value = handleStore.store ?? contained;
+    if (!value) throw new Error('Base UI: <Dialog.Trigger> must be used within <Dialog.Root> or provided with a handle.');
+    return value;
   });
-  function attach(node: HTMLElement) {
-    // Registry tracks reactive IDs as external DOM association.
-    return $effect.root(() => {
-      $effect(() => { const key = resolvedId; controller.triggers.set(key, node); return () => { controller.triggers.delete(key); }; });
-    });
-  }
+  const thisTriggerId = $derived(useBaseUiId(idProp ?? undefined, generatedId));
+  const triggerElementRef: { current: HTMLElement | null } = { current: null };
+  const forwarding = useTriggerDataForwarding(() => thisTriggerId, triggerElementRef, () => store, () => ({ payload }));
+  const { getButtonProps, buttonRef } = useButton(() => ({ disabled, native: nativeButton }));
+  const click = useClick(() => store.select('floatingRootContext'));
+  const interactionTypeProps = useOpenMethodTriggerProps(() => store.select('open'), interactionType => store.set('openMethod', interactionType));
+  const state = $derived({ disabled, open: store.select('isOpenedByTrigger', thisTriggerId) });
+  const popupId = $derived(store.select('triggerPopupId', thisTriggerId));
+  const rootTriggerProps = $derived(store.select('triggerProps', forwarding.isMountedByThisTrigger));
 </script>
-<Element tag="button" {internal} {props} state={{ disabled, open }} {render} {children} bind:ref {attach}/>
+<RenderElement
+  tag="button"
+  componentProps={{ render, class: className, style }}
+  params={{
+    state,
+    ref: [buttonRef, forwarding.registerTrigger, triggerElementRef],
+    props: [
+      click.reference,
+      rootTriggerProps,
+      interactionTypeProps,
+      { [CLICK_TRIGGER_IDENTIFIER]: '', id: thisTriggerId, 'aria-haspopup': 'dialog', 'aria-expanded': state.open, 'aria-controls': popupId },
+      elementProps,
+      getButtonProps,
+    ],
+    stateAttributesMapping: triggerOpenStateMapping,
+  }}
+  {children}
+  bind:element={ref}
+/>

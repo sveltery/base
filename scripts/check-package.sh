@@ -190,6 +190,9 @@ bash scripts/check-csp-provider-package.sh
 
 # Installed public UseRender root/subpath, SSR, native DOM and nine type aliases.
 bash "$sveltery_repo_root/scripts/check-use-render-package.sh" --public
+
+# Installed public Dialog nine parts, payload handles, SSR, native DOM and strict types.
+bash scripts/check-dialog-handles-package.sh
 # Installed public source Field/Form/Fieldset anatomy, SSR and 31 named types.
 bash "$sveltery_repo_root/scripts/check-field-form-package.sh" --public
 

@@ -76,7 +76,7 @@ jobs:
     name: Dialog browser
     # Officially supported Playwright image; its default policy permits Chromium sandbox startup.
     runs-on: ubuntu-22.04
-    timeout-minutes: 35
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
@@ -96,8 +96,23 @@ jobs:
         run: pnpm --filter @sveltery/base build
       - name: Install official Chromium and OS dependencies
         run: pnpm exec playwright install --with-deps chromium
+      - name: Focused Dialog Source lifecycle pairs
+        run: >-
+          pnpm exec playwright test --config playwright.source-core.config.ts
+          tests/browser/dialog-nonmodal-focus.spec.ts
+          tests/browser/dialog-regressions.spec.ts
+          tests/browser/dialog-source-closure.spec.ts
+          tests/browser/dialog-motion-source.spec.ts
       - name: Real React and Svelte Dialog acceptance
         run: pnpm exec playwright test --config playwright.source-core.config.ts
+      - name: Preserve Dialog lifecycle failure traces
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: dialog-source-lifecycle
+          path: test-results/dialog-*/
+          if-no-files-found: warn
+          retention-days: 14
 
       - name: Preserve docs browser smoke screenshots
         if: always()
