@@ -65,6 +65,36 @@
       "archive": "full-verify-ebc2473-failure.log.gz",
       "rawSha256": "0f57219ae411f987778f1da33bd7a2156284791533777f06ba9839a08fe9f6ca",
       "rawBytes": 23855
+    },
+    {
+      "archive": "secured-browser-ebc2473-first-failure.log.gz",
+      "rawSha256": "7e33996dc9cdb58efc15dc27dde5f1629e4e3062a5c8804dbee8f45336ca0f7f",
+      "rawBytes": 102492
+    },
+    {
+      "archive": "full-verify-a009-check-failure.log.gz",
+      "rawSha256": "b4125f09cd003310cd9a0b0b644785ee3fb8bea148f13c7cfe8898c2bf871e4c",
+      "rawBytes": 10333
+    },
+    {
+      "archive": "deep-focus-dom-first-failure.log.gz",
+      "rawSha256": "f68a92f6463a966c4c12d0ebd246a1b39bcd494e9d1e96cb238444902a294ec1",
+      "rawBytes": 17569
+    },
+    {
+      "archive": "deep-focus-dom-return-only-warning-failure.log.gz",
+      "rawSha256": "c00000c964fb809474707f8d63847c6e93582d9b691fa107ae3211e6d84e3b9e",
+      "rawBytes": 28508
+    },
+    {
+      "archive": "deep-focus-dom-lifetime-green.log.gz",
+      "rawSha256": "5017d5efae55e90cb29fde6bf34193f869105bf698bb6d7d840b048ac60f3390",
+      "rawBytes": 476
+    },
+    {
+      "archive": "viewport-capability-overloads-check-green.log.gz",
+      "rawSha256": "cad2dd362f5c456d227e055d6063dbe7d143cec086a7ed4b68c10d488b9f1bec",
+      "rawBytes": 193
     }
   ]
 }

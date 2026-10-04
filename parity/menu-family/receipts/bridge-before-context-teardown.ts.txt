@@ -98,16 +98,9 @@ function useFloatingWithStore(getOptions: () => BaseUIFloatingOptions) {
     if (domReferenceElement) domReferenceRef.current = domReferenceElement;
   }, () => [domReferenceElement]);
   useIsoLayoutEffect(() => {
-    const dataRef = store.context.dataRef;
-    dataRef.current.floatingContext = context;
+    store.context.dataRef.current.floatingContext = context;
     const node = tree?.nodesRef.current.find(entry => entry.id === options.nodeId);
     if (node) node.context = context;
-    // Native derived getters belong to this positioner's lifetime. The root/tree
-    // outlive a closed popup, so release only this publication during teardown.
-    return () => {
-      if (dataRef.current.floatingContext === context) delete dataRef.current.floatingContext;
-      if (node?.context === context) node.context = undefined;
-    };
   });
 
   return {

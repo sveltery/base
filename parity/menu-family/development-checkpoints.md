@@ -131,3 +131,60 @@ unchanged. Navigation's inherited actual-closure snapshot/count also needs
 reconciliation from 66 to the actual 75 modules reached through canonical
 Source event/platform helpers. This is an unresolved full-gate failure, not an
 assertion waiver or a successful Verification.
+
+## Canonical evidence and native lifetime repair
+
+Actual main `74f667d` normally merged without source conflicts at `a009f38`.
+The inherited Navigation evidence now uses only the exact public `d115303d`
+75-module/197-edge generator records. All 75 current module hashes match that
+canonical public checkpoint, including the 59 bodies also reached by Menu.
+Original 141/637 graph bytes, assertion accounting, historical base local hashes
+and failed/canceled historical receipts remain unchanged. The older 66-module
+review remains historical; complete current used-body review is pending.
+
+The authored anchor provenance check now examines the actual root selection,
+store-selected elements, distinct DOM/virtual reference setters, context/tree
+publication ownership and the single asynchronous DOM geometry call across the
+used closure. The raw pure-DOM branch and all eighteen Original anchor behavior
+assertions remain unchanged. This structural check supplements full source review.
+The next full Verification passed all 82 script regressions and its build, then
+failed the actual workspace type check on the shared viewport capability's
+generic selector signature. The seven actual selected-key overloads now preserve
+that narrow shared capability and pass package checking with zero errors/warnings.
+The failure and preceding source are archived; full Verification remains pending.
+
+Secured [first hosted browser run](https://github.com/sveltery/base/actions/runs/37182054023)
+at `ebc2473` executed all forty-four authored actual Original/native cases:
+32 passed, twelve failed, none skipped/retried/flaky, official Chromium
+153.0.8010.12, sandbox enabled and one worker. The entire raw JSON/twelve failure
+traces ZIP is archived with SHA256
+`6ae7568a04073e77a601db844f88afe91d9998fe16128f545597b3c6ab8ab2dd`,
+alongside the unchanged failing authored spec and fixture page.
+
+Ten paired failures came from the authored input/layout: a horizontal popup
+covered the next unstyled Menubar trigger; pointer entry opens the sibling via
+the Source hover branch, and the subsequent click closes it; safePolygon's
+pointer shield prevents locator actionability on the outside button. The fixture
+now lays out the Menubar by orientation, sibling input uses trusted pointer hover,
+and hover dismissal uses actual mouse coordinates. Expected business assertions
+are unchanged; the repaired secured execution remains pending.
+
+The two native-only deep Escape failures exposed native teardown ownership. The
+shared focus manager now retains the still-mounted return-focus decision from
+the existing close event for that lifetime's cleanup. Its Source return-element,
+callback, condition and focus-order algorithms remain unchanged. The canonical
+store bridge releases only its own published store/tree context during native
+positioner destruction, so persistent root/tree consumers cannot read destroyed
+derived getters. There is still one geometry driver. Four actual Original/native
+LTR/RTL deep-close DOM probes now pass, including an explicit zero `derived_inert`
+warning assertion; the previous failures and full pre-repair helper bodies are
+preserved. The local probe isolates the first deep close: the initial authored
+second-close DOM input also returned to the outer opener in actual React/jsdom,
+while the unchanged secured browser case continues checking both parent levels.
+These supplements grant no unchanged Original ordinary assertion credit.
+
+The used closure remains 197 modules/891 edges, with updated whole-module hashes
+for the two native lifetime repairs and viewport type boundary. All 200 Original
+full-body source/native/maintainability review statuses remain pending. Current-head
+full Verification, Standards, strict packed consumers, secured browsers/configured
+CI and exact-head Root review/approval remain required before normal owner merge.

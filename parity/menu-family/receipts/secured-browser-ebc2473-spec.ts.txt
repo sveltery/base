@@ -65,7 +65,7 @@ for (const reference of [false, true]) {
   for (const orientation of ['horizontal', 'vertical']) for (const direction of ['ltr', 'rtl']) test(`${framework}: ${direction}/${orientation} Menubar sibling navigation`, async ({ page }) => {
     await setup(page, reference, { mode: 'menubar', orientation, direction });
     await page.locator('#opener').click(); await expect(page.locator('[data-testid=popup]')).toBeVisible();
-    await page.locator('#second').hover(); await expect(page.locator('[data-testid=popup]')).toHaveCount(0);
+    await page.locator('#second').click(); await expect(page.locator('[data-testid=popup]')).toHaveCount(0);
     await expect(page.locator('[data-testid=edit-popup]')).toBeVisible();
     await expect(page.locator('#menubar')).toHaveAttribute('data-has-submenu-open', '');
     await page.keyboard.press('Escape'); await expect(page.locator('[data-testid=edit-popup]')).toHaveCount(0);
@@ -98,7 +98,7 @@ for (const reference of [false, true]) {
   });
   test(`${framework}: hover opens after rest and mouse exit dismisses`, async ({ page }) => {
     await setup(page, reference, { mode: 'hover' }); await page.locator('#opener').hover();
-    await expect(page.locator('[data-testid=popup]')).toBeVisible(); await page.mouse.move(600, 400);
+    await expect(page.locator('[data-testid=popup]')).toBeVisible(); await page.locator('#outside').hover();
     await expect(page.locator('[data-testid=popup]')).toHaveCount(0);
   });
   test(`${framework}: Toolbar menu restores composite focus and arrow relay`, async ({ page }) => {

@@ -20,8 +20,6 @@
 <style>
   :global([data-testid=popup]), :global([data-testid=sub-popup]), :global([data-testid=edit-popup]) { background: white; color: black; border: 1px solid black; padding: 8px; }
   :global([role^=menuitem]) { display: block; padding: 4px; }
-  :global(#menubar) { display: flex; align-items: flex-start; gap: 20px; width: max-content; }
-  :global(#menubar[aria-orientation=vertical]) { flex-direction: column; }
   :global([data-current]) { animation: enter 800ms linear; }
   :global([data-previous]) { animation: leave 800ms linear; }
   @keyframes enter { from { opacity: .8; } to { opacity: 1; } }

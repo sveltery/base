@@ -1,4 +1,4 @@
-import { afterEach, expect, it, vi } from 'vitest';
+import { afterEach, expect, it } from 'vitest';
 import { mount, tick, unmount } from 'svelte';
 import Fixture from '../../../../apps/fixtures/src/lib/MenuFamilyFixture.svelte';
 import { mountMenuFamilyReference } from '../../../../apps/fixtures/src/lib/menu-family-reference.js';
@@ -21,7 +21,7 @@ function press(id: string) {
   byId(id).dispatchEvent(event); byId(id).dispatchEvent(new MouseEvent('mousedown', { bubbles: true, button: 0 }));
 }
 function key(id: string, key: string) { byId(id).dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, key })); }
-afterEach(async () => { for (const stop of cleanup.splice(0)) await stop(); await settle(); vi.restoreAllMocks(); document.body.replaceChildren(); document.body.removeAttribute('style'); document.documentElement.removeAttribute('style'); });
+afterEach(async () => { for (const stop of cleanup.splice(0)) await stop(); await settle(); document.body.replaceChildren(); document.body.removeAttribute('style'); document.documentElement.removeAttribute('style'); });
 for (const reference of [true, false]) {
   const framework = reference ? 'React Original' : 'Svelte';
   it(`${framework}: opens, labels groups, navigates disabled items and closes on selection`, async () => {
@@ -57,8 +57,7 @@ for (const reference of [true, false]) {
     expect(document.querySelector('[data-testid=sub-popup]')).not.toBeNull(); expect(document.activeElement?.id).toBe('sub-first');
     key('sub-first', 'Escape'); await settle(); expect(document.querySelector('[data-testid=sub-popup]')).toBeNull(); expect(document.querySelector('[data-testid=popup]')).not.toBeNull();
   });
-  for (const direction of ['ltr', 'rtl'] as const) it(`${framework}: deep Escape returns focus to its still-mounted parent trigger (${direction})`, async () => {
-    const warnings = vi.spyOn(console, 'warn');
+  for (const direction of ['ltr', 'rtl'] as const) it(`${framework}: deep Escape returns focus to each still-mounted parent trigger (${direction})`, async () => {
     await setup(reference, { mode: 'nested', defaultOpen: true, direction });
     const openKey = direction === 'rtl' ? 'ArrowLeft' : 'ArrowRight';
     byId('sub').focus(); key('sub', openKey); await settle();
@@ -67,7 +66,8 @@ for (const reference of [true, false]) {
     key('deep', openKey); await settle(); expect(document.activeElement?.id).toBe('deep-first');
     key('deep-first', 'Escape'); await settle(); expect(document.getElementById('deep-first')).toBeNull();
     expect(document.activeElement?.id).toBe('deep');
-    expect(warnings.mock.calls.filter(args => args.some(value => String(value).includes('derived_inert')))).toEqual([]);
+    key('deep', 'Escape'); await settle(); expect(document.querySelector('[data-testid=sub-popup]')).toBeNull();
+    expect(document.activeElement?.id).toBe('sub');
   });
   it(`${framework}: context pointer virtual anchor opens and Escape dismisses`, async () => {
     await setup(reference, { mode: 'context' }); byId('opener').dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true, button: 2, clientX: 120, clientY: 80 })); await settle();

@@ -154,7 +154,7 @@
       ],
       "localHashes": {
         "packages/base/src/lib/floating-ui/components/FloatingFocusManager.svelte": "02e830d2f21614164344019f3bdd4420c4e0c58ddf49b12023c2202fcc236da8",
-        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts": "c0d9f77faa3fa4fb8f78d01d958fdbc60ed960b043edfeb967f0b138ba367a9f"
+        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts": "196142de842ceb2fe24365fc7c14c1439a5c7407af94bd63e00c8fa584caf130"
       },
       "correspondence": "Full Original focus-manager business plus native host/component ownership. Reinspect inherited full body, flags, scheduling, focus restore and teardown.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -281,7 +281,7 @@
         "packages/base/src/lib/internals/anchor-positioning/useFloating.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts": "4b7fa509124cbdcc3e5649bf03f0e3c2fb6dd77af87a368298a7951bd78e0e7a",
+        "packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts": "3cb683af9f2da1d7e2fdb289c55e4397ea596af3d1de90b02e9cf1ff94c4929c",
         "packages/base/src/lib/internals/anchor-positioning/useFloating.svelte.ts": "624e132fdda861d186f7d2cc9718c818f73d47348a56d7dd13410c3fba1ae929"
       },
       "correspondence": "Original useBaseUIFloating/useFloatingWithStore root/tree/context/ref publication connects to the sole DOM driver, with honest narrow geometry-free versus fully positioned types.",
@@ -2208,7 +2208,7 @@
         "packages/base/src/lib/utils/usePopupViewport.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/utils/usePopupViewport.svelte.ts": "75d6219c572a47583763257345043e1e89e33ba0d2897ffc32243ef8b47fb57a"
+        "packages/base/src/lib/utils/usePopupViewport.svelte.ts": "d0c82a8b70e176d109c4a3755d5186bf678e6cdb516053140f307eddd3336409"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."

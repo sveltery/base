@@ -815,7 +815,7 @@
     },
     {
       "source": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
-      "sha256": "c0d9f77faa3fa4fb8f78d01d958fdbc60ed960b043edfeb967f0b138ba367a9f",
+      "sha256": "196142de842ceb2fe24365fc7c14c1439a5c7407af94bd63e00c8fa584caf130",
       "reachability": "runtime",
       "imports": [
         {
@@ -2192,7 +2192,7 @@
     },
     {
       "source": "packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts",
-      "sha256": "4b7fa509124cbdcc3e5649bf03f0e3c2fb6dd77af87a368298a7951bd78e0e7a",
+      "sha256": "3cb683af9f2da1d7e2fdb289c55e4397ea596af3d1de90b02e9cf1ff94c4929c",
       "reachability": "runtime",
       "imports": [
         {
@@ -13193,7 +13193,7 @@
     },
     {
       "source": "packages/base/src/lib/utils/usePopupViewport.svelte.ts",
-      "sha256": "75d6219c572a47583763257345043e1e89e33ba0d2897ffc32243ef8b47fb57a",
+      "sha256": "d0c82a8b70e176d109c4a3755d5186bf678e6cdb516053140f307eddd3336409",
       "reachability": "runtime",
       "imports": [
         {
