@@ -46,6 +46,6 @@ it('source native-mode mismatch warns on the actual host and excludes composite 
   const warning = vi.spyOn(console, 'error').mockImplementation(() => {});
   try {
     const { button } = await setup('native-mismatch'); expect(button.tagName).toBe('SPAN'); expect(warning).toHaveBeenCalledTimes(1);
-    expect(warning.mock.calls[0]?.[0]).toContain('nativeButton'); key(button, 'keydown'); key(button, 'keyup'); await tick(); expect(calls().filter(call => call === 'click')).toHaveLength(0);
+    expect(warning.mock.calls[0]?.[0]).toContain('Rendering a non-<button> removes native button semantics, which can impact forms and accessibility.'); key(button, 'keydown'); key(button, 'keyup'); await tick(); expect(calls().filter(call => call === 'click')).toHaveLength(0);
   } finally { warning.mockRestore(); }
 });
