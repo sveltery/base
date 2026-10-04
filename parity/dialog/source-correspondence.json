@@ -651,7 +651,7 @@
       "local": [
         "packages/base/src/lib/internals/use-button/useButton.svelte.ts"
       ],
-      "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
+      "decision": "Canonical original business body reused by Dialog Trigger/Close. Restore both complete DEV explanation strings from public PR59 d00a8b0aca67abfdbde6ccf540131557b74e0ca3, helper SHA256 ee71d7077c51139162152716111472919bf80b71e6e9cde62d15ff0b7ce56f59; prior whole-source review missed these omissions. Native effect-owned host diagnostics replace React owner-stack representation. All business handlers and shared dependencies remain byte-unchanged; zero ordinary credit. Fresh resulting-head whole-body source/native/maintainability review required.",
       "reviewStatus": "final source/native/maintainability review pending"
     },
     {
@@ -661,7 +661,7 @@
       "local": [
         "packages/base/src/lib/internals/useAnimationsFinished.ts"
       ],
-      "decision": "Original individual flush and same-microtask pendingCallbacks batching, abort-at-flush, replacement-animation, starting-style and raw fallback branches are retained. Native Svelte flushSync replaces ReactDOM.flushSync; live open/batch readers replace rendered closures. Actual pinned DOM/abort comparisons verify both commit policies.",
+      "decision": "Original individual flush and same-microtask pendingCallbacks batching, abort-at-flush, replacement-animation, starting-style and raw fallback branches are retained. Native Svelte flushSync replaces ReactDOM.flushSync; open/batch readers replace rendered closures, with batch captured at the wait invocation before async completion. Actual pinned DOM/abort comparisons verify fixed and changed-during-animation policies. The earlier completion-time batch read failed two native Source-equality vectors; invocation capture restores the original boolean snapshot.",
       "reviewStatus": "final source/native/maintainability review pending"
     },
     {
