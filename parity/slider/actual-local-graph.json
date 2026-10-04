@@ -3046,7 +3046,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
-      "sha256": "581abfd20827eed41d9478dc30dc5a7b1b944e32d8428ac238d86625545536f1",
+      "sha256": "ee71d7077c51139162152716111472919bf80b71e6e9cde62d15ff0b7ce56f59",
       "reachability": [
         "type"
       ],
@@ -3137,15 +3137,24 @@
     },
     {
       "local": "packages/base/src/lib/internals/useAnimationsFinished.ts",
-      "sha256": "e615700a3c4e81ca22060837af8a8c859430ebd8476d6e0a6daffe7986dc3bc4",
+      "sha256": "0ae8873174969326a7ac09377ab019af5cd575bbdfde7df9118317d0ec1c1e30",
       "reachability": [
         "type"
       ],
       "declarations": [
+        "flushBeforePaint",
         "useAnimationsFinished",
         "exec"
       ],
       "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "names": [
+            "flushSync"
+          ],
+          "resolved": "external:svelte"
+        },
         {
           "specifier": "../utils/useAnimationFrame.js",
           "kind": "runtime",
@@ -3203,7 +3212,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
-      "sha256": "9c8d8b8fcd70c0a9ec69a9cc0f2a6864ab19da26d4e3bd2bf9f7e6eb49831d1f",
+      "sha256": "5e966dd1b10cbc1ed448d3583ca948a384d812f9e71afc1e128395485575931f",
       "reachability": [
         "type"
       ],

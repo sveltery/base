@@ -74,7 +74,10 @@ const modules = original.modules.map((module) => {
   candidates = [...new Set(candidates)].filter((path) => local.has(path));
   if (module.source.startsWith("packages/utils/src/platform/")) {
     correspondence =
-      "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible. The selected element branch reads platform.env.jsdom; the canonical platform index and its real dependencies are reused, with no second classifier or stub. Final actual-main PR55 integration remains required.";
+      "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible and shared Composite navigation through event.stopEvent. The real canonical event/platform bodies are reused without a second classifier or stub. Accepted PR55 actual main 74f667da is a normal-merge ancestor; all selected bodies and import edges equal that accepted main.";
+  } else if (module.source === "packages/react/src/internals/useAnimationsFinished.ts") {
+    correspondence =
+      "Reached through the actual type closure, not called by Slider runtime. Reuses canonical aa5c9aa Source completion bodies: invocation-owned batch snapshot, default separate commits, same-microtask shared queue, abort-at-flush, replacement animation recursion and starting-style cleanup; native Svelte flushSync replaces ReactDOM flushSync. The canonical useOpenChangeComplete reader passes the current batch option at invocation. This bounded helper reuse grants no whole Dialog feature acceptance or ordinary assertion credit.";
   } else if (module.source === "packages/utils/src/useValueAsRef.ts") {
     correspondence =
       "Source applied pointer cache is immediate; native tick replaces the React per-commit layout snapshot by reading actual accepted values after flush, with disposal guard and pre-effect for external values. SL-03 records the measured plain rejected-push difference and zero unchanged Source credit. Numeric/collision/swap/cancel order is unchanged; no React commit tracking or generic scheduler.";

@@ -1395,13 +1395,13 @@
       "local": [
         {
           "path": "packages/base/src/lib/internals/useAnimationsFinished.ts",
-          "sha256": "e615700a3c4e81ca22060837af8a8c859430ebd8476d6e0a6daffe7986dc3bc4",
+          "sha256": "0ae8873174969326a7ac09377ab019af5cd575bbdfde7df9118317d0ec1c1e30",
           "reachability": [
             "type"
           ]
         }
       ],
-      "correspondence": "Reused canonical Field/Form/shared-utility source dependency; Source animation replacement/starting-style observation/abort branches; native Svelte rendering replaces ReactDOM flushSync and global batching queue. See parity/field-form/source-correspondence.json",
+      "correspondence": "Reached through the actual type closure, not called by Slider runtime. Reuses canonical aa5c9aa Source completion bodies: invocation-owned batch snapshot, default separate commits, same-microtask shared queue, abort-at-flush, replacement animation recursion and starting-style cleanup; native Svelte flushSync replaces ReactDOM flushSync. The canonical useOpenChangeComplete reader passes the current batch option at invocation. This bounded helper reuse grants no whole Dialog feature acceptance or ordinary assertion credit.",
       "status": "implemented; independent entire-closure review pending"
     },
     {
@@ -1436,7 +1436,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
-          "sha256": "9c8d8b8fcd70c0a9ec69a9cc0f2a6864ab19da26d4e3bd2bf9f7e6eb49831d1f",
+          "sha256": "5e966dd1b10cbc1ed448d3583ca948a384d812f9e71afc1e128395485575931f",
           "reachability": [
             "type"
           ]
@@ -2673,7 +2673,7 @@
           ]
         }
       ],
-      "correspondence": "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible. The selected element branch reads platform.env.jsdom; the canonical platform index and its real dependencies are reused, with no second classifier or stub. Final actual-main PR55 integration remains required.",
+      "correspondence": "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible and shared Composite navigation through event.stopEvent. The real canonical event/platform bodies are reused without a second classifier or stub. Accepted PR55 actual main 74f667da is a normal-merge ancestor; all selected bodies and import edges equal that accepted main.",
       "status": "implemented; independent entire-closure review pending"
     },
     {
@@ -2690,7 +2690,7 @@
           ]
         }
       ],
-      "correspondence": "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible. The selected element branch reads platform.env.jsdom; the canonical platform index and its real dependencies are reused, with no second classifier or stub. Final actual-main PR55 integration remains required.",
+      "correspondence": "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible and shared Composite navigation through event.stopEvent. The real canonical event/platform bodies are reused without a second classifier or stub. Accepted PR55 actual main 74f667da is a normal-merge ancestor; all selected bodies and import edges equal that accepted main.",
       "status": "implemented; independent entire-closure review pending"
     },
     {
@@ -2707,7 +2707,7 @@
           ]
         }
       ],
-      "correspondence": "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible. The selected element branch reads platform.env.jsdom; the canonical platform index and its real dependencies are reused, with no second classifier or stub. Final actual-main PR55 integration remains required.",
+      "correspondence": "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible and shared Composite navigation through event.stopEvent. The real canonical event/platform bodies are reused without a second classifier or stub. Accepted PR55 actual main 74f667da is a normal-merge ancestor; all selected bodies and import edges equal that accepted main.",
       "status": "implemented; independent entire-closure review pending"
     },
     {
@@ -2724,7 +2724,7 @@
           ]
         }
       ],
-      "correspondence": "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible. The selected element branch reads platform.env.jsdom; the canonical platform index and its real dependencies are reused, with no second classifier or stub. Final actual-main PR55 integration remains required.",
+      "correspondence": "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible and shared Composite navigation through event.stopEvent. The real canonical event/platform bodies are reused without a second classifier or stub. Accepted PR55 actual main 74f667da is a normal-merge ancestor; all selected bodies and import edges equal that accepted main.",
       "status": "implemented; independent entire-closure review pending"
     },
     {
@@ -2741,7 +2741,7 @@
           ]
         }
       ],
-      "correspondence": "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible. The selected element branch reads platform.env.jsdom; the canonical platform index and its real dependencies are reused, with no second classifier or stub. Final actual-main PR55 integration remains required.",
+      "correspondence": "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible and shared Composite navigation through event.stopEvent. The real canonical event/platform bodies are reused without a second classifier or stub. Accepted PR55 actual main 74f667da is a normal-merge ancestor; all selected bodies and import edges equal that accepted main.",
       "status": "implemented; independent entire-closure review pending"
     },
     {
@@ -2758,7 +2758,7 @@
           ]
         }
       ],
-      "correspondence": "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible. The selected element branch reads platform.env.jsdom; the canonical platform index and its real dependencies are reused, with no second classifier or stub. Final actual-main PR55 integration remains required.",
+      "correspondence": "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible and shared Composite navigation through event.stopEvent. The real canonical event/platform bodies are reused without a second classifier or stub. Accepted PR55 actual main 74f667da is a normal-merge ancestor; all selected bodies and import edges equal that accepted main.",
       "status": "implemented; independent entire-closure review pending"
     },
     {
@@ -2775,7 +2775,7 @@
           ]
         }
       ],
-      "correspondence": "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible. The selected element branch reads platform.env.jsdom; the canonical platform index and its real dependencies are reused, with no second classifier or stub. Final actual-main PR55 integration remains required.",
+      "correspondence": "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible and shared Composite navigation through event.stopEvent. The real canonical event/platform bodies are reused without a second classifier or stub. Accepted PR55 actual main 74f667da is a normal-merge ancestor; all selected bodies and import edges equal that accepted main.",
       "status": "implemented; independent entire-closure review pending"
     },
     {
@@ -2796,7 +2796,7 @@
           ]
         }
       ],
-      "correspondence": "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible. The selected element branch reads platform.env.jsdom; the canonical platform index and its real dependencies are reused, with no second classifier or stub. Final actual-main PR55 integration remains required.",
+      "correspondence": "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible and shared Composite navigation through event.stopEvent. The real canonical event/platform bodies are reused without a second classifier or stub. Accepted PR55 actual main 74f667da is a normal-merge ancestor; all selected bodies and import edges equal that accepted main.",
       "status": "implemented; independent entire-closure review pending"
     },
     {
