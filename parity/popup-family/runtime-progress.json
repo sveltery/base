@@ -2,7 +2,7 @@
   "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "preCodeReadingCommit": "41b708601a8cbc72e74a46e550fc79b99da3d0ed",
   "publicDependencyCorrectionCommit": "70b9962b9d4ecc958a3d14dcfb89a0965b9fd1f3",
-  "status": "Five leased helper families adapted; portal lifecycle/client-point tests, open-change append and final inherited gates pending",
+  "status": "Six leased shared-helper families adapted; focused portal/client-point/open-change execution and independent Source/native review pending",
   "ordinaryDeclarationCredit": 0,
   "runtimeImplementationStarted": true,
   "helperModules": [
@@ -88,6 +88,16 @@
       "wholeBodyReview": "Developer compared complete Original Lite/Node/Full and complete local bodies against narrow approved extraction plan; independent Source/native review pending",
       "testStatus": "Focused native Full/Lite container/context/ref/render/id/remount/cleanup and existing Dialog Portal regressions pending",
       "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/utils/popups/popupStoreUtils.ts#applyPopupOpenChange",
+      "sourceSha256": "f73b74be0af3b9d09a3a92167964e85d49657a2f26d94f0f531b43a0ac04afa2",
+      "local": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+      "localSha256": "3f80c77e00b2b8d73068a48477096f30f174c433d804b790813894f6624f016e",
+      "decision": "Complete Source applyPopupOpenChange sequence appended to the one canonical module. Only ReactDOM.flushSync becomes native Svelte flushSync; all existing helper function bodies are byte-identical. Native getAnimations/DOM timing witness and independent Source/native review pending.",
+      "wholeBodyReview": "Developer compared complete Original append and all preexisting local helper bodies; independent Source/native review pending",
+      "testStatus": "Focused actual Store cancellation/ordering/reason/ownership/native DOM flush witnesses pending",
+      "ordinaryDeclarationCredit": 0
     }
   ],
   "canonicalDependencies": {
@@ -101,7 +111,7 @@
     "build": "Unexecuted; heavy token held by Menu",
     "browser": "Unexecuted",
     "packedStrictConsumers": "Unexecuted",
-    "sourceClosure": "Original pre-code reading complete; local used-body hashes and independent inherited Source/native review pending",
+    "sourceClosure": "Immutable Original pre-code reading complete. Actual local conservative helper graph/body/symbol hashes recorded in native-helper-graph.json; independent local/inherited Source/native review and selected family runtime closure pending.",
     "workingTreeSyntaxOnly": {
       "status": "Measured before runtime checkpoint commit; this is neither product execution nor accepted final-head verification",
       "inlineRectWholeEmittedBusinessComparison": "Equal after only the declared onFocus/onMouseEnter/onMouseMove to native event-key mapping and TypeScript type/import erasure",

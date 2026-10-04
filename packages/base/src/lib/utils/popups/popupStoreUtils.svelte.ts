@@ -1,6 +1,7 @@
 // Business body from Base UI v1.8.0 popupStoreUtils.ts at
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
-import type { PopupStoreState } from './store.js';
+import { flushSync } from 'svelte';
+import type { PopupStoreState, PopupStoreContext } from './store.js';
 import { EMPTY_OBJECT } from '../empty.js';
 import { useFloatingParentNodeId } from '../../floating-ui/components/FloatingTree.svelte.js';
 import { useSyncedFloatingRootContext } from '../../floating-ui/hooks/useSyncedFloatingRootContext.svelte.js';
@@ -356,4 +357,81 @@ export function attachPreventUnmountOnClose(eventDetails: { preventUnmountOnClos
   };
 
   return () => preventUnmountOnClose;
+}
+
+/**
+ * Runs the shared open-change sequence for a popup store: notifies `onOpenChange`,
+ * honors cancellation, dispatches the floating root change, maps the reason to an
+ * `instantType`, and commits the state update (synchronously for hover so
+ * `getAnimations()` observes it). Stores supply their own differences via
+ * `extraState` (e.g. the last change reason) and `onBeforeDispatch` (e.g. updating
+ * inline-rect coordinates).
+ */
+export function applyPopupOpenChange<
+  State extends PopupStoreState<unknown> & {
+    instantType?: 'delay' | 'dismiss' | 'focus' | undefined;
+  },
+  EventDetails extends BaseUIChangeEventDetails<string>,
+  ExtraKey extends keyof State = never,
+>(
+  store: {
+    readonly context: Pick<PopupStoreContext<EventDetails>, 'onOpenChange'>;
+    readonly state: State;
+    update<const Key extends keyof State>(state: Pick<State, Key>): void;
+  },
+  nextOpen: boolean,
+  eventDetails: EventDetails & { preventUnmountOnClose(): void },
+  options: {
+    onBeforeDispatch?: (() => void) | undefined;
+    extraState?: Pick<State, ExtraKey> | undefined;
+  } = {},
+): void {
+  const reason = eventDetails.reason;
+  const isHover = reason === REASONS.triggerHover;
+  const isFocusOpen = nextOpen && reason === REASONS.triggerFocus;
+  const isDismissClose =
+    !nextOpen && (reason === REASONS.triggerPress || reason === REASONS.escapeKey);
+
+  const shouldPreventUnmountOnClose = attachPreventUnmountOnClose(eventDetails);
+
+  store.context.onOpenChange?.(nextOpen, eventDetails);
+
+  if (eventDetails.isCanceled) {
+    return;
+  }
+
+  options.onBeforeDispatch?.();
+
+  store.state.floatingRootContext.dispatchOpenChange(nextOpen, eventDetails);
+
+  const changeState = () => {
+    const popupOpenState = createPopupOpenState(
+      store.state,
+      nextOpen,
+      eventDetails.trigger,
+      shouldPreventUnmountOnClose(),
+    );
+
+    const updatedState = { ...options.extraState, ...popupOpenState } as Pick<
+      State,
+      keyof PopupOpenState | ExtraKey | 'instantType'
+    >;
+
+    if (isFocusOpen) {
+      updatedState.instantType = 'focus';
+    } else if (isDismissClose) {
+      updatedState.instantType = 'dismiss';
+    } else if (isHover) {
+      updatedState.instantType = undefined;
+    }
+
+    store.update(updatedState);
+  };
+
+  if (isHover) {
+    // Flush synchronously for hover so `node.getAnimations()` sees the new state.
+    flushSync(changeState);
+  } else {
+    changeState();
+  }
 }
