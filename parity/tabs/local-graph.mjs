@@ -24,6 +24,22 @@ for (const item of sourcePlan.modules.filter((item) => item.selected)) {
   selectedByLocal.set(item.local, [...previous, item.source]);
 }
 const nativeSources = {
+  'floating-ui/utils/event.ts': [
+    'packages/react/src/floating-ui-react/utils/event.ts',
+  ],
+  ...Object.fromEntries(
+    JSON.parse(
+      readFileSync(
+        resolve(root, 'parity/shared-interaction-events/source-graph.json'),
+        'utf8',
+      ),
+    ).modules
+      .filter((module) => module.source.startsWith('packages/utils/src/platform/'))
+      .map((module) => [
+        module.source.replace('packages/utils/src/', 'utils/'),
+        [module.source],
+      ]),
+  ),
   'direction-provider/types.ts': [
     'packages/react/src/internals/direction-context/DirectionContext.tsx',
   ],

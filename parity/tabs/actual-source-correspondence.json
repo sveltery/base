@@ -1,10 +1,10 @@
 {
   "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
-  "base": "6f1f98307ed32a60e88cfb93f3d47b325e8dc9d1",
+  "base": "74f667da95ebc5670b0cc5bee38f2225e65fd0c0",
   "preCodeCommit": "f4e253b",
   "helperCheckpoint": "3d60396",
   "runtimeCheckpoint": "3706588",
-  "status": "Actual71 runtime/type closure after two P2 and two P3 repairs from first whole70 independent Source NOT CLEAR at8bf83e3. Generated library ID namespace and exact canonical PUBLIC59 DEV diagnostics restored; fixed-false caller and grid Source provenance corrected. Whole successor Source/native/maintainability review, exact gates and actual-main selected-helper seams remain pending.",
+  "status": "Actual80 modules/220 runtime/type import edges after normal exact-main74 integration and precise native nullable Tab ID caller normalization. Historical8bf and3d Source NOT CLEAR verdicts/failing gates remain preserved. Source/native/maintainability review and execution gates at the resulting exact head remain pending.",
   "preCodePlanRetained": "source-correspondence.json (unchanged historical plan)",
   "actualLocalGraph": "actual-local-graph.json",
   "publicInventory": "public-inventory.json",
@@ -275,7 +275,7 @@
       "actualLocalUses": [
         {
           "local": "packages/base/src/lib/internals/composite/utils/navigation.ts",
-          "sha256": "93cd21a5e97c64c93a2272adf51a38b3c51142e860443247b260bf297e95203d",
+          "sha256": "bb61a6e117cc345c347a3a29618d01e6e608ef1027b8e6464e072d8b70b4a0aa",
           "reachability": [
             "runtime",
             "type"
@@ -283,7 +283,7 @@
         }
       ],
       "decision": "Actual runtime/type selected implementation listed with reachability and identity; framework substitutions explicit.",
-      "bodyComparison": "Manually compared actual selected Source/local Composite registration and navigation bodies: original nested real providers, DOM-order Map rebuild, automatic/explicit index ownership, parent/ref fanout, active/default/fallback highlight branches, modifier/Home/End/loop/disabled navigation, target/caret bounds and root scroller. Source grid branch is canonical opt-in helper; Tabs selects only its type contract and never a second grid implementation.",
+      "bodyComparison": "Manually compared actual selected Source/local Composite registration and navigation bodies: original nested real providers, DOM-order Map rebuild, automatic/explicit index ownership, parent/ref fanout, active/default/fallback highlight branches, modifier/Home/End/loop/disabled navigation, target/caret bounds and root scroller. Source grid branch is canonical opt-in helper; Tabs selects only its type contract and never a second grid implementation. Exact canonical main74 navigation import replaces the previously inline duplicate stopEvent body. Every other navigation byte and branch is unchanged; full event/platform dependency closure is mapped separately.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -294,7 +294,7 @@
       "actualLocalUses": [
         {
           "local": "packages/base/src/lib/internals/composite/utils/navigation.ts",
-          "sha256": "93cd21a5e97c64c93a2272adf51a38b3c51142e860443247b260bf297e95203d",
+          "sha256": "bb61a6e117cc345c347a3a29618d01e6e608ef1027b8e6464e072d8b70b4a0aa",
           "reachability": [
             "runtime",
             "type"
@@ -302,7 +302,7 @@
         }
       ],
       "decision": "Actual runtime/type selected implementation listed with reachability and identity; framework substitutions explicit.",
-      "bodyComparison": "Manually compared actual selected Source/local Composite registration and navigation bodies: original nested real providers, DOM-order Map rebuild, automatic/explicit index ownership, parent/ref fanout, active/default/fallback highlight branches, modifier/Home/End/loop/disabled navigation, target/caret bounds and root scroller. Source grid branch is canonical opt-in helper; Tabs selects only its type contract and never a second grid implementation.",
+      "bodyComparison": "Manually compared actual selected Source/local Composite registration and navigation bodies: original nested real providers, DOM-order Map rebuild, automatic/explicit index ownership, parent/ref fanout, active/default/fallback highlight branches, modifier/Home/End/loop/disabled navigation, target/caret bounds and root scroller. Source grid branch is canonical opt-in helper; Tabs selects only its type contract and never a second grid implementation. Exact canonical main74 navigation import replaces the previously inline duplicate stopEvent body. Every other navigation byte and branch is unchanged; full event/platform dependency closure is mapped separately.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -359,9 +359,18 @@
       "source": "packages/react/src/floating-ui-react/utils/event.ts",
       "sha256": "be6f5d7635aa248e3c8aae845778522c50cd4132d71548d4719ef93b1c8eddde",
       "plannedSelected": false,
-      "actualLocalUses": [],
-      "decision": "Unrelated barrel/type/framework-only closure; no selected runtime body or local copy.",
-      "bodyComparison": "No actual selected business body. This is a recursive barrel/type/framework edge; mechanical import/hash evidence is not manual Source-body reading or acceptance.",
+      "actualLocalUses": [
+        {
+          "local": "packages/base/src/lib/floating-ui/utils/event.ts",
+          "sha256": "b489c469d9e2b134b6cd97baa3a408010decf1399dbaa1367a015d70c770832e",
+          "reachability": [
+            "runtime",
+            "type"
+          ]
+        }
+      ],
+      "decision": "Newly actually used runtime body after normal merge of canonical interaction PR55 in exact main74. Pre-code plannedSelected=false stays historical.",
+      "bodyComparison": "Complete Original/native body compared by owner. Exact current-main74 canonical bytes and immutable Source algorithm/branches retained; relative native imports and attribution are representation only. Full selected canonical independent manual review continuity through public PR55 a4fcfa applies only to matching used bodies; exact Tabs resulting-head review is separate. Composite navigation now imports shared stopEvent, preserving preventDefault then stopPropagation order. Entire event module/platform closure is inventoried; Tabs selects stopEvent. Native Event omits unused React SyntheticEvent/isReactEvent representation; no synthetic event engine.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -1245,7 +1254,7 @@
       "actualLocalUses": [
         {
           "local": "packages/base/src/lib/tabs/tab/TabsTab.svelte",
-          "sha256": "dda67d5cefc2fbee7152501f17e319ccca7a36366a83947294b154e69513a403",
+          "sha256": "22efc37b67765884a2f8cc4e0335d88e801bd461623e8ceedb2821bff674c2f0",
           "reachability": [
             "runtime"
           ]
@@ -1259,7 +1268,7 @@
         }
       ],
       "decision": "Actual runtime/type selected implementation listed with reachability and identity; framework substitutions explicit.",
-      "bodyComparison": "Full Tab body manually compared: real CompositeItem and useButton, metadata/id/value/disabled, active equality, composed-focus highlight containment, navigation flag, actual observer host replacement, forwarded/button/composite/observer ref order, current/disabled early returns, focus activation and primary/secondary press guards, document pointer-end listener removal. Native bubbling focusin replaces React onFocus; native Event replaces SyntheticEvent. No synthetic dispatch/checked replay. Canonical pure useId(idProp, base-ui, nativeId) restores the Source library namespace and authored nullish override branch; nativeId is the direct stable $props.id() suffix.",
+      "bodyComparison": "Full Tab body manually compared: real CompositeItem and useButton, metadata/id/value/disabled, active equality, composed-focus highlight containment, navigation flag, actual observer host replacement, forwarded/button/composite/observer ref order, current/disabled early returns, focus activation and primary/secondary press guards, document pointer-end listener removal. Native bubbling focusin replaces React onFocus; native Event replaces SyntheticEvent. No synthetic dispatch/checked replay. Canonical pure useId(idProp ?? undefined, base-ui, nativeId) restores the Source library namespace and authored nullish override branch; nativeId is the direct stable $props.id() suffix.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -1712,9 +1721,18 @@
       "source": "packages/utils/src/platform/engine.ts",
       "sha256": "e943a35942d211e61f511a5d5aca78e9262db4187e8d2c1a1b7791718a7bc3d7",
       "plannedSelected": false,
-      "actualLocalUses": [],
-      "decision": "Unrelated barrel/type/framework-only closure; no selected runtime body or local copy.",
-      "bodyComparison": "No actual selected business body. This is a recursive barrel/type/framework edge; mechanical import/hash evidence is not manual Source-body reading or acceptance.",
+      "actualLocalUses": [
+        {
+          "local": "packages/base/src/lib/utils/platform/engine.ts",
+          "sha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987",
+          "reachability": [
+            "runtime",
+            "type"
+          ]
+        }
+      ],
+      "decision": "Newly actually used runtime body after normal merge of canonical interaction PR55 in exact main74. Pre-code plannedSelected=false stays historical.",
+      "bodyComparison": "Complete Original/native body compared by owner. Exact current-main74 canonical bytes and immutable Source algorithm/branches retained; relative native imports and attribution are representation only. Full selected canonical independent manual review continuity through public PR55 a4fcfa applies only to matching used bodies; exact Tabs resulting-head review is separate. Original namespace exports, OS/engine/VoiceOver/environment predicates and CSS query remain unchanged; no classifier improvements.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -1722,9 +1740,18 @@
       "source": "packages/utils/src/platform/env.ts",
       "sha256": "4e06a24df446a27d2b282491ebdf5a213c9c3c155a11ba2007d47dbb675dd438",
       "plannedSelected": false,
-      "actualLocalUses": [],
-      "decision": "Unrelated barrel/type/framework-only closure; no selected runtime body or local copy.",
-      "bodyComparison": "No actual selected business body. This is a recursive barrel/type/framework edge; mechanical import/hash evidence is not manual Source-body reading or acceptance.",
+      "actualLocalUses": [
+        {
+          "local": "packages/base/src/lib/utils/platform/env.ts",
+          "sha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d",
+          "reachability": [
+            "runtime",
+            "type"
+          ]
+        }
+      ],
+      "decision": "Newly actually used runtime body after normal merge of canonical interaction PR55 in exact main74. Pre-code plannedSelected=false stays historical.",
+      "bodyComparison": "Complete Original/native body compared by owner. Exact current-main74 canonical bytes and immutable Source algorithm/branches retained; relative native imports and attribution are representation only. Full selected canonical independent manual review continuity through public PR55 a4fcfa applies only to matching used bodies; exact Tabs resulting-head review is separate. Original namespace exports, OS/engine/VoiceOver/environment predicates and CSS query remain unchanged; no classifier improvements.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -1732,9 +1759,18 @@
       "source": "packages/utils/src/platform/index.ts",
       "sha256": "8f801696b9cd0c681fc4ec36dca1e0eecfafee3f28c73729ec9c3501dbaf6ddb",
       "plannedSelected": false,
-      "actualLocalUses": [],
-      "decision": "Unrelated barrel/type/framework-only closure; no selected runtime body or local copy.",
-      "bodyComparison": "No actual selected business body. This is a recursive barrel/type/framework edge; mechanical import/hash evidence is not manual Source-body reading or acceptance.",
+      "actualLocalUses": [
+        {
+          "local": "packages/base/src/lib/utils/platform/index.ts",
+          "sha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c",
+          "reachability": [
+            "runtime",
+            "type"
+          ]
+        }
+      ],
+      "decision": "Newly actually used runtime body after normal merge of canonical interaction PR55 in exact main74. Pre-code plannedSelected=false stays historical.",
+      "bodyComparison": "Complete Original/native body compared by owner. Exact current-main74 canonical bytes and immutable Source algorithm/branches retained; relative native imports and attribution are representation only. Full selected canonical independent manual review continuity through public PR55 a4fcfa applies only to matching used bodies; exact Tabs resulting-head review is separate. Original namespace exports, OS/engine/VoiceOver/environment predicates and CSS query remain unchanged; no classifier improvements.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -1742,9 +1778,18 @@
       "source": "packages/utils/src/platform/media-query.ts",
       "sha256": "cb5f9941ec4c24667d7d4061392fbe2b57064c333cf4e94435d2239a0ed45a65",
       "plannedSelected": false,
-      "actualLocalUses": [],
-      "decision": "Unrelated barrel/type/framework-only closure; no selected runtime body or local copy.",
-      "bodyComparison": "No actual selected business body. This is a recursive barrel/type/framework edge; mechanical import/hash evidence is not manual Source-body reading or acceptance.",
+      "actualLocalUses": [
+        {
+          "local": "packages/base/src/lib/utils/platform/media-query.ts",
+          "sha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9",
+          "reachability": [
+            "runtime",
+            "type"
+          ]
+        }
+      ],
+      "decision": "Newly actually used runtime body after normal merge of canonical interaction PR55 in exact main74. Pre-code plannedSelected=false stays historical.",
+      "bodyComparison": "Complete Original/native body compared by owner. Exact current-main74 canonical bytes and immutable Source algorithm/branches retained; relative native imports and attribution are representation only. Full selected canonical independent manual review continuity through public PR55 a4fcfa applies only to matching used bodies; exact Tabs resulting-head review is separate. Original namespace exports, OS/engine/VoiceOver/environment predicates and CSS query remain unchanged; no classifier improvements.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -1752,9 +1797,18 @@
       "source": "packages/utils/src/platform/os.ts",
       "sha256": "724d78845a13a6b7d27ad7eff40a3bfdc4d5c46c8143a90af1914ee0a5a5c13a",
       "plannedSelected": false,
-      "actualLocalUses": [],
-      "decision": "Unrelated barrel/type/framework-only closure; no selected runtime body or local copy.",
-      "bodyComparison": "No actual selected business body. This is a recursive barrel/type/framework edge; mechanical import/hash evidence is not manual Source-body reading or acceptance.",
+      "actualLocalUses": [
+        {
+          "local": "packages/base/src/lib/utils/platform/os.ts",
+          "sha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6",
+          "reachability": [
+            "runtime",
+            "type"
+          ]
+        }
+      ],
+      "decision": "Newly actually used runtime body after normal merge of canonical interaction PR55 in exact main74. Pre-code plannedSelected=false stays historical.",
+      "bodyComparison": "Complete Original/native body compared by owner. Exact current-main74 canonical bytes and immutable Source algorithm/branches retained; relative native imports and attribution are representation only. Full selected canonical independent manual review continuity through public PR55 a4fcfa applies only to matching used bodies; exact Tabs resulting-head review is separate. Original namespace exports, OS/engine/VoiceOver/environment predicates and CSS query remain unchanged; no classifier improvements.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -1762,9 +1816,18 @@
       "source": "packages/utils/src/platform/parts.ts",
       "sha256": "5102b62f441c8d8710a3db052e1dfcf0b4498eb3e9d533b1c444321b989eceb2",
       "plannedSelected": false,
-      "actualLocalUses": [],
-      "decision": "Unrelated barrel/type/framework-only closure; no selected runtime body or local copy.",
-      "bodyComparison": "No actual selected business body. This is a recursive barrel/type/framework edge; mechanical import/hash evidence is not manual Source-body reading or acceptance.",
+      "actualLocalUses": [
+        {
+          "local": "packages/base/src/lib/utils/platform/parts.ts",
+          "sha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29",
+          "reachability": [
+            "runtime",
+            "type"
+          ]
+        }
+      ],
+      "decision": "Newly actually used runtime body after normal merge of canonical interaction PR55 in exact main74. Pre-code plannedSelected=false stays historical.",
+      "bodyComparison": "Complete Original/native body compared by owner. Exact current-main74 canonical bytes and immutable Source algorithm/branches retained; relative native imports and attribution are representation only. Full selected canonical independent manual review continuity through public PR55 a4fcfa applies only to matching used bodies; exact Tabs resulting-head review is separate. Original namespace exports, OS/engine/VoiceOver/environment predicates and CSS query remain unchanged; no classifier improvements.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -1772,9 +1835,18 @@
       "source": "packages/utils/src/platform/screen-reader.ts",
       "sha256": "36dd99107aca1638e9520f0136dd294a03f3268ab8d44d0202f7be601c892f7a",
       "plannedSelected": false,
-      "actualLocalUses": [],
-      "decision": "Unrelated barrel/type/framework-only closure; no selected runtime body or local copy.",
-      "bodyComparison": "No actual selected business body. This is a recursive barrel/type/framework edge; mechanical import/hash evidence is not manual Source-body reading or acceptance.",
+      "actualLocalUses": [
+        {
+          "local": "packages/base/src/lib/utils/platform/screen-reader.ts",
+          "sha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7",
+          "reachability": [
+            "runtime",
+            "type"
+          ]
+        }
+      ],
+      "decision": "Newly actually used runtime body after normal merge of canonical interaction PR55 in exact main74. Pre-code plannedSelected=false stays historical.",
+      "bodyComparison": "Complete Original/native body compared by owner. Exact current-main74 canonical bytes and immutable Source algorithm/branches retained; relative native imports and attribution are representation only. Full selected canonical independent manual review continuity through public PR55 a4fcfa applies only to matching used bodies; exact Tabs resulting-head review is separate. Original namespace exports, OS/engine/VoiceOver/environment predicates and CSS query remain unchanged; no classifier improvements.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -1782,9 +1854,18 @@
       "source": "packages/utils/src/platform/shared.ts",
       "sha256": "f12352abb325a222ba5f371c920945c5d03175ee70e133c54e01a23fd51a13ad",
       "plannedSelected": false,
-      "actualLocalUses": [],
-      "decision": "Unrelated barrel/type/framework-only closure; no selected runtime body or local copy.",
-      "bodyComparison": "No actual selected business body. This is a recursive barrel/type/framework edge; mechanical import/hash evidence is not manual Source-body reading or acceptance.",
+      "actualLocalUses": [
+        {
+          "local": "packages/base/src/lib/utils/platform/shared.ts",
+          "sha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2",
+          "reachability": [
+            "runtime",
+            "type"
+          ]
+        }
+      ],
+      "decision": "Newly actually used runtime body after normal merge of canonical interaction PR55 in exact main74. Pre-code plannedSelected=false stays historical.",
+      "bodyComparison": "Complete Original/native body compared by owner. Exact current-main74 canonical bytes and immutable Source algorithm/branches retained; relative native imports and attribution are representation only. Full selected canonical independent manual review continuity through public PR55 a4fcfa applies only to matching used bodies; exact Tabs resulting-head review is separate. esm-env DEV replaces process.env.NODE_ENV for the original static UA-CH/legacy environment branch. SSR empty/zero defaults and once-per-module ownership remain unchanged; no browser Node-global requirement or reactive classifier.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -2154,7 +2235,8 @@
     "animationLifecycle": "Only canonical useAnimationsFinished is restored from public Dialogaa5c9aa0ccfcf08a12a2f22895ce8abd961c660d under precise root lease; SHA256 0ae8873174969326a7ac09377ab019af5cd575bbdfde7df9118317d0ec1c1e30. Invocation-time const batch retains Original pending callback boolean semantics. Canonical useOpenChangeComplete stays exact public Dialogad19 SHA2565e966dd1b10cbc1ed448d3583ca948a384d812f9e71afc1e128395485575931f. Native Svelte flushSync preserves Source individual/shared commit policy. Independent canonical Source review CLEAR and unchanged equality8/8 are selected-helper provenance only; full Tabs and actual-main helper seam review remain pending, with no whole Dialog feature dependency.",
     "inheritance": "Accepted repaired Field8619\u21928438374\u219249584ab and Radio041cfe4/ref +UseRenderc918675 verdict chain only where actually used. Field89a/cfbe5 BLOCKED verdicts are not clearance. Broad type closure does not select Field runtime.",
     "newGeometryHelpers": "Root lease after f4e253b; exact Source algorithms with existing locked direct Floating UI dependency.",
-    "buttonDiagnostics": "Only exact canonical useButton.svelte.ts PUBLIC59 d00a8b0aca67abfdbde6ccf540131557b74e0ca3 SHA256ee71d7077c51139162152716111472919bf80b71e6e9cde62d15ff0b7ce56f59 restored under Root lease. Two Source DEV paragraphs only; algorithms/other59 files unchanged. Selected-helper seam review remains required; no whole Toolbar/Button prerequisite."
+    "buttonDiagnostics": "Only exact canonical useButton.svelte.ts PUBLIC59 d00a8b0aca67abfdbde6ccf540131557b74e0ca3 SHA256ee71d7077c51139162152716111472919bf80b71e6e9cde62d15ff0b7ce56f59 restored under Root lease. Two Source DEV paragraphs only; algorithms/other59 files unchanged. Selected-helper seam review remains required; no whole Toolbar/Button prerequisite.",
+    "interactionEvents": "Normally merged canonical PR55 through exact main74f667da. Actual used navigation import and9 event/platform bodies are exact main bytes; selected Source/native/maintainability inheritance is corroborated by /workspace/interaction-events-review-a4fcfa/review.md. Whole Tabs resulting-head review remains pending; unselected whole Dialog/OTP/platform scopes are not prerequisites."
   },
   "animationLifecycleHistory": [
     {
@@ -2171,7 +2253,7 @@
   "sourceReviewHistory": [
     {
       "head": "8bf83e3e49cde33766363965f36909da7e76ca26",
-      "verdict": "SOURCE NOT CLEAR: generated ID namespace and omitted Source button DEV paragraphs; all remaining70 full-body Source/native/maintainability scopes CLEAR. Historical verdict is not relabeled.",
+      "verdict": "SOURCE NOT CLEAR: generated ID namespace and omitted Source button DEV paragraphs; all remaining complete actual used body Source/native/maintainability scopes CLEAR. Historical verdict is not relabeled.",
       "manualNativeModules": 70,
       "manualNativeLines": 5014,
       "outsidePrDiffModules": 49,
@@ -2179,6 +2261,24 @@
       "repair": "Successor uses existing canonical pure useId with native suffixes and exact PUBLIC59 diagnostic helper, correcting fixed-false Panel caller evidence and immutable gridNavigation mapping. Actual used closure71; fresh exact successor review remains pending.",
       "redEquality": "Before runtime repair, actual Source/native ID equality3passed/3nativefailed and actual selected diagnostic equality2nativefailed. Independent discrepancy-characterization fixtures/logs remain unchanged outside public tracking. New equality predicates are unchanged across repair; final successor receipts recorded separately.",
       "ordinaryDeclarationCredit": 0
+    },
+    {
+      "head": "3d45983e9127d2802155df734ae1e6abaafa1b22",
+      "tree": "c8b586a0318d0dca58f7ca2c3f2e3034efe63dcd",
+      "verdict": "SOURCE NOT CLEAR: one P2 internal nullable native Tab ID caller type gap; remaining70 used complete bodies clear. This historical failed gate is not relabeled.",
+      "actualLocalModules": 71,
+      "actualGraphEdges": 207,
+      "inheritedManualNativeModules": 67,
+      "freshManualNativeModules": 4,
+      "completeOriginalManualCoverageUniqueModules": 74,
+      "originalIdentityOnlyModules": 72,
+      "report": "/workspace/sveltery-tmp/tabs-final-source-review-3d45983.md",
+      "reportSha256": "76aecc94e0492d0b320ce5954acda017ca814796cf8912acb038f3c2311d24cc",
+      "auditSha256": "a9e11f7bbd6871b96366970faacaae201a4588b7a6233bfab1c069e56f08ba21",
+      "redGate": "Independent exact tracked-head internal Svelte check1 error/0 warnings and hosted Verification111333936671 fail at TabsTab.svelte34. Passing public strict package/build and other hosted/browser gates do not override this failure.",
+      "repair": "Precise caller useId(idProp ?? undefined, 'base-ui', nativeId), preserving existing pure helper, native public HTML id null contract, direct $props.id suffix and Source nullish precedence. Main74 integration adds canonical navigation import/event platform closure; exact successor review/gates remain pending.",
+      "ordinaryDeclarationCredit": 0
     }
-  ]
+  ],
+  "preCodeBase": "6f1f98307ed32a60e88cfb93f3d47b325e8dc9d1"
 }

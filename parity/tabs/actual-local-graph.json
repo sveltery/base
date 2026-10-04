@@ -94,6 +94,36 @@
         ]
       },
       {
+        "local": "packages/base/src/lib/floating-ui/utils/event.ts",
+        "sha256": "b489c469d9e2b134b6cd97baa3a408010decf1399dbaa1367a015d70c770832e",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/react/src/floating-ui-react/utils/event.ts"
+        ],
+        "declarations": [
+          "stopEvent",
+          "isVirtualClick",
+          "isVirtualPointerEvent",
+          "isMouseLikePointerType",
+          "isClickLikeEvent"
+        ],
+        "imports": [
+          {
+            "specifier": "../../utils/platform/index.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/platform/index.ts",
+            "names": [
+              "platform"
+            ]
+          }
+        ]
+      },
+      {
         "local": "packages/base/src/lib/internals/composite/composite.ts",
         "sha256": "938a8b4ede73c5b5655a800777fe4748a94786a05bf828129de299c04cf94673",
         "reachability": [
@@ -638,7 +668,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/composite/utils/navigation.ts",
-        "sha256": "93cd21a5e97c64c93a2272adf51a38b3c51142e860443247b260bf297e95203d",
+        "sha256": "bb61a6e117cc345c347a3a29618d01e6e608ef1027b8e6464e072d8b70b4a0aa",
         "reachability": [
           "runtime",
           "type"
@@ -652,7 +682,6 @@
         "declarations": [
           "getComputedStyle",
           "Dimensions",
-          "stopEvent",
           "DisabledIndices",
           "isDifferentGridRow",
           "isIndexOutOfListBounds",
@@ -674,6 +703,14 @@
             "resolved": "external:esm-env",
             "names": [
               "DEV"
+            ]
+          },
+          {
+            "specifier": "../../../floating-ui/utils/event.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/floating-ui/utils/event.ts",
+            "names": [
+              "stopEvent"
             ]
           },
           {
@@ -2337,7 +2374,7 @@
       },
       {
         "local": "packages/base/src/lib/tabs/tab/TabsTab.svelte",
-        "sha256": "dda67d5cefc2fbee7152501f17e319ccca7a36366a83947294b154e69513a403",
+        "sha256": "22efc37b67765884a2f8cc4e0335d88e801bd461623e8ceedb2821bff674c2f0",
         "reachability": [
           "runtime"
         ],
@@ -2778,6 +2815,227 @@
           "ownerWindow"
         ],
         "imports": []
+      },
+      {
+        "local": "packages/base/src/lib/utils/platform/engine.ts",
+        "sha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/utils/src/platform/engine.ts"
+        ],
+        "declarations": [],
+        "imports": [
+          {
+            "specifier": "./shared.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/platform/shared.ts",
+            "names": [
+              "lowerUserAgent"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/utils/platform/env.ts",
+        "sha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/utils/src/platform/env.ts"
+        ],
+        "declarations": [],
+        "imports": [
+          {
+            "specifier": "./shared.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/platform/shared.ts",
+            "names": [
+              "lowerUserAgent"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/utils/platform/index.ts",
+        "sha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/utils/src/platform/index.ts"
+        ],
+        "declarations": [],
+        "imports": [
+          {
+            "specifier": "./parts.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/platform/parts.ts",
+            "names": [
+              "*"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/utils/platform/media-query.ts",
+        "sha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/utils/src/platform/media-query.ts"
+        ],
+        "declarations": [],
+        "imports": []
+      },
+      {
+        "local": "packages/base/src/lib/utils/platform/os.ts",
+        "sha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/utils/src/platform/os.ts"
+        ],
+        "declarations": [],
+        "imports": [
+          {
+            "specifier": "./shared.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/platform/shared.ts",
+            "names": [
+              "lowerUserAgent",
+              "lowerPlatform",
+              "maxTouchPoints"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/utils/platform/parts.ts",
+        "sha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/utils/src/platform/parts.ts"
+        ],
+        "declarations": [],
+        "imports": [
+          {
+            "specifier": "./os.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/platform/os.ts",
+            "names": [
+              "*"
+            ]
+          },
+          {
+            "specifier": "./engine.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/platform/engine.ts",
+            "names": [
+              "*"
+            ]
+          },
+          {
+            "specifier": "./screen-reader.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/platform/screen-reader.ts",
+            "names": [
+              "*"
+            ]
+          },
+          {
+            "specifier": "./env.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/platform/env.ts",
+            "names": [
+              "*"
+            ]
+          },
+          {
+            "specifier": "./media-query.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/platform/media-query.ts",
+            "names": [
+              "*"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/utils/platform/screen-reader.ts",
+        "sha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/utils/src/platform/screen-reader.ts"
+        ],
+        "declarations": [],
+        "imports": [
+          {
+            "specifier": "./os.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/platform/os.ts",
+            "names": [
+              "apple"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/utils/platform/shared.ts",
+        "sha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "canonical-shared-helper-or-native-adapter",
+        "provenance": "Canonical current-main helper or exact frozen public development dependency; body review and acceptance inheritance are recorded separately.",
+        "originalSources": [
+          "packages/utils/src/platform/shared.ts"
+        ],
+        "declarations": [
+          "NavigatorUAData",
+          "RawNavigatorData",
+          "readRawData"
+        ],
+        "imports": [
+          {
+            "specifier": "esm-env",
+            "kind": "runtime",
+            "resolved": "external:esm-env",
+            "names": [
+              "DEV"
+            ]
+          }
+        ]
       },
       {
         "local": "packages/base/src/lib/utils/resolveClassName.ts",

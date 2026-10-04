@@ -8,7 +8,7 @@ const referenceRequire = createRequire(new URL('../../../apps/fixtures/package.j
 const { createElement: h } = referenceRequire('react');
 const { renderToString } = referenceRequire('react-dom/server');
 const { Tabs } = referenceRequire('@base-ui/react/tabs');
-function ids(framework: string, tabId?: string) {
+function ids(framework: string, tabId?: string | null) {
   const body = framework === 'react'
     ? renderToString(h(Tabs.Root, { defaultValue: 0 }, h(Tabs.List, {}, h(Tabs.Tab, { value: 0, id: tabId }, 'First'), h(Tabs.Tab, { value: 1 }, 'Second')), h(Tabs.Panel, { value: 0 }, 'First panel')))
     : render(Fixture, { props: { tabId }, idPrefix: 'tabs-native' }).body;
@@ -33,4 +33,13 @@ for (const framework of ['react', 'svelte']) {
       for (const id of generated.slice(1)) expect(id.startsWith('base-ui-')).toBe(true);
     });
   }
+  it(`${framework} actual Tabs SSR null Tab id uses the generated library namespace`, () => {
+    const generated = ids(framework, null);
+    expect(generated).toHaveLength(3);
+    expect(new Set(generated).size).toBe(3);
+    for (const id of generated) expect(id.startsWith('base-ui-')).toBe(true);
+    if (framework === 'svelte') {
+      for (const id of generated) expect(id).toMatch(/^base-ui-tabs-native-s\d+$/);
+    }
+  });
 }

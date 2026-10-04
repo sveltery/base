@@ -31,7 +31,7 @@
     list = useTabsListContext(),
     compositeRoot = useCompositeRootContext();
   const nativeId = $props.id();
-  const id = $derived(useId(idProp, 'base-ui', nativeId));
+  const id = $derived(useId(idProp ?? undefined, 'base-ui', nativeId));
   const tabMetadata = $derived({ disabled, id, value });
   const composite = useCompositeItem(() => ({ metadata: tabMetadata }));
   const active = $derived(value === root.value);
