@@ -40,6 +40,11 @@ export default [
     files: ['**/*.svelte', '**/*.svelte.ts'],
     languageOptions: { parserOptions: { parser: ts.parser } },
   },
+  // Preserve the independent six-invalid-call type probe byte-for-byte.
+  {
+    files: ['scripts/fixtures/alert-dialog-types/Negative.svelte'],
+    rules: { 'svelte/no-useless-mustaches': 'off' },
+  },
   // Existing mergeProps preserves the upstream no-op branch; remove when that port is revised.
   {
     files: ['packages/base/src/lib/merge-props/index.ts'],

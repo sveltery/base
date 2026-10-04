@@ -76,8 +76,13 @@
     },
     {
       "local": "packages/base/src/lib/alert-dialog/types.ts",
-      "sha256": "d693fae1f19212762a7eaa0e72a5fe1a27c92eaa0c1fa5f380818aa8d11ce3e2",
+      "sha256": "4762592a298096a66bd20152c1530254942ca7baf2877c10a725757ba2fdeae4",
       "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "resolved": "external:svelte"
+        },
         {
           "specifier": "../dialog/Trigger.svelte",
           "kind": "type",

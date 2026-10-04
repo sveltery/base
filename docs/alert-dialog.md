@@ -21,7 +21,7 @@ AlertDialog provides the complete pinned public runtime surface: Root, Trigger, 
 </AlertDialog.Root>
 ```
 
-Style the parts through native props, state-dependent class/style, CSS variables and state attributes. The shared Dialog parts are actual component aliases. Trigger is the actual generic Dialog Trigger with a narrower erased handle type. Every aliased part retains its native render snippet, ref binding, element props and state contracts. `Root` renders no HTML; its payload snippet receives `{ payload: Payload | undefined }`.
+Style the parts through native props, state-dependent class/style, CSS variables and state attributes. The shared Dialog parts are actual component aliases. Trigger is the actual generic Dialog Trigger with a narrower erased handle type and native generic constructor metadata, so implicit markup infers payloads from its handle. Every aliased part retains its native render snippet, ref binding, element props and state contracts. `Root` renders no HTML; its payload snippet receives `{ payload: Payload | undefined }`.
 
 Alert mode always uses modal=true, disables pointer dismissal and sets role=alertdialog. Backdrop/outside presses leave it open. Escape, Close and imperative actions retain the canonical cancellable open-change contract, reason/owning trigger, completion, focus restoration and retained-close lifecycle. `onOpenChange` requests controlled updates; the owner decides whether to update `open`. `details.cancel()` vetoes the state change. `details.preventUnmountOnClose()` retains presence until `actions.unmount()`.
 

@@ -211,9 +211,10 @@
       ],
       "local": [
         "packages/base/src/lib/alert-dialog/index.parts.ts",
-        "packages/base/src/lib/dialog/Trigger.svelte"
+        "packages/base/src/lib/dialog/Trigger.svelte",
+        "packages/base/src/lib/alert-dialog/types.ts"
       ],
-      "decision": "Actual erased narrower generic Svelte component type; runtime identity remains actual Dialog Trigger.",
+      "decision": "Actual Dialog Trigger runtime identity with erased narrower generic Svelte call/constructor metadata; constructor props preserve handle-driven payload inference, canonical events/slots and ref-binding metadata.",
       "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending"
     },
     {

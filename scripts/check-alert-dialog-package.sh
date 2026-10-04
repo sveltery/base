@@ -4,6 +4,7 @@ cd "$(dirname "$0")/.."
 source scripts/toolchain.sh
 alert_consumer="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-alert-consumer.XXXXXX")"
 trap 'rm -rf "$alert_consumer"' EXIT
+node scripts/check-alert-dialog-types.mjs "$alert_consumer/source" --source
 pnpm --filter @sveltery/base pack --pack-destination "$alert_consumer" > /dev/null
 node --input-type=module - "$alert_consumer" <<'JS'
 import { readdirSync, writeFileSync } from 'node:fs';
@@ -16,6 +17,7 @@ pnpm --dir "$alert_consumer" --ignore-workspace install --ignore-scripts > /dev/
 pnpm --dir "$alert_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
 cmp LICENSE "$alert_consumer/node_modules/@sveltery/base/LICENSE"
 cmp packages/base/THIRD_PARTY_NOTICES.md "$alert_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
+node scripts/check-alert-dialog-types.mjs "$alert_consumer"
 cat > "$alert_consumer/Consumer.svelte" <<'SVELTE'
 <script lang="ts">
   import { AlertDialog as First } from '@sveltery/base';
@@ -104,7 +106,7 @@ for (let request = 0; request < 2; request++) {
 assert.equal(new Second.Handle().isOpen, false);
 JS
 cat > "$alert_consumer/tsconfig.json" <<'JSON'
-{"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"exactOptionalPropertyTypes":true,"noUncheckedIndexedAccess":true,"skipLibCheck":false,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts"]}
+{"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"exactOptionalPropertyTypes":true,"noUncheckedIndexedAccess":true,"skipLibCheck":false,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["Consumer.svelte","DOMConsumer.svelte","Positive.svelte","types.ts"]}
 JSON
 node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$alert_consumer/check.mjs"
 node "$sveltery_repo_root/packages/base/node_modules/svelte-check/bin/svelte-check" --workspace "$alert_consumer" --tsconfig ./tsconfig.json
