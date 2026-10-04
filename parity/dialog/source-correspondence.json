@@ -661,7 +661,7 @@
       "local": [
         "packages/base/src/lib/internals/useAnimationsFinished.ts"
       ],
-      "decision": "Original individual flush and same-microtask pendingCallbacks batching, abort-at-flush, replacement-animation, starting-style and raw fallback branches are retained. Native Svelte flushSync replaces ReactDOM.flushSync; live open/batch readers replace rendered closures. Actual pinned DOM/abort comparisons verify both commit policies.",
+      "decision": "Original individual flush and same-microtask pendingCallbacks batching, abort-at-flush, replacement-animation, starting-style and raw fallback branches are retained. Native Svelte flushSync replaces ReactDOM.flushSync; open/batch readers replace rendered closures, with batch captured at the wait invocation before async completion. Actual pinned DOM/abort comparisons verify fixed and changed-during-animation policies. The earlier completion-time batch read failed two native Source-equality vectors; invocation capture restores the original boolean snapshot.",
       "reviewStatus": "final source/native/maintainability review pending"
     },
     {
