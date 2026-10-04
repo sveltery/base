@@ -272,7 +272,7 @@ function testVariantInventory(roots) {
 const directory = `${root}/parity/popup-family`;
 mkdirSync(directory, { recursive: true });
 // Namespace-use discovery is internal; the graph's selectedSymbols carries its public evidence.
-const publicRecords = modules => modules.map(module => ({ ...module, imports: module.imports.map(({ consumerSymbols, ...edge }) => edge) }));
+const publicRecords = modules => modules.map(module => ({ ...module, imports: module.imports.map(({ consumerSymbols: _consumerSymbols, ...edge }) => edge) }));
 const sourceRoots = families.map(family => `packages/react/src/${family}/index.ts`);
 const testRoots = [...files].filter(file => families.some(family => file.startsWith(`packages/react/src/${family}/`)) && /\.(test|spec)(?:\.[\w-]+)?\.tsx?$/.test(file)).sort();
 const missingHelperTestRoots = [

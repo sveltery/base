@@ -16,6 +16,7 @@
     focus?: boolean;
     forwardedRef?: MergedRef<HTMLElement>;
   } = $props();
+  // eslint-disable-next-line svelte/prefer-svelte-reactivity -- Imperative fixture report registry is read through exported methods, not reactive markup.
   const contexts = new Map<string, FloatingPortalContext | null>();
   let hostTag = $state<'section' | 'article'>('section');
   function report(name: string, context: FloatingPortalContext | null) { contexts.set(name, context); }
