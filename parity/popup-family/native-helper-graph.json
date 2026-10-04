@@ -75,7 +75,7 @@
     },
     {
       "path": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
-      "sha256": "62a028f0ee0d3d11ff2bb21724fc8e1e7fdb2305a8330e660dc626e00889e852",
+      "sha256": "8111a018d91b947a0468565c84a636f6abb70196309da0a95fa5a4e86b3705b1",
       "symbols": [
         {
           "name": "beforeOutsideFocus",

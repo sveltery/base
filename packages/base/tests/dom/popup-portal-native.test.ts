@@ -6,6 +6,7 @@ import Fixture from './PopupPortalBoundaryFixture.svelte';
 const mounted: ReturnType<typeof mount>[] = [];
 afterEach(async () => {
   await Promise.all(mounted.splice(0).map(component => unmount(component)));
+  vi.restoreAllMocks();
   document.body.replaceChildren();
 });
 function setup(props: ComponentProps<typeof Fixture> = {}) {
@@ -118,6 +119,7 @@ it('Full removes aria-owns when the actual custom host ID is removed', async () 
 });
 
 it('whole Full unmount clears retained live context and ref before a fresh independent remount', async () => {
+  const warning = vi.spyOn(console, 'warn');
   const ref = { current: null as HTMLElement | null };
   const first = setup({ customHost: true, forwardedRef: ref }); const previous = host()!;
   const retainedContext = first.readContext('child')!;
@@ -129,6 +131,7 @@ it('whole Full unmount clears retained live context and ref before a fresh indep
   expect(second.readContext('child')).not.toBe(retainedContext);
   expect(second.readContext('child')?.portalNode).toBe(next);
   expect(retainedContext.portalNode).toBeNull();
+  expect(warning).not.toHaveBeenCalled();
 });
 
 for (const outerLite of [false, true]) for (const nested of ['full', 'lite'] as const) {

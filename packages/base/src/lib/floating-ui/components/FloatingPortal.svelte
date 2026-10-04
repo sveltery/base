@@ -52,7 +52,7 @@
   }, () => [open, portalNode]);
   const portalContext: FloatingPortalContext = {
     beforeOutsideRef, afterOutsideRef, beforeInsideRef, afterInsideRef,
-    get portalNode() { return portalNode; },
+    get portalNode() { return portal.node; },
     setFocusManagerState(value) { focusManagerState = value; },
   };
   setContext(PORTAL, portalContext);

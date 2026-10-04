@@ -8,8 +8,9 @@ import { PreviewCard } from '@base-ui/react/preview-card';
 export function mountPopupPortalRealmReference(host: HTMLElement, container: HTMLElement, lite: boolean) {
   const root = createRoot(host);
   const child = h('span', { 'data-testid': 'realm-child' }, 'Child');
+  const portalProps = { container, 'data-testid': 'realm-portal' };
   flushSync(() => root.render(lite
-    ? h(PreviewCard.Root, { defaultOpen: true }, h(PreviewCard.Portal, { container, 'data-testid': 'realm-portal' }, child))
-    : h(Popover.Root, { defaultOpen: true }, h(Popover.Portal, { container, 'data-testid': 'realm-portal' }, child))));
+    ? h(PreviewCard.Root, { defaultOpen: true }, h(PreviewCard.Portal, portalProps, child))
+    : h(Popover.Root, { defaultOpen: true }, h(Popover.Portal, portalProps, child))));
   return () => flushSync(() => root.unmount());
 }
