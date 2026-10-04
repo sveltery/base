@@ -2,7 +2,7 @@
   "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "preCodeReadingCommit": "41b708601a8cbc72e74a46e550fc79b99da3d0ed",
   "publicDependencyCorrectionCommit": "70b9962b9d4ecc958a3d14dcfb89a0965b9fd1f3",
-  "status": "Six leased shared-helper families adapted; focused portal/client-point/open-change execution and independent Source/native review pending",
+  "status": "Six leased helper families adapted; focused Portal/ClientPoint058 Source/native review CLEAR; remaining helper successor review pending after measured Delay ownership repair.",
   "ordinaryDeclarationCredit": 0,
   "runtimeImplementationStarted": true,
   "helperModules": [
@@ -48,12 +48,12 @@
         },
         {
           "local": "packages/base/src/lib/floating-ui/hooks/useDelayGroup.svelte.ts",
-          "sha256": "dd3cc1e7bff716f7093162d11d7393bb4fe5b9e940311160c5a0816f5d7462a6"
+          "sha256": "5fbd431ac803aa0b09543055ff766e2afcb51c9ab1422b1135e8e5098b3982ed"
         }
       ],
-      "decision": "Whole Source provider/context/useDelayGroup/resetDelayRef business retained once. Native setup initializes ref objects; typed Svelte context preserves provided/default ownership; one native isInstantPhase state and getter replace React state/memo. Live timeoutMs getter replaces provider identity changes. Source takeover/cancellation/closingId/openRef cleanup and internal timeout0 retained. Canonical getDelay/useTimeout/useIsoLayoutEffect reused unchanged.",
+      "decision": "Whole Source provider/context/useDelayGroup/resetDelayRef business retained once. Native setup initializes ref objects; typed Svelte context preserves provided/default ownership; one native isInstantPhase state and getter replace React state/memo. Live timeoutMs getter replaces provider identity changes. Source takeover/cancellation/closingId/openRef cleanup and internal timeout0 retained. Canonical getDelay/useTimeout/useIsoLayoutEffect reused unchanged. Native existing lifetime effect captures ownedId and is registered before openRef sync/reset/takeover; pending timer captures its scheduling closingStore, matching measured Source resource ownership without lifecycle engine or policy changes.",
       "wholeBodyReview": "Developer compared complete Original and complete local bodies; independent Source/native review pending",
-      "testStatus": "15 native direct canonical Store/provider timing/takeover/cleanup witnesses pass at frozen 070a6e65ab287c21b7eaec1e122fa77b2c1bd745; six direct Original declarations retain their separately missing legacy hover/generic floating fixture and zero credit. Independent Source/native acceptance remains pending.",
+      "testStatus": "19 actual4paired Source/native ownership and15 native timing witnesses pass3eb41cc; predecessor red/staged experiments retained. Six Original generic-hover declarations remain explicitly unported/zero credit. Remaining precise successor review pending.",
       "ordinaryDeclarationCredit": 0,
       "syntaxOnly": "Provider and hook compile with native Svelte compiler with zero warnings; no DelayGroup product test executed yet",
       "test": "packages/base/tests/dom/popup-delay-group.test.ts",
@@ -109,7 +109,7 @@
     "portalExtraction": "Approved shared node/content extraction plus precise measured canonical getWindow observer and raw live context getter repairs, with preserved red logs. Independent exact successor Source/native acceptance pending."
   },
   "verification": {
-    "productTests": "Exact historical receipts: inline17/close3 at6ef1418, Delay15 at070a6e6, ClientPoint10 at2c075ab, portal20/realm2/open-change9 at444d62b and existingDialog11 at2adb6a7. These are focused execution heads, not final combined whole-head acceptance. Family718 variants remain unimplemented/unexecuted with zero family credit.",
+    "productTests": "Exact historical receipts: inline17/close3 at6ef1418, Delay15 at070a6e6, ClientPoint10 at2c075ab, portal20/realm2/open-change9 at444d62b and existingDialog11 at2adb6a7. These are focused execution heads, not final combined whole-head acceptance. Family718 variants remain unimplemented/unexecuted with zero family credit. Repaired Delay4paired+15existing pass19 at3eb41cc after all earlier red stages; no ordinary family credit or final whole-head suite.",
     "build": "Unexecuted; heavy token held by Menu",
     "browser": "Unexecuted",
     "packedStrictConsumers": "Unexecuted",
@@ -122,7 +122,7 @@
       "tools": "TypeScript 5.9.3 and Svelte 5.57.1 from pinned installed package tools; no project build or product test was run",
       "closePartNativeFixtures": "Both fixture components compiled with zero warnings; test TypeScript transpilation reported zero syntax diagnostics. Native lifecycle tests were not executed."
     },
-    "scopedStrictTypes": "28-file actual helper/test strict scope with skipLibCheck:false passes0errors/0warnings at444d62b; portable helper-tsconfig next-head execution pending.",
-    "standards": "Initial5error/0warning scoped lint retained. Root-approved comments-only Original assignment/native context snapshot annotations plus own fixture/tool lint correction committed at next checkpoint; actual successor lint pending."
+    "scopedStrictTypes": "Portable32-file helper/test scope skipLibCheck:false passes0errors0warnings at3eb41cc; failed private Source SDK declaration imports retained808, test-only real-ABI protocol correction does not relax native/public consumers.",
+    "standards": "Scoped shared-helper/test/tool ESLint passes0errors0warnings at3eb41cc; failed initial5errors retained444. Full Standards remains unexecuted."
   }
 }
