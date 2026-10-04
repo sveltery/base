@@ -40,15 +40,11 @@ import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import * as publicRoot from '@sveltery/base';
-import * as menuParts from '@sveltery/base/menu';
 const require = createRequire(import.meta.url);
 const metadata = JSON.parse(readFileSync(new URL('./node_modules/@sveltery/base/package.json', import.meta.url), 'utf8'));
 assert.equal(metadata.dependencies['@floating-ui/dom'], '1.8.0'); assert.equal(metadata.dependencies['@floating-ui/utils'], '0.2.12');
 assert.equal(metadata.exports['./anchor-positioning'], undefined);
-for (const name of ['createAnchorPositioning', 'Popover', 'Tooltip', 'Select']) assert.equal(name in publicRoot, false);
-assert.deepEqual(Object.keys(publicRoot.Menu).sort(), Object.keys(menuParts).sort());
-for (const [name, part] of Object.entries(menuParts)) assert.equal(publicRoot.Menu[name], part, name);
-for (const name of ['Root', 'Trigger', 'Positioner', 'Popup', 'Viewport', 'createHandle']) assert.equal(typeof publicRoot.Menu[name], 'function', name);
+for (const name of ['createAnchorPositioning', 'Menu', 'Popover', 'Tooltip', 'Select']) assert.equal(name in publicRoot, false);
 const anchor = new URL('./node_modules/@sveltery/base/dist/internals/anchor-positioning/', import.meta.url);
 for (const file of readdirSync(anchor)) {
   if (!/\.(?:js|ts)$/.test(file)) continue;

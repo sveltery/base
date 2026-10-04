@@ -188,3 +188,39 @@ for the two native lifetime repairs and viewport type boundary. All 200 Original
 full-body source/native/maintainability review statuses remain pending. Current-head
 full Verification, Standards, strict packed consumers, secured browsers/configured
 CI and exact-head Root review/approval remain required before normal owner merge.
+
+## Secured browser witness and source-independent fixture correction
+
+The [second secured run](https://github.com/sveltery/base/actions/runs/37183111371)
+at frozen library head `ff42fea46f1617b9d624166002cbdc4c02ec1935` passes all
+forty-four authored Original/native cases. The downloaded raw JSON records exactly
+44 single-attempt passes, zero failed/skipped/flaky, one worker and zero retries;
+every test annotates official Chromium 153.0.8010.12. The unchanged dedicated
+configuration enables the Chromium sandbox. Raw artifact SHA256
+`f6e499e109f70825e8b5dbed9c01a735a5cbf67dfb02d046c79f15d2d88fd19e`
+and exact connector job logs accompany the previous failed raw artifact.
+These executions grant zero Original ordinary declaration credit and do not
+close independent whole-source/native/maintainability review.
+
+Full Verification at that head passes all 82 script regressions, the library
+build and library check with zero errors/warnings, then fails the authored
+fixture workspace check: `<main bind:this={host}>` was incorrectly declared
+as `HTMLDivElement`. Its one-line `HTMLElement` annotation correction leaves
+all library bodies and browser expectations unchanged. The failed process
+receipt is retained; complete Verification has not passed.
+
+The same-head anchor workflow passes provenance/no-browser SSR and all eighteen
+unchanged DOM lifecycle/wiring/hide assertions, then stops in the installed
+private-engine checker at its historical `publicRoot.Menu`-absence assertion.
+The new public family is now verified through actual Menu root/subpath identities;
+private anchor exports, unimplemented Popover/Tooltip/Select, React engines and
+platform overrides remain forbidden. All existing installed private SSR/lifecycle
+assertions remain unchanged. The full raw failed job and old checker are retained;
+the workflow's thirty-three secured geometry cases were not executed at this head.
+
+Hosted Standards ESLint/Prettier pass, while the merge whitespace check reports
+two predecessor bytes (navigation trailing whitespace and an extra popup utility
+EOF blank line). Their cleanup is pending release of the independently reviewed
+197-body source freeze. Independent review also evaluates explicit `finalFocus`
+callback/ref replacement during a retained closing lifetime; passing the default
+deep-close probes does not settle that current-prop ownership question.

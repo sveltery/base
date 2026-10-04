@@ -95,6 +95,29 @@
       "archive": "viewport-capability-overloads-check-green.log.gz",
       "rawSha256": "cad2dd362f5c456d227e055d6063dbe7d143cec086a7ed4b68c10d488b9f1bec",
       "rawBytes": 193
+    },
+    {
+      "archive": "browser-ebc2473-exact-connector-job.log.gz",
+      "rawSha256": "3da66e9eb9e6a4370b8a23be97f1e7a26c18f327fd75038af86ea57c5468cc32",
+      "rawBytes": 102491,
+      "origin": "Exact decoded GitHub connector job log text, no trimming or added newline"
+    },
+    {
+      "archive": "anchor-ff42fea-exact-connector-job.log.gz",
+      "rawSha256": "b2b45ea4633e76ebd084f3220713edb9ea3480b910801d62aa6ac7044f077f34",
+      "rawBytes": 27302,
+      "origin": "Exact decoded GitHub connector job log text, no trimming or added newline"
+    },
+    {
+      "archive": "standards-ff42fea-exact-connector-job.log.gz",
+      "rawSha256": "5636f16e95d89069bf5ee5c6da095fd4ec9af7a26e3246b12baca9371da849d0",
+      "rawBytes": 22954,
+      "origin": "Exact decoded GitHub connector job log text, no trimming or added newline"
+    },
+    {
+      "archive": "full-verify-ff42fea-fixture-check-failure.log.gz",
+      "rawSha256": "e815fea9d887bb2a696fb07174ccbd162275d5946856fa4dfc08cbc576f9444a",
+      "rawBytes": 9461
     }
   ]
 }

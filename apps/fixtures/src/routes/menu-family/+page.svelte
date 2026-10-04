@@ -3,7 +3,7 @@
   import Fixture from '../../lib/MenuFamilyFixture.svelte';
   import type { mountMenuFamilyReference } from '../../lib/menu-family-reference.js';
   let { data } = $props();
-  let host = $state<HTMLDivElement>();
+  let host = $state<HTMLElement>();
   let fixture = $state<{ command(value: string): void; snapshot(): object }>();
   onMount(() => {
     if (!host) return;
