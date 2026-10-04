@@ -53,7 +53,7 @@ export function mountAlertDialogSourceReference(target: HTMLElement, line: numbe
       return h(AlertDialog.Trigger, { handle: detached ? current : undefined, id: 'trigger', ...{ 'data-testid': 'trigger' } }, line === 649 ? 'Trigger' : 'Open');
     }
     function popup(payload: number | undefined) {
-      return h(AlertDialog.Popup, { id: line === 10 ? 'TestId' : undefined, ...{ 'data-testid': 'popup' }, className: line === 1094 ? 'alert-exit' : line === 1177 ? 'alert-enter' : undefined },
+      return h(AlertDialog.Popup, { ...(line === 10 ? { id: 'TestId' } : {}), ...{ 'data-testid': 'popup' }, className: line === 1094 ? 'alert-exit' : line === 1177 ? 'alert-enter' : undefined },
         line === 32 ? h(Fragment, null, h(AlertDialog.Title, null, 'title text'), h(AlertDialog.Description, null, 'description text')) : null,
         line === 236 ? h(AlertDialog.Title, null, 'Confirm') : null,
         [436, 795, 965, 1006].includes(line) ? h('span', { 'data-testid': 'content' }, payload)

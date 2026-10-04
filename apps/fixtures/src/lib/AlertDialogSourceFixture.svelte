@@ -53,7 +53,7 @@
   {/if}
 {/snippet}
 {#snippet popup(payload: number | undefined)}
-  <AlertDialog.Popup id={sourceLine === 10 ? 'TestId' : undefined} data-testid="popup" class={sourceLine === 1094 ? 'alert-exit' : sourceLine === 1177 ? 'alert-enter' : undefined}>
+  <AlertDialog.Popup {...(sourceLine === 10 ? { id: 'TestId' } : {})} data-testid="popup" class={sourceLine === 1094 ? 'alert-exit' : sourceLine === 1177 ? 'alert-enter' : undefined}>
     {#if sourceLine === 32}<AlertDialog.Title>title text</AlertDialog.Title><AlertDialog.Description>description text</AlertDialog.Description>{/if}
     {#if sourceLine === 236}<AlertDialog.Title>Confirm</AlertDialog.Title>{/if}
     {#if [436, 795, 965, 1006].includes(sourceLine)}<span data-testid="content">{payload}</span>

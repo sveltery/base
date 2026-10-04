@@ -97,8 +97,6 @@ for (const reference of [true, false]) for (const line of lines) test(`${referen
   } else if (line === 497) {
     await expect(button(page, 'Trigger 1')).toHaveAttribute('aria-expanded', 'false'); await expect(button(page, 'Trigger 2')).toHaveAttribute('aria-expanded', 'false');
     await click(button(page, 'Trigger 1')); await expect(popup(page)).toHaveCount(1);
-    // Match the original awaited render/user.click/findByRole commit settlement before reading ARIA.
-    await expect.poll(() => button(page, 'Trigger 1').getAttribute('aria-controls')).not.toBeNull();
     const controls = await button(page, 'Trigger 1').getAttribute('aria-controls'); expect(controls).not.toBeNull(); expect(await popup(page).getAttribute('id')).toBe(controls);
     await expect(button(page, 'Trigger 1')).toHaveAttribute('aria-expanded', 'true'); await expect(button(page, 'Trigger 2')).toHaveAttribute('aria-expanded', 'false');
   } else if (line === 649) {
