@@ -9,6 +9,7 @@ async function setup(page: Page, route: string) {
   await page.locator('#trigger').click();
   await expect(page.getByRole('dialog')).toBeVisible();
   await expect.poll(() => completions(page)).toEqual([true]);
+  await expect(page.getByTestId('popup')).toHaveCSS('opacity', '1');
 }
 async function captureExitAnimation(page: Page, pause: boolean) {
   await page.getByTestId('popup').evaluate((node, shouldPause) => {
