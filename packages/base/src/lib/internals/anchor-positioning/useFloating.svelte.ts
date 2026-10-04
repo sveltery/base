@@ -3,23 +3,28 @@
 // Floating UI 2.1.9 useFloating/getDPR/roundByDPR, MIT: parity/anchor-positioning/FLOATING_UI_LICENSE.
 import { computePosition, type ComputePositionConfig, type VirtualElement } from '@floating-ui/dom';
 import { isElement } from '@floating-ui/utils/dom';
-import { untrack } from 'svelte';
+import { onDestroy, untrack } from 'svelte';
 import type { PositioningResult, Reference } from './types.js';
 
-interface NativeFloatingOptions {
+export interface NativeFloatingOptions {
   open?: boolean;
   mounted: boolean;
   transform?: boolean;
+  /** The Source store bridge supplies its actual selected elements to the DOM driver. */
+  elements?: { reference: Reference | null; floating: HTMLElement | null };
   /** Middleware writes must obey the same lifetime/request ownership as coordinates. */
   getConfig: (isCurrent: (node: HTMLElement) => boolean) => ComputePositionConfig;
   whileElementsMounted: (reference: Reference, floating: HTMLElement, update: () => void) => () => void;
 }
 
-/** Geometry and attached-host lifetime only. FloatingRootStore/tree interactions remain missing. */
+/** One DOM geometry driver; Source root-store/tree composition delegates through useBaseUIFloating. */
 export function useFloating(readOptions: () => NativeFloatingOptions) {
+  let destroyed = false;
+  onDestroy(() => { destroyed = true; });
   const initialConfig = untrack(() => readOptions().getConfig(() => false));
   let domReference = $state.raw<Element | null>(null);
   let positionReference = $state.raw<Reference | null>(null);
+  let localReference = $state.raw<Reference | null>(null);
   let floating = $state.raw<HTMLElement | null>(null);
   let data = $state.raw<PositioningResult>({
     x: 0, y: 0, placement: initialConfig.placement ?? 'bottom', strategy: initialConfig.strategy ?? 'absolute',
@@ -32,12 +37,16 @@ export function useFloating(readOptions: () => NativeFloatingOptions) {
   let measuredReference: Reference | null = null;
   let measuredFloating: HTMLElement | null = null;
   const options = $derived(readOptions());
-  const reference = $derived(positionReference ?? domReference);
+  const reference = $derived(options.elements ? options.elements.reference || localReference : positionReference ?? domReference);
+  const floatingElement = $derived(options.elements?.floating || floating);
+  const referenceRef = { current: null as Reference | null };
+  const floatingRef = { current: null as HTMLElement | null };
+  $effect(() => { if (reference) referenceRef.current = reference; if (floatingElement) floatingRef.current = floatingElement; });
 
   $effect(() => {
     const currentOptions = options;
     const currentReference = reference;
-    const currentFloating = floating;
+    const currentFloating = floatingElement;
     const lifetime = ++generation;
     updateCurrent = undefined;
     if (!currentOptions.mounted || !currentReference || !currentFloating) {
@@ -81,7 +90,7 @@ export function useFloating(readOptions: () => NativeFloatingOptions) {
 
   // The DOM adapter's source output contract, expressed through native Svelte derivation.
   const floatingStyles = $derived.by(() => {
-    const node = floating;
+    const node = floatingElement;
     const dpr = node?.ownerDocument.defaultView?.devicePixelRatio || 1;
     const x = Math.round(data.x * dpr) / dpr;
     const y = Math.round(data.y * dpr) / dpr;
@@ -94,19 +103,25 @@ export function useFloating(readOptions: () => NativeFloatingOptions) {
   });
 
   const refs = {
-    setReference(node: Element | null) { domReference = node; },
+    reference: referenceRef, floating: floatingRef,
+    setReference(node: Reference | null) {
+      if (node !== referenceRef.current) { referenceRef.current = node; localReference = node; }
+      if (isElement(node) || node === null) domReference = node;
+    },
     setPositionReference(node: Reference | null) {
-      positionReference = isElement(node) ? {
+      const computedReference = isElement(node) ? {
         getBoundingClientRect: () => node.getBoundingClientRect(),
         getClientRects: () => node.getClientRects(),
         contextElement: node,
       } satisfies VirtualElement : node;
+      referenceRef.current = computedReference;
+      positionReference = computedReference;
     },
-    setFloating(node: HTMLElement | null) { floating = node; },
+    setFloating(node: HTMLElement | null) { floatingRef.current = node; floating = node; },
   };
 
   return {
-    get elements() { return { domReference, reference, floating }; },
+    get elements() { return { domReference, reference: destroyed ? referenceRef.current : reference, floating: destroyed ? floatingRef.current : floatingElement }; },
     get data() { return data; },
     get error() { return error; },
     get floatingStyles() { return floatingStyles; },

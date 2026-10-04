@@ -1,5 +1,7 @@
 // Private, framework-neutral contract derived from Base UI 1.8.0; MIT: parity/anchor-positioning/UPSTREAM_LICENSE.
 import type { Middleware, MiddlewareData, Padding, Placement, Rect, Strategy, VirtualElement } from '@floating-ui/dom';
+import type { FloatingRootContext } from '../../floating-ui/types.js';
+import type { FloatingTreeStore } from '../../floating-ui/components/FloatingTreeStore.js';
 
 export type Side = 'top' | 'bottom' | 'left' | 'right' | 'inline-start' | 'inline-end';
 export type Align = 'start' | 'center' | 'end';
@@ -16,6 +18,10 @@ export type CollisionAvoidance =
   | { side: 'shift'; align?: 'shift' | 'none'; fallbackAxisSide?: 'start' | 'end' | 'none' };
 
 export interface AnchorPositioningOptions {
+  /** Original private interaction-store/tree bridge. Geometry-only consumers can omit it. */
+  floatingRootContext?: FloatingRootContext | undefined;
+  externalTree?: FloatingTreeStore | undefined;
+  nodeId?: string | undefined;
   /** Logical popup state; geometry remains positioned through mounted exit presence. */
   open: boolean;
   /** Logical presence, including an exit transition; distinct from an attached keepMounted host. */

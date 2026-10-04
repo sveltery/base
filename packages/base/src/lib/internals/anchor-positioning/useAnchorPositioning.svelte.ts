@@ -5,7 +5,9 @@ import { useDirection } from '../../direction-provider/context.js';
 import { autoUpdate, createPositioningPolicy, getAutoUpdateOptions, getLogicalSide, getPhysicalSide } from './policy.js';
 import { DEFAULT_SIDES } from './adaptive-origin.js';
 import { useFloating } from './useFloating.svelte.js';
-import type { AnchorPositioningOptions, Reference } from './types.js';
+import { useBaseUIFloating } from '../../floating-ui/hooks/useFloating.svelte.js';
+import { untrack } from 'svelte';
+import type { AnchorPositioningOptions, Reference, Align } from './types.js';
 
 /** Source anchor orchestration; popup root interaction stores remain a separate dependency. */
 export function useAnchorPositioning(readOptions: () => AnchorPositioningOptions) {
@@ -15,7 +17,7 @@ export function useAnchorPositioning(readOptions: () => AnchorPositioningOptions
   let mountSide = $state<ReturnType<typeof getSide> | null>(null);
   let registeredPositionReference: Reference | null = null;
 
-  const position = useFloating(() => {
+  const getFloatingOptions = () => {
     const currentOptions = options;
     const currentArrow = arrow;
     const currentMountSide = mountSide;
@@ -28,7 +30,11 @@ export function useAnchorPositioning(readOptions: () => AnchorPositioningOptions
       whileElementsMounted: (reference: Reference, floating: HTMLElement, update: () => void) =>
         autoUpdate(reference, floating, update, getAutoUpdateOptions(currentOptions.disableAnchorTracking)),
     };
-  });
+  };
+  const rootContext = untrack(() => options.floatingRootContext);
+  const position = rootContext
+    ? useBaseUIFloating(() => ({ ...getFloatingOptions(), rootContext, nodeId: options.nodeId, externalTree: options.externalTree }))
+    : useFloating(getFloatingOptions);
 
   // The source's resolved external anchor registration, with native reactive host ownership.
   $effect(() => {
@@ -83,13 +89,16 @@ export function useAnchorPositioning(readOptions: () => AnchorPositioningOptions
   });
 
   return {
+    get context() { return 'context' in position ? position.context : undefined; },
+    arrowRef: { get current() { return arrow; }, set current(node: HTMLElement | null) { arrow = node; } },
+    get arrowStyles() { return { position: 'absolute', top: position.data.middlewareData.arrow?.y === undefined ? undefined : `${position.data.middlewareData.arrow.y}px`, left: position.data.middlewareData.arrow?.x === undefined ? undefined : `${position.data.middlewareData.arrow.x}px` }; },
     get elements() { return { ...position.elements, arrow }; },
     get result() { return position.data; },
     get positionerStyles() { return positionerStyles; },
     get error() { return position.error; },
     get side() { return getLogicalSide(options.side ?? 'bottom', getSide(position.data.placement), options.direction === 'rtl'); },
     get physicalSide() { return getSide(position.data.placement); },
-    get align() { return getAlignment(position.data.placement) || 'center'; },
+    get align() { return (getAlignment(position.data.placement) || 'center') as Align; },
     get isPositioned() { return position.data.isPositioned; },
     get anchorHidden() { return Boolean(position.data.middlewareData.hide?.referenceHidden); },
     get arrowUncentered() { return position.data.middlewareData.arrow?.centerOffset !== 0; },

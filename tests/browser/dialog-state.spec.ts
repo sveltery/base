@@ -5,7 +5,8 @@ const cases = [
   ['C', 25, 'native'], ['C', 55, 'custom'], ['C', 89, 'undefined'],
   ['C', 118, 'prevent'], ['C', 137, 'closed'],
 ] as const;
-async function control(page: Page, name: string) { await page.getByRole('button', { name, exact: true }).evaluate((button: HTMLButtonElement) => button.click()); }
+// These uncredited ownership supplements update props without adding a virtual outside click.
+async function control(page: Page, name: string) { await page.locator('main').evaluate((node, name) => (node as HTMLElement & { controlOwner: (name: string) => Promise<void> }).controlOwner(name), name); }
 async function calls(page: Page) { return JSON.parse(await page.getByTestId('calls').innerText()) as { open: boolean; reason: string; trigger: string | null; triggerIsUndefined: boolean }[]; }
 for (const reference of [false, true]) {
   for (const [part, line, scenario] of cases) {
@@ -107,8 +108,8 @@ test('supplement: controlled external updates and callback order/reasons survive
   await expect(popup).toHaveCount(0);
 });
 
-for (const initiallyOpen of [false, true]) test(`supplement: canceled ${initiallyOpen ? 'close' : 'open'} preserves owner and internal state`, async ({ page }) => {
-  await page.goto('/dialog-state?case=controlled');
+for (const reference of [false, true]) for (const initiallyOpen of [false, true]) test(`supplement: ${reference ? 'React reference' : 'Svelte'} canceled ${initiallyOpen ? 'close' : 'open'} preserves the held controlled snapshot`, async ({ page }) => {
+  await page.goto(`/dialog-state?case=controlled${reference ? '&reference' : ''}`);
   await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
   const popup = page.getByRole('dialog');
   // Establish matching internal/owner state before testing cancellation.
@@ -127,14 +128,15 @@ for (const initiallyOpen of [false, true]) test(`supplement: canceled ${initiall
   expect(JSON.parse(await page.getByTestId('order').innerText()).slice(beforeOrder)).toEqual([
     { channel: 'consumer', open: !initiallyOpen, before: String(initiallyOpen), reason: initiallyOpen ? 'escape-key' : 'trigger-press', canceled: true },
   ]);
-  // Releasing the held input exposes internal state; cancellation must not have changed it.
+  // Original ReactStore synchronization skips undefined and retains its last controlled value.
+  // The diagnosed controlled/uncontrolled mode change does not invent a release contract.
   await control(page, 'Release control');
   if (initiallyOpen) await expect(popup).toBeVisible();
   else await expect(popup).toHaveCount(0);
   await control(page, 'Toggle cancel');
   if (initiallyOpen) await page.keyboard.press('Escape');
   else await page.getByRole('button', { name: 'Open', exact: true }).click();
-  if (initiallyOpen) await expect(popup).toHaveCount(0);
-  else await expect(popup).toBeVisible();
+  if (initiallyOpen) await expect(popup).toBeVisible();
+  else await expect(popup).toHaveCount(0);
   expect((await calls(page)).at(-1)?.open).toBe(!initiallyOpen);
 });

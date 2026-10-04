@@ -128,6 +128,31 @@
       "types": "./dist/radio-group/index.d.ts",
       "svelte": "./dist/radio-group/index.js",
       "default": "./dist/radio-group/index.js"
+    },
+    "./toggle-group": {
+      "types": "./dist/toggle-group/index.d.ts",
+      "svelte": "./dist/toggle-group/index.js",
+      "default": "./dist/toggle-group/index.js"
+    },
+    "./toolbar": {
+      "types": "./dist/toolbar/index.d.ts",
+      "svelte": "./dist/toolbar/index.js",
+      "default": "./dist/toolbar/index.js"
+    },
+    "./menu": {
+      "types": "./dist/menu/index.d.ts",
+      "svelte": "./dist/menu/index.js",
+      "default": "./dist/menu/index.js"
+    },
+    "./context-menu": {
+      "types": "./dist/context-menu/index.d.ts",
+      "svelte": "./dist/context-menu/index.js",
+      "default": "./dist/context-menu/index.js"
+    },
+    "./menubar": {
+      "types": "./dist/menubar/index.d.ts",
+      "svelte": "./dist/menubar/index.js",
+      "default": "./dist/menubar/index.js"
     }
   },
   "svelte": "./dist/index.js",

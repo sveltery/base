@@ -88,14 +88,20 @@ for (const reference of [false, true]) {
   });
 }
 
-test('Svelte: controlled media outside the popup preserves modal Tab recovery', async ({ page }) => {
-  await setup(page, 'summary-only', false);
+for (const reference of [false, true]) test(`${reference ? 'React reference' : 'Svelte'}: arbitrary outside Tab is left to native traversal`, async ({ page }) => {
+  await setup(page, 'summary-only', reference);
   await page.evaluate(() => {
     const audio = document.createElement('audio'); audio.id = 'outside-media'; audio.controls = true; audio.tabIndex = 0;
     document.body.append(audio);
   });
   const outside = page.locator('#outside-media'); await outside.focus(); await expect(outside).toBeFocused();
-  await tabTo(page, 'native-close');
-  await outside.focus(); await tabTo(page, 'native-summary', true);
+  // Synthetic dispatch observes only prevention, not trusted browser navigation.
+  // Source owns actual boundary traversal through focus guards, covered above.
+  const prevented = await outside.evaluate(node => {
+    const event = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true });
+    node.dispatchEvent(event);
+    return event.defaultPrevented;
+  });
+  expect(prevented).toBe(false); await expect(outside).toBeFocused();
   await expect(page.getByRole('dialog')).toBeVisible();
 });
