@@ -120,3 +120,14 @@ raw JSON and failure traces, with canonical sandbox enabled/one worker/no retrie
 Full repository Verification, hosted browser execution, configured CI, independent
 full used-closure source/native/maintainability review and exact-head Root approval
 remain pending. This is a concrete review candidate, not family acceptance.
+
+The first complete Verification at `ebc2473` stopped at script regressions:
+79/81 pass. Its lossless raw output/exit and previous authored anchor structural
+check are archived. The stale structural expectation required a direct raw
+geometry hook and did not recognize the selected Original popup-store bridge.
+That authored check now verifies the actual root-context branch and the sole
+canonical DOM driver; all immutable Original anchor behavior assertions remain
+unchanged. Navigation's inherited actual-closure snapshot/count also needs
+reconciliation from 66 to the actual 75 modules reached through canonical
+Source event/platform helpers. This is an unresolved full-gate failure, not an
+assertion waiver or a successful Verification.

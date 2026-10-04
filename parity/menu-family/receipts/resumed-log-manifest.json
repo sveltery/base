@@ -60,6 +60,11 @@
       "archive": "resume-repair-strict-package.log.gz",
       "rawSha256": "ebecd4e873a70365f84a778421b3cb03d01c18cb3c3a874368bbdb0ab0b80a2f",
       "rawBytes": 369
+    },
+    {
+      "archive": "full-verify-ebc2473-failure.log.gz",
+      "rawSha256": "0f57219ae411f987778f1da33bd7a2156284791533777f06ba9839a08fe9f6ca",
+      "rawBytes": 23855
     }
   ]
 }

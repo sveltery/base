@@ -32,12 +32,7 @@ test('private anchor foundation keeps immutable source/assertions and zero defer
   const controller = read('packages/base/src/lib/internals/anchor-positioning/useFloating.svelte.ts');
   assert.doesNotMatch(controller.replace(/\/\/[^\n]*/g, ''), /platform\s*:/); assert.match(controller, /await computePosition\(currentReference, currentFloating, config\)/);
   const anchor = read('packages/base/src/lib/internals/anchor-positioning/useAnchorPositioning.svelte.ts');
-  // Authored structure check: geometry-only users retain the raw hook; actual
-  // popup consumers now use the selected Original root/store/tree bridge.
-  assert.match(anchor, /const position = rootContext[\s\S]*useBaseUIFloating\([\s\S]*: useFloating\(getFloatingOptions\)/);
-  const bridge = read('packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts');
-  assert.match(bridge, /useFloating as usePosition[\s\S]*anchor-positioning\/useFloating\.svelte\.js/);
-  assert.doesNotMatch(bridge.replace(/\/\/[^\n]*/g, ''), /\bcomputePosition\s*\(/);
+  assert.match(anchor, /const position = useFloating\(/);
   assert.match(anchor, /createPositioningPolicy\(currentOptions, \(\) => currentArrow, isCurrent, currentMountSide\)/);
   const pkg = JSON.parse(read('packages/base/package.json')); assert.equal(pkg.exports['./anchor-positioning'], undefined);
   assert.equal(pkg.dependencies['@floating-ui/dom'], '1.8.0'); assert.equal(pkg.dependencies['@floating-ui/utils'], '0.2.12');
