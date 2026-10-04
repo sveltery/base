@@ -1,0 +1,15 @@
+// Actual published Base UI v1.8.0 public Full callers, MIT pin 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
+import { createElement as h } from 'react';
+import { createRoot } from 'react-dom/client';
+import { flushSync } from 'react-dom';
+import { Popover } from '@base-ui/react/popover';
+import { Menu } from '@base-ui/react/menu';
+
+export function mountMenuPortalRealmReference(host: HTMLElement, container: HTMLElement, contextual: boolean) {
+  const root = createRoot(host);
+  const child = h('span', { 'data-testid': 'realm-child' }, 'Child');
+  flushSync(() => root.render(contextual
+    ? h(Menu.Root, { defaultOpen: true }, h(Menu.Portal, { container, 'data-testid': 'realm-portal' }, child))
+    : h(Popover.Root, { defaultOpen: true }, h(Popover.Portal, { container, 'data-testid': 'realm-portal' }, child))));
+  return () => flushSync(() => root.unmount());
+}

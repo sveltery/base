@@ -372,3 +372,44 @@ its complete actual raw process is now archived. No fresh browser execution is
 claimed for this authored fixture checkpoint. Runtime197 remains byte-identical
 to949/1dc; independent successor review and all fresh exact-head configured gates
 remain pending. The draft is not ready for approval or merge.
+
+## Reopened Full Portal realm Source gate
+
+The independently demonstrated Popup P2 exposes an inherited native Full Portal
+realm assumption in frozen Menu `8e9d7f1339a63ff7abf71b74c79bf830c8b46f23`.
+Fresh actual paired Full and public contextual Menu executions both pass in
+published pinned React1.8.0 and fail in the existing native Full: an accepted
+`createHTMLDocument()` HTMLElement has null `defaultView`, the host mounts, and
+the observer constructor throws before children mount. The old two-failure raw
+log is retained, alongside the original Popup two-failure witness and independent
+focused NOT CLEAR receipt. Historical whole-source CLEAR at1dc remains historical;
+it did not detect this native realm branch and grants no current Source readiness.
+
+Root's precise fidelity lease changes only the existing Full observer constructor
+to `getWindow(node).MutationObserver` and adds that canonical imported member.
+Actual installed `@floating-ui/utils`0.2.12 supplies the owning-window/global-window
+fallback. Observer registration, disconnection, ID observation and identity-checked
+ref/id release are unchanged. The Popup owner separately owns shared node-helper
+extraction; this branch adds no helper, observer, focus/controller or Lite engine.
+
+Both unchanged paired expectations now pass. A bounded768MiB focused run passes
+31 actual portal and Menu lifetime cases, including existing iframe/ShadowRoot,
+container remount/null pause, retained explicit focus and destination hover identity.
+All other196 full native bodies, their actual imported members/kinds/reachability,
+Original200/helper745 archives and assertion inventories retain frozen8e bytes.
+The regenerated actual197/891 graph adds only the external `getWindow` member in
+the existing Full import. These identity checks preserve evidence, never substitute
+for the required fresh independent whole-used-source successor review. Fresh
+exact-head configured checks, secured44/33 and focused56/broad Dialog browsers,
+and Root exact-head approval remain required. Full heavy Verification is not
+repeated locally for this bounded change; historical successful Verify1dc remains
+recorded at its actual executed head. No current Source CLEAR or merge approval
+is claimed; authored realm cases earn zero Original declaration credit.
+
+The final two-case realm rerun passes after adding erased React `ComponentProps`
+intersection annotations for the authored `data-testid` props. The first library
+check's two-errors/zero-warnings log and exact pre-annotation source remain
+archived; complete emitted JavaScript is byte-identical. Final bounded library
+check reports zero errors/warnings, the actual library build passes, six Source
+provenance/SSR checks pass, and final Standards passes. Exact raw logs, fixture
+hashes and retained failure provenance are in [portal-realm-execution.json](portal-realm-execution.json).

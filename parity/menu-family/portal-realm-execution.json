@@ -1,0 +1,168 @@
+{
+  "previousRuntimeHead": "8e9d7f1339a63ff7abf71b74c79bf830c8b46f23",
+  "originalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "publishedOriginalPackage": "1.8.0",
+  "ReactVersion": "19.2.8",
+  "nodeVersion": "v24.19.0",
+  "memoryMiB": 768,
+  "oldCommand": "source scripts/toolchain.sh && TMPDIR=/workspace/sveltery-tmp NODE_OPTIONS=--max-old-space-size=768 pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/menu-portal-realm.test.ts --maxWorkers=1",
+  "oldTests": 2,
+  "oldNativeFailed": 2,
+  "oldResults": [
+    {
+      "kind": "Full",
+      "source": {
+        "error": null,
+        "portal": true,
+        "child": true
+      },
+      "native": {
+        "error": "Cannot read properties of null (reading 'MutationObserver')\n\n\tin <unknown>\n\tin RenderElement.svelte\n\tin undefined\n\tin FloatingPortal.svelte\n\tin MenuPortalRealmFixture.svelte\n\tin undefined\n",
+        "portal": true,
+        "child": false
+      }
+    },
+    {
+      "kind": "Menu",
+      "source": {
+        "error": null,
+        "portal": true,
+        "child": true
+      },
+      "native": {
+        "error": "Cannot read properties of null (reading 'MutationObserver')\n\n\tin <unknown>\n\tin RenderElement.svelte\n\tin undefined\n\tin FloatingPortal.svelte\n\tin Portal.svelte\n\tin Root.svelte\n\tin MenuPortalRealmFixture.svelte\n\tin undefined\n",
+        "portal": true,
+        "child": false
+      }
+    }
+  ],
+  "repairRealmTests": 2,
+  "repairRealmPassed": 2,
+  "repairResults": [
+    {
+      "kind": "Full",
+      "source": {
+        "error": null,
+        "portal": true,
+        "child": true
+      },
+      "native": {
+        "error": null,
+        "portal": true,
+        "child": true
+      }
+    },
+    {
+      "kind": "Menu",
+      "source": {
+        "error": null,
+        "portal": true,
+        "child": true
+      },
+      "native": {
+        "error": null,
+        "portal": true,
+        "child": true
+      }
+    }
+  ],
+  "unchangedFixtureExpectationsBeforeAfter": true,
+  "focusedRun": {
+    "tests": 31,
+    "passed": 31,
+    "maxWorkers": 1,
+    "memoryMiB": 768,
+    "cases": "realm Full/Menu, Dialog portal/container/shared primitives, Menu retained explicit focus/reference migration/hover/public detached handoff"
+  },
+  "rawLogs": {
+    "old-red": {
+      "path": "parity/menu-family/receipts/portal-realm-old-red.log.gz",
+      "uncompressedSha256": "8228a4bf420b867a2f9d551ea413581e7ff828b07034d49a93631a29a64f80b7",
+      "gzipSha256": "fd86adc596f671ceda2da0daa1312b23ccff2cbc0fcde8dab9ef02ec7e8233f5"
+    },
+    "new-green": {
+      "path": "parity/menu-family/receipts/portal-realm-new-green.log.gz",
+      "uncompressedSha256": "2c3021041c3ffd2735198aab3af48d235ef36c9d621e1ada1ac4efaf68f1610c",
+      "gzipSha256": "fa237127d74a591454ffbf1ef4e0cca274d3d7c5e91443d79f4bccb4a47fe97e"
+    },
+    "focused-green": {
+      "path": "parity/menu-family/receipts/portal-realm-focused-green.log.gz",
+      "uncompressedSha256": "b84b8cb2e6818e0e56bee8eeb76fddf7a26afbb06669f2999e0ae7ebfed353ee",
+      "gzipSha256": "b8566eb1be30e82e8ed3d4498f1ce1aecdd16d253f69360941205e5045b062b3"
+    },
+    "setup": {
+      "path": "parity/menu-family/receipts/portal-realm-setup.log.gz",
+      "uncompressedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gzipSha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    "final-realm-green": {
+      "path": "parity/menu-family/receipts/portal-realm-final-realm-green.log.gz",
+      "uncompressedSha256": "77de74d0203451c4fb73f932708b29957353f3d78bc5956aca70ff77738871a9",
+      "gzipSha256": "8aca67c351f382578c22b7a8d0a76cae30a7837a02b7bcc876b49000ec436f82"
+    },
+    "type-check-first-red": {
+      "path": "parity/menu-family/receipts/portal-realm-type-check-first-red.log.gz",
+      "uncompressedSha256": "9792025b72c18f7bcdb8e3ec3d46c65d3f6b600b8b1a643327b3eafb5f5fac8e",
+      "gzipSha256": "308274028153e6787f25e6067bba465475090baeafbb4105f18cf7eb72a6b21c"
+    },
+    "type-check-green": {
+      "path": "parity/menu-family/receipts/portal-realm-type-check-green.log.gz",
+      "uncompressedSha256": "cad2dd362f5c456d227e055d6063dbe7d143cec086a7ed4b68c10d488b9f1bec",
+      "gzipSha256": "7cb9106489474407dff5fdc7192187ae6ca2df745bb0fb900133174f38796c0f"
+    },
+    "reference-type-identity": {
+      "path": "parity/menu-family/receipts/portal-realm-reference-type-identity.log.gz",
+      "uncompressedSha256": "692db7d33c630c9a712243764318f80c63e283e80f803adae28faf224a16ea51",
+      "gzipSha256": "8d30d611442c7ca3eb0e7d73d2fdf9899fc8315c20f9e1a7a5a75f6f5cf92717"
+    },
+    "build-green": {
+      "path": "parity/menu-family/receipts/portal-realm-build-green.log.gz",
+      "uncompressedSha256": "9a4f84168e429925dd22c0ca2f38d299b0e9bd4344706a834e00c30d741a9ac1",
+      "gzipSha256": "83587ae8e50506c3617a6bbfe0a864801bcf8beba6d7b3eccda9f5b12b1e2a39"
+    },
+    "standards-final": {
+      "path": "parity/menu-family/receipts/portal-realm-standards-final.log.gz",
+      "uncompressedSha256": "1310548d684637619fb9fd4b59d6df5e99515f2efb0acd8d2a464235d43a056e",
+      "gzipSha256": "abe070a1b24171c84c56ac138f5ff0a44dcb56cd70138bb7aa2606c48396439f"
+    },
+    "provenance": {
+      "path": "parity/menu-family/receipts/portal-realm-provenance.log.gz",
+      "uncompressedSha256": "ccdcf1c5783058c6530a0db4e30005250736aafdfdc7f2ee433cdf6f44aae23a",
+      "gzipSha256": "09cc43b0f8414ff66c5e0fc1a2825ac8cd4fd3ab3eec5f7124c06948ff26a649"
+    }
+  },
+  "sourceStatus": "REOPENED: new actual inherited Full realm P2 repaired under precise Root lease; fresh independent wholeSource successor required. Historical 1dc Source CLEAR retained only at its old head.",
+  "PopupFocusedNotClearReceipt": "/workspace/sveltery-tmp/popup-shared-helper-review-bd20895/review.md",
+  "PopupOriginalFailureLog": "/workspace/popup-family-source/.checks/popup-family/portal-realm-witness.log",
+  "PopupScopeLimit": "No Lite execution or extracted Popup helper is claimed in Menu closure. Popup canonical extraction remains owner leased; same canonical getWindow fallback coordinates both branches.",
+  "ordinaryDeclarationCredit": 0,
+  "fullLocalVerification": "Not repeated for bounded one-constructor repair; actual historical full Verify1dc remains head-specific. Fresh configured hosted gates are required.",
+  "oldWitnessFileSha256": {
+    "packages/base/tests/dom/MenuPortalRealmFixture.svelte": "16f55f8d2c540bb382a71326ad32b7997f526c4bc2e3702110286483e1e1bf3b",
+    "packages/base/tests/dom/menu-portal-realm.test.ts": "f9211b40fb0f541c3606f35dace85c82610f30ca42a2bff8f49ee03d024ddc96",
+    "apps/fixtures/src/lib/menu-portal-realm-reference.ts": "e786860864376e4048c1c5688f8d62e83c1407aa497a599e189addbde4825370"
+  },
+  "finalWitnessFileSha256": {
+    "packages/base/tests/dom/MenuPortalRealmFixture.svelte": "16f55f8d2c540bb382a71326ad32b7997f526c4bc2e3702110286483e1e1bf3b",
+    "packages/base/tests/dom/menu-portal-realm.test.ts": "f9211b40fb0f541c3606f35dace85c82610f30ca42a2bff8f49ee03d024ddc96",
+    "apps/fixtures/src/lib/menu-portal-realm-reference.ts": "8f1b009f68c18c2a87631c946e08c9fc39c172397eb1c312b7c8850f2c296952"
+  },
+  "referenceTypingRepair": {
+    "file": "apps/fixtures/src/lib/menu-portal-realm-reference.ts",
+    "oldSha256": "e786860864376e4048c1c5688f8d62e83c1407aa497a599e189addbde4825370",
+    "currentSha256": "8f1b009f68c18c2a87631c946e08c9fc39c172397eb1c312b7c8850f2c296952",
+    "sameEmittedJavaScript": true,
+    "emittedJsSha256": "f3c5493c1d46f9fef5911320a7580f343c8ea9a6be6dc022c4d3e9881f7936c6",
+    "originalSourceCopy": "receipts/portal-realm-reference-before-type-fix.ts.txt",
+    "classification": "Only erased ComponentProps import/intersection casts; test inputs and all expectations unchanged; actual emitted JS byte identity established."
+  },
+  "authorChecks": {
+    "pairedFinalRealm": "2 passed/2 actual Full and contextual Menu, same expectations",
+    "focusedDOM": "31 passed/31, before only erased reference typing repair",
+    "librarySvelteCheck": "0 errors/0 warnings, 1024MiB",
+    "libraryBuild": "passed, 768MiB",
+    "provenance": "6 passed/6",
+    "standards": "passed, exact final source/fixtures",
+    "firstTypeCheck": "2 errors/0 warnings in authored React fixture, preserved raw failure; zero runtime/expectation change in repair"
+  }
+}

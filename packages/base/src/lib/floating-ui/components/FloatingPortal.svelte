@@ -3,7 +3,7 @@
   // MIT: THIRD_PARTY_NOTICES.md; pin 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
   import { getAllContexts, mount, unmount, untrack, setContext, type Snippet } from 'svelte';
   import type { HTMLAttributes } from 'svelte/elements';
-  import { isNode } from '@floating-ui/utils/dom';
+  import { getWindow, isNode } from '@floating-ui/utils/dom';
   import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
   import { addEventListener } from '../../utils/addEventListener.js';
   import { mergeCleanups } from '../../utils/mergeCleanups.js';
@@ -61,7 +61,7 @@
     // Opaque Svelte snippets own their native element/id. Observe the actual host, including replacement ids.
     const updateId = () => { portalNodeId = node.id || undefined; };
     updateId();
-    const observer = new (node.ownerDocument.defaultView!.MutationObserver)(updateId);
+    const observer = new (getWindow(node).MutationObserver)(updateId);
     observer.observe(node, { attributes: true, attributeFilter: ['id'] });
     return () => { observer.disconnect(); if (portalNode === node) { portalNode = null; portalNodeId = undefined; } };
   }

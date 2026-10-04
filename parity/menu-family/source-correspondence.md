@@ -39,6 +39,7 @@ actual Original/native DOM and browser pairs are supplemental evidence only.
 | useHoverInteractionSharedState and two actual callers | Canonical shared accessor; useHoverReferenceInteraction/useHoverFloatingInteraction derive the actual current class instance | Native live selection replaces React's returned value on rerender. A destination-owned instance wins; an empty destination receives the original initialized instance. Initial timer disposal ownership remains unchanged. Public two-open-Root handle handoff and exact class identity/mutation/cleanup probes exercise this boundary. |
 | native DOM-driver element outputs | Sole internals/anchor-positioning/useFloating body | Native onDestroy marks the derived owner's end. Post-destroy element getters read actual owned referenceRef/floatingRef values, allowing identity-guarded attachment cleanup. Mounted selection, geometry, middleware, request cancellation and default DOM platform are unchanged. The installed null-host and zero-derived_inert probe is a native lifecycle supplement, not an additional unpaired Source finding. |
 | inherited Store/FloatingRootStore/tree/events/popup/handle/dismiss/focus/portal/helpers | Actual native modules and hashes recorded in the full closure | Public development dependencies remain explicitly unaccepted as a whole. Reinspect every inherited full body at the exact final head. Existing Store is unchanged; only selected original observe and attachPreventUnmount additions were appended. |
+| FloatingPortal/useFloatingPortalNode host ID observation | Existing FullPortal `portalRef`, with the existing external `@floating-ui/utils/dom` `getWindow(node)` | The native opaque-host ID observer uses the canonical window fallback for a valid `HTMLElement` whose document has null `defaultView`. Actual published pinned Full and contextual Menu callers mount host and child there. Observer disconnection and identity-checked ref/id release are unchanged. No helper extraction or duplicate observer is introduced in this branch; the Popup owner separately owns the shared Full/Lite extraction. The fresh paired failure reopens the Source gate despite historical 1dc CLEAR. |
 | render, button, merge, ID/class/style/refs and platform helpers | One shared canonical helper per business body | Native snippets, attachments, events, CSS/ClassValue and Svelte defaults. Actual useButton matches public d00a8b0 SHA256 ee71d7077c51139162152716111472919bf80b71e6e9cde62d15ff0b7ce56f59. No React renderer, state-snapshot, insertion-effect or StrictMode emulation kernel. |
 | unselected barrel/debug/framework modules | Explicit records in JSON; no unused copies counted as runtime ports | createSelector/memoized, inlineRect, FloatingDelayGroup/useHover/useClientPoint and unused public barrels remain conservative original graph edges. React-only hooks, inspector and inert/version transport use native primitives where selected. |
 
@@ -49,3 +50,11 @@ and execution limits remain in [development checkpoints](development-checkpoints
 Whole source review, secured paired browser acceptance, final strict packed
 consumer, full verification/Standards/configured CI and Root exact-head approval
 are still pending. No merge or entire-family acceptance is claimed.
+
+The [portal realm receipt](portal-realm-execution.json) preserves the current
+Full/contextual Menu old RED and unchanged-expectation repair PASS. The
+[whole-body identity record](portal-realm-source-identity.json) proves the other
+196 bodies and their import members/kinds/reachability retain frozen 8e bytes,
+while Full gains the canonical external `getWindow` member. Identity preserves
+historical evidence; a fresh independent whole-used-source successor review is
+required for this source change. No current Source CLEAR is claimed.
