@@ -116,7 +116,7 @@ type HoverContextData = ContextData & {
   hoverInteractionState?: HoverInteraction | undefined;
 };
 
-export function useHoverInteractionSharedState(getStore: () => FloatingRootContext): HoverInteraction {
+export function useHoverInteractionSharedState(getStore: () => FloatingRootContext): () => HoverInteraction {
   const data = untrack(() => getStore().context.dataRef.current) as HoverContextData;
   const instance = useRefWithInit(
     () => data.hoverInteractionState ?? HoverInteraction.create(),
@@ -126,11 +126,12 @@ export function useHoverInteractionSharedState(getStore: () => FloatingRootConte
     data.hoverInteractionState = instance;
   }
 
-  $effect(() => {
+  const currentInstance = $derived.by(() => {
     const nextData = getStore().context.dataRef.current as HoverContextData;
     if (!nextData.hoverInteractionState) nextData.hoverInteractionState = instance;
+    return nextData.hoverInteractionState;
   });
-  useOnMount(instance.disposeEffect);
+  useOnMount(data.hoverInteractionState.disposeEffect);
 
-  return instance;
+  return () => currentInstance;
 }

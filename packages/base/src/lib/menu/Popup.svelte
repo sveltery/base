@@ -26,7 +26,6 @@
   const instantType = $derived(store.useState('instantType'));
   const activeTriggerElement = $derived(store.useState('activeTriggerElement'));
   const parent = $derived(store.useState('parent'));
-  const lastOpenChangeReason = $derived(store.useState('lastOpenChangeReason'));
   const rootId = $derived(store.useState('rootId'));
   const floatingContext = $derived(store.useState('floatingRootContext'));
   const floatingTreeRoot = $derived(store.useState('floatingTreeRoot'));
@@ -46,10 +45,19 @@
   useHoverFloatingInteraction(() => floatingContext, () => ({ enabled: hoverEnabled && !disabled && !isContextMenu && parent.type !== 'menubar', closeDelay }));
   const setPopupElement = store.useStateSetter('popupElement');
   const state = $derived({ transitionStatus, side: positioner.side, align: positioner.align, open, nested: parent.type === 'menu', instant: instantType });
-  const returnFocus = $derived.by(() => {
-    let value = parent.type === undefined || isContextMenu;
-    if (activeTriggerElement || (parent.type === 'menubar' && lastOpenChangeReason !== REASONS.outsidePress)) value = true;
+  function getDefaultReturnFocus(state = store.state) {
+    let value = state.parent.type === undefined || state.parent.type === 'context-menu';
+    if (state.activeTriggerElement || (state.parent.type === 'menubar' && state.openChangeReason !== REASONS.outsidePress)) value = true;
     return value;
+  }
+  let mountedReturnFocus = getDefaultReturnFocus();
+  useIsoLayoutEffect(() => store.observe(
+    state => state.mounted ? getDefaultReturnFocus(state) : null,
+    value => { if (value !== null) mountedReturnFocus = value; },
+  ), () => [store]);
+  const returnFocus = $derived.by(() => {
+    const isMounted = store.select('mounted');
+    return isMounted ? getDefaultReturnFocus() : mountedReturnFocus;
   });
   const setRef = (node: HTMLElement | null) => { ref = node; };
 </script>

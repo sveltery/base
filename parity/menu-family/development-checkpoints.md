@@ -246,3 +246,43 @@ A separate fixture workspace check with an explicit 1 GiB heap cap exits with
 out-of-memory status 134 before diagnostics. That receipt establishes no check
 result; the corrected fixture and complete Verification require a later bounded
 2 GiB run. All three new failed raw receipts are retained losslessly.
+
+## Repairs after the durable independent negative review
+
+The immutable [whole-source receipt](reviews/ff42fea/review.md) is **NOT CLEAR**
+for two demonstrated P2 defects: retained explicit finalFocus updates and current
+root hover-instance selection. It records all 197 bodies/891 edges, 84 fresh
+complete bodies and 113 precisely inherited complete-body scopes, including 68
+bodies outside the PR diff. Its 200 Original records distinguish 85 fresh
+complete bodies/selected boundaries, 101 precise inherited selected scopes and
+14 unselected fanout bodies. No review or test grants ordinary assertion credit.
+
+After that receipt, Root released six measured runtime repairs and two whitespace
+bytes. Generic FloatingFocusManager restores Original's current ref lookup at
+cleanup. MenuPopup observes only its mounted default boolean, leaving explicit
+callbacks, ref objects and booleans live throughout a retained exit. The shared
+hover helper returns a native accessor to the actual current root instance; its
+two real callers derive that instance, retain destination ownership and preserve
+initial timer disposal. The single DOM driver uses native onDestroy to select
+actual owned refs after its derived owner ends. Its mounted selection, geometry,
+middleware, request cancellation and platform are unchanged. The separately
+failed private teardown gate is a native lifecycle repair, not a third unpaired
+Source P2.
+
+Private preparation passed 99 actual DOM cases, including all eighteen unchanged
+anchor predicates and the exact installed teardown expectations. A separate
+zero-derived_inert teardown case passes, as does the reviewer's unchanged public
+two-open-Root handle-handoff witness. The old retained matrix preserves fourteen
+native failures and eighteen passes; both independent negative probes and their
+raw receipts remain intact. The promoted portable regressions retain those
+expectations and add callback/ref/boolean/null/undefined replacement, canceled
+close, retained reopen, actual pointer input and timer-identity coverage.
+
+All eight changed whole-file hashes are regenerated in the actual 197/891 graph;
+the Original 200 graph, pre-code plans, pinned archives and 331/19 assertion ledger
+are unchanged. The remaining 189 full native bodies retain exact reviewed bytes.
+Focused archive/bridge/navigation checks pass eight of eight, and local Standards
+passes without warnings. Successor full Verification, installed strict consumers,
+secured 44 family/33 geometry browsers, configured CI and independent review of
+all eight changed bodies with precise inherited 189-body scopes remain required.
+There is no owner Source CLEAR or merge approval.

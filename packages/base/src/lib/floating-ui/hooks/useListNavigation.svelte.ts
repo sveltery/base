@@ -275,7 +275,7 @@ export function useListNavigation(getContext: () => FloatingRootContext | Floati
             if (!initialItem) {
                 runFocus(waitedItem);
             }
-            const shouldScrollIntoView = 
+            const shouldScrollIntoView =
             item && (forceScrollIntoView || !isPointerModalityRef.current);
             if (shouldScrollIntoView) {
                 // JSDOM doesn't support `.scrollIntoView()` but it's widely supported

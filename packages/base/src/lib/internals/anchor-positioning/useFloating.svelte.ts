@@ -3,7 +3,7 @@
 // Floating UI 2.1.9 useFloating/getDPR/roundByDPR, MIT: parity/anchor-positioning/FLOATING_UI_LICENSE.
 import { computePosition, type ComputePositionConfig, type VirtualElement } from '@floating-ui/dom';
 import { isElement } from '@floating-ui/utils/dom';
-import { untrack } from 'svelte';
+import { onDestroy, untrack } from 'svelte';
 import type { PositioningResult, Reference } from './types.js';
 
 export interface NativeFloatingOptions {
@@ -19,6 +19,8 @@ export interface NativeFloatingOptions {
 
 /** One DOM geometry driver; Source root-store/tree composition delegates through useBaseUIFloating. */
 export function useFloating(readOptions: () => NativeFloatingOptions) {
+  let destroyed = false;
+  onDestroy(() => { destroyed = true; });
   const initialConfig = untrack(() => readOptions().getConfig(() => false));
   let domReference = $state.raw<Element | null>(null);
   let positionReference = $state.raw<Reference | null>(null);
@@ -119,7 +121,7 @@ export function useFloating(readOptions: () => NativeFloatingOptions) {
   };
 
   return {
-    get elements() { return { domReference, reference, floating: floatingElement }; },
+    get elements() { return { domReference, reference: destroyed ? referenceRef.current : reference, floating: destroyed ? floatingRef.current : floatingElement }; },
     get data() { return data; },
     get error() { return error; },
     get floatingStyles() { return floatingStyles; },

@@ -71,7 +71,8 @@ export function useHoverReferenceInteraction(getContext: () => FloatingRootConte
     const { dataRef, events } = $derived(store.context);
     const contextTree = useFloatingTree();
     const tree = $derived(externalTree ?? contextTree);
-    const instance = useHoverInteractionSharedState(() => store);
+    const getInstance = useHoverInteractionSharedState(() => store);
+    const instance = $derived(getInstance());
     const isHoverCloseActiveRef = { current: false };
     const handleCloseRef = { get current() {
             return handleClose;

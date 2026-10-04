@@ -767,13 +767,8 @@ export function createFloatingFocusManager(getProps: () => FloatingFocusManagerP
 
     addPreviouslyFocusedElement(elementFocusedBeforeOpen);
 
-    // The native host destroys its derived props after the close dispatch. Keep
-    // that still-mounted return-focus decision for this lifetime's cleanup.
-    let returnFocusOnClose: { value: typeof returnFocus } | undefined;
-
     function onOpenChangeLocal(details: FloatingUIOpenChangeDetails) {
       if (!details.open) {
-        returnFocusOnClose = { value: returnFocusRef.current };
         closeTypeRef.current = getEventType(details.nativeEvent, lastInteractionTypeRef.current);
       }
 
@@ -818,7 +813,8 @@ export function createFloatingFocusManager(getProps: () => FloatingFocusManagerP
 
     events.on('openchange', onOpenChangeLocal);
 
-    function getReturnElement(closeType: InteractionType, returnFocusValueOrFn: typeof returnFocus) {
+    function getReturnElement(closeType: InteractionType) {
+      const returnFocusValueOrFn = returnFocusRef.current;
       let resolvedReturnFocusValue =
         typeof returnFocusValueOrFn === 'function'
           ? returnFocusValueOrFn(closeType)
@@ -867,9 +863,9 @@ export function createFloatingFocusManager(getProps: () => FloatingFocusManagerP
             contains(node.context?.elements.floating, activeEl),
           ));
 
-      const returnFocusValueOrFn = returnFocusOnClose ? returnFocusOnClose.value : returnFocusRef.current;
+      const returnFocusValueOrFn = returnFocusRef.current;
       const closeType = closeTypeRef.current;
-      const returnElement = getReturnElement(closeType, returnFocusValueOrFn);
+      const returnElement = getReturnElement(closeType);
 
       queueMicrotask(() => {
         // `returnElement` if it is tabbable, otherwise its first tabbable child,

@@ -133,6 +133,61 @@
       "archive": "anchor-eaa0d3f-installed-lifecycle-failure.log.gz",
       "rawSha256": "a93b1fbc359817046c1c0e8c870eace9cf9b2427b17d933e495fa852a73c52b2",
       "rawBytes": 2027
+    },
+    {
+      "archive": "independent-ff42fea-retained-focus-red.log.gz",
+      "rawSha256": "0807969ac9eb86480e1bfceab4b9196f82c2a6ddb102c6239fba93af42b6bbac",
+      "rawBytes": 1890
+    },
+    {
+      "archive": "independent-ff42fea-hover-store-red.log.gz",
+      "rawSha256": "875dd3d458b4835d30db9e4e29c3a861b14633e321c357e02bc9b47afd684fcc",
+      "rawBytes": 2072
+    },
+    {
+      "archive": "independent-ff42fea-public-handle-handoff-red.log.gz",
+      "rawSha256": "51fdef95080a682a73abb06166c976aee1d2062bea4017c048a4fac224cd782e",
+      "rawBytes": 2135
+    },
+    {
+      "archive": "ff42fea-retained-matrix-red.log.gz",
+      "rawSha256": "2ec47bb68a43d1ead72400ec3745e86f7e523e281a80ad5a2ad2b41813314ca3",
+      "rawBytes": 16146
+    },
+    {
+      "archive": "private-three-fixes-99-green.log.gz",
+      "rawSha256": "7c8a173e4b780295350474b4f3bc14f61e6000be2ae1c3501f79d6ab2355b59b",
+      "rawBytes": 411
+    },
+    {
+      "archive": "private-driver-zero-warning-green.log.gz",
+      "rawSha256": "74fc0a26d4482fbc72cf6028cba51cc512e083ed58a77b685ca53ed505c68c38",
+      "rawBytes": 207
+    },
+    {
+      "archive": "private-public-handle-handoff-green.log.gz",
+      "rawSha256": "72065664a7f791e3829db4aec839055b7c88121cec868a0c33888ef2dc31854b",
+      "rawBytes": 208
+    },
+    {
+      "archive": "promoted-regressions-portability-parse-failure.log.gz",
+      "rawSha256": "174f917b2cecfc57f83fab98731d3fe1bc11b59cabdabe75daac18a460dd25f1",
+      "rawBytes": 5693
+    },
+    {
+      "archive": "promoted-reference-input-green.log.gz",
+      "rawSha256": "78d83c976b230416612defb123518d79d5078c0df6653206a9259dfbb6625e6a",
+      "rawBytes": 207
+    },
+    {
+      "archive": "successor-eight-provenance-green.log.gz",
+      "rawSha256": "8393aa5ae56824e0c9a548900cf52c8dc919f60ce66347038c4fbbb892773848",
+      "rawBytes": 992
+    },
+    {
+      "archive": "successor-standards-green.log.gz",
+      "rawSha256": "4c6122dea8c7e34c086493e81ed3552975ecd8580f11b28bf879ea858b7a4399",
+      "rawBytes": 348
     }
   ]
 }

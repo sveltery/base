@@ -154,7 +154,7 @@
       ],
       "localHashes": {
         "packages/base/src/lib/floating-ui/components/FloatingFocusManager.svelte": "02e830d2f21614164344019f3bdd4420c4e0c58ddf49b12023c2202fcc236da8",
-        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts": "196142de842ceb2fe24365fc7c14c1439a5c7407af94bd63e00c8fa584caf130"
+        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts": "c0d9f77faa3fa4fb8f78d01d958fdbc60ed960b043edfeb967f0b138ba367a9f"
       },
       "correspondence": "Full Original focus-manager business plus native host/component ownership. Reinspect inherited full body, flags, scheduling, focus restore and teardown.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -282,7 +282,7 @@
       ],
       "localHashes": {
         "packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts": "3cb683af9f2da1d7e2fdb289c55e4397ea596af3d1de90b02e9cf1ff94c4929c",
-        "packages/base/src/lib/internals/anchor-positioning/useFloating.svelte.ts": "624e132fdda861d186f7d2cc9718c818f73d47348a56d7dd13410c3fba1ae929"
+        "packages/base/src/lib/internals/anchor-positioning/useFloating.svelte.ts": "9f504f4289d1b38e2fc78830320beec60d5ec6fe40f183b132916594c7027c8a"
       },
       "correspondence": "Original useBaseUIFloating/useFloatingWithStore root/tree/context/ref publication connects to the sole DOM driver, with honest narrow geometry-free versus fully positioned types.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -330,7 +330,7 @@
         "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts": "232dd611c17a2fe6da1d4dbc8365beb4c3a9a7a6ad561914e4b4b22ff6a1e821"
+        "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts": "384272183fd4420ea931d08e092e74f5bf7c4aa2ab183f25a019f668ccf9107a"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -344,7 +344,7 @@
         "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts": "e2af43a5a80d49a0ab5aa1a80e7038c2cc69c89044162e43d34c98069739623b"
+        "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts": "ef1574048bab3502c11609c1d085308bfb52f9294bc851efb0af50506dd1550e"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -358,7 +358,7 @@
         "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts": "e0c95bff41012e90dc3299db5c8fa29387a2317bf41bd36975ca6fa2478919b2"
+        "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts": "3bbc6e76e17a90be07b1b82536c3f8325e0f08641d771740ba7352494ae205dd"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -386,7 +386,7 @@
         "packages/base/src/lib/floating-ui/hooks/useListNavigation.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/floating-ui/hooks/useListNavigation.svelte.ts": "127d3c9c93a0bb4f97408f7a9af73852dd969748adc71f2da923befd710d4f2f"
+        "packages/base/src/lib/floating-ui/hooks/useListNavigation.svelte.ts": "6bf9f8935955bfc9eaacfc92cfca1d3745d55ae1ea90fd4203ff83daafa22d6e"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -1291,7 +1291,7 @@
         "packages/base/src/lib/menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/Popup.svelte": "e8caef716cc6647c9033d3f8d708c3c1c92448dd8c66377012e0b9ac0d970155",
+        "packages/base/src/lib/menu/Popup.svelte": "ce10606d956aecb5e2d0206cbd9aecf1bae4906fbd8d6b491294ada2ff68b4b2",
         "packages/base/src/lib/menu/types.ts": "3affcc2edec6d2fc633d9d8ed7460d78e4aebcfd791ee0d8917e0a8ed3df2526"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
@@ -2012,7 +2012,7 @@
         "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts": "6cbe8bc1c01cb5859192c3891781c4ec8db7392a75f4ace29431b59f60390626"
+        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts": "6dbed9514bf1b8aa1c6deced9bf7e1bbba39021af9e8ef092dec351bb9ef5f00"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."

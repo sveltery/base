@@ -47,7 +47,8 @@ export function useHoverFloatingInteraction(getContext: () => FloatingRootContex
     const { dataRef } = $derived(store.context);
     const tree = useFloatingTree();
     const parentId = useFloatingParentNodeId();
-    const instance = useHoverInteractionSharedState(() => store);
+    const getInstance = useHoverInteractionSharedState(() => store);
+    const instance = $derived(getInstance());
     const childClosedTimeout = useTimeout();
     const isClickLikeOpenEvent = useStableCallback(() => {
         return isClickLikeOpenEventShared(dataRef.current.openEvent?.type, instance.interactedInside);
