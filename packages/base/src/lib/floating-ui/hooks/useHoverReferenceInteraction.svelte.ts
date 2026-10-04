@@ -1,5 +1,6 @@
 // Original Base UI 1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT: THIRD_PARTY_NOTICES.md. Native Svelte live readers/effects replace React hooks.
+import { flushSync } from 'svelte';
 import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
 import { addEventListener } from '../../utils/addEventListener.js';
 import { mergeCleanups } from '../../utils/mergeCleanups.js';
@@ -378,9 +379,9 @@ export function useHoverReferenceInteraction(getContext: () => FloatingRootConte
                     }
                 }
                 if (instance.pointerType === 'touch') {
-                    (() => {
+                    flushSync(() => {
                         handleMouseMove();
-                    })();
+                    });
                 }
                 else if (isOverInactive && currentOpen) {
                     handleMouseMove();

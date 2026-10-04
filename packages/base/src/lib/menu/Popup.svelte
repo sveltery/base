@@ -11,9 +11,12 @@
   import { REASONS } from '../internals/reasons.js';
   import { getDisabledMountTransitionStyles } from '../internals/getDisabledMountTransitionStyles.js';
   import { useIsoLayoutEffect } from '../utils/useIsoLayoutEffect.svelte.js';
+  import { useToolbarRootContext } from '../toolbar/root/ToolbarRootContext.js';
   import { COMPOSITE_KEYS } from '../internals/composite/composite.js';
   import type { MenuPopupProps, MenuRoot } from './types.js';
+  // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
   let { render, class: className, style, finalFocus, children, ref = $bindable(null), ...elementProps }: MenuPopupProps = $props();
+  const insideToolbar = useToolbarRootContext(true) != null;
   const { store } = useMenuRootContext();
   const positioner = useMenuPositionerContext();
   const open = $derived(store.useState('open'));
@@ -51,5 +54,5 @@
   const setRef = (node: HTMLElement | null) => { ref = node; };
 </script>
 <FloatingFocusManager context={floatingContext} openInteractionType={openMethod} modal={isContextMenu} disabled={!mounted} returnFocus={finalFocus === undefined ? returnFocus : finalFocus} initialFocus={parent.type !== 'menu'} restoreFocus={true} externalTree={parent.type !== 'menubar' ? floatingTreeRoot : undefined} previousFocusableElement={activeTriggerElement as HTMLElement | null} nextFocusableElement={parent.type === undefined ? store.context.triggerFocusTargetRef : undefined} beforeContentFocusGuardRef={parent.type === undefined ? store.context.beforeContentFocusGuardRef : undefined}>
-  <RenderElement tag="div" componentProps={{ render, class: className, style }} params={{ state, ref: [setRef, store.context.popupRef, setPopupElement], stateAttributesMapping: popupTransitionStateMapping, props: [popupProps, {}, getDisabledMountTransitionStyles(transitionStatus), elementProps, { 'data-rootownerid': rootId }] }} {children} />
+  <RenderElement tag="div" componentProps={{ render, class: className, style }} params={{ state, ref: [setRef, store.context.popupRef, setPopupElement], stateAttributesMapping: popupTransitionStateMapping, props: [popupProps, { onkeydown(event: KeyboardEvent) { if (insideToolbar && COMPOSITE_KEYS.has(event.key)) event.stopPropagation(); } }, getDisabledMountTransitionStyles(transitionStatus), elementProps, { 'data-rootownerid': rootId }] }} {children} />
 </FloatingFocusManager>

@@ -81,7 +81,7 @@ function isInsideAxisAlignedRect(
   return pointX >= minX && pointX <= maxX && pointY >= minY && pointY <= maxY;
 }
 
-export interface SafePolygonOptions extends HandleCloseOptions {}
+export type SafePolygonOptions = HandleCloseOptions;
 
 /**
  * Generates a safe polygon area that the user can traverse without closing the

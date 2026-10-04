@@ -1,9 +1,7 @@
 // Original Base UI 1.8.0 menubar public type contracts; MIT: THIRD_PARTY_NOTICES.md.
-/* eslint-disable @typescript-eslint/no-empty-object-type, @typescript-eslint/no-namespace -- Original erased namespace and empty State contracts. */
-import type { Snippet } from 'svelte';
+/* eslint-disable @typescript-eslint/no-namespace -- Original erased namespace and empty State contracts. */
 import type { HTMLAttributes } from 'svelte/elements';
-import type { ElementProps, MenuRoot, MenuPositionerState, MenuPositionerProps } from '../menu/types.js';
-import type { BaseUIChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
+import type { ElementProps, MenuRoot } from '../menu/types.js';
 
 
 

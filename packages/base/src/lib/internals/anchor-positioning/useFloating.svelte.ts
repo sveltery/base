@@ -22,6 +22,7 @@ export function useFloating(readOptions: () => NativeFloatingOptions) {
   const initialConfig = untrack(() => readOptions().getConfig(() => false));
   let domReference = $state.raw<Element | null>(null);
   let positionReference = $state.raw<Reference | null>(null);
+  let localReference = $state.raw<Reference | null>(null);
   let floating = $state.raw<HTMLElement | null>(null);
   let data = $state.raw<PositioningResult>({
     x: 0, y: 0, placement: initialConfig.placement ?? 'bottom', strategy: initialConfig.strategy ?? 'absolute',
@@ -34,7 +35,7 @@ export function useFloating(readOptions: () => NativeFloatingOptions) {
   let measuredReference: Reference | null = null;
   let measuredFloating: HTMLElement | null = null;
   const options = $derived(readOptions());
-  const reference = $derived(options.elements?.reference || positionReference || domReference);
+  const reference = $derived(options.elements ? options.elements.reference || localReference : positionReference ?? domReference);
   const floatingElement = $derived(options.elements?.floating || floating);
   const referenceRef = { current: null as Reference | null };
   const floatingRef = { current: null as HTMLElement | null };
@@ -102,7 +103,7 @@ export function useFloating(readOptions: () => NativeFloatingOptions) {
   const refs = {
     reference: referenceRef, floating: floatingRef,
     setReference(node: Reference | null) {
-      if (node !== referenceRef.current) { referenceRef.current = node; positionReference = node; }
+      if (node !== referenceRef.current) { referenceRef.current = node; localReference = node; }
       if (isElement(node) || node === null) domReference = node;
     },
     setPositionReference(node: Reference | null) {

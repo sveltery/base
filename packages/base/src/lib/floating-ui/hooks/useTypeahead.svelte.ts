@@ -1,5 +1,6 @@
 // Ported from Base UI 1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT: THIRD_PARTY_NOTICES.md; native Svelte replaces React hooks and native focusout replaces bubbling synthetic blur.
+import { untrack } from 'svelte';
 import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
 import { useStableCallback } from '../../utils/useStableCallback.js';
 import { useTimeout } from '../../utils/useTimeout.js';
@@ -91,7 +92,7 @@ export function useTypeahead(
 
   const timeout = useTimeout();
   const stringRef = { current: '' };
-  const prevIndexRef = { current: selectedIndex ?? activeIndex ?? -1 as number | null };
+  const prevIndexRef = { current: untrack(() => selectedIndex ?? activeIndex ?? -1) as number | null };
   const matchIndexRef = { current: null as number | null };
 
   const onKeyDown = useStableCallback((event: KeyboardEvent) => {

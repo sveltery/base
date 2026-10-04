@@ -1,6 +1,7 @@
 // Original Base UI 1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT: THIRD_PARTY_NOTICES.md. Native Svelte live readers/effects replace React hooks.
 import { DEV } from 'esm-env';
+import { untrack } from 'svelte';
 import { useAnimationFrame } from '../../utils/useAnimationFrame.js';
 import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
 import { ownerDocument } from '../../utils/owner.js';
@@ -192,7 +193,8 @@ export function useListNavigation(getContext: () => FloatingRootContext | Floati
     const context = $derived(getContext());
     const { listRef, activeIndex, onNavigate: onNavigateProp = () => { }, enabled = true, selectedIndex = null, allowEscape = false, loopFocus = false, nested = false, rtl = false, virtual = false, focusItemOnOpen = 'auto', focusItemOnHover = true, openOnArrowKeyDown = true, disabledIndices = undefined, orientation = 'vertical', parentOrientation, id, resetOnPointerLeave = true, externalTree, grid: navigateGrid, } = $derived(getProps());
     const isGrid = $derived(navigateGrid != null);
-    if (DEV) {
+    useIsoLayoutEffect(() => {
+      if (DEV) {
         if (allowEscape) {
             if (!loopFocus) {
                 console.warn('`useListNavigation` looping must be enabled to allow escaping.');
@@ -204,7 +206,8 @@ export function useListNavigation(getContext: () => FloatingRootContext | Floati
         if (orientation === 'vertical' && isGrid) {
             console.warn('In grid list navigation mode, the `orientation` should', 'be either "horizontal" or "both".');
         }
-    }
+      }
+    }, () => [allowEscape, loopFocus, virtual, orientation, isGrid]);
     const store = $derived('rootStore' in context ? context.rootStore : context);
     const open = $derived(store.useState('open'));
     const floatingElement = $derived(store.useState('floatingElement'));
@@ -218,15 +221,15 @@ export function useListNavigation(getContext: () => FloatingRootContext | Floati
     const parentId = useFloatingParentNodeId();
     const contextTree = useFloatingTree();
     const tree = $derived(externalTree ?? contextTree);
-    const focusItemOnOpenRef = { current: focusItemOnOpen };
-    const indexRef = { current: selectedIndex ?? -1 };
+    const focusItemOnOpenRef = { current: untrack(() => focusItemOnOpen) };
+    const indexRef = { current: untrack(() => selectedIndex ?? -1) };
     const keyRef = { current: null as null | string };
     const isPointerModalityRef = { current: true };
     const onNavigate = useStableCallback((event?: Event) => {
         onNavigateProp(indexRef.current === -1 ? null : indexRef.current, event);
     });
-    const previousMountedRef = { current: !!floatingElement };
-    const previousOpenRef = { current: open };
+    const previousMountedRef = { current: untrack(() => !!floatingElement) };
+    const previousOpenRef = { current: untrack(() => open) };
     const forceSyncFocusRef = { current: false };
     const forceScrollIntoViewRef = { current: false };
     const cancelQueuedFocusRef = { current: null as (() => void) | null };

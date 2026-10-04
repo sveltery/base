@@ -7,6 +7,7 @@
   import { useCompositeListItem } from '../internals/composite/list/useCompositeListItem.svelte.js';
   import { useBaseUiId } from '../internals/useBaseUiId.js';
   import type { MenuItemProps } from './types.js';
+  // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
   let { render, class: className, id: idProp, label, nativeButton = false, disabled: disabledProp = false, closeOnClick = true, style, children, ref = $bindable(null), ...elementProps }: MenuItemProps = $props();
   const generatedId = $props.id();
   const listItem = useCompositeListItem(() => ({ guess: true, label }));

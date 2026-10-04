@@ -1,6 +1,7 @@
 // Original MenuRoot full business body at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // Native Svelte component initialization, context, live props and host effects; MIT.
 import { DEV } from 'esm-env';
+import { untrack } from 'svelte';
 import { useTimeout } from '../../utils/useTimeout.js';
 import { useStableCallback } from '../../utils/useStableCallback.js';
 import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
@@ -32,7 +33,7 @@ export function createMenuRoot<Payload>(getProps: () => MenuRootProps<Payload>, 
     const parentMenuRootContext = useMenuRootContext(true);
     const menubarContext = useMenubarContext(true);
     const isSubmenu = useMenuSubmenuRootContext();
-    const parentFromContext: MenuParent = $derived.by(() => {
+    const parentFromContext: MenuParent = (() => {
         if (isSubmenu && parentMenuRootContext) {
             return {
                 type: 'menu',
@@ -57,7 +58,7 @@ export function createMenuRoot<Payload>(getProps: () => MenuRootProps<Payload>, 
         return {
             type: undefined,
         };
-    });
+    })();
     const floatingParentNodeIdFromContext = useFloatingParentNodeId();
     const parentMenuStore = parentFromContext.type === 'menu' ? parentFromContext.store : undefined;
     // An initially open submenu should animate in only when the user watches it appear, i.e. when
@@ -68,12 +69,12 @@ export function createMenuRoot<Payload>(getProps: () => MenuRootProps<Payload>, 
     // being open at mount so a closed submenu doesn't seed `instantType` it would never clear. Read
     // during the first render only — consumed exclusively by first-render initializers below
     // (`useState` and the store's initial state).
-    const animateInitialOpen = (openProp ?? defaultOpen) && parentMenuStore?.state.transitionStatus === 'starting';
+    const animateInitialOpen = untrack(() => (openProp ?? defaultOpen) && parentMenuStore?.state.transitionStatus === 'starting');
     // Mirror an instantly-opened parent (e.g. keyboard click) so `[data-instant]` styling
     // suppresses the enter transition on both popups or neither. Captured once —
     // `animateInitialOpen` is only meaningful during the first render.
     const seededInstantType = useRefWithInit(() => animateInitialOpen ? parentMenuStore?.state.instantType : undefined).current;
-    const store = useMenuRootStore<Payload>({
+    const store = untrack(() => useMenuRootStore<Payload>({
         open: defaultOpen,
         openProp,
         activeTriggerId: defaultTriggerIdProp,
@@ -84,7 +85,7 @@ export function createMenuRoot<Payload>(getProps: () => MenuRootProps<Payload>, 
         modal: parentFromContext.type === undefined ? modalProp : undefined,
         rootId,
         instantType: seededInstantType,
-    }, floatingId, floatingParentNodeIdFromContext != null);
+    }, floatingId, floatingParentNodeIdFromContext != null));
     store.useControlledProp('openProp', () => openProp);
     store.useControlledProp('triggerIdProp', () => triggerIdProp);
     store.context.onOpenChangeComplete = (nextOpen) => onOpenChangeComplete?.(nextOpen);
@@ -101,16 +102,18 @@ export function createMenuRoot<Payload>(getProps: () => MenuRootProps<Payload>, 
     const payload = $derived(store.useState('payload') as Payload | undefined);
     const floatingParentNodeId = $derived(store.useState('floatingParentNodeId'));
     const openEventRef = { current: null as Event | null };
-    const allowOutsidePressDismissalRef = { current: parent.type !== 'context-menu' };
+    const allowOutsidePressDismissalRef = { current: untrack(() => parent.type !== 'context-menu') };
     const allowOutsidePressDismissalTimeout = useTimeout();
     const allowTouchToCloseRef = { current: true };
     const allowTouchToCloseTimeout = useTimeout();
     const nested = $derived(floatingParentNodeId != null);
-    if (DEV) {
+    useIsoLayoutEffect(() => {
+      if (DEV) {
         if (parent.type !== undefined && modalProp !== undefined) {
             console.warn('Base UI: The `modal` prop is not supported on nested menus. It will be ignored.');
         }
-    }
+      }
+    }, () => [parent, modalProp]);
     const interaction = useOpenInteractionType(() => open);
     const openMethod = $derived(interaction.openMethod);
     const interactionTypeProps = interaction.triggerProps;

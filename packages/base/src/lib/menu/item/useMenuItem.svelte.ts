@@ -10,7 +10,8 @@ export const REGULAR_ITEM = {
     type: 'regular-item' as const,
 };
 export function useMenuItem(getParams: () => UseMenuItemParameters): UseMenuItemReturnValue {
-    const { closeOnClick, disabled, highlighted, id, store, typingRef = store.context.typingRef, nativeButton, itemMetadata, nodeId, } = $derived(getParams());
+    const { closeOnClick, disabled, highlighted, id, store, typingRef: typingRefProp, nativeButton, itemMetadata, nodeId, } = $derived(getParams());
+    const typingRef = $derived(typingRefProp ?? store.context.typingRef);
     const itemRef = { current: null as HTMLElement | null };
     const { getButtonProps, buttonRef } = useButton(() => ({
         disabled,

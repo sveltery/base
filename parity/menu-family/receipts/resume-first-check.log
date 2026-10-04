@@ -1,0 +1,17 @@
+$ svelte-check --tsconfig ./tsconfig.json
+Loading svelte-check in workspace: /workspace/menu-family-base/packages/base
+Getting Svelte diagnostics...
+
+/workspace/menu-family-base/packages/base/../../apps/fixtures/src/lib/MenuFamilyFixture.svelte:45:134
+Error: This comparison appears to be unintentional because the types '"toolbar"' and '"hover"' have no overlap. (ts)
+  {:else if mode === 'toolbar'}
+    <Toolbar.Root><Toolbar.Button id="before">Before</Toolbar.Button><Menu.Root modal={false}><Menu.Trigger id="opener" openOnHover={mode === 'hover'} delay={80} closeDelay={80}>Open</Menu.Trigger>{@render popup()}</Menu.Root><Toolbar.Button id="after">After</Toolbar.Button></Toolbar.Root>
+  {:else if mode === 'detached' || mode === 'viewport'}
+
+====================================
+svelte-check found 1 error and 0 warnings in 1 file
+[ELIFECYCLE] Command failed with exit code 1.
+Error: ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL
+
+  × "pnpm recursive run" failed in /workspace/menu-family-base/packages/base
+

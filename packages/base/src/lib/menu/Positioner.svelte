@@ -8,6 +8,7 @@
   import { provideFloatingNode } from '../floating-ui/components/FloatingTree.svelte.js';
   import { createCompositeList } from '../internals/composite/list/createCompositeList.svelte.js';
   import type { MenuPositionerProps } from './types.js';
+  // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
   let { ref = $bindable(null), ...props }: MenuPositionerProps = $props();
   const { store } = useMenuRootContext();
   const root = createMenuPositioner(() => props, store, (node) => { ref = node; });
