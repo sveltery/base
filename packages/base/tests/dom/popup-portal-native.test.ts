@@ -98,6 +98,39 @@ it('Lite custom render and child content preserve inherited context without inst
   expect(document.querySelector('[data-type="outside"]')).toBeNull();
 });
 
+for (const lite of [false, true]) it(`${lite ? 'Lite' : 'Full'} mounts child content into a replaced actual render host and releases the previous ref`, async () => {
+  const ref = { current: null as HTMLElement | null };
+  const app = setup({ lite, customHost: true, forwardedRef: ref });
+  const previous = host()!; expect(previous.tagName).toBe('SECTION');
+  app.setHostTag('article'); await settle();
+  const next = host()!; expect(next.tagName).toBe('ARTICLE'); expect(next).not.toBe(previous);
+  expect(previous.isConnected).toBe(false); expect(ref.current).toBe(next);
+  expect(next.querySelector('[data-testid="portal-child"]')).not.toBeNull();
+  expect(app.readContext('host')).toBeNull();
+  if (!lite) expect(app.readContext('child')?.portalNode).toBe(next);
+});
+
+it('Full removes aria-owns when the actual custom host ID is removed', async () => {
+  setup({ customHost: true, focus: true });
+  const node = host()!; expect(document.querySelector('[aria-owns]')?.getAttribute('aria-owns')).toBe('custom-portal');
+  node.removeAttribute('id'); await settle();
+  expect(document.querySelector('[aria-owns]')).toBeNull(); expect(node.isConnected).toBe(true);
+});
+
+it('whole Full unmount clears retained live context and ref before a fresh independent remount', async () => {
+  const ref = { current: null as HTMLElement | null };
+  const first = setup({ customHost: true, forwardedRef: ref }); const previous = host()!;
+  const retainedContext = first.readContext('child')!;
+  expect(retainedContext.portalNode).toBe(previous);
+  mounted.splice(mounted.indexOf(first), 1); await unmount(first);
+  expect(ref.current).toBeNull(); expect(previous.isConnected).toBe(false); expect(retainedContext.portalNode).toBeNull();
+  const second = setup({ customHost: true, forwardedRef: ref }); const next = host()!;
+  expect(next).not.toBe(previous); expect(ref.current).toBe(next);
+  expect(second.readContext('child')).not.toBe(retainedContext);
+  expect(second.readContext('child')?.portalNode).toBe(next);
+  expect(retainedContext.portalNode).toBeNull();
+});
+
 for (const outerLite of [false, true]) for (const nested of ['full', 'lite'] as const) {
   it(`${outerLite ? 'Lite' : 'Full'} / ${nested} nesting uses the actual nearest Source portal provider`, () => {
     const root = destination();

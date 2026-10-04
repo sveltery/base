@@ -17,18 +17,21 @@
     forwardedRef?: MergedRef<HTMLElement>;
   } = $props();
   const contexts = new Map<string, FloatingPortalContext | null>();
+  let hostTag = $state<'section' | 'article'>('section');
   function report(name: string, context: FloatingPortalContext | null) { contexts.set(name, context); }
   export function readContext(name: string) { return contexts.get(name); }
   export function setContainer(value: PortalContainer | undefined) { container = value; }
   export function setCustomId(value: string) { customId = value; }
   export function setRef(value: MergedRef<HTMLElement>) { forwardedRef = value; }
+  export function setHostTag(value: 'section' | 'article') { hostTag = value; }
   export function mutateContainerCurrent(value: HTMLElement | ShadowRoot | null) {
     if (container && !('nodeType' in container)) container.current = value;
   }
 </script>
 
 {#snippet host(props: import('../../src/lib/internals/types.js').HTMLProps)}
-  <section {...props} id={customId}><Probe name="host" {report} /></section>
+  {#if hostTag === 'section'}<section {...props} id={customId}><Probe name="host" {report} /></section>
+  {:else}<article {...props} id={customId}><Probe name="host" {report} /></article>{/if}
 {/snippet}
 {#snippet child()}
   <Probe name="child" {report} {focus} />
