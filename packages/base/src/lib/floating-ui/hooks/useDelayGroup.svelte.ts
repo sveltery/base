@@ -49,6 +49,25 @@ export function useDelayGroup(
   const setIsInstantPhase = (value: boolean) => { isInstantPhase = value; };
   const openRef = { current: untrack(() => open) };
 
+  // Native effects dispose and register per effect. Release the old Source owner
+  // before syncing new open state or registering takeover, as Original cleanup does.
+  useIsoLayoutEffect(() => {
+    const ownedId = floatingId;
+    return () => {
+      if (currentIdRef.current === ownedId) {
+        currentContextRef.current = null;
+
+        if (!openRef.current) {
+          return;
+        }
+
+        currentIdRef.current = null;
+        resetDelayRef(delayRef, initialDelayRef);
+        timeout.clear();
+      }
+    };
+  }, () => [currentContextRef, currentIdRef, delayRef, floatingId, initialDelayRef, timeout]);
+
   useIsoLayoutEffect(() => {
     openRef.current = open;
   }, () => [open]);
@@ -71,10 +90,11 @@ export function useDelayGroup(
 
       if (timeoutMs) {
         const closingId = floatingId;
+        const closingStore = store;
         timeout.start(timeoutMs, () => {
           // If another tooltip has taken over the group, skip resetting.
           if (
-            store.select('open') ||
+            closingStore.select('open') ||
             (currentIdRef.current && currentIdRef.current !== closingId)
           ) {
             return;
@@ -140,22 +160,6 @@ export function useDelayGroup(
     currentContextRef,
     timeout,
   ]);
-
-  useIsoLayoutEffect(() => {
-    return () => {
-      if (currentIdRef.current === floatingId) {
-        currentContextRef.current = null;
-
-        if (!openRef.current) {
-          return;
-        }
-
-        currentIdRef.current = null;
-        resetDelayRef(delayRef, initialDelayRef);
-        timeout.clear();
-      }
-    };
-  }, () => [currentContextRef, currentIdRef, delayRef, floatingId, initialDelayRef, timeout]);
 
   return {
     activeIdRef: currentIdRef,

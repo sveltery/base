@@ -230,7 +230,7 @@
     },
     {
       "path": "packages/base/src/lib/floating-ui/hooks/useDelayGroup.svelte.ts",
-      "sha256": "dd3cc1e7bff716f7093162d11d7393bb4fe5b9e940311160c5a0816f5d7462a6",
+      "sha256": "5fbd431ac803aa0b09543055ff766e2afcb51c9ab1422b1135e8e5098b3982ed",
       "symbols": [
         {
           "name": "resetDelayRef",
@@ -253,7 +253,7 @@
         {
           "name": "useDelayGroup",
           "kind": "FunctionDeclaration",
-          "sha256": "3c826e11f0e0ac6b1c71f7496007d793a1ad13007a653cce098a7eb9db20eb82",
+          "sha256": "881635d13fa5b0f8d83d2f8532208e10c1efe9b6df69bd37107b1b2efae8ba5a",
           "scriptIndex": 0
         }
       ]
