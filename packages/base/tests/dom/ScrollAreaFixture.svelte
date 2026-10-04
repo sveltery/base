@@ -5,7 +5,23 @@
   import { CSPProvider } from '../../src/lib/csp-provider/index.js';
   import type { ScrollAreaRootProps } from '../../src/lib/scroll-area/types.js';
   import StateProbe from './ScrollAreaStateProbe.svelte';
-  let { direction = 'ltr', threshold = 0, preventMove = false, noViewport = false, nonce, disableStyleElements = false, observeCorner }: { direction?: 'ltr' | 'rtl'; threshold?: ScrollAreaRootProps['overflowEdgeThreshold']; preventMove?: boolean; noViewport?: boolean; nonce?: string; disableStyleElements?: boolean; observeCorner?: (state: object) => void } = $props();
+  let {
+    direction = 'ltr',
+    threshold = 0,
+    preventMove = false,
+    noViewport = false,
+    nonce,
+    disableStyleElements = false,
+    observeCorner,
+  }: {
+    direction?: 'ltr' | 'rtl';
+    threshold?: ScrollAreaRootProps['overflowEdgeThreshold'];
+    preventMove?: boolean;
+    noViewport?: boolean;
+    nonce?: string;
+    disableStyleElements?: boolean;
+    observeCorner?: (state: object) => void;
+  } = $props();
 </script>
 <DirectionProvider {direction}><CSPProvider {nonce} {disableStyleElements}>
   <ScrollArea.Root data-testid="root" overflowEdgeThreshold={threshold}>

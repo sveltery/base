@@ -10,14 +10,44 @@
   import { getOffset } from '../utils/getOffset.js';
   import * as ScrollAreaRootCssVars from '../root/ScrollAreaRootCssVars.js';
   import * as ScrollAreaScrollbarCssVars from './ScrollAreaScrollbarCssVars.js';
-  import type { ScrollAreaScrollbarProps, ScrollAreaScrollbarState } from '../types.js';
-  let { render, class: classProp, orientation = 'vertical', keepMounted = false, style, children, ref = $bindable(), ...elementProps }: ScrollAreaScrollbarProps = $props();
+  import type {
+    ScrollAreaScrollbarProps,
+    ScrollAreaScrollbarState,
+  } from '../types.js';
+  let {
+    render,
+    class: classProp,
+    orientation = 'vertical',
+    keepMounted = false,
+    style,
+    children,
+    ref = $bindable(),
+    ...elementProps
+  }: ScrollAreaScrollbarProps = $props();
   const root = useScrollAreaRootContext();
-  const { scrollbarYRef, scrollbarXRef, viewportRef, thumbYRef, thumbXRef, handlePointerDown, handlePointerUp, handleScroll, disableViewportSnap, rootId } = root;
+  const {
+    scrollbarYRef,
+    scrollbarXRef,
+    viewportRef,
+    thumbYRef,
+    thumbXRef,
+    handlePointerDown,
+    handlePointerUp,
+    handleScroll,
+    disableViewportSnap,
+    rootId,
+  } = root;
   const vertical = $derived(orientation === 'vertical');
-  const state: ScrollAreaScrollbarState = $derived({ ...root.viewportState, hovering: root.hovering, scrolling: vertical ? root.scrollingY : root.scrollingX, orientation });
+  const state: ScrollAreaScrollbarState = $derived({
+    ...root.viewportState,
+    hovering: root.hovering,
+    scrolling: vertical ? root.scrollingY : root.scrollingX,
+    orientation,
+  });
   const getDirection = useDirection();
-  const hideTrackUntilMeasured = $derived(!root.hasMeasuredScrollbar && !keepMounted);
+  const hideTrackUntilMeasured = $derived(
+    !root.hasMeasuredScrollbar && !keepMounted,
+  );
   const isHidden = $derived(vertical ? root.hiddenState.y : root.hiddenState.x);
   const shouldRender = $derived(keepMounted || !isHidden);
   setScrollAreaScrollbarContext(() => orientation);
@@ -56,7 +86,10 @@
 
       // At an edge (or with no overflow), let the wheel event chain to the
       // parent/page instead of swallowing it via `preventDefault`.
-      if ((scrollValue <= minScroll && delta < 0) || (scrollValue >= maxScrollValue && delta > 0)) {
+      if (
+        (scrollValue <= minScroll && delta < 0) ||
+        (scrollValue >= maxScrollValue && delta > 0)
+      ) {
         return;
       }
 
@@ -70,7 +103,9 @@
       handleScroll({ x: viewportEl.scrollLeft, y: viewportEl.scrollTop });
     }
 
-    return addEventListener(scrollbarEl, 'wheel', handleWheel, { passive: false });
+    return addEventListener(scrollbarEl, 'wheel', handleWheel, {
+      passive: false,
+    });
   });
 
   const internalProps = $derived({
@@ -95,7 +130,9 @@
         return;
       }
 
-      const scrollbarEl = vertical ? scrollbarYRef.current : scrollbarXRef.current;
+      const scrollbarEl = vertical
+        ? scrollbarYRef.current
+        : scrollbarXRef.current;
 
       if (!thumbEl || !scrollbarEl) {
         return;
@@ -107,14 +144,29 @@
       const thumbSizePx = vertical ? thumbEl.offsetHeight : thumbEl.offsetWidth;
       const trackRect = scrollbarEl.getBoundingClientRect();
       const clickPosition = vertical
-        ? event.clientY - trackRect.top - thumbSizePx / 2 - scrollbarOffset + thumbOffset / 2
-        : event.clientX - trackRect.left - thumbSizePx / 2 - scrollbarOffset + thumbOffset / 2;
+        ? event.clientY -
+          trackRect.top -
+          thumbSizePx / 2 -
+          scrollbarOffset +
+          thumbOffset / 2
+        : event.clientX -
+          trackRect.left -
+          thumbSizePx / 2 -
+          scrollbarOffset +
+          thumbOffset / 2;
 
-      const scrollableSize = vertical ? viewportEl.scrollHeight : viewportEl.scrollWidth;
-      const viewportSize = vertical ? viewportEl.clientHeight : viewportEl.clientWidth;
-      const trackSize = vertical ? scrollbarEl.offsetHeight : scrollbarEl.offsetWidth;
+      const scrollableSize = vertical
+        ? viewportEl.scrollHeight
+        : viewportEl.scrollWidth;
+      const viewportSize = vertical
+        ? viewportEl.clientHeight
+        : viewportEl.clientWidth;
+      const trackSize = vertical
+        ? scrollbarEl.offsetHeight
+        : scrollbarEl.offsetWidth;
 
-      const maxThumbOffset = trackSize - thumbSizePx - scrollbarOffset - thumbOffset;
+      const maxThumbOffset =
+        trackSize - thumbSizePx - scrollbarOffset - thumbOffset;
       // A short or heavily padded track can drive `maxThumbOffset` to zero or
       // negative once the thumb hits its `MIN_THUMB_SIZE` floor. Dividing by it
       // would yield a non-finite (`Infinity`/`NaN`) or inverted scroll position.
@@ -174,9 +226,20 @@
     },
   });
 
-
-  const forwardedRef = { get current() { return ref ?? null; }, set current(value: HTMLElement | null) { ref = value; } };
+  const forwardedRef = {
+    get current() {
+      return ref ?? null;
+    },
+    set current(value: HTMLElement | null) {
+      ref = value;
+    },
+  };
   const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({ ref: [forwardedRef, vertical ? scrollbarYRef : scrollbarXRef], state, props: [internalProps, elementProps], stateAttributesMapping: scrollAreaStateAttributesMapping });
+  const params = $derived({
+    ref: [forwardedRef, vertical ? scrollbarYRef : scrollbarXRef],
+    state,
+    props: [internalProps, elementProps],
+    stateAttributesMapping: scrollAreaStateAttributesMapping,
+  });
 </script>
 {#if shouldRender}<RenderElement tag="div" {componentProps} {params} {children} />{/if}

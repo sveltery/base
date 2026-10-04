@@ -3,5 +3,7 @@
   import { useScrollAreaRootContext } from '../../src/lib/scroll-area/root/ScrollAreaRootContext.js';
   let { observe }: { observe: (state: object) => void } = $props();
   const root = useScrollAreaRootContext();
-  $effect(() => { observe(root.cornerSize); });
+  $effect(() => {
+    observe(root.cornerSize);
+  });
 </script>

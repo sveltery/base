@@ -3,10 +3,39 @@
   import RenderElement from '../../internals/RenderElement.svelte';
   import { useScrollAreaRootContext } from '../root/ScrollAreaRootContext.js';
   import type { ScrollAreaCornerProps } from '../types.js';
-  let { render, class: classProp, style, children, ref = $bindable(), ...elementProps }: ScrollAreaCornerProps = $props();
+  let {
+    render,
+    class: classProp,
+    style,
+    children,
+    ref = $bindable(),
+    ...elementProps
+  }: ScrollAreaCornerProps = $props();
   const root = useScrollAreaRootContext();
-  const forwardedRef = { get current() { return ref ?? null; }, set current(value: HTMLElement | null) { ref = value; } };
+  const forwardedRef = {
+    get current() {
+      return ref ?? null;
+    },
+    set current(value: HTMLElement | null) {
+      ref = value;
+    },
+  };
   const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({ ref: [forwardedRef, root.cornerRef], props: [{ 'aria-hidden': true, style: { position: 'absolute', bottom: 0, insetInlineEnd: 0, width: `${root.cornerSize.width}px`, height: `${root.cornerSize.height}px` } }, elementProps] });
+  const params = $derived({
+    ref: [forwardedRef, root.cornerRef],
+    props: [
+      {
+        'aria-hidden': true,
+        style: {
+          position: 'absolute',
+          bottom: 0,
+          insetInlineEnd: 0,
+          width: `${root.cornerSize.width}px`,
+          height: `${root.cornerSize.height}px`,
+        },
+      },
+      elementProps,
+    ],
+  });
 </script>
 {#if !root.hiddenState.corner}<RenderElement tag="div" {componentProps} {params} {children} />{/if}

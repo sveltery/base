@@ -12,11 +12,28 @@
   import { SCROLL_TIMEOUT } from '../constants.js';
   import * as ScrollAreaRootCssVars from './ScrollAreaRootCssVars.js';
   import * as ScrollAreaScrollbarDataAttributes from '../scrollbar/ScrollAreaScrollbarDataAttributes.js';
-  import type { ScrollAreaRootProps, ScrollAreaRootState, HiddenState, OverflowEdges, Size, Coords } from '../types.js';
-  let { render, class: classProp, overflowEdgeThreshold: overflowEdgeThresholdProp, style, children, ref = $bindable(), ...elementProps }: ScrollAreaRootProps = $props();
+  import type {
+    ScrollAreaRootProps,
+    ScrollAreaRootState,
+    HiddenState,
+    OverflowEdges,
+    Size,
+    Coords,
+  } from '../types.js';
+  let {
+    render,
+    class: classProp,
+    overflowEdgeThreshold: overflowEdgeThresholdProp,
+    style,
+    children,
+    ref = $bindable(),
+    ...elementProps
+  }: ScrollAreaRootProps = $props();
   const nativeId = $props.id();
   const rootId = useBaseUiId(undefined, nativeId);
-  const overflowEdgeThreshold = $derived(normalizeOverflowEdgeThreshold(overflowEdgeThresholdProp));
+  const overflowEdgeThreshold = $derived(
+    normalizeOverflowEdgeThreshold(overflowEdgeThresholdProp),
+  );
   const scrollYTimeout = useTimeout();
   const scrollXTimeout = useTimeout();
   const csp = getCSPContext();
@@ -27,12 +44,21 @@
   let hasMeasuredScrollbar = $state(false);
   let cornerSize = $state<Size>({ width: 0, height: 0 });
   let thumbSize = $state<Size>({ width: 0, height: 0 });
-  let overflowEdges = $state<OverflowEdges>({ xStart: false, xEnd: false, yStart: false, yEnd: false });
+  let overflowEdges = $state<OverflowEdges>({
+    xStart: false,
+    xEnd: false,
+    yStart: false,
+    yEnd: false,
+  });
   let hiddenState = $state<HiddenState>({ x: true, y: true, corner: true });
   const rootRef = $state<{ current: HTMLElement | null }>({ current: null });
   const viewportRef = $state<{ current: HTMLElement | null }>({ current: null });
-  const scrollbarYRef = $state<{ current: HTMLElement | null }>({ current: null });
-  const scrollbarXRef = $state<{ current: HTMLElement | null }>({ current: null });
+  const scrollbarYRef = $state<{ current: HTMLElement | null }>({
+    current: null,
+  });
+  const scrollbarXRef = $state<{ current: HTMLElement | null }>({
+    current: null,
+  });
   const thumbYRef = $state<{ current: HTMLElement | null }>({ current: null });
   const thumbXRef = $state<{ current: HTMLElement | null }>({ current: null });
   const cornerRef = $state<{ current: HTMLElement | null }>({ current: null });
@@ -41,13 +67,23 @@
   const startXRef = { current: 0 };
   const startScrollTopRef = { current: 0 };
   const startScrollLeftRef = { current: 0 };
-  const currentOrientationRef = { current: 'vertical' as 'vertical' | 'horizontal' };
+  const currentOrientationRef = {
+    current: 'vertical' as 'vertical' | 'horizontal',
+  };
   const scrollPositionRef = { current: { x: 0, y: 0 } };
   const savedSnapTypeRef = { current: null as string | null };
-  const setScrollingY = (value: boolean) => { scrollingY = value; };
-  const setScrollingX = (value: boolean) => { scrollingX = value; };
-  const setTouchModality = (value: boolean) => { touchModality = value; };
-  const setHovering = (value: boolean | ((previous: boolean) => boolean)) => { hovering = typeof value === 'function' ? value(hovering) : value; };
+  const setScrollingY = (value: boolean) => {
+    scrollingY = value;
+  };
+  const setScrollingX = (value: boolean) => {
+    scrollingX = value;
+  };
+  const setTouchModality = (value: boolean) => {
+    touchModality = value;
+  };
+  const setHovering = (value: boolean | ((previous: boolean) => boolean)) => {
+    hovering = typeof value === 'function' ? value(hovering) : value;
+  };
   function startScrolling(vertical: boolean) {
     const setScrolling = vertical ? setScrollingY : setScrollingX;
     const timeout = vertical ? scrollYTimeout : scrollXTimeout;
@@ -94,7 +130,9 @@
 
     if (activePointerIdRef.current !== null) {
       const activeThumb =
-        currentOrientationRef.current === 'vertical' ? thumbYRef.current : thumbXRef.current;
+        currentOrientationRef.current === 'vertical'
+          ? thumbYRef.current
+          : thumbXRef.current;
       // A live drag holds capture for the active pointer — ignore other pointers.
       // No capture means the release went missing entirely (silent capture drop
       // with an id that never reappears, e.g. a lost touch contact), so let the
@@ -119,7 +157,9 @@
     }
 
     const thumb =
-      currentOrientationRef.current === 'vertical' ? thumbYRef.current : thumbXRef.current;
+      currentOrientationRef.current === 'vertical'
+        ? thumbYRef.current
+        : thumbXRef.current;
     thumb?.setPointerCapture(event.pointerId);
   }
 
@@ -132,7 +172,9 @@
     // Clear the drag's scrolling state immediately rather than waiting for the
     // `SCROLL_TIMEOUT` timer armed by the last drag move, so every release path
     // (real, `pointercancel`, or the missed-release fallback) behaves the same.
-    (currentOrientationRef.current === 'vertical' ? setScrollingY : setScrollingX)(false);
+    (currentOrientationRef.current === 'vertical'
+      ? setScrollingY
+      : setScrollingX)(false);
 
     if (savedSnapTypeRef.current !== null) {
       if (viewportRef.current) {
@@ -142,7 +184,9 @@
     }
 
     const thumb =
-      currentOrientationRef.current === 'vertical' ? thumbYRef.current : thumbXRef.current;
+      currentOrientationRef.current === 'vertical'
+        ? thumbYRef.current
+        : thumbXRef.current;
     // `pointercancel` releases capture implicitly, so guard against releasing a
     // capture we no longer hold (which would throw).
     if (thumb?.hasPointerCapture(event.pointerId)) {
@@ -181,18 +225,30 @@
     const scrollbarOffset = getOffset(scrollbarEl, 'padding', axis);
     const thumbOffset = getOffset(thumbEl, 'margin', axis);
     const thumbSizePx = vertical ? thumbEl.offsetHeight : thumbEl.offsetWidth;
-    const trackSize = vertical ? scrollbarEl.offsetHeight : scrollbarEl.offsetWidth;
-    const maxThumbOffset = trackSize - thumbSizePx - scrollbarOffset - thumbOffset;
+    const trackSize = vertical
+      ? scrollbarEl.offsetHeight
+      : scrollbarEl.offsetWidth;
+    const maxThumbOffset =
+      trackSize - thumbSizePx - scrollbarOffset - thumbOffset;
     // A short or heavily padded track can drive `maxThumbOffset` to zero or
     // negative once the thumb hits its `MIN_THUMB_SIZE` floor. Dividing by it
     // would yield a non-finite (`Infinity`/`NaN`) or inverted scroll position.
-    const delta = vertical ? event.clientY - startYRef.current : event.clientX - startXRef.current;
+    const delta = vertical
+      ? event.clientY - startYRef.current
+      : event.clientX - startXRef.current;
     const scrollRatio = maxThumbOffset <= 0 ? 0 : delta / maxThumbOffset;
 
-    const scrollableSize = vertical ? viewportEl.scrollHeight : viewportEl.scrollWidth;
-    const viewportSize = vertical ? viewportEl.clientHeight : viewportEl.clientWidth;
-    const startScroll = vertical ? startScrollTopRef.current : startScrollLeftRef.current;
-    const nextScroll = startScroll + scrollRatio * (scrollableSize - viewportSize);
+    const scrollableSize = vertical
+      ? viewportEl.scrollHeight
+      : viewportEl.scrollWidth;
+    const viewportSize = vertical
+      ? viewportEl.clientHeight
+      : viewportEl.clientWidth;
+    const startScroll = vertical
+      ? startScrollTopRef.current
+      : startScrollLeftRef.current;
+    const nextScroll =
+      startScroll + scrollRatio * (scrollableSize - viewportSize);
 
     if (vertical) {
       viewportEl.scrollTop = nextScroll;
@@ -212,11 +268,13 @@
     handleTouchModalityChange(event);
 
     if (event.pointerType !== 'touch') {
-      const isTargetRootChild = contains(rootRef.current, event.target as Element);
+      const isTargetRootChild = contains(
+        rootRef.current,
+        event.target as Element,
+      );
       setHovering(isTargetRootChild);
     }
   }
-
 
   const rootState: ScrollAreaRootState = $derived({
     scrolling: scrollingX || scrollingY,
@@ -229,56 +287,118 @@
     cornerHidden: hiddenState.corner,
   });
   setScrollAreaRootContext({
-    handlePointerDown, handlePointerMove, handlePointerUp, handleScroll, disableViewportSnap,
-    get cornerSize() { return cornerSize; },
-    setCornerSize(value) { cornerSize = typeof value === 'function' ? value(cornerSize) : value; },
-    get thumbSize() { return thumbSize; },
-    setThumbSize(value) { thumbSize = typeof value === 'function' ? value(thumbSize) : value; },
-    get hasMeasuredScrollbar() { return hasMeasuredScrollbar; },
-    setHasMeasuredScrollbar(value) { hasMeasuredScrollbar = typeof value === 'function' ? value(hasMeasuredScrollbar) : value; },
-    get touchModality() { return touchModality; },
-    get scrollingX() { return scrollingX; },
-    get scrollingY() { return scrollingY; },
-    get hovering() { return hovering; }, setHovering,
-    viewportRef, scrollbarYRef, scrollbarXRef, thumbYRef, thumbXRef, cornerRef, rootId,
-    get hiddenState() { return hiddenState; },
-    setHiddenState(value) { hiddenState = typeof value === 'function' ? value(hiddenState) : value; },
-    get overflowEdges() { return overflowEdges; },
-    setOverflowEdges(value) { overflowEdges = typeof value === 'function' ? value(overflowEdges) : value; },
-    get viewportState() { return rootState; },
-    get overflowEdgeThreshold() { return overflowEdgeThreshold; },
+    handlePointerDown,
+    handlePointerMove,
+    handlePointerUp,
+    handleScroll,
+    disableViewportSnap,
+    get cornerSize() {
+      return cornerSize;
+    },
+    setCornerSize(value) {
+      cornerSize = typeof value === 'function' ? value(cornerSize) : value;
+    },
+    get thumbSize() {
+      return thumbSize;
+    },
+    setThumbSize(value) {
+      thumbSize = typeof value === 'function' ? value(thumbSize) : value;
+    },
+    get hasMeasuredScrollbar() {
+      return hasMeasuredScrollbar;
+    },
+    setHasMeasuredScrollbar(value) {
+      hasMeasuredScrollbar =
+        typeof value === 'function' ? value(hasMeasuredScrollbar) : value;
+    },
+    get touchModality() {
+      return touchModality;
+    },
+    get scrollingX() {
+      return scrollingX;
+    },
+    get scrollingY() {
+      return scrollingY;
+    },
+    get hovering() {
+      return hovering;
+    },
+    setHovering,
+    viewportRef,
+    scrollbarYRef,
+    scrollbarXRef,
+    thumbYRef,
+    thumbXRef,
+    cornerRef,
+    rootId,
+    get hiddenState() {
+      return hiddenState;
+    },
+    setHiddenState(value) {
+      hiddenState = typeof value === 'function' ? value(hiddenState) : value;
+    },
+    get overflowEdges() {
+      return overflowEdges;
+    },
+    setOverflowEdges(value) {
+      overflowEdges = typeof value === 'function' ? value(overflowEdges) : value;
+    },
+    get viewportState() {
+      return rootState;
+    },
+    get overflowEdgeThreshold() {
+      return overflowEdgeThreshold;
+    },
   });
-  const forwardedRef = { get current() { return ref ?? null; }, set current(value: HTMLElement | null) { ref = value; } };
+  const forwardedRef = {
+    get current() {
+      return ref ?? null;
+    },
+    set current(value: HTMLElement | null) {
+      ref = value;
+    },
+  };
   const componentProps = $derived({ render, class: classProp, style });
   const internalProps = $derived({
     role: 'presentation',
     onpointerenter: handlePointerEnterOrMove,
     onpointermove: handlePointerEnterOrMove,
     onpointerdown: handleTouchModalityChange,
-    onpointerleave() { setHovering(false); },
+    onpointerleave() {
+      setHovering(false);
+    },
     style: {
       position: 'relative',
       [ScrollAreaRootCssVars.scrollAreaCornerHeight]: `${cornerSize.height}px`,
       [ScrollAreaRootCssVars.scrollAreaCornerWidth]: `${cornerSize.width}px`,
     },
   });
-  const params = $derived({ state: rootState, ref: [forwardedRef, rootRef], props: [internalProps, elementProps], stateAttributesMapping: scrollAreaStateAttributesMapping });
-function normalizeOverflowEdgeThreshold(
-  threshold: ScrollAreaRootProps['overflowEdgeThreshold'] | undefined,
-) {
-  const thresholds =
-    typeof threshold === 'number'
-      ? { xStart: threshold, xEnd: threshold, yStart: threshold, yEnd: threshold }
-      : threshold;
+  const params = $derived({
+    state: rootState,
+    ref: [forwardedRef, rootRef],
+    props: [internalProps, elementProps],
+    stateAttributesMapping: scrollAreaStateAttributesMapping,
+  });
+  function normalizeOverflowEdgeThreshold(
+    threshold: ScrollAreaRootProps['overflowEdgeThreshold'] | undefined,
+  ) {
+    const thresholds =
+      typeof threshold === 'number'
+        ? {
+            xStart: threshold,
+            xEnd: threshold,
+            yStart: threshold,
+            yEnd: threshold,
+          }
+        : threshold;
 
-  return {
-    xStart: Math.max(0, thresholds?.xStart || 0),
-    xEnd: Math.max(0, thresholds?.xEnd || 0),
-    yStart: Math.max(0, thresholds?.yStart || 0),
-    yEnd: Math.max(0, thresholds?.yEnd || 0),
-  };
-}
-
+    return {
+      xStart: Math.max(0, thresholds?.xStart || 0),
+      xEnd: Math.max(0, thresholds?.xEnd || 0),
+      yStart: Math.max(0, thresholds?.yStart || 0),
+      yEnd: Math.max(0, thresholds?.yEnd || 0),
+    };
+  }
 </script>
 {#if !csp.disableStyleElements}<styleDisableScrollbar.getElement nonce={csp.nonce} />{/if}
 <RenderElement tag="div" {componentProps} {params} {children} />

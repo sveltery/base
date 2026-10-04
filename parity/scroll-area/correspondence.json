@@ -183,7 +183,7 @@
     },
     {
       "local": "packages/base/src/lib/scroll-area/content/ScrollAreaContent.svelte",
-      "localSha256": "e3609c34370c6379d88e9c4a2274b14053b910853533f3cc88d5b62753d2c868",
+      "localSha256": "dfbe60324da3bc6960da9fa6affa479f2d5c09f91c32633aeac795dde8e6bf5f",
       "source": "packages/react/src/scroll-area/content/ScrollAreaContent.tsx",
       "sourceSha256": "17df4f2658206fded9bd8a93f8948cdf1d442c68ab4b5cb823249614513160c9",
       "kind": "business-native-lifecycle",
@@ -194,7 +194,7 @@
     },
     {
       "local": "packages/base/src/lib/scroll-area/corner/ScrollAreaCorner.svelte",
-      "localSha256": "6845bcff9bd17174e70c158436ade5a816a35dcd6d426e1cc80c823ab8f898f7",
+      "localSha256": "5966ce199be649381971ac8417d9e55ddc7725bda936c85da3a839d3e6170a0a",
       "source": "packages/react/src/scroll-area/corner/ScrollAreaCorner.tsx",
       "sourceSha256": "23d3d19c96bc9b0eb1cb206eb635b1cc81a6721075a06e0bc353c94dc2956c29",
       "kind": "business-native-renderer",
@@ -227,7 +227,7 @@
     },
     {
       "local": "packages/base/src/lib/scroll-area/root/ScrollAreaRoot.svelte",
-      "localSha256": "71ef5787a87c1cc61401388f9bac80c3109a42c08bec54bd02f49d48859f81b8",
+      "localSha256": "38a51033ec3ded3ca68f37de782341c609cc362475e223bb563f182d0c3d9026",
       "source": "packages/react/src/scroll-area/root/ScrollAreaRoot.tsx",
       "sourceSha256": "d896463fba2e039747d766543b72af77ec4f654db3e5cf0986009f7326259ed3",
       "kind": "business-native-lifecycle",
@@ -282,7 +282,7 @@
     },
     {
       "local": "packages/base/src/lib/scroll-area/scrollbar/ScrollAreaScrollbar.svelte",
-      "localSha256": "008bd978fc8ec333595b685557af958dc4e483a286ff0e3d139b530924fd8f3f",
+      "localSha256": "291f4b709b6cd06e54515069875315497c0572ef465d2477a25ea6cec96e532d",
       "source": "packages/react/src/scroll-area/scrollbar/ScrollAreaScrollbar.tsx",
       "sourceSha256": "0658fb17cb20fba0b41c617c8e02d2fda928b5fd7a67d168ba923254385ff48e",
       "kind": "business-native-lifecycle",
@@ -326,7 +326,7 @@
     },
     {
       "local": "packages/base/src/lib/scroll-area/thumb/ScrollAreaThumb.svelte",
-      "localSha256": "38ee37e7d9aecf19578cc4bbff1084494f8d79d11fb769cbdebe03f4d2252376",
+      "localSha256": "60c225e4fd2c4439ee9efc7b98c7acf94b0002ac0fc491dcf59175a84d3c890f",
       "source": "packages/react/src/scroll-area/thumb/ScrollAreaThumb.tsx",
       "sourceSha256": "fa29ceb659aed174ac4ddf13068a89a3e4af78aff43fc35d901382b6dc1e3e7e",
       "kind": "business-native-lifecycle",
@@ -359,7 +359,7 @@
     },
     {
       "local": "packages/base/src/lib/scroll-area/viewport/ScrollAreaViewport.svelte",
-      "localSha256": "0af00f2af7ac0ab3d26a444164a2c98acf0319047c07589f6aeb200e2cf04c4a",
+      "localSha256": "07f719cb3a8a8a4c4c348f70fddf6986d4adf4f546d26961ab41cfda13961242",
       "source": "packages/react/src/scroll-area/viewport/ScrollAreaViewport.tsx",
       "sourceSha256": "2de647b48d3863d681fb319b62528df01068a1342ea5986100302492323c7932",
       "kind": "business-native-lifecycle",

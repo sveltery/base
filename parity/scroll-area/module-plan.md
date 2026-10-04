@@ -49,3 +49,17 @@ No business behavior changes are authorized by this plan. Native renderer/lifecy
 substitutions follow the user's native Svelte directive and will be recorded with
 observations. No browser, SSR, source acceptance or assertion parity is claimed at
 this preimplementation checkpoint. Shared mutations await a precise root lease.
+
+
+## Implementation checkpoint supplement
+
+The pre-code plan above is preserved as history. Root subsequently leased the
+complete scrollEdges and styles native boundary, exact canonical clamp/addEventListener
+reuse, and normal development integration of the entire public PR55 platform
+closure. Current actual used bytes and per-module body scope are recorded in
+correspondence.json and local-graph.json. The six parts and their business
+functions are implemented; no helper fork, internal geometry engine, React runtime
+or synthetic-event renderer has been added. Native observations and assertion
+coverage/gate limits are recorded separately. The later test-helper graph timing
+gap is explicit in README/test-helper-graph.json; no retroactive source-first
+credit is claimed for that supplement.

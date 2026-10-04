@@ -327,3 +327,16 @@ assertions earn zero unchanged credit. See [ScrollArea evidence](../parity/scrol
 and [API](scroll-area.md). This feature normally integrates reviewed PUBLIC PR55
 only as a development dependency; its separately blocked merge to actual main is
 not bypassed or authorized by this record.
+
+Executed b301446 paired browser evidence measures the style boundary: two Roots
+produce one hoisted React style retained after unmount, and two native styles
+removed at native teardown. Both live viewports apply the exact CSS and nonce.
+The fabricated S:279 event follows composedPath through the thumb under native
+Svelte delegation; the source React synthetic target stays on the track. The
+next synthetic probe supplies capture mocks while the actual mouse drag/capture
+probe already passed. No custom event dispatch/capture engine was added. The
+native R:951 context effect verifies unchanged corner object identity while
+React committed-render accounting receives zero unchanged credit. Detailed
+[observations and actual artifacts](../parity/scroll-area/native-observations.md)
+keep the113/115 failed browser gate visible. Proposed [PR61](https://github.com/sveltery/base/pull/61)
+still requires repaired exact-head execution and independent whole-source review.

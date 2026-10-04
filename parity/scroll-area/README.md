@@ -31,9 +31,41 @@ checks/review/PM approval pass. This PR does not authorize or substitute for PR5
 blocked main merge. Canonical clamp bytes are reused from PUBLIC37ce1f6 and the
 canonical addEventListener bytes from PUBLIC17006204a66c9ddb77cade10f83605b51925569a.
 
-Execution at the implementation checkpoint:11 rendered native DOM tests passed;
-library build and strict installed type checks passed. Other gates are in progress.
+Execution:12 rendered native DOM bodies, library build, installed strict public
+SSR/DOM/type/negative consumers and full local verify.sh/Standards have passed at
+their recorded implementation checkpoints; final frozen-head repetition remains
+pending. Hosted655601e executed82/92 probes; hostedb301446 executed113/115. Both
+failed gates are preserved in [execution history](execution-history.json), with
+fixture/locator/simulation corrections and measured native styles recorded in
+[native observations](native-observations.md). No failed gate is waived.
 The environment's known official Chromium download403 is not bypassed. The scoped
 Ubuntu22 workflow uses official Chromium153, chromiumSandbox:true, one worker,
 retries0, actual React19.2.8/ReactDOM19.2.8/@base-ui/react1.8.0 and the native public
 library. Browser pass claims await the executed host result at the exact head.
+
+
+[Assertion ports](assertion-ports.json) map every95 original ordinary declaration
+and the three parameterized variants to identified candidate business ports or
+the explicit R:951 native context effect observation. Original bodies, IDs and
+hashes are immutable; combined probes and native boundary observations receive
+zero unchanged declaration credit pending independent scope acceptance.
+[Conformance accounting](conformance-accounting.json) keeps the six calls and
+15 helper declarations per call (90 expanded instances) separate. Native
+six-part props/ref/class/style/replacement probes and canonical renderer/ref
+checks do not claim unchanged JSX/React wrapper/ref conformance assertions.
+
+[Correspondence](correspondence.json) records all56 actually used native runtime
+and type modules and their full body/manual scope, including inherited renderer,
+refs, merge-props, contexts, Timeout, platform and shadow helpers. Hash equality
+is evidence for reuse, never manual acceptance. Root will assign a fresh whole
+source/native/maintainability reviewer; accepted manual receipts remain empty.
+
+Provenance timing disclosure: the pre-code561dd1f checkpoint archived129
+component runtime/type modules and the full six ScrollArea test bodies. The
+recursive #test-utils barrel/helper graph was missing there. Its conservative165
+module [later inventory](test-helper-graph.json), full preserved source bodies,
+and selected15 conformance helper declaration hashes were added after runtime
+implementation. It earns no retroactive pre-code or unchanged conformance credit.
+Unselected popup/temporal test-barrel bodies remain inventory only. No business
+bug shared with the exact original has been established by the paired failures;
+all repairs preserve the source business algorithms.

@@ -1,54 +1,52 @@
 <script module lang="ts">
   import { platform } from '../../utils/platform/index.js';
   import * as ScrollAreaViewportCssVars from './ScrollAreaViewportCssVars.js';
-const OVERFLOW_EDGE_VARS = [
-  ScrollAreaViewportCssVars.scrollAreaOverflowXStart,
-  ScrollAreaViewportCssVars.scrollAreaOverflowXEnd,
-  ScrollAreaViewportCssVars.scrollAreaOverflowYStart,
-  ScrollAreaViewportCssVars.scrollAreaOverflowYEnd,
-];
+  const OVERFLOW_EDGE_VARS = [
+    ScrollAreaViewportCssVars.scrollAreaOverflowXStart,
+    ScrollAreaViewportCssVars.scrollAreaOverflowXEnd,
+    ScrollAreaViewportCssVars.scrollAreaOverflowYStart,
+    ScrollAreaViewportCssVars.scrollAreaOverflowYEnd,
+  ];
 
-// Module-level flag to ensure we only register the CSS properties once,
-// regardless of how many Scroll Area components are mounted.
-let scrollAreaOverflowVarsRegistered = false;
+  // Module-level flag to ensure we only register the CSS properties once,
+  // regardless of how many Scroll Area components are mounted.
+  let scrollAreaOverflowVarsRegistered = false;
 
-/**
- * Removes inheritance of the scroll area overflow CSS variables, which
- * improves rendering performance in complex scroll areas with deep subtrees.
- * Instead, each child must manually opt-in to using these properties by
- * specifying `inherit`.
- * See https://motion.dev/blog/web-animation-performance-tier-list
- * under the "Improving CSS variable performance" section.
- */
-function removeCSSVariableInheritance() {
-  if (
-    scrollAreaOverflowVarsRegistered ||
-    // When `inherits: false`, specifying `inherit` on child elements doesn't work
-    // in Safari. To let CSS features work correctly, this optimization must be skipped.
-    platform.engine.webkit
-  ) {
-    return;
+  /**
+   * Removes inheritance of the scroll area overflow CSS variables, which
+   * improves rendering performance in complex scroll areas with deep subtrees.
+   * Instead, each child must manually opt-in to using these properties by
+   * specifying `inherit`.
+   * See https://motion.dev/blog/web-animation-performance-tier-list
+   * under the "Improving CSS variable performance" section.
+   */
+  function removeCSSVariableInheritance() {
+    if (
+      scrollAreaOverflowVarsRegistered ||
+      // When `inherits: false`, specifying `inherit` on child elements doesn't work
+      // in Safari. To let CSS features work correctly, this optimization must be skipped.
+      platform.engine.webkit
+    ) {
+      return;
+    }
+
+    if (typeof CSS !== 'undefined' && 'registerProperty' in CSS) {
+      OVERFLOW_EDGE_VARS.forEach((name) => {
+        try {
+          CSS.registerProperty({
+            name,
+            syntax: '<length>',
+            inherits: false,
+            initialValue: '0px',
+          });
+        } catch {
+          /* ignore already-registered */
+        }
+      });
+    }
+
+    scrollAreaOverflowVarsRegistered = true;
   }
-
-  if (typeof CSS !== 'undefined' && 'registerProperty' in CSS) {
-    OVERFLOW_EDGE_VARS.forEach((name) => {
-      try {
-        CSS.registerProperty({
-          name,
-          syntax: '<length>',
-          inherits: false,
-          initialValue: '0px',
-        });
-      } catch {
-        /* ignore already-registered */
-      }
-    });
-  }
-
-  scrollAreaOverflowVarsRegistered = true;
-}
-
-
 </script>
 <script lang="ts">
   // Base UI1.8.0 ScrollAreaViewport.tsx source geometry/lifetimes; MIT.
@@ -67,9 +65,31 @@ function removeCSSVariableInheritance() {
   import * as ScrollAreaScrollbarCssVars from '../scrollbar/ScrollAreaScrollbarCssVars.js';
   import type { ScrollAreaViewportProps, HiddenState } from '../types.js';
 
-  let { render, class: classProp, style, children, ref = $bindable(), ...elementProps }: ScrollAreaViewportProps = $props();
+  let {
+    render,
+    class: classProp,
+    style,
+    children,
+    ref = $bindable(),
+    ...elementProps
+  }: ScrollAreaViewportProps = $props();
   const root = useScrollAreaRootContext();
-  const { viewportRef, scrollbarYRef, scrollbarXRef, thumbYRef, thumbXRef, cornerRef, setCornerSize, setThumbSize, rootId, setHiddenState, setHasMeasuredScrollbar, handleScroll, setHovering, setOverflowEdges } = root;
+  const {
+    viewportRef,
+    scrollbarYRef,
+    scrollbarXRef,
+    thumbYRef,
+    thumbXRef,
+    cornerRef,
+    setCornerSize,
+    setThumbSize,
+    rootId,
+    setHiddenState,
+    setHasMeasuredScrollbar,
+    handleScroll,
+    setHovering,
+    setOverflowEdges,
+  } = root;
   const getDirection = useDirection();
   const programmaticScrollRef = { current: true };
   const lastMeasuredViewportMetricsRef = { current: [NaN, NaN, NaN, NaN] };
@@ -131,7 +151,9 @@ function removeCSSVariableInheritance() {
     const scrollTopFromStart = scrollbarYHidden
       ? 0
       : normalizeScrollOffset(scrollTop, maxScrollTop);
-    const scrollTopFromEnd = scrollbarYHidden ? 0 : maxScrollTop - scrollTopFromStart;
+    const scrollTopFromEnd = scrollbarYHidden
+      ? 0
+      : maxScrollTop - scrollTopFromStart;
     const nextWidth = scrollbarXHidden ? 0 : viewportWidth;
     const nextHeight = scrollbarYHidden ? 0 : viewportHeight;
 
@@ -144,7 +166,8 @@ function removeCSSVariableInheritance() {
 
     // Only subtract corner size from scrollbar dimensions if the corner hasn't been sized yet.
     // Once sized, the layout will already account for it.
-    const cornerNotYetSized = root.cornerSize.width === 0 && root.cornerSize.height === 0;
+    const cornerNotYetSized =
+      root.cornerSize.width === 0 && root.cornerSize.height === 0;
     const cornerWidthOffset = cornerNotYetSized ? nextCornerWidth : 0;
     const cornerHeightOffset = cornerNotYetSized ? nextCornerHeight : 0;
 
@@ -173,7 +196,10 @@ function removeCSSVariableInheritance() {
     // Handle Y (vertical) scroll
     if (scrollbarYEl && thumbYEl) {
       const maxThumbOffsetY =
-        scrollbarYEl.offsetHeight - clampedNextHeight - scrollbarYOffset - thumbYOffset;
+        scrollbarYEl.offsetHeight -
+        clampedNextHeight -
+        scrollbarYOffset -
+        thumbYOffset;
 
       const thumbOffsetY = applyOverscrollThumb(
         thumbYEl,
@@ -190,7 +216,10 @@ function removeCSSVariableInheritance() {
     // Handle X (horizontal) scroll
     if (scrollbarXEl && thumbXEl) {
       const maxThumbOffsetX =
-        scrollbarXEl.offsetWidth - clampedNextWidth - scrollbarXOffset - thumbXOffset;
+        scrollbarXEl.offsetWidth -
+        clampedNextWidth -
+        scrollbarXOffset -
+        thumbXOffset;
       // RTL scrolls from 0 down to `-maxScrollLeft`; measure from the inline start edge so the
       // overscroll math is direction-agnostic, then flip the resulting offset back below.
       const scrollFromStart = getDirection() === 'rtl' ? -scrollLeft : scrollLeft;
@@ -231,15 +260,20 @@ function removeCSSVariableInheritance() {
     setHiddenState((prevState) => pickState(prevState, nextHiddenState));
 
     const nextOverflowEdges = {
-      xStart: !scrollbarXHidden && scrollLeftFromStart > root.overflowEdgeThreshold.xStart,
-      xEnd: !scrollbarXHidden && scrollLeftFromEnd > root.overflowEdgeThreshold.xEnd,
-      yStart: !scrollbarYHidden && scrollTopFromStart > root.overflowEdgeThreshold.yStart,
-      yEnd: !scrollbarYHidden && scrollTopFromEnd > root.overflowEdgeThreshold.yEnd,
+      xStart:
+        !scrollbarXHidden &&
+        scrollLeftFromStart > root.overflowEdgeThreshold.xStart,
+      xEnd:
+        !scrollbarXHidden && scrollLeftFromEnd > root.overflowEdgeThreshold.xEnd,
+      yStart:
+        !scrollbarYHidden &&
+        scrollTopFromStart > root.overflowEdgeThreshold.yStart,
+      yEnd:
+        !scrollbarYHidden && scrollTopFromEnd > root.overflowEdgeThreshold.yEnd,
     };
 
     setOverflowEdges((prev) => pickState(prev, nextOverflowEdges));
   }
-
 
   onMount(removeCSSVariableInheritance);
   $effect(() => {
@@ -262,7 +296,13 @@ function removeCSSVariableInheritance() {
       if (!hasInitialized) {
         hasInitialized = true;
         const metrics = lastMeasuredViewportMetricsRef.current;
-        if (metrics[0] === viewport.clientHeight && metrics[1] === viewport.scrollHeight && metrics[2] === viewport.clientWidth && metrics[3] === viewport.scrollWidth) return;
+        if (
+          metrics[0] === viewport.clientHeight &&
+          metrics[1] === viewport.scrollHeight &&
+          metrics[2] === viewport.clientWidth &&
+          metrics[3] === viewport.scrollWidth
+        )
+          return;
       }
       computeThumbPosition();
     });
@@ -270,11 +310,18 @@ function removeCSSVariableInheritance() {
     waitForAnimationsTimeout.start(0, () => {
       const animations = viewport.getAnimations({ subtree: true });
       if (animations.length === 0) return;
-      Promise.allSettled(animations.map((animation) => animation.finished)).then(computeThumbPosition).catch(() => {});
+      Promise.allSettled(animations.map((animation) => animation.finished))
+        .then(computeThumbPosition)
+        .catch(() => {});
     });
-    return () => { resizeObserver.disconnect(); waitForAnimationsTimeout.clear(); };
+    return () => {
+      resizeObserver.disconnect();
+      waitForAnimationsTimeout.clear();
+    };
   });
-  function handleUserInteraction() { programmaticScrollRef.current = false; }
+  function handleUserInteraction() {
+    programmaticScrollRef.current = false;
+  }
   const internalProps = $derived({
     role: 'presentation',
     ...(rootId && { 'data-id': `${rootId}-viewport` }),
@@ -320,62 +367,75 @@ function removeCSSVariableInheritance() {
     onkeydown: handleUserInteraction,
   });
 
-
   setScrollAreaViewportContext({ computeThumbPosition });
-  const forwardedRef = { get current() { return ref ?? null; }, set current(value: HTMLElement | null) { ref = value; } };
-  const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({ ref: [forwardedRef, viewportRef], state: root.viewportState, props: [internalProps, elementProps], stateAttributesMapping: scrollAreaStateAttributesMapping });
-function getHiddenState(viewport: HTMLElement): HiddenState {
-  const y = viewport.clientHeight >= viewport.scrollHeight;
-  const x = viewport.clientWidth >= viewport.scrollWidth;
-
-  return {
-    y,
-    x,
-    corner: y || x,
+  const forwardedRef = {
+    get current() {
+      return ref ?? null;
+    },
+    set current(value: HTMLElement | null) {
+      ref = value;
+    },
   };
-}
+  const componentProps = $derived({ render, class: classProp, style });
+  const params = $derived({
+    ref: [forwardedRef, viewportRef],
+    state: root.viewportState,
+    props: [internalProps, elementProps],
+    stateAttributesMapping: scrollAreaStateAttributesMapping,
+  });
+  function getHiddenState(viewport: HTMLElement): HiddenState {
+    const y = viewport.clientHeight >= viewport.scrollHeight;
+    const x = viewport.clientWidth >= viewport.scrollWidth;
 
-/**
- * Returns `prev` when `next` is shallow-equal to it so setState bails out and
- * scroll-frame updates don't rebuild the root context.
- */
-function pickState<T extends object>(prev: T, next: T): T {
-  for (const key in next) {
-    if (prev[key as keyof T] !== next[key as keyof T]) {
-      return next;
-    }
+    return {
+      y,
+      x,
+      corner: y || x,
+    };
   }
 
-  return prev;
-}
+  /**
+   * Returns `prev` when `next` is shallow-equal to it so setState bails out and
+   * scroll-frame updates don't rebuild the root context.
+   */
+  function pickState<T extends object>(prev: T, next: T): T {
+    for (const key in next) {
+      if (prev[key as keyof T] !== next[key as keyof T]) {
+        return next;
+      }
+    }
 
-/**
- * Sizes the thumb and returns its axis offset. On overscroll (Safari rubber-band only) it shrinks
- * against the pinned edge, damped by `content / (content + overscroll)` to match native feedback;
- * the size flows through the thumb-size variable so the resting `var(...)` still applies.
- */
-function applyOverscrollThumb(
-  thumbEl: HTMLElement,
-  sizeVar: string,
-  scrollFromStart: number,
-  maxScroll: number,
-  content: number,
-  size: number,
-  maxThumbOffset: number,
-): number {
-  const clamped = clamp(scrollFromStart, 0, maxScroll);
-  const overscroll = scrollFromStart - clamped;
-  const nextSize = Math.max(MIN_THUMB_SIZE, (size * content) / (content + Math.abs(overscroll)));
+    return prev;
+  }
 
-  // Passing an empty string removes the override, restoring the resting `var(...)` size.
-  thumbEl.style.setProperty(sizeVar, overscroll ? `${nextSize}px` : '');
+  /**
+   * Sizes the thumb and returns its axis offset. On overscroll (Safari rubber-band only) it shrinks
+   * against the pinned edge, damped by `content / (content + overscroll)` to match native feedback;
+   * the size flows through the thumb-size variable so the resting `var(...)` still applies.
+   */
+  function applyOverscrollThumb(
+    thumbEl: HTMLElement,
+    sizeVar: string,
+    scrollFromStart: number,
+    maxScroll: number,
+    content: number,
+    size: number,
+    maxThumbOffset: number,
+  ): number {
+    const clamped = clamp(scrollFromStart, 0, maxScroll);
+    const overscroll = scrollFromStart - clamped;
+    const nextSize = Math.max(
+      MIN_THUMB_SIZE,
+      (size * content) / (content + Math.abs(overscroll)),
+    );
 
-  // Slide proportionally; at the end edge push down by the shrink so the thumb stays pinned to
-  // it, while a start overscroll pins to offset 0.
-  const offset = maxScroll ? (clamped / maxScroll) * maxThumbOffset : 0;
-  return offset + (overscroll > 0 ? size - nextSize : 0);
-}
+    // Passing an empty string removes the override, restoring the resting `var(...)` size.
+    thumbEl.style.setProperty(sizeVar, overscroll ? `${nextSize}px` : '');
 
+    // Slide proportionally; at the end edge push down by the shrink so the thumb stays pinned to
+    // it, while a start overscroll pins to offset 0.
+    const offset = maxScroll ? (clamped / maxScroll) * maxThumbOffset : 0;
+    return offset + (overscroll > 0 ? size - nextSize : 0);
+  }
 </script>
 <RenderElement tag="div" {componentProps} {params} {children} />

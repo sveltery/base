@@ -25,13 +25,76 @@
       "failedTests": 10,
       "runtime": "Ubuntu22.04, official Chromium153, chromiumSandbox:true, one worker, retries:0; actual React19.2.8/ReactDOM19.2.8/@base-ui/react1.8.0 versus native Svelte public imports",
       "failures": [
-        { "bothFrameworks": true, "scenario": "R:321 initial thumb size", "expected": 40, "received": 38, "cause": "Fixture authored10px cross-axis tracks unlike original unsized tracks; source compute reserves their cross-axis size before corner sizing. Repair fixture to original zero-width/height tracks." },
-        { "bothFrameworks": true, "scenario": "R:412 cross-axis margin", "expected": 152.1, "received": 148.1875, "cause": "Same fixture track-size mismatch; repair original source fixture dimensions." },
-        { "bothFrameworks": true, "scenario": "RTL overscroll recovery supplement, start and end", "expected": 40, "received": 36.359375, "cause": "Supplement reset scrollLeft to positive100, which remains overscrolled in source negative RTL range. Reset to negative100." },
-        { "bothFrameworks": true, "scenario": "CSP style supplement", "expectedCount": 1, "receivedCount": 0, "cause": "Playwright hasText ignores style text; inspect actual textContent and nonce instead." }
+        {
+          "bothFrameworks": true,
+          "scenario": "R:321 initial thumb size",
+          "expected": 40,
+          "received": 38,
+          "cause": "Fixture authored10px cross-axis tracks unlike original unsized tracks; source compute reserves their cross-axis size before corner sizing. Repair fixture to original zero-width/height tracks."
+        },
+        {
+          "bothFrameworks": true,
+          "scenario": "R:412 cross-axis margin",
+          "expected": 152.1,
+          "received": 148.1875,
+          "cause": "Same fixture track-size mismatch; repair original source fixture dimensions."
+        },
+        {
+          "bothFrameworks": true,
+          "scenario": "RTL overscroll recovery supplement, start and end",
+          "expected": 40,
+          "received": 36.359375,
+          "cause": "Supplement reset scrollLeft to positive100, which remains overscrolled in source negative RTL range. Reset to negative100."
+        },
+        {
+          "bothFrameworks": true,
+          "scenario": "CSP style supplement",
+          "expectedCount": 1,
+          "receivedCount": 0,
+          "cause": "Playwright hasText ignores style text; inspect actual textContent and nonce instead."
+        }
       ],
       "unchangedOriginalDeclarationCredit": 0,
       "note": "Executed paired probes are combined behavior ports/supplements, not one-to-one unchanged assertion counts. Failed gate is preserved and not waived; repaired final head must execute again."
+    },
+    {
+      "head": "b3014462580b682697d3e8563c2434a844a0d94c",
+      "run": 37163644450,
+      "job": 111322043607,
+      "url": "https://github.com/sveltery/base/actions/runs/37163644450",
+      "artifact": "https://github.com/sveltery/base/actions/runs/37163644450/artifacts/11288453758",
+      "artifactSha256": "fdfb3a27bae6566413a30f6676de0325a607f7c50e8e07be9e708310455c32e6",
+      "browserExecuted": true,
+      "result": "failed",
+      "passedTests": 113,
+      "failedTests": 2,
+      "skipped": 0,
+      "flaky": 0,
+      "failures": [
+        {
+          "scenario": "Native S:279 simulated composed path",
+          "cause": "Native Svelte delegates fabricated event through its composedPath thumb, and native capture rejects a pointer without active browser input. Source viewport no-jump assertion passed. Correct next synthetic probe supplies mock capture; actual native mouse drag/capture/release already passed. No runtime change.",
+          "nativeBoundaryCredit": 0
+        },
+        {
+          "scenario": "Native SSR/hydration viewport id",
+          "cause": "Probe matched data-id substring then incorrectly asserted id. Actual server and hydrated data-id both base-ui-s1-viewport. Correct probe asserts actual source data-id relationship."
+        }
+      ],
+      "styleObservation": {
+        "react": {
+          "before": 1,
+          "after": 1
+        },
+        "svelte": {
+          "before": 2,
+          "after": 0
+        },
+        "bothLiveViewportsScrollbarWidth": "none",
+        "nonce": "repeat-nonce",
+        "unchangedCredit": 0
+      },
+      "note": "No inferred original counts:113 passing collected behavior/conformance/native probes,2 failures. JSON result downloaded locally and attachments decoded. Failed gate preserved; fresh final exact-head execution remains required."
     }
   ]
 }
