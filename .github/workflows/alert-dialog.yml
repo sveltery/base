@@ -1,0 +1,47 @@
+name: AlertDialog Source
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: alert-dialog-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  alert-dialog-browser:
+    name: Secured paired AlertDialog Source
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+        with:
+          version: 12.6.0
+          run_install: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Frozen workspace install
+        run: bash scripts/bootstrap.sh
+      - name: Build actual public library
+        run: pnpm --filter @sveltery/base build
+      - name: Installed actual root/subpath SSR DOM and strict type consumer
+        run: bash scripts/check-alert-dialog-package.sh
+      - name: Install official Chromium with its sandbox enabled
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Actual Source React and native AlertDialog
+        run: pnpm exec playwright test tests/browser/alert-dialog-*.spec.ts
+      - name: Preserve AlertDialog source and native failure traces
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: alert-dialog-evidence
+          path: test-results/alert-dialog-*/
+          if-no-files-found: warn
+          retention-days: 14

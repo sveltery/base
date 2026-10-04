@@ -53,6 +53,16 @@
       "source": "packages/react/src/alert-dialog/trigger/AlertDialogTriggerDataAttributes.ts",
       "sha256": "0daaa0a8ecb1f779fefb85d63978e94d43dc10de13e3d81ded7eb0aa886612eb",
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/alert-dialog/trigger/AlertDialogTriggerDataAttributes.ts"
+    },
+    {
+      "source": "packages/react/test/popupConformanceTests.tsx",
+      "sha256": "6766a005f26a4ba5e66c194841b246043aa1d76fbf7d5e7629fedc4362218650",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/test/popupConformanceTests.tsx"
+    },
+    {
+      "source": "packages/react/test/createRenderer.ts",
+      "sha256": "aa35bdbfbdf6163cd231302aa31a8b0f10564bd00d393de46c9d5030d75471a4",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/test/createRenderer.ts"
     }
   ],
   "ordinaryDeclarations": [
@@ -419,6 +429,80 @@
       "status": "unported; no credit"
     }
   ],
+  "conformanceDeclarations": [
+    {
+      "source": "packages/react/test/popupConformanceTests.tsx",
+      "line": 35,
+      "name": "'opens the popup with the `open` prop'",
+      "body": "it('opens the popup with the `open` prop', async () => {\n        const { rerender } = await render(prepareComponent({ root: { open: false } }));\n        if (!alwaysMounted) {\n          expect(getPopup()).toBe(null);\n        } else {\n          expect(getPopup()).toBeInaccessible();\n        }\n\n        await rerender(prepareComponent({ root: { open: true } }));\n        expect(getPopup()).not.toBe(null);\n      })",
+      "sha256": "ce3e052e5fd942cdd57e5efb2a0bd89aa58905f7ddde382a59a9c6e7e00f650c",
+      "selection": "Active AlertDialog click/alertdialog/dialog helper configuration; candidate mapping review pending"
+    },
+    {
+      "source": "packages/react/test/popupConformanceTests.tsx",
+      "line": 50,
+      "name": "'opens the popup when clicking on the trigger'",
+      "body": "it('opens the popup when clicking on the trigger', async () => {\n          const { user } = await render(prepareComponent({}));\n\n          const trigger = getTrigger();\n          if (!alwaysMounted) {\n            expect(getPopup()).toBe(null);\n          } else {\n            expect(getPopup()).toBeInaccessible();\n          }\n\n          await user.click(trigger);\n          await waitFor(() => {\n            expect(getPopup()).not.toBe(null);\n          });\n        })",
+      "sha256": "fd876b293d7c7abb73b801d4f4f8f5fc4fbe7b591d4fc13a2b2d1b6d9e5a5f7f",
+      "selection": "Active AlertDialog click/alertdialog/dialog helper configuration; candidate mapping review pending"
+    },
+    {
+      "source": "packages/react/test/popupConformanceTests.tsx",
+      "line": 71,
+      "name": "`has the ${expectedPopupRole} role on the popup`",
+      "body": "it(`has the ${expectedPopupRole} role on the popup`, async () => {\n            await render(prepareComponent({ root: { open: true } }));\n            const popup = getPopup();\n            expect(popup).not.toBe(null);\n            expect(popup).toHaveAttribute('role', expectedPopupRole);\n          })",
+      "sha256": "412fd2f474346ffc3b7fb5755db5abcabb8afe18391c659953b25129a9d9de2e",
+      "selection": "Active AlertDialog click/alertdialog/dialog helper configuration; candidate mapping review pending"
+    },
+    {
+      "source": "packages/react/test/popupConformanceTests.tsx",
+      "line": 80,
+      "name": "'has the `aria-controls` attribute on the trigger'",
+      "body": "it('has the `aria-controls` attribute on the trigger', async () => {\n            await render(prepareComponent({ root: { open: true } }));\n            const trigger = getTrigger();\n            const popup = getPopup();\n            expect(trigger).toHaveAttribute('aria-controls', popup?.id);\n          })",
+      "sha256": "36fcfd6dbdceca0c6c0b8dbd3779f5e98078c658d2b5bdceb168edb286c70573",
+      "selection": "Active AlertDialog click/alertdialog/dialog helper configuration; candidate mapping review pending"
+    },
+    {
+      "source": "packages/react/test/popupConformanceTests.tsx",
+      "line": 87,
+      "name": "'has the `aria-expanded` attribute on the trigger when open'",
+      "body": "it('has the `aria-expanded` attribute on the trigger when open', async () => {\n            const { user } = await render(prepareComponent({}));\n            const trigger = getTrigger();\n            if (!alwaysMounted) {\n              expect(getPopup()).toBe(null);\n            } else {\n              expect(getPopup()).toBeInaccessible();\n            }\n            expect(trigger).toHaveAttribute('aria-expanded', 'false');\n            await user.click(trigger);\n            await waitFor(() => {\n              if (combobox) {\n                expect(getPopup()).toHaveAttribute('role', 'listbox');\n              } else {\n                expect(getPopup()).toHaveAttribute('data-open');\n              }\n            });\n            expect(trigger).toHaveAttribute('aria-expanded', 'true');\n          })",
+      "sha256": "8cc606f5076a4dc1d4280e5963f8186b98d01b04f1c4c9d1d52d177a779c358a",
+      "selection": "Active AlertDialog click/alertdialog/dialog helper configuration; candidate mapping review pending"
+    },
+    {
+      "source": "packages/react/test/popupConformanceTests.tsx",
+      "line": 108,
+      "name": "'has the `aria-haspopup` attribute on the trigger'",
+      "body": "it('has the `aria-haspopup` attribute on the trigger', async () => {\n              await render(prepareComponent({ root: { open: true } }));\n              const trigger = getTrigger();\n              expect(trigger).toHaveAttribute('aria-haspopup', expectedAriaHasPopupValue);\n            })",
+      "sha256": "8fb20080f785aef95a2d31e07e73662d2f1d666755a3d4042c59d0ab3098300d",
+      "selection": "Active AlertDialog click/alertdialog/dialog helper configuration; candidate mapping review pending"
+    },
+    {
+      "source": "packages/react/test/popupConformanceTests.tsx",
+      "line": 115,
+      "name": "'allows a custom `id` prop'",
+      "body": "it('allows a custom `id` prop', async () => {\n            await render(prepareComponent({ root: { open: true }, popup: { id: 'TestId' } }));\n            const trigger = getTrigger();\n            const popup = getPopup();\n            expect(trigger.getAttribute('aria-controls')).toBe(popup?.getAttribute('id'));\n          })",
+      "sha256": "a5b3dc85dca24c8f6871aa35d0c3973519abad0580acd1cc90ed656e78703f48",
+      "selection": "Active AlertDialog click/alertdialog/dialog helper configuration; candidate mapping review pending"
+    },
+    {
+      "source": "packages/react/test/popupConformanceTests.tsx",
+      "line": 134,
+      "name": "'removes the popup when there is no exit animation defined'",
+      "body": "it('removes the popup when there is no exit animation defined', async ({ skip }) => {\n        if (isJSDOM) {\n          skip();\n        }\n\n        const { rerender } = await render(prepareComponent({ root: { open: true } }));\n\n        await waitFor(() => {\n          expect(getPopup()).not.toBe(null);\n        });\n\n        await rerender(prepareComponent({ root: { open: false } }));\n        await waitFor(() => {\n          if (!alwaysMounted && alwaysMountedParam !== 'only-after-open') {\n            expect(getPopup()).toBe(null);\n          } else {\n            expect(getPopup()).toBeInaccessible();\n          }\n        });\n      })",
+      "sha256": "9aec7a57984a6afd564018c153dd6a013918b27dc2c4b63c84f2db283c93a163",
+      "selection": "Active AlertDialog click/alertdialog/dialog helper configuration; candidate mapping review pending"
+    },
+    {
+      "source": "packages/react/test/popupConformanceTests.tsx",
+      "line": 155,
+      "name": "'removes the popup when the animation finishes'",
+      "body": "it('removes the popup when the animation finishes', async ({ skip }) => {\n        // XXX: revisit after feedback from the team\n        skip();\n\n        if (isJSDOM) {\n          skip();\n        }\n\n        const handleAnimationEnd = vi.fn();\n        const animationName = `anim-${randomStringValue()}`;\n\n        function Test(props: { open: boolean }) {\n          const style = `\n            @keyframes ${animationName} {\n              to {\n                opacity: 0;\n              }\n            }\n\n            .animation-test-popup-${animationName}[data-open] {\n              opacity: 1;\n            }\n\n            .animation-test-popup-${animationName}[data-ending-style] {\n              animation: ${animationName} 150ms;\n            }\n          `;\n\n          return (\n            <div>\n              {/* eslint-disable-next-line react/no-danger */}\n              <style dangerouslySetInnerHTML={{ __html: style }} />\n              {prepareComponent({\n                root: { open: props.open },\n                portal: { keepMounted: true },\n                popup: {\n                  className: `animation-test-popup-${animationName}`,\n                  onAnimationEnd: handleAnimationEnd,\n                },\n              })}\n            </div>\n          );\n        }\n\n        const { setProps } = await render(<Test open />);\n        await setProps({ open: false });\n\n        await waitFor(() => {\n          const popup = getPopup();\n          expect(popup).not.toBe(null);\n          expect(popup).toBeInaccessible();\n        });\n\n        await waitFor(() => {\n          expect(handleAnimationEnd).toHaveBeenCalledTimes(1);\n        });\n      })",
+      "sha256": "f698db0b734f16c0ff1585c40014ef0a755510d54d9c4a4f106948c28b1bf7b4",
+      "selection": "Original unconditional skip remains skipped/uncredited"
+    }
+  ],
   "typeAssertions": [
     {
       "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.spec.tsx",
@@ -428,6 +512,23 @@
       "sha256": "8d0c222bb2d74a9722cb16a5ca006f50199befaed9c86336dd227b71adf64bae",
       "body": "expectType<number | undefined, typeof payload>(payload)",
       "status": "unported; no credit"
+    }
+  ],
+  "expectedTypeErrors": [
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.spec.tsx",
+      "line": 28,
+      "instruction": "// @ts-expect-error"
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.spec.tsx",
+      "line": 33,
+      "instruction": "// @ts-expect-error Dialog handles cannot be used for alert dialogs."
+    },
+    {
+      "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.spec.tsx",
+      "line": 40,
+      "instruction": "// @ts-expect-error Dialog handles cannot be used for alert dialog triggers."
     }
   ],
   "ordinaryDeclarationCredit": 0,

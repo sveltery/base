@@ -30,7 +30,7 @@ function graph(directory, entries, source = false) {
     const file = queue.shift();
     if (records.has(file)) continue;
     const body = readFileSync(resolve(directory, file), 'utf8');
-    const code = file.endsWith('.svelte') ? [...body.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/g)].map(match => match[1]).join('\n') : body;
+    const code = file.endsWith('.svelte') ? [...body.matchAll(/<script\b((?:[^>"']|"[^"]*"|'[^']*')*)>([\s\S]*?)<\/script>/g)].map(match => match[2]).join('\n') : body;
     const ast = ts.createSourceFile(file, code, ts.ScriptTarget.Latest, true, file.endsWith('.tsx') ? ts.ScriptKind.TSX : ts.ScriptKind.TS);
     const imports = [];
     function record(specifier, kind) {
@@ -64,8 +64,7 @@ if (upstream) {
   const modules = graph(upstream, entries, true);
   save('source-graph.json', { pin, entries, method: 'Complete TypeScript AST runtime/type import and re-export graph; mixed declarations retain both edge kinds; includes index.parts and transitive unselected barrel fanout.', modules });
   const originalFiles = readdirSync(resolve(upstream, 'packages/react/src/alert-dialog'), { recursive: true }).filter(file => /\.(ts|tsx)$/.test(file)).sort();
-  const files = originalFiles.map(file => {
-    const source = `packages/react/src/alert-dialog/${file}`;
+  const files = [...originalFiles.map(file => `packages/react/src/alert-dialog/${file}`), 'packages/react/test/popupConformanceTests.tsx', 'packages/react/test/createRenderer.ts'].map(source => {
     const body = readFileSync(resolve(upstream, source), 'utf8');
     const target = resolve(evidence, 'upstream', source);
     mkdirSync(dirname(target), { recursive: true });
@@ -91,7 +90,22 @@ if (upstream) {
     }
     visit(ast);
   }
-  save('upstream-inventory.json', { pin, publicParts: ['Root', 'Trigger', 'Backdrop', 'Close', 'Description', 'Popup', 'Portal', 'Title', 'Viewport', 'Handle', 'createHandle'], files, ordinaryDeclarations: tests, parameterizedExpansions: [], conformanceHelperCalls: helperCalls, typeAssertions: types, ordinaryDeclarationCredit: 0, supplementalCredit: 0 });
+  const helper = 'packages/react/test/popupConformanceTests.tsx';
+  const helperBody = readFileSync(resolve(upstream, helper), 'utf8');
+  const helperTree = ts.createSourceFile(helper, helperBody, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
+  const conformanceDeclarations = [];
+  function inspectHelper(node) {
+    if (ts.isCallExpression(node) && node.expression.getText(helperTree) === 'it') {
+      const line = helperTree.getLineAndCharacterOfPosition(node.getStart(helperTree)).line + 1;
+      conformanceDeclarations.push({ source: helper, line, name: node.arguments[0].getText(helperTree), body: node.getText(helperTree), sha256: hash(node.getText(helperTree)), selection: /animation finishes/.test(node.arguments[0].getText(helperTree)) ? 'Original unconditional skip remains skipped/uncredited' : 'Active AlertDialog click/alertdialog/dialog helper configuration; candidate mapping review pending' });
+    }
+    ts.forEachChild(node, inspectHelper);
+  }
+  inspectHelper(helperTree);
+  const typeSpec = files.find(file => file.source.endsWith('AlertDialogRoot.spec.tsx'));
+  const typeBody = readFileSync(resolve(upstream, typeSpec.source), 'utf8');
+  const expectedTypeErrors = [...typeBody.matchAll(/\/\/ @ts-expect-error[^\n]*/g)].map(match => ({ source: typeSpec.source, line: typeBody.slice(0, match.index).split('\n').length, instruction: match[0] }));
+  save('upstream-inventory.json', { pin, publicParts: ['Root', 'Trigger', 'Backdrop', 'Close', 'Description', 'Popup', 'Portal', 'Title', 'Viewport', 'Handle', 'createHandle'], files, ordinaryDeclarations: tests, parameterizedExpansions: [], conformanceHelperCalls: helperCalls, conformanceDeclarations, typeAssertions: types, expectedTypeErrors, ordinaryDeclarationCredit: 0, supplementalCredit: 0 });
   console.log(`${modules.length} original modules; ${modules.reduce((count, module) => count + module.imports.length, 0)} runtime/type edges; ${files.length} AlertDialog original files; ${tests.length} ordinary declarations`);
 }
 const localEntry = 'packages/base/src/lib/alert-dialog/index.ts';

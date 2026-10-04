@@ -298,6 +298,16 @@ export const docs: Doc[] = [
     ],
   },
   {
+    slug: 'components/alert-dialog', group: 'Components', title: 'Alert Dialog',
+    description: 'A modal confirmation that keeps outside presses from dismissing it.',
+    sections: [
+      { id: 'anatomy', title: 'Compose a confirmation', paragraphs: ['Root groups Trigger, Portal, Backdrop, Popup, Title, Description and Close; Viewport is available inside Portal. AlertDialog always uses modal isolation and the alertdialog role. Escape and Close can request closing; outside presses leave it open.'], code: '<AlertDialog.Root>\n  <AlertDialog.Trigger>Delete draft</AlertDialog.Trigger>\n  <AlertDialog.Portal>\n    <AlertDialog.Backdrop />\n    <AlertDialog.Popup>\n      <AlertDialog.Title>Delete this draft?</AlertDialog.Title>\n      <AlertDialog.Description>The saved draft will be removed.</AlertDialog.Description>\n      <AlertDialog.Close>Cancel</AlertDialog.Close>\n    </AlertDialog.Popup>\n  </AlertDialog.Portal>\n</AlertDialog.Root>' },
+      { id: 'handles', title: 'Control and payload', paragraphs: ['createHandle<Payload>() connects detached triggers to a Root. Children snippets receive { payload }; bind:actions exposes close and unmount. Controlled open follows owner updates, and onOpenChange details can cancel a request or retain closed content until unmount.'], code: "const handle = AlertDialog.createHandle<{ id: string }>();\n// Pass the same handle to Root and detached Trigger.\n// Ordinary Dialog handles cannot be passed into AlertDialog." },
+      { id: 'api-reference', title: 'Actual public types', paragraphs: ['Root and Trigger keep generic payload contracts. Backdrop, Close, Description, Popup, Portal, Title and Viewport are actual Dialog aliases and share their native class/style, render snippet and ref binding contracts.'] },
+      { id: 'evidence', title: 'Compatibility evidence', paragraphs: ['The complete public runtime surface is implemented over the canonical Source Dialog dependencies. Final exact-head source/native/maintainability, secured browser and prerequisite delivery gates remain pending. The immutable Source inventory has 35 ordinary declarations; conformance, types, native lifecycle differences and supplements are accounted separately with zero new ordinary credit.'], links: [{ label: 'Source and verification record', href: 'https://github.com/sveltery/base/blob/main/docs/alert-dialog.md' }, { label: 'Base UI Alert Dialog reference', href: 'https://base-ui.com/react/components/alert-dialog' }] },
+    ],
+  },
+  {
     slug: 'components/dialog',
     group: 'Components',
     title: 'Dialog',
