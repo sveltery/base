@@ -1,7 +1,16 @@
 // Actual React19.2.8/Base UI1.8.0 paired with native six-part source port. MIT.
 import { expect, test, type Page } from '@playwright/test';
 import type { ScrollAreaOptions } from '../../apps/fixtures/src/lib/scroll-area-harness.js';
+const browserErrors = new WeakMap<Page, string[]>();
+test.beforeEach(({ page }) => {
+  const errors: string[] = []; browserErrors.set(page, errors);
+  page.on('pageerror', error => errors.push(error.message));
+  page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
+});
+test.afterEach(({ page }) => { expect(browserErrors.get(page)).toEqual([]); });
 const part = (page: Page, name: string) => page.getByTestId(name);
+const scrollbarCSS='.base-ui-disable-scrollbar{scrollbar-width:none}.base-ui-disable-scrollbar::-webkit-scrollbar{display:none}';
+async function scrollbarStyles(page:Page){return page.locator('style').evaluateAll((nodes,css)=>nodes.filter(node=>node.textContent===css).map(node=>({nonce:(node as HTMLStyleElement).nonce,text:node.textContent})),scrollbarCSS);}
 async function configure(page: Page, patch: Partial<ScrollAreaOptions>) { await page.evaluate(patch => window.scrollAreaHarness!.configure(patch), patch); }
 async function scroll(page: Page, x: number, y: number) {
   await part(page,'viewport').evaluate((node, {x,y}) => { node.scrollLeft=x;node.scrollTop=y;node.dispatchEvent(new Event('scroll')); }, {x,y});
@@ -24,7 +33,7 @@ for (const framework of ['react','svelte'] as const) {
   const enter = async (page:Page,name='viewport',pointerType='mouse') => { await pointer(page,name,framework==='react'?'pointerover':'pointerenter',{pointerType}); };
   const leave = async (page:Page) => { await pointer(page,'root',framework==='react'?'pointerout':'pointerleave',{relatedTarget:null}); };
   test(`${framework} R:321/349 initial real geometry, no overlay padding and exact native roles/CSS`,async({page})=>{
-    await open(page,{cornerMounted:false});
+    await open(page,{cornerMounted:false,trackThickness:0});
     for(const name of ['root','viewport','content'])await expect(part(page,name)).toHaveAttribute('role','presentation');
     await expect(part(page,'viewport')).toHaveAttribute('tabindex','0');
     await expect.poll(()=>part(page,'vertical-thumb').evaluate(node=>node.getBoundingClientRect().height)).toBe(40);
@@ -33,17 +42,17 @@ for (const framework of ['react','svelte'] as const) {
     expect(await part(page,'viewport').evaluate(node=>getComputedStyle(node).scrollbarWidth)).toBe('none');
   });
   test(`${framework} R:374 logical scrollbar padding`,async({page})=>{
-    await open(page,{padding:8,cornerMounted:false});
+    await open(page,{padding:8,cornerMounted:false,trackThickness:0});
     await expect.poll(()=>part(page,'vertical-thumb').evaluate(node=>node.getBoundingClientRect().height)).toBeCloseTo((200-16)*0.2,1);
     expect(await part(page,'horizontal-thumb').evaluate(node=>node.getBoundingClientRect().width)).toBeCloseTo((200-16)*0.2,1);
   });
   test(`${framework} R:412 scrollbar cross-axis margin leaves source sizing unchanged`,async({page})=>{
-    await open(page,{margin:11,viewportSize:390,cornerMounted:false});
+    await open(page,{margin:11,viewportSize:390,cornerMounted:false,trackThickness:0});
     await expect.poll(()=>part(page,'vertical-thumb').evaluate(node=>node.getBoundingClientRect().height)).toBeCloseTo(390*0.39,1);
     expect(await part(page,'horizontal-thumb').evaluate(node=>node.getBoundingClientRect().width)).toBeCloseTo(390*0.39,1);
   });
   test(`${framework} R:451 logical thumb margin`,async({page})=>{
-    await open(page,{thumbMargin:8,cornerMounted:false});
+    await open(page,{thumbMargin:8,cornerMounted:false,trackThickness:0});
     await expect.poll(()=>part(page,'vertical-thumb').evaluate(node=>node.getBoundingClientRect().height)).toBeCloseTo((200-16)*0.2,1);
     expect(await part(page,'horizontal-thumb').evaluate(node=>node.getBoundingClientRect().width)).toBeCloseTo((200-16)*0.2,1);
   });
@@ -52,6 +61,10 @@ for (const framework of ['react','svelte'] as const) {
     await configure(page,{hidden:false});
     await expect(part(page,'vertical')).toBeVisible();await expect(part(page,'vertical-thumb')).toBeVisible();
     await expect.poll(()=>part(page,'vertical-thumb').evaluate(node=>node.getBoundingClientRect().height)).toBeGreaterThan(0);
+  });
+  for(const keepMounted of [false,true])test(`${framework} R:144/173 mount computation precedes first observer measurement keepMounted=${keepMounted}`,async({page})=>{
+    await page.addInitScript(()=>{window.ResizeObserver=class{observe(){}unobserve(){}disconnect(){}};});
+    await open(page,{keepMounted});await expect(part(page,'vertical')).toBeVisible();await expect(part(page,'vertical-thumb')).toBeVisible();await expect(part(page,'horizontal')).toBeVisible();await expect(part(page,'horizontal-thumb')).toBeVisible();
   });
   test(`${framework} R:209/256/C:81/Cn:content-resize corner appears and clears with actual Content ResizeObserver`,async({page})=>{
     await open(page,{contentWidth:100,contentHeight:100,keepMounted:true});await expect(part(page,'corner')).toHaveCount(0);await expect(part(page,'viewport')).toHaveAttribute('tabindex','-1');
@@ -143,6 +156,13 @@ for (const framework of ['react','svelte'] as const) {
   test(`${framework} S:279 native composed target inside thumb skips track jump`,async({page})=>{
     await open(page,{keepMounted:true});await part(page,'vertical').evaluate(node=>{const thumb=node.querySelector('[data-testid="vertical-thumb"]')!;const event=new PointerEvent('pointerdown',{bubbles:true,button:0,clientY:160});Object.defineProperty(event,'composedPath',{value:()=>[thumb,node]});node.dispatchEvent(event);});expect(await part(page,'viewport').evaluate(node=>node.scrollTop)).toBe(0);
   });
+  test(`${framework} S:345/407 track press marks scrolling and pointer cancellation clears the drag`,async({page})=>{
+    await open(page,{keepMounted:true,snap:'y mandatory'});await capture(page,'vertical-thumb');const rect=await part(page,'vertical').boundingBox();
+    await pointer(page,'vertical','pointerdown',{clientY:rect!.y+100});await expect(part(page,'root')).toHaveAttribute('data-scrolling');await expect(part(page,'vertical')).toHaveAttribute('data-scrolling');await expect(part(page,'vertical-thumb')).toHaveAttribute('data-scrolling');
+    expect(await part(page,'viewport').evaluate(node=>node.style.scrollSnapType)).toBe('none');await pointer(page,'vertical','pointercancel');
+    for(const name of ['root','vertical','vertical-thumb'])await expect(part(page,name)).not.toHaveAttribute('data-scrolling');expect(await part(page,'viewport').evaluate(node=>node.style.scrollSnapType)).toBe('y mandatory');
+    const amount=await part(page,'viewport').evaluate(node=>node.scrollTop);await pointer(page,'vertical-thumb','pointermove',{clientY:rect!.y+150});expect(await part(page,'viewport').evaluate(node=>node.scrollTop)).toBe(amount);
+  });
   for(const button of [0,1,2])test(`${framework} S:493 parameterized ${button} track mousedown cancels focus default`,async({page})=>{
     await open(page,{keepMounted:true});await page.locator('#outside').focus();const consumed=await part(page,'vertical').evaluate((node,button)=>node.dispatchEvent(new MouseEvent('mousedown',{bubbles:true,cancelable:true,button})),button);expect(consumed).toBe(false);await expect(page.locator('#outside')).toBeFocused();
   });
@@ -166,7 +186,7 @@ for (const framework of ['react','svelte'] as const) {
     await expect.poll(()=>part(page,thumb).evaluate((node,axis)=>node.getBoundingClientRect()[axis],axis)).toBeLessThan(resting);const size=await part(page,thumb).evaluate((node,axis)=>node.getBoundingClientRect()[axis],axis);expect(size).toBeGreaterThan(resting*0.9);
     const rect=await part(page,thumb).boundingBox();const track=await part(page,orientation).boundingBox();const physicalStart=!horizontal||direction==='ltr';const pinned=edge==='start'?physicalStart:!physicalStart;
     expect(horizontal?(pinned?rect!.x-track!.x:rect!.x+rect!.width-track!.x-track!.width):(edge==='start'?rect!.y-track!.y:rect!.y+rect!.height-track!.y-track!.height)).toBeCloseTo(0,0);
-    await part(page,'viewport').evaluate((node,horizontal)=>{Object.defineProperty(node,horizontal?'scrollLeft':'scrollTop',{configurable:true,value:100,writable:true});node.dispatchEvent(new Event('scroll'));},horizontal);await expect.poll(()=>part(page,thumb).evaluate((node,axis)=>node.getBoundingClientRect()[axis],axis)).toBeCloseTo(resting,0);
+    await part(page,'viewport').evaluate((node,{horizontal,value})=>{Object.defineProperty(node,horizontal?'scrollLeft':'scrollTop',{configurable:true,value,writable:true});node.dispatchEvent(new Event('scroll'));},{horizontal,value:horizontal&&direction==='rtl'?-100:100});await expect.poll(()=>part(page,thumb).evaluate((node,axis)=>node.getBoundingClientRect()[axis],axis)).toBeCloseTo(resting,0);
   });
   test(`${framework} V:20/T:75/T:114 user handler synchronous unmount guards`,async({page})=>{
     await open(page,{keepMounted:true,unmountOn:'scroll'});await scroll(page,0,1);await expect(part(page,'viewport')).toHaveCount(0);
@@ -178,8 +198,64 @@ for (const framework of ['react','svelte'] as const) {
     for(const name of ['root','viewport','content','vertical','horizontal','vertical-thumb','corner'])expect(await part(page,name).evaluate(node=>node.tagName)).toBe('ARTICLE');
     await page.evaluate(()=>window.scrollAreaHarness!.destroy());expect(await page.evaluate(()=>window.scrollAreaHarness!.refs())).toEqual({root:false,viewport:false,content:false,vertical:false,horizontal:false,thumb:false,corner:false});
   });
+  test(`${framework} Cn:59/S:49 custom content and track renderers without refs stay usable`,async({page})=>{
+    await open(page,{customRender:true,dropRef:true,keepMounted:true});
+    await expect(part(page,'content')).toHaveCount(1);await expect(part(page,'vertical')).toHaveCount(1);
+    const refs=await page.evaluate(()=>window.scrollAreaHarness!.refs());expect(refs.content).toBe(false);expect(refs.vertical).toBe(false);expect(refs.viewport).toBe(true);
+    await scroll(page,0,50);await expect(part(page,'root')).toHaveAttribute('data-overflow-y-start');
+  });
+  test(`${framework} S:135 observes a viewport already hovered on mount`,async({page})=>{
+    await page.addInitScript(()=>{const matches=Element.prototype.matches;Element.prototype.matches=function(selector){return selector===':hover'&&(this as HTMLElement).dataset.testid==='viewport'||matches.call(this,selector);};});
+    await open(page,{keepMounted:true});await expect(part(page,'vertical')).toHaveAttribute('data-hovering');
+  });
+  test(`${framework} S:179 hover follows event target when composed path points outside`,async({page})=>{
+    await open(page,{keepMounted:true});await leave(page);
+    await part(page,'viewport').evaluate((node,type)=>{const event=new PointerEvent(type,{bubbles:true,pointerType:'mouse'});Object.defineProperty(event,'composedPath',{value:()=>[document.body,node]});node.dispatchEvent(event);},framework==='react'?'pointerover':'pointerenter');
+    await expect(part(page,'vertical')).toHaveAttribute('data-hovering');await leave(page);await expect(part(page,'vertical')).not.toHaveAttribute('data-hovering');
+  });
+  test(`${framework} S:598 disables snap before the initial track jump and restores it on release`,async({page})=>{
+    await open(page,{snapItems:true,snap:'x mandatory',viewportSize:400,cornerMounted:false,keepMounted:true});
+    await expect.poll(()=>part(page,'horizontal-thumb').evaluate(node=>node.offsetWidth)).toBeGreaterThan(0);
+    const point=await part(page,'horizontal').evaluate(node=>{const viewport=document.querySelector<HTMLElement>('[data-testid="viewport"]')!;const thumb=node.querySelector<HTMLElement>('[data-testid="horizontal-thumb"]')!;const rect=node.getBoundingClientRect();return{x:rect.left+900/(viewport.scrollWidth-viewport.clientWidth)*(node.offsetWidth-thumb.offsetWidth)+thumb.offsetWidth/2,y:rect.top+rect.height/2};});
+    await pointer(page,'horizontal','pointerdown',{clientX:point.x,clientY:point.y});expect(Math.abs(await part(page,'viewport').evaluate(node=>node.scrollLeft)-900)).toBeLessThanOrEqual(1);
+    await expect(part(page,'horizontal')).toHaveAttribute('data-scrolling');await pointer(page,'horizontal','pointerup');
+    await expect.poll(()=>part(page,'viewport').evaluate(node=>node.scrollLeft%200)).toBe(0);await expect(part(page,'viewport')).toHaveCSS('scroll-snap-type','x mandatory');
+  });
+  for(const unmount of [false,true])test(`${framework} V:45/87 pending subtree animation ${unmount?'after unmount':'recomputes overflow'}`,async({page})=>{
+    await page.addInitScript(()=>{
+      let resolve=()=>{};const finished=new Promise<void>(done=>{resolve=done;});
+      const state={width:200,calls:0,finish(){state.width=1000;resolve();}};(window as unknown as {saAnimation:typeof state}).saAnimation=state;
+      const original=Element.prototype.getAnimations;Element.prototype.getAnimations=function(options){if((this as HTMLElement).dataset.testid==='viewport'){state.calls++;return[{finished}] as Animation[];}return original.call(this,options);};
+      const descriptor=Object.getOwnPropertyDescriptor(Element.prototype,'scrollWidth')!;Object.defineProperty(Element.prototype,'scrollWidth',{configurable:true,get(){return(this as HTMLElement).dataset.testid==='viewport'?state.width:descriptor.get!.call(this);}});
+    });
+    await open(page,{contentWidth:100,contentHeight:100,keepMounted:true});await expect(part(page,'root')).not.toHaveAttribute('data-has-overflow-x');
+    await expect.poll(()=>page.evaluate(()=>(window as unknown as {saAnimation:{calls:number}}).saAnimation.calls)).toBeGreaterThan(0);
+    if(unmount)await configure(page,{viewportMounted:false});
+    await page.evaluate(()=>(window as unknown as {saAnimation:{finish:()=>void}}).saAnimation.finish());
+    if(unmount)await expect(part(page,'viewport')).toHaveCount(0);else await expect(part(page,'root')).toHaveAttribute('data-has-overflow-x');
+  });
+  test(`${framework} native/source supplement real mouse drag owns and releases native pointer capture`,async({page})=>{
+    await open(page,{keepMounted:true});const rect=await part(page,'vertical-thumb').boundingBox();expect(rect).not.toBeNull();
+    await page.mouse.move(rect!.x+rect!.width/2,rect!.y+rect!.height/2);await page.mouse.down();await page.mouse.move(rect!.x+rect!.width/2,rect!.y+rect!.height/2+20);
+    expect(await part(page,'viewport').evaluate(node=>node.scrollTop)).toBeGreaterThan(0);await expect(part(page,'vertical-thumb')).toHaveAttribute('data-scrolling');
+    await page.mouse.up();await expect(part(page,'vertical-thumb')).not.toHaveAttribute('data-scrolling');
+  });
   test(`${framework} native/source supplement CSP nonce and actual scrollbar stylesheet application`,async({page})=>{
-    await open(page,{nonce:'scroll-nonce'});const styles=page.locator('style').filter({hasText:'.base-ui-disable-scrollbar{scrollbar-width:none}'});await expect(styles).toHaveCount(1);await expect(styles).toHaveAttribute('nonce','scroll-nonce');await expect(part(page,'viewport')).toHaveCSS('scrollbar-width','none');
-    await open(page,{disableStyleElements:true});await expect(page.locator('style').filter({hasText:'.base-ui-disable-scrollbar{scrollbar-width:none}'})).toHaveCount(0);
+    await open(page,{nonce:'scroll-nonce'});await expect.poll(()=>scrollbarStyles(page)).toEqual([{nonce:'scroll-nonce',text:scrollbarCSS}]);await expect(part(page,'viewport')).toHaveCSS('scrollbar-width','none');
+    await open(page,{disableStyleElements:true});expect(await scrollbarStyles(page)).toEqual([]);
+  });
+  test(`${framework} native renderer observation repeated roots use CSP styles and native teardown`,async({page},info)=>{
+    await open(page,{nonce:'repeat-nonce',repeated:true});
+    await expect.poll(async()=>(await scrollbarStyles(page)).length).toBe(framework==='svelte'?2:1);for(const name of ['viewport','second-viewport'])await expect(part(page,name)).toHaveCSS('scrollbar-width','none');
+    expect((await scrollbarStyles(page)).map(style=>style.nonce)).toEqual(framework==='svelte'?['repeat-nonce','repeat-nonce']:['repeat-nonce']);
+    const before=(await scrollbarStyles(page)).length;await page.evaluate(()=>window.scrollAreaHarness!.destroy());await expect(part(page,'viewport')).toHaveCount(0);await expect(part(page,'second-viewport')).toHaveCount(0);
+    if(framework==='svelte')expect(await scrollbarStyles(page)).toEqual([]);
+    await info.attach('native-stylesheet-observation',{body:JSON.stringify({framework,before,after:(await scrollbarStyles(page)).length,unchangedSourceCredit:0}),contentType:'application/json'});
   });
 }
+test('native SSR preserves repeated nonce styles and hydration viewport ids',async({page,request})=>{
+  const path=`/scroll-area?reference=svelte&options=${encodeURIComponent(JSON.stringify({nonce:'ssr-nonce',repeated:true}))}`;
+  const response=await request.get(path);expect(response.ok()).toBe(true);const html=await response.text();
+  expect((html.match(/<style nonce="ssr-nonce"/g)??[]).length).toBe(2);const id=html.match(/data-testid="viewport"[^>]*id="([^"]+)"/)?.[1]??html.match(/id="([^"]+)"[^>]*data-testid="viewport"/)?.[1];expect(id).toBeTruthy();
+  await page.goto(path);await expect(page.locator('main')).toHaveAttribute('data-hydrated','true');await expect(part(page,'viewport')).toHaveAttribute('id',id!);await expect(part(page,'viewport')).toHaveCSS('scrollbar-width','none');
+});

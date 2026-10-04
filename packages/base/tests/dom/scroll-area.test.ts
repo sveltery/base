@@ -2,6 +2,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { flushSync, mount, tick, unmount } from 'svelte';
 import Fixture from './ScrollAreaFixture.svelte';
+import Missing from './ScrollAreaMissingContext.svelte';
 import { ScrollArea } from '../../src/lib/scroll-area/index.js';
 const mounted: ReturnType<typeof mount>[] = [];
 const observers = new Set<Observer>();
@@ -103,10 +104,18 @@ describe('ScrollArea pinned rendered assertion ports', () => {
     await setup(); pointer('viewport','pointerenter'); node('viewport').scrollTop = 1; node('viewport').dispatchEvent(new Event('scroll')); flushSync(); expect(observers.size).toBe(2);
     for(const component of mounted.splice(0)) await unmount(component); expect(observers.size).toBe(0); await vi.advanceTimersByTimeAsync(1000); expect(vi.getTimerCount()).toBe(0);
   });
+  it('R:951 native context observation preserves corner object identity on unchanged scroll measurements', async () => {
+    const snapshots: object[] = []; await setup({observeCorner:(state:object)=>snapshots.push(state)});const before=snapshots.length;
+    for(let i=0;i<3;i++){node('viewport').dispatchEvent(new Event('scroll'));flushSync();await tick();}
+    expect(snapshots).toHaveLength(before);
+    // This native effect observes source pickState identity. React committed
+    // ContextProbe render counts are a framework assertion and earn no unchanged credit.
+  });
   it('V:488/T:25 required contexts throw exact pinned errors', () => {
     const target=document.createElement('div');
     expect(() => mount(ScrollArea.Viewport,{target})).toThrow('Base UI: ScrollAreaRootContext is missing. ScrollArea parts must be placed within <ScrollArea.Root>.');
-    expect(() => mount(ScrollArea.Thumb,{target})).toThrow('Base UI: ScrollAreaRootContext is missing. ScrollArea parts must be placed within <ScrollArea.Root>.');
+    expect(() => mount(Missing,{target,props:{part:'thumb'}})).toThrow('Base UI: ScrollAreaScrollbarContext is missing. ScrollAreaScrollbar parts must be placed within <ScrollArea.Scrollbar>.');
+    expect(() => mount(Missing,{target,props:{part:'content'}})).toThrow('Base UI: ScrollAreaViewportContext missing. ScrollAreaViewport parts must be placed within <ScrollArea.Viewport>.');
   });
 });
 function thumbRelease() { return vi.mocked(node('vertical-thumb').releasePointerCapture).mock.calls.length + vi.mocked(node('horizontal-thumb').releasePointerCapture).mock.calls.length; }

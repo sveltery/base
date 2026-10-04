@@ -57,8 +57,7 @@ exact<Exact<Root.ScrollAreaThumbProps,Sub.ScrollAreaThumbProps>>(true);
 exact<Exact<Root.ScrollAreaThumbState,Sub.ScrollAreaThumbState>>(true);
 exact<Exact<Root.ScrollAreaCornerProps,Sub.ScrollAreaCornerProps>>(true);
 exact<Exact<Root.ScrollAreaCornerState,Sub.ScrollAreaCornerState>>(true);
-const root:ComponentProps<typeof ScrollArea.Root>={overflowEdgeThreshold:{xEnd:5,yStart:undefined},class:s=>s.scrolling?'active':undefined,ref:null};
-// Partial source threshold uses numbers, including exactOptional: explicit undefined per nested field is not allowed.
+const root:ComponentProps<typeof ScrollArea.Root>={overflowEdgeThreshold:{xEnd:5},class:s=>s.scrolling?'active':undefined,ref:null};
 void root;
 const aliases:[typeof ScrollArea.Root,typeof ScrollArea.Viewport,typeof ScrollArea.Content,typeof ScrollArea.Scrollbar,typeof ScrollArea.Thumb,typeof ScrollArea.Corner]=[ScrollAreaRoot,ScrollAreaViewport,ScrollAreaContent,ScrollAreaScrollbar,ScrollAreaThumb,ScrollAreaCorner];void aliases;
 const explicitUndefined:Sub.ScrollAreaScrollbarProps={keepMounted:undefined,orientation:undefined,ref:undefined,children:undefined,class:undefined,style:undefined,render:undefined};void explicitUndefined;
@@ -67,19 +66,16 @@ const events:Sub.ScrollAreaThumbProps={onpointerdown:event=>{const native:Pointe
 const invalidOrientation:Sub.ScrollAreaScrollbarProps={orientation:'diagonal'};
 // @ts-expect-error Threshold must be numbers.
 const invalidThreshold:Sub.ScrollAreaRootProps={overflowEdgeThreshold:{xStart:'5'}};
+// @ts-expect-error Exact optional nested threshold values cannot be explicit undefined.
+const invalidNestedUndefined:Sub.ScrollAreaRootProps={overflowEdgeThreshold:{yStart:undefined}};
 // @ts-expect-error Source Root has no controlled scrolling business prop.
 const invalidState:Sub.ScrollAreaRootProps={scrolling:true};
 // @ts-expect-error Refs are actual native hosts.
 const invalidRef:Sub.ScrollAreaViewportProps={ref:5};
 // @ts-expect-error Native render replacement is a snippet.
 const invalidRender:Sub.ScrollAreaThumbProps={render:'div'};
-void [invalidOrientation,invalidThreshold,invalidState,invalidRef,invalidRender];
+void [invalidOrientation,invalidThreshold,invalidNestedUndefined,invalidState,invalidRef,invalidRender];
 TS
-# Keep the valid nested optional example exact, then exercise its invalid counterpart explicitly.
-python3 - "$scroll_consumer/PublicTypes.ts" <<'PY'
-import sys
-p=sys.argv[1];s=open(p).read().replace('xEnd:5,yStart:undefined','xEnd:5');open(p,'w').write(s)
-PY
 cat > "$scroll_consumer/tsconfig.json" <<'JSON'
 {"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"exactOptionalPropertyTypes":true,"noUncheckedIndexedAccess":true,"skipLibCheck":false,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts"]}
 JSON
@@ -93,6 +89,7 @@ import Consumer from './Consumer.svelte';
 assert.equal(ScrollArea,Sub);assert.deepEqual(Object.keys(ScrollArea).sort(),['Content','Corner','Root','Scrollbar','Thumb','Viewport']);
 for(const [part,alias] of Object.entries({Root:ScrollAreaRoot,Viewport:ScrollAreaViewport,Content:ScrollAreaContent,Scrollbar:ScrollAreaScrollbar,Thumb:ScrollAreaThumb,Corner:ScrollAreaCorner}))assert.equal(ScrollArea[part],alias);
 const body=render(Consumer).body;assert.match(body,/public content/);assert.match(body,/nonce="public-nonce"/);assert.match(body,/base-ui-disable-scrollbar/);assert.match(body,/tabindex="-1"/);assert.match(body,/data-orientation="horizontal"/);assert.match(body,/<section/);
+assert.equal((body.match(/<style nonce="public-nonce"/g)??[]).length,3);
 assert.throws(()=>render(ScrollAreaViewport).body,/ScrollAreaRootContext is missing/);
 console.log('Installed public root/subpath aliases,12 type exports, strict exactOptional/noUnchecked/skipLibCheck:false, SSR and native snippet host: PASS');
 JS

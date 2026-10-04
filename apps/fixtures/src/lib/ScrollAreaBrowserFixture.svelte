@@ -35,7 +35,7 @@
   });
 </script>
 {#snippet replacement(props: HTMLAttributes<HTMLElement>, _state: object, children: import('svelte').Snippet | undefined)}
-  {#if settings.dropRef}
+  {#if settings.dropRef && (props['data-testid'] === 'content' || props['data-testid'] === 'vertical')}
     <article {...Object.fromEntries(Object.entries(props))}>{@render children?.()}</article>
   {:else}
     <article {...props}>{@render children?.()}</article>
@@ -53,22 +53,25 @@
               <ScrollArea.Viewport data-testid="viewport" bind:ref={viewportRef} render={settings.customRender ? replacement : undefined} onscroll={(event) => consumer('scroll', event)} style={{ width: '100%', height: '100%', scrollSnapType: settings.snap, pointerEvents: 'none' }}>
                 {#if settings.contentMounted}
                   <ScrollArea.Content data-testid="content" bind:ref={contentRef} render={settings.customRender ? replacement : undefined}>
-                    <div data-testid="large" style:width={`${settings.contentWidth}px`} style:height={`${settings.contentHeight}px`}></div>
+                    {#if settings.snapItems}
+                      <div style="display:flex">{#each Array.from({ length: 10 }) as _, index (index)}<div style="flex-shrink:0;width:200px;height:100px;scroll-snap-align:start"></div>{/each}</div>
+                    {:else}<div data-testid="large" style:width={`${settings.contentWidth}px`} style:height={`${settings.contentHeight}px`}></div>{/if}
                   </ScrollArea.Content>
                 {/if}
               </ScrollArea.Viewport>
             {/if}
             {#if settings.scrollbarMounted}
-              <ScrollArea.Scrollbar orientation="vertical" data-testid="vertical" bind:ref={verticalRef} render={settings.customRender ? replacement : undefined} keepMounted={settings.keepMounted} {...(settings.ariaOverride ? { 'aria-hidden': undefined } : {})} onpointerdown={(event) => consumer('track', event)} style={{ width: '10px', display: 'flex', paddingBlock: `${settings.padding}px`, marginInline: `${settings.margin}px`, ...(settings.trackHeight !== null ? { height: `${settings.trackHeight}px`, bottom: 'auto' } : {}) }}>
+              <ScrollArea.Scrollbar orientation="vertical" data-testid="vertical" bind:ref={verticalRef} render={settings.customRender ? replacement : undefined} keepMounted={settings.keepMounted} {...(settings.ariaOverride ? { 'aria-hidden': undefined } : {})} onpointerdown={(event) => consumer('track', event)} style={{ width: `${settings.trackThickness}px`, display: 'flex', paddingBlock: `${settings.padding}px`, marginInline: `${settings.margin}px`, ...(settings.trackHeight !== null ? { height: `${settings.trackHeight}px`, bottom: 'auto' } : {}) }}>
                 {#if settings.thumbMounted}<ScrollArea.Thumb data-testid="vertical-thumb" bind:ref={thumbRef} render={settings.customRender ? replacement : undefined} onpointerdown={(event) => consumer('down', event)} onpointermove={(event) => consumer('move', event)} onpointerup={(event) => consumer('up', event)} style={{ width: '100%', marginBlock: `${settings.thumbMargin}px` }} />{/if}
               </ScrollArea.Scrollbar>
-              <ScrollArea.Scrollbar orientation="horizontal" data-testid="horizontal" bind:ref={horizontalRef} render={settings.customRender ? replacement : undefined} keepMounted={settings.keepMounted} {...(settings.ariaOverride ? { 'aria-hidden': undefined } : {})} style={{ height: '10px', display: 'flex', paddingInline: `${settings.padding}px`, marginBlock: `${settings.margin}px` }}>
+              <ScrollArea.Scrollbar orientation="horizontal" data-testid="horizontal" bind:ref={horizontalRef} render={settings.customRender ? replacement : undefined} keepMounted={settings.keepMounted} {...(settings.ariaOverride ? { 'aria-hidden': undefined } : {})} style={{ height: `${settings.trackThickness}px`, display: 'flex', paddingInline: `${settings.padding}px`, marginBlock: `${settings.margin}px` }}>
                 {#if settings.thumbMounted}<ScrollArea.Thumb data-testid="horizontal-thumb" render={settings.customRender ? replacement : undefined} style={{ height: '100%', marginInline: `${settings.thumbMargin}px` }} />{/if}
               </ScrollArea.Scrollbar>
             {/if}
             {#if settings.cornerMounted}<ScrollArea.Corner data-testid="corner" bind:ref={cornerRef} render={settings.customRender ? replacement : undefined} {...(settings.ariaOverride ? { 'aria-hidden': undefined } : {})} />{/if}
           </ScrollArea.Root>
         </div>
+        {#if settings.repeated}<ScrollArea.Root data-testid="second-root" style={{width:'200px',height:'200px'}}><ScrollArea.Viewport data-testid="second-viewport" style={{width:'100%',height:'100%'}}><ScrollArea.Content><div style="width:1000px;height:1000px"></div></ScrollArea.Content></ScrollArea.Viewport></ScrollArea.Root>{/if}
       </CSPProvider>
     </DirectionProvider>
   {/if}

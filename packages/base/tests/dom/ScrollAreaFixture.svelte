@@ -4,7 +4,8 @@
   import { DirectionProvider } from '../../src/lib/direction-provider/index.js';
   import { CSPProvider } from '../../src/lib/csp-provider/index.js';
   import type { ScrollAreaRootProps } from '../../src/lib/scroll-area/types.js';
-  let { direction = 'ltr', threshold = 0, preventMove = false, noViewport = false, nonce, disableStyleElements = false }: { direction?: 'ltr' | 'rtl'; threshold?: ScrollAreaRootProps['overflowEdgeThreshold']; preventMove?: boolean; noViewport?: boolean; nonce?: string; disableStyleElements?: boolean } = $props();
+  import StateProbe from './ScrollAreaStateProbe.svelte';
+  let { direction = 'ltr', threshold = 0, preventMove = false, noViewport = false, nonce, disableStyleElements = false, observeCorner }: { direction?: 'ltr' | 'rtl'; threshold?: ScrollAreaRootProps['overflowEdgeThreshold']; preventMove?: boolean; noViewport?: boolean; nonce?: string; disableStyleElements?: boolean; observeCorner?: (state: object) => void } = $props();
 </script>
 <DirectionProvider {direction}><CSPProvider {nonce} {disableStyleElements}>
   <ScrollArea.Root data-testid="root" overflowEdgeThreshold={threshold}>
@@ -12,5 +13,6 @@
     <ScrollArea.Scrollbar keepMounted data-testid="vertical"><ScrollArea.Thumb data-testid="vertical-thumb" onpointermove={event => { if (preventMove) event.preventBaseUIHandler(); }} /></ScrollArea.Scrollbar>
     <ScrollArea.Scrollbar orientation="horizontal" keepMounted data-testid="horizontal"><ScrollArea.Thumb data-testid="horizontal-thumb" /></ScrollArea.Scrollbar>
     <ScrollArea.Corner data-testid="corner" />
+    {#if observeCorner}<StateProbe observe={observeCorner} />{/if}
   </ScrollArea.Root>
 </CSPProvider></DirectionProvider>
