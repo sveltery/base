@@ -1,14 +1,37 @@
 // Test-only actual published Original1.8 private helper boundary; never imported by runtime.
 import { createRequire } from 'node:module';
 import { dirname, resolve } from 'node:path';
+import type { BaseUIChangeEventDetails } from '../../src/lib/internals/createBaseUIEventDetails.js';
 // Package DOM tests run with packages/base as cwd; Vite gives import.meta.url a browser URL.
 const require = createRequire(resolve(process.cwd(), '../../apps/fixtures/package.json'));
 const React: typeof import('../../../../apps/fixtures/node_modules/@types/react/index.js') = require('react');
 const { createRoot }: typeof import('../../../../apps/fixtures/node_modules/@types/react-dom/client.js') = require('react-dom/client');
 const packageRoot = dirname(require.resolve('@base-ui/react/package.json'));
-const { FloatingDelayGroup, useDelayGroup }: typeof import('../../../../apps/fixtures/node_modules/@base-ui/react/floating-ui-react/components/FloatingDelayGroup.js') = require(resolve(packageRoot, 'floating-ui-react/components/FloatingDelayGroup.js'));
-const { FloatingRootStore }: typeof import('../../../../apps/fixtures/node_modules/@base-ui/react/floating-ui-react/components/FloatingRootStore.js') = require(resolve(packageRoot, 'floating-ui-react/components/FloatingRootStore.js'));
-const { PopupTriggerMap }: typeof import('../../../../apps/fixtures/node_modules/@base-ui/react/utils/popups/popupTriggerMap.js') = require(resolve(packageRoot, 'utils/popups/popupTriggerMap.js'));
+// Published private declarations refer to unshipped @base-ui/utils and react-dom
+// types. This test-only protocol names only the actual Source members consumed;
+// require still loads the real published classes/hooks. Native contracts stay strict.
+type SourceState = { open: boolean; floatingId: string | undefined };
+interface SourceStore {
+  set<Key extends keyof SourceState>(key: Key, value: SourceState[Key]): void;
+  useState<Key extends keyof SourceState>(key: Key): SourceState[Key];
+  select<Key extends keyof SourceState>(key: Key): SourceState[Key];
+  setOpen(open: boolean, details: BaseUIChangeEventDetails<string>): void;
+}
+interface SourceGroup { activeIdRef: { current: string | null | undefined }; isInstantPhase: boolean }
+interface SourceGroupProps {
+  delay: { open: number; close: number }; timeoutMs: number;
+  children?: import('../../../../apps/fixtures/node_modules/@types/react/index.js').ReactNode;
+}
+const { FloatingDelayGroup, useDelayGroup }: {
+  FloatingDelayGroup(props: SourceGroupProps): import('../../../../apps/fixtures/node_modules/@types/react/index.js').ReactElement;
+  useDelayGroup(store: SourceStore, options: { open: boolean }): SourceGroup;
+} = require(resolve(packageRoot, 'floating-ui-react/components/FloatingDelayGroup.js'));
+const { FloatingRootStore }: { FloatingRootStore: new (options: {
+  open: boolean; floatingId: string; transitionStatus: undefined; referenceElement: null; floatingElement: null;
+  triggerElements: object; syncOnly: false; nested: false;
+  onOpenChange(open: boolean, details: BaseUIChangeEventDetails<string>): void;
+}) => SourceStore } = require(resolve(packageRoot, 'floating-ui-react/components/FloatingRootStore.js'));
+const { PopupTriggerMap }: { PopupTriggerMap: new () => object } = require(resolve(packageRoot, 'utils/popups/popupTriggerMap.js'));
 Object.assign(globalThis, { IS_REACT_ACT_ENVIRONMENT: true });
 
 export async function mountOriginalDelayOwnership(target: HTMLElement, closedSecond = false) {
