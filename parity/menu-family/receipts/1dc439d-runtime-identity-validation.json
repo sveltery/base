@@ -1,0 +1,838 @@
+{
+  "runtimeRepairHead": "9493a4f3a787dc1879b10ccdc893cee7c7882392",
+  "validationHead": "1dc439d3a36495dbc4fc19f3f85c6e253dcfc0af",
+  "validationTree": "698ad7d07f18a146696e67c878e8b24085990d41",
+  "scope": "Every current whole body matches both named commits and the actual closure inventory; this is identity evidence, not source-fidelity review or approval. This docs-only successor preserves these exact bytes.",
+  "actualModules": 197,
+  "actualEdges": 891,
+  "fullVerify": {
+    "exitStatus": 0,
+    "scripts": 82,
+    "runtimeCases": 220,
+    "domCases": 1337,
+    "workspaceErrors": 0,
+    "workspaceWarnings": 0,
+    "installedMenuPositiveErrors": 0,
+    "installedMenuPositiveWarnings": 0,
+    "installedMenuNegativeDiagnostics": 9
+  },
+  "standards": "PASS at the validation source/test bodies",
+  "hosted": {
+    "Menu": {
+      "run": 37186301815,
+      "job": 111388822490,
+      "passed": 44
+    },
+    "anchor": {
+      "run": 37186301824,
+      "job": 111388822419,
+      "passed": 33
+    },
+    "Standards": {
+      "run": 37186301836,
+      "job": 111388822638,
+      "conclusion": "success"
+    },
+    "Dialog": {
+      "run": 37186301836,
+      "job": 111388822767,
+      "focusedPassed": 55,
+      "focusedFailed": 1,
+      "broadExecuted": false,
+      "note": "Raw current job establishes one failure/55 passes; older949 had three failures/53passes. Both distinct outcomes remain archived and neither is a waiver."
+    },
+    "Verification": "still in progress when checkpoint evidence was assembled"
+  },
+  "sourceReview": "NOT CLEAR predecessor ff42fea preserved; 8 changed whole bodies and 189 exact inherited bodies await independent successor review",
+  "ordinaryOriginalDeclarationCredit": 0,
+  "modules": [
+    {
+      "source": "packages/base/src/lib/context-menu/index.parts.ts",
+      "sha256": "2980fe116f09eab095929614bdbcd363c6074bbe97bdbfc46e6177b0a094e9ce"
+    },
+    {
+      "source": "packages/base/src/lib/context-menu/index.ts",
+      "sha256": "ee6285dbaf87ac0b5993d018da25f6559735074f780d5d111ec0bca8add298d9"
+    },
+    {
+      "source": "packages/base/src/lib/context-menu/Root.svelte",
+      "sha256": "51113addbc9a22141f7f803ea543c5267647e0ed6a69b8fd4ecdfd935a9543d8"
+    },
+    {
+      "source": "packages/base/src/lib/context-menu/root/ContextMenuRootContext.ts",
+      "sha256": "4a3b2d1a07f7f0cef35fee20c08852749799ee70e3cca25ea38bbd6612805cee"
+    },
+    {
+      "source": "packages/base/src/lib/context-menu/Trigger.svelte",
+      "sha256": "7f1cbc17d151873dbacd8c26887c4b4cd0a6c5e6341c33acceee8e341b45fb28"
+    },
+    {
+      "source": "packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts",
+      "sha256": "4b68a3275fe17be9e0c7b516fd5445974db062ef939ed0123511b4e36d6ea305"
+    },
+    {
+      "source": "packages/base/src/lib/context-menu/types.ts",
+      "sha256": "ca3beace949e1d0ef5c07256c34ed2cb8fe6083510d235332301247d3799f1ed"
+    },
+    {
+      "source": "packages/base/src/lib/direction-provider/context.ts",
+      "sha256": "e400850423b49f956342a6efac2d8dcf2275365d23220564b6cefb8b44df47f8"
+    },
+    {
+      "source": "packages/base/src/lib/direction-provider/types.ts",
+      "sha256": "a56af048e882453755ad2948782af4f2f832903e031d4812b8da9fc5f4b82aae"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
+      "sha256": "c0d9f77faa3fa4fb8f78d01d958fdbc60ed960b043edfeb967f0b138ba367a9f"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/components/FloatingFocusManager.svelte",
+      "sha256": "02e830d2f21614164344019f3bdd4420c4e0c58ddf49b12023c2202fcc236da8"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+      "sha256": "56ef7993c9378f0710f7724a40280f8ba31fa7fb515b218802d7935c3a95f75b"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/components/FloatingPortalContext.ts",
+      "sha256": "897245ee2d655ee10875e45707bca62d75b11170e2cb5b8a575c6a2848533833"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+      "sha256": "0f82be0f8c5c542753e3fc8bf5356066c20b71e2618b3decfa3698f5b91d5388"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
+      "sha256": "40e508a5e0b3facfcf178890bb28a79e753d8e713d2e51c514724d4243a32027"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts",
+      "sha256": "eb351b05f9f15cd7acebfe9b093cb42eb07c27073f41bd670633c94c41effdd3"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/components/PortalContent.svelte",
+      "sha256": "094ca8f25b2d4622ed70767b472ad6cecc481ae92470caa67385c72a3551f603"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/gridNavigation.ts",
+      "sha256": "a9f1bc487078d4f9cf70e608cde8be6e55b165de0f79069d18879e71f25dd8e8"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useClick.svelte.ts",
+      "sha256": "34c159e4e2a0b468bea5d3f650050b83b7e63b41dbcd9a936543ec9ddaeb2b70"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts",
+      "sha256": "bb2d0d06053246d50d15e8744efc322ed9413573e493a3d8dfba96f90e01d6ae"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts",
+      "sha256": "3cb683af9f2da1d7e2fdb289c55e4397ea596af3d1de90b02e9cf1ff94c4929c"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useFocus.svelte.ts",
+      "sha256": "0524a50da9077052ce98c908efdce6ec8fd3cfb5af7842aa57cb84ce0a95ab16"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts",
+      "sha256": "384272183fd4420ea931d08e092e74f5bf7c4aa2ab183f25a019f668ccf9107a"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts",
+      "sha256": "ef1574048bab3502c11609c1d085308bfb52f9294bc851efb0af50506dd1550e"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts",
+      "sha256": "3bbc6e76e17a90be07b1b82536c3f8325e0f08641d771740ba7352494ae205dd"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts",
+      "sha256": "27321c9b2a6773e8743846b8af2a51a4339462f8189f1a9cad36b9702b4517df"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useListNavigation.svelte.ts",
+      "sha256": "6bf9f8935955bfc9eaacfc92cfca1d3745d55ae1ea90fd4203ff83daafa22d6e"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
+      "sha256": "144b7492c4df9f20f8da4b4fdbe5a5983219e2370c1fd6a4afef50226559815d"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useTypeahead.svelte.ts",
+      "sha256": "dce5183fd8b81403e4fccbea493099e562d2a85b02bb2d04900a0910901059ca"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/safePolygon.ts",
+      "sha256": "8140d3e4f809bfe3fd1f6831752c66cf0fb811eee32fe4a0a9e33375387776b6"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/types.ts",
+      "sha256": "d75465f0e2fa7f46beab37d200f2f9e5a152dd4ca4a5751e5c9ca2811caed3d5"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/utils/composite.ts",
+      "sha256": "96b8fde56711a770d9c1936cfae99d9576009539cc5c68ef139f463533893d27"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/utils/constants.ts",
+      "sha256": "14ac30673b196081a83c1e023ecfd546294733ceb2f756d2bad01e3a9d24880b"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/utils/createAttribute.ts",
+      "sha256": "24fb1aacf4668a0ada9cfcb8d1f516b3ef7d5022df3f3b0a375394e260f07f4a"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/utils/createEventEmitter.ts",
+      "sha256": "31ebcaf59c98304ec9944e91a86b0a3c3ed31359e76a102ea62c4213f5dff484"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/utils/element.ts",
+      "sha256": "43da99a8e24b9713afaaa52f09f8b21b92681252d1c17824cc246e15400c79eb"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/utils/enqueueFocus.ts",
+      "sha256": "60067b93919c6f4210890af14627b5e064c6d0d3ee9e287f4f7752fab7474773"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/utils/event.ts",
+      "sha256": "b489c469d9e2b134b6cd97baa3a408010decf1399dbaa1367a015d70c770832e"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/utils/markOthers.ts",
+      "sha256": "0a6397de4ac741e96e98ef3756caed2200a6ff8564b55d04a8573aaf06037406"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/utils/matchesFocusVisible.ts",
+      "sha256": "b1788640106924aa5e790e88b711fdf02ce942c0ead034aa94be636188f1c3ac"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/utils/nodes.ts",
+      "sha256": "b78d4c24b96237d20d09a60549535fad0d8e61661b38091cbf5368b53c43f544"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/utils/tabbable.ts",
+      "sha256": "7e890249d9926089244d66728f1957c9b67f980f4459c874081be0c90016cbbb"
+    },
+    {
+      "source": "packages/base/src/lib/internals/anchor-positioning/adaptive-origin.ts",
+      "sha256": "af5859dc474117523d5fa7c93acad144667590bd3d35248b72ffd2164e6dd86e"
+    },
+    {
+      "source": "packages/base/src/lib/internals/anchor-positioning/arrow.ts",
+      "sha256": "faae61704c235e00a268afc06f286dbde18d270b499c31da65e16b4a16fab3c6"
+    },
+    {
+      "source": "packages/base/src/lib/internals/anchor-positioning/css-vars.ts",
+      "sha256": "5987e5aac4cb32b02a7415edee76937ff2a17ce4d48a694fd2d7522ae0e47e78"
+    },
+    {
+      "source": "packages/base/src/lib/internals/anchor-positioning/hide.ts",
+      "sha256": "02c0e2ed225845ffbbd4b45ad7bd2c76b9af8976b7147980ca0f64b6022fad68"
+    },
+    {
+      "source": "packages/base/src/lib/internals/anchor-positioning/policy.ts",
+      "sha256": "66337d95ad094898b0ae95c94c4e07ea14fd041c32cad6a4c2ec8113859cb42d"
+    },
+    {
+      "source": "packages/base/src/lib/internals/anchor-positioning/types.ts",
+      "sha256": "fa56b8d2b5fac3e9c1ed9597f89631d6381e1e73d5da507b1d41ec566917b82b"
+    },
+    {
+      "source": "packages/base/src/lib/internals/anchor-positioning/useAnchorPositioning.svelte.ts",
+      "sha256": "a2b7d8284ece515de3ca1c65d342fcdbae395d5484a4f8fd121d9d11f835876d"
+    },
+    {
+      "source": "packages/base/src/lib/internals/anchor-positioning/useFloating.svelte.ts",
+      "sha256": "9f504f4289d1b38e2fc78830320beec60d5ec6fe40f183b132916594c7027c8a"
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/composite.ts",
+      "sha256": "938a8b4ede73c5b5655a800777fe4748a94786a05bf828129de299c04cf94673"
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/constants.ts",
+      "sha256": "bf9445674ea41f593d2948d874d80077cb90932a20f820bd0ec1d84a39ebb7ab"
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
+      "sha256": "7447799f42b23f8003e251196e03199f8d703b77fda61d6d3422e657f95a5319"
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
+      "sha256": "d0faf967447c35339c6ad06b8cc6218cf2002613844a4bdb7b1453fd5262afc3"
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts",
+      "sha256": "c443b96e2b57642eed663be3a670fc7342dc4358bac081b7257bcb076c54ab17"
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
+      "sha256": "97758d379046d9f894997ae40ef7c6f59decf48fa0d985a2c1fb5f9f068ad016"
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
+      "sha256": "42f4066c8d830385f942f66b216e1b263728f1615dbd7b11cfd3a79db7242400"
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
+      "sha256": "5075468a96b01787b1789e48ee6dfecd178a7ec76ee7726c3a064b9cf663fe12"
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts",
+      "sha256": "b08d6af5d6e71ba46076718b4426c7d2e0485a059e9204759406af1f395b6f2c"
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/root/gridNavigation.ts",
+      "sha256": "11aa223e4f95a23b0287fee822bdda9f4b37cb6d33f99d02c9f7da8964949e9f"
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
+      "sha256": "8db12d19818afe6509addc02e10a55082126da9be7a40d03f9a8f62a6e6b5d78"
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/utils/navigation.ts",
+      "sha256": "bb61a6e117cc345c347a3a29618d01e6e608ef1027b8e6464e072d8b70b4a0aa"
+    },
+    {
+      "source": "packages/base/src/lib/internals/constants.ts",
+      "sha256": "de12c9af7ce208e69f24e5bbfefb3df6840e5b4f284109597087188a338c6893"
+    },
+    {
+      "source": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+      "sha256": "1a9cb6cde2734d421a1bfb03ece9c744584b7e115a0eb3b9de974c22ab8ee684"
+    },
+    {
+      "source": "packages/base/src/lib/internals/getDisabledMountTransitionStyles.ts",
+      "sha256": "7fb54d405a10ceeaa1ad3d5d630dc80a7b835eeb2fb92eb13daf47c1f668bd6c"
+    },
+    {
+      "source": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+      "sha256": "e48367a890024a54cb200eabc5c2a0ba0a397256baacfaec8b0a05ced3b10344"
+    },
+    {
+      "source": "packages/base/src/lib/internals/nativeProps.ts",
+      "sha256": "d6b3999ffe54e8c70e0dcdac61474b3bf9f53e60f3b1207dd4f976ef5212e4eb"
+    },
+    {
+      "source": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+      "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319"
+    },
+    {
+      "source": "packages/base/src/lib/internals/reason-parts.ts",
+      "sha256": "0326d21ce4be2c41b5488c86e3687249faf3c51f5e10ae49c16e8efdc183abf5"
+    },
+    {
+      "source": "packages/base/src/lib/internals/reasons.ts",
+      "sha256": "f1f52caeefb14448a7e7c9833e24413b923b7bbf40aa1818ca73dc93710b42e7"
+    },
+    {
+      "source": "packages/base/src/lib/internals/RenderElement.svelte",
+      "sha256": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5"
+    },
+    {
+      "source": "packages/base/src/lib/internals/resolveClassValue.ts",
+      "sha256": "584323b17cb1733a798e9ff86e9ff783d6a26d08ecf005a8c2b3c69917c1e722"
+    },
+    {
+      "source": "packages/base/src/lib/internals/stateAttributesMapping.ts",
+      "sha256": "d04c73fe454de256e1641245b5db6a3d70824693f0da33272d0863f033b5230d"
+    },
+    {
+      "source": "packages/base/src/lib/internals/TransitionStatusDataAttributes.ts",
+      "sha256": "d3e4a31041bcc80ba21b330d3fedadfadaeae3f498dc09e078e70470cfb98dfe"
+    },
+    {
+      "source": "packages/base/src/lib/internals/types.ts",
+      "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3"
+    },
+    {
+      "source": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+      "sha256": "ee71d7077c51139162152716111472919bf80b71e6e9cde62d15ff0b7ce56f59"
+    },
+    {
+      "source": "packages/base/src/lib/internals/useAnimationsFinished.ts",
+      "sha256": "0ae8873174969326a7ac09377ab019af5cd575bbdfde7df9118317d0ec1c1e30"
+    },
+    {
+      "source": "packages/base/src/lib/internals/useBaseUiId.ts",
+      "sha256": "fc6d9571f2fc0f71d6f75a8f34eb981a3e09a9a038fbb9aa8b4b83c2cbb3aaa3"
+    },
+    {
+      "source": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+      "sha256": "5e966dd1b10cbc1ed448d3583ca948a384d812f9e71afc1e128395485575931f"
+    },
+    {
+      "source": "packages/base/src/lib/internals/useRenderElement.ts",
+      "sha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9"
+    },
+    {
+      "source": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+      "sha256": "1236abbbe5a5e1dec17c77d51d704f3f03e48ecdd34f85a995e1dde00c60c54b"
+    },
+    {
+      "source": "packages/base/src/lib/internals/useValueChanged.svelte.ts",
+      "sha256": "340a8f5ed100094c283f167c8a8a3e196708cdf238eeadc93f148ee31c4274c9"
+    },
+    {
+      "source": "packages/base/src/lib/menu/Arrow.svelte",
+      "sha256": "5f1758b72eb8be50fa7ec309b894bf01f37402b0b1bede39413164f9cdd9c8f6"
+    },
+    {
+      "source": "packages/base/src/lib/menu/Backdrop.svelte",
+      "sha256": "814d4b11409e60f00cc2f60d0f10795005b681932a2d77e5ea1dacf0482b661e"
+    },
+    {
+      "source": "packages/base/src/lib/menu/checkbox-item/MenuCheckboxItemContext.ts",
+      "sha256": "1e7f3b3fc8a8fddf5db9710db2a2c9f1d927e21f275792315bf730510954f65a"
+    },
+    {
+      "source": "packages/base/src/lib/menu/checkbox-item/MenuCheckboxItemDataAttributes.ts",
+      "sha256": "42a298d093393c3bf21e58f6c393ccedcdcd08603bc580b15d09bc630740bea9"
+    },
+    {
+      "source": "packages/base/src/lib/menu/CheckboxItem.svelte",
+      "sha256": "0984a039340cde7e3f723aa53c5729871f36e74035610727f91102da5b3abb00"
+    },
+    {
+      "source": "packages/base/src/lib/menu/CheckboxItemIndicator.svelte",
+      "sha256": "279a71aa9d1da285ebf84c854ff69a81de7a082a091726c010db86b2c7ca7a2e"
+    },
+    {
+      "source": "packages/base/src/lib/menu/Group.svelte",
+      "sha256": "910024f07f4d2c85dbc4add9cd89e0a1203d7f8bdcd06c200c3828de4a206e4a"
+    },
+    {
+      "source": "packages/base/src/lib/menu/group/MenuGroupContext.ts",
+      "sha256": "e114ec4f46a41a3ac186bcf286159407f43897a85b7089e611af1db71924b879"
+    },
+    {
+      "source": "packages/base/src/lib/menu/GroupLabel.svelte",
+      "sha256": "0f1965a1e3da9f1a3ba80d8531174c877035fdb73601cbac7e3a0a82e235193a"
+    },
+    {
+      "source": "packages/base/src/lib/menu/index.parts.ts",
+      "sha256": "9e9caf42117568e106d88faad2e2098eb16d77cc50c0a1f2878854d26fc4e2af"
+    },
+    {
+      "source": "packages/base/src/lib/menu/index.ts",
+      "sha256": "0ffcbb12af56545dc5077b9b32fcf1bdc76eae95050bdad25559debf66ee6316"
+    },
+    {
+      "source": "packages/base/src/lib/menu/Item.svelte",
+      "sha256": "61c2f41ab94034d677037553a2d514e1618c45f5e793e344b5f4181a2b97b16a"
+    },
+    {
+      "source": "packages/base/src/lib/menu/item/useMenuItem.svelte.ts",
+      "sha256": "80ccca99d94407420a692b97ae3702c9a475b928f4c1fe9373193679b55a1dd7"
+    },
+    {
+      "source": "packages/base/src/lib/menu/item/useMenuItemCommonProps.svelte.ts",
+      "sha256": "25f3143536a056f996482abce0e150347ea53096cecc3d217c49e0b185819c0f"
+    },
+    {
+      "source": "packages/base/src/lib/menu/LinkItem.svelte",
+      "sha256": "2436be2a8bd9b6148d97a8f0f5c6238b142eeedb6f0b90aa468283d601411674"
+    },
+    {
+      "source": "packages/base/src/lib/menu/Popup.svelte",
+      "sha256": "ce10606d956aecb5e2d0206cbd9aecf1bae4906fbd8d6b491294ada2ff68b4b2"
+    },
+    {
+      "source": "packages/base/src/lib/menu/Portal.svelte",
+      "sha256": "b55a674bd981a3b04d59979205fe770b494323eb2f6ad4d7ca9c7aecf0edac83"
+    },
+    {
+      "source": "packages/base/src/lib/menu/portal/MenuPortalContext.ts",
+      "sha256": "c35a18a984e592b8654adb0f4c8c17a9e4c1bc978d2f993fe055c379164646c7"
+    },
+    {
+      "source": "packages/base/src/lib/menu/Positioner.svelte",
+      "sha256": "123e8bd520436b7b483c5b10a64e29e445dd47666b070c1fad47373933a6b576"
+    },
+    {
+      "source": "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
+      "sha256": "7b3f4428378397ca137a0a8222b81fec19b5b27e105bc15b46e8599e134f4b08"
+    },
+    {
+      "source": "packages/base/src/lib/menu/positioner/MenuPositionerContext.ts",
+      "sha256": "a1a53bc1c9133b46ea6ffe55d88dc2c88ea7201439ddf26166e059053ee5d5ec"
+    },
+    {
+      "source": "packages/base/src/lib/menu/radio-group/MenuRadioGroupContext.ts",
+      "sha256": "0fcf746b752761eaea2de8015bcd9df5e41438e2df058681092e5513bed5dd9a"
+    },
+    {
+      "source": "packages/base/src/lib/menu/radio-item/MenuRadioItemContext.ts",
+      "sha256": "7d74e55c08ab41d976be9dadf82b83f958843e314d434c2470da941bd5adeaec"
+    },
+    {
+      "source": "packages/base/src/lib/menu/RadioGroup.svelte",
+      "sha256": "7dff1fafab650c8ad03fc68dc57e4d6b0bf052a7bc6cb3d3f184b6a070251fc8"
+    },
+    {
+      "source": "packages/base/src/lib/menu/RadioItem.svelte",
+      "sha256": "e6930f58fa0663792d08b7f03c794d0a36194d9634bf01f68296079e1b2830d5"
+    },
+    {
+      "source": "packages/base/src/lib/menu/RadioItemIndicator.svelte",
+      "sha256": "d6dbb34230388c78b9da53946af39812fd547b7398e53cb306ae915af3c21246"
+    },
+    {
+      "source": "packages/base/src/lib/menu/Root.svelte",
+      "sha256": "31dd8dd4d71caf6eca4d0a89a4c530f454e3139cd4420fcc84966760377f3e24"
+    },
+    {
+      "source": "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
+      "sha256": "4246ffbae50a0121dd8349eca2c4cb055fe83c762a747ccfda91ec677823871d"
+    },
+    {
+      "source": "packages/base/src/lib/menu/root/MenuRootContext.ts",
+      "sha256": "322f644694648a02df90bb5f1ef1362b41dc8adc1b869125de33d0b769f78144"
+    },
+    {
+      "source": "packages/base/src/lib/menu/store/MenuHandle.svelte.ts",
+      "sha256": "6ca892a50a91bf1723901163ed19e7bed38bbcdca744a28c8a89dac023cc3000"
+    },
+    {
+      "source": "packages/base/src/lib/menu/store/MenuStore.svelte.ts",
+      "sha256": "bfb85510b5668b4ac775e045d663e3f7ccd8eb8efd6528f9f780094ea57b4c87"
+    },
+    {
+      "source": "packages/base/src/lib/menu/submenu-root/MenuSubmenuRootContext.ts",
+      "sha256": "91856a8c9fc2eebe831884f1ac2a15d75be0acad677e9c0006b036cb330cb25c"
+    },
+    {
+      "source": "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
+      "sha256": "3d7e2699d27f0b844eabe3d28ee4fd0e5c84ac9277c39f4cfcef6542204dbf8c"
+    },
+    {
+      "source": "packages/base/src/lib/menu/SubmenuRoot.svelte",
+      "sha256": "89013c00a269ea4743dd6b88603f012c845b73b539920e1db461a498c8667380"
+    },
+    {
+      "source": "packages/base/src/lib/menu/SubmenuTrigger.svelte",
+      "sha256": "7af54ebb1a2872beb0f085758867e62add3be6b6ffa621e24be8edbce438c456"
+    },
+    {
+      "source": "packages/base/src/lib/menu/Trigger.svelte",
+      "sha256": "a05c0c825e6049d86b4d1132fdde245fd8adf0d33c40dfba9f1b0189658593a7"
+    },
+    {
+      "source": "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
+      "sha256": "099a6a031b0f7771a58c3a0699893218138b3457b3ca809879674f3b9e10185a"
+    },
+    {
+      "source": "packages/base/src/lib/menu/types.ts",
+      "sha256": "3affcc2edec6d2fc633d9d8ed7460d78e4aebcfd791ee0d8917e0a8ed3df2526"
+    },
+    {
+      "source": "packages/base/src/lib/menu/utils/findRootOwnerId.ts",
+      "sha256": "a2804fa0113fd58d4310c3915c827777efdd41f9b724599226266751dbc448a3"
+    },
+    {
+      "source": "packages/base/src/lib/menu/utils/stateAttributesMapping.ts",
+      "sha256": "8dea8d43df944700ed6aed383c69828d83b77499933712cb4f025d403c17bb7e"
+    },
+    {
+      "source": "packages/base/src/lib/menu/Viewport.svelte",
+      "sha256": "4e1a74ec0fc8b5654fe315d20689e4cc1933516c2e98f0934001fd21aa7d7a7d"
+    },
+    {
+      "source": "packages/base/src/lib/menubar/index.ts",
+      "sha256": "2914e01ea43042b3cd23798a2b968c951fab7f7667dce154802ef903e03f5e58"
+    },
+    {
+      "source": "packages/base/src/lib/menubar/Menubar.svelte",
+      "sha256": "bac53ee433dacc31480be4a3c66a540c59a69f2e2f6da849ee763fd9a8330aea"
+    },
+    {
+      "source": "packages/base/src/lib/menubar/MenubarContext.ts",
+      "sha256": "7bdfa9dcbc2544bf838842f6198951a15856dbee276eb916ddbf6fd2b1c94173"
+    },
+    {
+      "source": "packages/base/src/lib/menubar/types.ts",
+      "sha256": "9da4fbbf8d50ae7e1f4f24c012f3dd82c785fcc6f991043910619e4105c2f57c"
+    },
+    {
+      "source": "packages/base/src/lib/merge-props/index.ts",
+      "sha256": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68"
+    },
+    {
+      "source": "packages/base/src/lib/merge-props/mergeProps.ts",
+      "sha256": "7a097b833ae8854c5a26e34009adfb4e0297dd50f56ad5f0c1ac8afa8187f98b"
+    },
+    {
+      "source": "packages/base/src/lib/separator/index.ts",
+      "sha256": "7cf0255b6470bec86eeffb2ba4d2df166e90c35cdce2409f4cb776f77c9e988b"
+    },
+    {
+      "source": "packages/base/src/lib/separator/Separator.svelte",
+      "sha256": "b42e090098cee72fcb49e7ab2a020a1eabdea6fddddcf972c5f763ebc3fd48d9"
+    },
+    {
+      "source": "packages/base/src/lib/separator/types.ts",
+      "sha256": "b349b520840d7d7b3bbda5127105404312370ae300efe23bb354536c2d8c56dc"
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts",
+      "sha256": "ac7081f4de2f79dcdf425ee5ca7690db2d577f9363f2ef03b75f3b5395adc6cb"
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/types.ts",
+      "sha256": "c7cc1b91797831826e2605d119313666bce3f67185583beff516a80af9104e78"
+    },
+    {
+      "source": "packages/base/src/lib/utils/addEventListener.ts",
+      "sha256": "77880d75a5c8c5ac2d924e69d7cc7662c616b953d4895c8e6a24de53de4502bf"
+    },
+    {
+      "source": "packages/base/src/lib/utils/CommonPopupCssVars.ts",
+      "sha256": "f9dddda047401345f05809796e771f5a204664ff6c828c82e0eb314198a1c57a"
+    },
+    {
+      "source": "packages/base/src/lib/utils/CommonPopupDataAttributes.ts",
+      "sha256": "ed25a93130d096ba883e68999928e43dad59d09ae9dff52f0e8b68d5974abe15"
+    },
+    {
+      "source": "packages/base/src/lib/utils/CommonPositionerCssVars.ts",
+      "sha256": "457560d32ec1afda1f3880e9b284bd162f6923348830bf8983fb3a5d050ab74e"
+    },
+    {
+      "source": "packages/base/src/lib/utils/CommonTriggerDataAttributes.ts",
+      "sha256": "199df87949923494ce8f3f6b3bfcc05e162744891afb12c033f5e7f9ba8f4f92"
+    },
+    {
+      "source": "packages/base/src/lib/utils/CommonViewportDataAttributes.ts",
+      "sha256": "b2b2ff787608db21ef5e579b026e6fd38c180046c2584acaa3b76c66e398d394"
+    },
+    {
+      "source": "packages/base/src/lib/utils/createLogOnce.ts",
+      "sha256": "a3c52188a495927ef9b49765ca1e70bc384b37b68a5c896ca86df15852a279b1"
+    },
+    {
+      "source": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts",
+      "sha256": "60aab2aa25eb9c0aeaa0a57fc8ccd37aab747577ea22f019aff163946cabd373"
+    },
+    {
+      "source": "packages/base/src/lib/utils/empty.ts",
+      "sha256": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b"
+    },
+    {
+      "source": "packages/base/src/lib/utils/error.ts",
+      "sha256": "de9eeee73db42c056c110eb94f3aef8b51ae3003e97d5140bfaf876bdde52c69"
+    },
+    {
+      "source": "packages/base/src/lib/utils/FocusGuard.svelte",
+      "sha256": "28a17af6cd0d817c9002e0e2bae206b33452fc6a0153ffb45f6f6f0b8f96c777"
+    },
+    {
+      "source": "packages/base/src/lib/utils/getCssDimensions.ts",
+      "sha256": "f5f7b8ba4da86949dfa6ac61b706fdebf079e7a03a78b0d7ab3dd4cb66c10829"
+    },
+    {
+      "source": "packages/base/src/lib/utils/getPseudoElementBounds.ts",
+      "sha256": "ea40c4fa03f3722de94bd4e9a87b0a896b2ab3f350dd8fd371029179280dd735"
+    },
+    {
+      "source": "packages/base/src/lib/utils/InternalBackdrop.svelte",
+      "sha256": "41a9ef1e56c442d73930a86015e08ff543b871475b26bd5f8da1936c3715822c"
+    },
+    {
+      "source": "packages/base/src/lib/utils/isElementDisabled.ts",
+      "sha256": "c2f6141d744cb16e458208163d616cefa465b8da0445658c4d9282a05a1b616e"
+    },
+    {
+      "source": "packages/base/src/lib/utils/mergeCleanups.ts",
+      "sha256": "28eb97759c815e7a3edcb4a5ac4464473790ae9294bda5a66ba268bca8efedcb"
+    },
+    {
+      "source": "packages/base/src/lib/utils/mergeObjects.ts",
+      "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746"
+    },
+    {
+      "source": "packages/base/src/lib/utils/NullStore.svelte.ts",
+      "sha256": "442595fdf67989d0bdae8f422a53bfed7622832b0e5112f60e782d8d75a97e43"
+    },
+    {
+      "source": "packages/base/src/lib/utils/owner.ts",
+      "sha256": "4f32738229316fe875cf72e949caa4aa7d2fcdf924a2bd5b7f01e88ca5424185"
+    },
+    {
+      "source": "packages/base/src/lib/utils/platform/engine.ts",
+      "sha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987"
+    },
+    {
+      "source": "packages/base/src/lib/utils/platform/env.ts",
+      "sha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d"
+    },
+    {
+      "source": "packages/base/src/lib/utils/platform/index.ts",
+      "sha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c"
+    },
+    {
+      "source": "packages/base/src/lib/utils/platform/media-query.ts",
+      "sha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9"
+    },
+    {
+      "source": "packages/base/src/lib/utils/platform/os.ts",
+      "sha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6"
+    },
+    {
+      "source": "packages/base/src/lib/utils/platform/parts.ts",
+      "sha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29"
+    },
+    {
+      "source": "packages/base/src/lib/utils/platform/screen-reader.ts",
+      "sha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7"
+    },
+    {
+      "source": "packages/base/src/lib/utils/platform/shared.ts",
+      "sha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2"
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/index.ts",
+      "sha256": "8685650fb9e3f7bfe7528330f062c4b3f94df89bf9adc8a48b13728774474e01"
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/popupHandle.svelte.ts",
+      "sha256": "5acdc474609054a89472cdaa01531fa06e2670ac98e735f11f19e1651239ae89"
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte",
+      "sha256": "bb34f4ea941b5579a57d1ff6432f3f5bf59c84a762c663112be7c7a9f4338985"
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+      "sha256": "6dbed9514bf1b8aa1c6deced9bf7e1bbba39021af9e8ef092dec351bb9ef5f00"
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts",
+      "sha256": "812f1d6cb454c0f5236cda69919932ccfc569611050c19fe8198617beacf6b2c"
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/store.ts",
+      "sha256": "f10a365441f28fa1e93b1d1cc871349a0555944e3fd937344b3415c3d32a87d3"
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/usePopupHandleStore.svelte.ts",
+      "sha256": "3bbe4fd4132a3acdeb82b575f734b01caccc7c3033b8162fa64ad619a8bfbf58"
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts",
+      "sha256": "61c4a5e3e40b0f8ff0d48d40208687ef43a209818cbe4bb6a9058050d91a1678"
+    },
+    {
+      "source": "packages/base/src/lib/utils/popupStateMapping.ts",
+      "sha256": "07a2ecdd556f8e1371d395f7749cbfb1bff445b4f07b321d8e7d8ecf5393350d"
+    },
+    {
+      "source": "packages/base/src/lib/utils/resolveClassName.ts",
+      "sha256": "b22aead630ca531851a08a63e5165e64ff8cdc9de5765ff20997f578071cb108"
+    },
+    {
+      "source": "packages/base/src/lib/utils/resolveRef.ts",
+      "sha256": "ac85daa436a61800f824aa34ea08ff4cbe492c86c12be327de957a381acddaa7"
+    },
+    {
+      "source": "packages/base/src/lib/utils/resolveStyle.ts",
+      "sha256": "cdc420598c1ae4b75a32e7f47ac8cc7f4fe444d4f006e2736f528951fb932977"
+    },
+    {
+      "source": "packages/base/src/lib/utils/shadowDom.ts",
+      "sha256": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1"
+    },
+    {
+      "source": "packages/base/src/lib/utils/store/Store.svelte.ts",
+      "sha256": "cb14e7e3e12bffcb353761c48bc275e41949bad5706860f0d877ea3344e0b600"
+    },
+    {
+      "source": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts",
+      "sha256": "1a3fe2b85c9b4c3dc0333f43f9988bbfa01e39eb5972b84b3648294199e111a2"
+    },
+    {
+      "source": "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts",
+      "sha256": "583b97998d16e0b1aef3c44fdbef154fa848d8f8385a07dc21aa56b3c8470dce"
+    },
+    {
+      "source": "packages/base/src/lib/utils/useAnimationFrame.ts",
+      "sha256": "4de538634e157740822dc1d3896da18ea84c6a706fe79f28fa6b9e7d380038ad"
+    },
+    {
+      "source": "packages/base/src/lib/utils/useControlled.svelte.ts",
+      "sha256": "f74b9a8aa08b323835613037c871a6b85c938555c788c0a8ff51825c1863fd35"
+    },
+    {
+      "source": "packages/base/src/lib/utils/useEnhancedClickHandler.ts",
+      "sha256": "6a045d6b74a7851d3446200f55711ffc1dcc22449a2e92680cdf328750a436d5"
+    },
+    {
+      "source": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
+      "sha256": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c"
+    },
+    {
+      "source": "packages/base/src/lib/utils/useId.ts",
+      "sha256": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90"
+    },
+    {
+      "source": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+      "sha256": "0d24dd22dad18fc54341aaedb964a25829ae62322f10bf110a4fd8bde65dd1f3"
+    },
+    {
+      "source": "packages/base/src/lib/utils/useMergedRefs.ts",
+      "sha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2"
+    },
+    {
+      "source": "packages/base/src/lib/utils/useMixedToggleClickHandler.svelte.ts",
+      "sha256": "aff9bb031cb149160e3fe930a26204e4d060bc2d89dce722e7822e5a94738146"
+    },
+    {
+      "source": "packages/base/src/lib/utils/useOnMount.ts",
+      "sha256": "a7ba4007eff27b601eebcb76755886a23a4dd8548a54f67e15fa1cd648e0e695"
+    },
+    {
+      "source": "packages/base/src/lib/utils/useOpenInteractionType.svelte.ts",
+      "sha256": "1e226c9fd96e234f73f7c8889e233455f8e4b0951f1e75059e3e17ac812550e2"
+    },
+    {
+      "source": "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts",
+      "sha256": "9af5d5bdaa1f01f907b8dc41250737747f8535a10c50cf5095e3eac4a3ddc1d5"
+    },
+    {
+      "source": "packages/base/src/lib/utils/usePopupViewport.svelte.ts",
+      "sha256": "d0c82a8b70e176d109c4a3755d5186bf678e6cdb516053140f307eddd3336409"
+    },
+    {
+      "source": "packages/base/src/lib/utils/usePositioner.svelte.ts",
+      "sha256": "59422a6bc1fb88a6027ada39f53382730d151a8e9958e14a2202514ce95b192d"
+    },
+    {
+      "source": "packages/base/src/lib/utils/usePreviousValue.svelte.ts",
+      "sha256": "9583824fa430b3db985b9a288f69305b2a0f29b6a4defa06d20bb5b39f9b6d46"
+    },
+    {
+      "source": "packages/base/src/lib/utils/useRefWithInit.ts",
+      "sha256": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036"
+    },
+    {
+      "source": "packages/base/src/lib/utils/useScrollLock.svelte.ts",
+      "sha256": "414a9408f41af2df8abfe984a0a1c6a667a592bb58467a977d8618e7e8bd5489"
+    },
+    {
+      "source": "packages/base/src/lib/utils/useStableCallback.ts",
+      "sha256": "b790a02da99e0e9365bc05d35a434ef37dcffb2a4db8186b1327b949a994d05e"
+    },
+    {
+      "source": "packages/base/src/lib/utils/useTimeout.ts",
+      "sha256": "a04448de8715b8728243ee6e33572c57bc5b151674628304f6c3906966738c78"
+    },
+    {
+      "source": "packages/base/src/lib/utils/visuallyHidden.ts",
+      "sha256": "8f49185df1c0536608090368454cc3d30a3bfc1991b23a4b5e5239184ead8020"
+    },
+    {
+      "source": "packages/base/src/lib/utils/warn.ts",
+      "sha256": "58267e2a1dd62afbc707faf9c031dee042605aa74d44dbf72dd997d2ad69db65"
+    }
+  ]
+}

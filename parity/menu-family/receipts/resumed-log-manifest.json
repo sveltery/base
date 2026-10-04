@@ -223,6 +223,36 @@
       "archive": "hosted-9493a4f-job-111386826883.log.gz",
       "rawSha256": "3e408c2045f1ef56830736d5d02e32f88ae0ba552ff5349622eebf80c5b232b1",
       "rawBytes": 59646
+    },
+    {
+      "archive": "1dc439d-full-verification-green.log.gz",
+      "rawSha256": "ed51b87b18b74a59a5026b219f3524047c365377e91896efb290958a34dd424e",
+      "rawBytes": 350625
+    },
+    {
+      "archive": "1dc439d-standards-green.log.gz",
+      "rawSha256": "58dc69124e2528836438f0e94cccc2e6266bb258a462f58c00da042b53bc220f",
+      "rawBytes": 348
+    },
+    {
+      "archive": "1dc439d-harness-provenance-green.log.gz",
+      "rawSha256": "cb8e72099291beb1c4f05e24f7cb0124722fab564c8cd0288238a643eaa49c43",
+      "rawBytes": 430
+    },
+    {
+      "archive": "hosted-1dc439d-job-111388822490.log.gz",
+      "rawSha256": "1f9f9282920ba6b23e0c724ad4e5b0798cd63a85419b17ab7a5f494517dc498e",
+      "rawBytes": 53467
+    },
+    {
+      "archive": "hosted-1dc439d-job-111388822419.log.gz",
+      "rawSha256": "4cdc9d1e52a50742f6c1913c0d533d25592c0a604ff1d022b301b4fa37cc47c6",
+      "rawBytes": 59631
+    },
+    {
+      "archive": "hosted-1dc439d-job-111388822767.log.gz",
+      "rawSha256": "76c9a7f151ba20d54142348bbb1f00a4b08215684085a2293a465bef5ea7b649",
+      "rawBytes": 62559
     }
   ]
 }

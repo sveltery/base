@@ -1,0 +1,73 @@
+{
+  "sourceHead": "9493a4f3a787dc1879b10ccdc893cee7c7882392",
+  "ordinaryOriginalDeclarationCredit": 0,
+  "artifacts": [
+    {
+      "archive": "menu-9493a4f-family-evidence.zip",
+      "archiveSha256": "5d035829a28f299401a7d9cfd12d8b043754258113285a00a51cebe1e4219908",
+      "bytes": 46991,
+      "run": 37185633441,
+      "job": 111386827410,
+      "artifact": 11296872750,
+      "conclusion": "success",
+      "files": [
+        "menu-family-results.json"
+      ]
+    },
+    {
+      "archive": "menu-9493a4f-anchor-evidence.zip",
+      "archiveSha256": "d319704da3d3fe698e789ca2dc2c55b64a519c78fcb033797dcf6686e32db612",
+      "bytes": 654,
+      "run": 37185633392,
+      "job": 111386826883,
+      "artifact": 11296458150,
+      "conclusion": "success",
+      "files": [
+        ".checks/anchor-positioning-environment.json"
+      ]
+    },
+    {
+      "archive": "menu-9493a4f-dialog-motion-failures.zip",
+      "archiveSha256": "525376c90d65ddc56a5398e8a48e950639dedd811d8973b1bd6e2a44ecf8f55b",
+      "bytes": 338501,
+      "run": 37185633371,
+      "job": 111386826959,
+      "artifact": 11297255116,
+      "conclusion": "failure",
+      "files": [
+        "dialog-motion-source--dial-07c0a--starts-another-close-cycle/error-context.md",
+        "dialog-motion-source--dial-07c0a--starts-another-close-cycle/trace.zip",
+        "dialog-motion-source--dial-a2cbb-borts-that-incomplete-close/error-context.md",
+        "dialog-motion-source--dial-a2cbb-borts-that-incomplete-close/trace.zip",
+        "dialog-motion-source--refe-1e79d-borts-that-incomplete-close/error-context.md",
+        "dialog-motion-source--refe-1e79d-borts-that-incomplete-close/trace.zip"
+      ]
+    }
+  ],
+  "menuFamily": {
+    "expected": 44,
+    "unexpected": 0,
+    "skipped": 0,
+    "flaky": 0,
+    "workers": 1,
+    "retries": 0,
+    "configuration": "playwright.menu-family.config.ts at the recorded source head has chromiumSandbox:true; official hosted install is recorded by the full job log"
+  },
+  "anchor": {
+    "passedBrowserCases": 33,
+    "passedUnchangedLifecycleCases": 18,
+    "passedInstalledTeardownCases": 1,
+    "configuration": "actual archived environment records chromiumSandbox:true and retries:0; job log records one worker"
+  },
+  "dialog": {
+    "focusedPassed": 53,
+    "focusedFailed": 3,
+    "broadStepExecuted": false,
+    "failedScopes": [
+      "native completed-close ending-style",
+      "native paused physical exit animation",
+      "Original paused physical exit animation"
+    ],
+    "classification": "Unresolved configured CI failure; no behavior waiver or assertion parity credit"
+  }
+}

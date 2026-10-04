@@ -314,3 +314,29 @@ The broad Dialog browser step does not execute. These raw failures are preserved
 no owner waiver, assertion weakening or complete green Verification is claimed.
 Final full Verification, configured current-head CI and independent Source delta
 review remain required before Root approval.
+
+## Completed local verification and source identity handoff
+
+The complete bounded 2 GiB local Verification at published
+`1dc439d3a36495dbc4fc19f3f85c6e253dcfc0af` exits zero: 82 script cases,
+the library build, both workspace Svelte checks (zero errors/warnings), 220 runtime
+cases, 1,337 DOM cases, fixture SSR/client build, packaged runtime and all isolated
+installed consumers. Menu complete root/three-subpath identities and native SSR
+pass, as do strict skipLibCheck:false/exactOptionalPropertyTypes generic, render,
+ref, actions and explicit-undefined positive contracts with nine negative cases.
+Full raw output, Standards and focused provenance receipts are preserved.
+
+Fresh hosted Menu execution is 44 passed (run 37186301815/job 111388822490);
+fresh hosted geometry execution is 33 passed (run 37186301824/job 111388822419).
+Current Standards succeeds (job 111388822638). The actual current Dialog focused
+job (111388822767) reports 55 passed/one failed and does not execute its broader
+step; its separate raw log is retained alongside the older three-failure run.
+Hosted Verification remains in progress while assembling this evidence. The
+remaining CI failure is a real blocked gate, without a waiver or Source CLEAR.
+
+The full-byte identity receipt proves all 197 current native bodies/891 edges
+equal both the runtime repair949 and typed validation1dc commits and the actual
+closure inventory. This final evidence-only checkpoint preserves those bytes.
+Independent successor review of the eight changed full bodies and 189 precise
+inherited scopes, repaired motion fixture/fresh configured gates and Root exact
+approval remain required. The serial heavy token has been released.
