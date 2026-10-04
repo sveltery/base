@@ -15,7 +15,7 @@ test('navigation actual native runtime/type closure and all selected Source mapp
   const correspondence = JSON.parse(read('parity/toggle-toolbar/source-correspondence.json'));
   const mapped = new Map(correspondence.records.flatMap(record => Object.entries(record.localHashes ?? {})));
   for (const record of correspondence.nativeRepresentationModules) mapped.set(record.local, record.sha256);
-  assert.equal(native.modules.length, 66);
+  assert.equal(native.modules.length, 75);
   assert.equal(mapped.size, native.modules.length);
   for (const record of native.modules) assert.equal(mapped.get(record.source), record.sha256, record.source);
   assert(native.external.every(dependency => /^external:(svelte(?:\/.*)?|esm-env)$/.test(dependency)));

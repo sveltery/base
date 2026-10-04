@@ -4535,13 +4535,13 @@
       ],
       "local": "packages/base/src/lib/internals/composite/utils/navigation.ts",
       "selection": "selected-reused-closure",
-      "correspondence": "Full source list bounds/disabled visibility/explicit overrides plus cell/row/grid navigation business bodies. Native owner-window getComputedStyle and Math.floor replace equivalent dependency helpers. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
+      "correspondence": "Full source list bounds/disabled visibility/explicit overrides plus cell/row/grid navigation business bodies. Native owner-window getComputedStyle and Math.floor replace equivalent dependency helpers. Actual main 74f667da95ebc5670b0cc5bee38f2225e65fd0c0 replaces only the identical private stopEvent with the canonical shared import; all navigation algorithm branches remain unchanged. Reinspect the whole used body and its actual canonical event/platform closure at the final head.",
       "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
         "packages/base/src/lib/internals/composite/utils/navigation.ts": "93cd21a5e97c64c93a2272adf51a38b3c51142e860443247b260bf297e95203d"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/composite/utils/navigation.ts": "93cd21a5e97c64c93a2272adf51a38b3c51142e860443247b260bf297e95203d"
+        "packages/base/src/lib/internals/composite/utils/navigation.ts": "bb61a6e117cc345c347a3a29618d01e6e608ef1027b8e6464e072d8b70b4a0aa"
       }
     },
     {
@@ -4750,15 +4750,15 @@
           "edge": "import"
         }
       ],
-      "local": "packages/base/src/lib/internals/composite/utils/navigation.ts",
-      "selection": "selected-stopEvent-only",
-      "correspondence": "Only stopEvent is used by the inherited opt-in grid helper; other pointer/platform functions are unselected and not Toolbar business dependencies.",
+      "local": "packages/base/src/lib/floating-ui/utils/event.ts",
+      "selection": "selected-stopEvent-only-with-module-import-closure",
+      "correspondence": "Composite navigation imports the one canonical stopEvent body from actual main 74f667da95ebc5670b0cc5bee38f2225e65fd0c0: preventDefault then stopPropagation. Only stopEvent is selected by the inherited opt-in grid helper. The whole shared event module and its real platform imports enter the exact native module closure; unselected event exports do not invent Toolbar feature dependencies. Native Event replaces React.SyntheticEvent; the unused isReactEvent export is omitted.",
       "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
         "packages/base/src/lib/internals/composite/utils/navigation.ts": "93cd21a5e97c64c93a2272adf51a38b3c51142e860443247b260bf297e95203d"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/composite/utils/navigation.ts": "93cd21a5e97c64c93a2272adf51a38b3c51142e860443247b260bf297e95203d"
+        "packages/base/src/lib/floating-ui/utils/event.ts": "b489c469d9e2b134b6cd97baa3a408010decf1399dbaa1367a015d70c770832e"
       }
     },
     {
@@ -9086,11 +9086,14 @@
           "edge": "import"
         }
       ],
-      "local": null,
-      "selection": "unselected-barrel-or-type-closure",
-      "correspondence": "Conservative original graph retains this edge. No owned runtime consumer selects a business export from this module; unused exports/types must not introduce a copied runtime subsystem.",
-      "status": "no-runtime-port-required",
-      "baseLocalHashes": {}
+      "local": "packages/base/src/lib/utils/platform/engine.ts",
+      "selection": "shared-event-module-import-closure",
+      "correspondence": "Actually reached canonical module through the shared event module platform import at actual main 74f667da95ebc5670b0cc5bee38f2225e65fd0c0. Preserve original module/re-export boundaries and whole-body static classifier branches; esm-env DEV replaces process.env.NODE_ENV in shared.ts. Platform traits used by unselected event exports do not become Toolbar feature algorithms. Independent final-head whole-module Source/native review remains required.",
+      "status": "reused-awaiting-independent-entire-closure-review",
+      "baseLocalHashes": {},
+      "localHashes": {
+        "packages/base/src/lib/utils/platform/engine.ts": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987"
+      }
     },
     {
       "source": "packages/utils/src/platform/env.ts",
@@ -9111,11 +9114,14 @@
           "edge": "import"
         }
       ],
-      "local": null,
-      "selection": "unselected-barrel-or-type-closure",
-      "correspondence": "Conservative original graph retains this edge. No owned runtime consumer selects a business export from this module; unused exports/types must not introduce a copied runtime subsystem.",
-      "status": "no-runtime-port-required",
-      "baseLocalHashes": {}
+      "local": "packages/base/src/lib/utils/platform/env.ts",
+      "selection": "shared-event-module-import-closure",
+      "correspondence": "Actually reached canonical module through the shared event module platform import at actual main 74f667da95ebc5670b0cc5bee38f2225e65fd0c0. Preserve original module/re-export boundaries and whole-body static classifier branches; esm-env DEV replaces process.env.NODE_ENV in shared.ts. Platform traits used by unselected event exports do not become Toolbar feature algorithms. Independent final-head whole-module Source/native review remains required.",
+      "status": "reused-awaiting-independent-entire-closure-review",
+      "baseLocalHashes": {},
+      "localHashes": {
+        "packages/base/src/lib/utils/platform/env.ts": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d"
+      }
     },
     {
       "source": "packages/utils/src/platform/index.ts",
@@ -9131,11 +9137,14 @@
           "edge": "export"
         }
       ],
-      "local": null,
-      "selection": "unselected-barrel-or-type-closure",
-      "correspondence": "Conservative original graph retains this edge. No owned runtime consumer selects a business export from this module; unused exports/types must not introduce a copied runtime subsystem.",
-      "status": "no-runtime-port-required",
-      "baseLocalHashes": {}
+      "local": "packages/base/src/lib/utils/platform/index.ts",
+      "selection": "shared-event-module-import-closure",
+      "correspondence": "Actually reached canonical module through the shared event module platform import at actual main 74f667da95ebc5670b0cc5bee38f2225e65fd0c0. Preserve original module/re-export boundaries and whole-body static classifier branches; esm-env DEV replaces process.env.NODE_ENV in shared.ts. Platform traits used by unselected event exports do not become Toolbar feature algorithms. Independent final-head whole-module Source/native review remains required.",
+      "status": "reused-awaiting-independent-entire-closure-review",
+      "baseLocalHashes": {},
+      "localHashes": {
+        "packages/base/src/lib/utils/platform/index.ts": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c"
+      }
     },
     {
       "source": "packages/utils/src/platform/media-query.ts",
@@ -9143,11 +9152,14 @@
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/platform/media-query.ts",
       "reachability": "runtime",
       "imports": [],
-      "local": null,
-      "selection": "unselected-barrel-or-type-closure",
-      "correspondence": "Conservative original graph retains this edge. No owned runtime consumer selects a business export from this module; unused exports/types must not introduce a copied runtime subsystem.",
-      "status": "no-runtime-port-required",
-      "baseLocalHashes": {}
+      "local": "packages/base/src/lib/utils/platform/media-query.ts",
+      "selection": "shared-event-module-import-closure",
+      "correspondence": "Actually reached canonical module through the shared event module platform import at actual main 74f667da95ebc5670b0cc5bee38f2225e65fd0c0. Preserve original module/re-export boundaries and whole-body static classifier branches; esm-env DEV replaces process.env.NODE_ENV in shared.ts. Platform traits used by unselected event exports do not become Toolbar feature algorithms. Independent final-head whole-module Source/native review remains required.",
+      "status": "reused-awaiting-independent-entire-closure-review",
+      "baseLocalHashes": {},
+      "localHashes": {
+        "packages/base/src/lib/utils/platform/media-query.ts": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9"
+      }
     },
     {
       "source": "packages/utils/src/platform/os.ts",
@@ -9176,11 +9188,14 @@
           "edge": "import"
         }
       ],
-      "local": null,
-      "selection": "unselected-barrel-or-type-closure",
-      "correspondence": "Conservative original graph retains this edge. No owned runtime consumer selects a business export from this module; unused exports/types must not introduce a copied runtime subsystem.",
-      "status": "no-runtime-port-required",
-      "baseLocalHashes": {}
+      "local": "packages/base/src/lib/utils/platform/os.ts",
+      "selection": "shared-event-module-import-closure",
+      "correspondence": "Actually reached canonical module through the shared event module platform import at actual main 74f667da95ebc5670b0cc5bee38f2225e65fd0c0. Preserve original module/re-export boundaries and whole-body static classifier branches; esm-env DEV replaces process.env.NODE_ENV in shared.ts. Platform traits used by unselected event exports do not become Toolbar feature algorithms. Independent final-head whole-module Source/native review remains required.",
+      "status": "reused-awaiting-independent-entire-closure-review",
+      "baseLocalHashes": {},
+      "localHashes": {
+        "packages/base/src/lib/utils/platform/os.ts": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6"
+      }
     },
     {
       "source": "packages/utils/src/platform/parts.ts",
@@ -9224,11 +9239,14 @@
           "edge": "export"
         }
       ],
-      "local": null,
-      "selection": "unselected-barrel-or-type-closure",
-      "correspondence": "Conservative original graph retains this edge. No owned runtime consumer selects a business export from this module; unused exports/types must not introduce a copied runtime subsystem.",
-      "status": "no-runtime-port-required",
-      "baseLocalHashes": {}
+      "local": "packages/base/src/lib/utils/platform/parts.ts",
+      "selection": "shared-event-module-import-closure",
+      "correspondence": "Actually reached canonical module through the shared event module platform import at actual main 74f667da95ebc5670b0cc5bee38f2225e65fd0c0. Preserve original module/re-export boundaries and whole-body static classifier branches; esm-env DEV replaces process.env.NODE_ENV in shared.ts. Platform traits used by unselected event exports do not become Toolbar feature algorithms. Independent final-head whole-module Source/native review remains required.",
+      "status": "reused-awaiting-independent-entire-closure-review",
+      "baseLocalHashes": {},
+      "localHashes": {
+        "packages/base/src/lib/utils/platform/parts.ts": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29"
+      }
     },
     {
       "source": "packages/utils/src/platform/screen-reader.ts",
@@ -9249,11 +9267,14 @@
           "edge": "import"
         }
       ],
-      "local": null,
-      "selection": "unselected-barrel-or-type-closure",
-      "correspondence": "Conservative original graph retains this edge. No owned runtime consumer selects a business export from this module; unused exports/types must not introduce a copied runtime subsystem.",
-      "status": "no-runtime-port-required",
-      "baseLocalHashes": {}
+      "local": "packages/base/src/lib/utils/platform/screen-reader.ts",
+      "selection": "shared-event-module-import-closure",
+      "correspondence": "Actually reached canonical module through the shared event module platform import at actual main 74f667da95ebc5670b0cc5bee38f2225e65fd0c0. Preserve original module/re-export boundaries and whole-body static classifier branches; esm-env DEV replaces process.env.NODE_ENV in shared.ts. Platform traits used by unselected event exports do not become Toolbar feature algorithms. Independent final-head whole-module Source/native review remains required.",
+      "status": "reused-awaiting-independent-entire-closure-review",
+      "baseLocalHashes": {},
+      "localHashes": {
+        "packages/base/src/lib/utils/platform/screen-reader.ts": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7"
+      }
     },
     {
       "source": "packages/utils/src/platform/shared.ts",
@@ -9261,11 +9282,14 @@
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/platform/shared.ts",
       "reachability": "runtime",
       "imports": [],
-      "local": null,
-      "selection": "unselected-barrel-or-type-closure",
-      "correspondence": "Conservative original graph retains this edge. No owned runtime consumer selects a business export from this module; unused exports/types must not introduce a copied runtime subsystem.",
-      "status": "no-runtime-port-required",
-      "baseLocalHashes": {}
+      "local": "packages/base/src/lib/utils/platform/shared.ts",
+      "selection": "shared-event-module-import-closure",
+      "correspondence": "Actually reached canonical module through the shared event module platform import at actual main 74f667da95ebc5670b0cc5bee38f2225e65fd0c0. Preserve original module/re-export boundaries and whole-body static classifier branches; esm-env DEV replaces process.env.NODE_ENV in shared.ts. Platform traits used by unselected event exports do not become Toolbar feature algorithms. Independent final-head whole-module Source/native review remains required.",
+      "status": "reused-awaiting-independent-entire-closure-review",
+      "baseLocalHashes": {},
+      "localHashes": {
+        "packages/base/src/lib/utils/platform/shared.ts": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2"
+      }
     },
     {
       "source": "packages/utils/src/reactVersion.ts",
@@ -10378,5 +10402,6 @@
       "correspondence": "Svelte native ClassValue/CSS/attachment prop representation selected by canonical renderer."
     }
   ],
-  "reviewStatus": "Implemented native Source composition; immutable pre-code evidence retained. Local hashes and actual 66-module runtime/type closure are final-review candidates, not acceptance. Ordinary declaration credit stays zero; source selections and authored supplements are separately recorded."
+  "reviewStatus": "Implemented native Source composition; immutable pre-code evidence and historical base hashes retained. Actual main 74f667da95ebc5670b0cc5bee38f2225e65fd0c0 is normally integrated. Current local hashes and actual 75-module runtime/type closure (197 edges) are final-review candidates, not acceptance. The canonical event module selects only stopEvent for this family; its real platform module imports are included without inventing feature dependencies. Ordinary declaration credit stays zero; source selections and authored supplements are separately recorded.",
+  "integrationBase": "74f667da95ebc5670b0cc5bee38f2225e65fd0c0"
 }
