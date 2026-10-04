@@ -9,7 +9,7 @@ node --input-type=module - "$number_field_consumer" <<'JS'
 import { readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 const directory = process.argv[2], tarball = readdirSync(directory).find(name => name.endsWith('.tgz'));
-writeFileSync(join(directory, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(directory, tarball)}`, svelte: '5.57.1', '@sveltejs/kit': '2.70.3' } }));
+writeFileSync(join(directory, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(directory, tarball)}`, svelte: '5.57.1', '@sveltejs/kit': '2.70.3' }, devDependencies: { vite: '8.3.1', '@types/node': '26.6.3' } }));
 JS
 pnpm --dir "$number_field_consumer" --ignore-workspace install --ignore-scripts > /dev/null
 pnpm --dir "$number_field_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
@@ -70,7 +70,7 @@ scan(join(directory,'dist'));
 console.log('Isolated installed NumberField root/subpath, seven parts, 18 exact type exports, native SSR/MIT/runtime boundary: PASS');
 JS
 cat > "$number_field_consumer/tsconfig.json" <<'JSON'
-{"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"exactOptionalPropertyTypes":true,"skipLibCheck":true,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts"]}
+{"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"exactOptionalPropertyTypes":true,"noUncheckedIndexedAccess":true,"skipLibCheck":false,"verbatimModuleSyntax":true,"lib":["ES2022","ESNext.Disposable","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts"]}
 JSON
 node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$number_field_consumer/check.mjs"
 node "$sveltery_repo_root/packages/base/node_modules/svelte-check/bin/svelte-check" --workspace "$number_field_consumer" --tsconfig ./tsconfig.json
