@@ -23,10 +23,16 @@
       "local": "packages/base/src/lib/utils/closePart.svelte.ts",
       "decision": "Complete Source count/register/cleanup/clamp business retained. Native state, stable setup closure, typed getContext and live hasClosePart getter replace React state/context/memo representation.",
       "wholeBodyReview": "Developer compared complete Original and complete local body; independent Source/native review pending",
-      "testStatus": "Native lifecycle/context/eligibility witness pending; no adjacent Original direct test file",
+      "testStatus": "Three native lifecycle/context/clamp witnesses prepared; unexecuted pending actual public canonical dependency integration. Popover modal-eligibility family witnesses remain pending; no adjacent Original direct test file.",
       "ordinaryDeclarationCredit": 0,
       "sourceSha256": "0b30f3ff3597173625dd2064339ea2ec1cbfdda60b60d82cd4e542e008f50ba5",
-      "localSha256": "cf4f7d4a7a2d5616522a165bba1fc8a56ab08a1f746c9872f9cd8e8ad8451466"
+      "localSha256": "cf4f7d4a7a2d5616522a165bba1fc8a56ab08a1f746c9872f9cd8e8ad8451466",
+      "test": "packages/base/tests/dom/popup-close-part.test.ts",
+      "testSha256": "083c73328625dbe8f857c3e9c14ce1c3435e7a46552c7954c9be125cf0830c73",
+      "fixtureSha256": {
+        "packages/base/tests/dom/PopupClosePartChild.svelte": "6b404d20c02a8c309f2251fcffc3c1f392586bc0beee79c9ce1b62fe3c3d60e6",
+        "packages/base/tests/dom/PopupClosePartFixture.svelte": "5a539c5fa4d9e39f77e2b948a3162212db1313cdca3c40d7ac9dad2adecdd980"
+      }
     }
   ],
   "canonicalDependencies": {
@@ -46,7 +52,8 @@
       "inlineRectWholeEmittedBusinessComparison": "Equal after only the declared onFocus/onMouseEnter/onMouseMove to native event-key mapping and TypeScript type/import erasure",
       "sourceBusinessJsSha256": "cd8aae9aff42777b133013f871dfb517684148bc1e84da655e005fc32bd67b40",
       "closePartSvelteCompiler": "Native compiled module succeeded with zero warnings",
-      "tools": "TypeScript 5.9.3 and Svelte 5.57.1 from pinned installed package tools; no project build or product test was run"
+      "tools": "TypeScript 5.9.3 and Svelte 5.57.1 from pinned installed package tools; no project build or product test was run",
+      "closePartNativeFixtures": "Both fixture components compiled with zero warnings; test TypeScript transpilation reported zero syntax diagnostics. Native lifecycle tests were not executed."
     }
   }
 }
