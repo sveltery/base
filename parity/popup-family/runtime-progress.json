@@ -2,7 +2,7 @@
   "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "preCodeReadingCommit": "41b708601a8cbc72e74a46e550fc79b99da3d0ed",
   "publicDependencyCorrectionCommit": "70b9962b9d4ecc958a3d14dcfb89a0965b9fd1f3",
-  "status": "Four precisely leased helper families adapted; useClientPoint execution, shared portal extraction/open-change append and final inherited gates pending",
+  "status": "Five leased helper families adapted; portal lifecycle/client-point tests, open-change append and final inherited gates pending",
   "ordinaryDeclarationCredit": 0,
   "runtimeImplementationStarted": true,
   "helperModules": [
@@ -78,13 +78,23 @@
         "createVirtualElementBusinessSha256": "77502c27f6a1a2c847628ae2af068f9011126db55eaa4acd34cb8d5a86113d20",
         "isMouseBasedEventEmittedBusinessSha256": "30f69e66e5ea1e0dec1f954ed7ac114dcfe18138b83886cd9d8fbac284020308"
       }
+    },
+    {
+      "source": "packages/react/src/utils/FloatingPortalLite.tsx",
+      "sourceSha256": "ae9b969cfe006137d663b44f86d5f2338ee86be975ee093f06cd5ebb78101162",
+      "local": "packages/base/src/lib/utils/FloatingPortalLite.svelte",
+      "localSha256": "c506d0758a012c2789b9da39f17bd34d7bf3f10d67d3861368f998b6b4a12b72",
+      "decision": "Whole Original minimal Lite node/content composition uses same approved canonical useFloatingPortalNode/useFloatingPortalContent as Full. No provider or full-focus/tabbable/guard/aria business is added to Lite; inherited child context is preserved.",
+      "wholeBodyReview": "Developer compared complete Original Lite/Node/Full and complete local bodies against narrow approved extraction plan; independent Source/native review pending",
+      "testStatus": "Focused native Full/Lite container/context/ref/render/id/remount/cleanup and existing Dialog Portal regressions pending",
+      "ordinaryDeclarationCredit": 0
     }
   ],
   "canonicalDependencies": {
     "menu": "Verified PUBLIC1dc439d3a36495dbc4fc19f3f85c6e253dcfc0af test-only successor normally DEV merged; canonical runtime body selection exact949, independent whole Source/native review and actual-main acceptance pending",
     "dialog": "PUBLICf0d68ec7df329cb5b39fc5a1116c469bfb63fca5 normally DEV merged; no runtime helper delta during merge; actual-main acceptance pending",
     "toolbar": "Selected canonical ToolbarRootContext inherited from public Menu equals publicNavd115303 body; whole sibling/main acceptance remains pending",
-    "portalExtraction": "Precisely approved input FullPortal body still equals public949 approved SHA; canonical extraction unstarted. See dependency-integration.json for exact dependency heads and body hashes."
+    "portalExtraction": "Approved canonical node/content extraction now implemented from unchanged public949 body. See portal-extraction-checkpoint.json; focused execution and independent Source/native acceptance pending."
   },
   "verification": {
     "productTests": "Focused independent helpers pass20 at6ef1418; native DelayGroup supplements pass15 at070a6e6. Exact logs/heads are in receipts. All family718variants remain unexecuted; no whole/head acceptance or family ordinary credit.",
