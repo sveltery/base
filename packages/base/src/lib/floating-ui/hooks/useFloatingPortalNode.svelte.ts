@@ -3,7 +3,7 @@
 // Host/container/id/content bodies extracted from approved public FullPortal
 // SHA256 56ef7993c9378f0710f7724a40280f8ba31fa7fb515b218802d7935c3a95f75b.
 import { getAllContexts, mount, unmount, untrack, type Snippet } from 'svelte';
-import { isNode } from '@floating-ui/utils/dom';
+import { getWindow, isNode } from '@floating-ui/utils/dom';
 import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
 import type { MergedRef } from '../../utils/useMergedRefs.js';
 import type { HTMLProps } from '../../internals/types.js';
@@ -63,7 +63,7 @@ export function useFloatingPortalNode<State extends object = Record<string, neve
     // Opaque Svelte snippets own their native element/id. Observe the actual host, including replacement ids.
     const updateId = () => { portalNodeId = node.id || undefined; };
     updateId();
-    const observer = new (node.ownerDocument.defaultView!.MutationObserver)(updateId);
+    const observer = new (getWindow(node).MutationObserver)(updateId);
     observer.observe(node, { attributes: true, attributeFilter: ['id'] });
     return () => { observer.disconnect(); if (portalNode === node) { portalNode = null; portalNodeId = undefined; } };
   }

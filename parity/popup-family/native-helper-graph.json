@@ -260,7 +260,7 @@
     },
     {
       "path": "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
-      "sha256": "9242a7a1fa493144ea156028863dc1e2c8accdb89d10227e7784b83ff746d839",
+      "sha256": "32c9cd374708b2680ec719189a22da61e6af2719641457facdb52d75b8261ab0",
       "symbols": [
         {
           "name": "PortalContainer",
@@ -283,7 +283,7 @@
         {
           "name": "useFloatingPortalNode",
           "kind": "FunctionDeclaration",
-          "sha256": "883f47df09f13016c7b36f90392385da72ed816a24efb5f92ad5ae5082bf9abe",
+          "sha256": "074fb42e47543bfada87ea6aa571cde790abec3b4e475a55da99442c50e7b20e",
           "scriptIndex": 0
         },
         {
