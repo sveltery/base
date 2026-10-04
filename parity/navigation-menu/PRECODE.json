@@ -1,0 +1,148 @@
+{
+  "kind": "Phase 1 immutable pre-code Source checkpoint",
+  "baseCommit": "74f667da95ebc5670b0cc5bee38f2225e65fd0c0",
+  "baseTree": "1ca816b9f2759d22c7e0301f2a017ba9f39317e4",
+  "productRuntimeTree": "c7fb11177abb5f3607c0087a1530d3d26b1a44d8",
+  "originalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "ownBranch": "source-navigation-menu",
+  "worktree": "/workspace/navigation-menu-base",
+  "runtimeImplementationWritten": false,
+  "ordinaryCredit": 0,
+  "sourceVerdict": "Preparation complete; implementation and exact future used-closure review pending, not Source CLEAR",
+  "rootPhase1Review": "pending",
+  "sharedHelperLeases": "proposed only; Root assignment pending",
+  "publicActionsPerformed": false,
+  "buildTestBrowserFullVerifyPerformed": false,
+  "graphPreparationHeapCeilingMiB": 384,
+  "originalManualScopes": {
+    "freshCompleteBodies": 48,
+    "preciseAuthoritativeInheritedSelectedScopes": 100,
+    "unselectedProvenanceOnly": 21
+  },
+  "helperManualReadBodies": 9,
+  "canonicalDirectTargetBodies": 110,
+  "prospectiveCanonicalNativeClosure": {
+    "modules": 115,
+    "edges": 355,
+    "notFutureNavigationMenuReachability": true
+  },
+  "archiveIntegrity": {
+    "files": 270,
+    "allBodiesVerifiedAgainstImmutableGitAndArchive": true,
+    "MITExact": true
+  },
+  "assertionSiteCounts": {
+    "ordinaryDeclarations": 116,
+    "parameterizedDeclarations": 6,
+    "literalParameterizedVariants": 18,
+    "expectTypeCalls": 8,
+    "negativeTypeDirectives": 1,
+    "conformanceCalls": 13,
+    "sourceSkippedConformanceCalls": 1,
+    "conformanceHelperDeclarationSites": 16,
+    "recordedExpectMatcherExpressions": 490
+  },
+  "heldGates": [
+    "Root Phase 1 approval and ownership leases",
+    "runtime Source implementation",
+    "complete actual public used graph and full-body source/native/maintainability review",
+    "Original/native business and deliberate renderer difference evidence",
+    "strict installed public consumers and type assertions",
+    "SSR and hydration",
+    "secured paired browser",
+    "CI Standards and Verification",
+    "configured review",
+    "exact-head Root approval",
+    "publication and expected-head normal merge under current user clarification"
+  ],
+  "artifacts": {
+    "README.md": {
+      "sha256": "d6599d1273136a30161cc00dd60347f26326bbec25b10a1dc90f1040c57b887e",
+      "bytes": 1517
+    },
+    "UPSTREAM_LICENSE": {
+      "sha256": "07fc1b39d69d14bc7d40482a628f47226258eb01265db68ae684944b916beb2a",
+      "bytes": 1072
+    },
+    "archive-manifest.json": {
+      "sha256": "9690d78d6f4cf3e9068ef7464a74885a2c01f37d6fed92b7c2faeeb8b23301f9",
+      "bytes": 67908
+    },
+    "canonical-reuse-plan.json": {
+      "sha256": "92b5d6dc866aa33d3016d4bd2b4927b15e1643a97f621eca5334301e6b5d2b24",
+      "bytes": 1898725
+    },
+    "helper-assertions.json": {
+      "sha256": "efccc15f9737380e9aa039045633643ab973ceeb0f9720134e864834dd4154e0",
+      "bytes": 22456
+    },
+    "inherited-manual-scopes.json.gz": {
+      "sha256": "384fa38ded25f82121e868719b0414c1c8cfec54e35e132c7b7485bd0cf13762",
+      "bytes": 142666
+    },
+    "member-resolution-audit.json": {
+      "sha256": "e8eb1f94b3dbabb060152d372140565b6cc5c029bc6b6b96e10ed292d5804918",
+      "bytes": 986014
+    },
+    "original-assertions.json": {
+      "sha256": "a70149e052398fe1adaa10743b9e179f016beb6c091cbf4c77e1f55be74aecc2",
+      "bytes": 420772
+    },
+    "original-source.tar.gz": {
+      "sha256": "f75dfdc99f463e6e5e8ea7e72a249ca97e93bd0c334334ebb56209f3cf772160",
+      "bytes": 240663
+    },
+    "prepare-correspondence.py": {
+      "sha256": "2b3b0b3c7f62543a49680c0d165ea6c48fbb8d7f27b822714a652edadbc2646d",
+      "bytes": 10909
+    },
+    "prepare-native-reuse.mjs": {
+      "sha256": "9a3ba80b0b1f297150afe62d2a059e1ec57485c629fc944c976d290bd2449441",
+      "bytes": 5140
+    },
+    "prepare-source.mjs": {
+      "sha256": "d9ef1e78a6615f84b4dc45bb4ebcff16cc571efe487307f23fb4abfb50b4a9d5",
+      "bytes": 25353
+    },
+    "prospective-native-reuse-graph.json": {
+      "sha256": "cdcc39d5d0c36be2735608c36a8c125b31c38cb29ddb13617bfe2b8ecbaa84f7",
+      "bytes": 2127002
+    },
+    "public-api.json": {
+      "sha256": "8d5dd9be235aa33900f88e0834224cac640def4c27c8e90d4a6bad6af0266bc7",
+      "bytes": 301568
+    },
+    "selected-source.json": {
+      "sha256": "1bf0f6d066a0e56664c43bb2c4c4bd315743bbfad9360752d1b123d86ad63771",
+      "bytes": 1367944
+    },
+    "selected-test-helpers.json": {
+      "sha256": "d50c4a3a14f8708d8c68de6cd63cf105f6af0a93e5002ffa6d6cc7ddee54b3a9",
+      "bytes": 2927700
+    },
+    "sibling-consumers.json": {
+      "sha256": "9168ee2159260a7aaf40c0ea2d336007c303a7a6a3a4c73b637b50b7474680aa",
+      "bytes": 1100243
+    },
+    "source-correspondence.json": {
+      "sha256": "2124f026546b1c12b334f5ffeb17eca4d6d139cc5f3ae557f662a3c780cb4e06",
+      "bytes": 512891
+    },
+    "source-graph.json": {
+      "sha256": "cf944be485279e90eff2abdf75e417444011f056ec2f769aca80501978a020a8",
+      "bytes": 1561404
+    },
+    "source-plan.md": {
+      "sha256": "5908800460f514d9fec8268f2b6a3b93650ffb3ec887bbeac295beac53288fa3",
+      "bytes": 19624
+    },
+    "test-helper-graph.json": {
+      "sha256": "34448799936dcba8a18243e1767d8e293e504292306e9cc7d5529ab47a197f06",
+      "bytes": 2838290
+    },
+    "test-namespace-resolutions.json": {
+      "sha256": "b43934e4b82e1a20cb19a6b9fa051655fb8563e973ad5751fe399e9b10895ca7",
+      "bytes": 1441701
+    }
+  }
+}

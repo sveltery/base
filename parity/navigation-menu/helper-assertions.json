@@ -1,0 +1,582 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "immutablePhysicalBodiesVerified": true,
+  "ordinaryCredit": 0,
+  "status": "Phase 1 source preparation only; no implementation or Source CLEAR claim",
+  "note": "Conformance helper declarations are separate from component ordinary sites and are not multiplied into parity credit.",
+  "files": [
+    {
+      "source": "packages/react/test/conformanceTests/className.tsx",
+      "sha256": "ea73ff821ec5660ee854392d0744a87cc38ede0d8c14a3c5070ea08408a599bb",
+      "declarations": [
+        {
+          "name": "testClassName",
+          "kind": "FunctionDeclaration",
+          "line": 9,
+          "endLine": 25,
+          "sha256": "5640aede56d3061fe90e1687e57be3a6cc1d4a0422bdf4245d6467aefb6aebdf"
+        }
+      ],
+      "sites": [
+        {
+          "line": 20,
+          "callee": "it",
+          "title": "'should apply the className when passed as a string'",
+          "sha256": "5e59173eac2a5537f4ca1a61a832c45cc6f98477b2710ef2ba879a4f740d6cc5",
+          "kind": "helper-declaration",
+          "ordinaryCredit": 0
+        }
+      ],
+      "assertions": [
+        {
+          "line": 22,
+          "callee": "expect(document.querySelector('.test-class')).not.toBe",
+          "expression": "expect(document.querySelector('.test-class')).not.toBe(null)",
+          "sha256": "22d228bce74fc24fcfb67960f066a05821da0219e90395867605fd21c409512a"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/test/conformanceTests/propForwarding.tsx",
+      "sha256": "82043f827f31e0ad21dfb359598af51c7299a2139b20be958d07ac6313372733",
+      "declarations": [
+        {
+          "name": "testPropForwarding",
+          "kind": "FunctionDeclaration",
+          "line": 10,
+          "endLine": 129,
+          "sha256": "3e8bda498167bb3531ab30e8a456ae1361adfdd1a2b6d664cc998cb816895131"
+        }
+      ],
+      "sites": [
+        {
+          "line": 23,
+          "callee": "it",
+          "title": "'forwards custom props to the default element'",
+          "sha256": "92e4264f2ee63b48bc2bf39c30202a078423b8f2edaaac499783ea2f0d800035",
+          "kind": "helper-declaration",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 38,
+          "callee": "it",
+          "title": "'forwards custom props to the customized element defined with a function'",
+          "sha256": "d03ad88b403553f73f3a2691b3072dbda66bfafba0c7a0fa6d6b39c290845c33",
+          "kind": "helper-declaration",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 61,
+          "callee": "it",
+          "title": "'forwards custom props to the customized element defined using JSX'",
+          "sha256": "e690e142a12d9052ea14d2cbd6a9fd54b11195969206e33526a2bbef14f53bff",
+          "kind": "helper-declaration",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 82,
+          "callee": "it",
+          "title": "'forwards the custom `style` attribute defined on the component'",
+          "sha256": "973533217db63f0fa12c551b9b5f5916971cdde1a2b0a97e889ff839d21791b4",
+          "kind": "helper-declaration",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 97,
+          "callee": "it",
+          "title": "'forwards the custom `style` attribute defined on the render function'",
+          "sha256": "97e59e364e4131042bb3d7f481348ae2da52e74573dea727ccf2838097133d14",
+          "kind": "helper-declaration",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 114,
+          "callee": "it",
+          "title": "'forwards the custom `style` attribute defined on the render function'",
+          "sha256": "592d6df9028ae5665c5432b517945cd6dbe5508b0c8e6387a4dc7ee4a3608351",
+          "kind": "helper-declaration",
+          "ordinaryCredit": 0
+        }
+      ],
+      "assertions": [
+        {
+          "line": 34,
+          "callee": "expect(customRoot).toHaveAttribute",
+          "expression": "expect(customRoot).toHaveAttribute('lang', otherProps.lang)",
+          "sha256": "38488fd99cd356f56c143331c334eff01f9f93c7ac4726244bb44e4527eb0e04"
+        },
+        {
+          "line": 35,
+          "callee": "expect(customRoot).toHaveAttribute",
+          "expression": "expect(customRoot).toHaveAttribute('data-foobar', otherProps['data-foobar'])",
+          "sha256": "34519c4bed4f1f46a413ba855416454e36a5ddcef44e652bc6476b769448bc36"
+        },
+        {
+          "line": 57,
+          "callee": "expect(customRoot).toHaveAttribute",
+          "expression": "expect(customRoot).toHaveAttribute('lang', otherProps.lang)",
+          "sha256": "38488fd99cd356f56c143331c334eff01f9f93c7ac4726244bb44e4527eb0e04"
+        },
+        {
+          "line": 58,
+          "callee": "expect(customRoot).toHaveAttribute",
+          "expression": "expect(customRoot).toHaveAttribute('data-foobar', otherProps['data-foobar'])",
+          "sha256": "34519c4bed4f1f46a413ba855416454e36a5ddcef44e652bc6476b769448bc36"
+        },
+        {
+          "line": 78,
+          "callee": "expect(customRoot).toHaveAttribute",
+          "expression": "expect(customRoot).toHaveAttribute('lang', otherProps.lang)",
+          "sha256": "38488fd99cd356f56c143331c334eff01f9f93c7ac4726244bb44e4527eb0e04"
+        },
+        {
+          "line": 79,
+          "callee": "expect(customRoot).toHaveAttribute",
+          "expression": "expect(customRoot).toHaveAttribute('data-foobar', otherProps['data-foobar'])",
+          "sha256": "34519c4bed4f1f46a413ba855416454e36a5ddcef44e652bc6476b769448bc36"
+        },
+        {
+          "line": 93,
+          "callee": "expect(customRoot).toHaveAttribute",
+          "expression": "expect(customRoot).toHaveAttribute('style')",
+          "sha256": "c216a3c51da7d02d469700120dce1947479658f4188b8386104b010211ffb178"
+        },
+        {
+          "line": 94,
+          "callee": "expect(customRoot.getAttribute('style')).toContain",
+          "expression": "expect(customRoot.getAttribute('style')).toContain('color: green')",
+          "sha256": "9a0482c9f4d23271a717e052b64a757dcae8dbdea338deb7a7904b3effc506b5"
+        },
+        {
+          "line": 110,
+          "callee": "expect(customRoot).toHaveAttribute",
+          "expression": "expect(customRoot).toHaveAttribute('style')",
+          "sha256": "c216a3c51da7d02d469700120dce1947479658f4188b8386104b010211ffb178"
+        },
+        {
+          "line": 111,
+          "callee": "expect(customRoot.getAttribute('style')).toContain",
+          "expression": "expect(customRoot.getAttribute('style')).toContain('color: green')",
+          "sha256": "9a0482c9f4d23271a717e052b64a757dcae8dbdea338deb7a7904b3effc506b5"
+        },
+        {
+          "line": 125,
+          "callee": "expect(customRoot).toHaveAttribute",
+          "expression": "expect(customRoot).toHaveAttribute('style')",
+          "sha256": "c216a3c51da7d02d469700120dce1947479658f4188b8386104b010211ffb178"
+        },
+        {
+          "line": 126,
+          "callee": "expect(customRoot.getAttribute('style')).toContain",
+          "expression": "expect(customRoot.getAttribute('style')).toContain('color: green')",
+          "sha256": "9a0482c9f4d23271a717e052b64a757dcae8dbdea338deb7a7904b3effc506b5"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/test/conformanceTests/refForwarding.tsx",
+      "sha256": "3fff79d221c972d29f9909dfefbfa7f4bd16ab761960d795c01368e524c7fef0",
+      "declarations": [
+        {
+          "name": "verifyRef",
+          "kind": "FunctionDeclaration",
+          "line": 9,
+          "endLine": 25,
+          "sha256": "a93b76481631ee4f3d39697660e780e094e1368a9dabaaea18c03394573b16d0"
+        },
+        {
+          "name": "testRefForwarding",
+          "kind": "FunctionDeclaration",
+          "line": 27,
+          "endLine": 40,
+          "sha256": "6c896e2ae0a3566697845804006cf6fcc35c45f9eb43b7870bd876754cf7172d"
+        }
+      ],
+      "sites": [
+        {
+          "line": 32,
+          "callee": "it",
+          "title": "`attaches the ref`",
+          "sha256": "f4c7eb24420f8e1330a53b1abbfdc5ec9de28cbb48b40242958ec79448e15110",
+          "kind": "helper-declaration",
+          "ordinaryCredit": 0
+        }
+      ],
+      "assertions": [
+        {
+          "line": 36,
+          "callee": "expect(instance).toBeInstanceOf",
+          "expression": "expect(instance).toBeInstanceOf(refInstanceof)",
+          "sha256": "3b12178edce3b656f1d7b506ceff0bcc911ecef45a34bdd5f38f37344c4842b1"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "sha256": "9f2094949667daaecdfeff914c231295d79ca9e3699ba754637a5c31d6eab225",
+      "declarations": [
+        {
+          "name": "testRenderProp",
+          "kind": "FunctionDeclaration",
+          "line": 10,
+          "endLine": 180,
+          "sha256": "89979a6ddc75b38a42bbfb5d1e20d1085d71b94416decefc8a680e81def2b42f"
+        },
+        {
+          "name": "Wrapper",
+          "kind": "FunctionBinding",
+          "line": 27,
+          "endLine": 38,
+          "sha256": "04a157fe182f1aa9d75dd4be2e37c6bd5ca3da2feeccede1485b6b106f7ff074"
+        },
+        {
+          "name": "Test",
+          "kind": "FunctionDeclaration",
+          "line": 96,
+          "endLine": 108,
+          "sha256": "b91f3266009b988eef298254eb44851a2f4bac01d228ea8cf8dec29abc56c749"
+        },
+        {
+          "name": "Test",
+          "kind": "FunctionDeclaration",
+          "line": 119,
+          "endLine": 134,
+          "sha256": "709397830c7b06545d55b4a3a7a3f0e0cac309a146f2aa59be8c7060d3f8df80"
+        },
+        {
+          "name": "Test",
+          "kind": "FunctionDeclaration",
+          "line": 147,
+          "endLine": 154,
+          "sha256": "f3da315d2492bd3da21134810d2637d4a568574da2e3247cf89749421e5987fe"
+        },
+        {
+          "name": "Test",
+          "kind": "FunctionDeclaration",
+          "line": 164,
+          "endLine": 171,
+          "sha256": "00d9902a075bdd5766e83a728ed310b7984880983f4f7d4e307efb2096e8c8f5"
+        }
+      ],
+      "sites": [
+        {
+          "line": 41,
+          "callee": "it",
+          "title": "'renders a customized root element with a function'",
+          "sha256": "3cfead9a253306920a43840dd06e8229f57a42bdb1ab95d486091a808c9a3f77",
+          "kind": "helper-declaration",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 61,
+          "callee": "it",
+          "title": "'renders a customized root element with an element'",
+          "sha256": "bca53c6ff7a6cece1b0b22744afe6398e9a020d9895df6a5dc7d7186fd74d947",
+          "kind": "helper-declaration",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 78,
+          "callee": "it",
+          "title": "'renders a customized root element with an element'",
+          "sha256": "599db42068497b507d31f4a05f8447acb343200b8ad08c74025d2d70b2cc581e",
+          "kind": "helper-declaration",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 93,
+          "callee": "it",
+          "title": "'should pass the ref to the custom component'",
+          "sha256": "e5bf84bceadc15af0c438f89339e02ee9907896e3eb7b26875f0f5884c9ff79a",
+          "kind": "helper-declaration",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 115,
+          "callee": "it",
+          "title": "'should merge the rendering element ref with the custom component ref'",
+          "sha256": "db6bbc998b8e7845c5d4d2987840ba36522fb8522bf53bab5efaf3f4074d2a31",
+          "kind": "helper-declaration",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 146,
+          "callee": "it",
+          "title": "'should merge the rendering element className with the custom component className'",
+          "sha256": "253ba3b6b9e3df7ddc132bc18ff94435d782f93f6d22c1a6a583e02a02933989",
+          "kind": "helper-declaration",
+          "ordinaryCredit": 0
+        },
+        {
+          "line": 163,
+          "callee": "it",
+          "title": "'should merge the rendering element resolved className with the custom component className'",
+          "sha256": "caed823ba01f261a3c9a54a58b1b0b533ffb1c6495a006d7fd8e8e48f5813571",
+          "kind": "helper-declaration",
+          "ordinaryCredit": 0
+        }
+      ],
+      "assertions": [
+        {
+          "line": 55,
+          "callee": "expect(screen.queryByTestId('base-ui-wrapper')).not.toBe",
+          "expression": "expect(screen.queryByTestId('base-ui-wrapper')).not.toBe(null)",
+          "sha256": "cd1de7914ebbb64184509f10bc313595f4248e49eda0667233fcde6fa4b5ab23"
+        },
+        {
+          "line": 57,
+          "callee": "expect(screen.queryByTestId('wrapped')).not.toBe",
+          "expression": "expect(screen.queryByTestId('wrapped')).not.toBe(null)",
+          "sha256": "17221c26a06fa4e33e8964ccab2aaa57c1740fd4da2d4ae5d844452c97994165"
+        },
+        {
+          "line": 58,
+          "callee": "expect(screen.queryByTestId('wrapped')).toHaveAttribute",
+          "expression": "expect(screen.queryByTestId('wrapped')).toHaveAttribute('data-test-value', testValue)",
+          "sha256": "f71b26ef096b198b7cc7592c2a1fdc10d7b9f9cc357a98642168176208b5e889"
+        },
+        {
+          "line": 72,
+          "callee": "expect(screen.queryByTestId('base-ui-wrapper')).not.toBe",
+          "expression": "expect(screen.queryByTestId('base-ui-wrapper')).not.toBe(null)",
+          "sha256": "cd1de7914ebbb64184509f10bc313595f4248e49eda0667233fcde6fa4b5ab23"
+        },
+        {
+          "line": 74,
+          "callee": "expect(screen.queryByTestId('wrapped')).not.toBe",
+          "expression": "expect(screen.queryByTestId('wrapped')).not.toBe(null)",
+          "sha256": "17221c26a06fa4e33e8964ccab2aaa57c1740fd4da2d4ae5d844452c97994165"
+        },
+        {
+          "line": 75,
+          "callee": "expect(screen.queryByTestId('wrapped')).toHaveAttribute",
+          "expression": "expect(screen.queryByTestId('wrapped')).toHaveAttribute('data-test-value', testValue)",
+          "sha256": "f71b26ef096b198b7cc7592c2a1fdc10d7b9f9cc357a98642168176208b5e889"
+        },
+        {
+          "line": 87,
+          "callee": "expect(screen.queryByTestId('base-ui-wrapper')).not.toBe",
+          "expression": "expect(screen.queryByTestId('base-ui-wrapper')).not.toBe(null)",
+          "sha256": "cd1de7914ebbb64184509f10bc313595f4248e49eda0667233fcde6fa4b5ab23"
+        },
+        {
+          "line": 89,
+          "callee": "expect(screen.queryByTestId('wrapped')).not.toBe",
+          "expression": "expect(screen.queryByTestId('wrapped')).not.toBe(null)",
+          "sha256": "17221c26a06fa4e33e8964ccab2aaa57c1740fd4da2d4ae5d844452c97994165"
+        },
+        {
+          "line": 111,
+          "callee": "expect(instanceFromRef!.tagName).toBe",
+          "expression": "expect(instanceFromRef!.tagName).toBe(Element.toUpperCase())",
+          "sha256": "e5cca82e543a4c058c1f282a9da297fc8f841fabfc354614862da479321a693f"
+        },
+        {
+          "line": 112,
+          "callee": "expect(instanceFromRef!).toHaveAttribute",
+          "expression": "expect(instanceFromRef!).toHaveAttribute('data-testid', 'wrapped')",
+          "sha256": "5f116c98532ad168df4bd850b7a709ee592834ac3ca16eb754ef304ff63e2e12"
+        },
+        {
+          "line": 138,
+          "callee": "expect(refA).not.toBe",
+          "expression": "expect(refA).not.toBe(null)",
+          "sha256": "24d35d79b6425b63292a4b597a0802701f9ce5094b2d6afe0e1f2ce3d9e51a83"
+        },
+        {
+          "line": 139,
+          "callee": "expect(refA!.tagName).toBe",
+          "expression": "expect(refA!.tagName).toBe(Element.toUpperCase())",
+          "sha256": "16e5d63284e0cd2b780961c3a2db6ab5cde19d88d0aca6b69fc9d69165297fb5"
+        },
+        {
+          "line": 140,
+          "callee": "expect(refA!).toHaveAttribute",
+          "expression": "expect(refA!).toHaveAttribute('data-testid', 'wrapped')",
+          "sha256": "23083a429329e5276ae11fd308bf29f9ef6865a023b90a40ad157001076db357"
+        },
+        {
+          "line": 141,
+          "callee": "expect(refB).not.toBe",
+          "expression": "expect(refB).not.toBe(null)",
+          "sha256": "d4225ec15f7ba877e3fd17c4ee3486101ba55d262b95ef73d4b2ed035de2be94"
+        },
+        {
+          "line": 142,
+          "callee": "expect(refB!.tagName).toBe",
+          "expression": "expect(refB!.tagName).toBe(Element.toUpperCase())",
+          "sha256": "310e523875993de75f05e8092e2830a3f1f3ed61155522487bc2243f62e112e5"
+        },
+        {
+          "line": 143,
+          "callee": "expect(refB!).toHaveAttribute",
+          "expression": "expect(refB!).toHaveAttribute('data-testid', 'wrapped')",
+          "sha256": "f6d1d47fce639d594c5792bd934f2c4f045698889232617913dadd8a0af0e7ea"
+        },
+        {
+          "line": 159,
+          "callee": "expect(component.classList.contains('component-classname')).toBe",
+          "expression": "expect(component.classList.contains('component-classname')).toBe(true)",
+          "sha256": "47896e9bd87614ab32ed14003c0b8ad250aafeab3a366c7e81374a22786891fb"
+        },
+        {
+          "line": 160,
+          "callee": "expect(component.classList.contains('render-prop-classname')).toBe",
+          "expression": "expect(component.classList.contains('render-prop-classname')).toBe(true)",
+          "sha256": "d5c9059918b118b0d72ab3e8c5d16504795ec8da0fb320a60602c55e7fa72386"
+        },
+        {
+          "line": 176,
+          "callee": "expect(component.classList.contains('conditional-component-classname')).toBe",
+          "expression": "expect(component.classList.contains('conditional-component-classname')).toBe(true)",
+          "sha256": "ba17baa5ddd908b3f24be3e62405e2e1ce027df62e37e8216711beb47d58674a"
+        },
+        {
+          "line": 177,
+          "callee": "expect(component.classList.contains('render-prop-classname')).toBe",
+          "expression": "expect(component.classList.contains('render-prop-classname')).toBe(true)",
+          "sha256": "d5c9059918b118b0d72ab3e8c5d16504795ec8da0fb320a60602c55e7fa72386"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/test/conformanceTests/utils.ts",
+      "sha256": "8db69d4e87bd8ec8d5fc15380e53ae2a67ce4a3b893e62063c142405024d41c7",
+      "declarations": [
+        {
+          "name": "throwMissingPropError",
+          "kind": "FunctionDeclaration",
+          "line": 1,
+          "endLine": 6,
+          "sha256": "1ede9c6d8083d6c745f04a3527690f5fd56b6a80b85e3389c109be1560bc83e5"
+        }
+      ],
+      "sites": [],
+      "assertions": []
+    },
+    {
+      "source": "packages/react/test/createRenderer.ts",
+      "sha256": "aa35bdbfbdf6163cd231302aa31a8b0f10564bd00d393de46c9d5030d75471a4",
+      "declarations": [
+        {
+          "name": "BaseUIRenderResult",
+          "kind": "TypeAliasDeclaration",
+          "line": 11,
+          "endLine": 14,
+          "sha256": "16bb7182db9931d084180864b2e8d480ac37264722dbad7195e059994f9e5c83"
+        },
+        {
+          "name": "BaseUITestRenderer",
+          "kind": "TypeAliasDeclaration",
+          "line": 16,
+          "endLine": 21,
+          "sha256": "b94b0160e6087ebd91e3abe03cd444e9ed2a27d4e16110a698864ef74b3f3ade"
+        },
+        {
+          "name": "DataAttributes",
+          "kind": "InterfaceDeclaration",
+          "line": 23,
+          "endLine": 25,
+          "sha256": "8dd9ce7bd78ab8b409b8716f5e8b43cd1684f78763ab0c5ba580afea9d481440"
+        },
+        {
+          "name": "createRenderer",
+          "kind": "FunctionDeclaration",
+          "line": 27,
+          "endLine": 49,
+          "sha256": "8f9c4a77415290462bd7d7a737bcb793cb5d9161959274434e338c3bd1b80578"
+        },
+        {
+          "name": "render",
+          "kind": "FunctionBinding",
+          "line": 31,
+          "endLine": 43,
+          "sha256": "1cf970559b5cba9cf400c0835a23bcd26d92ea438919434c30b21b7a7cc44e61"
+        },
+        {
+          "name": "rerender",
+          "kind": "FunctionDeclaration",
+          "line": 34,
+          "endLine": 36,
+          "sha256": "12e427813f45c3aee698bfa706d361b364952372cd09dac0d109f6f7a4098bcf"
+        },
+        {
+          "name": "setProps",
+          "kind": "FunctionDeclaration",
+          "line": 38,
+          "endLine": 40,
+          "sha256": "20b878d4e651450c8afcf95bebe4888189ab3eef24cf4e271182d0840d445b19"
+        }
+      ],
+      "sites": [],
+      "assertions": []
+    },
+    {
+      "source": "packages/react/test/describeConformance.tsx",
+      "sha256": "316678dd7c2637e23c1f02e536974dae67d41bd8c7241c67c6e8c7461b74a184",
+      "declarations": [
+        {
+          "name": "ConformantComponentProps",
+          "kind": "TypeAliasDeclaration",
+          "line": 14,
+          "endLine": 21,
+          "sha256": "4375122bba5fab421ab6044b37f367db993c1457b055e49d1a86f0ef68e39248"
+        },
+        {
+          "name": "BaseUiConformanceTestsOptions",
+          "kind": "InterfaceDeclaration",
+          "line": 23,
+          "endLine": 42,
+          "sha256": "d59659706959817015b8b0556eaf53f86ef0ae519bfca4b469eb72bfaeffaf5a"
+        },
+        {
+          "name": "describeConformanceFn",
+          "kind": "FunctionDeclaration",
+          "line": 51,
+          "endLine": 68,
+          "sha256": "e6612dce84908b823f05a1c0233a630b68292acca9d4dc45d6f15a0cc6a1cfa3"
+        }
+      ],
+      "sites": [
+        {
+          "line": 66,
+          "callee": "test",
+          "title": "minimalElement",
+          "sha256": "18b3134f9d4610c58fea73332144929981ad1e335be135321a96ad495aa761f1",
+          "kind": "helper-declaration",
+          "ordinaryCredit": 0
+        }
+      ],
+      "assertions": []
+    },
+    {
+      "source": "packages/react/test/index.ts",
+      "sha256": "7d7236f84d7124919fbba4f1ab1a09b725e2604b49864ba89070ea2f74f77ff5",
+      "declarations": [],
+      "sites": [],
+      "assertions": []
+    },
+    {
+      "source": "packages/utils/src/testUtils.ts",
+      "sha256": "d97cb6255e7f21f5fc237563a1e59871420327f6e33e019c559d4802662c691f",
+      "declarations": [
+        {
+          "name": "IfEquals",
+          "kind": "TypeAliasDeclaration",
+          "line": 7,
+          "endLine": 8,
+          "sha256": "69df20299e9790c21e6eda31d4bb810e6350eba58f5d70e11c08be1e8d65e839"
+        },
+        {
+          "name": "expectType",
+          "kind": "FunctionDeclaration",
+          "line": 21,
+          "endLine": 21,
+          "sha256": "79e91da919cc377563edf288544e80aae24207a4cc756db71bb880b1e60cbf46"
+        }
+      ],
+      "sites": [],
+      "assertions": []
+    }
+  ]
+}
