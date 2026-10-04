@@ -36,7 +36,8 @@ SVELTE
 cat > "$otp_consumer_dir/types.ts" <<'TS'
 import type { ComponentProps } from 'svelte';
 import { OTPField } from '@sveltery/base';
-import { OTPField as Subpath, type OTPFieldRootProps, type OTPFieldInputProps } from '@sveltery/base/otp-field';
+import { OTPField as Subpath, type OTPFieldRootProps, type OTPFieldInputProps, type OTPFieldInputState } from '@sveltery/base/otp-field';
+import type { ClassValue, HTMLInputAttributes } from 'svelte/elements';
 import type { SeparatorProps } from '@sveltery/base/separator';
 declare const rootRender: NonNullable<OTPFieldRootProps['render']>;
 declare const inputRender: NonNullable<OTPFieldInputProps['render']>;
@@ -60,13 +61,16 @@ const inputChecked: OTPFieldInputProps = { checked:'true' };
 const callbackRef: OTPFieldInputProps = { ref:()=>{} };
 // @ts-expect-error plain callbacks are not native Svelte render snippets
 const callbackRender: OTPFieldRootProps = { length:6, render:()=>{} };
-// @ts-expect-error class callbacks must return a native ClassValue
-const invalidClass: OTPFieldInputProps = { class:state=>Symbol(state.index) };
+// Installed Svelte ClassValue includes clsx's Record<string, any> dictionary,
+// which structurally accepts functions regardless of their return type.
+const nativeClassFunction: ClassValue = (state:OTPFieldInputState)=>Symbol(state.index);
+const nativeInputClass: HTMLInputAttributes = { class:nativeClassFunction };
+const structuralClass: OTPFieldInputProps = { class:state=>Symbol(state.index) };
 // @ts-expect-error native style callbacks must return a native style value
 const invalidStyle: SeparatorProps = { style:()=>true };
 // @ts-expect-error orientation is finite
 const invalidOrientation: ComponentProps<typeof Subpath.Separator> = { orientation:'diagonal' };
-void [root,subpath,separator,badRoot,badIndex,badName,numericName,rootChecked,inputChecked,callbackRef,callbackRender,invalidClass,invalidStyle,invalidOrientation];
+void [root,subpath,separator,badRoot,badIndex,badName,numericName,rootChecked,inputChecked,callbackRef,callbackRender,nativeClassFunction,nativeInputClass,structuralClass,invalidStyle,invalidOrientation];
 TS
 cat > "$otp_consumer_dir/tsconfig.json" <<'JSON'
 {"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"exactOptionalPropertyTypes":true,"noUncheckedIndexedAccess":true,"skipLibCheck":false,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.ts","*.svelte"]}
