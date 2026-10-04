@@ -53,13 +53,19 @@
       ],
       "decision": "Whole Source provider/context/useDelayGroup/resetDelayRef business retained once. Native setup initializes ref objects; typed Svelte context preserves provided/default ownership; one native isInstantPhase state and getter replace React state/memo. Live timeoutMs getter replaces provider identity changes. Source takeover/cancellation/closingId/openRef cleanup and internal timeout0 retained. Canonical getDelay/useTimeout/useIsoLayoutEffect reused unchanged.",
       "wholeBodyReview": "Developer compared complete Original and complete local bodies; independent Source/native review pending",
-      "testStatus": "Meaningful native Store/provider timing/takeover/cleanup witnesses pending. The six direct Original declarations use an unported separate legacy useHover/generic public useFloating fixture; no legacy hover clone or false unchanged assertion credit.",
+      "testStatus": "15 native direct canonical Store/provider timing/takeover/cleanup witnesses prepared and unexecuted; both native fixtures compile with zero warnings. Six direct Original declarations retain their separately missing legacy hover/generic floating fixture and zero credit.",
       "ordinaryDeclarationCredit": 0,
-      "syntaxOnly": "Provider and hook compile with native Svelte compiler with zero warnings; no DelayGroup product test executed yet"
+      "syntaxOnly": "Provider and hook compile with native Svelte compiler with zero warnings; no DelayGroup product test executed yet",
+      "test": "packages/base/tests/dom/popup-delay-group.test.ts",
+      "testSha256": "0057e9c0175627847d29e76c155048f07819428b562a628fa21e56c23726126b",
+      "fixtureSha256": {
+        "packages/base/tests/dom/PopupDelayGroupConsumer.svelte": "8496fe76c731eabf8f7127f32a2850435c4ccd667c360632fe6dfd5a15781bc4",
+        "packages/base/tests/dom/PopupDelayGroupFixture.svelte": "fde1d26eff4a07a39c4e02d6e3dd8473ea6dde9a9747223ae8832c18b5eabf6d"
+      }
     }
   ],
   "canonicalDependencies": {
-    "menu": "Verified PUBLIC9493a4f3a787dc1879b10ccdc893cee7c7882392 normally DEV merged; independent whole Source/native review and actual-main acceptance pending",
+    "menu": "Verified PUBLIC1dc439d3a36495dbc4fc19f3f85c6e253dcfc0af test-only successor normally DEV merged; canonical runtime body selection exact949, independent whole Source/native review and actual-main acceptance pending",
     "dialog": "PUBLICf0d68ec7df329cb5b39fc5a1116c469bfb63fca5 normally DEV merged; no runtime helper delta during merge; actual-main acceptance pending",
     "toolbar": "Selected canonical ToolbarRootContext inherited from public Menu equals publicNavd115303 body; whole sibling/main acceptance remains pending",
     "portalExtraction": "Precisely approved input FullPortal body still equals public949 approved SHA; canonical extraction unstarted. See dependency-integration.json for exact dependency heads and body hashes."

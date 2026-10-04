@@ -7,7 +7,14 @@
     "publicHead": "9493a4f3a787dc1879b10ccdc893cee7c7882392",
     "publicRefProof": "git ls-remote --heads origin source-menu-family returned 9493a4f3a787dc1879b10ccdc893cee7c7882392 refs/heads/source-menu-family",
     "mergeCommit": "fd5543f204f47b4fbb66389cf715fb5c8682ba60",
-    "ownerReview": "Owner reported independent eight-body delta review and final gates pending; inherited whole closure remains NOT CLEAR"
+    "ownerReview": "Owner reported independent eight-body delta review and final gates pending; inherited whole closure remains NOT CLEAR",
+    "testOnlySuccessor": {
+      "publicHead": "1dc439d3a36495dbc4fc19f3f85c6e253dcfc0af",
+      "publicRefProof": "git ls-remote --heads origin source-menu-family returned 1dc439d3a36495dbc4fc19f3f85c6e253dcfc0af refs/heads/source-menu-family",
+      "mergeCommit": "20d9f73350c92052574a361a032b12a6ef161b6a",
+      "runtimeDeltaAgainst949": [],
+      "purpose": "Normally integrate owner-repaired native test fixture type contracts. Runtime197 bodies/891edges remain exact949; full Verify/final review still pending."
+    }
   },
   "dialog": {
     "publicHead": "f0d68ec7df329cb5b39fc5a1116c469bfb63fca5",
