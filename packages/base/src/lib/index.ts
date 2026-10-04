@@ -2,6 +2,8 @@ export { mergeProps, mergePropsN } from './merge-props/index.js';
 export { createChangeEventDetails, createGenericEventDetails } from './internals/createBaseUIEventDetails.js';
 export type { BaseUIChangeEventDetails, BaseUIGenericEventDetails, ReasonToEvent } from './internals/createBaseUIEventDetails.js';
 export { Dialog } from './dialog/index.js';
+export { AlertDialog } from './alert-dialog/index.js';
+export type * from './alert-dialog/types.js';
 export type { DialogRootProps, DialogRootState, DialogRootActions, DialogRootChangeEventReason, DialogRootChangeEventDetails, DialogTriggerProps, DialogTriggerState, DialogPortalProps, DialogPortalState, DialogPopupProps, DialogPopupState, DialogViewportProps, DialogViewportState, DialogBackdropProps, DialogBackdropState, DialogTitleProps, DialogTitleState, DialogDescriptionProps, DialogDescriptionState, DialogCloseProps, DialogCloseState } from './dialog/index.js';
 export * as Toast from './toast/index.js';
 export { Button } from './button/index.js';

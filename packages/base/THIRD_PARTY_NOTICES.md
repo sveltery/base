@@ -55,3 +55,5 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 Shared controlled state, stable callbacks, initialized refs, timeouts, mount/layout synchronization, value-change tracking, development logging and immutable fallbacks derive from packages/utils/src and packages/react/src/internals/useValueChanged.ts at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT license, original dependency hashes and explicit native framework replacements are preserved in parity/shared-utils.
+AlertDialog Root/Trigger contracts and the nominal handle subclass/factory derive from the
+same Base UI v1.8.0 MIT source pin; aliased parts reuse the canonical Dialog implementation.

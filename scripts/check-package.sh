@@ -193,6 +193,8 @@ bash "$sveltery_repo_root/scripts/check-use-render-package.sh" --public
 
 # Installed public Dialog nine parts, payload handles, SSR, native DOM and strict types.
 bash scripts/check-dialog-handles-package.sh
+# Complete installed AlertDialog aliases, generic nominal handles, SSR/DOM and strict public types.
+bash scripts/check-alert-dialog-package.sh
 # Installed public source Field/Form/Fieldset anatomy, SSR and 31 named types.
 bash "$sveltery_repo_root/scripts/check-field-form-package.sh" --public
 

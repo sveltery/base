@@ -15,9 +15,9 @@
     },
     {
       "upstreamModule": "alert-dialog",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "AlertDialog",
+      "evidence": "parity/alert-dialog/README.md"
     },
     {
       "upstreamModule": "autocomplete",

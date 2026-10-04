@@ -1,7 +1,7 @@
 {
   "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "ordinaryDeclarationCredit": 0,
-  "status": "pre-code original-to-native plan; runtime not implemented; dependency final acceptance pending",
+  "status": "actual full AlertDialog public closure and native replacements; unaccepted Dialog dependency and final gates pending",
   "modules": [
     {
       "source": "packages/react/src/alert-dialog/handle.ts",
@@ -17,8 +17,8 @@
       "local": [
         "packages/base/src/lib/alert-dialog/handle.ts"
       ],
-      "decision": "Planned exact canonical DialogHandle subclass/factory with erased nominal brand; no new business controller.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending"
+      "decision": "Actual exact canonical DialogHandle subclass/factory with erased nominal brand; no new business controller.",
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending"
     },
     {
       "source": "packages/react/src/alert-dialog/index.parts.ts",
@@ -79,8 +79,8 @@
       "local": [
         "packages/base/src/lib/alert-dialog/index.parts.ts"
       ],
-      "decision": "Planned own generic Root/Trigger contracts; actual seven Dialog component aliases and canonical subclass/factory.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending"
+      "decision": "Actual own generic Root/Trigger contracts; actual seven Dialog component aliases and canonical subclass/factory.",
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending"
     },
     {
       "source": "packages/react/src/alert-dialog/index.ts",
@@ -141,8 +141,8 @@
       "local": [
         "packages/base/src/lib/alert-dialog/index.ts"
       ],
-      "decision": "Planned native namespace and all pinned public named type aliases.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending"
+      "decision": "Actual native namespace and all pinned public named type aliases.",
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending"
     },
     {
       "source": "packages/react/src/alert-dialog/root/AlertDialogRoot.tsx",
@@ -180,8 +180,8 @@
         "packages/base/src/lib/dialog/root/DialogRootView.svelte",
         "packages/base/src/lib/dialog/root/useRenderDialogRoot.svelte.ts"
       ],
-      "decision": "Planned SAME helper alert-dialog mode with private native once-only shared context/actions/render view; exact Root lease approval required before code.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending"
+      "decision": "Actual SAME helper alert-dialog mode with private native once-only shared context/actions/render view; Root PM approved the bounded lease after pre-code fa89c68; independent review remains pending.",
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending"
     },
     {
       "source": "packages/react/src/alert-dialog/trigger/AlertDialogTrigger.tsx",
@@ -213,8 +213,8 @@
         "packages/base/src/lib/alert-dialog/index.parts.ts",
         "packages/base/src/lib/dialog/Trigger.svelte"
       ],
-      "decision": "Planned erased narrower generic Svelte component type; runtime identity remains actual Dialog Trigger.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending"
+      "decision": "Actual erased narrower generic Svelte component type; runtime identity remains actual Dialog Trigger.",
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending"
     },
     {
       "source": "packages/react/src/dialog/backdrop/DialogBackdrop.tsx",
@@ -256,8 +256,8 @@
         "packages/base/src/lib/dialog/Backdrop.svelte"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/dialog/close/DialogClose.tsx",
@@ -304,8 +304,8 @@
         "packages/base/src/lib/dialog/Close.svelte"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/dialog/description/DialogDescription.tsx",
@@ -342,8 +342,8 @@
         "packages/base/src/lib/dialog/Description.svelte"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/dialog/popup/DialogPopup.tsx",
@@ -420,8 +420,8 @@
         "packages/base/src/lib/dialog/Popup.svelte"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/dialog/popup/DialogPopupCssVars.ts",
@@ -432,8 +432,8 @@
         "packages/base/src/lib/dialog/popup/DialogPopupCssVars.ts"
       ],
       "decision": "Original nestedDialogs constant is used by Popup styling.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/dialog/popup/DialogPopupDataAttributes.ts",
@@ -450,8 +450,8 @@
         "packages/base/src/lib/dialog/popup/DialogPopupDataAttributes.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/dialog/portal/DialogPortal.tsx",
@@ -498,8 +498,8 @@
         "packages/base/src/lib/dialog/Portal.svelte"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/dialog/portal/DialogPortalContext.ts",
@@ -516,8 +516,8 @@
         "packages/base/src/lib/dialog/context.ts"
       ],
       "decision": "Native context with a live keepMounted getter.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/dialog/root/DialogRoot.tsx",
@@ -561,11 +561,12 @@
         }
       ],
       "local": [
-        "packages/base/src/lib/dialog/Root.svelte"
+        "packages/base/src/lib/dialog/Root.svelte",
+        "packages/base/src/lib/dialog/root/DialogRootView.svelte"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/dialog/root/DialogRootContext.ts",
@@ -587,8 +588,8 @@
         "packages/base/src/lib/dialog/context.ts"
       ],
       "decision": "Native getContext/setContext retains required/optional root reads.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/dialog/root/useDialogRoot.ts",
@@ -635,8 +636,8 @@
         "packages/base/src/lib/dialog/root/DialogInteractions.svelte"
       ],
       "decision": "Original useDismiss/useScrollLock/nested callback and interaction-prop synchronization.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/dialog/root/useRenderDialogRoot.tsx",
@@ -685,11 +686,12 @@
         }
       ],
       "local": [
-        "packages/base/src/lib/dialog/root/useRenderDialogRoot.svelte.ts"
+        "packages/base/src/lib/dialog/root/useRenderDialogRoot.svelte.ts",
+        "packages/base/src/lib/dialog/root/DialogRootView.svelte"
       ],
       "decision": "Original shared root setup, stable live callbacks and presence lifecycle.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/dialog/store/DialogHandle.ts",
@@ -726,8 +728,8 @@
         "packages/base/src/lib/dialog/store/DialogHandle.svelte.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/dialog/store/DialogStore.ts",
@@ -769,8 +771,8 @@
         "packages/base/src/lib/dialog/store/DialogStore.svelte.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/dialog/title/DialogTitle.tsx",
@@ -807,8 +809,8 @@
         "packages/base/src/lib/dialog/Title.svelte"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/dialog/trigger/DialogTrigger.tsx",
@@ -885,8 +887,8 @@
         "packages/base/src/lib/dialog/Trigger.svelte"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/dialog/utils/stateAttributesMapping.ts",
@@ -923,8 +925,8 @@
         "packages/base/src/lib/dialog/utils/stateAttributesMapping.ts"
       ],
       "decision": "Original Dialog-specific state mapping; inherited transition mapping is a distinct shared dependency.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/dialog/viewport/DialogViewport.tsx",
@@ -971,8 +973,8 @@
         "packages/base/src/lib/dialog/Viewport.svelte"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/components/FloatingDelayGroup.tsx",
@@ -1017,8 +1019,8 @@
       ],
       "local": [],
       "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx",
@@ -1191,8 +1193,8 @@
         "packages/base/src/lib/floating-ui/components/FloatingFocusManager.svelte"
       ],
       "decision": "Original focus business body and guard/children/guard composition; native tracked readers, effects and DOM ownership snapshots.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/components/FloatingPortal.tsx",
@@ -1296,8 +1298,8 @@
         "packages/base/src/lib/floating-ui/components/PortalContent.svelte"
       ],
       "decision": "Original container/guard/focus-state business body; two native mount/unmount portal boundaries. Actual replacement id is observed because snippets are opaque. Paired wrapper/inner-host probe verifies React outer-element ID inspection omits aria-owns whereas native attached-host ID observation preserves its actual relationship; inherent renderer difference, zero unchanged-source credit.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/components/FloatingRootStore.ts",
@@ -1354,8 +1356,8 @@
         "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/components/FloatingTree.tsx",
@@ -1397,8 +1399,8 @@
         "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts"
       ],
       "decision": "Selected context queries use native context. Private tree/node provider and registration primitives retain original lifetimes; Dialog itself does not invent tree nodes.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/components/FloatingTreeStore.ts",
@@ -1420,8 +1422,8 @@
         "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/hooks/gridNavigation.ts",
@@ -1446,8 +1448,8 @@
       ],
       "local": [],
       "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/hooks/useClick.ts",
@@ -1504,8 +1506,8 @@
         "packages/base/src/lib/floating-ui/hooks/useClick.svelte.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/hooks/useClientPoint.ts",
@@ -1550,8 +1552,8 @@
       ],
       "local": [],
       "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/hooks/useDismiss.ts",
@@ -1653,8 +1655,8 @@
         "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/hooks/useFloating.ts",
@@ -1709,8 +1711,8 @@
       ],
       "local": [],
       "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/hooks/useFloatingRootContext.ts",
@@ -1770,8 +1772,8 @@
       ],
       "local": [],
       "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/hooks/useFocus.ts",
@@ -1846,8 +1848,8 @@
       ],
       "local": [],
       "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/hooks/useHover.ts",
@@ -1942,8 +1944,8 @@
       ],
       "local": [],
       "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/hooks/useHoverFloatingInteraction.ts",
@@ -2033,8 +2035,8 @@
       ],
       "local": [],
       "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/hooks/useHoverInteractionSharedState.ts",
@@ -2069,8 +2071,8 @@
       ],
       "local": [],
       "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/hooks/useHoverReferenceInteraction.ts",
@@ -2175,8 +2177,8 @@
       ],
       "local": [],
       "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/hooks/useHoverShared.ts",
@@ -2201,8 +2203,8 @@
       ],
       "local": [],
       "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/hooks/useListNavigation.ts",
@@ -2307,8 +2309,8 @@
       ],
       "local": [],
       "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/hooks/useSyncedFloatingRootContext.ts",
@@ -2355,8 +2357,8 @@
         "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/hooks/useTypeahead.ts",
@@ -2416,8 +2418,8 @@
       ],
       "local": [],
       "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/index.ts",
@@ -2527,8 +2529,8 @@
       ],
       "local": [],
       "decision": "Original aggregator only; selected native consumers import the corresponding mapped modules directly.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/safePolygon.ts",
@@ -2568,8 +2570,8 @@
       ],
       "local": [],
       "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/types.ts",
@@ -2691,8 +2693,8 @@
         "packages/base/src/lib/floating-ui/types.ts"
       ],
       "decision": "Selected native root/tree/node/context/interaction event types; no React geometry return interface or synthetic events.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/utils.ts",
@@ -2727,8 +2729,8 @@
       ],
       "local": [],
       "decision": "Original aggregator only; selected native consumers import the corresponding mapped modules directly.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/utils/composite.ts",
@@ -2766,8 +2768,8 @@
         "packages/base/src/lib/internals/composite/utils/navigation.ts"
       ],
       "decision": "Selected visibility/navigation bodies are canonical shared imports, not another traversal implementation.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/utils/constants.ts",
@@ -2778,8 +2780,8 @@
         "packages/base/src/lib/floating-ui/utils/constants.ts"
       ],
       "decision": "Original selected Floating interaction selectors/constants.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/utils/createAttribute.ts",
@@ -2790,8 +2792,8 @@
         "packages/base/src/lib/floating-ui/utils/createAttribute.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/utils/createEventEmitter.ts",
@@ -2808,8 +2810,8 @@
         "packages/base/src/lib/floating-ui/utils/createEventEmitter.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/utils/element.ts",
@@ -2852,8 +2854,8 @@
         "packages/base/src/lib/floating-ui/utils/matchesFocusVisible.ts"
       ],
       "decision": "Original selected element bodies. matchesFocusVisible is extracted once into the canonical leaf and facade re-export so Slider does not require PopupStore dead closure; body and platform dependency are unchanged.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/utils/enqueueFocus.ts",
@@ -2875,8 +2877,8 @@
         "packages/base/src/lib/floating-ui/utils/enqueueFocus.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/utils/event.ts",
@@ -2893,8 +2895,8 @@
         "packages/base/src/lib/floating-ui/utils/event.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/utils/markOthers.ts",
@@ -2916,8 +2918,8 @@
         "packages/base/src/lib/floating-ui/utils/markOthers.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/utils/nodes.ts",
@@ -2934,8 +2936,8 @@
         "packages/base/src/lib/floating-ui/utils/nodes.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/floating-ui-react/utils/tabbable.ts",
@@ -2967,8 +2969,8 @@
         "packages/base/src/lib/floating-ui/utils/tabbable.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/internals/composite/composite.ts",
@@ -2995,8 +2997,8 @@
         "packages/base/src/lib/internals/composite/composite.ts"
       ],
       "decision": "Inherited canonical Composite key/type constants used by Popup.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/internals/composite/root/CompositeRootContext.ts",
@@ -3013,8 +3015,8 @@
         "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/internals/constants.ts",
@@ -3031,8 +3033,8 @@
         "packages/base/src/lib/internals/constants.ts"
       ],
       "decision": "Inherited canonical source rendering/popup marker constants.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/internals/createBaseUIEventDetails.ts",
@@ -3054,8 +3056,8 @@
         "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/internals/direction-context/DirectionContext.tsx",
@@ -3072,8 +3074,8 @@
         "packages/base/src/lib/direction-provider/types.ts"
       ],
       "decision": "Only TextDirection through the inherited Composite type closure is selected at direction-provider/types.ts; native provider belongs to accepted DirectionProvider.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/internals/getStateAttributesProps.ts",
@@ -3084,8 +3086,8 @@
         "packages/base/src/lib/internals/getStateAttributesProps.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/internals/reason-parts.ts",
@@ -3096,8 +3098,8 @@
         "packages/base/src/lib/internals/reason-parts.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/internals/reasons.ts",
@@ -3114,8 +3116,8 @@
         "packages/base/src/lib/internals/reasons.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/internals/stateAttributesMapping.ts",
@@ -3142,8 +3144,8 @@
         "packages/base/src/lib/internals/stateAttributesMapping.ts"
       ],
       "decision": "Inherited canonical source transition attribute mapping.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/internals/TransitionStatusDataAttributes.ts",
@@ -3154,8 +3156,8 @@
         "packages/base/src/lib/internals/TransitionStatusDataAttributes.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/internals/types.ts",
@@ -3177,8 +3179,8 @@
         "packages/base/src/lib/internals/types.ts"
       ],
       "decision": "Reused canonical native event, render snippet, ClassValue and style contracts.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/internals/use-button/index.ts",
@@ -3193,8 +3195,8 @@
       ],
       "local": [],
       "decision": "Original aggregator only; selected native consumers import the corresponding mapped modules directly.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/internals/use-button/useButton.ts",
@@ -3261,8 +3263,8 @@
         "packages/base/src/lib/internals/use-button/useButton.svelte.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/internals/useAnimationsFinished.ts",
@@ -3303,9 +3305,9 @@
       "local": [
         "packages/base/src/lib/internals/useAnimationsFinished.ts"
       ],
-      "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "decision": "Original individual flush and same-microtask pendingCallbacks batching, abort-at-flush, replacement-animation, starting-style and raw fallback branches are retained. Native Svelte flushSync replaces ReactDOM.flushSync; live open/batch readers replace rendered closures. Actual pinned DOM/abort comparisons verify both commit policies.",
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/internals/useBaseUiId.ts",
@@ -3322,8 +3324,8 @@
         "packages/base/src/lib/internals/useBaseUiId.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/internals/useOpenChangeComplete.tsx",
@@ -3349,9 +3351,9 @@
       "local": [
         "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts"
       ],
-      "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "decision": "Original enabled/open dependency ownership and AbortController cleanup; native effects and live open/batch readers replace React hooks while retaining completion ordering.",
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/internals/useRenderElement.tsx",
@@ -3422,8 +3424,8 @@
         "packages/base/src/lib/internals/resolveClassValue.ts"
       ],
       "decision": "Reused canonical renderer with native snippets/attachments/element defaults; no React clone/lazy/StrictMode machinery.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/internals/useTransitionStatus.ts",
@@ -3450,8 +3452,8 @@
         "packages/base/src/lib/internals/useTransitionStatus.svelte.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/internals/useValueChanged.ts",
@@ -3478,8 +3480,8 @@
         "packages/base/src/lib/internals/useTransitionStatus.svelte.ts"
       ],
       "decision": "Inherited canonical native transition owner tracks prop changes directly; no separate React render-ref helper.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/merge-props/index.ts",
@@ -3496,8 +3498,8 @@
         "packages/base/src/lib/merge-props/index.ts"
       ],
       "decision": "Inherited canonical mergeProps entry and native types.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/merge-props/mergeProps.ts",
@@ -3524,8 +3526,8 @@
         "packages/base/src/lib/merge-props/mergeProps.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/tooltip/trigger/TooltipTriggerDataAttributes.ts",
@@ -3542,8 +3544,8 @@
         "packages/base/src/lib/floating-ui/utils/element.ts"
       ],
       "decision": "Only the exact data-trigger-disabled marker value is copied as triggerDisabled in the original shared predicate. Current Dialog consumers do not call isTargetInsideEnabledTrigger; its Source useFocus/useHover callers and the Tooltip family remain unselected.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/types/index.ts",
@@ -3565,8 +3567,8 @@
         "packages/base/src/lib/internals/types.ts"
       ],
       "decision": "Selected native HTML/render/event types; unrelated exported React types are unselected.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/utils/CommonPopupDataAttributes.ts",
@@ -3583,8 +3585,8 @@
         "packages/base/src/lib/utils/CommonPopupDataAttributes.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/utils/CommonTriggerDataAttributes.ts",
@@ -3595,8 +3597,8 @@
         "packages/base/src/lib/utils/CommonTriggerDataAttributes.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/utils/dispatchClickWithModifiers.ts",
@@ -3613,8 +3615,8 @@
         "packages/base/src/lib/utils/dispatchClickWithModifiers.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/utils/FocusGuard.tsx",
@@ -3646,8 +3648,8 @@
         "packages/base/src/lib/utils/FocusGuard.svelte"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/utils/InternalBackdrop.tsx",
@@ -3664,8 +3666,8 @@
         "packages/base/src/lib/utils/InternalBackdrop.svelte"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/utils/NullStore.ts",
@@ -3682,8 +3684,8 @@
         "packages/base/src/lib/utils/NullStore.svelte.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/utils/popups/index.ts",
@@ -3725,8 +3727,8 @@
         "packages/base/src/lib/utils/popups/index.ts"
       ],
       "decision": "Original popup barrel preserves one implementation for selected shared helpers.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/utils/popups/inlineRect.ts",
@@ -3751,8 +3753,8 @@
       ],
       "local": [],
       "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/utils/popups/popupHandle.ts",
@@ -3789,8 +3791,8 @@
         "packages/base/src/lib/utils/popups/popupHandle.svelte.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/utils/popups/popupStoreUtils.ts",
@@ -3903,8 +3905,8 @@
         "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte"
       ],
       "decision": "Selected original root/trigger/open-state/payload/lifecycle/interaction-sync helpers. applyPopupOpenChange and attachPreventUnmountOnClose belong to other popup families and are explicitly unselected.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/utils/popups/popupTriggerMap.ts",
@@ -3915,8 +3917,8 @@
         "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/utils/popups/store.ts",
@@ -3963,8 +3965,8 @@
         "packages/base/src/lib/utils/popups/store.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/utils/popups/usePopupHandleStore.ts",
@@ -3996,8 +3998,8 @@
         "packages/base/src/lib/utils/popups/usePopupHandleStore.svelte.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/utils/popupStateMapping.ts",
@@ -4034,8 +4036,8 @@
         "packages/base/src/lib/utils/popupStateMapping.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/utils/resolveClassName.ts",
@@ -4046,8 +4048,8 @@
         "packages/base/src/lib/utils/resolveClassName.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/utils/resolveRef.ts",
@@ -4058,8 +4060,8 @@
         "packages/base/src/lib/utils/resolveRef.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/utils/resolveStyle.ts",
@@ -4070,8 +4072,8 @@
         "packages/base/src/lib/utils/resolveStyle.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/utils/useFocusableWhenDisabled.ts",
@@ -4088,8 +4090,8 @@
         "packages/base/src/lib/utils/useFocusableWhenDisabled.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/react/src/utils/useOpenInteractionType.ts",
@@ -4126,8 +4128,8 @@
         "packages/base/src/lib/utils/useOpenInteractionType.svelte.ts"
       ],
       "decision": "Only used useOpenMethodTriggerProps is ported; the independent owning useOpenInteractionType wrapper is unselected.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/addEventListener.ts",
@@ -4138,8 +4140,8 @@
         "packages/base/src/lib/utils/addEventListener.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/createLogOnce.ts",
@@ -4150,8 +4152,8 @@
         "packages/base/src/lib/utils/createLogOnce.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/empty.ts",
@@ -4162,8 +4164,8 @@
         "packages/base/src/lib/utils/empty.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/error.ts",
@@ -4180,8 +4182,8 @@
         "packages/base/src/lib/utils/error.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/fastHooks.ts",
@@ -4203,8 +4205,8 @@
         "packages/base/src/lib/utils/store/SvelteStore.svelte.ts"
       ],
       "decision": "Native reactive reads and once-only setup replace React dependency/render stabilization.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/getReactElementRef.ts",
@@ -4226,8 +4228,8 @@
         "packages/base/src/lib/internals/nativeRefAttachment.ts"
       ],
       "decision": "Canonical native attachments publish actual host refs; snippets cannot be inspected as React elements.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/inertValue.ts",
@@ -4244,8 +4246,8 @@
         "packages/base/src/lib/dialog/Portal.svelte"
       ],
       "decision": "Native boolean inert attribute replaces React-version-dependent boolean/string representation; source modal/open branch is preserved.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/mergeCleanups.ts",
@@ -4256,8 +4258,8 @@
         "packages/base/src/lib/utils/mergeCleanups.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/mergeObjects.ts",
@@ -4268,8 +4270,8 @@
         "packages/base/src/lib/utils/mergeObjects.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/owner.ts",
@@ -4286,8 +4288,8 @@
         "packages/base/src/lib/utils/owner.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/platform/engine.ts",
@@ -4304,8 +4306,8 @@
         "packages/base/src/lib/utils/platform/engine.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/platform/env.ts",
@@ -4322,8 +4324,8 @@
         "packages/base/src/lib/utils/platform/env.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/platform/index.ts",
@@ -4340,8 +4342,8 @@
         "packages/base/src/lib/utils/platform/index.ts"
       ],
       "decision": "Original platform namespace entry with native environment boundary.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/platform/media-query.ts",
@@ -4352,8 +4354,8 @@
         "packages/base/src/lib/utils/platform/media-query.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/platform/os.ts",
@@ -4370,8 +4372,8 @@
         "packages/base/src/lib/utils/platform/os.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/platform/parts.ts",
@@ -4408,8 +4410,8 @@
         "packages/base/src/lib/utils/platform/parts.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/platform/screen-reader.ts",
@@ -4426,8 +4428,8 @@
         "packages/base/src/lib/utils/platform/screen-reader.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/platform/shared.ts",
@@ -4438,8 +4440,8 @@
         "packages/base/src/lib/utils/platform/shared.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/reactVersion.ts",
@@ -4456,8 +4458,8 @@
         "packages/base/src/lib/internals/RenderElement.svelte"
       ],
       "decision": "No React version branching under native Svelte rendering.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/safeReact.ts",
@@ -4474,8 +4476,8 @@
         "packages/base/src/lib/internals/RenderElement.svelte"
       ],
       "decision": "Native rendering; no React element/owner inspection.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/shadowDom.ts",
@@ -4492,8 +4494,8 @@
         "packages/base/src/lib/utils/shadowDom.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/store/createSelector.ts",
@@ -4508,8 +4510,8 @@
       ],
       "local": [],
       "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/store/createSelectorMemoized.ts",
@@ -4534,8 +4536,8 @@
       ],
       "local": [],
       "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/store/index.ts",
@@ -4575,8 +4577,8 @@
       ],
       "local": [],
       "decision": "Original aggregator only; selected native consumers import the corresponding mapped modules directly.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/store/ReactStore.ts",
@@ -4618,8 +4620,8 @@
         "packages/base/src/lib/utils/store/SvelteStore.svelte.ts"
       ],
       "decision": "createSubscriber tracks original plain Store state; direct $effect+untrack synchronizes data and cleanup; selected setters/controlled diagnostics retained. Native stable live closures replace used context callbacks. observe key/function overloads are unused and omitted, not partially implemented.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/store/Store.ts",
@@ -4636,8 +4638,8 @@
         "packages/base/src/lib/utils/store/Store.svelte.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/store/StoreInspector.tsx",
@@ -4717,8 +4719,8 @@
       ],
       "local": [],
       "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/store/useStore.ts",
@@ -4760,8 +4762,8 @@
         "packages/base/src/lib/utils/store/SvelteStore.svelte.ts"
       ],
       "decision": "Native createSubscriber selected reads replace useSyncExternalStore/render snapshots.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/useAnimationFrame.ts",
@@ -4783,8 +4785,8 @@
         "packages/base/src/lib/utils/useAnimationFrame.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/useEnhancedClickHandler.ts",
@@ -4801,8 +4803,8 @@
         "packages/base/src/lib/utils/useEnhancedClickHandler.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/useForcedRerendering.ts",
@@ -4819,8 +4821,8 @@
         "packages/base/src/lib/utils/popups/usePopupHandleStore.svelte.ts"
       ],
       "decision": "Native createSubscriber follows the original handle pointer notifications; committed onMount chooses the live hydration snapshot.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/useId.ts",
@@ -4842,8 +4844,8 @@
         "packages/base/src/lib/utils/useId.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/useIsoLayoutEffect.ts",
@@ -4860,8 +4862,8 @@
         "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/useMergedRefs.ts",
@@ -4883,8 +4885,8 @@
         "packages/base/src/lib/utils/useMergedRefs.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/useOnMount.ts",
@@ -4906,8 +4908,8 @@
         "packages/base/src/lib/utils/useOnMount.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/useRefWithInit.ts",
@@ -4924,8 +4926,8 @@
         "packages/base/src/lib/utils/useRefWithInit.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/useScrollLock.ts",
@@ -4972,8 +4974,8 @@
         "packages/base/src/lib/utils/useScrollLock.svelte.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/useStableCallback.ts",
@@ -4995,8 +4997,8 @@
         "packages/base/src/lib/utils/useStableCallback.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/useTimeout.ts",
@@ -5018,8 +5020,8 @@
         "packages/base/src/lib/utils/useTimeout.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/useValueAsRef.ts",
@@ -5042,8 +5044,8 @@
         "packages/base/src/lib/utils/store/SvelteStore.svelte.ts"
       ],
       "decision": "Live native getters/closures replace React value refs only where the original callback reads latest values.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/visuallyHidden.ts",
@@ -5060,8 +5062,8 @@
         "packages/base/src/lib/utils/visuallyHidden.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     },
     {
       "source": "packages/utils/src/warn.ts",
@@ -5078,8 +5080,8 @@
         "packages/base/src/lib/utils/error.ts"
       ],
       "decision": "Inherited native DEV diagnostic formatting; React owner-stack inspection is omitted.",
-      "reviewStatus": "planned before implementation; inherited canonical dependency acceptance remains pending",
-      "provenance": "Normal development integration of public Dialog3435232; full actual inherited source review must be rebound to final AlertDialog head."
+      "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
+      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
     }
   ]
 }
