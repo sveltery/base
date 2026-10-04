@@ -1785,8 +1785,8 @@
       "result": "3/3"
     },
     {
-      "check": "isolated packed public root/subpath Avatar SSR + seven types",
-      "result": "PASS"
+      "check": "isolated packed public root/subpath Avatar SSR + seven types + native DOM/cached hydration model",
+      "result": "PASS; strict:true and skipLibCheck:false;0errors/0warnings"
     },
     {
       "check": "leased canonical helper hashes",
@@ -1795,6 +1795,10 @@
     {
       "check": "Original immutable Git/physical/historical archive",
       "result": "exact equality53files"
+    },
+    {
+      "check": "full repository Standards at f8f11b8 before public-script supplement",
+      "result": "PASS full ESLint and prescribed Prettier"
     }
   ],
   "pending": [
@@ -1802,5 +1806,24 @@
     "fresh independent complete Source/native/maintainability final-head successor review",
     "Root final PM publication/approval and expected-head normal merge"
   ],
-  "limits": "Execution and developer full-body comparison do not establish independent Source acceptance or final PM approval. Original44 declarations, conformance accounting and AV-01 native differences remain intact. No new ordinary credit."
+  "limits": "Execution and developer full-body comparison do not establish independent Source acceptance or final PM approval. Original44 declarations, conformance accounting and AV-01 native differences remain intact. No new ordinary credit.",
+  "publicConsumerBoundary": {
+    "script": "scripts/check-avatar-package.sh",
+    "sha256": "55bc959d22c362a0423fb82b8ee49bd44f97490efa60d359c500311bfc7aaa1b",
+    "scope": "Isolated tarball, installed Svelte peer and public root/subpath SSR/strict declarations/native DOM/hydration model; shell-embedded ephemeral consumer modules are recorded separately from the source TS/Svelte graph.",
+    "strict": true,
+    "skipLibCheck": false,
+    "external": [
+      "installed @sveltery/base tarball and Svelte5.57.1",
+      "node:module/node:fs/node:assert/strict",
+      "test-only jsdom/native Svelte compiler/svelte-check"
+    ],
+    "checks": [
+      "public namespace equality and seven type pairs",
+      "native prevented/accepted load handler and callback before Root publication",
+      "source/replacement host/ref lifetime and teardown",
+      "cached hydration host reuse and suppression of rendered initial starting phase"
+    ],
+    "unchangedOrdinaryCreditAdded": 0
+  }
 }
