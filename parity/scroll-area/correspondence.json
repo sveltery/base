@@ -550,7 +550,7 @@
       "source": "packages/react/src/utils/scrollEdges.ts",
       "sourceSha256": "52d206271054bc29c0fbd39ca625caed941d7d9252e43a30d31cce614222adbd",
       "kind": "business",
-      "manualScope": "Full getScrollEdges, normalizeScrollOffset and getNormalizedScrollPosition bodies: nearest one-pixel edges and short-range branch.",
+      "manualScope": "SCROLL_EDGE_TOLERANCE_PX=1; complete getMaxScrollOffset nonnegative range and normalizeScrollOffset max<=0, clamp, both-edge nearest/tie-to-start, one-pixel start/end tolerance and interior branches.",
       "developerInspected": "full used local body plus selected original business body and native boundary; inherited bodies are not accepted solely by hash",
       "independentWholeReview": "pending",
       "unchangedAssertionCredit": 0
