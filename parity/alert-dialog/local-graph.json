@@ -76,7 +76,7 @@
     },
     {
       "local": "packages/base/src/lib/alert-dialog/types.ts",
-      "sha256": "765afcfcc3821bb82603c068dc4dd61c454d6150bd087f5acc982382cedd2f47",
+      "sha256": "d693fae1f19212762a7eaa0e72a5fe1a27c92eaa0c1fa5f380818aa8d11ce3e2",
       "imports": [
         {
           "specifier": "../dialog/Trigger.svelte",
@@ -92,6 +92,11 @@
           "specifier": "./handle.js",
           "kind": "type",
           "resolved": "packages/base/src/lib/alert-dialog/handle.ts"
+        },
+        {
+          "specifier": "./index.parts.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/alert-dialog/index.parts.ts"
         }
       ]
     },

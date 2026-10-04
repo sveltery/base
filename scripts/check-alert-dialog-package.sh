@@ -40,6 +40,8 @@ cat > "$alert_consumer/types.ts" <<'TS'
 import { AlertDialog as First } from '@sveltery/base';
 import * as Second from '@sveltery/base/alert-dialog';
 import type { ComponentProps, Snippet } from 'svelte';
+import type { AlertDialogRoot, AlertDialogTrigger } from '@sveltery/base';
+import type { AlertDialogRoot as SubpathRoot, AlertDialogTrigger as SubpathTrigger } from '@sveltery/base/alert-dialog';
 type Equal<A, B> = (<T>() => T extends A ? 1 : 2) extends (<T>() => T extends B ? 1 : 2) ? true : false;
 const factory: First.Handle<number> = Second.createHandle<number>();
 const constructed: Second.Handle<number> = new First.Handle<number>();
@@ -59,6 +61,8 @@ const optionalParts: [Second.Trigger.Props<number>, Second.Portal.Props, Second.
   { disabled: undefined, nativeButton: undefined },
 ];
 const viewportState: Equal<Second.Viewport.State, First.Popup.State> = true;
+const namedRoot: Equal<AlertDialogRoot.Props<number>, SubpathRoot.Props<number>> = true;
+const namedTrigger: Equal<AlertDialogTrigger.Props<number>, SubpathTrigger.Props<number>> = true;
 // @ts-expect-error A number handle rejects a string payload.
 factory.openWithPayload('wrong');
 // @ts-expect-error Component payload inference follows its handle.
@@ -77,7 +81,7 @@ const wrongModal: First.Root.Props<number> = { modal: false };
 // @ts-expect-error AlertDialog always disables pointer dismissal.
 const wrongDismiss: First.Root.Props<number> = { disablePointerDismissal: false };
 void [subtype, wrongRootHandle, wrongTriggerHandle, wrongModal, wrongDismiss];
-void [missingPayloadType, rootPayload, triggerPayload, plainRoot, strongTrigger, wrongTrigger, wrongHandle, optionalRoot, optionalParts, viewportState];
+void [missingPayloadType, rootPayload, triggerPayload, plainRoot, strongTrigger, wrongTrigger, wrongHandle, optionalRoot, optionalParts, viewportState, namedRoot, namedTrigger];
 TS
 cat > "$alert_consumer/check.mjs" <<'JS'
 import assert from 'node:assert/strict';
