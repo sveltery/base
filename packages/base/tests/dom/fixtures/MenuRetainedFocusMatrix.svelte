@@ -1,7 +1,7 @@
 <!-- Authored actual Source/native regression; zero Original declaration credit. -->
 <script lang="ts">
   import { untrack } from 'svelte';
-  import * as Menu from '../../../src/lib/menu/index.parts.ts';
+  import * as Menu from '../../../src/lib/menu/index.parts.js';
   import { focusValue, type FinalFocus } from './menuFocusValues.js';
   let { mode, log }: { mode: string; log: (value: string) => void } = $props();
   let actions = $state<{ unmount(): void; close(): void } | null>(null);
