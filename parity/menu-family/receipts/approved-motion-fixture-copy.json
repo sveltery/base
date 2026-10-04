@@ -1,0 +1,21 @@
+{
+  "ownerPublicHead": "8f9663ffd9a65b5a95b68f7ce9e99b2888daca01",
+  "ownerBranch": "source-alert-dialog",
+  "file": "tests/browser/dialog-motion-source.spec.ts",
+  "wholeFileSha256": "ad4d335f410e673f32389daae7c7a5df0278753d3053c60e811c009fec08362a",
+  "lease": "Root-approved exact whole CURRENT MutationObserver authored fixture plus one opacity1 physical setup precondition after unchanged [true] completion. No library runtime bodies changed.",
+  "execution": {
+    "strictTscExitStatus": 0,
+    "scopedESlintExitStatus": 0,
+    "scopedListingExitStatus": 0,
+    "listedActualPairedCases": 4,
+    "emittedJsByteIdentityToCanonicalC0": true,
+    "emittedJsSha256": "fabe3b0bd5fd93f65b89005cd33e31ca1bf57ffbdd7c5110bbf8c686940ffed3",
+    "securedFocused56": "pending fresh final-head CI",
+    "securedBroad": "pending fresh final-head CI",
+    "runtime197": "exact949/1dc; no heavy fullVerify repeated for authored-only fixture"
+  },
+  "ordinaryOriginalDeclarationCredit": 0,
+  "predecessorPublicHead": "c0b0822ef7c2c782ad0a1ca388e954e17ec3fbd6",
+  "typingRepair": "The actual private Window field is optional; the post-capture non-null annotation is erased. No runtime/assertion change from canonical c0 predecessor."
+}

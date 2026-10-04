@@ -41,7 +41,12 @@
       "broadExecuted": false,
       "note": "Raw current job establishes one failure/55 passes; older949 had three failures/53passes. Both distinct outcomes remain archived and neither is a waiver."
     },
-    "Verification": "still in progress when checkpoint evidence was assembled"
+    "Verification": {
+      "run": 37186301836,
+      "job": 111388822964,
+      "conclusion": "success",
+      "rawArchive": "hosted-1dc439d-job-111388822964.log.gz"
+    }
   },
   "sourceReview": "NOT CLEAR predecessor ff42fea preserved; 8 changed whole bodies and 189 exact inherited bodies await independent successor review",
   "ordinaryOriginalDeclarationCredit": 0,

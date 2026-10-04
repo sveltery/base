@@ -340,3 +340,35 @@ closure inventory. This final evidence-only checkpoint preserves those bytes.
 Independent successor review of the eight changed full bodies and 189 precise
 inherited scopes, repaired motion fixture/fresh configured gates and Root exact
 approval remain required. The serial heavy token has been released.
+
+## Exact shared authored motion fixture integration
+
+Root released the exact whole authored motion fixture from public Alert owner
+`c0b0822ef7c2c782ad0a1ca388e954e17ec3fbd6`, SHA256
+`483cbc738d04aad3271dbac4ea87acd0010425d43c118dd084e00748645d5a47`.
+This replaces Menu's older observation-after-close fixture with the current
+MutationObserver installed before close and one physical opacity1 setup
+precondition after unchanged [true] open completion. Real ending-style and
+physical animation observations, paused state, counts, focus and complete callback
+expectations remain binding. No production runtime or graph body changes.
+
+The old failed raw expectations remain archived (949: 53 passed/three failed;
+1dc: 55 passed/one failed, the Original completed-close ending-style case). This
+authored input/observation synchronization repair earns no ordinary Original
+credit or behavior waiver. Fresh exact-head focused56, broad Dialog/browser CI
+and independent Source review remain required; earlier local fullVerify1dc is
+recorded as its actual executed head rather than relabeled as a new execution.
+
+The canonical type-only fixture successor is public
+`8f9663ffd9a65b5a95b68f7ce9e99b2888daca01`, whole-file SHA256
+`ad4d335f410e673f32389daae7c7a5df0278753d3053c60e811c009fec08362a`.
+Its two private Window annotations make the field optional and retain an erased
+post-capture non-null assertion; complete emitted JavaScript is byte-identical
+to c0, SHA256 `fabe3b0bd5fd93f65b89005cd33e31ca1bf57ffbdd7c5110bbf8c686940ffed3`.
+The exact scoped strict TypeScript command exits zero, as do ESLint and the
+four-case listing. The predecessor two-error raw receipt is retained. Hosted
+full Verification at1dc subsequently completed successfully (job111388822964);
+its complete actual raw process is now archived. No fresh browser execution is
+claimed for this authored fixture checkpoint. Runtime197 remains byte-identical
+to949/1dc; independent successor review and all fresh exact-head configured gates
+remain pending. The draft is not ready for approval or merge.

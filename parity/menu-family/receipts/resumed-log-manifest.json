@@ -253,6 +253,46 @@
       "archive": "hosted-1dc439d-job-111388822767.log.gz",
       "rawSha256": "76c9a7f151ba20d54142348bbb1f00a4b08215684085a2293a465bef5ea7b649",
       "rawBytes": 62559
+    },
+    {
+      "archive": "c0b0822-approved-motion-fixture-type.log.gz",
+      "rawSha256": "73efcef3b4fec48dda7e5de0a77deba2cc2211c91469463a4c38754bd7daf9a3",
+      "rawBytes": 1240
+    },
+    {
+      "archive": "c0b0822-approved-motion-fixture-list.log.gz",
+      "rawSha256": "5255df966a8a8bcf197483a127eab954c76f1a324f0a94b9c679d048296a1f2a",
+      "rawBytes": 588
+    },
+    {
+      "archive": "c0b0822-approved-motion-fixture-lint.log.gz",
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "rawBytes": 0
+    },
+    {
+      "archive": "hosted-1dc439d-job-111388822964.log.gz",
+      "rawSha256": "f9e4069e075b6d760ef69b90fc0cfdc33080cf2c4482ac72b471df8b358c51c1",
+      "rawBytes": 578878
+    },
+    {
+      "archive": "approved-motion-8f9663-type.log.gz",
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "rawBytes": 0
+    },
+    {
+      "archive": "approved-motion-8f9663-list.log.gz",
+      "rawSha256": "5255df966a8a8bcf197483a127eab954c76f1a324f0a94b9c679d048296a1f2a",
+      "rawBytes": 588
+    },
+    {
+      "archive": "approved-motion-8f9663-lint.log.gz",
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "rawBytes": 0
+    },
+    {
+      "archive": "approved-motion-8f9663-emitted-identity.log.gz",
+      "rawSha256": "62992a8b32e718a0e6e6ee8277a23d7fd420fdd906f73c3d1b15e1c71826ce4c",
+      "rawBytes": 137
     }
   ]
 }
