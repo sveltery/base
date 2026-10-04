@@ -14,7 +14,7 @@ async function setup(page: Page, route: string) {
 async function captureExitAnimation(page: Page, pause: boolean) {
   await page.getByTestId('popup').evaluate((node, shouldPause) => {
     const result = { observed: false, animations: 0, paused: false };
-    (window as Window & { dialogExitAnimation: typeof result }).dialogExitAnimation = result;
+    (window as Window & { dialogExitAnimation?: typeof result }).dialogExitAnimation = result;
     const observer = new MutationObserver(() => {
       if (!node.hasAttribute('data-ending-style')) return;
       // Force style resolution in this mutation task, before the 200 ms exit can finish.
@@ -29,7 +29,7 @@ async function captureExitAnimation(page: Page, pause: boolean) {
   }, pause);
 }
 async function exitAnimation(page: Page) {
-  return page.evaluate(() => (window as Window & { dialogExitAnimation: { observed: boolean; animations: number; paused: boolean } }).dialogExitAnimation);
+  return page.evaluate(() => (window as Window & { dialogExitAnimation?: { observed: boolean; animations: number; paused: boolean } }).dialogExitAnimation!);
 }
 for (const route of ['/dialog', '/reference']) {
   test(`${route}: returned focus marks a completed close before keyboard reopening starts another close cycle`, async ({ page }) => {
