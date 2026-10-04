@@ -20,12 +20,12 @@
       <Outer.Portal container={variant === 'shadow' ? container : undefined}>
         <Outer.Backdrop data-testid="closure-backdrop"/>
         <Outer.Viewport data-testid="closure-viewport">
-          <Outer.Popup data-testid="closure-parent">
+          <Outer.Popup data-testid="closure-parent" style={{ position: 'relative', zIndex: 1 }}>
             <Outer.Title>Outer confirmation</Outer.Title><Outer.Description>Closure parent</Outer.Description>
             {#if variant !== 'shadow'}
               <Inner.Root>
                 <Inner.Trigger>Open inner</Inner.Trigger>
-                <Inner.Portal><Inner.Backdrop/><Inner.Popup data-testid="closure-inner">
+                <Inner.Portal><Inner.Backdrop/><Inner.Popup data-testid="closure-inner" style={{ position: 'relative', zIndex: 2 }}>
                   <Inner.Title>Inner confirmation</Inner.Title><Inner.Close>Close inner</Inner.Close>
                 </Inner.Popup></Inner.Portal>
               </Inner.Root>

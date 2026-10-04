@@ -16,10 +16,10 @@ export function mountAlertDialogClosureReference(target: HTMLElement, variant: '
         h(Outer.Portal, { container: variant === 'shadow' ? container : undefined },
           h(Outer.Backdrop, { id: 'closure-backdrop', ...{ 'data-testid': 'closure-backdrop' } }),
           h(Outer.Viewport, { id: 'closure-viewport', ...{ 'data-testid': 'closure-viewport' } },
-            h(Outer.Popup, { id: 'closure-parent', ...{ 'data-testid': 'closure-parent' } },
+            h(Outer.Popup, { id: 'closure-parent', style: { position: 'relative', zIndex: 1 }, ...{ 'data-testid': 'closure-parent' } },
               h(Outer.Title, null, 'Outer confirmation'), h(Outer.Description, null, 'Closure parent'),
               variant !== 'shadow' ? h(Inner.Root, null, h(Inner.Trigger, null, 'Open inner'), h(Inner.Portal, null, h(Inner.Backdrop),
-                h(Inner.Popup, { id: 'closure-inner', ...{ 'data-testid': 'closure-inner' } }, h(Inner.Title, null, 'Inner confirmation'), h(Inner.Close, null, 'Close inner')))) : null,
+                h(Inner.Popup, { id: 'closure-inner', style: { position: 'relative', zIndex: 2 }, ...{ 'data-testid': 'closure-inner' } }, h(Inner.Title, null, 'Inner confirmation'), h(Inner.Close, null, 'Close inner')))) : null,
               h(Outer.Close, { id: 'closure-outer-close' }, 'Close outer'))))) : null);
   }
   const root = createRoot(target); root.render(h(StrictMode, null, h(Fixture))); return () => root.unmount();
