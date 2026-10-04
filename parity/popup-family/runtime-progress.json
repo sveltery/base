@@ -2,7 +2,7 @@
   "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "preCodeReadingCommit": "41b708601a8cbc72e74a46e550fc79b99da3d0ed",
   "publicDependencyCorrectionCommit": "70b9962b9d4ecc958a3d14dcfb89a0965b9fd1f3",
-  "status": "Two independent precisely leased helpers adapted; missing canonical dependencies and execution gates remain pending",
+  "status": "Three precisely leased helper families adapted; DelayGroup execution, remaining missing helpers and final inherited gates pending",
   "ordinaryDeclarationCredit": 0,
   "runtimeImplementationStarted": true,
   "helperModules": [
@@ -33,6 +33,29 @@
         "packages/base/tests/dom/PopupClosePartChild.svelte": "6b404d20c02a8c309f2251fcffc3c1f392586bc0beee79c9ce1b62fe3c3d60e6",
         "packages/base/tests/dom/PopupClosePartFixture.svelte": "5a539c5fa4d9e39f77e2b948a3162212db1313cdca3c40d7ac9dad2adecdd980"
       }
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/components/FloatingDelayGroup.tsx",
+      "sourceSha256": "14d8f2c810ae738d26d3d41b645d3983958fee8693432b676768e0643cd848d5",
+      "localModules": [
+        {
+          "local": "packages/base/src/lib/floating-ui/components/FloatingDelayGroupContext.ts",
+          "sha256": "4b3543c1123e580357ce02c3038cf89713de565ae310dca44550e7f90bb2a675"
+        },
+        {
+          "local": "packages/base/src/lib/floating-ui/components/FloatingDelayGroup.svelte",
+          "sha256": "8d23edb74b66c224cba535b1487b475313fae308f6b77957fa298df446021e7e"
+        },
+        {
+          "local": "packages/base/src/lib/floating-ui/hooks/useDelayGroup.svelte.ts",
+          "sha256": "dd3cc1e7bff716f7093162d11d7393bb4fe5b9e940311160c5a0816f5d7462a6"
+        }
+      ],
+      "decision": "Whole Source provider/context/useDelayGroup/resetDelayRef business retained once. Native setup initializes ref objects; typed Svelte context preserves provided/default ownership; one native isInstantPhase state and getter replace React state/memo. Live timeoutMs getter replaces provider identity changes. Source takeover/cancellation/closingId/openRef cleanup and internal timeout0 retained. Canonical getDelay/useTimeout/useIsoLayoutEffect reused unchanged.",
+      "wholeBodyReview": "Developer compared complete Original and complete local bodies; independent Source/native review pending",
+      "testStatus": "Meaningful native Store/provider timing/takeover/cleanup witnesses pending. The six direct Original declarations use an unported separate legacy useHover/generic public useFloating fixture; no legacy hover clone or false unchanged assertion credit.",
+      "ordinaryDeclarationCredit": 0,
+      "syntaxOnly": "Provider and hook compile with native Svelte compiler with zero warnings; no DelayGroup product test executed yet"
     }
   ],
   "canonicalDependencies": {
