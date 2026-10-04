@@ -30,9 +30,12 @@
   function reference(node: HTMLElement) { floating.refs.setReference(node); return () => floating.refs.setReference(null); }
   function popup(node: HTMLElement) { floating.refs.setFloating(node); return () => floating.refs.setFloating(null); }
   function click() {
-    store.setOpen(openWithFocusEvent ? true : !open, createChangeEventDetails(
-      openWithFocusEvent ? REASONS.triggerFocus : REASONS.none,
-      openWithFocusEvent ? new FocusEvent('focus') : undefined,
+    // Original App's ordinary button updates its external open value directly.
+    // Only the focus case invokes rootStore.setOpen and supplies an open event.
+    if (!openWithFocusEvent) { store.set('open', !open); return; }
+    store.setOpen(true, createChangeEventDetails(
+      REASONS.triggerFocus,
+      new FocusEvent('focus'),
       floating.refs.domReference.current ?? undefined,
     ));
   }

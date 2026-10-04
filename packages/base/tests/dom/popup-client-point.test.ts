@@ -1,11 +1,9 @@
-// Eleven complete Original useClientPoint test bodies, with native fixture/event/flush adapters.
+// Ten complete Original useClientPoint test bodies, with native fixture/event/flush adapters.
 // Base UI1.8.0 MIT pin47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; no family ordinary credit.
 import { afterEach, test, expect, vi } from 'vitest';
 import { flushSync, mount, tick, unmount } from 'svelte';
 import App from './PopupClientPointFixture.svelte';
 import StoreApp from './PopupClientPointStoreFixture.svelte';
-import { createChangeEventDetails } from '../../src/lib/internals/createBaseUIEventDetails.js';
-import { REASONS } from '../../src/lib/internals/reasons.js';
 import { PopupTriggerMap } from '../../src/lib/utils/popups/popupTriggerMap.svelte.js';
 import { FloatingRootStore } from '../../src/lib/floating-ui/components/FloatingRootStore.svelte.js';
 
