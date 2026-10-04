@@ -29,12 +29,13 @@ export function useAnimationsFinished(
 ) {
   const frame = useAnimationFrame();
   return useStableCallback((fnToExecute: () => void, signal: AbortSignal | null = null) => {
+    const batch = getBatch();
     frame.cancel();
     const element = resolveRef(elementOrRef);
     if (element == null) return;
     const resolvedElement = element;
     const done = () => {
-      if (!getBatch()) {
+      if (!batch) {
         // Later completions observe the native commit and its effect cleanups.
         flushSync(fnToExecute);
         return;

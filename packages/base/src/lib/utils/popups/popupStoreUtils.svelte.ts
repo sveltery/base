@@ -347,3 +347,14 @@ export function usePopupInteractionProps<State extends PopupStoreState<unknown>,
   store.useSyncedValues(getStatePart);
   useIsoLayoutEffect(() => () => { store.update({ activeTriggerProps: EMPTY_OBJECT, inactiveTriggerProps: EMPTY_OBJECT, popupProps: EMPTY_OBJECT } as Pick<State, 'activeTriggerProps' | 'inactiveTriggerProps' | 'popupProps'>); }, () => [store]);
 }
+
+export function attachPreventUnmountOnClose(eventDetails: { preventUnmountOnClose(): void }) {
+  let preventUnmountOnClose = false;
+
+  eventDetails.preventUnmountOnClose = () => {
+    preventUnmountOnClose = true;
+  };
+
+  return () => preventUnmountOnClose;
+}
+
