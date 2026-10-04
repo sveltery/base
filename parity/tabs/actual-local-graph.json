@@ -2465,7 +2465,7 @@
       },
       {
         "local": "packages/base/src/lib/tabs/types.ts",
-        "sha256": "51994ff83fde78059f2398904d9f36c4999cf27e2ad18b7d30c60ae48e7b9a7a",
+        "sha256": "6a4a9fbbe112df53e5d2bdc5083f99d9b55db32dbf8b5c31db7e12bc4f81bc36",
         "reachability": [
           "type"
         ],

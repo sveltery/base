@@ -104,4 +104,3 @@ export type TabsIndicatorProps = ElementProps<
 > & {
   renderBeforeHydration?: boolean | undefined;
 };
-
