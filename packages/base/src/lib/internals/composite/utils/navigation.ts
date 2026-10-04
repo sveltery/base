@@ -10,10 +10,7 @@ interface Dimensions {
   width: number;
   height: number;
 }
-function stopEvent(event: Event) {
-  event.preventDefault();
-  event.stopPropagation();
-}
+import { stopEvent } from '../../../floating-ui/utils/event.js';
 import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP } from '../composite.js';
 
 export type DisabledIndices =
