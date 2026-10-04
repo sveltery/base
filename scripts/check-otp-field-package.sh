@@ -20,10 +20,13 @@ cat > "$otp_consumer_dir/Consumer.svelte" <<'SVELTE'
   import { OTPField as Subpath, type OTPFieldRootProps, type OTPFieldInputProps } from '@sveltery/base/otp-field';
   import type { HTMLInputAttributes, HTMLAttributes } from 'svelte/elements';
   let owner = $state('');
+  let rootRef = $state<HTMLElement | null>(null);
+  let inputRef = $state<HTMLElement | null>(null);
+  let separatorRef = $state<HTMLElement | null>(null);
   const props: OTPFieldRootProps = { length:4, validationType:'alphanumeric', normalizeValue:value=>value.toUpperCase(), onValueChange(value,details) { if(details.reason==='input-paste'){const event:ClipboardEvent=details.event;void event;}if(details.reason==='keyboard'){const event:KeyboardEvent=details.event;void event;}owner=value; } };
   const input: OTPFieldInputProps = { readonly:false, oninput:event=>event.preventBaseUIHandler() };
 </script>
-<Field.Root name="code"><Field.Label>Code</Field.Label><OTPField.Root {...props} value={owner}><OTPField.Input/><OTPField.Input/><OTPField.Separator/><OTPField.Input/><OTPField.Input/></OTPField.Root></Field.Root>
+<Field.Root name="code"><Field.Label>Code</Field.Label><OTPField.Root {...props} value={owner} name="code" bind:ref={rootRef} class={state => [state.complete && 'complete', { required:state.required }]} style={state => ({ opacity:state.disabled ? 0.5 : 1 })}><OTPField.Input bind:ref={inputRef} name="slot" checked={undefined} class={state => ['slot', { filled:state.filled }]} style={state => ({ opacity:state.filled ? 1 : 0.5 })}/><OTPField.Input/><OTPField.Separator orientation={undefined} bind:ref={separatorRef} class={state => state.orientation} style={state => ({ color:state.orientation === 'horizontal' ? 'blue' : 'red' })}/><OTPField.Input/><OTPField.Input/></OTPField.Root></Field.Root>
 <Subpath.Root length={2} defaultValue="12"><Subpath.Input {...input}/><Subpath.Input/></Subpath.Root>
 <OTPFieldRoot length={1} defaultValue="a" validationType="alpha">
   {#snippet render(props,_state,children)}<section {...props as HTMLAttributes<HTMLElement>}>{@render children?.()}</section>{/snippet}
@@ -34,18 +37,39 @@ cat > "$otp_consumer_dir/types.ts" <<'TS'
 import type { ComponentProps } from 'svelte';
 import { OTPField } from '@sveltery/base';
 import { OTPField as Subpath, type OTPFieldRootProps, type OTPFieldInputProps } from '@sveltery/base/otp-field';
-const root: ComponentProps<typeof OTPField.Root> = { length:6, form:'form', inputMode:'tel', mask:true };
-const subpath: ComponentProps<typeof Subpath.Input> = { disabled:true, readonly:true };
+import type { SeparatorProps } from '@sveltery/base/separator';
+declare const rootRender: NonNullable<OTPFieldRootProps['render']>;
+declare const inputRender: NonNullable<OTPFieldInputProps['render']>;
+declare const separatorRender: NonNullable<SeparatorProps['render']>;
+const root: ComponentProps<typeof OTPField.Root> = { length:6, name:'code', value:undefined, form:'form', inputMode:'tel', mask:true, ref:undefined, render:rootRender, class:state=>[state.complete && 'complete'], style:state=>({ opacity:state.required ? 1 : 0.5 }) };
+const subpath: ComponentProps<typeof Subpath.Input> = { disabled:true, readonly:true, name:'slot', checked:false, value:undefined, ref:null, render:inputRender, class:state=>({ filled:state.filled }), style:state=>({ opacity:state.index ? 0.5 : 1 }) };
+const separator: ComponentProps<typeof Subpath.Separator> = { orientation:undefined, ref:undefined, render:separatorRender, class:state=>state.orientation, style:state=>({ color:state.orientation === 'horizontal' ? 'blue' : 'red' }) };
 // @ts-expect-error length is required
 const badRoot: OTPFieldRootProps = {};
 // @ts-expect-error order is inferred
 const badIndex: OTPFieldInputProps = { index:0 };
 // @ts-expect-error sanitizeValue was renamed
 const badName: OTPFieldRootProps = { length:6, sanitizeValue:(value:string)=>value };
-void [root,subpath,badRoot,badIndex,badName];
+// @ts-expect-error logical names are strings
+const numericName: OTPFieldRootProps = { length:6, name:42 };
+// @ts-expect-error a group root has no native checked prop
+const rootChecked: OTPFieldRootProps = { length:6, checked:true };
+// @ts-expect-error native checked is boolean
+const inputChecked: OTPFieldInputProps = { checked:'true' };
+// @ts-expect-error bindable actual-element ref is not a callback ref
+const callbackRef: OTPFieldInputProps = { ref:()=>{} };
+// @ts-expect-error plain callbacks are not native Svelte render snippets
+const callbackRender: OTPFieldRootProps = { length:6, render:()=>{} };
+// @ts-expect-error class callbacks must return a native ClassValue
+const invalidClass: OTPFieldInputProps = { class:state=>Symbol(state.index) };
+// @ts-expect-error native style callbacks must return a native style value
+const invalidStyle: SeparatorProps = { style:()=>true };
+// @ts-expect-error orientation is finite
+const invalidOrientation: ComponentProps<typeof Subpath.Separator> = { orientation:'diagonal' };
+void [root,subpath,separator,badRoot,badIndex,badName,numericName,rootChecked,inputChecked,callbackRef,callbackRender,invalidClass,invalidStyle,invalidOrientation];
 TS
 cat > "$otp_consumer_dir/tsconfig.json" <<'JSON'
-{"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"skipLibCheck":true,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.ts","*.svelte"]}
+{"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"exactOptionalPropertyTypes":true,"noUncheckedIndexedAccess":true,"skipLibCheck":false,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.ts","*.svelte"]}
 JSON
 pnpm --dir "$otp_consumer_dir" exec svelte-check --tsconfig tsconfig.json
 cat > "$otp_consumer_dir/check.mjs" <<'JS'
