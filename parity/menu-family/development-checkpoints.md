@@ -286,3 +286,31 @@ passes without warnings. Successor full Verification, installed strict consumers
 secured 44 family/33 geometry browsers, configured CI and independent review of
 all eight changed bodies with precise inherited 189-body scopes remain required.
 There is no owner Source CLEAR or merge approval.
+
+## Published repair and authored harness type checkpoint
+
+Public repair head `9493a4f3a787dc1879b10ccdc893cee7c7882392` passes the
+actual secured 44 family cases (run 37185633441, job 111386827410) and
+33 geometry cases (run 37185633392, job 111386826883). The latter also executes
+the eighteen unchanged lifecycle cases and actual strict private package
+teardown consumer. The official Chromium sandbox remains enabled, workers one
+and retries zero. These executions grant no ordinary Original declaration credit.
+
+The first local full Verification at that head passes 82 script checks and the
+library build, then fails with 49 errors/zero warnings in the new authored test
+contracts. Hosted Verification fails at the same type stage. The repair adds
+fixture TypeScript annotations, JavaScript import suffixes, React namespace
+export compatibility and separately typed actual Original/native store branches.
+A narrowly documented private Original inspection exposes its declared inherited
+context and actual MenuHandle store; no store or runtime class is replaced. All
+probe expectations, input semantics and 197 runtime bodies retain their repair
+checkpoint meaning/bytes. The repaired library check is zero errors/zero warnings;
+all 45 portable regressions execute together and pass, and local Standards passes.
+
+The same hosted head's focused Dialog job reports 53 passed/three failed in
+`dialog-motion-source.spec.ts`: native completed-close ending style is missing,
+and both Original/native paused exit-animation cases find no physical animation.
+The broad Dialog browser step does not execute. These raw failures are preserved;
+no owner waiver, assertion weakening or complete green Verification is claimed.
+Final full Verification, configured current-head CI and independent Source delta
+review remain required before Root approval.

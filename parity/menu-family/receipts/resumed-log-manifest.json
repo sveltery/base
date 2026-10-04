@@ -188,6 +188,41 @@
       "archive": "successor-standards-green.log.gz",
       "rawSha256": "4c6122dea8c7e34c086493e81ed3552975ecd8580f11b28bf879ea858b7a4399",
       "rawBytes": 348
+    },
+    {
+      "archive": "9493a4f-full-verification-author-types-red.log.gz",
+      "rawSha256": "09bdc201ff5ade2e7047ab95707ec9e063bc73e504fd85491dad473c73304969",
+      "rawBytes": 36259
+    },
+    {
+      "archive": "9493a4f-harness-types-green.log.gz",
+      "rawSha256": "cad2dd362f5c456d227e055d6063dbe7d143cec086a7ed4b68c10d488b9f1bec",
+      "rawBytes": 193
+    },
+    {
+      "archive": "9493a4f-harness-45-green.log.gz",
+      "rawSha256": "e6008211168a472cbaf4a68bff6b79c1b9da118f1c00cf5c2a81274079d46346",
+      "rawBytes": 551
+    },
+    {
+      "archive": "hosted-9493a4f-job-111386826958.log.gz",
+      "rawSha256": "9df3d524dc9944b6face866c773363410b443f0005bed57f42034d5ac56c203a",
+      "rawBytes": 72161
+    },
+    {
+      "archive": "hosted-9493a4f-job-111386826959.log.gz",
+      "rawSha256": "7b47c6a98fe7d5f8bdb9eadc34450c7fe52db7662fd2dcafe8e864b8d1d245b8",
+      "rawBytes": 67848
+    },
+    {
+      "archive": "hosted-9493a4f-job-111386827410.log.gz",
+      "rawSha256": "3a477d291f4fa2b092095123a3549cb6955489cf9bddf78bbb8841c12db2afbf",
+      "rawBytes": 53549
+    },
+    {
+      "archive": "hosted-9493a4f-job-111386826883.log.gz",
+      "rawSha256": "3e408c2045f1ef56830736d5d02e32f88ae0ba552ff5349622eebf80c5b232b1",
+      "rawBytes": 59646
     }
   ]
 }

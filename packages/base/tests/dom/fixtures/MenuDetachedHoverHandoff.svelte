@@ -1,6 +1,6 @@
 <!-- Authored actual Source/native regression; zero Original declaration credit. -->
 <script lang="ts">
-import * as Menu from '../../../src/lib/menu/index.parts.ts';
+import * as Menu from '../../../src/lib/menu/index.parts.js';
 const first=Menu.createHandle();
 const second=Menu.createHandle();
 let handle=$state.raw(first);
