@@ -1,4 +1,5 @@
 // Original ContextMenuTrigger full pointer/long-press/listener business (MIT).
+import { untrack } from 'svelte';
 import { addEventListener } from '../../utils/addEventListener.js';
 import { ownerDocument } from '../../utils/owner.js';
 import { useTimeout } from '../../utils/useTimeout.js';
@@ -15,7 +16,7 @@ const LONG_PRESS_DELAY = 500;
 export function createContextMenuTrigger(getProps: () => ContextMenuTriggerProps) {
     const { render, class: className, style, children, ref, ...elementProps } = $derived(getProps());
     // Host render/ref fields are consumed by the native component, excluded from forwarded props.
-    void [render, className, style, children, ref];
+    untrack(() => { void [render, className, style, children, ref]; });
     const { setAnchor, actionsRef, internalBackdropRef, backdropRef, positionerRef, allowMouseUpTriggerRef, initialCursorPointRef, rootId, } = useContextMenuRootContext(false);
     const { store } = useMenuRootContext(false);
     const open = $derived(store.useState('open'));

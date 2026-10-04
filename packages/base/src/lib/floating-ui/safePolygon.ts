@@ -6,8 +6,6 @@ import type { HandleClose, HandleCloseOptions } from './hooks/useHoverShared.js'
 import { contains, getTarget } from './utils/element.js';
 import { getNodeChildren } from './utils/nodes.js';
 
-/* eslint-disable no-nested-ternary */
-
 const CURSOR_SPEED_THRESHOLD = 0.1;
 const CURSOR_SPEED_THRESHOLD_SQUARED = CURSOR_SPEED_THRESHOLD * CURSOR_SPEED_THRESHOLD;
 const POLYGON_BUFFER = 0.5;
@@ -442,7 +440,6 @@ export function safePolygon(options: SafePolygonOptions = {}) {
     };
   };
 
-  // eslint-disable-next-line no-underscore-dangle
   fn.__options = {
     ...options,
     blockPointerEvents,

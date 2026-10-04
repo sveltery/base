@@ -8,10 +8,10 @@
     log?: (kind: string, value: unknown, reason?: string) => void;
   } = $props();
   const handle = Menu.createHandle<number>();
-  const onOpenChange = (open: boolean, details: MenuRootChangeEventDetails) => { if ((open && cancel === 'open') || (!open && cancel === 'close')) details.cancel(); log('open', open, details.reason); };
+  const onOpenChange = (open: boolean, details: MenuRootChangeEventDetails) => { if (mode === 'retain' && !open) details.preventUnmountOnClose(); if ((open && cancel === 'open') || (!open && cancel === 'close')) details.cancel(); itemLog('open', open, details.reason); };
   let calls = $state<unknown[]>([]);
   let actions = $state<Menu.Root.Actions | null>(null);
-  export function command(value: string) { if (value === 'open') handle.open('opener'); if (value === 'second') handle.open('second'); if (value === 'close') handle.close(); if (value === 'unmount') actions?.unmount(); }
+  export function command(value: string) { if (value === 'open') handle.open('opener'); if (value === 'second') handle.open('second'); if (value === 'close') actions?.close(); if (value === 'unmount') actions?.unmount(); }
   export function snapshot() { return { isOpen: handle.isOpen, actions: !!actions, calls }; }
   const itemLog = (kind: string, value: unknown, reason?: string) => { calls = [...calls, [kind, value, reason]]; log(kind, value, reason); };
 </script>
@@ -47,7 +47,7 @@
     <Menu.Trigger {handle} payload={7} id="opener">Open</Menu.Trigger><Menu.Trigger {handle} payload={9} id="second">Second</Menu.Trigger>
     <Menu.Root {handle} {defaultOpen} defaultTriggerId="opener" modal={false} bind:actions {onOpenChange} onOpenChangeComplete={open => itemLog('complete', open)}>{#snippet children({ payload })}{@render popup(payload)}{/snippet}</Menu.Root>
   {:else}
-    <Menu.Root {defaultOpen} modal={false} bind:actions {onOpenChange} onOpenChangeComplete={open => itemLog('complete', open)}><Menu.Trigger id="opener" openOnHover={mode === 'hover'} delay={80} closeDelay={80}>Open</Menu.Trigger>{@render popup()}</Menu.Root>
+    <Menu.Root {defaultOpen} modal={mode === 'modal'} bind:actions {onOpenChange} onOpenChangeComplete={open => itemLog('complete', open)}><Menu.Trigger id="opener" openOnHover={mode === 'hover'} delay={80} closeDelay={80}>Open</Menu.Trigger>{@render popup()}</Menu.Root>
   {/if}
 </DirectionProvider>
 <button id="outside">Outside</button>

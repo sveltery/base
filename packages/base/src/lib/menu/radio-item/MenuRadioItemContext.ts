@@ -1,6 +1,5 @@
 // Original Base UI 1.8.0 context body, native Svelte provider (MIT).
 import { getContext, setContext } from 'svelte';
-/* eslint-disable @typescript-eslint/no-explicit-any -- Preserve Source radio erased value contract. */
 
 export interface MenuRadioItemContext {
   checked: boolean;

@@ -6,7 +6,6 @@
   import { provideMenuRadioGroupContext } from './radio-group/MenuRadioGroupContext.js';
   import { provideMenuGroupContext, type MenuGroupContext } from './group/MenuGroupContext.js';
   import type { MenuRadioGroupProps, MenuRadioGroup } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
   let { render, class: className, value: valueProp, defaultValue, onValueChange: onValueChangeProp, disabled = false, style, 'aria-labelledby': ariaLabelledByProp, children, ref = $bindable(null), ...elementProps }: MenuRadioGroupProps = $props();
   let labelId = $state<string | undefined>(undefined);
   const [getValue, setValueUnwrapped] = useControlled(() => ({ controlled: valueProp, default: defaultValue, name: 'MenuRadioGroup' }));

@@ -3,7 +3,6 @@
   import RenderElement from '../internals/RenderElement.svelte';
   import { provideMenuGroupContext, type MenuGroupContext } from './group/MenuGroupContext.js';
   import type { MenuGroupProps } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
   let { render, class: className, style, children, ref = $bindable(null), ...elementProps }: MenuGroupProps = $props();
   let labelId = $state<string | undefined>(undefined);
   const setLabelId: MenuGroupContext = value => { labelId = typeof value === 'function' ? value(labelId) : value; };

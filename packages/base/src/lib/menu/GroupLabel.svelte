@@ -5,7 +5,6 @@
   import { useBaseUiId } from '../internals/useBaseUiId.js';
   import { useMenuGroupRootContext } from './group/MenuGroupContext.js';
   import type { MenuGroupLabelProps } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
   let { render, class: className, style, id: idProp, children, ref = $bindable(null), ...elementProps }: MenuGroupLabelProps = $props();
   const generatedId = $props.id();
   const id = $derived(useBaseUiId(idProp ?? undefined, generatedId));

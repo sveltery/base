@@ -7,19 +7,33 @@ import { useStableCallback } from './useStableCallback.js';
 import { ownerDocument } from './owner.js';
 import { useAnimationsFinished } from '../internals/useAnimationsFinished.js';
 import { usePopupAutoResize } from './usePopupAutoResize.svelte.js';
-import type { Dimensions } from '@floating-ui/dom';
+import type { Dimensions, Middleware } from '@floating-ui/dom';
 import type { Side } from '../internals/anchor-positioning/types.js';
 import { useDirection } from '../direction-provider/context.js';
 import { adaptiveOrigin } from '../internals/anchor-positioning/adaptive-origin.js';
 import * as CommonViewportDataAttributes from './CommonViewportDataAttributes.js';
-import type { MenuStore } from '../menu/store/MenuStore.svelte.js';
+// Original shared Pick<ReactStore, 'useState' | 'set'> capability, expressed without
+// coupling this canonical shared business helper to one component's popup store.
+interface PopupViewportStoreState {
+    activeTriggerElement: Element | null;
+    activeTriggerId: string | null;
+    open: boolean;
+    payload: unknown;
+    mounted: boolean;
+    popupElement: HTMLElement | null;
+    positionerElement: HTMLElement | null;
+}
+interface PopupViewportStore {
+    useState<Key extends keyof PopupViewportStoreState>(key: Key): PopupViewportStoreState[Key];
+    set(key: 'adaptiveOrigin', value: Middleware | undefined): void;
+}
 export const popupViewportStateMapping = { activationDirection: (value: string | undefined) => value ? { [CommonViewportDataAttributes.activationDirection]: value } : null };
 export interface PopupViewportState {
     activationDirection: string | undefined;
     transitioning: boolean;
 }
 export function usePopupViewport(getParameters: () => {
-    store: MenuStore<unknown>;
+    store: PopupViewportStore;
     side: Side;
     children?: Snippet | undefined;
 }) {

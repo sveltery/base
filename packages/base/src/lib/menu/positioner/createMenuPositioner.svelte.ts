@@ -1,4 +1,5 @@
 // Original MenuPositioner complete business body, native component/render boundary (MIT).
+import { untrack } from 'svelte';
 import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
 import { useTimeout } from '../../utils/useTimeout.js';
 import { useMenuPortalContext } from '../portal/MenuPortalContext.js';
@@ -21,7 +22,7 @@ interface MenuOpenEventDetails {
 export function createMenuPositioner(getProps: () => MenuPositionerProps, store: MenuStore<unknown>, getRef: (node: HTMLElement | null) => void) {
     const { anchor: anchorProp, positionMethod: positionMethodProp = 'absolute', class: className, render, side, align: alignProp, sideOffset: sideOffsetProp = 0, alignOffset: alignOffsetProp = 0, collisionBoundary = 'clipping-ancestors', collisionPadding = 5, arrowPadding = 5, sticky = false, disableAnchorTracking = false, collisionAvoidance: collisionAvoidanceProp = DROPDOWN_COLLISION_AVOIDANCE, style, children, ref, ...elementProps } = $derived(getProps());
     // Host render/ref fields are consumed by the native component, excluded from forwarded props.
-    void [render, className, style, children, ref];
+    untrack(() => { void [render, className, style, children, ref]; });
     const keepMounted = useMenuPortalContext();
     const contextMenuContext = useContextMenuRootContext(true);
     const parent = $derived(store.useState('parent'));

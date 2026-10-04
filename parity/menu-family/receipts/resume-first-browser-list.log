@@ -1,0 +1,20 @@
+
+SyntaxError: /workspace/menu-family-base/tests/browser/menu-family-source.spec.ts: Unexpected token (114:0)
+
+  112 |   });
+  113 | }
+> 114 |
+      | ^
+
+   at menu-family-source.spec.ts:114
+
+  112 |   });
+  113 | }
+> 114 |
+    at eval (<anonymous>:1:1)
+
+Error: No tests found.
+Make sure that arguments are regular expressions matching test files.
+You may need to escape symbols like "$" or "*" and quote the arguments.
+Listing tests:
+Total: 0 tests in 0 files

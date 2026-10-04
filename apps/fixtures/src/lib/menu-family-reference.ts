@@ -14,7 +14,7 @@ export function mountMenuFamilyReference(target: HTMLElement, options: { mode?: 
   let actions: Menu.Root.Actions | null = null;
   const calls: unknown[] = [];
   const itemLog = (kind: string, value: unknown, reason?: string) => { calls.push([kind, value, reason]); log(kind, value, reason); };
-  const onOpenChange: NonNullable<Menu.Root.Props['onOpenChange']> = (open, details) => { if ((open && cancel === 'open') || (!open && cancel === 'close')) details.cancel(); log('open', open, details.reason); };
+  const onOpenChange: NonNullable<Menu.Root.Props['onOpenChange']> = (open, details) => { if (mode === 'retain' && !open) details.preventUnmountOnClose(); if ((open && cancel === 'open') || (!open && cancel === 'close')) details.cancel(); itemLog('open', open, details.reason); };
   const items = () => h(Menu.Group, { id: 'group' }, h(Menu.GroupLabel, { id: 'group-label' }, 'Group label'),
     h(Menu.Item, { id: 'alpha', onClick: () => itemLog('item', 'alpha') }, 'Alpha'),
     h(Menu.Item, { id: 'disabled', disabled: true, onClick: () => itemLog('item', 'disabled') }, 'Disabled'),
@@ -32,9 +32,9 @@ export function mountMenuFamilyReference(target: HTMLElement, options: { mode?: 
     else if (mode === 'menubar') content = h(Menubar, { orientation, modal: false, id: 'menubar' }, h(Menu.Root, { onOpenChange }, h(Menu.Trigger, { id: 'opener' }, 'File'), popup()), h(Menu.Root, { onOpenChange }, h(Menu.Trigger, { id: 'second' }, 'Edit'), h(Menu.Portal, null, h(Menu.Positioner, null, h(Menu.Popup, { ...testId('edit-popup') }, h(Menu.Item, { id: 'edit-first' }, 'Edit first'))))));
     else if (mode === 'toolbar') content = h(Toolbar.Root, null, h(Toolbar.Button, { id: 'before' }, 'Before'), h(Menu.Root, { modal: false }, h(Menu.Trigger, { id: 'opener' }, 'Open'), popup()), h(Toolbar.Button, { id: 'after' }, 'After'));
     else if (mode === 'detached' || mode === 'viewport') content = h(React.Fragment, null, h(Menu.Trigger, { handle, payload: 7, id: 'opener' }, 'Open'), h(Menu.Trigger, { handle, payload: 9, id: 'second' }, 'Second'), h(Menu.Root<number>, { handle, defaultOpen, defaultTriggerId: 'opener', modal: false, actionsRef: actionRef, onOpenChange, onOpenChangeComplete: open => itemLog('complete', open), children: ({ payload }) => popup(payload) }));
-    else content = h(Menu.Root, { defaultOpen, modal: false, actionsRef: actionRef, onOpenChange, onOpenChangeComplete: open => itemLog('complete', open) }, h(Menu.Trigger, { id: 'opener', openOnHover: mode === 'hover', delay: 80, closeDelay: 80 }, 'Open'), popup());
+    else content = h(Menu.Root, { defaultOpen, modal: mode === 'modal', actionsRef: actionRef, onOpenChange, onOpenChangeComplete: open => itemLog('complete', open) }, h(Menu.Trigger, { id: 'opener', openOnHover: mode === 'hover', delay: 80, closeDelay: 80 }, 'Open'), popup());
     return h(DirectionProvider, { direction }, content, h('button', { id: 'outside' }, 'Outside'));
   }
   const root = createRoot(target); root.render(h(Fixture));
-  return { stop: () => root.unmount(), command(value: string) { if (value === 'open') handle.open('opener'); if (value === 'second') handle.open('second'); if (value === 'close') handle.close(); if (value === 'unmount') actions?.unmount(); }, snapshot() { return { isOpen: handle.isOpen, actions: !!actions, calls }; } };
+  return { stop: () => root.unmount(), command(value: string) { if (value === 'open') handle.open('opener'); if (value === 'second') handle.open('second'); if (value === 'close') actions?.close(); if (value === 'unmount') actions?.unmount(); }, snapshot() { return { isOpen: handle.isOpen, actions: !!actions, calls }; } };
 }

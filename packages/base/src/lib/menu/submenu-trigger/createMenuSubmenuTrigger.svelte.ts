@@ -1,4 +1,5 @@
 // Original MenuSubmenuTrigger full item/navigation/hover business, native live props (MIT).
+import { untrack } from 'svelte';
 import { DEV } from 'esm-env';
 import { isElementDisabled } from '../../utils/isElementDisabled.js';
 import { warn } from '../../utils/warn.js';
@@ -22,7 +23,7 @@ const VOICE_OVER_EXPANDED_PROPS = { 'aria-expanded': undefined };
 export function createMenuSubmenuTrigger(getProps: () => MenuSubmenuTriggerProps, generatedId: string, setRef: (node: HTMLElement | null) => void) {
     const { render, class: className, style, label, id: idProp, nativeButton = false, openOnHover = true, delay = 100, closeDelay = 0, disabled: disabledProp = false, children, ref, ...elementProps } = $derived(getProps());
     // Host render/ref fields are consumed by the native component, excluded from forwarded props.
-    void [render, className, style, children, ref];
+    untrack(() => { void [render, className, style, children, ref]; });
     const submenuRootContext = useMenuSubmenuRootContext();
     if (!submenuRootContext?.parentMenu) {
         throw new Error('Base UI: <Menu.SubmenuTrigger> must be placed in <Menu.SubmenuRoot>.');

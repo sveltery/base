@@ -276,7 +276,6 @@ export function useListNavigation(getContext: () => FloatingRootContext | Floati
                 runFocus(waitedItem);
             }
             const shouldScrollIntoView = 
-            // eslint-disable-next-line @typescript-eslint/no-use-before-define
             item && (forceScrollIntoView || !isPointerModalityRef.current);
             if (shouldScrollIntoView) {
                 // JSDOM doesn't support `.scrollIntoView()` but it's widely supported

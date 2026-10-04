@@ -76,3 +76,47 @@ command status, so this run is not credited as an overall successful gate pendin
 investigation. The added RTL, touch/multiple-touch/movement cancellation, delayed
 context release and captured-viewport probes preserve the same paired
 expectations. No Original ordinary Menu declaration credit is claimed.
+
+The direct expanded repeat records process exit `0` in
+`receipts/resume-expanded-repeat-dom.exit` and again reports fifty passing tests
+in `receipts/resume-expanded-repeat-dom.log`. This resolves the wrapper-status
+uncertainty for that executed local DOM gate. There were no runtime teardown
+warnings or unhandled errors; compile-time initial-value warnings from unused
+native host fields are subsequently removed by explicit untracked reads. The
+first Standards invocation also records exit `0`, with eleven unused suppression
+warnings, which are removed before the next complete verification.
+
+## Strict public API and actual used closure checkpoint
+
+The rebuilt installed package now passes strict `skipLibCheck:false` and
+`exactOptionalPropertyTypes` root/subpath/render/ref/generic/actions/optional
+positive consumers and exactly nine native negative diagnostics. Native initial
+SSR composition and all public part/ContextMenu-alias identities pass without
+browser globals. Portals retain their native client-mount boundary, so this SSR
+result does not claim popup DOM hydration or browser geometry acceptance. The
+first strict consumer's explicit-undefined positioning failure is archived;
+the public mapped optional types were repaired from the Original public
+undefined unions, with no private geometry/runtime change. Repaired build and
+strict consumer receipts both record exit `0`.
+
+The updated actual React/native matrix and unchanged anchor tests pass fifty
+executions again, now without initial-host-field compile warnings or native
+teardown warnings. Standards passes with no warnings. Raw outputs and exit files
+are preserved under `receipts/resume-repair-*`. Three provenance checks verify
+all Original runtime/test-helper archived hashes, actual used native/import
+correspondence bytes and the still-unported ordinary declaration ledger.
+
+The native shared viewport helper now uses the Original narrow `useState`/`set`
+popup-store capability instead of a component-specific MenuStore dependency.
+The actual native graph has 197 modules/891 runtime/type edges; all 200 Original
+modules have an actual used body, a deliberate native representation, or an
+explicit unselected conservative-barrel record. This resolution is not manual
+business or independent review acceptance. The complete assertion inventory
+retains 331 declaration sites and nineteen separate conformance/helper calls,
+all zero credited. Forty-four authored secured browser pairs are listed but
+remain unexecuted. The dedicated official Ubuntu 22 browser workflow preserves
+raw JSON and failure traces, with canonical sandbox enabled/one worker/no retries.
+
+Full repository Verification, hosted browser execution, configured CI, independent
+full used-closure source/native/maintainability review and exact-head Root approval
+remain pending. This is a concrete review candidate, not family acceptance.

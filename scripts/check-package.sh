@@ -203,3 +203,6 @@ bash "$sveltery_repo_root/scripts/check-boolean-controls-package.sh"
 
 # Installed public schema-derived remote form types, including recursive/exact optional contracts.
 bash "$sveltery_repo_root/scripts/check-remote-form-types.sh" --public
+
+# Actual strict installed Menu/ContextMenu/Menubar anatomy, generics, native SSR and types.
+bash "$sveltery_repo_root/scripts/check-menu-family-package.sh"

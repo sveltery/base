@@ -17,7 +17,9 @@ export type ElementProps<State, Native = HTMLAttributes<HTMLElement>> = Omit<Wit
 interface NativeButtonProps { nativeButton?: boolean | undefined }
 type NonNativeButtonProps = NativeButtonProps;
 type PayloadChildRenderFunction<Payload> = Snippet<[{ payload: Payload | undefined }]>;
-type UseAnchorPositioningSharedParameters = Omit<AnchorPositioningOptions, 'open' | 'mounted' | 'collisionAvoidance' | 'floatingRootContext' | 'externalTree' | 'nodeId'> & { collisionAvoidance?: AnchorPositioningOptions['collisionAvoidance'] | undefined };
+// Public Original positioning props explicitly accept undefined with exact optional types.
+type PublicAnchorPositioningOptions = { [Key in keyof AnchorPositioningOptions]: AnchorPositioningOptions[Key] | undefined };
+type UseAnchorPositioningSharedParameters = Omit<PublicAnchorPositioningOptions, 'open' | 'mounted' | 'collisionAvoidance' | 'floatingRootContext' | 'externalTree' | 'nodeId'> & { collisionAvoidance?: AnchorPositioningOptions['collisionAvoidance'] | undefined };
 
 
 
@@ -184,7 +186,7 @@ export interface MenuGroupProps extends ElementProps<MenuGroupState, HTMLAttribu
   /**
    * The content of the component.
    */
-  children?: Snippet;
+  children?: Snippet | undefined;
 }
 
 
@@ -287,7 +289,7 @@ export namespace MenuLinkItem {
 
 
 export interface MenuPopupProps extends ElementProps<MenuPopupState, HTMLAttributes<HTMLDivElement>> {
-  children?: Snippet;
+  children?: Snippet | undefined;
   /**
    * @ignore
    */
@@ -426,7 +428,7 @@ export interface MenuRadioGroupProps extends ElementProps<MenuRadioGroupState, H
   /**
    * The content of the component.
    */
-  children?: Snippet;
+  children?: Snippet | undefined;
   /**
    * The controlled value of the radio item that should be currently selected.
    *
@@ -653,7 +655,7 @@ export interface MenuRootProps<Payload = unknown> {
    * The content of the menu.
    * This can be a regular React node or a render function that receives the `payload` of the active trigger.
    */
-  children?: PayloadChildRenderFunction<Payload>;
+  children?: PayloadChildRenderFunction<Payload> | undefined;
 }
 
 
@@ -744,7 +746,7 @@ export interface MenuSubmenuRootProps extends Omit<
   /**
    * The content of the submenu.
    */
-  children?: Snippet;
+  children?: Snippet | undefined;
 }
 
 
@@ -827,7 +829,7 @@ export namespace MenuSubmenuTrigger {
 
 export interface MenuTriggerProps<Payload = unknown>
   extends NativeButtonProps, ElementProps<MenuTriggerState, HTMLButtonAttributes> {
-  children?: Snippet;
+  children?: Snippet | undefined;
   /**
    * Whether the component should ignore user interaction.
    * @default false
@@ -901,7 +903,7 @@ export interface MenuViewportProps extends ElementProps<MenuViewportState, HTMLA
   /**
    * The content to render inside the transition container.
    */
-  children?: Snippet;
+  children?: Snippet | undefined;
 }
 
 

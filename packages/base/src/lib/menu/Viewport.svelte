@@ -9,7 +9,6 @@
   import * as CommonPopupCssVars from '../utils/CommonPopupCssVars.js';
   import { toNativeStyle } from '../internals/nativeProps.js';
   import type { MenuViewportProps } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
   let { render, class: className, style, children, ref = $bindable(null), ...elementProps }: MenuViewportProps = $props();
   const { store } = useMenuRootContext();
   const positioner = useMenuPositionerContext();

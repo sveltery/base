@@ -4,7 +4,6 @@
   import { provideMenuRootContext } from '../menu/root/MenuRootContext.js';
   import { provideContextMenuRootContext, type ContextMenuRootContext } from './root/ContextMenuRootContext.js';
   import type { ContextMenuRootProps } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
   let { children, actions = $bindable(null), ...props }: ContextMenuRootProps = $props();
   let anchor = $state.raw<ContextMenuRootContext['anchor']>({ getBoundingClientRect() { return DOMRect.fromRect({ width: 0, height: 0, x: 0, y: 0 }); } });
   const backdropRef = { current: null as HTMLDivElement | null };

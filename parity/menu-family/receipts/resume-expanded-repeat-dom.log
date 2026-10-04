@@ -1,0 +1,50 @@
+$ vitest run --config vitest.dom.config.ts menu-family-source.test.ts anchor-positioning
+
+ RUN  v5.0.3 /workspace/menu-family-base/packages/base
+
+5:41:03 AM [vite-plugin-svelte] dist/menu/positioner/createMenuPositioner.svelte.js:16:10 This reference only captures the initial value of `render`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally
+5:41:03 AM [vite-plugin-svelte] dist/menu/positioner/createMenuPositioner.svelte.js:16:18 This reference only captures the initial value of `className`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally
+5:41:03 AM [vite-plugin-svelte] dist/menu/positioner/createMenuPositioner.svelte.js:16:29 This reference only captures the initial value of `style`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally
+5:41:03 AM [vite-plugin-svelte] dist/menu/positioner/createMenuPositioner.svelte.js:16:36 This reference only captures the initial value of `children`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally
+5:41:03 AM [vite-plugin-svelte] dist/menu/positioner/createMenuPositioner.svelte.js:16:46 This reference only captures the initial value of `ref`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally
+5:41:03 AM [vite-plugin-svelte] dist/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.js:24:10 This reference only captures the initial value of `render`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally
+5:41:03 AM [vite-plugin-svelte] dist/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.js:24:18 This reference only captures the initial value of `className`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally
+5:41:03 AM [vite-plugin-svelte] dist/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.js:24:29 This reference only captures the initial value of `style`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally
+5:41:03 AM [vite-plugin-svelte] dist/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.js:24:36 This reference only captures the initial value of `children`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally
+5:41:03 AM [vite-plugin-svelte] dist/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.js:24:46 This reference only captures the initial value of `ref`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally
+5:41:03 AM [vite-plugin-svelte] dist/menu/trigger/createMenuTrigger.svelte.js:32:10 This reference only captures the initial value of `render`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally
+5:41:03 AM [vite-plugin-svelte] dist/menu/trigger/createMenuTrigger.svelte.js:32:18 This reference only captures the initial value of `className`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally
+5:41:03 AM [vite-plugin-svelte] dist/menu/trigger/createMenuTrigger.svelte.js:32:29 This reference only captures the initial value of `style`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally
+5:41:03 AM [vite-plugin-svelte] dist/menu/trigger/createMenuTrigger.svelte.js:32:36 This reference only captures the initial value of `children`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally
+5:41:03 AM [vite-plugin-svelte] dist/menu/trigger/createMenuTrigger.svelte.js:32:46 This reference only captures the initial value of `consumerRef`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally
+5:41:03 AM [vite-plugin-svelte] dist/context-menu/trigger/createContextMenuTrigger.svelte.js:17:10 This reference only captures the initial value of `render`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally
+5:41:03 AM [vite-plugin-svelte] dist/context-menu/trigger/createContextMenuTrigger.svelte.js:17:18 This reference only captures the initial value of `className`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally
+5:41:03 AM [vite-plugin-svelte] dist/context-menu/trigger/createContextMenuTrigger.svelte.js:17:29 This reference only captures the initial value of `style`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally
+5:41:03 AM [vite-plugin-svelte] dist/context-menu/trigger/createContextMenuTrigger.svelte.js:17:36 This reference only captures the initial value of `children`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally
+5:41:03 AM [vite-plugin-svelte] dist/context-menu/trigger/createContextMenuTrigger.svelte.js:17:46 This reference only captures the initial value of `ref`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally
+
+ Test Files  4 passed (4)
+      Tests  50 passed (50)
+   Start at  05:40:59
+   Duration  20.99s (tests 64%, transform 20%, environment 11%, import 4%)
+

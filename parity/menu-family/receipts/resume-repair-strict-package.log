@@ -1,0 +1,6 @@
+Installed Menu family complete root/subpath identity and native SSR composition: PASS
+Loading svelte-check in workspace: /workspace/sveltery-tmp/sveltery-menu-consumer.6JMcuw
+Getting Svelte diagnostics...
+
+svelte-check found 0 errors and 0 warnings
+Isolated strict installed Menu family generic/ref/render/actions/optional positives and nine negative diagnostics: PASS

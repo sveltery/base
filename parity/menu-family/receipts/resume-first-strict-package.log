@@ -1,0 +1,14 @@
+Installed Menu family complete root/subpath identity and native SSR composition: PASS
+Loading svelte-check in workspace: /workspace/sveltery-tmp/sveltery-menu-consumer.aIYZVW
+Getting Svelte diagnostics...
+
+/workspace/sveltery-tmp/sveltery-menu-consumer.aIYZVW/Consumer.svelte:14:9
+Error: Type '{ side: "inline-end"; sideOffset: (data: { side: Side; align: Align; anchor: { width: number; height: number; }; positioner: { width: number; height: number; }; }) => number; alignOffset: undefined; collisionBoundary: undefined; }' is not assignable to type 'MenuPositionerProps' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'alignOffset' are incompatible.
+    Type 'undefined' is not assignable to type 'number | OffsetFunction'. (ts)
+  const trigger: MenuTriggerProps<Payload> = { handle, payload: { value: 7 }, disabled: undefined, nativeButton: undefined, class: state => ['trigger', { open: state.open }], style: state => ({ opacity: state.disabled ? 0.5 : 1 }) };
+  const positioner: MenuPositionerProps = { side: 'inline-end', sideOffset: data => data.anchor.height + data.positioner.width, alignOffset: undefined, collisionBoundary: undefined };
+  const checkbox: MenuCheckboxItemProps = { checked: undefined, defaultChecked: undefined, onCheckedChange: undefined, closeOnClick: undefined };
+
+====================================
+svelte-check found 1 error and 0 warnings in 1 file

@@ -31,7 +31,7 @@ import type { MenuHandleStore } from '../store/MenuStore.svelte.js';
 export function createMenuTrigger<Payload>(getProps: () => MenuTriggerProps<Payload>, generatedId: string, setRef: (node: HTMLElement | null) => void) {
     const { render, class: className, style, disabled: disabledProp = false, nativeButton = true, id: idProp, openOnHover: openOnHoverProp, delay = 100, closeDelay = 0, handle, payload, children, ref: consumerRef, ...elementProps } = $derived(getProps());
     // Host render/ref fields are consumed by the native component, excluded from forwarded props.
-    void [render, className, style, children, consumerRef];
+    untrack(() => { void [render, className, style, children, consumerRef]; });
     const rootContext = useMenuRootContext(true);
     const handleStore = usePopupHandleStore(() => handle);
     const store: MenuHandleStore<unknown> = $derived.by(() => {
