@@ -3262,9 +3262,9 @@
       "local": [
         "packages/base/src/lib/internals/use-button/useButton.svelte.ts"
       ],
-      "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
+      "decision": "Canonical shared native useButton preserves Original business algorithms and both DEV explanation paragraphs. React effect/ref setup uses native Svelte state/effect; React owner-stack capture has no native equivalent. Final whole-body review remains required.",
       "reviewStatus": "actual used port/native boundary; final exact-head whole-source/native/maintainability review pending",
-      "provenance": "Normal development integration of public Dialog3435232 and Source repair ad19bb3; final exact-head dependency acceptance remains pending."
+      "provenance": "Root-approved helper-only restore from public PR59 d00a8b0aca67abfdbde6ccf540131557b74e0ca3 at the same canonical path; SHA256 ee71d7077c51139162152716111472919bf80b71e6e9cde62d15ff0b7ce56f59. Only two diagnostic strings change; all business bodies/import edges remain 387-identical. No whole Toolbar/navigation or unpublished Button payload is imported. Selected helper acceptance and exact-head whole121 review remain pending."
     },
     {
       "source": "packages/react/src/internals/useAnimationsFinished.ts",
