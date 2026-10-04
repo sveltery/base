@@ -169,7 +169,26 @@ for (const reference of [true, false]) test(`${reference ? 'Actual React' : 'Nat
   await page.mouse.click(500, 400); await expect(popup(page)).toBeVisible();
   expect((await api(page, 'snapshot') as Snapshot).changes.map(call => call.reason)).toEqual(['trigger-press']);
   await page.keyboard.press('Escape'); await expect(popup(page)).toHaveCount(0); await expect(button(page, 'Open')).toBeFocused();
-  expect(await page.locator('body').evaluate(node => ({ overflow: node.style.overflow, padding: node.style.paddingRight }))).toEqual(before);
+  // Diagnostic only: retain the original observation and assertion while recording later cleanup.
+  const temporal = await page.locator('body').evaluate(async node => {
+    const read = () => ({ overflow: node.style.overflow, padding: node.style.paddingRight });
+    const immediate = read();
+    const started = performance.now();
+    const samples: { phase: string; milliseconds: number; body: ReturnType<typeof read>; style: string | null; oldStyle: string | null }[] = [];
+    const sample = (phase: string, oldStyle: string | null = null) => samples.push({ phase, milliseconds: performance.now() - started, body: read(), style: node.getAttribute('style'), oldStyle });
+    sample('immediate');
+    const observer = new MutationObserver(records => { for (const record of records) sample('body-style-mutation', record.oldValue); });
+    observer.observe(node, { attributes: true, attributeFilter: ['style'], attributeOldValue: true });
+    await new Promise<void>(resolve => setTimeout(() => { sample('timer-0'); resolve(); }, 0));
+    await new Promise<void>(resolve => requestAnimationFrame(() => { sample('animation-frame-1'); resolve(); }));
+    await new Promise<void>(resolve => requestAnimationFrame(() => { sample('animation-frame-2'); resolve(); }));
+    observer.disconnect();
+    return { immediate, samples };
+  });
+  const evidence = { framework: reference ? 'Actual Source React' : 'Native Svelte', before, ...temporal };
+  console.log('AlertDialog scroll cleanup temporal evidence', JSON.stringify(evidence));
+  await test.info().attach('scroll-cleanup-temporal.json', { body: JSON.stringify(evidence, null, 2), contentType: 'application/json' });
+  expect(temporal.immediate).toEqual(before);
   await api(page, 'remove'); expect((await api(page, 'snapshot') as Snapshot).actions).toBe(false);
   await expect(page.locator('[data-base-ui-focus-guard]')).toHaveCount(0); await expect(page.locator('[data-base-ui-portal]')).toHaveCount(0);
 });
