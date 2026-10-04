@@ -4,7 +4,7 @@
   "preCodeCommit": "f4e253b",
   "helperCheckpoint": "3d60396",
   "runtimeCheckpoint": "3706588",
-  "status": "Actual selected closure and developer side-by-side body record; exact frozen public Dialog ad19 canonical animation repair reused under root lease. Unaccepted helper development prerequisites, final exact-head gates and independent review remain pending.",
+  "status": "Actual selected closure and developer side-by-side body record; exact public Dialogaa5 invocation-time animation batching repair reused under root lease, with exact ad19 open-change helper unchanged. Canonical helper Source review is CLEAR; final whole Tabs exact-head Source/native/maintainability review, gates and actual-main selected-helper seam review remain pending.",
   "preCodePlanRetained": "source-correspondence.json (unchanged historical plan)",
   "actualLocalGraph": "actual-local-graph.json",
   "publicInventory": "public-inventory.json",
@@ -767,7 +767,7 @@
         }
       ],
       "decision": "Actual runtime/type selected implementation listed with reachability and identity; framework substitutions explicit.",
-      "bodyComparison": "Manually compared Source/native transition branches, retained mount/starting/ending state, frame cleanup, animation promise rejection/replacement recursion, AbortSignal and starting-style MutationObserver ownership. Native RAF/lifecycle and Svelte flushSync replace the framework commit primitive; Source pendingCallbacks, individual commit, batching, queue-time/flush-time abort checks and callback order are retained in exact public Dialogad19 helper bytes. Developer read and root comparison/ordered Source-native abort witness support the reuse lease. This remains an unaccepted development helper checkpoint until actual main integration and independent approval. Own mixed-batch/native teardown and paired Panel exit/reopen/teardown probes cover the used path.",
+      "bodyComparison": "Manually compared Source/native transition branches, retained mount/starting/ending state, frame cleanup, animation promise rejection/replacement recursion, AbortSignal and starting-style MutationObserver ownership. Native RAF/lifecycle and Svelte flushSync replace the framework commit primitive. Canonical public Dialogaa5 useAnimationsFinished captures batch at invocation, retaining Original boolean closure semantics while pending; pendingCallbacks, individual commit, same-microtask batching, queue-time/flush-time abort checks and callback order remain unchanged. useOpenChangeComplete retains exact public Dialogad19 bytes. Canonical independent Source equality is8/8 after two native failures/six passes before the snapshot repair; the helper Source review is CLEAR, while whole Tabs Source/native/maintainability and actual-main seam acceptance remain pending. Own mixed-batch/native teardown and paired Panel exit/reopen/teardown probes cover the used fixed-true path and earn zero unchanged ordinary credit.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -785,7 +785,7 @@
         }
       ],
       "decision": "Actual runtime/type selected implementation listed with reachability and identity; framework substitutions explicit.",
-      "bodyComparison": "Manually compared Source/native transition branches, retained mount/starting/ending state, frame cleanup, animation promise rejection/replacement recursion, AbortSignal and starting-style MutationObserver ownership. Native RAF/lifecycle and Svelte flushSync replace the framework commit primitive; Source pendingCallbacks, individual commit, batching, queue-time/flush-time abort checks and callback order are retained in exact public Dialogad19 helper bytes. Developer read and root comparison/ordered Source-native abort witness support the reuse lease. This remains an unaccepted development helper checkpoint until actual main integration and independent approval. Own mixed-batch/native teardown and paired Panel exit/reopen/teardown probes cover the used path.",
+      "bodyComparison": "Manually compared Source/native transition branches, retained mount/starting/ending state, frame cleanup, animation promise rejection/replacement recursion, AbortSignal and starting-style MutationObserver ownership. Native RAF/lifecycle and Svelte flushSync replace the framework commit primitive. Canonical public Dialogaa5 useAnimationsFinished captures batch at invocation, retaining Original boolean closure semantics while pending; pendingCallbacks, individual commit, same-microtask batching, queue-time/flush-time abort checks and callback order remain unchanged. useOpenChangeComplete retains exact public Dialogad19 bytes. Canonical independent Source equality is8/8 after two native failures/six passes before the snapshot repair; the helper Source review is CLEAR, while whole Tabs Source/native/maintainability and actual-main seam acceptance remain pending. Own mixed-batch/native teardown and paired Panel exit/reopen/teardown probes cover the used fixed-true path and earn zero unchanged ordinary credit.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -842,14 +842,14 @@
       "actualLocalUses": [
         {
           "local": "packages/base/src/lib/internals/useAnimationsFinished.ts",
-          "sha256": "409aec4223eca26f66b6c1f5824cdaf8df68c916f66a2efb75617b255129ebf9",
+          "sha256": "0ae8873174969326a7ac09377ab019af5cd575bbdfde7df9118317d0ec1c1e30",
           "reachability": [
             "runtime"
           ]
         }
       ],
       "decision": "Actual runtime/type selected implementation listed with reachability and identity; framework substitutions explicit.",
-      "bodyComparison": "Manually compared Source/native transition branches, retained mount/starting/ending state, frame cleanup, animation promise rejection/replacement recursion, AbortSignal and starting-style MutationObserver ownership. Native RAF/lifecycle and Svelte flushSync replace the framework commit primitive; Source pendingCallbacks, individual commit, batching, queue-time/flush-time abort checks and callback order are retained in exact public Dialogad19 helper bytes. Developer read and root comparison/ordered Source-native abort witness support the reuse lease. This remains an unaccepted development helper checkpoint until actual main integration and independent approval. Own mixed-batch/native teardown and paired Panel exit/reopen/teardown probes cover the used path.",
+      "bodyComparison": "Manually compared Source/native transition branches, retained mount/starting/ending state, frame cleanup, animation promise rejection/replacement recursion, AbortSignal and starting-style MutationObserver ownership. Native RAF/lifecycle and Svelte flushSync replace the framework commit primitive. Canonical public Dialogaa5 useAnimationsFinished captures batch at invocation, retaining Original boolean closure semantics while pending; pendingCallbacks, individual commit, same-microtask batching, queue-time/flush-time abort checks and callback order remain unchanged. useOpenChangeComplete retains exact public Dialogad19 bytes. Canonical independent Source equality is8/8 after two native failures/six passes before the snapshot repair; the helper Source review is CLEAR, while whole Tabs Source/native/maintainability and actual-main seam acceptance remain pending. Own mixed-batch/native teardown and paired Panel exit/reopen/teardown probes cover the used fixed-true path and earn zero unchanged ordinary credit.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -877,7 +877,7 @@
         }
       ],
       "decision": "Actual runtime/type selected implementation listed with reachability and identity; framework substitutions explicit.",
-      "bodyComparison": "Manually compared Source/native transition branches, retained mount/starting/ending state, frame cleanup, animation promise rejection/replacement recursion, AbortSignal and starting-style MutationObserver ownership. Native RAF/lifecycle and Svelte flushSync replace the framework commit primitive; Source pendingCallbacks, individual commit, batching, queue-time/flush-time abort checks and callback order are retained in exact public Dialogad19 helper bytes. Developer read and root comparison/ordered Source-native abort witness support the reuse lease. This remains an unaccepted development helper checkpoint until actual main integration and independent approval. Own mixed-batch/native teardown and paired Panel exit/reopen/teardown probes cover the used path.",
+      "bodyComparison": "Manually compared Source/native transition branches, retained mount/starting/ending state, frame cleanup, animation promise rejection/replacement recursion, AbortSignal and starting-style MutationObserver ownership. Native RAF/lifecycle and Svelte flushSync replace the framework commit primitive. Canonical public Dialogaa5 useAnimationsFinished captures batch at invocation, retaining Original boolean closure semantics while pending; pendingCallbacks, individual commit, same-microtask batching, queue-time/flush-time abort checks and callback order remain unchanged. useOpenChangeComplete retains exact public Dialogad19 bytes. Canonical independent Source equality is8/8 after two native failures/six passes before the snapshot repair; the helper Source review is CLEAR, while whole Tabs Source/native/maintainability and actual-main seam acceptance remain pending. Own mixed-batch/native teardown and paired Panel exit/reopen/teardown probes cover the used fixed-true path and earn zero unchanged ordinary credit.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -915,7 +915,7 @@
         }
       ],
       "decision": "Actual runtime/type selected implementation listed with reachability and identity; framework substitutions explicit.",
-      "bodyComparison": "Manually compared Source/native transition branches, retained mount/starting/ending state, frame cleanup, animation promise rejection/replacement recursion, AbortSignal and starting-style MutationObserver ownership. Native RAF/lifecycle and Svelte flushSync replace the framework commit primitive; Source pendingCallbacks, individual commit, batching, queue-time/flush-time abort checks and callback order are retained in exact public Dialogad19 helper bytes. Developer read and root comparison/ordered Source-native abort witness support the reuse lease. This remains an unaccepted development helper checkpoint until actual main integration and independent approval. Own mixed-batch/native teardown and paired Panel exit/reopen/teardown probes cover the used path.",
+      "bodyComparison": "Manually compared Source/native transition branches, retained mount/starting/ending state, frame cleanup, animation promise rejection/replacement recursion, AbortSignal and starting-style MutationObserver ownership. Native RAF/lifecycle and Svelte flushSync replace the framework commit primitive. Canonical public Dialogaa5 useAnimationsFinished captures batch at invocation, retaining Original boolean closure semantics while pending; pendingCallbacks, individual commit, same-microtask batching, queue-time/flush-time abort checks and callback order remain unchanged. useOpenChangeComplete retains exact public Dialogad19 bytes. Canonical independent Source equality is8/8 after two native failures/six passes before the snapshot repair; the helper Source review is CLEAR, while whole Tabs Source/native/maintainability and actual-main seam acceptance remain pending. Own mixed-batch/native teardown and paired Panel exit/reopen/teardown probes cover the used fixed-true path and earn zero unchanged ordinary credit.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -1128,7 +1128,7 @@
         }
       ],
       "decision": "Actual runtime/type selected implementation listed with reachability and identity; framework substitutions explicit.",
-      "bodyComparison": "Full Panel body manually compared: real panel CompositeListItem index, generated ID registration and Source prop precedence, source open/mounted/hidden and keepMounted branches, source lifecycle helpers, active tabindex/inert, register cleanup ownership. Native boolean inert and $props.id replace framework representations. Canonical exact public Dialogad19 animation repair restores Source queue/individual commit policy; no local competing helper/dedup guard. Actual normally merged helper integration and independent approval remain pending.",
+      "bodyComparison": "Full Panel body manually compared: real panel CompositeListItem index, generated ID registration and Source prop precedence, source open/mounted/hidden and keepMounted branches, source lifecycle helpers, active tabindex/inert, register cleanup ownership. Native boolean inert and $props.id replace framework representations. Canonical public Dialogaa5 animation helper captures Original invocation-time batch policy; exact public Dialogad19 open-change helper retains Source queue/individual commit composition. No local competing helper/dedup guard. Whole Tabs independent approval and actual-main selected-helper seam review remain pending.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -1164,7 +1164,7 @@
         }
       ],
       "decision": "Actual runtime/type selected implementation listed with reachability and identity; framework substitutions explicit.",
-      "bodyComparison": "Manually compared Source/native transition branches, retained mount/starting/ending state, frame cleanup, animation promise rejection/replacement recursion, AbortSignal and starting-style MutationObserver ownership. Native RAF/lifecycle and Svelte flushSync replace the framework commit primitive; Source pendingCallbacks, individual commit, batching, queue-time/flush-time abort checks and callback order are retained in exact public Dialogad19 helper bytes. Developer read and root comparison/ordered Source-native abort witness support the reuse lease. This remains an unaccepted development helper checkpoint until actual main integration and independent approval. Own mixed-batch/native teardown and paired Panel exit/reopen/teardown probes cover the used path.",
+      "bodyComparison": "Manually compared Source/native transition branches, retained mount/starting/ending state, frame cleanup, animation promise rejection/replacement recursion, AbortSignal and starting-style MutationObserver ownership. Native RAF/lifecycle and Svelte flushSync replace the framework commit primitive. Canonical public Dialogaa5 useAnimationsFinished captures batch at invocation, retaining Original boolean closure semantics while pending; pendingCallbacks, individual commit, same-microtask batching, queue-time/flush-time abort checks and callback order remain unchanged. useOpenChangeComplete retains exact public Dialogad19 bytes. Canonical independent Source equality is8/8 after two native failures/six passes before the snapshot repair; the helper Source review is CLEAR, while whole Tabs Source/native/maintainability and actual-main seam acceptance remain pending. Own mixed-batch/native teardown and paired Panel exit/reopen/teardown probes cover the used fixed-true path and earn zero unchanged ordinary credit.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -1903,7 +1903,7 @@
         }
       ],
       "decision": "Actual runtime/type selected implementation listed with reachability and identity; framework substitutions explicit.",
-      "bodyComparison": "Manually compared full selected Source and canonical native state/lifecycle helpers. Controlled mode captures initial definedness, Source fallback/set guards/dev warnings retained; live closures and Svelte setup/runes/effect tuples/onMount/RAF provide identity/lifetime. React-only insertion/render guards and StrictMode machinery are replaced by native Svelte primitives; Source animation commit/batch policy is preserved through native flushSync. Source animation batching is now preserved by the exact canonical public Dialogad19 helper; helper inheritance is not blanket acceptance.",
+      "bodyComparison": "Manually compared full selected Source and canonical native state/lifecycle helpers. Controlled mode captures initial definedness, Source fallback/set guards/dev warnings retained; live closures and Svelte setup/runes/effect tuples/onMount/RAF provide identity/lifetime. React-only insertion/render guards and StrictMode machinery are replaced by native Svelte primitives; Source animation commit/batch policy is preserved through native flushSync. Source invocation-time batch closure and completion commit policy are preserved by the exact canonical public Dialogaa5 animation helper; helper inheritance is not blanket acceptance.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -1921,7 +1921,7 @@
         }
       ],
       "decision": "Actual runtime/type selected implementation listed with reachability and identity; framework substitutions explicit.",
-      "bodyComparison": "Manually compared full selected Source and canonical native state/lifecycle helpers. Controlled mode captures initial definedness, Source fallback/set guards/dev warnings retained; live closures and Svelte setup/runes/effect tuples/onMount/RAF provide identity/lifetime. React-only insertion/render guards and StrictMode machinery are replaced by native Svelte primitives; Source animation commit/batch policy is preserved through native flushSync. Source animation batching is now preserved by the exact canonical public Dialogad19 helper; helper inheritance is not blanket acceptance.",
+      "bodyComparison": "Manually compared full selected Source and canonical native state/lifecycle helpers. Controlled mode captures initial definedness, Source fallback/set guards/dev warnings retained; live closures and Svelte setup/runes/effect tuples/onMount/RAF provide identity/lifetime. React-only insertion/render guards and StrictMode machinery are replaced by native Svelte primitives; Source animation commit/batch policy is preserved through native flushSync. Source invocation-time batch closure and completion commit policy are preserved by the exact canonical public Dialogaa5 animation helper; helper inheritance is not blanket acceptance.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -1970,7 +1970,7 @@
         }
       ],
       "decision": "Actual runtime/type selected implementation listed with reachability and identity; framework substitutions explicit.",
-      "bodyComparison": "Manually compared full selected Source and canonical native state/lifecycle helpers. Controlled mode captures initial definedness, Source fallback/set guards/dev warnings retained; live closures and Svelte setup/runes/effect tuples/onMount/RAF provide identity/lifetime. React-only insertion/render guards and StrictMode machinery are replaced by native Svelte primitives; Source animation commit/batch policy is preserved through native flushSync. Source animation batching is now preserved by the exact canonical public Dialogad19 helper; helper inheritance is not blanket acceptance.",
+      "bodyComparison": "Manually compared full selected Source and canonical native state/lifecycle helpers. Controlled mode captures initial definedness, Source fallback/set guards/dev warnings retained; live closures and Svelte setup/runes/effect tuples/onMount/RAF provide identity/lifetime. React-only insertion/render guards and StrictMode machinery are replaced by native Svelte primitives; Source animation commit/batch policy is preserved through native flushSync. Source invocation-time batch closure and completion commit policy are preserved by the exact canonical public Dialogaa5 animation helper; helper inheritance is not blanket acceptance.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -2008,7 +2008,7 @@
         }
       ],
       "decision": "Actual runtime/type selected implementation listed with reachability and identity; framework substitutions explicit.",
-      "bodyComparison": "Manually compared full selected Source and canonical native state/lifecycle helpers. Controlled mode captures initial definedness, Source fallback/set guards/dev warnings retained; live closures and Svelte setup/runes/effect tuples/onMount/RAF provide identity/lifetime. React-only insertion/render guards and StrictMode machinery are replaced by native Svelte primitives; Source animation commit/batch policy is preserved through native flushSync. Source animation batching is now preserved by the exact canonical public Dialogad19 helper; helper inheritance is not blanket acceptance.",
+      "bodyComparison": "Manually compared full selected Source and canonical native state/lifecycle helpers. Controlled mode captures initial definedness, Source fallback/set guards/dev warnings retained; live closures and Svelte setup/runes/effect tuples/onMount/RAF provide identity/lifetime. React-only insertion/render guards and StrictMode machinery are replaced by native Svelte primitives; Source animation commit/batch policy is preserved through native flushSync. Source invocation-time batch closure and completion commit policy are preserved by the exact canonical public Dialogaa5 animation helper; helper inheritance is not blanket acceptance.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -2027,7 +2027,7 @@
         }
       ],
       "decision": "Actual runtime/type selected implementation listed with reachability and identity; framework substitutions explicit.",
-      "bodyComparison": "Manually compared full selected Source and canonical native state/lifecycle helpers. Controlled mode captures initial definedness, Source fallback/set guards/dev warnings retained; live closures and Svelte setup/runes/effect tuples/onMount/RAF provide identity/lifetime. React-only insertion/render guards and StrictMode machinery are replaced by native Svelte primitives; Source animation commit/batch policy is preserved through native flushSync. Source animation batching is now preserved by the exact canonical public Dialogad19 helper; helper inheritance is not blanket acceptance.",
+      "bodyComparison": "Manually compared full selected Source and canonical native state/lifecycle helpers. Controlled mode captures initial definedness, Source fallback/set guards/dev warnings retained; live closures and Svelte setup/runes/effect tuples/onMount/RAF provide identity/lifetime. React-only insertion/render guards and StrictMode machinery are replaced by native Svelte primitives; Source animation commit/batch policy is preserved through native flushSync. Source invocation-time batch closure and completion commit policy are preserved by the exact canonical public Dialogaa5 animation helper; helper inheritance is not blanket acceptance.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -2046,7 +2046,7 @@
         }
       ],
       "decision": "Actual runtime/type selected implementation listed with reachability and identity; framework substitutions explicit.",
-      "bodyComparison": "Manually compared full selected Source and canonical native state/lifecycle helpers. Controlled mode captures initial definedness, Source fallback/set guards/dev warnings retained; live closures and Svelte setup/runes/effect tuples/onMount/RAF provide identity/lifetime. React-only insertion/render guards and StrictMode machinery are replaced by native Svelte primitives; Source animation commit/batch policy is preserved through native flushSync. Source animation batching is now preserved by the exact canonical public Dialogad19 helper; helper inheritance is not blanket acceptance.",
+      "bodyComparison": "Manually compared full selected Source and canonical native state/lifecycle helpers. Controlled mode captures initial definedness, Source fallback/set guards/dev warnings retained; live closures and Svelte setup/runes/effect tuples/onMount/RAF provide identity/lifetime. React-only insertion/render guards and StrictMode machinery are replaced by native Svelte primitives; Source animation commit/batch policy is preserved through native flushSync. Source invocation-time batch closure and completion commit policy are preserved by the exact canonical public Dialogaa5 animation helper; helper inheritance is not blanket acceptance.",
       "acceptance": "Developer body comparison only; exact-head independent Source/native/maintainability review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -2134,8 +2134,20 @@
   ],
   "dependencyStatus": {
     "prehydrationWrapper": "Exact frozen public Slider17652eca bytes; unaccepted DEV prerequisite until normally merged actual main and final normal integration.",
-    "animationLifecycle": "Exact two private canonical files restored from public Dialogad19bb37f6e9ff12b7ac68b27709042130c47b7c under root reuse lease. Source individual commit and shared same-microtask batch queue/abort guard are restored through native Svelte flushSync and live batch reader. Root compared actual Source/helper bodies and ordered abort witness4/4. This remains an unaccepted development dependency until normally merged canonical actual-main integration; no whole Dialog family dependency is invented.",
+    "animationLifecycle": "Only canonical useAnimationsFinished is restored from public Dialogaa5c9aa0ccfcf08a12a2f22895ce8abd961c660d under precise root lease; SHA256 0ae8873174969326a7ac09377ab019af5cd575bbdfde7df9118317d0ec1c1e30. Invocation-time const batch retains Original pending callback boolean semantics. Canonical useOpenChangeComplete stays exact public Dialogad19 SHA2565e966dd1b10cbc1ed448d3583ca948a384d812f9e71afc1e128395485575931f. Native Svelte flushSync preserves Source individual/shared commit policy. Independent canonical Source review CLEAR and unchanged equality8/8 are selected-helper provenance only; full Tabs and actual-main helper seam review remain pending, with no whole Dialog feature dependency.",
     "inheritance": "Accepted repaired Field8619\u21928438374\u219249584ab and Radio041cfe4/ref +UseRenderc918675 verdict chain only where actually used. Field89a/cfbe5 BLOCKED verdicts are not clearance. Broad type closure does not select Field runtime.",
     "newGeometryHelpers": "Root lease after f4e253b; exact Source algorithms with existing locked direct Floating UI dependency."
-  }
+  },
+  "animationLifecycleHistory": [
+    {
+      "checkpoint": "ad19bb37f6e9ff12b7ac68b27709042130c47b7c",
+      "animationHelperSha256": "409aec4223eca26f66b6c1f5824cdaf8df68c916f66a2efb75617b255129ebf9",
+      "decision": "Historical checkpoint restored individual commit and shared queue. Later independent review confirmed P2: reading latest batch in done changed Original invocation-time policy for a mid-pending-animation batch change. Two native equality failures/six passes are retained as failed historical evidence; fixed-true Tabs tests did not prove this generic boundary. Source NOT CLEAR at that helper checkpoint. Zero ordinary declaration credit."
+    },
+    {
+      "checkpoint": "aa5c9aa0ccfcf08a12a2f22895ce8abd961c660d",
+      "animationHelperSha256": "0ae8873174969326a7ac09377ab019af5cd575bbdfde7df9118317d0ec1c1e30",
+      "decision": "Only runtime delta captures const batch at invocation and branches on the captured boolean in done. Canonical independent unchanged Source equality8/8 and full116 Source review CLEAR support precise selected-helper reuse. This does not establish whole Dialog main acceptance or whole70 Tabs acceptance; fresh Tabs exact-head review/gates and actual-main seam review remain pending. Zero ordinary declaration credit."
+    }
+  ]
 }
