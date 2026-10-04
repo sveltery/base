@@ -305,7 +305,7 @@ Decision and evidence: the user authorized this typed remote/override design and
 
 Source: pinned [platform/shared.ts](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/platform/shared.ts). The original static browser classifier checks `process.env.NODE_ENV` before preferring development UA-CH. The canonical native port checks the existing `esm-env` `DEV` flag, retaining the original UA-CH/legacy reader, OS/engine branches and SSR defaults without requiring a browser Node global. The shared event helper uses native Event directly and omits the unused React synthetic-event discriminator; Composite imports its original `stopEvent` body rather than keeping a private duplicate.
 
-This framework substitution was requested during the source review; it introduces no new platform algorithm or component assertion credit. The [scoped source correspondence and complete original graph](../parity/shared-interaction-events/source-correspondence.md) record the source boundary, no-browser SSR classifiers, installed private utility import with no Node process, and public Radio browser navigation witness. The prerequisite is proposed and requires exact-head independent review and mandatory CI. Whole Dialog/OTP acceptance remains separate.
+This framework substitution was requested during the source review; it introduces no new platform algorithm or component assertion credit. The [scoped source correspondence and complete original graph](../parity/shared-interaction-events/source-correspondence.md) record the source boundary, no-browser SSR classifiers, installed private utility import with no Node process, and public Radio browser navigation witness. The previously proposed prerequisite normally merged through [PR55](https://github.com/sveltery/base/pull/55) to actual main at `74f667da95ebc5670b0cc5bee38f2225e65fd0c0`, with the exact reviewed public `a4fcfa0` tree. Whole Dialog/OTP acceptance remains separate.
 
 ## SA-01: native ScrollArea framework boundary
 
@@ -319,14 +319,16 @@ hoisting/deduplication. CSP nonce and exact constant scrollbar CSS are preserved
 style suppression belongs to the real CSPProvider context.
 
 Decision: native framework substitutions follow the user's source-first/native
-Svelte directive; exact-head independent source/native/maintainability review and
-observable browser evidence remain pending. No business fix or generic waiver is
+Svelte directive. The prior exact11eb source receipt is SOURCE CLEAR and its
+secured hosted browser gate passed123 probes; exact successor independent
+disposition, required checks and PM acceptance remain pending. No business fix or generic waiver is
 approved. Original95 ordinary declarations, one parameterized declaration/three
 variants and six conformance calls retain separate provenance; divergent native
 assertions earn zero unchanged credit. See [ScrollArea evidence](../parity/scroll-area/README.md)
-and [API](scroll-area.md). This feature normally integrates reviewed PUBLIC PR55
-only as a development dependency; its separately blocked merge to actual main is
-not bypassed or authorized by this record.
+and [API](scroll-area.md). Historical development integration of reviewed PUBLIC
+PR55 at `a64ed9a` did not bypass its then-blocked actual-main merge. Accepted PR55
+has since normally merged at actual main `74f667da`; ScrollArea normally integrates
+that actual main with all56 used bodies, imports and reachability unchanged.
 
 Executed b301446 paired browser evidence measures the style boundary: two Roots
 produce one hoisted React style retained after unmount, and two native styles
@@ -338,5 +340,10 @@ probe already passed. No custom event dispatch/capture engine was added. The
 native R:951 context effect verifies unchanged corner object identity while
 React committed-render accounting receives zero unchanged credit. Detailed
 [observations and actual artifacts](../parity/scroll-area/native-observations.md)
-keep the113/115 failed browser gate visible. Proposed [PR61](https://github.com/sveltery/base/pull/61)
-still requires repaired exact-head execution and independent whole-source review.
+keep the113/115 failed browser gate visible. The later c07e121/123 failed CSP gate
+also remains visible: the f2 repair sends the unchanged policy from the actual
+fixture HTTP origin. At published11eb, [run37166095432](https://github.com/sveltery/base/actions/runs/37166095432)
+passed all123 with strict error checks, official secured Chromium, one worker and
+zero retries. This prior-head execution earns zero new ordinary or unchanged
+conformance credit. Proposed [PR61](https://github.com/sveltery/base/pull/61)
+still requires checks and independent disposition of its actual-main successor.

@@ -124,6 +124,30 @@
       },
       "unchangedOriginalDeclarationCredit": 0,
       "note": "Raw job log preserved locally, artifact linked. Failed actual browser gate remains failed; final real-header successor still requires actual hosted123-probe execution and independent whole review."
+    },
+    {
+      "head": "11ebc86adafa00911a9c8d033049e1cccffe3104",
+      "tree": "65d608ccff257d3a27e7de85681faec58e1ab631",
+      "run": 37166095432,
+      "job": 111329165349,
+      "url": "https://github.com/sveltery/base/actions/runs/37166095432",
+      "artifact": "https://github.com/sveltery/base/actions/runs/37166095432/artifacts/11288999799",
+      "artifactSha256": "27109f9401244c4e9e7a2edf11090c9236d0a271fe1b07278de610714e8b5f6a",
+      "browserExecuted": true,
+      "result": "passed",
+      "passedTests": 123,
+      "failedTests": 0,
+      "runtime": "Ubuntu22.04, official Chromium153, chromiumSandbox:true, one worker, retries:0; actual React19.2.8/ReactDOM19.2.8/@base-ui/react1.8.0 versus native Svelte public imports",
+      "installedPublicGate": "PASS library build, strict exactOptional/noUnchecked/skipLibCheck:false aliases/types/SSR/native snippet/DOM and intended diagnostics",
+      "requiredCI": {
+        "run": 37166095427,
+        "result": "success"
+      },
+      "hostedWorkflowCount": 10,
+      "allHostedWorkflows": "success",
+      "unchangedOriginalDeclarationCredit": 0,
+      "unchangedConformanceCredit": 0,
+      "note": "Verified historical exact-head success from GitHub workflow metadata and actual job log. Earlier failed runs remain intact. Actual-main successor checks and independent disposition remain pending; no unchanged ordinary/conformance credit inferred."
     }
   ]
 }

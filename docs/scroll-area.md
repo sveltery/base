@@ -36,5 +36,8 @@ Native Svelte style elements remain owned by each Root, carry CSPProvider nonce,
 and honor disableStyleElements. React stylesheet hoisting/deduplication is a
 framework boundary, with no unchanged source credit for a divergent observation.
 [Source and assertion evidence](../parity/scroll-area/README.md) records current
-execution limits and the development dependency on reviewed PR55; publication
-and merge acceptance remain separate.
+execution limits and the normal integration of accepted PR55 from actual main
+`74f667da95ebc5670b0cc5bee38f2225e65fd0c0`. That integration preserves all56 used
+module bodies and the published source/import graph. Exact successor checks,
+independent source disposition and PM acceptance remain required; publication
+is separate.

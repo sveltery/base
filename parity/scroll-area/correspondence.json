@@ -13,7 +13,10 @@
   "canonicalDevelopmentReuse": [
     {
       "sourcePublicHead": "a4fcfa0669f0dc8ea2adbcabdbe2ba801030fe63",
-      "scope": "Entire PR55 platform closure normally merged at a64ed9a; actual main prerequisite blocked, not accepted by this feature"
+      "scope": "Historical entire PR55 platform closure normally merged at a64ed9a while actual main remained blocked. Accepted PR55 normally merged to actual main74f667da; normal feature integration5d9cb2b preserves all56 used bodies/imports/reachability.",
+      "actualMainCommit": "74f667da95ebc5670b0cc5bee38f2225e65fd0c0",
+      "actualMainTree": "1ca816b9f2759d22c7e0301f2a017ba9f39317e4",
+      "normalIntegrationCommit": "5d9cb2b944b48cb0a2e1c31390f56d9af354bf2a"
     },
     {
       "sourcePublicHead": "37ce1f6",
@@ -25,7 +28,7 @@
     }
   ],
   "acceptedManualReceipts": [],
-  "independentWholeReview": "pending exact final head; root assigns a separate fresh reviewer. Byte identity records support comparison, never replace full-body scope review.",
+  "independentWholeReview": "Exact successor disposition pending. Prior independent SOURCE CLEAR receipts cover the same56 used bodies and selected Original identities; owner hash/import/reachability verification is integration evidence, not a new manual acceptance.",
   "modules": [
     {
       "local": "packages/base/src/lib/csp-provider/context.ts",
@@ -642,6 +645,21 @@
       "developerInspected": "full used local body plus selected original business body and native boundary; inherited bodies are not accepted solely by hash",
       "independentWholeReview": "pending",
       "unchangedAssertionCredit": 0
+    }
+  ],
+  "priorExactHeadSourceReviews": [
+    {
+      "head": "f2cbb34f4a3330126cc5aded1ced86d652086b9f",
+      "receipt": "scroll-area-source-review-f2cbb34.json",
+      "sha256": "f1106bb1fb8716bab9043cbdc9dcf2d4cc7b50b8a1f91d7f63de663734cda5de",
+      "basis": "Authoritative independent fresh whole56 local/selected Original manual source/native/maintainability review; SOURCE CLEAR. Historical pre-code helper inventory gap preserved; zero new ordinary/conformance credit."
+    },
+    {
+      "head": "11ebc86adafa00911a9c8d033049e1cccffe3104",
+      "tree": "65d608ccff257d3a27e7de85681faec58e1ab631",
+      "receipt": "scroll-area-source-review-11ebc86.json",
+      "sha256": "ef621a7caf2cbe80aad75e51770e8a48123bb03dd2dca8fa7fa4b78ab847b49a",
+      "basis": "Precise same-body inherited f2 whole56 receipt plus fresh complete scrollEdges naming addendum. Only manualScope correction; no fresh final whole56 manual-read claim. SOURCE CLEAR."
     }
   ]
 }
