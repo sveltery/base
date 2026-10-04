@@ -71,7 +71,7 @@ as the existing actual React fixture.
 The expanded DOM matrix has reported all fifty tests passing across four files:
 thirty-two authored Menu family Source/native executions and eighteen unchanged
 anchor positioning assertions. Its raw output is retained at
-`receipts/resume-expanded-first-dom.log`; the invocation reported a nonzero
+`receipts/resume-expanded-first-dom.log.gz`; the invocation reported a nonzero
 command status, so this run is not credited as an overall successful gate pending
 investigation. The added RTL, touch/multiple-touch/movement cancellation, delayed
 context release and captured-viewport probes preserve the same paired
@@ -79,7 +79,7 @@ expectations. No Original ordinary Menu declaration credit is claimed.
 
 The direct expanded repeat records process exit `0` in
 `receipts/resume-expanded-repeat-dom.exit` and again reports fifty passing tests
-in `receipts/resume-expanded-repeat-dom.log`. This resolves the wrapper-status
+in `receipts/resume-expanded-repeat-dom.log.gz`. This resolves the wrapper-status
 uncertainty for that executed local DOM gate. There were no runtime teardown
 warnings or unhandled errors; compile-time initial-value warnings from unused
 native host fields are subsequently removed by explicit untracked reads. The

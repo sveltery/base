@@ -1,0 +1,65 @@
+{
+  "note": "Lossless compressed raw process output, decompressed bytes unchanged; gzip avoids treating terminal trailing blank lines as code whitespace.",
+  "logs": [
+    {
+      "archive": "resume-browser-list-44.log.gz",
+      "rawSha256": "91eabe17359d0b1c71417a4a9e12eb6e17a0266fe15a239075172a99261f9e81",
+      "rawBytes": 4319
+    },
+    {
+      "archive": "resume-build.log.gz",
+      "rawSha256": "9a4f84168e429925dd22c0ca2f38d299b0e9bd4344706a834e00c30d741a9ac1",
+      "rawBytes": 52
+    },
+    {
+      "archive": "resume-check-green.log.gz",
+      "rawSha256": "cad2dd362f5c456d227e055d6063dbe7d143cec086a7ed4b68c10d488b9f1bec",
+      "rawBytes": 193
+    },
+    {
+      "archive": "resume-expanded-first-dom.log.gz",
+      "rawSha256": "d8db7af8fa4d4cdc521c3bf215bbc9d3b6851435c8d13c5863a8df8f57e50c49",
+      "rawBytes": 5391
+    },
+    {
+      "archive": "resume-expanded-repeat-dom.log.gz",
+      "rawSha256": "14e2280e564be90b73e3e10e0220f905d980f76891a831b8140d78ee5fc5d45f",
+      "rawBytes": 5391
+    },
+    {
+      "archive": "resume-first-browser-list.log.gz",
+      "rawSha256": "9f71bc5e18a4fbfeb57d6f0d789bc5eec6feb5248ce265d6d425bf6834cf472f",
+      "rawBytes": 460
+    },
+    {
+      "archive": "resume-first-check.log.gz",
+      "rawSha256": "7290cf9371853d659243165e6c41b340ba28f5a502195985aaffe5a7b445027c",
+      "rawBytes": 1005
+    },
+    {
+      "archive": "resume-first-strict-package.log.gz",
+      "rawSha256": "e1eae630ae7faf06ecf031744b09dda2a740375e9f28f5f207fe594552a2243a",
+      "rawBytes": 1469
+    },
+    {
+      "archive": "resume-repair-build.log.gz",
+      "rawSha256": "9a4f84168e429925dd22c0ca2f38d299b0e9bd4344706a834e00c30d741a9ac1",
+      "rawBytes": 52
+    },
+    {
+      "archive": "resume-repair-dom.log.gz",
+      "rawSha256": "4b3ce34534f42e64522f41a46489440197b9b0502de7853aab5e6609a535d3ff",
+      "rawBytes": 299
+    },
+    {
+      "archive": "resume-repair-standards.log.gz",
+      "rawSha256": "1d35984f6c5301944f03a9f38d9b951e876392b66f3187d26a9a96cdedd4d580",
+      "rawBytes": 348
+    },
+    {
+      "archive": "resume-repair-strict-package.log.gz",
+      "rawSha256": "ebecd4e873a70365f84a778421b3cb03d01c18cb3c3a874368bbdb0ab0b80a2f",
+      "rawBytes": 369
+    }
+  ]
+}
