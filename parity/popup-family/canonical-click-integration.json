@@ -1,0 +1,57 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "status": "Actual accepted Main canonical repair integrated; bounded successor Source/native/caller review and current final configured gates pending. Frozen de989 full review is preserved, not automatically transferred to changed helper/element/callers.",
+  "ordinaryDeclarationCredit": 0,
+  "acceptedMainActual": "dc2fb8247750b519efab708fc221c201f8cfd517",
+  "normalMerge": "0d2f1ff591eb5b8d61a529596d520c07aeab0470",
+  "priorPublicHead": "50e0ee81416fd2dec89c3e88d24f51862ab82a4b",
+  "frozenFullSourceReview": "/workspace/reviews/popup-family-de989-full-source-review/review.md",
+  "changedBodies": [
+    {
+      "path": "packages/base/src/lib/floating-ui/hooks/useClick.svelte.ts",
+      "oldSha256": "34c159e4e2a0b468bea5d3f650050b83b7e63b41dbcd9a936543ec9ddaeb2b70",
+      "currentSha256": "399f7e0b8e6a6cc0b5fe5355c88b1b10f3dd365f832ffe3a197b6f633b20aade"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/utils/element.ts",
+      "oldSha256": "43da99a8e24b9713afaaa52f09f8b21b92681252d1c17824cc246e15400c79eb",
+      "currentSha256": "d46588eefde81b7d3eb8f204f5b3ba235aacbeafde35c37ac6eb782070dcfff0"
+    }
+  ],
+  "nativeGraph": {
+    "modules": 189,
+    "edges": 833,
+    "memberDelta": "Only element PopupTriggerMap type import points directly to canonical popupTriggerMap.svelte.ts instead of type barrel; runtime business body unchanged."
+  },
+  "menuMetadata": {
+    "modules": 198,
+    "edges": 899,
+    "scope": "Existing unchanged member/kind/reachability extractor, only exact accepted Main two hash deltas and erased element type-member leaf. Both graphs and correspondence pending/reopened; no blanket Menu acceptance.",
+    "initialResult": "2PASS1FAIL stale recorded native closure",
+    "nativeMetadataRecheck": "2PASS1FAIL sandbox EPERM for nested evidence --check, retained",
+    "approvedUnchangedReadOnlyRecheck": "3/3PASS",
+    "immutableOriginalAssertionsSha256": "98ee10f0119d9d98b34c2976696ed4ca1942ed7ebf94c5d39bcbdd047a67225a",
+    "ordinarySites": 331,
+    "conformanceCalls": 19,
+    "allDeclarations": "unported / ordinary credit0"
+  },
+  "conflicts": "Canonical useClick and element add/add resolved to exact accepted Main bytes; docs top union retained private prerequisite and complete prior historical/compatibility entries.",
+  "receipts": [
+    {
+      "path": "parity/popup-family/receipts/popup-click-main-menu-provenance-first.log.gz",
+      "rawSha256": "75aa1602fcc77b39453be63ada15831880302646b2d6a09eaedcdde3c2e5d3b3",
+      "gzipSha256": "5c8c7f37bc9e8f550dcae36ecd6570f3cb44429893b5acd9a2de603a7e59bd09"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-click-main-menu-provenance-native.log.gz",
+      "rawSha256": "5b21511d445849fd97f5961ce496a264037ee91c0386a0546acbe925b12f2988",
+      "gzipSha256": "950a42a0e931d483452f500b589e65fbc360cca64bfe9f942c9d562a27aaf816"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-click-main-menu-provenance-approved.log.gz",
+      "rawSha256": "5ebeac25e90f5ee803c94c95567d293b2e2d54b7469db1489c6d844e004b7c24",
+      "gzipSha256": "211cdbab65491254f7ea9cffbda8ec37295a0caeb5b53d5aefcba2bd152df1cb"
+    }
+  ],
+  "finalOwnedPackedConsumer": "Pending actual scripts/check-popup-family-package.sh after test-only normal integration; generic CI Verification package consumer is distinct."
+}

@@ -244,9 +244,9 @@
         "packages/base/src/lib/floating-ui/hooks/useClick.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/floating-ui/hooks/useClick.svelte.ts": "34c159e4e2a0b468bea5d3f650050b83b7e63b41dbcd9a936543ec9ddaeb2b70"
+        "packages/base/src/lib/floating-ui/hooks/useClick.svelte.ts": "399f7e0b8e6a6cc0b5fe5355c88b1b10f3dd365f832ffe3a197b6f633b20aade"
       },
-      "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
+      "correspondence": "Accepted canonical PR69 Main callback-construction repair retains Source useMemo selected scalar options and Store/dataRef closure with native derived handler construction. Store.select/dataRef event reads remain live; exact shared helper and affected current family callers require bounded successor Source/native/maintainability review, with no overall feature acceptance by inventory.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
     },
     {
@@ -551,10 +551,10 @@
         "packages/base/src/lib/floating-ui/utils/matchesFocusVisible.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/floating-ui/utils/element.ts": "43da99a8e24b9713afaaa52f09f8b21b92681252d1c17824cc246e15400c79eb",
+        "packages/base/src/lib/floating-ui/utils/element.ts": "d46588eefde81b7d3eb8f204f5b3ba235aacbeafde35c37ac6eb782070dcfff0",
         "packages/base/src/lib/floating-ui/utils/matchesFocusVisible.ts": "b1788640106924aa5e790e88b711fdf02ce942c0ead034aa94be636188f1c3ac"
       },
-      "correspondence": "Canonical complete selected element helpers; Source matchesFocusVisible is extracted once for shared native use without a second implementation.",
+      "correspondence": "Canonical complete selected element helpers; Source matchesFocusVisible is extracted once for shared native use without a second implementation. Accepted PR69 Main changes only the erased PopupTriggerMap type edge to its exact canonical leaf; runtime body predicates are unchanged and fresh affected type/member review remains pending.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
     },
     {

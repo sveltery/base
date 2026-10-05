@@ -275,7 +275,7 @@
     },
     {
       "path": "packages/base/src/lib/floating-ui/hooks/useClick.svelte.ts",
-      "sha256": "34c159e4e2a0b468bea5d3f650050b83b7e63b41dbcd9a936543ec9ddaeb2b70",
+      "sha256": "399f7e0b8e6a6cc0b5fe5355c88b1b10f3dd365f832ffe3a197b6f633b20aade",
       "symbols": [
         {
           "name": "UseClickProps",
@@ -286,7 +286,7 @@
         {
           "name": "useClick",
           "kind": "FunctionDeclaration",
-          "sha256": "31ff9a11b8e7de53ae5856b4c59f2096576db036db85a366e3120a0d6708d313",
+          "sha256": "2b14cb4b17b67b835bde5e824efc3b192a93a190eed1791022f13dcf7dca6dd4",
           "scriptIndex": 0
         }
       ]
@@ -777,7 +777,7 @@
     },
     {
       "path": "packages/base/src/lib/floating-ui/utils/element.ts",
-      "sha256": "43da99a8e24b9713afaaa52f09f8b21b92681252d1c17824cc246e15400c79eb",
+      "sha256": "d46588eefde81b7d3eb8f204f5b3ba235aacbeafde35c37ac6eb782070dcfff0",
       "symbols": [
         {
           "name": "isTargetInsideEnabledTrigger",
@@ -14395,7 +14395,7 @@
     },
     {
       "from": "packages/base/src/lib/floating-ui/utils/element.ts",
-      "to": "packages/base/src/lib/utils/popups/index.ts",
+      "to": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts",
       "kind": "type",
       "syntax": "import",
       "scriptIndex": 0,
