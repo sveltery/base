@@ -16,11 +16,8 @@
     "scripts/check-collapsible-package.sh",
     "scripts/svelte-ssr-loader.mjs",
     "packages/base/tests/dom/collapsible-source-boundary.test.ts",
-    "packages/base/tests/dom/collapsible-dimensions-boundary.test.ts",
     "packages/base/vitest.collapsible-boundary.config.ts",
     "apps/fixtures/src/routes/collapsible-css-native/+page.svelte",
-    "apps/fixtures/src/routes/collapsible-dimensions/+page.svelte",
-    "apps/fixtures/src/routes/collapsible-dimensions/+page.ts",
     "parity/collapsible/source-candidate/generated-consumer/imports.js",
     "parity/collapsible/source-candidate/generated-consumer/imports.d.ts",
     "parity/collapsible/source-candidate/generated-consumer/Consumer.svelte",
@@ -29,12 +26,11 @@
     "parity/collapsible/source-candidate/generated-consumer/DOMConsumer.svelte",
     "parity/collapsible/source-candidate/generated-consumer/dom-loader.mjs",
     "parity/collapsible/source-candidate/generated-consumer/dom-check.mjs",
-    "apps/fixtures/src/lib/CollapsibleCssNative.svelte",
-    "apps/fixtures/src/lib/CollapsibleDimensionsFixture.svelte"
+    "apps/fixtures/src/lib/CollapsibleCssNative.svelte"
   ],
-  "moduleCount": 98,
-  "edgeCount": 269,
-  "runtimeModules": 95,
+  "moduleCount": 92,
+  "edgeCount": 254,
+  "runtimeModules": 89,
   "typeModules": 3,
   "modules": [
     {
@@ -200,44 +196,6 @@
       ]
     },
     {
-      "source": "apps/fixtures/src/lib/CollapsibleDimensionsFixture.svelte",
-      "sha256": "38f33b65a54f383630544f5db36980e4a0497ff765a4105bed62ea919a0cdcd9",
-      "reachability": "runtime",
-      "imports": [
-        {
-          "specifier": "svelte",
-          "declaredKind": "runtime",
-          "effectiveKind": "runtime",
-          "importedMembers": [
-            "flushSync",
-            "onMount",
-            "untrack",
-            "Snippet"
-          ],
-          "resolved": "external:svelte"
-        },
-        {
-          "specifier": "svelte/elements",
-          "declaredKind": "type",
-          "effectiveKind": "type",
-          "importedMembers": [
-            "HTMLAttributes"
-          ],
-          "resolved": "external:svelte/elements"
-        },
-        {
-          "specifier": "@sveltery/base",
-          "declaredKind": "runtime",
-          "effectiveKind": "runtime",
-          "importedMembers": [
-            "Collapsible",
-            "CollapsiblePanelState"
-          ],
-          "resolved": "packages/base/src/lib/index.ts"
-        }
-      ]
-    },
-    {
       "source": "apps/fixtures/src/lib/CollapsibleFixture.svelte",
       "sha256": "3a110e870746771c60622411c21c9f6747e071f019b6956b0ab1afa4ac33332a",
       "reachability": "runtime",
@@ -314,7 +272,7 @@
     },
     {
       "source": "apps/fixtures/src/lib/CollapsibleSourceBoundaryReference.ts",
-      "sha256": "316e4ea09cf7ec580740684b1d137d2a2fc06ef7faa34fdc1c786438054fc504",
+      "sha256": "702e41c1264b6b3dc2d170cdcfd71562ae25f6442a7c2855cc5d88c900d0c492",
       "reachability": "runtime",
       "imports": [
         {
@@ -381,29 +339,6 @@
           "declaredAlias": "$lib/CollapsibleCssNative.svelte"
         }
       ]
-    },
-    {
-      "source": "apps/fixtures/src/routes/collapsible-dimensions/+page.svelte",
-      "sha256": "a2b54f42b46fe9e45efaf07f0cf0ed52296fc49f4bd376710365fa15154111cd",
-      "reachability": "runtime",
-      "imports": [
-        {
-          "specifier": "$lib/CollapsibleDimensionsFixture.svelte",
-          "declaredKind": "runtime",
-          "effectiveKind": "runtime",
-          "importedMembers": [
-            "default"
-          ],
-          "resolved": "apps/fixtures/src/lib/CollapsibleDimensionsFixture.svelte",
-          "declaredAlias": "$lib/CollapsibleDimensionsFixture.svelte"
-        }
-      ]
-    },
-    {
-      "source": "apps/fixtures/src/routes/collapsible-dimensions/+page.ts",
-      "sha256": "c7aa4184772d4eea7492afa775cf0c6443316d51f44ad059d4117f40612a2e52",
-      "reachability": "runtime",
-      "imports": []
     },
     {
       "source": "apps/fixtures/src/routes/collapsible-reference/+page.svelte",
@@ -679,7 +614,7 @@
     },
     {
       "source": "packages/base/src/lib/collapsible/Panel.svelte",
-      "sha256": "601b56640134f48db68abeb247c7d03dc70c174352a6eb6522274e5b6a126523",
+      "sha256": "07dcdff0b2b48baefbb9a7ddcf2306d09703ca2a3124e651fb894fccdf6ed467",
       "reachability": "runtime",
       "imports": [
         {
@@ -690,15 +625,6 @@
             "DEV"
           ],
           "resolved": "external:esm-env"
-        },
-        {
-          "specifier": "svelte/attachments",
-          "declaredKind": "runtime",
-          "effectiveKind": "runtime",
-          "importedMembers": [
-            "createAttachmentKey"
-          ],
-          "resolved": "external:svelte/attachments"
         },
         {
           "specifier": "../internals/RenderElement.svelte",
@@ -762,15 +688,6 @@
             "useCollapsiblePanel"
           ],
           "resolved": "packages/base/src/lib/collapsible/panel/useCollapsiblePanel.svelte.ts"
-        },
-        {
-          "specifier": "./panel/useCollapsiblePanelDimensions.svelte.js",
-          "declaredKind": "runtime",
-          "effectiveKind": "runtime",
-          "importedMembers": [
-            "useCollapsiblePanelDimensions"
-          ],
-          "resolved": "packages/base/src/lib/collapsible/panel/useCollapsiblePanelDimensions.svelte.ts"
         },
         {
           "specifier": "./panel/CollapsiblePanelCssVars.js",
@@ -963,41 +880,6 @@
             "TransitionStatus"
           ],
           "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts"
-        }
-      ]
-    },
-    {
-      "source": "packages/base/src/lib/collapsible/panel/useCollapsiblePanelDimensions.svelte.ts",
-      "sha256": "6ff659f7eea2da3ac0459db451c8e481aa6a0fe00f85d22ab8fdb6a65fe5ef6b",
-      "reachability": "runtime",
-      "imports": [
-        {
-          "specifier": "svelte/attachments",
-          "declaredKind": "type",
-          "effectiveKind": "type",
-          "importedMembers": [
-            "Attachment"
-          ],
-          "resolved": "external:svelte/attachments"
-        },
-        {
-          "specifier": "../../internals/nativeProps.js",
-          "declaredKind": "runtime",
-          "effectiveKind": "runtime",
-          "importedMembers": [
-            "toNativeStyle",
-            "NativeStyle"
-          ],
-          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
-        },
-        {
-          "specifier": "./CollapsiblePanelCssVars.js",
-          "declaredKind": "runtime",
-          "effectiveKind": "runtime",
-          "importedMembers": [
-            "*"
-          ],
-          "resolved": "packages/base/src/lib/collapsible/panel/CollapsiblePanelCssVars.ts"
         }
       ]
     },
@@ -2848,53 +2730,6 @@
       ]
     },
     {
-      "source": "packages/base/tests/dom/collapsible-dimensions-boundary.test.ts",
-      "sha256": "9c7261f053d39873157ca173e8af035a90279b2df1450f29201d8facee51bbce",
-      "reachability": "runtime",
-      "imports": [
-        {
-          "specifier": "vitest",
-          "declaredKind": "runtime",
-          "effectiveKind": "runtime",
-          "importedMembers": [
-            "afterEach",
-            "expect",
-            "it"
-          ],
-          "resolved": "external:vitest"
-        },
-        {
-          "specifier": "svelte",
-          "declaredKind": "runtime",
-          "effectiveKind": "runtime",
-          "importedMembers": [
-            "mount",
-            "tick",
-            "unmount"
-          ],
-          "resolved": "external:svelte"
-        },
-        {
-          "specifier": "../../../../apps/fixtures/src/lib/CollapsibleSourceBoundaryReference.js",
-          "declaredKind": "runtime",
-          "effectiveKind": "runtime",
-          "importedMembers": [
-            "mountSourceRenderDimensionsBoundary"
-          ],
-          "resolved": "apps/fixtures/src/lib/CollapsibleSourceBoundaryReference.ts"
-        },
-        {
-          "specifier": "./collapsible/RenderDimensionsBoundary.svelte",
-          "declaredKind": "runtime",
-          "effectiveKind": "runtime",
-          "importedMembers": [
-            "default"
-          ],
-          "resolved": "packages/base/tests/dom/collapsible/RenderDimensionsBoundary.svelte"
-        }
-      ]
-    },
-    {
       "source": "packages/base/tests/dom/collapsible-source-boundary.test.ts",
       "sha256": "3fc9d78bd7b8e71df1ff282e9e4b3b790409c62a1cdf0a8e109d41f0b2bce274",
       "reachability": "runtime",
@@ -3078,31 +2913,6 @@
       ]
     },
     {
-      "source": "packages/base/tests/dom/collapsible/RenderDimensionsBoundary.svelte",
-      "sha256": "b7aeee8767c11660bc05eb388df0033f5bc056badcd4355f849f07c4b6bc1ec4",
-      "reachability": "runtime",
-      "imports": [
-        {
-          "specifier": "../../../src/lib/collapsible/index.js",
-          "declaredKind": "runtime",
-          "effectiveKind": "runtime",
-          "importedMembers": [
-            "*"
-          ],
-          "resolved": "packages/base/src/lib/collapsible/index.ts"
-        },
-        {
-          "specifier": "svelte",
-          "declaredKind": "type",
-          "effectiveKind": "type",
-          "importedMembers": [
-            "Snippet"
-          ],
-          "resolved": "external:svelte"
-        }
-      ]
-    },
-    {
       "source": "packages/base/tests/expect-type.ts",
       "sha256": "038f3dad0a1d7b387d09eba455d3289c88a8ce820386fe48d8ff572d6615de97",
       "reachability": "runtime",
@@ -3126,7 +2936,7 @@
     },
     {
       "source": "packages/base/vitest.collapsible-boundary.config.ts",
-      "sha256": "1bf7bedb68c41ac2844e114a59e35515d6abe8590ad2c18074877eda89676f0a",
+      "sha256": "2d258343f9541e76a9e21cd6be0f89c5facabcf82b43ca8ae24f04dd559e15b2",
       "reachability": "runtime",
       "imports": [
         {
@@ -3685,7 +3495,7 @@
     },
     {
       "source": "tests/browser/collapsible.spec.ts",
-      "sha256": "992b8bfc3c67d763800b3b8382796c1eee7af33545f95e7905e46dabd56be961",
+      "sha256": "431961ab11a746908cdc76d6a0d08801135fe8296bd0648944c7c6a9a4d4fb4f",
       "reachability": "runtime",
       "imports": [
         {

@@ -7,9 +7,9 @@
     "packages/base/src/lib/collapsible/Panel.svelte",
     "packages/base/src/lib/index.ts"
   ],
-  "moduleCount": 56,
-  "edgeCount": 151,
-  "runtimeModules": 54,
+  "moduleCount": 55,
+  "edgeCount": 146,
+  "runtimeModules": 53,
   "typeModules": 2,
   "modules": [
     {
@@ -147,7 +147,7 @@
     },
     {
       "source": "packages/base/src/lib/collapsible/Panel.svelte",
-      "sha256": "601b56640134f48db68abeb247c7d03dc70c174352a6eb6522274e5b6a126523",
+      "sha256": "07dcdff0b2b48baefbb9a7ddcf2306d09703ca2a3124e651fb894fccdf6ed467",
       "reachability": "runtime",
       "imports": [
         {
@@ -158,15 +158,6 @@
             "DEV"
           ],
           "resolved": "external:esm-env"
-        },
-        {
-          "specifier": "svelte/attachments",
-          "declaredKind": "runtime",
-          "effectiveKind": "runtime",
-          "importedMembers": [
-            "createAttachmentKey"
-          ],
-          "resolved": "external:svelte/attachments"
         },
         {
           "specifier": "../internals/RenderElement.svelte",
@@ -230,15 +221,6 @@
             "useCollapsiblePanel"
           ],
           "resolved": "packages/base/src/lib/collapsible/panel/useCollapsiblePanel.svelte.ts"
-        },
-        {
-          "specifier": "./panel/useCollapsiblePanelDimensions.svelte.js",
-          "declaredKind": "runtime",
-          "effectiveKind": "runtime",
-          "importedMembers": [
-            "useCollapsiblePanelDimensions"
-          ],
-          "resolved": "packages/base/src/lib/collapsible/panel/useCollapsiblePanelDimensions.svelte.ts"
         },
         {
           "specifier": "./panel/CollapsiblePanelCssVars.js",
@@ -431,41 +413,6 @@
             "TransitionStatus"
           ],
           "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts"
-        }
-      ]
-    },
-    {
-      "source": "packages/base/src/lib/collapsible/panel/useCollapsiblePanelDimensions.svelte.ts",
-      "sha256": "6ff659f7eea2da3ac0459db451c8e481aa6a0fe00f85d22ab8fdb6a65fe5ef6b",
-      "reachability": "runtime",
-      "imports": [
-        {
-          "specifier": "svelte/attachments",
-          "declaredKind": "type",
-          "effectiveKind": "type",
-          "importedMembers": [
-            "Attachment"
-          ],
-          "resolved": "external:svelte/attachments"
-        },
-        {
-          "specifier": "../../internals/nativeProps.js",
-          "declaredKind": "runtime",
-          "effectiveKind": "runtime",
-          "importedMembers": [
-            "toNativeStyle",
-            "NativeStyle"
-          ],
-          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
-        },
-        {
-          "specifier": "./CollapsiblePanelCssVars.js",
-          "declaredKind": "runtime",
-          "effectiveKind": "runtime",
-          "importedMembers": [
-            "*"
-          ],
-          "resolved": "packages/base/src/lib/collapsible/panel/CollapsiblePanelCssVars.ts"
         }
       ]
     },

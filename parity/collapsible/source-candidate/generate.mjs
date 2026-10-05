@@ -31,8 +31,11 @@ const original = build(archivedOriginalRoot, roots.original, true);
 const originalTests = build(archivedOriginalRoot, roots.originalTests, true);
 let nativeTests = build(resolve('.'), [...roots.nativeTests,
   'packages/base/tests/dom/collapsible-source-boundary.test.ts',
+  'packages/base/tests/dom/collapsible-dimensions-boundary.test.ts',
   'packages/base/vitest.collapsible-boundary.config.ts',
   'apps/fixtures/src/routes/collapsible-css-native/+page.svelte',
+  'apps/fixtures/src/routes/collapsible-dimensions/+page.svelte',
+  'apps/fixtures/src/routes/collapsible-dimensions/+page.ts',
   ...generatedSources.filter(item => !item.source.endsWith('.json')).map(item => item.source),
 ], false);
 // Kit's $lib is a real repository alias, not an external package. Expand its
@@ -50,8 +53,11 @@ do {
   }
   if (expanded) nativeTests = build(resolve('.'), [...roots.nativeTests,
     'packages/base/tests/dom/collapsible-source-boundary.test.ts',
+    'packages/base/tests/dom/collapsible-dimensions-boundary.test.ts',
     'packages/base/vitest.collapsible-boundary.config.ts',
     'apps/fixtures/src/routes/collapsible-css-native/+page.svelte',
+    'apps/fixtures/src/routes/collapsible-dimensions/+page.svelte',
+    'apps/fixtures/src/routes/collapsible-dimensions/+page.ts',
     ...generatedSources.filter(item => !item.source.endsWith('.json')).map(item => item.source), ...aliasRoots,
   ], false);
 } while (expanded);

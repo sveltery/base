@@ -1,5 +1,5 @@
 {
-  "candidateHead": "5b83b91c2257cd58cdd5d2c832f3aa8074fbb7fe",
+  "candidateHead": "b11940d957ce181cfbd123607b1915ce02ff8851",
   "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "scope": "Current production/type closure only; test closure is separately inventoried, not falsely claimed freshly reviewed by this receipt.",
   "originalReceipt": "../source-audit/audit.json",
@@ -11,7 +11,7 @@
       "source": "packages/base/src/lib/collapsible/context.ts",
       "sha256": "6366948a2c6bcb63fa87858d77f5f2644d2f4f8a533d1d9cc63821a35326f8aa",
       "reachability": "runtime",
-      "authorRead": "Complete current feature-owned body read in bounded passes at the first attachment runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md; render override loss remains blocking.",
+      "authorRead": "Complete current feature-owned body read in bounded passes at this runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
       "ordinaryCredit": 0
     },
@@ -19,7 +19,7 @@
       "source": "packages/base/src/lib/collapsible/index.parts.ts",
       "sha256": "134a17c550a8afffbdaf4029e1d9e70a031e179a4a41113906db2ae8309fa8fb",
       "reachability": "runtime",
-      "authorRead": "Complete current feature-owned body read in bounded passes at the first attachment runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md; render override loss remains blocking.",
+      "authorRead": "Complete current feature-owned body read in bounded passes at this runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
       "ordinaryCredit": 0
     },
@@ -27,15 +27,15 @@
       "source": "packages/base/src/lib/collapsible/index.ts",
       "sha256": "7e4f8baf91a2371f9e5d67bb2c31850ed4b9165322eeecfcf86767a16aa6f4c5",
       "reachability": "runtime",
-      "authorRead": "Complete current feature-owned body read in bounded passes at the first attachment runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md; render override loss remains blocking.",
+      "authorRead": "Complete current feature-owned body read in bounded passes at this runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
       "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/collapsible/Panel.svelte",
-      "sha256": "601b56640134f48db68abeb247c7d03dc70c174352a6eb6522274e5b6a126523",
+      "sha256": "07dcdff0b2b48baefbb9a7ddcf2306d09703ca2a3124e651fb894fccdf6ed467",
       "reachability": "runtime",
-      "authorRead": "Complete current feature-owned body read in bounded passes at the first attachment runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md; render override loss remains blocking.",
+      "authorRead": "Complete current feature-owned body read in bounded passes at this runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
       "ordinaryCredit": 0
     },
@@ -43,7 +43,7 @@
       "source": "packages/base/src/lib/collapsible/panel/CollapsiblePanelCssVars.ts",
       "sha256": "dce6a4cd3981794aed3a558cefbd10ee5c70e16b6787e7bb68c21926fca026c0",
       "reachability": "runtime",
-      "authorRead": "Complete current feature-owned body read in bounded passes at the first attachment runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md; render override loss remains blocking.",
+      "authorRead": "Complete current feature-owned body read in bounded passes at this runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
       "ordinaryCredit": 0
     },
@@ -51,7 +51,7 @@
       "source": "packages/base/src/lib/collapsible/panel/CollapsiblePanelDataAttributes.ts",
       "sha256": "59323c93ed4e783fc0929a69e5c1318af494cd42a370c9a485d651b9539751a2",
       "reachability": "runtime",
-      "authorRead": "Complete current feature-owned body read in bounded passes at the first attachment runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md; render override loss remains blocking.",
+      "authorRead": "Complete current feature-owned body read in bounded passes at this runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
       "ordinaryCredit": 0
     },
@@ -59,15 +59,7 @@
       "source": "packages/base/src/lib/collapsible/panel/useCollapsiblePanel.svelte.ts",
       "sha256": "8c272b943816a622bd62f7db3bc2132e2312f4580c9d418b7b506fce6c825077",
       "reachability": "runtime",
-      "authorRead": "Complete current feature-owned body read in bounded passes at the first attachment runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md; render override loss remains blocking.",
-      "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0
-    },
-    {
-      "source": "packages/base/src/lib/collapsible/panel/useCollapsiblePanelDimensions.svelte.ts",
-      "sha256": "6ff659f7eea2da3ac0459db451c8e481aa6a0fe00f85d22ab8fdb6a65fe5ef6b",
-      "reachability": "runtime",
-      "authorRead": "Complete current feature-owned body read in bounded passes at the first attachment runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md; render override loss remains blocking.",
+      "authorRead": "Complete current feature-owned body read in bounded passes at this runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
       "ordinaryCredit": 0
     },
@@ -75,7 +67,7 @@
       "source": "packages/base/src/lib/collapsible/Root.svelte",
       "sha256": "24320263ddb04e83f99842f1c37ae856fe10f44651a1c9b39844194f32145501",
       "reachability": "runtime",
-      "authorRead": "Complete current feature-owned body read in bounded passes at the first attachment runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md; render override loss remains blocking.",
+      "authorRead": "Complete current feature-owned body read in bounded passes at this runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
       "ordinaryCredit": 0
     },
@@ -83,7 +75,7 @@
       "source": "packages/base/src/lib/collapsible/root/stateAttributesMapping.ts",
       "sha256": "e126e2d4639c7ebca36425f75f401995d6d427f9c77d2614bbdf2ce6b86cefa6",
       "reachability": "runtime",
-      "authorRead": "Complete current feature-owned body read in bounded passes at the first attachment runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md; render override loss remains blocking.",
+      "authorRead": "Complete current feature-owned body read in bounded passes at this runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
       "ordinaryCredit": 0
     },
@@ -91,7 +83,7 @@
       "source": "packages/base/src/lib/collapsible/root/useCollapsibleRoot.svelte.ts",
       "sha256": "fe99c19d4d53b24080917f9ff70f8f713b34a006d0e7dc4025a355183ee8897a",
       "reachability": "runtime",
-      "authorRead": "Complete current feature-owned body read in bounded passes at the first attachment runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md; render override loss remains blocking.",
+      "authorRead": "Complete current feature-owned body read in bounded passes at this runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
       "ordinaryCredit": 0
     },
@@ -99,7 +91,7 @@
       "source": "packages/base/src/lib/collapsible/Trigger.svelte",
       "sha256": "f28c6973f262f2215f7055035fa35efdeae18b78ef0cb6a3ef0eaa2a24cddcb2",
       "reachability": "runtime",
-      "authorRead": "Complete current feature-owned body read in bounded passes at the first attachment runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md; render override loss remains blocking.",
+      "authorRead": "Complete current feature-owned body read in bounded passes at this runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
       "ordinaryCredit": 0
     },
@@ -107,7 +99,7 @@
       "source": "packages/base/src/lib/collapsible/trigger/CollapsibleTriggerDataAttributes.ts",
       "sha256": "f64554c40a3e3c989c4c7959b81bc176b726848535d1d8fffe98d6bc46f6a51b",
       "reachability": "runtime",
-      "authorRead": "Complete current feature-owned body read in bounded passes at the first attachment runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md; render override loss remains blocking.",
+      "authorRead": "Complete current feature-owned body read in bounded passes at this runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
       "ordinaryCredit": 0
     },
@@ -115,7 +107,7 @@
       "source": "packages/base/src/lib/collapsible/types.ts",
       "sha256": "c9144d4a14939170a55597188d916f66a809958fe5202ea7fc3066abe6b75c14",
       "reachability": "type",
-      "authorRead": "Complete current feature-owned body read in bounded passes at the first attachment runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md; render override loss remains blocking.",
+      "authorRead": "Complete current feature-owned body read in bounded passes at this runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
       "ordinaryCredit": 0
     },
@@ -299,7 +291,7 @@
       "source": "packages/base/src/lib/utils/collapsibleOpenStateMapping.ts",
       "sha256": "c61fe9e34d684527811bbc2bdc12093a9a690f759464daa99f730e97b01dd3d3",
       "reachability": "runtime",
-      "authorRead": "Complete current feature-owned body read in bounded passes at the first attachment runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md; render override loss remains blocking.",
+      "authorRead": "Complete current feature-owned body read in bounded passes at this runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
       "ordinaryCredit": 0
     },
@@ -451,7 +443,7 @@
       "source": "packages/base/src/lib/utils/warn.ts",
       "sha256": "20fb2aa3f59ea0ce7224fb7b0a7f7e6a66994c79d2e75c9d1809d7370084f07a",
       "reachability": "runtime",
-      "authorRead": "Complete current feature-owned body read in bounded passes at the first attachment runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md; render override loss remains blocking.",
+      "authorRead": "Complete current feature-owned body read in bounded passes at this runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
       "ordinaryCredit": 0
     }
