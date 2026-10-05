@@ -5,9 +5,9 @@ function resolveSources(sources?: UseRenderPropSources): UseRenderHostProps {
   return Array.isArray(sources) ? mergePropsN(sources) : mergeProps(undefined, sources as UseRenderHostProps | ((previous: UseRenderHostProps) => UseRenderHostProps));
 }
 import type { HTMLProps } from '../src/lib/internals/types.js';
-import type { PropSources } from '../src/lib/internals/mergeComponentProps.js';
+import type { UseRenderElementParameters } from '../src/lib/internals/useRenderElement.js';
 type UseRenderHostProps = HTMLProps;
-type UseRenderPropSources = PropSources;
+type UseRenderPropSources = NonNullable<UseRenderElementParameters<object>['props']>;
 it('copies the first getter result while later getters own the mutable accumulator', () => {
   const first = { id: 'before' };
   const firstResult = resolveSources([() => first, { id: 'after' }]);

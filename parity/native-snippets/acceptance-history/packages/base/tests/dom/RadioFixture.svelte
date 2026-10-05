@@ -30,6 +30,7 @@
     fieldsetDisabled = false,
     onChange,
     onSubmit,
+    inputRef,
     invalid = false,
     label = true,
     description = true,
@@ -60,6 +61,7 @@
       details: RadioGroupChangeEventDetails,
     ) => void;
     onSubmit?: (values: Record<string, unknown>) => void;
+    inputRef?: (input: HTMLInputElement | null) => void;
     invalid?: boolean;
     label?: boolean;
     description?: boolean;
@@ -70,8 +72,6 @@
     renderGroup?: boolean;
     radioFocusProps?: Pick<RadioRootProps<string>, 'onfocusin'>;
   } = $props();
-  let inputRef = $state<HTMLInputElement | null | undefined>();
-  export function getInput() { return inputRef; }
   let owner = $state(untrack(() => initial));
   let current = $state.raw(
     untrack(() => ({
@@ -121,7 +121,7 @@
         id="radio-group" defaultValue={current.initial}
         value={current.controlled ? owner : undefined}
         disabled={current.disabled} readOnly={current.readOnly} required={current.required}
-        name={current.groupName} onValueChange={changed} bind:inputRef {...groupFocusProps} render={renderGroup ? groupHost : undefined}
+        name={current.groupName} onValueChange={changed} {inputRef} {...groupFocusProps} render={renderGroup ? groupHost : undefined}
       >
         {#each current.items as value (value)}
           <Field.Item>

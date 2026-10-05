@@ -35,7 +35,7 @@
   const label = true;
   const description = true;
   const keepMounted = scenario.includes('keep');
-  let inputRef = $state<HTMLInputElement | null | undefined>();
+  const inputRef = undefined;
   const form = scenario === 'external-form' ? 'external-form' : undefined;
   let hydrated = $state(false);
   let calls = $state<unknown[]>([]);
@@ -130,7 +130,7 @@
         id="radio-group" defaultValue={current.initial}
         value={current.controlled ? owner : undefined}
         disabled={current.disabled} readOnly={current.readOnly} required={current.required}
-        name={current.groupName} onValueChange={changed} bind:inputRef {form}
+        name={current.groupName} onValueChange={changed} {inputRef} {form}
         render={scenario.startsWith('focus-group-render') ? groupHost : undefined}
         onfocusin={groupFocusScenario ? event => groupFocus('enter', event) : undefined}
         onfocusout={groupFocusScenario ? event => groupFocus('leave', event) : undefined}

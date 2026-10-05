@@ -322,8 +322,8 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
-  native-snippets-browser:
-    name: Native snippets browser
+  use-render-browser:
+    name: UseRender browser
     runs-on: ubuntu-22.04
     timeout-minutes: 15
     steps:
@@ -345,13 +345,13 @@ jobs:
         run: pnpm --filter @sveltery/base build
       - name: Install official Chromium and OS dependencies
         run: pnpm exec playwright install --with-deps chromium
-      - name: Actual public native snippet acceptance
-        run: pnpm exec playwright test tests/browser/native-snippets.spec.ts --max-failures=5
-      - name: Preserve Native snippets browser failure traces
+      - name: Paired exact-pin UseRender acceptance
+        run: pnpm exec playwright test tests/browser/use-render.spec.ts --max-failures=5
+      - name: Preserve UseRender browser failure traces
         if: failure()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: native-snippets-browser-failures
-          path: test-results/native-snippets-*/
+          name: use-render-browser-failures
+          path: test-results/use-render-*/
           if-no-files-found: warn
           retention-days: 14

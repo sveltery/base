@@ -17,7 +17,6 @@
     canceled = false,
     validation,
     errors = {},
-    observeInput,
   }: {
     family?: 'switch' | 'checkbox';
     scenario?: string;
@@ -26,14 +25,8 @@
     canceled?: boolean;
     validation?: (value: unknown) => string | null;
     errors?: Record<string, string>;
-    observeInput?: (input: HTMLInputElement | null | undefined) => void;
   } = $props();
   let visible = $state(true);
-  let inputRef = $state<HTMLInputElement | null | undefined>();
-  let hostRef = $state<HTMLElement | null | undefined>();
-  export function getInput() { return inputRef; }
-  export function getHost() { return hostRef; }
-  function publishInput(input: HTMLInputElement | null | undefined) { inputRef = input; observeInput?.(input); }
   let controlledChecked = $state(false);
   let groupValue = $state<string[]>([]);
   let childValue = $state('a');
@@ -52,8 +45,8 @@
 </script>
 {#snippet nativeButton(props: Record<string | symbol, unknown>, _state: unknown, children: Snippet | undefined)}<button {...props as HTMLButtonAttributes}>{@render children?.()}</button>{/snippet}
 {#snippet control(props: CheckboxRootProps)}
-  {#if family === 'switch'}<Switch.Root {...props as SwitchRootProps} bind:inputRef={() => inputRef, publishInput} bind:ref={hostRef}><Switch.Thumb data-part /></Switch.Root>
-  {:else}<Checkbox.Root {...props} bind:inputRef={() => inputRef, publishInput} bind:ref={hostRef}><Checkbox.Indicator data-part /></Checkbox.Root>{/if}
+  {#if family === 'switch'}<Switch.Root {...props as SwitchRootProps}><Switch.Thumb data-part /></Switch.Root>
+  {:else}<Checkbox.Root {...props}><Checkbox.Indicator data-part /></Checkbox.Root>{/if}
 {/snippet}
 {#if scenario === 'controlled'}
   {@render control({ ...rootProps, checked: controlledChecked, onCheckedChange: (next, details) => { rootProps.onCheckedChange?.(next, details); if (!details.isCanceled) controlledChecked = next; } })}

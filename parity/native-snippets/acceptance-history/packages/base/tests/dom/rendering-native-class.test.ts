@@ -1,4 +1,4 @@
-// Compare real native markup with the actual Separator component, including reactive updates.
+// Compare real native markup with the actual shared renderer, including reactive updates.
 import { afterEach, expect, it } from 'vitest';
 import { flushSync, mount, unmount } from 'svelte';
 import type { ClassValue } from 'svelte/elements';

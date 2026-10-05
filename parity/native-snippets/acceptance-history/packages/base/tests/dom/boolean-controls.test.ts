@@ -202,32 +202,32 @@ for (const family of ['switch', 'checkbox'] as const)
       // This is an observation of native Svelte checkbox defaults, not React parity.
       expect(view.input().checked).toBe(view.input().defaultChecked);
     });
-    it('supports native button render replacement and actual host/input bindings', () => {
+    it('supports native button render replacement and attachment/ref forwarding', () => {
+      const inputRef = { current: null as HTMLInputElement | null };
       const view = render(family, {
         scenario: 'native',
-        rootProps: { id: 'visible-control' },
+        rootProps: { inputRef, id: 'visible-control' },
       });
       expect(view.root().tagName).toBe('BUTTON');
       expect(view.root().id).toBe('visible-control');
       expect(view.input().id).toBe('');
-      expect(view.component.getInput()).toBe(view.input());
-      expect(view.component.getHost()).toBe(view.root());
+      expect(inputRef.current).toBe(view.input());
       view.click();
       expect(view.root().getAttribute('aria-checked')).toBe('true');
     });
-    it('clears the native hidden-input binding exactly once at teardown', async () => {
-      const observeInput = vi.fn();
-      const view = render(family, { observeInput });
-      const input = view.input();
-      expect(view.component.getInput()).toBe(input);
-      expect(observeInput.mock.calls).toEqual([[input]]);
+    it('detaches merged hidden-input refs and authored cleanup exactly once', async () => {
+      const detached = vi.fn();
+      const external = vi.fn((input: HTMLInputElement | null) =>
+        input ? detached : undefined,
+      );
+      const view = render(family, { rootProps: { inputRef: external } });
+      expect(external).toHaveBeenCalledTimes(1);
+      expect(external.mock.calls[0][0]).toBe(view.input());
       view.component.hide();
       flushSync();
       await tick();
-      expect(input.isConnected).toBe(false);
-      expect(view.component.getInput()).toBeNull();
-      expect(view.component.getHost()).toBeNull();
-      expect(observeInput.mock.calls).toEqual([[input], [null]]);
+      expect(detached).toHaveBeenCalledTimes(1);
+      expect(external).toHaveBeenCalledTimes(1);
     });
   });
 describe('CheckboxGroup actual source composition', () => {

@@ -1,0 +1,266 @@
+{
+  "status": "Immutable predecessor bodies; not active executable acceptance. Retired under explicit user native-render directive.",
+  "predecessor": "0991faa82bf635b7ca7b2ab2193bd170ee7af468",
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "files": [
+    {
+      "source": "packages/base/tests/use-render-props.test.ts",
+      "archive": "parity/native-snippets/acceptance-history/packages/base/tests/use-render-props.test.ts",
+      "sha256": "955d3564629dd5bf18cc7e4e3a56dc644e651b58a4bf1cd0c4c1b1e72bf3935c",
+      "disposition": "retired-renderer-api",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/UseRenderFixture.svelte",
+      "archive": "parity/native-snippets/acceptance-history/packages/base/tests/dom/UseRenderFixture.svelte",
+      "sha256": "0fc75c2ec42ccad9a720ea15306804a35459828385d08e72eb20723a3e89c081",
+      "disposition": "retired-renderer-api",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/UseRenderOuterFixture.svelte",
+      "archive": "parity/native-snippets/acceptance-history/packages/base/tests/dom/UseRenderOuterFixture.svelte",
+      "sha256": "bb0114a7698038a24c0ca3b6577d36a4b990388d30309743445de75538e97237",
+      "disposition": "retired-renderer-api",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/SharedRenderElementFixture.svelte",
+      "archive": "parity/native-snippets/acceptance-history/packages/base/tests/dom/SharedRenderElementFixture.svelte",
+      "sha256": "b8b9e45f785712f126734e1d91f3fd6fcd4a5212399f8699c189dccba11fec3f",
+      "disposition": "retired-renderer-api",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/use-render.test.ts",
+      "archive": "parity/native-snippets/acceptance-history/packages/base/tests/dom/use-render.test.ts",
+      "sha256": "50cae7fd92bd48e0611bb021ed1b30d974a83d87c7d04cceaba5b03e210bb828",
+      "disposition": "retired-renderer-api",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/shared-rendering-source.test.ts",
+      "archive": "parity/native-snippets/acceptance-history/packages/base/tests/dom/shared-rendering-source.test.ts",
+      "sha256": "14e0b4d0efc04037952fa70e349df21c4b61f8eb73943e5eb1538565a0a19283",
+      "disposition": "retired-renderer-api",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/use-render-native-hydration.test.ts",
+      "archive": "parity/native-snippets/acceptance-history/packages/base/tests/dom/use-render-native-hydration.test.ts",
+      "sha256": "ef68bde0b6ae5275cc0e0b6fed310983c2f82feb17b319784552467217e9ffff",
+      "disposition": "retired-renderer-api",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/shared-rendering-native-hydration.test.ts",
+      "archive": "parity/native-snippets/acceptance-history/packages/base/tests/dom/shared-rendering-native-hydration.test.ts",
+      "sha256": "79bcd69f2563f7d8db7e29b45f9d60c3b02d28cbf5c7d348488d478241a46b67",
+      "disposition": "retired-renderer-api",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/ForwardedNativeRefFixture.svelte",
+      "archive": "parity/native-snippets/acceptance-history/packages/base/tests/dom/ForwardedNativeRefFixture.svelte",
+      "sha256": "6dfa7d2a7bc6322be5bec20eb661b9d03ceb89bc4dce6adb73bb8c4e070631e0",
+      "disposition": "retired-renderer-api",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/forwarded-native-ref.test.ts",
+      "archive": "parity/native-snippets/acceptance-history/packages/base/tests/dom/forwarded-native-ref.test.ts",
+      "sha256": "45ab1902aa2721d454911f590c3247b947b0ad14e156718649608c1c5474a81e",
+      "disposition": "retired-renderer-api",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "apps/fixtures/src/lib/UseRenderBrowserFixture.svelte",
+      "archive": "parity/native-snippets/acceptance-history/apps/fixtures/src/lib/UseRenderBrowserFixture.svelte",
+      "sha256": "aa03e0f83779be1692b23ba031666e0a22adcc38573c1cfbfb69ff3d2f8fd0c7",
+      "disposition": "retired-renderer-api",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "apps/fixtures/src/lib/UseRenderSsrFixture.svelte",
+      "archive": "parity/native-snippets/acceptance-history/apps/fixtures/src/lib/UseRenderSsrFixture.svelte",
+      "sha256": "1fd271cac7b097742a6522c085c736859f525efd13b5fa8aded30a619e1f1448",
+      "disposition": "retired-renderer-api",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "apps/fixtures/src/lib/use-render-reference.ts",
+      "archive": "parity/native-snippets/acceptance-history/apps/fixtures/src/lib/use-render-reference.ts",
+      "sha256": "e6663426fff51510544f734ff0feb5fa2d0596b1ba26f995cd94689fcfd23738",
+      "disposition": "retired-renderer-api",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "apps/fixtures/src/lib/use-render-cases.ts",
+      "archive": "parity/native-snippets/acceptance-history/apps/fixtures/src/lib/use-render-cases.ts",
+      "sha256": "db3b1064bf637009e1a530d08ce3c215cff8d3f7a77b3aeae4f197b4fc683d9b",
+      "disposition": "retired-renderer-api",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "apps/fixtures/src/lib/use-render-ssr-reference.ts",
+      "archive": "parity/native-snippets/acceptance-history/apps/fixtures/src/lib/use-render-ssr-reference.ts",
+      "sha256": "1802b839939f1b58a37c9df0b341cf8862af327fb4c91ee7d588aa9c536f0979",
+      "disposition": "retired-renderer-api",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "apps/fixtures/src/routes/use-render/+page.svelte",
+      "archive": "parity/native-snippets/acceptance-history/apps/fixtures/src/routes/use-render/+page.svelte",
+      "sha256": "dbdbcd58dba6fa216fc2a3d6c663230289b63521ca032670f533a5f40670cd4f",
+      "disposition": "retired-renderer-api",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "apps/fixtures/src/routes/use-render/+page.ts",
+      "archive": "parity/native-snippets/acceptance-history/apps/fixtures/src/routes/use-render/+page.ts",
+      "sha256": "54a546f1ae4c830fbf489a6f0561893b5d8b427b26ea88ea176fc241d5cbc8b7",
+      "disposition": "retired-renderer-api",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "apps/fixtures/src/routes/use-render-ssr/+page.svelte",
+      "archive": "parity/native-snippets/acceptance-history/apps/fixtures/src/routes/use-render-ssr/+page.svelte",
+      "sha256": "8b164cd1867d3a535360993f020dd2398b05ec169b94a4194076871f6a991936",
+      "disposition": "retired-renderer-api",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "apps/fixtures/src/routes/use-render-ssr/+page.server.ts",
+      "archive": "parity/native-snippets/acceptance-history/apps/fixtures/src/routes/use-render-ssr/+page.server.ts",
+      "sha256": "f3e0487148442046f2688f9191ca349a2893c284d0d1d389d2683ee886461b0d",
+      "disposition": "retired-renderer-api",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "tests/browser/use-render.spec.ts",
+      "archive": "parity/native-snippets/acceptance-history/tests/browser/use-render.spec.ts",
+      "sha256": "372fc6ff4fe56344d5c8bec5c8e5e2c9c8ce52878c33e440d59e79db8f59c56f",
+      "disposition": "retired-renderer-api",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "scripts/check-use-render-package.sh",
+      "archive": "parity/native-snippets/acceptance-history/scripts/check-use-render-package.sh",
+      "sha256": "9b6c4fb078e51ac1931b6d8abc71c02e8a3c49f8b180c4b20b4615bbd9a53cb5",
+      "disposition": "retired-renderer-api",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "scripts/tests/use-render-provenance.test.mjs",
+      "archive": "parity/native-snippets/acceptance-history/scripts/tests/use-render-provenance.test.mjs",
+      "sha256": "1936501ab5380b32e5fd7f6b8a354a9982008f045dc59085c589cae4af46cafd",
+      "disposition": "retired-renderer-api",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/rendering-source-props.test.ts",
+      "archive": "parity/native-snippets/acceptance-history/packages/base/tests/rendering-source-props.test.ts",
+      "sha256": "96e958679619cca4042e5cbd72996c7210b74e41b9fe503363873be95cab2c0e",
+      "disposition": "native-binding-or-consumer-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/NativeClassComparisonFixture.svelte",
+      "archive": "parity/native-snippets/acceptance-history/packages/base/tests/dom/NativeClassComparisonFixture.svelte",
+      "sha256": "dda9873f542a2c45602ea5030cab51e6c1ec70be8a53f3eedf9b7b2bb7ba70f9",
+      "disposition": "native-binding-or-consumer-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/rendering-native-class.test.ts",
+      "archive": "parity/native-snippets/acceptance-history/packages/base/tests/dom/rendering-native-class.test.ts",
+      "sha256": "793a1970c8a4a0f8276a4c724dea65fbc0df6bcedc015357bdcecb304abe935a",
+      "disposition": "native-binding-or-consumer-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/BooleanFieldFixture.svelte",
+      "archive": "parity/native-snippets/acceptance-history/packages/base/tests/dom/BooleanFieldFixture.svelte",
+      "sha256": "9cda14b66cfc6a779154574907d647d151c33b913a7be928106939b5ed204f4f",
+      "disposition": "native-binding-or-consumer-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/boolean-controls.test.ts",
+      "archive": "parity/native-snippets/acceptance-history/packages/base/tests/dom/boolean-controls.test.ts",
+      "sha256": "b510342c002677817cbb5b2bb2d08c0846bdf5097be2d95a6338d6e2edc5c4d3",
+      "disposition": "native-binding-or-consumer-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/RadioFixture.svelte",
+      "archive": "parity/native-snippets/acceptance-history/packages/base/tests/dom/RadioFixture.svelte",
+      "sha256": "1aa060a254544fb96281678fae37f942038bb7e0492b12fd55fcab1f86413932",
+      "disposition": "native-binding-or-consumer-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/radio.test.ts",
+      "archive": "parity/native-snippets/acceptance-history/packages/base/tests/dom/radio.test.ts",
+      "sha256": "44fce0dadb5fe49c11aba9517d5fbaa9e7067f2466d13c72a4086d9ec30fbf20",
+      "disposition": "native-binding-or-consumer-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/PopupPortalBoundaryFixture.svelte",
+      "archive": "parity/native-snippets/acceptance-history/packages/base/tests/dom/PopupPortalBoundaryFixture.svelte",
+      "sha256": "d144a3be81348e9e89833f874a82df49e910d68065d73f2b6a06a9f6feb3e9ff",
+      "disposition": "native-binding-or-consumer-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/popup-portal-native.test.ts",
+      "archive": "parity/native-snippets/acceptance-history/packages/base/tests/dom/popup-portal-native.test.ts",
+      "sha256": "137b639cbe7ed2f6a310a54e536ba70ccf3339ee96485fc534e8d9577b22855a",
+      "disposition": "native-binding-or-consumer-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "apps/fixtures/src/lib/RadioBrowserFixture.svelte",
+      "archive": "parity/native-snippets/acceptance-history/apps/fixtures/src/lib/RadioBrowserFixture.svelte",
+      "sha256": "55b8dcc0134d5e5b97b7fb99101d3453c69815acd4849b7b1e4960a033b45c95",
+      "disposition": "native-binding-or-consumer-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "scripts/check-boolean-controls-package.sh",
+      "archive": "parity/native-snippets/acceptance-history/scripts/check-boolean-controls-package.sh",
+      "sha256": "5260e9703d7dadfd70e989e787f48ff082ad79b7f61adcfa2cdf275892f9702f",
+      "disposition": "native-binding-or-consumer-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "scripts/check-radio-package.sh",
+      "archive": "parity/native-snippets/acceptance-history/scripts/check-radio-package.sh",
+      "sha256": "f7d557f9c3f4fd3b81e844a4e60c578922497143d46ec39aa05e5596ebeda055",
+      "disposition": "native-binding-or-consumer-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "scripts/check-package.sh",
+      "archive": "parity/native-snippets/acceptance-history/scripts/check-package.sh",
+      "sha256": "33168af227454be734b20d02baff4c861650e5c5debf535b540757fbc7c8d21e",
+      "disposition": "native-binding-or-consumer-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": ".github/workflows/ci.yml",
+      "archive": "parity/native-snippets/acceptance-history/.github/workflows/ci.yml",
+      "sha256": "5fa60ba447eabebd239d450e0c2073c45ce21842ce929a14b9129e648024a74a",
+      "disposition": "native-binding-or-consumer-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "apps/fixtures/src/lib/docs/content.ts",
+      "archive": "parity/native-snippets/acceptance-history/apps/fixtures/src/lib/docs/content.ts",
+      "sha256": "616478868720be6d8a099742bb7b62f074aadc6a559993248f9d69d123900e2d",
+      "disposition": "native-binding-or-consumer-successor",
+      "unchangedParityCredit": 0
+    }
+  ]
+}

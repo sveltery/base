@@ -26,13 +26,11 @@ cat > "$boolean_consumer/Consumer.svelte" <<'SVELTE'
   import type { SwitchRootProps, CheckboxRootProps, CheckboxGroupProps } from '@sveltery/base';
   const switchProps: SwitchRootProps = { defaultChecked: true, required: true, onCheckedChange(checked, details) { const value: boolean = checked; const event: Event = details.event; void [value, event]; } };
   const checkboxProps: CheckboxRootProps = { indeterminate: true, defaultChecked: false };
-  let switchInput = $state<HTMLInputElement | null>();
-  let checkboxInput = $state<HTMLInputElement | null>();
   const groupProps: CheckboxGroupProps = { defaultValue: ['a'], allValues: ['a', 'b'] };
 </script>
 <Form>
-  <Field.Root name="enabled"><Field.Label>Enabled</Field.Label><Switch.Root {...switchProps} bind:inputRef={switchInput}><Switch.Thumb /></Switch.Root><Field.Description>Boolean setting</Field.Description><Field.Error /></Field.Root>
-  <Field.Root name="mixed"><SubpathCheckbox.Root {...checkboxProps} bind:inputRef={checkboxInput}><SubpathCheckbox.Indicator /></SubpathCheckbox.Root></Field.Root>
+  <Field.Root name="enabled"><Field.Label>Enabled</Field.Label><Switch.Root {...switchProps}><Switch.Thumb /></Switch.Root><Field.Description>Boolean setting</Field.Description><Field.Error /></Field.Root>
+  <Field.Root name="mixed"><SubpathCheckbox.Root {...checkboxProps}><SubpathCheckbox.Indicator /></SubpathCheckbox.Root></Field.Root>
   <Field.Root name="choices"><CheckboxGroup {...groupProps}><Checkbox.Root parent /><Field.Item><Checkbox.Root value="a" /><Field.Label>A</Field.Label></Field.Item><Field.Item><Checkbox.Root value="b" /><Field.Label>B</Field.Label></Field.Item></CheckboxGroup></Field.Root>
   <SubpathSwitch.Root name="outside" value="yes" uncheckedValue="no" />
   <SubpathGroup />
@@ -75,12 +73,10 @@ const undefinedIndicator: Root.CheckboxIndicatorProps = {
 };
 const nullableSwitchRefs: Root.SwitchRootProps = { inputRef: null, ref: null };
 const nullableCheckboxRefs: Root.CheckboxRootProps = { inputRef: null, ref: null };
-// @ts-expect-error Native inputRef bindings reject callback refs.
-const callbackSwitchRef: Root.SwitchRootProps = { inputRef: (_input: HTMLInputElement | null) => {} };
-// @ts-expect-error Native inputRef bindings reject object refs.
+const callbackSwitchRef: Root.SwitchRootProps = {
+  inputRef(input) { const element: HTMLInputElement | null = input; void element; },
+};
 const objectCheckboxRef: Root.CheckboxRootProps = { inputRef: { current: null } };
-const nativeSwitchInput: Root.SwitchRootProps = { inputRef: null as HTMLInputElement | null };
-const nativeCheckboxInput: Root.CheckboxRootProps = { inputRef: null as HTMLInputElement | null };
 // @ts-expect-error A checked form control takes a boolean, not a text value.
 const invalidChecked: Root.SwitchRootProps = { checked: 'true' };
 // @ts-expect-error CheckboxGroup uses string arrays.
@@ -89,7 +85,7 @@ const invalidArray: Root.CheckboxGroupProps = { value: [1] };
 const invalidIndeterminate: Root.SwitchRootProps = { indeterminate: true };
 void [switchEqual, checkboxEqual, groupEqual, propsEqual, undefinedSwitch,
   undefinedCheckbox, undefinedGroup, undefinedThumb, undefinedIndicator,
-  nullableSwitchRefs, nullableCheckboxRefs, callbackSwitchRef, objectCheckboxRef, nativeSwitchInput, nativeCheckboxInput,
+  nullableSwitchRefs, nullableCheckboxRefs, callbackSwitchRef, objectCheckboxRef,
   invalidChecked, invalidArray, invalidIndeterminate];
 TS
 cat > "$boolean_consumer/check.mjs" <<'JS'
