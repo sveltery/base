@@ -8,6 +8,13 @@ import Fixture from './NativeFloatingBusFixture.svelte';
 for (const kind of ['focus', 'hover', 'dismiss'] as const)
   it(`cleans the installed ${kind} event bus when an actual handle migrates stores and when its consumer unmounts`, async () => {
     const handle = new DialogHandle<number>();
+    const subscribeStore = handle.subscribeStore.bind(handle);
+    const watcherCleanups: ReturnType<typeof vi.fn>[] = [];
+    vi.spyOn(handle, 'subscribeStore').mockImplementation((listener) => {
+      const dispose = vi.fn(subscribeStore(listener));
+      watcherCleanups.push(dispose);
+      return dispose;
+    });
     const first = new DialogStore<number>(undefined, 'first', false);
     const second = new DialogStore<number>(undefined, 'second', false);
     const firstBus = first.state.floatingRootContext.context.events;
@@ -61,11 +68,15 @@ for (const kind of ['focus', 'hover', 'dismiss'] as const)
       }
       await unmount(app);
       stopped = true;
+      await tick();
       for (const listener of secondListeners)
         expect(secondOff).toHaveBeenCalledWith('openchange', listener);
       expect(
         second.state.floatingRootContext.state.domReferenceElement,
       ).toBeNull();
+      expect(watcherCleanups.length).toBeGreaterThan(0);
+      for (const dispose of watcherCleanups)
+        expect(dispose).toHaveBeenCalledOnce();
     } finally {
       if (!stopped) await unmount(app);
       detachSecond?.();
