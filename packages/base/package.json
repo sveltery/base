@@ -134,6 +134,11 @@
       "svelte": "./dist/navigation-menu/index.js",
       "default": "./dist/navigation-menu/index.js"
     },
+    "./scroll-area": {
+      "types": "./dist/scroll-area/index.d.ts",
+      "svelte": "./dist/scroll-area/index.js",
+      "default": "./dist/scroll-area/index.js"
+    },
     "./toggle-group": {
       "types": "./dist/toggle-group/index.d.ts",
       "svelte": "./dist/toggle-group/index.js",

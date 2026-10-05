@@ -45,6 +45,7 @@ export { Radio, RadioRoot, RadioIndicator } from './radio/index.js';
 export type * from './radio/types.js';
 export { RadioGroup } from './radio-group/index.js';
 export type * from './radio-group/types.js';
+export * from './scroll-area/index.js';
 
 export { NavigationMenu } from './navigation-menu/index.js';
 export type * from './navigation-menu/types.js';

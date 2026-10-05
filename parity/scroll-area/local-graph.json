@@ -1,0 +1,960 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "ordinaryDeclarationCredit": 0,
+  "status": "actual-used-runtime-and-type-closure-independent-source-review-pending",
+  "entries": [
+    "packages/base/src/lib/scroll-area/index.ts"
+  ],
+  "records": [
+    {
+      "local": "packages/base/src/lib/csp-provider/context.ts",
+      "sha256": "ef547502733a191eaa312c58a4017c1a86a5af73e58aa2d155b79842941d80b0",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/direction-provider/context.ts",
+      "sha256": "e400850423b49f956342a6efac2d8dcf2275365d23220564b6cefb8b44df47f8",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/direction-provider/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/direction-provider/types.ts",
+      "sha256": "a56af048e882453755ad2948782af4f2f832903e031d4812b8da9fc5f4b82aae",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "resolved": "external:svelte"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+      "sha256": "e48367a890024a54cb200eabc5c2a0ba0a397256baacfaec8b0a05ced3b10344",
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/internals/nativeProps.ts",
+      "sha256": "d6b3999ffe54e8c70e0dcdac61474b3bf9f53e60f3b1207dd4f976ef5212e4eb",
+      "imports": [
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "./resolveClassValue.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"
+        },
+        {
+          "specifier": "../utils/mergeObjects.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/mergeObjects.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+      "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../utils/useMergedRefs.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/RenderElement.svelte",
+      "sha256": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "resolved": "external:svelte/attachments"
+        },
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "./useRenderElement.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/useRenderElement.ts"
+        },
+        {
+          "specifier": "./nativeRefAttachment.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts"
+        },
+        {
+          "specifier": "./nativeProps.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/resolveClassValue.ts",
+      "sha256": "584323b17cb1733a798e9ff86e9ff783d6a26d08ecf005a8c2b3c69917c1e722",
+      "imports": [
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/types.ts",
+      "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../merge-props/index.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/merge-props/index.ts"
+        },
+        {
+          "specifier": "./nativeProps.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/useBaseUiId.ts",
+      "sha256": "fc6d9571f2fc0f71d6f75a8f34eb981a3e09a9a038fbb9aa8b4b83c2cbb3aaa3",
+      "imports": [
+        {
+          "specifier": "../utils/useId.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useId.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/internals/useRenderElement.ts",
+      "sha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
+      "imports": [
+        {
+          "specifier": "../utils/useMergedRefs.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+        },
+        {
+          "specifier": "../utils/mergeObjects.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/mergeObjects.ts"
+        },
+        {
+          "specifier": "../utils/empty.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/empty.ts"
+        },
+        {
+          "specifier": "./getStateAttributesProps.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts"
+        },
+        {
+          "specifier": "../utils/resolveClassName.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/resolveClassName.ts"
+        },
+        {
+          "specifier": "../utils/resolveStyle.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/resolveStyle.ts"
+        },
+        {
+          "specifier": "../merge-props/index.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/merge-props/index.ts"
+        },
+        {
+          "specifier": "./nativeProps.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        },
+        {
+          "specifier": "./nativeRefAttachment.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/merge-props/index.ts",
+      "sha256": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68",
+      "imports": [
+        {
+          "specifier": "./mergeProps.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/merge-props/mergeProps.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/merge-props/mergeProps.ts",
+      "sha256": "7a097b833ae8854c5a26e34009adfb4e0297dd50f56ad5f0c1ac8afa8187f98b",
+      "imports": [
+        {
+          "specifier": "../internals/nativeProps.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        },
+        {
+          "specifier": "../utils/mergeObjects.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/mergeObjects.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/scroll-area/constants.ts",
+      "sha256": "98f6ca9763773d9f2ec3458e776cf506f065d6b5b75de38ee9cdc759c4a6c602",
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/scroll-area/content/ScrollAreaContent.svelte",
+      "sha256": "dfbe60324da3bc6960da9fa6affa479f2d5c09f91c32633aeac795dde8e6bf5f",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../viewport/ScrollAreaViewportContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/viewport/ScrollAreaViewportContext.ts"
+        },
+        {
+          "specifier": "../root/ScrollAreaRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/root/ScrollAreaRootContext.ts"
+        },
+        {
+          "specifier": "../root/stateAttributes.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/root/stateAttributes.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/scroll-area/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/scroll-area/corner/ScrollAreaCorner.svelte",
+      "sha256": "5966ce199be649381971ac8417d9e55ddc7725bda936c85da3a839d3e6170a0a",
+      "imports": [
+        {
+          "specifier": "../../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../root/ScrollAreaRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/root/ScrollAreaRootContext.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/scroll-area/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/scroll-area/index.parts.ts",
+      "sha256": "185813157c324d16a764c8172c6b15d1ad46a8f2558fccfe1884bf5a952801b8",
+      "imports": [
+        {
+          "specifier": "./root/ScrollAreaRoot.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/root/ScrollAreaRoot.svelte"
+        },
+        {
+          "specifier": "./viewport/ScrollAreaViewport.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/viewport/ScrollAreaViewport.svelte"
+        },
+        {
+          "specifier": "./content/ScrollAreaContent.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/content/ScrollAreaContent.svelte"
+        },
+        {
+          "specifier": "./scrollbar/ScrollAreaScrollbar.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/scrollbar/ScrollAreaScrollbar.svelte"
+        },
+        {
+          "specifier": "./thumb/ScrollAreaThumb.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/thumb/ScrollAreaThumb.svelte"
+        },
+        {
+          "specifier": "./corner/ScrollAreaCorner.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/corner/ScrollAreaCorner.svelte"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/scroll-area/index.ts",
+      "sha256": "2d85c2c7f8c00b9a68c4cdb5db7a414c5df3d541f275a1ca5c5795ec49203621",
+      "imports": [
+        {
+          "specifier": "./index.parts.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/index.parts.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/scroll-area/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/scroll-area/root/ScrollAreaRoot.svelte",
+      "sha256": "38a51033ec3ded3ca68f37de782341c609cc362475e223bb563f182d0c3d9026",
+      "imports": [
+        {
+          "specifier": "../../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../../utils/useTimeout.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useTimeout.ts"
+        },
+        {
+          "specifier": "../../internals/useBaseUiId.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/useBaseUiId.ts"
+        },
+        {
+          "specifier": "../../utils/shadowDom.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/shadowDom.ts"
+        },
+        {
+          "specifier": "../../csp-provider/context.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/csp-provider/context.ts"
+        },
+        {
+          "specifier": "../../utils/styles.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/styles.ts"
+        },
+        {
+          "specifier": "./ScrollAreaRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/root/ScrollAreaRootContext.ts"
+        },
+        {
+          "specifier": "./stateAttributes.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/root/stateAttributes.ts"
+        },
+        {
+          "specifier": "../utils/getOffset.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/utils/getOffset.ts"
+        },
+        {
+          "specifier": "../constants.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/constants.ts"
+        },
+        {
+          "specifier": "./ScrollAreaRootCssVars.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/root/ScrollAreaRootCssVars.ts"
+        },
+        {
+          "specifier": "../scrollbar/ScrollAreaScrollbarDataAttributes.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/scrollbar/ScrollAreaScrollbarDataAttributes.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/scroll-area/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/scroll-area/root/ScrollAreaRootContext.ts",
+      "sha256": "72fca323c65ce1e41396de8029385fad76d8f40e1e91f5f5617e9cc7e9e0356c",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/scroll-area/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/scroll-area/root/ScrollAreaRootCssVars.ts",
+      "sha256": "70cbf0da510882edbb41199f9fce8fcb68a21aa22333e9e30dee18755e401e54",
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/scroll-area/root/ScrollAreaRootDataAttributes.ts",
+      "sha256": "48c56df9c8fdd6a56529ccbe46c5dd6b67515cbc69715fc3fddb136a53167cc7",
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/scroll-area/root/stateAttributes.ts",
+      "sha256": "48d53193dab6da53c1951775981544724dfe142cc0edb8168806398134e7a244",
+      "imports": [
+        {
+          "specifier": "../../internals/getStateAttributesProps.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/scroll-area/types.ts"
+        },
+        {
+          "specifier": "./ScrollAreaRootDataAttributes.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/root/ScrollAreaRootDataAttributes.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/scroll-area/scrollbar/ScrollAreaScrollbar.svelte",
+      "sha256": "291f4b709b6cd06e54515069875315497c0572ef465d2477a25ea6cec96e532d",
+      "imports": [
+        {
+          "specifier": "../../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../../utils/addEventListener.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/addEventListener.ts"
+        },
+        {
+          "specifier": "../../utils/shadowDom.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/shadowDom.ts"
+        },
+        {
+          "specifier": "../../direction-provider/context.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/direction-provider/context.ts"
+        },
+        {
+          "specifier": "../root/ScrollAreaRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/root/ScrollAreaRootContext.ts"
+        },
+        {
+          "specifier": "./ScrollAreaScrollbarContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/scrollbar/ScrollAreaScrollbarContext.ts"
+        },
+        {
+          "specifier": "../root/stateAttributes.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/root/stateAttributes.ts"
+        },
+        {
+          "specifier": "../utils/getOffset.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/utils/getOffset.ts"
+        },
+        {
+          "specifier": "../root/ScrollAreaRootCssVars.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/root/ScrollAreaRootCssVars.ts"
+        },
+        {
+          "specifier": "./ScrollAreaScrollbarCssVars.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/scrollbar/ScrollAreaScrollbarCssVars.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/scroll-area/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/scroll-area/scrollbar/ScrollAreaScrollbarContext.ts",
+      "sha256": "75af3a1d1a90971371105f00bf2d86ce20afc2046f9bf32a5e23cd38c1b4bebc",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/scroll-area/scrollbar/ScrollAreaScrollbarCssVars.ts",
+      "sha256": "2b2d931d002916128bd8a75b4cc9da137c03b96295e5d4ccc31d2d171a2e147a",
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/scroll-area/scrollbar/ScrollAreaScrollbarDataAttributes.ts",
+      "sha256": "dabeb4807d22fe096ad82cd536060795d9104fc542f52a4fa841a0a51bfe2fe0",
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/scroll-area/thumb/ScrollAreaThumb.svelte",
+      "sha256": "60c225e4fd2c4439ee9efc7b98c7acf94b0002ac0fc491dcf59175a84d3c890f",
+      "imports": [
+        {
+          "specifier": "../../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../root/ScrollAreaRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/root/ScrollAreaRootContext.ts"
+        },
+        {
+          "specifier": "../scrollbar/ScrollAreaScrollbarContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/scrollbar/ScrollAreaScrollbarContext.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/scroll-area/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/scroll-area/types.ts",
+      "sha256": "b131ac9f6a8cb94b9ce8ce934c9aac5ea8d3b8c0034810cce1d7ccd6a6b6e20a",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/scroll-area/utils/getOffset.ts",
+      "sha256": "c5108358178ae39112d9e4054944d461e501b28de364a318a624056af4ba479a",
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/scroll-area/viewport/ScrollAreaViewport.svelte",
+      "sha256": "07f719cb3a8a8a4c4c348f70fddf6986d4adf4f546d26961ab41cfda13961242",
+      "imports": [
+        {
+          "specifier": "../../utils/platform/index.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/index.ts"
+        },
+        {
+          "specifier": "./ScrollAreaViewportCssVars.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/viewport/ScrollAreaViewportCssVars.ts"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../../utils/useTimeout.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useTimeout.ts"
+        },
+        {
+          "specifier": "../../utils/clamp.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/clamp.ts"
+        },
+        {
+          "specifier": "../../utils/styles.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/styles.ts"
+        },
+        {
+          "specifier": "../../direction-provider/context.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/direction-provider/context.ts"
+        },
+        {
+          "specifier": "../root/ScrollAreaRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/root/ScrollAreaRootContext.ts"
+        },
+        {
+          "specifier": "./ScrollAreaViewportContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/viewport/ScrollAreaViewportContext.ts"
+        },
+        {
+          "specifier": "../utils/getOffset.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/utils/getOffset.ts"
+        },
+        {
+          "specifier": "../constants.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/constants.ts"
+        },
+        {
+          "specifier": "../../utils/scrollEdges.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/scrollEdges.ts"
+        },
+        {
+          "specifier": "../root/stateAttributes.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/root/stateAttributes.ts"
+        },
+        {
+          "specifier": "../scrollbar/ScrollAreaScrollbarCssVars.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/scroll-area/scrollbar/ScrollAreaScrollbarCssVars.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/scroll-area/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/scroll-area/viewport/ScrollAreaViewportContext.ts",
+      "sha256": "2f426c29287b7936e8f96a727b1ac060b7900192dd40e83c4c0029ae1e3dafc9",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/scroll-area/viewport/ScrollAreaViewportCssVars.ts",
+      "sha256": "32415078ab0b573a61429f2c107632941f36e0918895c7aa758c70712aa48305",
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/utils/addEventListener.ts",
+      "sha256": "77880d75a5c8c5ac2d924e69d7cc7662c616b953d4895c8e6a24de53de4502bf",
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/utils/clamp.ts",
+      "sha256": "96e2dcc83d37bbe52ac6d4f65b205859eae0017c4208551f00a16195c176ec35",
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/utils/empty.ts",
+      "sha256": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b",
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/utils/mergeObjects.ts",
+      "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/engine.ts",
+      "sha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987",
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/shared.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/env.ts",
+      "sha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d",
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/shared.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/index.ts",
+      "sha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c",
+      "imports": [
+        {
+          "specifier": "./parts.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/parts.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/media-query.ts",
+      "sha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9",
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/os.ts",
+      "sha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6",
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/shared.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/parts.ts",
+      "sha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29",
+      "imports": [
+        {
+          "specifier": "./os.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/os.ts"
+        },
+        {
+          "specifier": "./engine.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/engine.ts"
+        },
+        {
+          "specifier": "./screen-reader.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/screen-reader.ts"
+        },
+        {
+          "specifier": "./env.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/env.ts"
+        },
+        {
+          "specifier": "./media-query.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/media-query.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/screen-reader.ts",
+      "sha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7",
+      "imports": [
+        {
+          "specifier": "./os.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/os.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/shared.ts",
+      "sha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2",
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "resolved": "external:esm-env"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/resolveClassName.ts",
+      "sha256": "b22aead630ca531851a08a63e5165e64ff8cdc9de5765ff20997f578071cb108",
+      "imports": [
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/resolveStyle.ts",
+      "sha256": "cdc420598c1ae4b75a32e7f47ac8cc7f4fe444d4f006e2736f528951fb932977",
+      "imports": [
+        {
+          "specifier": "../internals/nativeProps.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/scrollEdges.ts",
+      "sha256": "3530bb0ed60d37c6f6f52316ec66c84acc8c00dae71375274d0b6b484fe669b3",
+      "imports": [
+        {
+          "specifier": "./clamp.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/clamp.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/shadowDom.ts",
+      "sha256": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1",
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/utils/StyleDisableScrollbar.svelte",
+      "sha256": "cbff60c27259f4ffcdf915c2807e9f2bb5a9eb5b9dd54bacf1608901ec972c7d",
+      "imports": [
+        {
+          "specifier": "./styles.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/styles.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/styles.ts",
+      "sha256": "4044be464022d400fca41b90f6544962d2990dc90f0f93e56d29fd1d7a25218d",
+      "imports": [
+        {
+          "specifier": "./StyleDisableScrollbar.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/StyleDisableScrollbar.svelte"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/useId.ts",
+      "sha256": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90",
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/utils/useMergedRefs.ts",
+      "sha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
+      "imports": [
+        {
+          "specifier": "./useRefWithInit.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/useOnMount.ts",
+      "sha256": "a7ba4007eff27b601eebcb76755886a23a4dd8548a54f67e15fa1cd648e0e695",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/useRefWithInit.ts",
+      "sha256": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036",
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/utils/useTimeout.ts",
+      "sha256": "a04448de8715b8728243ee6e33572c57bc5b151674628304f6c3906966738c78",
+      "imports": [
+        {
+          "specifier": "./useRefWithInit.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
+        },
+        {
+          "specifier": "./useOnMount.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useOnMount.ts"
+        }
+      ]
+    }
+  ]
+}
