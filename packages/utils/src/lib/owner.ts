@@ -1,3 +1,7 @@
-// Base UI v1.8.0 utils/owner.ts; MIT: THIRD_PARTY_NOTICES.md.
-export function ownerDocument(node: Element | null) { return node?.ownerDocument || document; }
-export function ownerWindow(node: Node | null) { return node?.ownerDocument?.defaultView ?? window; }
+// Base UI v1.8.0 packages/utils/src/owner.ts at
+// 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
+export { getWindow as ownerWindow } from '@floating-ui/utils/dom';
+
+export function ownerDocument(node: Element | null) {
+  return node?.ownerDocument || document;
+}
