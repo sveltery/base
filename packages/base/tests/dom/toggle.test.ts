@@ -63,9 +63,9 @@ it('supplement: actual replacement ref and attachment survive state change then 
   await action('Toggle mounting'); expect(component.snapshot()).toEqual({ ref: null, attached: 1, detached: 1 });
   await action('Toggle mounting'); expect(document.getElementById('tested-toggle')!.getAttribute('aria-pressed')).toBe('false');
 });
-it('supplement: custom disabled inherits uncredited D-03 mousedown cancellation', async () => {
+it('source audit supplement: canonical disabled mousedown retains native default', async () => {
   const { button } = await setup('custom-disabled'); const event = new MouseEvent('mousedown', { bubbles: true, cancelable: true, buttons: 3 });
-  expect(button.dispatchEvent(event)).toBe(false); expect(event.defaultPrevented).toBe(true);
+  expect(button.dispatchEvent(event)).toBe(true); expect(event.defaultPrevented).toBe(false);
   button.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true })); button.click(); await tick(); expect(calls()).toEqual([]);
 });
 for (const scenario of ['non-native-default', 'non-native-stripped']) it(`supplement: ${scenario} native host still defaults to type=button`, async () => {
@@ -75,22 +75,32 @@ for (const scenario of ['non-native-default', 'non-native-stripped']) it(`supple
   button.click(); await tick(); expect(calls().length).toBe(1); expect(button.getAttribute('aria-pressed')).toBe('true');
   expect(JSON.parse(document.querySelector('[data-testid=forms]')!.textContent!)).toEqual({ submitted: 0, reset: 0 });
 });
-for (const scenario of ['controlled-consumer', 'controlled-render']) it(`supplement: ${scenario} preserves rendered snapshot before consumer state writes`, async () => {
+for (const scenario of ['controlled-consumer', 'controlled-render']) it(`supplement: ${scenario} uses native live state after consumer writes`, async () => {
   const { button } = await setup(scenario); button.click(); await tick();
-  expect(calls().map(call => call.pressed)).toEqual([true]); expect(button.getAttribute('aria-pressed')).toBe('true');
-  button.click(); await tick(); expect(calls().map(call => call.pressed)).toEqual([true, false]); expect(button.getAttribute('aria-pressed')).toBe('false');
+  expect(calls().map(call => call.pressed)).toEqual([false]); expect(button.getAttribute('aria-pressed')).toBe('false');
+  button.click(); await tick(); expect(calls().map(call => call.pressed)).toEqual([false, false]); expect(button.getAttribute('aria-pressed')).toBe('false');
 });
-it('supplement: same-turn uncontrolled clicks share the last rendered snapshot', async () => {
+it('supplement: same-turn uncontrolled clicks read native live state', async () => {
   const { button } = await setup('uncontrolled'); button.click(); button.click(); await tick();
-  expect(calls().map(call => call.pressed)).toEqual([true, true]); expect(button.getAttribute('aria-pressed')).toBe('true');
-  button.click(); await tick(); expect(calls().map(call => call.pressed)).toEqual([true, true, false]); expect(button.getAttribute('aria-pressed')).toBe('false');
+  expect(calls().map(call => call.pressed)).toEqual([true, false]); expect(button.getAttribute('aria-pressed')).toBe('false');
+  button.click(); await tick(); expect(calls().map(call => call.pressed)).toEqual([true, false, true]); expect(button.getAttribute('aria-pressed')).toBe('true');
 });
 
-for (const scenario of ['callback-consumer', 'callback-render']) it(`supplement: ${scenario} retains rendered callback then refreshes after commit`, async () => {
+for (const scenario of ['callback-consumer', 'callback-render']) it(`supplement: ${scenario} reads native live callback replacement`, async () => {
   const { button } = await setup(scenario); button.click(); await tick();
-  expect(JSON.parse(document.querySelector('[data-testid=callback-owners]')!.textContent!)).toEqual(['old']);
+  expect(JSON.parse(document.querySelector('[data-testid=callback-owners]')!.textContent!)).toEqual(['new']);
   expect(button.getAttribute('aria-pressed')).toBe('true');
   button.click(); await tick();
-  expect(JSON.parse(document.querySelector('[data-testid=callback-owners]')!.textContent!)).toEqual(['old', 'new']);
+  expect(JSON.parse(document.querySelector('[data-testid=callback-owners]')!.textContent!)).toEqual(['new', 'new']);
   expect(calls().map(call => call.pressed)).toEqual([true, false]); expect(button.getAttribute('aria-pressed')).toBe('false');
+});
+
+// Literal native Svelte state/closure behavior verifies the audit expectations.
+import NativeTimingFixture from './NativeToggleTimingFixture.svelte';
+for (const scenario of ['controlled-consumer', 'controlled-render', 'callback-consumer', 'callback-render', 'uncontrolled']) it(`native witness: literal Svelte ${scenario} live timing`, async () => {
+  const target = document.createElement('section'); document.body.append(target);
+  const component = mount(NativeTimingFixture, { target, props: { scenario } }); mounted.push(component); await tick();
+  const button = document.getElementById('literal-toggle')!; button.click(); button.click(); await tick();
+  expect(JSON.parse(document.getElementById('literal-values')!.textContent!)).toEqual(scenario.startsWith('controlled') ? [false, false] : [true, false]);
+  if (scenario.startsWith('callback')) expect(JSON.parse(document.getElementById('literal-owners')!.textContent!)).toEqual(['new', 'new']);
 });

@@ -17,3 +17,7 @@ Read [verification](verification.md) for exact gates and [shared integration](sh
 The current suite has 57 browser executions after ten additional rendered-state/callback supplements, while the linked source checkpoint above executed the earlier 47-test suite. These supplements add no declaration credit. Fresh exact-head hosted acceptance is required for the repaired callback boundary; the immutable five declaration mappings stay unchanged.
 
 Public imports are `import { Toggle } from '@sveltery/base'` or `import { Toggle } from '@sveltery/base/toggle'`; both entries expose the same component. Named props, state, reason and event-detail types are available from either entry. Use `<Toggle defaultPressed onPressedChange={(next, details) => { /* observe or cancel */ }}>Bold</Toggle>` for uncontrolled state, or pass `pressed` and accept requests in the owning state for controlled use. The shared package gate runs the real public root/subpath SSR and type consumer from an isolated tarball.
+
+## Subsequent source audit
+
+[Toggle/ToggleGroup/Toolbar source correspondence](../toggle-toolbar/source-correspondence.md) records the full native source audit and real group/Toolbar integration. The historical ledger, ordinary credit and milestones above remain intact. Native live state/callback timing and canonical Source disabled mousedown behavior have new separately accounted evidence; earlier standalone snapshot/D-03 expectations are archived with hashes. Final source review and exact-head gates for that successor remain independent.
