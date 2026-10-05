@@ -52,7 +52,7 @@ jobs:
       - name: Supplemental native DOM probes
         run: |
           pnpm --filter @sveltery/fixtures exec svelte-kit sync
-          pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/navigation-menu.test.ts tests/dom/navigation-menu-boundaries.test.ts tests/dom/use-click.test.ts tests/dom/navigation-menu-test-transport.test.ts tests/dom/navigation-menu-metadata.test.ts
+          pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/navigation-menu.test.ts tests/dom/navigation-menu-boundaries.test.ts tests/dom/use-click.test.ts tests/dom/navigation-menu-test-transport.test.ts tests/dom/navigation-menu-metadata.test.ts tests/dom/hover-floating-ownership.test.ts
       - name: Install official secured Chromium
         run: pnpm exec playwright install --with-deps chromium
       - name: Record actual framework and secured browser versions
