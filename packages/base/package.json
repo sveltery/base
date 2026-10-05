@@ -233,6 +233,7 @@
   "dependencies": {
     "@floating-ui/dom": "1.8.0",
     "@floating-ui/utils": "0.2.12",
-    "esm-env": "1.2.2"
+    "esm-env": "1.2.2",
+    "@sveltery/utils": "workspace:*"
   }
 }

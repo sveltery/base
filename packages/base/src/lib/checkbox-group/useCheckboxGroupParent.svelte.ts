@@ -1,8 +1,8 @@
 // Source business port of Base UI v1.8.0 useCheckboxGroupParent.ts at
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT.
 import { untrack } from 'svelte';
-import { useStableCallback } from '../utils/useStableCallback.js';
-import { EMPTY_ARRAY } from '../utils/empty.js';
+import { useStableCallback } from '@sveltery/utils/useStableCallback';
+import { EMPTY_ARRAY } from '@sveltery/utils/empty';
 import type { BaseUIChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
 export interface UseCheckboxGroupParentParameters {
   allValues?: string[];

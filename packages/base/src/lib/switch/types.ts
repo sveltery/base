@@ -4,7 +4,7 @@ import type { HTMLAttributes } from 'svelte/elements';
 import type { BaseUIComponentProps, WithBaseUIEvent } from '../internals/types.js';
 import type { FieldRootState } from '../field/types.js';
 import type { BaseUIChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
-import type { MergedRef } from '../utils/useMergedRefs.js';
+import type { MergedRef } from '@sveltery/utils/useMergedRefs';
 export interface SwitchRootState extends FieldRootState {
   checked: boolean;
   disabled: boolean;

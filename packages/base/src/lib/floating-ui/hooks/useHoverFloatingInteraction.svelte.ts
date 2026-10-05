@@ -1,11 +1,11 @@
 // Original Base UI 1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT: THIRD_PARTY_NOTICES.md. Native Svelte live readers/effects replace React hooks.
-import { addEventListener } from '../../utils/addEventListener.js';
-import { mergeCleanups } from '../../utils/mergeCleanups.js';
-import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
-import { ownerDocument } from '../../utils/owner.js';
-import { useStableCallback } from '../../utils/useStableCallback.js';
-import { useTimeout } from '../../utils/useTimeout.js';
+import { addEventListener } from '@sveltery/utils/addEventListener';
+import { mergeCleanups } from '@sveltery/utils/mergeCleanups';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+import { ownerDocument } from '@sveltery/utils/owner';
+import { useStableCallback } from '@sveltery/utils/useStableCallback';
+import { useTimeout } from '@sveltery/utils/useTimeout';
 import { isElement } from '@floating-ui/utils/dom';
 import { createChangeEventDetails } from '../../internals/createBaseUIEventDetails.js';
 import { REASONS } from '../../internals/reasons.js';

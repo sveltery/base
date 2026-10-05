@@ -1,7 +1,7 @@
 <script lang="ts">
   // Ported from Base UI v1.8.0 FieldError.tsx; MIT: THIRD_PARTY_NOTICES.md.
   import RenderElement from '../internals/RenderElement.svelte';
-  import { useIsoLayoutEffect } from '../utils/useIsoLayoutEffect.svelte.js';
+  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
   import { useFieldRootContext } from '../internals/field-root-context/FieldRootContext.js';
   import { useLabelableContext } from '../internals/labelable-provider/LabelableContext.js';
   import { fieldValidityMapping } from '../internals/field-constants/constants.js';

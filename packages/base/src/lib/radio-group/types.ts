@@ -7,7 +7,7 @@ import type {
 } from '../internals/types.js';
 import type { FieldRootState } from '../field/types.js';
 import type { BaseUIChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
-import type { MergedRef } from '../utils/useMergedRefs.js';
+import type { MergedRef } from '@sveltery/utils/useMergedRefs';
 export interface RadioGroupState extends FieldRootState {
   required: boolean;
   readOnly: boolean;

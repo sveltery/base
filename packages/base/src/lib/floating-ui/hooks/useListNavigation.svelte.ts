@@ -2,11 +2,11 @@
 // MIT: THIRD_PARTY_NOTICES.md. Native Svelte live readers/effects replace React hooks.
 import { DEV } from 'esm-env';
 import { untrack } from 'svelte';
-import { useAnimationFrame } from '../../utils/useAnimationFrame.js';
-import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
-import { ownerDocument } from '../../utils/owner.js';
-import { useStableCallback } from '../../utils/useStableCallback.js';
-import { platform } from '../../utils/platform/index.js';
+import { useAnimationFrame } from '@sveltery/utils/useAnimationFrame';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+import { ownerDocument } from '@sveltery/utils/owner';
+import { useStableCallback } from '@sveltery/utils/useStableCallback';
+import { platform } from '@sveltery/utils/platform';
 import { isHTMLElement } from '@floating-ui/utils/dom';
 import { createChangeEventDetails } from '../../internals/createBaseUIEventDetails.js';
 import { REASONS } from '../../internals/reasons.js';

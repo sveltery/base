@@ -5,13 +5,13 @@
   import { useFieldControlNativeName } from '../../internals/field-control-name/FieldControlNameContext.js';
   import { useFieldControlNativeValue } from '../../internals/field-control-value/FieldControlValueContext.js';
   import RenderElement from '../../internals/RenderElement.svelte';
-  import { createMergedRefs } from '../../utils/useMergedRefs.js';
+  import { createMergedRefs } from '@sveltery/utils/useMergedRefs';
   import { createRefAttachment } from '../../internals/nativeRefAttachment.js';
   import { mergePropsN } from '../../merge-props/index.js';
   import type { HTMLInputAttributes } from 'svelte/elements';
-  import { useControlled } from '../../utils/useControlled.svelte.js';
-  import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
-  import { visuallyHidden, visuallyHiddenInput } from '../../utils/visuallyHidden.js';
+  import { useControlled } from '@sveltery/utils/useControlled';
+  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+  import { visuallyHidden, visuallyHiddenInput } from '@sveltery/utils/visuallyHidden';
   import { toNativeStyle } from '../../internals/nativeProps.js';
   import { useEnterSubmit } from '../utils/useEnterSubmit.svelte.js';
   import { getCheckboxStateAttributesMapping } from '../utils/getCheckboxStateAttributesMapping.js';

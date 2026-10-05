@@ -1,7 +1,7 @@
 // Base UI v1.8.0 FloatingTree node/context lifetime using native Svelte context.
 // MIT: THIRD_PARTY_NOTICES.md; pin 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 import { getContext, setContext } from 'svelte';
-import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
 import { FloatingTreeStore } from './FloatingTreeStore.js';
 import type { FloatingNodeType } from '../types.js';
 const NODE = Symbol('FloatingNode');

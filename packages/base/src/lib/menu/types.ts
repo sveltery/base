@@ -6,7 +6,7 @@ import type { BaseUIComponentProps, WithBaseUIEvent } from '../internals/types.j
 import type { BaseUIChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
 import type { TransitionStatus } from '../internals/useTransitionStatus.svelte.js';
 import type { Side, Align, AnchorPositioningOptions } from '../internals/anchor-positioning/types.js';
-import type { InteractionType } from '../utils/useEnhancedClickHandler.js';
+import type { InteractionType } from '@sveltery/utils/useEnhancedClickHandler';
 import type { MenuHandle } from './store/MenuHandle.svelte.js';
 import type { MenuStore } from './store/MenuStore.svelte.js';
 import type { MenuRootContext } from './root/MenuRootContext.js';

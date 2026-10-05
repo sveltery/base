@@ -1,5 +1,5 @@
 // Ported from Base UI v1.8.0 useCompositeItem; MIT: THIRD_PARTY_NOTICES.md.
-import { createMergedRefs } from '../../../utils/useMergedRefs.js';
+import { createMergedRefs } from '@sveltery/utils/useMergedRefs';
 import { useCompositeRootContext } from '../root/CompositeRootContext.js';
 import { useCompositeListItem } from '../list/useCompositeListItem.svelte.js';
 export function useCompositeItem(

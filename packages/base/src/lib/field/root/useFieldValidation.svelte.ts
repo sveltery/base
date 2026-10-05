@@ -1,9 +1,9 @@
 // Mechanically ported from Base UI v1.8.0 field/root/useFieldValidation.ts.
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
-import { EMPTY_OBJECT } from '../../utils/empty.js';
-import { useTimeout } from '../../utils/useTimeout.js';
-import { useStableCallback } from '../../utils/useStableCallback.js';
-import { useRefWithInit } from '../../utils/useRefWithInit.js';
+import { EMPTY_OBJECT } from '@sveltery/utils/empty';
+import { useTimeout } from '@sveltery/utils/useTimeout';
+import { useStableCallback } from '@sveltery/utils/useStableCallback';
+import { useRefWithInit } from '@sveltery/utils/useRefWithInit';
 import { useLabelableContext } from '../../internals/labelable-provider/LabelableContext.js';
 import { mergeProps } from '../../merge-props/index.js';
 import { DEFAULT_VALIDITY_STATE } from '../../internals/field-constants/constants.js';

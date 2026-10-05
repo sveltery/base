@@ -2,11 +2,11 @@
   // Ported in source order from Base UI v1.8.0 field/control/FieldControl.tsx.
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
   import RenderElement from '../internals/RenderElement.svelte';
-  import { useControlled } from '../utils/useControlled.svelte.js';
-  import { useIsoLayoutEffect } from '../utils/useIsoLayoutEffect.svelte.js';
-  import { ownerDocument } from '../utils/owner.js';
-  import { useStableCallback } from '../utils/useStableCallback.js';
-  import { useTimeout } from '../utils/useTimeout.js';
+  import { useControlled } from '@sveltery/utils/useControlled';
+  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+  import { ownerDocument } from '@sveltery/utils/owner';
+  import { useStableCallback } from '@sveltery/utils/useStableCallback';
+  import { useTimeout } from '@sveltery/utils/useTimeout';
   import { useFieldRootContext } from '../internals/field-root-context/FieldRootContext.js';
   import { useFieldControlNativeName } from '../internals/field-control-name/FieldControlNameContext.js';
   import { useRegisterFieldControl } from '../internals/field-register-control/useRegisterFieldControl.svelte.js';
@@ -18,7 +18,7 @@
   import { useValueChanged } from '../internals/useValueChanged.svelte.js';
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../internals/reasons.js';
-  import { activeElement } from '../utils/shadowDom.js';
+  import { activeElement } from '@sveltery/utils/shadowDom';
   import type { FieldControlProps, FieldControlState } from './types.js';
   let {
     render, class: classProp, id: idProp, name: nameProp, value: valueProp,

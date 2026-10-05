@@ -2,8 +2,8 @@
   // Ported from Base UI v1.8.0 FieldLabel.tsx; MIT: THIRD_PARTY_NOTICES.md.
   import { DEV } from 'esm-env';
   import RenderElement from '../internals/RenderElement.svelte';
-  import { error } from '../utils/error.js';
-  import { useIsoLayoutEffect } from '../utils/useIsoLayoutEffect.svelte.js';
+  import { error } from '@sveltery/utils/error';
+  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
   import { useFieldRootContext } from '../internals/field-root-context/FieldRootContext.js';
   import { fieldValidityMapping } from '../internals/field-constants/constants.js';
   import { useLabelableContext } from '../internals/labelable-provider/LabelableContext.js';

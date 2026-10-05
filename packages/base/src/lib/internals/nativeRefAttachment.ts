@@ -1,6 +1,6 @@
 // Native attachment boundary for the shared merged-ref API; MIT provenance in source-correspondence.md.
 import { untrack } from 'svelte';
-import type { MergedRefCallback } from '../utils/useMergedRefs.js';
+import type { MergedRefCallback } from '@sveltery/utils/useMergedRefs';
 
 const nativeRefAttachmentMarker = Symbol();
 type NativeRefAttachment = ((node: Element) => () => void) & {

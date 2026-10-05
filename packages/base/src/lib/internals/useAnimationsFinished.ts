@@ -1,7 +1,7 @@
 // Ported from Base UI v1.8.0 useAnimationsFinished.ts; MIT: THIRD_PARTY_NOTICES.md.
 import { flushSync } from 'svelte';
-import { useAnimationFrame } from '../utils/useAnimationFrame.js';
-import { useStableCallback } from '../utils/useStableCallback.js';
+import { useAnimationFrame } from '@sveltery/utils/useAnimationFrame';
+import { useStableCallback } from '@sveltery/utils/useStableCallback';
 import { resolveRef } from '../utils/resolveRef.js';
 import * as TransitionStatusDataAttributes from './TransitionStatusDataAttributes.js';
 

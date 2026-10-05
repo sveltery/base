@@ -2,8 +2,8 @@
   // Source-ordered Base UI v1.8.0 Toggle.tsx at
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
   import { DEV } from 'esm-env';
-  import { useControlled } from '../utils/useControlled.svelte.js';
-  import { error } from '../utils/error.js';
+  import { useControlled } from '@sveltery/utils/useControlled';
+  import { error } from '@sveltery/utils/error';
   import { useBaseUiId } from '../internals/useBaseUiId.js';
   import RenderElement from '../internals/RenderElement.svelte';
   import { useToggleGroupContext } from '../toggle-group/ToggleGroupContext.js';

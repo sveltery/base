@@ -2,7 +2,7 @@
   // Base UI v1.8.0 CompositeItem source composition; MIT: THIRD_PARTY_NOTICES.md.
   import type { Snippet } from 'svelte';
   import type { BaseUIComponentProps, HTMLProps } from '../../types.js';
-  import type { MergedRef } from '../../../utils/useMergedRefs.js';
+  import type { MergedRef } from '@sveltery/utils/useMergedRefs';
   import type { StateAttributesMapping } from '../../getStateAttributesProps.js';
   import RenderElement from '../../RenderElement.svelte';
   import { useCompositeItem } from './useCompositeItem.svelte.js';

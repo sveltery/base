@@ -1,7 +1,7 @@
 <script lang="ts">
   // Original InternalBackdrop cutout/props/style body; shared native ref attachment (MIT).
   import type { HTMLAttributes } from 'svelte/elements';
-  import { createMergedRefs, type MergedRef } from './useMergedRefs.js';
+  import { createMergedRefs, type MergedRef } from '@sveltery/utils/useMergedRefs';
   import { createRefAttachment } from '../internals/nativeRefAttachment.js';
   import { toNativeStyle } from '../internals/nativeProps.js';
   let { cutout, ref, ...props }: HTMLAttributes<HTMLDivElement> & { cutout?: Element | null; ref?: MergedRef<HTMLDivElement> } = $props();

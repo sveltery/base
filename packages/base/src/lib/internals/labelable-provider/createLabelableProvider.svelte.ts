@@ -1,7 +1,7 @@
 // Ported from Base UI v1.8.0 LabelableProvider.tsx at
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
-import { useStableCallback } from '../../utils/useStableCallback.js';
-import { useRefWithInit } from '../../utils/useRefWithInit.js';
+import { useStableCallback } from '@sveltery/utils/useStableCallback';
+import { useRefWithInit } from '@sveltery/utils/useRefWithInit';
 import { setLabelableContext, useLabelableContext, type LabelableContext } from './LabelableContext.js';
 
 // The component owns the SSR-stable Svelte id; this body owns the source provider state.

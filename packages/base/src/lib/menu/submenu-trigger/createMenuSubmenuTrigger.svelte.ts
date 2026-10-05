@@ -1,12 +1,12 @@
 // Original MenuSubmenuTrigger full item/navigation/hover business, native live props (MIT).
 import { untrack } from 'svelte';
 import { DEV } from 'esm-env';
-import { isElementDisabled } from '../../utils/isElementDisabled.js';
-import { warn } from '../../utils/warn.js';
-import { EMPTY_OBJECT } from '../../utils/empty.js';
-import { platform } from '../../utils/platform/index.js';
-import { useStableCallback } from '../../utils/useStableCallback.js';
-import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
+import { isElementDisabled } from '@sveltery/utils/isElementDisabled';
+import { warn } from '@sveltery/utils/warn';
+import { EMPTY_OBJECT } from '@sveltery/utils/empty';
+import { platform } from '@sveltery/utils/platform';
+import { useStableCallback } from '@sveltery/utils/useStableCallback';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
 import { safePolygon } from '../../floating-ui/safePolygon.js';
 import { useClick } from '../../floating-ui/hooks/useClick.svelte.js';
 import { useHoverReferenceInteraction } from '../../floating-ui/hooks/useHoverReferenceInteraction.svelte.js';

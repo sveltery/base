@@ -1,7 +1,7 @@
 // Original mixed-toggle handler full business, native live-reader boundary (MIT).
 /* eslint-disable @typescript-eslint/no-empty-object-type -- Original empty State contract. */
-import { ownerDocument } from './owner.js';
-import { EMPTY_OBJECT } from './empty.js';
+import { ownerDocument } from '@sveltery/utils/owner';
+import { EMPTY_OBJECT } from '@sveltery/utils/empty';
 import type { BaseUIEvent } from '../internals/types.js';
 /**
  * Returns `click` and `mousedown` handlers that fix the behavior of triggers of popups that are toggled by different events.

@@ -4,8 +4,8 @@ import type { BaseUIChangeEventDetails } from '../internals/createBaseUIEventDet
 import type { PreventableEvent } from '../merge-props/index.js';
 import type { BaseUIComponentProps, WithBaseUIEvent } from '../internals/types.js';
 import type { TransitionStatus } from '../internals/useTransitionStatus.svelte.js';
-import type { InteractionType } from '../utils/useEnhancedClickHandler.js';
-export type { InteractionType } from '../utils/useEnhancedClickHandler.js';
+import type { InteractionType } from '@sveltery/utils/useEnhancedClickHandler';
+export type { InteractionType } from '@sveltery/utils/useEnhancedClickHandler';
 import type { DialogHandle } from './handle.svelte.js';
 export type ChangeReason = 'trigger-press' | 'close-press' | 'escape-key' | 'outside-press' | 'focus-out' | 'imperative-action' | 'none';
 export type ChangeEventDetails = BaseUIChangeEventDetails<ChangeReason, { preventUnmountOnClose(): void }>;

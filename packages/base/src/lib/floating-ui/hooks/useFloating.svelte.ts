@@ -2,7 +2,7 @@
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
 // Native Svelte store/host lifetime delegates to the single default-platform DOM geometry driver.
 import { isElement } from '@floating-ui/utils/dom';
-import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
 import { useFloating as usePosition, type NativeFloatingOptions } from '../../internals/anchor-positioning/useFloating.svelte.js';
 import { useFloatingTree } from '../components/FloatingTree.svelte.js';
 import type { FloatingRootStore } from '../components/FloatingRootStore.svelte.js';

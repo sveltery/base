@@ -1,9 +1,9 @@
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 import { mount, tick, unmount } from 'svelte';
 import Fixture from './SharedSourceUtilsFixture.svelte';
-import { reset } from '../../src/lib/utils/error.js';
-import { createLogOnce } from '../../src/lib/utils/createLogOnce.js';
-import { EMPTY_ARRAY, EMPTY_OBJECT } from '../../src/lib/utils/empty.js';
+import { reset } from '@sveltery/utils/error';
+import { createLogOnce } from '@sveltery/utils/createLogOnce';
+import { EMPTY_ARRAY, EMPTY_OBJECT } from '@sveltery/utils/empty';
 
 const mounted: ReturnType<typeof mount>[] = [];
 beforeEach(() => { reset(); });

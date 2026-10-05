@@ -1,5 +1,5 @@
 <script module lang="ts">
-  import { platform } from '../../utils/platform/index.js';
+  import { platform } from '@sveltery/utils/platform';
   import * as ScrollAreaViewportCssVars from './ScrollAreaViewportCssVars.js';
   const OVERFLOW_EDGE_VARS = [
     ScrollAreaViewportCssVars.scrollAreaOverflowXStart,
@@ -52,8 +52,8 @@
   // Base UI1.8.0 ScrollAreaViewport.tsx source geometry/lifetimes; MIT.
   import { onMount, untrack } from 'svelte';
   import RenderElement from '../../internals/RenderElement.svelte';
-  import { useTimeout } from '../../utils/useTimeout.js';
-  import { clamp } from '../../utils/clamp.js';
+  import { useTimeout } from '@sveltery/utils/useTimeout';
+  import { clamp } from '@sveltery/utils/clamp';
   import { styleDisableScrollbar } from '../../utils/styles.js';
   import { useDirection } from '../../direction-provider/context.js';
   import { useScrollAreaRootContext } from '../root/ScrollAreaRootContext.js';

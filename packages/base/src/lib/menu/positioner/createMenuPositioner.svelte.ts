@@ -1,7 +1,7 @@
 // Original MenuPositioner complete business body, native component/render boundary (MIT).
 import { untrack } from 'svelte';
-import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
-import { useTimeout } from '../../utils/useTimeout.js';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+import { useTimeout } from '@sveltery/utils/useTimeout';
 import { useMenuPortalContext } from '../portal/MenuPortalContext.js';
 import { useContextMenuRootContext } from '../../context-menu/root/ContextMenuRootContext.js';
 import { useAnchorPositioning } from '../../internals/anchor-positioning/useAnchorPositioning.svelte.js';

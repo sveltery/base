@@ -1,6 +1,6 @@
 <script lang="ts">
   // Source-ordered Base UI v1.8.0 ToolbarButton.tsx; MIT: THIRD_PARTY_NOTICES.md.
-  import { EMPTY_OBJECT } from '../../utils/empty.js';
+  import { EMPTY_OBJECT } from '@sveltery/utils/empty';
   import { useButton } from '../../internals/use-button/useButton.svelte.js';
   import { useToolbarRootContext } from '../root/ToolbarRootContext.js';
   import { useToolbarGroupContext } from '../group/ToolbarGroupContext.js';

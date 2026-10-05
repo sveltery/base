@@ -1,8 +1,8 @@
 <script lang="ts" generics="Payload">
   // Original DialogInteractions/useDialogRoot business body; native effects and DOM events (MIT).
   import { untrack } from 'svelte';
-  import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
-  import { useScrollLock } from '../../utils/useScrollLock.svelte.js';
+  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+  import { useScrollLock } from '@sveltery/utils/useScrollLock';
   import { useDismiss } from '../../floating-ui/hooks/useDismiss.svelte.js';
   import { contains, getTarget } from '../../floating-ui/utils/element.js';
   import { usePopupInteractionProps } from '../../utils/popups/popupStoreUtils.svelte.js';

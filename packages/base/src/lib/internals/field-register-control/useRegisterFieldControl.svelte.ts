@@ -1,7 +1,7 @@
 // Ported from Base UI v1.8.0 useRegisterFieldControl.ts at
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
-import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
-import { useRefWithInit } from '../../utils/useRefWithInit.js';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+import { useRefWithInit } from '@sveltery/utils/useRefWithInit';
 import { useFieldRootContext } from '../field-root-context/FieldRootContext.js';
 import type { FieldControlRegistration } from './useFieldControlRegistration.svelte.js';
 export function useRegisterFieldControl(

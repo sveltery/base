@@ -14,7 +14,7 @@
   import { useFocus } from '../floating-ui/hooks/useFocus.svelte.js';
   import { untrack } from 'svelte';
   import { isElement } from '@floating-ui/utils/dom';
-  import { useTimeout } from '../utils/useTimeout.js';
+  import { useTimeout } from '@sveltery/utils/useTimeout';
   import { useTooltipProviderContext } from './provider/TooltipProviderContext.js';
   import { useDelayGroup } from '../floating-ui/hooks/useDelayGroup.svelte.js';
   import { useHoverInteractionSharedState } from '../floating-ui/hooks/useHoverInteractionSharedState.svelte.js';

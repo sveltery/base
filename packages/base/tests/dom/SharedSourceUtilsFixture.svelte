@@ -1,10 +1,10 @@
 <script lang="ts">
   import { untrack } from 'svelte';
-  import { useControlled, type SetStateAction } from '../../src/lib/utils/useControlled.svelte.js';
-  import { useStableCallback } from '../../src/lib/utils/useStableCallback.js';
-  import { useTimeout } from '../../src/lib/utils/useTimeout.js';
-  import { useRefWithInit } from '../../src/lib/utils/useRefWithInit.js';
-  import { useIsoLayoutEffect } from '../../src/lib/utils/useIsoLayoutEffect.svelte.js';
+  import { useControlled, type SetStateAction } from '@sveltery/utils/useControlled';
+  import { useStableCallback } from '@sveltery/utils/useStableCallback';
+  import { useTimeout } from '@sveltery/utils/useTimeout';
+  import { useRefWithInit } from '@sveltery/utils/useRefWithInit';
+  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
   import { useValueChanged } from '../../src/lib/internals/useValueChanged.svelte.js';
   import Child from './SharedSourceUtilsChild.svelte';
 

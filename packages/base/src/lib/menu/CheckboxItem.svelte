@@ -1,8 +1,8 @@
 <script lang="ts">
   // Original MenuCheckboxItem complete controlled/cancelable item composition (MIT).
   import RenderElement from '../internals/RenderElement.svelte';
-  import { useControlled } from '../utils/useControlled.svelte.js';
-  import { NOOP } from '../utils/empty.js';
+  import { useControlled } from '@sveltery/utils/useControlled';
+  import { NOOP } from '@sveltery/utils/empty';
   import { provideMenuCheckboxItemContext } from './checkbox-item/MenuCheckboxItemContext.js';
   import { REGULAR_ITEM, useMenuItem } from './item/useMenuItem.svelte.js';
   import { useCompositeListItem } from '../internals/composite/list/useCompositeListItem.svelte.js';

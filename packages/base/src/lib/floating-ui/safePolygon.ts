@@ -1,6 +1,6 @@
 // Base UI 1.8.0 Original safePolygon. MIT: THIRD_PARTY_NOTICES.md.
 import { isElement } from '@floating-ui/utils/dom';
-import { Timeout } from '../utils/useTimeout.js';
+import { Timeout } from '@sveltery/utils/useTimeout';
 import type { Rect, Side } from '@floating-ui/dom';
 import type { HandleClose, HandleCloseOptions } from './hooks/useHoverShared.js';
 import { contains, getTarget } from './utils/element.js';

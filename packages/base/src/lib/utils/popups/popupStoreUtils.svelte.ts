@@ -2,16 +2,16 @@
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
 import { flushSync } from 'svelte';
 import type { PopupStoreState, PopupStoreContext } from './store.js';
-import { EMPTY_OBJECT } from '../empty.js';
+import { EMPTY_OBJECT } from '@sveltery/utils/empty';
 import { useFloatingParentNodeId } from '../../floating-ui/components/FloatingTree.svelte.js';
 import { useSyncedFloatingRootContext } from '../../floating-ui/hooks/useSyncedFloatingRootContext.svelte.js';
-import { useStableCallback } from '../useStableCallback.js';
-import { useIsoLayoutEffect } from '../useIsoLayoutEffect.svelte.js';
+import { useStableCallback } from '@sveltery/utils/useStableCallback';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
 import { useTransitionStatus } from '../../internals/useTransitionStatus.svelte.js';
 import { useOpenChangeComplete } from '../../internals/useOpenChangeComplete.svelte.js';
 import { createChangeEventDetails, type BaseUIChangeEventDetails } from '../../internals/createBaseUIEventDetails.js';
 import { REASONS } from '../../internals/reasons.js';
-import type { InteractionType } from '../useEnhancedClickHandler.js';
+import type { InteractionType } from '@sveltery/utils/useEnhancedClickHandler';
 import type { PopupTriggerDataStore } from './store.js';
 
 type PopupStoreWithOpen<State extends PopupStoreState<unknown>> = PopupTriggerDataStore<State> & {

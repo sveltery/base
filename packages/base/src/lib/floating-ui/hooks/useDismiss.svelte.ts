@@ -1,11 +1,11 @@
 // Ported business body from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
-import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
-import { addEventListener } from '../../utils/addEventListener.js';
-import { mergeCleanups } from '../../utils/mergeCleanups.js';
-import { ownerDocument } from '../../utils/owner.js';
-import { useStableCallback } from '../../utils/useStableCallback.js';
-import { Timeout, useTimeout } from '../../utils/useTimeout.js';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+import { addEventListener } from '@sveltery/utils/addEventListener';
+import { mergeCleanups } from '@sveltery/utils/mergeCleanups';
+import { ownerDocument } from '@sveltery/utils/owner';
+import { useStableCallback } from '@sveltery/utils/useStableCallback';
+import { Timeout, useTimeout } from '@sveltery/utils/useTimeout';
 import {
   getComputedStyle,
   getParentNode,
@@ -14,7 +14,7 @@ import {
   isLastTraversableNode,
   isShadowRoot,
 } from '@floating-ui/utils/dom';
-import { platform } from '../../utils/platform/index.js';
+import { platform } from '@sveltery/utils/platform';
 import { useFloatingTree } from '../components/FloatingTree.svelte.js';
 import { FloatingTreeStore } from '../components/FloatingTreeStore.js';
 import type { ElementProps, FloatingContext, FloatingRootContext } from '../types.js';

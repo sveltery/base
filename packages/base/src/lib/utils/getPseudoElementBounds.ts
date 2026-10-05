@@ -1,6 +1,6 @@
 // Original Base UI 1.8.0 getPseudoElementBounds full body (MIT).
-import { ownerWindow } from './owner.js';
-import { platform } from './platform/index.js';
+import { ownerWindow } from '@sveltery/utils/owner';
+import { platform } from '@sveltery/utils/platform';
 
 interface ElementBounds {
   left: number;

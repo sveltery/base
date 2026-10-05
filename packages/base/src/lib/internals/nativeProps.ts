@@ -2,7 +2,7 @@
 // CSS strings and ClassValue are Svelte APIs; source merge algorithms live in their original modules.
 import type { ClassValue } from 'svelte/elements';
 import { resolveClassValue } from './resolveClassValue.js';
-import { mergeObjects } from '../utils/mergeObjects.js';
+import { mergeObjects } from '@sveltery/utils/mergeObjects';
 export type NativeStyle = string | Record<string, unknown>;
 
 export function toNativeStyle(value: unknown): string | undefined {

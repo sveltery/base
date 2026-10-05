@@ -1,6 +1,6 @@
 // Original selected Base UI v1.8.0 useOpenMethodTriggerProps business body (MIT).
-import { useEnhancedClickHandler, type InteractionType } from './useEnhancedClickHandler.js';
-import { platform } from './platform/index.js';
+import { useEnhancedClickHandler, type InteractionType } from '@sveltery/utils/useEnhancedClickHandler';
+import { platform } from '@sveltery/utils/platform';
 import { useValueChanged } from '../internals/useValueChanged.svelte.js';
 
 export function useOpenMethodTriggerProps(

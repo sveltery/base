@@ -4,7 +4,7 @@
   import { provideFloatingTree, useFloatingNodeId, provideFloatingNode } from '../floating-ui/components/FloatingTree.svelte.js';
   import { provideMenubarContext, type MenubarContext } from './MenubarContext.js';
   import { useBaseUiId } from '../internals/useBaseUiId.js';
-  import { useIsoLayoutEffect } from '../utils/useIsoLayoutEffect.svelte.js';
+  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
   import { REASONS } from '../internals/reasons.js';
   import type { MenubarProps } from './types.js';
   import type { MenuRoot } from '../menu/types.js';

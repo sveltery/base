@@ -1,7 +1,7 @@
 // Ported from Base UI v1.8.0 labelable-provider/useLabel.ts; MIT: THIRD_PARTY_NOTICES.md.
-import { ownerDocument } from '../../utils/owner.js';
-import { useStableCallback } from '../../utils/useStableCallback.js';
-import { getTarget } from '../../utils/shadowDom.js';
+import { ownerDocument } from '@sveltery/utils/owner';
+import { useStableCallback } from '@sveltery/utils/useStableCallback';
+import { getTarget } from '@sveltery/utils/shadowDom';
 import { useRegisteredLabelId } from '../../utils/useRegisteredLabelId.svelte.js';
 import { useLabelableContext, type LabelableContext } from './LabelableContext.js';
 

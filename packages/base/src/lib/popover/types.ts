@@ -67,7 +67,7 @@ export interface PopoverPositionerState { open: boolean; side: Side; align: Alig
 export type PopoverPositionerProps = ElementProps<PopoverPositionerState> & PositioningProps;
 
 export interface PopoverPopupState { open: boolean; side: Side; align: Align; instant: 'dismiss' | 'click' | 'focus' | 'trigger-change' | undefined; transitionStatus: TransitionStatus }
-import type { InteractionType } from '../utils/useEnhancedClickHandler.js';
+import type { InteractionType } from '@sveltery/utils/useEnhancedClickHandler';
 export type PopoverPopupFocusTarget = boolean | { current: HTMLElement | null } | ((interactionType: InteractionType) => void | boolean | HTMLElement | null);
 export type PopoverPopupProps = ElementProps<PopoverPopupState> & { initialFocus?: PopoverPopupFocusTarget | undefined; finalFocus?: PopoverPopupFocusTarget | undefined };
 

@@ -3,8 +3,8 @@
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
   import { untrack, type Snippet } from 'svelte';
   import type { HTMLFormAttributes } from 'svelte/elements';
-  import { useStableCallback } from '../utils/useStableCallback.js';
-  import { EMPTY_OBJECT } from '../utils/empty.js';
+  import { useStableCallback } from '@sveltery/utils/useStableCallback';
+  import { EMPTY_OBJECT } from '@sveltery/utils/empty';
   import { createGenericEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../internals/reasons.js';
   import { setFormContext, type FormContext } from '../internals/form-context/FormContext.js';

@@ -1,9 +1,9 @@
 // Original ContextMenuTrigger full pointer/long-press/listener business (MIT).
 import { untrack } from 'svelte';
-import { addEventListener } from '../../utils/addEventListener.js';
-import { ownerDocument } from '../../utils/owner.js';
-import { useTimeout } from '../../utils/useTimeout.js';
-import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
+import { addEventListener } from '@sveltery/utils/addEventListener';
+import { ownerDocument } from '@sveltery/utils/owner';
+import { useTimeout } from '@sveltery/utils/useTimeout';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
 import { contains, getTarget } from '../../floating-ui/utils/element.js';
 import { stopEvent } from '../../floating-ui/utils/event.js';
 import { useContextMenuRootContext } from '../root/ContextMenuRootContext.js';

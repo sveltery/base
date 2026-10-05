@@ -2,7 +2,7 @@
 import { afterEach, expect, it, vi } from 'vitest';
 import { mount, tick, unmount } from 'svelte';
 import Fixture from '../../../../apps/fixtures/src/lib/NavigationFixture.svelte';
-import { reset } from '../../src/lib/utils/error.js';
+import { reset } from '@sveltery/utils/error';
 const mounted: ReturnType<typeof mount>[] = [];
 async function setup(scenario: string, orientation: 'horizontal' | 'vertical' = 'horizontal') {
   const target = document.createElement('section'); document.body.append(target);

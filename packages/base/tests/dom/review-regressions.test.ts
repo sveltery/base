@@ -2,7 +2,7 @@ import { afterEach, expect, it } from 'vitest';
 import { mount, tick, unmount } from 'svelte';
 import Fixture from '../../../../apps/fixtures/src/lib/RegressionFixture.svelte';
 import { mountRegressionReference } from '../../../../apps/fixtures/src/lib/regression-reference.js';
-import { activeElement } from '../../src/lib/utils/shadowDom.js';
+import { activeElement } from '@sveltery/utils/shadowDom';
 import { tabbable as tabbables } from '../../src/lib/floating-ui/utils/tabbable.js';
 import { DialogStore } from '../../src/lib/dialog/store/DialogStore.svelte.js';
 import { createChangeEventDetails } from '../../src/lib/internals/createBaseUIEventDetails.js';

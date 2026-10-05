@@ -1,8 +1,8 @@
 // Base UI 1.8.0 Original shared hover instance/pointer-mutation ownership. MIT: THIRD_PARTY_NOTICES.md.
 import { untrack } from 'svelte';
-import { useOnMount } from '../../utils/useOnMount.js';
-import { useRefWithInit } from '../../utils/useRefWithInit.js';
-import { Timeout } from '../../utils/useTimeout.js';
+import { useOnMount } from '@sveltery/utils/useOnMount';
+import { useRefWithInit } from '@sveltery/utils/useRefWithInit';
+import { Timeout } from '@sveltery/utils/useTimeout';
 
 import type { ContextData, FloatingRootContext, SafePolygonOptions } from '../types.js';
 import { isInteractiveElement } from '../utils/element.js';

@@ -1,9 +1,9 @@
 <script lang="ts" generics="Value extends string = string">
   // Source-ordered Base UI v1.8.0 ToggleGroup.tsx at
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
-  import { useStableCallback } from '../utils/useStableCallback.js';
-  import { useControlled } from '../utils/useControlled.svelte.js';
-  import { EMPTY_ARRAY } from '../utils/empty.js';
+  import { useStableCallback } from '@sveltery/utils/useStableCallback';
+  import { useControlled } from '@sveltery/utils/useControlled';
+  import { EMPTY_ARRAY } from '@sveltery/utils/empty';
   import RenderElement from '../internals/RenderElement.svelte';
   import CompositeRoot from '../internals/composite/root/CompositeRoot.svelte';
   import { useToolbarRootContext } from '../toolbar/root/ToolbarRootContext.js';

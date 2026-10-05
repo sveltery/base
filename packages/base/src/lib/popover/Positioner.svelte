@@ -11,7 +11,7 @@
   import InternalBackdrop from '../utils/InternalBackdrop.svelte';
   import { useAnimationsFinished } from '../internals/useAnimationsFinished.js';
   import { useAnchoredPopupScrollLock } from '../utils/useAnchoredPopupScrollLock.svelte.js';
-  import { useIsoLayoutEffect } from '../utils/useIsoLayoutEffect.svelte.js';
+  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
   import { REASONS } from '../internals/reasons.js';
   // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
   let { render, class: className, style, children, ref = $bindable(), anchor, positionMethod, side, align, sideOffset, alignOffset, collisionBoundary = 'clipping-ancestors', collisionPadding, arrowPadding, sticky, disableAnchorTracking = false, collisionAvoidance = POPUP_COLLISION_AVOIDANCE, ...elementProps }: PopoverPositionerProps = $props();

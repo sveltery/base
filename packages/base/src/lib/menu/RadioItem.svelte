@@ -1,7 +1,7 @@
 <script lang="ts">
   // Original MenuRadioItem complete radio/item/consumer-order composition (MIT).
   import RenderElement from '../internals/RenderElement.svelte';
-  import { NOOP } from '../utils/empty.js';
+  import { NOOP } from '@sveltery/utils/empty';
   import { useMenuRootContext } from './root/MenuRootContext.js';
   import { useBaseUiId } from '../internals/useBaseUiId.js';
   import { useMenuRadioGroupContext } from './radio-group/MenuRadioGroupContext.js';

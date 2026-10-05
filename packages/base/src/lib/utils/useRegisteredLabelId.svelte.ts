@@ -1,5 +1,5 @@
 // Ported from Base UI v1.8.0 utils/useRegisteredLabelId.ts; MIT: THIRD_PARTY_NOTICES.md.
-import { useIsoLayoutEffect } from './useIsoLayoutEffect.svelte.js';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
 import { useBaseUiId } from '../internals/useBaseUiId.js';
 
 export function useRegisteredLabelId(

@@ -4,7 +4,7 @@
   import Probe from './PopupPortalBoundaryProbe.svelte';
   import type { PortalContainer } from '../../src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.js';
   import type { FloatingPortalContext } from '../../src/lib/floating-ui/components/FloatingPortalContext.js';
-  import type { MergedRef } from '../../src/lib/utils/useMergedRefs.js';
+  import type { MergedRef } from '@sveltery/utils/useMergedRefs';
 
   let { container, lite = false, customHost = false, customId = 'custom-portal', nested,
     focus = false, forwardedRef }: {

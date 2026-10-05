@@ -1,4 +1,4 @@
-import { SvelteStore } from '../../src/lib/utils/store/SvelteStore.svelte.js';
+import { SvelteStore } from '@sveltery/utils/store';
 import { PopupTriggerMap } from '../../src/lib/utils/popups/popupTriggerMap.svelte.js';
 import {
   createInitialPopupStoreState, popupStoreSelectors,

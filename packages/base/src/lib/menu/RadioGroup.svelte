@@ -1,8 +1,8 @@
 <script lang="ts">
   // Original MenuRadioGroup controlled/cancellation/label/context composition (MIT).
   import RenderElement from '../internals/RenderElement.svelte';
-  import { useControlled } from '../utils/useControlled.svelte.js';
-  import { useStableCallback } from '../utils/useStableCallback.js';
+  import { useControlled } from '@sveltery/utils/useControlled';
+  import { useStableCallback } from '@sveltery/utils/useStableCallback';
   import { provideMenuRadioGroupContext } from './radio-group/MenuRadioGroupContext.js';
   import { provideMenuGroupContext, type MenuGroupContext } from './group/MenuGroupContext.js';
   import type { MenuRadioGroupProps, MenuRadioGroup } from './types.js';

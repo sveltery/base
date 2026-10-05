@@ -4,7 +4,7 @@
   import { getAllContexts, type Snippet } from 'svelte';
   import type { HTMLAttributes } from 'svelte/elements';
   import type { BaseUIComponentProps, WithBaseUIEvent } from '../internals/types.js';
-  import type { MergedRef } from './useMergedRefs.js';
+  import type { MergedRef } from '@sveltery/utils/useMergedRefs';
   import {
     useFloatingPortalNode,
     useFloatingPortalContent,

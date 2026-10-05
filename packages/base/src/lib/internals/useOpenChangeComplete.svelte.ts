@@ -1,6 +1,6 @@
 // Ported from Base UI v1.8.0 useOpenChangeComplete.tsx; MIT: THIRD_PARTY_NOTICES.md.
-import { useStableCallback } from '../utils/useStableCallback.js';
-import { useIsoLayoutEffect } from '../utils/useIsoLayoutEffect.svelte.js';
+import { useStableCallback } from '@sveltery/utils/useStableCallback';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
 import { useAnimationsFinished } from './useAnimationsFinished.js';
 export interface UseOpenChangeCompleteParameters {
   enabled?: boolean;

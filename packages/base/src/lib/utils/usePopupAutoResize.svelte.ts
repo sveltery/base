@@ -1,8 +1,8 @@
 // Original usePopupAutoResize full measurement/restore/animation business (MIT).
-import { useAnimationFrame } from './useAnimationFrame.js';
-import { useIsoLayoutEffect } from './useIsoLayoutEffect.svelte.js';
-import { useStableCallback } from './useStableCallback.js';
-import { NOOP, EMPTY_OBJECT } from './empty.js';
+import { useAnimationFrame } from '@sveltery/utils/useAnimationFrame';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+import { useStableCallback } from '@sveltery/utils/useStableCallback';
+import { NOOP, EMPTY_OBJECT } from '@sveltery/utils/empty';
 import { useAnimationsFinished } from '../internals/useAnimationsFinished.js';
 import { getCssDimensions } from './getCssDimensions.js';
 import type { Dimensions } from '@floating-ui/dom';

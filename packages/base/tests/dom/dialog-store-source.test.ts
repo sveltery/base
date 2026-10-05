@@ -1,6 +1,6 @@
 // Supplemental business regressions for the actual pinned shared popup store port (MIT).
 import { describe, expect, it, vi } from 'vitest';
-import { Store } from '../../src/lib/utils/store/Store.svelte.js';
+import { Store } from '@sveltery/utils/store';
 import { DialogStore, createNullDialogStore } from '../../src/lib/dialog/store/DialogStore.svelte.js';
 import { DialogHandle } from '../../src/lib/dialog/store/DialogHandle.svelte.js';
 import { createChangeEventDetails } from '../../src/lib/internals/createBaseUIEventDetails.js';

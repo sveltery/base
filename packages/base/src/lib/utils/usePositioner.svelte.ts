@@ -3,7 +3,7 @@ import { popupStateMapping } from './popupStateMapping.js';
 import { getDisabledMountTransitionStyles } from '../internals/getDisabledMountTransitionStyles.js';
 import type { TransitionStatus } from '../internals/useTransitionStatus.svelte.js';
 import type { UseRenderElementParameters } from '../internals/useRenderElement.js';
-import type { MergedRef } from './useMergedRefs.js';
+import type { MergedRef } from '@sveltery/utils/useMergedRefs';
 import type { StateAttributesMapping } from '../internals/getStateAttributesProps.js';
 import type { HTMLProps } from '../internals/types.js';
 interface UsePositionerOptions {

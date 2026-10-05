@@ -8,7 +8,7 @@
   import { ROOT, usePreviewCardRootContext } from './context.js';
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../internals/reasons.js';
-  import { useIsoLayoutEffect } from '../utils/useIsoLayoutEffect.svelte.js';
+  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
   import { useImplicitActiveTrigger, useOpenStateTransitions, usePopupRootStore } from '../utils/popups/popupStoreUtils.svelte.js';
   import type { PreviewCardRootProps, PreviewCardRootChangeEventDetails } from './types.js';
   import { provideFloatingTree } from '../floating-ui/components/FloatingTree.svelte.js';

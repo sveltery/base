@@ -1,8 +1,8 @@
 // Original Base UI 1.8.0 useClientPoint business, native live readers/effects.
 // MIT: THIRD_PARTY_NOTICES.md; pin 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
-import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
-import { addEventListener } from '../../utils/addEventListener.js';
-import { useStableCallback } from '../../utils/useStableCallback.js';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+import { addEventListener } from '@sveltery/utils/addEventListener';
+import { useStableCallback } from '@sveltery/utils/useStableCallback';
 import { getWindow } from '@floating-ui/utils/dom';
 import type { ContextData, ElementProps, FloatingContext, FloatingRootContext } from '../types.js';
 import { contains, getTarget } from '../utils/element.js';

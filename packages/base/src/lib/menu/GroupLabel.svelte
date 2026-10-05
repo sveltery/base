@@ -1,7 +1,7 @@
 <script lang="ts">
   // Original MenuGroupLabel ID/conditional-cleanup/render body (MIT).
   import RenderElement from '../internals/RenderElement.svelte';
-  import { useIsoLayoutEffect } from '../utils/useIsoLayoutEffect.svelte.js';
+  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
   import { useBaseUiId } from '../internals/useBaseUiId.js';
   import { useMenuGroupRootContext } from './group/MenuGroupContext.js';
   import type { MenuGroupLabelProps } from './types.js';

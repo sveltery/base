@@ -2,7 +2,7 @@
 // Native Svelte live-reader/setup boundary; MIT: THIRD_PARTY_NOTICES.md.
 import { untrack } from 'svelte';
 import { isElement } from '@floating-ui/utils/dom';
-import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
 import { FloatingRootStore, type FloatingRootState } from '../components/FloatingRootStore.svelte.js';
 import type { PopupStoreState, PopupTriggerDataStore } from '../../utils/popups/store.js';
 import type { BaseUIChangeEventDetails } from '../../internals/createBaseUIEventDetails.js';

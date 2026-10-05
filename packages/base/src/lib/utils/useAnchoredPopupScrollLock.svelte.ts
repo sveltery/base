@@ -1,7 +1,7 @@
 // Original Base UI 1.8.0 useAnchoredPopupScrollLock, native live-reader boundary (MIT).
-import { ownerDocument } from './owner.js';
-import { useScrollLock } from './useScrollLock.svelte.js';
-import { useIsoLayoutEffect } from './useIsoLayoutEffect.svelte.js';
+import { ownerDocument } from '@sveltery/utils/owner';
+import { useScrollLock } from '@sveltery/utils/useScrollLock';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
 const VIEWPORT_WIDTH_TOLERANCE_PX = 20;
 export function useAnchoredPopupScrollLock(
   getEnabled: () => boolean, getTouchOpen: () => boolean,

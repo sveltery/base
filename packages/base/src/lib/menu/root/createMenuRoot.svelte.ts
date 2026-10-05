@@ -2,11 +2,11 @@
 // Native Svelte component initialization, context, live props and host effects; MIT.
 import { DEV } from 'esm-env';
 import { untrack } from 'svelte';
-import { useTimeout } from '../../utils/useTimeout.js';
-import { useStableCallback } from '../../utils/useStableCallback.js';
-import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
-import { useRefWithInit } from '../../utils/useRefWithInit.js';
-import { EMPTY_ARRAY, EMPTY_OBJECT } from '../../utils/empty.js';
+import { useTimeout } from '@sveltery/utils/useTimeout';
+import { useStableCallback } from '@sveltery/utils/useStableCallback';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+import { useRefWithInit } from '@sveltery/utils/useRefWithInit';
+import { EMPTY_ARRAY, EMPTY_OBJECT } from '@sveltery/utils/empty';
 import { useDismiss } from '../../floating-ui/hooks/useDismiss.svelte.js';
 import { useFloatingNodeId, useFloatingParentNodeId } from '../../floating-ui/components/FloatingTree.svelte.js';
 import { useListNavigation } from '../../floating-ui/hooks/useListNavigation.svelte.js';

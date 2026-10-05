@@ -1,9 +1,9 @@
 <script lang="ts">
   // Original FocusGuard business props/platform branch with native DOM ref attachment (MIT).
   import type { HTMLAttributes } from 'svelte/elements';
-  import { platform } from './platform/index.js';
-  import { visuallyHidden } from './visuallyHidden.js';
-  import { createMergedRefs, type MergedRef } from './useMergedRefs.js';
+  import { platform } from '@sveltery/utils/platform';
+  import { visuallyHidden } from '@sveltery/utils/visuallyHidden';
+  import { createMergedRefs, type MergedRef } from '@sveltery/utils/useMergedRefs';
   import { createRefAttachment } from '../internals/nativeRefAttachment.js';
   import { toNativeStyle } from '../internals/nativeProps.js';
   let { ref, ...props }: HTMLAttributes<HTMLSpanElement> & { ref?: MergedRef<HTMLSpanElement> | null } = $props();

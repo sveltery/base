@@ -1,16 +1,16 @@
 // Ported business body from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
 import { getNodeName, isHTMLElement } from '@floating-ui/utils/dom';
-import { addEventListener } from '../../utils/addEventListener.js';
-import { mergeCleanups } from '../../utils/mergeCleanups.js';
-import { createMergedRefs } from '../../utils/useMergedRefs.js';
-import { useStableCallback } from '../../utils/useStableCallback.js';
-import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
-import { useTimeout } from '../../utils/useTimeout.js';
-import { platform } from '../../utils/platform/index.js';
-import type { InteractionType } from '../../utils/useEnhancedClickHandler.js';
-import { useAnimationFrame } from '../../utils/useAnimationFrame.js';
-import { ownerDocument, ownerWindow } from '../../utils/owner.js';
+import { addEventListener } from '@sveltery/utils/addEventListener';
+import { mergeCleanups } from '@sveltery/utils/mergeCleanups';
+import { createMergedRefs } from '@sveltery/utils/useMergedRefs';
+import { useStableCallback } from '@sveltery/utils/useStableCallback';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+import { useTimeout } from '@sveltery/utils/useTimeout';
+import { platform } from '@sveltery/utils/platform';
+import type { InteractionType } from '@sveltery/utils/useEnhancedClickHandler';
+import { useAnimationFrame } from '@sveltery/utils/useAnimationFrame';
+import { ownerDocument, ownerWindow } from '@sveltery/utils/owner';
 import {
   activeElement,
   contains,

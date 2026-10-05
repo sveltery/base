@@ -8,7 +8,7 @@
   import { ROOT, usePopoverRootContext } from './context.js';
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../internals/reasons.js';
-  import { useIsoLayoutEffect } from '../utils/useIsoLayoutEffect.svelte.js';
+  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
   import { useImplicitActiveTrigger, useOpenStateTransitions, usePopupRootStore, usePopupRootSync } from '../utils/popups/popupStoreUtils.svelte.js';
   import type { PopoverRootProps, PopoverRootChangeEventDetails } from './types.js';
   import { provideFloatingTree } from '../floating-ui/components/FloatingTree.svelte.js';

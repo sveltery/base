@@ -1,7 +1,7 @@
 // Ported business state from Base UI v1.8.0 useTransitionStatus.ts; MIT: THIRD_PARTY_NOTICES.md.
 import { untrack } from 'svelte';
-import { useIsoLayoutEffect } from '../utils/useIsoLayoutEffect.svelte.js';
-import { AnimationFrame } from '../utils/useAnimationFrame.js';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+import { AnimationFrame } from '@sveltery/utils/useAnimationFrame';
 export type TransitionStatus = 'starting' | 'ending' | 'idle' | undefined;
 
 export function useTransitionStatus(

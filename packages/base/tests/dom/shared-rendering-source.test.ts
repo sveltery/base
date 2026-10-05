@@ -3,7 +3,7 @@ import { afterEach, expect, it, vi } from 'vitest';
 import { flushSync, mount, unmount, type ComponentProps } from 'svelte';
 import { createAttachmentKey } from 'svelte/attachments';
 import Fixture from './SharedRenderElementFixture.svelte';
-import type { MergedRef } from '../../src/lib/utils/useMergedRefs.js';
+import type { MergedRef } from '@sveltery/utils/useMergedRefs';
 const apps: ReturnType<typeof mount>[] = [];
 afterEach(async () => { for (const app of apps.splice(0)) await unmount(app); document.body.replaceChildren(); });
 function render(props: ComponentProps<typeof Fixture>) {

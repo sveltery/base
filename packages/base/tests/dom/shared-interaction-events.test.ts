@@ -1,7 +1,7 @@
 // Supplemental native event consumer probes for the pinned shared event helper (MIT).
 import { afterEach, expect, it } from 'vitest';
 import { isClickLikeEvent, isMouseLikePointerType, isVirtualClick, isVirtualPointerEvent, stopEvent } from '../../src/lib/floating-ui/utils/event.js';
-import { platform } from '../../src/lib/utils/platform/index.js';
+import { platform } from '@sveltery/utils/platform';
 afterEach(() => document.body.replaceChildren());
 it('stops a cancelable native consumer key event before parent listeners and prevents its default', () => {
   const parent = document.createElement('div'); const child = document.createElement('input'); parent.append(child); document.body.append(parent);

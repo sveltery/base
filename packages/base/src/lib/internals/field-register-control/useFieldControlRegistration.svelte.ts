@@ -1,7 +1,7 @@
 // Mechanically ported from Base UI v1.8.0 useFieldControlRegistration.ts.
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
-import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
-import { useStableCallback } from '../../utils/useStableCallback.js';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+import { useStableCallback } from '@sveltery/utils/useStableCallback';
 import { getCombinedFieldValidityData } from '../../field/utils/getCombinedFieldValidityData.js';
 import { useFormContext } from '../form-context/FormContext.js';
 import type { FieldValidityData } from '../../field/types.js';

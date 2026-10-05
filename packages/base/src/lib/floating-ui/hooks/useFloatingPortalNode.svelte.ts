@@ -4,8 +4,8 @@
 // SHA256 56ef7993c9378f0710f7724a40280f8ba31fa7fb515b218802d7935c3a95f75b.
 import { getAllContexts, mount, unmount, untrack, type Snippet } from 'svelte';
 import { getWindow, isNode } from '@floating-ui/utils/dom';
-import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
-import type { MergedRef } from '../../utils/useMergedRefs.js';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+import type { MergedRef } from '@sveltery/utils/useMergedRefs';
 import type { HTMLProps } from '../../internals/types.js';
 import type { UseRenderElementComponentProps } from '../../internals/useRenderElement.js';
 import RenderElement from '../../internals/RenderElement.svelte';

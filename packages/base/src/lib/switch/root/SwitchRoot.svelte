@@ -3,12 +3,12 @@
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
   import { useFieldControlNativeName } from '../../internals/field-control-name/FieldControlNameContext.js';
   import RenderElement from '../../internals/RenderElement.svelte';
-  import { createMergedRefs } from '../../utils/useMergedRefs.js';
+  import { createMergedRefs } from '@sveltery/utils/useMergedRefs';
   import { createRefAttachment } from '../../internals/nativeRefAttachment.js';
   import type { HTMLInputAttributes } from 'svelte/elements';
-  import { useControlled } from '../../utils/useControlled.svelte.js';
-  import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
-  import { visuallyHidden, visuallyHiddenInput } from '../../utils/visuallyHidden.js';
+  import { useControlled } from '@sveltery/utils/useControlled';
+  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+  import { visuallyHidden, visuallyHiddenInput } from '@sveltery/utils/visuallyHidden';
   import { toNativeStyle } from '../../internals/nativeProps.js';
   import { useBaseUiId } from '../../internals/useBaseUiId.js';
   import { useButton } from '../../internals/use-button/useButton.svelte.js';

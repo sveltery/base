@@ -3,11 +3,11 @@
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
   import RenderElement from '../../internals/RenderElement.svelte';
   import CompositeItem from '../../internals/composite/item/CompositeItem.svelte';
-  import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
+  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
   import {
     visuallyHidden,
     visuallyHiddenInput,
-  } from '../../utils/visuallyHidden.js';
+  } from '@sveltery/utils/visuallyHidden';
   import { toNativeStyle } from '../../internals/nativeProps.js';
   import { createChangeEventDetails } from '../../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../../internals/reasons.js';

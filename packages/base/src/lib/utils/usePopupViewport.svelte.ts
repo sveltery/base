@@ -1,10 +1,10 @@
 // Original usePopupViewport complete captured DOM/content-key/transition business (MIT).
 import { flushSync, untrack, type Snippet } from 'svelte';
-import { useAnimationFrame } from './useAnimationFrame.js';
-import { usePreviousValue } from './usePreviousValue.svelte.js';
-import { useIsoLayoutEffect } from './useIsoLayoutEffect.svelte.js';
-import { useStableCallback } from './useStableCallback.js';
-import { ownerDocument } from './owner.js';
+import { useAnimationFrame } from '@sveltery/utils/useAnimationFrame';
+import { usePreviousValue } from '@sveltery/utils/usePreviousValue';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+import { useStableCallback } from '@sveltery/utils/useStableCallback';
+import { ownerDocument } from '@sveltery/utils/owner';
 import { useAnimationsFinished } from '../internals/useAnimationsFinished.js';
 import { usePopupAutoResize } from './usePopupAutoResize.svelte.js';
 import type { Dimensions, Middleware } from '@floating-ui/dom';

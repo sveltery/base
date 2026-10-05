@@ -1,7 +1,7 @@
 // Ported from Base UI v1.8.0 internals/field-root-context/FieldRootContext.ts.
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
 import { getContext, setContext } from 'svelte';
-import { EMPTY_OBJECT, NOOP } from '../../utils/empty.js';
+import { EMPTY_OBJECT, NOOP } from '@sveltery/utils/empty';
 import { DEFAULT_FIELD_ROOT_STATE, DEFAULT_VALIDITY_STATE } from '../field-constants/constants.js';
 import type { FieldValidityData, FieldRootState } from '../../field/types.js';
 import type { FormValidationMode } from '../../form/types.js';

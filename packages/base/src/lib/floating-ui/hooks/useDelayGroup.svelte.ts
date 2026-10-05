@@ -1,7 +1,7 @@
 // Original Base UI 1.8.0 useDelayGroup/resetDelayRef business, native live state.
 // MIT: THIRD_PARTY_NOTICES.md; pin 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 import { untrack } from 'svelte';
-import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
 import { useFloatingDelayGroupContext } from '../components/FloatingDelayGroupContext.js';
 import { getDelay } from './useHoverShared.js';
 import type { FloatingRootContext, Delay, FloatingContext } from '../types.js';

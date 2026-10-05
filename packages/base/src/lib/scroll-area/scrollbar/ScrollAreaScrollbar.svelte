@@ -1,8 +1,8 @@
 <script lang="ts">
   // Base UI1.8.0 ScrollAreaScrollbar.tsx source wheel/track bodies; MIT.
   import RenderElement from '../../internals/RenderElement.svelte';
-  import { addEventListener } from '../../utils/addEventListener.js';
-  import { contains, getTarget } from '../../utils/shadowDom.js';
+  import { addEventListener } from '@sveltery/utils/addEventListener';
+  import { contains, getTarget } from '@sveltery/utils/shadowDom';
   import { useDirection } from '../../direction-provider/context.js';
   import { useScrollAreaRootContext } from '../root/ScrollAreaRootContext.js';
   import { setScrollAreaScrollbarContext } from './ScrollAreaScrollbarContext.js';

@@ -1,9 +1,9 @@
 <script lang="ts">
   // Base UI1.8.0 ScrollAreaRoot.tsx source business bodies; MIT.
   import RenderElement from '../../internals/RenderElement.svelte';
-  import { useTimeout } from '../../utils/useTimeout.js';
+  import { useTimeout } from '@sveltery/utils/useTimeout';
   import { useBaseUiId } from '../../internals/useBaseUiId.js';
-  import { contains } from '../../utils/shadowDom.js';
+  import { contains } from '@sveltery/utils/shadowDom';
   import { getCSPContext } from '../../csp-provider/context.js';
   import { styleDisableScrollbar } from '../../utils/styles.js';
   import { setScrollAreaRootContext } from './ScrollAreaRootContext.js';

@@ -1,6 +1,6 @@
 // Original Menu item-common full business body, native events/live derived props (MIT).
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-empty-object-type -- Retain Original erased item store/empty state contracts. */
-import { platform } from '../../utils/platform/index.js';
+import { platform } from '@sveltery/utils/platform';
 import type { HTMLProps } from '../../internals/types.js';
 import type { MenuStore } from '../store/MenuStore.svelte.js';
 import { REASONS } from '../../internals/reasons.js';

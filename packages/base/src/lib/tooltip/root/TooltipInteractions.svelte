@@ -7,7 +7,7 @@
   import type { TooltipStore } from '../store/TooltipStore.svelte.js';
   import { useClientPoint } from '../../floating-ui/hooks/useClientPoint.svelte.js';
   import { mergeProps } from '../../merge-props/index.js';
-  import { EMPTY_OBJECT } from '../../utils/empty.js';
+  import { EMPTY_OBJECT } from '@sveltery/utils/empty';
   let { store, disabled, trackCursorAxis }: { store: TooltipStore<Payload>; disabled: boolean; trackCursorAxis: 'none' | 'x' | 'y' | 'both' } = $props();
   const dismiss = useDismiss(() => store.select('floatingRootContext'), () => ({ enabled: !disabled, referencePress: () => store.select('closeOnClick') }));
   const clientPoint = useClientPoint(() => store.select('floatingRootContext'), () => ({

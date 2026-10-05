@@ -1,10 +1,10 @@
 // Ported from Base UI v1.8.0 useLabelableId.ts at
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
 import { untrack } from 'svelte';
-import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
-import { useStableCallback } from '../../utils/useStableCallback.js';
-import { useRefWithInit } from '../../utils/useRefWithInit.js';
-import { NOOP } from '../../utils/empty.js';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+import { useStableCallback } from '@sveltery/utils/useStableCallback';
+import { useRefWithInit } from '@sveltery/utils/useRefWithInit';
+import { NOOP } from '@sveltery/utils/empty';
 import { useLabelableContext } from './LabelableContext.js';
 export interface UseLabelableIdParameters { id?: string | null; enabled?: boolean }
 export function useLabelableId(params: () => UseLabelableIdParameters, defaultId: string): () => string {

@@ -3,10 +3,10 @@
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
   import CompositeRoot from '../internals/composite/root/CompositeRoot.svelte';
   import { SHIFT } from '../internals/composite/composite.js';
-  import { useControlled } from '../utils/useControlled.svelte.js';
-  import { useStableCallback } from '../utils/useStableCallback.js';
+  import { useControlled } from '@sveltery/utils/useControlled';
+  import { useStableCallback } from '@sveltery/utils/useStableCallback';
   import { useBaseUiId } from '../internals/useBaseUiId.js';
-  import { contains } from '../utils/shadowDom.js';
+  import { contains } from '@sveltery/utils/shadowDom';
   import { useFieldRootContext } from '../internals/field-root-context/FieldRootContext.js';
   import { useRegisterFieldControl } from '../internals/field-register-control/useRegisterFieldControl.svelte.js';
   import { fieldValidityMapping } from '../internals/field-constants/constants.js';

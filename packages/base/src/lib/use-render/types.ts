@@ -1,7 +1,7 @@
 import type { Snippet } from 'svelte';
 import type { ClassValue, SvelteHTMLElements } from 'svelte/elements';
 import type { StateAttributesMapping } from '../internals/getStateAttributesProps.js';
-import type { MergedRef } from '../utils/useMergedRefs.js';
+import type { MergedRef } from '@sveltery/utils/useMergedRefs';
 import type { ComponentRenderFn, HTMLProps, WithBaseUIEvent } from '../internals/types.js';
 
 export type UseRenderTagName = keyof HTMLElementTagNameMap | keyof SVGElementTagNameMap;

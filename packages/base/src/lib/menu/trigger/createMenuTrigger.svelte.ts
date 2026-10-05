@@ -1,10 +1,10 @@
 import { untrack } from 'svelte';
 // Original MenuTrigger complete business, native live props/event/ref boundary (MIT).
-import { useTimeout } from '../../utils/useTimeout.js';
-import { ownerDocument } from '../../utils/owner.js';
-import { useStableCallback } from '../../utils/useStableCallback.js';
-import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
-import { EMPTY_OBJECT } from '../../utils/empty.js';
+import { useTimeout } from '@sveltery/utils/useTimeout';
+import { ownerDocument } from '@sveltery/utils/owner';
+import { useStableCallback } from '@sveltery/utils/useStableCallback';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+import { EMPTY_OBJECT } from '@sveltery/utils/empty';
 import { safePolygon } from '../../floating-ui/safePolygon.js';
 import { useClick } from '../../floating-ui/hooks/useClick.svelte.js';
 import { useFloatingTree, useFloatingNodeId, useFloatingParentNodeId } from '../../floating-ui/components/FloatingTree.svelte.js';

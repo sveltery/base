@@ -6,7 +6,7 @@
   import { useTransitionStatus } from '../internals/useTransitionStatus.svelte.js';
   import { useOpenChangeComplete } from '../internals/useOpenChangeComplete.svelte.js';
   import { transitionStatusMapping } from '../internals/stateAttributesMapping.js';
-  import { useStableCallback } from '../utils/useStableCallback.js';
+  import { useStableCallback } from '@sveltery/utils/useStableCallback';
   import { getAvatarContext } from './context.js';
   import { useImageLoadingStatus } from './useImageLoadingStatus.svelte.js';
   import { avatarStateAttributesMapping } from './stateAttributesMapping.js';

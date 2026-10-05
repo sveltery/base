@@ -1,7 +1,7 @@
 // Ported from Base UI v1.8.0 internals/form-context/FormContext.ts.
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
 import { getContext, setContext } from 'svelte';
-import { NOOP } from '../../utils/empty.js';
+import { NOOP } from '@sveltery/utils/empty';
 import type { FieldValidityData } from '../../field/types.js';
 import type { FormErrors, FormValidationMode } from '../../form/types.js';
 export interface RegisteredField {
