@@ -261,6 +261,20 @@
       "sha256": "616478868720be6d8a099742bb7b62f074aadc6a559993248f9d69d123900e2d",
       "disposition": "native-binding-or-consumer-successor",
       "unchangedParityCredit": 0
+    },
+    {
+      "source": "tests/browser/collapsible.spec.ts",
+      "archive": "parity/native-snippets/acceptance-history/tests/browser/collapsible.spec.ts",
+      "sha256": "8c94884fc32618082af89af4e0d96ed89965a556d254448385c6444ebd812e69",
+      "disposition": "explicit-native-actual-host-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "docs/ci.md",
+      "archive": "parity/native-snippets/acceptance-history/docs/ci.md",
+      "sha256": "73a34916ef580a0d8b2d824d50316ad92ae251775e54ee12b4571bc90c8e1c3e",
+      "disposition": "native-binding-or-consumer-successor",
+      "unchangedParityCredit": 0
     }
   ]
 }

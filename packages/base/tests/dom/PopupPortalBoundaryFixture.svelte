@@ -6,8 +6,15 @@
   import type { FloatingPortalContext } from '../../src/lib/floating-ui/components/FloatingPortalContext.js';
   import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 
-  let { container, lite = false, customHost = false, customId = 'custom-portal', nested,
-    focus = false, forwardedAttachment }: {
+  let {
+    container,
+    lite = false,
+    customHost = false,
+    customId = 'custom-portal',
+    nested,
+    focus = false,
+    forwardedAttachment,
+  }: {
     container?: PortalContainer;
     lite?: boolean;
     customHost?: boolean;
@@ -21,35 +28,77 @@
   let hostTag = $state<'section' | 'article'>('section');
   let hostRef = $state<HTMLElement | null>();
   const authoredKey = createAttachmentKey();
-  export function getHost() { return hostRef; }
-  function report(name: string, context: FloatingPortalContext | null) { contexts.set(name, context); }
-  export function readContext(name: string) { return contexts.get(name); }
-  export function setContainer(value: PortalContainer | undefined) { container = value; }
-  export function setCustomId(value: string) { customId = value; }
-  export function setAttachment(value: Attachment<HTMLElement>) { forwardedAttachment = value; }
-  export function setHostTag(value: 'section' | 'article') { hostTag = value; }
-  export function mutateContainerCurrent(value: HTMLElement | ShadowRoot | null) {
+  export function getHost() {
+    return hostRef;
+  }
+  function report(name: string, context: FloatingPortalContext | null) {
+    contexts.set(name, context);
+  }
+  export function readContext(name: string) {
+    return contexts.get(name);
+  }
+  export function setContainer(value: PortalContainer | undefined) {
+    container = value;
+  }
+  export function setCustomId(value: string) {
+    customId = value;
+  }
+  export function setAttachment(value: Attachment<HTMLElement>) {
+    forwardedAttachment = value;
+  }
+  export function setHostTag(value: 'section' | 'article') {
+    hostTag = value;
+  }
+  export function mutateContainerCurrent(
+    value: HTMLElement | ShadowRoot | null,
+  ) {
     if (container && !('nodeType' in container)) container.current = value;
   }
 </script>
 
 {#snippet host(props: import('../../src/lib/internals/types.js').HTMLProps)}
-  {#if hostTag === 'section'}<section {...props} id={customId}><Probe name="host" {report} /></section>
-  {:else}<article {...props} id={customId}><Probe name="host" {report} /></article>{/if}
+  {#if hostTag === 'section'}<section {...props} id={customId}>
+      <Probe name="host" {report} />
+    </section>
+  {:else}<article {...props} id={customId}>
+      <Probe name="host" {report} />
+    </article>{/if}
 {/snippet}
 {#snippet child()}
   <Probe name="child" {report} {focus} />
   <span data-testid="portal-child">Child</span>
   {#if nested === 'full'}
-    <Full data-testid="nested-portal"><Probe name="nested-child" {report}/><span data-testid="nested-child">Nested</span></Full>
+    <Full data-testid="nested-portal"
+      ><Probe name="nested-child" {report} /><span data-testid="nested-child"
+        >Nested</span
+      ></Full
+    >
   {:else if nested === 'lite'}
-    <Lite data-testid="nested-portal"><Probe name="nested-child" {report}/><span data-testid="nested-child">Nested</span></Lite>
+    <Lite data-testid="nested-portal"
+      ><Probe name="nested-child" {report} /><span data-testid="nested-child"
+        >Nested</span
+      ></Lite
+    >
   {/if}
 {/snippet}
 {#if lite}
-  <Lite {container} bind:ref={hostRef} {...{ [authoredKey]: forwardedAttachment }} render={customHost ? host : undefined}
-    data-testid="boundary-portal" class={['portal', { native: true }]} style="--host-color: red;">{@render child()}</Lite>
+  <Lite
+    {container}
+    bind:ref={hostRef}
+    {...{ [authoredKey]: forwardedAttachment }}
+    render={customHost ? host : undefined}
+    data-testid="boundary-portal"
+    class={['portal', { native: true }]}
+    style="--host-color: red;">{@render child()}</Lite
+  >
 {:else}
-  <Full {container} bind:ref={hostRef} {...{ [authoredKey]: forwardedAttachment }} render={customHost ? host : undefined}
-    data-testid="boundary-portal" class={['portal', { native: true }]} style="--host-color: red;">{@render child()}</Full>
+  <Full
+    {container}
+    bind:ref={hostRef}
+    {...{ [authoredKey]: forwardedAttachment }}
+    render={customHost ? host : undefined}
+    data-testid="boundary-portal"
+    class={['portal', { native: true }]}
+    style="--host-color: red;">{@render child()}</Full
+  >
 {/if}

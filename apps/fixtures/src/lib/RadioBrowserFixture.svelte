@@ -43,7 +43,10 @@
   let submissions = $state<unknown[]>([]);
   let validationCalls = $state(0);
   let focusCalls = $state<unknown[]>([]);
-  function groupFocus(phase: string, event: FocusEvent & { preventBaseUIHandler(): void }) {
+  function groupFocus(
+    phase: string,
+    event: FocusEvent & { preventBaseUIHandler(): void },
+  ) {
     const host = event.currentTarget as HTMLElement;
     const textbox = event.target as HTMLInputElement;
     const field = document.querySelector('#field')!;
@@ -58,7 +61,9 @@
     if (scenario.includes('cancel')) event.preventBaseUIHandler();
   }
   function itemFocus(event: FocusEvent & { preventBaseUIHandler(): void }) {
-    focusCalls.push((event.currentTarget as HTMLElement).getAttribute('data-testid'));
+    focusCalls.push(
+      (event.currentTarget as HTMLElement).getAttribute('data-testid'),
+    );
     if (scenario.includes('cancel')) event.preventBaseUIHandler();
   }
   function validate(value: unknown) {
@@ -68,7 +73,10 @@
   onMount(() => {
     hydrated = true;
   });
-  function onChange(value: string | null, details: RadioGroupChangeEventDetails) {
+  function onChange(
+    value: string | null,
+    details: RadioGroupChangeEventDetails,
+  ) {
     calls.push({
       value,
       reason: details.reason,
@@ -108,69 +116,136 @@
   export function setValue(value: string | null) {
     owner = value;
   }
-  function changed(value: string | null, details: RadioGroupChangeEventDetails) {
+  function changed(
+    value: string | null,
+    details: RadioGroupChangeEventDetails,
+  ) {
     onChange?.(value, details);
     if (current.cancel) details.cancel();
     if (current.controlled && current.ownerAccepts && !details.isCanceled)
       owner = value;
   }
 </script>
+
 {#snippet content()}
-  {#snippet groupHost(props: Record<string | symbol, unknown>, _state: unknown, children: import('svelte').Snippet | undefined)}
-    <section {...props as HTMLAttributes<HTMLElement>}>{@render children?.()}</section>
+  {#snippet groupHost(
+    props: Record<string | symbol, unknown>,
+    _state: unknown,
+    children: import('svelte').Snippet | undefined,
+  )}
+    <section {...props as HTMLAttributes<HTMLElement>}>
+      {@render children?.()}
+    </section>
   {/snippet}
   <Fieldset.Root disabled={current.fieldsetDisabled}>
     <Fieldset.Legend id="legend">Legend</Fieldset.Legend>
-    <Field.Root name={current.fieldName} id="field" invalid={current.invalid}
-      validationMode={scenario === 'onblur' || groupFocusScenario ? 'onBlur' : undefined}
-      validate={scenario === 'onblur' || groupFocusScenario ? validate : undefined}>
+    <Field.Root
+      name={current.fieldName}
+      id="field"
+      invalid={current.invalid}
+      validationMode={scenario === 'onblur' || groupFocusScenario
+        ? 'onBlur'
+        : undefined}
+      validate={scenario === 'onblur' || groupFocusScenario
+        ? validate
+        : undefined}
+    >
       {#if current.label}<Field.Label id="group-label">Group</Field.Label>{/if}
-      {#if current.description}<Field.Description id="description">Description</Field.Description>{/if}
+      {#if current.description}<Field.Description id="description"
+          >Description</Field.Description
+        >{/if}
       <Group
-        id="radio-group" defaultValue={current.initial}
+        id="radio-group"
+        defaultValue={current.initial}
         value={current.controlled ? owner : undefined}
-        disabled={current.disabled} readOnly={current.readOnly} required={current.required}
-        name={current.groupName} onValueChange={changed} bind:inputRef {form}
-        render={scenario.startsWith('focus-group-render') ? groupHost : undefined}
-        onfocusin={groupFocusScenario ? event => groupFocus('enter', event) : undefined}
-        onfocusout={groupFocusScenario ? event => groupFocus('leave', event) : undefined}
+        disabled={current.disabled}
+        readOnly={current.readOnly}
+        required={current.required}
+        name={current.groupName}
+        onValueChange={changed}
+        bind:inputRef
+        {form}
+        render={scenario.startsWith('focus-group-render')
+          ? groupHost
+          : undefined}
+        onfocusin={groupFocusScenario
+          ? (event) => groupFocus('enter', event)
+          : undefined}
+        onfocusout={groupFocusScenario
+          ? (event) => groupFocus('leave', event)
+          : undefined}
       >
         {#each current.items as value (value)}
           <Field.Item>
             <Field.Label id={`label-${value}`}>{value}</Field.Label>
-            <Radio.Root {value} id={`input-${value}`} data-testid={`radio-${value}`} nativeButton={current.nativeButton} disabled={current.disabledFirst && value === 'a'} onfocusin={itemFocusScenario ? itemFocus : undefined}>
+            <Radio.Root
+              {value}
+              id={`input-${value}`}
+              data-testid={`radio-${value}`}
+              nativeButton={current.nativeButton}
+              disabled={current.disabledFirst && value === 'a'}
+              onfocusin={itemFocusScenario ? itemFocus : undefined}
+            >
               {#snippet render(props, _state, children)}
-                {#if current.nativeButton}<button {...props as HTMLAttributes<HTMLButtonElement>}>{@render children?.()}</button>{:else}<span {...props as HTMLAttributes<HTMLSpanElement>}>{@render children?.()}</span>{/if}
+                {#if current.nativeButton}<button
+                    {...props as HTMLAttributes<HTMLButtonElement>}
+                    >{@render children?.()}</button
+                  >{:else}<span {...props as HTMLAttributes<HTMLSpanElement>}
+                    >{@render children?.()}</span
+                  >{/if}
               {/snippet}
-              <Radio.Indicator data-testid={`indicator-${value}`} keepMounted={current.keepMounted} />
-              {#if itemFocusScenario && value === 'c'}<input id="focus-textbox" type="text" value="hello" />{/if}
+              <Radio.Indicator
+                data-testid={`indicator-${value}`}
+                keepMounted={current.keepMounted}
+              />
+              {#if itemFocusScenario && value === 'c'}<input
+                  id="focus-textbox"
+                  type="text"
+                  value="hello"
+                />{/if}
             </Radio.Root>
           </Field.Item>
         {/each}
-        {#if groupFocusScenario}<input id="focus-textbox" type="text" value="hello" />{/if}
+        {#if groupFocusScenario}<input
+            id="focus-textbox"
+            type="text"
+            value="hello"
+          />{/if}
       </Group>
       <Field.Error id="error" />
-      <Field.Validity>{#snippet children(state)}<output id="validity">{JSON.stringify(state)}</output>{/snippet}</Field.Validity>
+      <Field.Validity
+        >{#snippet children(state)}<output id="validity"
+            >{JSON.stringify(state)}</output
+          >{/snippet}</Field.Validity
+      >
     </Field.Root>
   </Fieldset.Root>
 {/snippet}
 <form id="external-form"></form>
 <main data-hydrated={hydrated} data-renderer="svelte5.57.1">
-{#if scenario.startsWith('standalone-')}
-  <StandaloneFixture value={scenario === 'standalone-empty' ? '' : 'a'} />
-{:else}
-<DirectionProvider direction={current.rtl ? 'rtl' : 'ltr'}>
-  {#if withForm}<Form id="form" onclick={() => ancestorClicks += 1} onFormSubmit={values => onSubmit?.(values)}>{@render content()}<button type="submit" id="submit">Submit</button><button type="reset" id="reset">Reset</button></Form>{:else}{@render content()}{/if}
-</DirectionProvider>
+  {#if scenario.startsWith('standalone-')}
+    <StandaloneFixture value={scenario === 'standalone-empty' ? '' : 'a'} />
+  {:else}
+    <DirectionProvider direction={current.rtl ? 'rtl' : 'ltr'}>
+      {#if withForm}<Form
+          id="form"
+          onclick={() => (ancestorClicks += 1)}
+          onFormSubmit={(values) => onSubmit?.(values)}
+          >{@render content()}<button type="submit" id="submit">Submit</button
+          ><button type="reset" id="reset">Reset</button></Form
+        >{:else}{@render content()}{/if}
+    </DirectionProvider>
 
-<button onclick={() => update({ items: ['c', 'a', 'b'] })}>Reorder</button>
-<button onclick={() => update({ items: ['a', 'c'] })}>Remove selected</button>
-<button onclick={() => update({ items: [] })}>Remove all</button>
-<button onclick={() => setValue('c')}>Programmatic</button>
-<output id="ancestor-clicks">{ancestorClicks}</output>
-<output id="calls">{JSON.stringify(calls)}</output>
-<output id="submissions">{JSON.stringify(submissions)}</output>
-  <output id="validation-calls">{validationCalls}</output>
-  <output id="focus-calls">{JSON.stringify(focusCalls)}</output>
-{/if}
+    <button onclick={() => update({ items: ['c', 'a', 'b'] })}>Reorder</button>
+    <button onclick={() => update({ items: ['a', 'c'] })}
+      >Remove selected</button
+    >
+    <button onclick={() => update({ items: [] })}>Remove all</button>
+    <button onclick={() => setValue('c')}>Programmatic</button>
+    <output id="ancestor-clicks">{ancestorClicks}</output>
+    <output id="calls">{JSON.stringify(calls)}</output>
+    <output id="submissions">{JSON.stringify(submissions)}</output>
+    <output id="validation-calls">{validationCalls}</output>
+    <output id="focus-calls">{JSON.stringify(focusCalls)}</output>
+  {/if}
 </main>

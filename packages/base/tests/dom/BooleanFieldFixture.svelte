@@ -31,9 +31,16 @@
   let visible = $state(true);
   let inputRef = $state<HTMLInputElement | null | undefined>();
   let hostRef = $state<HTMLElement | null | undefined>();
-  export function getInput() { return inputRef; }
-  export function getHost() { return hostRef; }
-  function publishInput(input: HTMLInputElement | null | undefined) { inputRef = input; observeInput?.(input); }
+  export function getInput() {
+    return inputRef;
+  }
+  export function getHost() {
+    return hostRef;
+  }
+  function publishInput(input: HTMLInputElement | null | undefined) {
+    inputRef = input;
+    observeInput?.(input);
+  }
   let controlledChecked = $state(false);
   let groupValue = $state<string[]>([]);
   let childValue = $state('a');
@@ -50,21 +57,57 @@
     childValue = value;
   }
 </script>
-{#snippet nativeButton(props: Record<string | symbol, unknown>, _state: unknown, children: Snippet | undefined)}<button {...props as HTMLButtonAttributes}>{@render children?.()}</button>{/snippet}
+
+{#snippet nativeButton(
+  props: Record<string | symbol, unknown>,
+  _state: unknown,
+  children: Snippet | undefined,
+)}<button {...props as HTMLButtonAttributes}>{@render children?.()}</button
+  >{/snippet}
 {#snippet control(props: CheckboxRootProps)}
-  {#if family === 'switch'}<Switch.Root {...props as SwitchRootProps} bind:inputRef={() => inputRef, publishInput} bind:ref={hostRef}><Switch.Thumb data-part /></Switch.Root>
-  {:else}<Checkbox.Root {...props} bind:inputRef={() => inputRef, publishInput} bind:ref={hostRef}><Checkbox.Indicator data-part /></Checkbox.Root>{/if}
+  {#if family === 'switch'}<Switch.Root
+      {...props as SwitchRootProps}
+      bind:inputRef={() => inputRef, publishInput}
+      bind:ref={hostRef}><Switch.Thumb data-part /></Switch.Root
+    >
+  {:else}<Checkbox.Root
+      {...props}
+      bind:inputRef={() => inputRef, publishInput}
+      bind:ref={hostRef}><Checkbox.Indicator data-part /></Checkbox.Root
+    >{/if}
 {/snippet}
 {#if scenario === 'controlled'}
-  {@render control({ ...rootProps, checked: controlledChecked, onCheckedChange: (next, details) => { rootProps.onCheckedChange?.(next, details); if (!details.isCanceled) controlledChecked = next; } })}
+  {@render control({
+    ...rootProps,
+    checked: controlledChecked,
+    onCheckedChange: (next, details) => {
+      rootProps.onCheckedChange?.(next, details);
+      if (!details.isCanceled) controlledChecked = next;
+    },
+  })}
 {:else if scenario === 'group' || scenario === 'group-uncontrolled'}
   <Form onFormSubmit={(values) => submit?.(values)}>
     <Field.Root name="choices" validate={validation}>
       <Field.Label>Choices</Field.Label>
-      <CheckboxGroup value={scenario === 'group' ? groupValue : undefined} defaultValue={['a']} allValues={['a', 'b']} onValueChange={(next, details) => { if (canceled) details.cancel(); if (!details.isCanceled) groupValue = next; }}>
+      <CheckboxGroup
+        value={scenario === 'group' ? groupValue : undefined}
+        defaultValue={['a']}
+        allValues={['a', 'b']}
+        onValueChange={(next, details) => {
+          if (canceled) details.cancel();
+          if (!details.isCanceled) groupValue = next;
+        }}
+      >
         <Checkbox.Root parent data-parent-control />
-        <Field.Item><Checkbox.Root value={childValue} id="child-a" /><Field.Label>A</Field.Label></Field.Item>
-        <Field.Item disabled={rootProps.disabled}><Checkbox.Root value="b" id="child-b" /><Field.Label>B</Field.Label></Field.Item>
+        <Field.Item
+          ><Checkbox.Root value={childValue} id="child-a" /><Field.Label
+            >A</Field.Label
+          ></Field.Item
+        >
+        <Field.Item disabled={rootProps.disabled}
+          ><Checkbox.Root value="b" id="child-b" /><Field.Label>B</Field.Label
+          ></Field.Item
+        >
       </CheckboxGroup>
       <Field.Error />
     </Field.Root>
