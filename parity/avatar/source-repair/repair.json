@@ -369,7 +369,7 @@
     },
     {
       "source": "packages/base/src/lib/index.ts",
-      "sha256": "7efd24b997a531fe281c3e70287b415c0ad62c1741b99cd02e30d22b6efe9cb5",
+      "sha256": "2fd5d60c29d219bbde9023014151fb0b66e63f3da73c58c443c9fa8a03b5f1b0",
       "reachability": "runtime",
       "imports": [
         {
@@ -726,6 +726,43 @@
           "specifier": "./radio-group/types.js",
           "members": [
             "*"
+          ]
+        },
+        {
+          "specifier": "./toggle-group/index.js",
+          "members": [
+            "ToggleGroup"
+          ]
+        },
+        {
+          "specifier": "./toggle-group/types.js",
+          "members": [
+            "*"
+          ]
+        },
+        {
+          "specifier": "./toolbar/index.js",
+          "members": [
+            "Toolbar"
+          ]
+        },
+        {
+          "specifier": "./toolbar/types.js",
+          "members": [
+            "ToolbarRootOrientation",
+            "ToolbarRootItemMetadata",
+            "ToolbarRootState",
+            "ToolbarRootProps",
+            "ToolbarGroupState",
+            "ToolbarGroupProps",
+            "ToolbarButtonState",
+            "ToolbarButtonProps",
+            "ToolbarInputState",
+            "ToolbarInputProps",
+            "ToolbarLinkState",
+            "ToolbarLinkProps",
+            "ToolbarSeparatorState",
+            "ToolbarSeparatorProps"
           ]
         }
       ],
@@ -1503,8 +1540,8 @@
     },
     {
       "source": "packages/base/src/lib/index.ts",
-      "sha256": "7efd24b997a531fe281c3e70287b415c0ad62c1741b99cd02e30d22b6efe9cb5",
-      "bodyEvidence": "unchanged bytes from full-read historical audit60ac5cf"
+      "sha256": "2fd5d60c29d219bbde9023014151fb0b66e63f3da73c58c443c9fa8a03b5f1b0",
+      "bodyEvidence": "full current barrel body re-read after normal main integration; added Toolbar/ToggleGroup siblings are explicitly excluded, actual Avatar selection unchanged"
     },
     {
       "source": "packages/base/src/lib/internals/getStateAttributesProps.ts",
@@ -1799,6 +1836,17 @@
     {
       "check": "full repository Standards at f8f11b8 before public-script supplement",
       "result": "PASS full ESLint and prescribed Prettier"
+    },
+    {
+      "check": "Full local Verify at dab12648808dc96076f3a91a59c2c8c432cdfb1b before unrelated normal main integration",
+      "result": "PASS:63 script tests,0errors/0warnings workspace checks,219 runtime and1176 DOM tests, fixture SSR/client build, packaged boundaries and all installed consumers",
+      "log": "/workspace/sveltery-pm-evidence/avatar-repair-verify-dab1264-escalated.log",
+      "limitation": "Successor CI remains required; initial restricted attempt failed child-process EPERM before permitted rerun."
+    },
+    {
+      "check": "Full repository Standards after normal main integration",
+      "result": "PASS: complete ESLint and prescribed Prettier; same source/tooling bytes as successor evidence commit",
+      "log": "/workspace/sveltery-pm-evidence/avatar-repair-standards-main-successor.log"
     }
   ],
   "pending": [
@@ -1825,5 +1873,17 @@
       "cached hydration host reuse and suppression of rendered initial starting phase"
     ],
     "unchangedOrdinaryCreditAdded": 0
+  },
+  "integration": {
+    "mergeCheckpoint": "2a44e5003900895fcddc10a02e5d88d2b57ba15e",
+    "mainHead": "2f306c27dcec4127246fcc4f1345d64af5fef4f4",
+    "mode": "normal clean merge",
+    "reason": "Current main workflow calls the newly landed navigation public consumer script; old branch-head checkout lacked it.",
+    "originalModulesUnchanged": 40,
+    "currentNativeComponentModules": 35,
+    "unchangedNativeComponentBodies": 34,
+    "changedNativeComponentBody": "packages/base/src/lib/index.ts",
+    "selection": "Full barrel re-read; new Toolbar/ToggleGroup exports explicitly excluded from selected Avatar graph; all Avatar business/helper bodies unchanged.",
+    "sourceAuditUnchanged": true
   }
 }

@@ -22,6 +22,9 @@ Executed bounded validation:
 | Isolated packed public root/subpath SSR, all 7 type pairs, native DOM and cached hydration model |PASS; strict with skipLibCheck:false |
 | Full repository Standards before public-script supplement |PASS |
 | Exact leased helper hashes and immutable source archive equality |2 / 2 helpers;53 / 53 bodies |
+| Full local Verify at `dab1264` before unrelated main integration |PASS;63 script,219 runtime and1176 DOM tests; workspace checks0errors/0warnings; fixtures and all installed consumers |
+
+Normal merge `2a44e5003900895fcddc10a02e5d88d2b57ba15e` integrates landed main `2f306c27` so its current navigation workflow can execute the newly landed package script. The successor graphs were regenerated: all40 Original bodies and34 of35 current native component bodies remain identical. The full changed public barrel was re-read; new ToggleGroup/Toolbar sibling exports are explicitly excluded and Avatar's selected graph remains35 modules /85 edges. Both leased helper hashes remain exact. The earlier full local pass belongs to `dab1264`; successor exact-head CI and independent review remain required.
 
 The 12 completion supplements retain accepted shared-helper commit/abort assertions and add zero Avatar ordinary credit. Actual sibling callers were read in full: Checkbox/Radio indicators use true batch and Field.Error uses default false batch. Component DOM supplements exercise those actual consumers; helper comparisons separately prove the shared policy. Existing 44 ordinary declarations / 44 variants,0 parameterization, 3 conformance calls/45 native helper instances and 6 type assertions are unchanged.
 
