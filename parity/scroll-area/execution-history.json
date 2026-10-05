@@ -227,11 +227,39 @@
       "ownerAuditSha256": "365f4d0d92d4ee2abd932fac49f802f2f6d68931f2e03af9b8903eb913df5ba9",
       "requiredCI": {
         "run": 37253842535,
-        "status": "queued at docs-finding preparation; no final pass/count inferred"
+        "status": "queued at docs-finding preparation; no final pass/count inferred",
+        "subsequentBroadResult": "CANCELLED by docs successor concurrency; full canceled log preserved, no passed count",
+        "cancelledLogSha256": "8e8aaedffe557fbaf606efffaeb68464aa2df778c49cc2dae5522cd6af2ccb29",
+        "standards": "PASS actual full hosted job111586766476",
+        "verification": "PASS actual full hosted job111586766419;67 script/227 unit/1229 DOM plus build/types/runtime/installed/license"
       },
       "unchangedOriginalDeclarationCredit": 0,
       "unchangedConformanceCredit": 0,
       "note": "Actual installed and focused success retained at this exact historical head. Documentation correction preserves all four original CSP ordinary declarations unported/uncredited and requires fresh final-head CI/review; later completion/cancellation stays attributed to this head."
+    },
+    {
+      "head": "7d4eb4144afcf7dc8ac4a5cb33df0ad46925eabe",
+      "tree": "03ac41b3f5d43988edfe5b2db898e504050dea28",
+      "run": 37254586538,
+      "job": 111588902093,
+      "result": "failed-script-provenance-metadata-status",
+      "browserExecuted": false,
+      "scriptTests": 67,
+      "passedScriptTests": 66,
+      "failedScriptTests": 1,
+      "failure": "CSP provenance metadata regression still required every declaration and integration status to say consumer unimplemented; truthful ScrollArea status now implemented but complete ordinary ports uncredited. Original assertion hashes/predicates and zero counts passed before this stale status expectation.",
+      "rawLogSha256": "523796036682f087815885f24140fa5530dd69eee063652fbab4440472ed1fb8",
+      "installedConsumerStepSnapshot": {
+        "run": 37254586555,
+        "job": 111588841367,
+        "status": "build and strict installed consumer step completed SUCCESS; focused browser still running at metadata-fix preparation, no final count inferred"
+      },
+      "configuredReviewRequest": 5986952911,
+      "configuredReviewSnapshot": "pending at metadata-fix preparation; no clean receipt claimed",
+      "repair": "Update only metadata regression expected statuses to ScrollArea implemented/complete ordinary ports deferred-uncredited versus missing Select/PrehydrationScript; retain four complete Original bodies/predicates/hashes, ported0/credited0 and nullport/evidence.",
+      "unchangedOriginalDeclarationCredit": 0,
+      "unchangedConformanceCredit": 0,
+      "note": "Historical metadata failure remains visible; final successor requires its own executed gates/review. Subsequent job completion/cancellation belongs to this head."
     }
   ]
 }

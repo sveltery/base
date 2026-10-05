@@ -23,13 +23,27 @@ test('CSP source ledger retains the pin, original dependent assertions and zero 
     assert.equal(sha(lines.slice(declaration.line - 1, end + 1).join('\n') + '\n'), declaration.bodySha256);
     const assertions = lines.slice(declaration.line - 1, end + 1).flatMap((text, index) => text.includes('expect(') ? [{ line: declaration.line + index, text: text.trim() }] : []);
     assert.deepEqual(declaration.assertions, assertions);
-    assert.equal(declaration.status, 'deferred-unimplemented-consumers');
+    assert.equal(declaration.status, declaration.id === 'CSP:29'
+      ? 'deferred-unimplemented-consumers'
+      : 'deferred-uncredited-complete-port-review');
     assert.equal(declaration.port, null); assert.equal(declaration.evidence, null);
   }
   for (const future of ledger.futureIntegration) {
     assert.match(future.sha256, /^[a-f0-9]{64}$/);
-    assert.equal(future.status, 'deferred-unimplemented-consumer');
+    if (future.source === 'packages/react/src/scroll-area/root/ScrollAreaRoot.tsx') {
+      assert.equal(future.status, 'implemented-consumer-ordinary-ports-deferred-uncredited');
+      assert.equal(future.local, 'packages/base/src/lib/scroll-area/root/ScrollAreaRoot.svelte');
+      assert.ok(existsSync(local(future.local)));
+      assert.ok(existsSync(local(future.evidence)));
+      assert.equal(future.ordinaryCredit, 0);
+    } else {
+      assert.equal(future.status, 'deferred-unimplemented-consumer');
+    }
   }
+  const consumer = ledger.supplementalEvidence.scrollAreaConsumer;
+  assert.equal(consumer.ordinaryCredit, 0);
+  assert.equal(consumer.unchangedRendererCredit, 0);
+  for (const key of ['implementation', 'context', 'dom', 'browser', 'evidence']) assert.ok(existsSync(local(consumer[key])));
   const browser = read(ledger.supplementalEvidence.browser.file);
   assert.doesNotMatch(browser, /(?:test|describe)\.(?:skip|fixme|only)\s*\(/);
   for (const key of ['dom', 'ssr', 'types', 'browser', 'publicConsumer']) assert.ok(existsSync(local(ledger.supplementalEvidence[key].file)));

@@ -100,3 +100,11 @@ documentation successor requires fresh configured review, resolved finding statu
 and all final-head hosted gates. The earlier a6 broad job was canceled by successor
 concurrency; its complete canceled log is preserved and no broad pass is inferred.
 Root exact-head Source/native/maintainability and PM approval remain separate.
+
+The first CSP docs correction exposed a stale provenance regression that required
+every consumer status to remain unimplemented: actual7d Verify ran67 scripts,66
+passed and1 failed. The final correction updates only those metadata expectations
+to the implemented-but-uncredited ScrollArea consumer versus missing Select and
+PrehydrationScript, retaining complete Original hashes/predicates,0ported/credited
+and null ordinary port/evidence. This metadata red is preserved; no product or
+Original test assertion changes and no full local Verify/build is repeated.
