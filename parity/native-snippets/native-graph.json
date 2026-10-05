@@ -5493,7 +5493,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
-      "sha256": "7ac84ddbd2cd4dfe38bb9bbbf0e3b934a0da5c1f43ee675971c29922869b4de9",
+      "sha256": "504019a96565afea85c1b178fce5267fa3508b95ffbcb8690f36589b4951e9ff",
       "imports": [
         {
           "specifier": "../../mergeComponentProps.js",
@@ -5598,7 +5598,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
-      "sha256": "573c1b7f1891159cf5e19b7f4f9c8856698770f9482b4bf8fb788b1b0820d2ef",
+      "sha256": "05dfdf1b4c35e254d686e4105e1481e5819f6d4157f6ce92508c4ff4a8784308",
       "imports": [
         {
           "specifier": "../../mergeComponentProps.js",
@@ -7897,22 +7897,12 @@
     },
     {
       "source": "packages/base/src/lib/menu/SubmenuTrigger.svelte",
-      "sha256": "1fc77a92d2d65c5fe115b685d13006a7bcd1344cd94809d06ecbde5b46cf247a",
+      "sha256": "8392ccbeaa5d720a9ed07d0f622c8b9b05edb16936c5da7b58de413f73eb05ae",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
           "kind": "runtime-or-mixed",
           "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"
-        },
-        {
-          "specifier": "svelte/attachments",
-          "kind": "runtime-or-mixed",
-          "resolved": "external:svelte/attachments"
-        },
-        {
-          "specifier": "svelte",
-          "kind": "runtime-or-mixed",
-          "resolved": "external:svelte"
         },
         {
           "specifier": "../utils/popupStateMapping.js",
@@ -7933,7 +7923,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/Trigger.svelte",
-      "sha256": "cd519e1110dfac917f1e3fec54e444cf50ca69daa5261df4a8ee204e5f074080",
+      "sha256": "a8a61337748afe30cc1cf8cec2dff9c2d553c6b9f230ab15f10289154edf6fa8",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -7944,11 +7934,6 @@
           "specifier": "svelte/attachments",
           "kind": "runtime-or-mixed",
           "resolved": "external:svelte/attachments"
-        },
-        {
-          "specifier": "svelte",
-          "kind": "runtime-or-mixed",
-          "resolved": "external:svelte"
         },
         {
           "specifier": "../internals/composite/item/CompositeItem.svelte",
@@ -11235,7 +11220,7 @@
     },
     {
       "source": "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte",
-      "sha256": "75921c20ee45e1748dd2a92010f7052829795e395fb3c65639b34b04fb47b9a6",
+      "sha256": "121d44da517c3c1e0493e1a9b53238a6236889dff2c2cc7fd696c5112b5d3a80",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -11351,21 +11336,6 @@
           "specifier": "./control.types.js",
           "kind": "type",
           "resolved": "packages/base/src/lib/remote-forms/control.types.ts"
-        },
-        {
-          "specifier": "svelte/elements",
-          "kind": "type",
-          "resolved": "external:svelte/elements"
-        },
-        {
-          "specifier": "svelte",
-          "kind": "type",
-          "resolved": "external:svelte"
-        },
-        {
-          "specifier": "../internals/types.js",
-          "kind": "type",
-          "resolved": "packages/base/src/lib/internals/types.ts"
         }
       ]
     },
