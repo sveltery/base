@@ -1908,7 +1908,7 @@
     },
     {
       "path": "packages/base/tests/dom/UseClickFixture.svelte",
-      "sha256": "15a6f841980e722235fccbeb9b68db38e12fed534ebb619b3454b14b8c08e67e",
+      "sha256": "fc6c6d276f22a3ab9d04c5b43e97964cafe252ad9adbc650cf00192092007e28",
       "imports": [
         {
           "specifier": "svelte",
@@ -1998,7 +1998,7 @@
       "originalMappings": [],
       "precisePriorBodyMatches": false,
       "priorIndividualScopeRef": null,
-      "basis": "No assertion credit; real Store fixture is supplemental.",
+      "basis": "Fixture-only authorized type correction after 0fa runtime20 PASS/type FAIL: rename derived props binding/reference spread to referenceProps, record optional Element trigger matching real event details. All runtime predicates/test bytes and production imports/member edges remain unchanged. Fresh whole fixture/type review pending.",
       "currentAcceptance": "pending exact final-head independent Source/native/maintainability review and Root PM approval",
       "ordinaryDeclarationCredit": 0
     }

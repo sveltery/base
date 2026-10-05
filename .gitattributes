@@ -18,3 +18,5 @@ parity/use-click/final-construction-20-green.log whitespace=-blank-at-eof
 parity/use-click/prior-callback-review/fixed-9429a26-20-green.log whitespace=-blank-at-eof
 parity/use-click/prior-callback-review/old-18-baseline-completed.log whitespace=-blank-at-eof
 parity/use-click/prior-callback-review/old-20-meaningful-red.log whitespace=-blank-at-eof,-blank-at-eol
+# Preserve the later exact fixture runtime/type-failure captures as historical evidence.
+parity/use-click/fixture-type-repair/*.log whitespace=-blank-at-eof,-blank-at-eol

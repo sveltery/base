@@ -1351,7 +1351,7 @@
     },
     {
       "path": "packages/base/tests/dom/UseClickFixture.svelte",
-      "sha256": "15a6f841980e722235fccbeb9b68db38e12fed534ebb619b3454b14b8c08e67e",
+      "sha256": "fc6c6d276f22a3ab9d04c5b43e97964cafe252ad9adbc650cf00192092007e28",
       "imports": [
         {
           "specifier": "svelte",

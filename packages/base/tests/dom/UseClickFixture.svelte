@@ -9,7 +9,7 @@
   let selectedOptions = $state.raw<UseClickProps>(untrack(() => options));
   let reference = $state<HTMLElement | null>(null);
   let floating = $state<HTMLDivElement | null>(null);
-  const changes: { owner: string; open: boolean; reason: string; trigger: HTMLElement | undefined }[] = [];
+  const changes: { owner: string; open: boolean; reason: string; trigger?: Element | undefined }[] = [];
   function makeStore(owner: string, initial: boolean) {
     const owned = new FloatingRootStore({
       open: initial, transitionStatus: undefined, referenceElement: null, floatingElement: null,
@@ -28,12 +28,12 @@
   const open = $derived(store.useState('open'));
   $effect.pre(() => { store.update({ referenceElement: reference, domReferenceElement: reference, floatingElement: floating }); });
   const click = useClick(() => store, () => selectedOptions);
-  const props = $derived(mergeProps(click.reference, { onclick() { flushSync(() => beforeClick?.()); } }));
+  const referenceProps = $derived(mergeProps(click.reference, { onclick() { flushSync(() => beforeClick?.()); } }));
   export function snapshot() { return changes; }
   export function setOptions(next: UseClickProps) { selectedOptions = next; }
   export function setOpen(next: boolean) { store.update({ open: next }); }
   export function selectSecondStore() { store = secondStore; }
   export function requestHoverOpen(event: MouseEvent) { store.setOpen(true, createChangeEventDetails('trigger-hover', event, reference ?? undefined)); }
 </script>
-<svelte:element this={typeable ? 'input' : 'button'} {...props} bind:this={reference} data-testid="reference" />
+<svelte:element this={typeable ? 'input' : 'button'} {...referenceProps} bind:this={reference} data-testid="reference" />
 {#if open}<div role="tooltip" bind:this={floating}></div>{/if}
