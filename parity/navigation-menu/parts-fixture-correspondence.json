@@ -1,0 +1,142 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "originalExpressions": [
+    {
+      "scenario": "content-kept",
+      "source": "packages/react/src/navigation-menu/content/NavigationMenuContent.test.tsx",
+      "line": 30,
+      "sourceSha256": "dae1f17cb736dbe560bf0f979ac612ddd289a5553e4ad848fdfe13f3bf677926",
+      "expressionSha256": "778c8dbd2d5958ee964d7f44b24f39604c67dcc80418107675bf09f7237d56bd"
+    },
+    {
+      "scenario": "content-unkept",
+      "source": "packages/react/src/navigation-menu/content/NavigationMenuContent.test.tsx",
+      "line": 55,
+      "sourceSha256": "dae1f17cb736dbe560bf0f979ac612ddd289a5553e4ad848fdfe13f3bf677926",
+      "expressionSha256": "edc6d249a878d7a3c0207112bf0c6fdc7e37f72685e33c7916a9b163e58c11e0"
+    },
+    {
+      "scenario": "content-move",
+      "source": "packages/react/src/navigation-menu/content/NavigationMenuContent.test.tsx",
+      "line": 132,
+      "sourceSha256": "dae1f17cb736dbe560bf0f979ac612ddd289a5553e4ad848fdfe13f3bf677926",
+      "expressionSha256": "079720069a647d721f1b67b47c1d550ebe13cea1396525daaeebe4d5f9cf936c"
+    },
+    {
+      "scenario": "content-close",
+      "source": "packages/react/src/navigation-menu/content/NavigationMenuContent.test.tsx",
+      "line": 185,
+      "sourceSha256": "dae1f17cb736dbe560bf0f979ac612ddd289a5553e4ad848fdfe13f3bf677926",
+      "expressionSha256": "9851cef7a7019ca179af84ad11662b0c3376a7754b7d704d0820a32df5358b68"
+    },
+    {
+      "scenario": "link-close",
+      "source": "packages/react/src/navigation-menu/link/NavigationMenuLink.test.tsx",
+      "line": 21,
+      "sourceSha256": "71bb6b8673fe5d8026a59cf1e8865d9f91afa0ea02d7c8f300214c189bfd0a71",
+      "expressionSha256": "af7b4e7ff3499b9c711acd1a7d91696a16aa0109296a6a0fd0654739734d8db6"
+    },
+    {
+      "scenario": "link-keep",
+      "source": "packages/react/src/navigation-menu/link/NavigationMenuLink.test.tsx",
+      "line": 61,
+      "sourceSha256": "71bb6b8673fe5d8026a59cf1e8865d9f91afa0ea02d7c8f300214c189bfd0a71",
+      "expressionSha256": "422d4ec0ac9611551de07ac9eacddc97fd3cb22b6c605cc69ca905efcfa090a0"
+    },
+    {
+      "scenario": "link-active",
+      "source": "packages/react/src/navigation-menu/link/NavigationMenuLink.test.tsx",
+      "line": 103,
+      "sourceSha256": "71bb6b8673fe5d8026a59cf1e8865d9f91afa0ea02d7c8f300214c189bfd0a71",
+      "expressionSha256": "3aa4e52638fdf39708a2a7db2f3405c2881dd584f87b1ac278b5b8a97be6b982"
+    },
+    {
+      "scenario": "link-inactive",
+      "source": "packages/react/src/navigation-menu/link/NavigationMenuLink.test.tsx",
+      "line": 118,
+      "sourceSha256": "71bb6b8673fe5d8026a59cf1e8865d9f91afa0ea02d7c8f300214c189bfd0a71",
+      "expressionSha256": "af4c0e6d925c29a663a0d4c058ad6ceae1bd159adeaea11446676ce7a6cfbb14"
+    },
+    {
+      "scenario": "link-blur",
+      "source": "packages/react/src/navigation-menu/link/NavigationMenuLink.test.tsx",
+      "line": 134,
+      "sourceSha256": "71bb6b8673fe5d8026a59cf1e8865d9f91afa0ea02d7c8f300214c189bfd0a71",
+      "expressionSha256": "eccf7383cd9352f2375513712474fb95fd0283b5a5519d305c9052f4b4b5d14d"
+    },
+    {
+      "scenario": "list-keys",
+      "source": "packages/react/src/navigation-menu/list/NavigationMenuList.test.tsx",
+      "line": 29,
+      "sourceSha256": "9526ebc1f7de54618243986410e6dc3638991c698a208d182982cfaeb297b468",
+      "expressionSha256": "514aa88e7abef3c17be70e38945085f2a66704fe19886f8a13246293c4fad35e"
+    },
+    {
+      "scenario": "custom-list",
+      "source": "packages/react/src/navigation-menu/root/NavigationMenuRoot.test.tsx",
+      "line": 1175,
+      "sourceSha256": "91d0f84501dc110d1a948bb8c26ad82cc2b54f7a18f3de5e7117a921b0e4e266",
+      "expressionSha256": "0a7d2e9a761924a3d1dca1e82384238f42a5708f391bebd054daceeaa1f41af7"
+    },
+    {
+      "scenario": "arbitrary",
+      "source": "packages/react/src/navigation-menu/root/NavigationMenuRoot.test.tsx",
+      "line": 2192,
+      "sourceSha256": "91d0f84501dc110d1a948bb8c26ad82cc2b54f7a18f3de5e7117a921b0e4e266",
+      "expressionSha256": "6eb0a483e4fc8456212c694464de4621c2a58cd0f0022e52bcc0030e72d56a10"
+    },
+    {
+      "scenario": "no-viewport",
+      "source": "packages/react/src/navigation-menu/root/NavigationMenuRoot.test.tsx",
+      "line": 2230,
+      "sourceSha256": "91d0f84501dc110d1a948bb8c26ad82cc2b54f7a18f3de5e7117a921b0e4e266",
+      "expressionSha256": "2a3157709a789290c6ee7ef1c2479b28aebf8da6b1f5404403397d40932fb0a1"
+    },
+    {
+      "scenario": "icons",
+      "source": "packages/react/src/navigation-menu/root/NavigationMenuRoot.test.tsx",
+      "line": 2962,
+      "sourceSha256": "91d0f84501dc110d1a948bb8c26ad82cc2b54f7a18f3de5e7117a921b0e4e266",
+      "expressionSha256": "49517c40760870ca837fd8f6e23abf66514c023b5806bfb7ba075a1b79f6a3be"
+    },
+    {
+      "scenario": "sweep",
+      "source": "packages/react/src/navigation-menu/trigger/NavigationMenuTrigger.test.tsx",
+      "line": 619,
+      "sourceSha256": "9f14d3b046ecfc413f2ddd9e8188b7f610e8fb151a4587974afac3364a71d213",
+      "expressionSha256": "aae9b58ff456f44bc3956f13b9ee4d7f4550b164bde95347028ee0961c650278"
+    }
+  ],
+  "ordinaryCredit": 0,
+  "status": "Complete Original render expressions unchanged; native API counterparts and secured execution/review pending",
+  "reference": "apps/fixtures/src/lib/navigation-menu-parts-source-original.tsx",
+  "referenceSha256": "f5b0004f5aaf1f33db18867bb9e2bab88e600543680a12a7fe271ec4e468d321",
+  "native": "apps/fixtures/src/lib/NavigationMenuPartsSourceFixture.svelte",
+  "nativeSha256": "537031b2cd22a9c3be1373febed872f103205c335bf9954cc2da2f71de800c7e",
+  "originalFunctions": [
+    {
+      "source": "packages/react/src/navigation-menu/list/NavigationMenuList.test.tsx",
+      "sourceSha256": "9526ebc1f7de54618243986410e6dc3638991c698a208d182982cfaeb297b468",
+      "name": "App",
+      "line": 57,
+      "sha256": "45f757f7ea86560c0aef023e500e9dbd6d96225a6c060fe4bb9f02770adb3c45",
+      "wrapper": "ListRemoval"
+    },
+    {
+      "source": "packages/react/src/navigation-menu/trigger/NavigationMenuTrigger.test.tsx",
+      "sourceSha256": "9f14d3b046ecfc413f2ddd9e8188b7f610e8fb151a4587974afac3364a71d213",
+      "name": "App",
+      "line": 139,
+      "sha256": "bf0f33c7b9ae2ca289dc12b8cc0599a895a7a04ecee57cbdb20493dafd56f7fb",
+      "wrapper": "TriggerEnable"
+    },
+    {
+      "source": "packages/react/src/navigation-menu/trigger/NavigationMenuTrigger.test.tsx",
+      "sourceSha256": "9f14d3b046ecfc413f2ddd9e8188b7f610e8fb151a4587974afac3364a71d213",
+      "name": "TestActiveItemDropsTrigger",
+      "line": 71,
+      "sha256": "90c51c0de534f066dc9f6fd21027c6cf07c25f6b3f804f21c4328e0c3fe37e81",
+      "wrapper": null
+    }
+  ]
+}

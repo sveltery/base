@@ -37,8 +37,14 @@
       "kind": "ordinary-declaration",
       "sha256": "a78ae690edfc01102def49c34b8775d34bb6206231cba3989c2dabedc07c840b",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source part candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-parts.spec.ts",
+          "testPrefix": "C:30",
+          "fixtures": "Complete Original JSX expressions/helper fixture bodies SHA-verified by parts-fixtures.mjs; actual native public parts. C30/55 true SSR, C81/107 real SSR hydration; other ordered Source public event/focus assertions retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -51,8 +57,14 @@
       "kind": "ordinary-declaration",
       "sha256": "f3adf60337550ddbcb8653f385974c83f085427c6866ed17baed2925ff3f387f",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source part candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-parts.spec.ts",
+          "testPrefix": "C:55",
+          "fixtures": "Complete Original JSX expressions/helper fixture bodies SHA-verified by parts-fixtures.mjs; actual native public parts. C30/55 true SSR, C81/107 real SSR hydration; other ordered Source public event/focus assertions retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -65,8 +77,14 @@
       "kind": "ordinary-declaration",
       "sha256": "9a1325b206520f3298052b3afa0c8b708035d492f2a1cf870a1b99f13344719c",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source part candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-parts.spec.ts",
+          "testPrefix": "C:81",
+          "fixtures": "Complete Original JSX expressions/helper fixture bodies SHA-verified by parts-fixtures.mjs; actual native public parts. C30/55 true SSR, C81/107 real SSR hydration; other ordered Source public event/focus assertions retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -79,8 +97,14 @@
       "kind": "ordinary-declaration",
       "sha256": "9c6c874370f610e1d6213a81fe094524c631219c0e3a47aacdf858023eedac50",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source part candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-parts.spec.ts",
+          "testPrefix": "C:107",
+          "fixtures": "Complete Original JSX expressions/helper fixture bodies SHA-verified by parts-fixtures.mjs; actual native public parts. C30/55 true SSR, C81/107 real SSR hydration; other ordered Source public event/focus assertions retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -93,8 +117,14 @@
       "kind": "ordinary-declaration",
       "sha256": "091d04d65df9e9f91ade6fd7cf02208b36e4e15920db1876dbd9c27cad82765e",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source part candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-parts.spec.ts",
+          "testPrefix": "C:132",
+          "fixtures": "Complete Original JSX expressions/helper fixture bodies SHA-verified by parts-fixtures.mjs; actual native public parts. C30/55 true SSR, C81/107 real SSR hydration; other ordered Source public event/focus assertions retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -107,8 +137,14 @@
       "kind": "ordinary-declaration",
       "sha256": "76e3ebe5cbe3808c6dd5db6dfc2bed3bcbcfa8c9471ff40b0e44b100bda98a5a",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source part candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-parts.spec.ts",
+          "testPrefix": "C:185",
+          "fixtures": "Complete Original JSX expressions/helper fixture bodies SHA-verified by parts-fixtures.mjs; actual native public parts. C30/55 true SSR, C81/107 real SSR hydration; other ordered Source public event/focus assertions retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -145,8 +181,14 @@
       "kind": "ordinary-declaration",
       "sha256": "41faabe10c82269a302305d842c369f711d3004750fd9164ca6fe84244911e45",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Source JSDOM-only declaration: browser protocol candidate mapped; actual DOM-domain execution and complete correspondence review pending; zero unchanged credit",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-parts.spec.ts",
+          "testPrefix": "L:21",
+          "fixtures": "Complete Original JSX expressions/helper fixture bodies SHA-verified by parts-fixtures.mjs; actual native public parts. C30/55 true SSR, C81/107 real SSR hydration; other ordered Source public event/focus assertions retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -159,8 +201,14 @@
       "kind": "ordinary-declaration",
       "sha256": "69c9392a870d8374ee8892dc298971f24fdc485563991eac174d610c1e8252c7",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Source JSDOM-only declaration: browser protocol candidate mapped; actual DOM-domain execution and complete correspondence review pending; zero unchanged credit",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-parts.spec.ts",
+          "testPrefix": "L:61",
+          "fixtures": "Complete Original JSX expressions/helper fixture bodies SHA-verified by parts-fixtures.mjs; actual native public parts. C30/55 true SSR, C81/107 real SSR hydration; other ordered Source public event/focus assertions retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -173,8 +221,14 @@
       "kind": "ordinary-declaration",
       "sha256": "7df6dee417c7939af4ae3411a6c5c06e412bbabd7612126d98c1163720e42a2e",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source part candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-parts.spec.ts",
+          "testPrefix": "L:103",
+          "fixtures": "Complete Original JSX expressions/helper fixture bodies SHA-verified by parts-fixtures.mjs; actual native public parts. C30/55 true SSR, C81/107 real SSR hydration; other ordered Source public event/focus assertions retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -187,8 +241,14 @@
       "kind": "ordinary-declaration",
       "sha256": "0d66691967b628c415f53275e787f55bb51dfc6e0da0232e4b8b20f4a56cc17d",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source part candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-parts.spec.ts",
+          "testPrefix": "L:118",
+          "fixtures": "Complete Original JSX expressions/helper fixture bodies SHA-verified by parts-fixtures.mjs; actual native public parts. C30/55 true SSR, C81/107 real SSR hydration; other ordered Source public event/focus assertions retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -201,8 +261,14 @@
       "kind": "ordinary-declaration",
       "sha256": "6d555c529dfeacdfaf9b4e0739b6965571fe04d295e08d6c5026a28f765ea290",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source part candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-parts.spec.ts",
+          "testPrefix": "L:134",
+          "fixtures": "Complete Original JSX expressions/helper fixture bodies SHA-verified by parts-fixtures.mjs; actual native public parts. C30/55 true SSR, C81/107 real SSR hydration; other ordered Source public event/focus assertions retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -239,8 +305,14 @@
       "kind": "ordinary-declaration",
       "sha256": "9bf021939529813f24ed9539739fa5d47622f3a7c6290280348584ee87dbfe04",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source part candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-parts.spec.ts",
+          "testPrefix": "List:29",
+          "fixtures": "Complete Original JSX expressions/helper fixture bodies SHA-verified by parts-fixtures.mjs; actual native public parts. C30/55 true SSR, C81/107 real SSR hydration; other ordered Source public event/focus assertions retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -253,8 +325,14 @@
       "kind": "ordinary-declaration",
       "sha256": "f0ca13aadcdabac27bdee5efb89fc7cca8f9d59a3790caebfbff4a87f0d4257b",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source part candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-parts.spec.ts",
+          "testPrefix": "List:77",
+          "fixtures": "Complete Original JSX expressions/helper fixture bodies SHA-verified by parts-fixtures.mjs; actual native public parts. C30/55 true SSR, C81/107 real SSR hydration; other ordered Source public event/focus assertions retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -455,8 +533,14 @@
       "kind": "ordinary-declaration",
       "sha256": "111b9ee26eca21e3e1149986b28954c47b8c56a7c46ddf9e5ed387edd83aff99",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source part candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-parts.spec.ts",
+          "testPrefix": "R:1175",
+          "fixtures": "Complete Original JSX expressions/helper fixture bodies SHA-verified by parts-fixtures.mjs; actual native public parts. C30/55 true SSR, C81/107 real SSR hydration; other ordered Source public event/focus assertions retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -1119,8 +1203,14 @@
       "kind": "ordinary-declaration",
       "sha256": "5991316999cbe4b5a23f854d6dae8d828a02ec97b8838c6004bee548090b9d5a",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source part candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-parts.spec.ts",
+          "testPrefix": "R:2192",
+          "fixtures": "Complete Original JSX expressions/helper fixture bodies SHA-verified by parts-fixtures.mjs; actual native public parts. C30/55 true SSR, C81/107 real SSR hydration; other ordered Source public event/focus assertions retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -1133,8 +1223,14 @@
       "kind": "ordinary-declaration",
       "sha256": "95a3b4d53bfdc1e8f382d59950ea5b224b941673e10c4a53eb4104b1f91a1967",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source part candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-parts.spec.ts",
+          "testPrefix": "R:2230",
+          "fixtures": "Complete Original JSX expressions/helper fixture bodies SHA-verified by parts-fixtures.mjs; actual native public parts. C30/55 true SSR, C81/107 real SSR hydration; other ordered Source public event/focus assertions retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -1529,8 +1625,14 @@
       "kind": "ordinary-declaration",
       "sha256": "87a7b4ea0a5ad5fa3f60bfeebc19523220495432c7749d90d462567dc4fe7834",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source part candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-parts.spec.ts",
+          "testPrefix": "R:2962",
+          "fixtures": "Complete Original JSX expressions/helper fixture bodies SHA-verified by parts-fixtures.mjs; actual native public parts. C30/55 true SSR, C81/107 real SSR hydration; other ordered Source public event/focus assertions retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -1927,8 +2029,14 @@
       "kind": "ordinary-declaration",
       "sha256": "356827ff60718baf4b7c0f7e1972d9f98240e2d1ae0ee2ab60cf8c591004c804",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source part candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-parts.spec.ts",
+          "testPrefix": "T:138",
+          "fixtures": "Complete Original JSX expressions/helper fixture bodies SHA-verified by parts-fixtures.mjs; actual native public parts. C30/55 true SSR, C81/107 real SSR hydration; other ordered Source public event/focus assertions retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -2031,8 +2139,14 @@
       "kind": "ordinary-declaration",
       "sha256": "d3a9e42065e2e7e458d3a739e386e8f10100417a4d5da16738ae8662882c2394",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source part candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-parts.spec.ts",
+          "testPrefix": "T:580",
+          "fixtures": "Complete Original JSX expressions/helper fixture bodies SHA-verified by parts-fixtures.mjs; actual native public parts. C30/55 true SSR, C81/107 real SSR hydration; other ordered Source public event/focus assertions retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -2045,8 +2159,14 @@
       "kind": "ordinary-declaration",
       "sha256": "743c006560db7321b79f3d8c59fb30cef339de4b32a41f94ba0bb788c80e854e",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source part candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-parts.spec.ts",
+          "testPrefix": "T:619",
+          "fixtures": "Complete Original JSX expressions/helper fixture bodies SHA-verified by parts-fixtures.mjs; actual native public parts. C30/55 true SSR, C81/107 real SSR hydration; other ordered Source public event/focus assertions retained."
+        }
+      ],
       "executedEvidence": []
     }
   ],
