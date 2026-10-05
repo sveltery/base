@@ -38,7 +38,7 @@ export function mountToastLabelFidelityReference(node: HTMLElement, scenario: st
                       id: sameId ? 'shared-title' : 'old-title',
                       'data-testid': 'old-title',
                       render: customRender
-                        ? (props) => (rendered ? h('h3', props) : null)
+                        ? (props) => (rendered ? h('h3', props) : h(Fragment))
                         : undefined,
                     },
                     oldContent,
@@ -49,7 +49,7 @@ export function mountToastLabelFidelityReference(node: HTMLElement, scenario: st
                       id: sameId ? 'shared-description' : 'old-description',
                       'data-testid': 'old-description',
                       render: customRender
-                        ? (props) => (rendered ? h('section', props) : null)
+                        ? (props) => (rendered ? h('section', props) : h(Fragment))
                         : undefined,
                     },
                     oldContent,

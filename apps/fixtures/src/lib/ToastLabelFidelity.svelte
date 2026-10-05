@@ -6,8 +6,8 @@
     $props();
   let old = $state(true);
   let newer = $state(false);
-  let oldContent = $state<ToastContent>('Old label');
-  let newContent = $state<ToastContent>('New label');
+  let oldContent = $state<ToastContent | undefined>('Old label');
+  let newContent = $state<ToastContent | undefined>('New label');
   let rendered = $state(true);
   function setLabels(options: {
     old?: boolean;
