@@ -53,20 +53,18 @@ for (const reference of [false, true])
         errors.push(message.text());
     });
     const actualRef = () =>
-      page
-        .locator('main')
-        .evaluate((node) =>
-          (
-            node as HTMLElement & {
-              renderRefProbe(): {
-                tag: string;
-                id: string;
-                connected: boolean;
-                same: boolean;
-              } | null;
-            }
-          ).renderRefProbe(),
-        );
+      page.locator('main').evaluate((node) =>
+        (
+          node as HTMLElement & {
+            renderRefProbe(): {
+              tag: string;
+              id: string;
+              connected: boolean;
+              same: boolean;
+            } | null;
+          }
+        ).renderRefProbe(),
+      );
     await page.goto(url);
     await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
     await expect(page.locator('#ssr-render')).toHaveText('SSR children');

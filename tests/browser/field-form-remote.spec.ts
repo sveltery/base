@@ -135,13 +135,11 @@ test('diagnostic Kit Form invalid submit preserves raw request, listener and ser
   const observation = {
     counterBefore: before,
     counterAfter: await readCounter(page),
-    nativeAction: await page
-      .locator('#remote-form')
-      .evaluate((form: HTMLFormElement) => ({
-        method: form.method,
-        action: form.action,
-        target: form.target,
-      })),
+    nativeAction: await page.locator('#remote-form').evaluate((form: HTMLFormElement) => ({
+      method: form.method,
+      action: form.action,
+      target: form.target,
+    })),
     requests: requests.length,
     result: JSON.parse((await page.locator('#remote-result').textContent()) ?? 'null'),
     fieldValidity: JSON.parse((await page.locator('#field-validity').textContent()) ?? 'null'),
@@ -149,12 +147,10 @@ test('diagnostic Kit Form invalid submit preserves raw request, listener and ser
     nativeSubmit: await page.locator('#remote-native-submit').textContent(),
     resets: await page.locator('#remote-resets').textContent(),
   };
-  await test
-    .info()
-    .attach('kit-invalid-form-submit-observation.json', {
-      body: JSON.stringify(observation, null, 2),
-      contentType: 'application/json',
-    });
+  await test.info().attach('kit-invalid-form-submit-observation.json', {
+    body: JSON.stringify(observation, null, 2),
+    contentType: 'application/json',
+  });
   expect(observation.events.some((event: { stage: string }) => event.stage === 'capture')).toBe(
     true,
   );
@@ -184,12 +180,10 @@ for (const mode of ['native', ''])
       nativeSubmit: await page.locator('#remote-native-submit').textContent(),
       resets: await page.locator('#remote-resets').textContent(),
     };
-    await test
-      .info()
-      .attach('kit-canceled-submit-observation.json', {
-        body: JSON.stringify(observation, null, 2),
-        contentType: 'application/json',
-      });
+    await test.info().attach('kit-canceled-submit-observation.json', {
+      body: JSON.stringify(observation, null, 2),
+      contentType: 'application/json',
+    });
     expect(
       observation.events.some(
         (event: { stage: string; defaultPrevented: boolean }) =>
@@ -212,12 +206,10 @@ for (const mode of ['', 'replacement', 'formReplacement'])
     await page.getByRole('button', { name: 'Submit', exact: true }).click();
     await page.waitForTimeout(300);
     const after = await readCounter(page);
-    await test
-      .info()
-      .attach('kit-invalid-submit-acceptance-counter.json', {
-        body: JSON.stringify({ before, after, delta: after - before, requests: requests.length }),
-        contentType: 'application/json',
-      });
+    await test.info().attach('kit-invalid-submit-acceptance-counter.json', {
+      body: JSON.stringify({ before, after, delta: after - before, requests: requests.length }),
+      contentType: 'application/json',
+    });
     expect.soft(requests).toHaveLength(0);
     expect.soft(after - before).toBe(0);
     await expect.soft(page.locator('#remote-result')).toHaveText('null');
@@ -270,12 +262,10 @@ for (const mode of ['', 'formReplacement'])
         })),
       };
     });
-    await test
-      .info()
-      .attach('kit-native-named-control-attributes.json', {
-        body: JSON.stringify(attributes, null, 2),
-        contentType: 'application/json',
-      });
+    await test.info().attach('kit-native-named-control-attributes.json', {
+      body: JSON.stringify(attributes, null, 2),
+      contentType: 'application/json',
+    });
     expect(attributes.namedCollisions.every((collision) => collision.instanceLookupIsControl)).toBe(
       true,
     );
@@ -336,12 +326,10 @@ for (const mode of ['', 'native'])
         resets: await page.locator('#remote-resets').textContent(),
         value: await input.inputValue(),
       };
-      await test
-        .info()
-        .attach('kit-target-case-observation.json', {
-          body: JSON.stringify(observation, null, 2),
-          contentType: 'application/json',
-        });
+      await test.info().attach('kit-target-case-observation.json', {
+        body: JSON.stringify(observation, null, 2),
+        contentType: 'application/json',
+      });
       expect(observation.events.some((event: { stage: string }) => event.stage === 'capture')).toBe(
         true,
       );

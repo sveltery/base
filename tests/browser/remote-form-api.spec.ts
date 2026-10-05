@@ -49,12 +49,10 @@ test('typed remote namespace hydrates and renders one semantic Switch input', as
         ).length,
     )
     .toBe(1);
-  await test
-    .info()
-    .attach('source-reset-phases.json', {
-      body: JSON.stringify(await value(page, 'reset-phases')),
-      contentType: 'application/json',
-    });
+  await test.info().attach('source-reset-phases.json', {
+    body: JSON.stringify(await value(page, 'reset-phases')),
+    contentType: 'application/json',
+  });
   await test.info().attach('source-switch-reset.json', {
     body: JSON.stringify(
       await page.locator('#survey-form').evaluate((form: HTMLFormElement) => {
@@ -106,12 +104,10 @@ test('actual literal Kit descriptors characterize initially undefined checkbox a
         ).length,
     )
     .toBe(1);
-  await test
-    .info()
-    .attach('literal-reset-phases.json', {
-      body: JSON.stringify(await value(page, 'reset-phases')),
-      contentType: 'application/json',
-    });
+  await test.info().attach('literal-reset-phases.json', {
+    body: JSON.stringify(await value(page, 'reset-phases')),
+    contentType: 'application/json',
+  });
   await expect.poll(async () => (await value(page, 'literal-owner')).enabled ?? false).toBe(false);
   await test.info().attach('literal-checked-reset.json', {
     body: JSON.stringify(
@@ -150,12 +146,10 @@ test('literal Kit descriptor reset from a public programmatic call observes nati
         ).length,
     )
     .toBe(1);
-  await test
-    .info()
-    .attach('literal-programmatic-reset-phases.json', {
-      body: JSON.stringify(await value(page, 'reset-phases')),
-      contentType: 'application/json',
-    });
+  await test.info().attach('literal-programmatic-reset-phases.json', {
+    body: JSON.stringify(await value(page, 'reset-phases')),
+    contentType: 'application/json',
+  });
   await expect.poll(async () => (await value(page, 'literal-owner')).enabled ?? false).toBe(false);
 });
 

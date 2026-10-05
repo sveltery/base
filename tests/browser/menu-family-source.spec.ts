@@ -6,12 +6,10 @@ async function setup(page: Page, reference: boolean, options: Record<string, str
   if (reference) parameters.set('reference', '');
   await page.goto(`/menu-family?${parameters}`);
   await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
-  test
-    .info()
-    .annotations.push({
-      type: 'browser-version',
-      description: page.context().browser()?.version() ?? 'unavailable',
-    });
+  test.info().annotations.push({
+    type: 'browser-version',
+    description: page.context().browser()?.version() ?? 'unavailable',
+  });
 }
 async function command(page: Page, value: string) {
   await page.locator('main').evaluate((element, argument) => {

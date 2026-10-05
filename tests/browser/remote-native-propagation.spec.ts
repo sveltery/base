@@ -91,20 +91,18 @@ for (const sourceHost of ['default', 'formReplacement'])
     expect(observation.action).not.toBe(observation.baseURI);
     await page.getByRole('button', { name: 'Submit', exact: true }).click();
     await assertCanceled(page, before, requests, 1);
-    await test
-      .info()
-      .attach('literal-empty-formaction.json', {
-        body: JSON.stringify({
-          sourceHost,
-          ...observation,
-          listeners: 1,
-          POST: requests.length,
-          counterDelta: (await counter(page)) - before,
-          reset: 0,
-          result: null,
-        }),
-        contentType: 'application/json',
-      });
+    await test.info().attach('literal-empty-formaction.json', {
+      body: JSON.stringify({
+        sourceHost,
+        ...observation,
+        listeners: 1,
+        POST: requests.length,
+        counterDelta: (await counter(page)) - before,
+        reset: 0,
+        result: null,
+      }),
+      contentType: 'application/json',
+    });
     await nextValid(page, before, requests, 1);
   });
 
@@ -159,20 +157,18 @@ for (const tag of ['button', 'input'])
       );
     }
     await assertCanceled(page, before, requests, 8);
-    await test
-      .info()
-      .attach('literal-submitter-overrides.json', {
-        body: JSON.stringify({
-          tag,
-          observations,
-          listeners,
-          POST: requests.length,
-          counterDelta: (await counter(page)) - before,
-          reset: 0,
-          result: null,
-        }),
-        contentType: 'application/json',
-      });
+    await test.info().attach('literal-submitter-overrides.json', {
+      body: JSON.stringify({
+        tag,
+        observations,
+        listeners,
+        POST: requests.length,
+        counterDelta: (await counter(page)) - before,
+        reset: 0,
+        result: null,
+      }),
+      contentType: 'application/json',
+    });
     await page.locator('#boundary-submitter').evaluate((node) => node.remove());
     await nextValid(page, before, requests, 8);
   });
