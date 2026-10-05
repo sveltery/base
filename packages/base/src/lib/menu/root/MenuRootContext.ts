@@ -9,12 +9,14 @@ export interface MenuRootContext<Payload = unknown> {
 }
 
 export const MenuRootContext = Symbol('MenuRootContext');
-export function provideMenuRootContext(value: MenuRootContext | undefined) { setContext(MenuRootContext, value); }
+export function provideMenuRootContext(value: MenuRootContext | undefined) {
+  setContext(MenuRootContext, value);
+}
 
 export function useMenuRootContext(optional?: false): MenuRootContext;
 export function useMenuRootContext(optional: true): MenuRootContext | undefined;
 export function useMenuRootContext(optional?: boolean) {
-  const context = (getContext<MenuRootContext | undefined>(MenuRootContext) ?? undefined);
+  const context = getContext<MenuRootContext | undefined>(MenuRootContext) ?? undefined;
   if (context === undefined && !optional) {
     throw new Error(
       'Base UI: MenuRootContext is missing. Menu parts must be placed within <Menu.Root>.',

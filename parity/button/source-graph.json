@@ -1046,7 +1046,7 @@
       },
       {
         "local": "packages/base/src/lib/button/types.ts",
-        "sha256": "8fdbc4aa58e672a060f47ce188e887d10a8c8864acdd813087c0683d6bdd7fdc",
+        "sha256": "1a6eca75f2d0f29b9c4a23683a1469bd6a927025619a6d23fba11f78efdc6f00",
         "declarations": [
           "ButtonState",
           "ButtonProps"
@@ -1122,7 +1122,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/nativeProps.ts",
-        "sha256": "fbb6178288b28dad7549551064e30bf2b432880f1a5b2476223b011f9e72a71a",
+        "sha256": "4c1f8df953df631d3b410b9a12e48e156ad90bcd5fef6feaec97a4426068ec29",
         "declarations": [
           "NativeStyle",
           "toNativeStyle",
@@ -1163,7 +1163,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-        "sha256": "659427aaebb2b294178e5ccd147f6cbb4cb87a9704c18c62ff04a2847a7e1a56",
+        "sha256": "ab007711c5ea5bd558b06a704c5f06c2c37e46ff52b547c01c14e119116402d9",
         "declarations": [
           "NativeRefAttachment",
           "isNativeRefAttachment",
@@ -1194,7 +1194,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/RenderElement.svelte",
-        "sha256": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5",
+        "sha256": "7468c314806abe0b4ed1fc2dd95d3a2defd6e86a9021012ced3f0154d0028daa",
         "declarations": [],
         "reachability": [
           "runtime"
@@ -1299,7 +1299,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/types.ts",
-        "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
+        "sha256": "6a36f5f103ef940b8a32d63f0288d897096c846fb2361b4ef44733e9a899907e",
         "declarations": [
           "HTMLProps",
           "ComponentRenderFn",
@@ -1349,7 +1349,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
-        "sha256": "f56c35343595eafbb9a37d5313b6e9b95129b875a537790667fa32fd4f71b4b2",
+        "sha256": "089f0b6e20b956d85db5cf2cd7a47151352ec8aada0d6582154ad264c59e20bf",
         "declarations": [
           "UseButtonParameters",
           "useButton",
@@ -1371,27 +1371,11 @@
             ]
           },
           {
-            "specifier": "@sveltery/utils/useStableCallback",
-            "kind": "runtime",
-            "resolved": "packages/utils/src/lib/useStableCallback.ts",
-            "names": [
-              "useStableCallback"
-            ]
-          },
-          {
             "specifier": "@sveltery/utils/error",
             "kind": "runtime",
             "resolved": "packages/utils/src/lib/error.ts",
             "names": [
               "error"
-            ]
-          },
-          {
-            "specifier": "@sveltery/utils/useIsoLayoutEffect",
-            "kind": "runtime",
-            "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-            "names": [
-              "useIsoLayoutEffect"
             ]
           },
           {
@@ -1440,7 +1424,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/useRenderElement.ts",
-        "sha256": "d344184b30e91d54544e9c5b00583679762e0ec099306e9a682df8426655c31a",
+        "sha256": "010e3e73a976eee85c903f9e95a75a890e0b79a5f9057aadd66ea61f963cbe79",
         "declarations": [
           "createRenderElement",
           "useRenderElement",
@@ -1462,7 +1446,7 @@
             "kind": "runtime",
             "resolved": "packages/utils/src/lib/useMergedRefs.ts",
             "names": [
-              "createMergedRefs"
+              "MergedRefs"
             ]
           },
           {
@@ -1582,7 +1566,7 @@
       },
       {
         "local": "packages/base/src/lib/merge-props/mergeProps.ts",
-        "sha256": "110f1b7615a7ccadcfc1e8775451eea5f9ca971bcafee6f3ffd4ea8470303d00",
+        "sha256": "1b758134ab0efecd9601638e928440561944d226e5ebb9276d39723738d0301a",
         "declarations": [
           "PreventableEvent",
           "Props",
@@ -1699,7 +1683,7 @@
       },
       {
         "local": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
-        "sha256": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c",
+        "sha256": "f30838a56f41ea3672d26627fb42145d016e3b54b512c4c381e6aafb05431db2",
         "declarations": [
           "UseFocusableWhenDisabledParameters",
           "useFocusableWhenDisabled"
@@ -1741,7 +1725,7 @@
       },
       {
         "local": "packages/utils/src/lib/empty.ts",
-        "sha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65",
+        "sha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151",
         "declarations": [
           "NOOP"
         ],
@@ -1810,29 +1794,8 @@
         ]
       },
       {
-        "local": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-        "sha256": "19e575ac14e03d20cbd088abda91d4784ed8b3b34944e03ef51e242e0c0247a7",
-        "declarations": [
-          "EffectCallback",
-          "useIsoLayoutEffect"
-        ],
-        "reachability": [
-          "runtime"
-        ],
-        "imports": [
-          {
-            "specifier": "svelte",
-            "kind": "runtime",
-            "resolved": "external:svelte",
-            "names": [
-              "untrack"
-            ]
-          }
-        ]
-      },
-      {
         "local": "packages/utils/src/lib/useMergedRefs.ts",
-        "sha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
+        "sha256": "f9c910b06b0f3c56f8b5775b15b4a9e36260f23a42a7822eb8401480a0e438ac",
         "declarations": [
           "MergedRef",
           "MergedRefCallback",
@@ -1841,12 +1804,6 @@
           "Result",
           "Cleanup",
           "ForkRef",
-          "createMergedRefs",
-          "useMergedRefs",
-          "useMergedRefs",
-          "useMergedRefs",
-          "useMergedRefs",
-          "useMergedRefsN",
           "createForkRef",
           "didChange",
           "didChangeN",
@@ -1856,53 +1813,7 @@
           "runtime",
           "type"
         ],
-        "imports": [
-          {
-            "specifier": "./useRefWithInit.js",
-            "kind": "runtime",
-            "resolved": "packages/utils/src/lib/useRefWithInit.ts",
-            "names": [
-              "useRefWithInit"
-            ]
-          }
-        ]
-      },
-      {
-        "local": "packages/utils/src/lib/useRefWithInit.ts",
-        "sha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7",
-        "declarations": [
-          "InitializedRef",
-          "useRefWithInit",
-          "useRefWithInit",
-          "useRefWithInit"
-        ],
-        "reachability": [
-          "runtime",
-          "type"
-        ],
         "imports": []
-      },
-      {
-        "local": "packages/utils/src/lib/useStableCallback.ts",
-        "sha256": "dca4f1866715df0bcb597ca5c083825f580717a96e267c77a5325ce22790d04c",
-        "declarations": [
-          "Callback",
-          "useStableCallback",
-          "createStableCallback"
-        ],
-        "reachability": [
-          "runtime"
-        ],
-        "imports": [
-          {
-            "specifier": "svelte",
-            "kind": "runtime",
-            "resolved": "external:svelte",
-            "names": [
-              "untrack"
-            ]
-          }
-        ]
       }
     ]
   }

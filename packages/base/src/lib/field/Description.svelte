@@ -9,21 +9,47 @@
   import { useBaseUiId } from '../internals/useBaseUiId.js';
   import { useFieldItemContext } from './item/FieldItemContext.js';
   import type { FieldDescriptionProps } from './types.js';
-  let { children, render, id: idProp, class: classProp, style, ref = $bindable(), ...elementProps }: FieldDescriptionProps = $props();
+  let {
+    children,
+    render,
+    id: idProp,
+    class: classProp,
+    style,
+    ref = $bindable(),
+    ...elementProps
+  }: FieldDescriptionProps = $props();
   const nativeId = $props.id();
   const id = $derived(useBaseUiId(idProp ?? undefined, nativeId));
   const fieldRootContext = useFieldRootContext(false);
   const fieldItemContext = useFieldItemContext();
   const { setMessageIds } = useLabelableContext();
-  const descriptionState = $derived({ ...fieldRootContext.state, disabled: fieldRootContext.disabled || fieldItemContext.disabled });
+  const descriptionState = $derived({
+    ...fieldRootContext.state,
+    disabled: fieldRootContext.disabled || fieldItemContext.disabled,
+  });
   $effect(() => {
     if (!id) return;
     const installedId = id;
-    untrack(() => setMessageIds(v => v.concat(installedId)));
-    return () => { setMessageIds(v => v.filter(item => item !== installedId)); };
+    untrack(() => setMessageIds((v) => v.concat(installedId)));
+    return () => {
+      setMessageIds((v) => v.filter((item) => item !== installedId));
+    };
   });
-  const forwardedRef = { get current() { return ref ?? null; }, set current(value: HTMLElement | null) { ref = value; } };
+  const forwardedRef = {
+    get current() {
+      return ref ?? null;
+    },
+    set current(value: HTMLElement | null) {
+      ref = value;
+    },
+  };
   const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({ ref: forwardedRef, state: descriptionState, props: [{ id }, elementProps], stateAttributesMapping: fieldValidityMapping });
+  const params = $derived({
+    ref: forwardedRef,
+    state: descriptionState,
+    props: [{ id }, elementProps],
+    stateAttributesMapping: fieldValidityMapping,
+  });
 </script>
+
 <RenderElement tag="p" {componentProps} {params} {children} />

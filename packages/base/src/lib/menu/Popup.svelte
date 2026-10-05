@@ -14,8 +14,16 @@
   import { useToolbarRootContext } from '../toolbar/root/ToolbarRootContext.js';
   import { COMPOSITE_KEYS } from '../internals/composite/composite.js';
   import type { MenuPopupProps, MenuRoot } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
-  let { render, class: className, style, finalFocus, children, ref = $bindable(null), ...elementProps }: MenuPopupProps = $props();
+  let {
+    render,
+    class: className,
+    style,
+    finalFocus,
+    children,
+    // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
+    ref = $bindable(null),
+    ...elementProps
+  }: MenuPopupProps = $props();
   const insideToolbar = useToolbarRootContext(true) != null;
   const { store } = useMenuRootContext();
   const positioner = useMenuPositionerContext();
@@ -34,33 +42,104 @@
   const disabled = $derived(store.useState('disabled'));
   const openMethod = $derived(store.useState('openMethod'));
   const isContextMenu = $derived(parent.type === 'context-menu');
-  useOpenChangeComplete({ get open() { return open; }, ref: store.context.popupRef, onComplete() { if (open) store.context.onOpenChangeComplete?.(true); } });
+  useOpenChangeComplete({
+    get open() {
+      return open;
+    },
+    ref: store.context.popupRef,
+    onComplete() {
+      if (open) store.context.onOpenChangeComplete?.(true);
+    },
+  });
   $effect(() => {
-    function handleClose(event: { domEvent: Event | undefined; reason: MenuRoot.ChangeEventReason }) {
+    function handleClose(event: {
+      domEvent: Event | undefined;
+      reason: MenuRoot.ChangeEventReason;
+    }) {
       store.setOpen(false, createChangeEventDetails(event.reason, event.domEvent));
     }
     floatingTreeRoot.events.on('close', handleClose);
-    return () => { floatingTreeRoot.events.off('close', handleClose); };
+    return () => {
+      floatingTreeRoot.events.off('close', handleClose);
+    };
   });
-  useHoverFloatingInteraction(() => floatingContext, () => ({ enabled: hoverEnabled && !disabled && !isContextMenu && parent.type !== 'menubar', closeDelay }));
+  useHoverFloatingInteraction(
+    () => floatingContext,
+    () => ({
+      enabled: hoverEnabled && !disabled && !isContextMenu && parent.type !== 'menubar',
+      closeDelay,
+    }),
+  );
   const setPopupElement = store.useStateSetter('popupElement');
-  const state = $derived({ transitionStatus, side: positioner.side, align: positioner.align, open, nested: parent.type === 'menu', instant: instantType });
+  const state = $derived({
+    transitionStatus,
+    side: positioner.side,
+    align: positioner.align,
+    open,
+    nested: parent.type === 'menu',
+    instant: instantType,
+  });
   function getDefaultReturnFocus(state = store.state) {
     let value = state.parent.type === undefined || state.parent.type === 'context-menu';
-    if (state.activeTriggerElement || (state.parent.type === 'menubar' && state.openChangeReason !== REASONS.outsidePress)) value = true;
+    if (
+      state.activeTriggerElement ||
+      (state.parent.type === 'menubar' && state.openChangeReason !== REASONS.outsidePress)
+    )
+      value = true;
     return value;
   }
   let mountedReturnFocus = getDefaultReturnFocus();
-  $effect(() => store.observe(
-    state => state.mounted ? getDefaultReturnFocus(state) : null,
-    value => { if (value !== null) mountedReturnFocus = value; },
-  ));
+  $effect(() =>
+    store.observe(
+      (state) => (state.mounted ? getDefaultReturnFocus(state) : null),
+      (value) => {
+        if (value !== null) mountedReturnFocus = value;
+      },
+    ),
+  );
   const returnFocus = $derived.by(() => {
     const isMounted = store.select('mounted');
     return isMounted ? getDefaultReturnFocus() : mountedReturnFocus;
   });
-  const setRef = (node: HTMLElement | null) => { ref = node; };
+  const setRef = (node: HTMLElement | null) => {
+    ref = node;
+  };
 </script>
-<FloatingFocusManager context={floatingContext} openInteractionType={openMethod} modal={isContextMenu} disabled={!mounted} returnFocus={finalFocus === undefined ? returnFocus : finalFocus} initialFocus={parent.type !== 'menu'} restoreFocus={true} externalTree={parent.type !== 'menubar' ? floatingTreeRoot : undefined} previousFocusableElement={activeTriggerElement as HTMLElement | null} nextFocusableElement={parent.type === undefined ? store.context.triggerFocusTargetRef : undefined} beforeContentFocusGuardRef={parent.type === undefined ? store.context.beforeContentFocusGuardRef : undefined}>
-  <RenderElement tag="div" componentProps={{ render, class: className, style }} params={{ state, ref: [setRef, store.context.popupRef, setPopupElement], stateAttributesMapping: popupTransitionStateMapping, props: [popupProps, { onkeydown(event: KeyboardEvent) { if (insideToolbar && COMPOSITE_KEYS.has(event.key)) event.stopPropagation(); } }, getDisabledMountTransitionStyles(transitionStatus), elementProps, { 'data-rootownerid': rootId }] }} {children} />
+
+<FloatingFocusManager
+  context={floatingContext}
+  openInteractionType={openMethod}
+  modal={isContextMenu}
+  disabled={!mounted}
+  returnFocus={finalFocus === undefined ? returnFocus : finalFocus}
+  initialFocus={parent.type !== 'menu'}
+  restoreFocus={true}
+  externalTree={parent.type !== 'menubar' ? floatingTreeRoot : undefined}
+  previousFocusableElement={activeTriggerElement as HTMLElement | null}
+  nextFocusableElement={parent.type === undefined ? store.context.triggerFocusTargetRef : undefined}
+  beforeContentFocusGuardRef={parent.type === undefined
+    ? store.context.beforeContentFocusGuardRef
+    : undefined}
+>
+  <RenderElement
+    tag="div"
+    componentProps={{ render, class: className, style }}
+    params={{
+      state,
+      ref: [setRef, store.context.popupRef, setPopupElement],
+      stateAttributesMapping: popupTransitionStateMapping,
+      props: [
+        popupProps,
+        {
+          onkeydown(event: KeyboardEvent) {
+            if (insideToolbar && COMPOSITE_KEYS.has(event.key)) event.stopPropagation();
+          },
+        },
+        getDisabledMountTransitionStyles(transitionStatus),
+        elementProps,
+        { 'data-rootownerid': rootId },
+      ],
+    }}
+    {children}
+  />
 </FloatingFocusManager>

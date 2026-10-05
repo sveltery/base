@@ -12,8 +12,7 @@ export interface SwitchRootState extends FieldRootState {
   required: boolean;
 }
 export type SwitchRootChangeEventReason = 'none';
-export type SwitchRootChangeEventDetails =
-  BaseUIChangeEventDetails<SwitchRootChangeEventReason>;
+export type SwitchRootChangeEventDetails = BaseUIChangeEventDetails<SwitchRootChangeEventReason>;
 export type SwitchRootProps = Omit<
   WithBaseUIEvent<HTMLAttributes<HTMLElement>>,
   'class' | 'style' | 'children' | 'onchange'

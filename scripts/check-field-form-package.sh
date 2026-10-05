@@ -13,8 +13,8 @@ const tarball = readdirSync(destination).find(name => name.endsWith('.tgz'));
 writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(destination, tarball)}`, svelte: '5.57.1' } }));
 JS
 sveltery_prepare_consumer "$field_form_consumer"
-pnpm --dir "$field_form_consumer" --ignore-workspace install --ignore-scripts > /dev/null
-pnpm --dir "$field_form_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+pnpm --dir "$field_form_consumer" install --ignore-scripts > /dev/null
+pnpm --dir "$field_form_consumer" install --frozen-lockfile --ignore-scripts > /dev/null
 test -f "$field_form_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
 cmp LICENSE "$field_form_consumer/node_modules/@sveltery/base/LICENSE"
 node --input-type=module - "$field_form_consumer" "${1:-}" <<'JS'

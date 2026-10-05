@@ -4,49 +4,49 @@
     {
       "record": "parity/shared-utils/source-graph.json",
       "previousSha256": "7d136caaac64b2d7ffb56c6189225462e204f99fbdc880d22b9c573fbaf31763",
-      "currentSha256": "df6424a5329630e2148f1c3cb84e4a3df2b7e9faa48049ffe0321e0d008d45c4",
+      "currentSha256": "b42553123138957c214706e3d00d28dd4ca6f852948a45ab699f475ff96bc355",
       "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
     },
     {
       "record": "parity/boolean-controls/source-correspondence.json",
       "previousSha256": "13a04ceb98b395813149d4ce2dddfd4b9a5b6b2bb7e0fbf9960e0673e04303a8",
-      "currentSha256": "3a99ea8ad4eaa0007d404c25e6f63a25ca3ad3b822c993dcc0ee698bf818fa60",
+      "currentSha256": "0f4e782579f237f7598976078b33cec4a2f02e89d4267aa376989d81f956be9c",
       "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
     },
     {
       "record": "parity/dialog/source-correspondence.json",
       "previousSha256": "4abf315446e2c46ab03a603794e10c4dd71a816cf6010fb3cecd4e713d935ee9",
-      "currentSha256": "2afc1d514e3dd5269619808f6cf5f1c114fc242f2337838d6b03c25469a29478",
+      "currentSha256": "e998d49f2a09f1132aea96f9893fd51462b84d239626828d87f0021c4bce2fa6",
       "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
     },
     {
       "record": "parity/field-form/source-correspondence.json",
       "previousSha256": "254db0ae3f985b139ec430e96083cf4e72ed2c0d17712ad65e6486c70c09d7bb",
-      "currentSha256": "5354200f9391197f1de232cef27455c9598f37827086cd191f32907f8dce3a38",
+      "currentSha256": "928c1bf9527bd9694dd65f5bab1a145a5a4a427c2ff2c39107bb6dce8abbd5ba",
       "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
     },
     {
       "record": "parity/radio/source-correspondence.json",
       "previousSha256": "507e1268f9c38d70fc1655cca3b2e42f776e2f84a30dfe37dbcba8a0655f108c",
-      "currentSha256": "c2baaca82fa5284cc13b4ed411ffcf7e92051bc3929066afefc8d4fa9b7fa969",
+      "currentSha256": "0d3c326e4b6a8615c9b195f98bd7a8156473dac3f44a5ef2f773371758b9de6f",
       "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
     },
     {
       "record": "parity/toggle-toolbar/source-correspondence.json",
       "previousSha256": "6cf2f0ac3735f9d049006735eeeb1cc3d553e5c163b871bcd4211a8d433fb2d6",
-      "currentSha256": "87e911724640c9060bab631c2ef0e03f3b02877c0f93c046cd93616d33f378f7",
+      "currentSha256": "549cac6c869b12ae59b1662d704b993b6e95c31f15d2618940f8727c4f1ba727",
       "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
     },
     {
       "record": "parity/scroll-area/correspondence.json",
       "previousSha256": "d3e26f65b0e2dfb007b89737decb27a75c09b1b36af1ddde3a25a114206dd47f",
-      "currentSha256": "f66bd4ae8d5c742a051482ed59170141b1d884c84b6e0539a6869157d89baaa1",
+      "currentSha256": "491595d77f142f91ae73f548809c0a87d2d84dd7ccb93313a96ceb73e60b5196",
       "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
     },
     {
       "record": "parity/rendering/source-graph.json",
       "previousSha256": "21652065bee5567e1a95de9b3b188d2c74ab2ea2dfb7fcbb101597dab89f49a0",
-      "currentSha256": "fdac6213656faadf2c017b6e17e3764bad8dc71b5a6268b45c8dda3b6a998fbc",
+      "currentSha256": "025b5bd424729a71b36e871206590a9c6b406a945c246a856eb96d4a2fa37f68",
       "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
     }
   ],

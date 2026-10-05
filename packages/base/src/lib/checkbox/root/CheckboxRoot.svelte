@@ -74,9 +74,7 @@
   const value = $derived(valueProp ?? name);
   const instanceId = $props.id();
   const id = useBaseUiId(undefined, instanceId);
-  const ownsControlId = $derived(
-    groupContext?.registerControlId !== labelable.registerControlId,
-  );
+  const ownsControlId = $derived(groupContext?.registerControlId !== labelable.registerControlId);
   const getControlId = useLabelableId(
     () => ({ id: idProp || undefined, enabled: ownsControlId }),
     `${id}-input`,
@@ -120,9 +118,13 @@
     native: nativeButton,
   }));
   const validation = $derived(groupContext?.validation ?? field.validation);
-  const checkedState = new Controlled(() => value !== undefined && groupContext !== undefined && !parent
+  const checkedState = new Controlled(
+    () =>
+      value !== undefined && groupContext !== undefined && !parent
         ? groupContext.value.includes(value)
-        : groupChecked, untrack(() => defaultChecked));
+        : groupChecked,
+    untrack(() => defaultChecked),
+  );
   const checked = $derived(checkedState.value);
   const computedChecked = $derived(isGroupedWithParent ? Boolean(groupChecked) : checked);
   const computedIndeterminate = $derived(
@@ -155,9 +157,9 @@
     generatedLabelId: `${controlId}-label`,
   }));
   $effect(() => {
-      if (inputRef.current) inputRef.current.indeterminate = computedIndeterminate;
-      if (!groupContext) field.setFilled(checked);
-    });
+    if (inputRef.current) inputRef.current.indeterminate = computedIndeterminate;
+    if (!groupContext) field.setFilled(checked);
+  });
   new ValueChanged(
     () => checked,
     () => () => {
@@ -198,12 +200,7 @@
         return;
       }
       checkedState.set(nextChecked);
-      if (
-        value !== undefined &&
-        groupContext !== undefined &&
-        !parent &&
-        !isGroupedWithParent
-      ) {
+      if (value !== undefined && groupContext !== undefined && !parent && !isGroupedWithParent) {
         groupContext.setValue(
           nextChecked
             ? [...groupContext.value, value]
@@ -276,9 +273,7 @@
     const update = () =>
       untrack(() => {
         unregister?.();
-        unregister = element.id
-          ? context.registerChildId(childValue, element.id)
-          : undefined;
+        unregister = element.id ? context.registerChildId(childValue, element.id) : undefined;
       });
     update();
     const observer = new element.ownerDocument.defaultView!.MutationObserver(update);
@@ -326,6 +321,7 @@
     ),
   );
 </script>
+
 <RenderElement tag="span" {componentProps} {params} {children} />
 {#if !checked && !groupContext && name && !parent && uncheckedValue !== undefined}
   <input type="hidden" {form} name={nativeName} value={uncheckedValue} {disabled} />
@@ -335,5 +331,5 @@
   {...hiddenInputProps as HTMLInputAttributes}
   type="checkbox"
   {@attach inputAttachment}
-  bind:checked={() => checkedState.value, next => checkedState.set(next)}
+  bind:checked={() => checkedState.value, (next) => checkedState.set(next)}
 />

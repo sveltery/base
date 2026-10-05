@@ -1,17 +1,8 @@
 // Actual pinned Base UI1.8.0 nested Composite source fixture; MIT: parity/radio/UPSTREAM_LICENSE.
-import {
-  createElement as h,
-  forwardRef,
-  useState,
-  useMemo,
-  version,
-} from 'react';
+import { createElement as h, forwardRef, useState, useMemo, version } from 'react';
 import { createRoot } from 'react-dom/client';
 import { flushSync, version as reactDomVersion } from 'react-dom';
-import {
-  CompositeItem,
-  CompositeRoot,
-} from '@base-ui/react/internals/composite';
+import { CompositeItem, CompositeRoot } from '@base-ui/react/internals/composite';
 type NestedMetadata = {
   disabled: boolean;
   focusableWhenDisabled: boolean;
@@ -30,31 +21,30 @@ export function mountNestedComposite(
   let changeInner: () => void = () => {};
   let changeVisible: (value: boolean) => void = () => {};
   let changeHost: () => void = () => {};
-  const Nested = forwardRef<
-    HTMLElement,
-    { revision: number; hostTag: 'button' | 'span' }
-  >(({ revision, hostTag, ...props }, ref) => {
-    const inner = useMemo(
-      () => ({
-        disabled: true,
-        focusableWhenDisabled: false,
-        owner: 'inner',
-        revision,
-      }),
-      [revision],
-    );
-    return h(
-      CompositeItem,
-      {
-        tag: hostTag,
-        metadata: inner,
-        refs: [ref],
-        ...props,
-        ...{ 'data-testid': 'shared' },
-      },
-      'Shared',
-    );
-  });
+  const Nested = forwardRef<HTMLElement, { revision: number; hostTag: 'button' | 'span' }>(
+    ({ revision, hostTag, ...props }, ref) => {
+      const inner = useMemo(
+        () => ({
+          disabled: true,
+          focusableWhenDisabled: false,
+          owner: 'inner',
+          revision,
+        }),
+        [revision],
+      );
+      return h(
+        CompositeItem,
+        {
+          tag: hostTag,
+          metadata: inner,
+          refs: [ref],
+          ...props,
+          ...{ 'data-testid': 'shared' },
+        },
+        'Shared',
+      );
+    },
+  );
   function Fixture() {
     const [revision, setRevision] = useState(0);
     changeInner = () => setRevision((v) => v + 1);
@@ -76,21 +66,9 @@ export function mountNestedComposite(
         'data-hydrated': 'true',
         'data-renderer': `${version}/${reactDomVersion}`,
       },
-      h(
-        'button',
-        { id: 'update-inner', onClick: () => changeInner() },
-        'Update inner',
-      ),
-      h(
-        'button',
-        { id: 'toggle-shared', onClick: () => changeVisible(!visible) },
-        'Toggle shared',
-      ),
-      h(
-        'button',
-        { id: 'replace-host', onClick: () => changeHost() },
-        'Replace host',
-      ),
+      h('button', { id: 'update-inner', onClick: () => changeInner() }, 'Update inner'),
+      h('button', { id: 'toggle-shared', onClick: () => changeVisible(!visible) }, 'Toggle shared'),
+      h('button', { id: 'replace-host', onClick: () => changeHost() }, 'Replace host'),
       h(
         'output',
         { id: 'nested-map' },
@@ -108,10 +86,7 @@ export function mountNestedComposite(
           orientation: 'horizontal',
           disabledIndices,
           onMapChange: (m) => {
-            const elementMap = m as Map<
-              Element,
-              NestedMetadata & { index: number }
-            >;
+            const elementMap = m as Map<Element, NestedMetadata & { index: number }>;
             setMap(elementMap);
             onMap(elementMap);
           },
@@ -128,11 +103,7 @@ export function mountNestedComposite(
               render: h(Nested, { revision, hostTag }),
             })
           : null,
-        h(
-          CompositeItem,
-          { tag: 'button', metadata: outer, ...{ 'data-testid': 'last' } },
-          'Last',
-        ),
+        h(CompositeItem, { tag: 'button', metadata: outer, ...{ 'data-testid': 'last' } }, 'Last'),
       ),
     );
   }

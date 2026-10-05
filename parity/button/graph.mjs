@@ -1,6 +1,6 @@
 import { resolveNativePackageSource } from '../../scripts/native-package-source.mjs';
 // Button's complete immutable-source and actual-used native import graphs. MIT source provenance.
-import ts from '../../packages/base/node_modules/typescript/lib/typescript.js';
+import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
@@ -8,6 +8,7 @@ import { dirname, resolve } from 'node:path';
 
 const pin = '47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c';
 const root = resolve(import.meta.dirname, '../..');
+const ts = createRequire(new URL('../../packages/base/package.json', import.meta.url))('typescript');
 const sourceArgument = process.argv.slice(2).find(argument => !argument.startsWith('--'));
 const upstream = sourceArgument ? resolve(sourceArgument) : undefined;
 const destination = resolve(import.meta.dirname, 'source-graph.json');

@@ -24,11 +24,11 @@ writeFileSync(join(destination, 'tsconfig.json'), JSON.stringify({ extends: './.
 } }));
 JS
 sveltery_prepare_consumer "$remote_contract_consumer"
-pnpm --dir "$remote_contract_consumer" --ignore-workspace install --ignore-scripts > /dev/null
+pnpm --dir "$remote_contract_consumer" install --ignore-scripts > /dev/null
 # Apply the shipped Kit correction explicitly, exactly as a consumer application does.
 mkdir -p "$remote_contract_consumer/patches"
 cp "$remote_contract_consumer/node_modules/@sveltery/base/patches/@sveltejs__kit@2.70.3.patch" "$remote_contract_consumer/patches/"
-cat > "$remote_contract_consumer/pnpm-workspace.yaml" <<'YAML'
+cat >> "$remote_contract_consumer/pnpm-workspace.yaml" <<'YAML'
 patchedDependencies:
   '@sveltejs/kit@2.70.3': patches/@sveltejs__kit@2.70.3.patch
 YAML

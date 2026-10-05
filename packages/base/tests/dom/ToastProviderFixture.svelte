@@ -5,7 +5,13 @@
   import type { ToastProviderContext } from '../../src/lib/toast/context.js';
   import Add from './ToastProviderAdd.svelte';
   import Observe from './ToastProviderObserve.svelte';
-  let { scenario = 'timeout', onClose, observe, capture, manager: initialManager }: {
+  let {
+    scenario = 'timeout',
+    onClose,
+    observe,
+    capture,
+    manager: initialManager,
+  }: {
     scenario?: string;
     onClose?: () => void;
     observe?: (toasts: { id: string; limited?: boolean }[]) => void;
@@ -18,7 +24,14 @@
   let showChild = $state(true);
   let showProvider = $state(true);
   let manager = $state.raw(untrack(() => initialManager));
-  export function configure(options: { timeout?: number; limit?: number; active?: boolean; showChild?: boolean; showProvider?: boolean; manager?: ToastManager }) {
+  export function configure(options: {
+    timeout?: number;
+    limit?: number;
+    active?: boolean;
+    showChild?: boolean;
+    showProvider?: boolean;
+    manager?: ToastManager;
+  }) {
     if (options.timeout !== undefined) timeout = options.timeout;
     if (options.limit !== undefined) limit = options.limit;
     if (options.active !== undefined) active = options.active;
@@ -27,6 +40,7 @@
     if (Object.hasOwn(options, 'manager')) manager = options.manager;
   }
 </script>
+
 {#if showProvider}
   <Provider {timeout} {limit} toastManager={manager}>
     {#if showChild}

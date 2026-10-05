@@ -11,37 +11,90 @@
   import { createItemList } from './list.js';
   import { EMPTY_VALUE } from './value.js';
   import type { AccordionRootProps, AccordionRootChangeEventDetails } from './types.js';
-  let { children, render, disabled = false, hiddenUntilFound = false, keepMounted: keepMountedProp,
-    loopFocus: _loopFocus, onValueChange, multiple = false, orientation = 'vertical',
-    value: valueProp, defaultValue: defaultValueProp, class: classProp, ref = $bindable(), ...props }: AccordionRootProps<Value> = $props();
+  let {
+    children,
+    render,
+    disabled = false,
+    hiddenUntilFound = false,
+    keepMounted: keepMountedProp,
+    loopFocus: _loopFocus,
+    onValueChange,
+    multiple = false,
+    orientation = 'vertical',
+    value: valueProp,
+    defaultValue: defaultValueProp,
+    class: classProp,
+    ref = $bindable(),
+    ...props
+  }: AccordionRootProps<Value> = $props();
   // Deprecated upstream prop is deliberately stripped and has no keyboard behavior.
   untrack(() => _loopFocus);
   const keepMounted = $derived(keepMountedProp ?? false);
-  const valueState = new Controlled(() => valueProp, untrack(() => defaultValueProp ?? EMPTY_VALUE));
+  const valueState = new Controlled(
+    () => valueProp,
+    untrack(() => defaultValueProp ?? EMPTY_VALUE),
+  );
   const value = $derived(valueState.value);
   const rootState = $derived({ value, disabled, orientation });
   const resolved = $derived.by(() => {
     const classValue = typeof classProp === 'function' ? classProp(rootState) : classProp;
-    return { ...props, class: classValue === undefined ? undefined : resolveClassValue(classValue) };
+    return {
+      ...props,
+      class: classValue === undefined ? undefined : resolveClassValue(classValue),
+    };
   });
   const list = createItemList();
   onDestroy(list.destroy);
-  function handleValueChange(newValue: unknown, nextOpen: boolean, details: AccordionRootChangeEventDetails) {
+  function handleValueChange(
+    newValue: unknown,
+    nextOpen: boolean,
+    details: AccordionRootChangeEventDetails,
+  ) {
     const itemValue = newValue as Value;
-    const nextValue = !multiple ? value[0] === itemValue ? [] : [itemValue]
-      : nextOpen ? [...value, itemValue] : value.filter(entry => entry !== itemValue);
+    const nextValue = !multiple
+      ? value[0] === itemValue
+        ? []
+        : [itemValue]
+      : nextOpen
+        ? [...value, itemValue]
+        : value.filter((entry) => entry !== itemValue);
     onValueChange?.(nextValue, details);
     if (!details.isCanceled) valueState.set(nextValue);
   }
   setAccordionRootContext({
-    get value() { return value; }, get disabled() { return disabled; }, get state() { return rootState; },
-    get hiddenUntilFound() { return hiddenUntilFound; }, get keepMounted() { return keepMounted; },
-    handleValueChange, registerItem: list.register,
+    get value() {
+      return value;
+    },
+    get disabled() {
+      return disabled;
+    },
+    get state() {
+      return rootState;
+    },
+    get hiddenUntilFound() {
+      return hiddenUntilFound;
+    },
+    get keepMounted() {
+      return keepMounted;
+    },
+    handleValueChange,
+    registerItem: list.register,
   });
   $effect(() => {
     if (hiddenUntilFound && keepMountedProp === false) {
-      warnOnce('The `keepMounted={false}` prop on `Accordion.Root` is ignored when `hiddenUntilFound` is enabled, since panels must remain mounted while closed.');
+      warnOnce(
+        'The `keepMounted={false}` prop on `Accordion.Root` is ignored when `hiddenUntilFound` is enabled, since panels must remain mounted while closed.',
+      );
     }
   });
 </script>
-<Element tag="div" internal={{ 'data-disabled': disabled ? '' : undefined, 'data-orientation': orientation }} props={resolved} state={rootState} {render} {children} bind:ref />
+
+<Element
+  tag="div"
+  internal={{ 'data-disabled': disabled ? '' : undefined, 'data-orientation': orientation }}
+  props={resolved}
+  state={rootState}
+  {render}
+  {children}
+  bind:ref
+/>

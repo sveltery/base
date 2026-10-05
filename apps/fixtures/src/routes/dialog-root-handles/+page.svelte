@@ -6,4 +6,8 @@
   const line = $derived(Number(page.url.searchParams.get('line')));
   const variant = $derived((page.url.searchParams.get('variant') ?? 'contained') as RootVariant);
 </script>
-{#if page.url.searchParams.has('reference')}<Reference {line} {variant}/>{:else}<Fixture {line} {variant}/>{/if}
+
+{#if page.url.searchParams.has('reference')}<Reference {line} {variant} />{:else}<Fixture
+    {line}
+    {variant}
+  />{/if}

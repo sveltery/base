@@ -36,8 +36,8 @@ writeFileSync(join(destination, 'tsconfig.positive.json'), JSON.stringify({ comp
 writeFileSync(join(destination, 'tsconfig.negative.json'), JSON.stringify({ compilerOptions: options, include: ['imports.ts', 'forms.ts', 'Negative.svelte', 'RecursiveNegative.svelte', 'TypedRoot.svelte'] }));
 JS
 sveltery_prepare_consumer "$remote_types_consumer"
-pnpm --dir "$remote_types_consumer" --ignore-workspace install --ignore-scripts > /dev/null
-pnpm --dir "$remote_types_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+pnpm --dir "$remote_types_consumer" install --ignore-scripts > /dev/null
+pnpm --dir "$remote_types_consumer" install --frozen-lockfile --ignore-scripts > /dev/null
 node "$sveltery_repo_root/packages/base/node_modules/svelte-check/bin/svelte-check" --workspace "$remote_types_consumer" --tsconfig ./tsconfig.positive.json
 if node "$sveltery_repo_root/packages/base/node_modules/svelte-check/bin/svelte-check" --workspace "$remote_types_consumer" --tsconfig ./tsconfig.negative.json --output machine > "$remote_types_consumer/negative.log"; then
   echo 'Invalid remote field consumers unexpectedly type-checked.' >&2

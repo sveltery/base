@@ -35,18 +35,14 @@ export function useDelayGroup(
   const floatingId = $derived(store.useState('floatingId'));
 
   const groupContext = useFloatingDelayGroupContext();
-  const {
-    currentIdRef,
-    delayRef,
-    initialDelayRef,
-    currentContextRef,
-    hasProvider,
-    timeout,
-  } = groupContext;
+  const { currentIdRef, delayRef, initialDelayRef, currentContextRef, hasProvider, timeout } =
+    groupContext;
   const timeoutMs = $derived(groupContext.timeoutMs);
 
   let isInstantPhase = $state(false);
-  const setIsInstantPhase = (value: boolean) => { isInstantPhase = value; };
+  const setIsInstantPhase = (value: boolean) => {
+    isInstantPhase = value;
+  };
   const openRef = { current: untrack(() => open) };
 
   // Native effects dispose and register per effect. Release the old Source owner
@@ -148,6 +144,8 @@ export function useDelayGroup(
     activeIdRef: currentIdRef,
     hasProvider,
     delayRef,
-    get isInstantPhase() { return isInstantPhase; },
+    get isInstantPhase() {
+      return isInstantPhase;
+    },
   };
 }

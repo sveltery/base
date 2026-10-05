@@ -7,16 +7,30 @@ import Fixture from './SharedRenderElementFixture.svelte';
 
 it('characterizes native empty-class normalization across SSR, hydration and updates', async () => {
   const script = `import { createRequire } from 'node:module'; import Fixture from './packages/base/tests/dom/SharedRenderElementFixture.svelte'; const require = createRequire(new URL('./packages/base/package.json', import.meta.url)); const { render } = require('svelte/server'); process.stdout.write(render(Fixture, { props: { params: { props: { class: '' } } } }).body);`;
-  const markup = execFileSync(process.execPath, ['--import', './scripts/svelte-ssr-loader.mjs', '--input-type=module', '-e', script], { cwd: resolve(process.cwd(), '../..'), encoding: 'utf8' });
-  const target = document.createElement('main'); target.innerHTML = markup; document.body.append(target);
+  const markup = execFileSync(
+    process.execPath,
+    ['--import', './scripts/svelte-ssr-loader.mjs', '--input-type=module', '-e', script],
+    { cwd: resolve(process.cwd(), '../..'), encoding: 'utf8' },
+  );
+  const target = document.createElement('main');
+  target.innerHTML = markup;
+  document.body.append(target);
   const host = target.querySelector('div')!;
   expect(host.getAttribute('class')).toBe('');
   const ref = { current: null as Element | null };
-  const app = hydrate(Fixture, { target, props: { params: { props: { class: '' }, ref } } }); flushSync();
+  const app = hydrate(Fixture, { target, props: { params: { props: { class: '' }, ref } } });
+  flushSync();
   try {
     expect(ref.current).toBe(host);
     expect(host.getAttribute('class')).toBeNull();
-    app.setParams({ props: { class: 'active' }, ref }); flushSync(); expect(host.getAttribute('class')).toBe('active');
-    app.setParams({ props: { class: '' }, ref }); flushSync(); expect(host.getAttribute('class')).toBeNull();
-  } finally { await unmount(app); target.remove(); }
+    app.setParams({ props: { class: 'active' }, ref });
+    flushSync();
+    expect(host.getAttribute('class')).toBe('active');
+    app.setParams({ props: { class: '' }, ref });
+    flushSync();
+    expect(host.getAttribute('class')).toBeNull();
+  } finally {
+    await unmount(app);
+    target.remove();
+  }
 });

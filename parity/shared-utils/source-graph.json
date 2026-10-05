@@ -17,7 +17,7 @@
     {
       "source": "packages/utils/src/useControlled.ts",
       "sha256": "487bc45fa3ef1a70177867bb03598230f9926601aed8e3c7f46470feb225f886",
-      "local": "packages/utils/src/lib/useControlled.svelte.ts",
+      "local": "packages/utils/src/lib/Controlled.svelte.ts",
       "runtimeEdges": [
         "react",
         "./error"
@@ -26,27 +26,59 @@
         "react"
       ],
       "status": "native source port; source review pending",
-      "localRuntimeEdges": [
-        "svelte",
-        "esm-env",
-        "./error.js"
-      ],
-      "localSha256": "21543b53992d1f3856e83251c03329d7c558ee5c5637aa8d42f18bc359843705"
+      "localRuntimeEdges": [],
+      "localSha256": "3bb64556d51b6cd471e21e2db4c54179b3eb072757f043f7a4489a4134283304",
+      "nativeReplacement": "Controlled<T> class: initial mode/default, live controlled reads, direct set(next:T); optional T includes undefined. React diagnostics/serializer/functional dispatch removed.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/utils/src/useStableCallback.ts",
       "sha256": "908cbd177f86c961983d0124a859f733d341be49e58bc5a553255f47725419c1",
-      "local": "packages/utils/src/lib/useStableCallback.ts",
+      "local": [
+        "packages/base/src/lib/avatar/Image.svelte",
+        "packages/base/src/lib/checkbox-group/CheckboxGroup.svelte",
+        "packages/base/src/lib/checkbox-group/useCheckboxGroupParent.svelte.ts",
+        "packages/base/src/lib/field/Control.svelte",
+        "packages/base/src/lib/field/root/FieldRootInner.svelte",
+        "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
+        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useClientPoint.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useListNavigation.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useTypeahead.svelte.ts",
+        "packages/base/src/lib/form/Form.svelte",
+        "packages/base/src/lib/internals/ValueChanged.svelte.ts",
+        "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
+        "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/useLabel.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+        "packages/base/src/lib/internals/useAnimationsFinished.ts",
+        "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+        "packages/base/src/lib/menu/RadioGroup.svelte",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
+        "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
+        "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
+        "packages/base/src/lib/radio-group/RadioGroup.svelte",
+        "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte",
+        "packages/base/src/lib/toggle-group/ToggleGroup.svelte",
+        "packages/base/src/lib/utils/closePart.svelte.ts",
+        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+        "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts",
+        "packages/base/src/lib/utils/usePopupViewport.svelte.ts"
+      ],
       "runtimeEdges": [
         "./safeReact",
         "./useRefWithInit"
       ],
       "typeEdges": [],
       "status": "native source port; source review pending",
-      "localRuntimeEdges": [
-        "svelte"
-      ],
-      "localSha256": "dca4f1866715df0bcb597ca5c083825f580717a96e267c77a5325ce22790d04c"
+      "localRuntimeEdges": [],
+      "nativeReplacement": "Ordinary live setup closures at all 79 used runtime calls; narrow untrack only at imperative registration/publication/measurement boundaries.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/utils/src/useTimeout.ts",
@@ -58,32 +90,71 @@
       ],
       "typeEdges": [],
       "status": "native source port; source review pending",
-      "localRuntimeEdges": [
-        "./useRefWithInit.js",
-        "./useOnMount.js"
-      ],
-      "localSha256": "405103d9109d3d115db8b26eef5a9b3747156d4a45365c1f2f9764c172e4f0fb"
+      "localRuntimeEdges": [],
+      "localSha256": "06130c6374e14371471cc3af14638ddb3cadb514bb985fcbc4b8a7a606008b7f",
+      "nativeReplacement": "Source Timeout class remains; useTimeout setup factory removed and used owners construct the class with direct onDestroy clearing.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/utils/src/useIsoLayoutEffect.ts",
       "sha256": "13a0ab28d24b04617dc290ad151c145f2435d1e0c381123847af74344ea4b9a0",
-      "local": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-      "runtimeEdges": [
-        "react"
+      "local": [
+        "packages/base/src/lib/checkbox-group/CheckboxGroup.svelte",
+        "packages/base/src/lib/checkbox/root/CheckboxRoot.svelte",
+        "packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts",
+        "packages/base/src/lib/dialog/root/DialogInteractions.svelte",
+        "packages/base/src/lib/field/Control.svelte",
+        "packages/base/src/lib/field/Description.svelte",
+        "packages/base/src/lib/field/Error.svelte",
+        "packages/base/src/lib/field/Label.svelte",
+        "packages/base/src/lib/field/root/FieldRootInner.svelte",
+        "packages/base/src/lib/floating-ui/components/FloatingDelayGroup.svelte",
+        "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+        "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
+        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useClientPoint.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useDelayGroup.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useFocus.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useListNavigation.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useTypeahead.svelte.ts",
+        "packages/base/src/lib/internals/ValueChanged.svelte.ts",
+        "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
+        "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts",
+        "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+        "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+        "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+        "packages/base/src/lib/menu/GroupLabel.svelte",
+        "packages/base/src/lib/menu/Popup.svelte",
+        "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
+        "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
+        "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
+        "packages/base/src/lib/menubar/Menubar.svelte",
+        "packages/base/src/lib/popover/Positioner.svelte",
+        "packages/base/src/lib/popover/Root.svelte",
+        "packages/base/src/lib/preview-card/Positioner.svelte",
+        "packages/base/src/lib/preview-card/Root.svelte",
+        "packages/base/src/lib/radio/root/RadioRoot.svelte",
+        "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte",
+        "packages/base/src/lib/switch/root/SwitchRoot.svelte",
+        "packages/base/src/lib/tooltip/Root.svelte",
+        "packages/base/src/lib/utils/closePart.svelte.ts",
+        "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte",
+        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+        "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts",
+        "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts",
+        "packages/base/src/lib/utils/usePopupViewport.svelte.ts",
+        "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
+        "packages/utils/src/lib/useScrollLock.svelte.ts"
       ],
-      "typeEdges": [
-        "react"
-      ],
-      "status": "native source port; source review pending",
-      "localRuntimeEdges": [
-        "svelte"
-      ],
-      "localSha256": "19e575ac14e03d20cbd088abda91d4784ed8b3b34944e03ef51e242e0c0247a7"
-    },
-    {
-      "source": "packages/utils/src/useRefWithInit.ts",
-      "sha256": "183cb6e86ab1f8044a431d5b4115c750f7848c9835d519881b3c7a66dae98354",
-      "local": "packages/utils/src/lib/useRefWithInit.ts",
       "runtimeEdges": [
         "react"
       ],
@@ -92,7 +163,34 @@
       ],
       "status": "native source port; source review pending",
       "localRuntimeEdges": [],
-      "localSha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7"
+      "nativeReplacement": "Direct SSR-safe Svelte $effect at all 123 used runtime calls; actual native reads and cleanup, no dependency arrays or tuple/lifecycle cache.",
+      "nativeReplacementCredit": 0
+    },
+    {
+      "source": "packages/utils/src/useRefWithInit.ts",
+      "sha256": "183cb6e86ab1f8044a431d5b4115c750f7848c9835d519881b3c7a66dae98354",
+      "local": [
+        "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts",
+        "packages/base/src/lib/internals/ValueChanged.svelte.ts",
+        "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
+        "packages/utils/src/lib/useAnimationFrame.ts",
+        "packages/utils/src/lib/useMergedRefs.ts",
+        "packages/utils/src/lib/useTimeout.ts"
+      ],
+      "runtimeEdges": [
+        "react"
+      ],
+      "typeEdges": [
+        "react"
+      ],
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [],
+      "nativeReplacement": "Source Scheduler/reset/AnimationFrame class business remains; useAnimationFrame setup factory removed and used owners construct the class with direct onDestroy cancellation. MergedRefs<I> class owns retained storage; merge/mergeN retain Source identity comparison, ref fan-out and cleanup algorithms. Source Timeout class remains; useTimeout setup factory removed and used owners construct the class with direct onDestroy clearing.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/utils/src/error.ts",
@@ -123,7 +221,11 @@
     {
       "source": "packages/utils/src/useOnMount.ts",
       "sha256": "9d621d059249ec6ad10dbf35eef28153a8bc6ef893574d26a060385d4d13472b",
-      "local": "packages/utils/src/lib/useOnMount.ts",
+      "local": [
+        "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts",
+        "packages/utils/src/lib/useAnimationFrame.ts",
+        "packages/utils/src/lib/useTimeout.ts"
+      ],
       "runtimeEdges": [
         "react",
         "./empty"
@@ -132,10 +234,9 @@
         "react"
       ],
       "status": "native source port; source review pending",
-      "localRuntimeEdges": [
-        "svelte"
-      ],
-      "localSha256": "e596fa519d81dd2fd7cdb1d5d00910622ad9ebed918aafa11111b70942c8ce25"
+      "localRuntimeEdges": [],
+      "nativeReplacement": "Source Scheduler/reset/AnimationFrame class business remains; useAnimationFrame setup factory removed and used owners construct the class with direct onDestroy cancellation. Source Timeout class remains; useTimeout setup factory removed and used owners construct the class with direct onDestroy clearing.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/utils/src/empty.ts",
@@ -145,7 +246,7 @@
       "typeEdges": [],
       "status": "native source port; source review pending",
       "localRuntimeEdges": [],
-      "localSha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65"
+      "localSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
     },
     {
       "source": "packages/utils/src/safeReact.ts",
@@ -163,7 +264,7 @@
     {
       "source": "packages/react/src/internals/useValueChanged.ts",
       "sha256": "fa36f17e32a4a0b3f8edabe219810a505cefa9c926d3ae807310c6013f57de6d",
-      "local": "packages/base/src/lib/internals/useValueChanged.svelte.ts",
+      "local": "packages/base/src/lib/internals/ValueChanged.svelte.ts",
       "runtimeEdges": [
         "react",
         "@base-ui/utils/useIsoLayoutEffect",
@@ -174,12 +275,11 @@
       ],
       "status": "native source port; source review pending",
       "localRuntimeEdges": [
-        "svelte",
-        "../utils/useIsoLayoutEffect.svelte.js",
-        "../utils/useStableCallback.js",
-        "../utils/useRefWithInit.js"
+        "svelte"
       ],
-      "localSha256": "f760d2e83ee33789ae5bfec715308cfc78253eda0fcbd34052bdcad44ce24991"
+      "localSha256": "f169e9eec98d817327dd31fc0c39c019173cdb64fac3350b898004222107e54e",
+      "nativeReplacement": "ValueChanged class retains previous-value notification ordering with a native effect.",
+      "nativeReplacementCredit": 0
     }
   ],
   "reviewStatus": "independent final-head source review pending",

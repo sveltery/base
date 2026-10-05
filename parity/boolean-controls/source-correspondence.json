@@ -120,7 +120,7 @@
         }
       ],
       "local": "packages/base/src/lib/checkbox-group/CheckboxGroup.svelte",
-      "localSha256": "2249498a2110650b7ec4828de70609bb247a5a5add5591f33ae369f274fb6375",
+      "localSha256": "1a43459944f6a968644c276cf8694d26146c95a3820c935b52b24b5c71ec8df1",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -221,7 +221,7 @@
         }
       ],
       "local": "packages/base/src/lib/checkbox-group/useCheckboxGroupParent.svelte.ts",
-      "localSha256": "76e3e38225e063ab7be1eb273dd2ac3fc29dff0a2c281459d05046613f69f7b8",
+      "localSha256": "45bb27533df78c0e2491f8199a05e3fc6b9878869db932bb1cdc20a66e809168",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -332,7 +332,7 @@
         }
       ],
       "local": "packages/base/src/lib/checkbox/indicator/CheckboxIndicator.svelte",
-      "localSha256": "2b0707e9fbef896f1e02bfcf434a7257cbffe38394157f38239ea2de0f44dcf6",
+      "localSha256": "0a8e976520280a482baeeecaae346ced6af346894c19c19174ab2e76b28b140a",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -484,7 +484,7 @@
         }
       ],
       "local": "packages/base/src/lib/checkbox/root/CheckboxRoot.svelte",
-      "localSha256": "3616db3f3ae0e91ea8c024cad143f5dcf1a82c7071175fed67f6098c436f976a",
+      "localSha256": "b93097f5a206c13f29f05969bb14809690c5bf5151c037db489000e46e2383b2",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -560,7 +560,7 @@
       "reachability": "runtime",
       "imports": [],
       "local": "packages/base/src/lib/internals/field-constants/constants.ts",
-      "localSha256": "7a4e8acf35babe4f33b4850da64313dbd19be6b20cb3b4833430d103cd6bf757",
+      "localSha256": "b9bd1e08d6deb13b300611745d85f94a90fe15e3170291b866ecab2b21c9e635",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -577,7 +577,7 @@
         }
       ],
       "local": "packages/base/src/lib/field/item/FieldItemContext.ts",
-      "localSha256": "f1a84a8e7fd46dce276cf16590fc2c6919f3167a12ab1fbff2ad86e64ff2eaed",
+      "localSha256": "fac181a267627f7a70d0a81413190a7c9a38dc63c43ba9fbc50ef12020369dde",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -654,7 +654,7 @@
         }
       ],
       "local": "packages/base/src/lib/field/root/FieldRootInner.svelte",
-      "localSha256": "2b7d517ee5adf92dd25b91b72d9610fe572b76aac6f0330555ee62fd6b71c2f6",
+      "localSha256": "db333eeb684d798c377d34f275e1c26b192d3c1ae47caa3271d90f62f87e454b",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -731,7 +731,7 @@
         }
       ],
       "local": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
-      "localSha256": "8d054bd67a4ebf998426ab10d5b7ae577ccd57a21c2fab434c3a40a86ac67eae",
+      "localSha256": "b41d59b72a6a927635962710c48266b6a72144b5f1f0b56448281728b3e28f81",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -765,7 +765,7 @@
         }
       ],
       "local": "packages/base/src/lib/fieldset/root/FieldsetRootContext.ts",
-      "localSha256": "f5b4b87e5802c40a428e4df9463e84fd36cb649ee3cdfe6f0b153b9721e6ce6c",
+      "localSha256": "1c32118a1fc683230b68f04df1e17550124710a64b7926da31c3985fdec10a4a",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -812,7 +812,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -979,7 +978,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -1076,7 +1074,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -1133,7 +1130,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -1175,7 +1171,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -1197,7 +1192,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -1219,7 +1213,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -1276,7 +1269,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -1323,7 +1315,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -1425,7 +1416,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -1477,7 +1467,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -1534,7 +1523,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -1611,7 +1599,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -1713,7 +1700,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -1805,7 +1791,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -1842,7 +1827,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -1949,7 +1933,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -1976,7 +1959,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -2083,7 +2065,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -2130,7 +2111,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -2187,7 +2167,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -2299,7 +2278,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -2341,7 +2319,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -2468,7 +2445,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -2505,7 +2481,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -2542,7 +2517,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -2553,7 +2527,6 @@
       "reachability": "type",
       "imports": [],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -2564,7 +2537,6 @@
       "reachability": "type",
       "imports": [],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -2581,7 +2553,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -2623,7 +2594,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -2645,7 +2615,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -2662,7 +2631,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -2684,7 +2652,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -2701,7 +2668,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -2733,7 +2699,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -2790,7 +2755,7 @@
         }
       ],
       "local": "packages/base/src/lib/form/Form.svelte",
-      "localSha256": "ecea11e1a134f30e2fa7c83356cc7741f5e595b2c03f0eabf45e14db12242ffb",
+      "localSha256": "a05023498ddd0ed5049abca42863f02f90e4a2010306b8fcce586e291edade81",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -2812,7 +2777,7 @@
         }
       ],
       "local": "packages/base/src/lib/form/index.ts",
-      "localSha256": "adef7fd51c09119a7fa5517cb78fef9b7fee550977d1205f2ee47d016439bc83",
+      "localSha256": "6b4ed326a46b445885eb8798b63586e103a7943d02a5ad6a0afa820cbaaec2ee",
       "correspondence": "Source Form runtime/Props exports retained; approved type-only PR51 adds six remote-field public type exports. The API addition is separately mapped in Field correspondence/F-02 and imports no runtime Kit/React or source business behavior.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -2846,7 +2811,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -2890,7 +2854,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/field-constants/constants.ts",
-      "localSha256": "7a4e8acf35babe4f33b4850da64313dbd19be6b20cb3b4833430d103cd6bf757",
+      "localSha256": "b9bd1e08d6deb13b300611745d85f94a90fe15e3170291b866ecab2b21c9e635",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -2932,7 +2896,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts",
-      "localSha256": "f953a295abb084d23186ff9bf58d38a313728b5608eb0958a737f64dcdeb4771",
+      "localSha256": "ad62f838fd087a1bab63c3dfb68cddfd2bd0025a8f570ab4a601017b34ba1486",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -2964,7 +2928,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts",
-      "localSha256": "ffdcdd66986252427ddb733e6168535889f9371f78daab52690f6a0e7dd9ce14",
+      "localSha256": "7807285662c160e5f151bc8b1f6a4d0a4d766caae186e513b7dcdd808ff00b0c",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3021,7 +2985,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts",
-      "localSha256": "3fccbca1662ddffee226a809e42fe9219914274c2b33999771bdc974cf7362bf",
+      "localSha256": "debd7e1315ceca19225b905ce507d148b1909421fc76147fc65a15a5cb3b4381",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3053,7 +3017,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/form-context/FormContext.ts",
-      "localSha256": "3706d7f308604195eb9b141506e9a5ca86caa7460c8b33130704b6816272f074",
+      "localSha256": "c27b507d54f1e74bdaf15c35959f9fd795777047030d73ba96c1e5d8d14d185d",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3106,7 +3070,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/labelable-provider/LabelableProvider.svelte",
-      "localSha256": "e0719f95f60e6ac6d050e92c0525f465d87c6832887515cbe62948b481915c43",
+      "localSha256": "8056aab139538495cb16be9e5183d277cade00a9624af5504179996ff3a09b33",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3133,7 +3097,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts",
-      "localSha256": "68a95cf70657f2b4def641c4160c1bb82fe31b8794c35882d9e7b5c3ca4db937",
+      "localSha256": "8ed40c64919595f22975c8a10047215c6611a3223e258205fd473efb91479f84",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3175,7 +3139,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/labelable-provider/LabelableProvider.svelte",
-      "localSha256": "e0719f95f60e6ac6d050e92c0525f465d87c6832887515cbe62948b481915c43",
+      "localSha256": "8056aab139538495cb16be9e5183d277cade00a9624af5504179996ff3a09b33",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3202,7 +3166,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/labelable-provider/useAriaLabelledBy.svelte.ts",
-      "localSha256": "bfb47e6426f7df82b1738fb2dcbef7133166addc4a7d54a84deab26655f2bf0e",
+      "localSha256": "64e63e8f5290b2b9ad3d8ad7d3fc936a76401425906c31cea8cdc4c19bd8b7ec",
       "correspondence": "Source explicit/context/native-label precedence and parent/sibling/native.labels selection retained. After-every-React-commit observation becomes one cleanup-owned native MutationObserver on labelSource.getRootNode(), so document and shadow-tree id/for/label changes refresh the real association.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3249,7 +3213,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/labelable-provider/useLabel.svelte.ts",
-      "localSha256": "fea67d61c989c64cbcf936e81cb03c8c9e75d36c41343e77e90c110cdac18e64",
+      "localSha256": "c3a027d307a6582813779de2da9f6d495e4ba925e669c9080ceee9c6e1a4ebd3",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3296,7 +3260,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
-      "localSha256": "58fdfd620eb3629df76832878feb46704e24cdcaed2419dbbfb3f37ba133c80c",
+      "localSha256": "36215a31fd3f84d006006734eca09bb94b036ad30015949f1acf814e94fa8845",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3313,7 +3277,7 @@
         }
       ],
       "local": "packages/utils/src/lib/empty.ts",
-      "localSha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65",
+      "localSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3401,7 +3365,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/types.ts",
-      "localSha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
+      "localSha256": "6a36f5f103ef940b8a32d63f0288d897096c846fb2361b4ef44733e9a899907e",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3418,7 +3382,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
-      "localSha256": "f56c35343595eafbb9a37d5313b6e9b95129b875a537790667fa32fd4f71b4b2",
+      "localSha256": "089f0b6e20b956d85db5cf2cd7a47151352ec8aada0d6582154ad264c59e20bf",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3485,7 +3449,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
-      "localSha256": "f56c35343595eafbb9a37d5313b6e9b95129b875a537790667fa32fd4f71b4b2",
+      "localSha256": "089f0b6e20b956d85db5cf2cd7a47151352ec8aada0d6582154ad264c59e20bf",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3527,7 +3491,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/useAnimationsFinished.ts",
-      "localSha256": "64ae89e2c4d398aa049822f4223967202426aa027591a657caf4bf6f4859a2aa",
+      "localSha256": "7abe48ef841cdfa7bf60b29045e9f0ffb7dbfb715b34351e8f6716131b2678f8",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3571,7 +3535,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
-      "localSha256": "e84d8a671d521e64183800bc048aa6471f627913efc5015cc74ddd34e2b87973",
+      "localSha256": "b6174d1cc73b6ea3b6431cf87906a1acacc40b1d5c356a31124f92251d7fd038",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3638,7 +3602,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/useRenderElement.ts",
-      "localSha256": "d344184b30e91d54544e9c5b00583679762e0ec099306e9a682df8426655c31a",
+      "localSha256": "010e3e73a976eee85c903f9e95a75a890e0b79a5f9057aadd66ea61f963cbe79",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes. PR50 canonical native ref transport fidelity repair folds forwarded library attachments after inner refs into the unchanged source fanout lifecycle; authored attachments retain native effects. See parity/rendering/source-correspondence.md.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3665,7 +3629,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
-      "localSha256": "87ad2d4de3657585d704d2bd7137a65545e8c471d62d0e51349c2ca17f8daa7d",
+      "localSha256": "7fc531ccff0a7dfd77703c0f0ee7e1148fc080960682469eafffbc627056fa9e",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3691,10 +3655,12 @@
           "resolved": "packages/utils/src/useStableCallback.ts"
         }
       ],
-      "local": "packages/base/src/lib/internals/useValueChanged.svelte.ts",
-      "localSha256": "f760d2e83ee33789ae5bfec715308cfc78253eda0fcbd34052bdcad44ce24991",
+      "local": "packages/base/src/lib/internals/ValueChanged.svelte.ts",
+      "localSha256": "f169e9eec98d817327dd31fc0c39c019173cdb64fac3350b898004222107e54e",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
-      "status": "implemented-awaiting-exact-head-review"
+      "status": "implemented-awaiting-exact-head-review",
+      "nativeReplacement": "ValueChanged class retains previous-value notification ordering with a native effect.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/react/src/merge-props/index.ts",
@@ -3736,7 +3702,7 @@
         }
       ],
       "local": "packages/base/src/lib/merge-props/mergeProps.ts",
-      "localSha256": "110f1b7615a7ccadcfc1e8775451eea5f9ca971bcafee6f3ffd4ea8470303d00",
+      "localSha256": "1b758134ab0efecd9601638e928440561944d226e5ebb9276d39723738d0301a",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3917,7 +3883,7 @@
         }
       ],
       "local": "packages/base/src/lib/switch/root/SwitchRoot.svelte",
-      "localSha256": "b72da7f12b2630f8ab52caf25811b8943bd2e4849b5e5c904f0275b139bd6777",
+      "localSha256": "48d6a8a2e34e4469f1a7b6b6352ae4e6679bb452bfd124b5ac01cdb08f5a9fe9",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4024,7 +3990,7 @@
         }
       ],
       "local": "packages/base/src/lib/switch/thumb/SwitchThumb.svelte",
-      "localSha256": "8200f730a31b6c7b16c2033bde643327074190dff7b452d4d06835301128cddd",
+      "localSha256": "f4d981f34e0130df2ded171ea5bd2442e1d5916d21e2f1f13223d317e28fcd7f",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4041,7 +4007,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4063,7 +4028,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/types.ts",
-      "localSha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
+      "localSha256": "6a36f5f103ef940b8a32d63f0288d897096c846fb2361b4ef44733e9a899907e",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4080,7 +4045,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4091,7 +4055,6 @@
       "reachability": "type",
       "imports": [],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4140,7 +4103,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4182,7 +4144,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4209,7 +4170,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4241,7 +4201,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4343,7 +4302,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4354,7 +4312,6 @@
       "reachability": "type",
       "imports": [],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4401,7 +4358,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4433,7 +4389,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4470,7 +4425,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4492,7 +4446,7 @@
       "reachability": "runtime",
       "imports": [],
       "local": "packages/base/src/lib/utils/resolveRef.ts",
-      "localSha256": "ac85daa436a61800f824aa34ea08ff4cbe492c86c12be327de957a381acddaa7",
+      "localSha256": "d8500030750c389af091f3f4f43b100f675772f3d22b6f1699a29db80d564d0a",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4520,7 +4474,7 @@
         }
       ],
       "local": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
-      "localSha256": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c",
+      "localSha256": "f30838a56f41ea3672d26627fb42145d016e3b54b512c4c381e6aafb05431db2",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4547,7 +4501,7 @@
         }
       ],
       "local": "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
-      "localSha256": "42f32745d82df92f04c76f0cafc86ca93349c4cc6f685af361a46c249d054b1c",
+      "localSha256": "e05169d0f62fe7f2bfc955ff3cb1a1e154d71ed8cb8fd8263e2ebc9e9af93faa",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4558,7 +4512,6 @@
       "reachability": "type",
       "imports": [],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4591,7 +4544,7 @@
       "reachability": "runtime",
       "imports": [],
       "local": "packages/utils/src/lib/empty.ts",
-      "localSha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65",
+      "localSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4635,7 +4588,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Native runes and normal getter closures; no React hook dispatch.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4646,7 +4598,7 @@
       "reachability": "runtime",
       "imports": [],
       "local": "packages/utils/src/lib/getDefaultFormSubmitter.ts",
-      "localSha256": "15c7fb04d8bacba3abc5f4f2329a3c083892e9169689a2eab60104c3517688e4",
+      "localSha256": "f4ea7f1a3eaa207bdab550567cf326c924d069c5148f1c24e91ccd192a8c05b8",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4668,7 +4620,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Opaque native snippets carry attachment refs; no React element ref introspection.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4679,7 +4630,6 @@
       "reachability": "type",
       "imports": [],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4724,7 +4674,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4741,7 +4690,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4758,7 +4706,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4769,7 +4716,6 @@
       "reachability": "type",
       "imports": [],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4786,7 +4732,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4823,7 +4768,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4840,7 +4784,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4851,7 +4794,6 @@
       "reachability": "type",
       "imports": [],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4868,7 +4810,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "No React runtime/version branches exist in Svelte.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4885,7 +4826,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Native Svelte state/effects; no insertion guards, synthetic React events or captureOwnerStack.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4902,7 +4842,7 @@
         }
       ],
       "local": "packages/utils/src/lib/shadowDom.ts",
-      "localSha256": "5c922c6a0b4cbfd31bb463e486f45524de328687376d622527a5e6cdf12cb8f2",
+      "localSha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes. Final Radio integration reuses the reviewed full shared module, adding contains/isShadowRoot while retaining the original Boolean-used activeElement/getTarget business bodies. Whole-body hash includes the additive source closure; no second helper implementation.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4919,7 +4859,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4946,7 +4885,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4988,7 +4926,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -5030,7 +4967,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -5047,7 +4983,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -5129,7 +5064,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -5171,7 +5105,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Type-only barrel closure: replaced by native Svelte element/snippet/state/event types; no runtime dependency is imported.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -5193,9 +5126,11 @@
         }
       ],
       "local": "packages/utils/src/lib/useAnimationFrame.ts",
-      "localSha256": "d662506c6d7bd1f69b87ea59f3bd7445c413474de2fcda723d1e3248215c9267",
+      "localSha256": "ec054003588b92e4223c6eea228388ae6395bf1895fb3aaf32a02706249652ce",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
-      "status": "implemented-awaiting-exact-head-review"
+      "status": "implemented-awaiting-exact-head-review",
+      "nativeReplacement": "Source Scheduler/reset/AnimationFrame class business remains; useAnimationFrame setup factory removed and used owners construct the class with direct onDestroy cancellation.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/utils/src/useControlled.ts",
@@ -5214,10 +5149,12 @@
           "resolved": "packages/utils/src/error.ts"
         }
       ],
-      "local": "packages/utils/src/lib/useControlled.svelte.ts",
-      "localSha256": "21543b53992d1f3856e83251c03329d7c558ee5c5637aa8d42f18bc359843705",
+      "local": "packages/utils/src/lib/Controlled.svelte.ts",
+      "localSha256": "3bb64556d51b6cd471e21e2db4c54179b3eb072757f043f7a4489a4134283304",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
-      "status": "implemented-awaiting-exact-head-review"
+      "status": "implemented-awaiting-exact-head-review",
+      "nativeReplacement": "Controlled<T> class: initial mode/default, live controlled reads, direct set(next:T); optional T includes undefined. React diagnostics/serializer/functional dispatch removed.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/utils/src/useEnhancedClickHandler.ts",
@@ -5232,7 +5169,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "No synthetic-event enhancement; native click event carries cancellation.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -5249,7 +5185,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Native rune assignment updates consumers.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -5271,7 +5206,7 @@
         }
       ],
       "local": "packages/utils/src/lib/useId.ts",
-      "localSha256": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90",
+      "localSha256": "584864eb7f538f5adc40ab128461db75c960984c51265aead1ca3821e4bf879a",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -5287,10 +5222,67 @@
           "resolved": "external:react"
         }
       ],
-      "local": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-      "localSha256": "19e575ac14e03d20cbd088abda91d4784ed8b3b34944e03ef51e242e0c0247a7",
+      "local": [
+        "packages/base/src/lib/checkbox-group/CheckboxGroup.svelte",
+        "packages/base/src/lib/checkbox/root/CheckboxRoot.svelte",
+        "packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts",
+        "packages/base/src/lib/dialog/root/DialogInteractions.svelte",
+        "packages/base/src/lib/field/Control.svelte",
+        "packages/base/src/lib/field/Description.svelte",
+        "packages/base/src/lib/field/Error.svelte",
+        "packages/base/src/lib/field/Label.svelte",
+        "packages/base/src/lib/field/root/FieldRootInner.svelte",
+        "packages/base/src/lib/floating-ui/components/FloatingDelayGroup.svelte",
+        "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+        "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
+        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useClientPoint.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useDelayGroup.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useFocus.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useListNavigation.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useTypeahead.svelte.ts",
+        "packages/base/src/lib/internals/ValueChanged.svelte.ts",
+        "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
+        "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts",
+        "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+        "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+        "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+        "packages/base/src/lib/menu/GroupLabel.svelte",
+        "packages/base/src/lib/menu/Popup.svelte",
+        "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
+        "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
+        "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
+        "packages/base/src/lib/menubar/Menubar.svelte",
+        "packages/base/src/lib/popover/Positioner.svelte",
+        "packages/base/src/lib/popover/Root.svelte",
+        "packages/base/src/lib/preview-card/Positioner.svelte",
+        "packages/base/src/lib/preview-card/Root.svelte",
+        "packages/base/src/lib/radio/root/RadioRoot.svelte",
+        "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte",
+        "packages/base/src/lib/switch/root/SwitchRoot.svelte",
+        "packages/base/src/lib/tooltip/Root.svelte",
+        "packages/base/src/lib/utils/closePart.svelte.ts",
+        "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte",
+        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+        "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts",
+        "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts",
+        "packages/base/src/lib/utils/usePopupViewport.svelte.ts",
+        "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
+        "packages/utils/src/lib/useScrollLock.svelte.ts"
+      ],
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
-      "status": "implemented-awaiting-exact-head-review"
+      "status": "implemented-awaiting-exact-head-review",
+      "nativeReplacement": "Direct SSR-safe Svelte $effect at all 123 used runtime calls; actual native reads and cleanup, no dependency arrays or tuple/lifecycle cache.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/utils/src/useMergedRefs.ts",
@@ -5310,9 +5302,11 @@
         }
       ],
       "local": "packages/utils/src/lib/useMergedRefs.ts",
-      "localSha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
+      "localSha256": "f9c910b06b0f3c56f8b5775b15b4a9e36260f23a42a7822eb8401480a0e438ac",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
-      "status": "implemented-awaiting-exact-head-review"
+      "status": "implemented-awaiting-exact-head-review",
+      "nativeReplacement": "MergedRefs<I> class owns retained storage; merge/mergeN retain Source identity comparison, ref fan-out and cleanup algorithms.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/utils/src/useOnMount.ts",
@@ -5331,10 +5325,15 @@
           "resolved": "packages/utils/src/empty.ts"
         }
       ],
-      "local": "packages/utils/src/lib/useOnMount.ts",
-      "localSha256": "e596fa519d81dd2fd7cdb1d5d00910622ad9ebed918aafa11111b70942c8ce25",
+      "local": [
+        "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts",
+        "packages/utils/src/lib/useAnimationFrame.ts",
+        "packages/utils/src/lib/useTimeout.ts"
+      ],
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
-      "status": "implemented-awaiting-exact-head-review"
+      "status": "implemented-awaiting-exact-head-review",
+      "nativeReplacement": "Source Scheduler/reset/AnimationFrame class business remains; useAnimationFrame setup factory removed and used owners construct the class with direct onDestroy cancellation. Source Timeout class remains; useTimeout setup factory removed and used owners construct the class with direct onDestroy clearing.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/utils/src/useRefWithInit.ts",
@@ -5348,10 +5347,22 @@
           "resolved": "external:react"
         }
       ],
-      "local": "packages/utils/src/lib/useRefWithInit.ts",
-      "localSha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7",
+      "local": [
+        "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts",
+        "packages/base/src/lib/internals/ValueChanged.svelte.ts",
+        "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
+        "packages/utils/src/lib/useAnimationFrame.ts",
+        "packages/utils/src/lib/useMergedRefs.ts",
+        "packages/utils/src/lib/useTimeout.ts"
+      ],
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
-      "status": "implemented-awaiting-exact-head-review"
+      "status": "implemented-awaiting-exact-head-review",
+      "nativeReplacement": "Source Scheduler/reset/AnimationFrame class business remains; useAnimationFrame setup factory removed and used owners construct the class with direct onDestroy cancellation. MergedRefs<I> class owns retained storage; merge/mergeN retain Source identity comparison, ref fan-out and cleanup algorithms. Source Timeout class remains; useTimeout setup factory removed and used owners construct the class with direct onDestroy clearing.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/utils/src/useStableCallback.ts",
@@ -5370,10 +5381,46 @@
           "resolved": "packages/utils/src/useRefWithInit.ts"
         }
       ],
-      "local": "packages/utils/src/lib/useStableCallback.ts",
-      "localSha256": "dca4f1866715df0bcb597ca5c083825f580717a96e267c77a5325ce22790d04c",
+      "local": [
+        "packages/base/src/lib/avatar/Image.svelte",
+        "packages/base/src/lib/checkbox-group/CheckboxGroup.svelte",
+        "packages/base/src/lib/checkbox-group/useCheckboxGroupParent.svelte.ts",
+        "packages/base/src/lib/field/Control.svelte",
+        "packages/base/src/lib/field/root/FieldRootInner.svelte",
+        "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
+        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useClientPoint.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useListNavigation.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useTypeahead.svelte.ts",
+        "packages/base/src/lib/form/Form.svelte",
+        "packages/base/src/lib/internals/ValueChanged.svelte.ts",
+        "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
+        "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/useLabel.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+        "packages/base/src/lib/internals/useAnimationsFinished.ts",
+        "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+        "packages/base/src/lib/menu/RadioGroup.svelte",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
+        "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
+        "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
+        "packages/base/src/lib/radio-group/RadioGroup.svelte",
+        "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte",
+        "packages/base/src/lib/toggle-group/ToggleGroup.svelte",
+        "packages/base/src/lib/utils/closePart.svelte.ts",
+        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+        "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts",
+        "packages/base/src/lib/utils/usePopupViewport.svelte.ts"
+      ],
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
-      "status": "implemented-awaiting-exact-head-review"
+      "status": "implemented-awaiting-exact-head-review",
+      "nativeReplacement": "Ordinary live setup closures at all 79 used runtime calls; narrow untrack only at imperative registration/publication/measurement boundaries.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/utils/src/useTimeout.ts",
@@ -5393,9 +5440,11 @@
         }
       ],
       "local": "packages/utils/src/lib/useTimeout.ts",
-      "localSha256": "405103d9109d3d115db8b26eef5a9b3747156d4a45365c1f2f9764c172e4f0fb",
+      "localSha256": "06130c6374e14371471cc3af14638ddb3cadb514bb985fcbc4b8a7a606008b7f",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
-      "status": "implemented-awaiting-exact-head-review"
+      "status": "implemented-awaiting-exact-head-review",
+      "nativeReplacement": "Source Timeout class remains; useTimeout setup factory removed and used owners construct the class with direct onDestroy clearing.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/utils/src/useValueAsRef.ts",
@@ -5415,7 +5464,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "Live getters/runes replace render-time value refs where used.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -5454,7 +5502,6 @@
         }
       ],
       "local": null,
-      "localSha256": null,
       "correspondence": "The source warn helper only diagnoses React render-functions-as-components; native snippets cannot represent that React branch. No unused logger copy is shipped.",
       "status": "implemented-awaiting-exact-head-review"
     }
@@ -5462,7 +5509,7 @@
   "localTypeExtensions": [
     {
       "local": "packages/base/src/lib/remote-forms/types.ts",
-      "localSha256": "d8acd95ea2deb62f2db7a96276100d6820c8e3fe262b4ccffa4dbc97c6956d33",
+      "localSha256": "464d34eb6456a2d8741d1b261d0bbb1e23597d540068d1bcc329f745336f485f",
       "reachability": "type",
       "origin": "User-authorized typed remote Field API; approved PR51 head 9b45c9d45e4ad4b66ea6766eba12303a290a63a1, canonical main 9c8186f540aecab7ade38b246e310a6826ed4bcb. See parity/field-form/source-correspondence.md#typed-remote-field-contract-pr51.",
       "runtimeImports": 0,

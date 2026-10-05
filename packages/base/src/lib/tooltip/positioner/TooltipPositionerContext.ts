@@ -3,9 +3,14 @@ import { getContext, setContext } from 'svelte';
 import type { useAnchorPositioning } from '../../internals/anchor-positioning/useAnchorPositioning.svelte.js';
 export type TooltipPositionerContext = ReturnType<typeof useAnchorPositioning>;
 const POSITIONER = Symbol('Tooltip.Positioner');
-export function provideTooltipPositionerContext(value: TooltipPositionerContext) { setContext(POSITIONER, value); }
+export function provideTooltipPositionerContext(value: TooltipPositionerContext) {
+  setContext(POSITIONER, value);
+}
 export function useTooltipPositionerContext() {
   const context = getContext<TooltipPositionerContext | undefined>(POSITIONER);
-  if (context === undefined) throw new Error('Base UI: TooltipPositionerContext is missing. TooltipPositioner parts must be placed within <Tooltip.Positioner>.');
+  if (context === undefined)
+    throw new Error(
+      'Base UI: TooltipPositionerContext is missing. TooltipPositioner parts must be placed within <Tooltip.Positioner>.',
+    );
   return context;
 }

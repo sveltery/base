@@ -991,11 +991,11 @@
       "source": "packages/utils/src/fastHooks.ts",
       "sha256": "5996a39bc1566948151d73ebc58102173851c9b59aa6b0741d2a9fe0ea4fab2d",
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/fastHooks.ts",
-      "local": [
-        "packages/utils/src/lib/store/SvelteStore.svelte.ts"
-      ],
+      "local": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
       "decision": "Native reactive reads and once-only setup replace React dependency/render stabilization.",
-      "reviewStatus": "final source/native/maintainability review pending"
+      "reviewStatus": "final source/native/maintainability review pending",
+      "nativeReplacement": "Native SvelteStore synchronization/observer cleanup and canonical Store mutations retained; obsolete React controlled diagnostics and stable-key bookkeeping removed.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/utils/src/getReactElementRef.ts",
@@ -1185,11 +1185,11 @@
       "source": "packages/utils/src/store/ReactStore.ts",
       "sha256": "bfac0796ebaf8d8233efcfd27e9cd4e0510dd54945f62312570afa224af57992",
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/store/ReactStore.ts",
-      "local": [
-        "packages/utils/src/lib/store/SvelteStore.svelte.ts"
-      ],
+      "local": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
       "decision": "createSubscriber tracks original plain Store state; direct $effect+untrack synchronizes data and cleanup; selected setters/controlled diagnostics retained. Native stable live closures replace used context callbacks. observe key/function overloads are unused and omitted, not partially implemented.",
-      "reviewStatus": "final source/native/maintainability review pending"
+      "reviewStatus": "final source/native/maintainability review pending",
+      "nativeReplacement": "Native SvelteStore synchronization/observer cleanup and canonical Store mutations retained; obsolete React controlled diagnostics and stable-key bookkeeping removed.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/utils/src/store/Store.ts",
@@ -1213,21 +1213,21 @@
       "source": "packages/utils/src/store/useStore.ts",
       "sha256": "3679e4277c44da5fba4af9d567f2d990d1170f260e2d473ac293378e4aeb32ce",
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/store/useStore.ts",
-      "local": [
-        "packages/utils/src/lib/store/SvelteStore.svelte.ts"
-      ],
+      "local": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
       "decision": "Native createSubscriber selected reads replace useSyncExternalStore/render snapshots.",
-      "reviewStatus": "final source/native/maintainability review pending"
+      "reviewStatus": "final source/native/maintainability review pending",
+      "nativeReplacement": "Native SvelteStore synchronization/observer cleanup and canonical Store mutations retained; obsolete React controlled diagnostics and stable-key bookkeeping removed.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/utils/src/useAnimationFrame.ts",
       "sha256": "229943cee6d42305da4db33ed395ff8ccdde915c2e4e922c5af0c7b0aeeddf82",
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useAnimationFrame.ts",
-      "local": [
-        "packages/utils/src/lib/useAnimationFrame.ts"
-      ],
+      "local": "packages/utils/src/lib/useAnimationFrame.ts",
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "final source/native/maintainability review pending"
+      "reviewStatus": "final source/native/maintainability review pending",
+      "nativeReplacement": "Source Scheduler/reset/AnimationFrame class business remains; useAnimationFrame setup factory removed and used owners construct the class with direct onDestroy cancellation.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/utils/src/useEnhancedClickHandler.ts",
@@ -1264,40 +1264,111 @@
       "sha256": "13a0ab28d24b04617dc290ad151c145f2435d1e0c381123847af74344ea4b9a0",
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useIsoLayoutEffect.ts",
       "local": [
-        "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts"
+        "packages/base/src/lib/checkbox-group/CheckboxGroup.svelte",
+        "packages/base/src/lib/checkbox/root/CheckboxRoot.svelte",
+        "packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts",
+        "packages/base/src/lib/dialog/root/DialogInteractions.svelte",
+        "packages/base/src/lib/field/Control.svelte",
+        "packages/base/src/lib/field/Description.svelte",
+        "packages/base/src/lib/field/Error.svelte",
+        "packages/base/src/lib/field/Label.svelte",
+        "packages/base/src/lib/field/root/FieldRootInner.svelte",
+        "packages/base/src/lib/floating-ui/components/FloatingDelayGroup.svelte",
+        "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+        "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
+        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useClientPoint.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useDelayGroup.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useFocus.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useListNavigation.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useTypeahead.svelte.ts",
+        "packages/base/src/lib/internals/ValueChanged.svelte.ts",
+        "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
+        "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts",
+        "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+        "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+        "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+        "packages/base/src/lib/menu/GroupLabel.svelte",
+        "packages/base/src/lib/menu/Popup.svelte",
+        "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
+        "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
+        "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
+        "packages/base/src/lib/menubar/Menubar.svelte",
+        "packages/base/src/lib/popover/Positioner.svelte",
+        "packages/base/src/lib/popover/Root.svelte",
+        "packages/base/src/lib/preview-card/Positioner.svelte",
+        "packages/base/src/lib/preview-card/Root.svelte",
+        "packages/base/src/lib/radio/root/RadioRoot.svelte",
+        "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte",
+        "packages/base/src/lib/switch/root/SwitchRoot.svelte",
+        "packages/base/src/lib/tooltip/Root.svelte",
+        "packages/base/src/lib/utils/closePart.svelte.ts",
+        "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte",
+        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+        "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts",
+        "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts",
+        "packages/base/src/lib/utils/usePopupViewport.svelte.ts",
+        "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
+        "packages/utils/src/lib/useScrollLock.svelte.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "final source/native/maintainability review pending"
+      "reviewStatus": "final source/native/maintainability review pending",
+      "nativeReplacement": "Direct SSR-safe Svelte $effect at all 123 used runtime calls; actual native reads and cleanup, no dependency arrays or tuple/lifecycle cache.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/utils/src/useMergedRefs.ts",
       "sha256": "5fa12ae01abedc23ba814e9c59f015cf14d306044638b56c977780de43275ba3",
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useMergedRefs.ts",
-      "local": [
-        "packages/utils/src/lib/useMergedRefs.ts"
-      ],
+      "local": "packages/utils/src/lib/useMergedRefs.ts",
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "final source/native/maintainability review pending"
+      "reviewStatus": "final source/native/maintainability review pending",
+      "nativeReplacement": "MergedRefs<I> class owns retained storage; merge/mergeN retain Source identity comparison, ref fan-out and cleanup algorithms.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/utils/src/useOnMount.ts",
       "sha256": "9d621d059249ec6ad10dbf35eef28153a8bc6ef893574d26a060385d4d13472b",
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useOnMount.ts",
       "local": [
-        "packages/utils/src/lib/useOnMount.ts"
+        "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts",
+        "packages/utils/src/lib/useAnimationFrame.ts",
+        "packages/utils/src/lib/useTimeout.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "final source/native/maintainability review pending"
+      "reviewStatus": "final source/native/maintainability review pending",
+      "nativeReplacement": "Source Scheduler/reset/AnimationFrame class business remains; useAnimationFrame setup factory removed and used owners construct the class with direct onDestroy cancellation. Source Timeout class remains; useTimeout setup factory removed and used owners construct the class with direct onDestroy clearing.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/utils/src/useRefWithInit.ts",
       "sha256": "183cb6e86ab1f8044a431d5b4115c750f7848c9835d519881b3c7a66dae98354",
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useRefWithInit.ts",
       "local": [
-        "packages/utils/src/lib/useRefWithInit.ts"
+        "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts",
+        "packages/base/src/lib/internals/ValueChanged.svelte.ts",
+        "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
+        "packages/utils/src/lib/useAnimationFrame.ts",
+        "packages/utils/src/lib/useMergedRefs.ts",
+        "packages/utils/src/lib/useTimeout.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "final source/native/maintainability review pending"
+      "reviewStatus": "final source/native/maintainability review pending",
+      "nativeReplacement": "Source Scheduler/reset/AnimationFrame class business remains; useAnimationFrame setup factory removed and used owners construct the class with direct onDestroy cancellation. MergedRefs<I> class owns retained storage; merge/mergeN retain Source identity comparison, ref fan-out and cleanup algorithms. Source Timeout class remains; useTimeout setup factory removed and used owners construct the class with direct onDestroy clearing.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/utils/src/useScrollLock.ts",
@@ -1314,20 +1385,55 @@
       "sha256": "908cbd177f86c961983d0124a859f733d341be49e58bc5a553255f47725419c1",
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useStableCallback.ts",
       "local": [
-        "packages/utils/src/lib/useStableCallback.ts"
+        "packages/base/src/lib/avatar/Image.svelte",
+        "packages/base/src/lib/checkbox-group/CheckboxGroup.svelte",
+        "packages/base/src/lib/checkbox-group/useCheckboxGroupParent.svelte.ts",
+        "packages/base/src/lib/field/Control.svelte",
+        "packages/base/src/lib/field/root/FieldRootInner.svelte",
+        "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
+        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useClientPoint.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useListNavigation.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useTypeahead.svelte.ts",
+        "packages/base/src/lib/form/Form.svelte",
+        "packages/base/src/lib/internals/ValueChanged.svelte.ts",
+        "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
+        "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/useLabel.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+        "packages/base/src/lib/internals/useAnimationsFinished.ts",
+        "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+        "packages/base/src/lib/menu/RadioGroup.svelte",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
+        "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
+        "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
+        "packages/base/src/lib/radio-group/RadioGroup.svelte",
+        "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte",
+        "packages/base/src/lib/toggle-group/ToggleGroup.svelte",
+        "packages/base/src/lib/utils/closePart.svelte.ts",
+        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+        "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts",
+        "packages/base/src/lib/utils/usePopupViewport.svelte.ts"
       ],
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "final source/native/maintainability review pending"
+      "reviewStatus": "final source/native/maintainability review pending",
+      "nativeReplacement": "Ordinary live setup closures at all 79 used runtime calls; narrow untrack only at imperative registration/publication/measurement boundaries.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/utils/src/useTimeout.ts",
       "sha256": "8d9e4159d9f883e18035811e9f2b4d180afb0d724b55d86dbf4fda52c355e156",
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useTimeout.ts",
-      "local": [
-        "packages/utils/src/lib/useTimeout.ts"
-      ],
+      "local": "packages/utils/src/lib/useTimeout.ts",
       "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
-      "reviewStatus": "final source/native/maintainability review pending"
+      "reviewStatus": "final source/native/maintainability review pending",
+      "nativeReplacement": "Source Timeout class remains; useTimeout setup factory removed and used owners construct the class with direct onDestroy clearing.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/utils/src/useValueAsRef.ts",
@@ -1338,7 +1444,9 @@
         "packages/utils/src/lib/store/SvelteStore.svelte.ts"
       ],
       "decision": "Live native getters/closures replace React value refs only where the original callback reads latest values.",
-      "reviewStatus": "final source/native/maintainability review pending"
+      "reviewStatus": "final source/native/maintainability review pending",
+      "nativeReplacement": "Native SvelteStore synchronization/observer cleanup and canonical Store mutations retained; obsolete React controlled diagnostics and stable-key bookkeeping removed.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/utils/src/visuallyHidden.ts",

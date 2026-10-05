@@ -10,19 +10,42 @@
   import { useToolbarRootContext } from '../toolbar/root/ToolbarRootContext.js';
   import { useToolbarGroupContext } from '../toolbar/group/ToolbarGroupContext.js';
   import { setToggleGroupContext } from './ToggleGroupContext.js';
-  import type { ToggleGroupProps, ToggleGroupState, ToggleGroupChangeEventDetails } from './types.js';
+  import type {
+    ToggleGroupProps,
+    ToggleGroupState,
+    ToggleGroupChangeEventDetails,
+  } from './types.js';
   let {
-    defaultValue: defaultValueProp, disabled: disabledProp = false, loopFocus = true,
-    onValueChange, orientation = 'horizontal', multiple = false, value: valueProp,
-    class: classProp, render, style, children, ref = $bindable(), ...elementProps
+    defaultValue: defaultValueProp,
+    disabled: disabledProp = false,
+    loopFocus = true,
+    onValueChange,
+    orientation = 'horizontal',
+    multiple = false,
+    value: valueProp,
+    class: classProp,
+    render,
+    style,
+    children,
+    ref = $bindable(),
+    ...elementProps
   }: ToggleGroupProps<Value> = $props();
   const toolbarContext = useToolbarRootContext(true);
   const toolbarGroupContext = useToolbarGroupContext();
   const isValueInitialized = $derived(valueProp !== undefined || defaultValueProp !== undefined);
-  const disabled = $derived((toolbarContext?.disabled ?? false) || (toolbarGroupContext?.disabled ?? false) || disabledProp);
-  const valueState = new Controlled<readonly Value[]>(() => valueProp, untrack(() => defaultValueProp ?? EMPTY_ARRAY));
+  const disabled = $derived(
+    (toolbarContext?.disabled ?? false) || (toolbarGroupContext?.disabled ?? false) || disabledProp,
+  );
+  const valueState = new Controlled<readonly Value[]>(
+    () => valueProp,
+    untrack(() => defaultValueProp ?? EMPTY_ARRAY),
+  );
   const groupValue = $derived(valueState.value);
-  const setGroupValue = (newValue: Value, nextPressed: boolean, eventDetails: ToggleGroupChangeEventDetails) => {
+  const setGroupValue = (
+    newValue: Value,
+    nextPressed: boolean,
+    eventDetails: ToggleGroupChangeEventDetails,
+  ) => {
     let newGroupValue: Value[];
     if (multiple) {
       newGroupValue = groupValue.slice();
@@ -37,21 +60,44 @@
   };
   const state: ToggleGroupState = $derived({ disabled, multiple, orientation });
   setToggleGroupContext<Value>({
-    get disabled() { return disabled; }, setGroupValue,
-    get value() { return groupValue; },
-    get isValueInitialized() { return isValueInitialized; },
+    get disabled() {
+      return disabled;
+    },
+    setGroupValue,
+    get value() {
+      return groupValue;
+    },
+    get isValueInitialized() {
+      return isValueInitialized;
+    },
   });
   const defaultProps = { role: 'group' };
   const forwardedRef = {
-    get current() { return ref ?? null; },
-    set current(element: HTMLElement | null) { ref = element; },
+    get current() {
+      return ref ?? null;
+    },
+    set current(element: HTMLElement | null) {
+      ref = element;
+    },
   };
   const rendererProps = $derived([defaultProps, elementProps]);
   const componentProps = $derived({ render, class: classProp, style });
   const params = $derived({ state, ref: forwardedRef, props: rendererProps });
 </script>
+
 {#if toolbarContext}
   <RenderElement tag="div" {componentProps} {params} {children} />
 {:else}
-  <CompositeRoot {render} class={classProp} {style} {state} refs={[forwardedRef]} props={rendererProps} {loopFocus} enableHomeAndEndKeys {orientation} {children} />
+  <CompositeRoot
+    {render}
+    class={classProp}
+    {style}
+    {state}
+    refs={[forwardedRef]}
+    props={rendererProps}
+    {loopFocus}
+    enableHomeAndEndKeys
+    {orientation}
+    {children}
+  />
 {/if}

@@ -94,8 +94,7 @@ for (const family of ['checkbox', 'switch'] as const) {
       expect(ownedObservers.length).toBeGreaterThan(0);
       await unmount(component);
       disposed = true;
-      for (const observer of ownedObservers)
-        expect(disconnect.mock.instances).toContain(observer);
+      for (const observer of ownedObservers) expect(disconnect.mock.instances).toContain(observer);
     },
   );
 }

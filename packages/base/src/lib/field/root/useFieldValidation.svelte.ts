@@ -30,7 +30,10 @@ export type RegisteredInputs = Map<NativeValidationControl, RegisteredInput>;
  * registration is context-driven, so portaled inputs (for example inside a dialog) still belong to
  * the form for both validation and values projected into `onFormSubmit`.
  */
-export function isEligibleInput(input: NativeValidationControl, formElement: HTMLFormElement | null) {
+export function isEligibleInput(
+  input: NativeValidationControl,
+  formElement: HTMLFormElement | null,
+) {
   if (input.matches(':disabled')) {
     return false;
   }
@@ -79,7 +82,6 @@ export function useFieldValidation(
 ): UseFieldValidationReturnValue {
   const { elementRef, formRef } = useFormContext();
 
-
   const labelable = useLabelableContext();
 
   const timeout = new Timeout();
@@ -90,17 +92,19 @@ export function useFieldValidation(
   const registeredInputs: RegisteredInputs = new Map();
   const validationCommitIdRef = { current: 0 };
   // Tracks the message installed by Base UI and the custom message it displaced.
-  const customValidityRef = { current: null as [element: NativeValidationControl, message: string, displaced: string] | null };
+  const customValidityRef = {
+    current: null as [element: NativeValidationControl, message: string, displaced: string] | null,
+  };
 
   // Groups register several inputs against a single field so focus, validation, and form-value
   // projection can use the same live controls. This also ensures a `required` checkbox can't be
   // satisfied by another input in the group, matching native per-checkbox behavior.
   const registerInput = (element: NativeValidationControl, registration: RegisteredInput) => {
-      registeredInputs.set(element, registration);
-      return () => {
-        registeredInputs.delete(element);
-      };
+    registeredInputs.set(element, registration);
+    return () => {
+      registeredInputs.delete(element);
     };
+  };
 
   const getInputControl = () => {
     const element = findRepresentativeInput(registeredInputs, elementRef.current);
@@ -352,27 +356,32 @@ export function useFieldValidation(
   };
 
   const getValidationProps = (disabled: boolean, externalProps: HTMLProps = EMPTY_OBJECT) =>
-      mergeProps(
-        labelable.getDescriptionProps(externalProps),
-        params.state.valid === false && !params.state.disabled && !disabled
-          ? { 'aria-invalid': true }
-          : EMPTY_OBJECT,
-      );
+    mergeProps(
+      labelable.getDescriptionProps(externalProps),
+      params.state.valid === false && !params.state.disabled && !disabled
+        ? { 'aria-invalid': true }
+        : EMPTY_OBJECT,
+    );
 
   return {
-      getValidationProps,
-      inputRef,
-      registeredInputs,
-      registerInput,
-      getInputControl,
-      commit,
-      change,
+    getValidationProps,
+    inputRef,
+    registeredInputs,
+    registerInput,
+    getInputControl,
+    commit,
+    change,
   };
 }
 
 export interface UseFieldValidationParameters {
-  setValidityData: (data: FieldValidityData | ((previous: FieldValidityData) => FieldValidityData)) => void;
-  validate: (value: unknown, formValues: FormValues) => string | string[] | null | void | Promise<string | string[] | null | void>;
+  setValidityData: (
+    data: FieldValidityData | ((previous: FieldValidityData) => FieldValidityData),
+  ) => void;
+  validate: (
+    value: unknown,
+    formValues: FormValues,
+  ) => string | string[] | null | void | Promise<string | string[] | null | void>;
   readonly validityData: FieldValidityData;
   readonly validationDebounceTime: number;
   readonly invalid: boolean;
@@ -386,7 +395,10 @@ export interface UseFieldValidationReturnValue {
   getValidationProps(disabled: boolean, props?: HTMLProps): HTMLProps;
   inputRef: { current: HTMLInputElement | null };
   registeredInputs: RegisteredInputs;
-  registerInput(element: NativeValidationControl, registration: RegisteredInput): void | (() => void);
+  registerInput(
+    element: NativeValidationControl,
+    registration: RegisteredInput,
+  ): void | (() => void);
   getInputControl(): HTMLElement | null;
   commit(value: unknown): Promise<void>;
   change(value: unknown, cancelPending?: boolean): void;

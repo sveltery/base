@@ -3,8 +3,6 @@
 import type { HTMLAttributes } from 'svelte/elements';
 import type { ElementProps, MenuRoot } from '../menu/types.js';
 
-
-
 export interface MenubarState {
   /**
    * The orientation of the menubar.
@@ -19,7 +17,6 @@ export interface MenubarState {
    */
   hasSubmenuOpen: boolean;
 }
-
 
 export interface MenubarProps extends ElementProps<MenubarState, HTMLAttributes<HTMLDivElement>> {
   /**
@@ -44,7 +41,6 @@ export interface MenubarProps extends ElementProps<MenubarState, HTMLAttributes<
    */
   loopFocus?: boolean | undefined;
 }
-
 
 export namespace Menubar {
   export type State = MenubarState;

@@ -62,7 +62,10 @@
   const getControlId = useLabelableId(() => ({ id: idProp }), `${id}-input`);
   const controlId = $derived(getControlId());
   const hiddenInputId = $derived(nativeButton ? undefined : controlId);
-  const checkedState = new Controlled(() => checkedProp, untrack(() => Boolean(defaultChecked)));
+  const checkedState = new Controlled(
+    () => checkedProp,
+    untrack(() => Boolean(defaultChecked)),
+  );
   const checked = $derived(checkedState.value);
   useRegisterFieldControl(
     switchRef,
@@ -175,19 +178,17 @@
       rootProps,
       elementProps,
       getButtonProps,
-      (props: Record<string, unknown>) =>
-        field.validation.getValidationProps(disabled, props),
+      (props: Record<string, unknown>) => field.validation.getValidationProps(disabled, props),
     ],
     stateAttributesMapping,
   });
   const refsMerger = new MergedRefs<HTMLInputElement>();
   const resolveInputAttachment = createRefAttachment<HTMLInputElement>(() => {});
   const inputAttachment = $derived(
-    resolveInputAttachment(
-      refsMerger.merge(inputRef, externalInputRef, field.validation.inputRef),
-    ),
+    resolveInputAttachment(refsMerger.merge(inputRef, externalInputRef, field.validation.inputRef)),
   );
 </script>
+
 <RenderElement tag="span" {componentProps} {params} {children} />
 {#if !checked && name && uncheckedValue !== undefined}
   <input type="hidden" {form} name={nativeName} value={uncheckedValue} {disabled} />
@@ -197,5 +198,5 @@
   {...inputProps as HTMLInputAttributes}
   type="checkbox"
   {@attach inputAttachment}
-  bind:checked={() => checkedState.value, next => checkedState.set(next)}
+  bind:checked={() => checkedState.value, (next) => checkedState.set(next)}
 />

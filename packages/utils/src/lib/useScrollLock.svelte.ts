@@ -310,7 +310,10 @@ const SCROLL_LOCKER = new ScrollLocker();
  * @param enabled - Whether to enable the scroll lock.
  * @param referenceElement - Element to use as a reference for lock calculations.
  */
-export function useScrollLock(getEnabled: () => boolean = () => true, getReferenceElement: () => Element | null = () => null) {
+export function useScrollLock(
+  getEnabled: () => boolean = () => true,
+  getReferenceElement: () => Element | null = () => null,
+) {
   $effect(() => {
     if (!getEnabled()) {
       return undefined;

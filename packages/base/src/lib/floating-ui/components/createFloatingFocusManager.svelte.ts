@@ -6,7 +6,6 @@ import { addEventListener } from '@sveltery/utils/addEventListener';
 import { mergeCleanups } from '@sveltery/utils/mergeCleanups';
 import { MergedRefs } from '@sveltery/utils/useMergedRefs';
 
-
 import { Timeout } from '@sveltery/utils/useTimeout';
 import { platform } from '@sveltery/utils/platform';
 import type { InteractionType } from '@sveltery/utils/useEnhancedClickHandler';
@@ -144,7 +143,6 @@ function handleTabIndex(floatingFocusElement: HTMLElement) {
 }
 
 export interface FloatingFocusManagerProps {
-
   /**
    * The floating context returned from `useFloatingRootContext`.
    */
@@ -278,12 +276,30 @@ export function createFloatingFocusManager(getProps: () => FloatingFocusManagerP
   // has different focus semantics: focus is not trapped inside the floating element,
   // so in the modal case the guards are not rendered, but `aria-hidden` is still
   // applied to the outside nodes.
-  const isUntrappedTypeableCombobox = $derived(isTypeableCombobox(domReference) && ignoreInitialFocus);
+  const isUntrappedTypeableCombobox = $derived(
+    isTypeableCombobox(domReference) && ignoreInitialFocus,
+  );
 
-  const initialFocusRef = { get current() { return initialFocus; } };
-  const returnFocusRef = { get current() { return returnFocus; } };
-  const openInteractionTypeRef = { get current() { return openInteractionType; } };
-  const openRef = { get current() { return open; } };
+  const initialFocusRef = {
+    get current() {
+      return initialFocus;
+    },
+  };
+  const returnFocusRef = {
+    get current() {
+      return returnFocus;
+    },
+  };
+  const openInteractionTypeRef = {
+    get current() {
+      return openInteractionType;
+    },
+  };
+  const openRef = {
+    get current() {
+      return open;
+    },
+  };
 
   const contextTree = useFloatingTree();
   const tree = $derived(externalTree ?? contextTree);
@@ -301,12 +317,12 @@ export function createFloatingFocusManager(getProps: () => FloatingFocusManagerP
 
   const beforeRefs = new MergedRefs<HTMLSpanElement>();
   const afterRefs = new MergedRefs<HTMLSpanElement>();
-  const mergedBeforeGuardRef = $derived(beforeRefs.merge(
-    beforeGuardRef,
-    beforeContentFocusGuardRef,
-    portalContext?.beforeInsideRef,
-  ));
-  const mergedAfterGuardRef = $derived(afterRefs.merge(afterGuardRef, portalContext?.afterInsideRef));
+  const mergedBeforeGuardRef = $derived(
+    beforeRefs.merge(beforeGuardRef, beforeContentFocusGuardRef, portalContext?.beforeInsideRef),
+  );
+  const mergedAfterGuardRef = $derived(
+    afterRefs.merge(afterGuardRef, portalContext?.afterInsideRef),
+  );
 
   const blurTimeout = new Timeout();
 
@@ -321,10 +337,11 @@ export function createFloatingFocusManager(getProps: () => FloatingFocusManagerP
   const getFloatingElements = () => ({ floating, domReference, floatingFocusElement });
 
   const getTabbableContent = (container: Element | null = floatingFocusElement) => {
-      return container ? tabbable(container) : [];
-    };
+    return container ? tabbable(container) : [];
+  };
 
-  const getResolvedInsideElements = () => getInsideElements?.().filter((element): element is Element => element != null) ?? [];
+  const getResolvedInsideElements = () =>
+    getInsideElements?.().filter((element): element is Element => element != null) ?? [];
 
   // Prevent Tab from escaping the modal when there are no tabbable elements.
   $effect(() => {
@@ -372,8 +389,7 @@ export function createFloatingFocusManager(getProps: () => FloatingFocusManagerP
         contains(portalContext?.portalNode, target) ||
         insideElements.some((element) => element === target || contains(element, target));
       pointerDownOutsideRef.current = !pointerTargetInside;
-      lastInteractionTypeRef.current =
-        (event.pointerType as InteractionType) || 'keyboard';
+      lastInteractionTypeRef.current = (event.pointerType as InteractionType) || 'keyboard';
 
       if (target?.closest(`[${CLICK_TRIGGER_IDENTIFIER}]`)) {
         isPointerDownRef.current = true;
@@ -570,9 +586,7 @@ export function createFloatingFocusManager(getProps: () => FloatingFocusManagerP
         addEventListener(domReferenceElement, 'pointerdown', handlePointerDown),
       floating && addEventListener(floating, 'focusin', handleFocusIn),
       floating && addEventListener(floating, 'focusout', handleFocusOutside),
-      floating &&
-        portalContext &&
-        addEventListener(floating, 'focusout', markInsideTree, true),
+      floating && portalContext && addEventListener(floating, 'focusout', markInsideTree, true),
     );
   });
 
@@ -898,12 +912,15 @@ export function createFloatingFocusManager(getProps: () => FloatingFocusManagerP
     };
   });
 
-  const shouldRenderGuards = $derived(!disabled && (modal ? !isUntrappedTypeableCombobox : true) && (isInsidePortal || modal));
-
+  const shouldRenderGuards = $derived(
+    !disabled && (modal ? !isUntrappedTypeableCombobox : true) && (isInsidePortal || modal),
+  );
 
   function onBeforeFocus(event: FocusEvent) {
-    if (modal) { const els = getTabbableContent(); void enqueueFocus(els[els.length - 1]); }
-    else if (portalContext?.portalNode) {
+    if (modal) {
+      const els = getTabbableContent();
+      void enqueueFocus(els[els.length - 1]);
+    } else if (portalContext?.portalNode) {
       preventReturnFocusRef.current = false;
       if (isOutsideEvent(event, portalContext.portalNode)) getNextTabbable(domReference)?.focus();
       else resolveRef(previousFocusableElement ?? portalContext.beforeOutsideRef)?.focus();
@@ -913,13 +930,22 @@ export function createFloatingFocusManager(getProps: () => FloatingFocusManagerP
     if (modal) void enqueueFocus(getTabbableContent()[0]);
     else if (portalContext?.portalNode) {
       if (closeOnFocusOut) preventReturnFocusRef.current = true;
-      if (isOutsideEvent(event, portalContext.portalNode)) getPreviousTabbable(domReference)?.focus();
+      if (isOutsideEvent(event, portalContext.portalNode))
+        getPreviousTabbable(domReference)?.focus();
       else resolveRef(nextFocusableElement ?? portalContext.afterOutsideRef)?.focus();
     }
   }
   return {
-    get shouldRenderGuards() { return shouldRenderGuards; },
-    get beforeRef() { return mergedBeforeGuardRef; }, get afterRef() { return mergedAfterGuardRef; },
-    onBeforeFocus, onAfterFocus,
+    get shouldRenderGuards() {
+      return shouldRenderGuards;
+    },
+    get beforeRef() {
+      return mergedBeforeGuardRef;
+    },
+    get afterRef() {
+      return mergedAfterGuardRef;
+    },
+    onBeforeFocus,
+    onAfterFocus,
   };
 }

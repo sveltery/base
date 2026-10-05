@@ -25,18 +25,8 @@ export class MergedRefs<I> {
    */
   merge(a: InputRef<I>, b: InputRef<I>): Result<I>;
   merge(a: InputRef<I>, b: InputRef<I>, c: InputRef<I>): Result<I>;
-  merge(
-    a: InputRef<I>,
-    b: InputRef<I>,
-    c: InputRef<I>,
-    d: InputRef<I>,
-  ): Result<I>;
-  merge(
-    a: InputRef<I>,
-    b: InputRef<I>,
-    c?: InputRef<I>,
-    d?: InputRef<I>,
-  ): Result<I> {
+  merge(a: InputRef<I>, b: InputRef<I>, c: InputRef<I>, d: InputRef<I>): Result<I>;
+  merge(a: InputRef<I>, b: InputRef<I>, c?: InputRef<I>, d?: InputRef<I>): Result<I> {
     const forkRef = this.#storage;
     if (didChange(forkRef, a, b, c, d)) {
       update(forkRef, [a, b, c, d]);

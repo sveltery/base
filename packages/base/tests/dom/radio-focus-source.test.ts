@@ -23,9 +23,7 @@ for (const renderer of ['react', 'svelte']) {
       cleanups.push(mountRadioReference(host, 'onblur'));
       await vi.waitFor(() =>
         expect(
-          host
-            .querySelector('main[data-hydrated="true"]')
-            ?.getAttribute('data-renderer'),
+          host.querySelector('main[data-hydrated="true"]')?.getAttribute('data-renderer'),
         ).toBe('19.2.8/19.2.8'),
       );
     } else {
@@ -49,9 +47,7 @@ for (const renderer of ['react', 'svelte']) {
     expect(calls()).toBe(0);
     radio.focus();
     flushSync();
-    await vi.waitFor(() =>
-      expect(field.hasAttribute('data-focused')).toBe(true),
-    );
+    await vi.waitFor(() => expect(field.hasAttribute('data-focused')).toBe(true));
     expect(field.hasAttribute('data-touched')).toBe(false);
     next.focus();
     flushSync();
@@ -65,9 +61,7 @@ for (const renderer of ['react', 'svelte']) {
     await vi.waitFor(() => expect(calls()).toBe(1));
     expect(field.hasAttribute('data-focused')).toBe(false);
     expect(field.hasAttribute('data-touched')).toBe(true);
-    await vi.waitFor(() =>
-      expect(host.querySelector('#error')?.textContent).toBe('Blur error: b'),
-    );
+    await vi.waitFor(() => expect(host.querySelector('#error')?.textContent).toBe('Blur error: b'));
     if (renderer === 'svelte') expect(validate.mock.lastCall?.[0]).toBe('b');
   });
 }
@@ -79,23 +73,14 @@ for (const renderer of ['react', 'svelte']) {
       document.body.append(host);
       const changed = vi.fn();
       const currentTargets: string[] = [];
-      const observe = (event: {
-        currentTarget: HTMLElement;
-        preventBaseUIHandler(): void;
-      }) => {
-        currentTargets.push(
-          event.currentTarget.getAttribute('data-testid') ?? '',
-        );
+      const observe = (event: { currentTarget: HTMLElement; preventBaseUIHandler(): void }) => {
+        currentTargets.push(event.currentTarget.getAttribute('data-testid') ?? '');
         if (mode === 'cancel') event.preventBaseUIHandler();
       };
       if (renderer === 'react') {
-        cleanups.push(
-          mountRadioReference(host, mode, {}, false, { onFocus: observe }),
-        );
+        cleanups.push(mountRadioReference(host, mode, {}, false, { onFocus: observe }));
         await vi.waitFor(() =>
-          expect(
-            host.querySelector('main')?.getAttribute('data-hydrated'),
-          ).toBe('true'),
+          expect(host.querySelector('main')?.getAttribute('data-hydrated')).toBe('true'),
         );
       } else {
         const component = mount(Fixture, {
@@ -111,9 +96,7 @@ for (const renderer of ['react', 'svelte']) {
         flushSync();
       }
       const field = host.querySelector<HTMLElement>('#field')!;
-      const before = host.querySelector<HTMLElement>(
-        '[data-testid="radio-b"]',
-      )!;
+      const before = host.querySelector<HTMLElement>('[data-testid="radio-b"]')!;
       const next = host.querySelector<HTMLElement>('[data-testid="radio-c"]')!;
       const textbox = document.createElement('input');
       textbox.type = 'text';
@@ -130,16 +113,12 @@ for (const renderer of ['react', 'svelte']) {
           }),
         );
         flushSync();
-        await vi.waitFor(() =>
-          expect(field.hasAttribute('data-focused')).toBe(true),
-        );
+        await vi.waitFor(() => expect(field.hasAttribute('data-focused')).toBe(true));
       }
       textbox.focus();
       flushSync();
       await vi.waitFor(() => expect(currentTargets).toEqual(['radio-c']));
-      await vi.waitFor(() =>
-        expect(next.tabIndex).toBe(mode === 'cancel' ? -1 : 0),
-      );
+      await vi.waitFor(() => expect(next.tabIndex).toBe(mode === 'cancel' ? -1 : 0));
       expect(before.tabIndex).toBe(mode === 'cancel' ? 0 : -1);
       expect([textbox.selectionStart, textbox.selectionEnd]).toEqual(
         mode === 'cancel' ? [5, 5] : [0, 5],
@@ -147,9 +126,7 @@ for (const renderer of ['react', 'svelte']) {
       const selected = mode === 'arrow' ? 'c' : 'b';
       await vi.waitFor(() =>
         expect(
-          host
-            .querySelector(`[data-testid="radio-${selected}"]`)
-            ?.getAttribute('aria-checked'),
+          host.querySelector(`[data-testid="radio-${selected}"]`)?.getAttribute('aria-checked'),
         ).toBe('true'),
       );
       expect(field.hasAttribute('data-touched')).toBe(mode === 'arrow');
@@ -169,9 +146,7 @@ for (const renderer of ['react', 'svelte']) {
       document.body.append(host);
       if (renderer === 'react') {
         cleanups.push(mountCompositeFocusReference(host, renderOverride));
-        await vi.waitFor(() =>
-          expect(host.querySelector('#textbox')).not.toBeNull(),
-        );
+        await vi.waitFor(() => expect(host.querySelector('#textbox')).not.toBeNull());
       } else {
         const component = mount(CompositeFixture, {
           target: host,
@@ -181,9 +156,7 @@ for (const renderer of ['react', 'svelte']) {
         flushSync();
       }
       const textbox = host.querySelector<HTMLInputElement>('#textbox')!;
-      expect(host.querySelector('#composite')?.tagName).toBe(
-        renderOverride ? 'SECTION' : 'DIV',
-      );
+      expect(host.querySelector('#composite')?.tagName).toBe(renderOverride ? 'SECTION' : 'DIV');
       textbox.setSelectionRange(5, 5);
       textbox.focus();
       await vi.waitFor(() =>
@@ -214,9 +187,7 @@ for (const renderer of ['react', 'svelte']) {
           });
           if (prevent) event.preventBaseUIHandler();
         };
-        const validate = vi.fn(
-          (value: unknown) => `Blur error: ${String(value)}`,
-        );
+        const validate = vi.fn((value: unknown) => `Blur error: ${String(value)}`);
         const nativeFocus = vi.fn();
         if (renderer === 'react') {
           cleanups.push(
@@ -231,9 +202,7 @@ for (const renderer of ['react', 'svelte']) {
             ),
           );
           await vi.waitFor(() =>
-            expect(
-              host.querySelector('main')?.getAttribute('data-hydrated'),
-            ).toBe('true'),
+            expect(host.querySelector('main')?.getAttribute('data-hydrated')).toBe('true'),
           );
         } else {
           const component = mount(Fixture, {
@@ -262,12 +231,8 @@ for (const renderer of ['react', 'svelte']) {
         textbox.setSelectionRange(5, 5);
         textbox.focus();
         flushSync();
-        await vi.waitFor(() =>
-          expect(field.hasAttribute('data-focused')).toBe(!prevent),
-        );
-        expect([textbox.selectionStart, textbox.selectionEnd]).toEqual(
-          prevent ? [5, 5] : [0, 5],
-        );
+        await vi.waitFor(() => expect(field.hasAttribute('data-focused')).toBe(!prevent));
+        expect([textbox.selectionStart, textbox.selectionEnd]).toEqual(prevent ? [5, 5] : [0, 5]);
         expect(observations).toEqual([
           {
             phase: 'enter',
@@ -289,9 +254,7 @@ for (const renderer of ['react', 'svelte']) {
           touched: false,
           selection: prevent ? [5, 5] : [0, 5],
         });
-        await vi.waitFor(() =>
-          expect(field.hasAttribute('data-touched')).toBe(!prevent),
-        );
+        await vi.waitFor(() => expect(field.hasAttribute('data-touched')).toBe(!prevent));
         expect(field.hasAttribute('data-focused')).toBe(false);
         const calls = () =>
           renderer === 'react'

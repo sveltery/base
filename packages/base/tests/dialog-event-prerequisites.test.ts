@@ -11,7 +11,15 @@ describe('Dialog prerequisite: independent native prevention channels', () => {
     const log: string[] = [];
     const event = new Event('click', { cancelable: true });
     const details = createChangeEventDetails('none', event);
-    const props = mergeProps({ onclick: () => log.push('internal') }, { onclick: (native: Event) => { native.preventDefault(); log.push('consumer'); } });
+    const props = mergeProps(
+      { onclick: () => log.push('internal') },
+      {
+        onclick: (native: Event) => {
+          native.preventDefault();
+          log.push('consumer');
+        },
+      },
+    );
     (props.onclick as (native: Event) => void)(event);
     expect(log).toEqual(['consumer', 'internal']);
     expect(event.defaultPrevented).toBe(true);
@@ -23,7 +31,14 @@ describe('Dialog prerequisite: independent native prevention channels', () => {
     const event = new Event('click', { cancelable: true });
     const details = createChangeEventDetails('none', event);
     let internalCalls = 0;
-    const props = mergeProps({ onclick: () => { internalCalls += 1; } }, { onclick: (native: PreventableEvent) => native.preventBaseUIHandler() });
+    const props = mergeProps(
+      {
+        onclick: () => {
+          internalCalls += 1;
+        },
+      },
+      { onclick: (native: PreventableEvent) => native.preventBaseUIHandler() },
+    );
     (props.onclick as (native: Event) => void)(event);
     expect(internalCalls).toBe(0);
     expect((event as PreventableEvent).baseUIHandlerPrevented).toBe(true);

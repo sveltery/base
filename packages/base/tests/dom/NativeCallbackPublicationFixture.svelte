@@ -16,33 +16,54 @@
   let highlightedRequests = $state.raw<number[]>([]);
   let representativeInputs = $state.raw<(HTMLInputElement | null)[]>([]);
 
-  export function setDisabled(next: boolean) { disabled = next; }
-  export function setSource(next: string | undefined) { source = next; }
-  export function setDisabledIndices(next: number[]) { disabledIndices = next; }
-  export function snapshot() { return { avatarRequests, tooltipRequests, highlightedRequests, representativeInputs }; }
+  export function setDisabled(next: boolean) {
+    disabled = next;
+  }
+  export function setSource(next: string | undefined) {
+    source = next;
+  }
+  export function setDisabledIndices(next: number[]) {
+    disabledIndices = next;
+  }
+  export function snapshot() {
+    return { avatarRequests, tooltipRequests, highlightedRequests, representativeInputs };
+  }
 </script>
 
 <Avatar.Root>
-  <Avatar.Image src={source} onLoadingStatusChange={status => {
-    avatarRequests = [...avatarRequests, status];
-  }} />
+  <Avatar.Image
+    src={source}
+    onLoadingStatusChange={(status) => {
+      avatarRequests = [...avatarRequests, status];
+    }}
+  />
 </Avatar.Root>
-<Tooltip.Root open={true} {disabled} onOpenChange={(next, details) => {
-  tooltipRequests = [...tooltipRequests, next];
-  details.cancel();
-}} />
+<Tooltip.Root
+  open={true}
+  {disabled}
+  onOpenChange={(next, details) => {
+    tooltipRequests = [...tooltipRequests, next];
+    details.cancel();
+  }}
+/>
 <output data-avatar-requests>{avatarRequests.length}</output>
 <output data-tooltip-requests>{tooltipRequests.length}</output>
-<CompositeRoot {disabledIndices} onHighlightedIndexChange={index => {
-  highlightedRequests = [...highlightedRequests, index];
-}}>
+<CompositeRoot
+  {disabledIndices}
+  onHighlightedIndexChange={(index) => {
+    highlightedRequests = [...highlightedRequests, index];
+  }}
+>
   <CompositeItem tag="button">First item</CompositeItem>
   <CompositeItem tag="button">Second item</CompositeItem>
 </CompositeRoot>
 <output data-highlighted-requests>{highlightedRequests.length}</output>
-<RadioGroup defaultValue="selected" inputRef={input => {
-  representativeInputs = [...representativeInputs, input];
-}}>
+<RadioGroup
+  defaultValue="selected"
+  inputRef={(input) => {
+    representativeInputs = [...representativeInputs, input];
+  }}
+>
   <Radio.Root value="selected" />
 </RadioGroup>
 <output data-representative-inputs>{representativeInputs.length}</output>

@@ -9,13 +9,15 @@ export const ClosePartContext = Symbol('Base UI ClosePartContext');
 export class ClosePartCount {
   #count = $state(0);
 
-  readonly context: ClosePartContextValue = { register: () => {
-    this.#count += 1;
+  readonly context: ClosePartContextValue = {
+    register: () => {
+      this.#count += 1;
 
-    return () => {
-      this.#count = Math.max(0, this.#count - 1);
-    };
-  } };
+      return () => {
+        this.#count = Math.max(0, this.#count - 1);
+      };
+    },
+  };
 
   get hasClosePart() {
     return this.#count > 0;

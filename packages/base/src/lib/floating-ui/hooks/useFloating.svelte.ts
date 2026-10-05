@@ -3,7 +3,10 @@
 // Native Svelte store/host lifetime delegates to the single default-platform DOM geometry driver.
 import { isElement } from '@floating-ui/utils/dom';
 
-import { useFloating as usePosition, type NativeFloatingOptions } from '../../internals/anchor-positioning/useFloating.svelte.js';
+import {
+  useFloating as usePosition,
+  type NativeFloatingOptions,
+} from '../../internals/anchor-positioning/useFloating.svelte.js';
 import { useFloatingTree } from '../components/FloatingTree.svelte.js';
 import type { FloatingRootStore } from '../components/FloatingRootStore.svelte.js';
 import type { FloatingTreeStore } from '../components/FloatingTreeStore.js';
@@ -43,19 +46,28 @@ function useFloatingWithStore(getOptions: () => BaseUIFloatingOptions) {
       floating: floatingElement,
     },
   }));
-  const localDomReferenceElement = $derived(isElement(localDomReference) ? localDomReference : null);
-  const syncedFloatingElement = $derived(localFloatingElement === undefined ? floatingElement : localFloatingElement);
+  const localDomReferenceElement = $derived(
+    isElement(localDomReference) ? localDomReference : null,
+  );
+  const syncedFloatingElement = $derived(
+    localFloatingElement === undefined ? floatingElement : localFloatingElement,
+  );
   $effect(() => {
     store.update({
       referenceElement: localDomReference ?? null,
-      domReferenceElement: localDomReference === undefined ? domReferenceElement : localDomReferenceElement,
+      domReferenceElement:
+        localDomReference === undefined ? domReferenceElement : localDomReferenceElement,
       floatingElement: syncedFloatingElement,
     });
   });
 
   function setPositionReference(node: ReferenceType | null) {
     const computedPositionReference = isElement(node)
-      ? { getBoundingClientRect: () => node.getBoundingClientRect(), getClientRects: () => node.getClientRects(), contextElement: node }
+      ? {
+          getBoundingClientRect: () => node.getBoundingClientRect(),
+          getClientRects: () => node.getClientRects(),
+          contextElement: node,
+        }
       : node;
     positionReference = computedPositionReference;
     position.refs.setReference(computedPositionReference);
@@ -65,7 +77,11 @@ function useFloatingWithStore(getOptions: () => BaseUIFloatingOptions) {
       domReferenceRef.current = node;
       localDomReference = node;
     }
-    if (isElement(position.refs.reference.current) || position.refs.reference.current === null || (node !== null && !isElement(node))) {
+    if (
+      isElement(position.refs.reference.current) ||
+      position.refs.reference.current === null ||
+      (node !== null && !isElement(node))
+    ) {
       position.refs.setReference(node);
     }
   }
@@ -77,22 +93,67 @@ function useFloatingWithStore(getOptions: () => BaseUIFloatingOptions) {
     domReference: domReferenceRef,
     reference: position.refs.reference,
     floating: position.refs.floating,
-    setReference, setPositionReference, setFloating,
+    setReference,
+    setPositionReference,
+    setFloating,
   };
   const elements = {
-    get reference() { return position.elements.reference; },
-    get floating() { return position.elements.floating; },
-    get domReference() { return domReferenceElement; },
+    get reference() {
+      return position.elements.reference;
+    },
+    get floating() {
+      return position.elements.floating;
+    },
+    get domReference() {
+      return domReferenceElement;
+    },
   };
   const context: PositionedFloatingContext = {
-    get x() { return position.data.x; }, get y() { return position.data.y; },
-    get placement() { return position.data.placement; }, get strategy() { return position.data.strategy; },
-    get middlewareData() { return position.data.middlewareData; }, get isPositioned() { return position.data.isPositioned; },
-    get floatingStyles() { return position.floatingStyles; }, update: position.update,
-    get dataRef() { return store.context.dataRef; }, get open() { return open; },
-    onOpenChange(nextOpen, details) { store.setOpen(nextOpen, details); },
-    get events() { return store.context.events; }, get floatingId() { return floatingId; },
-    refs, elements, get nodeId() { return options.nodeId; }, get rootStore() { return store; },
+    get x() {
+      return position.data.x;
+    },
+    get y() {
+      return position.data.y;
+    },
+    get placement() {
+      return position.data.placement;
+    },
+    get strategy() {
+      return position.data.strategy;
+    },
+    get middlewareData() {
+      return position.data.middlewareData;
+    },
+    get isPositioned() {
+      return position.data.isPositioned;
+    },
+    get floatingStyles() {
+      return position.floatingStyles;
+    },
+    update: position.update,
+    get dataRef() {
+      return store.context.dataRef;
+    },
+    get open() {
+      return open;
+    },
+    onOpenChange(nextOpen, details) {
+      store.setOpen(nextOpen, details);
+    },
+    get events() {
+      return store.context.events;
+    },
+    get floatingId() {
+      return floatingId;
+    },
+    refs,
+    elements,
+    get nodeId() {
+      return options.nodeId;
+    },
+    get rootStore() {
+      return store;
+    },
   };
   $effect(() => {
     if (domReferenceElement) domReferenceRef.current = domReferenceElement;
@@ -100,7 +161,7 @@ function useFloatingWithStore(getOptions: () => BaseUIFloatingOptions) {
   $effect(() => {
     const dataRef = store.context.dataRef;
     dataRef.current.floatingContext = context;
-    const node = tree?.nodesRef.current.find(entry => entry.id === options.nodeId);
+    const node = tree?.nodesRef.current.find((entry) => entry.id === options.nodeId);
     if (node) node.context = context;
     // Native derived getters belong to this positioner's lifetime. The root/tree
     // outlive a closed popup, so release only this publication during teardown.
@@ -111,8 +172,23 @@ function useFloatingWithStore(getOptions: () => BaseUIFloatingOptions) {
   });
 
   return {
-    get elements() { return elements; }, get data() { return position.data; },
-    get error() { return position.error; }, get floatingStyles() { return position.floatingStyles; },
-    refs, update: position.update, context, get rootStore() { return store; },
+    get elements() {
+      return elements;
+    },
+    get data() {
+      return position.data;
+    },
+    get error() {
+      return position.error;
+    },
+    get floatingStyles() {
+      return position.floatingStyles;
+    },
+    refs,
+    update: position.update,
+    context,
+    get rootStore() {
+      return store;
+    },
   };
 }

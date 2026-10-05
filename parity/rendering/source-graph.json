@@ -330,7 +330,7 @@
     "modules": [
       {
         "local": "packages/base/src/lib/dialog/Element.svelte",
-        "sha256": "9848ecc10f04a04d12b22322ca8ac93f01273ff99d3e0b69f170073e751b24e3",
+        "sha256": "53a3a0399f4afa7145d14115ccab6f48b8907a1d77eb6e5ad2e7f91bb27825e1",
         "reachability": [
           "runtime"
         ],
@@ -404,105 +404,8 @@
         ]
       },
       {
-        "local": "packages/base/src/lib/internals/getStateAttributesProps.ts",
-        "sha256": "e48367a890024a54cb200eabc5c2a0ba0a397256baacfaec8b0a05ced3b10344",
-        "reachability": [
-          "runtime",
-          "type"
-        ],
-        "category": "source-business-port",
-        "provenance": "Used source-bodied port from the immutable Base UI pin; native framework/representation changes are specified in source-correspondence.md.",
-        "originalSources": [
-          "packages/react/src/internals/getStateAttributesProps.ts"
-        ],
-        "functions": [
-          "getStateAttributesProps"
-        ],
-        "imports": []
-      },
-      {
-        "local": "packages/base/src/lib/internals/nativeProps.ts",
-        "sha256": "fbb6178288b28dad7549551064e30bf2b432880f1a5b2476223b011f9e72a71a",
-        "reachability": [
-          "type",
-          "runtime"
-        ],
-        "category": "native-representation-adapter",
-        "provenance": "Sveltery ClassValue/CSS-string/enumerable-attachment-symbol conversion around source string/object merge algorithms; no corresponding Base UI module.",
-        "originalSources": [],
-        "functions": [
-          "toNativeStyle",
-          "mergeNativeStyles",
-          "toNativeClass",
-          "copyAttachmentSymbols"
-        ],
-        "imports": [
-          {
-            "specifier": "svelte/elements",
-            "kind": "type",
-            "resolved": "external:svelte/elements",
-            "runtimeNames": [],
-            "typeNames": [
-              "ClassValue"
-            ]
-          },
-          {
-            "specifier": "./resolveClassValue.js",
-            "kind": "runtime",
-            "resolved": "packages/base/src/lib/internals/resolveClassValue.ts",
-            "runtimeNames": [
-              "resolveClassValue"
-            ],
-            "typeNames": []
-          },
-          {
-            "specifier": "../utils/mergeObjects.js",
-            "kind": "runtime",
-            "resolved": "packages/utils/src/lib/mergeObjects.ts",
-            "runtimeNames": [
-              "mergeObjects"
-            ],
-            "typeNames": []
-          }
-        ]
-      },
-      {
-        "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-        "sha256": "659427aaebb2b294178e5ccd147f6cbb4cb87a9704c18c62ff04a2847a7e1a56",
-        "reachability": [
-          "runtime"
-        ],
-        "category": "native-framework-boundary",
-        "provenance": "Sveltery native attachment publication/identity adapter. A private marker identifies only canonical library ref attachments for ordered source fanout; authored Svelte attachments retain native dependency tracking and lifetime. Svelte owns attach/detach, and unchanged canonical useMergedRefs owns callback/object cleanup.",
-        "originalSources": [],
-        "functions": [
-          "isNativeRefAttachment",
-          "createRefAttachment"
-        ],
-        "imports": [
-          {
-            "specifier": "svelte",
-            "kind": "runtime",
-            "resolved": "external:svelte",
-            "runtimeNames": [
-              "untrack"
-            ],
-            "typeNames": []
-          },
-          {
-            "specifier": "../utils/useMergedRefs.js",
-            "kind": "type",
-            "resolved": "packages/utils/src/lib/useMergedRefs.ts",
-            "runtimeNames": [],
-            "typeNames": [
-              "MergedRefCallback"
-            ]
-          }
-        ]
-      },
-      {
         "local": "packages/base/src/lib/internals/RenderElement.svelte",
-        "sha256": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5",
+        "sha256": "7468c314806abe0b4ed1fc2dd95d3a2defd6e86a9021012ced3f0154d0028daa",
         "reachability": [
           "runtime"
         ],
@@ -591,11 +494,108 @@
         ]
       },
       {
+        "local": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+        "sha256": "e48367a890024a54cb200eabc5c2a0ba0a397256baacfaec8b0a05ced3b10344",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "source-business-port",
+        "provenance": "Used source-bodied port from the immutable Base UI pin; native framework/representation changes are specified in source-correspondence.md.",
+        "originalSources": [
+          "packages/react/src/internals/getStateAttributesProps.ts"
+        ],
+        "functions": [
+          "getStateAttributesProps"
+        ],
+        "imports": []
+      },
+      {
+        "local": "packages/base/src/lib/internals/nativeProps.ts",
+        "sha256": "4c1f8df953df631d3b410b9a12e48e156ad90bcd5fef6feaec97a4426068ec29",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "native-representation-adapter",
+        "provenance": "Sveltery ClassValue/CSS-string/enumerable-attachment-symbol conversion around source string/object merge algorithms; no corresponding Base UI module.",
+        "originalSources": [],
+        "functions": [
+          "toNativeStyle",
+          "mergeNativeStyles",
+          "toNativeClass",
+          "copyAttachmentSymbols"
+        ],
+        "imports": [
+          {
+            "specifier": "svelte/elements",
+            "kind": "type",
+            "resolved": "external:svelte/elements",
+            "runtimeNames": [],
+            "typeNames": [
+              "ClassValue"
+            ]
+          },
+          {
+            "specifier": "./resolveClassValue.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/resolveClassValue.ts",
+            "runtimeNames": [
+              "resolveClassValue"
+            ],
+            "typeNames": []
+          },
+          {
+            "specifier": "@sveltery/utils/mergeObjects",
+            "kind": "runtime",
+            "resolved": "packages/utils/src/lib/mergeObjects.ts",
+            "runtimeNames": [
+              "mergeObjects"
+            ],
+            "typeNames": []
+          }
+        ]
+      },
+      {
+        "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+        "sha256": "ab007711c5ea5bd558b06a704c5f06c2c37e46ff52b547c01c14e119116402d9",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "native-framework-boundary",
+        "provenance": "Sveltery native attachment publication/identity adapter. A private marker identifies only canonical library ref attachments for ordered source fanout; authored Svelte attachments retain native dependency tracking and lifetime. Svelte owns attach/detach, and unchanged canonical useMergedRefs owns callback/object cleanup.",
+        "originalSources": [],
+        "functions": [
+          "isNativeRefAttachment",
+          "createRefAttachment"
+        ],
+        "imports": [
+          {
+            "specifier": "svelte",
+            "kind": "runtime",
+            "resolved": "external:svelte",
+            "runtimeNames": [
+              "untrack"
+            ],
+            "typeNames": []
+          },
+          {
+            "specifier": "@sveltery/utils/useMergedRefs",
+            "kind": "type",
+            "resolved": "packages/utils/src/lib/useMergedRefs.ts",
+            "runtimeNames": [],
+            "typeNames": [
+              "MergedRefCallback"
+            ]
+          }
+        ]
+      },
+      {
         "local": "packages/base/src/lib/internals/resolveClassValue.ts",
         "sha256": "584323b17cb1733a798e9ff86e9ff783d6a26d08ecf005a8c2b3c69917c1e722",
         "reachability": [
-          "type",
-          "runtime"
+          "runtime",
+          "type"
         ],
         "category": "inherited-native-representation-adapter",
         "provenance": "Original Sveltery helper introduced in commit 1248b805cdb343f5153c36c003a3d753f11a97f9 under the repository MIT license. tokens/resolveClassValue materialize Svelte ClassValue before the source string-only class concatenation; no original Base UI file or upstream assertion credit.",
@@ -618,7 +618,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/types.ts",
-        "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
+        "sha256": "6a36f5f103ef940b8a32d63f0288d897096c846fb2361b4ef44733e9a899907e",
         "reachability": [
           "type"
         ],
@@ -671,7 +671,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/useRenderElement.ts",
-        "sha256": "d344184b30e91d54544e9c5b00583679762e0ec099306e9a682df8426655c31a",
+        "sha256": "010e3e73a976eee85c903f9e95a75a890e0b79a5f9057aadd66ea61f963cbe79",
         "reachability": [
           "runtime"
         ],
@@ -682,19 +682,17 @@
         ],
         "functions": [
           "createRenderElement",
-          "useRenderElement",
-          "useRenderElementProps",
           "resolveRenderFunctionProps",
           "evaluateRenderProp",
           "renderTag"
         ],
         "imports": [
           {
-            "specifier": "../utils/useMergedRefs.js",
+            "specifier": "@sveltery/utils/useMergedRefs",
             "kind": "runtime",
             "resolved": "packages/utils/src/lib/useMergedRefs.ts",
             "runtimeNames": [
-              "createMergedRefs"
+              "MergedRefs"
             ],
             "typeNames": [
               "MergedRef",
@@ -702,7 +700,7 @@
             ]
           },
           {
-            "specifier": "../utils/mergeObjects.js",
+            "specifier": "@sveltery/utils/mergeObjects",
             "kind": "runtime",
             "resolved": "packages/utils/src/lib/mergeObjects.ts",
             "runtimeNames": [
@@ -711,7 +709,7 @@
             "typeNames": []
           },
           {
-            "specifier": "../utils/empty.js",
+            "specifier": "@sveltery/utils/empty",
             "kind": "runtime",
             "resolved": "packages/utils/src/lib/empty.ts",
             "runtimeNames": [
@@ -816,7 +814,7 @@
       },
       {
         "local": "packages/base/src/lib/merge-props/mergeProps.ts",
-        "sha256": "110f1b7615a7ccadcfc1e8775451eea5f9ca971bcafee6f3ffd4ea8470303d00",
+        "sha256": "1b758134ab0efecd9601638e928440561944d226e5ebb9276d39723738d0301a",
         "reachability": [
           "runtime",
           "type"
@@ -861,7 +859,7 @@
             "typeNames": []
           },
           {
-            "specifier": "../utils/mergeObjects.js",
+            "specifier": "@sveltery/utils/mergeObjects",
             "kind": "runtime",
             "resolved": "packages/utils/src/lib/mergeObjects.ts",
             "runtimeNames": [
@@ -870,39 +868,6 @@
             "typeNames": []
           }
         ]
-      },
-      {
-        "local": "packages/utils/src/lib/empty.ts",
-        "sha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65",
-        "reachability": [
-          "runtime"
-        ],
-        "category": "source-business-port",
-        "provenance": "Used source-bodied port from the immutable Base UI pin; native framework/representation changes are specified in source-correspondence.md.",
-        "originalSources": [
-          "packages/utils/src/empty.ts"
-        ],
-        "functions": [
-          "NOOP"
-        ],
-        "imports": []
-      },
-      {
-        "local": "packages/utils/src/lib/mergeObjects.ts",
-        "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
-        "reachability": [
-          "runtime",
-          "type"
-        ],
-        "category": "source-business-port",
-        "provenance": "Used source-bodied port from the immutable Base UI pin; native framework/representation changes are specified in source-correspondence.md.",
-        "originalSources": [
-          "packages/utils/src/mergeObjects.ts"
-        ],
-        "functions": [
-          "mergeObjects"
-        ],
-        "imports": []
       },
       {
         "local": "packages/base/src/lib/utils/resolveClassName.ts",
@@ -957,8 +922,41 @@
         ]
       },
       {
+        "local": "packages/utils/src/lib/empty.ts",
+        "sha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151",
+        "reachability": [
+          "runtime"
+        ],
+        "category": "source-business-port",
+        "provenance": "Used source-bodied port from the immutable Base UI pin; native framework/representation changes are specified in source-correspondence.md.",
+        "originalSources": [
+          "packages/utils/src/empty.ts"
+        ],
+        "functions": [
+          "NOOP"
+        ],
+        "imports": []
+      },
+      {
+        "local": "packages/utils/src/lib/mergeObjects.ts",
+        "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "source-business-port",
+        "provenance": "Used source-bodied port from the immutable Base UI pin; native framework/representation changes are specified in source-correspondence.md.",
+        "originalSources": [
+          "packages/utils/src/mergeObjects.ts"
+        ],
+        "functions": [
+          "mergeObjects"
+        ],
+        "imports": []
+      },
+      {
         "local": "packages/utils/src/lib/useMergedRefs.ts",
-        "sha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
+        "sha256": "f9c910b06b0f3c56f8b5775b15b4a9e36260f23a42a7822eb8401480a0e438ac",
         "reachability": [
           "runtime",
           "type"
@@ -969,47 +967,15 @@
           "packages/utils/src/useMergedRefs.ts"
         ],
         "functions": [
-          "createMergedRefs",
-          "useMergedRefs",
-          "useMergedRefs",
-          "useMergedRefs",
-          "useMergedRefs",
-          "useMergedRefsN",
           "createForkRef",
           "didChange",
           "didChangeN",
           "update"
         ],
-        "imports": [
-          {
-            "specifier": "./useRefWithInit.js",
-            "kind": "runtime",
-            "resolved": "packages/utils/src/lib/useRefWithInit.ts",
-            "runtimeNames": [
-              "useRefWithInit"
-            ],
-            "typeNames": []
-          }
+        "imports": [],
+        "classes": [
+          "MergedRefs"
         ]
-      },
-      {
-        "local": "packages/utils/src/lib/useRefWithInit.ts",
-        "sha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7",
-        "reachability": [
-          "runtime",
-          "type"
-        ],
-        "category": "shared-native-framework-replacement",
-        "provenance": "Canonical merged PR46 native setup/ref owner; source overload/initializer behavior retained without React persistent-hook sentinel machinery.",
-        "originalSources": [
-          "packages/utils/src/useRefWithInit.ts"
-        ],
-        "functions": [
-          "useRefWithInit",
-          "useRefWithInit",
-          "useRefWithInit"
-        ],
-        "imports": []
       }
     ],
     "externalBoundaries": [

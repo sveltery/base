@@ -17,8 +17,8 @@ writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true,
 JS
 rm -rf "$progress_consumer/node_modules"
 sveltery_prepare_consumer "$progress_consumer"
-pnpm --dir "$progress_consumer" --ignore-workspace install --ignore-scripts > /dev/null
-pnpm --dir "$progress_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+pnpm --dir "$progress_consumer" install --ignore-scripts > /dev/null
+pnpm --dir "$progress_consumer" install --frozen-lockfile --ignore-scripts > /dev/null
 test -f "$progress_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
 cmp LICENSE "$progress_consumer/node_modules/@sveltery/base/LICENSE"
 if [[ "${1:-}" == '--public' ]]; then

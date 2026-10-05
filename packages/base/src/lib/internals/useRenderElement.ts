@@ -38,10 +38,18 @@ export function createRenderElement<Host extends Element = Element>() {
     params: UseRenderElementParameters<State, Host>,
   ): HTMLProps & { ref?: MergedRefCallback<Host> | null } {
     const { class: classNameProp, style: styleProp } = componentProps;
-    const { state = EMPTY_OBJECT as State, ref, props, stateAttributesMapping, enabled = true } = params;
+    const {
+      state = EMPTY_OBJECT as State,
+      ref,
+      props,
+      stateAttributesMapping,
+      enabled = true,
+    } = params;
     const className = enabled ? resolveClassName(classNameProp, state) : undefined;
     const style = enabled ? resolveStyle(styleProp, state) : undefined;
-    const stateProps = enabled ? getStateAttributesProps(state, stateAttributesMapping) : EMPTY_OBJECT;
+    const stateProps = enabled
+      ? getStateAttributesProps(state, stateAttributesMapping)
+      : EMPTY_OBJECT;
     const resolvedProps = enabled && props ? resolveRenderFunctionProps(props) : undefined;
 
     // Like the source, the enabled stateProps branch always owns a fresh mutable object.
@@ -79,7 +87,11 @@ export function createRenderElement<Host extends Element = Element>() {
           ...forwardedRefs,
         ]);
       } else {
-        outProps.ref = refsMerger.merge(outProps.ref, null, ref as MergedRef<Host> | null | undefined);
+        outProps.ref = refsMerger.merge(
+          outProps.ref,
+          null,
+          ref as MergedRef<Host> | null | undefined,
+        );
       }
     }
 
@@ -90,9 +102,10 @@ export function createRenderElement<Host extends Element = Element>() {
       outProps.class = mergeClassNames(toNativeClass(outProps.class), toNativeClass(className));
     }
     if (style !== undefined) {
-      outProps.style = typeof outProps.style === 'string' || typeof style === 'string'
-        ? mergeNativeStyles(outProps.style, style)
-        : mergeObjects(outProps.style as Record<string, unknown> | undefined, style);
+      outProps.style =
+        typeof outProps.style === 'string' || typeof style === 'string'
+          ? mergeNativeStyles(outProps.style, style)
+          : mergeObjects(outProps.style as Record<string, unknown> | undefined, style);
     }
     return outProps;
   }
@@ -100,7 +113,9 @@ export function createRenderElement<Host extends Element = Element>() {
   return { useRenderElement };
 }
 
-function resolveRenderFunctionProps(props: NonNullable<UseRenderElementParameters<never, Element>['props']>): HTMLProps {
+function resolveRenderFunctionProps(
+  props: NonNullable<UseRenderElementParameters<never, Element>['props']>,
+): HTMLProps {
   if (Array.isArray(props)) {
     return mergePropsN(props);
   }
@@ -129,7 +144,11 @@ function evaluateRenderProp<State, Host extends Element>(
   throw new Error('Base UI: Render element or function are not defined.');
 }
 
-function renderTag<State, Host extends Element>(Tag: string, props: HTMLProps & { ref?: MergedRefCallback<Host> | null }, state: State): NativeRenderDescriptor<State, Host> {
+function renderTag<State, Host extends Element>(
+  Tag: string,
+  props: HTMLProps & { ref?: MergedRefCallback<Host> | null },
+  state: State,
+): NativeRenderDescriptor<State, Host> {
   if (Tag === 'button') {
     return { tag: Tag, props: { type: 'button', ...props }, state };
   }
@@ -151,7 +170,10 @@ export type UseRenderElementParameters<State, Host extends Element = Element> = 
   propGetter?: (externalProps: HTMLProps) => HTMLProps;
   ref?: MergedRef<Host> | readonly (MergedRef<Host> | null | undefined)[] | null;
   state?: State;
-  props?: HTMLProps | ((props: HTMLProps) => HTMLProps) | readonly (HTMLProps | undefined | ((props: HTMLProps) => HTMLProps))[];
+  props?:
+    | HTMLProps
+    | ((props: HTMLProps) => HTMLProps)
+    | readonly (HTMLProps | undefined | ((props: HTMLProps) => HTMLProps))[];
   stateAttributesMapping?: StateAttributesMapping<State>;
 };
 export type UseRenderElementComponentProps<State> = BaseUIComponentProps<State>;

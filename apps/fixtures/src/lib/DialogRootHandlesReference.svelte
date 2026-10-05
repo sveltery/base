@@ -6,4 +6,5 @@
   let host = $state<HTMLElement>(null!);
   onMount(() => mountRootHandlesReference(host, line, variant));
 </script>
+
 <div bind:this={host}></div>

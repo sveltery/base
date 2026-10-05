@@ -4,7 +4,6 @@
   import RenderElement from '../internals/RenderElement.svelte';
   import { Controlled } from '@sveltery/utils/Controlled';
 
-
   import { EMPTY_ARRAY } from '@sveltery/utils/empty';
   import { areArraysEqual } from '@sveltery/utils/areArraysEqual';
   import { useBaseUiId } from '../internals/useBaseUiId.js';
@@ -41,13 +40,16 @@
   const labelable = useLabelableContext();
   const form = useFormContext();
   const disabled = $derived(Boolean(field.disabled || disabledProp));
-  const valueState = new Controlled(() => externalValue, untrack(() => defaultValueProp ?? (EMPTY_ARRAY as string[])));
+  const valueState = new Controlled(
+    () => externalValue,
+    untrack(() => defaultValueProp ?? (EMPTY_ARRAY as string[])),
+  );
   const value = $derived(valueState.value);
   const setValue = (nextValue: string[], details: CheckboxGroupChangeEventDetails) => {
-      onValueChange?.(nextValue, details);
-      if (details.isCanceled) return;
-      valueState.set(nextValue);
-    };
+    onValueChange?.(nextValue, details);
+    if (details.isCanceled) return;
+    valueState.set(nextValue);
+  };
   const parent = useCheckboxGroupParent(() => ({
     allValues,
     value,
@@ -70,7 +72,8 @@
     for (const [input, registration] of field.validation.registeredInputs) {
       if (
         registration.value !== undefined &&
-        'checked' in input && input.checked &&
+        'checked' in input &&
+        input.checked &&
         isEligibleInput(input, formElement)
       )
         successfulValues.add(registration.value);
@@ -133,4 +136,5 @@
     stateAttributesMapping: fieldValidityMapping,
   });
 </script>
+
 <RenderElement tag="div" {componentProps} {params} {children} />

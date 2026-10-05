@@ -22,7 +22,7 @@
   "records": [
     {
       "local": "packages/base/src/lib/checkbox-group/CheckboxGroup.svelte",
-      "sha256": "2249498a2110650b7ec4828de70609bb247a5a5add5591f33ae369f274fb6375",
+      "sha256": "13e3da754e72fa966952dc0ad05865970fefc7420f8c765eccce80413428ae0b",
       "imports": [
         {
           "specifier": "../internals/RenderElement.svelte",
@@ -180,7 +180,7 @@
     },
     {
       "local": "packages/base/src/lib/checkbox-group/useCheckboxGroupParent.svelte.ts",
-      "sha256": "76e3e38225e063ab7be1eb273dd2ac3fc29dff0a2c281459d05046613f69f7b8",
+      "sha256": "b1ecad7ae0a5d276e7434f32f244f578fd378e4024b47ebe059fa73c040763be",
       "imports": [
         {
           "specifier": "svelte",
@@ -206,7 +206,7 @@
     },
     {
       "local": "packages/base/src/lib/checkbox/root/CheckboxRoot.svelte",
-      "sha256": "3616db3f3ae0e91ea8c024cad143f5dcf1a82c7071175fed67f6098c436f976a",
+      "sha256": "e5270acef12c86d396446e61fc92145f8b291eebc2d9af50a31ab096533a5f08",
       "imports": [
         {
           "specifier": "svelte",
@@ -477,7 +477,7 @@
     },
     {
       "local": "packages/base/src/lib/dialog/store/DialogHandle.svelte.ts",
-      "sha256": "5b27a4482df0ea2e6c126fbdca63b41731ba2a268ce3539df6b3954cc9de9d00",
+      "sha256": "a5cb05869d04ff9e87dce1422599c86a4f2974b88049a73b9c7f12383b83aca3",
       "imports": [
         {
           "specifier": "esm-env",
@@ -508,7 +508,7 @@
     },
     {
       "local": "packages/base/src/lib/dialog/store/DialogStore.svelte.ts",
-      "sha256": "a99fee3c61529a7ad3778ecb0f3108f477b8727c71525a2d34fa0a95f49f29bf",
+      "sha256": "bcfef95cae3d29ea6a193d62abcb678f78fe51cf90301c1fc528c86714bc8f32",
       "imports": [
         {
           "specifier": "@sveltery/utils/store",
@@ -539,7 +539,7 @@
     },
     {
       "local": "packages/base/src/lib/dialog/types.ts",
-      "sha256": "733775a8fb40ec9b1472c752624da00ff9426078e253e194f996ed0b2267f858",
+      "sha256": "aa9e6e11495e8a8218fd5f69c913d10d8794338a6e01fc685d545c4d9729874c",
       "imports": [
         {
           "specifier": "svelte",
@@ -612,7 +612,7 @@
     },
     {
       "local": "packages/base/src/lib/field/Control.svelte",
-      "sha256": "fd830681270a06fd5204cc5d6d321a2a5303ad78906dfda5e6c3946d589cb303",
+      "sha256": "989eb49f2444025d980c6535deb958cf20a99e605d80967c831ad2369106bffe",
       "imports": [
         {
           "specifier": "../internals/RenderElement.svelte",
@@ -713,7 +713,7 @@
     },
     {
       "local": "packages/base/src/lib/field/Description.svelte",
-      "sha256": "283385cc4f6d15b382f20da7a80734695d53a83a7e13bd15f5698e6fc10208b2",
+      "sha256": "590f0fbd107b9053c8a5ba17217479c49a49170ba13f18cb84af7b60202cbffa",
       "imports": [
         {
           "specifier": "../internals/RenderElement.svelte",
@@ -759,7 +759,7 @@
     },
     {
       "local": "packages/base/src/lib/field/Error.svelte",
-      "sha256": "4fbb3612ba21c0e4cfe21c9493dd97bd91c93876ff346b5f2cdacfe9c2dc5852",
+      "sha256": "d6b7d24135c4dd2df97656633ccd43eabc22dffb73fa9090cd6a72bdf7886c59",
       "imports": [
         {
           "specifier": "../internals/RenderElement.svelte",
@@ -825,7 +825,7 @@
     },
     {
       "local": "packages/base/src/lib/field/ErrorMessageList.svelte",
-      "sha256": "27bec6f8217118288cddf98c3e00c4df7efd3934c7ab3f7126cb6f23a4d601c4",
+      "sha256": "b8722a77324aba26360e3cb1e8971a61a0ca34bda7859af1bf44bdc392529df0",
       "imports": []
     },
     {
@@ -876,7 +876,7 @@
     },
     {
       "local": "packages/base/src/lib/field/Item.svelte",
-      "sha256": "737b50c83d7fb7d9b68567a062eb995c1f98664a09d85a49d2b5ba1938f07fdd",
+      "sha256": "cb5a5f8afafba8eaf140ae0487e024ff9dcf7c6387f50d1f7595868af5ec0252",
       "imports": [
         {
           "specifier": "../internals/RenderElement.svelte",
@@ -912,7 +912,7 @@
     },
     {
       "local": "packages/base/src/lib/field/item/FieldItemContext.ts",
-      "sha256": "f1a84a8e7fd46dce276cf16590fc2c6919f3167a12ab1fbff2ad86e64ff2eaed",
+      "sha256": "fac181a267627f7a70d0a81413190a7c9a38dc63c43ba9fbc50ef12020369dde",
       "imports": [
         {
           "specifier": "svelte",
@@ -923,7 +923,7 @@
     },
     {
       "local": "packages/base/src/lib/field/Label.svelte",
-      "sha256": "b232364ce177575b6ac895ddd084b58fb632f46280751cd9678641299a4255d1",
+      "sha256": "a2dc60bf95b1c948beb1a72996e2ec8eaace502a3e3b81142f46bf42612933d9",
       "imports": [
         {
           "specifier": "esm-env",
@@ -979,7 +979,7 @@
     },
     {
       "local": "packages/base/src/lib/field/props.ts",
-      "sha256": "ed3d25745d68f38c06c0f21ae46e9457147a07503e34ae52fd17dee7256d1357",
+      "sha256": "ced41ab415850bbdb26723487d6a6a1661e4c75c338099e12c43ddbcd8594f62",
       "imports": [
         {
           "specifier": "svelte/elements",
@@ -1000,7 +1000,7 @@
     },
     {
       "local": "packages/base/src/lib/field/Root.svelte",
-      "sha256": "1a505de7682ed523d1e2568ca19a2cf7116fc8a992b7d3de8b50eef1c1e43f54",
+      "sha256": "8ed4fc7b455b82d02ec3c02468a524157cc59b92b8ab8c381480351068e7a1da",
       "imports": [
         {
           "specifier": "../internals/labelable-provider/LabelableProvider.svelte",
@@ -1021,7 +1021,7 @@
     },
     {
       "local": "packages/base/src/lib/field/root/FieldRootInner.svelte",
-      "sha256": "2b7d517ee5adf92dd25b91b72d9610fe572b76aac6f0330555ee62fd6b71c2f6",
+      "sha256": "0a2f3b791a35dc2389851fcc0eea1aa4920cca168325ac2deb4e2571936344a3",
       "imports": [
         {
           "specifier": "svelte",
@@ -1082,7 +1082,7 @@
     },
     {
       "local": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
-      "sha256": "8d054bd67a4ebf998426ab10d5b7ae577ccd57a21c2fab434c3a40a86ac67eae",
+      "sha256": "67db9f0b679fb50b45b1abbd2611dc523facf0b7cc9c99ace309080e97e8e267",
       "imports": [
         {
           "specifier": "@sveltery/utils/empty",
@@ -1143,7 +1143,7 @@
     },
     {
       "local": "packages/base/src/lib/field/types.ts",
-      "sha256": "25fd4710edd0d877d62c4e8874314a2c36344ad346085d5e75655ebbedf051dc",
+      "sha256": "a79a5aadac1a83ea34aea340ac80999570fe6faa859475573e9532d729dba5b7",
       "imports": [
         {
           "specifier": "svelte",
@@ -1185,7 +1185,7 @@
     },
     {
       "local": "packages/base/src/lib/field/Validity.svelte",
-      "sha256": "cd4f22fb12d808cfe1106570579811bc11edcae63d22df48fee24a5946a724a1",
+      "sha256": "e752d61d80ed73a00c06945c6b516e1feff8a690c7fccd6991d9291c7fd1f17c",
       "imports": [
         {
           "specifier": "../internals/field-root-context/FieldRootContext.js",
@@ -1211,7 +1211,7 @@
     },
     {
       "local": "packages/base/src/lib/fieldset/root/FieldsetRootContext.ts",
-      "sha256": "f5b4b87e5802c40a428e4df9463e84fd36cb649ee3cdfe6f0b153b9721e6ce6c",
+      "sha256": "1c32118a1fc683230b68f04df1e17550124710a64b7926da31c3985fdec10a4a",
       "imports": [
         {
           "specifier": "svelte",
@@ -1263,7 +1263,7 @@
     },
     {
       "local": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
-      "sha256": "60397e69780dfabab1f9ae08c5ce362b22f24faecb8aa26617ca1e144296a255",
+      "sha256": "cc303f1b22e6d03be86b2b46572c5be0e32a0d96dd1eb86649ae048cbaa0433d",
       "imports": [
         {
           "specifier": "svelte",
@@ -1326,7 +1326,7 @@
     },
     {
       "local": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
-      "sha256": "8484a9dfa0436a00fffda25ec887bfba2fe199798813dcfba70f4d00c7cabf2a",
+      "sha256": "e0478293396446e37dc6604366a3b1ba79c617068157a634f1cc6b696dca0839",
       "imports": [
         {
           "specifier": "svelte",
@@ -1398,7 +1398,7 @@
     },
     {
       "local": "packages/base/src/lib/floating-ui/types.ts",
-      "sha256": "d75465f0e2fa7f46beab37d200f2f9e5a152dd4ca4a5751e5c9ca2811caed3d5",
+      "sha256": "5c4e86d68644ba65a89798d584d75bb7c1dacde7f892c9ea9fdfdd64523d3473",
       "imports": [
         {
           "specifier": "@floating-ui/dom",
@@ -1481,7 +1481,7 @@
     },
     {
       "local": "packages/base/src/lib/floating-ui/utils/event.ts",
-      "sha256": "d1ee6542732cf647dc9a02e9f40b664de30296df7d2756744a6810e8b3447b5c",
+      "sha256": "32391b7e254d578d4a374a8f95270e0fea8c763e8f56c52db2e9931243ad5e56",
       "imports": [
         {
           "specifier": "@sveltery/utils/platform",
@@ -1514,7 +1514,7 @@
     },
     {
       "local": "packages/base/src/lib/form/Form.svelte",
-      "sha256": "ecea11e1a134f30e2fa7c83356cc7741f5e595b2c03f0eabf45e14db12242ffb",
+      "sha256": "bf01d7b059bfbf5ff90d71c041c7e8e3044baae5c08282accde06aaf44c3a3ff",
       "imports": [
         {
           "specifier": "svelte",
@@ -1595,7 +1595,7 @@
     },
     {
       "local": "packages/base/src/lib/form/types.ts",
-      "sha256": "51cb6c9cbbd82cfc923db96143f5184acb5712d5614298468c9cf391aa783f8b",
+      "sha256": "154c0cc12e464959f8c3d688ac6509af0681a514b1870aa810cac3990555d623",
       "imports": [
         {
           "specifier": "svelte",
@@ -1636,7 +1636,7 @@
     },
     {
       "local": "packages/base/src/lib/input/Input.svelte",
-      "sha256": "9280fb00668c8730bfe8d374f402a905838eee287781188b78d4cfb0c076dbfc",
+      "sha256": "a2ac495085b6256f9aa8e3ab250535ebda13bffb2c962396a90b8f6659552078",
       "imports": [
         {
           "specifier": "../field/Control.svelte",
@@ -1652,7 +1652,7 @@
     },
     {
       "local": "packages/base/src/lib/input/types.ts",
-      "sha256": "7de59df69d928c0616bdf79706be0c4c2081dcdb02b826c6b07d18e8432621b9",
+      "sha256": "cf09e16c0c095cfd4b92576fccee11ed3860b38e614bc5de6b979347ac232677",
       "imports": [
         {
           "specifier": "../field/types.js",
@@ -1663,7 +1663,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/composite/composite.ts",
-      "sha256": "938a8b4ede73c5b5655a800777fe4748a94786a05bf828129de299c04cf94673",
+      "sha256": "f4e02dc8034a749a29f2c63d12f34c25d17c73ffd4075bc31e8f4a55306c0a9e",
       "imports": [
         {
           "specifier": "../../direction-provider/types.js",
@@ -1684,7 +1684,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
-      "sha256": "4d122789e9708f4d8de1a0d137e92f22d1d4648a27132ea7d5388a6312c271e1",
+      "sha256": "cc6fb52a0a0c161bf52b52701739de6a3d6cf2df61d1e0862fb7980cc6e3d8f2",
       "imports": [
         {
           "specifier": "svelte",
@@ -1720,7 +1720,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
-      "sha256": "22fc41339049f398d359434557b63f2290e01b717d4122b3c181a16eb8ac1314",
+      "sha256": "f4373372837e7254fa6a53bbe6cb3ed2d3a9a2780ee5efe8e10154bedfdaef86",
       "imports": [
         {
           "specifier": "@sveltery/utils/useMergedRefs",
@@ -1741,7 +1741,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts",
-      "sha256": "c443b96e2b57642eed663be3a670fc7342dc4358bac081b7257bcb076c54ab17",
+      "sha256": "17e4010bda5639d8c7d200bd965ffb9f29aa06a1e83c9f6756319a2dceb1fd38",
       "imports": [
         {
           "specifier": "svelte",
@@ -1752,7 +1752,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
-      "sha256": "97758d379046d9f894997ae40ef7c6f59decf48fa0d985a2c1fb5f9f068ad016",
+      "sha256": "eb23334825782ebd6c5c2697f1aad75f6f557c1e387fa6ea0a78c276bfead975",
       "imports": [
         {
           "specifier": "svelte",
@@ -1773,7 +1773,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
-      "sha256": "e1676d4207f91d1b6f7c0b34ef8ef4e08fad4e59d53ba0815cac29ab76bdddfd",
+      "sha256": "24439ae0169b37dcf90a711cd756bb019b37426b765b7cdd002b42a172d451d5",
       "imports": [
         {
           "specifier": "svelte",
@@ -1794,7 +1794,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
-      "sha256": "8677a1a97c41cd56b8e52ac47fb40a3401ece276ebb62d83b6c3ac5cc0763bac",
+      "sha256": "aa0ec1d30f45ec09215f705a363585c5811124b6a8de1d030057cbcf43de0f6e",
       "imports": [
         {
           "specifier": "svelte",
@@ -1861,7 +1861,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/composite/root/gridNavigation.ts",
-      "sha256": "11aa223e4f95a23b0287fee822bdda9f4b37cb6d33f99d02c9f7da8964949e9f",
+      "sha256": "d2ed3a04fffe1d9d73819d40d2494ab19f5707adbe3c7bd9849a81c30977315c",
       "imports": [
         {
           "specifier": "../utils/navigation.js",
@@ -1877,7 +1877,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
-      "sha256": "2bedbf116c6e555bcae5c423771d0d5072b80e5d191bae0883624784222e8cf1",
+      "sha256": "de5c954f8c1b4fea9d8ae87eed7df97baa4d834f23d32037887c4de619adc46b",
       "imports": [
         {
           "specifier": "@sveltery/utils/useStableCallback",
@@ -1933,7 +1933,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/composite/utils/navigation.ts",
-      "sha256": "bb61a6e117cc345c347a3a29618d01e6e608ef1027b8e6464e072d8b70b4a0aa",
+      "sha256": "bcfb35db31e9b53c86be39c229e041eaaf48f82df10d4dfaac79b69ecfd5a6dd",
       "imports": [
         {
           "specifier": "esm-env",
@@ -1970,7 +1970,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/field-constants/constants.ts",
-      "sha256": "7a4e8acf35babe4f33b4850da64313dbd19be6b20cb3b4833430d103cd6bf757",
+      "sha256": "b9bd1e08d6deb13b300611745d85f94a90fe15e3170291b866ecab2b21c9e635",
       "imports": [
         {
           "specifier": "../../field/types.js",
@@ -1981,7 +1981,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/field-control-name/FieldControlNameContext.ts",
-      "sha256": "c2e281c241321a8fd4148eb0f536dabb56be359deccc0e8a5f23ec4d207c48a8",
+      "sha256": "114e7b1d6b34fb810a8dcabe6d8daca71186adcd43a8586039acc6a26bdbfd63",
       "imports": [
         {
           "specifier": "svelte",
@@ -2003,7 +2003,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts",
-      "sha256": "f953a295abb084d23186ff9bf58d38a313728b5608eb0958a737f64dcdeb4771",
+      "sha256": "e974c42d43ab99c001dde20d6340d474f4e7b86a2256a816579eb30c13c2d699",
       "imports": [
         {
           "specifier": "@sveltery/utils/useIsoLayoutEffect",
@@ -2034,7 +2034,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts",
-      "sha256": "ffdcdd66986252427ddb733e6168535889f9371f78daab52690f6a0e7dd9ce14",
+      "sha256": "f3e9676c258258c02757d83981dada85940206d0babc7c9d32ba53fbcdcf1081",
       "imports": [
         {
           "specifier": "@sveltery/utils/useIsoLayoutEffect",
@@ -2060,7 +2060,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts",
-      "sha256": "3fccbca1662ddffee226a809e42fe9219914274c2b33999771bdc974cf7362bf",
+      "sha256": "debd7e1315ceca19225b905ce507d148b1909421fc76147fc65a15a5cb3b4381",
       "imports": [
         {
           "specifier": "svelte",
@@ -2101,7 +2101,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/form-context/FormContext.ts",
-      "sha256": "3706d7f308604195eb9b141506e9a5ca86caa7460c8b33130704b6816272f074",
+      "sha256": "c27b507d54f1e74bdaf15c35959f9fd795777047030d73ba96c1e5d8d14d185d",
       "imports": [
         {
           "specifier": "svelte",
@@ -2132,7 +2132,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
-      "sha256": "e322628bb5395aa50f6686c963ed346b82a11686dd086ea4ba3c1ca47a6a57fc",
+      "sha256": "78fc903a4a0cc4e9345f045aaa3f3ffe3f9dbedfa4333fadfbb02580abc9ee07",
       "imports": [
         {
           "specifier": "@sveltery/utils/useStableCallback",
@@ -2153,7 +2153,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts",
-      "sha256": "68a95cf70657f2b4def641c4160c1bb82fe31b8794c35882d9e7b5c3ca4db937",
+      "sha256": "8ed40c64919595f22975c8a10047215c6611a3223e258205fd473efb91479f84",
       "imports": [
         {
           "specifier": "svelte",
@@ -2169,7 +2169,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/labelable-provider/LabelableProvider.svelte",
-      "sha256": "e0719f95f60e6ac6d050e92c0525f465d87c6832887515cbe62948b481915c43",
+      "sha256": "8056aab139538495cb16be9e5183d277cade00a9624af5504179996ff3a09b33",
       "imports": [
         {
           "specifier": "svelte",
@@ -2190,12 +2190,12 @@
     },
     {
       "local": "packages/base/src/lib/internals/labelable-provider/useAriaLabelledBy.svelte.ts",
-      "sha256": "bfb47e6426f7df82b1738fb2dcbef7133166addc4a7d54a84deab26655f2bf0e",
+      "sha256": "64e63e8f5290b2b9ad3d8ad7d3fc936a76401425906c31cea8cdc4c19bd8b7ec",
       "imports": []
     },
     {
       "local": "packages/base/src/lib/internals/labelable-provider/useLabel.svelte.ts",
-      "sha256": "fea67d61c989c64cbcf936e81cb03c8c9e75d36c41343e77e90c110cdac18e64",
+      "sha256": "35a056abd55173d32a0833df6ee0ed41006ca9e9d4eefaee38a2276fc01e3f19",
       "imports": [
         {
           "specifier": "@sveltery/utils/owner",
@@ -2226,7 +2226,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
-      "sha256": "58fdfd620eb3629df76832878feb46704e24cdcaed2419dbbfb3f37ba133c80c",
+      "sha256": "07725cfaf0cc18622fdf5500907012bd6d09de7824c5102bacf9871d647c0b4a",
       "imports": [
         {
           "specifier": "svelte",
@@ -2262,7 +2262,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/nativeProps.ts",
-      "sha256": "fbb6178288b28dad7549551064e30bf2b432880f1a5b2476223b011f9e72a71a",
+      "sha256": "4c1f8df953df631d3b410b9a12e48e156ad90bcd5fef6feaec97a4426068ec29",
       "imports": [
         {
           "specifier": "svelte/elements",
@@ -2283,7 +2283,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-      "sha256": "659427aaebb2b294178e5ccd147f6cbb4cb87a9704c18c62ff04a2847a7e1a56",
+      "sha256": "ab007711c5ea5bd558b06a704c5f06c2c37e46ff52b547c01c14e119116402d9",
       "imports": [
         {
           "specifier": "svelte",
@@ -2315,7 +2315,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/RenderElement.svelte",
-      "sha256": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5",
+      "sha256": "7468c314806abe0b4ed1fc2dd95d3a2defd6e86a9021012ced3f0154d0028daa",
       "imports": [
         {
           "specifier": "svelte",
@@ -2398,7 +2398,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/types.ts",
-      "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
+      "sha256": "6a36f5f103ef940b8a32d63f0288d897096c846fb2361b4ef44733e9a899907e",
       "imports": [
         {
           "specifier": "svelte",
@@ -2424,7 +2424,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
-      "sha256": "f56c35343595eafbb9a37d5313b6e9b95129b875a537790667fa32fd4f71b4b2",
+      "sha256": "e56dc193c3f2b1317916711b4b9f549ccfc49e60ac13cf10842c5ab5cc8be68a",
       "imports": [
         {
           "specifier": "esm-env",
@@ -2475,7 +2475,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/useAnimationsFinished.ts",
-      "sha256": "64ae89e2c4d398aa049822f4223967202426aa027591a657caf4bf6f4859a2aa",
+      "sha256": "31222cee2d8d0e15af4b6c9e7bb4fdc5293942b3ab1e2d4a651d84a63b5e5c26",
       "imports": [
         {
           "specifier": "svelte",
@@ -2517,7 +2517,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
-      "sha256": "e84d8a671d521e64183800bc048aa6471f627913efc5015cc74ddd34e2b87973",
+      "sha256": "f2de05237ca0eb539c18480d9245c10c4cbc6064ac24615e57e8d229ae5f2538",
       "imports": [
         {
           "specifier": "@sveltery/utils/useStableCallback",
@@ -2538,7 +2538,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/useRenderElement.ts",
-      "sha256": "d344184b30e91d54544e9c5b00583679762e0ec099306e9a682df8426655c31a",
+      "sha256": "851c5b39cef485c29b87f7f006daa9763dc3a131ac45c6c6f72d9b4b978ca617",
       "imports": [
         {
           "specifier": "@sveltery/utils/useMergedRefs",
@@ -2594,7 +2594,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
-      "sha256": "87ad2d4de3657585d704d2bd7137a65545e8c471d62d0e51349c2ca17f8daa7d",
+      "sha256": "e7b8958ce0c77110534a4179e0a8d3fdc35276021b9bf87d47d7addccc10c0ab",
       "imports": [
         {
           "specifier": "svelte",
@@ -2615,7 +2615,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/useValueChanged.svelte.ts",
-      "sha256": "f760d2e83ee33789ae5bfec715308cfc78253eda0fcbd34052bdcad44ce24991",
+      "sha256": "60f5b1675968fbdfd54c892217932b3d0592b1fa41f0cbcd5c03b097b84ee66a",
       "imports": [
         {
           "specifier": "svelte",
@@ -2652,7 +2652,7 @@
     },
     {
       "local": "packages/base/src/lib/merge-props/mergeProps.ts",
-      "sha256": "110f1b7615a7ccadcfc1e8775451eea5f9ca971bcafee6f3ffd4ea8470303d00",
+      "sha256": "1b758134ab0efecd9601638e928440561944d226e5ebb9276d39723738d0301a",
       "imports": [
         {
           "specifier": "../internals/nativeProps.js",
@@ -2668,7 +2668,7 @@
     },
     {
       "local": "packages/base/src/lib/radio-group/RadioGroup.svelte",
-      "sha256": "209b8af2ab5962c97a438df46b6030d503a52eb94547d2f3040b0b868ea5d4f6",
+      "sha256": "b20f9047e8f767f3461da6fe60786e37c1a5d7cf8f2a519229b019adfd2383a3",
       "imports": [
         {
           "specifier": "../internals/composite/root/CompositeRoot.svelte",
@@ -2759,7 +2759,7 @@
     },
     {
       "local": "packages/base/src/lib/radio-group/RadioGroupContext.ts",
-      "sha256": "ee7ed5ba1e96b9637c051ba48cb408d2096a5d7cd4dce7b9f22bf5c74636070b",
+      "sha256": "77c147ea3572ea608c8f739873689f79a4949d9004913a6a130aeff66f5c4091",
       "imports": [
         {
           "specifier": "svelte",
@@ -2780,7 +2780,7 @@
     },
     {
       "local": "packages/base/src/lib/radio-group/types.ts",
-      "sha256": "3fd357373fb92f64f44789b1142e833b89574aa16997d6acfc41fd5022584359",
+      "sha256": "4ecd6df753f227bfa7972e5a7fee8449ec0c50b15312fb43e31e5eb8fd99021e",
       "imports": [
         {
           "specifier": "svelte",
@@ -2816,7 +2816,7 @@
     },
     {
       "local": "packages/base/src/lib/radio/root/RadioRoot.svelte",
-      "sha256": "4e3285f7e643e0225eac81efc4c1dfc710c71e5fcab6c34cbe1701560335e503",
+      "sha256": "9876000d1771619f8c403906941c83e84dc87bbd203a61ce44d93b15dfb91d3d",
       "imports": [
         {
           "specifier": "../../internals/RenderElement.svelte",
@@ -2979,7 +2979,7 @@
     },
     {
       "local": "packages/base/src/lib/radio/types.ts",
-      "sha256": "31a5a19b9e6d9692fea53bfc9018f22608e66baf052d158003c85dbe356a8435",
+      "sha256": "152408f31116e130aa56143024748172185ae7ce2aa559d9308be50bd1382731",
       "imports": [
         {
           "specifier": "svelte",
@@ -3015,7 +3015,7 @@
     },
     {
       "local": "packages/base/src/lib/remote-forms/control.types.ts",
-      "sha256": "00cf77f4cb8b407b63862f741bb8249dcc32d6eaf78e99324a99f860c67c9874",
+      "sha256": "4d0ac64094e492054a072907145e762810c2c6e582d7cdb412b44b81352512b7",
       "imports": [
         {
           "specifier": "svelte",
@@ -3072,7 +3072,7 @@
     },
     {
       "local": "packages/base/src/lib/remote-forms/nativeControlValue.ts",
-      "sha256": "620730edb668abb6f6ccc07f880e7000c6456c7f710a0031490c7feb66aa7072",
+      "sha256": "55d6f47cdef93ff1cd8b2e910ce7508d58a0a0e6a90a1e68c71ccfb04bc80468",
       "imports": [
         {
           "specifier": "../field/root/useFieldValidation.svelte.js",
@@ -3083,7 +3083,7 @@
     },
     {
       "local": "packages/base/src/lib/remote-forms/RemoteBooleanControl.svelte",
-      "sha256": "2ec88d564588075320eafa7929bdcf82f3930eb067632875a8052244e804c068",
+      "sha256": "41b2cc410f53cb5ca34fe5b55ea7fae7278f55e840293f6864c7a3bb5db14762",
       "imports": [
         {
           "specifier": "../checkbox/root/CheckboxRoot.svelte",
@@ -3134,7 +3134,7 @@
     },
     {
       "local": "packages/base/src/lib/remote-forms/RemoteControl.svelte",
-      "sha256": "a2c3bf73969d002f99e7571df274a77d97d0603ec1d8c517901992ca58312527",
+      "sha256": "be1fd5aabf487da6bc0a3873dc8067432d87ba71a9b62e72db46bfc5c7d7d324",
       "imports": [
         {
           "specifier": "./RemoteTextControl.svelte",
@@ -3197,7 +3197,7 @@
     },
     {
       "local": "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte",
-      "sha256": "744026bbb8aecaecc8cf4d9ac583a39b9cebc2480d6c54b28b77257cd84e39ca",
+      "sha256": "4c05c8b1998088db443f605bf1df7ea59443a91190477b9d25958e2d30688111",
       "imports": [
         {
           "specifier": "../internals/RenderElement.svelte",
@@ -3333,7 +3333,7 @@
     },
     {
       "local": "packages/base/src/lib/remote-forms/RemoteRoot.svelte",
-      "sha256": "f71fbc4d572479119a9d30646d1011637d9c3f11a0ac8c2944b8b93747de200f",
+      "sha256": "fb93fdc7ada56ee62ab11d8af1578c9293f01ec64f889b51df3acf18ee4671dc",
       "imports": [
         {
           "specifier": "../field/Root.svelte",
@@ -3369,7 +3369,7 @@
     },
     {
       "local": "packages/base/src/lib/remote-forms/RemoteTextControl.svelte",
-      "sha256": "46a8443f2c9dafaef3dee6635550a8d76a6a275e12e6311e2ab726f8dcfeaa7f",
+      "sha256": "41c6eb8f993a6e77bbb161b6b80e815546e647e7d40a3f8d1002eaeea9b5707b",
       "imports": [
         {
           "specifier": "../field/Control.svelte",
@@ -3415,7 +3415,7 @@
     },
     {
       "local": "packages/base/src/lib/remote-forms/runtime.ts",
-      "sha256": "8e0b21e16d8706f7eb835c61df55e2caed81e86be2837006364721cf89806782",
+      "sha256": "b141d1d73ee60659e4f6bb2db846520942971ce2d4eb6cd088b1c09693629fad",
       "imports": [
         {
           "specifier": "../form/types.js",
@@ -3431,7 +3431,7 @@
     },
     {
       "local": "packages/base/src/lib/remote-forms/types.ts",
-      "sha256": "d8acd95ea2deb62f2db7a96276100d6820c8e3fe262b4ccffa4dbc97c6956d33",
+      "sha256": "464d34eb6456a2d8741d1b261d0bbb1e23597d540068d1bcc329f745336f485f",
       "imports": [
         {
           "specifier": "svelte",
@@ -3452,7 +3452,7 @@
     },
     {
       "local": "packages/base/src/lib/switch/root/SwitchRoot.svelte",
-      "sha256": "b72da7f12b2630f8ab52caf25811b8943bd2e4849b5e5c904f0275b139bd6777",
+      "sha256": "c395aec6f4383b66ef21b0432186c0060799a38647deeabe2f685078c0028f68",
       "imports": [
         {
           "specifier": "../../internals/field-control-name/FieldControlNameContext.js",
@@ -3625,7 +3625,7 @@
     },
     {
       "local": "packages/base/src/lib/switch/types.ts",
-      "sha256": "8e7c6c4c83af4823a8d15e05085f52cd3b1d0397ff474b28c80849c826613676",
+      "sha256": "864d8fb053568b4cd5003b2ab3250ada483f9e554edd75323462b9c8b7141235",
       "imports": [
         {
           "specifier": "svelte",
@@ -3672,7 +3672,7 @@
     },
     {
       "local": "packages/base/src/lib/utils/NullStore.svelte.ts",
-      "sha256": "6192e6fd5b423b4f5f8557c9faaf785c300be4ac55251b73e4dae6126cf96059",
+      "sha256": "f23ac9ae6b5303aa9adf6499e3101c06fa981a516e6d22e95f981903674ec49c",
       "imports": [
         {
           "specifier": "@sveltery/utils/store",
@@ -3704,7 +3704,7 @@
     },
     {
       "local": "packages/base/src/lib/utils/popups/popupHandle.svelte.ts",
-      "sha256": "5d8a5b18004cfac22fdac1839a0afd1a8b8b41089368b2642e8c567546a77998",
+      "sha256": "c3a56400141a1075b20c783a5da24f827911b7d622c5eb92f78a4cf1f49da778",
       "imports": [
         {
           "specifier": "esm-env",
@@ -3740,7 +3740,7 @@
     },
     {
       "local": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
-      "sha256": "94f6c79bd82778fec3c2df4a420645acc9aa0531b66e709eed971d360b24283e",
+      "sha256": "3807cd539769eec5cb365fc251cc6a27c8a4bc8d21c0e4cdee13c9109b0ece8f",
       "imports": [
         {
           "specifier": "svelte",
@@ -3869,7 +3869,7 @@
     },
     {
       "local": "packages/base/src/lib/utils/resolveRef.ts",
-      "sha256": "ac85daa436a61800f824aa34ea08ff4cbe492c86c12be327de957a381acddaa7",
+      "sha256": "d8500030750c389af091f3f4f43b100f675772f3d22b6f1699a29db80d564d0a",
       "imports": []
     },
     {
@@ -3885,7 +3885,7 @@
     },
     {
       "local": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
-      "sha256": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c",
+      "sha256": "f30838a56f41ea3672d26627fb42145d016e3b54b512c4c381e6aafb05431db2",
       "imports": [
         {
           "specifier": "../internals/types.js",
@@ -3896,7 +3896,7 @@
     },
     {
       "local": "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
-      "sha256": "42f32745d82df92f04c76f0cafc86ca93349c4cc6f685af361a46c249d054b1c",
+      "sha256": "851ed017e1457ae74f60007d4577c956ad0bef3134ef752998e6910ea7133362",
       "imports": [
         {
           "specifier": "@sveltery/utils/useIsoLayoutEffect",
@@ -3944,7 +3944,7 @@
     },
     {
       "local": "packages/utils/src/lib/getDefaultFormSubmitter.ts",
-      "sha256": "15c7fb04d8bacba3abc5f4f2329a3c083892e9169689a2eab60104c3517688e4",
+      "sha256": "f4ea7f1a3eaa207bdab550567cf326c924d069c5148f1c24e91ccd192a8c05b8",
       "imports": []
     },
     {
@@ -4072,7 +4072,7 @@
     },
     {
       "local": "packages/utils/src/lib/shadowDom.ts",
-      "sha256": "5c922c6a0b4cbfd31bb463e486f45524de328687376d622527a5e6cdf12cb8f2",
+      "sha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a",
       "imports": [
         {
           "specifier": "@floating-ui/utils/dom",
@@ -4099,12 +4099,12 @@
     },
     {
       "local": "packages/utils/src/lib/store/Store.svelte.ts",
-      "sha256": "cb14e7e3e12bffcb353761c48bc275e41949bad5706860f0d877ea3344e0b600",
+      "sha256": "289f1c151106f981843140b9d508d300597ee1f5a90437dca446738b861cad3c",
       "imports": []
     },
     {
       "local": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
-      "sha256": "cbc2de3e2d78c8cb79bab4613c5f490d799d32f5e3de6d39f51ccc3fa995ca9f",
+      "sha256": "0da85c6816b78b849db5378755cee67272a3af3fbdedd57060b1b46fe2186556",
       "imports": [
         {
           "specifier": "svelte",
@@ -4130,7 +4130,7 @@
     },
     {
       "local": "packages/utils/src/lib/useAnimationFrame.ts",
-      "sha256": "d662506c6d7bd1f69b87ea59f3bd7445c413474de2fcda723d1e3248215c9267",
+      "sha256": "07601e67af74f8cb6151f78cc525075cb25202476684199510aa8ac60f629aea",
       "imports": [
         {
           "specifier": "esm-env",
@@ -4151,7 +4151,7 @@
     },
     {
       "local": "packages/utils/src/lib/useControlled.svelte.ts",
-      "sha256": "21543b53992d1f3856e83251c03329d7c558ee5c5637aa8d42f18bc359843705",
+      "sha256": "44a226c403bbe09dc85dec853303244f0c95ab94a708c3c599f606f4f93afd2f",
       "imports": [
         {
           "specifier": "esm-env",
@@ -4177,7 +4177,7 @@
     },
     {
       "local": "packages/utils/src/lib/useId.ts",
-      "sha256": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90",
+      "sha256": "584864eb7f538f5adc40ab128461db75c960984c51265aead1ca3821e4bf879a",
       "imports": []
     },
     {
@@ -4193,7 +4193,7 @@
     },
     {
       "local": "packages/utils/src/lib/useMergedRefs.ts",
-      "sha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
+      "sha256": "0c41f7c8a065fa8a464f56852ba4c8196d51865905a5277f139ebaaa4b81ce1b",
       "imports": [
         {
           "specifier": "./useRefWithInit.js",

@@ -1,7 +1,6 @@
 // Mechanically ported from Base UI v1.8.0 useFieldControlRegistration.ts.
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
 
-
 import { getCombinedFieldValidityData } from '../../field/utils/getCombinedFieldValidityData.js';
 import { useFormContext } from '../form-context/FormContext.js';
 import type { FieldValidityData } from '../../field/types.js';
@@ -14,7 +13,6 @@ export interface FieldControlRegistration {
 }
 
 export function useFieldControlRegistration(params: UseFieldControlRegistrationParameters) {
-
   const { formRef } = useFormContext();
 
   const activeFieldControlSourceRef = { current: null as symbol | null };
@@ -119,40 +117,40 @@ export function useFieldControlRegistration(params: UseFieldControlRegistrationP
   });
 
   const register = (source: symbol, registration: FieldControlRegistration | undefined) => {
-      if (!registration) {
-        if (activeFieldControlSourceRef.current === source) {
-          activeFieldControlSourceRef.current = null;
-          params.change(undefined, true);
-          deleteRegistration();
-          registrationRef.current = null;
-          params.setRegisteredFieldName(undefined);
-          params.registeredFieldIdRef.current = undefined;
-        }
-        return;
-      }
-
-      const previousId = registrationRef.current?.id;
-      const previousSource = activeFieldControlSourceRef.current;
-
-      // Drop work owned by a replaced control, but not on first registration.
-      if (previousSource && previousSource !== source) {
+    if (!registration) {
+      if (activeFieldControlSourceRef.current === source) {
+        activeFieldControlSourceRef.current = null;
         params.change(undefined, true);
+        deleteRegistration();
+        registrationRef.current = null;
+        params.setRegisteredFieldName(undefined);
+        params.registeredFieldIdRef.current = undefined;
       }
+      return;
+    }
 
-      activeFieldControlSourceRef.current = source;
-      registrationRef.current = registration;
-      if (!params.name) {
-        params.setRegisteredFieldName(registration.name);
-      }
-      params.registeredFieldIdRef.current = registration.id;
+    const previousId = registrationRef.current?.id;
+    const previousSource = activeFieldControlSourceRef.current;
 
-      if (previousId && previousId !== registration.id) {
-        deleteRegistration(previousId);
-      }
+    // Drop work owned by a replaced control, but not on first registration.
+    if (previousSource && previousSource !== source) {
+      params.change(undefined, true);
+    }
 
-      captureInitialValue(registration);
-      refreshRegistration();
-    };
+    activeFieldControlSourceRef.current = source;
+    registrationRef.current = registration;
+    if (!params.name) {
+      params.setRegisteredFieldName(registration.name);
+    }
+    params.registeredFieldIdRef.current = registration.id;
+
+    if (previousId && previousId !== registration.id) {
+      deleteRegistration(previousId);
+    }
+
+    captureInitialValue(registration);
+    refreshRegistration();
+  };
 
   return [validate, register] as const;
 }
@@ -165,6 +163,8 @@ export interface UseFieldControlRegistrationParameters {
   readonly name: string | undefined;
   setRegisteredFieldName(name: string | undefined): void;
   registeredFieldIdRef: { current: string | undefined };
-  setValidityData(data: FieldValidityData | ((previous: FieldValidityData) => FieldValidityData)): void;
+  setValidityData(
+    data: FieldValidityData | ((previous: FieldValidityData) => FieldValidityData),
+  ): void;
   readonly validityData: FieldValidityData;
 }

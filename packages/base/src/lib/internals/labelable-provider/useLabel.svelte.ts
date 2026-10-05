@@ -28,7 +28,9 @@ export function useLabel(getParams: () => UseLabelParameters, nativeId: string) 
       return;
     }
     if (!resolvedControlId) return;
-    const controlElement = ownerDocument(event.currentTarget as Element).getElementById(resolvedControlId);
+    const controlElement = ownerDocument(event.currentTarget as Element).getElementById(
+      resolvedControlId,
+    );
     // Native realm-safe HTMLElement check replaces @floating-ui/utils/dom's framework dependency.
     const view = controlElement?.ownerDocument.defaultView;
     if (controlElement && view && controlElement instanceof view.HTMLElement) {
@@ -44,12 +46,21 @@ export function useLabel(getParams: () => UseLabelParameters, nativeId: string) 
     focusControl(event);
   }
 
-  const props = $derived(getParams().native ? {
-    id: getId(), for: resolvedControlId, onmousedown: handleInteraction,
-  } : {
-    id: getId(), onclick: handleInteraction,
-    onpointerdown(event: PointerEvent) { event.preventDefault(); },
-  });
+  const props = $derived(
+    getParams().native
+      ? {
+          id: getId(),
+          for: resolvedControlId,
+          onmousedown: handleInteraction,
+        }
+      : {
+          id: getId(),
+          onclick: handleInteraction,
+          onpointerdown(event: PointerEvent) {
+            event.preventDefault();
+          },
+        },
+  );
   return () => props;
 }
 

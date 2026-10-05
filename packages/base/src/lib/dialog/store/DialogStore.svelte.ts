@@ -32,7 +32,8 @@ type Context = PopupStoreContext<DialogRootChangeEventDetails> & {
   readonly backdropRef: { current: HTMLDivElement | null };
   readonly internalBackdropRef: { current: HTMLDivElement | null };
   readonly outsidePressEnabledRef: { current: boolean };
-  onInternalOpenChange?: ((open: boolean, details: DialogRootChangeEventDetails) => void) | undefined;
+  onInternalOpenChange?:
+    ((open: boolean, details: DialogRootChangeEventDetails) => void) | undefined;
   onNestedDialogOpen?: ((dialogCount: number, drawerCount: number) => void) | undefined;
 };
 

@@ -7,17 +7,11 @@ it('activates the public native Button through pointer and keyboard input', asyn
   render(PublicButton);
   const action = page.getByRole('button', { name: 'Public action' });
 
-  await expect
-    .element(page.getByLabelText('Bound host'))
-    .toHaveTextContent('BUTTON');
+  await expect.element(page.getByLabelText('Bound host')).toHaveTextContent('BUTTON');
   await action.click();
-  await expect
-    .element(page.getByLabelText('Activations'))
-    .toHaveTextContent('1');
+  await expect.element(page.getByLabelText('Activations')).toHaveTextContent('1');
   await userEvent.keyboard('{Enter}');
-  await expect
-    .element(page.getByLabelText('Activations'))
-    .toHaveTextContent('2');
+  await expect.element(page.getByLabelText('Activations')).toHaveTextContent('2');
 });
 
 it('updates native disabled state and clears the bound host on removal', async () => {
@@ -26,12 +20,8 @@ it('updates native disabled state and clears the bound host on removal', async (
 
   await page.getByRole('button', { name: 'Disable action' }).click();
   await expect.element(action).toBeDisabled();
-  await expect
-    .element(page.getByLabelText('Activations'))
-    .toHaveTextContent('0');
+  await expect.element(page.getByLabelText('Activations')).toHaveTextContent('0');
   await page.getByRole('button', { name: 'Remove action' }).click();
   await expect.element(action).not.toBeInTheDocument();
-  await expect
-    .element(page.getByLabelText('Bound host'))
-    .toHaveTextContent('none');
+  await expect.element(page.getByLabelText('Bound host')).toHaveTextContent('none');
 });

@@ -7,11 +7,33 @@
   import { usePreviewCardRootContext, usePreviewCardPortalContext } from './context.js';
   import { providePreviewCardPositionerContext } from './positioner/PreviewCardPositionerContext.js';
   import type { PreviewCardPositionerProps, PreviewCardPositionerState } from './types.js';
-  import { useFloatingNodeId, provideFloatingNode } from '../floating-ui/components/FloatingTree.svelte.js';
+  import {
+    useFloatingNodeId,
+    provideFloatingNode,
+  } from '../floating-ui/components/FloatingTree.svelte.js';
   import { createInlineMiddleware } from '../utils/popups/inlineRect.js';
 
-  // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
-  let { render, class: className, style, children, ref = $bindable(), anchor, positionMethod = 'absolute', side = 'bottom', align = 'center', sideOffset = 0, alignOffset = 0, collisionBoundary = 'clipping-ancestors', collisionPadding = 5, arrowPadding = 5, sticky = false, disableAnchorTracking = false, collisionAvoidance = POPUP_COLLISION_AVOIDANCE, ...elementProps }: PreviewCardPositionerProps = $props();
+  let {
+    render,
+    class: className,
+    style,
+    children,
+    // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
+    ref = $bindable(),
+    anchor,
+    positionMethod = 'absolute',
+    side = 'bottom',
+    align = 'center',
+    sideOffset = 0,
+    alignOffset = 0,
+    collisionBoundary = 'clipping-ancestors',
+    collisionPadding = 5,
+    arrowPadding = 5,
+    sticky = false,
+    disableAnchorTracking = false,
+    collisionAvoidance = POPUP_COLLISION_AVOIDANCE,
+    ...elementProps
+  }: PreviewCardPositionerProps = $props();
   const store = usePreviewCardRootContext();
   const portal = usePreviewCardPortalContext();
   const open = $derived(store.select('open'));
@@ -24,16 +46,58 @@
   const nodeId = useFloatingNodeId(nativeNodeId);
   const inline = createInlineMiddleware(store.context.inlineRectCoordsRef);
   const positioning = useAnchorPositioning(() => ({
-    anchor, floatingRootContext, open, mounted, positionMethod, side, align, sideOffset, alignOffset,
-    collisionBoundary, collisionPadding, arrowPadding, sticky, disableAnchorTracking,
-    keepMounted: portal.keepMounted, collisionAvoidance, adaptiveOrigin, nodeId, inline,
+    anchor,
+    floatingRootContext,
+    open,
+    mounted,
+    positionMethod,
+    side,
+    align,
+    sideOffset,
+    alignOffset,
+    collisionBoundary,
+    collisionPadding,
+    arrowPadding,
+    sticky,
+    disableAnchorTracking,
+    keepMounted: portal.keepMounted,
+    collisionAvoidance,
+    adaptiveOrigin,
+    nodeId,
+    inline,
   }));
-  $effect(() => { if (open && mounted) positioning.update(); });
-  const state: PreviewCardPositionerState = $derived({ open, side: positioning.side, align: positioning.align, anchorHidden: positioning.anchorHidden, instant: instantType });
-  const forwardedRef = (node: HTMLElement | null) => { ref = node; };
+  $effect(() => {
+    if (open && mounted) positioning.update();
+  });
+  const state: PreviewCardPositionerState = $derived({
+    open,
+    side: positioning.side,
+    align: positioning.align,
+    anchorHidden: positioning.anchorHidden,
+    instant: instantType,
+  });
+  const forwardedRef = (node: HTMLElement | null) => {
+    ref = node;
+  };
   const setPositionerElement = store.useStateSetter('positionerElement');
-  const element = usePositioner(() => state, () => ({ styles: positioning.positionerStyles, transitionStatus, props: elementProps, refs: [forwardedRef, setPositionerElement], hidden: !mounted, inert: !open }));
+  const element = usePositioner(
+    () => state,
+    () => ({
+      styles: positioning.positionerStyles,
+      transitionStatus,
+      props: elementProps,
+      refs: [forwardedRef, setPositionerElement],
+      hidden: !mounted,
+      inert: !open,
+    }),
+  );
   providePreviewCardPositionerContext(positioning);
   provideFloatingNode(() => nodeId);
 </script>
-<RenderElement tag="div" componentProps={{ render, class: className, style }} params={element.params} {children} />
+
+<RenderElement
+  tag="div"
+  componentProps={{ render, class: className, style }}
+  params={element.params}
+  {children}
+/>

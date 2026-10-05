@@ -147,7 +147,8 @@
     "test": "pnpm run test:unit --run",
     "test:unit": "vitest --project server",
     "test:dom": "vitest run --project dom",
-    "test:component": "vitest run --project client"
+    "test:component": "vitest run --project client",
+    "package:watch": "svelte-package --watch"
   },
   "peerDependencies": {
     "svelte": "^5.57.1"

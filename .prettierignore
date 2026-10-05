@@ -17,3 +17,6 @@ parity/
 
 # Static files are served without source formatting.
 **/static/
+
+# Historical bootstrap checkpoint; preserve its original evidence bytes.
+docs/verification.md

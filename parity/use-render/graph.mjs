@@ -1,12 +1,13 @@
 import { resolveNativePackageSource } from '../../scripts/native-package-source.mjs';
 // Actual used UseRender runtime/type closure; source evidence adds no assertion credit.
-import ts from '../../packages/base/node_modules/typescript/lib/typescript.js';
+import { createRequire } from 'node:module';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, relative, resolve } from 'node:path';
 
 const root = resolve(import.meta.dirname, '../..');
+const ts = createRequire(new URL('../../packages/base/package.json', import.meta.url))('typescript');
 const destination = resolve(import.meta.dirname, 'source-graph.json');
 const graph = JSON.parse(readFileSync(destination, 'utf8'));
 const shared = JSON.parse(readFileSync(resolve(root, 'parity/rendering/source-graph.json'), 'utf8')).localClosure;

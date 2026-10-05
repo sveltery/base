@@ -4,7 +4,9 @@ import { useBaseUiId } from '../internals/useBaseUiId.js';
 
 export function useRegisteredLabelId(
   getIdProp: () => string | undefined,
-  setLabelId: (value: string | undefined | ((previous: string | undefined) => string | undefined)) => void,
+  setLabelId: (
+    value: string | undefined | ((previous: string | undefined) => string | undefined),
+  ) => void,
   nativeId: string,
 ) {
   const id = $derived(useBaseUiId(getIdProp(), nativeId));
@@ -12,7 +14,7 @@ export function useRegisteredLabelId(
     const installedId = id;
     setLabelId(installedId);
     return () => {
-      setLabelId((currentId) => currentId === installedId ? undefined : currentId);
+      setLabelId((currentId) => (currentId === installedId ? undefined : currentId));
     };
   });
   return () => id;

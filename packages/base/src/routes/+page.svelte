@@ -6,10 +6,7 @@
 
 <svelte:head>
   <title>Sveltery library preview</title>
-  <meta
-    name="description"
-    content="Local preview of the public Sveltery component library."
-  />
+  <meta name="description" content="Local preview of the public Sveltery component library." />
 </svelte:head>
 
 <main>
@@ -18,8 +15,6 @@
   <Button onclick={() => clicks++}>Activate button</Button>
   <p aria-live="polite">Activations: {clicks}</p>
   <p>
-    <a href="https://github.com/sveltery/base"
-      >Source and compatibility documentation</a
-    >
+    <a href="https://github.com/sveltery/base">Source and compatibility documentation</a>
   </p>
 </main>

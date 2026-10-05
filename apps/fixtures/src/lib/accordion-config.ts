@@ -9,20 +9,77 @@ export const accordionCss = `
 @keyframes accordion-down {from {height:0} to {height:var(--accordion-panel-height)}}
 `;
 export function accordionConfig(scenario: string) {
-  const initial = ['aria', 'manual-panel', 'manual-trigger', 'trigger-change', 'trigger-remove', 'parts', 'hydration', 'default-custom', 'disabled-root-state', 'disabled-item-state', 'cancel-root-close', 'cancel-multiple-close', 'switch', 'ids', 'indexes', 'replacement', 'ssr-inline', 'no-motion-status', 'remove-close'].includes(scenario);
-  const customValues = ['default-custom', 'controlled-custom', 'values-custom', 'values-single'].includes(scenario);
+  const initial = [
+    'aria',
+    'manual-panel',
+    'manual-trigger',
+    'trigger-change',
+    'trigger-remove',
+    'parts',
+    'hydration',
+    'default-custom',
+    'disabled-root-state',
+    'disabled-item-state',
+    'cancel-root-close',
+    'cancel-multiple-close',
+    'switch',
+    'ids',
+    'indexes',
+    'replacement',
+    'ssr-inline',
+    'no-motion-status',
+    'remove-close',
+  ].includes(scenario);
+  const customValues = [
+    'default-custom',
+    'controlled-custom',
+    'values-custom',
+    'values-single',
+  ].includes(scenario);
   return {
-    initial, customValues,
-    values: customValues ? [scenario === 'default-custom' ? 'first' : 'one', scenario === 'default-custom' ? 'second' : 'two'] : [0, 1],
-    implicit: ['uncontrolled', 'multiple', 'single', 'custom', 'keyboard-native', 'keyboard-custom', 'item-state', 'timing-native', 'timing-custom'].includes(scenario),
-    controlled: scenario.startsWith('controlled') || ['cancel-item-controlled', 'cancel-root-controlled'].includes(scenario),
-    multiple: ['multiple', 'values-default', 'values-custom', 'cancel-multiple-open', 'cancel-multiple-close'].includes(scenario),
+    initial,
+    customValues,
+    values: customValues
+      ? [
+          scenario === 'default-custom' ? 'first' : 'one',
+          scenario === 'default-custom' ? 'second' : 'two',
+        ]
+      : [0, 1],
+    implicit: [
+      'uncontrolled',
+      'multiple',
+      'single',
+      'custom',
+      'keyboard-native',
+      'keyboard-custom',
+      'item-state',
+      'timing-native',
+      'timing-custom',
+    ].includes(scenario),
+    controlled:
+      scenario.startsWith('controlled') ||
+      ['cancel-item-controlled', 'cancel-root-controlled'].includes(scenario),
+    multiple: [
+      'multiple',
+      'values-default',
+      'values-custom',
+      'cancel-multiple-open',
+      'cancel-multiple-close',
+    ].includes(scenario),
     custom: ['custom', 'keyboard-custom', 'timing-custom'].includes(scenario),
     rootDisabled: ['disabled-root-state', 'disabled-root'].includes(scenario),
     itemDisabled: ['disabled-item-state', 'disabled-item'].includes(scenario),
     rootKeep: ['root-keep', 'root-hidden', 'root-warning'].includes(scenario),
     rootHidden: ['root-hidden', 'root-warning'].includes(scenario),
-    keep: ['switch', 'indexes', 'replacement', 'ids', 'important', 'no-motion-status'].includes(scenario),
-    hidden: ['panel-warning', 'beforematch', 'replaced-host', 'replaced-hidden-boolean', 'replaced-hidden-override'].includes(scenario),
+    keep: ['switch', 'indexes', 'replacement', 'ids', 'important', 'no-motion-status'].includes(
+      scenario,
+    ),
+    hidden: [
+      'panel-warning',
+      'beforematch',
+      'replaced-host',
+      'replaced-hidden-boolean',
+      'replaced-hidden-override',
+    ].includes(scenario),
   };
 }

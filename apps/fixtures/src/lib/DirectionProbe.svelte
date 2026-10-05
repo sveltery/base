@@ -4,7 +4,9 @@
   const direction = useDirection();
   let observed = $state('');
   function readAcrossWrite() {
-    const before = direction(); beforeRead?.(); observed = `${before}|${direction()}`;
+    const before = direction();
+    beforeRead?.();
+    observed = `${before}|${direction()}`;
   }
 </script>
 

@@ -14,10 +14,7 @@ import { createAttribute } from '../utils/createAttribute.js';
 import { usePortalContext } from '../components/FloatingPortalContext.js';
 
 export type PortalContainer =
-  | HTMLElement
-  | ShadowRoot
-  | { current: HTMLElement | ShadowRoot | null }
-  | null;
+  HTMLElement | ShadowRoot | { current: HTMLElement | ShadowRoot | null } | null;
 
 export interface UseFloatingPortalNodeProps<State extends object> {
   ref?: MergedRef<HTMLElement> | undefined;
@@ -48,43 +45,82 @@ export function useFloatingPortalNode<State extends object = Record<string, neve
   let containerRef: HTMLElement | ShadowRoot | null = null;
   $effect(() => {
     if (container === null) {
-      if (containerRef) { containerRef = null; portalNode = null; containerElement = null; }
+      if (containerRef) {
+        containerRef = null;
+        portalNode = null;
+        containerElement = null;
+      }
       return;
     }
-    const resolvedContainer = (container && (isNode(container) ? container : container.current)) ?? parentPortal?.portalNode ?? document.body;
+    const resolvedContainer =
+      (container && (isNode(container) ? container : container.current)) ??
+      parentPortal?.portalNode ??
+      document.body;
     if (resolvedContainer == null) {
-      if (containerRef) { containerRef = null; portalNode = null; containerElement = null; }
+      if (containerRef) {
+        containerRef = null;
+        portalNode = null;
+        containerElement = null;
+      }
       return;
     }
-    if (containerRef !== resolvedContainer) { containerRef = resolvedContainer; portalNode = null; containerElement = resolvedContainer; }
+    if (containerRef !== resolvedContainer) {
+      containerRef = resolvedContainer;
+      portalNode = null;
+      containerElement = resolvedContainer;
+    }
   });
   function portalRef(node: HTMLElement | null) {
     portalNode = node;
-    if (!node) { portalNodeId = undefined; return; }
+    if (!node) {
+      portalNodeId = undefined;
+      return;
+    }
     // Opaque Svelte snippets own their native element/id. Observe the actual host, including replacement ids.
-    const updateId = () => { portalNodeId = node.id || undefined; };
+    const updateId = () => {
+      portalNodeId = node.id || undefined;
+    };
     updateId();
     const observer = new (getWindow(node).MutationObserver)(updateId);
     observer.observe(node, { attributes: true, attributeFilter: ['id'] });
-    return () => { observer.disconnect(); if (portalNode === node) { portalNode = null; portalNodeId = undefined; } };
+    return () => {
+      observer.disconnect();
+      if (portalNode === node) {
+        portalNode = null;
+        portalNodeId = undefined;
+      }
+    };
   }
   // One native host mount replaces Original's shared node createPortal.
   $effect(() => {
     const target = containerElement;
     if (!target) return;
-    const instance = untrack(() => mount(RenderElement<State, HTMLElement>, {
-      target, context: hostContext,
-      props: {
-        tag: 'div',
-        get componentProps() { return componentProps; },
-        get params() { return { ref: [ref, portalRef], props: [{ id: uniqueId, [attr]: '' }, elementProps] }; },
-      },
-    }));
-    return () => { void unmount(instance); };
+    const instance = untrack(() =>
+      mount(RenderElement<State, HTMLElement>, {
+        target,
+        context: hostContext,
+        props: {
+          tag: 'div',
+          get componentProps() {
+            return componentProps;
+          },
+          get params() {
+            return { ref: [ref, portalRef], props: [{ id: uniqueId, [attr]: '' }, elementProps] };
+          },
+        },
+      }),
+    );
+    return () => {
+      void unmount(instance);
+    };
   });
   return {
-    get node() { return portalNode; },
-    get nodeId() { return portalNodeId; },
+    get node() {
+      return portalNode;
+    },
+    get nodeId() {
+      return portalNodeId;
+    },
   };
 }
 
@@ -97,9 +133,19 @@ export function useFloatingPortalContent(
   $effect(() => {
     const target = getNode();
     if (!target) return;
-    const instance = untrack(() => mount(PortalContent, {
-      target, context: childrenContext, props: { get children() { return getChildren(); } },
-    }));
-    return () => { void unmount(instance); };
+    const instance = untrack(() =>
+      mount(PortalContent, {
+        target,
+        context: childrenContext,
+        props: {
+          get children() {
+            return getChildren();
+          },
+        },
+      }),
+    );
+    return () => {
+      void unmount(instance);
+    };
   });
 }

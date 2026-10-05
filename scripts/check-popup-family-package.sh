@@ -15,8 +15,8 @@ console.log(`Actual installed Popup family package: ${tarball} SHA256 ${createHa
 writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(destination, tarball)}`, svelte: '5.57.1' } }));
 JS
 sveltery_prepare_consumer "$popup_consumer"
-pnpm --dir "$popup_consumer" --ignore-workspace install --ignore-scripts > /dev/null
-pnpm --dir "$popup_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+pnpm --dir "$popup_consumer" install --ignore-scripts > /dev/null
+pnpm --dir "$popup_consumer" install --frozen-lockfile --ignore-scripts > /dev/null
 cmp LICENSE "$popup_consumer/node_modules/@sveltery/base/LICENSE"
 test -f "$popup_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
 cp parity/popup-family/packed-consumer/Consumer.svelte parity/popup-family/packed-consumer/PayloadTypes.svelte parity/popup-family/packed-consumer/Types.ts parity/popup-family/packed-consumer/expect-type.ts "$popup_consumer/"

@@ -6,23 +6,55 @@
   import CompositeItem from '../../internals/composite/item/CompositeItem.svelte';
   import type { ToolbarInputProps, ToolbarInputState } from '../types.js';
   let {
-    class: classProp, focusableWhenDisabled = true, render, disabled: disabledProp = false,
-    style, children, ref = $bindable(), ...elementProps
+    class: classProp,
+    focusableWhenDisabled = true,
+    render,
+    disabled: disabledProp = false,
+    style,
+    children,
+    ref = $bindable(),
+    ...elementProps
   }: ToolbarInputProps = $props();
   const toolbar = useToolbarRootContext();
   const groupContext = useToolbarGroupContext();
   const disabled = $derived(toolbar.disabled || (groupContext?.disabled ?? false) || disabledProp);
   const itemMetadata = $derived({ disabled, focusableWhenDisabled });
-  const focusableWhenDisabledProps = $derived(useFocusableWhenDisabled({
-    composite: true, disabled, focusableWhenDisabled, isNativeButton: false,
-  }).props);
-  const state: ToolbarInputState = $derived({ disabled, orientation: toolbar.orientation, focusable: focusableWhenDisabled });
-  function preventWhenDisabled(event: Event) { if (disabled) event.preventDefault(); }
+  const focusableWhenDisabledProps = $derived(
+    useFocusableWhenDisabled({
+      composite: true,
+      disabled,
+      focusableWhenDisabled,
+      isNativeButton: false,
+    }).props,
+  );
+  const state: ToolbarInputState = $derived({
+    disabled,
+    orientation: toolbar.orientation,
+    focusable: focusableWhenDisabled,
+  });
+  function preventWhenDisabled(event: Event) {
+    if (disabled) event.preventDefault();
+  }
   const defaultProps = { onclick: preventWhenDisabled, onpointerdown: preventWhenDisabled };
   const forwardedRef = {
-    get current() { return ref ?? null; },
-    set current(element: HTMLElement | null) { ref = element; },
+    get current() {
+      return ref ?? null;
+    },
+    set current(element: HTMLElement | null) {
+      ref = element;
+    },
   };
   const rendererProps = $derived([defaultProps, elementProps, focusableWhenDisabledProps]);
 </script>
-<CompositeItem tag="input" {render} class={classProp} {style} metadata={itemMetadata} {state} refs={[forwardedRef]} props={rendererProps} {children} />
+
+<CompositeItem
+  tag="input"
+  {render}
+  class={classProp}
+  {style}
+  metadata={itemMetadata}
+  {state}
+  refs={[forwardedRef]}
+  props={rendererProps}
+  {children}
+/>

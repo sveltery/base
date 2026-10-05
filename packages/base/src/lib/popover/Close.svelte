@@ -8,12 +8,44 @@
   import { getContext, untrack } from 'svelte';
   import { ClosePartContext, type ClosePartContextValue } from '../utils/closePart.svelte.js';
   import type { PopoverCloseProps } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
-  let { render, class: className, style, children, disabled = false, nativeButton = true, ref = $bindable(), ...elementProps }: PopoverCloseProps = $props();
-  const { buttonRef, getButtonProps } = useButton(() => ({ disabled, focusableWhenDisabled: false, native: nativeButton }));
+  let {
+    render,
+    class: className,
+    style,
+    children,
+    disabled = false,
+    nativeButton = true,
+    // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
+    ref = $bindable(),
+    ...elementProps
+  }: PopoverCloseProps = $props();
+  const { buttonRef, getButtonProps } = useButton(() => ({
+    disabled,
+    focusableWhenDisabled: false,
+    native: nativeButton,
+  }));
   const store = usePopoverRootContext();
   const closePart = getContext<ClosePartContextValue | undefined>(ClosePartContext);
   $effect(() => untrack(() => closePart?.register()));
-  const forwardedRef = (node: HTMLElement | null) => { ref = node; };
+  const forwardedRef = (node: HTMLElement | null) => {
+    ref = node;
+  };
 </script>
-<RenderElement tag="button" componentProps={{ render, class: className, style }} params={{ ref: [forwardedRef, buttonRef], props: [{ onclick(event: MouseEvent) { store.setOpen(false, createChangeEventDetails(REASONS.closePress, event)); } }, elementProps, getButtonProps] }} {children} />
+
+<RenderElement
+  tag="button"
+  componentProps={{ render, class: className, style }}
+  params={{
+    ref: [forwardedRef, buttonRef],
+    props: [
+      {
+        onclick(event: MouseEvent) {
+          store.setOpen(false, createChangeEventDetails(REASONS.closePress, event));
+        },
+      },
+      elementProps,
+      getButtonProps,
+    ],
+  }}
+  {children}
+/>

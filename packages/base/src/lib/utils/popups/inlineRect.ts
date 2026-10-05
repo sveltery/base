@@ -236,9 +236,9 @@ export function updateInlineRectCoords(
   return nextCoords;
 }
 
-export function createInlineMiddleware(
-  coordsRef: { current: InlineRectCoords | undefined },
-): Middleware {
+export function createInlineMiddleware(coordsRef: {
+  current: InlineRectCoords | undefined;
+}): Middleware {
   return {
     name: 'inline',
     async fn(state) {
