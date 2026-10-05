@@ -84,6 +84,10 @@
       "types": "./dist/useEnhancedClickHandler.d.ts",
       "default": "./dist/useEnhancedClickHandler.js"
     },
+    "./generateId": {
+      "types": "./dist/generateId.d.ts",
+      "default": "./dist/generateId.js"
+    },
     "./useId": {
       "types": "./dist/useId.d.ts",
       "default": "./dist/useId.js"
@@ -127,17 +131,9 @@
       "types": "./dist/PreviousValue.svelte.d.ts",
       "svelte": "./dist/PreviousValue.svelte.js",
       "default": "./dist/PreviousValue.svelte.js"
-    },
-    "./generateId": {
-      "types": "./dist/generateId.d.ts",
-      "default": "./dist/generateId.js"
     }
   },
-  "keywords": [
-    "svelte",
-    "utilities",
-    "base-ui"
-  ],
+  "keywords": ["svelte", "utilities", "base-ui"],
   "scripts": {
     "dev": "svelte-package --watch",
     "build": "svelte-package",
