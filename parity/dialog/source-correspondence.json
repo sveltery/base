@@ -279,7 +279,7 @@
       "local": [
         "packages/base/src/lib/floating-ui/hooks/useClick.svelte.ts"
       ],
-      "decision": "Selected original business body or inherited canonical native port; framework setup uses native Svelte primitives. Final whole-body review remains required.",
+      "decision": "Exact canonical accepted Main callback-construction repair: scalar options, selected Store and dataRef captured by native derived handler construction; Original live store.select and dataRef.current reads remain live. Real Dialog Trigger/handle/disabled/cancellation/composed consumer seams require fresh whole review.",
       "reviewStatus": "final source/native/maintainability review pending"
     },
     {
@@ -360,8 +360,10 @@
       "source": "packages/react/src/floating-ui-react/hooks/useHoverShared.ts",
       "sha256": "24d8edb07cb31c4f2b82ef77bea6db76e4a6ae2bacfa097dd4b01c50de5d2478",
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/hooks/useHoverShared.ts",
-      "local": [],
-      "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR.",
+      "local": [
+        "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts"
+      ],
+      "decision": "Reached through canonical floating types SafePolygonOptions type-only fanout; full actual body and imports inventoried. Dialog does not execute hover/polygon business. Fresh complete-body review required; zero ordinary credit.",
       "reviewStatus": "final source/native/maintainability review pending"
     },
     {
@@ -402,8 +404,10 @@
       "source": "packages/react/src/floating-ui-react/safePolygon.ts",
       "sha256": "682e2a9ff611e947ebe7f2bfc367f8df0060021c0e38a140f60003cfcac853a9",
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/floating-ui-react/safePolygon.ts",
-      "local": [],
-      "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR.",
+      "local": [
+        "packages/base/src/lib/floating-ui/safePolygon.ts"
+      ],
+      "decision": "Reached through canonical floating types SafePolygonOptions type-only fanout; full actual body and imports inventoried. Dialog does not execute hover/polygon business. Fresh complete-body review required; zero ordinary credit.",
       "reviewStatus": "final source/native/maintainability review pending"
     },
     {
@@ -1188,7 +1192,7 @@
       "local": [
         "packages/base/src/lib/utils/store/SvelteStore.svelte.ts"
       ],
-      "decision": "createSubscriber tracks original plain Store state; direct $effect+untrack synchronizes data and cleanup; selected setters/controlled diagnostics retained. Native stable live closures replace used context callbacks. observe key/function overloads are unused and omitted, not partially implemented.",
+      "decision": "Canonical accepted Main native SvelteStore retains all previously selected methods and additionally ports Original observe key/function overloads; Dialog does not call observe. Complete resulting body requires fresh independent review.",
       "reviewStatus": "final source/native/maintainability review pending"
     },
     {

@@ -55,3 +55,5 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 Shared controlled state, stable callbacks, initialized refs, timeouts, mount/layout synchronization, value-change tracking, development logging and immutable fallbacks derive from packages/utils/src and packages/react/src/internals/useValueChanged.ts at Base UI v1.8.0 commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT license, original dependency hashes and explicit native framework replacements are preserved in parity/shared-utils.
+
+The complete ScrollArea Root, Viewport, Content, Scrollbar, Thumb and Corner composition, contexts, drag/capture/snap/scroll/geometry/overscroll/edge algorithms, state attributes, CSS variables, logical offset calculation, shared scrollEdges/clamp/addEventListener and scrollbar suppression style derive from Base UI v1.8.0 immutable commit47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. Original bodies, assertion hashes, complete import/type graph and native primitive substitutions are preserved in parity/scroll-area under the MIT notice above. Native style elements do not reproduce React stylesheet hoisting.

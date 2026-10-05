@@ -1047,7 +1047,7 @@
     },
     {
       "local": "packages/base/src/lib/floating-ui/hooks/useClick.svelte.ts",
-      "sha256": "34c159e4e2a0b468bea5d3f650050b83b7e63b41dbcd9a936543ec9ddaeb2b70",
+      "sha256": "399f7e0b8e6a6cc0b5fe5355c88b1b10f3dd365f832ffe3a197b6f633b20aade",
       "imports": [
         {
           "specifier": "../../utils/useAnimationFrame.js",
@@ -1178,6 +1178,27 @@
       ]
     },
     {
+      "local": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts",
+      "sha256": "27321c9b2a6773e8743846b8af2a51a4339462f8189f1a9cad36b9702b4517df",
+      "imports": [
+        {
+          "specifier": "../utils/event.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/floating-ui/utils/event.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/floating-ui/types.ts"
+        },
+        {
+          "specifier": "../utils/element.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/floating-ui/utils/element.ts"
+        }
+      ]
+    },
+    {
       "local": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
       "sha256": "144b7492c4df9f20f8da4b4fdbe5a5983219e2370c1fd6a4afef50226559815d",
       "imports": [
@@ -1214,8 +1235,44 @@
       ]
     },
     {
+      "local": "packages/base/src/lib/floating-ui/safePolygon.ts",
+      "sha256": "8140d3e4f809bfe3fd1f6831752c66cf0fb811eee32fe4a0a9e33375387776b6",
+      "imports": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "../utils/useTimeout.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useTimeout.ts"
+        },
+        {
+          "specifier": "@floating-ui/dom",
+          "kind": "type",
+          "resolved": "external:@floating-ui/dom"
+        },
+        {
+          "specifier": "./hooks/useHoverShared.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts"
+        },
+        {
+          "specifier": "./utils/element.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/floating-ui/utils/element.ts"
+        },
+        {
+          "specifier": "./utils/nodes.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/floating-ui/utils/nodes.ts"
+        }
+      ]
+    },
+    {
       "local": "packages/base/src/lib/floating-ui/types.ts",
-      "sha256": "3b8dca349f81a577ace30cfe1fe7f8e73880ad1b14b5a5aa251b380887438405",
+      "sha256": "d75465f0e2fa7f46beab37d200f2f9e5a152dd4ca4a5751e5c9ca2811caed3d5",
       "imports": [
         {
           "specifier": "@floating-ui/dom",
@@ -1241,6 +1298,11 @@
           "specifier": "./components/FloatingTreeStore.js",
           "kind": "type",
           "resolved": "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts"
+        },
+        {
+          "specifier": "./safePolygon.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/floating-ui/safePolygon.ts"
         }
       ]
     },
@@ -1278,7 +1340,7 @@
     },
     {
       "local": "packages/base/src/lib/floating-ui/utils/element.ts",
-      "sha256": "43da99a8e24b9713afaaa52f09f8b21b92681252d1c17824cc246e15400c79eb",
+      "sha256": "d46588eefde81b7d3eb8f204f5b3ba235aacbeafde35c37ac6eb782070dcfff0",
       "imports": [
         {
           "specifier": "@floating-ui/utils/dom",
@@ -1296,9 +1358,9 @@
           "resolved": "packages/base/src/lib/floating-ui/utils/constants.ts"
         },
         {
-          "specifier": "../../utils/popups/index.js",
+          "specifier": "../../utils/popups/popupTriggerMap.svelte.js",
           "kind": "type",
-          "resolved": "packages/base/src/lib/utils/popups/index.ts"
+          "resolved": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts"
         },
         {
           "specifier": "./matchesFocusVisible.js",
@@ -2363,7 +2425,7 @@
     },
     {
       "local": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts",
-      "sha256": "e3083dfcaefcc49ab4ee00e7cc6b656539d1c9b00cdec3651929908f9e95258e",
+      "sha256": "1a3fe2b85c9b4c3dc0333f43f9988bbfa01e39eb5972b84b3648294199e111a2",
       "imports": [
         {
           "specifier": "svelte",

@@ -9,6 +9,8 @@ type Selector<State> = (state: State, ...args: any[]) => any;
 type Tail<T extends readonly unknown[]> = T extends readonly [unknown, ...infer Rest] ? Rest : [];
 type SelectorArgs<F> = F extends (...args: infer A) => unknown ? Tail<A> : never;
 type KeysAllowingUndefined<State> = { [Key in keyof State]-?: undefined extends State[Key] ? Key : never }[keyof State];
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Original observer selector output is generic.
+type ObserveSelector<State> = (state: State) => any;
 
 /** Original Store business mutations with native reactive snapshot reads and live context. */
 export class SvelteStore<State extends object, Context, Selectors extends Record<string, Selector<State>>> extends Store<State> {
@@ -54,4 +56,33 @@ export class SvelteStore<State extends object, Context, Selectors extends Record
     });
   }
   useStateSetter<Key extends keyof State>(key: Key) { return (value: State[Key]) => this.set(key, value); }
+
+  /** Original ReactStore.observe business body, independent of renderer subscriptions. */
+  observe<Key extends keyof Selectors>(
+    selector: Key,
+    listener: (newValue: ReturnType<Selectors[Key]>, oldValue: ReturnType<Selectors[Key]>, store: this) => void,
+  ): () => void;
+  observe<Observed extends ObserveSelector<State>>(
+    selector: Observed,
+    listener: (newValue: ReturnType<Observed>, oldValue: ReturnType<Observed>, store: this) => void,
+  ): () => void;
+  observe(
+    selector: keyof Selectors | ObserveSelector<State>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Original overloaded selector contract resolves each observed value.
+    listener: (newValue: any, oldValue: any, store: this) => void,
+  ) {
+    let selectFn: ObserveSelector<State>;
+    if (typeof selector === 'function') selectFn = selector;
+    else selectFn = this.selectors[selector] as ObserveSelector<State>;
+    let prevValue = selectFn(this.state);
+    listener(prevValue, prevValue, this);
+    return this.subscribe(nextState => {
+      const nextValue = selectFn(nextState);
+      if (!Object.is(prevValue, nextValue)) {
+        const oldValue = prevValue;
+        prevValue = nextValue;
+        listener(nextValue, oldValue, this);
+      }
+    });
+  }
 }
