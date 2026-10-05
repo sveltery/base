@@ -1,0 +1,134 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "baseHead": "c1600456d3b4e72910d42823b9df69280c74a262",
+  "runtimeChanges": false,
+  "assertionCredit": 0,
+  "closures": {
+    "original": {
+      "modules": 55,
+      "edges": 151,
+      "runtime": 53,
+      "type": 2,
+      "roots": [
+        "packages/react/src/collapsible/index.ts",
+        "packages/react/src/collapsible/index.parts.ts",
+        "packages/react/src/collapsible/root/CollapsibleRoot.tsx",
+        "packages/react/src/collapsible/trigger/CollapsibleTrigger.tsx",
+        "packages/react/src/collapsible/panel/CollapsiblePanel.tsx"
+      ],
+      "external": [
+        "external:@floating-ui/utils/dom",
+        "external:react",
+        "external:react-dom"
+      ]
+    },
+    "native": {
+      "modules": 31,
+      "edges": 87,
+      "runtime": 28,
+      "type": 3,
+      "roots": [
+        "packages/base/src/lib/collapsible/index.ts",
+        "packages/base/src/lib/collapsible/index.parts.ts",
+        "packages/base/src/lib/collapsible/Root.svelte",
+        "packages/base/src/lib/collapsible/Trigger.svelte",
+        "packages/base/src/lib/collapsible/Panel.svelte",
+        "packages/base/src/lib/index.ts"
+      ],
+      "external": [
+        "external:esm-env",
+        "external:svelte",
+        "external:svelte/attachments",
+        "external:svelte/elements"
+      ]
+    },
+    "originalTests": {
+      "modules": 68,
+      "edges": 201,
+      "runtime": 66,
+      "type": 2,
+      "roots": [
+        "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx",
+        "packages/react/src/collapsible/trigger/CollapsibleTrigger.test.tsx",
+        "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+        "packages/react/src/collapsible/root/CollapsibleRoot.spec.tsx"
+      ],
+      "external": [
+        "external:@floating-ui/utils/dom",
+        "external:@mui/internal-test-utils",
+        "external:react",
+        "external:react-dom",
+        "external:vitest"
+      ]
+    },
+    "nativeTests": {
+      "modules": 54,
+      "edges": 143,
+      "runtime": 51,
+      "type": 3,
+      "roots": [
+        "packages/base/tests/dom/collapsible.test.ts",
+        "packages/base/tests/dom/collapsible/Fixture.svelte",
+        "packages/base/tests/collapsible-types.ts",
+        "packages/base/tests/collapsible-ssr.test.ts",
+        "tests/browser/collapsible.spec.ts",
+        "apps/fixtures/src/routes/collapsible/+page.svelte",
+        "apps/fixtures/src/routes/collapsible/+page.ts",
+        "apps/fixtures/src/routes/collapsible-reference/+page.svelte",
+        "apps/fixtures/src/routes/collapsible-reference/+page.ts",
+        "apps/fixtures/src/routes/collapsible-ssr/+page.svelte",
+        "apps/fixtures/src/routes/collapsible-ssr/+page.server.ts",
+        "scripts/tests/collapsible-ssr.test.mjs",
+        "scripts/tests/collapsible-provenance.test.mjs",
+        "scripts/check-collapsible-package.sh",
+        "scripts/svelte-ssr-loader.mjs"
+      ],
+      "external": [
+        "external:@base-ui/react/collapsible",
+        "external:@playwright/test",
+        "external:esm-env",
+        "external:jsdom",
+        "external:node:assert/strict",
+        "external:node:child_process",
+        "external:node:fs",
+        "external:node:module",
+        "external:node:test",
+        "external:node:url",
+        "external:react",
+        "external:react-dom",
+        "external:react-dom/client",
+        "external:react-dom/server",
+        "external:svelte",
+        "external:svelte/attachments",
+        "external:svelte/elements",
+        "external:svelte/server",
+        "external:vitest"
+      ]
+    },
+    "prospectiveHelpers": {
+      "modules": 36,
+      "edges": 71,
+      "runtime": 35,
+      "type": 1,
+      "roots": [
+        "packages/base/src/lib/utils/useControlled.svelte.ts",
+        "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+        "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+        "packages/base/src/lib/internals/useAnimationsFinished.ts",
+        "packages/base/src/lib/internals/useBaseUiId.ts",
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+        "packages/base/src/lib/internals/RenderElement.svelte",
+        "packages/base/src/lib/internals/stateAttributesMapping.ts",
+        "packages/base/src/lib/utils/addEventListener.ts",
+        "packages/base/src/lib/utils/createLogOnce.ts",
+        "packages/base/src/lib/utils/owner.ts"
+      ],
+      "external": [
+        "external:esm-env",
+        "external:svelte",
+        "external:svelte/attachments",
+        "external:svelte/elements"
+      ]
+    }
+  }
+}

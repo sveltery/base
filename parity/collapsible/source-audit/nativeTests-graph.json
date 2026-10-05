@@ -1,0 +1,2159 @@
+{
+  "roots": [
+    "packages/base/tests/dom/collapsible.test.ts",
+    "packages/base/tests/dom/collapsible/Fixture.svelte",
+    "packages/base/tests/collapsible-types.ts",
+    "packages/base/tests/collapsible-ssr.test.ts",
+    "tests/browser/collapsible.spec.ts",
+    "apps/fixtures/src/routes/collapsible/+page.svelte",
+    "apps/fixtures/src/routes/collapsible/+page.ts",
+    "apps/fixtures/src/routes/collapsible-reference/+page.svelte",
+    "apps/fixtures/src/routes/collapsible-reference/+page.ts",
+    "apps/fixtures/src/routes/collapsible-ssr/+page.svelte",
+    "apps/fixtures/src/routes/collapsible-ssr/+page.server.ts",
+    "scripts/tests/collapsible-ssr.test.mjs",
+    "scripts/tests/collapsible-provenance.test.mjs",
+    "scripts/check-collapsible-package.sh",
+    "scripts/svelte-ssr-loader.mjs"
+  ],
+  "moduleCount": 54,
+  "edgeCount": 143,
+  "runtimeModules": 51,
+  "typeModules": 3,
+  "modules": [
+    {
+      "source": "apps/fixtures/src/lib/collapsible-config.ts",
+      "sha256": "a1cb43755609958d556b1721a794f93fd10f094d213d0495ee20b44c0dc70b2b",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "apps/fixtures/src/lib/collapsible-hydration-reference.ts",
+      "sha256": "433569ff00157b19cfaaecebd3ba864a904742dcd4680122cc7291165acd6ddc",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "createElement"
+          ],
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "react-dom/client",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "hydrateRoot"
+          ],
+          "resolved": "external:react-dom/client"
+        },
+        {
+          "specifier": "./collapsible-ssr-reference.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "CollapsibleSSRReference"
+          ],
+          "resolved": "apps/fixtures/src/lib/collapsible-ssr-reference.ts"
+        }
+      ]
+    },
+    {
+      "source": "apps/fixtures/src/lib/collapsible-reference.ts",
+      "sha256": "21422e87a7ac2bee7537651a1abe294ed7875bb8e07d35cfd53cb81ba06f608e",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "createElement",
+            "useState",
+            "useEffect",
+            "useLayoutEffect",
+            "forwardRef",
+            "act"
+          ],
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "react-dom/client",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "createRoot"
+          ],
+          "resolved": "external:react-dom/client"
+        },
+        {
+          "specifier": "react-dom",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "flushSync"
+          ],
+          "resolved": "external:react-dom"
+        },
+        {
+          "specifier": "@base-ui/react/collapsible",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "Collapsible"
+          ],
+          "resolved": "external:@base-ui/react/collapsible"
+        },
+        {
+          "specifier": "./collapsible-config.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "collapsibleConfig",
+            "collapsibleCss"
+          ],
+          "resolved": "apps/fixtures/src/lib/collapsible-config.ts"
+        }
+      ]
+    },
+    {
+      "source": "apps/fixtures/src/lib/collapsible-ssr-reference.ts",
+      "sha256": "906ab73cb95fe688043467ef06b061ad1fd8e1725b090d976ed5be14e3b85fb2",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "createElement",
+            "Fragment",
+            "useEffect"
+          ],
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/react/collapsible",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "Collapsible"
+          ],
+          "resolved": "external:@base-ui/react/collapsible"
+        },
+        {
+          "specifier": "./collapsible-config.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "collapsibleCss"
+          ],
+          "resolved": "apps/fixtures/src/lib/collapsible-config.ts"
+        }
+      ]
+    },
+    {
+      "source": "apps/fixtures/src/lib/CollapsibleFixture.svelte",
+      "sha256": "b416e761c4009bf4051faee15d917c9a13065a7d7e7e26a27f66d09010228080",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "onMount",
+            "untrack",
+            "flushSync",
+            "tick",
+            "Snippet"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "@sveltery/base",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "Collapsible",
+            "mergeProps",
+            "CollapsiblePanelState"
+          ],
+          "resolved": "packages/base/src/lib/index.ts"
+        },
+        {
+          "specifier": "./CollapsibleRaceClose.svelte",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "default"
+          ],
+          "resolved": "apps/fixtures/src/lib/CollapsibleRaceClose.svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "HTMLAttributes"
+          ],
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "./collapsible-config.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "collapsibleConfig",
+            "collapsibleCss"
+          ],
+          "resolved": "apps/fixtures/src/lib/collapsible-config.ts"
+        }
+      ]
+    },
+    {
+      "source": "apps/fixtures/src/lib/CollapsibleRaceClose.svelte",
+      "sha256": "503a5df2dc74e331844a3a05be93c4cccd382d4501be1b8834d161688126bcf4",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "untrack"
+          ],
+          "resolved": "external:svelte"
+        }
+      ]
+    },
+    {
+      "source": "apps/fixtures/src/routes/collapsible-reference/+page.svelte",
+      "sha256": "71d326ed167312d8f6cd5a36b1dfd6628a1b373f4212ed03758b436ba6e0d525",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "onMount"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../../lib/collapsible-reference.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "mountCollapsibleReference"
+          ],
+          "resolved": "apps/fixtures/src/lib/collapsible-reference.ts"
+        }
+      ]
+    },
+    {
+      "source": "apps/fixtures/src/routes/collapsible-reference/+page.ts",
+      "sha256": "913472778b9bfb845e6e20ca3c242fdffa50b065d4410d5989624a9636a429d2",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "apps/fixtures/src/routes/collapsible-ssr/+page.server.ts",
+      "sha256": "e99a3b569f611d6e37d9096dbec9086cce64d260a2a79eb3df0e532616b87022",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "createElement"
+          ],
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "react-dom/server",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "renderToString"
+          ],
+          "resolved": "external:react-dom/server"
+        },
+        {
+          "specifier": "../../lib/collapsible-ssr-reference.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "CollapsibleSSRReference"
+          ],
+          "resolved": "apps/fixtures/src/lib/collapsible-ssr-reference.ts"
+        }
+      ]
+    },
+    {
+      "source": "apps/fixtures/src/routes/collapsible-ssr/+page.svelte",
+      "sha256": "a5f85ab9e05d02240cae9fb51251e7cd500155af08554b0ba0ff6059fb5354b4",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "onMount"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../../lib/CollapsibleFixture.svelte",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "default"
+          ],
+          "resolved": "apps/fixtures/src/lib/CollapsibleFixture.svelte"
+        },
+        {
+          "specifier": "../../lib/collapsible-hydration-reference.js",
+          "declaredKind": "dynamic",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "apps/fixtures/src/lib/collapsible-hydration-reference.ts"
+        }
+      ]
+    },
+    {
+      "source": "apps/fixtures/src/routes/collapsible/+page.svelte",
+      "sha256": "ed441447d75d60bf7a89dda10a25a06c80764fd3c0abf57e32cdb9133c0c3e62",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "onMount"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../../lib/CollapsibleFixture.svelte",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "default"
+          ],
+          "resolved": "apps/fixtures/src/lib/CollapsibleFixture.svelte"
+        },
+        {
+          "specifier": "../../lib/collapsible-reference.js",
+          "declaredKind": "dynamic",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "apps/fixtures/src/lib/collapsible-reference.ts"
+        }
+      ]
+    },
+    {
+      "source": "apps/fixtures/src/routes/collapsible/+page.ts",
+      "sha256": "6737b93a3ae1b0d1c8802e9ca93f1de164f6a05da1d7010448ffde1386941f8e",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/base/src/lib/button/props.ts",
+      "sha256": "8fdbe4a38c6d6fc088bc6618f200ae025cdf5e14b350e602e4f28c08c2c10281",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../merge-props/index.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "mergeProps",
+            "PreventableEvent"
+          ],
+          "resolved": "packages/base/src/lib/merge-props/index.ts"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "HTMLProps"
+          ],
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/animations.ts",
+      "sha256": "bd1ad2666afaaf9820105aa0831f2062508bf64d8d9b10139923aaa7a8ddddbb",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "flushSync"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "esm-env",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "DEV"
+          ],
+          "resolved": "external:esm-env"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/context.ts",
+      "sha256": "fd6a4617142c8bb154c8a7d266a1a421060d9915abeb38696eab4d0c48071bf8",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "getContext",
+            "setContext"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "CollapsibleRootChangeEventDetails",
+            "CollapsibleRootState",
+            "CollapsibleTransitionStatus"
+          ],
+          "resolved": "packages/base/src/lib/collapsible/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/index.parts.ts",
+      "sha256": "134a17c550a8afffbdaf4029e1d9e70a031e179a4a41113906db2ae8309fa8fb",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./Root.svelte",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "Root"
+          ],
+          "resolved": "packages/base/src/lib/collapsible/Root.svelte"
+        },
+        {
+          "specifier": "./Trigger.svelte",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "Trigger"
+          ],
+          "resolved": "packages/base/src/lib/collapsible/Trigger.svelte"
+        },
+        {
+          "specifier": "./Panel.svelte",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "Panel"
+          ],
+          "resolved": "packages/base/src/lib/collapsible/Panel.svelte"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/index.ts",
+      "sha256": "7e4f8baf91a2371f9e5d67bb2c31850ed4b9165322eeecfcf86767a16aa6f4c5",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./index.parts.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "Collapsible"
+          ],
+          "resolved": "packages/base/src/lib/collapsible/index.parts.ts"
+        },
+        {
+          "specifier": "./index.parts.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "Root",
+            "Trigger",
+            "Panel"
+          ],
+          "resolved": "packages/base/src/lib/collapsible/index.parts.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "CollapsibleRootProps",
+            "CollapsibleRootState",
+            "CollapsibleTriggerProps",
+            "CollapsibleTriggerState",
+            "CollapsiblePanelProps",
+            "CollapsiblePanelState",
+            "CollapsibleTransitionStatus",
+            "CollapsibleRootChangeEventReason",
+            "CollapsibleRootChangeEventDetails"
+          ],
+          "resolved": "packages/base/src/lib/collapsible/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/Panel.svelte",
+      "sha256": "0caf4ad3bb45d26f9c88714ad46921cac270bc7d90f1a2caae6e1959f5618206",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "onDestroy",
+            "tick",
+            "untrack"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../dialog/Element.svelte",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "default"
+          ],
+          "resolved": "packages/base/src/lib/dialog/Element.svelte"
+        },
+        {
+          "specifier": "../internals/resolveClassValue.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "resolveClassValue"
+          ],
+          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "createChangeEventDetails"
+          ],
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "./context.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "getCollapsibleContext"
+          ],
+          "resolved": "packages/base/src/lib/collapsible/context.ts"
+        },
+        {
+          "specifier": "./animations.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "afterAnimations",
+            "getAnimationType",
+            "getDimensions",
+            "preserveUnchangedInlineStyles",
+            "requestFrame",
+            "resetLayoutStyles",
+            "setTemporaryStyle",
+            "warnOnce",
+            "AnimationType"
+          ],
+          "resolved": "packages/base/src/lib/collapsible/animations.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "CollapsiblePanelProps",
+            "CollapsiblePanelState"
+          ],
+          "resolved": "packages/base/src/lib/collapsible/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/Root.svelte",
+      "sha256": "2fe6ffa2d9ee9d7e754c125026a600dfde40093b95f734f41257945d59080d14",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "untrack"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "esm-env",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "DEV"
+          ],
+          "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "./animations.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "errorOnce"
+          ],
+          "resolved": "packages/base/src/lib/collapsible/animations.ts"
+        },
+        {
+          "specifier": "../dialog/Element.svelte",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "default"
+          ],
+          "resolved": "packages/base/src/lib/dialog/Element.svelte"
+        },
+        {
+          "specifier": "../internals/resolveClassValue.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "resolveClassValue"
+          ],
+          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "createChangeEventDetails"
+          ],
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "./context.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "setCollapsibleContext"
+          ],
+          "resolved": "packages/base/src/lib/collapsible/context.ts"
+        },
+        {
+          "specifier": "./state.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "stateAttributes"
+          ],
+          "resolved": "packages/base/src/lib/collapsible/state.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "CollapsibleRootProps",
+            "CollapsibleTransitionStatus"
+          ],
+          "resolved": "packages/base/src/lib/collapsible/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/state.ts",
+      "sha256": "2ceb7f91c5e53bdfe31ae021898d7a154887a05d78e7b90bed70183166b71d81",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./types.js",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "CollapsibleRootState"
+          ],
+          "resolved": "packages/base/src/lib/collapsible/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/Trigger.svelte",
+      "sha256": "c2b1c1e1412725a5f1b586634e19dcce9a84d49361449205e922dbc902ddc673",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../dialog/Element.svelte",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "default"
+          ],
+          "resolved": "packages/base/src/lib/dialog/Element.svelte"
+        },
+        {
+          "specifier": "../internals/resolveClassValue.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "resolveClassValue"
+          ],
+          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"
+        },
+        {
+          "specifier": "../button/props.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "getButtonProps"
+          ],
+          "resolved": "packages/base/src/lib/button/props.ts"
+        },
+        {
+          "specifier": "../merge-props/index.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "mergeProps"
+          ],
+          "resolved": "packages/base/src/lib/merge-props/index.ts"
+        },
+        {
+          "specifier": "./context.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "getCollapsibleContext"
+          ],
+          "resolved": "packages/base/src/lib/collapsible/context.ts"
+        },
+        {
+          "specifier": "./state.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "stateAttributes"
+          ],
+          "resolved": "packages/base/src/lib/collapsible/state.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "CollapsibleTriggerProps"
+          ],
+          "resolved": "packages/base/src/lib/collapsible/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/types.ts",
+      "sha256": "d7e56714d5d01aaf0c09d9b0b2bf01e9a9c4bcfa6296abb52eb2bc79efc914e3",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "svelte/elements",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "ClassValue",
+            "HTMLAttributes",
+            "HTMLButtonAttributes"
+          ],
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../dialog/types.js",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "ElementProps"
+          ],
+          "resolved": "packages/base/src/lib/dialog/types.ts"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "BaseUIChangeEventDetails"
+          ],
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/dialog/Element.svelte",
+      "sha256": "9848ecc10f04a04d12b22322ca8ac93f01273ff99d3e0b69f170073e751b24e3",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "Snippet"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../internals/RenderElement.svelte",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "default"
+          ],
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../internals/getStateAttributesProps.js",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "StateAttributesMapping"
+          ],
+          "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "HTMLProps"
+          ],
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
+          "specifier": "../internals/nativeProps.js",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "NativeStyle"
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        },
+        {
+          "specifier": "svelte/elements",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "ClassValue"
+          ],
+          "resolved": "external:svelte/elements"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/dialog/types.ts",
+      "sha256": "fd700772ea1016359bc934759c01d168caa2914ff136733f30f9c108d28ae931",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "Snippet"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "HTMLAttributes",
+            "HTMLButtonAttributes"
+          ],
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "BaseUIChangeEventDetails"
+          ],
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../merge-props/index.js",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "PreventableEvent"
+          ],
+          "resolved": "packages/base/src/lib/merge-props/index.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/index.ts",
+      "sha256": "a0f6dfb0a09301d1c8e4388292e5d33e8515627cd32e5df28f206c5ab0655a56",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./merge-props/index.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "mergeProps",
+            "mergePropsN"
+          ],
+          "resolved": "packages/base/src/lib/merge-props/index.ts"
+        },
+        {
+          "specifier": "./collapsible/index.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "Collapsible"
+          ],
+          "resolved": "packages/base/src/lib/collapsible/index.ts"
+        },
+        {
+          "specifier": "./collapsible/index.js",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "CollapsibleRootProps",
+            "CollapsibleRootState",
+            "CollapsibleTriggerProps",
+            "CollapsibleTriggerState",
+            "CollapsiblePanelProps",
+            "CollapsiblePanelState",
+            "CollapsibleTransitionStatus",
+            "CollapsibleRootChangeEventReason",
+            "CollapsibleRootChangeEventDetails"
+          ],
+          "resolved": "packages/base/src/lib/collapsible/index.ts"
+        }
+      ],
+      "unselectedExports": [
+        {
+          "specifier": "./internals/createBaseUIEventDetails.js",
+          "members": [
+            "createChangeEventDetails",
+            "createGenericEventDetails"
+          ]
+        },
+        {
+          "specifier": "./internals/createBaseUIEventDetails.js",
+          "members": [
+            "BaseUIChangeEventDetails",
+            "BaseUIGenericEventDetails",
+            "ReasonToEvent"
+          ]
+        },
+        {
+          "specifier": "./dialog/index.js",
+          "members": [
+            "Dialog"
+          ]
+        },
+        {
+          "specifier": "./toast/index.js",
+          "members": [
+            "Toast"
+          ]
+        },
+        {
+          "specifier": "./button/index.js",
+          "members": [
+            "Button"
+          ]
+        },
+        {
+          "specifier": "./button/index.js",
+          "members": [
+            "ButtonProps",
+            "ButtonState"
+          ]
+        },
+        {
+          "specifier": "./separator/index.js",
+          "members": [
+            "Separator"
+          ]
+        },
+        {
+          "specifier": "./separator/index.js",
+          "members": [
+            "SeparatorProps",
+            "SeparatorState"
+          ]
+        },
+        {
+          "specifier": "./toggle/index.js",
+          "members": [
+            "Toggle"
+          ]
+        },
+        {
+          "specifier": "./toggle/index.js",
+          "members": [
+            "ToggleProps",
+            "ToggleState",
+            "ToggleChangeEventReason",
+            "ToggleChangeEventDetails"
+          ]
+        },
+        {
+          "specifier": "./input/index.js",
+          "members": [
+            "Input"
+          ]
+        },
+        {
+          "specifier": "./input/index.js",
+          "members": [
+            "InputProps",
+            "InputState",
+            "InputChangeEventReason",
+            "InputChangeEventDetails"
+          ]
+        },
+        {
+          "specifier": "./progress/index.js",
+          "members": [
+            "Progress"
+          ]
+        },
+        {
+          "specifier": "./progress/index.js",
+          "members": [
+            "ProgressStatus",
+            "ProgressRootProps",
+            "ProgressRootState",
+            "ProgressLabelProps",
+            "ProgressLabelState",
+            "ProgressTrackProps",
+            "ProgressTrackState",
+            "ProgressIndicatorProps",
+            "ProgressIndicatorState",
+            "ProgressValueProps",
+            "ProgressValueState"
+          ]
+        },
+        {
+          "specifier": "./meter/index.js",
+          "members": [
+            "Meter"
+          ]
+        },
+        {
+          "specifier": "./meter/index.js",
+          "members": [
+            "MeterRootProps",
+            "MeterRootState",
+            "MeterLabelProps",
+            "MeterLabelState",
+            "MeterTrackProps",
+            "MeterTrackState",
+            "MeterIndicatorProps",
+            "MeterIndicatorState",
+            "MeterValueProps",
+            "MeterValueState"
+          ]
+        },
+        {
+          "specifier": "./avatar/index.js",
+          "members": [
+            "Avatar"
+          ]
+        },
+        {
+          "specifier": "./avatar/index.js",
+          "members": [
+            "AvatarRootProps",
+            "AvatarRootState",
+            "AvatarImageProps",
+            "AvatarImageState",
+            "AvatarFallbackProps",
+            "AvatarFallbackState",
+            "ImageLoadingStatus"
+          ]
+        },
+        {
+          "specifier": "./direction-provider/index.js",
+          "members": [
+            "DirectionProvider",
+            "useDirection"
+          ]
+        },
+        {
+          "specifier": "./direction-provider/index.js",
+          "members": [
+            "DirectionProviderProps",
+            "TextDirection"
+          ]
+        },
+        {
+          "specifier": "./accordion/index.js",
+          "members": [
+            "Accordion"
+          ]
+        },
+        {
+          "specifier": "./accordion/index.js",
+          "members": [
+            "AccordionValue",
+            "AccordionRootProps",
+            "AccordionRootState",
+            "AccordionItemProps",
+            "AccordionItemState",
+            "AccordionHeaderProps",
+            "AccordionHeaderState",
+            "AccordionTriggerProps",
+            "AccordionTriggerState",
+            "AccordionPanelProps",
+            "AccordionPanelState",
+            "AccordionRootChangeEventReason",
+            "AccordionRootChangeEventDetails",
+            "AccordionItemChangeEventReason",
+            "AccordionItemChangeEventDetails"
+          ]
+        },
+        {
+          "specifier": "./csp-provider/index.js",
+          "members": [
+            "CSPProvider"
+          ]
+        },
+        {
+          "specifier": "./csp-provider/index.js",
+          "members": [
+            "CSPProviderProps",
+            "CSPProviderState"
+          ]
+        },
+        {
+          "specifier": "./use-render/index.js",
+          "members": [
+            "UseRender"
+          ]
+        },
+        {
+          "specifier": "./use-render/index.js",
+          "members": [
+            "UseRenderProps",
+            "UseRenderParameters",
+            "UseRenderState",
+            "UseRenderRef",
+            "UseRenderRefs",
+            "UseRenderRenderProp",
+            "UseRenderHostProps",
+            "UseRenderTagName",
+            "UseRenderStateAttributesMapping",
+            "UseRenderElementProps",
+            "UseRenderComponentProps",
+            "HTMLProps",
+            "ComponentRenderFn"
+          ]
+        },
+        {
+          "specifier": "./field/index.js",
+          "members": [
+            "Field",
+            "FieldRoot",
+            "FieldLabel",
+            "FieldDescription",
+            "FieldError",
+            "FieldControl",
+            "FieldValidity",
+            "FieldItem"
+          ]
+        },
+        {
+          "specifier": "./field/types.js",
+          "members": [
+            "*"
+          ]
+        },
+        {
+          "specifier": "./form/index.js",
+          "members": [
+            "Form"
+          ]
+        },
+        {
+          "specifier": "./form/types.js",
+          "members": [
+            "*"
+          ]
+        },
+        {
+          "specifier": "./form/index.js",
+          "members": [
+            "RemoteFormLike",
+            "RemoteFieldArguments",
+            "RemoteFieldName",
+            "RemoteFieldRootProps",
+            "RemoteFieldRootPropsForName",
+            "TypedField"
+          ]
+        },
+        {
+          "specifier": "./fieldset/index.js",
+          "members": [
+            "Fieldset",
+            "FieldsetRoot",
+            "FieldsetLegend"
+          ]
+        },
+        {
+          "specifier": "./fieldset/types.js",
+          "members": [
+            "*"
+          ]
+        },
+        {
+          "specifier": "./checkbox/index.js",
+          "members": [
+            "*"
+          ]
+        },
+        {
+          "specifier": "./checkbox-group/index.js",
+          "members": [
+            "*"
+          ]
+        },
+        {
+          "specifier": "./switch/index.js",
+          "members": [
+            "*"
+          ]
+        },
+        {
+          "specifier": "./radio/index.js",
+          "members": [
+            "Radio",
+            "RadioRoot",
+            "RadioIndicator"
+          ]
+        },
+        {
+          "specifier": "./radio/types.js",
+          "members": [
+            "*"
+          ]
+        },
+        {
+          "specifier": "./radio-group/index.js",
+          "members": [
+            "RadioGroup"
+          ]
+        },
+        {
+          "specifier": "./radio-group/types.js",
+          "members": [
+            "*"
+          ]
+        },
+        {
+          "specifier": "./scroll-area/index.js",
+          "members": [
+            "*"
+          ]
+        },
+        {
+          "specifier": "./toggle-group/index.js",
+          "members": [
+            "ToggleGroup"
+          ]
+        },
+        {
+          "specifier": "./toggle-group/types.js",
+          "members": [
+            "*"
+          ]
+        },
+        {
+          "specifier": "./toolbar/index.js",
+          "members": [
+            "Toolbar"
+          ]
+        },
+        {
+          "specifier": "./toolbar/types.js",
+          "members": [
+            "ToolbarRootOrientation",
+            "ToolbarRootItemMetadata",
+            "ToolbarRootState",
+            "ToolbarRootProps",
+            "ToolbarGroupState",
+            "ToolbarGroupProps",
+            "ToolbarButtonState",
+            "ToolbarButtonProps",
+            "ToolbarInputState",
+            "ToolbarInputProps",
+            "ToolbarLinkState",
+            "ToolbarLinkProps",
+            "ToolbarSeparatorState",
+            "ToolbarSeparatorProps"
+          ]
+        }
+      ],
+      "importMemberBoundary": true
+    },
+    {
+      "source": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+      "sha256": "1a9cb6cde2734d421a1bfb03ece9c744584b7e115a0eb3b9de974c22ab8ee684",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../utils/empty.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "EMPTY_OBJECT"
+          ],
+          "resolved": "packages/base/src/lib/utils/empty.ts"
+        },
+        {
+          "specifier": "./reasons.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "REASONS"
+          ],
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+      "sha256": "e48367a890024a54cb200eabc5c2a0ba0a397256baacfaec8b0a05ced3b10344",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/base/src/lib/internals/nativeProps.ts",
+      "sha256": "d6b3999ffe54e8c70e0dcdac61474b3bf9f53e60f3b1207dd4f976ef5212e4eb",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte/elements",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "ClassValue"
+          ],
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "./resolveClassValue.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "resolveClassValue"
+          ],
+          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"
+        },
+        {
+          "specifier": "../utils/mergeObjects.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "mergeObjects"
+          ],
+          "resolved": "packages/base/src/lib/utils/mergeObjects.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+      "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "untrack"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../utils/useMergedRefs.js",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "MergedRefCallback"
+          ],
+          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/reason-parts.ts",
+      "sha256": "0326d21ce4be2c41b5488c86e3687249faf3c51f5e10ae49c16e8efdc183abf5",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/base/src/lib/internals/reasons.ts",
+      "sha256": "f1f52caeefb14448a7e7c9833e24413b923b7bbf40aa1818ca73dc93710b42e7",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./reason-parts.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "packages/base/src/lib/internals/reason-parts.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/RenderElement.svelte",
+      "sha256": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "untrack",
+            "Snippet"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "createAttachmentKey"
+          ],
+          "resolved": "external:svelte/attachments"
+        },
+        {
+          "specifier": "esm-env",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "BROWSER"
+          ],
+          "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "svelte/elements",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "HTMLInputAttributes"
+          ],
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "./useRenderElement.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "createRenderElement",
+            "UseRenderElementComponentProps",
+            "UseRenderElementParameters"
+          ],
+          "resolved": "packages/base/src/lib/internals/useRenderElement.ts"
+        },
+        {
+          "specifier": "./nativeRefAttachment.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "createRefAttachment"
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts"
+        },
+        {
+          "specifier": "./nativeProps.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "toNativeStyle"
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/resolveClassValue.ts",
+      "sha256": "584323b17cb1733a798e9ff86e9ff783d6a26d08ecf005a8c2b3c69917c1e722",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte/elements",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "ClassValue"
+          ],
+          "resolved": "external:svelte/elements"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/types.ts",
+      "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "Snippet"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "ClassValue",
+            "HTMLAttributes"
+          ],
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../merge-props/index.js",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "PreventableEvent"
+          ],
+          "resolved": "packages/base/src/lib/merge-props/index.ts"
+        },
+        {
+          "specifier": "./nativeProps.js",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "NativeStyle"
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/useRenderElement.ts",
+      "sha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../utils/useMergedRefs.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "createMergedRefs",
+            "MergedRef",
+            "MergedRefCallback"
+          ],
+          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+        },
+        {
+          "specifier": "../utils/mergeObjects.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "mergeObjects"
+          ],
+          "resolved": "packages/base/src/lib/utils/mergeObjects.ts"
+        },
+        {
+          "specifier": "../utils/empty.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "EMPTY_OBJECT"
+          ],
+          "resolved": "packages/base/src/lib/utils/empty.ts"
+        },
+        {
+          "specifier": "./getStateAttributesProps.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "getStateAttributesProps",
+            "StateAttributesMapping"
+          ],
+          "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts"
+        },
+        {
+          "specifier": "../utils/resolveClassName.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "resolveClassName"
+          ],
+          "resolved": "packages/base/src/lib/utils/resolveClassName.ts"
+        },
+        {
+          "specifier": "../utils/resolveStyle.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "resolveStyle"
+          ],
+          "resolved": "packages/base/src/lib/utils/resolveStyle.ts"
+        },
+        {
+          "specifier": "../merge-props/index.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "mergeProps",
+            "mergePropsN",
+            "mergeClassNames"
+          ],
+          "resolved": "packages/base/src/lib/merge-props/index.ts"
+        },
+        {
+          "specifier": "./nativeProps.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "mergeNativeStyles",
+            "toNativeClass"
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        },
+        {
+          "specifier": "./nativeRefAttachment.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "isNativeRefAttachment"
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "BaseUIComponentProps",
+            "ComponentRenderFn",
+            "HTMLProps"
+          ],
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/merge-props/index.ts",
+      "sha256": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./mergeProps.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "packages/base/src/lib/merge-props/mergeProps.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/merge-props/mergeProps.ts",
+      "sha256": "7a097b833ae8854c5a26e34009adfb4e0297dd50f56ad5f0c1ac8afa8187f98b",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../internals/nativeProps.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "copyAttachmentSymbols",
+            "mergeNativeStyles",
+            "toNativeClass"
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        },
+        {
+          "specifier": "../utils/mergeObjects.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "mergeObjects"
+          ],
+          "resolved": "packages/base/src/lib/utils/mergeObjects.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/utils/empty.ts",
+      "sha256": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/base/src/lib/utils/mergeObjects.ts",
+      "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/base/src/lib/utils/resolveClassName.ts",
+      "sha256": "b22aead630ca531851a08a63e5165e64ff8cdc9de5765ff20997f578071cb108",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte/elements",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "ClassValue"
+          ],
+          "resolved": "external:svelte/elements"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/utils/resolveStyle.ts",
+      "sha256": "cdc420598c1ae4b75a32e7f47ac8cc7f4fe444d4f006e2736f528951fb932977",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../internals/nativeProps.js",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "NativeStyle"
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/utils/useMergedRefs.ts",
+      "sha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./useRefWithInit.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useRefWithInit"
+          ],
+          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/utils/useRefWithInit.ts",
+      "sha256": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/base/tests/collapsible-ssr.test.ts",
+      "sha256": "816045ed4015c6e8fd579cec0396444a572f20271715bfb88da9c3b6c6c89363",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "vitest",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "expect",
+            "it"
+          ],
+          "resolved": "external:vitest"
+        },
+        {
+          "specifier": "svelte/server",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "render"
+          ],
+          "resolved": "external:svelte/server"
+        },
+        {
+          "specifier": "jsdom",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "JSDOM"
+          ],
+          "resolved": "external:jsdom"
+        },
+        {
+          "specifier": "./ssr/Collapsible.svelte",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "default"
+          ],
+          "resolved": "packages/base/tests/ssr/Collapsible.svelte"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/tests/collapsible-types.ts",
+      "sha256": "4bfca92fe31d8eb538ab5cbc5b7d74d3a311c54962ee5c3d21a8dc50db8a23db",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "ComponentProps"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../src/lib/collapsible/index.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "Root",
+            "Trigger",
+            "Panel",
+            "CollapsibleRootProps",
+            "CollapsibleTriggerProps",
+            "CollapsiblePanelProps",
+            "CollapsibleRootState",
+            "CollapsibleTriggerState",
+            "CollapsiblePanelState",
+            "CollapsibleRootChangeEventReason",
+            "CollapsibleRootChangeEventDetails"
+          ],
+          "resolved": "packages/base/src/lib/collapsible/index.ts"
+        },
+        {
+          "specifier": "./expect-type.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "expectType"
+          ],
+          "resolved": "packages/base/tests/expect-type.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/tests/dom/collapsible.test.ts",
+      "sha256": "d395e04971e9f33ce33c4506c56e028157224de5643e7b616a925cc3d0fbbf1f",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "vitest",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "afterEach",
+            "expect",
+            "it",
+            "vi"
+          ],
+          "resolved": "external:vitest"
+        },
+        {
+          "specifier": "svelte",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "mount",
+            "tick",
+            "unmount"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../../src/lib/collapsible/index.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "packages/base/src/lib/collapsible/index.ts"
+        },
+        {
+          "specifier": "./collapsible/Fixture.svelte",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "default"
+          ],
+          "resolved": "packages/base/tests/dom/collapsible/Fixture.svelte"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/tests/dom/collapsible/Fixture.svelte",
+      "sha256": "aab99b97924516a0f45652f232dec060c379eb7a4dbe2734fad1554ada8fd991",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "untrack",
+            "Snippet"
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "HTMLAttributes"
+          ],
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../../../src/lib/collapsible/index.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "packages/base/src/lib/collapsible/index.ts"
+        },
+        {
+          "specifier": "../../../src/lib/collapsible/index.js",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "CollapsiblePanelState",
+            "CollapsibleRootChangeEventDetails"
+          ],
+          "resolved": "packages/base/src/lib/collapsible/index.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/tests/expect-type.ts",
+      "sha256": "038f3dad0a1d7b387d09eba455d3289c88a8ce820386fe48d8ff572d6615de97",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/base/tests/ssr/Collapsible.svelte",
+      "sha256": "c149dca441af99a860bbd7c932311ce91b81b8b41ede1fdc6fbe1ce78ba59e93",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../../src/lib/collapsible/index.js",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "packages/base/src/lib/collapsible/index.ts"
+        }
+      ]
+    },
+    {
+      "source": "scripts/check-collapsible-package.sh",
+      "sha256": "64ad8777492889d6e9d9d802e97119d2e48a4057cbdf320e69d5220e2c4ab751",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "scripts/svelte-ssr-loader.mjs",
+      "sha256": "12e52552fcb6658df7e4e97b8ac41b833856eefcdb57f5eccde3c6213aec7275",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "node:module",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "registerHooks",
+            "createRequire"
+          ],
+          "resolved": "external:node:module"
+        },
+        {
+          "specifier": "node:fs",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "existsSync",
+            "readFileSync"
+          ],
+          "resolved": "external:node:fs"
+        },
+        {
+          "specifier": "node:url",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "fileURLToPath"
+          ],
+          "resolved": "external:node:url"
+        }
+      ]
+    },
+    {
+      "source": "scripts/tests/collapsible-provenance.test.mjs",
+      "sha256": "bc9b0205a5c2f371739e7a1552ecc35badee73e2c9905109560b4292f89326da",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "node:assert/strict",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "default"
+          ],
+          "resolved": "external:node:assert/strict"
+        },
+        {
+          "specifier": "node:fs",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "existsSync",
+            "readFileSync"
+          ],
+          "resolved": "external:node:fs"
+        },
+        {
+          "specifier": "node:test",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "test"
+          ],
+          "resolved": "external:node:test"
+        }
+      ]
+    },
+    {
+      "source": "scripts/tests/collapsible-ssr.test.mjs",
+      "sha256": "3c3818fd046676034fbbb6bfe8c9d7b46d562f0ed348fed905dbd0b2011115c4",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "node:child_process",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "execFileSync"
+          ],
+          "resolved": "external:node:child_process"
+        },
+        {
+          "specifier": "node:test",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "test"
+          ],
+          "resolved": "external:node:test"
+        },
+        {
+          "specifier": "spawned-source-import",
+          "declaredKind": "embedded-test-script",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "scripts/svelte-ssr-loader.mjs"
+        },
+        {
+          "specifier": "spawned-source-import",
+          "declaredKind": "embedded-test-script",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "packages/base/tests/ssr/Collapsible.svelte"
+        }
+      ]
+    },
+    {
+      "source": "tests/browser/collapsible.spec.ts",
+      "sha256": "8c94884fc32618082af89af4e0d96ed89965a556d254448385c6444ebd812e69",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "@playwright/test",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "expect",
+            "test",
+            "Page"
+          ],
+          "resolved": "external:@playwright/test"
+        }
+      ]
+    }
+  ],
+  "external": [
+    "external:@base-ui/react/collapsible",
+    "external:@playwright/test",
+    "external:esm-env",
+    "external:jsdom",
+    "external:node:assert/strict",
+    "external:node:child_process",
+    "external:node:fs",
+    "external:node:module",
+    "external:node:test",
+    "external:node:url",
+    "external:react",
+    "external:react-dom",
+    "external:react-dom/client",
+    "external:react-dom/server",
+    "external:svelte",
+    "external:svelte/attachments",
+    "external:svelte/elements",
+    "external:svelte/server",
+    "external:vitest"
+  ],
+  "semantics": "Inventory, not manual Source acceptance. Declared import syntax and TypeScript-emitted dependency kinds are separate. TypeScript 5.9.3 transpileModule elision identifies effective type edges in TS/TSX; non-type Svelte imports retain runtime reachability because markup also uses them. Selected public/test barrel exports are expanded by actual imported members; excluded siblings are recorded, not accepted. All reached module bodies, including type-only, require separate manual inspection receipts."
+}

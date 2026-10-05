@@ -1,0 +1,346 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "license": "MIT; ../UPSTREAM_LICENSE",
+  "sources": [
+    {
+      "source": "packages/react/src/collapsible/index.parts.ts",
+      "sha256": "77d02702e28e88b7e845f7cc8c95385b23d2aed75c052c4b1f30dd297d792ca0",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/index.parts.ts"
+    },
+    {
+      "source": "packages/react/src/collapsible/index.ts",
+      "sha256": "4694d1fb838941e216a5439a94d3a66c265827900253d8119d5531377e5e1ec2",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/index.ts"
+    },
+    {
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "sha256": "838ff4510f0a4eed7e7369e087270682540040526766696dd6f94179cbf416bf",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx"
+    },
+    {
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.tsx",
+      "sha256": "b2694e75cd711224adc1e586cc36efa6832354657d0979c00a28a9bb4d8bef79",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/panel/CollapsiblePanel.tsx"
+    },
+    {
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanelCssVars.ts",
+      "sha256": "a0dbd3f727fb2cebd5a1163722269991ee6c92f7c371ab68c6cc5e5d37824d77",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/panel/CollapsiblePanelCssVars.ts"
+    },
+    {
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanelDataAttributes.ts",
+      "sha256": "dc5173421a0cd805c6f736b93a50dd8ab5b3e51da7374ae9e05d76b12b5602eb",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/panel/CollapsiblePanelDataAttributes.ts"
+    },
+    {
+      "source": "packages/react/src/collapsible/panel/useCollapsiblePanel.ts",
+      "sha256": "5f2b096ff87493217f032f6252c8d73c152594d6ceb379753168238ab3ba8e04",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/panel/useCollapsiblePanel.ts"
+    },
+    {
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.spec.tsx",
+      "sha256": "c582c610a65579d4016e42375243d6a115faf7be4dcd8d3f7b2a47bd00b4fe53",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/root/CollapsibleRoot.spec.tsx"
+    },
+    {
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx",
+      "sha256": "26baa194cd1b6c511ce6bd4f92557cd442b20e9e85a821d19bbf5eea23856386",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/root/CollapsibleRoot.test.tsx"
+    },
+    {
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.tsx",
+      "sha256": "0cef031a852397b79afa67943e1370996bfa5ec20766d7a07a2d4e71674d173e",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/root/CollapsibleRoot.tsx"
+    },
+    {
+      "source": "packages/react/src/collapsible/root/CollapsibleRootContext.ts",
+      "sha256": "22722a169e4c60f5d3ca433d103c39a2235629354f4e8100b3f26c3ca24da686",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/root/CollapsibleRootContext.ts"
+    },
+    {
+      "source": "packages/react/src/collapsible/root/stateAttributesMapping.ts",
+      "sha256": "d892c1dc45b10406218d1f1eaf724ef2a068d0bfe44aefba1a3c0754ae4f1509",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/root/stateAttributesMapping.ts"
+    },
+    {
+      "source": "packages/react/src/collapsible/root/useCollapsibleRoot.ts",
+      "sha256": "421c5192f10897812244c529ca61b91d2cebe1928362bcbdea998e7037f297d1",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/root/useCollapsibleRoot.ts"
+    },
+    {
+      "source": "packages/react/src/collapsible/trigger/CollapsibleTrigger.test.tsx",
+      "sha256": "fa2373cc44f972d42d0920af49d322dc885305e07e620bf56e4c10b302928c1a",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/trigger/CollapsibleTrigger.test.tsx"
+    },
+    {
+      "source": "packages/react/src/collapsible/trigger/CollapsibleTrigger.tsx",
+      "sha256": "ce9afedaca5278236cd9aeac7cee408f510d75e32a78ec759e1cb2da76e3a634",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/trigger/CollapsibleTrigger.tsx"
+    },
+    {
+      "source": "packages/react/src/collapsible/trigger/CollapsibleTriggerDataAttributes.ts",
+      "sha256": "f137ea2f8075f667078a8ade395d6802c9cd0cf1d489207198ad3bb1fc291de5",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/trigger/CollapsibleTriggerDataAttributes.ts"
+    },
+    {
+      "source": "packages/react/src/internals/TransitionStatusDataAttributes.ts",
+      "sha256": "cf240c33e54cbfae687b7f9b1bdaf7329c1cda7630481ca68d105723d75440d7",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/TransitionStatusDataAttributes.ts"
+    },
+    {
+      "source": "packages/react/src/internals/composite/root/CompositeRootContext.ts",
+      "sha256": "751bbbd1fa2b4ae5c5674dc878d302b59b0e15b5771763cccbaf2362eee1b9fa",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/composite/root/CompositeRootContext.ts"
+    },
+    {
+      "source": "packages/react/src/internals/createBaseUIEventDetails.ts",
+      "sha256": "77bdb11a11ef1dfe9bc1a82db4754766cffbb91c27c3aeaea215e4e07cec2b2d",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/createBaseUIEventDetails.ts"
+    },
+    {
+      "source": "packages/react/src/internals/getStateAttributesProps.ts",
+      "sha256": "ae0c62d85ecb1d58d833c49a8753929df86a7539e94e272fdfe692d6ae89abcb",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/getStateAttributesProps.ts"
+    },
+    {
+      "source": "packages/react/src/internals/reason-parts.ts",
+      "sha256": "1cddfb9a98326bc5e586c2bdb66fb3a58913038f8ee7368ec57bbaf972521e06",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/reason-parts.ts"
+    },
+    {
+      "source": "packages/react/src/internals/reasons.ts",
+      "sha256": "694b1512f2dd9c999e97899e1fe9ea0f189fbe8476fcbc0f957cd786806c4abf",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/reasons.ts"
+    },
+    {
+      "source": "packages/react/src/internals/stateAttributesMapping.ts",
+      "sha256": "722dc0fed9ce97ed42b5b59418a01596c99b0cb8c5c5bb638737878dfe2d43bc",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/stateAttributesMapping.ts"
+    },
+    {
+      "source": "packages/react/src/internals/types.ts",
+      "sha256": "ed0c29125011488378a038fe179287809ef624d9d84389d83d7207b25e3d416a",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/types.ts"
+    },
+    {
+      "source": "packages/react/src/internals/use-button/index.ts",
+      "sha256": "bfd5490017aa66ebc7d42c86e9309e15109eb1a0d5058fed586704adf93c8d23",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/use-button/index.ts"
+    },
+    {
+      "source": "packages/react/src/internals/use-button/useButton.ts",
+      "sha256": "eba51ce4ed0d2082dda17180bbbbe2bf91318c2b33eae2d114c0e4ebbe3203e6",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/use-button/useButton.ts"
+    },
+    {
+      "source": "packages/react/src/internals/useAnimationsFinished.ts",
+      "sha256": "58fef3cb8defbbbe84c80126a6b0aff767293b692a19d97f078a190e62a3d7a6",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/useAnimationsFinished.ts"
+    },
+    {
+      "source": "packages/react/src/internals/useBaseUiId.ts",
+      "sha256": "c935ee27e3dfee2307e108dc82a36ec2a1f3e76b4692de188e5d3cdc4511157f",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/useBaseUiId.ts"
+    },
+    {
+      "source": "packages/react/src/internals/useOpenChangeComplete.tsx",
+      "sha256": "809be9e6b5a1a6238d9f239c162e2489d7da6e5f20383fbe65e85933e7259d89",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/useOpenChangeComplete.tsx"
+    },
+    {
+      "source": "packages/react/src/internals/useRenderElement.tsx",
+      "sha256": "0b55dc232a0d630a666a13873213d1bdde040e973031f2b307a64cc157644a4c",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/useRenderElement.tsx"
+    },
+    {
+      "source": "packages/react/src/internals/useTransitionStatus.ts",
+      "sha256": "07ffaf4fcf96a3d4d24aa2dabb696f2e082f312149225e45372a12a0d3cfe4e1",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/useTransitionStatus.ts"
+    },
+    {
+      "source": "packages/react/src/merge-props/index.ts",
+      "sha256": "4881819e46f8b81cc6e90add34bc5a87cf924596e007785da31eed500414222f",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/merge-props/index.ts"
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.ts",
+      "sha256": "cdc8fc165df88ddc4034fb2242ebf1ef32b504755404c343abf965cb3e4c90ce",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/merge-props/mergeProps.ts"
+    },
+    {
+      "source": "packages/react/src/types/index.ts",
+      "sha256": "ffc973365f8dbc5af24db40fa4553ee7fc1f154feb1803ff6a9bb5d5cd918587",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/types/index.ts"
+    },
+    {
+      "source": "packages/react/src/utils/collapsibleOpenStateMapping.ts",
+      "sha256": "9be172c72160cfa569acaf0d617244b0152bf85d962a46c8c0d3dcf4123eb0c6",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/collapsibleOpenStateMapping.ts"
+    },
+    {
+      "source": "packages/react/src/utils/dispatchClickWithModifiers.ts",
+      "sha256": "f395a0babfbb8b5a9e58f6db3e78fd9fdef34d2570cf71884068319af1fc0fba",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/dispatchClickWithModifiers.ts"
+    },
+    {
+      "source": "packages/react/src/utils/resolveClassName.ts",
+      "sha256": "8a4b38bd68c8f1e7268c9587951c5e78349fd51c6f3befef597b3c3b60ac3b41",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/resolveClassName.ts"
+    },
+    {
+      "source": "packages/react/src/utils/resolveRef.ts",
+      "sha256": "fb0a9525bf7c002fe9e82d5c74235c5620b0b83f106cdec67b77071a05140312",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/resolveRef.ts"
+    },
+    {
+      "source": "packages/react/src/utils/resolveStyle.ts",
+      "sha256": "e8cb3f94b27439c43a3a26b82f21c09fe152871c202aef91f8907da3f8734cf0",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/resolveStyle.ts"
+    },
+    {
+      "source": "packages/react/src/utils/useFocusableWhenDisabled.ts",
+      "sha256": "21e071c8b1547c8473ade8e4d3a415df8ca73767d6125a305c63fa8a620e5ba6",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/useFocusableWhenDisabled.ts"
+    },
+    {
+      "source": "packages/react/test/conformanceTests/className.tsx",
+      "sha256": "ea73ff821ec5660ee854392d0744a87cc38ede0d8c14a3c5070ea08408a599bb",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/test/conformanceTests/className.tsx"
+    },
+    {
+      "source": "packages/react/test/conformanceTests/propForwarding.tsx",
+      "sha256": "82043f827f31e0ad21dfb359598af51c7299a2139b20be958d07ac6313372733",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/test/conformanceTests/propForwarding.tsx"
+    },
+    {
+      "source": "packages/react/test/conformanceTests/refForwarding.tsx",
+      "sha256": "3fff79d221c972d29f9909dfefbfa7f4bd16ab761960d795c01368e524c7fef0",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/test/conformanceTests/refForwarding.tsx"
+    },
+    {
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "sha256": "9f2094949667daaecdfeff914c231295d79ca9e3699ba754637a5c31d6eab225",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/test/conformanceTests/renderProp.tsx"
+    },
+    {
+      "source": "packages/react/test/conformanceTests/utils.ts",
+      "sha256": "8db69d4e87bd8ec8d5fc15380e53ae2a67ce4a3b893e62063c142405024d41c7",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/test/conformanceTests/utils.ts"
+    },
+    {
+      "source": "packages/react/test/createRenderer.ts",
+      "sha256": "aa35bdbfbdf6163cd231302aa31a8b0f10564bd00d393de46c9d5030d75471a4",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/test/createRenderer.ts"
+    },
+    {
+      "source": "packages/react/test/describeConformance.tsx",
+      "sha256": "316678dd7c2637e23c1f02e536974dae67d41bd8c7241c67c6e8c7461b74a184",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/test/describeConformance.tsx"
+    },
+    {
+      "source": "packages/react/test/index.ts",
+      "sha256": "7d7236f84d7124919fbba4f1ab1a09b725e2604b49864ba89070ea2f74f77ff5",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/test/index.ts"
+    },
+    {
+      "source": "packages/utils/src/addEventListener.ts",
+      "sha256": "a2d30e30e8151a62347f67620d568bd1550f5069af3652a57892ed9de42f3dcc",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/addEventListener.ts"
+    },
+    {
+      "source": "packages/utils/src/createLogOnce.ts",
+      "sha256": "6e5e5b4c34d3407fe2379b58749d4da26c49c49383b7501964132a2e725660b1",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/createLogOnce.ts"
+    },
+    {
+      "source": "packages/utils/src/empty.ts",
+      "sha256": "7d7c8625346dc2344dc551004c5c5da82878ab814818b7a8df4ad7082979ead6",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/empty.ts"
+    },
+    {
+      "source": "packages/utils/src/error.ts",
+      "sha256": "957b3369d680d50a26cce3b4e9add608b2e829cb299636bde056e76297002847",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/error.ts"
+    },
+    {
+      "source": "packages/utils/src/getReactElementRef.ts",
+      "sha256": "6ea0078fe8f8a0feee703f968779a863b30789a6fac4e4f51de13690064af364",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/getReactElementRef.ts"
+    },
+    {
+      "source": "packages/utils/src/mergeObjects.ts",
+      "sha256": "0e9b1568370f5c1ea28710bae245380281ae366187bfb871b99a14fe6b5b49fa",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/mergeObjects.ts"
+    },
+    {
+      "source": "packages/utils/src/owner.ts",
+      "sha256": "94a825206d926b388459df70639476133442c28c83a7e3be750399cb323ea623",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/owner.ts"
+    },
+    {
+      "source": "packages/utils/src/reactVersion.ts",
+      "sha256": "e52b2ae447fe83a4b5a927a013405446542ef474b76a75540b7216bc561df889",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/reactVersion.ts"
+    },
+    {
+      "source": "packages/utils/src/safeReact.ts",
+      "sha256": "b2923526a5b42e0d4f341ccb6c26e11d4b34991f206353320bb821026bbbc81f",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/safeReact.ts"
+    },
+    {
+      "source": "packages/utils/src/testUtils.ts",
+      "sha256": "d97cb6255e7f21f5fc237563a1e59871420327f6e33e019c559d4802662c691f",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/testUtils.ts"
+    },
+    {
+      "source": "packages/utils/src/useAnimationFrame.ts",
+      "sha256": "229943cee6d42305da4db33ed395ff8ccdde915c2e4e922c5af0c7b0aeeddf82",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useAnimationFrame.ts"
+    },
+    {
+      "source": "packages/utils/src/useControlled.ts",
+      "sha256": "487bc45fa3ef1a70177867bb03598230f9926601aed8e3c7f46470feb225f886",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useControlled.ts"
+    },
+    {
+      "source": "packages/utils/src/useId.ts",
+      "sha256": "7d01ffb745d3404ba406ebbd12ddfc8eb73325c3adea3dbda0868e2bad2eef05",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useId.ts"
+    },
+    {
+      "source": "packages/utils/src/useIsoLayoutEffect.ts",
+      "sha256": "13a0ab28d24b04617dc290ad151c145f2435d1e0c381123847af74344ea4b9a0",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useIsoLayoutEffect.ts"
+    },
+    {
+      "source": "packages/utils/src/useMergedRefs.ts",
+      "sha256": "5fa12ae01abedc23ba814e9c59f015cf14d306044638b56c977780de43275ba3",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useMergedRefs.ts"
+    },
+    {
+      "source": "packages/utils/src/useOnMount.ts",
+      "sha256": "9d621d059249ec6ad10dbf35eef28153a8bc6ef893574d26a060385d4d13472b",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useOnMount.ts"
+    },
+    {
+      "source": "packages/utils/src/useRefWithInit.ts",
+      "sha256": "183cb6e86ab1f8044a431d5b4115c750f7848c9835d519881b3c7a66dae98354",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useRefWithInit.ts"
+    },
+    {
+      "source": "packages/utils/src/useStableCallback.ts",
+      "sha256": "908cbd177f86c961983d0124a859f733d341be49e58bc5a553255f47725419c1",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useStableCallback.ts"
+    },
+    {
+      "source": "packages/utils/src/useValueAsRef.ts",
+      "sha256": "ad85f215ea605641c7f579a0dd50841427a01c7412eee127b34c51318e744777",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useValueAsRef.ts"
+    },
+    {
+      "source": "packages/utils/src/warn.ts",
+      "sha256": "4e5565f4957742aaa2795bae3f37bfbc88dac51528550b3406ed5cef92474c00",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/warn.ts"
+    }
+  ]
+}
