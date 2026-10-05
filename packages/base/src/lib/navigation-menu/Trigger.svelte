@@ -166,6 +166,7 @@
   function setAutoSizes(element: HTMLElement) {
     element.style.setProperty(NavigationMenuPopupCssVars.popupWidth, 'auto');
     element.style.setProperty(NavigationMenuPopupCssVars.popupHeight, 'auto');
+    root.syncSizeStyles(element);
   }
 
   function clearFixedSizes(popup: HTMLElement, positioner: HTMLElement) {
@@ -173,6 +174,8 @@
     popup.style.removeProperty(NavigationMenuPopupCssVars.popupHeight);
     positioner.style.removeProperty(NavigationMenuPositionerCssVars.positionerWidth);
     positioner.style.removeProperty(NavigationMenuPositionerCssVars.positionerHeight);
+    root.syncSizeStyles(popup);
+    root.syncSizeStyles(positioner);
   }
 
   function scheduleAutoSizeReset(popup: HTMLElement) {
@@ -214,6 +217,8 @@
         NavigationMenuPositionerCssVars.positionerHeight,
         `${measuredHeight}px`,
       );
+      root.syncSizeStyles(popup);
+      root.syncSizeStyles(positioner);
 
       sizeFrame.request(() => {
         if (!isActiveItemRef.current) {
@@ -222,6 +227,7 @@
 
         popup.style.setProperty(NavigationMenuPopupCssVars.popupWidth, `${measuredWidth}px`);
         popup.style.setProperty(NavigationMenuPopupCssVars.popupHeight, `${measuredHeight}px`);
+        root.syncSizeStyles(popup);
 
         scheduleAutoSizeReset(popup);
       });
@@ -240,6 +246,10 @@
 
       setSharedFixedSize(popup, positioner, currentWidth, currentHeight);
 
+      root.syncSizeStyles(popup);
+
+      root.syncSizeStyles(positioner);
+
       mutationFrame.request(() => {
         mutationFrame.request(() => {
           clearFixedSizes(popup, positioner);
@@ -250,12 +260,20 @@
 
           setSharedFixedSize(popup, positioner, currentWidth, currentHeight);
 
+          root.syncSizeStyles(popup);
+
+          root.syncSizeStyles(positioner);
+
           sizeFrame.request(() => {
             if (!isActiveItemRef.current) {
               return;
             }
 
             setSharedFixedSize(popup, positioner, measuredWidth, measuredHeight);
+
+            root.syncSizeStyles(popup);
+
+            root.syncSizeStyles(positioner);
             scheduleAutoSizeReset(popup);
           });
         });
@@ -279,6 +297,7 @@
     setAutoSizes(popup);
     positioner.style.setProperty(NavigationMenuPositionerCssVars.positionerWidth, `${width}px`);
     positioner.style.setProperty(NavigationMenuPositionerCssVars.positionerHeight, `${height}px`);
+    root.syncSizeStyles(positioner);
   });
 
   const getMutationBaseline = useStableCallback((popup: HTMLElement) => {

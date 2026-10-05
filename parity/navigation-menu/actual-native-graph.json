@@ -5,7 +5,7 @@
   ],
   "status": "Actual public syntax runtime/type closure; member/body acceptance is separate and pending",
   "moduleCount": 142,
-  "statementCount": 565,
+  "statementCount": 566,
   "ordinaryCredit": 0,
   "modules": [
     {
@@ -34221,8 +34221,8 @@
     },
     {
       "source": "packages/base/src/lib/navigation-menu/Popup.svelte",
-      "sha256": "54bf5666345ac742335571b1c9514858206ee2a7c1e5de89ef6f1a99f4792716",
-      "bytes": 2454,
+      "sha256": "89e40553ffec889383f80192f4f8321ec478431f3a1bd5930aa02af0a67e8372",
+      "bytes": 2529,
       "imports": [
         {
           "line": 3,
@@ -34508,8 +34508,8 @@
     },
     {
       "source": "packages/base/src/lib/navigation-menu/Positioner.svelte",
-      "sha256": "070d42763e18f6cf08e1904288b27d5f3f76545e217f7e0da71fe7367a332869",
-      "bytes": 5389,
+      "sha256": "a9c645456b9cac9c9ff55f30b5d5b2ac6ca70577b421c456ad054ad61374e0d5",
+      "bytes": 5426,
       "imports": [
         {
           "line": 3,
@@ -34917,8 +34917,8 @@
     },
     {
       "source": "packages/base/src/lib/navigation-menu/Root.svelte",
-      "sha256": "baf5766fb21920f32f932e707daf852ddb9424b061c916e5c0e897a5c0a36c8e",
-      "bytes": 9378,
+      "sha256": "6bbb81fa599fb171901878f099369ab50c7baf87343c2f4bd273b1662b0b8793",
+      "bytes": 10932,
       "imports": [
         {
           "line": 4,
@@ -35148,6 +35148,20 @@
         },
         {
           "line": 26,
+          "specifier": "./popup/NavigationMenuPopupCssVars.js",
+          "edge": "import",
+          "resolved": "packages/base/src/lib/navigation-menu/popup/NavigationMenuPopupCssVars.ts",
+          "names": [
+            {
+              "imported": "*",
+              "local": "NavigationMenuPopupCssVars",
+              "kind": "runtime"
+            }
+          ],
+          "kind": "runtime"
+        },
+        {
+          "line": 27,
           "specifier": "./positioner/NavigationMenuPositionerCssVars.js",
           "edge": "import",
           "resolved": "packages/base/src/lib/navigation-menu/positioner/NavigationMenuPositionerCssVars.ts",
@@ -35161,7 +35175,7 @@
           "kind": "runtime"
         },
         {
-          "line": 27,
+          "line": 28,
           "specifier": "./root/TreeContext.svelte",
           "edge": "import",
           "resolved": "packages/base/src/lib/navigation-menu/root/TreeContext.svelte",
@@ -35175,7 +35189,7 @@
           "kind": "runtime"
         },
         {
-          "line": 28,
+          "line": 29,
           "specifier": "./types.js",
           "edge": "import",
           "resolved": "packages/base/src/lib/navigation-menu/types.ts",
@@ -35207,24 +35221,31 @@
       "typeQueries": [],
       "declarations": [
         {
+          "name": "syncSizeStyles",
+          "kind": "FunctionDeclaration",
+          "line": 76,
+          "endLine": 94,
+          "sha256": "1f779a5928e8149e5a1fa455d8216e05e0b0f97daf18062d922e46e8dbb9bf0f"
+        },
+        {
           "name": "getPositionerFixedSize",
           "kind": "FunctionDeclaration",
-          "line": 100,
-          "endLine": 111,
+          "line": 124,
+          "endLine": 135,
           "sha256": "6a1cebb5486321f90140829b3458deeb4a7628ac1bb607d5b6e929dba0ce5ebf"
         },
         {
           "name": "setValue",
           "kind": "FunctionDeclaration",
-          "line": 126,
-          "endLine": 137,
+          "line": 154,
+          "endLine": 165,
           "sha256": "387af9a1d2111e098560e1f63063ede4442a75186e3babeb500514bed908e0ba"
         },
         {
           "name": "handleUnmount",
           "kind": "FunctionDeclaration",
-          "line": 138,
-          "endLine": 157,
+          "line": 166,
+          "endLine": 185,
           "sha256": "6d34843723b6740b4c3894027ba324f03b65fa5d6308413a16a895e64413db3e"
         }
       ],
@@ -35240,8 +35261,8 @@
     },
     {
       "source": "packages/base/src/lib/navigation-menu/root/NavigationMenuRootContext.ts",
-      "sha256": "483b8e4fb3fb6939d6928c429cb27fef4a1f10993f8b412cb1f17cd751666cb6",
-      "bytes": 3337,
+      "sha256": "9e9a4aa447b03cb503a0dc073a1ad0163ab768ef929c678e51b618ffa373a28b",
+      "bytes": 3528,
       "imports": [
         {
           "line": 3,
@@ -35318,49 +35339,49 @@
           "name": "NavigationMenuRootContext",
           "kind": "InterfaceDeclaration",
           "line": 11,
-          "endLine": 43,
-          "sha256": "d4ea355f549d5e5b1c133b8f6493644cb5fc70369c9961f1d5bd3200c414eb73"
+          "endLine": 51,
+          "sha256": "1488f9d67150c4fe06de4445f0532d280d1e74fdc4340c2e57838866b6a55ecd"
         },
         {
           "name": "provideNavigationMenuRootContext",
           "kind": "FunctionDeclaration",
-          "line": 46,
-          "endLine": 48,
-          "sha256": "ff56396d21c3e571fee12098c4a52c571fab67782ecc8185c028d774c61e8dd2"
+          "line": 54,
+          "endLine": 58,
+          "sha256": "b53f8cb01437ab1ee5a27fd1e69b00283f2fe20c64703a82793dc5a20d43b062"
         },
         {
           "name": "useNavigationMenuRootContext",
           "kind": "FunctionDeclaration",
-          "line": 49,
-          "endLine": 51,
+          "line": 59,
+          "endLine": 61,
           "sha256": "e226c2b2930e5150e7251771ad19b3d2f87e6ee9ee96712374a10bb43ce3e77f"
         },
         {
           "name": "useNavigationMenuRootContext",
           "kind": "FunctionDeclaration",
-          "line": 52,
-          "endLine": 54,
+          "line": 62,
+          "endLine": 64,
           "sha256": "ab83acd4d271f6e3d6dfac0f8bc48b5466a992d942406f6afb1726b80cb15852"
         },
         {
           "name": "useNavigationMenuRootContext",
           "kind": "FunctionDeclaration",
-          "line": 55,
-          "endLine": 62,
-          "sha256": "dffc0338550867af8dee744d71f9fcf8f0977ca9092f2d8803d8ff8d7ec7f16d"
+          "line": 65,
+          "endLine": 74,
+          "sha256": "b722d17bdf8746283daaa0c5adf4f0430e037ffa333e97cec5ba24ddb00d7a6f"
         },
         {
           "name": "provideNavigationMenuTreeContext",
           "kind": "FunctionDeclaration",
-          "line": 63,
-          "endLine": 65,
+          "line": 75,
+          "endLine": 77,
           "sha256": "bde04415c9cab2223528b94c9b817b2cc6b82be31dfe09216c0972485bb50fcf"
         },
         {
           "name": "useNavigationMenuTreeContext",
           "kind": "FunctionDeclaration",
-          "line": 66,
-          "endLine": 68,
+          "line": 78,
+          "endLine": 80,
           "sha256": "6ac68902173b1130912d14eefec734ad42e22ecef85b257b84eae4352ba0a595"
         }
       ],
@@ -35441,8 +35462,8 @@
     },
     {
       "source": "packages/base/src/lib/navigation-menu/Trigger.svelte",
-      "sha256": "8b2ec9358b4e9701f010a5a38b503fa29963fa37f83c1675d8c8e429ca8249c8",
-      "bytes": 27659,
+      "sha256": "aa0b70adf3f9035988a5301c023d846a3acb96d6834d1e8844916f387359e866",
+      "bytes": 28153,
       "imports": [
         {
           "line": 3,
@@ -36072,77 +36093,77 @@
           "name": "setAutoSizes",
           "kind": "FunctionDeclaration",
           "line": 166,
-          "endLine": 169,
-          "sha256": "b7cd2d07d61c45cfb911a9c3c8cdf6405cabe92e15f9f0e93b1a4b916ad8eb49"
+          "endLine": 170,
+          "sha256": "a359e4068a770c8c86406d0bd0bb29df51e37ab865f7162b84cf6a2cd20c0bfb"
         },
         {
           "name": "clearFixedSizes",
           "kind": "FunctionDeclaration",
-          "line": 171,
-          "endLine": 176,
-          "sha256": "5d426cef908a5ae96ca7ac07933cf114015b5118708dbf1b8017ca260cfd4ee3"
+          "line": 172,
+          "endLine": 179,
+          "sha256": "26d299c59c442705a4204e0b1e0ed8992a60404fb1bcb1f498b9b551a817ed93"
         },
         {
           "name": "scheduleAutoSizeReset",
           "kind": "FunctionDeclaration",
-          "line": 178,
-          "endLine": 190,
+          "line": 181,
+          "endLine": 193,
           "sha256": "f931fe5ac66ecaa596164e8e9985595ce7d4ee2b93bd41459e5e200f702003b1"
         },
         {
           "name": "handleResize",
           "kind": "FunctionDeclaration",
-          "line": 358,
-          "endLine": 361,
+          "line": 377,
+          "endLine": 380,
           "sha256": "1d10fab4cf39d078573dc1f095482b6243820f25d7015e07e98657d3b3c98e01"
         },
         {
           "name": "handleOpenChange",
           "kind": "FunctionDeclaration",
-          "line": 457,
-          "endLine": 496,
+          "line": 476,
+          "endLine": 515,
           "sha256": "14afc7f33927b9df232a41233ac3642308d5e3b6dedc67dd862ed3cd0f4b4225"
         },
         {
           "name": "changeState",
           "kind": "FunctionDeclaration",
-          "line": 472,
-          "endLine": 489,
+          "line": 491,
+          "endLine": 508,
           "sha256": "2f2d97ee3b8924f74f5fbf379055165a64eede3faf2756c708127cfc00c4d29d"
         },
         {
           "name": "getScope",
           "kind": "FunctionDeclaration",
-          "line": 542,
-          "endLine": 548,
+          "line": 561,
+          "endLine": 567,
           "sha256": "43c160d6824fa87e439eb87453de31d59fe470e47be383778042a24cf45a51c4"
         },
         {
           "name": "handleSetPointerType",
           "kind": "FunctionDeclaration",
-          "line": 683,
-          "endLine": 685,
+          "line": 702,
+          "endLine": 704,
           "sha256": "7463549edf4e997b053e66c6c6aef40b4b9fb8a234b31e88c7f9ef2dd49c8cd0"
         },
         {
           "name": "handleTriggerPointerDown",
           "kind": "FunctionDeclaration",
-          "line": 687,
-          "endLine": 690,
+          "line": 706,
+          "endLine": 709,
           "sha256": "1c75346942573911e58dab16b3cb0d1ee081828cb799e402195a0a0d3a4eea88"
         },
         {
           "name": "getPlacementFromElements",
           "kind": "FunctionDeclaration",
-          "line": 762,
-          "endLine": 780,
+          "line": 781,
+          "endLine": 799,
           "sha256": "95c10be0bbb2cb847e031a2f38d504fb553ae7fb1341400a2d0b99bb64aaed2a"
         },
         {
           "name": "getHandleCloseContext",
           "kind": "FunctionDeclaration",
-          "line": 782,
-          "endLine": 795,
+          "line": 801,
+          "endLine": 814,
           "sha256": "a2eecc9fe78ed93774078cba5e163a7e7669ad55bbc5725aca72afe19fbc44de"
         }
       ],

@@ -23,6 +23,7 @@
     type NavigationMenuRootContext,
   } from './root/NavigationMenuRootContext.js';
   import { setSharedFixedSize } from './utils/setSharedFixedSize.js';
+  import * as NavigationMenuPopupCssVars from './popup/NavigationMenuPopupCssVars.js';
   import * as NavigationMenuPositionerCssVars from './positioner/NavigationMenuPositionerCssVars.js';
   import TreeContext from './root/TreeContext.svelte';
   import type {
@@ -68,6 +69,29 @@
   let closeReason = $state<NavigationMenuRootChangeEventReason | undefined>();
   let positionerElement = $state.raw<HTMLElement | null>(null);
   let popupElement = $state.raw<HTMLElement | null>(null);
+  // Mirror only completed NavigationMenu sizing writes into the native rendered style.
+  // Authored styles remain later in the canonical renderer's merge order.
+  let popupSizeStyles = $state.raw<Record<string, string>>({});
+  let positionerSizeStyles = $state.raw<Record<string, string>>({});
+  function syncSizeStyles(element: HTMLElement) {
+    const popup = element === popupElement;
+    if (!popup && element !== positionerElement) return;
+    const keys = popup
+      ? [NavigationMenuPopupCssVars.popupWidth, NavigationMenuPopupCssVars.popupHeight]
+      : [
+          NavigationMenuPositionerCssVars.positionerWidth,
+          NavigationMenuPositionerCssVars.positionerHeight,
+        ];
+    const previous = popup ? popupSizeStyles : positionerSizeStyles;
+    const next: Record<string, string> = {};
+    for (const key of keys) {
+      const value = element.style.getPropertyValue(key);
+      if (value) next[key] = value;
+    }
+    if (keys.every((key) => previous[key] === next[key])) return;
+    if (popup) popupSizeStyles = next;
+    else positionerSizeStyles = next;
+  }
   let viewportElement = $state.raw<HTMLElement | null>(null);
   let viewportTargetElement = $state.raw<HTMLElement | null>(null);
   let activationDirection = $state<NavigationMenuRootContext['activationDirection']>(null);
@@ -113,7 +137,11 @@
     () => {
       if (open || !positionerElement || !popupElement) return;
       const size = getPositionerFixedSize(positionerElement);
-      if (size) setSharedFixedSize(popupElement, positionerElement, size.width, size.height);
+      if (size) {
+        setSharedFixedSize(popupElement, positionerElement, size.width, size.height);
+        syncSizeStyles(popupElement);
+        syncSizeStyles(positionerElement);
+      }
     },
     () => [open, popupElement, positionerElement],
   );
@@ -210,14 +238,23 @@
       return popupElement;
     },
     setPopupElement(node) {
+      if (node !== popupElement) popupSizeStyles = {};
       popupElement = node;
     },
     get positionerElement() {
       return positionerElement;
     },
     setPositionerElement(node) {
+      if (node !== positionerElement) positionerSizeStyles = {};
       positionerElement = node;
     },
+    get popupSizeStyles() {
+      return popupSizeStyles;
+    },
+    get positionerSizeStyles() {
+      return positionerSizeStyles;
+    },
+    syncSizeStyles,
     get viewportElement() {
       return viewportElement;
     },

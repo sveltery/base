@@ -135,7 +135,7 @@
   const element = usePositioner(
     () => partState,
     () => ({
-      styles: positioning.positionerStyles,
+      styles: { ...positioning.positionerStyles, ...root.positionerSizeStyles },
       transitionStatus: root.transitionStatus,
       props: elementProps,
       refs,

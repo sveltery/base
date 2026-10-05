@@ -49,13 +49,16 @@
       {
         id,
         tabindex: -1,
-        style: isOriginSide
-          ? {
-              position: 'absolute',
-              [positioning.side === 'top' ? 'bottom' : 'top']: '0',
-              [isPhysicalLeft ? 'right' : 'left']: '0',
-            }
-          : {},
+        style: {
+          ...root.popupSizeStyles,
+          ...(isOriginSide
+            ? {
+                position: 'absolute',
+                [positioning.side === 'top' ? 'bottom' : 'top']: '0',
+                [isPhysicalLeft ? 'right' : 'left']: '0',
+              }
+            : {}),
+        },
       },
       getDisabledMountTransitionStyles(root.transitionStatus),
       elementProps,
