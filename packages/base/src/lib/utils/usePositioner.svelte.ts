@@ -5,16 +5,39 @@ import type { TransitionStatus } from '../internals/useTransitionStatus.svelte.j
 import type { StateAttributesMapping } from '../internals/getStateAttributesProps.js';
 import type { HTMLProps } from '../internals/types.js';
 interface UsePositionerOptions {
-  styles: Record<string, string | undefined>; transitionStatus: TransitionStatus;
+  styles: Record<string, string | undefined>;
+  transitionStatus: TransitionStatus;
   props?: HTMLProps | undefined;
-  hidden?: boolean | undefined; inert?: boolean | undefined;
+  hidden?: boolean | undefined;
+  inert?: boolean | undefined;
 }
-export function usePositioner<State extends object>(getState: () => State, getOptions: () => UsePositionerOptions) {
+export function usePositioner<State extends object>(
+  getState: () => State,
+  getOptions: () => UsePositionerOptions,
+) {
   const props = $derived.by(() => {
-    const { styles, transitionStatus, props, hidden, inert = false } = getOptions();
+    const {
+      styles,
+      transitionStatus,
+      props,
+      hidden,
+      inert = false,
+    } = getOptions();
     const style = { ...styles };
     if (inert) style.pointerEvents = 'none';
-    return [{ role: 'presentation', hidden, style }, getDisabledMountTransitionStyles(transitionStatus), props];
+    return [
+      { role: 'presentation', hidden, style },
+      getDisabledMountTransitionStyles(transitionStatus),
+      props,
+    ];
   });
-  return { get state() { return getState(); }, get props() { return props; }, stateAttributesMapping: popupStateMapping as StateAttributesMapping<State> };
+  return {
+    get state() {
+      return getState();
+    },
+    get props() {
+      return props;
+    },
+    stateAttributesMapping: popupStateMapping as StateAttributesMapping<State>,
+  };
 }

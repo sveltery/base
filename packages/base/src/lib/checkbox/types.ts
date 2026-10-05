@@ -1,7 +1,10 @@
 // Base UI v1.8.0 Checkbox native Svelte types. MIT.
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
-import type { BaseUIComponentProps, WithBaseUIEvent } from '../internals/types.js';
+import type {
+  BaseUIComponentProps,
+  WithBaseUIEvent,
+} from '../internals/types.js';
 import type { FieldRootState } from '../field/types.js';
 import type { BaseUIChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
 import type { TransitionStatus } from '../internals/useTransitionStatus.svelte.js';
@@ -29,7 +32,8 @@ export type CheckboxRootProps = Omit<
     defaultChecked?: boolean | undefined;
     disabled?: boolean | undefined;
     onCheckedChange?:
-      ((checked: boolean, details: CheckboxRootChangeEventDetails) => void) | undefined;
+      | ((checked: boolean, details: CheckboxRootChangeEventDetails) => void)
+      | undefined;
     readOnly?: boolean | undefined;
     required?: boolean | undefined;
     indeterminate?: boolean | undefined;

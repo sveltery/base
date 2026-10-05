@@ -1,11 +1,10 @@
 <script lang="ts">
-import { mergeComponentProps } from '../internals/mergeComponentProps.js';
-import { createAttachmentKey } from 'svelte/attachments';
+  import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
 
   import { untrack } from 'svelte';
   // Source business port of Base UI v1.8.0 CheckboxGroup.tsx. MIT.
   import { Controlled } from '@sveltery/utils/Controlled';
-
 
   import { EMPTY_ARRAY } from '@sveltery/utils/empty';
   import { areArraysEqual } from '@sveltery/utils/areArraysEqual';
@@ -43,20 +42,29 @@ import { createAttachmentKey } from 'svelte/attachments';
   const labelable = useLabelableContext();
   const form = useFormContext();
   const disabled = $derived(Boolean(field.disabled || disabledProp));
-  const valueState = new Controlled(() => externalValue, untrack(() => defaultValueProp ?? (EMPTY_ARRAY as string[])));
+  const valueState = new Controlled(
+    () => externalValue,
+    untrack(() => defaultValueProp ?? (EMPTY_ARRAY as string[])),
+  );
   const value = $derived(valueState.value);
-  const setValue = (nextValue: string[], details: CheckboxGroupChangeEventDetails) => {
-      onValueChange?.(nextValue, details);
-      if (details.isCanceled) return;
-      valueState.set(nextValue);
-    };
+  const setValue = (
+    nextValue: string[],
+    details: CheckboxGroupChangeEventDetails,
+  ) => {
+    onValueChange?.(nextValue, details);
+    if (details.isCanceled) return;
+    valueState.set(nextValue);
+  };
   const parent = useCheckboxGroupParent(() => ({
     allValues,
     value,
     onValueChange: setValue,
   }));
   const instanceId = $props.id();
-  useLabelableId(() => ({ id: null }), useBaseUiId(undefined, `${instanceId}-control`));
+  useLabelableId(
+    () => ({ id: null }),
+    useBaseUiId(undefined, `${instanceId}-control`),
+  );
   const defaultId = useBaseUiId(undefined, instanceId);
   const id = $derived(idProp ?? defaultId);
   const controlRef = {
@@ -72,7 +80,8 @@ import { createAttachmentKey } from 'svelte/attachments';
     for (const [input, registration] of field.validation.registeredInputs) {
       if (
         registration.value !== undefined &&
-        'checked' in input && input.checked &&
+        'checked' in input &&
+        input.checked &&
         isEligibleInput(input, formElement)
       )
         successfulValues.add(registration.value);
@@ -115,25 +124,32 @@ import { createAttachmentKey } from 'svelte/attachments';
     validation: field.validation,
     registerControlId: labelable.registerControlId,
   });
-  
-  
-  
 
-const hostAttachmentKey = createAttachmentKey();
-function attachHost(host: HTMLElement) {
-  return untrack(() => {
-    ref = host;
-    return () => untrack(() => {
-      if (ref === host) ref = null;
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+        });
     });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      groupState,
+      { class: classProp, style: style },
+      [
+        { id: idProp, role: 'group', 'aria-labelledby': labelable.labelId },
+        elementProps,
+        labelable.getDescriptionProps,
+      ],
+      fieldValidityMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
   });
-}
-const mergedProps = $derived({ ...mergeComponentProps(groupState, { class: classProp, style: style }, [
-      { id: idProp, role: 'group', 'aria-labelledby': labelable.labelId },
-      elementProps,
-      labelable.getDescriptionProps,
-    ], fieldValidityMapping), [hostAttachmentKey]: attachHost });
 </script>
+
 {#if render}
   {@render render(mergedProps, groupState, children)}
 {:else}

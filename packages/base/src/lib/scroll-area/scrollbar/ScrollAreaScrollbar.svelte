@@ -1,7 +1,7 @@
 <script lang="ts">
-import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
-import { createAttachmentKey } from 'svelte/attachments';
-import { untrack } from 'svelte';
+  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+  import { untrack } from 'svelte';
 
   // Base UI1.8.0 ScrollAreaScrollbar.tsx source wheel/track bodies; MIT.
   import { addEventListener } from '@sveltery/utils/addEventListener';
@@ -61,7 +61,9 @@ import { untrack } from 'svelte';
     }
 
     const viewportEl = viewportRef.current;
-    const scrollbarEl = vertical ? scrollbarYRef.current : scrollbarXRef.current;
+    const scrollbarEl = vertical
+      ? scrollbarYRef.current
+      : scrollbarXRef.current;
 
     if (!scrollbarEl) {
       return undefined;
@@ -229,26 +231,32 @@ import { untrack } from 'svelte';
     },
   });
 
-  
-  
-  
-
-const hostAttachmentKey = createAttachmentKey();
-function attachHost(host: HTMLElement) {
-  return untrack(() => {
-    ref = host;
-    const hostOwner1 = vertical ? scrollbarYRef : scrollbarXRef;
-    hostOwner1.current = host;
-    return () => untrack(() => {
-      if (ref === host) ref = null;
-      if (hostOwner1.current === host) hostOwner1.current = null;
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      const hostOwner1 = vertical ? scrollbarYRef : scrollbarXRef;
+      hostOwner1.current = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (hostOwner1.current === host) hostOwner1.current = null;
+        });
     });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      state,
+      { class: classProp, style: style },
+      [internalProps, elementProps],
+      scrollAreaStateAttributesMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
   });
-}
-const mergedProps = $derived({ ...mergeComponentProps(state, { class: classProp, style: style }, [internalProps, elementProps], scrollAreaStateAttributesMapping), [hostAttachmentKey]: attachHost });
 </script>
+
 {#if shouldRender}{#if render}
-  {@render render(mergedProps, state, children)}
-{:else}
-  <div {...mergedProps}>{@render children?.()}</div>
-{/if}{/if}
+    {@render render(mergedProps, state, children)}
+  {:else}
+    <div {...mergedProps}>{@render children?.()}</div>
+  {/if}{/if}

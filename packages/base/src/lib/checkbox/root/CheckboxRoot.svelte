@@ -1,6 +1,6 @@
 <script lang="ts">
-import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
-import { createAttachmentKey } from 'svelte/attachments';
+  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
 
   // Source-ordered business port of Base UI v1.8.0 CheckboxRoot.tsx at
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
@@ -11,7 +11,10 @@ import { createAttachmentKey } from 'svelte/attachments';
   import type { HTMLInputAttributes } from 'svelte/elements';
   import { Controlled } from '@sveltery/utils/Controlled';
 
-  import { visuallyHidden, visuallyHiddenInput } from '@sveltery/utils/visuallyHidden';
+  import {
+    visuallyHidden,
+    visuallyHiddenInput,
+  } from '@sveltery/utils/visuallyHidden';
   import { toNativeStyle } from '../../internals/nativeProps.js';
   import { useEnterSubmit } from '../utils/useEnterSubmit.svelte.js';
   import { getCheckboxStateAttributesMapping } from '../utils/getCheckboxStateAttributesMapping.js';
@@ -65,7 +68,12 @@ import { createAttachmentKey } from 'svelte/attachments';
   );
   const isGroupedWithParent = $derived(parentContext !== undefined);
   const disabled = $derived(
-    Boolean(field.disabled || fieldItem.disabled || groupContext?.disabled || disabledProp),
+    Boolean(
+      field.disabled ||
+      fieldItem.disabled ||
+      groupContext?.disabled ||
+      disabledProp,
+    ),
   );
   const name = $derived(field.name ?? nameProp);
   const getNativeName = useFieldControlNativeName();
@@ -94,7 +102,9 @@ import { createAttachmentKey } from 'svelte/attachments';
     return {};
   });
   const groupChecked = $derived(groupProps.checked ?? checkedProp);
-  const groupIndeterminate = $derived(groupProps.indeterminate ?? indeterminate);
+  const groupIndeterminate = $derived(
+    groupProps.indeterminate ?? indeterminate,
+  );
   const groupOnChange = $derived(groupProps.onCheckedChange);
   const otherGroupProps = $derived.by(() => {
     // These belong to checked state/callback logic, not host attributes.
@@ -120,13 +130,21 @@ import { createAttachmentKey } from 'svelte/attachments';
     native: nativeButton,
   }));
   const validation = $derived(groupContext?.validation ?? field.validation);
-  const checkedState = new Controlled(() => value !== undefined && groupContext !== undefined && !parent
+  const checkedState = new Controlled(
+    () =>
+      value !== undefined && groupContext !== undefined && !parent
         ? groupContext.value.includes(value)
-        : groupChecked, untrack(() => defaultChecked));
+        : groupChecked,
+    untrack(() => defaultChecked),
+  );
   const checked = $derived(checkedState.value);
-  const computedChecked = $derived(isGroupedWithParent ? Boolean(groupChecked) : checked);
+  const computedChecked = $derived(
+    isGroupedWithParent ? Boolean(groupChecked) : checked,
+  );
   const computedIndeterminate = $derived(
-    Boolean(isGroupedWithParent ? groupIndeterminate || indeterminate : indeterminate),
+    Boolean(
+      isGroupedWithParent ? groupIndeterminate || indeterminate : indeterminate,
+    ),
   );
   useRegisterFieldControl(
     controlRef,
@@ -136,7 +154,9 @@ import { createAttachmentKey } from 'svelte/attachments';
     () => !groupContext && !disabled,
     () => nameProp,
   );
-  const inputRef = $state<{ current: HTMLInputElement | null }>({ current: null });
+  const inputRef = $state<{ current: HTMLInputElement | null }>({
+    current: null,
+  });
   const registeredInputValue = $derived(groupContext ? value : undefined);
   const registerInput = $derived.by(() => {
     // Read the original callback dependencies before returning the native ref.
@@ -144,7 +164,10 @@ import { createAttachmentKey } from 'svelte/attachments';
     const inputValue = registeredInputValue;
     return (element: HTMLInputElement | null) =>
       element
-        ? currentValidation.registerInput(element, { controlRef, value: inputValue })
+        ? currentValidation.registerInput(element, {
+            controlRef,
+            value: inputValue,
+          })
         : undefined;
   });
   const getAriaLabelledBy = useAriaLabelledBy(() => ({
@@ -155,9 +178,10 @@ import { createAttachmentKey } from 'svelte/attachments';
     generatedLabelId: `${controlId}-label`,
   }));
   $effect(() => {
-      if (inputRef.current) inputRef.current.indeterminate = computedIndeterminate;
-      if (!groupContext) field.setFilled(checked);
-    });
+    if (inputRef.current)
+      inputRef.current.indeterminate = computedIndeterminate;
+    if (!groupContext) field.setFilled(checked);
+  });
   new ValueChanged(
     () => checked,
     () => () => {
@@ -217,7 +241,11 @@ import { createAttachmentKey } from 'svelte/attachments';
       controlRef.current?.focus();
     },
     ...(valueProp !== undefined
-      ? { value: getNativeValue((groupContext ? checked && valueProp : valueProp) || '') }
+      ? {
+          value: getNativeValue(
+            (groupContext ? checked && valueProp : valueProp) || '',
+          ),
+        }
       : {}),
   });
   $effect(() => {
@@ -236,7 +264,9 @@ import { createAttachmentKey } from 'svelte/attachments';
     required,
     indeterminate: computedIndeterminate,
   });
-  const stateAttributesMapping = $derived(getCheckboxStateAttributesMapping(rootState));
+  const stateAttributesMapping = $derived(
+    getCheckboxStateAttributesMapping(rootState),
+  );
   const handleEnterSubmit = useEnterSubmit(controlRef, inputRef);
   const rootProps = $derived({
     id: rootId,
@@ -255,7 +285,9 @@ import { createAttachmentKey } from 'svelte/attachments';
       field.setTouched(true);
       field.setFocused(false);
       if (field.validationMode === 'onBlur')
-        void validation.commit(groupContext ? groupContext.value : input.checked);
+        void validation.commit(
+          groupContext ? groupContext.value : input.checked,
+        );
     },
     onkeydown: handleEnterSubmit,
     onclick(event: MouseEvent) {
@@ -281,7 +313,9 @@ import { createAttachmentKey } from 'svelte/attachments';
           : undefined;
       });
     update();
-    const observer = new element.ownerDocument.defaultView!.MutationObserver(update);
+    const observer = new element.ownerDocument.defaultView!.MutationObserver(
+      update,
+    );
     observer.observe(element, { attributes: true, attributeFilter: ['id'] });
     return () => {
       observer.disconnect();
@@ -289,63 +323,82 @@ import { createAttachmentKey } from 'svelte/attachments';
     };
   });
   setCheckboxRootContext(() => rootState);
-  
-  
-  
+
   const hiddenInputProps = $derived(
     mergePropsN([
       inputProps,
       labelable.getDescriptionProps,
-      (props: Record<string, unknown>) => validation.getValidationProps(disabled, props),
+      (props: Record<string, unknown>) =>
+        validation.getValidationProps(disabled, props),
     ]),
   );
   function attachInput(host: HTMLInputElement) {
+    const hasParent = parent;
+    const register = registerInput;
     return untrack(() => {
       inputRef.current = host;
       inputRefProp = host;
-      const unregister = parent ? undefined : registerInput(host);
-      return () => untrack(() => {
-        unregister?.();
-        if (inputRef.current === host) inputRef.current = null;
-        if (inputRefProp === host) inputRefProp = null;
-      });
+      const unregister = hasParent ? undefined : register(host);
+      return () =>
+        untrack(() => {
+          unregister?.();
+          if (inputRef.current === host) inputRef.current = null;
+          if (inputRefProp === host) inputRefProp = null;
+        });
     });
   }
 
-const hostAttachmentKey = createAttachmentKey();
-function attachHost(host: HTMLElement) {
-  return untrack(() => {
-    buttonRef?.(host);
-    controlRef.current = host;
-    ref = host;
-    return () => untrack(() => {
-      buttonRef?.(null);
-      if (controlRef.current === host) controlRef.current = null;
-      if (ref === host) ref = null;
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      buttonRef?.(host);
+      controlRef.current = host;
+      ref = host;
+      return () =>
+        untrack(() => {
+          buttonRef?.(null);
+          if (controlRef.current === host) controlRef.current = null;
+          if (ref === host) ref = null;
+        });
     });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      rootState,
+      { class: classProp, style: style },
+      [
+        rootProps,
+        elementProps,
+        otherGroupProps,
+        getButtonProps,
+        labelable.getDescriptionProps,
+        (props: Record<string, unknown>) =>
+          validation.getValidationProps(disabled, props),
+      ],
+      stateAttributesMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
   });
-}
-const mergedProps = $derived({ ...mergeComponentProps(rootState, { class: classProp, style: style }, [
-      rootProps,
-      elementProps,
-      otherGroupProps,
-      getButtonProps,
-      labelable.getDescriptionProps,
-      (props: Record<string, unknown>) => validation.getValidationProps(disabled, props),
-    ], stateAttributesMapping), [hostAttachmentKey]: attachHost });
 </script>
+
 {#if render}
   {@render render(mergedProps, rootState, children)}
 {:else}
   <span {...mergedProps}>{@render children?.()}</span>
 {/if}
 {#if !checked && !groupContext && name && !parent && uncheckedValue !== undefined}
-  <input type="hidden" {form} name={nativeName} value={uncheckedValue} {disabled} />
+  <input
+    type="hidden"
+    {form}
+    name={nativeName}
+    value={uncheckedValue}
+    {disabled}
+  />
 {/if}
 <!-- Native binding owns checkbox DOM/default/hydration and form-reset behavior. -->
 <input
   {...hiddenInputProps as HTMLInputAttributes}
   type="checkbox"
   {@attach attachInput}
-  bind:checked={() => checkedState.value, next => checkedState.set(next)}
+  bind:checked={() => checkedState.value, (next) => checkedState.set(next)}
 />

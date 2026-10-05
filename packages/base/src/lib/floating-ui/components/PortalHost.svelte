@@ -3,8 +3,17 @@
   // Base UI v1.8.0 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c, MIT.
   import { createAttachmentKey, type Attachment } from 'svelte/attachments';
   import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
-  import type { BaseUIComponentProps, HTMLProps } from '../../internals/types.js';
-  let { render, class: className, style, attributes, onHost }: BaseUIComponentProps<State> & {
+  import type {
+    BaseUIComponentProps,
+    HTMLProps,
+  } from '../../internals/types.js';
+  let {
+    render,
+    class: className,
+    style,
+    attributes,
+    onHost,
+  }: BaseUIComponentProps<State> & {
     attributes: HTMLProps;
     onHost: Attachment<HTMLElement>;
   } = $props();
@@ -15,6 +24,7 @@
     [hostAttachmentKey]: onHost,
   });
 </script>
+
 {#if render}
   {@render render(mergedProps, state, undefined)}
 {:else}

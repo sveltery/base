@@ -1,6 +1,10 @@
 // Mechanically ported from mui/base-ui v1.8.0 mergeProps.ts at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
-import { copyAttachmentSymbols, mergeNativeStyles, toNativeClass } from '../internals/nativeProps.js';
+import {
+  copyAttachmentSymbols,
+  mergeNativeStyles,
+  toNativeClass,
+} from '../internals/nativeProps.js';
 import { mergeObjects } from '@sveltery/utils/mergeObjects';
 export type PreventableEvent = Event & {
   preventBaseUIHandler(): void;
@@ -55,15 +59,18 @@ export function mergeProps(
   c: InputProps,
   d: InputProps,
 ): Props;
-export function mergeProps(
-  a: InputProps,
-  b: InputProps,
-  c: InputProps,
-): Props;
+export function mergeProps(a: InputProps, b: InputProps, c: InputProps): Props;
 export function mergeProps(a: InputProps, b: InputProps): Props;
 export function mergeProps(a: InputProps): Props;
 export function mergeProps(...inputs: InputProps[]): Props;
-export function mergeProps(a?: InputProps, b?: InputProps, c?: InputProps, d?: InputProps, e?: InputProps, ...extra: InputProps[]) {
+export function mergeProps(
+  a?: InputProps,
+  b?: InputProps,
+  c?: InputProps,
+  d?: InputProps,
+  e?: InputProps,
+  ...extra: InputProps[]
+) {
   // Preserve the existing native variadic API; its >5 path uses the canonical source N algorithm.
   if (extra.length) return mergePropsN([a, b, c, d, e, ...extra]);
   if (!c && !d && !e && !a) {
@@ -136,12 +143,14 @@ function mergeInto(merged: Props, inputProps: InputProps) {
   return mutablyMergeInto(merged, inputProps);
 }
 
-function copyInitialProps(
-  inputProps: Props | undefined,
-) {
+function copyInitialProps(inputProps: Props | undefined) {
   const copiedProps = { ...inputProps } as Props;
   // Component state callbacks are resolved before class-value stringification.
-  if (copiedProps.class !== undefined && typeof copiedProps.class !== 'function') copiedProps.class = toNativeClass(copiedProps.class);
+  if (
+    copiedProps.class !== undefined &&
+    typeof copiedProps.class !== 'function'
+  )
+    copiedProps.class = toNativeClass(copiedProps.class);
 
   // `copiedProps` is our fresh own-object copy, so iterating with `for...in` is safe here.
   for (const propName in copiedProps) {
@@ -170,27 +179,44 @@ function mutablyMergeInto(
 
     switch (propName) {
       case 'style': {
-        mergedProps[propName] = typeof mergedProps.style === 'string' || typeof externalPropValue === 'string'
-          ? mergeNativeStyles(mergedProps.style, externalPropValue)
-          : mergeObjects(
-              mergedProps.style as Record<string, unknown> | undefined,
-              externalPropValue as Record<string, unknown> | undefined,
-            );
+        mergedProps[propName] =
+          typeof mergedProps.style === 'string' ||
+          typeof externalPropValue === 'string'
+            ? mergeNativeStyles(mergedProps.style, externalPropValue)
+            : mergeObjects(
+                mergedProps.style as Record<string, unknown> | undefined,
+                externalPropValue as Record<string, unknown> | undefined,
+              );
         break;
       }
       case 'class': {
-        const ourClassName = typeof mergedProps.class === 'function' ? mergedProps.class : toNativeClass(mergedProps.class);
-        const theirClassName = typeof externalPropValue === 'function' ? externalPropValue : toNativeClass(externalPropValue);
-        mergedProps[propName] = mergeClassNames(ourClassName as string | undefined, theirClassName as string | undefined);
+        const ourClassName =
+          typeof mergedProps.class === 'function'
+            ? mergedProps.class
+            : toNativeClass(mergedProps.class);
+        const theirClassName =
+          typeof externalPropValue === 'function'
+            ? externalPropValue
+            : toNativeClass(externalPropValue);
+        mergedProps[propName] = mergeClassNames(
+          ourClassName as string | undefined,
+          theirClassName as string | undefined,
+        );
         break;
       }
       case 'className': {
-        mergedProps[propName] = mergeClassNames(mergedProps.className as string | undefined, externalPropValue as string);
+        mergedProps[propName] = mergeClassNames(
+          mergedProps.className as string | undefined,
+          externalPropValue as string,
+        );
         break;
       }
       default: {
         if (isEventHandler(propName, externalPropValue)) {
-          mergedProps[propName] = mergeEventHandlers(mergedProps[propName] as Handler | undefined, externalPropValue);
+          mergedProps[propName] = mergeEventHandlers(
+            mergedProps[propName] as Handler | undefined,
+            externalPropValue,
+          );
         } else {
           mergedProps[propName] = externalPropValue;
         }
@@ -202,7 +228,10 @@ function mutablyMergeInto(
   return mergedProps;
 }
 
-function isEventHandler(key: string, value: unknown): value is Handler | undefined {
+function isEventHandler(
+  key: string,
+  value: unknown,
+): value is Handler | undefined {
   // This approach is more efficient than using a regex.
   const code0 = key.charCodeAt(0);
   const code1 = key.charCodeAt(1);
@@ -210,8 +239,8 @@ function isEventHandler(key: string, value: unknown): value is Handler | undefin
   return (
     code0 === 111 /* o */ &&
     code1 === 110 /* n */ &&
-    ((code2 >= 65 /* A */ && code2 <= 90 /* Z */) ||
-      (code2 >= 97 /* a */ && code2 <= 122 /* z */)) &&
+    ((code2 >= 65 /* A */ && code2 <= 90) /* Z */ ||
+      (code2 >= 97 /* a */ && code2 <= 122) /* z */) &&
     (typeof value === 'function' || typeof value === 'undefined')
   );
 }
@@ -222,10 +251,7 @@ function isPropsGetter(
   return typeof inputProps === 'function';
 }
 
-function resolvePropsGetter(
-  inputProps: InputProps,
-  previousProps: Props,
-) {
+function resolvePropsGetter(inputProps: InputProps, previousProps: Props) {
   if (isPropsGetter(inputProps)) {
     return inputProps(previousProps);
   }
@@ -233,7 +259,10 @@ function resolvePropsGetter(
   return inputProps ?? (EMPTY_PROPS as Props);
 }
 
-function mergeEventHandlers(ourHandler: Handler | undefined, theirHandler: Handler | undefined) {
+function mergeEventHandlers(
+  ourHandler: Handler | undefined,
+  theirHandler: Handler | undefined,
+) {
   if (!theirHandler) {
     return ourHandler;
   }
@@ -280,7 +309,9 @@ function wrapEventHandler(handler: Handler | undefined) {
   };
 }
 
-export function makeEventPreventable<T extends Event>(event: T & PreventableEvent) {
+export function makeEventPreventable<T extends Event>(
+  event: T & PreventableEvent,
+) {
   event.preventBaseUIHandler = () => {
     (event.baseUIHandlerPrevented as boolean) = true;
   };
@@ -305,9 +336,17 @@ export function mergeClassNames(
 
 function isSyntheticEvent(event: unknown): event is Event {
   // Native Event brand across windows replaces the React synthetic wrapper boundary.
-  if (event == null || typeof event !== 'object' || typeof Event === 'undefined') return false;
+  if (
+    event == null ||
+    typeof event !== 'object' ||
+    typeof Event === 'undefined'
+  )
+    return false;
   try {
-    const getType = Object.getOwnPropertyDescriptor(Event.prototype, 'type')?.get;
+    const getType = Object.getOwnPropertyDescriptor(
+      Event.prototype,
+      'type',
+    )?.get;
     return typeof getType?.call(event) === 'string';
   } catch {
     return false;

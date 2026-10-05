@@ -4,10 +4,19 @@
   import FloatingPortal from '../utils/FloatingPortalLite.svelte';
   import { PORTAL, usePreviewCardRootContext } from './context.js';
   import type { PreviewCardPortalProps } from './types.js';
-  let { keepMounted = false, ref = $bindable(), ...portalProps }: PreviewCardPortalProps = $props();
+  let {
+    keepMounted = false,
+    ref = $bindable(),
+    ...portalProps
+  }: PreviewCardPortalProps = $props();
   const store = usePreviewCardRootContext();
-  setContext(PORTAL, { get keepMounted() { return keepMounted; } });
+  setContext(PORTAL, {
+    get keepMounted() {
+      return keepMounted;
+    },
+  });
 </script>
+
 {#if store.select('mounted') || keepMounted}
   <FloatingPortal {...portalProps} bind:ref />
 {/if}

@@ -1,6 +1,6 @@
 <script module lang="ts">
-import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
-import { createAttachmentKey } from 'svelte/attachments';
+  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
 
   import { platform } from '@sveltery/utils/platform';
   import * as ScrollAreaViewportCssVars from './ScrollAreaViewportCssVars.js';
@@ -51,19 +51,29 @@ import { createAttachmentKey } from 'svelte/attachments';
     scrollAreaOverflowVarsRegistered = true;
   }
 
-const hostAttachmentKey = createAttachmentKey();
-function attachHost(host: HTMLElement) {
-  return untrack(() => {
-    ref = host;
-    viewportRef.current = host;
-    return () => untrack(() => {
-      if (ref === host) ref = null;
-      if (viewportRef.current === host) viewportRef.current = null;
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      viewportRef.current = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (viewportRef.current === host) viewportRef.current = null;
+        });
     });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      root.viewportState,
+      { class: classProp, style: style },
+      [internalProps, elementProps],
+      scrollAreaStateAttributesMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
   });
-}
-const mergedProps = $derived({ ...mergeComponentProps(root.viewportState, { class: classProp, style: style }, [internalProps, elementProps], scrollAreaStateAttributesMapping), [hostAttachmentKey]: attachHost });
 </script>
+
 <script lang="ts">
   // Base UI1.8.0 ScrollAreaViewport.tsx source geometry/lifetimes; MIT.
   import { onDestroy, onMount, untrack } from 'svelte';
@@ -200,14 +210,20 @@ const mergedProps = $derived({ ...mergeComponentProps(root.viewportState, { clas
       ? Math.min(scrollbarXEl.offsetWidth - cornerWidthOffset, idealNextWidth)
       : idealNextWidth;
     const maxNextHeight = scrollbarYEl
-      ? Math.min(scrollbarYEl.offsetHeight - cornerHeightOffset, idealNextHeight)
+      ? Math.min(
+          scrollbarYEl.offsetHeight - cornerHeightOffset,
+          idealNextHeight,
+        )
       : idealNextHeight;
 
     const clampedNextWidth = Math.max(MIN_THUMB_SIZE, maxNextWidth * ratioX);
     const clampedNextHeight = Math.max(MIN_THUMB_SIZE, maxNextHeight * ratioY);
 
     setThumbSize((prevSize) =>
-      pickState(prevSize, { width: clampedNextWidth, height: clampedNextHeight }),
+      pickState(prevSize, {
+        width: clampedNextWidth,
+        height: clampedNextHeight,
+      }),
     );
 
     // Handle Y (vertical) scroll
@@ -239,7 +255,8 @@ const mergedProps = $derived({ ...mergeComponentProps(root.viewportState, { clas
         thumbXOffset;
       // RTL scrolls from 0 down to `-maxScrollLeft`; measure from the inline start edge so the
       // overscroll math is direction-agnostic, then flip the resulting offset back below.
-      const scrollFromStart = getDirection() === 'rtl' ? -scrollLeft : scrollLeft;
+      const scrollFromStart =
+        getDirection() === 'rtl' ? -scrollLeft : scrollLeft;
 
       const offsetX = applyOverscrollThumb(
         thumbXEl,
@@ -270,7 +287,10 @@ const mergedProps = $derived({ ...mergeComponentProps(root.viewportState, { clas
       // re-renders every scroll-area part.
       // `nextCornerWidth`/`nextCornerHeight` stay 0 when either scrollbar is hidden.
       setCornerSize((prevSize) =>
-        pickState(prevSize, { width: nextCornerWidth, height: nextCornerHeight }),
+        pickState(prevSize, {
+          width: nextCornerWidth,
+          height: nextCornerHeight,
+        }),
       );
     }
 
@@ -281,7 +301,8 @@ const mergedProps = $derived({ ...mergeComponentProps(root.viewportState, { clas
         !scrollbarXHidden &&
         scrollLeftFromStart > root.overflowEdgeThreshold.xStart,
       xEnd:
-        !scrollbarXHidden && scrollLeftFromEnd > root.overflowEdgeThreshold.xEnd,
+        !scrollbarXHidden &&
+        scrollLeftFromEnd > root.overflowEdgeThreshold.xEnd,
       yStart:
         !scrollbarYHidden &&
         scrollTopFromStart > root.overflowEdgeThreshold.yStart,
@@ -385,9 +406,7 @@ const mergedProps = $derived({ ...mergeComponentProps(root.viewportState, { clas
   });
 
   setScrollAreaViewportContext({ computeThumbPosition });
-  
-  
-  
+
   function getHiddenState(viewport: HTMLElement): HiddenState {
     const y = viewport.clientHeight >= viewport.scrollHeight;
     const x = viewport.clientWidth >= viewport.scrollWidth;
@@ -443,6 +462,7 @@ const mergedProps = $derived({ ...mergeComponentProps(root.viewportState, { clas
     return offset + (overscroll > 0 ? size - nextSize : 0);
   }
 </script>
+
 {#if render}
   {@render render(mergedProps, root.viewportState, children)}
 {:else}

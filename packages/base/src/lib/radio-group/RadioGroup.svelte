@@ -50,14 +50,20 @@
   const name = $derived(field.name ?? nameProp);
   const nativeId = $props.id();
   const id = $derived(useBaseUiId(idProp ?? undefined, nativeId));
-  const checkedValueState = new Controlled(() => externalValue, untrack(() => defaultValue));
+  const checkedValueState = new Controlled(
+    () => externalValue,
+    untrack(() => defaultValue),
+  );
   const checkedValue = $derived(checkedValueState.value);
   let touched = $state(false);
-  const setCheckedValue = (value: Value, details: RadioGroupChangeEventDetails) => {
-      onValueChange?.(value, details);
-      if (details.isCanceled) return;
-      checkedValueState.set(value);
-    };
+  const setCheckedValue = (
+    value: Value,
+    details: RadioGroupChangeEventDetails,
+  ) => {
+    onValueChange?.(value, details);
+    if (details.isCanceled) return;
+    checkedValueState.set(value);
+  };
   const controlRef = {
     get current() {
       return field.validation.getInputControl();
@@ -66,16 +72,20 @@
   const groupInputRef = { current: null as HTMLInputElement | null };
   const firstEnabledInputRef = { current: null as HTMLInputElement | null };
   function setInputRef(input: HTMLInputElement | null) {
-    untrack(() => { inputRef = input; });
+    untrack(() => {
+      inputRef = input;
+    });
     groupInputRef.current = input;
   }
   const registerInputRef = (input: HTMLInputElement | null) => {
     if (!input || input.disabled) return;
     if (!firstEnabledInputRef.current) firstEnabledInputRef.current = input;
     const currentInput = groupInputRef.current;
-    if (input.checked || currentInput == null || currentInput.disabled) setInputRef(input);
+    if (input.checked || currentInput == null || currentInput.disabled)
+      setInputRef(input);
     return () => {
-      if (firstEnabledInputRef.current === input) firstEnabledInputRef.current = null;
+      if (firstEnabledInputRef.current === input)
+        firstEnabledInputRef.current = null;
       if (groupInputRef.current === input) setInputRef(null);
     };
   };
@@ -83,7 +93,11 @@
     const formElement = formContext.elementRef.current;
     if (!formElement) return checkedValue ?? null;
     for (const input of field.validation.registeredInputs.keys()) {
-      if ('checked' in input && input.checked && isEligibleInput(input, formElement))
+      if (
+        'checked' in input &&
+        input.checked &&
+        isEligibleInput(input, formElement)
+      )
         return checkedValue ?? null;
     }
     return null;
@@ -181,4 +195,16 @@
       field.validation.getValidationProps(disabled ?? false, props),
   ]);
 </script>
-<CompositeRoot {render} class={classProp} {style} state={groupState} props={rendererProps} bind:ref stateAttributesMapping={fieldValidityMapping} enableHomeAndEndKeys={false} {modifierKeys} {children} />
+
+<CompositeRoot
+  {render}
+  class={classProp}
+  {style}
+  state={groupState}
+  props={rendererProps}
+  bind:ref
+  stateAttributesMapping={fieldValidityMapping}
+  enableHomeAndEndKeys={false}
+  {modifierKeys}
+  {children}
+/>

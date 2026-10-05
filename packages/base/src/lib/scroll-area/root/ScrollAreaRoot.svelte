@@ -1,6 +1,6 @@
 <script lang="ts">
-import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
-import { createAttachmentKey } from 'svelte/attachments';
+  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
 
   import { onDestroy, untrack } from 'svelte';
   // Base UI1.8.0 ScrollAreaRoot.tsx source business bodies; MIT.
@@ -57,7 +57,9 @@ import { createAttachmentKey } from 'svelte/attachments';
   });
   let hiddenState = $state<HiddenState>({ x: true, y: true, corner: true });
   const rootRef = $state<{ current: HTMLElement | null }>({ current: null });
-  const viewportRef = $state<{ current: HTMLElement | null }>({ current: null });
+  const viewportRef = $state<{ current: HTMLElement | null }>({
+    current: null,
+  });
   const scrollbarYRef = $state<{ current: HTMLElement | null }>({
     current: null,
   });
@@ -150,9 +152,10 @@ import { createAttachmentKey } from 'svelte/attachments';
     activePointerIdRef.current = event.pointerId;
     startYRef.current = event.clientY;
     startXRef.current = event.clientX;
-    currentOrientationRef.current = (event.currentTarget as Element).getAttribute(
-      ScrollAreaScrollbarDataAttributes.orientation,
-    ) as 'vertical' | 'horizontal';
+    currentOrientationRef.current = (
+      event.currentTarget as Element
+    ).getAttribute(ScrollAreaScrollbarDataAttributes.orientation) as
+      'vertical' | 'horizontal';
 
     const viewportEl = viewportRef.current;
     if (viewportEl) {
@@ -221,7 +224,9 @@ import { createAttachmentKey } from 'svelte/attachments';
 
     const vertical = currentOrientationRef.current === 'vertical';
     const thumbEl = vertical ? thumbYRef.current : thumbXRef.current;
-    const scrollbarEl = vertical ? scrollbarYRef.current : scrollbarXRef.current;
+    const scrollbarEl = vertical
+      ? scrollbarYRef.current
+      : scrollbarXRef.current;
     if (!thumbEl || !scrollbarEl) {
       return;
     }
@@ -346,7 +351,8 @@ import { createAttachmentKey } from 'svelte/attachments';
       return overflowEdges;
     },
     setOverflowEdges(value) {
-      overflowEdges = typeof value === 'function' ? value(overflowEdges) : value;
+      overflowEdges =
+        typeof value === 'function' ? value(overflowEdges) : value;
     },
     get viewportState() {
       return rootState;
@@ -355,8 +361,7 @@ import { createAttachmentKey } from 'svelte/attachments';
       return overflowEdgeThreshold;
     },
   });
-  
-  
+
   const internalProps = $derived({
     role: 'presentation',
     onpointerenter: handlePointerEnterOrMove,
@@ -371,7 +376,7 @@ import { createAttachmentKey } from 'svelte/attachments';
       [ScrollAreaRootCssVars.scrollAreaCornerWidth]: `${cornerSize.width}px`,
     },
   });
-  
+
   function normalizeOverflowEdgeThreshold(
     threshold: ScrollAreaRootProps['overflowEdgeThreshold'] | undefined,
   ) {
@@ -393,20 +398,32 @@ import { createAttachmentKey } from 'svelte/attachments';
     };
   }
 
-const hostAttachmentKey = createAttachmentKey();
-function attachHost(host: HTMLElement) {
-  return untrack(() => {
-    ref = host;
-    rootRef.current = host;
-    return () => untrack(() => {
-      if (ref === host) ref = null;
-      if (rootRef.current === host) rootRef.current = null;
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      rootRef.current = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (rootRef.current === host) rootRef.current = null;
+        });
     });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      rootState,
+      { class: classProp, style: style },
+      [internalProps, elementProps],
+      scrollAreaStateAttributesMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
   });
-}
-const mergedProps = $derived({ ...mergeComponentProps(rootState, { class: classProp, style: style }, [internalProps, elementProps], scrollAreaStateAttributesMapping), [hostAttachmentKey]: attachHost });
 </script>
-{#if !csp.disableStyleElements}<styleDisableScrollbar.getElement nonce={csp.nonce} />{/if}
+
+{#if !csp.disableStyleElements}<styleDisableScrollbar.getElement
+    nonce={csp.nonce}
+  />{/if}
 {#if render}
   {@render render(mergedProps, rootState, children)}
 {:else}

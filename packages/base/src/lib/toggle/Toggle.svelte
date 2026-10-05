@@ -1,6 +1,6 @@
 <script lang="ts" generics="Value extends string = string">
-import { mergeComponentProps } from '../internals/mergeComponentProps.js';
-import { createAttachmentKey } from 'svelte/attachments';
+  import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
 
   import { untrack } from 'svelte';
   // Source-ordered Base UI v1.8.0 Toggle.tsx at
@@ -16,12 +16,22 @@ import { createAttachmentKey } from 'svelte/attachments';
   import { REASONS } from '../internals/reasons.js';
   import type { ToggleProps, ToggleState } from './types.js';
   let {
-    class: classProp, defaultPressed = false, disabled: disabledProp = false,
-    onPressedChange, pressed: pressedProp, render, value: valueProp,
-    nativeButton = true, style, children, ref = $bindable(),
+    class: classProp,
+    defaultPressed = false,
+    disabled: disabledProp = false,
+    onPressedChange,
+    pressed: pressedProp,
+    render,
+    value: valueProp,
+    nativeButton = true,
+    style,
+    children,
+    ref = $bindable(),
     // Upstream deliberately consumes these props: Toggle never participates in a form.
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    form: _form, type: _type, ...elementProps
+    form: _form,
+    type: _type,
+    ...elementProps
   }: ToggleProps<Value> = $props();
   const nativeId = $props.id();
   // The original treats both omitted and empty values as generated identities.
@@ -31,7 +41,11 @@ import { createAttachmentKey } from 'svelte/attachments';
   const disabled = $derived((disabledProp || groupContext?.disabled) ?? false);
   if (DEV) {
     $effect(() => {
-      if (groupContext && valueProp === undefined && groupContext.isValueInitialized) {
+      if (
+        groupContext &&
+        valueProp === undefined &&
+        groupContext.isValueInitialized
+      ) {
         error(
           'A `<Toggle>` component rendered in a `<ToggleGroup>` has no explicit `value` prop.',
           'This will cause issues between the Toggle Group and Toggle values.',
@@ -40,11 +54,20 @@ import { createAttachmentKey } from 'svelte/attachments';
       }
     });
   }
-  const pressedState = new Controlled(() => groupContext ? value !== undefined && groupValue.indexOf(value) > -1 : pressedProp, untrack(() => defaultPressed));
+  const pressedState = new Controlled(
+    () =>
+      groupContext
+        ? value !== undefined && groupValue.indexOf(value) > -1
+        : pressedProp,
+    untrack(() => defaultPressed),
+  );
   const pressed = $derived(pressedState.value);
-  const { getButtonProps, buttonRef } = useButton(() => ({ disabled, native: nativeButton }));
+  const { getButtonProps, buttonRef } = useButton(() => ({
+    disabled,
+    native: nativeButton,
+  }));
   const state: ToggleState = $derived({ disabled, pressed });
-  
+
   const rendererProps = $derived([
     {
       'aria-pressed': pressed,
@@ -62,29 +85,47 @@ import { createAttachmentKey } from 'svelte/attachments';
     elementProps,
     getButtonProps,
   ]);
-  
-  
+
   const itemMetadata = $derived({ disabled, focusableWhenDisabled: false });
 
-const hostAttachmentKey = createAttachmentKey();
-function attachHost(host: HTMLElement) {
-  return untrack(() => {
-    buttonRef?.(host);
-    ref = host;
-    return () => untrack(() => {
-      buttonRef?.(null);
-      if (ref === host) ref = null;
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      buttonRef?.(host);
+      ref = host;
+      return () =>
+        untrack(() => {
+          buttonRef?.(null);
+          if (ref === host) ref = null;
+        });
     });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      state,
+      { class: classProp, style: style },
+      rendererProps,
+      undefined,
+    ),
+    [hostAttachmentKey]: attachHost,
   });
-}
-const mergedProps = $derived({ ...mergeComponentProps(state, { class: classProp, style: style }, rendererProps, undefined), [hostAttachmentKey]: attachHost });
 </script>
+
 {#if groupContext}
-  <CompositeItem tag="button" {render} class={classProp} {style} metadata={itemMetadata} {state} props={[...rendererProps, { [hostAttachmentKey]: attachHost }]} {children} />
+  <CompositeItem
+    tag="button"
+    {render}
+    class={classProp}
+    {style}
+    metadata={itemMetadata}
+    {state}
+    props={[...rendererProps, { [hostAttachmentKey]: attachHost }]}
+    {children}
+  />
 {:else}
   {#if render}
-  {@render render(mergedProps, state, children)}
-{:else}
-  <button {...mergedProps}>{@render children?.()}</button>
-{/if}
+    {@render render(mergedProps, state, children)}
+  {:else}
+    <button {...mergedProps}>{@render children?.()}</button>
+  {/if}
 {/if}

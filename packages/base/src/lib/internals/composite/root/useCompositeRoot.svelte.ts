@@ -76,30 +76,36 @@ export function useCompositeRoot(
   const attachmentKey = createAttachmentKey();
   function attachRoot(node: HTMLElement) {
     rootRef.current = node;
-    return () => { if (rootRef.current === node) rootRef.current = null; };
+    return () => {
+      if (rootRef.current === node) rootRef.current = null;
+    };
   }
   const elementsRef = { current: [] as Array<HTMLElement | null> };
   const hasSetDefaultIndexRef = { current: false };
   const highlightedElementRef = { current: null as HTMLElement | null };
   const getHighlightedIndex = () =>
     getParameters().highlightedIndex ?? internalHighlightedIndex;
-  const onHighlightedIndexChange = (index: number, shouldScrollIntoView = false) => {
-      const {
-        onHighlightedIndexChange: externalSetHighlightedIndex,
+  const onHighlightedIndexChange = (
+    index: number,
+    shouldScrollIntoView = false,
+  ) => {
+    const {
+      onHighlightedIndexChange: externalSetHighlightedIndex,
+      direction,
+      orientation = 'both',
+    } = getParameters();
+    highlightedElementRef.current = elementsRef.current[index] ?? null;
+    if (externalSetHighlightedIndex)
+      untrack(() => externalSetHighlightedIndex(index));
+    else internalHighlightedIndex = index;
+    if (shouldScrollIntoView)
+      scrollIntoViewIfNeeded(
+        rootRef.current,
+        elementsRef.current[index],
         direction,
-        orientation = 'both',
-      } = getParameters();
-      highlightedElementRef.current = elementsRef.current[index] ?? null;
-      if (externalSetHighlightedIndex) untrack(() => externalSetHighlightedIndex(index));
-      else internalHighlightedIndex = index;
-      if (shouldScrollIntoView)
-        scrollIntoViewIfNeeded(
-          rootRef.current,
-          elementsRef.current[index],
-          direction,
-          orientation,
-        );
-    };
+        orientation,
+      );
+  };
   const onMapChange = (map: Map<Element, CompositeMetadata>) => {
     const {
       disabledIndices,

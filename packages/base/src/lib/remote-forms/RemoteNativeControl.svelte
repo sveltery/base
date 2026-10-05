@@ -1,6 +1,6 @@
 <script lang="ts">
-import { mergeComponentProps } from '../internals/mergeComponentProps.js';
-import { createAttachmentKey } from 'svelte/attachments';
+  import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
 
   import { onDestroy, untrack } from 'svelte';
   // Narrow native-host boundary. Source Field registration, validation, labels
@@ -27,48 +27,103 @@ import { createAttachmentKey } from 'svelte/attachments';
   import { useRemoteFieldContext } from './RemoteFieldContext.js';
   import { nativeControlValue } from './nativeControlValue.js';
   import type { NativeValidationControl } from '../field/root/useFieldValidation.svelte.js';
-  import type { RemoteControlProps, RemoteControlState } from './control.types.js';
+  import type {
+    RemoteControlProps,
+    RemoteControlState,
+  } from './control.types.js';
   import type { HTMLSelectAttributes } from 'svelte/elements';
   import type { Snippet } from 'svelte';
   import type { HTMLProps } from '../internals/types.js';
-  let { kind, ref = $bindable(), render, onValueChange, onCheckedChange, children, ...props }: RemoteControlProps & { kind: string } = $props();
+  let {
+    kind,
+    ref = $bindable(),
+    render,
+    onValueChange,
+    onCheckedChange,
+    children,
+    ...props
+  }: RemoteControlProps & { kind: string } = $props();
   const remote = useRemoteFieldContext();
   const field = useFieldRootContext();
   const item = useFieldItemContext();
   const form = useFormContext();
   const labelable = useLabelableContext();
   const descriptor = $derived({ ...remote?.descriptor, ...props });
-  const disabled = $derived(Boolean(field.disabled || descriptor.disabled || (['radio', 'checkbox'].includes(kind) && item.disabled)));
+  const disabled = $derived(
+    Boolean(
+      field.disabled ||
+      descriptor.disabled ||
+      (['radio', 'checkbox'].includes(kind) && item.disabled),
+    ),
+  );
   const name = $derived(field.name ?? descriptor.name);
   const getNativeName = useFieldControlNativeName();
   const instanceId = $props.id();
-  const getId = useLabelableId(() => ({ id: descriptor.id }), useBaseUiId(undefined, instanceId));
+  const getId = useLabelableId(
+    () => ({ id: descriptor.id }),
+    useBaseUiId(undefined, instanceId),
+  );
   const id = $derived(getId());
-  const controlRef = $state<{ current: NativeValidationControl | null }>({ current: null });
+  const controlRef = $state<{ current: NativeValidationControl | null }>({
+    current: null,
+  });
   const ownerValue = $derived(remote?.accessor?.value());
-  const getValue = () => ownerValue ?? (controlRef.current ? nativeControlValue(controlRef.current, descriptor.value) : descriptor.value);
-  const sameValue = (left: unknown, right: unknown) => Array.isArray(left) && Array.isArray(right) ? areArraysEqual(left, right) : left === right;
-  const filled = (value: unknown) => Array.isArray(value) ? value.length > 0 : value != null && value !== '';
-  useRegisterFieldControl(controlRef, () => id, () => ownerValue, getValue, () => !disabled, () => descriptor.name);
+  const getValue = () =>
+    ownerValue ??
+    (controlRef.current
+      ? nativeControlValue(controlRef.current, descriptor.value)
+      : descriptor.value);
+  const sameValue = (left: unknown, right: unknown) =>
+    Array.isArray(left) && Array.isArray(right)
+      ? areArraysEqual(left, right)
+      : left === right;
+  const filled = (value: unknown) =>
+    Array.isArray(value) ? value.length > 0 : value != null && value !== '';
+  useRegisterFieldControl(
+    controlRef,
+    () => id,
+    () => ownerValue,
+    getValue,
+    () => !disabled,
+    () => descriptor.name,
+  );
   $effect(() => {
     const element = controlRef.current;
     if (!element || disabled) return;
-    return field.validation.registerInput(element, { controlRef, value: undefined });
+    return field.validation.registerInput(element, {
+      controlRef,
+      value: undefined,
+    });
   });
   $effect(() => field.setFilled(filled(getValue())));
-  new ValueChanged(() => ownerValue, () => () => {
-    form.clearErrors(name);
-    field.setDirty(!sameValue(ownerValue, field.validityData.initialValue));
-    field.validation.change(ownerValue);
-  });
+  new ValueChanged(
+    () => ownerValue,
+    () => () => {
+      form.clearErrors(name);
+      field.setDirty(!sameValue(ownerValue, field.validityData.initialValue));
+      field.validation.change(ownerValue);
+    },
+  );
   const enterValidationTimeout = new Timeout();
   onDestroy(enterValidationTimeout.clear);
   $effect(() => {
-    if (descriptor.autofocus && controlRef.current === activeElement(ownerDocument(controlRef.current))) field.setFocused(true);
+    if (
+      descriptor.autofocus &&
+      controlRef.current === activeElement(ownerDocument(controlRef.current))
+    )
+      field.setFocused(true);
   });
-  const controlState: RemoteControlState = $derived({ ...field.state, disabled, checked: typeof descriptor.checked === 'boolean' ? descriptor.checked : undefined });
+  const controlState: RemoteControlState = $derived({
+    ...field.state,
+    disabled,
+    checked:
+      typeof descriptor.checked === 'boolean' ? descriptor.checked : undefined,
+  });
   const internal = $derived({
-    id, disabled, name: getNativeName(name), 'aria-labelledby': labelable.labelId,
+    id,
+    disabled,
+    name: getNativeName(name),
+    'aria-labelledby': labelable.labelId,
     oninput(event: Event) {
       const control = controlRef.current;
       if (!control) return;
@@ -76,7 +131,11 @@ import { createAttachmentKey } from 'svelte/attachments';
       const details = createChangeEventDetails(REASONS.none, event);
       // Option activation has a cancelable click phase; other native hosts
       // retain their normal input callback and validation phase.
-      if (!('checked' in control) || !['radio', 'checkbox'].includes(control.type)) onValueChange?.(value, details);
+      if (
+        !('checked' in control) ||
+        !['radio', 'checkbox'].includes(control.type)
+      )
+        onValueChange?.(value, details);
       if (remote?.accessor) return;
       field.setDirty(!sameValue(value, field.validityData.initialValue));
       field.setFilled(filled(value));
@@ -89,56 +148,101 @@ import { createAttachmentKey } from 'svelte/attachments';
       const control = controlRef.current;
       if (!control || !('checked' in control)) return;
       if (event.defaultPrevented || disabled) return;
-      if (descriptor.readOnly || descriptor.readonly) { event.preventDefault(); return; }
+      if (descriptor.readOnly || descriptor.readonly) {
+        event.preventDefault();
+        return;
+      }
       if (control.type === 'radio' && descriptor.checked) return;
       const details = createChangeEventDetails(REASONS.none, event);
       onCheckedChange?.(control.checked, details);
-      if (!details.isCanceled) onValueChange?.(nativeControlValue(control, descriptor.value), details);
+      if (!details.isCanceled)
+        onValueChange?.(nativeControlValue(control, descriptor.value), details);
       if (details.isCanceled) event.preventDefault();
     },
-    onfocus() { field.setFocused(true); },
+    onfocus() {
+      field.setFocused(true);
+    },
     onblur() {
-      field.setTouched(true); field.setFocused(false);
-      if (field.validationMode === 'onBlur') void field.validation.commit(getValue());
+      field.setTouched(true);
+      field.setFocused(false);
+      if (field.validationMode === 'onBlur')
+        void field.validation.commit(getValue());
     },
     onkeydown(event: KeyboardEvent) {
       const control = controlRef.current;
-      if (!control || control.tagName !== 'INPUT' || event.key !== 'Enter') return;
+      if (!control || control.tagName !== 'INPUT' || event.key !== 'Enter')
+        return;
       field.setTouched(true);
       const formElement = control.form;
-      if (formElement && formElement === form.elementRef.current && !event.defaultPrevented) {
+      if (
+        formElement &&
+        formElement === form.elementRef.current &&
+        !event.defaultPrevented
+      ) {
         const submitCount = form.submitCountRef.current;
         enterValidationTimeout.start(0, () => {
-          if (form.submitCountRef.current === submitCount) void field.validation.commit(getValue());
+          if (form.submitCountRef.current === submitCount)
+            void field.validation.commit(getValue());
         });
       } else void field.validation.commit(getValue());
     },
   });
-  
+
   const nativeProps = $derived.by(() => {
-    const { class: _class, style: _style, id: _id, disabled: _disabled, inputRef: _inputRef, nativeButton: _nativeButton, uncheckedValue: _uncheckedValue, ...attributes } = descriptor;
-    void [_class, _style, _id, _disabled, _inputRef, _nativeButton, _uncheckedValue];
+    const {
+      class: _class,
+      style: _style,
+      id: _id,
+      disabled: _disabled,
+      inputRef: _inputRef,
+      nativeButton: _nativeButton,
+      uncheckedValue: _uncheckedValue,
+      ...attributes
+    } = descriptor;
+    void [
+      _class,
+      _style,
+      _id,
+      _disabled,
+      _inputRef,
+      _nativeButton,
+      _uncheckedValue,
+    ];
     return attributes;
   });
-  
-  
 
-
-const hostAttachmentKey = createAttachmentKey();
-function attachHost(host: HTMLElement) {
-  return untrack(() => {
-    ref = host;
-    controlRef.current = host;
-    return () => untrack(() => {
-      if (ref === host) ref = null;
-      if (controlRef.current === host) controlRef.current = null;
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      controlRef.current = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (controlRef.current === host) controlRef.current = null;
+        });
     });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      controlState,
+      { class: descriptor.class, style: descriptor.style },
+      [
+        internal,
+        nativeProps,
+        (merged: Record<string, unknown>) =>
+          field.validation.getValidationProps(disabled, merged),
+      ],
+      fieldValidityMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
   });
-}
-const mergedProps = $derived({ ...mergeComponentProps(controlState, { class: descriptor.class, style: descriptor.style }, [internal, nativeProps, (merged: Record<string, unknown>) => field.validation.getValidationProps(disabled, merged)], fieldValidityMapping), [hostAttachmentKey]: attachHost });
 </script>
+
 {#if render}
   {@render render(mergedProps, controlState, children)}
 {:else}
-  {#if kind.startsWith('select')}<select {...mergedProps}>{@render children?.()}</select>{:else}<input {...mergedProps} />{/if}
+  {#if kind.startsWith('select')}<select {...mergedProps}
+      >{@render children?.()}</select
+    >{:else}<input {...mergedProps} />{/if}
 {/if}

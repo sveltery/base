@@ -5,13 +5,28 @@
   import { setFieldControlValueContext } from '../internals/field-control-value/FieldControlValueContext.js';
   import { useFieldRootContext } from '../internals/field-root-context/FieldRootContext.js';
   import { useRemoteFieldContext } from './RemoteFieldContext.js';
-  import type { RemoteControlProps, RemoteControlRenderProps, RemoteControlState } from './control.types.js';
+  import type {
+    RemoteControlProps,
+    RemoteControlRenderProps,
+    RemoteControlState,
+  } from './control.types.js';
   import type { SwitchRootChangeEventDetails } from '../switch/types.js';
-  let { render, children, ref = $bindable(), onCheckedChange, onValueChange, ...props }: RemoteControlProps = $props();
+  let {
+    render,
+    children,
+    ref = $bindable(),
+    onCheckedChange,
+    onValueChange,
+    ...props
+  }: RemoteControlProps = $props();
   const remote = useRemoteFieldContext();
   const field = useFieldRootContext();
   const descriptor = $derived({ ...remote?.descriptor, ...props });
-  setFieldControlNameContext({ get name() { return typeof descriptor.name === 'string' ? descriptor.name : undefined; } });
+  setFieldControlNameContext({
+    get name() {
+      return typeof descriptor.name === 'string' ? descriptor.name : undefined;
+    },
+  });
   function change(checked: boolean, details: SwitchRootChangeEventDetails) {
     onCheckedChange?.(checked, details);
     if (details.isCanceled) return;
@@ -19,15 +34,32 @@
   }
   const semanticProps: RemoteControlRenderProps = $derived.by(() => {
     // Descriptor input-only attributes must never land on the visible family host.
-    const { type: _type, files: _files, value, defaultValue: _defaultValue, ...attributes } = descriptor;
+    const {
+      type: _type,
+      files: _files,
+      value,
+      defaultValue: _defaultValue,
+      ...attributes
+    } = descriptor;
     void [_type, _files, _defaultValue];
     return {
       ...attributes,
-      checked: remote?.accessor && descriptor.checked === undefined
-        ? Boolean(descriptor.checked ?? descriptor.defaultChecked)
-        : typeof descriptor.checked === 'boolean' ? descriptor.checked : undefined,
-      defaultChecked: typeof descriptor.defaultChecked === 'boolean' ? descriptor.defaultChecked : undefined,
-      value: (descriptor.type ?? remote?.kind) === 'radio' ? value : value == null ? undefined : String(value),
+      checked:
+        remote?.accessor && descriptor.checked === undefined
+          ? Boolean(descriptor.checked ?? descriptor.defaultChecked)
+          : typeof descriptor.checked === 'boolean'
+            ? descriptor.checked
+            : undefined,
+      defaultChecked:
+        typeof descriptor.defaultChecked === 'boolean'
+          ? descriptor.defaultChecked
+          : undefined,
+      value:
+        (descriptor.type ?? remote?.kind) === 'radio'
+          ? value
+          : value == null
+            ? undefined
+            : String(value),
       onCheckedChange: change,
     };
   });
@@ -36,7 +68,11 @@
     // lets native listeners read the accepted option even when an authored
     // Group is mounted inside the render snippet after this facade.
     setFieldControlValueContext({
-      get value() { return typeof semanticProps.value === 'string' ? semanticProps.value : undefined; },
+      get value() {
+        return typeof semanticProps.value === 'string'
+          ? semanticProps.value
+          : undefined;
+      },
     });
   }
   const state: RemoteControlState = $derived({
@@ -49,7 +85,9 @@
   const attachmentKey = createAttachmentKey();
   function attachHost(host: HTMLElement) {
     ref = host;
-    return () => { if (ref === host) ref = null; };
+    return () => {
+      if (ref === host) ref = null;
+    };
   }
   const renderedProps = $derived.by(() => {
     const attributes = { ...semanticProps };
@@ -63,6 +101,7 @@
     return { ...attributes, [attachmentKey]: attachHost };
   });
 </script>
+
 {#if render}
   {@render render(renderedProps, state, children)}
 {:else}
