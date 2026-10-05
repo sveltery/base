@@ -1,0 +1,54 @@
+{
+  "package": "@wooorm/starry-night@3.10.0",
+  "grammar": "source.json",
+  "declaredSource": "https://github.com/Nixinova/NovaGrammars",
+  "declaredLicense": "isc",
+  "observedDate": "2026-10-05",
+  "responses": [
+    {
+      "url": "https://raw.githubusercontent.com/Nixinova/NovaGrammars/HEAD/LICENSE",
+      "status": 404
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Nixinova/NovaGrammars/HEAD/LICENSE.md",
+      "status": 404
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Nixinova/NovaGrammars/HEAD/LICENSE.txt",
+      "status": 404
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Nixinova/NovaGrammars/HEAD/license",
+      "status": 404
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Nixinova/NovaGrammars/HEAD/LICENSE-MIT",
+      "status": 404
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Nixinova/NovaGrammars/HEAD/LICENCE",
+      "status": 404
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Nixinova/NovaGrammars/HEAD/LICENCE.md",
+      "status": 404
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Nixinova/NovaGrammars/HEAD/COPYING",
+      "status": 404
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Nixinova/NovaGrammars/HEAD/README.md",
+      "status": 404
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Nixinova/NovaGrammars/HEAD/LICENSE-ISC",
+      "status": 404
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Nixinova/NovaGrammars/HEAD/LICENSE.isc",
+      "status": 404
+    }
+  ],
+  "decision": "Approved JSON loader deferral; plain-text fallback; no JSON grammar payload"
+}

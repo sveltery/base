@@ -1,0 +1,74 @@
+[
+  {
+    "target": "apps/docs/src/lib/docs/highlight/addLineGutters.mjs",
+    "targetSha256": "3e78e9d770ea785a28879edc956b8bfd74d8b6d42ac894ddda909d8ad4ff6e15",
+    "original": "pipeline/parseSource/addLineGutters.mjs",
+    "originalSha256": "7ccc85db82551548e00362548d8f33a10630aa43a274da1eddaf068ef85ac4f0"
+  },
+  {
+    "target": "apps/docs/src/lib/docs/highlight/createFrame.mjs",
+    "targetSha256": "3812dadacf0ed9f9620716e5ca38d2b98cbe87db631a797a52e621261137ea29",
+    "original": "pipeline/parseSource/createFrame.mjs",
+    "originalSha256": "5a66313cc53da8ea996b92c4ae1f9b3b8effc9458b58838129c6cc9598c3b5be"
+  },
+  {
+    "target": "apps/docs/src/lib/docs/highlight/extendSyntaxTokens.mjs",
+    "targetSha256": "03cbfe2446f374d44d8e3d9fe1ae59b397bbc15d6ce571471fb2cab92e838882",
+    "original": "pipeline/parseSource/extendSyntaxTokens.mjs",
+    "originalSha256": "ef88d23559515e7f2695a444455d00132d4f71af75ccd47a740f22cd57782372"
+  },
+  {
+    "target": "apps/docs/src/lib/docs/highlight/getHastTextContent.mjs",
+    "targetSha256": "22c12dfe729deb27c9884540f1eb2302ad3cd12a98cef1bb09d7ad912b87dbd9",
+    "original": "pipeline/hastUtils/getHastTextContent.mjs",
+    "originalSha256": "c25a179ee977ef89d4169c02c87abf80a353f957a7e30b22f0ad156045c17fec"
+  },
+  {
+    "target": "apps/docs/src/lib/docs/highlight/grammarCache.mjs",
+    "targetSha256": "7aa9dadecfff484fb193391a1c743d101d11a8e0e54bd3769d715faf175cf82f",
+    "original": "pipeline/parseSource/grammarCache.mjs",
+    "originalSha256": "5d1867b370166a3fc2154d37173251276232a9aaa6acad009539690eb06a5d0e"
+  },
+  {
+    "target": "apps/docs/src/lib/docs/highlight/grammarLoaders.mjs",
+    "targetSha256": "56f8a0831b7648007c4ed75e5bbeaccd5c2da07f681e1e6960eea56639c926d9",
+    "original": "pipeline/parseSource/grammarLoaders.mjs",
+    "originalSha256": "c7ed2cda7a9ae95cd3a02a074018f2ab1644aad60b86ba3923b75a2216b6a8bf"
+  },
+  {
+    "target": "apps/docs/src/lib/docs/highlight/grammarMaps.mjs",
+    "targetSha256": "dffc2154a0a68865d469e2785b474bd076ddfebdefb3777353ee45aa29c43bbe",
+    "original": "pipeline/parseSource/grammarMaps.mjs",
+    "originalSha256": "760efbccb6c87f64b0cf05f347c90b14657681f1cdb5784f86fbeea2addffeb1"
+  },
+  {
+    "target": "apps/docs/src/lib/docs/highlight/grammars.mjs",
+    "targetSha256": "d215ccc1993213e6b0292f7939d46ed9515a916d254d25608ed3ea3783a90d1e",
+    "original": "pipeline/parseSource/grammars.mjs",
+    "originalSha256": "811d1e5df43f099c31a0b55cba519c074e80c520acfa3bf1ed8c29ef69480424"
+  },
+  {
+    "target": "apps/docs/src/lib/docs/highlight/isFrameSpan.mjs",
+    "targetSha256": "02b8a3481cc2ac6082923ffd57699eaf09f570469368763aa0f131f6bfe1ef0a",
+    "original": "pipeline/parseSource/isFrameSpan.mjs",
+    "originalSha256": "a4e632e7ae0ee15f5a4d67f86aedf50ea5a3f7ad44ea7bc637c7c55a0574720f"
+  },
+  {
+    "target": "apps/docs/src/lib/docs/highlight/languageCapabilities.mjs",
+    "targetSha256": "72342e8494c498cdd47cc67feddcab45362960182ee41fde5cfd42f2c09a68d0",
+    "original": "pipeline/parseSource/languageCapabilities.mjs",
+    "originalSha256": "87a47bc0fac36e8835e3c5df0a1c9b0e9b6465afd4f1edd6f837fc93199b972c"
+  },
+  {
+    "target": "apps/docs/src/lib/docs/highlight/parseSource.mjs",
+    "targetSha256": "ea60441b0169dfd24635d5c1d1a889cb2430bed1601e2429a9e8fb5060412cc7",
+    "original": "pipeline/parseSource/parseSource.mjs",
+    "originalSha256": "0dca83e7058428ae752afae2abd33077a9d8af9ca02759f1991ad009f9c2cb54"
+  },
+  {
+    "target": "apps/docs/src/lib/docs/highlight/plainText.mjs",
+    "targetSha256": "69e5563af99497c04edd0f00c8815490e6cc9935bc05d93aa5888b2f08f99106",
+    "original": "parseSource/parseSource.mjs createPlainTextRoot extracted unchanged",
+    "originalSha256": "0dca83e7058428ae752afae2abd33077a9d8af9ca02759f1991ad009f9c2cb54"
+  }
+]

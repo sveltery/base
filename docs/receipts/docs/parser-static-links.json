@@ -1,0 +1,11 @@
+{
+  "authoredDocsPages": 19,
+  "exportedInternalTargets": 126,
+  "wasmAssets": [
+    {
+      "path": "_app/immutable/assets/onig.CwjCXqnP.wasm",
+      "bytes": 473151
+    }
+  ],
+  "failures": []
+}

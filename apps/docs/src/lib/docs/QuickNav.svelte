@@ -4,11 +4,28 @@
   import type { Doc } from '../../../../fixtures/src/lib/docs/content.js';
   let { doc }: { doc?: Doc } = $props();
 </script>
-<nav aria-label="On this page" class="QuickNavRoot"><div class="QuickNavInner">
-  <ScrollArea.Root><ScrollArea.Viewport class="QuickNavViewport">
-    <header class="bui-sr-only">{doc?.title}</header>
-    <ul class="QuickNavList"><li class="QuickNavItem"><a class="QuickNavLink" href="#main-content">(Top)</a></li>
-      {#each doc?.sections ?? [] as section (section.id)}<li class="QuickNavItem"><a class="QuickNavLink" href={'#' + section.id}>{section.title}</a></li>{/each}
-    </ul>
-  </ScrollArea.Viewport><ScrollArea.Scrollbar class="QuickNavScrollbar"><ScrollArea.Thumb class="QuickNavScrollbarThumb" /></ScrollArea.Scrollbar></ScrollArea.Root>
-</div></nav>
+
+<nav aria-label="On this page" class="QuickNavRoot">
+  <div class="QuickNavInner">
+    <ScrollArea.Root
+      ><ScrollArea.Viewport class="QuickNavViewport">
+        <header class="bui-sr-only">{doc?.title}</header>
+        <ul class="QuickNavList">
+          <li class="QuickNavItem">
+            <a class="QuickNavLink" href="#main-content">(Top)</a>
+          </li>
+          {#each doc?.sections ?? [] as section (section.id)}<li
+              class="QuickNavItem"
+            >
+              <a class="QuickNavLink" href={'#' + section.id}>{section.title}</a
+              >
+            </li>{/each}
+        </ul>
+      </ScrollArea.Viewport><ScrollArea.Scrollbar class="QuickNavScrollbar"
+        ><ScrollArea.Thumb
+          class="QuickNavScrollbarThumb"
+        /></ScrollArea.Scrollbar
+      ></ScrollArea.Root
+    >
+  </div>
+</nav>

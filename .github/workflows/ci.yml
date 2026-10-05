@@ -66,6 +66,8 @@ jobs:
         run: pnpm test
       - name: Svelte DOM wiring
         run: pnpm --filter @sveltery/base test:dom
+      - name: Documentation source helper checks
+        run: pnpm --filter @sveltery/docs test
       - name: Static documentation build
         run: pnpm --filter @sveltery/docs build
       - name: Fixture SSR and client build

@@ -3,6 +3,7 @@ export interface Section {
   title: string;
   paragraphs: string[];
   code?: string;
+  language?: 'svelte' | 'typescript' | 'shell' | 'text';
   links?: { label: string; href: string }[];
 }
 export interface Doc {
@@ -65,7 +66,7 @@ export const docs: Doc[] = [
           'Use Node 24.x and the pinned pnpm 12.6.0 toolchain. Clone the repository, then run these commands from its root. The bootstrap script installs the committed lockfile; build the library before running the app.',
           'Open http://localhost:5173/docs. The fixture app previews the same authored docs as the standalone static docs app; both consume the real local package. No npm release of @sveltery/base is available.',
         ],
-        code: 'git clone https://github.com/sveltery/base.git\ncd base\nbash scripts/bootstrap.sh\n# Select the pinned pnpm launcher when using Corepack:\nsource scripts/toolchain.sh\npnpm --filter @sveltery/base build\npnpm --filter @sveltery/docs dev',
+        language: 'shell', code: 'git clone https://github.com/sveltery/base.git\ncd base\nbash scripts/bootstrap.sh\n# Select the pinned pnpm launcher when using Corepack:\nsource scripts/toolchain.sh\npnpm --filter @sveltery/base build\npnpm --filter @sveltery/docs dev',
       },
       {
         id: 'dependency',
@@ -74,7 +75,7 @@ export const docs: Doc[] = [
           'apps/fixtures already depends on @sveltery/base through workspace:*. Its source examples import the package namespace shown below. This dependency is for packages in this pnpm workspace; it is not a registry installation command.',
           'For a separate application, first evaluate a source checkout and its package build. Packaging and release support remain experimental; these docs do not promise a published version or a drop-in installer.',
         ],
-        code: "import { Dialog } from '@sveltery/base';\n// Types and individual parts also exist at:\nimport type { RootProps } from '@sveltery/base/dialog';",
+        language: 'typescript', code: "import { Dialog } from '@sveltery/base';\n// Types and individual parts also exist at:\nimport type { RootProps } from '@sveltery/base/dialog';",
       },
       {
         id: 'assemble',
@@ -106,7 +107,7 @@ export const docs: Doc[] = [
           'Parts accept a class string; Popup and Backdrop also accept a callback that receives PopupState. Styles can be strings or callbacks returning CSS strings. React style objects are unsupported.',
           'Portal moves its content outside the page container. In a Svelte style block, use explicit :global selectors for classes assigned to portaled parts. Keep these selectors namespaced to your example or application.',
         ],
-        code: '<Dialog.Popup class="my-dialog">\n  <Dialog.Title>Project settings</Dialog.Title>\n  <Dialog.Close>Done</Dialog.Close>\n</Dialog.Popup>\n\n<style>\n  :global(.my-dialog) {\n    position: fixed;\n    inset: 15vh auto auto 50%;\n    transform: translateX(-50%);\n    width: min(420px, calc(100vw - 40px));\n    padding: 24px;\n    background: white;\n  }\n</style>',
+        language: 'svelte', code: '<Dialog.Popup class="my-dialog">\n  <Dialog.Title>Project settings</Dialog.Title>\n  <Dialog.Close>Done</Dialog.Close>\n</Dialog.Popup>\n\n<style>\n  :global(.my-dialog) {\n    position: fixed;\n    inset: 15vh auto auto 50%;\n    transform: translateX(-50%);\n    width: min(420px, calc(100vw - 40px));\n    padding: 24px;\n    background: white;\n  }\n</style>',
       },
       {
         id: 'state',
@@ -141,7 +142,7 @@ export const docs: Doc[] = [
           'Svelte children are snippets. The render snippet receives native props, state, and the children snippet. Spread all supplied props onto the replacement DOM element: attachment props carry ref and lifecycle behavior.',
           'Render the third argument to preserve child content. When adding event props to a replacement, compose them with mergeProps instead of overwriting the supplied handlers. Automatic inspection of a replacement element is not supported.',
         ],
-        code: '<Dialog.Trigger nativeButton={false}>\n  {#snippet render(props, state, children)}\n    <span {...props} data-example-open={state.open}>\n      {@render children?.()}\n    </span>\n  {/snippet}\n  Open settings\n</Dialog.Trigger>',
+        language: 'svelte', code: '<Dialog.Trigger nativeButton={false}>\n  {#snippet render(props, state, children)}\n    <span {...props} data-example-open={state.open}>\n      {@render children?.()}\n    </span>\n  {/snippet}\n  Open settings\n</Dialog.Trigger>',
       },
       {
         id: 'state',
@@ -150,7 +151,7 @@ export const docs: Doc[] = [
           'Without open, Root owns its state; defaultOpen supplies the initial value. With open, the application owns the value and must update it in onOpenChange. A held controlled input does not change just because the component requests a change.',
           'The event details object includes a reason, the native event, and cancel(). Cancellation prevents the internal change. actions uses bind:actions rather than React’s actionsRef. DOM references use bind:ref.',
         ],
-        code: '<script lang="ts">\n  import { Dialog } from \'@sveltery/base\';\n  let open = $state(false);\n</script>\n\n<Dialog.Root {open} onOpenChange={(next, details) => {\n  if (!details.isCanceled) open = next;\n}}>\n  <!-- Trigger and Portal parts go here. -->\n</Dialog.Root>',
+        language: 'svelte', code: '<script lang="ts">\n  import { Dialog } from \'@sveltery/base\';\n  let open = $state(false);\n</script>\n\n<Dialog.Root {open} onOpenChange={(next, details) => {\n  if (!details.isCanceled) open = next;\n}}>\n  <!-- Trigger and Portal parts go here. -->\n</Dialog.Root>',
         links: [
           {
             label: 'Dialog reference',
@@ -238,8 +239,8 @@ export const docs: Doc[] = [
     slug: 'components/use-render', group: 'Components', title: 'UseRender',
     description: 'Render a native host or compose a replacement snippet with state and actual element references.',
     sections: [
-      { id: 'host', title: 'Render a host', paragraphs: ['UseRender renders a div by default. Choose an HTML or SVG tag with defaultTagName, pass native attributes in props and pass component state through state. True state values become empty data attributes; other truthy values stringify.'], code: '<script lang="ts">\n  import { UseRender } from "@sveltery/base/use-render";\n</script>\n<UseRender defaultTagName="button" props={{ class: "action" }} state={{ active: true }}>\n  Action\n</UseRender>' },
-      { id: 'compose', title: 'Compose a snippet', paragraphs: ['A replacement snippet receives merged host props, current state and children. Spread the supplied props onto its actual host to forward attachments. Use mergeProps to add replacement-owned native props last. Keep snippet identity stable and update reactive arguments to retain its host and refs.'], code: '<script lang="ts">\n  import { UseRender, mergeProps } from "@sveltery/base";\n</script>\n<UseRender state={{ active: true }}>\n  {#snippet render(supplied, state, children)}\n    <span {...mergeProps(supplied, { class: "owned" })} data-selected={state.active}>\n      {@render children?.()}\n    </span>\n  {/snippet}\n  Content\n</UseRender>' },
+      { id: 'host', title: 'Render a host', paragraphs: ['UseRender renders a div by default. Choose an HTML or SVG tag with defaultTagName, pass native attributes in props and pass component state through state. True state values become empty data attributes; other truthy values stringify.'], language: 'svelte', code: '<script lang="ts">\n  import { UseRender } from "@sveltery/base/use-render";\n</script>\n<UseRender defaultTagName="button" props={{ class: "action" }} state={{ active: true }}>\n  Action\n</UseRender>' },
+      { id: 'compose', title: 'Compose a snippet', paragraphs: ['A replacement snippet receives merged host props, current state and children. Spread the supplied props onto its actual host to forward attachments. Use mergeProps to add replacement-owned native props last. Keep snippet identity stable and update reactive arguments to retain its host and refs.'], language: 'svelte', code: '<script lang="ts">\n  import { UseRender, mergeProps } from "@sveltery/base";\n</script>\n<UseRender state={{ active: true }}>\n  {#snippet render(supplied, state, children)}\n    <span {...mergeProps(supplied, { class: "owned" })} data-selected={state.active}>\n      {@render children?.()}\n    </span>\n  {/snippet}\n  Content\n</UseRender>' },
       { id: 'refs', title: 'Observe the actual element', paragraphs: ['Use bind:element for the resolved host, or pass callback/object refs and arrays through ref. Callback cleanup supersedes null delivery. Disabled rendering removes its host and skips new render/state work. A default button receives type=button; a default image receives alt="". Replacement snippets own their defaults.'] },
       { id: 'limits', title: 'Compatibility limits', paragraphs: ['UseRender is a native Svelte component representation of a React hook. Changed snippet identity replaces the native host even when the tag matches. Full owner unmount or host replacement inside an unchanged snippet can call cleanup after removal. React return typing, lazy/Flight/RSC and diagnostics remain unimplemented. Public props accepts an ordinary object; ordered getters and class/style callbacks remain private.'], links: [{ label: 'Read the UseRender contract and evidence', href: 'https://github.com/sveltery/base/blob/main/docs/use-render.md' }] },
     ],
@@ -248,7 +249,7 @@ export const docs: Doc[] = [
     slug: 'components/csp-provider', group: 'Components', title: 'CSP Provider',
     description: 'Share optional CSP settings with descendant components as they gain support.',
     sections: [
-      { id: 'provide', title: 'Provide settings', paragraphs: ['CSPProvider renders its children without a wrapper element. It accepts an optional string nonce and optional boolean disableStyleElements.'], code: '<script lang="ts">\n  import { CSPProvider } from "@sveltery/base/csp-provider";\n</script>\n<CSPProvider nonce="server-provided-nonce" disableStyleElements>\n  <Content />\n</CSPProvider>' },
+      { id: 'provide', title: 'Provide settings', paragraphs: ['CSPProvider renders its children without a wrapper element. It accepts an optional string nonce and optional boolean disableStyleElements.'], language: 'svelte', code: '<script lang="ts">\n  import { CSPProvider } from "@sveltery/base/csp-provider";\n</script>\n<CSPProvider nonce="server-provided-nonce" disableStyleElements>\n  <Content />\n</CSPProvider>' },
       { id: 'defaults', title: 'Defaults and nesting', paragraphs: ['Without a provider, the internal default has disableStyleElements=false. A provider supplies its own optional values, including undefined when omitted. Nested providers replace outer settings, and prop updates reach existing descendants.'] },
       { id: 'imports', title: 'Imports and types', paragraphs: ['Import CSPProvider from @sveltery/base or @sveltery/base/csp-provider. CSPProviderProps and CSPProviderState are named type exports from either entry. CSPProvider.Props and CSPProvider.State preserve the pinned type-only aliases without runtime properties. Children use a Svelte snippet; the provider has no native host attributes or public context reader.'] },
       { id: 'limits', title: 'Current support', paragraphs: ['CSPProvider supplies context without generating a nonce or setting response headers. ScrollArea now consumes its nonce and disableStyleElements settings for Root-owned native Svelte style elements. This does not establish support for pending Select or prehydration consumers, or React stylesheet hoisting equivalence.'], links: [{ label: 'Read the CSPProvider contract and evidence', href: 'https://github.com/sveltery/base/blob/main/docs/csp-provider.md' }] },
@@ -258,8 +259,8 @@ export const docs: Doc[] = [
     slug: 'components/direction-provider', group: 'Components', title: 'Direction Provider',
     description: 'Share a text reading direction with descendant components.',
     sections: [
-      { id: 'provide', title: 'Provide a direction', paragraphs: ['Wrap content in DirectionProvider with direction="rtl" or direction="ltr". It supplies context without adding an element or setting dir on your document.'], code: '<DirectionProvider direction="rtl"><Content /></DirectionProvider>' },
-      { id: 'read', title: 'Read reactive direction', paragraphs: ['In a descendant component, call useDirection once during initialization. Retain the returned reader and call it in markup, $derived or event handlers. Reading once during initialization captures only that value.'], code: '<script lang="ts">\n  import { useDirection } from "@sveltery/base/direction-provider";\n  const direction = useDirection();\n  let isRTL = $derived(direction() === "rtl");\n</script>\n<span dir={direction()}>{isRTL ? "RTL content" : "LTR content"}</span>' },
+      { id: 'provide', title: 'Provide a direction', paragraphs: ['Wrap content in DirectionProvider with direction="rtl" or direction="ltr". It supplies context without adding an element or setting dir on your document.'], language: 'svelte', code: '<DirectionProvider direction="rtl"><Content /></DirectionProvider>' },
+      { id: 'read', title: 'Read reactive direction', paragraphs: ['In a descendant component, call useDirection once during initialization. Retain the returned reader and call it in markup, $derived or event handlers. Reading once during initialization captures only that value.'], language: 'svelte', code: '<script lang="ts">\n  import { useDirection } from "@sveltery/base/direction-provider";\n  const direction = useDirection();\n  let isRTL = $derived(direction() === "rtl");\n</script>\n<span dir={direction()}>{isRTL ? "RTL content" : "LTR content"}</span>' },
       { id: 'defaults', title: 'Defaults and nesting', paragraphs: ['Readers outside a provider return ltr. An omitted or undefined provider direction also defaults to ltr. A nested provider owns its direction and defaults to ltr rather than inheriting its parent. Prop updates reach its existing descendants.'] },
       { id: 'imports', title: 'Imports and types', paragraphs: ['Import DirectionProvider and useDirection from @sveltery/base or @sveltery/base/direction-provider. DirectionProviderProps and TextDirection are named types; DirectionProvider.Props and the empty DirectionProvider.State are type-only aliases. The hook takes no override argument.'] },
       { id: 'limits', title: 'Compatibility limits', paragraphs: ['The reader is a callable Svelte API. It reads live owner changes, including inside the same event handler. Toolbar, ToggleGroup and ScrollArea consume this direction context. Set matching dir/CSS direction on authored content; full directional interaction compatibility across all exports remains unfinished.'], links: [{ label: 'Read the DirectionProvider contract and evidence', href: 'https://github.com/sveltery/base/blob/main/docs/direction-provider.md' }] },
@@ -269,7 +270,7 @@ export const docs: Doc[] = [
     slug: 'components/avatar', group: 'Components', title: 'Avatar',
     description: 'A profile image with initials or a fallback icon while it loads.',
     sections: [
-      { id: 'anatomy', title: 'Assemble the parts', paragraphs: ['Root owns the image loading status. Image loads a source and Fallback displays initials until it is ready.'], code: '<Avatar.Root><Avatar.Image src="/avatar.png" alt="Jane Doe" /><Avatar.Fallback>JD</Avatar.Fallback></Avatar.Root>' },
+      { id: 'anatomy', title: 'Assemble the parts', paragraphs: ['Root owns the image loading status. Image loads a source and Fallback displays initials until it is ready.'], language: 'svelte', code: '<Avatar.Root><Avatar.Image src="/avatar.png" alt="Jane Doe" /><Avatar.Fallback>JD</Avatar.Fallback></Avatar.Root>' },
       { id: 'loading', title: 'Load the image', paragraphs: ['The default mode preloads the source and mounts the image when loaded. Set keepMounted to load in the rendered image, including lazy images and replacement image snippets. Pass native srcset and sizes for responsive images. onLoadingStatusChange reports loading, loaded and error.'] },
       { id: 'fallback', title: 'Delay the fallback', paragraphs: ['Set delay in milliseconds to wait before showing the fallback. Once shown, later delay changes keep it available until the image loads.'] },
       { id: 'motion', title: 'Style loading and motion', paragraphs: ['Image exposes data-starting-style and, in default mode, data-ending-style while exiting. The keepMounted mode exposes data-loading and data-error and hides an unready image from assistive technology. Root and Fallback expose imageLoadingStatus to class, style and render callbacks.'] },
@@ -280,7 +281,7 @@ export const docs: Doc[] = [
     slug: 'components/accordion', group: 'Components', title: 'Accordion',
     description: 'Compose labelled, collapsible sections with array values and cancellable requests.',
     sections: [
-      { id: 'anatomy', title: 'Assemble the parts', paragraphs: ['Root groups Items. Each Item pairs Header and Trigger with a Panel. Values are arrays; use defaultValue for initial uncontrolled selection or value and onValueChange for controlled selection. multiple allows more than one selected item.'], code: "<Accordion.Root defaultValue={['details']}><Accordion.Item value=\"details\"><Accordion.Header><Accordion.Trigger>Details</Accordion.Trigger></Accordion.Header><Accordion.Panel>Panel content</Accordion.Panel></Accordion.Item></Accordion.Root>" },
+      { id: 'anatomy', title: 'Assemble the parts', paragraphs: ['Root groups Items. Each Item pairs Header and Trigger with a Panel. Values are arrays; use defaultValue for initial uncontrolled selection or value and onValueChange for controlled selection. multiple allows more than one selected item.'], language: 'svelte', code: "<Accordion.Root defaultValue={['details']}><Accordion.Item value=\"details\"><Accordion.Header><Accordion.Trigger>Details</Accordion.Trigger></Accordion.Header><Accordion.Panel>Panel content</Accordion.Panel></Accordion.Item></Accordion.Root>" },
       { id: 'interaction', title: 'Requests and keyboard', paragraphs: ['Item onOpenChange runs before Root onValueChange; either can cancel the request through details.cancel(). Item cancellation stops the Root callback. Disabled state combines with ancestors. Enter and Space activate Triggers; deprecated orientation and loopFocus do not provide roving focus.'] },
       { id: 'motion', title: 'Style and retain panels', paragraphs: ['Use --accordion-panel-height and --accordion-panel-width, and open/closed/starting/ending attributes on Panel. Panel overrides Root keepMounted and hiddenUntilFound defaults. hiddenUntilFound retains hidden contents for browser search.'] },
       { id: 'api-reference', title: 'Local API reference', paragraphs: ['The signatures below are extracted from local declarations. Root props and state retain generic value arrays and the permissive upstream default. Explicit generic props constrain values and callback arrays.'] },
@@ -291,7 +292,7 @@ export const docs: Doc[] = [
     slug: 'components/collapsible', group: 'Components', title: 'Collapsible',
     description: 'A button and a panel that opens and closes with your CSS motion.',
     sections: [
-      { id: 'anatomy', title: 'Assemble the parts', paragraphs: ['Root groups a Trigger and Panel. Root defaults to closed and enabled. Set defaultOpen for an uncontrolled initial value, or open and onOpenChange for an owner-controlled panel.'], code: "<Collapsible.Root><Collapsible.Trigger>Details</Collapsible.Trigger><Collapsible.Panel>Panel content</Collapsible.Panel></Collapsible.Root>" },
+      { id: 'anatomy', title: 'Assemble the parts', paragraphs: ['Root groups a Trigger and Panel. Root defaults to closed and enabled. Set defaultOpen for an uncontrolled initial value, or open and onOpenChange for an owner-controlled panel.'], language: 'svelte', code: "<Collapsible.Root><Collapsible.Trigger>Details</Collapsible.Trigger><Collapsible.Panel>Panel content</Collapsible.Panel></Collapsible.Root>" },
       { id: 'motion', title: 'Style the panel', paragraphs: ['Use --collapsible-panel-height and --collapsible-panel-width for measured dimensions. State attributes expose open, closed, starting and ending phases. Initially open panels suppress entrance keyframes; later close and reopen cycles follow authored CSS.'] },
       { id: 'presence', title: 'Keep content available', paragraphs: ['keepMounted retains a hidden closed panel. hiddenUntilFound overrides keepMounted and allows browser find-in-page to reveal its contents. Cancel onOpenChange through details.cancel() to keep the current state.'] },
       { id: 'limits', title: 'Compatibility limits', paragraphs: ['The bounded Root, Trigger and Panel port uses Svelte snippets, native events, bindings and CSS strings. Six external React.Activity cases remain deferred. The source ledger separates ordinary assertions from helper, type and supplemental evidence; complete compatibility is unclaimed.'], links: [{ label: 'Read compatibility limits', href: '/docs/handbook/compatibility' }] },
@@ -311,7 +312,7 @@ export const docs: Doc[] = [
           'Root shares state with its parts. Trigger requests opening. Portal relocates client content; Backdrop provides a visual overlay. Popup owns the dialog semantics, while Title and Description establish its accessible relationships. Close requests dismissal.',
           'This is Sveltery’s eight-part slice. The upstream Viewport and detached-handle APIs are not implemented.',
         ],
-        code: 'Dialog.Root\n├── Dialog.Trigger\n└── Dialog.Portal\n    ├── Dialog.Backdrop\n    └── Dialog.Popup\n        ├── Dialog.Title\n        ├── Dialog.Description\n        └── Dialog.Close',
+        language: 'text', code: 'Dialog.Root\n├── Dialog.Trigger\n└── Dialog.Portal\n    ├── Dialog.Backdrop\n    └── Dialog.Popup\n        ├── Dialog.Title\n        ├── Dialog.Description\n        └── Dialog.Close',
       },
       {
         id: 'examples',
@@ -370,6 +371,7 @@ export const docs: Doc[] = [
       "paragraphs": [
         "This is a composition snippet using the merged local Button export. It is not a live preview."
       ],
+      "language": "svelte",
       "code": "<script lang=\"ts\">\n  import { Button } from \"@sveltery/base\";\n</script>\n<Button onclick={() => console.log(\"Save requested\")}>Save</Button>"
     },
     {
@@ -413,6 +415,7 @@ export const docs: Doc[] = [
       "paragraphs": [
         "This composition snippet uses the merged Toolbar parts. Supply an accessible name and your visual styling."
       ],
+      "language": "svelte",
       "code": "<script lang=\"ts\">\n  import { Toolbar } from \"@sveltery/base\";\n</script>\n<Toolbar.Root aria-label=\"Formatting\">\n  <Toolbar.Button>Save</Toolbar.Button>\n  <Toolbar.Separator />\n  <Toolbar.Input aria-label=\"Search\" defaultValue=\"\" />\n  <Toolbar.Link href=\"https://github.com/sveltery/base\">Source</Toolbar.Link>\n</Toolbar.Root>"
     },
     {
@@ -460,6 +463,7 @@ export const docs: Doc[] = [
       "paragraphs": [
         "This is a composition snippet. Give each Toggle an explicit value when initializing selection."
       ],
+      "language": "svelte",
       "code": "<script lang=\"ts\">\n  import { Toggle, ToggleGroup } from \"@sveltery/base\";\n</script>\n<ToggleGroup multiple defaultValue={[\"bold\"]} aria-label=\"Formatting\">\n  <Toggle value=\"bold\">Bold</Toggle>\n  <Toggle value=\"italic\">Italic</Toggle>\n</ToggleGroup>"
     },
     {
@@ -507,6 +511,7 @@ export const docs: Doc[] = [
       "paragraphs": [
         "This composition snippet shows the six merged parts. Supply content that overflows, dimensions and visible track/thumb styling for your design."
       ],
+      "language": "svelte",
       "code": "<script lang=\"ts\">\n  import { ScrollArea } from \"@sveltery/base\";\n</script>\n<ScrollArea.Root style={{ width: \"320px\", height: \"240px\" }}>\n  <ScrollArea.Viewport style={{ width: \"100%\", height: \"100%\" }}>\n    <ScrollArea.Content>Scrollable content</ScrollArea.Content>\n  </ScrollArea.Viewport>\n  <ScrollArea.Scrollbar style={{ width: \"10px\" }}>\n    <ScrollArea.Thumb />\n  </ScrollArea.Scrollbar>\n  <ScrollArea.Corner />\n</ScrollArea.Root>"
     },
     {
@@ -551,6 +556,7 @@ export const docs: Doc[] = [
       "paragraphs": [
         "This is an illustrative SvelteKit application snippet, not a live server form on this static documentation site. survey and getSurveys must be real remote functions defined by the consuming app. Form itself has no runtime SvelteKit dependency."
       ],
+      "language": "svelte",
       "code": "<script lang=\"ts\">\n  import { Form, Switch } from \"@sveltery/base\";\n  import { survey, getSurveys } from \"./survey.remote.js\";\n</script>\n<Form remote={survey} {...survey.enhance(async (form) => {\n  await form.submit().updates(getSurveys());\n  form.element.reset();\n})}>\n  {#snippet children(Field)}\n    <Field.Root name=\"storageType\" as=\"text\">\n      <Field.Label>Storage type</Field.Label>\n      <Field.Control required />\n      <Field.Error />\n    </Field.Root>\n    <Field.Root name=\"enabled\" as=\"checkbox\">\n      <Field.Label>Enabled</Field.Label>\n      <Field.Control>\n        {#snippet render(props)}\n          <Switch.Root {...props}><Switch.Thumb /></Switch.Root>\n        {/snippet}\n      </Field.Control>\n    </Field.Root>\n    <button type=\"submit\">Save</button>\n  {/snippet}\n</Form>"
     },
     {

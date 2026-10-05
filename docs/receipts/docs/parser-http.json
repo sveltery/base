@@ -1,0 +1,112 @@
+[
+  {
+    "path": "/docs/about/",
+    "status": 200,
+    "bytes": 118934
+  },
+  {
+    "path": "/docs/components/accordion/",
+    "status": 200,
+    "bytes": 142457
+  },
+  {
+    "path": "/docs/components/avatar/",
+    "status": 200,
+    "bytes": 120939
+  },
+  {
+    "path": "/docs/components/button/",
+    "status": 200,
+    "bytes": 120650
+  },
+  {
+    "path": "/docs/components/collapsible/",
+    "status": 200,
+    "bytes": 120511
+  },
+  {
+    "path": "/docs/components/csp-provider/",
+    "status": 200,
+    "bytes": 121297
+  },
+  {
+    "path": "/docs/components/dialog/",
+    "status": 200,
+    "bytes": 188844
+  },
+  {
+    "path": "/docs/components/direction-provider/",
+    "status": 200,
+    "bytes": 123581
+  },
+  {
+    "path": "/docs/components/remote-form/",
+    "status": 200,
+    "bytes": 126091
+  },
+  {
+    "path": "/docs/components/scroll-area/",
+    "status": 200,
+    "bytes": 122284
+  },
+  {
+    "path": "/docs/components/toggle-group/",
+    "status": 200,
+    "bytes": 121367
+  },
+  {
+    "path": "/docs/components/toolbar/",
+    "status": 200,
+    "bytes": 121584
+  },
+  {
+    "path": "/docs/components/use-render/",
+    "status": 200,
+    "bytes": 124650
+  },
+  {
+    "path": "/docs/getting-started/",
+    "status": 200,
+    "bytes": 123132
+  },
+  {
+    "path": "/docs/handbook/accessibility/",
+    "status": 200,
+    "bytes": 118014
+  },
+  {
+    "path": "/docs/handbook/compatibility/",
+    "status": 200,
+    "bytes": 118408
+  },
+  {
+    "path": "/docs/handbook/composition/",
+    "status": 200,
+    "bytes": 123420
+  },
+  {
+    "path": "/docs/handbook/styling/",
+    "status": 200,
+    "bytes": 121482
+  },
+  {
+    "path": "/docs/",
+    "status": 200,
+    "bytes": 118207
+  },
+  {
+    "path": "/fonts/OFL.txt",
+    "status": 200,
+    "bytes": 4401
+  },
+  {
+    "path": "/fonts/paper-mono.woff2",
+    "status": 200,
+    "bytes": 39164
+  },
+  {
+    "path": "/THIRD_PARTY_NOTICES.txt",
+    "status": 200,
+    "bytes": 21654
+  }
+]

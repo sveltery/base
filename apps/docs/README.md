@@ -1,7 +1,8 @@
 # Sveltery Base docs
 
-A standalone SvelteKit 3.0.0 documentation app. It consumes the authored docs
-components and metadata from `apps/fixtures/src/lib/docs` through thin routes;
+A standalone SvelteKit 3.0.0 documentation app. It owns a source-derived docs shell in `src/lib/docs` and consumes canonical
+authored metadata, extracted API declarations and the live Svelte example from
+`apps/fixtures/src/lib/docs`;
 it does not include the diagnostic fixture routes or remote server functions.
 The existing fixture app keeps its SvelteKit 2.70.3 dependency and native form patch.
 
@@ -18,6 +19,7 @@ Open `http://localhost:5178/docs/`. The development server binds to `0.0.0.0`.
 
 ```sh
 pnpm --filter @sveltery/docs check
+pnpm --filter @sveltery/docs test
 pnpm build:docs
 ```
 
@@ -32,3 +34,15 @@ library; its displayed source is the same file used for rendering.
 
 Sveltery is experimental, private/unpublished and independent of Base UI and
 shadcn/ui. Retained MIT notices and the visible credits remain part of the docs.
+
+The pinned Base UI layout, CSS and selected helpers are ported to native Svelte.
+[Source correspondence](../../docs/docs-source-correspondence.md) records exact
+closure and incomplete search widgets/API/code emphasis scope. The native search
+uses the Original Orama index/ranking; code uses its Starry Night parser with local
+WASM. JSON grammar is deferred pending its exact ISC notice. Paper Mono ships with
+OFL; Die Grotesk is excluded, so typography and visual fidelity are not exact.
+
+`pnpm exec playwright test --config playwright.docs.config.ts` runs the dedicated
+standalone app browser checks. Secured hosted `.github/workflows/docs.yml` preserves
+JSON results, logs, traces and screenshots. It leaves component browser discovery
+unchanged.

@@ -2,7 +2,7 @@
 
 Original: Base UI commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`.
 Published infrastructure: `@mui/internal-docs-infra@0.12.1-canary.42`.
-The file/hash manifest is `receipts/docs/source-shell-files.json`; full MIT notice
+The historical first-shell file/hash manifest is `receipts/docs/source-shell-files.json`; full MIT notice
 is retained in `apps/docs/THIRD_PARTY_NOTICES.md`.
 
 | Original selected bodies | Native target and boundary |
@@ -56,3 +56,79 @@ pages plus font and OFL asset200. Kit check zero errors/warnings; static adapter
 build exports authored docs only. Development remains port5178, session12438.
 Browser interactions/screenshots require secured supported hosted browser setup;
 HTTP/type/static checks do not establish keyboard/mobile acceptance.
+
+## Parser and query successor
+
+The successor ports complete published `pipeline/parseSource` bodies:
+`parseSource`, `createParseSource`, `registerGrammars`, `registerAllGrammars`,
+`createIfNeeded`, `enqueue`, `registerScopes`, `loadGrammars`, `resetStarryNight`,
+`grammarCache` registration/readiness facade, `grammarMaps`, `grammarLoaders`,
+`grammars`, `starryNightGutter`/`countLines`/`createLine`, `createFrame`,
+`isFrameSpan`/`hasClassName`, full `extendSyntaxTokens` helper closure and
+`languageCapabilities`. `getShallowTextContent` is imported directly from its
+actual shared `hastUtils/getHastTextContent` leaf rather than through unrelated
+React type/compression barrels. One native `CodeContent.svelte` renderer supplies
+CodeBlock and Demo; escaped Svelte text/span rendering replaces `hastToJsx` and
+`toJsxRuntime`. It does not copy the React runtime, editing/variant transition or
+compression machinery. Plain-text frame/gutter fallback remains readable in SSR;
+syntax is loaded after hydration with native effect cleanup/cancellation.
+
+The unchanged `createPlainTextRoot` business body moves to a lightweight shared
+`plainText.mjs` to keep the regex engine out of the initial renderer import.
+Singleton global key, creation dedup, serialized registration chain, dependency
+fixpoint, fail-open fallback, token enhancement and gutter/frame metadata remain
+Original. The supported `getOnigurumaUrlFetch` option loads actual pinned
+`vscode-oniguruma@2.0.1` WASM through Vite's asset URL; Node retains Starry Night's
+real filesystem loader. This additional direct MIT dependency is explicitly
+approved; no CDN runtime request is needed. Node tests adapt only Vite's asset
+URL module resolution, then run the actual Node regex engine and complete parser.
+
+The original grammar inventory remains JS, TS, TSX, JSON, Markdown, MDX, HTML,
+CSS, shell and YAML. The native extension adds the genuine Starry Night
+`source.svelte` grammar (sebastinez/svelte-atom, MIT, copyright 2018 Umang Galaiya),
+including its CSS/JS/TS dependencies. JSON loader/barrel payload is deliberately
+absent: Starry Night 3.10.0's header declares Nixinova/NovaGrammars and ISC, but
+that repository's notice/readme URLs returned404. No current authored JSON
+samples exist. JSON scope metadata remains mapped and fails open to readable
+plain text; this is incomplete, not full language acceptance. Complete located
+MIT/TextMate notices and Oniguruma/TextMate notices ship in the static artifact.
+
+Selected Search helpers now preserve `normalizeSearchGroup`,
+`searchResultToString`, `handleModifiedEnterNavigation` and
+`isUnmodifiedLeftClick`. Native KeyboardEvent replaces React nativeEvent;
+modifier Enter applies to a genuinely focused native result link. No absent
+Autocomplete highlighted-result state is invented for the input. Default
+modified-link navigation remains native; close occurs only for an unmodified
+left click. IME/229 guard and noop without a result remain actual Source branches.
+Autocomplete arrow selection, Drawer gestures, Tooltip/detached handle, complete
+API type formatter and code emphasis/focus/variant pipeline remain incomplete.
+Unmarked demo frames currently use the retained CSS empty collapsed window until
+Show code; no invented focused-frame metadata or six-line preview acceptance is
+claimed. Canonical Collapsible's inherited source/native modernization is owned
+separately; its used closure remains blocked until that audit is accepted.
+
+The OFL text retains its full original notice, with only the original line21
+trailing space normalized after frozen5a3's git diff check failed. No license text
+was removed. Native docs components were formatted into readable blocks using
+temporary formatter tooling outside the project, without adding project deps.
+
+Actual Node parser checks3/3 cover concurrent singleton grammar registration,
+Svelte dependencies/text preservation, extended TypeScript/template token classes,
+unsupported fallback,121-line frame splitting and terminal-newline fallback.
+Actual SSR-rendered demo text equals its original2080-byte source exactly.
+Local Chromium startup failed before test execution (initial crashpad config;
+then SUID sandbox setup after normal writable XDG directories). No security
+bypass or browser assertion credit was taken. The dedicated config retains
+chromiumSandbox:true and runs three actual standalone Kit3 tests on secured
+Ubuntu22.04, with copied established action SHA pins, JSON/raw logs/traces and
+screenshots. Default component browser discovery is unchanged. Hosted results
+and independent exact-head review remain pending.
+
+A concrete native sitemap gap was reproduced: Original schema declares `types`,
+but Original dummyDoc omits it; with no actual page type metadata QPS throws
+reading `tokensLength` for every nonempty query. The engine/dummy/ranking bodies
+remain unchanged. Native sitemap now indexes exported type names from actual
+Dialog/Accordion declaration JSON (the native counterpart of Source useTypes
+metadata transport). Actual queries button/avatar/remote form return their correct
+first route. A focused regression runs those real queries; the original failure
+receipt is retained. This does not claim the complete Source API formatter.
