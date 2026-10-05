@@ -5,7 +5,14 @@
   import { getMeterContext } from './context.js';
   import { emptyState } from './helpers.js';
   import type { MeterLabelProps } from './types.js';
-  let { children, id: idProp, render, class: classProp, ref = $bindable(), ...props }: MeterLabelProps = $props();
+  let {
+    children,
+    id: idProp,
+    render,
+    class: classProp,
+    ref = $bindable(),
+    ...props
+  }: MeterLabelProps = $props();
   const context = getMeterContext();
   const state = emptyState;
   const instanceId = $props.id();
@@ -14,9 +21,13 @@
   $effect(() => {
     const registered = id;
     context.setLabelId(registered);
-    return () => context.setLabelId(current => current === registered ? undefined : current);
+    return () => context.setLabelId((current) => (current === registered ? undefined : current));
   });
   const internal = $derived({ id, role: 'presentation' });
-  const resolved = $derived({ ...props, class: resolveClassValue(typeof classProp === 'function' ? classProp(state) : classProp) });
+  const resolved = $derived({
+    ...props,
+    class: resolveClassValue(typeof classProp === 'function' ? classProp(state) : classProp),
+  });
 </script>
+
 <Element tag="span" {internal} props={resolved} {state} {render} {children} bind:ref />

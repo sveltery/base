@@ -6,7 +6,10 @@
   let { children, ref = $bindable(), ...props }: ToastContentProps = $props();
   const controller = root();
   const state = $derived({ expanded: controller.expanded, behind: controller.visibleIndex > 0 });
-  const internal = $derived({ 'data-expanded': state.expanded ? '' : undefined, 'data-behind': state.behind ? '' : undefined });
+  const internal = $derived({
+    'data-expanded': state.expanded ? '' : undefined,
+    'data-behind': state.behind ? '' : undefined,
+  });
   function attach(node: HTMLElement) {
     controller.recalculateHeight();
     const ownerWindow = node.ownerDocument.defaultView;
@@ -15,7 +18,11 @@
     const mutation = new ownerWindow.MutationObserver(() => controller.recalculateHeight(true));
     resize.observe(node);
     mutation.observe(node, { childList: true, subtree: true, characterData: true });
-    return () => { resize.disconnect(); mutation.disconnect(); };
+    return () => {
+      resize.disconnect();
+      mutation.disconnect();
+    };
   }
 </script>
+
 <Element {internal} {props} {state} {children} {attach} bind:ref />

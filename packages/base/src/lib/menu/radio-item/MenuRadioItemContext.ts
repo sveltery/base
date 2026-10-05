@@ -8,7 +8,9 @@ export interface MenuRadioItemContext {
 }
 
 export const MenuRadioItemContext = Symbol('MenuRadioItemContext');
-export function provideMenuRadioItemContext(value: MenuRadioItemContext) { setContext(MenuRadioItemContext, value); }
+export function provideMenuRadioItemContext(value: MenuRadioItemContext) {
+  setContext(MenuRadioItemContext, value);
+}
 
 export function useMenuRadioItemContext() {
   const context = getContext<MenuRadioItemContext | undefined>(MenuRadioItemContext);

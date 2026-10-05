@@ -9,45 +9,48 @@ import type { BaseUIEvent } from '../internals/types.js';
  * This hook prevents the popup from closing immediately after the mouse button is released.
  */
 export function useMixedToggleClickHandler(getParams: () => UseMixedToggleClickHandlerParameters) {
-    const { enabled = true, mouseDownAction, open } = $derived(getParams());
-    const ignoreClickRef = { current: false };
-    const props = $derived.by(() => {
-        if (!enabled) {
-            return EMPTY_OBJECT;
+  const { enabled = true, mouseDownAction, open } = $derived(getParams());
+  const ignoreClickRef = { current: false };
+  const props = $derived.by(() => {
+    if (!enabled) {
+      return EMPTY_OBJECT;
+    }
+    return {
+      onmousedown: (event: MouseEvent) => {
+        if ((mouseDownAction === 'open' && !open) || (mouseDownAction === 'close' && open)) {
+          ignoreClickRef.current = true;
+          ownerDocument(event.currentTarget as Element).addEventListener(
+            'click',
+            () => {
+              ignoreClickRef.current = false;
+            },
+            { once: true },
+          );
         }
-        return {
-            onmousedown: (event: MouseEvent) => {
-                if ((mouseDownAction === 'open' && !open) || (mouseDownAction === 'close' && open)) {
-                    ignoreClickRef.current = true;
-                    ownerDocument(event.currentTarget as Element).addEventListener('click', () => {
-                        ignoreClickRef.current = false;
-                    }, { once: true });
-                }
-            },
-            onclick: (event: BaseUIEvent<MouseEvent>) => {
-                if (ignoreClickRef.current) {
-                    ignoreClickRef.current = false;
-                    event.preventBaseUIHandler();
-                }
-            },
-        };
-    });
-    return () => props;
+      },
+      onclick: (event: BaseUIEvent<MouseEvent>) => {
+        if (ignoreClickRef.current) {
+          ignoreClickRef.current = false;
+          event.preventBaseUIHandler();
+        }
+      },
+    };
+  });
+  return () => props;
 }
 export interface UseMixedToggleClickHandlerParameters {
-    /**
-     * Whether the mixed toggle click handler is enabled.
-     * @default true
-     */
-    enabled?: boolean | undefined;
-    /**
-     * Determines what action is performed on mousedown.
-     */
-    mouseDownAction: 'open' | 'close';
-    /**
-     * The current open state of the popup.
-     */
-    open: boolean;
+  /**
+   * Whether the mixed toggle click handler is enabled.
+   * @default true
+   */
+  enabled?: boolean | undefined;
+  /**
+   * Determines what action is performed on mousedown.
+   */
+  mouseDownAction: 'open' | 'close';
+  /**
+   * The current open state of the popup.
+   */
+  open: boolean;
 }
-export interface UseMixedToggleClickHandlerState {
-}
+export interface UseMixedToggleClickHandlerState {}

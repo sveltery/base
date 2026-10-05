@@ -7,7 +7,9 @@ it('server rendering never attaches a default-open Root to its shared handle', (
   const handle = createDialogHandle();
   for (let request = 0; request < 2; request++) {
     const { body } = render(Fixture, { props: { handle } });
-    expect(body).toContain('aria-expanded="false"'); expect(body).not.toContain('data-popup-open');
-    expect(handle.isOpen).toBe(false); expect(handle.store).toBe(handle.serverStore);
+    expect(body).toContain('aria-expanded="false"');
+    expect(body).not.toContain('data-popup-open');
+    expect(handle.isOpen).toBe(false);
+    expect(handle.store).toBe(handle.serverStore);
   }
 });

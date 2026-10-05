@@ -1,7 +1,13 @@
 // Original ContextMenu public reuse aliases and erased namespaces (MIT).
 /* eslint-disable @typescript-eslint/no-namespace -- Preserve Original component namespace types. */
 import RootComponent from './Root.svelte';
-import type { ContextMenuRootState, ContextMenuRootProps, ContextMenuRootActions, ContextMenuRootChangeEventReason, ContextMenuRootChangeEventDetails } from './types.js';
+import type {
+  ContextMenuRootState,
+  ContextMenuRootProps,
+  ContextMenuRootActions,
+  ContextMenuRootChangeEventReason,
+  ContextMenuRootChangeEventDetails,
+} from './types.js';
 export const Root: typeof RootComponent = RootComponent;
 export namespace Root {
   export type State = ContextMenuRootState;
@@ -24,4 +30,21 @@ export namespace Positioner {
   export type Props = ContextMenuPositionerProps;
   export type State = ContextMenuPositionerState;
 }
-export { Backdrop, Portal, Popup, Arrow, Group, GroupLabel, Item, CheckboxItem, CheckboxItemIndicator, LinkItem, RadioGroup, RadioItem, RadioItemIndicator, SubmenuRoot, SubmenuTrigger, Separator } from '../menu/index.parts.js';
+export {
+  Backdrop,
+  Portal,
+  Popup,
+  Arrow,
+  Group,
+  GroupLabel,
+  Item,
+  CheckboxItem,
+  CheckboxItemIndicator,
+  LinkItem,
+  RadioGroup,
+  RadioItem,
+  RadioItemIndicator,
+  SubmenuRoot,
+  SubmenuTrigger,
+  Separator,
+} from '../menu/index.parts.js';

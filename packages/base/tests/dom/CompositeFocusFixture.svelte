@@ -4,7 +4,12 @@
   import type { HTMLAttributes } from 'svelte/elements';
   let { renderOverride = false }: { renderOverride?: boolean } = $props();
 </script>
-{#snippet host(props: Record<string | symbol, unknown>, _state: unknown, children: import('svelte').Snippet | undefined)}
+
+{#snippet host(
+  props: Record<string | symbol, unknown>,
+  _state: unknown,
+  children: import('svelte').Snippet | undefined,
+)}
   <section {...props as HTMLAttributes<HTMLElement>}>{@render children?.()}</section>
 {/snippet}
 <CompositeRoot id="composite" render={renderOverride ? host : undefined}>

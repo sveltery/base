@@ -9,7 +9,7 @@
   "modules": [
     {
       "source": "packages/base/src/lib/context-menu/index.parts.ts",
-      "sha256": "2980fe116f09eab095929614bdbcd363c6074bbe97bdbfc46e6177b0a094e9ce",
+      "sha256": "682c5af33525e53dd8203253cade0919bc23923b2402b01c1eda036d748def11",
       "reachability": "runtime",
       "imports": [
         {
@@ -175,7 +175,7 @@
     },
     {
       "source": "packages/base/src/lib/context-menu/index.ts",
-      "sha256": "ee6285dbaf87ac0b5993d018da25f6559735074f780d5d111ec0bca8add298d9",
+      "sha256": "713d1def2a37f735ecc7bd93e276ea6fccc52cc94339f94e064b58d8f5946008",
       "reachability": "runtime",
       "imports": [
         {
@@ -384,7 +384,7 @@
     },
     {
       "source": "packages/base/src/lib/context-menu/Root.svelte",
-      "sha256": "51113addbc9a22141f7f803ea543c5267647e0ed6a69b8fd4ecdfd935a9543d8",
+      "sha256": "c3acfbcc1ff41febefa580445159987ae24ad7b59a79af0d29b8019ea0c5144a",
       "reachability": "runtime",
       "imports": [
         {
@@ -440,7 +440,7 @@
     },
     {
       "source": "packages/base/src/lib/context-menu/root/ContextMenuRootContext.ts",
-      "sha256": "4a3b2d1a07f7f0cef35fee20c08852749799ee70e3cca25ea38bbd6612805cee",
+      "sha256": "159228643c1997e8d49e02016bd850f19a2c61d74ff14d08ad302e2aee0f2206",
       "reachability": "runtime",
       "imports": [
         {
@@ -475,7 +475,7 @@
     },
     {
       "source": "packages/base/src/lib/context-menu/Trigger.svelte",
-      "sha256": "7f1cbc17d151873dbacd8c26887c4b4cd0a6c5e6341c33acceee8e341b45fb28",
+      "sha256": "c4d470fdd6f628e21a071938b1bf317f1b774f3e039f8d263cd6b174ee9455b2",
       "reachability": "runtime",
       "imports": [
         {
@@ -698,7 +698,7 @@
     },
     {
       "source": "packages/base/src/lib/context-menu/types.ts",
-      "sha256": "ca3beace949e1d0ef5c07256c34ed2cb8fe6083510d235332301247d3799f1ed",
+      "sha256": "eea17502bf6bb4655dd0fcd6db7fb1c1073460e684145cdbcbcc3808e941b0e4",
       "reachability": "type",
       "imports": [
         {
@@ -1226,7 +1226,7 @@
     },
     {
       "source": "packages/base/src/lib/floating-ui/components/FloatingFocusManager.svelte",
-      "sha256": "02e830d2f21614164344019f3bdd4420c4e0c58ddf49b12023c2202fcc236da8",
+      "sha256": "86113226b200d67c3251ba1addc0bc22189a39b22c4ce28c79e6f918380a3b23",
       "reachability": "runtime",
       "imports": [
         {
@@ -1494,7 +1494,7 @@
     },
     {
       "source": "packages/base/src/lib/floating-ui/components/FloatingPortalContext.ts",
-      "sha256": "897245ee2d655ee10875e45707bca62d75b11170e2cb5b8a575c6a2848533833",
+      "sha256": "022afce07c643e0ee4a9bc2177ff8feb41fa5d6a1b63774eb682dd06d34494d5",
       "reachability": "runtime",
       "imports": [
         {
@@ -1730,7 +1730,7 @@
     },
     {
       "source": "packages/base/src/lib/floating-ui/components/PortalContent.svelte",
-      "sha256": "094ca8f25b2d4622ed70767b472ad6cecc481ae92470caa67385c72a3551f603",
+      "sha256": "41cf8f68f099889990ab71c57ca1c5de2e1db746e2b54639fef873d9335c6600",
       "reachability": "runtime",
       "imports": [
         {
@@ -3834,7 +3834,7 @@
     },
     {
       "source": "packages/base/src/lib/floating-ui/types.ts",
-      "sha256": "d75465f0e2fa7f46beab37d200f2f9e5a152dd4ca4a5751e5c9ca2811caed3d5",
+      "sha256": "5c4e86d68644ba65a89798d584d75bb7c1dacde7f892c9ea9fdfdd64523d3473",
       "reachability": "type",
       "imports": [
         {
@@ -4261,7 +4261,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/anchor-positioning/adaptive-origin.ts",
-      "sha256": "af5859dc474117523d5fa7c93acad144667590bd3d35248b72ffd2164e6dd86e",
+      "sha256": "15cd34d1cddc4427617558e3f81830f40fe650a308330405468a4d6d5f2ce7e8",
       "reachability": "runtime",
       "imports": [
         {
@@ -4376,7 +4376,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/anchor-positioning/policy.ts",
-      "sha256": "66337d95ad094898b0ae95c94c4e07ea14fd041c32cad6a4c2ec8113859cb42d",
+      "sha256": "9e7580733d7aed91fd0ba12f7e8e4113d3c34e7f3b48d9e1104606a557de34d2",
       "reachability": "runtime",
       "imports": [
         {
@@ -4508,7 +4508,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/anchor-positioning/types.ts",
-      "sha256": "fa56b8d2b5fac3e9c1ed9597f89631d6381e1e73d5da507b1d41ec566917b82b",
+      "sha256": "2c4a76f723edabaec250e51c87662aed05ecaf0969a56cc927dc65145bd10406",
       "reachability": "type",
       "imports": [
         {
@@ -4575,7 +4575,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/anchor-positioning/useAnchorPositioning.svelte.ts",
-      "sha256": "a2b7d8284ece515de3ca1c65d342fcdbae395d5484a4f8fd121d9d11f835876d",
+      "sha256": "21a813d5a40d36c4691d995e8cbf560b5966011a62fa01e9b1fa9b98337b3c2a",
       "reachability": "runtime",
       "imports": [
         {
@@ -4706,7 +4706,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/anchor-positioning/useFloating.svelte.ts",
-      "sha256": "9f504f4289d1b38e2fc78830320beec60d5ec6fe40f183b132916594c7027c8a",
+      "sha256": "65c7d8c1bf6780d8d172a8e26e1ebadfdb84c949283aac0c6bcc010d43bab3bf",
       "reachability": "runtime",
       "imports": [
         {
@@ -4777,7 +4777,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/composite.ts",
-      "sha256": "938a8b4ede73c5b5655a800777fe4748a94786a05bf828129de299c04cf94673",
+      "sha256": "f4e02dc8034a749a29f2c63d12f34c25d17c73ffd4075bc31e8f4a55306c0a9e",
       "reachability": "runtime",
       "imports": [
         {
@@ -4953,7 +4953,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts",
-      "sha256": "c443b96e2b57642eed663be3a670fc7342dc4358bac081b7257bcb076c54ab17",
+      "sha256": "17e4010bda5639d8c7d200bd965ffb9f29aa06a1e83c9f6756319a2dceb1fd38",
       "reachability": "runtime",
       "imports": [
         {
@@ -4976,7 +4976,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
-      "sha256": "97758d379046d9f894997ae40ef7c6f59decf48fa0d985a2c1fb5f9f068ad016",
+      "sha256": "eb23334825782ebd6c5c2697f1aad75f6f557c1e387fa6ea0a78c276bfead975",
       "reachability": "runtime",
       "imports": [
         {
@@ -5233,7 +5233,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/root/gridNavigation.ts",
-      "sha256": "11aa223e4f95a23b0287fee822bdda9f4b37cb6d33f99d02c9f7da8964949e9f",
+      "sha256": "d2ed3a04fffe1d9d73819d40d2494ab19f5707adbe3c7bd9849a81c30977315c",
       "reachability": "type",
       "imports": [
         {
@@ -5479,7 +5479,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/utils/navigation.ts",
-      "sha256": "bb61a6e117cc345c347a3a29618d01e6e608ef1027b8e6464e072d8b70b4a0aa",
+      "sha256": "bcfb35db31e9b53c86be39c229e041eaaf48f82df10d4dfaac79b69ecfd5a6dd",
       "reachability": "runtime",
       "imports": [
         {
@@ -5716,7 +5716,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/RenderElement.svelte",
-      "sha256": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5",
+      "sha256": "7468c314806abe0b4ed1fc2dd95d3a2defd6e86a9021012ced3f0154d0028daa",
       "reachability": "runtime",
       "imports": [
         {
@@ -5884,7 +5884,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/types.ts",
-      "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
+      "sha256": "6a36f5f103ef940b8a32d63f0288d897096c846fb2361b4ef44733e9a899907e",
       "reachability": "type",
       "imports": [
         {
@@ -6449,7 +6449,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/Arrow.svelte",
-      "sha256": "5f1758b72eb8be50fa7ec309b894bf01f37402b0b1bede39413164f9cdd9c8f6",
+      "sha256": "edae8fbefe54d4ac260b9bc7bf801ef07ce6b8a1d1a7177cf5db172bf87e864e",
       "reachability": "runtime",
       "imports": [
         {
@@ -6513,7 +6513,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/Backdrop.svelte",
-      "sha256": "814d4b11409e60f00cc2f60d0f10795005b681932a2d77e5ea1dacf0482b661e",
+      "sha256": "25d4eff5ac03e8bd22082c8567a2d5cefd30756f163f6e4a823e20fbd08b97f0",
       "reachability": "runtime",
       "imports": [
         {
@@ -6589,7 +6589,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/checkbox-item/MenuCheckboxItemContext.ts",
-      "sha256": "1e7f3b3fc8a8fddf5db9710db2a2c9f1d927e21f275792315bf730510954f65a",
+      "sha256": "90aabb781ba084ddbe6f148446d6dddd35f17e90d9a56dfd4ccbb4b12233b5de",
       "reachability": "runtime",
       "imports": [
         {
@@ -6782,7 +6782,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/CheckboxItemIndicator.svelte",
-      "sha256": "279a71aa9d1da285ebf84c854ff69a81de7a082a091726c010db86b2c7ca7a2e",
+      "sha256": "d81d77bf98ca44d083a56daf1445b33c4162ba2b32a73bbe2eec2321ef27b119",
       "reachability": "runtime",
       "imports": [
         {
@@ -6858,7 +6858,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/Group.svelte",
-      "sha256": "910024f07f4d2c85dbc4add9cd89e0a1203d7f8bdcd06c200c3828de4a206e4a",
+      "sha256": "75974a91b64123ebaaf7d261a2d0d4fc5bc387028f66281714d07089923df4d8",
       "reachability": "runtime",
       "imports": [
         {
@@ -7001,7 +7001,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/index.parts.ts",
-      "sha256": "9e9caf42117568e106d88faad2e2098eb16d77cc50c0a1f2878854d26fc4e2af",
+      "sha256": "db8cca236721e5e17ac739a1914064673293d7cc596aa910f35a3f573e09e713",
       "reachability": "runtime",
       "imports": [
         {
@@ -7551,7 +7551,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/index.ts",
-      "sha256": "0ffcbb12af56545dc5077b9b32fcf1bdc76eae95050bdad25559debf66ee6316",
+      "sha256": "b00f7c58d4962fa77161e815a72df323df71c13575a8352335f58e7bb8fccf46",
       "reachability": "runtime",
       "imports": [
         {
@@ -7856,7 +7856,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/Item.svelte",
-      "sha256": "61c2f41ab94034d677037553a2d514e1618c45f5e793e344b5f4181a2b97b16a",
+      "sha256": "fcabd9a2f99a50c1acc3bdaa28bfe4241681f52d05b8dca47a9baf5ece2288ae",
       "reachability": "runtime",
       "imports": [
         {
@@ -8118,7 +8118,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/LinkItem.svelte",
-      "sha256": "2436be2a8bd9b6148d97a8f0f5c6238b142eeedb6f0b90aa468283d601411674",
+      "sha256": "958f9d8391eaf351c8f5320fe7f4f8d73e252b43ce5f06fb26e5ae3b8542e286",
       "reachability": "runtime",
       "imports": [
         {
@@ -8427,7 +8427,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/Portal.svelte",
-      "sha256": "b55a674bd981a3b04d59979205fe770b494323eb2f6ad4d7ca9c7aecf0edac83",
+      "sha256": "16e30ce669b1ce0621bed3f88bd6530cd859f0f2c527132b4de8f63609c029db",
       "reachability": "runtime",
       "imports": [
         {
@@ -8491,7 +8491,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/portal/MenuPortalContext.ts",
-      "sha256": "c35a18a984e592b8654adb0f4c8c17a9e4c1bc978d2f993fe055c379164646c7",
+      "sha256": "2289e4730331fed8baefb9550a9f1c1b75d0c1e969a1117d56669ce932e6f1ed",
       "reachability": "runtime",
       "imports": [
         {
@@ -8514,7 +8514,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/Positioner.svelte",
-      "sha256": "123e8bd520436b7b483c5b10a64e29e445dd47666b070c1fad47373933a6b576",
+      "sha256": "b74069e1cd40990a5771de4afd98508cb3e65b7a343d5bbd057d8e3882d4f2ef",
       "reachability": "runtime",
       "imports": [
         {
@@ -8798,7 +8798,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/positioner/MenuPositionerContext.ts",
-      "sha256": "a1a53bc1c9133b46ea6ffe55d88dc2c88ea7201439ddf26166e059053ee5d5ec",
+      "sha256": "dd80915474429940282b0831c259692ce1784a8fe22a6f2d8bc0845be8da5967",
       "reachability": "runtime",
       "imports": [
         {
@@ -8845,7 +8845,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/radio-group/MenuRadioGroupContext.ts",
-      "sha256": "0fcf746b752761eaea2de8015bcd9df5e41438e2df058681092e5513bed5dd9a",
+      "sha256": "0ab8488e1a07d9d14c5d214264b41e5088f26bb22c329cc267a5eed9798994cc",
       "reachability": "runtime",
       "imports": [
         {
@@ -8880,7 +8880,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/radio-item/MenuRadioItemContext.ts",
-      "sha256": "7d74e55c08ab41d976be9dadf82b83f958843e314d434c2470da941bd5adeaec",
+      "sha256": "b1f0dae7ebe9cf8cebdc9a140e86065609ad49cd69031b63fea9d43bf31c978f",
       "reachability": "runtime",
       "imports": [
         {
@@ -9151,7 +9151,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/RadioItemIndicator.svelte",
-      "sha256": "d6dbb34230388c78b9da53946af39812fd547b7398e53cb306ae915af3c21246",
+      "sha256": "95825e6d548bf11d05aec48dc8334e8a38e153f590d812747e247715fd82d134",
       "reachability": "runtime",
       "imports": [
         {
@@ -9227,7 +9227,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/Root.svelte",
-      "sha256": "31dd8dd4d71caf6eca4d0a89a4c530f454e3139cd4420fcc84966760377f3e24",
+      "sha256": "0c309094355a231846fda628081404221db6da6ff2affff93fe47a008ed88875",
       "reachability": "runtime",
       "imports": [
         {
@@ -9678,7 +9678,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/root/MenuRootContext.ts",
-      "sha256": "322f644694648a02df90bb5f1ef1362b41dc8adc1b869125de33d0b769f78144",
+      "sha256": "2867e48a1ee5c6ef93110809af753e813c630eab7afb7d4da2730c4a72c774fa",
       "reachability": "runtime",
       "imports": [
         {
@@ -9907,7 +9907,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/submenu-root/MenuSubmenuRootContext.ts",
-      "sha256": "91856a8c9fc2eebe831884f1ac2a15d75be0acad677e9c0006b036cb330cb25c",
+      "sha256": "8a61ac81cde507efe0e34b8a7e9be9f938938ed6314146366b483fa23f8d9a1f",
       "reachability": "runtime",
       "imports": [
         {
@@ -10193,7 +10193,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/SubmenuRoot.svelte",
-      "sha256": "89013c00a269ea4743dd6b88603f012c845b73b539920e1db461a498c8667380",
+      "sha256": "5258723759309ef97e67738ad0013c3a448d0135a6ca1cc0353a805c9599ed3d",
       "reachability": "runtime",
       "imports": [
         {
@@ -10245,7 +10245,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/SubmenuTrigger.svelte",
-      "sha256": "7af54ebb1a2872beb0f085758867e62add3be6b6ffa621e24be8edbce438c456",
+      "sha256": "b9757776e9de43ab8e96b84bedb38f5b594906f093cb6a12d2fe0979bb9b7ce8",
       "reachability": "runtime",
       "imports": [
         {
@@ -10297,7 +10297,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/Trigger.svelte",
-      "sha256": "a05c0c825e6049d86b4d1132fdde245fd8adf0d33c40dfba9f1b0189658593a7",
+      "sha256": "2bce1bf83c41d399c12db859c6dd861aa404e906a9dddc07e57f6682207c3a69",
       "reachability": "runtime",
       "imports": [
         {
@@ -10988,7 +10988,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/Viewport.svelte",
-      "sha256": "4e1a74ec0fc8b5654fe315d20689e4cc1933516c2e98f0934001fd21aa7d7a7d",
+      "sha256": "a98b62e59827dd100579f9528dd1519dc331850432907e8bddea75cb9f7d02b6",
       "reachability": "runtime",
       "imports": [
         {
@@ -11101,7 +11101,7 @@
     },
     {
       "source": "packages/base/src/lib/menubar/index.ts",
-      "sha256": "2914e01ea43042b3cd23798a2b968c951fab7f7667dce154802ef903e03f5e58",
+      "sha256": "95404f22f28fa1b0b4989864e6510bbfbf60dda41b033205be0a3ed25571c57e",
       "reachability": "runtime",
       "imports": [
         {
@@ -11261,7 +11261,7 @@
     },
     {
       "source": "packages/base/src/lib/menubar/MenubarContext.ts",
-      "sha256": "7bdfa9dcbc2544bf838842f6198951a15856dbee276eb916ddbf6fd2b1c94173",
+      "sha256": "6e9019638551ddeaf66f610c0d3be4ace2729e70aa915675188ee1e889fcc87b",
       "reachability": "runtime",
       "imports": [
         {
@@ -11296,7 +11296,7 @@
     },
     {
       "source": "packages/base/src/lib/menubar/types.ts",
-      "sha256": "9da4fbbf8d50ae7e1f4f24c012f3dd82c785fcc6f991043910619e4105c2f57c",
+      "sha256": "91b24a36c05ac1d7e848fdb9fd8b5186d28b5bf3344962cd59e7d826a9a99169",
       "reachability": "type",
       "imports": [
         {
@@ -11421,7 +11421,7 @@
     },
     {
       "source": "packages/base/src/lib/separator/Separator.svelte",
-      "sha256": "b42e090098cee72fcb49e7ab2a020a1eabdea6fddddcf972c5f763ebc3fd48d9",
+      "sha256": "4440b067c96ac48515aa3b923bbfe941e319cb6d5a0ad2b930f5370f7a39ce20",
       "reachability": "runtime",
       "imports": [
         {
@@ -11453,7 +11453,7 @@
     },
     {
       "source": "packages/base/src/lib/separator/types.ts",
-      "sha256": "b349b520840d7d7b3bbda5127105404312370ae300efe23bb354536c2d8c56dc",
+      "sha256": "5ab346df307c50fad23dfdcb26e3931c9b4ba24de0ddc21881ef54441e6496e7",
       "reachability": "type",
       "imports": [
         {
@@ -11500,7 +11500,7 @@
     },
     {
       "source": "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts",
-      "sha256": "ac7081f4de2f79dcdf425ee5ca7690db2d577f9363f2ef03b75f3b5395adc6cb",
+      "sha256": "d2e5bd3ad75ddc60d8cef7c2cf2702802382e4b6317d7ab6b98b37eab100fd7b",
       "reachability": "runtime",
       "imports": [
         {
@@ -11535,7 +11535,7 @@
     },
     {
       "source": "packages/base/src/lib/toolbar/types.ts",
-      "sha256": "c7cc1b91797831826e2605d119313666bce3f67185583beff516a80af9104e78",
+      "sha256": "3bc3d1e84b480879fe78008f97ee8dbb7dba2b0d29040a2fc31df71b5de598ff",
       "reachability": "type",
       "imports": [
         {
@@ -12331,7 +12331,7 @@
     },
     {
       "source": "packages/base/src/lib/utils/popups/usePopupHandleStore.svelte.ts",
-      "sha256": "3bbe4fd4132a3acdeb82b575f734b01caccc7c3033b8162fa64ad619a8bfbf58",
+      "sha256": "d96d4ca763135cddc2ddbc931e772954b47ceb057bf1172660ec73203c9dbd0b",
       "reachability": "runtime",
       "imports": [
         {
@@ -12362,7 +12362,7 @@
     },
     {
       "source": "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts",
-      "sha256": "61c4a5e3e40b0f8ff0d48d40208687ef43a209818cbe4bb6a9058050d91a1678",
+      "sha256": "546d28f868043bb4ba73eb8ce608cb07b4753c18361100e2720a296ed3f15c3a",
       "reachability": "runtime",
       "imports": [
         {
@@ -12537,7 +12537,7 @@
     },
     {
       "source": "packages/base/src/lib/utils/resolveRef.ts",
-      "sha256": "ac85daa436a61800f824aa34ea08ff4cbe492c86c12be327de957a381acddaa7",
+      "sha256": "d8500030750c389af091f3f4f43b100f675772f3d22b6f1699a29db80d564d0a",
       "reachability": "runtime",
       "imports": []
     },
@@ -12605,7 +12605,7 @@
     },
     {
       "source": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
-      "sha256": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c",
+      "sha256": "f30838a56f41ea3672d26627fb42145d016e3b54b512c4c381e6aafb05431db2",
       "reachability": "runtime",
       "imports": [
         {

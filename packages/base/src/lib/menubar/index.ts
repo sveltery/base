@@ -3,5 +3,8 @@
 import MenubarComponent from './Menubar.svelte';
 import type { MenubarProps, MenubarState } from './types.js';
 export const Menubar: typeof MenubarComponent = MenubarComponent;
-export namespace Menubar { export type Props = MenubarProps; export type State = MenubarState }
+export namespace Menubar {
+  export type Props = MenubarProps;
+  export type State = MenubarState;
+}
 export type { MenubarProps, MenubarState } from './types.js';

@@ -6,9 +6,27 @@
   type Mode = 'default' | 'span' | 'section' | 'same-span';
   let { start = 'default', callback }: { start?: Mode; callback: UseRenderRef } = $props();
   let mode = $state(untrack(() => start));
-  export function setMode(value: Mode) { mode = value; }
+  export function setMode(value: Mode) {
+    mode = value;
+  }
 </script>
-{#snippet span(supplied: UseRenderHostProps)}<span {...supplied as HTMLAttributes<HTMLSpanElement>}></span>{/snippet}
-{#snippet section(supplied: UseRenderHostProps)}<section {...supplied as HTMLAttributes<HTMLElement>}></section>{/snippet}
-{#snippet sameSpan(supplied: UseRenderHostProps)}<span {...supplied as HTMLAttributes<HTMLSpanElement>}></span>{/snippet}
-<UseRender ref={callback} props={{ class: 'before' }} render={mode === 'span' ? span : mode === 'section' ? section : mode === 'same-span' ? sameSpan : undefined} />
+
+{#snippet span(supplied: UseRenderHostProps)}<span {...supplied as HTMLAttributes<HTMLSpanElement>}
+  ></span>{/snippet}
+{#snippet section(supplied: UseRenderHostProps)}<section
+    {...supplied as HTMLAttributes<HTMLElement>}
+  ></section>{/snippet}
+{#snippet sameSpan(supplied: UseRenderHostProps)}<span
+    {...supplied as HTMLAttributes<HTMLSpanElement>}
+  ></span>{/snippet}
+<UseRender
+  ref={callback}
+  props={{ class: 'before' }}
+  render={mode === 'span'
+    ? span
+    : mode === 'section'
+      ? section
+      : mode === 'same-span'
+        ? sameSpan
+        : undefined}
+/>

@@ -17,4 +17,6 @@ export function useMenuGroupRootContext() {
   return context;
 }
 
-export function provideMenuGroupContext(value: MenuGroupContext) { setContext(MenuGroupContext, value); }
+export function provideMenuGroupContext(value: MenuGroupContext) {
+  setContext(MenuGroupContext, value);
+}

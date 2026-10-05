@@ -68,8 +68,7 @@ export function useButton(getParameters: () => UseButtonParameters = () => ({}))
     return [disabled, isCompositeItem, focusableWhenDisabledProps.disabled];
   });
   function getButtonProps(externalProps: HTMLProps = {}): HTMLProps {
-    const { disabled, isNativeButton, isCompositeItem, focusableWhenDisabledProps } =
-      parameters();
+    const { disabled, isNativeButton, isCompositeItem, focusableWhenDisabledProps } = parameters();
     const {
       onclick: externalOnClick,
       onmousedown: externalOnMouseDown,
@@ -94,9 +93,7 @@ export function useButton(getParameters: () => UseButtonParameters = () => ({}))
         onkeydown(event: BaseUIEvent<KeyboardEvent>) {
           if (disabled) return;
           makeEventPreventable(event);
-          (
-            externalOnKeyDown as ((event: BaseUIEvent<KeyboardEvent>) => void) | undefined
-          )?.(event);
+          (externalOnKeyDown as ((event: BaseUIEvent<KeyboardEvent>) => void) | undefined)?.(event);
           if (event.baseUIHandlerPrevented) return;
           const isCurrentTarget = event.target === event.currentTarget;
           const currentTarget = event.currentTarget as HTMLElement;
@@ -131,9 +128,7 @@ export function useButton(getParameters: () => UseButtonParameters = () => ({}))
         onkeyup(event: BaseUIEvent<KeyboardEvent>) {
           if (disabled) return;
           makeEventPreventable(event);
-          (
-            externalOnKeyUp as ((event: BaseUIEvent<KeyboardEvent>) => void) | undefined
-          )?.(event);
+          (externalOnKeyUp as ((event: BaseUIEvent<KeyboardEvent>) => void) | undefined)?.(event);
           if (
             event.target === event.currentTarget &&
             isNativeButton &&

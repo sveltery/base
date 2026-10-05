@@ -6,6 +6,7 @@ Meter implements the pinned Base UI v1.8.0 Root, Label, Track, Indicator and Val
 <script lang="ts">
   import { Meter } from '@sveltery/base/meter';
 </script>
+
 <Meter.Root value={30} min={20} max={40}>
   <Meter.Label>Battery level</Meter.Label>
   <Meter.Value />

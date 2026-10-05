@@ -10,10 +10,14 @@ function withoutEntry(document) {
   let end = header + 1;
   while (end < lines.length && lines[end].startsWith(' ')) end++;
   const entries = lines.slice(header + 1, end);
-  const removed = entries.filter(line => line.trimStart().startsWith(key));
+  const removed = entries.filter((line) => line.trimStart().startsWith(key));
   assert.equal(removed.length, 1, 'Expected exactly the pinned Kit patch entry');
-  const retained = entries.filter(line => !line.trimStart().startsWith(key));
-  lines.splice(header, end - header, ...(retained.length ? ['patchedDependencies:', ...retained] : []));
+  const retained = entries.filter((line) => !line.trimStart().startsWith(key));
+  lines.splice(
+    header,
+    end - header,
+    ...(retained.length ? ['patchedDependencies:', ...retained] : []),
+  );
   return { document: lines.join('\n'), entry: removed[0].trimStart().slice(key.length).trim() };
 }
 export function unpatchedWitnessConfiguration(workspace, lockfile) {
@@ -30,7 +34,10 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   const directory = new URL(`${process.argv[2].replace(/\/$/, '')}/`, 'file://');
   const workspacePath = new URL('pnpm-workspace.yaml', directory);
   const lockPath = new URL('pnpm-lock.yaml', directory);
-  const [workspace, lockfile] = await Promise.all([readFile(workspacePath, 'utf8'), readFile(lockPath, 'utf8')]);
+  const [workspace, lockfile] = await Promise.all([
+    readFile(workspacePath, 'utf8'),
+    readFile(lockPath, 'utf8'),
+  ]);
   const output = unpatchedWitnessConfiguration(workspace, lockfile);
   await writeFile(workspacePath, output.workspace);
   await writeFile(lockPath, output.lockfile);

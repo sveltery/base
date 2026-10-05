@@ -2,8 +2,11 @@
   import { Dialog } from '@sveltery/base';
   import { onMount } from 'svelte';
   let hydrated = $state(false);
-  onMount(() => { hydrated = true; });
+  onMount(() => {
+    hydrated = true;
+  });
 </script>
+
 <main data-hydrated={hydrated}>
   <Dialog.Root>
     <Dialog.Trigger>First open</Dialog.Trigger>

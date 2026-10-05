@@ -6,7 +6,8 @@ export function serializeToDevModeString(input: unknown): string {
   const seen = new WeakMap<object, number>();
   try {
     const result = JSON.stringify(input, function replacer(key, value) {
-      if (key === '_owner' && this != null && typeof this === 'object' && '$$typeof' in this) return undefined;
+      if (key === '_owner' && this != null && typeof this === 'object' && '$$typeof' in this)
+        return undefined;
       if (typeof value === 'bigint') return `__bigint__:${value}`;
       if (value !== null && typeof value === 'object') {
         const id = seen.get(value);
@@ -17,5 +18,7 @@ export function serializeToDevModeString(input: unknown): string {
       return value;
     });
     return result ?? `__top__:${typeof input}`;
-  } catch { return '__unserializable__'; }
+  } catch {
+    return '__unserializable__';
+  }
 }

@@ -26,8 +26,7 @@
   ) {
     calls.push({ checked: next, type: details.event.type, reason: details.reason });
     if (cancelChanges) details.cancel();
-    if (!details.isCanceled && controlled && scenario !== 'controlled-reject')
-      checked = next;
+    if (!details.isCanceled && controlled && scenario !== 'controlled-reject') checked = next;
   }
   function submit(values: FormValues) {
     submissions.push(values);
@@ -64,18 +63,39 @@
     return () => window.removeEventListener('keydown', cancelLate);
   });
 </script>
-{#snippet nativeButton(props: Record<string | symbol, unknown>, _state: unknown, children: Snippet | undefined)}
+
+{#snippet nativeButton(
+  props: Record<string | symbol, unknown>,
+  _state: unknown,
+  children: Snippet | undefined,
+)}
   <button {...props as HTMLButtonAttributes}>{@render children?.()}</button>
 {/snippet}
 {#snippet control()}
   {#if family === 'switch'}
-    <Switch.Root {...rootProps} render={native ? nativeButton : undefined}><Switch.Thumb data-part /></Switch.Root>
+    <Switch.Root {...rootProps} render={native ? nativeButton : undefined}
+      ><Switch.Thumb data-part /></Switch.Root
+    >
   {:else}
-    <Checkbox.Root {...rootProps as CheckboxRootProps} render={native ? nativeButton : undefined}><Checkbox.Indicator data-part /></Checkbox.Root>
+    <Checkbox.Root {...rootProps as CheckboxRootProps} render={native ? nativeButton : undefined}
+      ><Checkbox.Indicator data-part /></Checkbox.Root
+    >
   {/if}
 {/snippet}
-<main style="padding:20px" data-hydrated={hydrated} data-framework="svelte" data-reference-react="19.2.8" data-reference-react-dom="19.2.8">
-  <Form id="form" {errors} oninput={() => inputEvents++} onsubmit={event => event.preventDefault()} onFormSubmit={submit}>
+<main
+  style="padding:20px"
+  data-hydrated={hydrated}
+  data-framework="svelte"
+  data-reference-react="19.2.8"
+  data-reference-react-dom="19.2.8"
+>
+  <Form
+    id="form"
+    {errors}
+    oninput={() => inputEvents++}
+    onsubmit={(event) => event.preventDefault()}
+    onFormSubmit={submit}
+  >
     <div {@attach ancestorEvents}>
       <Field.Root id="field" name="enabled">
         <Field.Label id="label">Enabled</Field.Label>
@@ -88,22 +108,33 @@
     <button type="reset" id="reset">Reset</button>
   </Form>
   {#if scenario === 'group'}
-    <Form id="group-form" onsubmit={event => event.preventDefault()} onFormSubmit={submit}>
+    <Form id="group-form" onsubmit={(event) => event.preventDefault()} onFormSubmit={submit}>
       <Field.Root name="choices">
         <Field.Label id="group-label">Choices</Field.Label>
-        <CheckboxGroup allValues={['a', 'b']} value={groupValue} onValueChange={(next, details) => { if (cancelChanges) details.cancel(); if (!details.isCanceled) groupValue = next; }}>
+        <CheckboxGroup
+          allValues={['a', 'b']}
+          value={groupValue}
+          onValueChange={(next, details) => {
+            if (cancelChanges) details.cancel();
+            if (!details.isCanceled) groupValue = next;
+          }}
+        >
           <Checkbox.Root parent data-parent-control />
-          <Field.Item><Checkbox.Root value="a" data-child="a" /><Field.Label>A</Field.Label></Field.Item>
-          <Field.Item><Checkbox.Root value="b" data-child="b" /><Field.Label>B</Field.Label></Field.Item>
+          <Field.Item
+            ><Checkbox.Root value="a" data-child="a" /><Field.Label>A</Field.Label></Field.Item
+          >
+          <Field.Item
+            ><Checkbox.Root value="b" data-child="b" /><Field.Label>B</Field.Label></Field.Item
+          >
         </CheckboxGroup>
       </Field.Root>
       <button type="submit" id="group-submit">Submit group</button>
     </Form>
   {/if}
-  <button onclick={() => checked = !checked}>Owner toggle</button>
-  <button onclick={() => errors = { enabled: 'Server error' }}>Server error</button>
-  <button onclick={() => visible = false}>Unmount</button>
-  <button onclick={() => cancelChanges = !cancelChanges}>Toggle cancellation</button>
+  <button onclick={() => (checked = !checked)}>Owner toggle</button>
+  <button onclick={() => (errors = { enabled: 'Server error' })}>Server error</button>
+  <button onclick={() => (visible = false)}>Unmount</button>
+  <button onclick={() => (cancelChanges = !cancelChanges)}>Toggle cancellation</button>
   <button onclick={addLate}>Install late window cancellation</button>
   <output id="calls">{JSON.stringify(calls)}</output>
   <output id="submissions">{JSON.stringify(submissions)}</output>
@@ -111,6 +142,18 @@
 </main>
 
 <style>
-  :global([data-control]), :global([data-parent-control]), :global([data-child]) { display: inline-block; min-width: 40px; min-height: 30px; border: 1px solid; margin: 8px; }
-  :global([data-part]) { display: block; width: 16px; height: 16px; }
+  :global([data-control]),
+  :global([data-parent-control]),
+  :global([data-child]) {
+    display: inline-block;
+    min-width: 40px;
+    min-height: 30px;
+    border: 1px solid;
+    margin: 8px;
+  }
+  :global([data-part]) {
+    display: block;
+    width: 16px;
+    height: 16px;
+  }
 </style>

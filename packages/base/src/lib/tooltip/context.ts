@@ -9,11 +9,15 @@ export function useTooltipRootContext(optional: true): TooltipStore<unknown> | u
 export function useTooltipRootContext(optional = false): TooltipStore<unknown> | undefined {
   const context = getContext<TooltipStore<unknown> | undefined>(ROOT);
   if (context === undefined && !optional) {
-    throw new Error('Base UI: TooltipRootContext is missing. Tooltip parts must be placed within <Tooltip.Root>.');
+    throw new Error(
+      'Base UI: TooltipRootContext is missing. Tooltip parts must be placed within <Tooltip.Root>.',
+    );
   }
   return context;
 }
-export interface TooltipPortalContext { readonly keepMounted: boolean }
+export interface TooltipPortalContext {
+  readonly keepMounted: boolean;
+}
 export function useTooltipPortalContext() {
   const context = getContext<TooltipPortalContext | undefined>(PORTAL);
   if (context === undefined) throw new Error('Base UI: <Tooltip.Portal> is missing.');

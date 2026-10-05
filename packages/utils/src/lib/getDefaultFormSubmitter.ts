@@ -12,9 +12,7 @@ export type DefaultFormSubmitter = HTMLButtonElement | HTMLInputElement;
  * through the `form` attribute. Disabled submitters can be returned because the default button is
  * determined before disabled state is considered; clicking a disabled submitter is a no-op.
  */
-export function getDefaultFormSubmitter(
-  form: HTMLFormElement | null,
-): DefaultFormSubmitter | null {
+export function getDefaultFormSubmitter(form: HTMLFormElement | null): DefaultFormSubmitter | null {
   if (!form) {
     return null;
   }

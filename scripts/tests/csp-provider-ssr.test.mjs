@@ -26,5 +26,9 @@ test('CSPProvider SSR without browser globals preserves wrapperless context defa
       assert.deepEqual([...main.children].map(node => node.textContent), expected);
     }
   `;
-  execFileSync(process.execPath, ['--import', './scripts/svelte-ssr-loader.mjs', '--input-type=module', '-e', script], { cwd: new URL('../../', import.meta.url), stdio: 'pipe' });
+  execFileSync(
+    process.execPath,
+    ['--import', './scripts/svelte-ssr-loader.mjs', '--input-type=module', '-e', script],
+    { cwd: new URL('../../', import.meta.url), stdio: 'pipe' },
+  );
 });

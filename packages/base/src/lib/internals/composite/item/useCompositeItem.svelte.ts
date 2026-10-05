@@ -23,8 +23,7 @@ export function useCompositeItem(
         onmousemove() {
           const element = itemRef.current;
           if (!root.highlightItemOnHover || !element) return;
-          const disabled =
-            element.hasAttribute('disabled') || element.ariaDisabled === 'true';
+          const disabled = element.hasAttribute('disabled') || element.ariaDisabled === 'true';
           if (!isHighlighted && !disabled) element.focus();
         },
       };

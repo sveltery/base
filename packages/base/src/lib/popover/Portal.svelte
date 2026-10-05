@@ -6,12 +6,19 @@
   import type { PopoverPortalProps } from './types.js';
   let { keepMounted = false, ref = $bindable(), ...portalProps }: PopoverPortalProps = $props();
   const store = usePopoverRootContext();
-  setContext(PORTAL, { get keepMounted() { return keepMounted; } });
+  setContext(PORTAL, {
+    get keepMounted() {
+      return keepMounted;
+    },
+  });
   function forwardedRef(node: HTMLElement | null) {
     ref = node;
-    return () => { if (ref === node) ref = null; };
+    return () => {
+      if (ref === node) ref = null;
+    };
   }
 </script>
+
 {#if store.select('mounted') || keepMounted}
   <FloatingPortal {...portalProps} ref={forwardedRef} />
 {/if}

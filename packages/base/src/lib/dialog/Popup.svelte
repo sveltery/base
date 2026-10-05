@@ -4,24 +4,42 @@
   import FloatingFocusManager from '../floating-ui/components/FloatingFocusManager.svelte';
   import { useOpenChangeComplete } from '../internals/useOpenChangeComplete.svelte.js';
   import { COMPOSITE_KEYS } from '../internals/composite/composite.js';
-  import { FOCUSABLE_POPUP_PROPS, createDefaultInitialFocus } from '../utils/popups/popupStoreUtils.svelte.js';
+  import {
+    FOCUSABLE_POPUP_PROPS,
+    createDefaultInitialFocus,
+  } from '../utils/popups/popupStoreUtils.svelte.js';
   import { dialogStateAttributesMapping } from './utils/stateAttributesMapping.js';
   import * as DialogPopupCssVars from './popup/DialogPopupCssVars.js';
   import { useDialogPortalContext, useDialogRootContext } from './context.js';
   import type { DialogPopupProps } from './types.js';
-  let { children, render, class: className, style, initialFocus, finalFocus, ref = $bindable(), ...elementProps }: DialogPopupProps = $props();
+  let {
+    children,
+    render,
+    class: className,
+    style,
+    initialFocus,
+    finalFocus,
+    ref = $bindable(),
+    ...elementProps
+  }: DialogPopupProps = $props();
   const store = useDialogRootContext();
   useDialogPortalContext();
   const open = $derived(store.select('open'));
   const mounted = $derived(store.select('mounted'));
   const nestedOpenDialogCount = $derived(store.select('nestedOpenDialogCount'));
   useOpenChangeComplete({
-    get open() { return open; },
+    get open() {
+      return open;
+    },
     ref: store.context.popupRef,
-    onComplete() { if (open) store.context.onOpenChangeComplete?.(true); },
+    onComplete() {
+      if (open) store.context.onOpenChangeComplete?.(true);
+    },
   });
   const defaultInitialFocus = createDefaultInitialFocus(store.context.popupRef);
-  const resolvedInitialFocus = $derived(initialFocus === undefined ? defaultInitialFocus : initialFocus);
+  const resolvedInitialFocus = $derived(
+    initialFocus === undefined ? defaultInitialFocus : initialFocus,
+  );
   const state = $derived({
     open,
     nested: store.select('nested'),
@@ -30,6 +48,7 @@
   });
   const setPopupElement = store.useStateSetter('popupElement');
 </script>
+
 <FloatingFocusManager
   context={store.select('floatingRootContext')}
   openInteractionType={store.select('openMethod')}
@@ -55,7 +74,9 @@
           role: store.select('role'),
           ...FOCUSABLE_POPUP_PROPS,
           hidden: !mounted,
-          onkeydown(event: KeyboardEvent) { if (COMPOSITE_KEYS.has(event.key)) event.stopPropagation(); },
+          onkeydown(event: KeyboardEvent) {
+            if (COMPOSITE_KEYS.has(event.key)) event.stopPropagation();
+          },
           style: { [DialogPopupCssVars.nestedDialogs]: nestedOpenDialogCount },
         },
         elementProps,

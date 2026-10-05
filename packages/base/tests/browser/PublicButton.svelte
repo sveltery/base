@@ -8,9 +8,7 @@
 </script>
 
 {#if visible}
-  <Button {disabled} bind:ref onclick={() => activations++}
-    >Public action</Button
-  >
+  <Button {disabled} bind:ref onclick={() => activations++}>Public action</Button>
 {/if}
 <button type="button" onclick={() => (disabled = true)}>Disable action</button>
 <button type="button" onclick={() => (visible = false)}>Remove action</button>

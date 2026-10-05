@@ -1,9 +1,6 @@
 <script lang="ts">
   import { setContext } from 'svelte';
-  import {
-    ClosePartContext,
-    useClosePartCount,
-  } from '../../src/lib/utils/closePart.svelte.js';
+  import { ClosePartContext, useClosePartCount } from '../../src/lib/utils/closePart.svelte.js';
   import Child from './PopupClosePartChild.svelte';
 
   const count = useClosePartCount();

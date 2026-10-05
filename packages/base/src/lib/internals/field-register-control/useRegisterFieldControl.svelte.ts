@@ -14,16 +14,38 @@ export function useRegisterFieldControl(
 ) {
   const { registerFieldControl } = useFieldRootContext();
   const sourceRef = useRefWithInit(() => Symbol());
-  useIsoLayoutEffect(() => {
-    const source = sourceRef.current;
-    if (!enabled()) { registerFieldControl(source, undefined); return; }
-    const registration: FieldControlRegistration = {
-      controlRef, getValue: getFormValueOverride, id: id(), name: name?.(), value: value(),
-    };
-    registerFieldControl(source, registration);
-  }, () => [controlRef, enabled(), getFormValueOverride, id(), name?.(), registerFieldControl, sourceRef, value()]);
-  useIsoLayoutEffect(() => {
-    const source = sourceRef.current;
-    return () => registerFieldControl(source, undefined);
-  }, () => [registerFieldControl, sourceRef]);
+  useIsoLayoutEffect(
+    () => {
+      const source = sourceRef.current;
+      if (!enabled()) {
+        registerFieldControl(source, undefined);
+        return;
+      }
+      const registration: FieldControlRegistration = {
+        controlRef,
+        getValue: getFormValueOverride,
+        id: id(),
+        name: name?.(),
+        value: value(),
+      };
+      registerFieldControl(source, registration);
+    },
+    () => [
+      controlRef,
+      enabled(),
+      getFormValueOverride,
+      id(),
+      name?.(),
+      registerFieldControl,
+      sourceRef,
+      value(),
+    ],
+  );
+  useIsoLayoutEffect(
+    () => {
+      const source = sourceRef.current;
+      return () => registerFieldControl(source, undefined);
+    },
+    () => [registerFieldControl, sourceRef],
+  );
 }

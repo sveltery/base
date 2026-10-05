@@ -49,19 +49,21 @@ export function afterAnimations(
   };
   function observe() {
     if (lifecycleSignal?.aborted) return;
-    Promise.all(element.getAnimations().map(animation => animation.finished)).then(done, () => {
+    Promise.all(element.getAnimations().map((animation) => animation.finished)).then(done, () => {
       if (lifecycleSignal?.aborted) return;
       const current = element.getAnimations();
-      if (current.some(animation => animation.pending || animation.playState !== 'finished')) {
+      if (current.some((animation) => animation.pending || animation.playState !== 'finished')) {
         observe();
       } else {
         done();
       }
     });
   }
-  const animationsDisabled = (globalThis as typeof globalThis & {
-    BASE_UI_ANIMATIONS_DISABLED?: boolean;
-  }).BASE_UI_ANIMATIONS_DISABLED;
+  const animationsDisabled = (
+    globalThis as typeof globalThis & {
+      BASE_UI_ANIMATIONS_DISABLED?: boolean;
+    }
+  ).BASE_UI_ANIMATIONS_DISABLED;
   if (typeof element.getAnimations !== 'function' || animationsDisabled) {
     complete();
   } else if (waitForStartingStyleRemoved && element.hasAttribute('data-starting-style')) {
@@ -92,14 +94,22 @@ export function getDimensions(element: HTMLElement) {
   return { height: element.scrollHeight, width: element.scrollWidth };
 }
 
-export function getAnimationType(element: HTMLElement, hasSuppressedMountAnimation: boolean): AnimationType {
+export function getAnimationType(
+  element: HTMLElement,
+  hasSuppressedMountAnimation: boolean,
+): AnimationType {
   const styles = element.ownerDocument.defaultView?.getComputedStyle(element);
   if (!styles) return 'none';
-  const hasAnimation = (styles.animationName.split(',').some(name => name.trim() !== '' && name.trim() !== 'none') || hasSuppressedMountAnimation)
-    && hasNonZeroDuration(styles.animationDuration);
+  const hasAnimation =
+    (styles.animationName.split(',').some((name) => name.trim() !== '' && name.trim() !== 'none') ||
+      hasSuppressedMountAnimation) &&
+    hasNonZeroDuration(styles.animationDuration);
   const hasTransition = hasNonZeroDuration(styles.transitionDuration);
   if (hasAnimation && hasTransition) {
-    warnOnce('CSS transitions and CSS animations both detected on Collapsible or Accordion panel.', 'Only one of either animation type should be used.');
+    warnOnce(
+      'CSS transitions and CSS animations both detected on Collapsible or Accordion panel.',
+      'Only one of either animation type should be used.',
+    );
     return 'css-transition';
   }
   if (hasTransition) return 'css-transition';
@@ -108,10 +118,14 @@ export function getAnimationType(element: HTMLElement, hasSuppressedMountAnimati
 }
 
 function hasNonZeroDuration(value: string) {
-  return value.split(',').some(part => part.trim() !== '' && Number.parseFloat(part) > 0);
+  return value.split(',').some((part) => part.trim() !== '' && Number.parseFloat(part) > 0);
 }
 
-export function setTemporaryStyle(element: HTMLElement, property: string, value: string): () => void {
+export function setTemporaryStyle(
+  element: HTMLElement,
+  property: string,
+  value: string,
+): () => void {
   const previousValue = element.style.getPropertyValue(property);
   const previousPriority = element.style.getPropertyPriority(property);
   element.style.setProperty(property, value);
@@ -130,7 +144,8 @@ export function resetLayoutStyles(element: HTMLElement): () => void {
     'align-content': element.style.alignContent,
     'justify-items': element.style.justifyItems,
   };
-  for (const property of Object.keys(original)) element.style.setProperty(property, 'initial', 'important');
+  for (const property of Object.keys(original))
+    element.style.setProperty(property, 'initial', 'important');
   const restore = () => {
     for (const [property, value] of Object.entries(original)) {
       if (value === '') element.style.removeProperty(property);
@@ -138,7 +153,10 @@ export function resetLayoutStyles(element: HTMLElement): () => void {
     }
   };
   const cancel = requestFrame(element, restore);
-  return () => { cancel(); restore(); };
+  return () => {
+    cancel();
+    restore();
+  };
 }
 
 /**
@@ -157,12 +175,23 @@ export function preserveUnchangedInlineStyles(
   const next = element.ownerDocument.createElement('div').style;
   previous.cssText = previousStyle ?? '';
   next.cssText = nextStyle;
-  const properties = new Set([...Array.from(element.style), ...Array.from(previous), ...Array.from(next)]);
+  const properties = new Set([
+    ...Array.from(element.style),
+    ...Array.from(previous),
+    ...Array.from(next),
+  ]);
   const preserved: Array<[string, string, string]> = [];
   for (const property of properties) {
-    if (previous.getPropertyValue(property) !== next.getPropertyValue(property)
-      || previous.getPropertyPriority(property) !== next.getPropertyPriority(property)) continue;
-    preserved.push([property, element.style.getPropertyValue(property), element.style.getPropertyPriority(property)]);
+    if (
+      previous.getPropertyValue(property) !== next.getPropertyValue(property) ||
+      previous.getPropertyPriority(property) !== next.getPropertyPriority(property)
+    )
+      continue;
+    preserved.push([
+      property,
+      element.style.getPropertyValue(property),
+      element.style.getPropertyPriority(property),
+    ]);
   }
   return () => {
     for (const [property, value, priority] of preserved) {

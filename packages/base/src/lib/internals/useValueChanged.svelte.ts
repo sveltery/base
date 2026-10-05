@@ -12,12 +12,15 @@ export function useValueChanged<T>(
   const valueRef = useRefWithInit(() => untrack(getValue));
   const onChangeCallback = useStableCallback((previousValue: T) => getOnChange()?.(previousValue));
 
-  useIsoLayoutEffect(() => {
-    const value = getValue();
-    if (valueRef.current !== value) {
-      onChangeCallback(valueRef.current);
-    }
+  useIsoLayoutEffect(
+    () => {
+      const value = getValue();
+      if (valueRef.current !== value) {
+        onChangeCallback(valueRef.current);
+      }
 
-    valueRef.current = value;
-  }, () => [getValue(), onChangeCallback]);
+      valueRef.current = value;
+    },
+    () => [getValue(), onChangeCallback],
+  );
 }

@@ -46,13 +46,30 @@
     }
     return null;
   }
-  // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
-  let { render, class: className, style, children, ref = $bindable(), handle, payload, id: idProp, disabled: disabledProp, delay, closeOnClick = true, closeDelay, ...elementProps }: TooltipTriggerProps<Payload> = $props();
+  let {
+    render,
+    class: className,
+    style,
+    children,
+    // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
+    ref = $bindable(),
+    handle,
+    payload,
+    id: idProp,
+    disabled: disabledProp,
+    delay,
+    closeOnClick = true,
+    closeDelay,
+    ...elementProps
+  }: TooltipTriggerProps<Payload> = $props();
   const rootStore = useTooltipRootContext(true);
   const handleStore = usePopupHandleStore(() => handle);
   const store: TooltipHandleStore<unknown> = $derived.by(() => {
     const value = handleStore.store ?? rootStore;
-    if (!value) throw new Error('Base UI: <Tooltip.Trigger> must be either used within a <Tooltip.Root> component or provided with a handle.');
+    if (!value)
+      throw new Error(
+        'Base UI: <Tooltip.Trigger> must be either used within a <Tooltip.Root> component or provided with a handle.',
+      );
     return value;
   });
   const generatedId = $props.id();
@@ -62,16 +79,32 @@
   const floatingRootContext = $derived(store.select('floatingRootContext'));
   const triggerElementRef = { current: null as HTMLElement | null };
   const closeDelayWithDefault = $derived(closeDelay ?? 0);
-  const forwarding = useTriggerDataForwarding(() => thisTriggerId, triggerElementRef, () => store, () => ({ payload, closeOnClick, closeDelay: closeDelayWithDefault }));
+  const forwarding = useTriggerDataForwarding(
+    () => thisTriggerId,
+    triggerElementRef,
+    () => store,
+    () => ({ payload, closeOnClick, closeDelay: closeDelayWithDefault }),
+  );
   const providerContext = useTooltipProviderContext();
-  const delayGroup = useDelayGroup(() => floatingRootContext, () => ({ open: isOpenedByThisTrigger }));
+  const delayGroup = useDelayGroup(
+    () => floatingRootContext,
+    () => ({ open: isOpenedByThisTrigger }),
+  );
   const getHoverInteraction = useHoverInteractionSharedState(() => floatingRootContext);
   const hoverInteraction = $derived(getHoverInteraction());
   // The handle-backed Store pointer may migrate after mount. Native synchronization reads its current owner.
-  $effect(() => { const currentStore = store; const instantPhase = delayGroup.isInstantPhase; untrack(() => currentStore.set('isInstantPhase', instantPhase)); });
+  $effect(() => {
+    const currentStore = store;
+    const instantPhase = delayGroup.isInstantPhase;
+    untrack(() => currentStore.set('isInstantPhase', instantPhase));
+  });
   const rootDisabled = $derived(store.select('disabled'));
   const disabled = $derived(disabledProp ?? rootDisabled);
-  const disabledRef = { get current() { return disabled; } };
+  const disabledRef = {
+    get current() {
+      return disabled;
+    },
+  };
   const trackCursorAxis = $derived(store.select('trackCursorAxis'));
   const disableHoverablePopup = $derived(store.select('disableHoverablePopup'));
   const isNestedTriggerHoveredRef = { current: false };
@@ -110,27 +143,33 @@
     return nestedTriggerHovered;
   }
 
-  const hoverProps = useHoverReferenceInteraction(() => floatingRootContext, () => ({
-    enabled: !disabled,
-    mouseOnly: true,
-    move: false,
-    handleClose: !disableHoverablePopup && trackCursorAxis !== 'both' ? safePolygon() : null,
-    restMs: getOpenDelay,
-    delay() {
-      if (closeDelay == null && delayGroup.hasProvider) {
-        return { close: getDelay(delayGroup.delayRef.current, 'close') };
-      }
-      return { close: closeDelayWithDefault };
-    },
-    triggerElementRef,
-    isActiveTrigger: isTriggerActive,
-    isClosing: () => store.select('transitionStatus') === 'ending',
-    shouldOpen() {
-      return !isNestedTriggerHoveredRef.current;
-    },
-  }));
+  const hoverProps = useHoverReferenceInteraction(
+    () => floatingRootContext,
+    () => ({
+      enabled: !disabled,
+      mouseOnly: true,
+      move: false,
+      handleClose: !disableHoverablePopup && trackCursorAxis !== 'both' ? safePolygon() : null,
+      restMs: getOpenDelay,
+      delay() {
+        if (closeDelay == null && delayGroup.hasProvider) {
+          return { close: getDelay(delayGroup.delayRef.current, 'close') };
+        }
+        return { close: closeDelayWithDefault };
+      },
+      triggerElementRef,
+      isActiveTrigger: isTriggerActive,
+      isClosing: () => store.select('transitionStatus') === 'ending',
+      shouldOpen() {
+        return !isNestedTriggerHoveredRef.current;
+      },
+    }),
+  );
 
-  const focus = useFocus(() => floatingRootContext, () => ({ enabled: !disabled }));
+  const focus = useFocus(
+    () => floatingRootContext,
+    () => ({ enabled: !disabled }),
+  );
 
   const handleNestedTriggerHover = (event: MouseEvent) => {
     const wasNestedTriggerHovered = isNestedTriggerHoveredRef.current;
@@ -180,34 +219,58 @@
     }
   };
 
-  const shouldApplyRootTriggerProps = $derived(forwarding.isMountedByThisTrigger || trackCursorAxis !== 'none');
+  const shouldApplyRootTriggerProps = $derived(
+    forwarding.isMountedByThisTrigger || trackCursorAxis !== 'none',
+  );
   const state = $derived({ open: isOpenedByThisTrigger });
-  const rootTriggerProps = $derived(store.select('triggerProps', forwarding.isMountedByThisTrigger));
-  const forwardedRef = (node: HTMLElement | null) => { ref = node; };
+  const rootTriggerProps = $derived(
+    store.select('triggerProps', forwarding.isMountedByThisTrigger),
+  );
+  const forwardedRef = (node: HTMLElement | null) => {
+    ref = node;
+  };
 </script>
-<RenderElement tag="button" componentProps={{ render, class: className, style }} params={{
-  state,
-  ref: [forwardedRef, forwarding.registerTrigger, triggerElementRef],
-  props: [
-    hoverProps(), focus.reference, shouldApplyRootTriggerProps ? rootTriggerProps : undefined,
-    {
-      onmouseover(event: MouseEvent) { handleNestedTriggerHover(event); },
-      onfocusin(event: FocusEvent & { preventBaseUIHandler(): void }) {
-        if (isEnabledNestedTriggerTarget(getTargetElement(event))) event.preventBaseUIHandler();
+
+<RenderElement
+  tag="button"
+  componentProps={{ render, class: className, style }}
+  params={{
+    state,
+    ref: [forwardedRef, forwarding.registerTrigger, triggerElementRef],
+    props: [
+      hoverProps(),
+      focus.reference,
+      shouldApplyRootTriggerProps ? rootTriggerProps : undefined,
+      {
+        onmouseover(event: MouseEvent) {
+          handleNestedTriggerHover(event);
+        },
+        onfocusin(event: FocusEvent & { preventBaseUIHandler(): void }) {
+          if (isEnabledNestedTriggerTarget(getTargetElement(event))) event.preventBaseUIHandler();
+        },
+        onmouseleave() {
+          isNestedTriggerHoveredRef.current = false;
+          nestedTriggerOpenTimeout.clear();
+          pointerTypeRef.current = undefined;
+        },
+        onpointerenter(event: PointerEvent) {
+          pointerTypeRef.current = event.pointerType;
+        },
+        onpointerdown(event: PointerEvent) {
+          pointerTypeRef.current = event.pointerType;
+          store.set('closeOnClick', closeOnClick);
+          if (closeOnClick && !store.select('open')) store.cancelPendingOpen(event);
+        },
+        onclick(event: MouseEvent) {
+          if (closeOnClick && !store.select('open')) store.cancelPendingOpen(event);
+        },
+        id: thisTriggerId,
+        'data-trigger-disabled': disabled ? '' : undefined,
+        [TOOLTIP_TRIGGER_IDENTIFIER]: disabled ? undefined : '',
       },
-      onmouseleave() { isNestedTriggerHoveredRef.current = false; nestedTriggerOpenTimeout.clear(); pointerTypeRef.current = undefined; },
-      onpointerenter(event: PointerEvent) { pointerTypeRef.current = event.pointerType; },
-      onpointerdown(event: PointerEvent) {
-        pointerTypeRef.current = event.pointerType;
-        store.set('closeOnClick', closeOnClick);
-        if (closeOnClick && !store.select('open')) store.cancelPendingOpen(event);
-      },
-      onclick(event: MouseEvent) { if (closeOnClick && !store.select('open')) store.cancelPendingOpen(event); },
-      id: thisTriggerId,
-      'data-trigger-disabled': disabled ? '' : undefined,
-      [TOOLTIP_TRIGGER_IDENTIFIER]: disabled ? undefined : '',
-    },
-    elementProps,
-  ],
-  stateAttributesMapping: triggerOpenStateMapping,
-}} {children} />
+      elementProps,
+    ],
+    stateAttributesMapping: triggerOpenStateMapping,
+  }}
+  {children}
+/>

@@ -38,7 +38,7 @@ jobs:
       - name: Source provenance and no-browser SSR guards
         run: node --test scripts/tests/anchor-positioning-*.test.mjs
       - name: Native lifecycle ownership and race guards
-        run: pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/anchor-positioning-lifecycle.test.ts tests/dom/anchor-positioning-wiring.test.ts tests/dom/anchor-positioning-hide.test.ts
+        run: pnpm --filter @sveltery/base exec vitest run --config vitest.config.ts --project dom tests/dom/anchor-positioning-lifecycle.test.ts tests/dom/anchor-positioning-wiring.test.ts tests/dom/anchor-positioning-hide.test.ts
       - name: Private packaged engine and type boundary
         run: bash scripts/check-anchor-positioning-package.sh
       - name: Install official Chromium and OS dependencies

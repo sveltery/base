@@ -7,6 +7,9 @@
   export function change(nextOpen: boolean, reason: string) {
     applyPopupOpenChange(store, nextOpen, details(reason));
   }
-  export function getNode() { return node; }
+  export function getNode() {
+    return node;
+  }
 </script>
+
 <div bind:this={node} data-open={String(open)} style:opacity={open ? 1 : 0}>Popup</div>

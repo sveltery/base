@@ -34,5 +34,8 @@ export function useClosePartCount() {
 export function useClosePartRegistration() {
   const context = getContext<ClosePartContextValue | undefined>(ClosePartContext);
 
-  useIsoLayoutEffect(() => context?.register(), () => [context]);
+  useIsoLayoutEffect(
+    () => context?.register(),
+    () => [context],
+  );
 }

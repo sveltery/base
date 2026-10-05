@@ -1046,7 +1046,7 @@
       },
       {
         "local": "packages/base/src/lib/button/types.ts",
-        "sha256": "8fdbc4aa58e672a060f47ce188e887d10a8c8864acdd813087c0683d6bdd7fdc",
+        "sha256": "1a6eca75f2d0f29b9c4a23683a1469bd6a927025619a6d23fba11f78efdc6f00",
         "declarations": [
           "ButtonState",
           "ButtonProps"
@@ -1194,7 +1194,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/RenderElement.svelte",
-        "sha256": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5",
+        "sha256": "7468c314806abe0b4ed1fc2dd95d3a2defd6e86a9021012ced3f0154d0028daa",
         "declarations": [],
         "reachability": [
           "runtime"
@@ -1299,7 +1299,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/types.ts",
-        "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
+        "sha256": "6a36f5f103ef940b8a32d63f0288d897096c846fb2361b4ef44733e9a899907e",
         "declarations": [
           "HTMLProps",
           "ComponentRenderFn",
@@ -1699,7 +1699,7 @@
       },
       {
         "local": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
-        "sha256": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c",
+        "sha256": "f30838a56f41ea3672d26627fb42145d016e3b54b512c4c381e6aafb05431db2",
         "declarations": [
           "UseFocusableWhenDisabledParameters",
           "useFocusableWhenDisabled"

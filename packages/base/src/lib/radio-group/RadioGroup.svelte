@@ -16,11 +16,7 @@
   import { useLabelableContext } from '../internals/labelable-provider/LabelableContext.js';
   import { useValueChanged } from '../internals/useValueChanged.svelte.js';
   import { setRadioGroupContext } from './RadioGroupContext.js';
-  import type {
-    RadioGroupProps,
-    RadioGroupState,
-    RadioGroupChangeEventDetails,
-  } from './types.js';
+  import type { RadioGroupProps, RadioGroupState, RadioGroupChangeEventDetails } from './types.js';
   import type { HTMLProps } from '../internals/types.js';
   const modifierKeys = [SHIFT];
   let {
@@ -87,8 +83,7 @@
         ? setInputRef(input)
         : undefined;
     return () => {
-      if (firstEnabledInputRef.current === input)
-        firstEnabledInputRef.current = null;
+      if (firstEnabledInputRef.current === input) firstEnabledInputRef.current = null;
       if (groupInputRef.current === input) {
         if (cleanup) {
           cleanup();
@@ -173,16 +168,10 @@
       field.setFocused(true);
     },
     onfocusout(event: FocusEvent) {
-      if (
-        !contains(
-          event.currentTarget as Element,
-          event.relatedTarget as Element | null,
-        )
-      ) {
+      if (!contains(event.currentTarget as Element, event.relatedTarget as Element | null)) {
         field.setTouched(true);
         field.setFocused(false);
-        if (field.validationMode === 'onBlur')
-          void field.validation.commit(checkedValue);
+        if (field.validationMode === 'onBlur') void field.validation.commit(checkedValue);
       }
     },
     onkeydowncapture(event: KeyboardEvent) {
@@ -203,8 +192,19 @@
   const rendererProps = $derived([
     defaultProps,
     elementProps,
-    (props: HTMLProps) =>
-      field.validation.getValidationProps(disabled ?? false, props),
+    (props: HTMLProps) => field.validation.getValidationProps(disabled ?? false, props),
   ]);
 </script>
-<CompositeRoot {render} class={classProp} {style} state={groupState} props={rendererProps} refs={[forwardedRef]} stateAttributesMapping={fieldValidityMapping} enableHomeAndEndKeys={false} {modifierKeys} {children} />
+
+<CompositeRoot
+  {render}
+  class={classProp}
+  {style}
+  state={groupState}
+  props={rendererProps}
+  refs={[forwardedRef]}
+  stateAttributesMapping={fieldValidityMapping}
+  enableHomeAndEndKeys={false}
+  {modifierKeys}
+  {children}
+/>

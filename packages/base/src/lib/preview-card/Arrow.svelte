@@ -5,11 +5,36 @@
   import { usePreviewCardPositionerContext } from './positioner/PreviewCardPositionerContext.js';
   import { popupStateMapping } from '../utils/popupStateMapping.js';
   import type { PreviewCardArrowProps } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
-  let { render, class: className, style, children, ref = $bindable(), ...elementProps }: PreviewCardArrowProps = $props();
+  let {
+    render,
+    class: className,
+    style,
+    children,
+    // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
+    ref = $bindable(),
+    ...elementProps
+  }: PreviewCardArrowProps = $props();
   const store = usePreviewCardRootContext();
   const positioner = usePreviewCardPositionerContext();
-  const state = $derived({ open: store.select('open'), side: positioner.side, align: positioner.align, uncentered: positioner.arrowUncentered });
-  const forwardedRef = (node: HTMLElement | null) => { ref = node; };
+  const state = $derived({
+    open: store.select('open'),
+    side: positioner.side,
+    align: positioner.align,
+    uncentered: positioner.arrowUncentered,
+  });
+  const forwardedRef = (node: HTMLElement | null) => {
+    ref = node;
+  };
 </script>
-<RenderElement tag="div" componentProps={{ render, class: className, style }} params={{ state, ref: [positioner.arrowRef, forwardedRef], props: [{ style: positioner.arrowStyles, 'aria-hidden': true }, elementProps], stateAttributesMapping: popupStateMapping }} {children} />
+
+<RenderElement
+  tag="div"
+  componentProps={{ render, class: className, style }}
+  params={{
+    state,
+    ref: [positioner.arrowRef, forwardedRef],
+    props: [{ style: positioner.arrowStyles, 'aria-hidden': true }, elementProps],
+    stateAttributesMapping: popupStateMapping,
+  }}
+  {children}
+/>

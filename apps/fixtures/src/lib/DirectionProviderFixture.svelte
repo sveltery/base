@@ -5,13 +5,23 @@
 
   let { scenario = 'configured' }: { scenario?: string } = $props();
   let hydrated = $state(false);
-  let direction = $state<TextDirection | undefined>(untrack(() => scenario === 'default' ? undefined : 'rtl'));
+  let direction = $state<TextDirection | undefined>(
+    untrack(() => (scenario === 'default' ? undefined : 'rtl')),
+  );
   let innerDirection = $state<TextDirection | undefined>(undefined);
   let shown = $state(true);
-  onMount(() => { hydrated = true; });
-  export function update(next: TextDirection | undefined) { direction = next; }
-  export function updateInner(next: TextDirection | undefined) { innerDirection = next; }
-  export function toggleInner() { shown = !shown; }
+  onMount(() => {
+    hydrated = true;
+  });
+  export function update(next: TextDirection | undefined) {
+    direction = next;
+  }
+  export function updateInner(next: TextDirection | undefined) {
+    innerDirection = next;
+  }
+  export function toggleInner() {
+    shown = !shown;
+  }
 </script>
 
 <main data-hydrated={hydrated}>
@@ -29,13 +39,19 @@
       <DirectionProvider {direction}>
         <DirectionProbe id="outer-before" />
         {#if shown}
-          <DirectionProvider direction={innerDirection}><DirectionProbe id="inner" /></DirectionProvider>
+          <DirectionProvider direction={innerDirection}
+            ><DirectionProbe id="inner" /></DirectionProvider
+          >
         {/if}
         <DirectionProbe id="outer-after" />
       </DirectionProvider>
       <DirectionProbe id="outside" />
     {:else}
-      <DirectionProvider {direction}><DirectionProbe beforeRead={scenario === 'timing' ? () => update('ltr') : undefined} /></DirectionProvider>
+      <DirectionProvider {direction}
+        ><DirectionProbe
+          beforeRead={scenario === 'timing' ? () => update('ltr') : undefined}
+        /></DirectionProvider
+      >
     {/if}
   </section>
 </main>

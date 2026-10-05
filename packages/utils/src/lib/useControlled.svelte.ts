@@ -97,9 +97,10 @@ export function useControlled<T = unknown>(
 
   const setValueIfUncontrolled = (newValue: SetStateAction<T | undefined>) => {
     if (!isControlled) {
-      valueState = typeof newValue === 'function'
-        ? untrack(() => (newValue as (previousValue: T | undefined) => T | undefined)(valueState))
-        : newValue;
+      valueState =
+        typeof newValue === 'function'
+          ? untrack(() => (newValue as (previousValue: T | undefined) => T | undefined)(valueState))
+          : newValue;
     }
   };
 

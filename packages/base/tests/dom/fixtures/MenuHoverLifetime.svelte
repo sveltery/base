@@ -6,6 +6,10 @@
   let { first }: { first: FloatingRootStore } = $props();
   let store = $state.raw(untrack(() => first));
   const getInteraction = useHoverInteractionSharedState(() => store);
-  export function change(next: FloatingRootStore) { store = next; }
-  export function current() { return getInteraction(); }
+  export function change(next: FloatingRootStore) {
+    store = next;
+  }
+  export function current() {
+    return getInteraction();
+  }
 </script>

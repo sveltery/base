@@ -13,12 +13,23 @@
   import { REASONS } from '../internals/reasons.js';
   import type { ToggleProps, ToggleState } from './types.js';
   let {
-    class: classProp, defaultPressed = false, disabled: disabledProp = false,
-    onPressedChange, pressed: pressedProp, render, value: valueProp,
-    nativeButton = true, style, children, ref = $bindable(),
+    class: classProp,
+    defaultPressed = false,
+    disabled: disabledProp = false,
+    onPressedChange,
+    pressed: pressedProp,
+    render,
+    value: valueProp,
+    nativeButton = true,
+    style,
+    children,
+    ref = $bindable(),
     // Upstream deliberately consumes these props: Toggle never participates in a form.
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    form: _form, type: _type, ...elementProps
+    form: _form,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- Consume the form type without forwarding it.
+    type: _type,
+    ...elementProps
   }: ToggleProps<Value> = $props();
   const nativeId = $props.id();
   // The original treats both omitted and empty values as generated identities.
@@ -39,14 +50,20 @@
   }
   const [getPressed, setPressedState] = useControlled(() => ({
     controlled: groupContext ? value !== undefined && groupValue.indexOf(value) > -1 : pressedProp,
-    default: defaultPressed, name: 'Toggle', state: 'pressed',
+    default: defaultPressed,
+    name: 'Toggle',
+    state: 'pressed',
   }));
   const pressed = $derived(getPressed());
   const { getButtonProps, buttonRef } = useButton(() => ({ disabled, native: nativeButton }));
   const state: ToggleState = $derived({ disabled, pressed });
   const forwardedRef = {
-    get current() { return ref ?? null; },
-    set current(element: HTMLElement | null) { ref = element; },
+    get current() {
+      return ref ?? null;
+    },
+    set current(element: HTMLElement | null) {
+      ref = element;
+    },
   };
   const refs = [buttonRef, forwardedRef];
   const rendererProps = $derived([
@@ -70,8 +87,19 @@
   const params = $derived({ state, ref: refs, props: rendererProps });
   const itemMetadata = $derived({ disabled, focusableWhenDisabled: false });
 </script>
+
 {#if groupContext}
-  <CompositeItem tag="button" {render} class={classProp} {style} metadata={itemMetadata} {state} {refs} props={rendererProps} {children} />
+  <CompositeItem
+    tag="button"
+    {render}
+    class={classProp}
+    {style}
+    metadata={itemMetadata}
+    {state}
+    {refs}
+    props={rendererProps}
+    {children}
+  />
 {:else}
   <RenderElement tag="button" {componentProps} {params} {children} />
 {/if}

@@ -9,9 +9,7 @@ export interface UseCheckboxGroupParentParameters {
   value: string[];
   onValueChange?: (value: string[], details: BaseUIChangeEventDetails<'none'>) => void;
 }
-export function useCheckboxGroupParent(
-  getParameters: () => UseCheckboxGroupParentParameters,
-) {
+export function useCheckboxGroupParent(getParameters: () => UseCheckboxGroupParentParameters) {
   const uncontrolledStateRef = { current: untrack(() => getParameters().value) };
   // eslint-disable-next-line svelte/prefer-svelte-reactivity -- source imperative registry is read only by parent-selection callbacks
   const disabledStatesRef = { current: new Map<string, boolean>() };
@@ -47,9 +45,8 @@ export function useCheckboxGroupParent(
       indeterminate,
       checked,
       'aria-controls':
-        allValues
-          .flatMap((v) => childIdsState.registry.get(v) ?? EMPTY_ARRAY)
-          .join(' ') || undefined,
+        allValues.flatMap((v) => childIdsState.registry.get(v) ?? EMPTY_ARRAY).join(' ') ||
+        undefined,
       onCheckedChange(_checked: boolean, details: BaseUIChangeEventDetails<'none'>) {
         const uncontrolledState = uncontrolledStateRef.current;
         const none = allValues.filter(

@@ -11,13 +11,17 @@
     type PortalContainer,
   } from '../floating-ui/hooks/useFloatingPortalNode.svelte.js';
 
-  let { children, container, ref, ...componentProps }: Omit<
-    WithBaseUIEvent<HTMLAttributes<HTMLElement>>, 'children' | 'class' | 'style'
-  > & BaseUIComponentProps<State> & {
-    children?: Snippet | undefined;
-    container?: PortalContainer | undefined;
-    ref?: MergedRef<HTMLElement> | undefined;
-  } = $props();
+  let {
+    children,
+    container,
+    ref,
+    ...componentProps
+  }: Omit<WithBaseUIEvent<HTMLAttributes<HTMLElement>>, 'children' | 'class' | 'style'> &
+    BaseUIComponentProps<State> & {
+      children?: Snippet | undefined;
+      container?: PortalContainer | undefined;
+      ref?: MergedRef<HTMLElement> | undefined;
+    } = $props();
 
   const generatedId = $props.id();
   const elementProps = $derived.by(() => {
@@ -28,9 +32,14 @@
     return rest;
   });
   const portal = useFloatingPortalNode<State>(
-    () => ({ container, ref, componentProps, elementProps }), generatedId,
+    () => ({ container, ref, componentProps, elementProps }),
+    generatedId,
   );
   // Lite preserves its inherited child context and installs no PORTAL provider.
   const childrenContext = getAllContexts();
-  useFloatingPortalContent(() => portal.node, () => children, childrenContext);
+  useFloatingPortalContent(
+    () => portal.node,
+    () => children,
+    childrenContext,
+  );
 </script>

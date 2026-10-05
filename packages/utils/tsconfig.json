@@ -8,21 +8,8 @@
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
     "noEmit": true,
-    "types": [
-      "svelte",
-      "node"
-    ],
-    "lib": [
-      "ES2022",
-      "DOM",
-      "DOM.Iterable"
-    ]
+    "types": ["svelte", "node"],
+    "lib": ["ES2022", "DOM", "DOM.Iterable"]
   },
-  "include": [
-    "src",
-    "tests",
-    "vite.config.ts",
-    "vitest.config.ts",
-    "svelte.config.js"
-  ]
+  "include": ["src", "tests", "vite.config.ts", "vitest.config.ts", "svelte.config.js"]
 }

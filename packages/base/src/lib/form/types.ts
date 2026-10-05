@@ -6,7 +6,9 @@ import type { BaseUIGenericEventDetails } from '../internals/createBaseUIEventDe
 import type { RemoteFormLike, TypedField } from '../remote-forms/types.js';
 export type FormValidationMode = 'onSubmit' | 'onBlur' | 'onChange';
 export type FormErrors = Record<string, string | string[]>;
-export interface FormActions { validate(fieldName?: string): void }
+export interface FormActions {
+  validate(fieldName?: string): void;
+}
 export type FormState = Record<never, never>;
 export type FormSubmitEventReason = 'none';
 export type FormSubmitEventDetails = BaseUIGenericEventDetails<FormSubmitEventReason>;
@@ -16,10 +18,24 @@ export type FormValues = Record<string, any>;
 export type FormFieldNamespace<Remote> = [Remote] extends [RemoteFormLike]
   ? TypedField<(Remote & RemoteFormLike)['fields'], typeof import('../remote-forms/index.parts.js')>
   : typeof import('../field/index.parts.js');
-export interface FormProps<Values extends FormValues = FormValues, Remote extends RemoteFormLike | undefined = undefined> extends Omit<NativeFieldProps<FormState, HTMLFormAttributes>, 'render' | 'children'> {
+export interface FormProps<
+  Values extends FormValues = FormValues,
+  Remote extends RemoteFormLike | undefined = undefined,
+> extends Omit<NativeFieldProps<FormState, HTMLFormAttributes>, 'render' | 'children'> {
   remote?: Remote | undefined;
   children?: Snippet<[FormFieldNamespace<NoInfer<Remote>>]> | undefined;
-  render?: Snippet<[HTMLFormAttributes & { noValidate?: boolean | undefined } & Record<string | symbol, unknown>, FormState, Snippet | undefined]> | undefined;
+  render?:
+    | Snippet<
+        [
+          HTMLFormAttributes & { noValidate?: boolean | undefined } & Record<
+              string | symbol,
+              unknown
+            >,
+          FormState,
+          Snippet | undefined,
+        ]
+      >
+    | undefined;
   noValidate?: boolean | undefined;
   validationMode?: FormValidationMode | undefined;
   errors?: FormErrors | undefined;

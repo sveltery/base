@@ -26,12 +26,7 @@ export function createMergedRefs<I>() {
    */
   function useMergedRefs(a: InputRef<I>, b: InputRef<I>): Result<I>;
   function useMergedRefs(a: InputRef<I>, b: InputRef<I>, c: InputRef<I>): Result<I>;
-  function useMergedRefs(
-    a: InputRef<I>,
-    b: InputRef<I>,
-    c: InputRef<I>,
-    d: InputRef<I>,
-  ): Result<I>;
+  function useMergedRefs(a: InputRef<I>, b: InputRef<I>, c: InputRef<I>, d: InputRef<I>): Result<I>;
   function useMergedRefs(
     a: InputRef<I>,
     b: InputRef<I>,

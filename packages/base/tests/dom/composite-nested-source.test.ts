@@ -50,8 +50,7 @@ for (const framework of ['react', 'svelte']) {
     }
     await settle();
     await vi.waitFor(() => expect(map.size).toBe(3));
-    const shared = () =>
-      host.querySelector<HTMLElement>('[data-testid="shared"]')!;
+    const shared = () => host.querySelector<HTMLElement>('[data-testid="shared"]')!;
     const expectOuter = () => {
       expect(map.get(shared())).toMatchObject({
         disabled: true,

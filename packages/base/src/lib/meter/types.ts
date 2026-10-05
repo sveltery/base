@@ -8,7 +8,10 @@ export type MeterLabelState = MeterRootState;
 export type MeterTrackState = MeterRootState;
 export type MeterIndicatorState = MeterRootState;
 export type MeterValueState = MeterRootState;
-type PartProps<Node extends HTMLElement> = Omit<ElementProps<MeterRootState, HTMLAttributes<Node>>, 'class'> & {
+type PartProps<Node extends HTMLElement> = Omit<
+  ElementProps<MeterRootState, HTMLAttributes<Node>>,
+  'class'
+> & {
   class?: ClassValue | ((state: MeterRootState) => ClassValue);
 };
 export type MeterRootProps = PartProps<HTMLDivElement> & {

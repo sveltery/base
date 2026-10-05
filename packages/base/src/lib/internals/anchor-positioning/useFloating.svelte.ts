@@ -14,21 +14,31 @@ export interface NativeFloatingOptions {
   elements?: { reference: Reference | null; floating: HTMLElement | null };
   /** Middleware writes must obey the same lifetime/request ownership as coordinates. */
   getConfig: (isCurrent: (node: HTMLElement) => boolean) => ComputePositionConfig;
-  whileElementsMounted: (reference: Reference, floating: HTMLElement, update: () => void) => () => void;
+  whileElementsMounted: (
+    reference: Reference,
+    floating: HTMLElement,
+    update: () => void,
+  ) => () => void;
 }
 
 /** One DOM geometry driver; Source root-store/tree composition delegates through useBaseUIFloating. */
 export function useFloating(readOptions: () => NativeFloatingOptions) {
   let destroyed = false;
-  onDestroy(() => { destroyed = true; });
+  onDestroy(() => {
+    destroyed = true;
+  });
   const initialConfig = untrack(() => readOptions().getConfig(() => false));
   let domReference = $state.raw<Element | null>(null);
   let positionReference = $state.raw<Reference | null>(null);
   let localReference = $state.raw<Reference | null>(null);
   let floating = $state.raw<HTMLElement | null>(null);
   let data = $state.raw<PositioningResult>({
-    x: 0, y: 0, placement: initialConfig.placement ?? 'bottom', strategy: initialConfig.strategy ?? 'absolute',
-    middlewareData: {}, isPositioned: false,
+    x: 0,
+    y: 0,
+    placement: initialConfig.placement ?? 'bottom',
+    strategy: initialConfig.strategy ?? 'absolute',
+    middlewareData: {},
+    isPositioned: false,
   });
   let error = $state.raw<unknown>(null);
   let generation = 0;
@@ -37,11 +47,18 @@ export function useFloating(readOptions: () => NativeFloatingOptions) {
   let measuredReference: Reference | null = null;
   let measuredFloating: HTMLElement | null = null;
   const options = $derived(readOptions());
-  const reference = $derived(options.elements ? options.elements.reference || localReference : positionReference ?? domReference);
+  const reference = $derived(
+    options.elements
+      ? options.elements.reference || localReference
+      : (positionReference ?? domReference),
+  );
   const floatingElement = $derived(options.elements?.floating || floating);
   const referenceRef = { current: null as Reference | null };
   const floatingRef = { current: null as HTMLElement | null };
-  $effect(() => { if (reference) referenceRef.current = reference; if (floatingElement) floatingRef.current = floatingElement; });
+  $effect(() => {
+    if (reference) referenceRef.current = reference;
+    if (floatingElement) floatingRef.current = floatingElement;
+  });
 
   $effect(() => {
     const currentOptions = options;
@@ -66,7 +83,10 @@ export function useFloating(readOptions: () => NativeFloatingOptions) {
     const update = async () => {
       const revision = ++request;
       const isCurrent = (node: HTMLElement) =>
-        lifetime === generation && revision === request && node === currentFloating && node.isConnected;
+        lifetime === generation &&
+        revision === request &&
+        node === currentFloating &&
+        node.isConnected;
       try {
         const config = currentOptions.getConfig(isCurrent);
         // Omit platform: DOM 1.8.0 owns the default browser geometry implementation.
@@ -79,7 +99,9 @@ export function useFloating(readOptions: () => NativeFloatingOptions) {
       }
     };
     updateCurrent = update;
-    const cleanup = currentOptions.whileElementsMounted(currentReference, currentFloating, () => { void update(); });
+    const cleanup = currentOptions.whileElementsMounted(currentReference, currentFloating, () => {
+      void update();
+    });
     return () => {
       ++generation;
       ++request;
@@ -94,38 +116,64 @@ export function useFloating(readOptions: () => NativeFloatingOptions) {
     const dpr = node?.ownerDocument.defaultView?.devicePixelRatio || 1;
     const x = Math.round(data.x * dpr) / dpr;
     const y = Math.round(data.y * dpr) / dpr;
-    if (options.transform === false) return { position: data.strategy, left: `${x}px`, top: `${y}px` };
+    if (options.transform === false)
+      return { position: data.strategy, left: `${x}px`, top: `${y}px` };
     return {
-      position: data.strategy, left: '0px', top: '0px',
+      position: data.strategy,
+      left: '0px',
+      top: '0px',
       transform: `translate(${x}px, ${y}px)`,
       willChange: dpr >= 1.5 ? 'transform' : '',
     };
   });
 
   const refs = {
-    reference: referenceRef, floating: floatingRef,
+    reference: referenceRef,
+    floating: floatingRef,
     setReference(node: Reference | null) {
-      if (node !== referenceRef.current) { referenceRef.current = node; localReference = node; }
+      if (node !== referenceRef.current) {
+        referenceRef.current = node;
+        localReference = node;
+      }
       if (isElement(node) || node === null) domReference = node;
     },
     setPositionReference(node: Reference | null) {
-      const computedReference = isElement(node) ? {
-        getBoundingClientRect: () => node.getBoundingClientRect(),
-        getClientRects: () => node.getClientRects(),
-        contextElement: node,
-      } satisfies VirtualElement : node;
+      const computedReference = isElement(node)
+        ? ({
+            getBoundingClientRect: () => node.getBoundingClientRect(),
+            getClientRects: () => node.getClientRects(),
+            contextElement: node,
+          } satisfies VirtualElement)
+        : node;
       referenceRef.current = computedReference;
       positionReference = computedReference;
     },
-    setFloating(node: HTMLElement | null) { floatingRef.current = node; floating = node; },
+    setFloating(node: HTMLElement | null) {
+      floatingRef.current = node;
+      floating = node;
+    },
   };
 
   return {
-    get elements() { return { domReference, reference: destroyed ? referenceRef.current : reference, floating: destroyed ? floatingRef.current : floatingElement }; },
-    get data() { return data; },
-    get error() { return error; },
-    get floatingStyles() { return floatingStyles; },
+    get elements() {
+      return {
+        domReference,
+        reference: destroyed ? referenceRef.current : reference,
+        floating: destroyed ? floatingRef.current : floatingElement,
+      };
+    },
+    get data() {
+      return data;
+    },
+    get error() {
+      return error;
+    },
+    get floatingStyles() {
+      return floatingStyles;
+    },
     refs,
-    update() { return updateCurrent?.() ?? Promise.resolve(); },
+    update() {
+      return updateCurrent?.() ?? Promise.resolve();
+    },
   };
 }
