@@ -10,6 +10,8 @@ The first implementation step is composition plus state and overlay ownership, t
 
 Portal and focus logic must support nested roots, cleanup, explicit containers, and shadow roots. Use owner document/window and composed event paths. Focus trap, nonmodal tab order, outside press ownership, scroll lock, and presence completion belong in reusable DOM primitives. Do not transplant React hooks or a SvelteKit-specific portal into the package.
 
+Current native framework cleanup follows the latest user directive: native equivalents use Svelte primitives/behavior; port remaining business roles, and model custom-hook roles with classes. A requested Controlled class and direct native effects supersede the earlier React diagnostic/dispatcher/manual dependency-tuple transport. The current package checkpoint remains under review until that separate stacked cleanup is integrated.
+
 ## Shared utility package ownership
 
 The [Utils package record](../parity/utils-package/README.md) maps the 36 moved files to their immutable `packages/utils/src` owners and preserves their initial byte hashes. Base retains 38 component/rendering/popup utility files; the directory name alone does not determine package ownership. Generic Store/SvelteStore, timers, owner/platform, refs, controlled state and pure helpers live in Utils; component stores, popup handles, selector tables and native renderer glue live in Base. Utils never imports Base.

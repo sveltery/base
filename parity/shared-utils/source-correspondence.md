@@ -1,5 +1,7 @@
 # Shared source utility dependency closure
 
+Current native cleanup status: Latest user directive: React-only mechanisms with native Svelte equivalents use native primitives/behavior; port business roles without an equivalent. Custom-hook roles use classes. Controlled replaces React-style diagnostics/serializer/functional dispatch with the requested class API; native $effect replaces manual useIsoLayoutEffect dependency tuples. Current f57da39d implementation is a package/source checkpoint; this native cleanup is pending in a separate stacked change and current helper framework acceptance remains open.
+
 Reference: Base UI v1.8.0, immutable commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. The complete original graph was recorded before runtime implementation. [source-graph.json](source-graph.json) records immutable hashes, original runtime/type edges and native destinations; [UPSTREAM_LICENSE](UPSTREAM_LICENSE) preserves MIT attribution.
 
 This scope supplies canonical helper imports for the Input/Field and renderer ports. Existing features with private helpers are not automatically audited by adding these files. Dependent features must import the shared implementation and review their full closure. No unchanged upstream assertion credit is added; the local probes are supplemental.

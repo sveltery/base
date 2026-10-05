@@ -1,5 +1,7 @@
 # Shared utility package successor
 
+Current native cleanup status: Latest user directive: React-only mechanisms with native Svelte equivalents use native primitives/behavior; port business roles without an equivalent. Custom-hook roles use classes. Controlled replaces React-style diagnostics/serializer/functional dispatch with the requested class API; native $effect replaces manual useIsoLayoutEffect dependency tuples. Current f57da39d implementation is a package/source checkpoint; this native cleanup is pending in a separate stacked change and current helper framework acceptance remains open.
+
 Immutable upstream: Base UI1.8.0 commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, MIT. Proposed [PR75](https://github.com/sveltery/base/pull/75) stacks on official toolkit [PR74](https://github.com/sveltery/base/pull/74). Both packages remain private `0.0.0`; npm publication is disabled.
 
 [extraction.json](extraction.json) records all 36 original file owners/source hashes, old/new paths and unchanged initial move hashes, every rewritten outside consumer, stable Base public exports and explicit test ownership. The first extraction commit contains no helper business changes. Base retains its 38 component-side utility files. There is one shared used implementation and no reverse Utils→Base, shim tree, source export alias or unused React-only API copy.

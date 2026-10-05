@@ -51645,5 +51645,11 @@
     "Native SvelteStore used surface is not a complete ReactStore/useStore/selector/inspector API port.",
     "Historical exact-head source/audit/review/run receipts and immutable source archives remain historical."
   ],
-  "finalGates": "Source/native/maintainability independent review, actual dual-tarball SSR/types/Svelte/browser consumers, secured hosted browser execution and CI remain pending."
+  "finalGates": "Source/native/maintainability independent review, actual dual-tarball SSR/types/Svelte/browser consumers, secured hosted browser execution and CI remain pending.",
+  "nativeFrameworkCleanup": {
+    "status": "pending separate stacked successor under latest user directive",
+    "directive": "Latest user directive: React-only mechanisms with native Svelte equivalents use native primitives/behavior; port business roles without an equivalent. Custom-hook roles use classes. Controlled replaces React-style diagnostics/serializer/functional dispatch with the requested class API; native $effect replaces manual useIsoLayoutEffect dependency tuples. Current f57da39d implementation is a package/source checkpoint; this native cleanup is pending in a separate stacked change and current helper framework acceptance remains open.",
+    "sourceCheckpoint": "f57da39d",
+    "ordinaryDeclarationCredit": 0
+  }
 }

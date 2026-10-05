@@ -1,5 +1,7 @@
 # @sveltery/utils
 
+Current native cleanup status: Latest user directive: React-only mechanisms with native Svelte equivalents use native primitives/behavior; port business roles without an equivalent. Custom-hook roles use classes. Controlled replaces React-style diagnostics/serializer/functional dispatch with the requested class API; native $effect replaces manual useIsoLayoutEffect dependency tuples. Current f57da39d implementation is a package/source checkpoint; this native cleanup is pending in a separate stacked change and current helper framework acceptance remains open.
+
 Experimental shared utilities for the unofficial Svelte 5 port of Base UI 1.8.0. This private `0.0.0` package is not ready for npm publication.
 
 Base imports the implemented helper subpaths from this package. There is no root export. `@sveltery/utils/store` exports `Store`, `ReadonlyStore` and the native `SvelteStore`; `@sveltery/utils/platform` exports the existing platform namespace. Other exports are explicit implemented helper subpaths listed in `package.json`.

@@ -1,5 +1,7 @@
 # Shared utility framework boundaries
 
+Current native cleanup status: Latest user directive: React-only mechanisms with native Svelte equivalents use native primitives/behavior; port business roles without an equivalent. Custom-hook roles use classes. Controlled replaces React-style diagnostics/serializer/functional dispatch with the requested class API; native $effect replaces manual useIsoLayoutEffect dependency tuples. Current f57da39d implementation is a package/source checkpoint; this native cleanup is pending in a separate stacked change and current helper framework acceptance remains open.
+
 Reference: Base UI v1.8.0 immutable `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. [Source correspondence](source-correspondence.md) and [hashed closure](source-graph.json) map every helper and framework dependency. Current user direction keeps native Svelte defaults for inherent framework behavior while retaining source composition and business contracts. These adaptations earn zero unchanged upstream assertion credit. Implementation/source review and merge status remain separate.
 
 | Boundary | Observable pinned behavior | Native behavior | Rationale and evidence | Decision/status |
