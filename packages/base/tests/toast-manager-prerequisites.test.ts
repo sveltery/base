@@ -17,6 +17,8 @@ function attached() {
 }
 
 describe('complete createToastManager add prerequisite at pinned source :53', () => {
+    // Preserve the immutable full callback body used by the Source gate.
+    // prettier-ignore
     it('returns a toast id', async () => {
       const toastManager = createToastManager();
 
