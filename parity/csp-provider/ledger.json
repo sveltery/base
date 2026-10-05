@@ -5,7 +5,7 @@
     "version": "1.8.0",
     "license": "MIT"
   },
-  "scope": "Provider and optional private context foundation only. Four downstream ordinary declarations are deferred and uncredited.",
+  "scope": "Provider and optional private context foundation with an actual canonical Tabs prehydration script consumer. Four downstream ScrollArea/Select ordinary declarations remain deferred and uncredited on this Tabs branch.",
   "sources": [
     {
       "source": "packages/react/src/csp-provider/CSPProvider.tsx",
@@ -52,11 +52,6 @@
     {
       "source": "packages/react/src/select/popup/SelectPopup.tsx",
       "sha256": "accebc340600f3632ad79463e74e77f2fd197d3dae2e413d92ddf5a9c7649560",
-      "status": "deferred-unimplemented-consumer"
-    },
-    {
-      "source": "packages/react/src/internals/PrehydrationScript.tsx",
-      "sha256": "5797b35122938af1143c538b88978ec0bcc12ed3e7bcd9af7fe4e3569e9a02a1",
       "status": "deferred-unimplemented-consumer"
     }
   ],
@@ -202,5 +197,23 @@
     "runtimeNamespaceProperties": false,
     "status": "Pinned namespace alias availability preserved as erased aliases; previous named-only PM proposal removed, never explicit user acceptance.",
     "evidence": "Local supplemental type and genuine installed root/subpath consumer assertions; zero upstream type assertion credit."
-  }
+  },
+  "implementedIntegration": [
+    {
+      "source": "packages/react/src/internals/PrehydrationScript.tsx",
+      "sha256": "5797b35122938af1143c538b88978ec0bcc12ed3e7bcd9af7fe4e3569e9a02a1",
+      "status": "implemented-tabs-script-consumer",
+      "local": "packages/base/src/lib/internals/PrehydrationScript.svelte",
+      "actualConsumer": "packages/base/src/lib/tabs/indicator/TabsIndicator.svelte",
+      "context": "packages/base/src/lib/csp-provider/context.ts",
+      "behavior": "Reads real CSP context; escapes supplied nonce; same immutable Tabs script SSR/client payload; native mounting removal; disableStyleElements does not suppress scripts.",
+      "evidence": [
+        "packages/base/tests/tabs-ssr.test.ts",
+        "tests/browser/tabs.spec.ts",
+        "parity/tabs/actual-source-correspondence.md"
+      ],
+      "ordinaryDeclarationCredit": 0,
+      "executionCheckpoint": "93262b295c9a7495ed4735f61399ee5f361fa317: securedTabs127/127 and fullVerification pass; documentation successor final gates separate."
+    }
+  ]
 }
