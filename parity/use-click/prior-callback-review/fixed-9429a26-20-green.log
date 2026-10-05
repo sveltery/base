@@ -1,0 +1,9 @@
+
+ RUN  v5.0.3 /workspace/navigation-menu-base/packages/base
+
+
+ Test Files  1 passed (1)
+      Tests  20 passed (20)
+   Start at  01:44:01
+   Duration  1.81s (transform 46%, environment 38%, import 9%, tests 7%)
+

@@ -1,0 +1,5 @@
+✓ Lockfile passes supply-chain policies (verified 11m ago)
+Lockfile is up to date, resolution step is skipped
+Done in 18ms using pnpm v12.6.0
+Checking formatting...
+All matched files use Prettier code style!
