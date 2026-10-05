@@ -166,15 +166,17 @@
       "selection": "used-business-or-type-port",
       "local": [
         "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+        "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
         "packages/base/src/lib/floating-ui/components/FloatingPortalContext.ts",
         "packages/base/src/lib/floating-ui/components/PortalContent.svelte"
       ],
       "localHashes": {
-        "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte": "56ef7993c9378f0710f7724a40280f8ba31fa7fb515b218802d7935c3a95f75b",
+        "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte": "8111a018d91b947a0468565c84a636f6abb70196309da0a95fa5a4e86b3705b1",
+        "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts": "6bfb1801f9ae16f8cfb97b87357e1b09e306361e1c005355acd7a34b6390a113",
         "packages/base/src/lib/floating-ui/components/FloatingPortalContext.ts": "897245ee2d655ee10875e45707bca62d75b11170e2cb5b8a575c6a2848533833",
         "packages/base/src/lib/floating-ui/components/PortalContent.svelte": "094ca8f25b2d4622ed70767b472ad6cecc481ae92470caa67385c72a3551f603"
       },
-      "correspondence": "Original target/logical-context/focus-guard composition with native host relocation and context lifetime. Reinspect inherited full used body.",
+      "correspondence": "Original FloatingPortal/useFloatingPortalNode full-file bodies map to one shared native node/content host adapter, FullPortal focus/context/guard composition and PortalContent snippet host. The actual split helper is consumed by Full/Lite; exact inherited bounded body receipts may apply individually, while full used caller review remains pending.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
     },
     {
@@ -281,10 +283,10 @@
         "packages/base/src/lib/internals/anchor-positioning/useFloating.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts": "3cb683af9f2da1d7e2fdb289c55e4397ea596af3d1de90b02e9cf1ff94c4929c",
+        "packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts": "dbd456a378ee02012d7cf8fb2db681f38e0a63b15d6fbb6894c8b293eb77c635",
         "packages/base/src/lib/internals/anchor-positioning/useFloating.svelte.ts": "9f504f4289d1b38e2fc78830320beec60d5ec6fe40f183b132916594c7027c8a"
       },
-      "correspondence": "Original useBaseUIFloating/useFloatingWithStore root/tree/context/ref publication connects to the sole DOM driver, with honest narrow geometry-free versus fully positioned types.",
+      "correspondence": "Original useBaseUIFloating/useFloatingWithStore root/tree/context/ref publication connects to the sole DOM driver, with honest narrow geometry-free versus fully positioned types. Undefined local-floating fallback uses the existing tracked floating selector so native derivation follows Original subscribed renders; explicit null/ref/publication/cleanup precedence is unchanged. This changed canonical body and affected callers are reopened for fresh independent Source/native/maintainability review.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
     },
     {
@@ -2012,7 +2014,7 @@
         "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts": "6dbed9514bf1b8aa1c6deced9bf7e1bbba39021af9e8ef092dec351bb9ef5f00"
+        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts": "3f80c77e00b2b8d73068a48477096f30f174c433d804b790813894f6624f016e"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
