@@ -1,0 +1,107 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "preRepairHead": "c1600456d3b4e72910d42823b9df69280c74a262",
+  "candidateHead": "b11940d957ce181cfbd123607b1915ce02ff8851",
+  "OriginalAuthorities": [
+    "original-graph.json",
+    "originalTests-graph.json",
+    "../source-audit/archives.json"
+  ],
+  "preservedHistoricalGraphs": [
+    "../source-audit/original-graph.json",
+    "../source-audit/originalTests-graph.json",
+    "../source-audit/native-graph.json",
+    "../source-audit/nativeTests-graph.json"
+  ],
+  "assertionCredit": 0,
+  "Source": "NOT CLEAR",
+  "nativeSvelte": "NOT CLEAR",
+  "maintainability": "NOT CLEAR",
+  "generatedSources": [
+    {
+      "source": "parity/collapsible/source-candidate/generated-consumer/imports.js",
+      "sourceScript": "scripts/check-collapsible-package.sh",
+      "sourceMode": "--public",
+      "sha256": "4e8802846c941dd34675bc8599c08019abc7b74621c3dc682632c9d888a6181e"
+    },
+    {
+      "source": "parity/collapsible/source-candidate/generated-consumer/imports.d.ts",
+      "sourceScript": "scripts/check-collapsible-package.sh",
+      "sourceMode": "--public",
+      "sha256": "9b7847a7aec99456401473f5d8d1d48cab105d610bcc7d50e6743ab98c03ca1b"
+    },
+    {
+      "source": "parity/collapsible/source-candidate/generated-consumer/Consumer.svelte",
+      "sourceScript": "scripts/check-collapsible-package.sh",
+      "sourceMode": "--public",
+      "sha256": "6288f3faecd6e4016325be2b83390075e353b36247bb3592a0b51627870838b9"
+    },
+    {
+      "source": "parity/collapsible/source-candidate/generated-consumer/check.mjs",
+      "sourceScript": "scripts/check-collapsible-package.sh",
+      "sourceMode": "--public",
+      "sha256": "0da0204a2b0125e3a70377fbf8f39330d54bf23667cb3981e354674c42a30d71"
+    },
+    {
+      "source": "parity/collapsible/source-candidate/generated-consumer/PublicTypes.ts",
+      "sourceScript": "scripts/check-collapsible-package.sh",
+      "sourceMode": "--public",
+      "sha256": "77320b6086ac298f6b564662fb1e9d0f4157d43869877ffeb0875f250f0a6ecc"
+    },
+    {
+      "source": "parity/collapsible/source-candidate/generated-consumer/tsconfig.json",
+      "sourceScript": "scripts/check-collapsible-package.sh",
+      "sourceMode": "--public",
+      "sha256": "09c2b52dc7df6289d011a33124c492d518cbff697a4ae42643afcbcde609edd8"
+    },
+    {
+      "source": "parity/collapsible/source-candidate/generated-consumer/DOMConsumer.svelte",
+      "sourceScript": "scripts/check-collapsible-package.sh",
+      "sourceMode": "--public",
+      "sha256": "34394600487c8ef31e2371e8ee83e6e438036d9b1e34ab97d43cc29714527afb"
+    },
+    {
+      "source": "parity/collapsible/source-candidate/generated-consumer/dom-loader.mjs",
+      "sourceScript": "scripts/check-collapsible-package.sh",
+      "sourceMode": "--public",
+      "sha256": "b8aa292013894ab2acfb3a083bdf70888cd4341dc0d26035dd5604a21bc64a51"
+    },
+    {
+      "source": "parity/collapsible/source-candidate/generated-consumer/dom-check.mjs",
+      "sourceScript": "scripts/check-collapsible-package.sh",
+      "sourceMode": "--public",
+      "sha256": "a2e351dc836363db7b39d6624f05cf450998150dd0114101010c94152cab10bf"
+    }
+  ],
+  "correctionsToHistoricalMetadata": [
+    "Named reexports now record imported source members and exported aliases separately.",
+    "Real Kit $lib alias imports now resolve to repository modules.",
+    "Every actual public generated consumer body is represented and hashed separately."
+  ],
+  "closures": {
+    "original": {
+      "modules": 55,
+      "edges": 151,
+      "runtime": 53,
+      "type": 2
+    },
+    "originalTests": {
+      "modules": 68,
+      "edges": 201,
+      "runtime": 66,
+      "type": 2
+    },
+    "native": {
+      "modules": 55,
+      "edges": 146,
+      "runtime": 53,
+      "type": 2
+    },
+    "nativeTests": {
+      "modules": 92,
+      "edges": 254,
+      "runtime": 89,
+      "type": 3
+    }
+  }
+}

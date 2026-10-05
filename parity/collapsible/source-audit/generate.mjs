@@ -38,7 +38,7 @@ function body(base, path) {
   const raw = readFileSync(resolve(base, path), 'utf8');
   const code = path.endsWith('.svelte') ? [...raw.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)].map(match => match[1]).join('\n') : raw;
   const tree = ts.createSourceFile(path, code, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
-  const emitted = ts.transpileModule(code, { fileName: path.endsWith('.svelte') ? `${path}.tsx` : path, compilerOptions: { target: ts.ScriptTarget.ESNext, module: ts.ModuleKind.ESNext, jsx: ts.JsxEmit.React, verbatimModuleSyntax: false } }).outputText;
+  const emitted = path.endsWith('.d.ts') ? '' : ts.transpileModule(code, { fileName: path.endsWith('.svelte') ? `${path}.tsx` : path, compilerOptions: { target: ts.ScriptTarget.ESNext, module: ts.ModuleKind.ESNext, jsx: ts.JsxEmit.React, verbatimModuleSyntax: false } }).outputText;
   const emittedTree = ts.createSourceFile('emitted.js', emitted, ts.ScriptTarget.Latest, true, ts.ScriptKind.JS);
   const emittedImports = new Map();
   for (const node of emittedTree.statements) if ((ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) && node.moduleSpecifier) emittedImports.set(node.moduleSpecifier.text, true);
@@ -57,7 +57,7 @@ function members(node) {
   return result;
 }
 function build(base, seed, original, selections = {}) {
-  const records = new Map(), selected = new Map(), pending = seed.map(source => ({source, reachability:'runtime', selected: selections[source]}));
+  const records = new Map(), selected = new Map(), pending = seed.map(source => ({source, reachability:source.endsWith('.d.ts') ? 'type':'runtime', selected: selections[source]}));
   while (pending.length) {
     const item = pending.shift();
     if (records.has(item.source)) {

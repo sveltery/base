@@ -1,0 +1,1794 @@
+{
+  "roots": [
+    "packages/react/src/collapsible/index.ts",
+    "packages/react/src/collapsible/index.parts.ts",
+    "packages/react/src/collapsible/root/CollapsibleRoot.tsx",
+    "packages/react/src/collapsible/trigger/CollapsibleTrigger.tsx",
+    "packages/react/src/collapsible/panel/CollapsiblePanel.tsx"
+  ],
+  "moduleCount": 55,
+  "edgeCount": 151,
+  "runtimeModules": 53,
+  "typeModules": 2,
+  "modules": [
+    {
+      "source": "packages/react/src/collapsible/index.parts.ts",
+      "sha256": "77d02702e28e88b7e845f7cc8c95385b23d2aed75c052c4b1f30dd297d792ca0",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./root/CollapsibleRoot",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "CollapsibleRoot"
+          ],
+          "resolved": "packages/react/src/collapsible/root/CollapsibleRoot.tsx",
+          "exportedMembers": [
+            "Root"
+          ]
+        },
+        {
+          "specifier": "./trigger/CollapsibleTrigger",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "CollapsibleTrigger"
+          ],
+          "resolved": "packages/react/src/collapsible/trigger/CollapsibleTrigger.tsx",
+          "exportedMembers": [
+            "Trigger"
+          ]
+        },
+        {
+          "specifier": "./panel/CollapsiblePanel",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "CollapsiblePanel"
+          ],
+          "resolved": "packages/react/src/collapsible/panel/CollapsiblePanel.tsx",
+          "exportedMembers": [
+            "Panel"
+          ]
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/collapsible/index.ts",
+      "sha256": "4694d1fb838941e216a5439a94d3a66c265827900253d8119d5531377e5e1ec2",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./index.parts",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "Collapsible"
+          ],
+          "resolved": "packages/react/src/collapsible/index.parts.ts"
+        },
+        {
+          "specifier": "./root/CollapsibleRoot",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "packages/react/src/collapsible/root/CollapsibleRoot.tsx"
+        },
+        {
+          "specifier": "./trigger/CollapsibleTrigger",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "packages/react/src/collapsible/trigger/CollapsibleTrigger.tsx"
+        },
+        {
+          "specifier": "./panel/CollapsiblePanel",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "packages/react/src/collapsible/panel/CollapsiblePanel.tsx"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.tsx",
+      "sha256": "b2694e75cd711224adc1e586cc36efa6832354657d0979c00a28a9bb4d8bef79",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useIsoLayoutEffect"
+          ],
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/warn",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "warn"
+          ],
+          "resolved": "packages/utils/src/warn.ts"
+        },
+        {
+          "specifier": "../../internals/types",
+          "declaredKind": "runtime",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "BaseUIComponentProps"
+          ],
+          "resolved": "packages/react/src/internals/types.ts"
+        },
+        {
+          "specifier": "../../utils/resolveStyle",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "resolveStyle"
+          ],
+          "resolved": "packages/react/src/utils/resolveStyle.ts"
+        },
+        {
+          "specifier": "../../internals/useRenderElement",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useRenderElement"
+          ],
+          "resolved": "packages/react/src/internals/useRenderElement.tsx"
+        },
+        {
+          "specifier": "../root/CollapsibleRootContext",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useCollapsibleRootContext"
+          ],
+          "resolved": "packages/react/src/collapsible/root/CollapsibleRootContext.ts"
+        },
+        {
+          "specifier": "../root/CollapsibleRoot",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "CollapsibleRootState"
+          ],
+          "resolved": "packages/react/src/collapsible/root/CollapsibleRoot.tsx"
+        },
+        {
+          "specifier": "../root/stateAttributesMapping",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "collapsibleStateAttributesMapping"
+          ],
+          "resolved": "packages/react/src/collapsible/root/stateAttributesMapping.ts"
+        },
+        {
+          "specifier": "./useCollapsiblePanel",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useCollapsiblePanel"
+          ],
+          "resolved": "packages/react/src/collapsible/panel/useCollapsiblePanel.ts"
+        },
+        {
+          "specifier": "./CollapsiblePanelCssVars",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "packages/react/src/collapsible/panel/CollapsiblePanelCssVars.ts"
+        },
+        {
+          "specifier": "../../internals/useTransitionStatus",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "TransitionStatus"
+          ],
+          "resolved": "packages/react/src/internals/useTransitionStatus.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanelCssVars.ts",
+      "sha256": "a0dbd3f727fb2cebd5a1163722269991ee6c92f7c371ab68c6cc5e5d37824d77",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanelDataAttributes.ts",
+      "sha256": "dc5173421a0cd805c6f736b93a50dd8ab5b3e51da7374ae9e05d76b12b5602eb",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../../internals/stateAttributesMapping",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "TransitionStatusDataAttributes"
+          ],
+          "resolved": "packages/react/src/internals/stateAttributesMapping.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/collapsible/panel/useCollapsiblePanel.ts",
+      "sha256": "5f2b096ff87493217f032f6252c8d73c152594d6ceb379753168238ab3ba8e04",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/addEventListener",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "addEventListener"
+          ],
+          "resolved": "packages/utils/src/addEventListener.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useIsoLayoutEffect"
+          ],
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useMergedRefs",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useMergedRefs"
+          ],
+          "resolved": "packages/utils/src/useMergedRefs.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useAnimationFrame",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "AnimationFrame"
+          ],
+          "resolved": "packages/utils/src/useAnimationFrame.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useStableCallback"
+          ],
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useValueAsRef",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useValueAsRef"
+          ],
+          "resolved": "packages/utils/src/useValueAsRef.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/warn",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "warn"
+          ],
+          "resolved": "packages/utils/src/warn.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/owner",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "ownerWindow"
+          ],
+          "resolved": "packages/utils/src/owner.ts"
+        },
+        {
+          "specifier": "../../internals/types",
+          "declaredKind": "runtime",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "HTMLProps"
+          ],
+          "resolved": "packages/react/src/internals/types.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "createChangeEventDetails"
+          ],
+          "resolved": "packages/react/src/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "REASONS"
+          ],
+          "resolved": "packages/react/src/internals/reasons.ts"
+        },
+        {
+          "specifier": "../../internals/useOpenChangeComplete",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useOpenChangeComplete"
+          ],
+          "resolved": "packages/react/src/internals/useOpenChangeComplete.tsx"
+        },
+        {
+          "specifier": "../../internals/useAnimationsFinished",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useAnimationsFinished"
+          ],
+          "resolved": "packages/react/src/internals/useAnimationsFinished.ts"
+        },
+        {
+          "specifier": "./CollapsiblePanelDataAttributes",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "packages/react/src/collapsible/panel/CollapsiblePanelDataAttributes.ts"
+        },
+        {
+          "specifier": "../root/CollapsibleRoot",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "CollapsibleRoot"
+          ],
+          "resolved": "packages/react/src/collapsible/root/CollapsibleRoot.tsx"
+        },
+        {
+          "specifier": "../../internals/useTransitionStatus",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "TransitionStatus"
+          ],
+          "resolved": "packages/react/src/internals/useTransitionStatus.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.tsx",
+      "sha256": "0cef031a852397b79afa67943e1370996bfa5ec20766d7a07a2d4e71674d173e",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useStableCallback"
+          ],
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "../../internals/types",
+          "declaredKind": "runtime",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "BaseUIComponentProps"
+          ],
+          "resolved": "packages/react/src/internals/types.ts"
+        },
+        {
+          "specifier": "../../internals/useRenderElement",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useRenderElement"
+          ],
+          "resolved": "packages/react/src/internals/useRenderElement.tsx"
+        },
+        {
+          "specifier": "./useCollapsibleRoot",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useCollapsibleRoot",
+            "UseCollapsibleRootReturnValue"
+          ],
+          "resolved": "packages/react/src/collapsible/root/useCollapsibleRoot.ts"
+        },
+        {
+          "specifier": "./CollapsibleRootContext",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "CollapsibleRootContext"
+          ],
+          "resolved": "packages/react/src/collapsible/root/CollapsibleRootContext.ts"
+        },
+        {
+          "specifier": "./stateAttributesMapping",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "collapsibleStateAttributesMapping"
+          ],
+          "resolved": "packages/react/src/collapsible/root/stateAttributesMapping.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "BaseUIChangeEventDetails"
+          ],
+          "resolved": "packages/react/src/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons",
+          "declaredKind": "runtime",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "REASONS"
+          ],
+          "resolved": "packages/react/src/internals/reasons.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/collapsible/root/CollapsibleRootContext.ts",
+      "sha256": "22722a169e4c60f5d3ca433d103c39a2235629354f4e8100b3f26c3ca24da686",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "./useCollapsibleRoot",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "UseCollapsibleRootReturnValue"
+          ],
+          "resolved": "packages/react/src/collapsible/root/useCollapsibleRoot.ts"
+        },
+        {
+          "specifier": "./CollapsibleRoot",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "CollapsibleRoot",
+            "CollapsibleRootState"
+          ],
+          "resolved": "packages/react/src/collapsible/root/CollapsibleRoot.tsx"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/collapsible/root/stateAttributesMapping.ts",
+      "sha256": "d892c1dc45b10406218d1f1eaf724ef2a068d0bfe44aefba1a3c0754ae4f1509",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../../internals/getStateAttributesProps",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "StateAttributesMapping"
+          ],
+          "resolved": "packages/react/src/internals/getStateAttributesProps.ts"
+        },
+        {
+          "specifier": "../../utils/collapsibleOpenStateMapping",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "collapsibleOpenStateMapping"
+          ],
+          "resolved": "packages/react/src/utils/collapsibleOpenStateMapping.ts"
+        },
+        {
+          "specifier": "./CollapsibleRoot",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "CollapsibleRootState"
+          ],
+          "resolved": "packages/react/src/collapsible/root/CollapsibleRoot.tsx"
+        },
+        {
+          "specifier": "../../internals/stateAttributesMapping",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "transitionStatusMapping"
+          ],
+          "resolved": "packages/react/src/internals/stateAttributesMapping.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/collapsible/root/useCollapsibleRoot.ts",
+      "sha256": "421c5192f10897812244c529ca61b91d2cebe1928362bcbdea998e7037f297d1",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/useControlled",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useControlled"
+          ],
+          "resolved": "packages/utils/src/useControlled.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useStableCallback"
+          ],
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "../../internals/useBaseUiId",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useBaseUiId"
+          ],
+          "resolved": "packages/react/src/internals/useBaseUiId.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "createChangeEventDetails"
+          ],
+          "resolved": "packages/react/src/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "REASONS"
+          ],
+          "resolved": "packages/react/src/internals/reasons.ts"
+        },
+        {
+          "specifier": "../../internals/useTransitionStatus",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useTransitionStatus",
+            "TransitionStatus"
+          ],
+          "resolved": "packages/react/src/internals/useTransitionStatus.ts"
+        },
+        {
+          "specifier": "./CollapsibleRoot",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "CollapsibleRoot"
+          ],
+          "resolved": "packages/react/src/collapsible/root/CollapsibleRoot.tsx"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/collapsible/trigger/CollapsibleTrigger.tsx",
+      "sha256": "ce9afedaca5278236cd9aeac7cee408f510d75e32a78ec759e1cb2da76e3a634",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "../../utils/collapsibleOpenStateMapping",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "triggerOpenStateMapping"
+          ],
+          "resolved": "packages/react/src/utils/collapsibleOpenStateMapping.ts"
+        },
+        {
+          "specifier": "../../internals/getStateAttributesProps",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "StateAttributesMapping"
+          ],
+          "resolved": "packages/react/src/internals/getStateAttributesProps.ts"
+        },
+        {
+          "specifier": "../../internals/stateAttributesMapping",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "transitionStatusMapping"
+          ],
+          "resolved": "packages/react/src/internals/stateAttributesMapping.ts"
+        },
+        {
+          "specifier": "../../internals/useRenderElement",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useRenderElement"
+          ],
+          "resolved": "packages/react/src/internals/useRenderElement.tsx"
+        },
+        {
+          "specifier": "../../internals/types",
+          "declaredKind": "runtime",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "BaseUIComponentProps",
+            "NativeButtonProps"
+          ],
+          "resolved": "packages/react/src/internals/types.ts"
+        },
+        {
+          "specifier": "../../internals/use-button",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useButton"
+          ],
+          "resolved": "packages/react/src/internals/use-button/index.ts"
+        },
+        {
+          "specifier": "../root/CollapsibleRootContext",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useCollapsibleRootContext"
+          ],
+          "resolved": "packages/react/src/collapsible/root/CollapsibleRootContext.ts"
+        },
+        {
+          "specifier": "../root/CollapsibleRoot",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "CollapsibleRootState"
+          ],
+          "resolved": "packages/react/src/collapsible/root/CollapsibleRoot.tsx"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/collapsible/trigger/CollapsibleTriggerDataAttributes.ts",
+      "sha256": "f137ea2f8075f667078a8ade395d6802c9cd0cf1d489207198ad3bb1fc291de5",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/react/src/internals/composite/root/CompositeRootContext.ts",
+      "sha256": "751bbbd1fa2b4ae5c5674dc878d302b59b0e15b5771763cccbaf2362eee1b9fa",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:react"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/createBaseUIEventDetails.ts",
+      "sha256": "77bdb11a11ef1dfe9bc1a82db4754766cffbb91c27c3aeaea215e4e07cec2b2d",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "@base-ui/utils/empty",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "EMPTY_OBJECT"
+          ],
+          "resolved": "packages/utils/src/empty.ts"
+        },
+        {
+          "specifier": "./reasons",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "REASONS"
+          ],
+          "resolved": "packages/react/src/internals/reasons.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/getStateAttributesProps.ts",
+      "sha256": "ae0c62d85ecb1d58d833c49a8753929df86a7539e94e272fdfe692d6ae89abcb",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/react/src/internals/reason-parts.ts",
+      "sha256": "1cddfb9a98326bc5e586c2bdb66fb3a58913038f8ee7368ec57bbaf972521e06",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/react/src/internals/reasons.ts",
+      "sha256": "694b1512f2dd9c999e97899e1fe9ea0f189fbe8476fcbc0f957cd786806c4abf",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./reason-parts",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "packages/react/src/internals/reason-parts.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/stateAttributesMapping.ts",
+      "sha256": "722dc0fed9ce97ed42b5b59418a01596c99b0cb8c5c5bb638737878dfe2d43bc",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./useTransitionStatus",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "TransitionStatus"
+          ],
+          "resolved": "packages/react/src/internals/useTransitionStatus.ts"
+        },
+        {
+          "specifier": "./getStateAttributesProps",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "StateAttributesMapping"
+          ],
+          "resolved": "packages/react/src/internals/getStateAttributesProps.ts"
+        },
+        {
+          "specifier": "./TransitionStatusDataAttributes",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "packages/react/src/internals/TransitionStatusDataAttributes.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/TransitionStatusDataAttributes.ts",
+      "sha256": "cf240c33e54cbfae687b7f9b1bdaf7329c1cda7630481ca68d105723d75440d7",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/react/src/internals/types.ts",
+      "sha256": "ed0c29125011488378a038fe179287809ef624d9d84389d83d7207b25e3d416a",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "../types",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "BaseUIEvent",
+            "ComponentRenderFn",
+            "HTMLProps"
+          ],
+          "resolved": "packages/react/src/types/index.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/use-button/index.ts",
+      "sha256": "bfd5490017aa66ebc7d42c86e9309e15109eb1a0d5058fed586704adf93c8d23",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./useButton",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useButton"
+          ],
+          "resolved": "packages/react/src/internals/use-button/useButton.ts",
+          "exportedMembers": [
+            "useButton"
+          ]
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/use-button/useButton.ts",
+      "sha256": "eba51ce4ed0d2082dda17180bbbbe2bf91318c2b33eae2d114c0e4ebbe3203e6",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "isHTMLElement"
+          ],
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useStableCallback"
+          ],
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/error",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "error"
+          ],
+          "resolved": "packages/utils/src/error.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/safeReact",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "SafeReact"
+          ],
+          "resolved": "packages/utils/src/safeReact.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useIsoLayoutEffect"
+          ],
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "../../merge-props",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "makeEventPreventable",
+            "mergeProps"
+          ],
+          "resolved": "packages/react/src/merge-props/index.ts"
+        },
+        {
+          "specifier": "../composite/root/CompositeRootContext",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useCompositeRootContext"
+          ],
+          "resolved": "packages/react/src/internals/composite/root/CompositeRootContext.ts"
+        },
+        {
+          "specifier": "../types",
+          "declaredKind": "runtime",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "BaseUIEvent",
+            "HTMLProps"
+          ],
+          "resolved": "packages/react/src/internals/types.ts"
+        },
+        {
+          "specifier": "../../utils/useFocusableWhenDisabled",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useFocusableWhenDisabled"
+          ],
+          "resolved": "packages/react/src/utils/useFocusableWhenDisabled.ts"
+        },
+        {
+          "specifier": "../../utils/dispatchClickWithModifiers",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "dispatchClickWithModifiers"
+          ],
+          "resolved": "packages/react/src/utils/dispatchClickWithModifiers.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/useAnimationsFinished.ts",
+      "sha256": "58fef3cb8defbbbe84c80126a6b0aff767293b692a19d97f078a190e62a3d7a6",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "runtime",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "react-dom",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:react-dom"
+        },
+        {
+          "specifier": "@base-ui/utils/useAnimationFrame",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useAnimationFrame"
+          ],
+          "resolved": "packages/utils/src/useAnimationFrame.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useStableCallback"
+          ],
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "../utils/resolveRef",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "resolveRef"
+          ],
+          "resolved": "packages/react/src/utils/resolveRef.ts"
+        },
+        {
+          "specifier": "./TransitionStatusDataAttributes",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "packages/react/src/internals/TransitionStatusDataAttributes.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/useBaseUiId.ts",
+      "sha256": "c935ee27e3dfee2307e108dc82a36ec2a1f3e76b4692de188e5d3cdc4511157f",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "@base-ui/utils/useId",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useId"
+          ],
+          "resolved": "packages/utils/src/useId.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/useOpenChangeComplete.tsx",
+      "sha256": "809be9e6b5a1a6238d9f239c162e2489d7da6e5f20383fbe65e85933e7259d89",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/useStableCallback",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useStableCallback"
+          ],
+          "resolved": "packages/utils/src/useStableCallback.ts"
+        },
+        {
+          "specifier": "./useAnimationsFinished",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useAnimationsFinished"
+          ],
+          "resolved": "packages/react/src/internals/useAnimationsFinished.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/useRenderElement.tsx",
+      "sha256": "0b55dc232a0d630a666a13873213d1bdde040e973031f2b307a64cc157644a4c",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/useMergedRefs",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useMergedRefs",
+            "useMergedRefsN"
+          ],
+          "resolved": "packages/utils/src/useMergedRefs.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/getReactElementRef",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "getReactElementRef"
+          ],
+          "resolved": "packages/utils/src/getReactElementRef.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/mergeObjects",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "mergeObjects"
+          ],
+          "resolved": "packages/utils/src/mergeObjects.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/warn",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "warn"
+          ],
+          "resolved": "packages/utils/src/warn.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/empty",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "EMPTY_OBJECT"
+          ],
+          "resolved": "packages/utils/src/empty.ts"
+        },
+        {
+          "specifier": "./types",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "BaseUIComponentProps",
+            "ComponentRenderFn",
+            "HTMLProps"
+          ],
+          "resolved": "packages/react/src/internals/types.ts"
+        },
+        {
+          "specifier": "./getStateAttributesProps",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "getStateAttributesProps",
+            "StateAttributesMapping"
+          ],
+          "resolved": "packages/react/src/internals/getStateAttributesProps.ts"
+        },
+        {
+          "specifier": "../utils/resolveClassName",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "resolveClassName"
+          ],
+          "resolved": "packages/react/src/utils/resolveClassName.ts"
+        },
+        {
+          "specifier": "../utils/resolveStyle",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "resolveStyle"
+          ],
+          "resolved": "packages/react/src/utils/resolveStyle.ts"
+        },
+        {
+          "specifier": "../merge-props",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "mergeProps",
+            "mergePropsN",
+            "mergeClassNames"
+          ],
+          "resolved": "packages/react/src/merge-props/index.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/internals/useTransitionStatus.ts",
+      "sha256": "07ffaf4fcf96a3d4d24aa2dabb696f2e082f312149225e45372a12a0d3cfe4e1",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/useIsoLayoutEffect",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useIsoLayoutEffect"
+          ],
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "@base-ui/utils/useAnimationFrame",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "AnimationFrame"
+          ],
+          "resolved": "packages/utils/src/useAnimationFrame.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/merge-props/index.ts",
+      "sha256": "4881819e46f8b81cc6e90add34bc5a87cf924596e007785da31eed500414222f",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./mergeProps",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "packages/react/src/merge-props/mergeProps.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.ts",
+      "sha256": "cdc8fc165df88ddc4034fb2242ebf1ef32b504755404c343abf965cb3e4c90ce",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "runtime",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "@base-ui/utils/mergeObjects",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "mergeObjects"
+          ],
+          "resolved": "packages/utils/src/mergeObjects.ts"
+        },
+        {
+          "specifier": "../internals/types",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "BaseUIEvent",
+            "WithBaseUIEvent"
+          ],
+          "resolved": "packages/react/src/internals/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/types/index.ts",
+      "sha256": "ffc973365f8dbc5af24db40fa4553ee7fc1f154feb1803ff6a9bb5d5cd918587",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "BaseUIChangeEventDetails",
+            "BaseUIGenericEventDetails"
+          ],
+          "resolved": "packages/react/src/internals/createBaseUIEventDetails.ts",
+          "exportedMembers": [
+            "BaseUIChangeEventDetails",
+            "BaseUIGenericEventDetails"
+          ]
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/utils/collapsibleOpenStateMapping.ts",
+      "sha256": "9be172c72160cfa569acaf0d617244b0152bf85d962a46c8c0d3dcf4123eb0c6",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../internals/getStateAttributesProps",
+          "declaredKind": "type",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "StateAttributesMapping"
+          ],
+          "resolved": "packages/react/src/internals/getStateAttributesProps.ts"
+        },
+        {
+          "specifier": "../collapsible/panel/CollapsiblePanelDataAttributes",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "packages/react/src/collapsible/panel/CollapsiblePanelDataAttributes.ts"
+        },
+        {
+          "specifier": "../collapsible/trigger/CollapsibleTriggerDataAttributes",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "packages/react/src/collapsible/trigger/CollapsibleTriggerDataAttributes.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/utils/dispatchClickWithModifiers.ts",
+      "sha256": "f395a0babfbb8b5a9e58f6db3e78fd9fdef34d2570cf71884068319af1fc0fba",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "@base-ui/utils/owner",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "ownerWindow"
+          ],
+          "resolved": "packages/utils/src/owner.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/utils/resolveClassName.ts",
+      "sha256": "8a4b38bd68c8f1e7268c9587951c5e78349fd51c6f3befef597b3c3b60ac3b41",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/react/src/utils/resolveRef.ts",
+      "sha256": "fb0a9525bf7c002fe9e82d5c74235c5620b0b83f106cdec67b77071a05140312",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/react/src/utils/resolveStyle.ts",
+      "sha256": "e8cb3f94b27439c43a3a26b82f21c09fe152871c202aef91f8907da3f8734cf0",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/react/src/utils/useFocusableWhenDisabled.ts",
+      "sha256": "21e071c8b1547c8473ade8e4d3a415df8ca73767d6125a305c63fa8a620e5ba6",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:react"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/addEventListener.ts",
+      "sha256": "a2d30e30e8151a62347f67620d568bd1550f5069af3652a57892ed9de42f3dcc",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/utils/src/createLogOnce.ts",
+      "sha256": "6e5e5b4c34d3407fe2379b58749d4da26c49c49383b7501964132a2e725660b1",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/utils/src/empty.ts",
+      "sha256": "7d7c8625346dc2344dc551004c5c5da82878ab814818b7a8df4ad7082979ead6",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/utils/src/error.ts",
+      "sha256": "957b3369d680d50a26cce3b4e9add608b2e829cb299636bde056e76297002847",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./createLogOnce",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "reset"
+          ],
+          "resolved": "packages/utils/src/createLogOnce.ts",
+          "exportedMembers": [
+            "reset"
+          ]
+        },
+        {
+          "specifier": "./createLogOnce",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "reset"
+          ],
+          "resolved": "packages/utils/src/createLogOnce.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/getReactElementRef.ts",
+      "sha256": "6ea0078fe8f8a0feee703f968779a863b30789a6fac4e4f51de13690064af364",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "./reactVersion",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "isReactVersionAtLeast"
+          ],
+          "resolved": "packages/utils/src/reactVersion.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/mergeObjects.ts",
+      "sha256": "0e9b1568370f5c1ea28710bae245380281ae366187bfb871b99a14fe6b5b49fa",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/utils/src/owner.ts",
+      "sha256": "94a825206d926b388459df70639476133442c28c83a7e3be750399cb323ea623",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "getWindow"
+          ],
+          "resolved": "external:@floating-ui/utils/dom",
+          "exportedMembers": [
+            "ownerWindow"
+          ]
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/reactVersion.ts",
+      "sha256": "e52b2ae447fe83a4b5a927a013405446542ef474b76a75540b7216bc561df889",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:react"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/safeReact.ts",
+      "sha256": "b2923526a5b42e0d4f341ccb6c26e11d4b34991f206353320bb821026bbbc81f",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:react"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/useAnimationFrame.ts",
+      "sha256": "229943cee6d42305da4db33ed395ff8ccdde915c2e4e922c5af0c7b0aeeddf82",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./useRefWithInit",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useRefWithInit"
+          ],
+          "resolved": "packages/utils/src/useRefWithInit.ts"
+        },
+        {
+          "specifier": "./useOnMount",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useOnMount"
+          ],
+          "resolved": "packages/utils/src/useOnMount.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/useControlled.ts",
+      "sha256": "487bc45fa3ef1a70177867bb03598230f9926601aed8e3c7f46470feb225f886",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "./error",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "error"
+          ],
+          "resolved": "packages/utils/src/error.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/useId.ts",
+      "sha256": "7d01ffb745d3404ba406ebbd12ddfc8eb73325c3adea3dbda0868e2bad2eef05",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "./safeReact",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "SafeReact"
+          ],
+          "resolved": "packages/utils/src/safeReact.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/useIsoLayoutEffect.ts",
+      "sha256": "13a0ab28d24b04617dc290ad151c145f2435d1e0c381123847af74344ea4b9a0",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:react"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/useMergedRefs.ts",
+      "sha256": "5fa12ae01abedc23ba814e9c59f015cf14d306044638b56c977780de43275ba3",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "runtime",
+          "effectiveKind": "type",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "./useRefWithInit",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useRefWithInit"
+          ],
+          "resolved": "packages/utils/src/useRefWithInit.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/useOnMount.ts",
+      "sha256": "9d621d059249ec6ad10dbf35eef28153a8bc6ef893574d26a060385d4d13472b",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "./empty",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "EMPTY_ARRAY"
+          ],
+          "resolved": "packages/utils/src/empty.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/useRefWithInit.ts",
+      "sha256": "183cb6e86ab1f8044a431d5b4115c750f7848c9835d519881b3c7a66dae98354",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "react",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:react"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/useStableCallback.ts",
+      "sha256": "908cbd177f86c961983d0124a859f733d341be49e58bc5a553255f47725419c1",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./safeReact",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "SafeReact"
+          ],
+          "resolved": "packages/utils/src/safeReact.ts"
+        },
+        {
+          "specifier": "./useRefWithInit",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useRefWithInit"
+          ],
+          "resolved": "packages/utils/src/useRefWithInit.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/useValueAsRef.ts",
+      "sha256": "ad85f215ea605641c7f579a0dd50841427a01c7412eee127b34c51318e744777",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./useIsoLayoutEffect",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useIsoLayoutEffect"
+          ],
+          "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+        },
+        {
+          "specifier": "./useRefWithInit",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "useRefWithInit"
+          ],
+          "resolved": "packages/utils/src/useRefWithInit.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/warn.ts",
+      "sha256": "4e5565f4957742aaa2795bae3f37bfbc88dac51528550b3406ed5cef92474c00",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./createLogOnce",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "reset"
+          ],
+          "resolved": "packages/utils/src/createLogOnce.ts",
+          "exportedMembers": [
+            "reset"
+          ]
+        },
+        {
+          "specifier": "./createLogOnce",
+          "declaredKind": "runtime",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "reset"
+          ],
+          "resolved": "packages/utils/src/createLogOnce.ts"
+        }
+      ]
+    }
+  ],
+  "external": [
+    "external:@floating-ui/utils/dom",
+    "external:react",
+    "external:react-dom"
+  ],
+  "semantics": "Inventory, not manual Source acceptance. Declared import syntax and TypeScript-emitted dependency kinds are separate. TypeScript 5.9.3 transpileModule elision identifies effective type edges in TS/TSX; non-type Svelte imports retain runtime reachability because markup also uses them. Selected public/test barrel exports are expanded by actual imported members; excluded siblings are recorded, not accepted. All reached module bodies, including type-only, require separate manual inspection receipts."
+}

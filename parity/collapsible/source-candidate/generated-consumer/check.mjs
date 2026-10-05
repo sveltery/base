@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import { render } from 'svelte/server';
+import Consumer from './Consumer.svelte';
+import { First, Second } from './imports.js';
+assert.equal(First, Second);
+const body = render(Consumer).body;
+assert.equal((body.match(/<button/g) ?? []).length, 2);
+assert.match(body, /type="submit"/); assert.match(body, /form="external"/); assert.match(body, /value="sent"/);
+assert.match(body, /aria-expanded="true"/); assert.match(body, /aria-expanded="false"/);
+assert.match(body, /animation-name:none/); assert.match(body, /--collapsible-panel-height:auto/);
+const ids = [...body.matchAll(/ id="([^"]+)"/g)].map(match => match[1]);
+assert.equal(ids.length, 2); assert.equal(new Set(ids).size, 2); assert(ids.every(id => id.startsWith('base-ui-')));
+assert(body.includes('Open content')); assert(body.includes('Find content'));

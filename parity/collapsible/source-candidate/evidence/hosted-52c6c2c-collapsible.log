@@ -1,0 +1,748 @@
+﻿2026-10-05T19:28:49.2106721Z Current runner version: '2.337.0'
+2026-10-05T19:28:49.2132426Z ##[group]Runner Image Provisioner
+2026-10-05T19:28:49.2133306Z Hosted Compute Agent
+2026-10-05T19:28:49.2133934Z Version: 20260901.588
+2026-10-05T19:28:49.2134671Z Commit: f88ec8081b781fac6c440065ac7ff9e710ce3d0b
+2026-10-05T19:28:49.2135421Z Build Date: 2026-09-01T19:56:44Z
+2026-10-05T19:28:49.2136125Z Worker ID: {8e1a7bad-2926-4061-850e-5b11276af323}
+2026-10-05T19:28:49.2136957Z Azure Region: eastus2
+2026-10-05T19:28:49.2137767Z ##[endgroup]
+2026-10-05T19:28:49.2139874Z ##[group]Operating System
+2026-10-05T19:28:49.2140540Z Ubuntu
+2026-10-05T19:28:49.2141192Z 22.04.5
+2026-10-05T19:28:49.2141739Z LTS
+2026-10-05T19:28:49.2142252Z ##[endgroup]
+2026-10-05T19:28:49.2142923Z ##[group]Runner Image
+2026-10-05T19:28:49.2143543Z Image: ubuntu-22.04
+2026-10-05T19:28:49.2144189Z Version: 20260927.309.1
+2026-10-05T19:28:49.2145493Z Included Software: https://github.com/actions/runner-images/blob/ubuntu22/20260927.309/images/ubuntu/Ubuntu2204-Readme.md
+2026-10-05T19:28:49.2147175Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu22%2F20260927.309
+2026-10-05T19:28:49.2148536Z ##[endgroup]
+2026-10-05T19:28:49.2149989Z ##[group]GITHUB_TOKEN Permissions
+2026-10-05T19:28:49.2152126Z Contents: read
+2026-10-05T19:28:49.2152897Z Metadata: read
+2026-10-05T19:28:49.2153508Z ##[endgroup]
+2026-10-05T19:28:49.2155955Z Secret source: Actions
+2026-10-05T19:28:49.2157043Z Cache mode: write
+2026-10-05T19:28:49.2158379Z Prepare workflow directory
+2026-10-05T19:28:49.2489777Z Prepare all required actions
+2026-10-05T19:28:49.2537775Z Getting action download info
+2026-10-05T19:28:49.4941774Z Download action repository 'actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803' (SHA:d23441a48e516b6c34aea4fa41551a30e30af803)
+2026-10-05T19:28:49.6253567Z Download action repository 'pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320' (SHA:fc06bc1257f339d1d5d8b3a19a8cae5388b55320)
+2026-10-05T19:28:49.8543796Z Download action repository 'actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38' (SHA:249970729cb0ef3589644e2896645e5dc5ba9c38)
+2026-10-05T19:28:51.2308878Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-05T19:28:51.4629890Z Complete job name: Collapsible browser
+2026-10-05T19:28:51.5524364Z ##[group]Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+2026-10-05T19:28:51.5525892Z with:
+2026-10-05T19:28:51.5526747Z   ref: 52c6c2cf58b758739eac6b55169762fabdedc179
+2026-10-05T19:28:51.5528207Z   persist-credentials: false
+2026-10-05T19:28:51.5529217Z   repository: sveltery/base
+2026-10-05T19:28:51.5533633Z   token: ***
+2026-10-05T19:28:51.5534443Z   ssh-strict: true
+2026-10-05T19:28:51.5535244Z   ssh-user: git
+2026-10-05T19:28:51.5536116Z   clean: true
+2026-10-05T19:28:51.5536942Z   sparse-checkout-cone-mode: true
+2026-10-05T19:28:51.5538101Z   fetch-depth: 1
+2026-10-05T19:28:51.5538951Z   fetch-tags: false
+2026-10-05T19:28:51.5539766Z   show-progress: true
+2026-10-05T19:28:51.5540725Z   lfs: false
+2026-10-05T19:28:51.5541645Z   submodules: false
+2026-10-05T19:28:51.5542515Z   set-safe-directory: true
+2026-10-05T19:28:51.5543439Z   allow-unsafe-pr-checkout: false
+2026-10-05T19:28:51.5544682Z ##[endgroup]
+2026-10-05T19:28:51.6629563Z Syncing repository: sveltery/base
+2026-10-05T19:28:51.6633129Z ##[group]Getting Git version info
+2026-10-05T19:28:51.6634830Z Working directory is '/home/runner/work/base/base'
+2026-10-05T19:28:51.6637470Z [command]/usr/bin/git version
+2026-10-05T19:28:51.6702491Z git version 2.55.0
+2026-10-05T19:28:51.6760839Z ##[endgroup]
+2026-10-05T19:28:51.6783489Z Temporarily overriding HOME='/home/runner/work/_temp/bfc9443e-9b27-47f8-8665-192b21bd1de7' before making global git config changes
+2026-10-05T19:28:51.6786898Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-05T19:28:51.6790370Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/base/base
+2026-10-05T19:28:51.6831344Z Deleting the contents of '/home/runner/work/base/base'
+2026-10-05T19:28:51.6836762Z ##[group]Determining repository object format
+2026-10-05T19:28:51.6839642Z ##[endgroup]
+2026-10-05T19:28:51.6841951Z ##[group]Initializing the repository
+2026-10-05T19:28:51.6844360Z [command]/usr/bin/git init /home/runner/work/base/base
+2026-10-05T19:28:51.6989185Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-05T19:28:51.6992029Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-05T19:28:51.6996372Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-05T19:28:51.6999070Z hint: call:
+2026-10-05T19:28:51.7001615Z hint:
+2026-10-05T19:28:51.7003329Z hint: 	git config --global init.defaultBranch <name>
+2026-10-05T19:28:51.7005383Z hint:
+2026-10-05T19:28:51.7006621Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-05T19:28:51.7009497Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-05T19:28:51.7011941Z hint:
+2026-10-05T19:28:51.7013579Z hint: 	git branch -m <name>
+2026-10-05T19:28:51.7015317Z hint:
+2026-10-05T19:28:51.7017227Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-05T19:28:51.7020243Z Initialized empty Git repository in /home/runner/work/base/base/.git/
+2026-10-05T19:28:51.7025132Z [command]/usr/bin/git remote add origin https://github.com/sveltery/base
+2026-10-05T19:28:51.7045509Z ##[endgroup]
+2026-10-05T19:28:51.7048346Z ##[group]Disabling automatic garbage collection
+2026-10-05T19:28:51.7050430Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-05T19:28:51.7086020Z ##[endgroup]
+2026-10-05T19:28:51.7088750Z ##[group]Setting up auth
+2026-10-05T19:28:51.7090529Z Removing SSH command configuration
+2026-10-05T19:28:51.7092792Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-05T19:28:51.7141005Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-05T19:28:51.7573638Z Removing HTTP extra header
+2026-10-05T19:28:51.7582703Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-05T19:28:51.7626667Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-05T19:28:51.7886593Z Removing includeIf entries pointing to credentials config files
+2026-10-05T19:28:51.7892353Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-05T19:28:51.7931753Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-05T19:28:51.8194362Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-a0724922-de8a-4200-8621-3aac892ef27c.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-05T19:28:51.8311225Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/base/base/.git.path /home/runner/work/_temp/git-credentials-a0724922-de8a-4200-8621-3aac892ef27c.config
+2026-10-05T19:28:51.8318549Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/base/base/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-a0724922-de8a-4200-8621-3aac892ef27c.config
+2026-10-05T19:28:51.8326358Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-a0724922-de8a-4200-8621-3aac892ef27c.config
+2026-10-05T19:28:51.8366244Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-a0724922-de8a-4200-8621-3aac892ef27c.config
+2026-10-05T19:28:51.8401412Z ##[endgroup]
+2026-10-05T19:28:51.8402533Z ##[group]Fetching the repository
+2026-10-05T19:28:51.8410269Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin 52c6c2cf58b758739eac6b55169762fabdedc179
+2026-10-05T19:28:52.6226481Z From https://github.com/sveltery/base
+2026-10-05T19:28:52.6228979Z  * branch            52c6c2cf58b758739eac6b55169762fabdedc179 -> FETCH_HEAD
+2026-10-05T19:28:52.6240578Z [command]/usr/bin/git rev-parse --verify --quiet 52c6c2cf58b758739eac6b55169762fabdedc179^{object}
+2026-10-05T19:28:52.6272137Z 52c6c2cf58b758739eac6b55169762fabdedc179
+2026-10-05T19:28:52.6278113Z ##[endgroup]
+2026-10-05T19:28:52.6279675Z ##[group]Determining the checkout info
+2026-10-05T19:28:52.6281428Z ##[endgroup]
+2026-10-05T19:28:52.6285519Z [command]/usr/bin/git sparse-checkout disable
+2026-10-05T19:28:52.6340335Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-05T19:28:52.6377414Z ##[group]Checking out the ref
+2026-10-05T19:28:52.6382029Z [command]/usr/bin/git checkout --progress --force 52c6c2cf58b758739eac6b55169762fabdedc179
+2026-10-05T19:28:52.7901452Z Note: switching to '52c6c2cf58b758739eac6b55169762fabdedc179'.
+2026-10-05T19:28:52.7903377Z 
+2026-10-05T19:28:52.7904700Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-05T19:28:52.7907477Z changes and commit them, and you can discard any commits you make in this
+2026-10-05T19:28:52.7910604Z state without impacting any branches by switching back to a branch.
+2026-10-05T19:28:52.7912327Z 
+2026-10-05T19:28:52.7913172Z If you want to create a new branch to retain commits you create, you may
+2026-10-05T19:28:52.7914904Z do so (now or later) by using -c with the switch command. Example:
+2026-10-05T19:28:52.7915974Z 
+2026-10-05T19:28:52.7916399Z   git switch -c <new-branch-name>
+2026-10-05T19:28:52.7917219Z 
+2026-10-05T19:28:52.7917630Z Or undo this operation with:
+2026-10-05T19:28:52.7918803Z 
+2026-10-05T19:28:52.7919206Z   git switch -
+2026-10-05T19:28:52.7919808Z 
+2026-10-05T19:28:52.7920773Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-05T19:28:52.7921955Z 
+2026-10-05T19:28:52.7922847Z HEAD is now at 52c6c2c test(collapsible): witness native control and CSS transport boundaries
+2026-10-05T19:28:52.7926252Z ##[endgroup]
+2026-10-05T19:28:52.7976118Z [command]/usr/bin/git log -1 --format=%H
+2026-10-05T19:28:52.8012762Z 52c6c2cf58b758739eac6b55169762fabdedc179
+2026-10-05T19:28:52.8025019Z ##[group]Removing auth
+2026-10-05T19:28:52.8026198Z Removing SSH command configuration
+2026-10-05T19:28:52.8030377Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-05T19:28:52.8071739Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-05T19:28:52.8337494Z Removing HTTP extra header
+2026-10-05T19:28:52.8342378Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-05T19:28:52.8384751Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-05T19:28:52.8641707Z Removing includeIf entries pointing to credentials config files
+2026-10-05T19:28:52.8644965Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-05T19:28:52.8675189Z includeif.gitdir:/home/runner/work/base/base/.git.path
+2026-10-05T19:28:52.8676682Z includeif.gitdir:/home/runner/work/base/base/.git/worktrees/*.path
+2026-10-05T19:28:52.8678239Z includeif.gitdir:/github/workspace/.git.path
+2026-10-05T19:28:52.8679640Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-05T19:28:52.8685090Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/base/base/.git.path
+2026-10-05T19:28:52.8714569Z /home/runner/work/_temp/git-credentials-a0724922-de8a-4200-8621-3aac892ef27c.config
+2026-10-05T19:28:52.8725422Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/base/base/.git.path /home/runner/work/_temp/git-credentials-a0724922-de8a-4200-8621-3aac892ef27c.config
+2026-10-05T19:28:52.8764709Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/base/base/.git/worktrees/*.path
+2026-10-05T19:28:52.8793310Z /home/runner/work/_temp/git-credentials-a0724922-de8a-4200-8621-3aac892ef27c.config
+2026-10-05T19:28:52.8803211Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/base/base/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-a0724922-de8a-4200-8621-3aac892ef27c.config
+2026-10-05T19:28:52.8844603Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-05T19:28:52.8879827Z /github/runner_temp/git-credentials-a0724922-de8a-4200-8621-3aac892ef27c.config
+2026-10-05T19:28:52.8889140Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-a0724922-de8a-4200-8621-3aac892ef27c.config
+2026-10-05T19:28:52.8935162Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-05T19:28:52.8965113Z /github/runner_temp/git-credentials-a0724922-de8a-4200-8621-3aac892ef27c.config
+2026-10-05T19:28:52.8973958Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-a0724922-de8a-4200-8621-3aac892ef27c.config
+2026-10-05T19:28:52.9012601Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-05T19:28:52.9267029Z Removing credentials config '/home/runner/work/_temp/git-credentials-a0724922-de8a-4200-8621-3aac892ef27c.config'
+2026-10-05T19:28:52.9275395Z ##[endgroup]
+2026-10-05T19:28:52.9551847Z ##[group]Run pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320
+2026-10-05T19:28:52.9552951Z with:
+2026-10-05T19:28:52.9553392Z   version: 12.6.0
+2026-10-05T19:28:52.9553897Z   run_install: false
+2026-10-05T19:28:52.9554437Z   dest: ~/setup-pnpm
+2026-10-05T19:28:52.9554962Z   cache: false
+2026-10-05T19:28:52.9555540Z   cache_dependency_path: pnpm-lock.yaml
+2026-10-05T19:28:52.9556668Z   package_json_file: package.json
+2026-10-05T19:28:52.9557553Z   standalone: false
+2026-10-05T19:28:52.9558590Z ##[endgroup]
+2026-10-05T19:28:53.1070975Z ##[group]Running self-installer...
+2026-10-05T19:28:53.5738123Z (node:2201) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-05T19:28:53.7525264Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-05T19:28:53.7526326Z Progress: resolved 1, reused 0, downloaded 0, added 0
+2026-10-05T19:28:53.9115373Z Packages: +3
+2026-10-05T19:28:53.9115895Z +++
+2026-10-05T19:28:54.6089557Z Progress: resolved 15, reused 0, downloaded 3, added 3, done
+2026-10-05T19:28:54.6258862Z .../.pnpm/pnpm@12.6.0/node_modules/pnpm preinstall$ node install.js
+2026-10-05T19:28:55.0153013Z .../.pnpm/pnpm@12.6.0/node_modules/pnpm preinstall: Done
+2026-10-05T19:28:55.0158055Z .../.pnpm/pnpm@12.6.0/node_modules/pnpm postinstall$ node install.js
+2026-10-05T19:28:55.0642340Z .../.pnpm/pnpm@12.6.0/node_modules/pnpm postinstall: Done
+2026-10-05T19:28:56.4209729Z 
+2026-10-05T19:28:56.4210119Z dependencies:
+2026-10-05T19:28:56.4210549Z + pnpm 12.6.0 (12.9.1 is available)
+2026-10-05T19:28:56.4210891Z 
+2026-10-05T19:28:56.4242230Z Done in 3s
+2026-10-05T19:28:56.4910495Z ##[endgroup]
+2026-10-05T19:28:56.4911094Z Installation Completed!
+2026-10-05T19:28:56.5111838Z ##[group]Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+2026-10-05T19:28:56.5112273Z with:
+2026-10-05T19:28:56.5112471Z   node-version: 24
+2026-10-05T19:28:56.5112699Z   package-manager-cache: false
+2026-10-05T19:28:56.5113134Z   check-latest: false
+2026-10-05T19:28:56.5115578Z   token: ***
+2026-10-05T19:28:56.5115783Z env:
+2026-10-05T19:28:56.5116041Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-10-05T19:28:56.5116360Z ##[endgroup]
+2026-10-05T19:28:56.6679846Z Found in cache @ /opt/hostedtoolcache/node/24.21.0/x64
+2026-10-05T19:28:56.6682485Z ##[group]Environment details
+2026-10-05T19:29:02.0513733Z node: v24.21.0
+2026-10-05T19:29:02.0514238Z npm: 11.19.0
+2026-10-05T19:29:02.0514578Z yarn: 1.22.22
+2026-10-05T19:29:02.0515296Z ##[endgroup]
+2026-10-05T19:29:02.0646515Z ##[group]Run bash scripts/bootstrap.sh
+2026-10-05T19:29:02.0646906Z [36;1mbash scripts/bootstrap.sh[0m
+2026-10-05T19:29:02.1215500Z shell: /usr/bin/bash -e {0}
+2026-10-05T19:29:02.1215773Z env:
+2026-10-05T19:29:02.1216043Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-10-05T19:29:02.1216366Z ##[endgroup]
+2026-10-05T19:29:02.2708314Z Scope: all 3 workspace projects
+2026-10-05T19:29:02.2872974Z ? Verifying lockfile against supply-chain policies (162 entries)...
+2026-10-05T19:29:02.4517542Z Downloading @rolldown/binding-linux-x64-gnu@1.2.11: 0.00 B/7.94 MB
+2026-10-05T19:29:02.7162365Z Packages are hard linked from the content-addressable store to the virtual store.
+2026-10-05T19:29:02.7163931Z   Content-addressable store is at: /home/runner/setup-pnpm/node_modules/.bin/store/v11
+2026-10-05T19:29:02.7182082Z   Virtual store is at:             node_modules/.pnpm
+2026-10-05T19:29:03.6539938Z ✓ Lockfile passes supply-chain policies (162 entries in 1.4s)
+2026-10-05T19:29:03.6540864Z Lockfile is up to date, resolution step is skipped
+2026-10-05T19:29:03.7020936Z Packages: +137
+2026-10-05T19:29:03.7021707Z ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2026-10-05T19:29:03.7227439Z Progress: resolved 137, reused 0, downloaded 137, added 137, done
+2026-10-05T19:29:03.7588857Z 
+2026-10-05T19:29:03.7589560Z devDependencies:
+2026-10-05T19:29:03.7590344Z + @playwright/test 1.63.0
+2026-10-05T19:29:03.7590795Z 
+2026-10-05T19:29:03.7609909Z Done in 1.5s using pnpm v12.6.0
+2026-10-05T19:29:03.7906004Z ##[group]Run pnpm --filter @sveltery/base build
+2026-10-05T19:29:03.7906420Z [36;1mpnpm --filter @sveltery/base build[0m
+2026-10-05T19:29:03.7978689Z shell: /usr/bin/bash -e {0}
+2026-10-05T19:29:03.7978939Z env:
+2026-10-05T19:29:03.7979191Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-10-05T19:29:03.7979508Z ##[endgroup]
+2026-10-05T19:29:03.8281394Z $ svelte-package -i src/lib -o dist
+2026-10-05T19:29:12.1008293Z src/lib -> dist
+2026-10-05T19:29:12.1977747Z ##[group]Run pnpm exec playwright install --with-deps chromium
+2026-10-05T19:29:12.1978627Z [36;1mpnpm exec playwright install --with-deps chromium[0m
+2026-10-05T19:29:12.2049612Z shell: /usr/bin/bash -e {0}
+2026-10-05T19:29:12.2049864Z env:
+2026-10-05T19:29:12.2050127Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-10-05T19:29:12.2050448Z ##[endgroup]
+2026-10-05T19:29:12.7422345Z Installing dependencies...
+2026-10-05T19:29:12.7509241Z Switching to root user to install dependencies...
+2026-10-05T19:29:12.8787274Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-05T19:29:12.9101811Z Get:6 https://packages.microsoft.com/ubuntu/22.04/prod jammy InRelease [3632 B]
+2026-10-05T19:29:12.9236675Z Hit:2 http://azure.archive.ubuntu.com/ubuntu jammy InRelease
+2026-10-05T19:29:12.9268902Z Get:3 http://azure.archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+2026-10-05T19:29:12.9311998Z Get:4 http://azure.archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+2026-10-05T19:29:12.9335807Z Get:5 http://azure.archive.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+2026-10-05T19:29:13.0079650Z Get:7 https://packages.microsoft.com/ubuntu/22.04/prod jammy/main arm64 Packages [551 kB]
+2026-10-05T19:29:13.0239197Z Get:8 https://packages.microsoft.com/ubuntu/22.04/prod jammy/main amd64 Packages [794 kB]
+2026-10-05T19:29:13.1872335Z Get:9 http://azure.archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3908 kB]
+2026-10-05T19:29:13.2100845Z Get:10 http://azure.archive.ubuntu.com/ubuntu jammy-updates/main Translation-en [576 kB]
+2026-10-05T19:29:13.2122446Z Get:11 http://azure.archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [6714 kB]
+2026-10-05T19:29:13.2479350Z Get:12 http://azure.archive.ubuntu.com/ubuntu jammy-updates/restricted Translation-en [1290 kB]
+2026-10-05T19:29:13.2539527Z Get:13 http://azure.archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1285 kB]
+2026-10-05T19:29:13.2623016Z Get:14 http://azure.archive.ubuntu.com/ubuntu jammy-updates/universe Translation-en [325 kB]
+2026-10-05T19:29:13.3800882Z Get:15 http://azure.archive.ubuntu.com/ubuntu jammy-security/main amd64 Packages [3631 kB]
+2026-10-05T19:29:13.3961999Z Get:16 http://azure.archive.ubuntu.com/ubuntu jammy-security/main Translation-en [508 kB]
+2026-10-05T19:29:13.3994091Z Get:17 http://azure.archive.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [6465 kB]
+2026-10-05T19:29:13.4273438Z Get:18 http://azure.archive.ubuntu.com/ubuntu jammy-security/restricted Translation-en [1244 kB]
+2026-10-05T19:29:13.4793724Z Get:19 http://azure.archive.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1052 kB]
+2026-10-05T19:29:13.4842909Z Get:20 http://azure.archive.ubuntu.com/ubuntu jammy-security/universe Translation-en [237 kB]
+2026-10-05T19:29:18.8746367Z Fetched 29.0 MB in 3s (9055 kB/s)
+2026-10-05T19:29:20.1602143Z Reading package lists...
+2026-10-05T19:29:20.2244292Z Reading package lists...
+2026-10-05T19:29:20.4509729Z Building dependency tree...
+2026-10-05T19:29:20.4521547Z Reading state information...
+2026-10-05T19:29:20.6092889Z fonts-liberation is already the newest version (1:1.07.4-11).
+2026-10-05T19:29:20.6093826Z fonts-liberation set to manually installed.
+2026-10-05T19:29:20.6094855Z libatk-bridge2.0-0 is already the newest version (2.38.0-3).
+2026-10-05T19:29:20.6095760Z libatk-bridge2.0-0 set to manually installed.
+2026-10-05T19:29:20.6096502Z libatk1.0-0 is already the newest version (2.36.0-3build1).
+2026-10-05T19:29:20.6097222Z libatk1.0-0 set to manually installed.
+2026-10-05T19:29:20.6098086Z libatspi2.0-0 is already the newest version (2.44.0-3).
+2026-10-05T19:29:20.6098726Z libatspi2.0-0 set to manually installed.
+2026-10-05T19:29:20.6099203Z libfontconfig1 is already the newest version (2.13.1-4.2ubuntu5).
+2026-10-05T19:29:20.6099629Z libfontconfig1 set to manually installed.
+2026-10-05T19:29:20.6100027Z libxcb1 is already the newest version (1.14-3ubuntu3).
+2026-10-05T19:29:20.6100403Z libxcb1 set to manually installed.
+2026-10-05T19:29:20.6101259Z libxcomposite1 is already the newest version (1:0.4.5-1build2).
+2026-10-05T19:29:20.6101748Z libxcomposite1 set to manually installed.
+2026-10-05T19:29:20.6102315Z libxdamage1 is already the newest version (1:1.1.5-2build2).
+2026-10-05T19:29:20.6102871Z libxdamage1 set to manually installed.
+2026-10-05T19:29:20.6103270Z libxext6 is already the newest version (2:1.3.4-1build1).
+2026-10-05T19:29:20.6103639Z libxext6 set to manually installed.
+2026-10-05T19:29:20.6104014Z libxfixes3 is already the newest version (1:6.0.0-1).
+2026-10-05T19:29:20.6104442Z libxfixes3 set to manually installed.
+2026-10-05T19:29:20.6104830Z libxkbcommon0 is already the newest version (1.4.0-1).
+2026-10-05T19:29:20.6105203Z libxkbcommon0 set to manually installed.
+2026-10-05T19:29:20.6105607Z libxrandr2 is already the newest version (2:1.5.2-1build1).
+2026-10-05T19:29:20.6106044Z libxrandr2 set to manually installed.
+2026-10-05T19:29:20.6106703Z fonts-noto-color-emoji is already the newest version (2.047-0ubuntu0.22.04.1).
+2026-10-05T19:29:20.6107254Z libasound2 is already the newest version (1.2.6.1-1ubuntu1.2).
+2026-10-05T19:29:20.6107648Z libasound2 set to manually installed.
+2026-10-05T19:29:20.6108302Z libcairo2 is already the newest version (1.16.0-5ubuntu2.1).
+2026-10-05T19:29:20.6108695Z libcairo2 set to manually installed.
+2026-10-05T19:29:20.6109091Z libcups2 is already the newest version (2.4.1op1-1ubuntu4.21).
+2026-10-05T19:29:20.6109657Z libcups2 set to manually installed.
+2026-10-05T19:29:20.6110611Z libdbus-1-3 is already the newest version (1.12.20-2ubuntu4.1).
+2026-10-05T19:29:20.6111319Z libdbus-1-3 set to manually installed.
+2026-10-05T19:29:20.6112034Z libdrm2 is already the newest version (2.4.113-2~ubuntu0.22.04.1).
+2026-10-05T19:29:20.6112719Z libdrm2 set to manually installed.
+2026-10-05T19:29:20.6113164Z libfreetype6 is already the newest version (2.11.1+dfsg-1ubuntu0.3).
+2026-10-05T19:29:20.6113596Z libfreetype6 set to manually installed.
+2026-10-05T19:29:20.6114035Z libgbm1 is already the newest version (23.2.1-1ubuntu3.1~22.04.4).
+2026-10-05T19:29:20.6114439Z libgbm1 set to manually installed.
+2026-10-05T19:29:20.6114835Z libglib2.0-0 is already the newest version (2.72.4-0ubuntu2.10).
+2026-10-05T19:29:20.6115233Z libglib2.0-0 set to manually installed.
+2026-10-05T19:29:20.6115864Z libnspr4 is already the newest version (2:4.35-0ubuntu0.22.04.1).
+2026-10-05T19:29:20.6116773Z libnss3 is already the newest version (2:3.98-0ubuntu0.22.04.4).
+2026-10-05T19:29:20.6117671Z libpango-1.0-0 is already the newest version (1.50.6+ds-2ubuntu1).
+2026-10-05T19:29:20.6118471Z libpango-1.0-0 set to manually installed.
+2026-10-05T19:29:20.6118935Z libwayland-client0 is already the newest version (1.20.0-1ubuntu0.1).
+2026-10-05T19:29:20.6119395Z libwayland-client0 set to manually installed.
+2026-10-05T19:29:20.6119827Z libx11-6 is already the newest version (2:1.7.5-1ubuntu0.3).
+2026-10-05T19:29:20.6120212Z libx11-6 set to manually installed.
+2026-10-05T19:29:20.6120625Z xvfb is already the newest version (2:21.1.4-2ubuntu1.7~22.04.16).
+2026-10-05T19:29:20.6121391Z The following additional packages will be installed:
+2026-10-05T19:29:20.6122030Z   xfonts-encodings xfonts-utils
+2026-10-05T19:29:20.6122544Z Recommended packages:
+2026-10-05T19:29:20.6123045Z   fonts-ipafont-mincho fonts-tlwg-loma
+2026-10-05T19:29:20.6314163Z The following NEW packages will be installed:
+2026-10-05T19:29:20.6315154Z   fonts-freefont-ttf fonts-ipafont-gothic fonts-tlwg-loma-otf fonts-unifont
+2026-10-05T19:29:20.6320391Z   fonts-wqy-zenhei xfonts-cyrillic xfonts-encodings xfonts-scalable
+2026-10-05T19:29:20.6320844Z   xfonts-utils
+2026-10-05T19:29:20.6502554Z 0 upgraded, 9 newly installed, 0 to remove and 20 not upgraded.
+2026-10-05T19:29:20.6503061Z Need to get 18.4 MB of archives.
+2026-10-05T19:29:20.6503504Z After this operation, 56.8 MB of additional disk space will be used.
+2026-10-05T19:29:20.6504248Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-05T19:29:20.7786869Z Get:2 http://azure.archive.ubuntu.com/ubuntu jammy/universe amd64 fonts-ipafont-gothic all 00303-21ubuntu1 [3513 kB]
+2026-10-05T19:29:21.0573492Z Get:3 http://azure.archive.ubuntu.com/ubuntu jammy/main amd64 fonts-freefont-ttf all 20120503-10build1 [2388 kB]
+2026-10-05T19:29:21.2491605Z Get:4 http://azure.archive.ubuntu.com/ubuntu jammy/universe amd64 fonts-tlwg-loma-otf all 1:0.7.3-1 [107 kB]
+2026-10-05T19:29:21.3305872Z Get:5 http://azure.archive.ubuntu.com/ubuntu jammy/universe amd64 fonts-unifont all 1:14.0.01-1 [3551 kB]
+2026-10-05T19:29:21.5745179Z Get:6 http://azure.archive.ubuntu.com/ubuntu jammy/universe amd64 fonts-wqy-zenhei all 0.9.45-8 [7472 kB]
+2026-10-05T19:29:22.0934165Z Get:7 http://azure.archive.ubuntu.com/ubuntu jammy/main amd64 xfonts-encodings all 1:1.0.5-0ubuntu2 [578 kB]
+2026-10-05T19:29:22.1537667Z Get:8 http://azure.archive.ubuntu.com/ubuntu jammy/main amd64 xfonts-utils amd64 1:7.7+6build2 [94.6 kB]
+2026-10-05T19:29:22.1802352Z Get:9 http://azure.archive.ubuntu.com/ubuntu jammy/universe amd64 xfonts-cyrillic all 1:1.0.5 [386 kB]
+2026-10-05T19:29:22.2253838Z Get:10 http://azure.archive.ubuntu.com/ubuntu jammy/main amd64 xfonts-scalable all 1:1.0.3-1.2ubuntu1 [306 kB]
+2026-10-05T19:29:22.5654038Z Fetched 18.4 MB in 2s (11.5 MB/s)
+2026-10-05T19:29:22.5942542Z Selecting previously unselected package fonts-ipafont-gothic.
+2026-10-05T19:29:22.6340611Z (Reading database ... 
+2026-10-05T19:29:22.6341382Z (Reading database ... 5%
+2026-10-05T19:29:22.6341944Z (Reading database ... 10%
+2026-10-05T19:29:22.6342532Z (Reading database ... 15%
+2026-10-05T19:29:22.6343390Z (Reading database ... 20%
+2026-10-05T19:29:22.6343948Z (Reading database ... 25%
+2026-10-05T19:29:22.6344495Z (Reading database ... 30%
+2026-10-05T19:29:22.6345040Z (Reading database ... 35%
+2026-10-05T19:29:22.6345571Z (Reading database ... 40%
+2026-10-05T19:29:22.6345936Z (Reading database ... 45%
+2026-10-05T19:29:22.6346265Z (Reading database ... 50%
+2026-10-05T19:29:22.7087137Z (Reading database ... 55%
+2026-10-05T19:29:22.9175034Z (Reading database ... 60%
+2026-10-05T19:29:23.1653401Z (Reading database ... 65%
+2026-10-05T19:29:23.3796711Z (Reading database ... 70%
+2026-10-05T19:29:23.6017065Z (Reading database ... 75%
+2026-10-05T19:29:23.7210488Z (Reading database ... 80%
+2026-10-05T19:29:23.9269127Z (Reading database ... 85%
+2026-10-05T19:29:24.1615280Z (Reading database ... 90%
+2026-10-05T19:29:24.3731813Z (Reading database ... 95%
+2026-10-05T19:29:24.3732279Z (Reading database ... 100%
+2026-10-05T19:29:24.3732946Z (Reading database ... 260411 files and directories currently installed.)
+2026-10-05T19:29:24.3787493Z Preparing to unpack .../0-fonts-ipafont-gothic_00303-21ubuntu1_all.deb ...
+2026-10-05T19:29:24.3892144Z Unpacking fonts-ipafont-gothic (00303-21ubuntu1) ...
+2026-10-05T19:29:24.6539589Z Selecting previously unselected package fonts-freefont-ttf.
+2026-10-05T19:29:24.6743265Z Preparing to unpack .../1-fonts-freefont-ttf_20120503-10build1_all.deb ...
+2026-10-05T19:29:24.6750658Z Unpacking fonts-freefont-ttf (20120503-10build1) ...
+2026-10-05T19:29:24.8640759Z Selecting previously unselected package fonts-tlwg-loma-otf.
+2026-10-05T19:29:24.8844200Z Preparing to unpack .../2-fonts-tlwg-loma-otf_1%3a0.7.3-1_all.deb ...
+2026-10-05T19:29:24.8851281Z Unpacking fonts-tlwg-loma-otf (1:0.7.3-1) ...
+2026-10-05T19:29:24.9088337Z Selecting previously unselected package fonts-unifont.
+2026-10-05T19:29:24.9290006Z Preparing to unpack .../3-fonts-unifont_1%3a14.0.01-1_all.deb ...
+2026-10-05T19:29:24.9296002Z Unpacking fonts-unifont (1:14.0.01-1) ...
+2026-10-05T19:29:25.0126078Z Selecting previously unselected package fonts-wqy-zenhei.
+2026-10-05T19:29:25.0331059Z Preparing to unpack .../4-fonts-wqy-zenhei_0.9.45-8_all.deb ...
+2026-10-05T19:29:25.0448877Z Unpacking fonts-wqy-zenhei (0.9.45-8) ...
+2026-10-05T19:29:25.5344139Z Selecting previously unselected package xfonts-encodings.
+2026-10-05T19:29:25.5548362Z Preparing to unpack .../5-xfonts-encodings_1%3a1.0.5-0ubuntu2_all.deb ...
+2026-10-05T19:29:25.5556100Z Unpacking xfonts-encodings (1:1.0.5-0ubuntu2) ...
+2026-10-05T19:29:25.5880948Z Selecting previously unselected package xfonts-utils.
+2026-10-05T19:29:25.6083586Z Preparing to unpack .../6-xfonts-utils_1%3a7.7+6build2_amd64.deb ...
+2026-10-05T19:29:25.6090185Z Unpacking xfonts-utils (1:7.7+6build2) ...
+2026-10-05T19:29:25.6531217Z Selecting previously unselected package xfonts-cyrillic.
+2026-10-05T19:29:25.6732560Z Preparing to unpack .../7-xfonts-cyrillic_1%3a1.0.5_all.deb ...
+2026-10-05T19:29:25.6740182Z Unpacking xfonts-cyrillic (1:1.0.5) ...
+2026-10-05T19:29:25.7210949Z Selecting previously unselected package xfonts-scalable.
+2026-10-05T19:29:25.7410311Z Preparing to unpack .../8-xfonts-scalable_1%3a1.0.3-1.2ubuntu1_all.deb ...
+2026-10-05T19:29:25.7417138Z Unpacking xfonts-scalable (1:1.0.3-1.2ubuntu1) ...
+2026-10-05T19:29:25.7941739Z Setting up fonts-wqy-zenhei (0.9.45-8) ...
+2026-10-05T19:29:25.8063162Z Setting up fonts-freefont-ttf (20120503-10build1) ...
+2026-10-05T19:29:25.8080419Z Setting up fonts-tlwg-loma-otf (1:0.7.3-1) ...
+2026-10-05T19:29:25.8096790Z Setting up xfonts-encodings (1:1.0.5-0ubuntu2) ...
+2026-10-05T19:29:25.8115419Z Setting up fonts-ipafont-gothic (00303-21ubuntu1) ...
+2026-10-05T19:29:25.8196755Z update-alternatives: using /usr/share/fonts/opentype/ipafont-gothic/ipag.ttf to provide /usr/share/fonts/truetype/fonts-japanese-gothic.ttf (fonts-japanese-gothic.ttf) in auto mode
+2026-10-05T19:29:25.8216020Z Setting up fonts-unifont (1:14.0.01-1) ...
+2026-10-05T19:29:25.8233054Z Setting up xfonts-utils (1:7.7+6build2) ...
+2026-10-05T19:29:25.8272532Z Setting up xfonts-cyrillic (1:1.0.5) ...
+2026-10-05T19:29:25.9310542Z Setting up xfonts-scalable (1:1.0.3-1.2ubuntu1) ...
+2026-10-05T19:29:25.9711698Z Processing triggers for man-db (2.10.2-1) ...
+2026-10-05T19:29:25.9734397Z Not building database; man-db/auto-update is not 'true'.
+2026-10-05T19:29:25.9746354Z Processing triggers for fontconfig (2.13.1-4.2ubuntu5) ...
+2026-10-05T19:29:26.9342227Z 
+2026-10-05T19:29:26.9343199Z Running kernel seems to be up-to-date.
+2026-10-05T19:29:26.9343652Z 
+2026-10-05T19:29:26.9343956Z No services need to be restarted.
+2026-10-05T19:29:26.9344271Z 
+2026-10-05T19:29:26.9344521Z No containers need to be restarted.
+2026-10-05T19:29:26.9344843Z 
+2026-10-05T19:29:26.9345157Z No user sessions are running outdated binaries.
+2026-10-05T19:29:26.9345541Z 
+2026-10-05T19:29:26.9349241Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+2026-10-05T19:29:28.1944818Z Downloading Chrome for Testing 153.0.8010.12 (playwright chromium v1243) from https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip
+2026-10-05T19:29:28.5896928Z |                                                                                |   0% of 186.8 MiB
+2026-10-05T19:29:28.7419427Z |■■■■■■■■                                                                        |  10% of 186.8 MiB
+2026-10-05T19:29:28.8465393Z |■■■■■■■■■■■■■■■■                                                                |  20% of 186.8 MiB
+2026-10-05T19:29:28.9508677Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 186.8 MiB
+2026-10-05T19:29:29.0299389Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 186.8 MiB
+2026-10-05T19:29:29.1429636Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 186.8 MiB
+2026-10-05T19:29:29.2445800Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 186.8 MiB
+2026-10-05T19:29:29.3311127Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 186.8 MiB
+2026-10-05T19:29:29.4965289Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 186.8 MiB
+2026-10-05T19:29:29.6680874Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 186.8 MiB
+2026-10-05T19:29:29.8217006Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 186.8 MiB
+2026-10-05T19:29:32.8646239Z Chrome for Testing 153.0.8010.12 (playwright chromium v1243) downloaded to /home/runner/.cache/ms-playwright/chromium-1243
+2026-10-05T19:29:32.8650173Z Downloading FFmpeg (playwright ffmpeg v1011) from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+2026-10-05T19:29:33.2398428Z |                                                                                |   0% of 2.3 MiB
+2026-10-05T19:29:33.2520776Z |■■■■■■■■                                                                        |  10% of 2.3 MiB
+2026-10-05T19:29:33.2573146Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.3 MiB
+2026-10-05T19:29:33.2603444Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.3 MiB
+2026-10-05T19:29:33.2636630Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.3 MiB
+2026-10-05T19:29:33.2653483Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.3 MiB
+2026-10-05T19:29:33.2666283Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.3 MiB
+2026-10-05T19:29:33.2680099Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.3 MiB
+2026-10-05T19:29:33.2695378Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.3 MiB
+2026-10-05T19:29:33.2707176Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.3 MiB
+2026-10-05T19:29:33.2722229Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.3 MiB
+2026-10-05T19:29:33.3320824Z FFmpeg (playwright ffmpeg v1011) downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1011
+2026-10-05T19:29:33.3324184Z Downloading Chrome Headless Shell 153.0.8010.12 (playwright chromium-headless-shell v1243) from https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-headless-shell-linux64.zip
+2026-10-05T19:29:33.7248369Z |                                                                                |   0% of 114.3 MiB
+2026-10-05T19:29:33.8256309Z |■■■■■■■■                                                                        |  10% of 114.3 MiB
+2026-10-05T19:29:33.8958756Z |■■■■■■■■■■■■■■■■                                                                |  20% of 114.3 MiB
+2026-10-05T19:29:33.9532106Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 114.3 MiB
+2026-10-05T19:29:34.0117467Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 114.3 MiB
+2026-10-05T19:29:34.0735163Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 114.3 MiB
+2026-10-05T19:29:34.1142401Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 114.3 MiB
+2026-10-05T19:29:34.1947691Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 114.3 MiB
+2026-10-05T19:29:34.2331845Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 114.3 MiB
+2026-10-05T19:29:34.2828561Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 114.3 MiB
+2026-10-05T19:29:34.3385083Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 114.3 MiB
+2026-10-05T19:29:36.4911043Z Chrome Headless Shell 153.0.8010.12 (playwright chromium-headless-shell v1243) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1243
+2026-10-05T19:29:36.5177655Z ##[group]Run pnpm exec playwright test tests/browser/collapsible.spec.ts --max-failures=5
+2026-10-05T19:29:36.5178773Z [36;1mpnpm exec playwright test tests/browser/collapsible.spec.ts --max-failures=5[0m
+2026-10-05T19:29:36.5250529Z shell: /usr/bin/bash -e {0}
+2026-10-05T19:29:36.5250807Z env:
+2026-10-05T19:29:36.5251077Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-10-05T19:29:36.5251416Z ##[endgroup]
+2026-10-05T19:29:40.6052865Z 
+2026-10-05T19:29:40.6053442Z Running 136 tests using 1 worker
+2026-10-05T19:29:40.6053727Z 
+2026-10-05T19:29:48.2192896Z {"scenario":"css-transition-default-string","observations":{"Original":{"framework":"Original","immediate":{"connected":true,"alignment":"initial","priority":"important","duration":"123ms","height":"18px","actualHeight":0,"animations":[],"starting":true,"hidden":null},"afterFrame":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[],"starting":true,"hidden":null},"afterTwoFrames":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[{"playState":"running","pending":true}],"starting":false,"hidden":null},"detached":{"connected":false,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[],"starting":false,"hidden":null},"trace":[{"kind":"property","property":"justify-content","value":"initial","priority":"important"},{"kind":"property","property":"align-items","value":"initial","priority":"important"},{"kind":"property","property":"align-content","value":"initial","priority":"important"},{"kind":"property","property":"justify-items","value":"initial","priority":"important"},{"kind":"real-measure","value":18,"alignment":"initial","priority":"important"},{"kind":"property","property":"--collapsible-panel-height","value":"18px","priority":""},{"kind":"property","property":"--collapsible-panel-width","value":"1264px","priority":""},{"kind":"property","property":"justify-content","value":"center","priority":""},{"kind":"property","property":"justify-content","value":"center","priority":""}]},"bare Svelte":{"framework":"bare Svelte","immediate":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[],"starting":true,"hidden":null},"afterFrame":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[{"playState":"running","pending":true}],"starting":false,"hidden":null},"afterTwoFrames":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":2.4375,"animations":[{"playState":"running","pending":false}],"starting":false,"hidden":null},"detached":{"connected":false,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[],"starting":false,"hidden":null},"trace":[{"kind":"property","property":"justify-content","value":"initial","priority":"important"},{"kind":"property","property":"align-items","value":"initial","priority":"important"},{"kind":"property","property":"align-content","value":"initial","priority":"important"},{"kind":"property","property":"justify-items","value":"initial","priority":"important"},{"kind":"real-measure","value":18,"alignment":"initial","priority":"important"},{"kind":"cssText","value":"--collapsible-panel-height:18px;--collapsible-panel-width:1264px;transition-duration:123ms;justify-content:center","beforeAlignment":"initial","beforeDuration":"123ms"},{"kind":"property","property":"justify-content","value":"center","priority":""}]},"Collapsible":{"framework":"Collapsible","immediate":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[],"starting":true,"hidden":null},"afterFrame":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[{"playState":"running","pending":true}],"starting":false,"hidden":null},"afterTwoFrames":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":2.4375,"animations":[{"playState":"running","pending":false}],"starting":false,"hidden":null},"detached":{"connected":false,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[],"starting":false,"hidden":null},"trace":[{"kind":"property","property":"justify-content","value":"initial","priority":"important"},{"kind":"property","property":"align-items","value":"initial","priority":"important"},{"kind":"property","property":"align-content","value":"initial","priority":"important"},{"kind":"property","property":"justify-items","value":"initial","priority":"important"},{"kind":"real-measure","value":18,"alignment":"initial","priority":"important"},{"kind":"cssText","value":"--collapsible-panel-height:18px;--collapsible-panel-width:1264px;transition-duration:123ms;justify-content:center","beforeAlignment":"initial","beforeDuration":"123ms"},{"kind":"property","property":"justify-content","value":"center","priority":""},{"kind":"property","property":"justify-content","value":"center","priority":""}]}}}
+2026-10-05T19:29:48.2456999Z   ✓    1 tests/browser/collapsible.spec.ts:40:4 › supplement: Source and native CSS transport css-transition-default-string (5.2s)
+2026-10-05T19:29:50.2201332Z {"scenario":"css-transition-forward-object","observations":{"Original":{"framework":"Original","immediate":{"connected":true,"alignment":"initial","priority":"important","duration":"123ms","height":"18px","actualHeight":0,"animations":[],"starting":true,"hidden":null},"afterFrame":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[],"starting":true,"hidden":null},"afterTwoFrames":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[{"playState":"running","pending":true}],"starting":false,"hidden":null},"detached":{"connected":false,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[],"starting":false,"hidden":null},"trace":[{"kind":"property","property":"justify-content","value":"initial","priority":"important"},{"kind":"property","property":"align-items","value":"initial","priority":"important"},{"kind":"property","property":"align-content","value":"initial","priority":"important"},{"kind":"property","property":"justify-items","value":"initial","priority":"important"},{"kind":"real-measure","value":18,"alignment":"initial","priority":"important"},{"kind":"property","property":"--collapsible-panel-height","value":"18px","priority":""},{"kind":"property","property":"--collapsible-panel-width","value":"1264px","priority":""},{"kind":"property","property":"justify-content","value":"center","priority":""},{"kind":"property","property":"justify-content","value":"center","priority":""}]},"bare Svelte":{"framework":"bare Svelte","immediate":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[],"starting":true,"hidden":null},"afterFrame":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[{"playState":"running","pending":true}],"starting":false,"hidden":null},"afterTwoFrames":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":2.421875,"animations":[{"playState":"running","pending":false}],"starting":false,"hidden":null},"detached":{"connected":false,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[],"starting":false,"hidden":null},"trace":[{"kind":"property","property":"justify-content","value":"initial","priority":"important"},{"kind":"property","property":"align-items","value":"initial","priority":"important"},{"kind":"property","property":"align-content","value":"initial","priority":"important"},{"kind":"property","property":"justify-items","value":"initial","priority":"important"},{"kind":"real-measure","value":18,"alignment":"initial","priority":"important"},{"kind":"cssText","value":"--collapsible-panel-height:18px;--collapsible-panel-width:1264px;transition-duration:123ms;justify-content:center","beforeAlignment":"initial","beforeDuration":"123ms"},{"kind":"property","property":"justify-content","value":"center","priority":""}]},"Collapsible":{"framework":"Collapsible","immediate":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[],"starting":true,"hidden":null},"afterFrame":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[{"playState":"running","pending":true}],"starting":false,"hidden":null},"afterTwoFrames":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":2.421875,"animations":[{"playState":"running","pending":false}],"starting":false,"hidden":null},"detached":{"connected":false,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[],"starting":false,"hidden":null},"trace":[{"kind":"property","property":"justify-content","value":"initial","priority":"important"},{"kind":"property","property":"align-items","value":"initial","priority":"important"},{"kind":"property","property":"align-content","value":"initial","priority":"important"},{"kind":"property","property":"justify-items","value":"initial","priority":"important"},{"kind":"real-measure","value":18,"alignment":"initial","priority":"important"},{"kind":"cssText","value":"--collapsible-panel-height:18px;--collapsible-panel-width:1264px;transition-duration:123ms;justify-content:center","beforeAlignment":"initial","beforeDuration":"123ms"},{"kind":"property","property":"justify-content","value":"center","priority":""},{"kind":"property","property":"justify-content","value":"center","priority":""}]}}}
+2026-10-05T19:29:50.2311418Z   ✓    2 tests/browser/collapsible.spec.ts:40:4 › supplement: Source and native CSS transport css-transition-forward-object (2.0s)
+2026-10-05T19:29:52.2159170Z {"scenario":"css-beforematch-transition-default-string","observations":{"Original":{"framework":"Original","immediate":{"connected":true,"alignment":"initial","priority":"important","duration":"0s","height":"18px","actualHeight":18,"animations":[],"starting":false,"hidden":null},"afterFrame":{"connected":true,"alignment":"center","priority":"","duration":"0s","height":"auto","actualHeight":18,"animations":[],"starting":false,"hidden":null},"afterTwoFrames":{"connected":true,"alignment":"center","priority":"","duration":"0s","height":"auto","actualHeight":18,"animations":[],"starting":false,"hidden":null},"detached":{"connected":false,"alignment":"center","priority":"","duration":"123ms","height":"auto","actualHeight":0,"animations":[],"starting":false,"hidden":null},"trace":[{"kind":"property","property":"justify-content","value":"initial","priority":"important"},{"kind":"property","property":"align-items","value":"initial","priority":"important"},{"kind":"property","property":"align-content","value":"initial","priority":"important"},{"kind":"property","property":"justify-items","value":"initial","priority":"important"},{"kind":"real-measure","value":18,"alignment":"initial","priority":"important"},{"kind":"property","property":"transition-duration","value":"0s","priority":""},{"kind":"property","property":"--collapsible-panel-height","value":"18px","priority":""},{"kind":"property","property":"--collapsible-panel-width","value":"1264px","priority":""},{"kind":"property","property":"justify-content","value":"center","priority":""},{"kind":"property","property":"--collapsible-panel-height","value":"auto","priority":""},{"kind":"property","property":"--collapsible-panel-width","value":"auto","priority":""},{"kind":"property","property":"justify-content","value":"center","priority":""},{"kind":"property","property":"transition-duration","value":"123ms","priority":""}]},"bare Svelte":{"framework":"bare Svelte","immediate":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[],"starting":true,"hidden":null},"afterFrame":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[{"playState":"running","pending":true}],"starting":false,"hidden":null},"afterTwoFrames":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":2.421875,"animations":[{"playState":"running","pending":false}],"starting":false,"hidden":null},"detached":{"connected":false,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[],"starting":false,"hidden":null},"trace":[{"kind":"property","property":"justify-content","value":"initial","priority":"important"},{"kind":"property","property":"align-items","value":"initial","priority":"important"},{"kind":"property","property":"align-content","value":"initial","priority":"important"},{"kind":"property","property":"justify-items","value":"initial","priority":"important"},{"kind":"real-measure","value":18,"alignment":"initial","priority":"important"},{"kind":"property","property":"transition-duration","value":"0s","priority":""},{"kind":"cssText","value":"--collapsible-panel-height:18px;--collapsible-panel-width:1264px;transition-duration:123ms;justify-content:center","beforeAlignment":"initial","beforeDuration":"0s"},{"kind":"property","property":"justify-content","value":"center","priority":""},{"kind":"property","property":"transition-duration","value":"123ms","priority":""}]},"Collapsible":{"framework":"Collapsible","immediate":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[{"playState":"running","pending":true}],"starting":false,"hidden":null},"afterFrame":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[{"playState":"running","pending":true}],"starting":false,"hidden":null},"afterTwoFrames":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":2.421875,"animations":[{"playState":"running","pending":false}],"starting":false,"hidden":null},"detached":{"connected":false,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[],"starting":false,"hidden":null},"trace":[{"kind":"property","property":"justify-content","value":"initial","priority":"important"},{"kind":"property","property":"align-items","value":"initial","priority":"important"},{"kind":"property","property":"align-content","value":"initial","priority":"important"},{"kind":"property","property":"justify-items","value":"initial","priority":"important"},{"kind":"real-measure","value":18,"alignment":"initial","priority":"important"},{"kind":"property","property":"transition-duration","value":"0s","priority":""},{"kind":"cssText","value":"--collapsible-panel-height:18px;--collapsible-panel-width:1264px;transition-duration:123ms;justify-content:center","beforeAlignment":"initial","beforeDuration":"0s"},{"kind":"property","property":"justify-content","value":"center","priority":""},{"kind":"property","property":"justify-content","value":"center","priority":""},{"kind":"property","property":"transition-duration","value":"123ms","priority":""}]}}}
+2026-10-05T19:29:52.2390432Z   ✓    3 tests/browser/collapsible.spec.ts:40:4 › supplement: Source and native CSS transport css-beforematch-transition-default-string (2.0s)
+2026-10-05T19:29:54.0995311Z {"scenario":"css-beforematch-transition-forward-object","observations":{"Original":{"framework":"Original","immediate":{"connected":true,"alignment":"initial","priority":"important","duration":"0s","height":"18px","actualHeight":18,"animations":[],"starting":false,"hidden":null},"afterFrame":{"connected":true,"alignment":"center","priority":"","duration":"0s","height":"auto","actualHeight":18,"animations":[],"starting":false,"hidden":null},"afterTwoFrames":{"connected":true,"alignment":"center","priority":"","duration":"0s","height":"auto","actualHeight":18,"animations":[],"starting":false,"hidden":null},"detached":{"connected":false,"alignment":"center","priority":"","duration":"123ms","height":"auto","actualHeight":0,"animations":[],"starting":false,"hidden":null},"trace":[{"kind":"property","property":"justify-content","value":"initial","priority":"important"},{"kind":"property","property":"align-items","value":"initial","priority":"important"},{"kind":"property","property":"align-content","value":"initial","priority":"important"},{"kind":"property","property":"justify-items","value":"initial","priority":"important"},{"kind":"real-measure","value":18,"alignment":"initial","priority":"important"},{"kind":"property","property":"transition-duration","value":"0s","priority":""},{"kind":"property","property":"--collapsible-panel-height","value":"18px","priority":""},{"kind":"property","property":"--collapsible-panel-width","value":"1264px","priority":""},{"kind":"property","property":"justify-content","value":"center","priority":""},{"kind":"property","property":"--collapsible-panel-height","value":"auto","priority":""},{"kind":"property","property":"--collapsible-panel-width","value":"auto","priority":""},{"kind":"property","property":"justify-content","value":"center","priority":""},{"kind":"property","property":"transition-duration","value":"123ms","priority":""}]},"bare Svelte":{"framework":"bare Svelte","immediate":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[],"starting":true,"hidden":null},"afterFrame":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[{"playState":"running","pending":true}],"starting":false,"hidden":null},"afterTwoFrames":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":2.421875,"animations":[{"playState":"running","pending":false}],"starting":false,"hidden":null},"detached":{"connected":false,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[],"starting":false,"hidden":null},"trace":[{"kind":"property","property":"justify-content","value":"initial","priority":"important"},{"kind":"property","property":"align-items","value":"initial","priority":"important"},{"kind":"property","property":"align-content","value":"initial","priority":"important"},{"kind":"property","property":"justify-items","value":"initial","priority":"important"},{"kind":"real-measure","value":18,"alignment":"initial","priority":"important"},{"kind":"property","property":"transition-duration","value":"0s","priority":""},{"kind":"cssText","value":"--collapsible-panel-height:18px;--collapsible-panel-width:1264px;transition-duration:123ms;justify-content:center","beforeAlignment":"initial","beforeDuration":"0s"},{"kind":"property","property":"justify-content","value":"center","priority":""},{"kind":"property","property":"transition-duration","value":"123ms","priority":""}]},"Collapsible":{"framework":"Collapsible","immediate":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[{"playState":"running","pending":true}],"starting":false,"hidden":null},"afterFrame":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[{"playState":"running","pending":true}],"starting":false,"hidden":null},"afterTwoFrames":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":2.421875,"animations":[{"playState":"running","pending":false}],"starting":false,"hidden":null},"detached":{"connected":false,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[],"starting":false,"hidden":null},"trace":[{"kind":"property","property":"justify-content","value":"initial","priority":"important"},{"kind":"property","property":"align-items","value":"initial","priority":"important"},{"kind":"property","property":"align-content","value":"initial","priority":"important"},{"kind":"property","property":"justify-items","value":"initial","priority":"important"},{"kind":"real-measure","value":18,"alignment":"initial","priority":"important"},{"kind":"property","property":"transition-duration","value":"0s","priority":""},{"kind":"cssText","value":"--collapsible-panel-height:18px;--collapsible-panel-width:1264px;transition-duration:123ms;justify-content:center","beforeAlignment":"initial","beforeDuration":"0s"},{"kind":"property","property":"justify-content","value":"center","priority":""},{"kind":"property","property":"justify-content","value":"center","priority":""},{"kind":"property","property":"transition-duration","value":"123ms","priority":""}]}}}
+2026-10-05T19:29:54.1120960Z   ✓    4 tests/browser/collapsible.spec.ts:40:4 › supplement: Source and native CSS transport css-beforematch-transition-forward-object (1.9s)
+2026-10-05T19:29:55.9967790Z {"scenario":"css-beforematch-keys-default-string","observations":{"Original":{"framework":"Original","immediate":{"connected":true,"alignment":"center","priority":"","duration":"0s","height":"18px","actualHeight":18,"animations":[],"starting":false,"hidden":null},"afterFrame":{"connected":true,"alignment":"center","priority":"","duration":"0s","height":"auto","actualHeight":18,"animations":[],"starting":false,"hidden":null},"afterTwoFrames":{"connected":true,"alignment":"center","priority":"","duration":"0s","height":"auto","actualHeight":18,"animations":[],"starting":false,"hidden":null},"detached":{"connected":false,"alignment":"center","priority":"","duration":"123ms","height":"auto","actualHeight":0,"animations":[],"starting":false,"hidden":null},"trace":[{"kind":"real-measure","value":18,"alignment":"center","priority":""},{"kind":"property","property":"animation-name","value":"none","priority":""},{"kind":"property","property":"animation-duration","value":"0s","priority":""},{"kind":"property","property":"--collapsible-panel-height","value":"18px","priority":""},{"kind":"property","property":"--collapsible-panel-width","value":"1264px","priority":""},{"kind":"property","property":"--collapsible-panel-height","value":"auto","priority":""},{"kind":"property","property":"--collapsible-panel-width","value":"auto","priority":""},{"kind":"property","property":"animation-duration","value":"123ms","priority":""}]},"bare Svelte":{"framework":"bare Svelte","immediate":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[{"playState":"running","pending":true}],"starting":true,"hidden":null},"afterFrame":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[{"playState":"running","pending":true}],"starting":false,"hidden":null},"afterTwoFrames":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":2.421875,"animations":[{"playState":"running","pending":false}],"starting":false,"hidden":null},"detached":{"connected":false,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[],"starting":false,"hidden":null},"trace":[{"kind":"real-measure","value":18,"alignment":"center","priority":""},{"kind":"property","property":"animation-duration","value":"0s","priority":""},{"kind":"cssText","value":"--collapsible-panel-height:18px;--collapsible-panel-width:1264px;animation-duration:123ms;justify-content:center","beforeAlignment":"center","beforeDuration":"0s"},{"kind":"property","property":"animation-duration","value":"123ms","priority":""}]},"Collapsible":{"framework":"Collapsible","immediate":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[{"playState":"running","pending":true}],"starting":false,"hidden":null},"afterFrame":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[{"playState":"running","pending":true}],"starting":false,"hidden":null},"afterTwoFrames":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":2.421875,"animations":[{"playState":"running","pending":false}],"starting":false,"hidden":null},"detached":{"connected":false,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[],"starting":false,"hidden":null},"trace":[{"kind":"real-measure","value":18,"alignment":"center","priority":""},{"kind":"property","property":"animation-name","value":"none","priority":""},{"kind":"property","property":"animation-duration","value":"0s","priority":""},{"kind":"cssText","value":"--collapsible-panel-height:18px;--collapsible-panel-width:1264px;animation-duration:123ms;justify-content:center","beforeAlignment":"center","beforeDuration":"0s"},{"kind":"property","property":"animation-duration","value":"123ms","priority":""}]}}}
+2026-10-05T19:29:56.0097277Z   ✓    5 tests/browser/collapsible.spec.ts:40:4 › supplement: Source and native CSS transport css-beforematch-keys-default-string (1.9s)
+2026-10-05T19:29:57.9965413Z {"scenario":"css-beforematch-keys-forward-object","observations":{"Original":{"framework":"Original","immediate":{"connected":true,"alignment":"center","priority":"","duration":"0s","height":"18px","actualHeight":18,"animations":[],"starting":false,"hidden":null},"afterFrame":{"connected":true,"alignment":"center","priority":"","duration":"0s","height":"auto","actualHeight":18,"animations":[],"starting":false,"hidden":null},"afterTwoFrames":{"connected":true,"alignment":"center","priority":"","duration":"0s","height":"auto","actualHeight":18,"animations":[],"starting":false,"hidden":null},"detached":{"connected":false,"alignment":"center","priority":"","duration":"123ms","height":"auto","actualHeight":0,"animations":[],"starting":false,"hidden":null},"trace":[{"kind":"real-measure","value":18,"alignment":"center","priority":""},{"kind":"property","property":"animation-name","value":"none","priority":""},{"kind":"property","property":"animation-duration","value":"0s","priority":""},{"kind":"property","property":"--collapsible-panel-height","value":"18px","priority":""},{"kind":"property","property":"--collapsible-panel-width","value":"1264px","priority":""},{"kind":"property","property":"--collapsible-panel-height","value":"auto","priority":""},{"kind":"property","property":"--collapsible-panel-width","value":"auto","priority":""},{"kind":"property","property":"animation-duration","value":"123ms","priority":""}]},"bare Svelte":{"framework":"bare Svelte","immediate":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[{"playState":"running","pending":true}],"starting":true,"hidden":null},"afterFrame":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[{"playState":"running","pending":true}],"starting":false,"hidden":null},"afterTwoFrames":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":2.4375,"animations":[{"playState":"running","pending":false}],"starting":false,"hidden":null},"detached":{"connected":false,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[],"starting":false,"hidden":null},"trace":[{"kind":"real-measure","value":18,"alignment":"center","priority":""},{"kind":"property","property":"animation-duration","value":"0s","priority":""},{"kind":"cssText","value":"--collapsible-panel-height:18px;--collapsible-panel-width:1264px;animation-duration:123ms;justify-content:center","beforeAlignment":"center","beforeDuration":"0s"},{"kind":"property","property":"animation-duration","value":"123ms","priority":""}]},"Collapsible":{"framework":"Collapsible","immediate":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[{"playState":"running","pending":true}],"starting":false,"hidden":null},"afterFrame":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[{"playState":"running","pending":true}],"starting":false,"hidden":null},"afterTwoFrames":{"connected":true,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":2.421875,"animations":[{"playState":"running","pending":false}],"starting":false,"hidden":null},"detached":{"connected":false,"alignment":"center","priority":"","duration":"123ms","height":"18px","actualHeight":0,"animations":[],"starting":false,"hidden":null},"trace":[{"kind":"real-measure","value":18,"alignment":"center","priority":""},{"kind":"property","property":"animation-name","value":"none","priority":""},{"kind":"property","property":"animation-duration","value":"0s","priority":""},{"kind":"cssText","value":"--collapsible-panel-height:18px;--collapsible-panel-width:1264px;animation-duration:123ms;justify-content:center","beforeAlignment":"center","beforeDuration":"0s"},{"kind":"property","property":"animation-duration","value":"123ms","priority":""}]}}}
+2026-10-05T19:29:58.0084303Z   ✓    6 tests/browser/collapsible.spec.ts:40:4 › supplement: Source and native CSS transport css-beforematch-keys-forward-object (2.0s)
+2026-10-05T19:29:59.0499876Z   ✓    7 tests/browser/collapsible.spec.ts:108:3 › R:19 Svelte sets ARIA attributes (1.0s)
+2026-10-05T19:30:00.0839760Z   ✓    8 tests/browser/collapsible.spec.ts:111:3 › R:35 Svelte references manual panel id (1.0s)
+2026-10-05T19:30:01.1942135Z   ✓    9 tests/browser/collapsible.spec.ts:114:3 › R:50 Svelte unregisters and restores generated panel id (1.1s)
+2026-10-05T19:30:02.2235524Z   ✓   10 tests/browser/collapsible.spec.ts:117:3 › R:74 Svelte disabled status (1.0s)
+2026-10-05T19:30:03.8101590Z   ✓   11 tests/browser/collapsible.spec.ts:118:3 › R:87 Svelte disabled click does not toggle or call onOpenChange (1.6s)
+2026-10-05T19:30:04.8874560Z   ✓   12 tests/browser/collapsible.spec.ts:121:3 › R:108 Svelte calls onOpenChange with eventDetails (1.1s)
+2026-10-05T19:30:05.9765168Z   ✓   13 tests/browser/collapsible.spec.ts:124:3 › R:132 Svelte cancellation prevents opening (1.1s)
+2026-10-05T19:30:07.0205824Z   ✓   14 tests/browser/collapsible.spec.ts:127:3 › R:154 Svelte cancellation prevents closing (1.0s)
+2026-10-05T19:30:08.1182686Z   ✓   15 tests/browser/collapsible.spec.ts:130:3 › R:300 Svelte passes state to class and style callbacks (1.1s)
+2026-10-05T19:30:09.0685195Z   ✓   16 tests/browser/collapsible.spec.ts:133:3 › T:9 Svelte throws outside Root (938ms)
+2026-10-05T19:30:10.1074605Z   ✓   17 tests/browser/collapsible.spec.ts:136:3 › T:32 Svelte forwards id prop (1.0s)
+2026-10-05T19:30:11.1324433Z   ✓   18 tests/browser/collapsible.spec.ts:137:3 › P:55 Svelte warns hiddenUntilFound overrides keepMounted false (1.0s)
+2026-10-05T19:30:12.2199836Z   ✓   19 tests/browser/collapsible.spec.ts:140:3 › P:77 Svelte does not unmount panel when keepMounted true (1.1s)
+2026-10-05T19:30:13.2915144Z   ✓   20 tests/browser/collapsible.spec.ts:158:3 › P:164 Svelte unmounts panel mounting during ending (1.1s)
+2026-10-05T19:30:14.4110749Z   ✓   21 tests/browser/collapsible.spec.ts:161:3 › R:178 Svelte controlled trigger presses request open and close state changes (1.1s)
+2026-10-05T19:30:15.4679520Z   ✓   22 tests/browser/collapsible.spec.ts:167:3 › R:207 Svelte does not change controlled open state without an external update (1.0s)
+2026-10-05T19:30:16.5990383Z   ✓   23 tests/browser/collapsible.spec.ts:171:3 › R:226 Svelte controlled mode (1.1s)
+2026-10-05T19:30:17.7359463Z   ✓   24 tests/browser/collapsible.spec.ts:177:3 › R:267 Svelte uncontrolled mode (1.1s)
+2026-10-05T19:30:18.7925480Z   ✓   25 tests/browser/collapsible.spec.ts:184:5 › R:348 Svelte key Enter does not toggle or call onOpenChange when disabled (1.0s)
+2026-10-05T19:30:19.9026469Z   ✓   26 tests/browser/collapsible.spec.ts:189:5 › R:372 Svelte key Enter should toggle the Collapsible (1.1s)
+2026-10-05T19:30:20.9587606Z   ✓   27 tests/browser/collapsible.spec.ts:184:5 › R:348 Svelte key Space does not toggle or call onOpenChange when disabled (1.0s)
+2026-10-05T19:30:22.0831298Z   ✓   28 tests/browser/collapsible.spec.ts:189:5 › R:372 Svelte key Space should toggle the Collapsible (1.1s)
+2026-10-05T19:30:23.2194595Z   ✓   29 tests/browser/collapsible.spec.ts:197:3 › P:117 Svelte handles external close with keepMounted without animation (1.1s)
+2026-10-05T19:30:24.2545261Z   ✓   30 tests/browser/collapsible.spec.ts:203:3 › P:211 Svelte applies data-starting-style while opening (1.0s)
+2026-10-05T19:30:25.2703028Z   ✓   31 tests/browser/collapsible.spec.ts:206:3 › P:247 Svelte restores measured height before applying closing transition styles (1.0s)
+2026-10-05T19:30:26.3047715Z   ✓   32 tests/browser/collapsible.spec.ts:210:3 › P:286 Svelte unmounts zero-size panel without waiting for unrelated transitions (1.0s)
+2026-10-05T19:30:27.3959405Z   ✓   33 tests/browser/collapsible.spec.ts:217:3 › P:322 Svelte supports removing rendered panel as it closes (1.1s)
+2026-10-05T19:30:28.5566459Z   ✘   34 tests/browser/collapsible.spec.ts:221:3 › P:358 Svelte preserves inline alignment styles while measuring an opening panel (1.1s)
+2026-10-05T19:30:30.4588640Z   ✓   35 tests/browser/collapsible.spec.ts:227:3 › P:422 Svelte keeps exit transitions working after close interrupted by reopening (1.3s)
+2026-10-05T19:30:31.5320820Z   ✓   36 tests/browser/collapsible.spec.ts:241:3 › P:473 Svelte keeps measured size when open animation finishes during close commit (1.1s)
+2026-10-05T19:30:32.6689115Z   ✓   37 tests/browser/collapsible.spec.ts:253:3 › P:542 Svelte does not restart entrance when close animation finishes after reopening (1.1s)
+2026-10-05T19:30:33.7222911Z   ✓   38 tests/browser/collapsible.spec.ts:275:3 › P:604 Svelte does not run mount animation when initially open (1.0s)
+2026-10-05T19:30:34.8081845Z   ✓   39 tests/browser/collapsible.spec.ts:278:3 › P:640 Svelte still animates on close and reopen after initially open (1.1s)
+2026-10-05T19:30:35.8737057Z   ✓   40 tests/browser/collapsible.spec.ts:282:3 › P:704 Svelte restores measured dimensions before closing keyframes (1.1s)
+2026-10-05T19:30:36.9572030Z   ✓   41 tests/browser/collapsible.spec.ts:286:3 › P:749 Svelte animates reopen when only open keyframes defined (1.1s)
+2026-10-05T19:30:37.1243745Z   ✓   42 tests/browser/collapsible.spec.ts:289:3 › P:799 Svelte SSR suppresses initially open keyframes (155ms)
+2026-10-05T19:30:37.2301789Z   ✓   43 tests/browser/collapsible.spec.ts:294:3 › P:830 Svelte SSR suppresses inline initially open keyframes (94ms)
+2026-10-05T19:30:43.4496859Z   ✘   44 tests/browser/collapsible.spec.ts:299:3 › P:1205 Svelte keeps temporary zero animation duration until closes (6.1s)
+2026-10-05T19:30:50.3605043Z   ✘   45 tests/browser/collapsible.spec.ts:303:3 › P:1287 Svelte restores transition duration before first beforematch close (6.2s)
+2026-10-05T19:30:52.2548484Z   ✓   46 tests/browser/collapsible.spec.ts:307:3 › P:1349 Svelte does not suppress animated open after no-motion beforematch (1.3s)
+2026-10-05T19:30:53.4993944Z   ✓   47 tests/browser/collapsible.spec.ts:310:3 › P:1474 Svelte does not keep hidden transition running after closes (1.2s)
+2026-10-05T19:30:54.5746298Z   ✓   48 tests/browser/collapsible.spec.ts:314:3 › P:1541 Svelte canceled beforematch does not suppress next trigger open (1.1s)
+2026-10-05T19:30:55.6163311Z   ✓   49 tests/browser/collapsible.spec.ts:318:3 › P:1599 Svelte uses hidden until-found and responds to beforematch (1.0s)
+2026-10-05T19:30:56.6883424Z   ✓   50 tests/browser/collapsible.spec.ts:321:46 › supplement: Svelte custom trusted keyboard/default activation (1.1s)
+2026-10-05T19:30:57.7698814Z   ✓   51 tests/browser/collapsible.spec.ts:321:46 › supplement: Svelte link trusted keyboard/default activation (1.1s)
+2026-10-05T19:30:58.8732213Z   ✓   52 tests/browser/collapsible.spec.ts:325:64 › supplement: Svelte submit retains native form behavior (1.1s)
+2026-10-05T19:30:59.9614351Z   ✓   53 tests/browser/collapsible.spec.ts:325:64 › supplement: Svelte reset retains native form behavior (1.1s)
+2026-10-05T19:31:01.0694346Z   ✓   54 tests/browser/collapsible.spec.ts:325:64 › supplement: Svelte external-form retains native form behavior (1.1s)
+2026-10-05T19:31:07.2233899Z   ✘   55 tests/browser/collapsible.spec.ts:331:112 › supplement: Svelte controlled-consumer rendered callback snapshot (6.1s)
+2026-10-05T19:31:14.0681263Z   ✘   56 tests/browser/collapsible.spec.ts:331:112 › supplement: Svelte controlled-render rendered callback snapshot (6.2s)
+2026-10-05T19:31:14.0687228Z Testing stopped early after 5 maximum allowed failures.
+2026-10-05T19:31:14.1257509Z 
+2026-10-05T19:31:14.1263555Z 
+2026-10-05T19:31:14.1273636Z   1) tests/browser/collapsible.spec.ts:221:3 › P:358 Svelte preserves inline alignment styles while measuring an opening panel 
+2026-10-05T19:31:14.1274560Z 
+2026-10-05T19:31:14.1275006Z     Error: expect(received).toBe(expected) // Object.is equality
+2026-10-05T19:31:14.1275509Z 
+2026-10-05T19:31:14.1275675Z     Expected: "initial"
+2026-10-05T19:31:14.1276142Z     Received: "center"
+2026-10-05T19:31:14.1276463Z 
+2026-10-05T19:31:14.1277488Z       222 |     const warnings: string[] = []; page.on('console', message => { if (message.type() === 'warning') warnings.push(message.text()); });
+2026-10-05T19:31:14.1279893Z       223 |     const { panel } = await setup(page, 'mixed', reference); const state = await flush(page);
+2026-10-05T19:31:14.1281807Z     > 224 |     expect(state?.starting).toBe(true); expect(state?.alignment).toBe('initial'); expect(state?.priority).toBe('important'); expect(warnings).toContain('Base UI: CSS transitions and CSS animations both detected on Collapsible or Accordion panel. Only one of either animation type should be used.');
+2026-10-05T19:31:14.1283518Z           |                                                                  ^
+2026-10-05T19:31:14.1284829Z       225 |     await frames(page, 1); expect(await panel.evaluate((node: HTMLElement) => node.style.justifyContent)).toBe('center');
+2026-10-05T19:31:14.1285547Z       226 |   });
+2026-10-05T19:31:14.1286473Z       227 |   test(`P:422 ${framework} keeps exit transitions working after close interrupted by reopening`, async ({ page }) => {
+2026-10-05T19:31:14.1287282Z         at /home/runner/work/base/base/tests/browser/collapsible.spec.ts:224:66
+2026-10-05T19:31:14.1287601Z 
+2026-10-05T19:31:14.1288452Z     Error Context: test-results/collapsible-P-358-Svelte-p-19eb8--measuring-an-opening-panel/error-context.md
+2026-10-05T19:31:14.1289267Z 
+2026-10-05T19:31:14.1290056Z     attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+2026-10-05T19:31:14.1291268Z     test-results/collapsible-P-358-Svelte-p-19eb8--measuring-an-opening-panel/trace.zip
+2026-10-05T19:31:14.1291741Z     Usage:
+2026-10-05T19:31:14.1291851Z 
+2026-10-05T19:31:14.1292327Z         pnpm exec playwright show-trace test-results/collapsible-P-358-Svelte-p-19eb8--measuring-an-opening-panel/trace.zip
+2026-10-05T19:31:14.1292824Z 
+2026-10-05T19:31:14.1293186Z     ────────────────────────────────────────────────────────────────────────────────────────────────
+2026-10-05T19:31:14.1293699Z 
+2026-10-05T19:31:14.1294508Z   2) tests/browser/collapsible.spec.ts:299:3 › P:1205 Svelte keeps temporary zero animation duration until closes 
+2026-10-05T19:31:14.1294962Z 
+2026-10-05T19:31:14.1295150Z     Error: expect(locator).toHaveCSS(expected) failed
+2026-10-05T19:31:14.1295377Z 
+2026-10-05T19:31:14.1295513Z     Locator:  getByTestId('panel')
+2026-10-05T19:31:14.1295785Z     Expected: "0s"
+2026-10-05T19:31:14.1296001Z     Received: "0.123s"
+2026-10-05T19:31:14.1296221Z     Timeout:  5000ms
+2026-10-05T19:31:14.1296353Z 
+2026-10-05T19:31:14.1296437Z     Call log:
+2026-10-05T19:31:14.1296768Z       - Expect "toHaveCSS" getByTestId('panel') with timeout 5000ms
+2026-10-05T19:31:14.1297183Z       - waiting for getByTestId('panel')
+2026-10-05T19:31:14.1298211Z         14 × locator resolved to <div data-open="" class="keys " id="base-ui-s1" data-status="idle" data-testid="panel">…</div>
+2026-10-05T19:31:14.1298835Z            - unexpected value "0.123s"
+2026-10-05T19:31:14.1299503Z 
+2026-10-05T19:31:14.1299789Z 
+2026-10-05T19:31:14.1299957Z       298 |   });
+2026-10-05T19:31:14.1300848Z       299 |   test(`P:1205 ${framework} keeps temporary zero animation duration until closes`, async ({ page }) => {
+2026-10-05T19:31:14.1303193Z     > 300 |     const { trigger, panel } = await setup(page, 'beforematch-keys', reference); await flush(page, 'beforematch'); await expect(panel).toHaveAttribute('data-open'); await frames(page); await expect(panel).toHaveCSS('animation-duration', '0s');
+2026-10-05T19:31:14.1305413Z           |                                                                                                                                                                                                              ^
+2026-10-05T19:31:14.1306637Z       301 |     await trigger.click(); await expect(panel).toHaveAttribute('data-closed'); expect(await animations(page)).toBe(1); await expect(panel).toHaveCSS('animation-duration', '0.123s');
+2026-10-05T19:31:14.1307392Z       302 |   });
+2026-10-05T19:31:14.1308230Z       303 |   test(`P:1287 ${framework} restores transition duration before first beforematch close`, async ({ page }) => {
+2026-10-05T19:31:14.1308963Z         at /home/runner/work/base/base/tests/browser/collapsible.spec.ts:300:206
+2026-10-05T19:31:14.1309425Z 
+2026-10-05T19:31:14.1309858Z     Error Context: test-results/collapsible-P-1205-Svelte--da139-ation-duration-until-closes/error-context.md
+2026-10-05T19:31:14.1310318Z 
+2026-10-05T19:31:14.1310762Z     attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+2026-10-05T19:31:14.1311445Z     test-results/collapsible-P-1205-Svelte--da139-ation-duration-until-closes/trace.zip
+2026-10-05T19:31:14.1312174Z     Usage:
+2026-10-05T19:31:14.1312354Z 
+2026-10-05T19:31:14.1313161Z         pnpm exec playwright show-trace test-results/collapsible-P-1205-Svelte--da139-ation-duration-until-closes/trace.zip
+2026-10-05T19:31:14.1314076Z 
+2026-10-05T19:31:14.1314771Z     ────────────────────────────────────────────────────────────────────────────────────────────────
+2026-10-05T19:31:14.1315297Z 
+2026-10-05T19:31:14.1316160Z   3) tests/browser/collapsible.spec.ts:303:3 › P:1287 Svelte restores transition duration before first beforematch close 
+2026-10-05T19:31:14.1316642Z 
+2026-10-05T19:31:14.1316825Z     Error: expect(locator).toHaveCSS(expected) failed
+2026-10-05T19:31:14.1317044Z 
+2026-10-05T19:31:14.1317176Z     Locator:  getByTestId('panel')
+2026-10-05T19:31:14.1317435Z     Expected: "0s"
+2026-10-05T19:31:14.1317642Z     Received: "0.123s"
+2026-10-05T19:31:14.1318143Z     Timeout:  5000ms
+2026-10-05T19:31:14.1318316Z 
+2026-10-05T19:31:14.1318404Z     Call log:
+2026-10-05T19:31:14.1318737Z       - Expect "toHaveCSS" getByTestId('panel') with timeout 5000ms
+2026-10-05T19:31:14.1319139Z       - waiting for getByTestId('panel')
+2026-10-05T19:31:14.1319861Z         14 × locator resolved to <div data-open="" class="motion" id="base-ui-s1" data-status="idle" data-testid="panel">…</div>
+2026-10-05T19:31:14.1320684Z            - unexpected value "0.123s"
+2026-10-05T19:31:14.1320872Z 
+2026-10-05T19:31:14.1320878Z 
+2026-10-05T19:31:14.1320962Z       302 |   });
+2026-10-05T19:31:14.1321501Z       303 |   test(`P:1287 ${framework} restores transition duration before first beforematch close`, async ({ page }) => {
+2026-10-05T19:31:14.1322911Z     > 304 |     const { panel } = await setup(page, 'beforematch-transition', reference); await flush(page, 'beforematch'); await expect(panel).toHaveAttribute('data-open'); await frames(page); await expect(panel).toHaveCSS('transition-duration', '0s'); await flush(page);
+2026-10-05T19:31:14.1324230Z           |                                                                                                                                                                                                           ^
+2026-10-05T19:31:14.1325531Z       305 |     await expect(panel).toHaveAttribute('data-ending-style'); expect(await panel.evaluate((node: HTMLElement) => node.style.transitionDuration)).toBe('123ms'); expect(await animations(page)).toBe(1);
+2026-10-05T19:31:14.1326378Z       306 |   });
+2026-10-05T19:31:14.1326888Z       307 |   test(`P:1349 ${framework} does not suppress animated open after no-motion beforematch`, async ({ page }) => {
+2026-10-05T19:31:14.1327575Z         at /home/runner/work/base/base/tests/browser/collapsible.spec.ts:304:203
+2026-10-05T19:31:14.1328109Z 
+2026-10-05T19:31:14.1328547Z     Error Context: test-results/collapsible-P-1287-Svelte--4e1eb-ore-first-beforematch-close/error-context.md
+2026-10-05T19:31:14.1329073Z 
+2026-10-05T19:31:14.1329501Z     attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+2026-10-05T19:31:14.1330209Z     test-results/collapsible-P-1287-Svelte--4e1eb-ore-first-beforematch-close/trace.zip
+2026-10-05T19:31:14.1330663Z     Usage:
+2026-10-05T19:31:14.1330775Z 
+2026-10-05T19:31:14.1331243Z         pnpm exec playwright show-trace test-results/collapsible-P-1287-Svelte--4e1eb-ore-first-beforematch-close/trace.zip
+2026-10-05T19:31:14.1331743Z 
+2026-10-05T19:31:14.1332093Z     ────────────────────────────────────────────────────────────────────────────────────────────────
+2026-10-05T19:31:14.1332376Z 
+2026-10-05T19:31:14.1332871Z   4) tests/browser/collapsible.spec.ts:331:112 › supplement: Svelte controlled-consumer rendered callback snapshot 
+2026-10-05T19:31:14.1333306Z 
+2026-10-05T19:31:14.1333501Z     Error: expect(locator).toHaveAttribute(expected) failed
+2026-10-05T19:31:14.1333750Z 
+2026-10-05T19:31:14.1333877Z     Locator:  locator('#tested-trigger')
+2026-10-05T19:31:14.1334151Z     Expected: "true"
+2026-10-05T19:31:14.1334372Z     Received: "false"
+2026-10-05T19:31:14.1334598Z     Timeout:  5000ms
+2026-10-05T19:31:14.1334722Z 
+2026-10-05T19:31:14.1334807Z     Call log:
+2026-10-05T19:31:14.1335304Z       - Expect "toHaveAttribute" locator('#tested-trigger') with timeout 5000ms
+2026-10-05T19:31:14.1336030Z       - waiting for locator('#tested-trigger')
+2026-10-05T19:31:14.1336966Z         14 × locator resolved to <button tabindex="0" type="button" id="tested-trigger" aria-disabled="false" aria-expanded="false">…</button>
+2026-10-05T19:31:14.1338703Z            - unexpected value "false"
+2026-10-05T19:31:14.1339339Z 
+2026-10-05T19:31:14.1339351Z 
+2026-10-05T19:31:14.1339650Z       330 |   });
+2026-10-05T19:31:14.1340714Z       331 |   for (const scenario of ['controlled-consumer', 'controlled-render', 'callback-consumer', 'callback-render']) test(`supplement: ${framework} ${scenario} rendered callback snapshot`, async ({ page }) => {
+2026-10-05T19:31:14.1343033Z     > 332 |     const { trigger } = await setup(page, scenario, reference); await trigger.click(); await expect(trigger).toHaveAttribute('aria-expanded', 'true'); expect((await calls(page))[0].before).toBe('false'); await trigger.click(); await expect(trigger).toHaveAttribute('aria-expanded', 'false'); expect((await calls(page)).map(call => call.open)).toEqual([true, false]);
+2026-10-05T19:31:14.1345056Z           |                                                                                                              ^
+2026-10-05T19:31:14.1345963Z       333 |     if (scenario.startsWith('callback')) await expect(page.getByTestId('callback-owners')).toHaveText('["old","new"]');
+2026-10-05T19:31:14.1346676Z       334 |   });
+2026-10-05T19:31:14.1347300Z       335 |   test(`supplement: ${framework} IDs follow removal remount and explicit changes`, async ({ page }) => {
+2026-10-05T19:31:14.1348570Z         at /home/runner/work/base/base/tests/browser/collapsible.spec.ts:332:110
+2026-10-05T19:31:14.1360170Z 
+2026-10-05T19:31:14.1360690Z     Error Context: test-results/collapsible-supplement-Sve-f55a6--rendered-callback-snapshot/error-context.md
+2026-10-05T19:31:14.1361257Z 
+2026-10-05T19:31:14.1361839Z     attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+2026-10-05T19:31:14.1362549Z     test-results/collapsible-supplement-Sve-f55a6--rendered-callback-snapshot/trace.zip
+2026-10-05T19:31:14.1363060Z     Usage:
+2026-10-05T19:31:14.1363182Z 
+2026-10-05T19:31:14.1363668Z         pnpm exec playwright show-trace test-results/collapsible-supplement-Sve-f55a6--rendered-callback-snapshot/trace.zip
+2026-10-05T19:31:14.1364178Z 
+2026-10-05T19:31:14.1364538Z     ────────────────────────────────────────────────────────────────────────────────────────────────
+2026-10-05T19:31:14.1364824Z 
+2026-10-05T19:31:14.1365361Z   5) tests/browser/collapsible.spec.ts:331:112 › supplement: Svelte controlled-render rendered callback snapshot 
+2026-10-05T19:31:14.1365802Z 
+2026-10-05T19:31:14.1365999Z     Error: expect(locator).toHaveAttribute(expected) failed
+2026-10-05T19:31:14.1366253Z 
+2026-10-05T19:31:14.1366396Z     Locator:  locator('#tested-trigger')
+2026-10-05T19:31:14.1366682Z     Expected: "true"
+2026-10-05T19:31:14.1366904Z     Received: "false"
+2026-10-05T19:31:14.1367118Z     Timeout:  5000ms
+2026-10-05T19:31:14.1367245Z 
+2026-10-05T19:31:14.1367336Z     Call log:
+2026-10-05T19:31:14.1367717Z       - Expect "toHaveAttribute" locator('#tested-trigger') with timeout 5000ms
+2026-10-05T19:31:14.1368428Z       - waiting for locator('#tested-trigger')
+2026-10-05T19:31:14.1369136Z         14 × locator resolved to <span tabindex="0" role="button" id="tested-trigger" aria-expanded="false">…</span>
+2026-10-05T19:31:14.1369672Z            - unexpected value "false"
+2026-10-05T19:31:14.1369857Z 
+2026-10-05T19:31:14.1369864Z 
+2026-10-05T19:31:14.1369944Z       330 |   });
+2026-10-05T19:31:14.1370846Z       331 |   for (const scenario of ['controlled-consumer', 'controlled-render', 'callback-consumer', 'callback-render']) test(`supplement: ${framework} ${scenario} rendered callback snapshot`, async ({ page }) => {
+2026-10-05T19:31:14.1372954Z     > 332 |     const { trigger } = await setup(page, scenario, reference); await trigger.click(); await expect(trigger).toHaveAttribute('aria-expanded', 'true'); expect((await calls(page))[0].before).toBe('false'); await trigger.click(); await expect(trigger).toHaveAttribute('aria-expanded', 'false'); expect((await calls(page)).map(call => call.open)).toEqual([true, false]);
+2026-10-05T19:31:14.1374663Z           |                                                                                                              ^
+2026-10-05T19:31:14.1375393Z       333 |     if (scenario.startsWith('callback')) await expect(page.getByTestId('callback-owners')).toHaveText('["old","new"]');
+2026-10-05T19:31:14.1375939Z       334 |   });
+2026-10-05T19:31:14.1376444Z       335 |   test(`supplement: ${framework} IDs follow removal remount and explicit changes`, async ({ page }) => {
+2026-10-05T19:31:14.1377108Z         at /home/runner/work/base/base/tests/browser/collapsible.spec.ts:332:110
+2026-10-05T19:31:14.1377421Z 
+2026-10-05T19:31:14.1378074Z     Error Context: test-results/collapsible-supplement-Sve-3b870--rendered-callback-snapshot/error-context.md
+2026-10-05T19:31:14.1378535Z 
+2026-10-05T19:31:14.1379108Z     attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+2026-10-05T19:31:14.1379810Z     test-results/collapsible-supplement-Sve-3b870--rendered-callback-snapshot/trace.zip
+2026-10-05T19:31:14.1380275Z     Usage:
+2026-10-05T19:31:14.1380391Z 
+2026-10-05T19:31:14.1380863Z         pnpm exec playwright show-trace test-results/collapsible-supplement-Sve-3b870--rendered-callback-snapshot/trace.zip
+2026-10-05T19:31:14.1381360Z 
+2026-10-05T19:31:14.1381712Z     ────────────────────────────────────────────────────────────────────────────────────────────────
+2026-10-05T19:31:14.1381990Z 
+2026-10-05T19:31:14.1382081Z   5 failed
+2026-10-05T19:31:14.1382712Z     tests/browser/collapsible.spec.ts:221:3 › P:358 Svelte preserves inline alignment styles while measuring an opening panel 
+2026-10-05T19:31:14.1383631Z     tests/browser/collapsible.spec.ts:299:3 › P:1205 Svelte keeps temporary zero animation duration until closes 
+2026-10-05T19:31:14.1384531Z     tests/browser/collapsible.spec.ts:303:3 › P:1287 Svelte restores transition duration before first beforematch close 
+2026-10-05T19:31:14.1385448Z     tests/browser/collapsible.spec.ts:331:112 › supplement: Svelte controlled-consumer rendered callback snapshot 
+2026-10-05T19:31:14.1386321Z     tests/browser/collapsible.spec.ts:331:112 › supplement: Svelte controlled-render rendered callback snapshot 
+2026-10-05T19:31:14.1386818Z   80 did not run
+2026-10-05T19:31:14.1387039Z   51 passed (1.6m)
+2026-10-05T19:31:14.1387355Z   1 error was not a part of any test, see above for details
+2026-10-05T19:31:14.1557121Z ##[error]Process completed with exit code 1.
+2026-10-05T19:31:14.1633228Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-10-05T19:31:14.1633656Z with:
+2026-10-05T19:31:14.1633868Z   name: collapsible-browser-failures
+2026-10-05T19:31:14.1634154Z   path: test-results/collapsible-*/
+2026-10-05T19:31:14.1634422Z   if-no-files-found: warn
+2026-10-05T19:31:14.1634655Z   retention-days: 14
+2026-10-05T19:31:14.1634868Z   compression-level: 6
+2026-10-05T19:31:14.1635097Z   overwrite: false
+2026-10-05T19:31:14.1635316Z   include-hidden-files: false
+2026-10-05T19:31:14.1635546Z env:
+2026-10-05T19:31:14.1635781Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-10-05T19:31:14.1636096Z ##[endgroup]
+2026-10-05T19:31:14.3454626Z (node:4436) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-05T19:31:14.3456316Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-05T19:31:14.3629960Z With the provided path, there will be 10 files uploaded
+2026-10-05T19:31:14.3631933Z Artifact name is valid!
+2026-10-05T19:31:14.3632868Z Root directory input is valid!
+2026-10-05T19:31:14.5811298Z Beginning upload of artifact content to blob storage
+2026-10-05T19:31:14.6424932Z (node:4436) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-05T19:31:14.7058237Z Uploaded bytes 710695
+2026-10-05T19:31:14.7190055Z Finished uploading artifact content to blob storage!
+2026-10-05T19:31:14.7191083Z SHA256 digest of uploaded artifact zip is 2085e80bbc213d5e22eacedfabbad314619dcc4346a9fc217a08c80392d6b13c
+2026-10-05T19:31:14.7192685Z Finalizing artifact upload
+2026-10-05T19:31:14.9446366Z Artifact collapsible-browser-failures.zip successfully finalized. Artifact ID 11366779383
+2026-10-05T19:31:14.9448485Z Artifact collapsible-browser-failures has been successfully uploaded! Final size is 710695 bytes. Artifact ID is 11366779383
+2026-10-05T19:31:14.9454321Z Artifact download URL: https://github.com/sveltery/base/actions/runs/37362745334/artifacts/11366779383
+2026-10-05T19:31:14.9639910Z Post job cleanup.
+2026-10-05T19:31:15.1158405Z Pruning is unnecessary.
+2026-10-05T19:31:15.1338284Z Post job cleanup.
+2026-10-05T19:31:15.2387540Z [command]/usr/bin/git version
+2026-10-05T19:31:15.2438993Z git version 2.55.0
+2026-10-05T19:31:15.2486478Z Temporarily overriding HOME='/home/runner/work/_temp/2395f679-385f-492a-9070-e2c893b7796b' before making global git config changes
+2026-10-05T19:31:15.2488577Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-05T19:31:15.2494520Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/base/base
+2026-10-05T19:31:15.2533506Z Removing SSH command configuration
+2026-10-05T19:31:15.2541746Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-05T19:31:15.2615502Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-05T19:31:15.2896528Z Removing HTTP extra header
+2026-10-05T19:31:15.2898569Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-05T19:31:15.2939884Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-05T19:31:15.3237619Z Removing includeIf entries pointing to credentials config files
+2026-10-05T19:31:15.3245759Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-05T19:31:15.3286114Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-05T19:31:15.3710317Z Cleaning up orphan processes
+2026-10-05T19:31:15.4086800Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
