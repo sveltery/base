@@ -1,7 +1,7 @@
 <script lang="ts" generics="Payload = unknown">
   // Original Base UI v1.8.0 business at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
   // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
-  import { onDestroy, setContext } from 'svelte';
+  import { onDestroy, setContext, untrack } from 'svelte';
   import PopupHandleAttachment from '../utils/popups/PopupHandleAttachment.svelte';
   import TooltipInteractions from './root/TooltipInteractions.svelte';
   import { TooltipStore, type State } from './store/TooltipStore.svelte.js';
@@ -42,7 +42,9 @@
   const lastOpenChangeReason = $derived(store.select('lastOpenChangeReason'));
   const previousInstantTypeRef = { current: null as State<Payload>['instantType'] | null };
   $effect(() => {
-    if (openState && disabled) store.setOpen(false, createChangeEventDetails(REASONS.disabled));
+    if (openState && disabled) {
+      untrack(() => store.setOpen(false, createChangeEventDetails(REASONS.disabled)));
+    }
   });
   $effect(() => {
     if ((transitionStatus === 'ending' && lastOpenChangeReason === REASONS.none) ||

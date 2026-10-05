@@ -21,6 +21,12 @@
       "originalPath": "packages/base/tests/dom/collapsible.test.ts",
       "archive": "parity/native-framework/historical/collapsible.test.ts",
       "sha256": "d395e04971e9f33ce33c4506c56e028157224de5643e7b616a925cc3d0fbbf1f"
+    },
+    {
+      "originalPath": "parity/utils-package/body-fidelity.json",
+      "archive": "parity/native-framework/historical/utils-body-fidelity-pre-native.json",
+      "sha256": "4174ff6a6f8f1dd17e7659fd40d53517d0778fa14baab45abf7b2777431ac537",
+      "role": "Historical eight-declaration proof, including the removed React setup factory; baseline bytes unchanged."
     }
   ]
 }
