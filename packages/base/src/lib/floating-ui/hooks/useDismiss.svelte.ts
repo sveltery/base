@@ -281,9 +281,10 @@ export function useDismiss(
       }
     }
 
-    events.on('openchange', handleOpenChange);
+    const installedEvents = events;
+    installedEvents.on('openchange', handleOpenChange);
     return () => {
-      events.off('openchange', handleOpenChange);
+      installedEvents.off('openchange', handleOpenChange);
     };
   });
 

@@ -605,16 +605,7 @@ export function createFloatingFocusManager(
           (isUntrappedTypeableCombobox ? true : !modal) &&
           relatedTarget &&
           movedToUnrelatedNode &&
-          !isPointerDownRef.current &&
-          // Fix React 18 Strict Mode returnFocus due to double rendering.
-          // For an "untrapped" typeable combobox (input role=combobox with
-          // initialFocus=false), re-opening the popup and tabbing out should still close it even
-          // when the previously focused element (e.g. the next tabbable outside the popup) is
-          // focused again. Otherwise, the popup remains open on the second Tab sequence:
-          // click input -> Tab (closes) -> click input -> Tab.
-          // Allow closing when `isUntrappedTypeableCombobox` regardless of the previously focused element.
-          (isUntrappedTypeableCombobox ||
-            relatedTarget !== getPreviouslyFocusedElement())
+          !isPointerDownRef.current
         ) {
           preventReturnFocusRef.current = true;
           store.setOpen(
@@ -859,7 +850,8 @@ export function createFloatingFocusManager(
       }
     }
 
-    events.on('openchange', onOpenChangeLocal);
+    const installedEvents = events;
+    installedEvents.on('openchange', onOpenChangeLocal);
 
     function getReturnElement(closeType: InteractionType) {
       const returnFocusValueOrFn = returnFocusRef.current;
@@ -907,7 +899,7 @@ export function createFloatingFocusManager(
     }
 
     return () => {
-      events.off('openchange', onOpenChangeLocal);
+      installedEvents.off('openchange', onOpenChangeLocal);
 
       const activeEl = activeElement(doc);
       const insideElements = getResolvedInsideElements();

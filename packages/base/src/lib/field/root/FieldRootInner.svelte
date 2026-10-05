@@ -17,7 +17,7 @@
   import { useFieldsetRootContext } from '../../fieldset/root/FieldsetRootContext.js';
   import { useFormContext } from '../../internals/form-context/FormContext.js';
   import { useFieldValidation } from './useFieldValidation.svelte.js';
-  import { useFieldControlRegistration } from '../../internals/field-register-control/useFieldControlRegistration.svelte.js';
+  import { FieldControlRegistrationOwner } from '../../internals/field-register-control/FieldControlRegistration.svelte.js';
   import type {
     FieldRootActions,
     FieldRootProps,
@@ -128,27 +128,26 @@
     },
     registeredFieldIdRef,
   });
-  const [validateFieldControl, registerFieldControl] =
-    useFieldControlRegistration({
-      change: validation.change,
-      commit: validation.commit,
-      get invalid() {
-        return invalid;
-      },
-      markedDirtyRef,
-      get name() {
-        return name;
-      },
-      setRegisteredFieldName(value) {
-        registeredFieldName = value;
-      },
-      registeredFieldIdRef,
-      setValidityData,
-      get validityData() {
-        return validityData;
-      },
-    });
-  const actions: FieldRootActions = { validate: validateFieldControl };
+  const registration = new FieldControlRegistrationOwner({
+    change: validation.change,
+    commit: validation.commit,
+    get invalid() {
+      return invalid;
+    },
+    markedDirtyRef,
+    get name() {
+      return name;
+    },
+    setRegisteredFieldName(value) {
+      registeredFieldName = value;
+    },
+    registeredFieldIdRef,
+    setValidityData,
+    get validityData() {
+      return validityData;
+    },
+  });
+  const actions: FieldRootActions = { validate: registration.validate };
   $effect(() => {
     const target = actionsRef;
     if (!target) return;
@@ -186,7 +185,7 @@
     get state() {
       return fieldRootState;
     },
-    registerFieldControl,
+    registerFieldControl: registration.register,
     validation,
   };
   setFieldRootContext(contextValue);

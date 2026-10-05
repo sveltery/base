@@ -6,7 +6,7 @@ import { DEFAULT_FIELD_ROOT_STATE, DEFAULT_VALIDITY_STATE } from '../field-const
 import type { FieldValidityData, FieldRootState } from '../../field/types.js';
 import type { FormValidationMode } from '../../form/types.js';
 import type { UseFieldValidationReturnValue } from '../../field/root/useFieldValidation.svelte.js';
-import type { FieldControlRegistration } from '../field-register-control/useFieldControlRegistration.svelte.js';
+import type { FieldControlRegistration } from '../field-register-control/FieldControlRegistration.svelte.js';
 export interface FieldRootContext {
   readonly invalid: boolean | undefined;
   readonly name: string | undefined;

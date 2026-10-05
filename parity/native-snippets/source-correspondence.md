@@ -15,3 +15,15 @@ Original: Base UI v1.8.0 `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, MIT. The [r
 The former renderer's broad transport is replaced across all 103 recorded consumers. Existing real ARIA/ID, form and Field validation, consumer event cancellation, focus and animation resources remain in their actual component/helper owners. Source76's bounded class and callback-publication follow-ups are integrated through a normal merge; historical Source76 correspondence remains a predecessor record.
 
 This record audits rendering composition and its actual native host dependencies. It does not award complete component parity, certify every broader component algorithm or convert predecessor execution receipts into successor acceptance. SSR uses native markup and does not execute attachments/client effects. Intrinsic defaults, void children, authored attribute/style precedence and native attachment lifetime remain Svelte behavior; every divergent observation earns zero unchanged Original assertion credit.
+
+## Inherited registration and resource repairs
+
+The full pinned `internals/field-register-control/useFieldControlRegistration.ts` business now lives in `internals/field-register-control/FieldControlRegistration.svelte.ts` as `FieldControlRegistrationOwner`. FieldRootInner constructs this owner directly. Its raw reactive active registration wakes native name/invalid/validity synchronization after a late Control mount; active source identity, once-per-Field initial baseline, value/getValue fallback, registered IDs, cancellation of replaced work and in-place Form Map publication remain. The installed Form Map is captured only for its actual teardown. No hook factory or dependency tuple remains for this owner.
+
+RadioRoot always observes its actual input, checked and disabled business before representative group registration. CheckboxRoot always observes checked before reasserting indeterminate, as the pinned comment requires after native activation clears the DOM property; grouped filled state remains owned by the group.
+
+Floating `useFocus`, `useHoverReferenceInteraction` and `useDismiss` capture only the installed event bus for matching subscription cleanup. Their event callbacks retain live native business readers. ToastStore imports the canonical Utils `Timeout` that the pinned store uses; its formerly duplicated private timer is removed, while the broader historical Store/ID differences remain outside this repair.
+
+These corrections repair inherited native invalidation/resource defects. They do not earn new Source assertion credit without exact-head executed counterparts, and they do not waive the remaining full-closure review or execution gates.
+
+FloatingFocusManager removes only the explicitly React StrictMode double-render focusout suppression. Previous-focus/returnFocus bookkeeping, nonmodal and combobox closing branches remain, and its actual event subscription captures the installed bus for cleanup. Native outside-focus behavior earns zero divergent unchanged Source assertion credit.
