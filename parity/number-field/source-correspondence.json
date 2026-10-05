@@ -5661,7 +5661,7 @@
       "local": [
         {
           "local": "packages/base/src/lib/internals/useAnimationsFinished.ts",
-          "sha256": "e615700a3c4e81ca22060837af8a8c859430ebd8476d6e0a6daffe7986dc3bc4"
+          "sha256": "0ae8873174969326a7ac09377ab019af5cd575bbdfde7df9118317d0ec1c1e30"
         }
       ],
       "correspondence": "Actual reused canonical Field/Form/Labelable/button/render/utility business dependency. All inherited bodies remain part of fresh final NumberField whole-closure source/native/maintainability review.",
@@ -5768,7 +5768,7 @@
       "local": [
         {
           "local": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
-          "sha256": "9c8d8b8fcd70c0a9ec69a9cc0f2a6864ab19da26d4e3bd2bf9f7e6eb49831d1f"
+          "sha256": "5e966dd1b10cbc1ed448d3583ca948a384d812f9e71afc1e128395485575931f"
         }
       ],
       "correspondence": "Actual reused canonical Field/Form/Labelable/button/render/utility business dependency. All inherited bodies remain part of fresh final NumberField whole-closure source/native/maintainability review.",
@@ -10722,6 +10722,12 @@
       "local": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
       "sha256": "ee71d7077c51139162152716111472919bf80b71e6e9cde62d15ff0b7ce56f59",
       "status": "complete pinned DEV paragraphs restored at the one shared body; all other helper bytes unchanged; selected-body review does not accept a whole consuming feature"
+    },
+    "currentMain": {
+      "acceptedMain": "95d3d2ae473dc18a2b9a48112284383a2c392315",
+      "normalIntegration": "17412f57729e1e103f6c1e9eb558a772507d57c6",
+      "previousHead": "f8c57282fe6a231bb0122027173a2d44a925bd47",
+      "status": "Normal accepted-main integration preserves all NumberField runtime bodies; two incoming canonical animation helpers are type-only in this family. Separate current-main machine proof and exact successor review remain required."
     }
   },
   "localClosure": {
@@ -12715,15 +12721,21 @@
       },
       {
         "local": "packages/base/src/lib/internals/useAnimationsFinished.ts",
-        "sha256": "e615700a3c4e81ca22060837af8a8c859430ebd8476d6e0a6daffe7986dc3bc4",
+        "sha256": "0ae8873174969326a7ac09377ab019af5cd575bbdfde7df9118317d0ec1c1e30",
         "reachability": [
           "type"
         ],
         "declarations": [
+          "flushBeforePaint",
           "useAnimationsFinished",
           "exec"
         ],
         "imports": [
+          {
+            "specifier": "svelte",
+            "kind": "runtime",
+            "resolved": "external:svelte"
+          },
           {
             "specifier": "../utils/useAnimationFrame.js",
             "kind": "runtime",
@@ -12766,7 +12778,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
-        "sha256": "9c8d8b8fcd70c0a9ec69a9cc0f2a6864ab19da26d4e3bd2bf9f7e6eb49831d1f",
+        "sha256": "5e966dd1b10cbc1ed448d3583ca948a384d812f9e71afc1e128395485575931f",
         "reachability": [
           "type"
         ],
