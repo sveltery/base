@@ -14,12 +14,12 @@
 {#if !root.floatingRootContext && !hasPositioner}
   {@render children?.()}
 {:else}
-  <FocusGuard ref={root.beforeInsideRef} onfocus={(event) => {
+  <FocusGuard ref={root.beforeInsideRef} onfocusin={(event) => {
     if (referenceElement && isOutsideEvent(event, referenceElement)) getNextTabbable(referenceElement)?.focus();
     else root.beforeOutsideRef.current?.focus();
   }} />
   {@render children?.()}
-  <FocusGuard ref={root.afterInsideRef} onfocus={(event) => {
+  <FocusGuard ref={root.afterInsideRef} onfocusin={(event) => {
     if (referenceElement && isOutsideEvent(event, referenceElement)) getPreviousTabbable(referenceElement)?.focus();
     else root.afterOutsideRef.current?.focus();
   }} />

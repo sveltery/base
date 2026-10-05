@@ -3,7 +3,9 @@
 import { afterEach, expect, it, vi } from 'vitest';
 import { mount, tick, unmount } from 'svelte';
 import Fixture from './NavigationMenuFixture.svelte';
+import { createNavigationMenuTestTransport } from '../../../../apps/fixtures/src/lib/navigation-menu-test-transport.js';
 const mounted: ReturnType<typeof mount>[] = [];
+const transports: ReturnType<typeof createNavigationMenuTestTransport>[] = [];
 async function setup(scenario = 'default') {
   const target = document.createElement('section');
   document.body.append(target);
@@ -22,6 +24,7 @@ async function settle() {
 const first = () => document.getElementById('first-trigger') as HTMLButtonElement;
 const popup = () => document.getElementById('tested-popup');
 afterEach(async () => {
+  for (const transport of transports.splice(0)) await transport.dispose();
   for (const component of mounted.splice(0)) await unmount(component);
   document.body.replaceChildren();
   vi.restoreAllMocks();
@@ -60,10 +63,10 @@ it('Source Root:1657 switching by dispatched click emits only the two requested 
   const component = await setup();
   first().click();
   await settle();
-  expect(component.snapshot().events.map(event => event.value)).toEqual(['first']);
+  expect(component.snapshot().events.map((event: { value: unknown }) => event.value)).toEqual(['first']);
   (document.getElementById('second-trigger') as HTMLButtonElement).click();
   await settle();
-  expect(component.snapshot().events.map(event => event.value)).toEqual(['first', 'second']);
+  expect(component.snapshot().events.map((event: { value: unknown }) => event.value)).toEqual(['first', 'second']);
 });
 
 it('supplement: a direct hover switch retains the new trigger pointer lock after old hover cleanup', async () => {
@@ -80,10 +83,29 @@ it('supplement: a direct hover switch retains the new trigger pointer lock after
   second.dispatchEvent(new MouseEvent('mousemove', { bubbles: true }));
   await tick();
   await Promise.resolve();
-  expect(component.snapshot().events.map(event => event.value)).toEqual(['first', 'second']);
+  expect(component.snapshot().events.map((event: { value: unknown }) => event.value)).toEqual(['first', 'second']);
   expect(first().getAttribute('aria-expanded')).toBe('false');
   expect(second.getAttribute('aria-expanded')).toBe('true');
   expect(list.style.pointerEvents).toBe('none');
+});
+
+it('supplement: capture restores tabbing before the inside guard forwards focus after a submenu switch', async () => {
+  await setup();
+  const transport = createNavigationMenuTestTransport();
+  transport.ready();
+  transports.push(transport);
+  first().focus();
+  first().click();
+  await settle();
+  await transport.input('tab');
+  expect(document.activeElement).toBe(document.getElementById('first-link'));
+  await transport.input('tab');
+  const second = document.getElementById('second-trigger') as HTMLButtonElement;
+  expect(document.activeElement).toBe(second);
+  second.click();
+  await settle();
+  await transport.input('tab');
+  expect(document.activeElement).toBe(document.getElementById('second-link'));
 });
 
 it('supplement: controlled requests wait for live owner state and change active trigger', async () => {

@@ -798,12 +798,12 @@
   {refs}
   props={[referenceProps, dismissProps?.reference || {}, defaultProps, elementProps, getButtonProps]} {children} />
 {#if isActiveItem}
-  <FocusGuard ref={beforeOutsideRef} onfocus={(event) => {
+  <FocusGuard ref={beforeOutsideRef} onfocusin={(event) => {
     if (referenceElement && isOutsideEvent(event, referenceElement)) beforeInsideRef.current?.focus();
     else getPreviousTabbable(triggerElement)?.focus();
   }} />
   <span aria-owns={viewportElement?.id} style={toNativeStyle(ownerVisuallyHidden)}></span>
-  <FocusGuard ref={afterOutsideRef} onfocus={(event) => {
+  <FocusGuard ref={afterOutsideRef} onfocusin={(event) => {
     if (referenceElement && isOutsideEvent(event, referenceElement)) {
       flushSync(() => setViewportInert(false));
       (afterInsideRef.current || triggerElement)?.focus();

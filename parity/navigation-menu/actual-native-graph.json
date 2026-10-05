@@ -36283,8 +36283,8 @@
     },
     {
       "source": "packages/base/src/lib/navigation-menu/Trigger.svelte",
-      "sha256": "071b8a34a26f4185bc718243b954cc44c01615a8a043de9ad034f5c16e0a4037",
-      "bytes": 27655,
+      "sha256": "8b2ec9358b4e9701f010a5a38b503fa29963fa37f83c1675d8c8e429ca8249c8",
+      "bytes": 27659,
       "imports": [
         {
           "line": 3,
@@ -37765,8 +37765,8 @@
     },
     {
       "source": "packages/base/src/lib/navigation-menu/viewport/Guards.svelte",
-      "sha256": "c1a928e973ec1441111f8efe63b757b0e8b77cd6b296a01b89536e8fbf262bdd",
-      "bytes": 1414,
+      "sha256": "e5091c48a7c8147d8b523d947559841a1202af72d66031482d3ed7b47900d052",
+      "bytes": 1418,
       "imports": [
         {
           "line": 3,
