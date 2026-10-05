@@ -4,7 +4,12 @@ import { SvelteStore } from '@sveltery/utils/store';
 import { generateId } from '@sveltery/utils/generateId';
 import { ownerDocument } from '@sveltery/utils/owner';
 import { Timeout } from '@sveltery/utils/useTimeout';
-import type { ToastManagerAddOptions, ToastManagerPromiseOptions, ToastManagerUpdateOptions, ToastObject } from './types.js';
+import type {
+  ToastManagerAddOptions,
+  ToastManagerPromiseOptions,
+  ToastManagerUpdateOptions,
+  ToastObject,
+} from './types.js';
 import { resolvePromiseOptions } from './resolve-promise-options.js';
 import { activeElement, contains, getTarget } from '@sveltery/utils/shadowDom';
 import { matchesFocusVisible as isFocusVisible } from '../floating-ui/utils/matchesFocusVisible.js';
@@ -98,7 +103,18 @@ export class ToastStore extends SvelteStore<State, Record<string, never>, typeof
 
   private areTimersPaused = false;
 
-  constructor(initialState: InitialState = { toasts: [], timeout: 5000, limit: 3, hovering: false, focused: false, isWindowFocused: true, viewport: null, prevFocusElement: null }) {
+  constructor(
+    initialState: InitialState = {
+      toasts: [],
+      timeout: 5000,
+      limit: 3,
+      hovering: false,
+      focused: false,
+      isWindowFocused: true,
+      viewport: null,
+      prevFocusElement: null,
+    },
+  ) {
     super(
       {
         ...initialState,
@@ -136,7 +152,9 @@ export class ToastStore extends SvelteStore<State, Record<string, never>, typeof
 
   // Native Provider teardown keeps the Source timer-only cleanup semantics.
   dispose = () => {
-    this.timers.forEach((timer) => { timer.timeout?.clear(); });
+    this.timers.forEach((timer) => {
+      timer.timeout?.clear();
+    });
     this.timers.clear();
   };
 
@@ -145,7 +163,9 @@ export class ToastStore extends SvelteStore<State, Record<string, never>, typeof
   /** Native host bindings clear their captured node, including while ending. */
   clearToastRef(id: string, node: HTMLElement) {
     if (selectors.toast(this.state, id)?.ref !== node) return;
-    this.setToasts(this.state.toasts.map(toast => toast.id === id ? { ...toast, ref: null } : toast));
+    this.setToasts(
+      this.state.toasts.map((toast) => (toast.id === id ? { ...toast, ref: null } : toast)),
+    );
   }
 
   removeToast(toastId: string, skipOnRemove: boolean = false) {
@@ -175,9 +195,8 @@ export class ToastStore extends SvelteStore<State, Record<string, never>, typeof
         if (existingToast.transitionStatus === 'ending') {
           this.removeToast(toast.id, true);
         } else {
-          const updates = { ...toast };
-          delete updates.id;
-          delete updates.transitionStatus;
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars -- Keep Source destructuring order for upsert options.
+          const { id: ignoredId, transitionStatus: ignoredTransitionStatus, ...updates } = toast;
           this.updateToastInternal(toast.id, updates, true, true);
           return toast.id;
         }

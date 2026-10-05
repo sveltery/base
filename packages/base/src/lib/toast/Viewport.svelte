@@ -28,8 +28,10 @@
   const focused = $derived(store.useState('focused'));
   const expanded = $derived(store.useState('expanded'));
   const prevFocusElement = $derived(store.useState('prevFocusElement'));
-  const hasTransitioningToasts = $derived(toasts.some(toast => toast.transitionStatus === 'ending'));
-  const highPriorityToasts = $derived(toasts.filter(toast => toast.priority === 'high'));
+  const hasTransitioningToasts = $derived(
+    toasts.some((toast) => toast.transitionStatus === 'ending'),
+  );
+  const highPriorityToasts = $derived(toasts.filter((toast) => toast.priority === 'high'));
   const hiddenStyle = toNativeStyle(visuallyHidden);
 
   function attach(node: HTMLElement) {
@@ -63,7 +65,11 @@
       if (event.relatedTarget) return;
       const target = getTarget(event);
       const activeEl = activeElement(ownerDocument(node));
-      if (target === win || !contains(node, target as Element | null) || !isFocusVisible(activeEl)) {
+      if (
+        target === win ||
+        !contains(node, target as Element | null) ||
+        !isFocusVisible(activeEl)
+      ) {
         store.resumeTimers();
       }
       windowFocusTimeout.start(0, () => store.set('isWindowFocused', true));
@@ -77,9 +83,10 @@
   });
   function handleFocusGuard(event: FocusEvent) {
     handlingFocusGuard = true;
-    const firstFocusableToast = event.relatedTarget === store.state.viewport
-      ? toasts.find(toast => toast.transitionStatus !== 'ending' && !toast.limited)
-      : undefined;
+    const firstFocusableToast =
+      event.relatedTarget === store.state.viewport
+        ? toasts.find((toast) => toast.transitionStatus !== 'ending' && !toast.limited)
+        : undefined;
     if (firstFocusableToast) firstFocusableToast.ref?.focus();
     else store.restoreFocusToPrevElement();
   }
@@ -90,13 +97,16 @@
     }
   }
   function flushMouseLeave() {
-    const hasEndingToasts = store.state.toasts.some(toast => toast.transitionStatus === 'ending');
+    const hasEndingToasts = store.state.toasts.some((toast) => toast.transitionStatus === 'ending');
     if (hasEndingToasts || touchActive || !markedReadyForMouseLeave) return;
     if (store.state.isWindowFocused) store.resumeTimers();
     store.set('hovering', false);
     markedReadyForMouseLeave = false;
   }
-  $effect(() => { void hasTransitioningToasts; untrack(flushMouseLeave); });
+  $effect(() => {
+    void hasTransitioningToasts;
+    untrack(flushMouseLeave);
+  });
   function handleMouseEnter() {
     store.pauseTimers();
     store.set('hovering', true);
@@ -118,7 +128,10 @@
     flushMouseLeave();
   }
   function handleFocus() {
-    if (handlingFocusGuard) { handlingFocusGuard = false; return; }
+    if (handlingFocusGuard) {
+      handlingFocusGuard = false;
+      return;
+    }
     if (focused) return;
     if (isFocusVisible(activeElement(ownerDocument(store.state.viewport)))) {
       store.set('focused', true);
@@ -170,9 +183,7 @@
             onpointerup: handlePointerEnd,
             onpointercancel: handlePointerEnd,
             style: {
-              '--toast-frontmost-height': toasts[0]?.height
-                ? `${toasts[0].height}px`
-                : undefined,
+              '--toast-frontmost-height': toasts[0]?.height ? `${toasts[0].height}px` : undefined,
             },
           },
           attributes,

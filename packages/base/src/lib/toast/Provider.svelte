@@ -7,16 +7,19 @@
   import type { ToastProviderProps } from './types.js';
 
   let { children, timeout = 5000, limit = 3, toastManager }: ToastProviderProps = $props();
-  const store = untrack(() => new ToastStore({
-    timeout,
-    limit,
-    viewport: null,
-    toasts: [],
-    hovering: false,
-    focused: false,
-    isWindowFocused: true,
-    prevFocusElement: null,
-  }));
+  const store = untrack(
+    () =>
+      new ToastStore({
+        timeout,
+        limit,
+        viewport: null,
+        toasts: [],
+        hovering: false,
+        focused: false,
+        isWindowFocused: true,
+        prevFocusElement: null,
+      }),
+  );
   const context: ToastProviderContext = { store, manager: createToastFacade(store) };
   setProviderContext(context);
 

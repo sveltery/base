@@ -1,0 +1,265 @@
+{
+  "scope": "bounded basic Toast Source business; no execution or full family/API acceptance",
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "seed": "f0dbb89a05f032af1e9aac99461c6eccfa09e0d9",
+  "sourceStore": {
+    "path": "packages/react/src/toast/store.ts",
+    "fileSha256": "681d635af57123cc3e3298fa6dbc1f20e60e02c1d144b809e75e4228c2549ca7"
+  },
+  "nativeStore": {
+    "path": "packages/base/src/lib/toast/store.ts",
+    "fileSha256": "101622d5ffe5f8953e8c83e76760090e5281fb0e48bf9129b1f86417fc7aa121"
+  },
+  "declarations": [
+    {
+      "name": "createToastMetadata",
+      "originalBodySha256": "2c9de38b19328eaf0fe8d6a73c8cb43dfcc41605856fc99dbe19c2ca233905ba",
+      "nativeBodySha256": "2c9de38b19328eaf0fe8d6a73c8cb43dfcc41605856fc99dbe19c2ca233905ba",
+      "significantTokensEqual": true
+    },
+    {
+      "name": "applyLimited",
+      "originalBodySha256": "84eac3b111b89186345f87d1a3b1c8aed211104f7746626feabf0ab2c09270c9",
+      "nativeBodySha256": "84eac3b111b89186345f87d1a3b1c8aed211104f7746626feabf0ab2c09270c9",
+      "significantTokensEqual": true
+    },
+    {
+      "name": "setViewport",
+      "originalBodySha256": "695ac634605ae2cd16ab66ed258d68e4c1a964261e4543e0671650fd92d4dee3",
+      "nativeBodySha256": "695ac634605ae2cd16ab66ed258d68e4c1a964261e4543e0671650fd92d4dee3",
+      "significantTokensEqual": true
+    },
+    {
+      "name": "syncProviderProps",
+      "originalBodySha256": "44f1616cb9b5ba3ea98cee3fca4d9f0a3c444025b31112c7cfe2ca2284e55468",
+      "nativeBodySha256": "44f1616cb9b5ba3ea98cee3fca4d9f0a3c444025b31112c7cfe2ca2284e55468",
+      "significantTokensEqual": true
+    },
+    {
+      "name": "removeToast",
+      "originalBodySha256": "573bcd13b2348533dda2db3e4edca8979c621434fb0829617133968089d6a484",
+      "nativeBodySha256": "573bcd13b2348533dda2db3e4edca8979c621434fb0829617133968089d6a484",
+      "significantTokensEqual": true
+    },
+    {
+      "name": "addToast",
+      "originalBodySha256": "e82886f33ea15410f15f3b971e94ea5b43f0c395a068260b69f020a0d9eadd9f",
+      "nativeBodySha256": "36ae20209cd7bb248b2a533260777dccf1fb33e94c78fc683d545aeffb59f535",
+      "significantTokensEqual": true
+    },
+    {
+      "name": "updateToast",
+      "originalBodySha256": "629b459f04d44e5e2206a5df59e8709f721a4f17d5a93422375154b2c0a31e56",
+      "nativeBodySha256": "629b459f04d44e5e2206a5df59e8709f721a4f17d5a93422375154b2c0a31e56",
+      "significantTokensEqual": true
+    },
+    {
+      "name": "updateToastInternal",
+      "originalBodySha256": "b85f7bccf6954cb480a9fe4a75599bd15e960eca5796991810841395da644688",
+      "nativeBodySha256": "b85f7bccf6954cb480a9fe4a75599bd15e960eca5796991810841395da644688",
+      "significantTokensEqual": true
+    },
+    {
+      "name": "closeToast",
+      "originalBodySha256": "8369e385265e744852f1e8683faf5b794dcbc03984cbe00cb548de90695f430c",
+      "nativeBodySha256": "8369e385265e744852f1e8683faf5b794dcbc03984cbe00cb548de90695f430c",
+      "significantTokensEqual": true
+    },
+    {
+      "name": "promiseToast",
+      "originalBodySha256": "c88d2c5842894cb7c01c0681d9a025a320e73351af038012d36c180a0bbd3653",
+      "nativeBodySha256": "c88d2c5842894cb7c01c0681d9a025a320e73351af038012d36c180a0bbd3653",
+      "significantTokensEqual": true
+    },
+    {
+      "name": "pauseTimers",
+      "originalBodySha256": "a3d6bb0bbf85f72a128bb9767fbb77c665b5a7f9babb50ab2fe803b02f625d75",
+      "nativeBodySha256": "a3d6bb0bbf85f72a128bb9767fbb77c665b5a7f9babb50ab2fe803b02f625d75",
+      "significantTokensEqual": true
+    },
+    {
+      "name": "resumeTimers",
+      "originalBodySha256": "507898d3909735ee0a06da49f524a8c92cdc0db7d0b7a4c4d81a59814532d48b",
+      "nativeBodySha256": "507898d3909735ee0a06da49f524a8c92cdc0db7d0b7a4c4d81a59814532d48b",
+      "significantTokensEqual": true
+    },
+    {
+      "name": "restoreFocusToPrevElement",
+      "originalBodySha256": "8060e44bec4f8d7c866f2cb7b4d21079b77b217e92804551674f7ee193523289",
+      "nativeBodySha256": "8060e44bec4f8d7c866f2cb7b4d21079b77b217e92804551674f7ee193523289",
+      "significantTokensEqual": true
+    },
+    {
+      "name": "handleDocumentPointerDown",
+      "originalBodySha256": "1ae4d5c62eebb0527a955d1f614dc3d0c63b8bd3093892177548be645be353a9",
+      "nativeBodySha256": "1ae4d5c62eebb0527a955d1f614dc3d0c63b8bd3093892177548be645be353a9",
+      "significantTokensEqual": true
+    },
+    {
+      "name": "scheduleTimer",
+      "originalBodySha256": "d21815c2c260bad6eef6bb5077c62e4713c6e0b8b41fa130001cc97c2b96a6ae",
+      "nativeBodySha256": "d21815c2c260bad6eef6bb5077c62e4713c6e0b8b41fa130001cc97c2b96a6ae",
+      "significantTokensEqual": true
+    },
+    {
+      "name": "clearTimers",
+      "originalBodySha256": "d31c4fd2e5137879fcb58544bd30939775649c60760869fd6d90402c68e9690e",
+      "nativeBodySha256": "d31c4fd2e5137879fcb58544bd30939775649c60760869fd6d90402c68e9690e",
+      "significantTokensEqual": true
+    },
+    {
+      "name": "clearTimer",
+      "originalBodySha256": "5dfd0bde5528ebc5f63061c0e214e7fb0a0ae793c34af878ac2f459841e65f2e",
+      "nativeBodySha256": "5dfd0bde5528ebc5f63061c0e214e7fb0a0ae793c34af878ac2f459841e65f2e",
+      "significantTokensEqual": true
+    },
+    {
+      "name": "handleTimerFired",
+      "originalBodySha256": "baf80fb35e74850d8d61406e3152cc782e693db9c204f68e4bcd9a3c6c284896",
+      "nativeBodySha256": "baf80fb35e74850d8d61406e3152cc782e693db9c204f68e4bcd9a3c6c284896",
+      "significantTokensEqual": true
+    },
+    {
+      "name": "resetPausedStateIfNoTimersRemain",
+      "originalBodySha256": "bf5589a326814f08013f5bb0cee29f0a53d4bf4084bc2f89a6699d2cf9456a94",
+      "nativeBodySha256": "bf5589a326814f08013f5bb0cee29f0a53d4bf4084bc2f89a6699d2cf9456a94",
+      "significantTokensEqual": true
+    },
+    {
+      "name": "setToasts",
+      "originalBodySha256": "66848dede529098f6d9407afbb4af3136a554c1d9cded8c0ae3b127e7f004c10",
+      "nativeBodySha256": "66848dede529098f6d9407afbb4af3136a554c1d9cded8c0ae3b127e7f004c10",
+      "significantTokensEqual": true
+    }
+  ],
+  "generator": {
+    "sourcePath": "packages/utils/src/generateId.ts",
+    "sourceSha256": "6756b4679aa0cf55b37da6759f7ebf9c57b4a7a8484a537f77e30318df76c93d",
+    "nativePath": "packages/utils/src/lib/generateId.ts",
+    "nativeSha256": "9221feb1a1108520240a723ef503a3a7581ab6c183f92c681839f8f1932df11f",
+    "significantTokensEqual": true
+  },
+  "readOriginalBodies": [
+    {
+      "path": "packages/react/src/toast/store.ts",
+      "sha256": "681d635af57123cc3e3298fa6dbc1f20e60e02c1d144b809e75e4228c2549ca7"
+    },
+    {
+      "path": "packages/react/src/toast/createToastManager.ts",
+      "sha256": "d2c3b5896d3c3a56882b5b7595784b57af8f5a1596cb35ef6a3342ded42812f1"
+    },
+    {
+      "path": "packages/react/src/toast/useToastManager.ts",
+      "sha256": "1dbdaf08f5a1dbd2af328e5e97f44097e4481edf0ce750928162f1e23a2a5849"
+    },
+    {
+      "path": "packages/react/src/toast/provider/ToastProvider.tsx",
+      "sha256": "9eb78dcc032f53489ea3d522156156c4cf1971780ffbe66dd45261daabadb805"
+    },
+    {
+      "path": "packages/react/src/toast/provider/ToastProviderContext.ts",
+      "sha256": "2f81b8c813194747bda987d37b5dc0f23f3bf16ff66311c68cb4cb1e9e0cc305"
+    },
+    {
+      "path": "packages/react/src/toast/root/ToastRoot.tsx",
+      "sha256": "66a637af3b6b02f54d850af4c1c767fb2ff60eec0583a5927812de46ecfb5674"
+    },
+    {
+      "path": "packages/react/src/toast/root/ToastRootContext.ts",
+      "sha256": "4f8e9d650e8a254014f6bb710c67a7c6972055317b11d42903de03de8ff29592"
+    },
+    {
+      "path": "packages/react/src/toast/viewport/ToastViewport.tsx",
+      "sha256": "59aa35fd191c58fdb37df245dae392a14f0ee79cdf32bcc8d20ed436d884bb9e"
+    },
+    {
+      "path": "packages/react/src/toast/title/ToastTitle.tsx",
+      "sha256": "dd8df5e9c64240e6013a92d1c22163bf50114001041fe4b826e84355f19db19a"
+    },
+    {
+      "path": "packages/react/src/toast/description/ToastDescription.tsx",
+      "sha256": "124013e3b7f747cafd600697b5de6234ebac0bb83ab92c3b3f469de49c0c58a7"
+    },
+    {
+      "path": "packages/react/src/toast/utils/useToastLabelPart.ts",
+      "sha256": "5e7ec00c01eae1379c37d1b0938da494abdbe74efcd96ed2a3e57a556ca01444"
+    },
+    {
+      "path": "packages/react/src/toast/utils/isRenderableNode.ts",
+      "sha256": "760804a7b8482b748d03a05d7740782c85e9980cb08ffd6ea6648d2a0c4ec600"
+    },
+    {
+      "path": "packages/react/src/toast/utils/resolvePromiseOptions.ts",
+      "sha256": "aebbed20213cb39b51b103b05d8d4ab2a4e5b626e3b53d9f04b84f439d8262ad"
+    },
+    {
+      "path": "packages/react/src/toast/utils/focusVisible.ts",
+      "sha256": "578860990b282d8d5de0e401e3d2bcfe99997ab756b3014375c301a1864d54be"
+    },
+    {
+      "path": "packages/react/src/floating-ui-react/utils/element.ts",
+      "sha256": "327171478f561a3f0e9d74ddbd14c31e4e7263309d6813484d1ce5c406df51f0"
+    },
+    {
+      "path": "packages/utils/src/store/Store.ts",
+      "sha256": "7e65da0884d198cb05775bad8b6a072dc31986263db5394194dbbc91df22b5d3"
+    },
+    {
+      "path": "packages/utils/src/store/ReactStore.ts",
+      "sha256": "bfac0796ebaf8d8233efcfd27e9cd4e0510dd54945f62312570afa224af57992"
+    },
+    {
+      "path": "packages/utils/src/generateId.ts",
+      "sha256": "6756b4679aa0cf55b37da6759f7ebf9c57b4a7a8484a537f77e30318df76c93d"
+    },
+    {
+      "path": "packages/utils/src/useTimeout.ts",
+      "sha256": "8d9e4159d9f883e18035811e9f2b4d180afb0d724b55d86dbf4fda52c355e156"
+    },
+    {
+      "path": "packages/utils/src/useAnimationFrame.ts",
+      "sha256": "229943cee6d42305da4db33ed395ff8ccdde915c2e4e922c5af0c7b0aeeddf82"
+    },
+    {
+      "path": "packages/utils/src/shadowDom.ts",
+      "sha256": "00307496a294b1bde9a09e4d0263cae4bf1eb75f43f5c9b85b37c712210e4e8a"
+    },
+    {
+      "path": "packages/utils/src/owner.ts",
+      "sha256": "94a825206d926b388459df70639476133442c28c83a7e3be750399cb323ea623"
+    },
+    {
+      "path": "packages/utils/src/addEventListener.ts",
+      "sha256": "a2d30e30e8151a62347f67620d568bd1550f5069af3652a57892ed9de42f3dcc"
+    },
+    {
+      "path": "packages/utils/src/mergeCleanups.ts",
+      "sha256": "10dfcbfde4190ebaa09982d84f33523e4b6395dfba7c5998b7d41d158699e5cf"
+    },
+    {
+      "path": "packages/utils/src/visuallyHidden.ts",
+      "sha256": "4aa9c2cedd7087b2f1587548abb488604654ac61bc4ef6c30587317b6673764a"
+    },
+    {
+      "path": "packages/react/src/utils/FocusGuard.tsx",
+      "sha256": "80c4e93b1c90577cf77b211049a84c8f7bc3ada4b8c92996df9b500aa5eafb51"
+    },
+    {
+      "path": "packages/react/src/internals/useOpenChangeComplete.tsx",
+      "sha256": "809be9e6b5a1a6238d9f239c162e2489d7da6e5f20383fbe65e85933e7259d89"
+    },
+    {
+      "path": "packages/react/src/internals/useAnimationsFinished.ts",
+      "sha256": "58fef3cb8defbbbe84c80126a6b0aff767293b692a19d97f078a190e62a3d7a6"
+    }
+  ],
+  "adaptedBodies": [
+    "constructor: native SvelteStore with default internal fixture construction",
+    "disposeEffect: timer-only native dispose callback",
+    "handleFocusManagement: native HTMLElement ref, browser-global-free missing viewport early return",
+    "clearToastRef: actual native host-binding cleanup"
+  ],
+  "unchangedOrdinaryAssertionCredit": 0,
+  "executionStatus": "pending sole validation lane",
+  "reviewStatus": "pending independent exact-head Source/native/maintainability review"
+}

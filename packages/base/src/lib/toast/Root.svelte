@@ -31,8 +31,14 @@
   const offsetY = $derived(store.useState('toastOffsetY', toast.id));
 
   useOpenChangeComplete({
-    get open() { return toast.transitionStatus !== 'ending'; },
-    ref: { get current() { return node; } },
+    get open() {
+      return toast.transitionStatus !== 'ending';
+    },
+    ref: {
+      get current() {
+        return node;
+      },
+    },
     onComplete() {
       if (toast.transitionStatus === 'ending') store.removeToast(toast.id);
     },
@@ -71,11 +77,15 @@
     },
     setTitleId(id) {
       titleId = id;
-      return () => { if (titleId === id) titleId = undefined; };
+      return () => {
+        if (titleId === id) titleId = undefined;
+      };
     },
     setDescriptionId(id) {
       descriptionId = id;
-      return () => { if (descriptionId === id) descriptionId = undefined; };
+      return () => {
+        if (descriptionId === id) descriptionId = undefined;
+      };
     },
     recalculateHeight,
   };
@@ -84,14 +94,11 @@
     node = element;
     return () => {
       if (node === element) node = null;
-
     };
   }
   $effect(() => {
     if (swipeDirection.length)
-      throw new Error(
-        'Base UI: this Toast.Root slice requires swipeDirection={[]}.',
-      );
+      throw new Error('Base UI: this Toast.Root slice requires swipeDirection={[]}.');
   });
   // Capture the actual native host/ID pair for binding cleanup.
   $effect(() => {
@@ -126,26 +133,20 @@
     'aria-describedby': descriptionId,
     'aria-hidden': toast.priority === 'high' && !focused ? true : undefined,
     inert: toast.limited ? true : undefined,
-    'data-starting-style':
-      toast.transitionStatus === 'starting' ? '' : undefined,
+    'data-starting-style': toast.transitionStatus === 'starting' ? '' : undefined,
     'data-ending-style': toast.transitionStatus === 'ending' ? '' : undefined,
     'data-expanded': expanded ? '' : undefined,
     'data-limited': toast.limited ? '' : undefined,
     'data-type': toast.type,
     style: {
-      '--toast-index':
-        toast.transitionStatus === 'ending' ? domIndex : visibleIndex,
+      '--toast-index': toast.transitionStatus === 'ending' ? domIndex : visibleIndex,
       '--toast-offset-y': `${offsetY}px`,
       '--toast-height': toast.height ? `${toast.height}px` : undefined,
       '--toast-swipe-movement-x': '0px',
       '--toast-swipe-movement-y': '0px',
     },
     onkeydown: (event: KeyboardEvent) => {
-      if (
-        event.key === 'Escape' &&
-        node &&
-        contains(node, activeElement(node.ownerDocument))
-      )
+      if (event.key === 'Escape' && node && contains(node, activeElement(node.ownerDocument)))
         store.closeToast(toast.id);
     },
   });
@@ -165,12 +166,7 @@
   const mergedProps = $derived.by(() => {
     const { class: className, style, ...attributes } = props;
     return {
-      ...mergeComponentProps(
-        rootState,
-        { class: className, style },
-        [internal, attributes],
-        false,
-      ),
+      ...mergeComponentProps(rootState, { class: className, style }, [internal, attributes], false),
       [hostAttachmentKey]: attachHost,
     };
   });

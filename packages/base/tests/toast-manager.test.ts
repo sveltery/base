@@ -3,16 +3,33 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { createToastManager } from '../src/lib/toast/createToastManager';
 import { ToastStore, selectors } from '../src/lib/toast/store';
+import { subscribeToManager } from './toast-test-manager';
 
 function attached() {
   const manager = createToastManager();
-  const store = new ToastStore({ toasts: [], timeout: 5000, limit: 3, hovering: false, focused: false, isWindowFocused: true, viewport: null, prevFocusElement: null });
-  store.attachManager(manager);
-  return { manager, store, dispose: store.dispose };
+  const store = new ToastStore({
+    toasts: [],
+    timeout: 5000,
+    limit: 3,
+    hovering: false,
+    focused: false,
+    isWindowFocused: true,
+    viewport: null,
+    prevFocusElement: null,
+  });
+  const unsubscribe = subscribeToManager(store, manager);
+  return {
+    manager,
+    store,
+    dispose: () => {
+      unsubscribe();
+      store.dispose();
+    },
+  };
 }
 
 describe('complete createToastManager add prerequisite at pinned source :53', () => {
-    it('returns a toast id', async () => {
+  it('returns a toast id', async () => {
       const toastManager = createToastManager();
 
       const toastId = toastManager.add({
@@ -25,7 +42,9 @@ describe('complete createToastManager add prerequisite at pinned source :53', ()
 
 // These supplement the complete store leaves. They do not stand in for Provider/DOM mounting.
 describe('source-derived manager channel and timer prerequisites', () => {
-  afterEach(() => { vi.useRealTimers(); });
+  afterEach(() => {
+    vi.useRealTimers();
+  });
 
   it('does not queue events before subscription and unsubscribes cleanly', () => {
     const manager = createToastManager();

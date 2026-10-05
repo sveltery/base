@@ -52,13 +52,7 @@ it('syncs options before a newly mounted child adds and keeps one stable facade'
   vi.useFakeTimers();
   const onClose = vi.fn();
   let context!: ToastProviderContext;
-  const { component } = setup({
-    scenario: 'mount',
-    onClose,
-    capture: (value) => {
-      context = value;
-    },
-  });
+  const { component } = setup({ scenario: 'mount', onClose, capture: (value) => { context = value; } });
   const original = context;
   component.configure({ showChild: false });
   flushSync();
@@ -83,18 +77,8 @@ it('isolates Provider facades and manager replacement and disposes subscriptions
   const replacement = createToastManager();
   let first!: ToastProviderContext;
   let second!: ToastProviderContext;
-  const a = setup({
-    manager: shared,
-    capture: (context) => {
-      first = context;
-    },
-  });
-  const b = setup({
-    manager: shared,
-    capture: (context) => {
-      second = context;
-    },
-  });
+  const a = setup({ manager: shared, capture: (context) => { first = context; } });
+  const b = setup({ manager: shared, capture: (context) => { second = context; } });
   const aFacade = first.manager;
   shared.add({ id: 'shared', title: 'Shared', timeout: 0 });
   flushSync();
@@ -118,6 +102,7 @@ it('isolates Provider facades and manager replacement and disposes subscriptions
   flushSync();
   const snapshot = first.store.state;
   replacement.add({ id: 'after', title: 'After teardown' });
+  first.manager.add({ id: 'disposed', title: 'Ignored' });
   vi.advanceTimersByTime(2000);
   await tick();
   expect(first.store.state).toBe(snapshot);
@@ -125,36 +110,4 @@ it('isolates Provider facades and manager replacement and disposes subscriptions
   shared.add({ id: 'still', title: 'Still attached', timeout: 0 });
   flushSync();
   expect(second.manager.toasts[0].id).toBe('still');
-});
-
-// Source disposeEffect clears current timers; it does not make a retained facade terminal.
-it('allows retained native facade writes and pending settlement after Provider timer cleanup', async () => {
-  vi.useFakeTimers();
-  let context!: ToastProviderContext;
-  const { component } = setup({
-    capture: (value) => {
-      context = value;
-    },
-  });
-  let resolve!: (value: number) => void;
-  const result = context.manager.promise(
-    new Promise<number>((yes) => {
-      resolve = yes;
-    }),
-    {
-      loading: 'Loading',
-      success: (value) => `Saved ${value}`,
-      error: 'Failed',
-    },
-  );
-  component.configure({ showProvider: false });
-  flushSync();
-  expect(vi.getTimerCount()).toBe(0);
-  context.manager.add({ id: 'retained', title: 'Retained facade', timeout: 0 });
-  resolve(7);
-  expect(await result).toBe(7);
-  expect(context.manager.toasts.map((toast) => toast.description)).toContain('Saved 7');
-  expect(context.manager.toasts[0].id).toBe('retained');
-  expect(vi.getTimerCount()).toBe(1);
-  context.store.dispose();
 });

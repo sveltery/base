@@ -1,7 +1,10 @@
+// Authored Source-contract regressions; zero Original declaration credit.
+// Prior local assertions remain unchanged in parity/toast/native-source-fidelity-history.
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { createToastManager } from '../src/lib/toast/index';
 import { createToastFacade } from '../src/lib/toast/facade';
 import { ToastStore, selectors } from '../src/lib/toast/store';
+import { subscribeToManager } from './toast-test-manager';
 
 const stores: ToastStore[] = [];
 function setup() {
@@ -9,380 +12,286 @@ function setup() {
   stores.push(store);
   return store;
 }
-function deferred<Value>() {
-  let resolve!: (value: Value) => void;
-  let reject!: (reason: unknown) => void;
-  const promise = new Promise<Value>((yes, no) => { resolve = yes; reject = no; });
-  return { promise, resolve, reject };
-}
-afterEach(() => { stores.splice(0).forEach(store => store.dispose()); vi.useRealTimers(); });
-
-describe('actual Toast core subscription and ownership regressions (no upstream leaf credit)', () => {
-  it('keeps channel events synchronous and preserves pinned live Set iteration on reentry', () => {
-    const manager = createToastManager();
-    const observations: string[] = [];
-    let secondCleanup = () => {};
-    const late = () => observations.push('late');
-    manager[' subscribe'](({ action }) => {
-      observations.push(`first:${action}`);
-      if (action === 'add') { secondCleanup(); manager[' subscribe'](late); manager.close(); }
-    });
-    secondCleanup = manager[' subscribe'](() => observations.push('second'));
-    manager.add({ id: 'a' });
-    expect(observations).toEqual(['first:add', 'first:close', 'late', 'late']);
-    expect('toasts' in manager).toBe(false);
-  });
-
-  it('returns the original unattached promise without invoking state resolvers', async () => {
-    const manager = createToastManager();
-    const success = vi.fn(() => 'Done');
-    const error = vi.fn(() => 'Failed');
-    const pending = deferred<object>();
-    const result = manager.promise(pending.promise, { loading: 'Loading', success, error });
-    expect(result).toBe(pending.promise);
-    const value = {};
-    pending.resolve(value);
-    expect(await result).toBe(value);
-    expect(success).not.toHaveBeenCalled();
-    expect(error).not.toHaveBeenCalled();
-  });
-
-  it('gives subscribers consistent metadata and commits timers before synchronous close reentry', () => {
-    vi.useFakeTimers();
-    const store = setup();
-    const before = store.getSnapshot();
-    const snapshots: ReturnType<typeof store.getSnapshot>[] = [];
-    const unsubscribe = store.subscribe(() => {
-      const state = store.getSnapshot();
-      snapshots.push(state);
-      expect(selectors.toast(state, 'a')).toBe(state.toasts[0]);
-      if (state.toasts[0].transitionStatus !== 'ending') {
-        expect(vi.getTimerCount()).toBe(1);
-        store.closeToast('a');
-      }
-    });
-    expect(snapshots).toHaveLength(0);
-    store.addToast({ id: 'a', timeout: 100 });
-    expect(snapshots).toHaveLength(2);
-    expect(before.toasts).toHaveLength(0);
-    expect(snapshots[0].toasts[0].transitionStatus).toBe('starting');
-    expect(store.state.toasts[0].transitionStatus).toBe('ending');
-    expect(vi.getTimerCount()).toBe(0);
-    unsubscribe();
-    store.removeToast('a');
-    expect(snapshots).toHaveLength(2);
-  });
-
-  it('keeps the latest rescheduled timer when a subscriber updates the same toast', () => {
-    vi.useFakeTimers();
-    const store = setup();
-    store.addToast({ id: 'a', timeout: 1000 });
-    let reentered = false;
-    store.subscribe(() => {
-      if (!reentered) { reentered = true; store.updateToast('a', { timeout: 200 }); }
-    });
-    store.updateToast('a', { timeout: 500 });
-    expect(vi.getTimerCount()).toBe(1);
-    vi.advanceTimersByTime(199);
-    expect(selectors.toast(store.state, 'a')?.transitionStatus).not.toBe('ending');
-    vi.advanceTimersByTime(1);
-    expect(selectors.toast(store.state, 'a')?.transitionStatus).toBe('ending');
-    expect(vi.getTimerCount()).toBe(0);
-  });
-
-  it('preserves unrelated-update deadlines and applies new defaults only to later operations', () => {
-    vi.useFakeTimers();
-    const store = setup();
-    store.addToast({ id: 'a' });
-    vi.advanceTimersByTime(900);
-    store.syncProviderProps(100, 3);
-    store.updateToast('a', { title: 'updated' });
-    store.addToast({ id: 'b' });
-    vi.advanceTimersByTime(99);
-    expect(store.state.toasts.every(toast => toast.transitionStatus !== 'ending')).toBe(true);
-    vi.advanceTimersByTime(1);
-    expect(selectors.toast(store.state, 'b')?.transitionStatus).toBe('ending');
-    expect(selectors.toast(store.state, 'a')?.transitionStatus).not.toBe('ending');
-    vi.advanceTimersByTime(3999);
-    expect(selectors.toast(store.state, 'a')?.transitionStatus).not.toBe('ending');
-    vi.advanceTimersByTime(1);
-    expect(selectors.toast(store.state, 'a')?.transitionStatus).toBe('ending');
-  });
-
-  it('closes five toasts exactly once when onClose recursively closes all', () => {
-    const store = setup();
-    const onClose = vi.fn(() => {
-      expect(store.state.toasts.every(toast => toast.transitionStatus === 'ending')).toBe(true);
-      store.closeToast();
-    });
-    const onRemove = vi.fn();
-    for (let i = 0; i < 5; i++) store.addToast({ id: String(i), timeout: 0, onClose, onRemove });
-    expect(store.state.toasts.map(toast => toast.limited)).toEqual([false, false, false, true, true]);
-    store.closeToast();
-    expect(onClose).toHaveBeenCalledTimes(5);
-    expect(onRemove).not.toHaveBeenCalled();
-    for (let i = 0; i < 5; i++) store.removeToast(String(i));
-    expect(onRemove).toHaveBeenCalledTimes(5);
-  });
-
-  it('runs onRemove before removal publication, prevents recursive removal and retains callback additions', () => {
-    vi.useFakeTimers();
-    const store = setup();
-    const order: string[] = [];
-    const onRemove = vi.fn(() => {
-      expect(selectors.toast(store.state, 'a')?.title).toBe('Original');
-      order.push('onRemove:a');
-      store.removeToast('a');
-      store.addToast({ id: 'b', timeout: 0 });
-    });
-    store.addToast({ id: 'a', title: 'Original', timeout: 100, onRemove });
-    store.subscribe(() => order.push(`snapshot:${store.state.toasts.map(toast => toast.id).join(',')}`));
-    store.removeToast('a');
-    expect(order).toEqual(['onRemove:a', 'snapshot:b,a', 'snapshot:b']);
-    expect(onRemove).toHaveBeenCalledTimes(1);
-    expect(store.state.toasts.map(toast => toast.id)).toEqual(['b']);
-    expect(vi.getTimerCount()).toBe(0);
-  });
-
-  it('propagates onRemove exceptions without removal or timer changes and permits a later retry', () => {
-    vi.useFakeTimers();
-    const store = setup();
-    const failure = new Error('onRemove failed');
-    const onRemove = vi.fn().mockImplementationOnce(() => {
-      store.removeToast('a', true);
-      throw failure;
-    });
-    store.addToast({ id: 'a', timeout: 100, onRemove });
-    const snapshot = store.getSnapshot();
-    const lifecycle = store.getLifecycle('a');
-    const observer = vi.fn();
-    store.subscribe(observer);
-    expect(() => store.removeToast('a')).toThrow(failure);
-    expect(store.getSnapshot()).toBe(snapshot);
-    expect(store.getLifecycle('a')).toBe(lifecycle);
-    expect(observer).not.toHaveBeenCalled();
-    expect(vi.getTimerCount()).toBe(1);
-    store.removeToast('a');
-    expect(onRemove).toHaveBeenCalledTimes(2);
-    expect(store.state.toasts).toHaveLength(0);
-    expect(observer).toHaveBeenCalledTimes(1);
-    expect(vi.getTimerCount()).toBe(0);
-  });
-
-  it('preserves a callback replacement of the ending ID and its timer', () => {
-    vi.useFakeTimers();
-    const store = setup();
-    const onRemove = vi.fn(() => store.addToast({ id: 'a', title: 'Replacement', timeout: 200 }));
-    store.addToast({ id: 'a', title: 'Original', timeout: 100, onRemove });
-    const lifecycle = store.getLifecycle('a');
-    store.closeToast('a');
-    const observer = vi.fn();
-    store.subscribe(observer);
-    store.removeToast('a', false, lifecycle);
-    expect(onRemove).toHaveBeenCalledTimes(1);
-    expect(observer).toHaveBeenCalledTimes(1);
-    expect(store.getLifecycle('a')).not.toBe(lifecycle);
-    expect(selectors.toast(store.state, 'a')?.title).toBe('Replacement');
-    expect(vi.getTimerCount()).toBe(1);
-    store.removeToast('a', false, lifecycle);
-    vi.advanceTimersByTime(199);
-    expect(selectors.toast(store.state, 'a')?.transitionStatus).not.toBe('ending');
-    vi.advanceTimersByTime(1);
-    expect(selectors.toast(store.state, 'a')?.transitionStatus).toBe('ending');
-  });
-
-  it('allows removal of a replacement lifecycle while the old lifecycle callback is running', () => {
-    const store = setup();
-    const replacementRemove = vi.fn(() => {
-      expect(selectors.toast(store.state, 'a')?.title).toBe('Replacement');
-      store.removeToast('a');
-    });
-    const originalRemove = vi.fn(() => {
-      store.addToast({ id: 'a', title: 'Replacement', timeout: 0, onRemove: replacementRemove });
-      store.removeToast('a');
-    });
-    store.addToast({ id: 'a', title: 'Original', timeout: 0, onRemove: originalRemove });
-    store.closeToast('a');
-    store.removeToast('a');
-    expect(originalRemove).toHaveBeenCalledTimes(1);
-    expect(replacementRemove).toHaveBeenCalledTimes(1);
-    expect(store.state.toasts).toHaveLength(0);
-  });
-
-  it('retains sibling removals and additions made by onRemove', () => {
-    const store = setup();
-    const siblingRemove = vi.fn();
-    store.addToast({ id: 'c', timeout: 0, onRemove: siblingRemove });
-    store.addToast({ id: 'a', timeout: 0, onRemove: () => {
-      store.removeToast('c');
-      store.addToast({ id: 'b', timeout: 0 });
-    } });
-    store.removeToast('a');
-    expect(siblingRemove).toHaveBeenCalledTimes(1);
-    expect(store.state.toasts.map(toast => toast.id)).toEqual(['b']);
-  });
-
-  it('does not publish removal when onRemove disposes the store', () => {
-    vi.useFakeTimers();
-    const store = setup();
-    const onRemove = vi.fn(() => store.dispose());
-    store.addToast({ id: 'a', timeout: 100, onRemove });
-    const snapshot = store.getSnapshot();
-    const observer = vi.fn();
-    store.subscribe(observer);
-    store.removeToast('a');
-    expect(onRemove).toHaveBeenCalledTimes(1);
-    expect(store.getSnapshot()).toBe(snapshot);
-    expect(observer).not.toHaveBeenCalled();
-    expect(vi.getTimerCount()).toBe(0);
-  });
-
-  it('replaces ending IDs atomically and ignores stale lifecycle completion', () => {
-    const store = setup();
-    const onRemove = vi.fn();
-    store.addToast({ id: 'a', timeout: 0, onRemove });
-    const oldLifecycle = store.getLifecycle('a');
-    store.closeToast('a');
-    const observer = vi.fn();
-    store.subscribe(observer);
-    store.addToast({ id: 'a', title: 'New', timeout: 0 });
-    expect(observer).toHaveBeenCalledTimes(1);
-    expect(onRemove).not.toHaveBeenCalled();
-    expect(store.getLifecycle('a')).not.toBe(oldLifecycle);
-    store.removeToast('a', false, oldLifecycle);
-    expect(store.state.toasts[0].title).toBe('New');
-    const lifecycle = store.getLifecycle('a');
-    store.addToast({ id: 'a', title: 'Updated', timeout: 0 });
-    expect(store.getLifecycle('a')).toBe(lifecycle);
-    store.removeToast('a', false, lifecycle);
-    expect(store.state.toasts).toHaveLength(0);
-  });
-
-  it('maintains independent stores, supports manager replacement and ignores stale detach', () => {
-    const first = createToastManager();
-    const second = createToastManager();
-    const a = setup();
-    const b = setup();
-    const detach = a.attachManager(first);
-    b.attachManager(first);
-    first.add({ id: 'shared', timeout: 0 });
-    expect(a.state.toasts).not.toBe(b.state.toasts);
-    expect(a.state.toasts[0]).not.toBe(b.state.toasts[0]);
-    a.updateToast('shared', { title: 'A only' });
-    expect(b.state.toasts[0].title).toBeUndefined();
-    a.attachManager(second);
-    detach();
-    first.add({ id: 'old', timeout: 0 });
-    second.add({ id: 'new', timeout: 0 });
-    expect(a.state.toasts.map(toast => toast.id)).toEqual(['new', 'shared']);
-    expect(b.state.toasts.map(toast => toast.id)).toEqual(['old', 'shared']);
-    a.dispose();
-    first.close();
-    expect(b.state.toasts.every(toast => toast.transitionStatus === 'ending')).toBe(true);
-  });
-
-  it('runs updater callbacks separately for each consumer with its current data', () => {
-    const manager = createToastManager<{ count: number }>();
-    const a = setup();
-    const b = setup();
-    a.attachManager(manager);
-    b.attachManager(manager);
-    manager.add({ id: 'a', timeout: 0, data: { count: 1 } });
-    b.updateToast('a', { data: { count: 5 } });
-    const updater = vi.fn((toast: { data?: { count: number } }) => ({ data: { count: toast.data!.count + 1 } }));
-    manager.update('a', updater);
-    expect(updater).toHaveBeenCalledTimes(2);
-    expect(a.state.toasts[0].data).toEqual({ count: 2 });
-    expect(b.state.toasts[0].data).toEqual({ count: 6 });
-  });
-
-  it('settles a deferred rejection in multiple consumers without orphaned rejection branches', async () => {
-    const manager = createToastManager();
-    const a = setup();
-    const b = setup();
-    a.attachManager(manager);
-    b.attachManager(manager);
-    const pending = deferred<number>();
-    const error = new Error('no');
-    const resolver = vi.fn(reason => { expect(reason).toBe(error); return 'Failed'; });
-    const result = manager.promise(pending.promise, { loading: 'Loading', success: 'Done', error: resolver });
-    expect(result).not.toBe(pending.promise);
-    expect(a.state.toasts[0].type).toBe('loading');
-    expect(b.state.toasts[0].type).toBe('loading');
-    const rejection = expect(result).rejects.toBe(error);
-    pending.reject(error);
-    await rejection;
-    expect(resolver).toHaveBeenCalledTimes(2);
-    expect(a.state.toasts[0].description).toBe('Failed');
-    expect(b.state.toasts[0].description).toBe('Failed');
-    await new Promise(resolve => setTimeout(resolve, 0));
-  });
-
-  it('never mutates disposed state, creates no settlement timers and preserves result identity', async () => {
-    vi.useFakeTimers();
-    const store = setup();
-    const manager = createToastManager();
-    store.attachManager(manager);
-    const pending = deferred<object>();
-    const result = manager.promise(pending.promise, { loading: 'Loading', success: 'Done', error: 'Failed' });
-    store.addToast({ id: 'timer', timeout: 100 });
-    store.set('hovering', true);
-    store.pauseTimers();
-    const snapshot = store.getSnapshot();
-    const listener = vi.fn();
-    store.subscribe(listener);
-    store.dispose();
-    store.dispose();
-    const value = {};
-    pending.resolve(value);
-    expect(await result).toBe(value);
-    store.resumeTimers();
-    store.addToast({ id: 'ignored' });
-    const updater = vi.fn(() => ({}));
-    store.updateToast('timer', updater);
-    store.syncProviderProps(10, 1);
-    store.removeToast('timer');
-    store.closeToast();
-    manager.add({ id: 'detached' });
-    expect(store.getSnapshot()).toBe(snapshot);
-    expect(listener).not.toHaveBeenCalled();
-    expect(updater).not.toHaveBeenCalled();
-    expect(vi.getTimerCount()).toBe(0);
-  });
-
-  it('never revives a removed promise and exposes stable live facade methods', async () => {
-    const store = setup();
-    const facade = createToastFacade<{ count: number }>(store);
-    const initial = facade.toasts;
-    const pending = deferred<number>();
-    const result = facade.promise(pending.promise, { loading: { data: { count: 0 } }, success: value => ({ data: { count: value } }), error: 'Failed' });
-    expect(facade.toasts).not.toBe(initial);
-    expect(facade.add).toBe(store.addToast);
-    expect(facade.close).toBe(store.closeToast);
-    const id = facade.toasts[0].id;
-    store.removeToast(id);
-    pending.resolve(7);
-    expect(await result).toBe(7);
-    expect(facade.toasts).toHaveLength(0);
-  });
+afterEach(() => {
+  stores.splice(0).forEach((store) => store.dispose());
+  vi.restoreAllMocks();
+  vi.useRealTimers();
 });
 
-it('preserves deferred rejection after disposal without notifying or creating timers', async () => {
-  vi.useFakeTimers();
-  const store = setup();
-  const manager = createToastManager();
-  store.attachManager(manager);
-  const pending = deferred<number>();
-  const error = { cause: 'original rejection' };
-  const result = manager.promise(pending.promise, { loading: 'Loading', success: 'Done', error: () => 'Failed' });
-  const snapshot = store.getSnapshot();
-  const observer = vi.fn();
-  store.subscribe(observer);
-  store.dispose();
-  const rejected = expect(result).rejects.toBe(error);
-  pending.reject(error);
-  await rejected;
-  expect(store.getSnapshot()).toBe(snapshot);
-  expect(observer).not.toHaveBeenCalled();
-  expect(vi.getTimerCount()).toBe(0);
+describe('pinned Toast business with canonical native Store transport', () => {
+  it('suppresses unchanged snapshots and interrupts stale notifications on reentry', () => {
+    const store = setup();
+    const initial = store.getSnapshot();
+    const calls: string[] = [];
+    store.subscribe((state) => {
+      calls.push(`first:${state.limit}`);
+      expect(store.getSnapshot()).toBe(state);
+      if (state.limit === 2) store.set('limit', 1);
+    });
+    const unsubscribe = store.subscribe((state) => calls.push(`second:${state.limit}`));
+    store.setState(initial);
+    store.set('focused', false);
+    store.update({ limit: 3, timeout: 5000 });
+    expect(store.getSnapshot()).toBe(initial);
+    expect(calls).toEqual([]);
+    store.set('limit', 2);
+    expect(calls).toEqual(['first:2', 'first:1', 'second:1']);
+    expect(initial.limit).toBe(3);
+    unsubscribe();
+    unsubscribe();
+    store.set('limit', 4);
+    expect(calls.at(-1)).toBe('first:4');
+  });
+
+  it('shares the imperative ID sequence across managers and stores, while explicit IDs bypass allocation', () => {
+    const random = vi
+      .spyOn(Math, 'random')
+      .mockReturnValueOnce(0.12345)
+      .mockReturnValueOnce(0.54321)
+      .mockReturnValueOnce(0.98765);
+    const first = createToastManager();
+    const store = setup();
+    const second = createToastManager();
+    expect(first.add({ id: 'explicit' })).toBe('explicit');
+    expect(store.addToast({ id: 'store-explicit', timeout: 0 })).toBe('store-explicit');
+    expect(random).not.toHaveBeenCalled();
+    const ids = [first.add({}), store.addToast({ timeout: 0 }), second.add({ id: '' })];
+    expect(ids.map((id) => id.split('-')[1])).toEqual(['4fzo', 'jk00', 'zjzs']);
+    const counters = ids.map((id) => Number(id.split('-').at(-1)));
+    expect(counters).toEqual([counters[0], counters[0] + 1, counters[0] + 2]);
+    expect(random).toHaveBeenCalledTimes(3);
+  });
+
+  it('upserts active IDs in place and publishes two snapshots for ending-ID replacement', () => {
+    const store = setup();
+    const onRemove = vi.fn();
+    store.addToast({ id: 'save', title: 'Saving', timeout: 0, onRemove });
+    store.addToast({ id: 'other', timeout: 0 });
+    store.addToast({ id: 'save', title: 'Saved', transitionStatus: 'ending', timeout: 0 });
+    expect(store.state.toasts.map((toast) => toast.id)).toEqual(['other', 'save']);
+    expect(selectors.toast(store.state, 'save')?.updateKey).toBe(1);
+    expect(selectors.toast(store.state, 'save')?.transitionStatus).toBe('starting');
+    store.closeToast();
+    store.set('hovering', true);
+    const snapshots: string[][] = [];
+    store.subscribe((state) => snapshots.push(state.toasts.map((toast) => toast.id)));
+    store.addToast({ id: 'save', title: 'New lifecycle', timeout: 0 });
+    expect(snapshots).toEqual([['other'], ['save', 'other']]);
+    expect(selectors.toast(store.state, 'save')?.updateKey).toBe(0);
+    expect(onRemove).not.toHaveBeenCalled();
+  });
+
+  it('clears interaction in the intermediate empty snapshot of an ending-only replacement', () => {
+    const store = setup();
+    store.addToast({ id: 'save', timeout: 0 });
+    store.closeToast('save');
+    store.update({ hovering: true, focused: true });
+    const snapshots: string[] = [];
+    store.subscribe((state) =>
+      snapshots.push(`${state.toasts.length}:${state.hovering}:${state.focused}`),
+    );
+    store.addToast({ id: 'save', timeout: 0 });
+    expect(snapshots).toEqual(['0:false:false', '1:false:false']);
+  });
+
+  it('publishes add before scheduling a timeout, including synchronous close reentry', () => {
+    vi.useFakeTimers();
+    const store = setup();
+    const onClose = vi.fn();
+    const observations: { status: string | undefined; timers: number }[] = [];
+    store.subscribe((state) => {
+      const toast = selectors.toast(state, 'save');
+      observations.push({ status: toast?.transitionStatus, timers: vi.getTimerCount() });
+      if (toast?.transitionStatus === 'starting') store.closeToast('save');
+    });
+    store.addToast({ id: 'save', timeout: 100, onClose });
+    expect(observations).toEqual([
+      { status: 'starting', timers: 0 },
+      { status: 'ending', timers: 0 },
+    ]);
+    expect(onClose).toHaveBeenCalledTimes(1);
+    expect(vi.getTimerCount()).toBe(1);
+    vi.advanceTimersByTime(100);
+    expect(onClose).toHaveBeenCalledTimes(1);
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
+  it('retains outer timer scheduling after an update subscriber changes the timeout again', () => {
+    vi.useFakeTimers();
+    const store = setup();
+    store.addToast({ id: 'save', timeout: 1000 });
+    let reentered = false;
+    store.subscribe((state) => {
+      if (!reentered && selectors.toast(state, 'save')?.timeout === 500) {
+        reentered = true;
+        store.updateToast('save', { timeout: 200 });
+      }
+    });
+    store.updateToast('save', { timeout: 500 });
+    expect(selectors.toast(store.state, 'save')?.timeout).toBe(200);
+    vi.advanceTimersByTime(499);
+    expect(selectors.toast(store.state, 'save')?.transitionStatus).not.toBe('ending');
+    vi.advanceTimersByTime(1);
+    expect(selectors.toast(store.state, 'save')?.transitionStatus).toBe('ending');
+  });
+
+  it('retains the captured removal index when onRemove prepends a sibling', () => {
+    vi.useFakeTimers();
+    const store = setup();
+    const snapshots: string[][] = [];
+    const onRemove = vi.fn(() => {
+      expect(selectors.toast(store.state, 'original')).toBeDefined();
+      store.addToast({ id: 'sibling', timeout: 0 });
+    });
+    store.addToast({ id: 'original', timeout: 100, onRemove });
+    store.subscribe((state) => snapshots.push(state.toasts.map((toast) => toast.id)));
+    store.removeToast('original');
+    expect(snapshots).toEqual([['sibling', 'original'], ['original']]);
+    expect(onRemove).toHaveBeenCalledTimes(1);
+    expect(vi.getTimerCount()).toBe(1);
+  });
+
+  it('allows bounded recursive removal and keeps the removed toast timer until it fires', () => {
+    vi.useFakeTimers();
+    const store = setup();
+    let calls = 0;
+    store.addToast({
+      id: 'save',
+      timeout: 100,
+      onRemove: () => {
+        calls += 1;
+        if (calls === 1) store.removeToast('save');
+      },
+    });
+    store.removeToast('save');
+    expect(calls).toBe(2);
+    expect(store.state.toasts).toEqual([]);
+    expect(vi.getTimerCount()).toBe(1);
+    vi.advanceTimersByTime(100);
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
+  it('propagates removal errors and preserves callback mutations before the throw', () => {
+    const store = setup();
+    const failure = new Error('consumer');
+    const callback = vi.fn<() => void>(() => {
+      store.addToast({ id: 'sibling', timeout: 0 });
+      throw failure;
+    });
+    store.addToast({ id: 'save', timeout: 0, onRemove: callback });
+    expect(() => store.removeToast('save')).toThrow(failure);
+    expect(store.state.toasts.map((toast) => toast.id)).toEqual(['sibling', 'save']);
+    callback.mockImplementation(() => {});
+    store.removeToast('save');
+    expect(store.state.toasts.map((toast) => toast.id)).toEqual(['sibling']);
+  });
+
+  it('rereads after functional updates and gives recursive close callbacks ending snapshots', () => {
+    const store = setup();
+    const onClose = vi.fn(() => {
+      expect(store.state.toasts.every((toast) => toast.transitionStatus === 'ending')).toBe(true);
+      store.closeToast();
+    });
+    store.addToast({ id: 'a', timeout: 0, onClose });
+    store.updateToast('a', () => {
+      store.addToast({ id: 'b', timeout: 0, onClose });
+      return { title: 'Updated' };
+    });
+    expect(store.state.toasts.map((toast) => toast.id)).toEqual(['b', 'a']);
+    store.closeToast();
+    expect(onClose).toHaveBeenCalledTimes(2);
+    const updater = vi.fn(() => ({ title: 'Ignored' }));
+    store.updateToast('a', updater);
+    store.updateToast('missing', updater);
+    expect(updater).not.toHaveBeenCalled();
+  });
+
+  it('retains live channel Set order, unattached promise identity and listener exceptions', () => {
+    const manager = createToastManager();
+    const calls: string[] = [];
+    let detachSecond = () => {};
+    manager[' subscribe'](({ action }) => {
+      calls.push(`first:${action}`);
+      if (action === 'add') {
+        detachSecond();
+        manager[' subscribe'](() => calls.push('late'));
+        manager.close();
+      }
+    });
+    detachSecond = manager[' subscribe'](() => calls.push('second'));
+    manager.add({ id: 'a' });
+    expect(calls).toEqual(['first:add', 'first:close', 'late', 'late']);
+    const unattached = createToastManager();
+    const promise = Promise.resolve(7);
+    expect(
+      unattached.promise(promise, { loading: 'Loading', success: 'Saved', error: 'Failed' }),
+    ).toBe(promise);
+    const failure = new Error('listener');
+    const later = vi.fn();
+    unattached[' subscribe'](() => {
+      throw failure;
+    });
+    unattached[' subscribe'](later);
+    expect(() => unattached.close()).toThrow(failure);
+    expect(later).not.toHaveBeenCalled();
+  });
+
+  it('clears timers without terminal disposal and retains promise settlement result identity', async () => {
+    vi.useFakeTimers();
+    const store = setup();
+    const facade = createToastFacade(store);
+    let resolve!: (value: object) => void;
+    const result = facade.promise(
+      new Promise<object>((yes) => {
+        resolve = yes;
+      }),
+      { loading: 'Loading', success: 'Saved', error: 'Failed' },
+    );
+    store.addToast({ id: 'timed', timeout: 100 });
+    store.disposeEffect()();
+    expect(vi.getTimerCount()).toBe(0);
+    const value = {};
+    resolve(value);
+    expect(await result).toBe(value);
+    expect(facade.toasts.some((toast) => toast.description === 'Saved')).toBe(true);
+    expect(vi.getTimerCount()).toBe(1);
+    facade.add({ id: 'retained', timeout: 0 });
+    expect(facade.toasts[0].id).toBe('retained');
+  });
+
+  it('returns the last consumer promise and preserves each independent rejection branch', async () => {
+    const manager = createToastManager();
+    const first = setup();
+    const second = setup();
+    const handled: Promise<unknown>[] = [];
+    manager[' subscribe'](({ action, options }) => {
+      if (action !== 'promise') return;
+      const handoff = options.setPromise;
+      options.setPromise = (promise: Promise<unknown>) => {
+        handled.push(promise);
+        handoff(promise);
+        // The harness owns rejection handling; runtime Provider adds no observer.
+        void promise.catch(() => {});
+      };
+    });
+    const detachFirst = subscribeToManager(first, manager);
+    const detachSecond = subscribeToManager(second, manager);
+    const failure = new Error('save failed');
+    const error = vi.fn(() => 'Failed');
+    const result = manager.promise(Promise.reject(failure), {
+      loading: 'Loading',
+      success: 'Saved',
+      error,
+    });
+    expect(handled).toHaveLength(2);
+    expect(handled[0]).not.toBe(handled[1]);
+    expect(result).toBe(handled[1]);
+    await expect(result).rejects.toBe(failure);
+    await expect(handled[0]).rejects.toBe(failure);
+    expect(error).toHaveBeenCalledTimes(2);
+    expect(first.state.toasts[0].description).toBe('Failed');
+    expect(second.state.toasts[0].description).toBe('Failed');
+    detachFirst();
+    detachSecond();
+  });
 });

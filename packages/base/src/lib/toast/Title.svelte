@@ -8,22 +8,16 @@
   import { root } from './root-context.js';
   import { isRenderableContent } from './content.js';
   import type { ToastTitleProps } from './types.js';
-  let {
-    render,
-    children,
-    id,
-    ref = $bindable(),
-    ...props
-  }: ToastTitleProps = $props();
+  let { render, children, id, ref = $bindable(), ...props }: ToastTitleProps = $props();
   const controller = root();
   let node = $state<HTMLElement | null>(null);
   const generated = $props.id();
   const resolvedId = $derived(id ?? `base-ui-${generated}`);
   const content = $derived(children ?? controller.toast.title);
+  const shouldRender = $derived(isRenderableContent(content));
   $effect(() => {
     const host = node;
     const id = resolvedId;
-    const shouldRender = isRenderableContent(content);
     if (!host || !shouldRender) return;
     return untrack(() => controller.setTitleId(id));
   });
@@ -55,7 +49,7 @@
   });
 </script>
 
-{#if isRenderableContent(content)}
+{#if shouldRender}
   {#snippet hostChildren()}
     <RenderContent {content} />
   {/snippet}
