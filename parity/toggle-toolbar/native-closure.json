@@ -1,0 +1,1715 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "roots": [
+    "packages/base/src/lib/toggle/index.ts",
+    "packages/base/src/lib/toggle-group/index.ts",
+    "packages/base/src/lib/toolbar/index.ts",
+    "packages/base/src/lib/separator/index.ts"
+  ],
+  "scope": "Actual native family public runtime/type closure, with immutable local bytes. External Svelte/esm-env/DOM dependencies are native framework boundaries; no React runtime.",
+  "modules": [
+    {
+      "source": "packages/base/src/lib/direction-provider/context.ts",
+      "sha256": "e400850423b49f956342a6efac2d8dcf2275365d23220564b6cefb8b44df47f8",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/direction-provider/types.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/direction-provider/types.ts",
+      "sha256": "a56af048e882453755ad2948782af4f2f832903e031d4812b8da9fc5f4b82aae",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "resolved": "external:svelte",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/utils/event.ts",
+      "sha256": "b489c469d9e2b134b6cd97baa3a408010decf1399dbaa1367a015d70c770832e",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../../utils/platform/index.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/index.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/composite.ts",
+      "sha256": "938a8b4ede73c5b5655a800777fe4748a94786a05bf828129de299c04cf94673",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../../direction-provider/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/direction-provider/types.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "./utils/navigation.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/composite/utils/navigation.ts",
+          "edge": "export"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/constants.ts",
+      "sha256": "bf9445674ea41f593d2948d874d80077cb90932a20f820bd0ec1d84a39ebb7ab",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
+      "sha256": "7447799f42b23f8003e251196e03199f8d703b77fda61d6d3422e657f95a5319",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "resolved": "external:svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../../utils/useMergedRefs.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../getStateAttributesProps.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../RenderElement.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "./useCompositeItem.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
+      "sha256": "d0faf967447c35339c6ad06b8cc6218cf2002613844a4bdb7b1453fd5262afc3",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../../../utils/useMergedRefs.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../root/CompositeRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../list/useCompositeListItem.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts",
+      "sha256": "c443b96e2b57642eed663be3a670fc7342dc4358bac081b7257bcb076c54ab17",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
+      "sha256": "97758d379046d9f894997ae40ef7c6f59decf48fa0d985a2c1fb5f9f068ad016",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte/reactivity",
+          "kind": "runtime",
+          "resolved": "external:svelte/reactivity",
+          "edge": "import"
+        },
+        {
+          "specifier": "./CompositeListContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
+      "sha256": "42f4066c8d830385f942f66b216e1b263728f1615dbd7b11cfd3a79db7242400",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "./CompositeListContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
+      "sha256": "5075468a96b01787b1789e48ee6dfecd178a7ec76ee7726c3a064b9cf663fe12",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "resolved": "external:svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../../utils/useMergedRefs.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../getStateAttributesProps.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../RenderElement.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../../direction-provider/context.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/direction-provider/context.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../list/createCompositeList.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../list/CompositeListContext.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "./useCompositeRoot.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "./CompositeRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts",
+      "sha256": "b08d6af5d6e71ba46076718b4426c7d2e0485a059e9204759406af1f395b6f2c",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/root/gridNavigation.ts",
+      "sha256": "11aa223e4f95a23b0287fee822bdda9f4b37cb6d33f99d02c9f7da8964949e9f",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "../utils/navigation.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/composite/utils/navigation.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../composite.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/composite/composite.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
+      "sha256": "8db12d19818afe6509addc02e10a55082126da9be7a40d03f9a8f62a6e6b5d78",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../../../utils/useStableCallback.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../../utils/isElementDisabled.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/isElementDisabled.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../../utils/useMergedRefs.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../../direction-provider/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/direction-provider/types.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../../utils/shadowDom.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/shadowDom.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../composite.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/composite/composite.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../constants.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/composite/constants.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../list/CompositeListContext.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "./gridNavigation.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/composite/root/gridNavigation.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/utils/navigation.ts",
+      "sha256": "bb61a6e117cc345c347a3a29618d01e6e608ef1027b8e6464e072d8b70b4a0aa",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "resolved": "external:esm-env",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../../floating-ui/utils/event.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/floating-ui/utils/event.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../composite.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/composite/composite.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+      "sha256": "1a9cb6cde2734d421a1bfb03ece9c744584b7e115a0eb3b9de974c22ab8ee684",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../utils/empty.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/empty.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "./reasons.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/reasons.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+      "sha256": "e48367a890024a54cb200eabc5c2a0ba0a397256baacfaec8b0a05ced3b10344",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/base/src/lib/internals/nativeProps.ts",
+      "sha256": "d6b3999ffe54e8c70e0dcdac61474b3bf9f53e60f3b1207dd4f976ef5212e4eb",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements",
+          "edge": "import"
+        },
+        {
+          "specifier": "./resolveClassValue.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../utils/mergeObjects.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/mergeObjects.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+      "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "../utils/useMergedRefs.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/reason-parts.ts",
+      "sha256": "0326d21ce4be2c41b5488c86e3687249faf3c51f5e10ae49c16e8efdc183abf5",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/base/src/lib/internals/reasons.ts",
+      "sha256": "f1f52caeefb14448a7e7c9833e24413b923b7bbf40aa1818ca73dc93710b42e7",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./reason-parts.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/reason-parts.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/RenderElement.svelte",
+      "sha256": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "resolved": "external:svelte/attachments",
+          "edge": "import"
+        },
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "resolved": "external:esm-env",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements",
+          "edge": "import"
+        },
+        {
+          "specifier": "./useRenderElement.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/useRenderElement.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "./nativeRefAttachment.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "./nativeProps.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/resolveClassValue.ts",
+      "sha256": "584323b17cb1733a798e9ff86e9ff783d6a26d08ecf005a8c2b3c69917c1e722",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/types.ts",
+      "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "resolved": "external:svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements",
+          "edge": "import"
+        },
+        {
+          "specifier": "../merge-props/index.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/merge-props/index.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "./nativeProps.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+      "sha256": "ee71d7077c51139162152716111472919bf80b71e6e9cde62d15ff0b7ce56f59",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "resolved": "external:esm-env",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../utils/useStableCallback.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../utils/error.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/error.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../merge-props/index.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/merge-props/index.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../composite/root/CompositeRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../utils/useFocusableWhenDisabled.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../utils/dispatchClickWithModifiers.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/useBaseUiId.ts",
+      "sha256": "fc6d9571f2fc0f71d6f75a8f34eb981a3e09a9a038fbb9aa8b4b83c2cbb3aaa3",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../utils/useId.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useId.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/useRenderElement.ts",
+      "sha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../utils/useMergedRefs.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../utils/mergeObjects.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/mergeObjects.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../utils/empty.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/empty.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "./getStateAttributesProps.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../utils/resolveClassName.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/resolveClassName.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../utils/resolveStyle.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/resolveStyle.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../merge-props/index.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/merge-props/index.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "./nativeProps.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "./nativeRefAttachment.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/merge-props/index.ts",
+      "sha256": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./mergeProps.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/merge-props/mergeProps.ts",
+          "edge": "export"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/merge-props/mergeProps.ts",
+      "sha256": "7a097b833ae8854c5a26e34009adfb4e0297dd50f56ad5f0c1ac8afa8187f98b",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../internals/nativeProps.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../utils/mergeObjects.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/mergeObjects.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/separator/index.ts",
+      "sha256": "7cf0255b6470bec86eeffb2ba4d2df166e90c35cdce2409f4cb776f77c9e988b",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./Separator.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/separator/Separator.svelte",
+          "edge": "export"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/separator/types.ts",
+          "edge": "export"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/separator/Separator.svelte",
+      "sha256": "b42e090098cee72fcb49e7ab2a020a1eabdea6fddddcf972c5f763ebc3fd48d9",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/separator/types.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/separator/types.ts",
+      "sha256": "b349b520840d7d7b3bbda5127105404312370ae300efe23bb354536c2d8c56dc",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "resolved": "external:svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements",
+          "edge": "import"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/toggle-group/index.ts",
+      "sha256": "eb6704fcba814d66839e0efe22d44efb35ab3e70f6daa741f57f3ffd96289023",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./ToggleGroup.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/toggle-group/ToggleGroup.svelte",
+          "edge": "export"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/toggle-group/types.ts",
+          "edge": "export"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/toggle-group/ToggleGroup.svelte",
+      "sha256": "9f164706fc4c861cbfa215107680bd061a50307de53af17cedf89b29a0485012",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../utils/useStableCallback.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../utils/useControlled.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useControlled.svelte.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../utils/empty.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/empty.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "../internals/composite/root/CompositeRoot.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "../toolbar/root/ToolbarRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../toolbar/group/ToolbarGroupContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/toolbar/group/ToolbarGroupContext.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "./ToggleGroupContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/toggle-group/ToggleGroupContext.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/toggle-group/types.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/toggle-group/ToggleGroupContext.ts",
+      "sha256": "56fa414f4b5e8e5624f678a7cd6657cc5f8b31a17c879605cec2fd07450eac3e",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/toggle-group/types.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/toggle-group/types.ts",
+      "sha256": "31f48c53d49de3da61a0e944b0bdd24e59b618ddfdaeb9fe300aa4af95c6e35e",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "resolved": "external:svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements",
+          "edge": "import"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/toggle/index.ts",
+      "sha256": "5e0cf519839cfe2d95047b94522b5f70165de0f701d572dc223a1f1d1f704538",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./Toggle.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/toggle/Toggle.svelte",
+          "edge": "export"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/toggle/types.ts",
+          "edge": "export"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/toggle/Toggle.svelte",
+      "sha256": "0b75e099acb1b62751dc8f5ae84559b342cb4d3bb8ff5ffc21347da1a0fbcccd",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "resolved": "external:esm-env",
+          "edge": "import"
+        },
+        {
+          "specifier": "../utils/useControlled.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useControlled.svelte.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../utils/error.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/error.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../internals/useBaseUiId.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/useBaseUiId.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "../toggle-group/ToggleGroupContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/toggle-group/ToggleGroupContext.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../internals/use-button/useButton.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../internals/composite/item/CompositeItem.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../internals/reasons.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/reasons.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/toggle/types.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/toggle/types.ts",
+      "sha256": "f82cbee1e7c2ce7d88cfb87489a5947fb07fa67d82122c52fadc3864cf360950",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "resolved": "external:svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements",
+          "edge": "import"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/button/ToolbarButton.svelte",
+      "sha256": "452ffed6ea4bf216fcf5d130d4facf9b12a2458fd5662287674774837faa7166",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../../utils/empty.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/empty.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../internals/use-button/useButton.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../root/ToolbarRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../group/ToolbarGroupContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/toolbar/group/ToolbarGroupContext.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../internals/composite/item/CompositeItem.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/toolbar/types.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/group/ToolbarGroup.svelte",
+      "sha256": "03acb9ef74482ed56a93309759a165ef6159e9678a963f502763d7c9e574c12e",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "../root/ToolbarRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "./ToolbarGroupContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/toolbar/group/ToolbarGroupContext.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/toolbar/types.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/group/ToolbarGroupContext.ts",
+      "sha256": "bfba6dcfb67c6c5d8eb4abdd43a0a1fc0c5502f884ffe6d0ef4d37070611874f",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/index.parts.ts",
+      "sha256": "93f09e28e9b91f96171d4cf02c8cc2de4702436edc119df96223cd4f9bd0a93b",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./root/ToolbarRoot.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/toolbar/root/ToolbarRoot.svelte",
+          "edge": "export"
+        },
+        {
+          "specifier": "./group/ToolbarGroup.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/toolbar/group/ToolbarGroup.svelte",
+          "edge": "export"
+        },
+        {
+          "specifier": "./button/ToolbarButton.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/toolbar/button/ToolbarButton.svelte",
+          "edge": "export"
+        },
+        {
+          "specifier": "./input/ToolbarInput.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/toolbar/input/ToolbarInput.svelte",
+          "edge": "export"
+        },
+        {
+          "specifier": "./link/ToolbarLink.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/toolbar/link/ToolbarLink.svelte",
+          "edge": "export"
+        },
+        {
+          "specifier": "./separator/ToolbarSeparator.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/toolbar/separator/ToolbarSeparator.svelte",
+          "edge": "export"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/toolbar/types.ts",
+          "edge": "export"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/index.ts",
+      "sha256": "37e47173408b85ca5d3e8d3b17e2ca32265a84bab99b038335266211db0323dc",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./index.parts.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/toolbar/index.parts.ts",
+          "edge": "export"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/toolbar/types.ts",
+          "edge": "export"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/input/ToolbarInput.svelte",
+      "sha256": "4848415a5e4a3c9a31ea8c20c906b6f1e01dc3d5847ef9cc5a582631f315de91",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../../utils/useFocusableWhenDisabled.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../root/ToolbarRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../group/ToolbarGroupContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/toolbar/group/ToolbarGroupContext.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../internals/composite/item/CompositeItem.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/toolbar/types.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/link/ToolbarLink.svelte",
+      "sha256": "a2ffbfbcb8d6788e40112721629bb05d316e521a285f7be8a659e39b156a4430",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../root/ToolbarRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../internals/composite/item/CompositeItem.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/toolbar/types.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/root/ToolbarRoot.svelte",
+      "sha256": "c4f0432d7d4adefe0a4f2b2b8daf543790fa3ea84587fcd9d3326f8ea950b76a",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../../internals/composite/root/CompositeRoot.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../internals/composite/list/CompositeListContext.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "./ToolbarRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/toolbar/types.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts",
+      "sha256": "ac7081f4de2f79dcdf425ee5ca7690db2d577f9363f2ef03b75f3b5395adc6cb",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/toolbar/types.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/separator/ToolbarSeparator.svelte",
+      "sha256": "2623e45fee7b042408f986bcf164b0b7eb34d4a843dabd50b8a00c0dd1ae62f4",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../../separator/Separator.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/separator/Separator.svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "../root/ToolbarRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/toolbar/types.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/types.ts",
+      "sha256": "c7cc1b91797831826e2605d119313666bce3f67185583beff516a80af9104e78",
+      "reachability": "type",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "resolved": "external:svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements",
+          "edge": "import"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../separator/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/separator/types.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/utils/createLogOnce.ts",
+      "sha256": "a3c52188a495927ef9b49765ca1e70bc384b37b68a5c896ca86df15852a279b1",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "resolved": "external:esm-env",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts",
+      "sha256": "60aab2aa25eb9c0aeaa0a57fc8ccd37aab747577ea22f019aff163946cabd373",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./owner.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/owner.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/utils/empty.ts",
+      "sha256": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/base/src/lib/utils/error.ts",
+      "sha256": "de9eeee73db42c056c110eb94f3aef8b51ae3003e97d5140bfaf876bdde52c69",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./createLogOnce.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/createLogOnce.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "./createLogOnce.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/createLogOnce.ts",
+          "edge": "export"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/utils/isElementDisabled.ts",
+      "sha256": "c2f6141d744cb16e458208163d616cefa465b8da0445658c4d9282a05a1b616e",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/base/src/lib/utils/mergeObjects.ts",
+      "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/base/src/lib/utils/owner.ts",
+      "sha256": "4f32738229316fe875cf72e949caa4aa7d2fcdf924a2bd5b7f01e88ca5424185",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/base/src/lib/utils/platform/engine.ts",
+      "sha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/shared.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/utils/platform/env.ts",
+      "sha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/shared.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/utils/platform/index.ts",
+      "sha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./parts.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/parts.ts",
+          "edge": "export"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/utils/platform/media-query.ts",
+      "sha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/base/src/lib/utils/platform/os.ts",
+      "sha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/shared.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/utils/platform/parts.ts",
+      "sha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./os.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/os.ts",
+          "edge": "export"
+        },
+        {
+          "specifier": "./engine.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/engine.ts",
+          "edge": "export"
+        },
+        {
+          "specifier": "./screen-reader.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/screen-reader.ts",
+          "edge": "export"
+        },
+        {
+          "specifier": "./env.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/env.ts",
+          "edge": "export"
+        },
+        {
+          "specifier": "./media-query.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/media-query.ts",
+          "edge": "export"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/utils/platform/screen-reader.ts",
+      "sha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./os.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/os.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/utils/platform/shared.ts",
+      "sha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "resolved": "external:esm-env",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/utils/resolveClassName.ts",
+      "sha256": "b22aead630ca531851a08a63e5165e64ff8cdc9de5765ff20997f578071cb108",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/utils/resolveStyle.ts",
+      "sha256": "cdc420598c1ae4b75a32e7f47ac8cc7f4fe444d4f006e2736f528951fb932977",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../internals/nativeProps.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/utils/shadowDom.ts",
+      "sha256": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/base/src/lib/utils/useControlled.svelte.ts",
+      "sha256": "f74b9a8aa08b323835613037c871a6b85c938555c788c0a8ff51825c1863fd35",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "resolved": "external:esm-env",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "./error.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/error.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
+      "sha256": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/utils/useId.ts",
+      "sha256": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+      "sha256": "0d24dd22dad18fc54341aaedb964a25829ae62322f10bf110a4fd8bde65dd1f3",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/utils/useMergedRefs.ts",
+      "sha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./useRefWithInit.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/utils/useRefWithInit.ts",
+      "sha256": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/base/src/lib/utils/useStableCallback.ts",
+      "sha256": "b790a02da99e0e9365bc05d35a434ef37dcffb2a4db8186b1327b949a994d05e",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte",
+          "edge": "import"
+        }
+      ]
+    }
+  ],
+  "external": [
+    "external:esm-env",
+    "external:svelte",
+    "external:svelte/attachments",
+    "external:svelte/elements",
+    "external:svelte/reactivity"
+  ]
+}
