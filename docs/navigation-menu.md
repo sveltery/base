@@ -30,4 +30,6 @@ Controlled Root uses `value` and `onValueChange(nextValue, details)`; call `deta
 
 Each part accepts native Svelte attributes, class/style callbacks, a render snippet and `bind:ref`. Native ref attachments and context remain shared with the rest of the library. Root and each part preserve their public `.Props` and `.State` namespaces, and Root also exposes generic `.Value`, `.Actions`, `.ChangeEventReason` and `.ChangeEventDetails` types.
 
-This is a source-first implementation draft. [Actual Source correspondence and execution limits](../parity/navigation-menu/IMPLEMENTATION.md) remain explicit: complete Original assertions, installed types, hydration, secured paired browser and independent final review are pending. No complete component or library parity is claimed.
+This is a source-first implementation draft. [Actual Source correspondence and execution limits](../parity/navigation-menu/IMPLEMENTATION.md) remain explicit: complete Original assertions/type-site correspondence, hydration, secured paired browser and independent final review are pending. No complete component or library parity is claimed.
+
+[Native framework substitutions](../parity/navigation-menu/framework-substitutions.md) record generic component aliases, native anchor href types and context metadata replacements. These records grant no divergent assertion credit.

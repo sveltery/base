@@ -93,17 +93,36 @@ const graph = {
 };
 fs.writeFileSync(path.join(evidence, 'actual-native-graph.json'), JSON.stringify(graph, null, 2) + '\n');
 const inventory = read('original-assertions.json');
+const priorLedgerPath = path.join(evidence, 'implementation-assertion-ledger.json');
+const priorLedger = fs.existsSync(priorLedgerPath) ? JSON.parse(fs.readFileSync(priorLedgerPath, 'utf8')) : null;
+const previousRows = new Map();
+if (priorLedger?.pin === inventory.pin) {
+  for (const kind of ['ordinaryDeclarations', 'parameterizedDeclarations', 'conformanceCalls', 'typeAssertions', 'diagnosticDirectives']) {
+    for (const row of priorLedger[kind] ?? []) previousRows.set(`${row.source}:${row.kind ?? 'diagnostic'}:${row.line}:${row.sha256 ?? row.expression}`, row);
+  }
+}
+function retainReviewedFields(row) {
+  const prior = previousRows.get(`${row.source}:${row.kind ?? 'diagnostic'}:${row.line}:${row.sha256 ?? row.expression}`);
+  if (!prior || prior.sourceSha256 !== row.sourceSha256) return row;
+  // Source identity and source body still agree. Retain concrete mappings and
+  // receipts instead of erasing them when the native import graph changes.
+  for (const field of ['nativeAssertions', 'executedEvidence', 'status', 'ordinaryCredit', 'frameworkReplacements', 'review']) {
+    if (field in prior) row[field] = prior[field];
+  }
+  return row;
+}
 const ledger = {
   pin: inventory.pin, ordinaryCredit: 0, status: 'Original assertion identities retained; execution/unchanged parity mapping pending',
   ordinaryDeclarations: [], parameterizedDeclarations: [], conformanceCalls: [], typeAssertions: [], diagnosticDirectives: [],
 };
 for (const file of inventory.files) {
   for (const site of file.sites) {
-    const row = { source: file.source, sourceSha256: file.sha256, ...site, nativeAssertions: [], executedEvidence: [], status: 'pending', ordinaryCredit: 0 };
+    const row = retainReviewedFields({ source: file.source, sourceSha256: file.sha256, ...site, nativeAssertions: [], executedEvidence: [], status: 'pending', ordinaryCredit: 0 });
     const target = site.kind === 'ordinary-declaration' ? ledger.ordinaryDeclarations : site.kind === 'parameterized-declaration' ? ledger.parameterizedDeclarations : site.kind === 'conformance-call' ? ledger.conformanceCalls : ledger.typeAssertions;
     target.push(row);
   }
-  for (const directive of file.diagnosticDirectives) ledger.diagnosticDirectives.push({ source: file.source, ...directive, status: 'pending' });
+  for (const directive of file.diagnosticDirectives) ledger.diagnosticDirectives.push(retainReviewedFields({ source: file.source, sourceSha256: file.sha256, ...directive, status: 'pending' }));
 }
+ledger.ordinaryCredit = ledger.ordinaryDeclarations.reduce((sum, row) => sum + row.ordinaryCredit, 0);
 fs.writeFileSync(path.join(evidence, 'implementation-assertion-ledger.json'), JSON.stringify(ledger, null, 2) + '\n');
 console.log(JSON.stringify({ modules: graph.moduleCount, statements: graph.statementCount, ordinary: ledger.ordinaryDeclarations.length, parameterized: ledger.parameterizedDeclarations.length, conformance: ledger.conformanceCalls.length, typeAssertions: ledger.typeAssertions.length, ordinaryCredit: 0 }));

@@ -46,27 +46,15 @@
       </NavigationMenu.Content>
     </NavigationMenu.Item>
   </NavigationMenu.List>
-  {#if scenario !== 'raw'}
-    <NavigationMenu.Portal {keepMounted}>
-      {#if scenario === 'portal-only'}
-        <div id="tested-popup">Portal child</div>
-      {:else if scenario === 'viewport-only'}
+  <NavigationMenu.Portal {keepMounted}>
+    <NavigationMenu.Backdrop id="tested-backdrop" />
+    <NavigationMenu.Positioner id="tested-positioner">
+      <NavigationMenu.Popup id="tested-popup">
+        <NavigationMenu.Arrow id="tested-arrow" />
         <NavigationMenu.Viewport id="tested-viewport" />
-      {:else}
-        <NavigationMenu.Backdrop id="tested-backdrop" />
-        <NavigationMenu.Positioner id="tested-positioner">
-          {#if scenario !== 'positioner-only'}
-            <NavigationMenu.Popup id="tested-popup">
-              {#if scenario !== 'popup-only'}
-                {#if scenario !== 'no-arrow'}<NavigationMenu.Arrow id="tested-arrow" />{/if}
-                <NavigationMenu.Viewport id="tested-viewport" />
-              {/if}
-            </NavigationMenu.Popup>
-          {/if}
-        </NavigationMenu.Positioner>
-      {/if}
-    </NavigationMenu.Portal>
-  {/if}
+      </NavigationMenu.Popup>
+    </NavigationMenu.Positioner>
+  </NavigationMenu.Portal>
 {/snippet}
 
 <button id="before">Before</button>

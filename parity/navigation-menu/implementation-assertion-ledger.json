@@ -13,9 +13,19 @@
       "kind": "ordinary-declaration",
       "sha256": "b5c2883bdba77da24e80d0edbeaab1eb29f402fa841866aabf0723cdc8e5de23",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
-      "executedEvidence": []
+      "status": "Native boundary candidate passed; independent full assertion correspondence pending",
+      "nativeAssertions": [
+        {
+          "file": "packages/base/tests/dom/navigation-menu-boundaries.test.ts",
+          "protocol": "Exact missing-boundary message or actual selected shift.rootBoundary; native mount and canonical helper spy replace React renderer/mock transport."
+        }
+      ],
+      "executedEvidence": [
+        {
+          "receipt": "/workspace/sveltery-pm-evidence/navigation-menu-coupled-click-green.log",
+          "result": "Native 5 boundary cases pass; Original declaration execution and whole-body review pending."
+        }
+      ]
     },
     {
       "source": "packages/react/src/navigation-menu/content/NavigationMenuContent.test.tsx",
@@ -111,9 +121,19 @@
       "kind": "ordinary-declaration",
       "sha256": "58eb92f5e9d2cf8813bf32862c7d0760cef95dd02ea6d3d537649dab7d618fb6",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
-      "executedEvidence": []
+      "status": "Native boundary candidate passed; independent full assertion correspondence pending",
+      "nativeAssertions": [
+        {
+          "file": "packages/base/tests/dom/navigation-menu-boundaries.test.ts",
+          "protocol": "Exact missing-boundary message or actual selected shift.rootBoundary; native mount and canonical helper spy replace React renderer/mock transport."
+        }
+      ],
+      "executedEvidence": [
+        {
+          "receipt": "/workspace/sveltery-pm-evidence/navigation-menu-coupled-click-green.log",
+          "result": "Native 5 boundary cases pass; Original declaration execution and whole-body review pending."
+        }
+      ]
     },
     {
       "source": "packages/react/src/navigation-menu/link/NavigationMenuLink.test.tsx",
@@ -195,9 +215,19 @@
       "kind": "ordinary-declaration",
       "sha256": "e644b38fef6ac95f2af8c5b4d1cc17b81db8f106ae3a8940879f8de139500909",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
-      "executedEvidence": []
+      "status": "Native boundary candidate passed; independent full assertion correspondence pending",
+      "nativeAssertions": [
+        {
+          "file": "packages/base/tests/dom/navigation-menu-boundaries.test.ts",
+          "protocol": "Exact missing-boundary message or actual selected shift.rootBoundary; native mount and canonical helper spy replace React renderer/mock transport."
+        }
+      ],
+      "executedEvidence": [
+        {
+          "receipt": "/workspace/sveltery-pm-evidence/navigation-menu-coupled-click-green.log",
+          "result": "Native 5 boundary cases pass; Original declaration execution and whole-body review pending."
+        }
+      ]
     },
     {
       "source": "packages/react/src/navigation-menu/list/NavigationMenuList.test.tsx",
@@ -237,9 +267,19 @@
       "kind": "ordinary-declaration",
       "sha256": "5780790e18fcd6fc6b64046633b67c1c1fad967cb785cd36c5e1b58e9c4ec962",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
-      "executedEvidence": []
+      "status": "Native boundary candidate passed; independent full assertion correspondence pending",
+      "nativeAssertions": [
+        {
+          "file": "packages/base/tests/dom/navigation-menu-boundaries.test.ts",
+          "protocol": "Exact missing-boundary message or actual selected shift.rootBoundary; native mount and canonical helper spy replace React renderer/mock transport."
+        }
+      ],
+      "executedEvidence": [
+        {
+          "receipt": "/workspace/sveltery-pm-evidence/navigation-menu-coupled-click-green.log",
+          "result": "Native 5 boundary cases pass; Original declaration execution and whole-body review pending."
+        }
+      ]
     },
     {
       "source": "packages/react/src/navigation-menu/positioner/NavigationMenuPositioner.test.tsx",
@@ -251,9 +291,19 @@
       "kind": "ordinary-declaration",
       "sha256": "0d9712d62879f419ba61e14479f80b2e6483acd7d67d78b5ac4886497417b079",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
-      "executedEvidence": []
+      "status": "Native boundary candidate passed; independent full assertion correspondence pending",
+      "nativeAssertions": [
+        {
+          "file": "packages/base/tests/dom/navigation-menu-boundaries.test.ts",
+          "protocol": "Exact missing-boundary message or actual selected shift.rootBoundary; native mount and canonical helper spy replace React renderer/mock transport."
+        }
+      ],
+      "executedEvidence": [
+        {
+          "receipt": "/workspace/sveltery-pm-evidence/navigation-menu-coupled-click-green.log",
+          "result": "Native 5 boundary cases pass; Original declaration execution and whole-body review pending."
+        }
+      ]
     },
     {
       "source": "packages/react/src/navigation-menu/root/NavigationMenuRoot.test.tsx",
@@ -1483,9 +1533,15 @@
       "kind": "ordinary-declaration",
       "sha256": "ae228bfa7a63242835aaa05e879c42fa784c3f10d8f6858f863dff9077e5981f",
       "ordinaryCredit": 0,
-      "status": "pending",
+      "status": "Native framework metadata replacement proposed; zero unchanged ordinary credit",
       "nativeAssertions": [],
-      "executedEvidence": []
+      "executedEvidence": [],
+      "frameworkReplacements": [
+        {
+          "record": "parity/navigation-menu/framework-substitutions.md",
+          "reason": "Svelte initialization context has no React Context displayName API; live required/optional context behavior is retained."
+        }
+      ]
     },
     {
       "source": "packages/react/src/navigation-menu/root/NavigationMenuRootContext.test.ts",
@@ -1497,9 +1553,15 @@
       "kind": "ordinary-declaration",
       "sha256": "b089d523d815a136fa6589fa969bbd42b9bbeffb5e36849c26c800f4544eba74",
       "ordinaryCredit": 0,
-      "status": "pending",
+      "status": "Native framework metadata replacement proposed; zero unchanged ordinary credit",
       "nativeAssertions": [],
-      "executedEvidence": []
+      "executedEvidence": [],
+      "frameworkReplacements": [
+        {
+          "record": "parity/navigation-menu/framework-substitutions.md",
+          "reason": "Svelte initialization context has no React Context displayName API; live required/optional context behavior is retained."
+        }
+      ]
     },
     {
       "source": "packages/react/src/navigation-menu/trigger/NavigationMenuTrigger.test.tsx",
@@ -1728,8 +1790,33 @@
       ],
       "sha256": "8a556cdaabfeeb0b84c84dbca6e1351caa423aa7823ff38c2a4d95eeb96dfd08",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "15 selected helper declarations mapped per active part; hosted execution pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-conformance.spec.ts",
+          "part": "Arrow",
+          "selectedSourceHelpers": [
+            {
+              "file": "packages/react/test/conformanceTests/propForwarding.tsx",
+              "declarations": 6
+            },
+            {
+              "file": "packages/react/test/conformanceTests/refForwarding.tsx",
+              "declarations": 1
+            },
+            {
+              "file": "packages/react/test/conformanceTests/className.tsx",
+              "declarations": 1
+            },
+            {
+              "file": "packages/react/test/conformanceTests/renderProp.tsx",
+              "declarations": 7
+            }
+          ],
+          "frameworks": "actual Original React plus native Svelte",
+          "fixtureWrappers": "Original conformance call configuration is preserved for each part; snippets and bind:ref replace React render/ref transport."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -1745,8 +1832,33 @@
       ],
       "sha256": "4156800efb173284b87cfd96525e936d6eaedf81f09a018e5aea39fe475e33cd",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "15 selected helper declarations mapped per active part; hosted execution pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-conformance.spec.ts",
+          "part": "Backdrop",
+          "selectedSourceHelpers": [
+            {
+              "file": "packages/react/test/conformanceTests/propForwarding.tsx",
+              "declarations": 6
+            },
+            {
+              "file": "packages/react/test/conformanceTests/refForwarding.tsx",
+              "declarations": 1
+            },
+            {
+              "file": "packages/react/test/conformanceTests/className.tsx",
+              "declarations": 1
+            },
+            {
+              "file": "packages/react/test/conformanceTests/renderProp.tsx",
+              "declarations": 7
+            }
+          ],
+          "frameworks": "actual Original React plus native Svelte",
+          "fixtureWrappers": "Original conformance call configuration is preserved for each part; snippets and bind:ref replace React render/ref transport."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -1762,7 +1874,7 @@
       ],
       "sha256": "788d616327c0ec3e161ba3c25a6627130aa5516d68525b7318279eb52db05afc",
       "ordinaryCredit": 0,
-      "status": "pending",
+      "status": "Original describeConformance.skip retained; no conformance execution or credit claimed",
       "nativeAssertions": [],
       "executedEvidence": []
     },
@@ -1779,8 +1891,33 @@
       ],
       "sha256": "403d37d40811fdc7393073f3b0106bb314fb46451fce3eb6373a4e6fdfc2b235",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "15 selected helper declarations mapped per active part; hosted execution pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-conformance.spec.ts",
+          "part": "Icon",
+          "selectedSourceHelpers": [
+            {
+              "file": "packages/react/test/conformanceTests/propForwarding.tsx",
+              "declarations": 6
+            },
+            {
+              "file": "packages/react/test/conformanceTests/refForwarding.tsx",
+              "declarations": 1
+            },
+            {
+              "file": "packages/react/test/conformanceTests/className.tsx",
+              "declarations": 1
+            },
+            {
+              "file": "packages/react/test/conformanceTests/renderProp.tsx",
+              "declarations": 7
+            }
+          ],
+          "frameworks": "actual Original React plus native Svelte",
+          "fixtureWrappers": "Original conformance call configuration is preserved for each part; snippets and bind:ref replace React render/ref transport."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -1796,8 +1933,33 @@
       ],
       "sha256": "e8b3ef48ca00e7547628d2963e66bc3a2651d8ef117dcc61c7e2a883d8b8084a",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "15 selected helper declarations mapped per active part; hosted execution pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-conformance.spec.ts",
+          "part": "Item",
+          "selectedSourceHelpers": [
+            {
+              "file": "packages/react/test/conformanceTests/propForwarding.tsx",
+              "declarations": 6
+            },
+            {
+              "file": "packages/react/test/conformanceTests/refForwarding.tsx",
+              "declarations": 1
+            },
+            {
+              "file": "packages/react/test/conformanceTests/className.tsx",
+              "declarations": 1
+            },
+            {
+              "file": "packages/react/test/conformanceTests/renderProp.tsx",
+              "declarations": 7
+            }
+          ],
+          "frameworks": "actual Original React plus native Svelte",
+          "fixtureWrappers": "Original conformance call configuration is preserved for each part; snippets and bind:ref replace React render/ref transport."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -1813,8 +1975,33 @@
       ],
       "sha256": "1ead719b1cebd834379eb225493e9f3c3d57fd2ac98b7118432554416f17ad26",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "15 selected helper declarations mapped per active part; hosted execution pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-conformance.spec.ts",
+          "part": "Link",
+          "selectedSourceHelpers": [
+            {
+              "file": "packages/react/test/conformanceTests/propForwarding.tsx",
+              "declarations": 6
+            },
+            {
+              "file": "packages/react/test/conformanceTests/refForwarding.tsx",
+              "declarations": 1
+            },
+            {
+              "file": "packages/react/test/conformanceTests/className.tsx",
+              "declarations": 1
+            },
+            {
+              "file": "packages/react/test/conformanceTests/renderProp.tsx",
+              "declarations": 7
+            }
+          ],
+          "frameworks": "actual Original React plus native Svelte",
+          "fixtureWrappers": "Original conformance call configuration is preserved for each part; snippets and bind:ref replace React render/ref transport."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -1830,8 +2017,33 @@
       ],
       "sha256": "f50a5a93b66fcad3b17f03b7828ad850fdaece44e8420b49c6b8639da8d9b782",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "15 selected helper declarations mapped per active part; hosted execution pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-conformance.spec.ts",
+          "part": "List",
+          "selectedSourceHelpers": [
+            {
+              "file": "packages/react/test/conformanceTests/propForwarding.tsx",
+              "declarations": 6
+            },
+            {
+              "file": "packages/react/test/conformanceTests/refForwarding.tsx",
+              "declarations": 1
+            },
+            {
+              "file": "packages/react/test/conformanceTests/className.tsx",
+              "declarations": 1
+            },
+            {
+              "file": "packages/react/test/conformanceTests/renderProp.tsx",
+              "declarations": 7
+            }
+          ],
+          "frameworks": "actual Original React plus native Svelte",
+          "fixtureWrappers": "Original conformance call configuration is preserved for each part; snippets and bind:ref replace React render/ref transport."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -1847,8 +2059,33 @@
       ],
       "sha256": "b5c9fbca5bc2e4d49bdd15ee4d8444e4974cc79e60a993361f8097a2800f393a",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "15 selected helper declarations mapped per active part; hosted execution pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-conformance.spec.ts",
+          "part": "Popup",
+          "selectedSourceHelpers": [
+            {
+              "file": "packages/react/test/conformanceTests/propForwarding.tsx",
+              "declarations": 6
+            },
+            {
+              "file": "packages/react/test/conformanceTests/refForwarding.tsx",
+              "declarations": 1
+            },
+            {
+              "file": "packages/react/test/conformanceTests/className.tsx",
+              "declarations": 1
+            },
+            {
+              "file": "packages/react/test/conformanceTests/renderProp.tsx",
+              "declarations": 7
+            }
+          ],
+          "frameworks": "actual Original React plus native Svelte",
+          "fixtureWrappers": "Original conformance call configuration is preserved for each part; snippets and bind:ref replace React render/ref transport."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -1864,8 +2101,33 @@
       ],
       "sha256": "6b59fc5431e0016e858c12a69c5a8daa671b4a0d41a7e9fc084be6df114f6676",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "15 selected helper declarations mapped per active part; hosted execution pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-conformance.spec.ts",
+          "part": "Portal",
+          "selectedSourceHelpers": [
+            {
+              "file": "packages/react/test/conformanceTests/propForwarding.tsx",
+              "declarations": 6
+            },
+            {
+              "file": "packages/react/test/conformanceTests/refForwarding.tsx",
+              "declarations": 1
+            },
+            {
+              "file": "packages/react/test/conformanceTests/className.tsx",
+              "declarations": 1
+            },
+            {
+              "file": "packages/react/test/conformanceTests/renderProp.tsx",
+              "declarations": 7
+            }
+          ],
+          "frameworks": "actual Original React plus native Svelte",
+          "fixtureWrappers": "Original conformance call configuration is preserved for each part; snippets and bind:ref replace React render/ref transport."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -1881,8 +2143,33 @@
       ],
       "sha256": "55d90e24c8408839094c4703cebd010b4d7d3f124efcf7337076f783c869c0b9",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "15 selected helper declarations mapped per active part; hosted execution pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-conformance.spec.ts",
+          "part": "Positioner",
+          "selectedSourceHelpers": [
+            {
+              "file": "packages/react/test/conformanceTests/propForwarding.tsx",
+              "declarations": 6
+            },
+            {
+              "file": "packages/react/test/conformanceTests/refForwarding.tsx",
+              "declarations": 1
+            },
+            {
+              "file": "packages/react/test/conformanceTests/className.tsx",
+              "declarations": 1
+            },
+            {
+              "file": "packages/react/test/conformanceTests/renderProp.tsx",
+              "declarations": 7
+            }
+          ],
+          "frameworks": "actual Original React plus native Svelte",
+          "fixtureWrappers": "Original conformance call configuration is preserved for each part; snippets and bind:ref replace React render/ref transport."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -1898,8 +2185,33 @@
       ],
       "sha256": "550326825ec9d607a050958bdba446ad33b72c220ca6f12c69c3ca324e75946c",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "15 selected helper declarations mapped per active part; hosted execution pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-conformance.spec.ts",
+          "part": "Root",
+          "selectedSourceHelpers": [
+            {
+              "file": "packages/react/test/conformanceTests/propForwarding.tsx",
+              "declarations": 6
+            },
+            {
+              "file": "packages/react/test/conformanceTests/refForwarding.tsx",
+              "declarations": 1
+            },
+            {
+              "file": "packages/react/test/conformanceTests/className.tsx",
+              "declarations": 1
+            },
+            {
+              "file": "packages/react/test/conformanceTests/renderProp.tsx",
+              "declarations": 7
+            }
+          ],
+          "frameworks": "actual Original React plus native Svelte",
+          "fixtureWrappers": "Original conformance call configuration is preserved for each part; snippets and bind:ref replace React render/ref transport."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -1915,8 +2227,33 @@
       ],
       "sha256": "23167a797c1dbdee09db6bd26d194dfbab005d0c14071bcbeea4d9363d2999eb",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "15 selected helper declarations mapped per active part; hosted execution pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-conformance.spec.ts",
+          "part": "Trigger",
+          "selectedSourceHelpers": [
+            {
+              "file": "packages/react/test/conformanceTests/propForwarding.tsx",
+              "declarations": 6
+            },
+            {
+              "file": "packages/react/test/conformanceTests/refForwarding.tsx",
+              "declarations": 1
+            },
+            {
+              "file": "packages/react/test/conformanceTests/className.tsx",
+              "declarations": 1
+            },
+            {
+              "file": "packages/react/test/conformanceTests/renderProp.tsx",
+              "declarations": 7
+            }
+          ],
+          "frameworks": "actual Original React plus native Svelte",
+          "fixtureWrappers": "Original conformance call configuration is preserved for each part; snippets and bind:ref replace React render/ref transport."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -1932,8 +2269,33 @@
       ],
       "sha256": "6afc2c948908b490becb9ba6498f0fe9472aaf8cee677be739ad0d26ea2108c7",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "15 selected helper declarations mapped per active part; hosted execution pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-conformance.spec.ts",
+          "part": "Viewport",
+          "selectedSourceHelpers": [
+            {
+              "file": "packages/react/test/conformanceTests/propForwarding.tsx",
+              "declarations": 6
+            },
+            {
+              "file": "packages/react/test/conformanceTests/refForwarding.tsx",
+              "declarations": 1
+            },
+            {
+              "file": "packages/react/test/conformanceTests/className.tsx",
+              "declarations": 1
+            },
+            {
+              "file": "packages/react/test/conformanceTests/renderProp.tsx",
+              "declarations": 7
+            }
+          ],
+          "frameworks": "actual Original React plus native Svelte",
+          "fixtureWrappers": "Original conformance call configuration is preserved for each part; snippets and bind:ref replace React render/ref transport."
+        }
+      ],
       "executedEvidence": []
     }
   ],
@@ -1951,9 +2313,26 @@
       ],
       "sha256": "3f70885e5026d0d806fb8e29540d778a5971dc581983413b0b1fbca9a70ac6a8",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
-      "executedEvidence": []
+      "status": "Actual Original passes; native framework type replacement passes; exact-head review pending",
+      "nativeAssertions": [
+        {
+          "file": "scripts/check-navigation-menu-package.sh",
+          "assertion": "Equal<typeof props.href, HTMLAnchorAttributes['href']>",
+          "frameworkSubstitution": "Native Svelte HTMLAnchorAttributes includes nullable href. The Original string|undefined assertion is compiled separately and receives no unchanged native type credit."
+        }
+      ],
+      "executedEvidence": [
+        {
+          "receipt": "/workspace/sveltery-pm-evidence/navigation-menu-public-package-paired-types.log",
+          "result": "Actual SHA-verified immutable Original spec body compiles against installed Base UI 1.8.0; native public package strict consumer compiles with zero errors and warnings."
+        }
+      ],
+      "frameworkReplacements": [
+        {
+          "record": "parity/navigation-menu/framework-substitutions.md",
+          "reason": "Native anchor attribute type and render snippet signature replace React HTML types."
+        }
+      ]
     },
     {
       "source": "packages/react/src/navigation-menu/root/NavigationMenuRoot.spec.tsx",
@@ -1968,9 +2347,20 @@
       ],
       "sha256": "527c7a76c5259b2f7eceb7bba7be6a3e9db967b24b3ceb9a4d67f608b1733ae2",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
-      "executedEvidence": []
+      "status": "Actual Original and native installed type candidates pass; exact-head inference correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "scripts/check-navigation-menu-package.sh",
+          "assertion": "Inline actual NavigationMenu.Root value=stringValue callback infers string|null",
+          "extraCheck": "Generic Wrapper.svelte forwards real NavigationMenu.Root.Props<Value> to the actual component."
+        }
+      ],
+      "executedEvidence": [
+        {
+          "receipt": "/workspace/sveltery-pm-evidence/navigation-menu-public-package-paired-types.log",
+          "result": "Actual SHA-verified immutable Original spec body compiles against installed Base UI 1.8.0; native public package strict consumer compiles with zero errors and warnings."
+        }
+      ]
     },
     {
       "source": "packages/react/src/navigation-menu/root/NavigationMenuRoot.spec.tsx",
@@ -1985,9 +2375,20 @@
       ],
       "sha256": "42545c41f0c0c6f66cb4454f4135960eb8da080d4e90702af64ef5dc6da853b2",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
-      "executedEvidence": []
+      "status": "Actual Original and native installed type candidates pass; exact-head inference correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "scripts/check-navigation-menu-package.sh",
+          "assertion": "Inline actual NavigationMenu.Root defaultValue=1 callback infers number|null",
+          "extraCheck": "Generic Wrapper.svelte forwards real NavigationMenu.Root.Props<Value> to the actual component."
+        }
+      ],
+      "executedEvidence": [
+        {
+          "receipt": "/workspace/sveltery-pm-evidence/navigation-menu-public-package-paired-types.log",
+          "result": "Actual SHA-verified immutable Original spec body compiles against installed Base UI 1.8.0; native public package strict consumer compiles with zero errors and warnings."
+        }
+      ]
     },
     {
       "source": "packages/react/src/navigation-menu/root/NavigationMenuRoot.spec.tsx",
@@ -2002,9 +2403,20 @@
       ],
       "sha256": "624c42148cedfa22565eec3731ec5ebc7e796434c19d0765fd9fe3d5c222a12c",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
-      "executedEvidence": []
+      "status": "Actual Original and native installed type candidates pass; exact-head inference correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "scripts/check-navigation-menu-package.sh",
+          "assertion": "Actual component instantiation UnionRoot=NavigationMenu.Root<'a'|'b'> callback infers 'a'|'b'|null",
+          "extraCheck": "Generic Wrapper.svelte forwards real NavigationMenu.Root.Props<Value> to the actual component."
+        }
+      ],
+      "executedEvidence": [
+        {
+          "receipt": "/workspace/sveltery-pm-evidence/navigation-menu-public-package-paired-types.log",
+          "result": "Actual SHA-verified immutable Original spec body compiles against installed Base UI 1.8.0; native public package strict consumer compiles with zero errors and warnings."
+        }
+      ]
     },
     {
       "source": "packages/react/src/navigation-menu/root/NavigationMenuRoot.spec.tsx",
@@ -2019,9 +2431,20 @@
       ],
       "sha256": "527c7a76c5259b2f7eceb7bba7be6a3e9db967b24b3ceb9a4d67f608b1733ae2",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
-      "executedEvidence": []
+      "status": "Actual Original and native installed type candidates pass; exact-head inference correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "scripts/check-navigation-menu-package.sh",
+          "assertion": "Actual NullableRoot=NavigationMenu.Root<string|null> callback infers string|null",
+          "extraCheck": "Generic Wrapper.svelte forwards real NavigationMenu.Root.Props<Value> to the actual component."
+        }
+      ],
+      "executedEvidence": [
+        {
+          "receipt": "/workspace/sveltery-pm-evidence/navigation-menu-public-package-paired-types.log",
+          "result": "Actual SHA-verified immutable Original spec body compiles against installed Base UI 1.8.0; native public package strict consumer compiles with zero errors and warnings."
+        }
+      ]
     },
     {
       "source": "packages/react/src/navigation-menu/root/NavigationMenuRoot.spec.tsx",
@@ -2036,9 +2459,20 @@
       ],
       "sha256": "4dbc6378c3951a320be4dd79448fb29cd82b8795c59702760d5360ef9b0fc55d",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
-      "executedEvidence": []
+      "status": "Actual Original and native installed type candidates pass; exact-head inference correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "scripts/check-navigation-menu-package.sh",
+          "assertion": "Actual no-generic Root inline callback retains permissive any",
+          "extraCheck": "Generic Wrapper.svelte forwards real NavigationMenu.Root.Props<Value> to the actual component."
+        }
+      ],
+      "executedEvidence": [
+        {
+          "receipt": "/workspace/sveltery-pm-evidence/navigation-menu-public-package-paired-types.log",
+          "result": "Actual SHA-verified immutable Original spec body compiles against installed Base UI 1.8.0; native public package strict consumer compiles with zero errors and warnings."
+        }
+      ]
     },
     {
       "source": "packages/react/src/navigation-menu/root/NavigationMenuRoot.spec.tsx",
@@ -2053,9 +2487,20 @@
       ],
       "sha256": "f9f842d0e2764d5f01883a33ad4daee3abf3e5f5986aedea7228aa1a0d351769",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
-      "executedEvidence": []
+      "status": "Actual Original and native installed type candidates pass; exact-head inference correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "scripts/check-navigation-menu-package.sh",
+          "assertion": "expectType<'a' | null, typeof value>(value)",
+          "extraCheck": "Generic Wrapper.svelte forwards real NavigationMenu.Root.Props<Value> to the actual component."
+        }
+      ],
+      "executedEvidence": [
+        {
+          "receipt": "/workspace/sveltery-pm-evidence/navigation-menu-public-package-paired-types.log",
+          "result": "Actual SHA-verified immutable Original spec body compiles against installed Base UI 1.8.0; native public package strict consumer compiles with zero errors and warnings."
+        }
+      ]
     },
     {
       "source": "packages/react/src/navigation-menu/root/NavigationMenuRoot.spec.tsx",
@@ -2070,18 +2515,42 @@
       ],
       "sha256": "4dbc6378c3951a320be4dd79448fb29cd82b8795c59702760d5360ef9b0fc55d",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
-      "executedEvidence": []
+      "status": "Actual Original and native installed type candidates pass; exact-head inference correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "scripts/check-navigation-menu-package.sh",
+          "assertion": "expectType<any, typeof value>(value)",
+          "extraCheck": "Generic Wrapper.svelte forwards real NavigationMenu.Root.Props<Value> to the actual component."
+        }
+      ],
+      "executedEvidence": [
+        {
+          "receipt": "/workspace/sveltery-pm-evidence/navigation-menu-public-package-paired-types.log",
+          "result": "Actual SHA-verified immutable Original spec body compiles against installed Base UI 1.8.0; native public package strict consumer compiles with zero errors and warnings."
+        }
+      ]
     }
   ],
   "diagnosticDirectives": [
     {
       "source": "packages/react/src/navigation-menu/root/NavigationMenuRoot.spec.tsx",
+      "sourceSha256": "42738ec0f8b00697009cff8a31e83f1d0af437ccfb4acbdc2fe281cc638fa658",
       "line": 43,
       "text": "// @ts-expect-error value must match explicit generic type",
       "sha256": "c7da3e8244d3dbf38b730cdbca40ea92ee9c58dd2605aee0c15057e766c93eba",
-      "status": "pending"
+      "status": "Actual Original and native installed negative generic candidates pass; exact-head review pending",
+      "nativeAssertions": [
+        {
+          "file": "scripts/check-navigation-menu-package.sh",
+          "assertion": "Both Root.Props<'a'|'b'> and Parameters<typeof UnionRoot>[1] reject value 'c' under @ts-expect-error."
+        }
+      ],
+      "executedEvidence": [
+        {
+          "receipt": "/workspace/sveltery-pm-evidence/navigation-menu-public-package-paired-types.log",
+          "result": "Immutable Original directive compiled with actual Original component; both native public type and actual component directive consumed."
+        }
+      ]
     }
   ]
 }

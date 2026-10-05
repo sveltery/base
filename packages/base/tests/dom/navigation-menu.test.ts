@@ -56,6 +56,16 @@ it('supplement: canceled uncontrolled requests preserve value and presence', asy
   expect(component.snapshot().events).toEqual([{ value: 'first', reason: 'trigger-press', canceled: true }]);
 });
 
+it('Source Root:1657 switching by dispatched click emits only the two requested values', async () => {
+  const component = await setup();
+  first().click();
+  await settle();
+  expect(component.snapshot().events.map(event => event.value)).toEqual(['first']);
+  (document.getElementById('second-trigger') as HTMLButtonElement).click();
+  await settle();
+  expect(component.snapshot().events.map(event => event.value)).toEqual(['first', 'second']);
+});
+
 it('supplement: controlled requests wait for live owner state and change active trigger', async () => {
   const component = await setup('controlled');
   first().click();
