@@ -1,0 +1,1717 @@
+{
+  "sourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "previousHead": "947c23eaeda34a86f347958159b3f5166e165b70",
+  "reviewedHead": "f2fa90c077627070de519237bcb2412f8f20b460",
+  "acceptedMain": "c1600456d3b4e72910d42823b9df69280c74a262",
+  "normalIntegration": {
+    "head": "6a126f6db42ad1e30ca81a3238993ec2780c8530",
+    "parents": [
+      "947c23eaeda34a86f347958159b3f5166e165b70",
+      "c1600456d3b4e72910d42823b9df69280c74a262"
+    ],
+    "tree": "e5097852baf4d9411ff4920b9a7c1e9831f03fa0"
+  },
+  "localGraphSHA256": "38900ac2ef95c7f5ac006e6942f956ec436713f287bece282b04523bd146eeef",
+  "counts": {
+    "modules": 132,
+    "runtime": 73,
+    "typeOnly": 59,
+    "directEdges": 517,
+    "inheritedBodies": 132,
+    "inheritedImports": 132,
+    "inheritedReachability": 132,
+    "changedSelectedBodies": 0
+  },
+  "selectedIncomingFiles": [
+    {
+      "local": "packages/base/src/lib/utils/addEventListener.ts",
+      "mainSHA256": "77880d75a5c8c5ac2d924e69d7cc7662c616b953d4895c8e6a24de53de4502bf",
+      "byteIdenticalReviewedAndCurrent": true
+    },
+    {
+      "local": "packages/base/src/lib/utils/clamp.ts",
+      "mainSHA256": "96e2dcc83d37bbe52ac6d4f65b205859eae0017c4208551f00a16195c176ec35",
+      "byteIdenticalReviewedAndCurrent": true
+    }
+  ],
+  "publicSeam": {
+    "indexSHA256": "c2c3f60aaa2ada5d31f184231cf4e1fb32e222423c7407a125e806be58762257",
+    "packageSHA256": "0cd42c275d78c149477b357be401bc7d71e924efbba3f269ea3f85278b593867",
+    "result": "Exact accepted-main root/subpaths plus NumberField only; all remaining package metadata/dependencies unchanged."
+  },
+  "catalogCounts": {
+    "bounded": 27,
+    "unimplemented": 15
+  },
+  "historicalFiles": [
+    {
+      "path": "parity/number-field/source-graph.json",
+      "sha256": "37a3a4babce186e4f8fd2d645d5c05eb6fcffff48903fdbfebb164319c081be0",
+      "byteIdentical947": true
+    },
+    {
+      "path": "parity/number-field/source-correspondence.json",
+      "sha256": "38900ac2ef95c7f5ac006e6942f956ec436713f287bece282b04523bd146eeef",
+      "byteIdentical947": true
+    },
+    {
+      "path": "parity/number-field/integration-inheritance.json",
+      "sha256": "e5cdb6361c95ba283d6163c6857bb79f3a997b7c3a7b720e8bbb788accf0426c",
+      "byteIdentical947": true
+    },
+    {
+      "path": "parity/number-field/record-integration.mjs",
+      "sha256": "75204572dfc75618c685734172e3e314db44d160954564aa90d97f187e7a63ae",
+      "byteIdentical947": true
+    },
+    {
+      "path": "parity/number-field/current-main-inheritance.json",
+      "sha256": "da029625e5cb39803fcc2807cecdb6840cc7c06b01a4e862c51e2cd4e704360d",
+      "byteIdentical947": true
+    },
+    {
+      "path": "parity/number-field/record-current-main.mjs",
+      "sha256": "29a9d97e56c2cb0a1cc68d664100a60422c6c11f0ca56062a6bcf0597cf1669b",
+      "byteIdentical947": true
+    },
+    {
+      "path": "parity/number-field/delivery-inheritance.json",
+      "sha256": "a2d57dd1ee2f5a8022796e6167c179de9ee93feca712194f51eb1ecf02a09ccd",
+      "byteIdentical947": true
+    },
+    {
+      "path": "parity/number-field/record-delivery.mjs",
+      "sha256": "e5276d2719f3ced93c169f9bf6df66e0130c95dfceabce3085b5d90c2beead65",
+      "byteIdentical947": true
+    }
+  ],
+  "status": "Machine proof only. Individual f2 Source/native/maintainability scopes remain eligible, with fresh current documentation/characterization review, hosted gates, configured review/disposition, bug tracking and Root exact-head PM approval required. Historical947/f2 execution is not current-head acceptance.",
+  "ordinaryDeclarationCredit": 0,
+  "modules": [
+    {
+      "local": "packages/base/src/lib/checkbox-group/CheckboxGroupContext.ts",
+      "sha256": "7e70df699399699bef7aada56b6891899ee7dd1db3084a9cf1c94d0c2f5f2e1d",
+      "bodyInherited": true,
+      "importsSHA256": "2b4a0442b6efad667b7293564951af3a6be71b3610981b0c2b6c6ab999dc6e21",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/checkbox-group/types.ts",
+      "sha256": "11f60dbbc9279270d57c957da0a587b4328c6a50b6538f11a3cbccb1808d2fa2",
+      "bodyInherited": true,
+      "importsSHA256": "e4aeed0ba68bcff380e8edf862d24dcf11aa7f2b95354f111ba1561bb498676a",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/checkbox-group/useCheckboxGroupParent.svelte.ts",
+      "sha256": "8adf195142cc9b97f5c11f32946562d3c3b42cbf7f67d6253d601550f96977b8",
+      "bodyInherited": true,
+      "importsSHA256": "ddda335429bef512d317893f4f0eda61633a36b9f8be1a7e30fe7dc799b7b00f",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/checkbox/root/CheckboxRoot.svelte",
+      "sha256": "36fec4ac980a7ad09bb5614726f3fe7479dbc48cdec293641a90a809fa78e7d8",
+      "bodyInherited": true,
+      "importsSHA256": "ae73a121d4b391fa1b3c8db7833dbccd05d3dbaa9a4a69d3c9178cc0115ffd52",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/checkbox/root/CheckboxRootContext.ts",
+      "sha256": "fbb7e3014465570926acda685475f426319f920a3d224017f5aa7d883a2177cd",
+      "bodyInherited": true,
+      "importsSHA256": "6e8ba03bbc99fbe874780de8c8481a1d061af3f900ec19e802751c841ee8f278",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/checkbox/root/CheckboxRootDataAttributes.ts",
+      "sha256": "fe19991f3e1ae6b1f9f702898a50f3d287a10e4892b64252ce16ed7bc367c19c",
+      "bodyInherited": true,
+      "importsSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/checkbox/types.ts",
+      "sha256": "d5dd1320ca6d2b45cfb6bc671c0873aae5ad495d32243a791225bbe96c2d5f17",
+      "bodyInherited": true,
+      "importsSHA256": "5f3767a5cfb80af5007301c810c2187f691608f12e3572d1d75ff6d6f72e2714",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/checkbox/utils/getCheckboxStateAttributesMapping.ts",
+      "sha256": "6d59ba1f1e83378e7a8ce1be81143afd51df7e299f20808ca24c3421b494dc97",
+      "bodyInherited": true,
+      "importsSHA256": "18bb00055da61d43c65bf9fe5da17cc5d9f37f1058bc6583c987ca6307ad9cde",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/checkbox/utils/useEnterSubmit.svelte.ts",
+      "sha256": "dcceb14ed7d2246a76de528d74260fd5b2b5a6ded04e5eee90b4c95d703cb467",
+      "bodyInherited": true,
+      "importsSHA256": "b00f1c0be7c989b0bcbcd816dd64863b8c1e578f59f3ddcbbe0620f8861cbc35",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/dialog/types.ts",
+      "sha256": "fd700772ea1016359bc934759c01d168caa2914ff136733f30f9c108d28ae931",
+      "bodyInherited": true,
+      "importsSHA256": "cefbca500d53d6bb33b77f9705b683052a270cde325ee1abc151e067f84e9bce",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/field/Control.svelte",
+      "sha256": "ac623af778620dd68ea7c9234ffd9c27eb22b3406e1ee9fda4d973e823532101",
+      "bodyInherited": true,
+      "importsSHA256": "0e0631a0d0242a8324b09edec0a78d02862eee3a515c776563a1392bb18bb519",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/field/Description.svelte",
+      "sha256": "0581056a31a173472dc8f22ebfd599e74bada6250520d6d4cb82b22aba48fe0b",
+      "bodyInherited": true,
+      "importsSHA256": "263574b35870b9ee1621608afad742165268c0f49487f58f39441e2a9a03d373",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/field/Error.svelte",
+      "sha256": "4b8a0755185330e12acf8dacc050ffae8f7b30f744aeebb54aa1c2095b09d6f3",
+      "bodyInherited": true,
+      "importsSHA256": "085347432c794f3b5cd984a65a0f3522da6c02148fdee240993058d7f0f0e76a",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/field/ErrorMessageList.svelte",
+      "sha256": "27bec6f8217118288cddf98c3e00c4df7efd3934c7ab3f7126cb6f23a4d601c4",
+      "bodyInherited": true,
+      "importsSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/field/index.parts.ts",
+      "sha256": "97ccc3903310c1264fefd80e4f80583358d43293c33065d6cec76e87bf6eb647",
+      "bodyInherited": true,
+      "importsSHA256": "5d1361e8a69fe6cbe2df10dae206e7c9f187272fa7dfb42203eec4e87b58cb39",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/field/Item.svelte",
+      "sha256": "737b50c83d7fb7d9b68567a062eb995c1f98664a09d85a49d2b5ba1938f07fdd",
+      "bodyInherited": true,
+      "importsSHA256": "21217efd13b2eecc8240800c20a4e7fc821cbf180e8e860b7be50d78b31c60fc",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/field/item/FieldItemContext.ts",
+      "sha256": "f1a84a8e7fd46dce276cf16590fc2c6919f3167a12ab1fbff2ad86e64ff2eaed",
+      "bodyInherited": true,
+      "importsSHA256": "12896452b6dec6487ec14dd51146542595be739e70250a94f10bed17845f5a4a",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/field/Label.svelte",
+      "sha256": "c60260581b9295db7aede4b558b02e4fd0d92ff52f3a9e8d4da5143a2ead396c",
+      "bodyInherited": true,
+      "importsSHA256": "51c65199501f7e9beb431d8d60e6f0b03e43c8d9c43a36f6aba14cad04b093bd",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/field/props.ts",
+      "sha256": "ed3d25745d68f38c06c0f21ae46e9457147a07503e34ae52fd17dee7256d1357",
+      "bodyInherited": true,
+      "importsSHA256": "c413a15620158879b3f08a01bb914fa400219210ffcdd1fbd8479318489cebcd",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/field/Root.svelte",
+      "sha256": "1a505de7682ed523d1e2568ca19a2cf7116fc8a992b7d3de8b50eef1c1e43f54",
+      "bodyInherited": true,
+      "importsSHA256": "aa57307d602afeec97950394cc7df87de42039b34fde812bb16755806daa4e93",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/field/root/FieldRootInner.svelte",
+      "sha256": "ad785d1c6d42b8346151701855609eaf195deae3843f8d79091d131b415e83b3",
+      "bodyInherited": true,
+      "importsSHA256": "cb59c50a569fbc2621eb0478c06e6ebd89cedd04e1c08e1f890c185f37f97719",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
+      "sha256": "93fd341dc439f2272b06a8857eba538900db8372306efcc6ba4b6b64d073fee1",
+      "bodyInherited": true,
+      "importsSHA256": "1653209c8a738e2a917265f7373046bbb8403a25dbaecc2581c80571bec410d0",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/field/types.ts",
+      "sha256": "25fd4710edd0d877d62c4e8874314a2c36344ad346085d5e75655ebbedf051dc",
+      "bodyInherited": true,
+      "importsSHA256": "b11adb5293b2d0ab718bf7343b54c27c268e33f20a7405ab131601004d448bba",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/field/utils/getCombinedFieldValidityData.ts",
+      "sha256": "f5c0e65cc854d8bb6446d2792142ecc64d603a469a576dd0fbc5f3de6bc61b7e",
+      "bodyInherited": true,
+      "importsSHA256": "ea0b802d62508effc275ff098767f260647a4bb82e2f1c5e56318538294c2f21",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/field/Validity.svelte",
+      "sha256": "cd4f22fb12d808cfe1106570579811bc11edcae63d22df48fee24a5946a724a1",
+      "bodyInherited": true,
+      "importsSHA256": "321f1347fd09a24d0b2836c83ed29944dd063ee4c151651fe75abe983820da7b",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/fieldset/root/FieldsetRootContext.ts",
+      "sha256": "f5b4b87e5802c40a428e4df9463e84fd36cb649ee3cdfe6f0b153b9721e6ce6c",
+      "bodyInherited": true,
+      "importsSHA256": "12896452b6dec6487ec14dd51146542595be739e70250a94f10bed17845f5a4a",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/form/types.ts",
+      "sha256": "51cb6c9cbbd82cfc923db96143f5184acb5712d5614298468c9cf391aa783f8b",
+      "bodyInherited": true,
+      "importsSHA256": "8242d8a8ea17071fdf5fe5fb09ef65ce3d36a776b8d6a96a4afef679e2e0e032",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts",
+      "sha256": "b08d6af5d6e71ba46076718b4426c7d2e0485a059e9204759406af1f395b6f2c",
+      "bodyInherited": true,
+      "importsSHA256": "12896452b6dec6487ec14dd51146542595be739e70250a94f10bed17845f5a4a",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+      "sha256": "1a9cb6cde2734d421a1bfb03ece9c744584b7e115a0eb3b9de974c22ab8ee684",
+      "bodyInherited": true,
+      "importsSHA256": "a9d62f245d7696cd65b70bb88fa386986a122e0891805a27c372fcd477640c8a",
+      "importsInherited": true,
+      "reachability": [
+        "type",
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/field-constants/constants.ts",
+      "sha256": "7a4e8acf35babe4f33b4850da64313dbd19be6b20cb3b4833430d103cd6bf757",
+      "bodyInherited": true,
+      "importsSHA256": "b847b6a80500c2ccd96affadbf05bf13fdcddbc16da314ce11f9c9f4142dde8c",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/field-control-name/FieldControlNameContext.ts",
+      "sha256": "c2e281c241321a8fd4148eb0f536dabb56be359deccc0e8a5f23ec4d207c48a8",
+      "bodyInherited": true,
+      "importsSHA256": "12896452b6dec6487ec14dd51146542595be739e70250a94f10bed17845f5a4a",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/field-control-value/FieldControlValueContext.ts",
+      "sha256": "e97a45c620080963320c4ee0bc8a81e5422c5cdc3ebca07cd94d062ee46cb852",
+      "bodyInherited": true,
+      "importsSHA256": "12896452b6dec6487ec14dd51146542595be739e70250a94f10bed17845f5a4a",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts",
+      "sha256": "2fbe1f3900ce42aff6d9f65e489b9dcac76a90e34c2be6dcd75c4f5d5bc887fe",
+      "bodyInherited": true,
+      "importsSHA256": "e96a2f6398a6e53e99c8ddd764ec42c291e8eefaf3443c5b3589bbb8cf82e4ab",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts",
+      "sha256": "b4c1ea76c59f1b6848c3a54e915324b9da25bbdbdf16f61c4cfad1a3521ada03",
+      "bodyInherited": true,
+      "importsSHA256": "52c30596dc2b5aa234f93ce442f72d23e44694c28a647142bd9811b5fc3f30a3",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts",
+      "sha256": "21aa11d932c64b362bdb2373d22bf6c108fe9a24a093b0a08a009e3d9b45f614",
+      "bodyInherited": true,
+      "importsSHA256": "fe5b2347d767c5965a19f94e24e27d7c18ffa3e1c593c5c0a14c111746389606",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/form-context/FormContext.ts",
+      "sha256": "8a0131cd002119715cb0d1a9cb051662353e75797aa4369981a30be4df29a05a",
+      "bodyInherited": true,
+      "importsSHA256": "e850523d0d93cb8b003b1d588ab4293480b720511413ee7075fada005390a21b",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+      "sha256": "e48367a890024a54cb200eabc5c2a0ba0a397256baacfaec8b0a05ced3b10344",
+      "bodyInherited": true,
+      "importsSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "importsInherited": true,
+      "reachability": [
+        "type",
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
+      "sha256": "2a5fb80fe0cf9ca1d598337f2fddc778833d1dba5445fb5918cae6a1ab478a4b",
+      "bodyInherited": true,
+      "importsSHA256": "b4817723b3dffc16c3afe8d9f8b850241abe032a83bf958b4a36c44337d18fc5",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts",
+      "sha256": "864b5d1ddb86b7cb3d50217a7bb3b4fbf58428ec43f78c1ec7ed3efa31750799",
+      "bodyInherited": true,
+      "importsSHA256": "7636be47646381f631b77dcf00ccbe4dc723222c845bfd5123b488661d8d3d0a",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/labelable-provider/LabelableProvider.svelte",
+      "sha256": "e0719f95f60e6ac6d050e92c0525f465d87c6832887515cbe62948b481915c43",
+      "bodyInherited": true,
+      "importsSHA256": "bf289df9a6b859a7f52fd69ea6e7dbd214067e06acd4324f1a1bad9d40eadc08",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/labelable-provider/useAriaLabelledBy.svelte.ts",
+      "sha256": "bfb47e6426f7df82b1738fb2dcbef7133166addc4a7d54a84deab26655f2bf0e",
+      "bodyInherited": true,
+      "importsSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/labelable-provider/useLabel.svelte.ts",
+      "sha256": "b96abe4dcc46df31198bbd40cbc6e9278dda323f3bab6b33bc802158ab9d9b26",
+      "bodyInherited": true,
+      "importsSHA256": "e2bddbe5f3137d7fd5a1cbf35f28deffb2e00278e6b48f178b6f82879aed09a7",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
+      "sha256": "821459e698c6486f837258547fe73e1db1865bd574444ea867d03b59af8e4456",
+      "bodyInherited": true,
+      "importsSHA256": "c923cae2e0330278c7ebee4cc2995b2fab66ace0579bc7b8033059d3394db165",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/nativeProps.ts",
+      "sha256": "d6b3999ffe54e8c70e0dcdac61474b3bf9f53e60f3b1207dd4f976ef5212e4eb",
+      "bodyInherited": true,
+      "importsSHA256": "a896093e33910d6277421741a1358f0349dd0d99e557b263ba40a5c571fdaa2d",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+      "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319",
+      "bodyInherited": true,
+      "importsSHA256": "360b78bf469942c5285ac6a9cfdcdc6e9afde06812d347c32b44a301f7015108",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/reason-parts.ts",
+      "sha256": "0326d21ce4be2c41b5488c86e3687249faf3c51f5e10ae49c16e8efdc183abf5",
+      "bodyInherited": true,
+      "importsSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/reasons.ts",
+      "sha256": "f1f52caeefb14448a7e7c9833e24413b923b7bbf40aa1818ca73dc93710b42e7",
+      "bodyInherited": true,
+      "importsSHA256": "84af99805a8a5dfa09810c75be8c9cc96c76aef0c3804b88e8f2217aa5ae81d7",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/RenderElement.svelte",
+      "sha256": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5",
+      "bodyInherited": true,
+      "importsSHA256": "5bdd3743e9ba8649448c9b9ec96ac14927ec5fd77b90440ca62bbf1ae61f29cc",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/resolveClassValue.ts",
+      "sha256": "584323b17cb1733a798e9ff86e9ff783d6a26d08ecf005a8c2b3c69917c1e722",
+      "bodyInherited": true,
+      "importsSHA256": "e9dfca25c78abfd0785fdcfdf3adb674b4549bd7a6bde0e536910b4395e92c56",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/stateAttributesMapping.ts",
+      "sha256": "d04c73fe454de256e1641245b5db6a3d70824693f0da33272d0863f033b5230d",
+      "bodyInherited": true,
+      "importsSHA256": "7000efb7cb6190480d6e4e3816753e8de6c396ef620768e56eed95af967350c7",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/TransitionStatusDataAttributes.ts",
+      "sha256": "d3e4a31041bcc80ba21b330d3fedadfadaeae3f498dc09e078e70470cfb98dfe",
+      "bodyInherited": true,
+      "importsSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/types.ts",
+      "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
+      "bodyInherited": true,
+      "importsSHA256": "2e6a328330c43bc22265b5f7660a1362ca7df02aedcd61a44ddc4b238445cccf",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+      "sha256": "ee71d7077c51139162152716111472919bf80b71e6e9cde62d15ff0b7ce56f59",
+      "bodyInherited": true,
+      "importsSHA256": "3006e9c60ce8fa3cb0dbf62f28e3b3ee38b4ef2431cb2b153a0038110786575e",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/useAnimationsFinished.ts",
+      "sha256": "0ae8873174969326a7ac09377ab019af5cd575bbdfde7df9118317d0ec1c1e30",
+      "bodyInherited": true,
+      "importsSHA256": "c59932cd713e8a874795a9119d569784da9574d6c1bca03937d16f754be4a773",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/useBaseUiId.ts",
+      "sha256": "fc6d9571f2fc0f71d6f75a8f34eb981a3e09a9a038fbb9aa8b4b83c2cbb3aaa3",
+      "bodyInherited": true,
+      "importsSHA256": "cdadf19253a2994dcf0bb7cdb1ffe6777ad8deec8ebadb82a4c2f2ddaf3a0a1b",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+      "sha256": "5e966dd1b10cbc1ed448d3583ca948a384d812f9e71afc1e128395485575931f",
+      "bodyInherited": true,
+      "importsSHA256": "042e730cc02781e7e45245889e1e2cdfa161d7bcbcf5ff8e186081e9646cf0b1",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/usePressAndHold.svelte.ts",
+      "sha256": "6f9d6fe34087723aaec3382d4c493db593b616fe19ce610b4009834e9bed6788",
+      "bodyInherited": true,
+      "importsSHA256": "f1b9e6541b62a46575ac102a2fdc12d7e74147c753754804cf9e462b64fdcfd6",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/useRenderElement.ts",
+      "sha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
+      "bodyInherited": true,
+      "importsSHA256": "0562bb42e6eb0b149fa38f7e7833b6ae95640c7aec9c4a723f85b8ffb7094155",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+      "sha256": "1236abbbe5a5e1dec17c77d51d704f3f03e48ecdd34f85a995e1dde00c60c54b",
+      "bodyInherited": true,
+      "importsSHA256": "8835fcbbfc6be1303cbcf6d898eca3c76ab90d15761155e85812361c356a7510",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/internals/useValueChanged.svelte.ts",
+      "sha256": "340a8f5ed100094c283f167c8a8a3e196708cdf238eeadc93f148ee31c4274c9",
+      "bodyInherited": true,
+      "importsSHA256": "b6b564b3788b15940c06d0dff7b36788af70e843d23f73746e35a67fe4b4ed2e",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/merge-props/index.ts",
+      "sha256": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68",
+      "bodyInherited": true,
+      "importsSHA256": "b2374c83e50df9a40f5b14b3339b02d93f28233ed38b3acfea1df716e89b967d",
+      "importsInherited": true,
+      "reachability": [
+        "type",
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/merge-props/mergeProps.ts",
+      "sha256": "7a097b833ae8854c5a26e34009adfb4e0297dd50f56ad5f0c1ac8afa8187f98b",
+      "bodyInherited": true,
+      "importsSHA256": "c23282e2ee156f5b81518155a913571cf38b3f5f5aa3c34325b9afa420a20720",
+      "importsInherited": true,
+      "reachability": [
+        "type",
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/decrement/NumberFieldDecrement.svelte",
+      "sha256": "39f8fda2471ef7d3cf64fb5803e254349cc9b50c6e4db2474259e8e67732c842",
+      "bodyInherited": true,
+      "importsSHA256": "2655a93401c3b1ab70cc62b2a8f70d715d6d467e82532ef067437065e8dbb62d",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/group/NumberFieldGroup.svelte",
+      "sha256": "a324f5d4c49586380e4524e6ca8cf31b2b541c90190d31276cbd701785c9289f",
+      "bodyInherited": true,
+      "importsSHA256": "1ec6a741df7cb1f2babb5ec36149a9853be897456eead66a6f4875394b65deff",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/increment/NumberFieldIncrement.svelte",
+      "sha256": "8a9f6213253e10b7c9a56944d7fcfa5251cd8c06d46b4de5dbbb009f24e87b56",
+      "bodyInherited": true,
+      "importsSHA256": "2655a93401c3b1ab70cc62b2a8f70d715d6d467e82532ef067437065e8dbb62d",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/index.parts.ts",
+      "sha256": "674435801f8dad9d22123818dc3f79c48daf0a78e827e17e9a7b37c6259c6313",
+      "bodyInherited": true,
+      "importsSHA256": "b4faa0f4d2dc6720c4580e175818ec9a497b53946d8dd15668de6fa49d2a38ac",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/index.ts",
+      "sha256": "0dcd9cd9a44be575f3ba9eaf7c4d9914b33608b9a39c5fd0c3f9673061e1da87",
+      "bodyInherited": true,
+      "importsSHA256": "a335c91a748a2d572c9955c268aecf678b7f8cab88b34fcc3216ec1f6a25f01e",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/input/NumberFieldInput.svelte",
+      "sha256": "2bed1ef3697e82206a49b584c6510f4945757f22f3e5da924458a8496e97f7f8",
+      "bodyInherited": true,
+      "importsSHA256": "c8b2a82ec9516d193486508964e118d2c57a8b3175b6dd621ebe6065eb0b9a94",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/root/NumberFieldRoot.svelte",
+      "sha256": "83c5dbc1f0f96a71cb6732a298b71565a00709db87bbce5ba56337ec6cf782eb",
+      "bodyInherited": true,
+      "importsSHA256": "80d4d4f192836dda782cbd241e459f69f72a6669840bf363197a7c512e5a909a",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/root/NumberFieldRootContext.ts",
+      "sha256": "088c75e104235f65a4594e1a8e9798d4c846d90f1b97d006858f541fa3ee6bd7",
+      "bodyInherited": true,
+      "importsSHA256": "154e98b1c45b7676c6a326b0f80709fc1e498710c91279b7b934809d76688122",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/root/StepperButton.svelte",
+      "sha256": "44dc7f473a61d9efccf0629b30c054b769f4a17d1980b717974b1539275ea0c0",
+      "bodyInherited": true,
+      "importsSHA256": "8a4cced89e56ec41c4c71b6aec94d251ffb3081a615cb7dcc730b1f4485071be",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/root/useNumberFieldStepperButton.svelte.ts",
+      "sha256": "3291a1d1b3275c7e7a2319be86a83582d29de675d5445c29265b365d096a684e",
+      "bodyInherited": true,
+      "importsSHA256": "366fbf24d1c0868e099963482e93c29421f1cfa7b4d9a85df08ff8e6a6badf08",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/scrub-area-cursor/NumberFieldScrubAreaCursor.svelte",
+      "sha256": "c486065e05d6ed9d928ef9044679f90386ac5283637c16c7f6ac5d104202341d",
+      "bodyInherited": true,
+      "importsSHA256": "c81f55ccd8fe2df2591f07f3d5eef0108b1460481c86fe6db9263e151b27cdc4",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/scrub-area/NumberFieldScrubArea.svelte",
+      "sha256": "fc4f7c692b1a0acd1c221edc9f8df9dc4aa333652a414b5bcb9da27083da3bf3",
+      "bodyInherited": true,
+      "importsSHA256": "95e0503e2ea74cfe9da5df62c441d2289807f39de2c616bf6a7d55059b729e77",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/scrub-area/NumberFieldScrubAreaContext.ts",
+      "sha256": "8c97fccf710e749f414629abee382ab9a69af29a2faafb7185909fd8228b6148",
+      "bodyInherited": true,
+      "importsSHA256": "12896452b6dec6487ec14dd51146542595be739e70250a94f10bed17845f5a4a",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/types.ts",
+      "sha256": "22dc5e8c5b2eecb68cffa470b5fd2350f5e3ae0779f3181a18c3167e0ce86eeb",
+      "bodyInherited": true,
+      "importsSHA256": "429eeed19b796dd4e3487796f4f482b359aa48eaf4a62af1ba08a40ddb1dd096",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/utils/getViewportRect.ts",
+      "sha256": "865a9bd7dc5fc457f3375ff586eb5a23a9dddb9194c5b41c3af3a6908730317a",
+      "bodyInherited": true,
+      "importsSHA256": "196625b36a1fe17f7b665b7ba278eface6676cd86ebd1102a16d3ef6627e4bda",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/utils/parse.ts",
+      "sha256": "ada55bc15947e91c2fd2ed1c95fda2691226d7fd9505a121c10fda2b11ed6383",
+      "bodyInherited": true,
+      "importsSHA256": "1e4fdc4aa6007895e5cde115348c032b28ae0cd31d00f55cbbf517f5e336cfe0",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/utils/stateAttributesMapping.ts",
+      "sha256": "9bd0c28fc1f2ec75c049f8e704276fe44764330ee4a98194d0fe38d9de66b5a4",
+      "bodyInherited": true,
+      "importsSHA256": "a304615258ead94904e6c4929c135c2c08bc571ef8850d5c07bf0dce8bce84ba",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/utils/types.ts",
+      "sha256": "9b997f75e112c62c01d7824614d026921c301dd11a22a7fb5017acc8938e256d",
+      "bodyInherited": true,
+      "importsSHA256": "fc0d59b663380b155232e1ecb3fc93387b3cc571acf7ed5ca173d547c8469393",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/utils/validate.ts",
+      "sha256": "aba0d2dd1e4bb6c5977545276d2e191b4a7d84e2aefb7746ebdea41de56edf13",
+      "bodyInherited": true,
+      "importsSHA256": "ee5066f59388c95328a6690988d7d601f42d860cca9926405bcb13d09fd9b989",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/control.types.ts",
+      "sha256": "00cf77f4cb8b407b63862f741bb8249dcc32d6eaf78e99324a99f860c67c9874",
+      "bodyInherited": true,
+      "importsSHA256": "f6c8b4d0256c47d458d280629f237b9e87cc908f2a62688d8495f483acddcddf",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/index.parts.ts",
+      "sha256": "764ef610c588dec913e1e63478313ca70c4e4f3a488ca2f72da09b9a94485cb3",
+      "bodyInherited": true,
+      "importsSHA256": "833f344a34d8c56341619e8901a35810f2130bf82f1fcaa854eabb9acd255133",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/nativeControlValue.ts",
+      "sha256": "620730edb668abb6f6ccc07f880e7000c6456c7f710a0031490c7feb66aa7072",
+      "bodyInherited": true,
+      "importsSHA256": "e5b4a29fe927dc04c11758a740fb3eeb8bcf09a08ec47d8916164003ac5a4af9",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/RemoteBooleanControl.svelte",
+      "sha256": "2ec88d564588075320eafa7929bdcf82f3930eb067632875a8052244e804c068",
+      "bodyInherited": true,
+      "importsSHA256": "51a775431e2b75e4c75fb12d6c4942b923b5166f917b788d537e3906e2d63c96",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/RemoteControl.svelte",
+      "sha256": "a2c3bf73969d002f99e7571df274a77d97d0603ec1d8c517901992ca58312527",
+      "bodyInherited": true,
+      "importsSHA256": "14e762e28408c837221f357d82c4a34de5186e67b4c1d32f73257704af30d88b",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/RemoteFieldContext.ts",
+      "sha256": "10184201edc3e9b7b2fb34d6b6f85eec21e9c2e4087d7d305b14e2976f77f98e",
+      "bodyInherited": true,
+      "importsSHA256": "91a962515a9365cacc6565d61b47aafe749e007280afdbdcef15845943190679",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/RemoteFormContext.ts",
+      "sha256": "21588cc2de0950e70f6de6cd4a40a8b44bf27c7329bbb95699bad710caabb12c",
+      "bodyInherited": true,
+      "importsSHA256": "d144cb9de10e0e22086e82d3bafffccbea0d77ef66f8e510954cf9ba2f761e4c",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte",
+      "sha256": "8b7b061b7d5eb9767098431d4c3415b5446dbe5be74de175c03e98528547038c",
+      "bodyInherited": true,
+      "importsSHA256": "3c582ff1142b4d29075e7946c3886f97ddb72fa718d52159c6199935b33b27bd",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/RemoteRoot.svelte",
+      "sha256": "f71fbc4d572479119a9d30646d1011637d9c3f11a0ac8c2944b8b93747de200f",
+      "bodyInherited": true,
+      "importsSHA256": "070754ed3bc2397bd88ec1cf58b0135e77a3167b6fd886706d8e8246cd42d4c3",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/RemoteTextControl.svelte",
+      "sha256": "46a8443f2c9dafaef3dee6635550a8d76a6a275e12e6311e2ab726f8dcfeaa7f",
+      "bodyInherited": true,
+      "importsSHA256": "c90944da839ebe31fe4bd5deb0b2106458705dbe7487dad8028832a11c4f4ff7",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/runtime.ts",
+      "sha256": "8e0b21e16d8706f7eb835c61df55e2caed81e86be2837006364721cf89806782",
+      "bodyInherited": true,
+      "importsSHA256": "40419b7660c8dc423dd6a3c28b5ca180967d890a8f9f077bf7139eb16c857e44",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/types.ts",
+      "sha256": "d8acd95ea2deb62f2db7a96276100d6820c8e3fe262b4ccffa4dbc97c6956d33",
+      "bodyInherited": true,
+      "importsSHA256": "5eea49ca1ca526b7d837f0dc92a108245210972881a54e7bed8e7677b981da6f",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/switch/types.ts",
+      "sha256": "03507c0edc0efd85c6ae7c4e6c07b2a2c34375de4dcbf454c7cee2414ac8c416",
+      "bodyInherited": true,
+      "importsSHA256": "1ab74dc3c542ba62b9cd16314a50ab9a233976ba3cb05ba854b57bfaebc7fd80",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/addEventListener.ts",
+      "sha256": "77880d75a5c8c5ac2d924e69d7cc7662c616b953d4895c8e6a24de53de4502bf",
+      "bodyInherited": true,
+      "importsSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/areArraysEqual.ts",
+      "sha256": "c8709b6f9efb30e3257def214aeae097b131b112b74bd1bea965e201efb15a44",
+      "bodyInherited": true,
+      "importsSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/clamp.ts",
+      "sha256": "96e2dcc83d37bbe52ac6d4f65b205859eae0017c4208551f00a16195c176ec35",
+      "bodyInherited": true,
+      "importsSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/createLogOnce.ts",
+      "sha256": "a3c52188a495927ef9b49765ca1e70bc384b37b68a5c896ca86df15852a279b1",
+      "bodyInherited": true,
+      "importsSHA256": "c6648691eb6f4f29f3a911ed6eb4782f87113a64496816b6742693717fa45ad8",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts",
+      "sha256": "60aab2aa25eb9c0aeaa0a57fc8ccd37aab747577ea22f019aff163946cabd373",
+      "bodyInherited": true,
+      "importsSHA256": "c5e5743749ef5a5c4b73309cc0d6b11ba1d42f1582c7406abf464560016adeb7",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/empty.ts",
+      "sha256": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b",
+      "bodyInherited": true,
+      "importsSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "importsInherited": true,
+      "reachability": [
+        "type",
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/error.ts",
+      "sha256": "de9eeee73db42c056c110eb94f3aef8b51ae3003e97d5140bfaf876bdde52c69",
+      "bodyInherited": true,
+      "importsSHA256": "9bbc1d41b7bbe62521266d313259e3d56fe47f47bde67c8e0065580b52825165",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/formatNumber.ts",
+      "sha256": "393dedb1ddf8bda2d837b3a592f40817768648b86e83f032ad4639394cae7319",
+      "bodyInherited": true,
+      "importsSHA256": "b01c116b1fd0bc8373d0d5f4b6ee05c2317e31e700cf8935380b0946223675ba",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/getDefaultFormSubmitter.ts",
+      "sha256": "15c7fb04d8bacba3abc5f4f2329a3c083892e9169689a2eab60104c3517688e4",
+      "bodyInherited": true,
+      "importsSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/mergeCleanups.ts",
+      "sha256": "28eb97759c815e7a3edcb4a5ac4464473790ae9294bda5a66ba268bca8efedcb",
+      "bodyInherited": true,
+      "importsSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/mergeObjects.ts",
+      "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
+      "bodyInherited": true,
+      "importsSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/owner.ts",
+      "sha256": "4f32738229316fe875cf72e949caa4aa7d2fcdf924a2bd5b7f01e88ca5424185",
+      "bodyInherited": true,
+      "importsSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/engine.ts",
+      "sha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987",
+      "bodyInherited": true,
+      "importsSHA256": "a032148f81b994dbf81187b768b0dffdc1abd516e647cf926d331733b22b1cda",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/env.ts",
+      "sha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d",
+      "bodyInherited": true,
+      "importsSHA256": "a032148f81b994dbf81187b768b0dffdc1abd516e647cf926d331733b22b1cda",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/index.ts",
+      "sha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c",
+      "bodyInherited": true,
+      "importsSHA256": "d6eafe2963fd975a03df3de4db32be4e0fe49591aedfaba0e1db0f39fb83eb99",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/media-query.ts",
+      "sha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9",
+      "bodyInherited": true,
+      "importsSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/os.ts",
+      "sha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6",
+      "bodyInherited": true,
+      "importsSHA256": "a032148f81b994dbf81187b768b0dffdc1abd516e647cf926d331733b22b1cda",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/parts.ts",
+      "sha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29",
+      "bodyInherited": true,
+      "importsSHA256": "b6cb5b12198226c861eb6d7f2acad340d6305b65839c5468405907f43796422e",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/screen-reader.ts",
+      "sha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7",
+      "bodyInherited": true,
+      "importsSHA256": "b122c9f552b6e5e4543aba90ee81376d8fcc7d478290ec039a229a05ec02284f",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/shared.ts",
+      "sha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2",
+      "bodyInherited": true,
+      "importsSHA256": "c6648691eb6f4f29f3a911ed6eb4782f87113a64496816b6742693717fa45ad8",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/resolveClassName.ts",
+      "sha256": "b22aead630ca531851a08a63e5165e64ff8cdc9de5765ff20997f578071cb108",
+      "bodyInherited": true,
+      "importsSHA256": "e9dfca25c78abfd0785fdcfdf3adb674b4549bd7a6bde0e536910b4395e92c56",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/resolveRef.ts",
+      "sha256": "ac85daa436a61800f824aa34ea08ff4cbe492c86c12be327de957a381acddaa7",
+      "bodyInherited": true,
+      "importsSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/resolveStyle.ts",
+      "sha256": "cdc420598c1ae4b75a32e7f47ac8cc7f4fe444d4f006e2736f528951fb932977",
+      "bodyInherited": true,
+      "importsSHA256": "d5fd0f05c3b521e12ee62aa50da4144b34079f0152c7245c15103f839f6a8b96",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/shadowDom.ts",
+      "sha256": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1",
+      "bodyInherited": true,
+      "importsSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/stringifyLocale.ts",
+      "sha256": "6822bbd143dfdee434bdecfea1da34fc65681d550b5dd3473f3efb6b8fb746cb",
+      "bodyInherited": true,
+      "importsSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/useAnimationFrame.ts",
+      "sha256": "4de538634e157740822dc1d3896da18ea84c6a706fe79f28fa6b9e7d380038ad",
+      "bodyInherited": true,
+      "importsSHA256": "281bd5ab0c9c2116154f244c949bee06f714df62ec86e6c9b904ed13caf8e282",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/useControlled.svelte.ts",
+      "sha256": "f74b9a8aa08b323835613037c871a6b85c938555c788c0a8ff51825c1863fd35",
+      "bodyInherited": true,
+      "importsSHA256": "575222a4af7298a4f16d71d6115eb982da0b79bcc102ca4961b1a54d21cdb7b5",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
+      "sha256": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c",
+      "bodyInherited": true,
+      "importsSHA256": "d25af6110cf0211c2b27d00670d8c385a7b7c284bc06ffb8a97de6da714016c6",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/useId.ts",
+      "sha256": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90",
+      "bodyInherited": true,
+      "importsSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/useInterval.ts",
+      "sha256": "cd770d55465d31d370e1f9822e6af07040d5bc0e15adfed70535d8b3df24d797",
+      "bodyInherited": true,
+      "importsSHA256": "4554ec17b68dca547aa3045d0fa7b48370abd5bb6ac035abcd98b5f7698875ca",
+      "importsInherited": true,
+      "reachability": [
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+      "sha256": "0d24dd22dad18fc54341aaedb964a25829ae62322f10bf110a4fd8bde65dd1f3",
+      "bodyInherited": true,
+      "importsSHA256": "12896452b6dec6487ec14dd51146542595be739e70250a94f10bed17845f5a4a",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/useMergedRefs.ts",
+      "sha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
+      "bodyInherited": true,
+      "importsSHA256": "aedfe927c313cc901bba47f290824c353960a8767392458ddc47786c3610925e",
+      "importsInherited": true,
+      "reachability": [
+        "type",
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/useOnMount.ts",
+      "sha256": "a7ba4007eff27b601eebcb76755886a23a4dd8548a54f67e15fa1cd648e0e695",
+      "bodyInherited": true,
+      "importsSHA256": "12896452b6dec6487ec14dd51146542595be739e70250a94f10bed17845f5a4a",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/useRefWithInit.ts",
+      "sha256": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036",
+      "bodyInherited": true,
+      "importsSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "importsInherited": true,
+      "reachability": [
+        "type",
+        "runtime"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
+      "sha256": "aeca27deeaadde0c42a027ac7f4788e2a3c62d533db235cada05dd9a70e1e1e2",
+      "bodyInherited": true,
+      "importsSHA256": "4a9ccba31f238eefe9722b68b6c026c49bbbdb1a098c36eec92b1008b3e962e5",
+      "importsInherited": true,
+      "reachability": [
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/useStableCallback.ts",
+      "sha256": "b790a02da99e0e9365bc05d35a434ef37dcffb2a4db8186b1327b949a994d05e",
+      "bodyInherited": true,
+      "importsSHA256": "12896452b6dec6487ec14dd51146542595be739e70250a94f10bed17845f5a4a",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/useTimeout.ts",
+      "sha256": "a04448de8715b8728243ee6e33572c57bc5b151674628304f6c3906966738c78",
+      "bodyInherited": true,
+      "importsSHA256": "281bd5ab0c9c2116154f244c949bee06f714df62ec86e6c9b904ed13caf8e282",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    },
+    {
+      "local": "packages/base/src/lib/utils/visuallyHidden.ts",
+      "sha256": "8f49185df1c0536608090368454cc3d30a3bfc1991b23a4b5e5239184ead8020",
+      "bodyInherited": true,
+      "importsSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "importsInherited": true,
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "reachabilityInherited": true,
+      "manualScope": "Only this exact complete-body/import/caller scope from the independent f2 audit is individually eligible; delivery-inheritance.json retains its complete imports. No machine or whole-verdict review credit."
+    }
+  ]
+}
