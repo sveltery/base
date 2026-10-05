@@ -13,8 +13,9 @@ const props: Props = { disabled: true, focusableWhenDisabled: true, nativeButton
 const invalidType: Props = { type: 'link' };
 // @ts-expect-error Disabled is boolean.
 const invalidDisabled: Props = { disabled: 'true' };
-// @ts-expect-error CSS object adaptation is not supported.
-const invalidStyle: Props = { style: { opacity: 0.5 } };
+const nativeStyle: Props = { style: { opacity: 0.5 }, class: ['native', { disabled: true }] };
+// @ts-expect-error A style callback receives ButtonState.
+const invalidStyle: Props = { style: (state: { active: boolean }) => ({ opacity: state.active ? 1 : 0.5 }) };
 // @ts-expect-error Native event inference must remain intact.
 const invalidPointer: Props = { onpointerdown(event: KeyboardEvent) { void event; } };
-void [equality, props, invalidType, invalidDisabled, invalidStyle, invalidPointer];
+void [equality, props, invalidType, invalidDisabled, nativeStyle, invalidStyle, invalidPointer];
