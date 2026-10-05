@@ -10,6 +10,8 @@ bash scripts/verify.sh
 bash .github/standards/check.sh
 ```
 
+For a focused fresh library build and npm artifact check, run `pnpm package:check`. It validates the packed Svelte source/declarations with publint and AreTheTypesWrong before the existing installed consumers. The producer and standards compiler is TypeScript 6.0.3; the isolated TS5.9.3 remote-contract consumer remains minimum-compiler coverage. See [release preparation](docs/releasing.md) for artifact and supported-resolution details.
+
 Keep pull requests focused. Explain the behavior before and after, link the upstream contract or issue, and distinguish upstream assertion ports from new regressions. Update parity claims only with executed evidence. An independent reviewer must examine the exact final commit; rerun relevant checks after changes.
 
 ## Source-first implementation and review

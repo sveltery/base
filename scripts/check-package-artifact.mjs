@@ -30,6 +30,7 @@ assert.equal(metadata.license, 'MIT');
 assert.equal(readFileSync(join(artifact, 'LICENSE'), 'utf8'), readFileSync(join(repository, 'LICENSE'), 'utf8'));
 assert.equal(readFileSync(join(artifact, 'THIRD_PARTY_NOTICES.md'), 'utf8'), readFileSync(join(repository, 'packages/base/THIRD_PARTY_NOTICES.md'), 'utf8'));
 assert.equal(readFileSync(join(artifact, 'patches/@sveltejs__kit@2.70.3.patch'), 'utf8'), readFileSync(join(repository, 'packages/base/patches/@sveltejs__kit@2.70.3.patch'), 'utf8'));
+assert.equal(readFileSync(join(artifact, 'patches/LICENSE.sveltekit'), 'utf8'), readFileSync(join(repository, 'packages/base/patches/LICENSE.sveltekit'), 'utf8'));
 
 const source = join(repository, 'packages/base/src/lib');
 let components = 0;
@@ -42,7 +43,10 @@ for (const path of files(source)) {
     const declaration = name.endsWith('.svelte') ? name + '.d.ts' : name.slice(0, -3) + '.d.ts';
     assert(statSync(join(artifact, 'dist', declaration)).isFile(), `missing declarations: ${name}`);
   }
-  if (name.endsWith('.svelte')) components++;
+  if (name.endsWith('.svelte')) {
+    assert.equal(readFileSync(target, 'utf8'), readFileSync(path, 'utf8'), `${name}: component source must remain intact`);
+    components++;
+  }
   if (name.endsWith('.svelte.ts')) {
     // Runes remain source for the consuming Svelte compiler, rather than svelte/internal output.
     const originalRunes = readFileSync(path, 'utf8').match(/\$(?:state|derived|effect|props|bindable|inspect|host)\b/g) ?? [];
