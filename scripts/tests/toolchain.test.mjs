@@ -64,10 +64,10 @@ function run({ version, corepackVersion, bootstrap = false }) {
   }
 }
 
-test('uses matching pnpm for frozen bootstrap without requiring Corepack', () => {
+test('matching pnpm builds native packages after the frozen bootstrap install', () => {
   const result = run({ version: '12.6.0', bootstrap: true });
   assert.equal(result.status, 0, result.stderr);
-  assert.deepEqual(result.calls, ['pnpm install --frozen-lockfile']);
+  assert.deepEqual(result.calls, ['pnpm install --frozen-lockfile', 'pnpm package:build']);
 });
 
 test('replaces default pnpm 11 for direct and nested package-script commands', () => {
@@ -76,10 +76,13 @@ test('replaces default pnpm 11 for direct and nested package-script commands', (
   assert.deepEqual(result.calls, ['corepack pnpm@12.6.0 direct', 'corepack pnpm@12.6.0 nested']);
 });
 
-test('Corepack fallback preserves frozen bootstrap when pnpm is absent', () => {
+test('Corepack fallback builds native packages after the frozen bootstrap install', () => {
   const result = run({ corepackVersion: '12.6.0', bootstrap: true });
   assert.equal(result.status, 0, result.stderr);
-  assert.deepEqual(result.calls, ['corepack pnpm@12.6.0 install --frozen-lockfile']);
+  assert.deepEqual(result.calls, [
+    'corepack pnpm@12.6.0 install --frozen-lockfile',
+    'corepack pnpm@12.6.0 package:build',
+  ]);
 });
 
 test('rejects mismatched pnpm without Corepack before running commands', () => {
