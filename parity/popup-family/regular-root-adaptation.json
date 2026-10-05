@@ -1,6 +1,6 @@
 {
   "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
-  "status": "Selected regular Root coverage117variants pass after canonical subscription repair;39 Source sites referenced, two are explicit supplements/incomplete setups; independent full declaration review pending. Immutable435site/718variant ledger remains unchanged/unported/zero credit.",
+  "status": "Local held pure Source protocol successor189variants PASS;63 Source sites referenced, Tooltip JSDOMfocus remains a native supplement. Independent complete declaration review pending; immutable435site/718variant ledger unchanged/unported/zero credit.",
   "ordinaryDeclarationCredit": 0,
   "nativeFixture": "packages/base/tests/dom/PopupRootSourceFixture.svelte",
   "nativeTest": "packages/base/tests/dom/popup-root-source.test.ts",
@@ -113,8 +113,8 @@
         "detached",
         "multiple-detached"
       ],
-      "status": "imperative-action-supplement-incomplete-Source-setup",
-      "note": "Source initializes defaultOpen=true then closes; current native case opens with click then verifies close/reason. Does not earn complete Source declaration credit.",
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Now initializes defaultOpen=true as Source does, then invokes public close and verifies absence. Extra last-callback imperative-action predicate remains a supplement; ordinary credit0.",
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -550,10 +550,424 @@
       "status": "selected-body-adaptation-passing-pending-independent-review",
       "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
       "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/root/PopoverRoot.test.tsx",
+      "line": 136,
+      "name": "unmounts on a normal close after preventUnmountOnClose and external reopen",
+      "bodySha256": "53498db370153e978641c7b3e6938512a5e44d3cd0cfa0cb022d6c3073a4732f",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Pinned complete declaration/setup protocol reread; native commands/render/tick/runes replace React transport; unchanged expected business predicates.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/root/PopoverRoot.test.tsx",
+      "line": 191,
+      "name": "does not close after hovering out of a popup opened externally",
+      "bodySha256": "4fd9805c03d980ea527b2321b1195668d2e0d92397b7f6b2d5b37822883452e8",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Pinned complete declaration/setup protocol reread; native commands/render/tick/runes replace React transport; unchanged expected business predicates.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/root/PopoverRoot.test.tsx",
+      "line": 224,
+      "name": "closes after hovering out of a popup opened by its trigger",
+      "bodySha256": "37c9132ea26a8e76d6dc983f67b68ed7e0f8559a4b4d50e5bd644faeda6b8e8d",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Pinned complete declaration/setup protocol reread; native commands/render/tick/runes replace React transport; unchanged expected business predicates.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/root/PopoverRoot.test.tsx",
+      "line": 451,
+      "name": "should remain uncontrolled",
+      "bodySha256": "45a1125bf481ed713cd08d7b3d70d8725ed8e75012592f464c8cead1be2e72f2",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Pinned complete declaration/setup protocol reread; native commands/render/tick/runes replace React transport; unchanged expected business predicates.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/root/PopoverRoot.test.tsx",
+      "line": 463,
+      "name": "does not close after hovering out of a popup opened without trigger hover",
+      "bodySha256": "6c87160fe9efb07759b50d050a3ee81fb902e50ddd3638db8406047e36bdcef4",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Pinned complete declaration/setup protocol reread; native commands/render/tick/runes replace React transport; unchanged expected business predicates.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/root/PopoverRoot.test.tsx",
+      "line": 482,
+      "name": "should open after delay with rest type by default",
+      "bodySha256": "226caa64db3d271d975c54b116af6929795ee51b5202647bf6cb1be610c4780e",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Pinned complete declaration/setup protocol reread; native commands/render/tick/runes replace React transport; unchanged expected business predicates.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/root/PopoverRoot.test.tsx",
+      "line": 505,
+      "name": "should close after delay",
+      "bodySha256": "3e13c0275a70b35e05d0a8850fa8e4ab6a3b308930f0d23c3a37589679eaf893",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Pinned complete declaration/setup protocol reread; native commands/render/tick/runes replace React transport; unchanged expected business predicates.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/root/PopoverRoot.test.tsx",
+      "line": 593,
+      "name": "onOpenChange cancel() prevents opening while uncontrolled",
+      "bodySha256": "21ae88ffc98d840a23e7f3287d5ec76604695ee72624c3e0c44ce6851faad5d2",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Pinned complete declaration/setup protocol reread; native commands/render/tick/runes replace React transport; unchanged expected business predicates.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/preview-card/root/PreviewCardRoot.test.tsx",
+      "line": 421,
+      "name": "onOpenChange cancel() prevents opening while uncontrolled",
+      "bodySha256": "ffecdca3d2ea8084de41a7f334cf69ce95ff088c2f4e29b65a6699ef30bb0cdc",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Pinned complete declaration/setup protocol reread; native commands/render/tick/runes replace React transport; unchanged expected business predicates. Extra600ms check verifies actual cancellation beyond Source immediate absence; extra predicate is supplemental.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/preview-card/root/PreviewCardRoot.test.tsx",
+      "line": 447,
+      "name": "reopens on hover after Escape closes it",
+      "bodySha256": "1b35f13378cc16fc48d54c4b80701084095aa82d42bf44e01f68a32167d1762c",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Pinned complete declaration/setup protocol reread; native commands/render/tick/runes replace React transport; unchanged expected business predicates.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/tooltip/root/TooltipRoot.test.tsx",
+      "line": 298,
+      "name": "does not prevent unmounting on later closes",
+      "bodySha256": "744e13ac256a0d13d669ff67311df3c76c205769834cdd79621fd1ea330f5207",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Pinned complete declaration/setup protocol reread; native commands/render/tick/runes replace React transport; unchanged expected business predicates.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/root/PopoverRoot.test.tsx",
+      "line": 64,
+      "name": "rewires dismiss interactions after closing and reopening",
+      "bodySha256": "8f32432705f6db832067e1d2055ac23568fda49d7f5dcbd6908b62f30f78f626",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Complete pinned setup and predicates reread; native event/tick/runes replace React transport. Root/Trigger disabled options remain separate. The external native disable button adds an accessible label absent in Source; zero credit.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/root/PopoverRoot.test.tsx",
+      "line": 613,
+      "name": "onOpenChange cancel() prevents closing from a close press without changing the trigger",
+      "bodySha256": "e5486f9ee84f5be29adec036f4b11e96e1331f2b79d83a176e4cc165da2d8d29",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Complete pinned setup and predicates reread; native event/tick/runes replace React transport. Root/Trigger disabled options remain separate. The external native disable button adds an accessible label absent in Source; zero credit.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/root/PopoverRoot.test.tsx",
+      "line": 647,
+      "name": "unmounts on a later normal close after a preventUnmountOnClose cycle and reopen",
+      "bodySha256": "8954ababb8bd6747b2ee8c60be2fb4358a3e8346ead14c29cf2306c8cb4a8c31",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Complete pinned setup and predicates reread; native event/tick/runes replace React transport. Root/Trigger disabled options remain separate. The external native disable button adds an accessible label absent in Source; zero credit.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/tooltip/root/TooltipRoot.test.tsx",
+      "line": 787,
+      "name": "should not open when disabled",
+      "bodySha256": "a0afe71d2f11b2af411783a5009040508ada5eaa4035f113046a8ca1efae113a",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Complete pinned setup and predicates reread; native event/tick/runes replace React transport. Root/Trigger disabled options remain separate. The external native disable button adds an accessible label absent in Source; zero credit.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/tooltip/root/TooltipRoot.test.tsx",
+      "line": 805,
+      "name": "should not open on focus when the trigger is disabled",
+      "bodySha256": "97df4bf490a2f847facd6c548a26f7f5b8b05ef11ce13a20d9b33ae98f7030b9",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Complete pinned setup and predicates reread; native event/tick/runes replace React transport. Root/Trigger disabled options remain separate. The external native disable button adds an accessible label absent in Source; zero credit.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/tooltip/root/TooltipRoot.test.tsx",
+      "line": 816,
+      "name": "should close if open when becoming disabled",
+      "bodySha256": "e44aed04601160320fbc00ab3d72515ab3a974c083e141fc4dd3fe3275b730d1",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Complete pinned setup and predicates reread; native event/tick/runes replace React transport. Root/Trigger disabled options remain separate. The external native disable button adds an accessible label absent in Source; zero credit.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/tooltip/root/TooltipRoot.test.tsx",
+      "line": 845,
+      "name": "does not throw error when combined with defaultOpen",
+      "bodySha256": "18f1a21912ead1e53cc4c4530ae696d790ba512e989d6c014c01dd14a46a69f7",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Complete pinned setup and predicates reread; native event/tick/runes replace React transport. Root/Trigger disabled options remain separate. The external native disable button adds an accessible label absent in Source; zero credit.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/tooltip/root/TooltipRoot.test.tsx",
+      "line": 851,
+      "name": "marks the trigger as disabled when the root is disabled",
+      "bodySha256": "feb496e92fbdc3d2314adf827feba01273a0df51b9081826253736496b8df354",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Complete pinned setup and predicates reread; native event/tick/runes replace React transport. Root/Trigger disabled options remain separate. The external native disable button adds an accessible label absent in Source; zero credit.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/tooltip/root/TooltipRoot.test.tsx",
+      "line": 859,
+      "name": "keeps the tooltip disabled when the root is disabled and the trigger opts back in",
+      "bodySha256": "cb3388b75b4eba36fb6b86a60c13e85dbe80f2e9041395c6bbc290f132a3ac7a",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Complete pinned setup and predicates reread; native event/tick/runes replace React transport. Root/Trigger disabled options remain separate. The external native disable button adds an accessible label absent in Source; zero credit.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/tooltip/root/TooltipRoot.test.tsx",
+      "line": 882,
+      "name": "applies pointer-events: none to the positioner when `disableHoverablePopup = true`",
+      "bodySha256": "cadc4213ef0517bb4c546939e0738247384b1bc97009aa63167bbc5dc0cb4178",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Complete pinned setup and predicates reread; native event/tick/runes replace React transport. Root/Trigger disabled options remain separate. The external native disable button adds an accessible label absent in Source; zero credit.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/tooltip/root/TooltipRoot.test.tsx",
+      "line": 898,
+      "name": "does not apply pointer-events: none to the positioner when `disableHoverablePopup = false`",
+      "bodySha256": "24db9a45db9465da3d5fe7f1d50618c1533c32110cd09690828bf444bc003c16",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Complete pinned setup and predicates reread; native event/tick/runes replace React transport. Root/Trigger disabled options remain separate. The external native disable button adds an accessible label absent in Source; zero credit.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/tooltip/root/TooltipRoot.test.tsx",
+      "line": 916,
+      "name": "makes the positioner inert when tracking both axes",
+      "bodySha256": "9a8cbf45398a713dfbadd5c3e054d706821378364882a485880ae7a61b508174",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Complete pinned setup and predicates reread; native event/tick/runes replace React transport. Root/Trigger disabled options remain separate. The external native disable button adds an accessible label absent in Source; zero credit.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/tooltip/root/TooltipRoot.test.tsx",
+      "line": 932,
+      "name": "keeps the positioner hoverable when tracking a single axis",
+      "bodySha256": "f2fa67793079d3c90ec1d3e04b4f2e9f3ebf61a8d74cce689c60675e895b0a24",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Complete pinned setup and predicates reread; native event/tick/runes replace React transport. Root/Trigger disabled options remain separate. The external native disable button adds an accessible label absent in Source; zero credit.",
+      "ordinaryDeclarationCredit": 0
     }
   ],
   "preservedFirstRun": "114/117 pass; three unchanged expected controlled multiple-detached hover-close failures",
-  "afterRun": "117/117 pass with same expected predicates after canonical helper repair",
+  "afterRun": "189/189PASS, retaining previous150 expected predicates and adding39 Source protocol variants. Runtime/helper/actual graph bytes unchanged from frozen de989/current public50e0ee8.",
   "literalTransport": "Separate actual Original/native6-case supplement reproduces the three failures before repair and passes after; zero ordinary credit",
-  "receiptsRecord": "parity/popup-family/floating-subscription-repair.json"
+  "receiptsRecord": "parity/popup-family/floating-subscription-repair.json",
+  "precedingCheckpoint": {
+    "head": "de98922a3eba042d4097dc6edb0a51ab860ed72c",
+    "mapping": "https://github.com/sveltery/base/blob/de98922a3eba042d4097dc6edb0a51ab860ed72c/parity/popup-family/regular-root-adaptation.json",
+    "sites": 39,
+    "variants": 117,
+    "limits": "Old Popover click-open imperative setup explicitly incomplete; Tooltip native JSDOM focus supplement. Preserved old114/117 failure receipts and unchanged hover-close predicates."
+  },
+  "protocolSuccessorReceipts": [
+    {
+      "path": "parity/popup-family/receipts/popup-root-source-protocol-next-first.log.gz",
+      "rawSha256": "839ae7458203b32f635db210a08a8429d8099d5bc6e07c1e7be67a30ef0030fe",
+      "gzipSha256": "2b3fae37712b694e9fc7066464895d99e49e8ca62273119d2c61a59c9cf2e3ce"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-root-source-protocol-next-types.log.gz",
+      "rawSha256": "edc775b9335e057cd1d32dffe1b9e92750d93ab84490b793b83bfb5b42842717",
+      "gzipSha256": "2a585e0f95d8b08e9c5c201c16602eb5c720a1a6b919c829d2cf5b94bb416d3b"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-root-source-protocol-next-lint.log.gz",
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gzipSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-root-source-protocol-next-final.log.gz",
+      "rawSha256": "43868957c20bfab32f031814352de0d866f1c405975d6ad88d89576bf40bd43b",
+      "gzipSha256": "76aa17eed1ffdf64e1d8e13f1482176b97124dcc3b13447a8bf885c12206582a"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-root-source-protocol-next-lint-final.log.gz",
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gzipSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    }
+  ],
+  "previousLocalProtocolCheckpoint": {
+    "head": "d4f49665c19d44a71a0f43eea5d86f7bd0f3747a",
+    "sites": 50,
+    "variants": 150,
+    "status": "clean unpushed predecessor preserved in normal local Git history"
+  },
+  "disabledProtocolSuccessorReceipts": [
+    {
+      "path": "parity/popup-family/receipts/popup-root-source-disabled-first.log.gz",
+      "rawSha256": "5a1647a9ae262ba7890361db1eaf80e1006932996a216d9c3b4d8ded6e8d5db4",
+      "gzipSha256": "2b89a93707893e053ac37ebf93cf8125639f6a4254ae3c98126e7d02cc1eaef0"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-root-source-disabled-types.log.gz",
+      "rawSha256": "410cba7e83ccbaa55bc4e0e20cc6ee3023483ea46a61825ad4444ad1a88b16ca",
+      "gzipSha256": "02b2db7a35ac2b0e42a3a91e462815cbb2013f4f096d48c92cac8de62d53b5f5"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-root-source-disabled-lint.log.gz",
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gzipSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-root-source-disabled-types-final.log.gz",
+      "rawSha256": "edc775b9335e057cd1d32dffe1b9e92750d93ab84490b793b83bfb5b42842717",
+      "gzipSha256": "2a585e0f95d8b08e9c5c201c16602eb5c720a1a6b919c829d2cf5b94bb416d3b"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-root-source-disabled-final.log.gz",
+      "rawSha256": "55fd3c00e8ac140b1fb3ca2bebdd4c50045f0828b8505b9895b71aeaf5a0d4f4",
+      "gzipSha256": "8c6bc122bde0894f177c7e80ff712ea162a25819c6a86a71ef6e7fee2f5f6c87"
+    }
+  ],
+  "disabledProtocolNotes": {
+    "sites": 13,
+    "variants": 39,
+    "initialRun": "189/189PASS; strict0errors/1warning for exact Source empty external button, retained",
+    "finalRun": "189/189PASS; strict0errors/0warnings; scoped lint0",
+    "nativeMarkupSupplement": "Only external disabled-state button gains aria-label=Disable tooltip to satisfy native accessibility diagnostics; no changed business expectation/ordinary credit.",
+    "actualPinWholeBodyHashes": {
+      "packages/react/src/popover/root/PopoverRoot.test.tsx": "03cf6a285baa57d62f35aadd1be1e4ea62b34b5135cc08aed04e93f490ffaa33",
+      "packages/react/src/tooltip/root/TooltipRoot.test.tsx": "6f010949613c682d2bf10e343bfe83148df066aee035e66569a455c5a64e39ab"
+    }
+  }
 }
