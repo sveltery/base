@@ -1,5 +1,5 @@
 <script lang="ts">
-  import DocsLayout from '../../../../fixtures/src/routes/docs/+layout.svelte';
+  import DocsLayout from '../../lib/docs/DocsLayout.svelte';
   let { children } = $props();
 </script>
 <DocsLayout>{@render children?.()}</DocsLayout>

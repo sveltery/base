@@ -383,3 +383,23 @@ actual graph; no inherited review credit is claimed for those unrelated bodies.
 ## AV-S: Avatar Source composition repair
 
 The [immutable landed audit](../parity/avatar/source-audit/README.md) precedes the bounded repair and remains historical. The [actual repaired closure/correspondence](../parity/avatar/source-repair/README.md) records restored loading/helper/render composition and explicit mappings, deletion of the private completion copy, and the two exact canonical internals helpers leased from accepted Dialog `f0d68ec7`. Existing [AV-01](../parity/avatar/compatibility.md) native defaults/observer/ref/event/within-frame limitations stay explicit. No new intentional business difference or ordinary declaration credit is claimed. Developer validation and implementation authorization do not establish independent exact-head Source/native/maintainability, secured browser, CI or final PM acceptance.
+
+## DOC-01: proposed native documentation shell
+
+PR #71 adapts the pinned Original documentation layout, CSS, navigation, copy,
+demo and reference helper closure to standalone SvelteKit 3. React effects/state,
+Next routes, MDX and flushSync are replaced by native Svelte lifecycle/reactivity,
+Kit route data, authored structured content and tick. Existing accepted library
+ScrollArea/Collapsible supply one business implementation. Native dialog/input/list
+search is interim: Original Autocomplete selection and Drawer gestures remain
+incomplete, with no SourceFull interaction credit. The installed Starry Night
+parser and modifier-Enter helpers remain successor scope. Actual local extracted
+API data replaces React-specific metadata; Markdown twins are absent.
+
+Source pin, per-body correspondence, setup failures and checks are recorded in
+[docs source correspondence](docs-source-correspondence.md). Paper Mono includes
+OFL; separately licensed Die Grotesk is excluded, using named system fallback.
+Source CSS geometry is retained, but exact rendered similarity is unverified.
+Decision status: phased architecture approved by Root; exact shell final review,
+browser interaction evidence, CI and merge approval remain pending. Hosting is
+user-managed; this change adds no deployment workflow.

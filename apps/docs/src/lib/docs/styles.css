@@ -1,0 +1,31 @@
+/* Original Base UI layered docs CSS composition; MIT2019 Material-UI SAS. See THIRD_PARTY_NOTICES.md. */
+@import './css/index.css';
+@import './layout.css';
+@import './css/mdx-components.css';
+@import './components/Header.css';
+@import './components/SideNav.css';
+@import './components/QuickNav/QuickNav.css';
+@import './components/SkipNav.css';
+@import './components/SearchTrigger.css';
+@import './components/Search/Search.css';
+@import './components/MobileNav.css';
+@import './components/CodeBlock/CodeBlock.css';
+@import './components/GhostButton.css';
+@import './components/Demo/Demo.css';
+@import './components/HeadingLink.css';
+@import './components/Subtitle/Subtitle.css';
+@import './components/Link.css';
+@import './components/ScrollArea.css';
+
+/* Native dialog top-layer/default focus substitute; no Drawer gestures or Autocomplete selection implied. */
+@layer components {
+  .DocsNativeDialog { margin: 0; border: 1px solid var(--color-border); padding: 0; color: var(--gray-t2); background: var(--color-popup); }
+  .DocsNativeDialog:not([open]) { display: none; }
+  .DocsNativeDialog::backdrop { background: rgb(0 0 0 / 20%); }
+  .DocsNativeDialogClose { display: flex; justify-content: flex-end; padding: .5rem; }
+  .DocsNativeResults { overflow-y: auto; max-height: min(60dvh, 32rem); padding: .5rem; }
+  .DocsNativeMobile { position: fixed; inset: auto 0 0; width: 100%; max-width: 100%; border-radius: var(--radius-36) var(--radius-36) 0 0; }
+  .DocsWordmark { font: 700 var(--font-size-21)/1 var(--font-sans); letter-spacing: -.04em; }
+  .DocsCredits { margin-top: 4rem; padding-top: 1rem; border-top: 1px solid var(--color-border); font-size: var(--font-size-13); color: var(--gray-t1); }
+  .DocsCredits a { text-decoration: underline; }
+}

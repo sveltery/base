@@ -1,0 +1,14 @@
+/* Adapted from Base UI docs/src/css/utilities/align-items.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */
+@layer utilities {
+  .bui-ai-c {
+    align-items: center;
+  }
+
+  .bui-ai-e {
+    align-items: end;
+  }
+
+  .bui-ai-s {
+    align-items: start;
+  }
+}

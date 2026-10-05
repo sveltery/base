@@ -1,0 +1,18 @@
+/* Adapted from Base UI docs/src/css/fonts/index.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */
+@font-face {
+  font-family: 'Paper Mono';
+  font-weight: normal;
+  src: url('/fonts/paper-mono.woff2') format('woff2');
+  font-variation-settings: 'wght' 415;
+  /* Reduce the size to balance with the sans-serif fonts */
+  size-adjust: calc(100% * 13.5 / 14);
+}
+
+@font-face {
+  font-family: 'Paper Mono';
+  font-weight: bold;
+  src: url('/fonts/paper-mono.woff2') format('woff2');
+  font-variation-settings: 'wght' 650;
+  /* Reduce the size to balance with the sans-serif fonts */
+  size-adjust: calc(100% * 13.5 / 14);
+}

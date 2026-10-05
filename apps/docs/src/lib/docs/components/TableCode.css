@@ -1,0 +1,7 @@
+/* Adapted from Base UI docs/src/components/TableCode.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */
+@layer components {
+  .TableCode {
+    font-size: 0.8125rem; /* 13px */
+    line-height: 1.25rem; /* 20px */
+  }
+}

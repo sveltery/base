@@ -1,0 +1,18 @@
+/* Adapted from Base UI docs/src/css/utilities/justify-content.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */
+@layer utilities {
+  .bui-jc-c {
+    justify-content: center;
+  }
+
+  .bui-jc-fs {
+    justify-content: flex-start;
+  }
+
+  .bui-jc-fe {
+    justify-content: flex-end;
+  }
+
+  .bui-jc-sb {
+    justify-content: space-between;
+  }
+}

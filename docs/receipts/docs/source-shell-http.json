@@ -1,0 +1,107 @@
+[
+  {
+    "path": "/docs/",
+    "status": 200,
+    "bytes": 118198
+  },
+  {
+    "path": "/docs/getting-started/",
+    "status": 200,
+    "bytes": 121827
+  },
+  {
+    "path": "/docs/handbook/styling/",
+    "status": 200,
+    "bytes": 119716
+  },
+  {
+    "path": "/docs/handbook/composition/",
+    "status": 200,
+    "bytes": 121235
+  },
+  {
+    "path": "/docs/handbook/accessibility/",
+    "status": 200,
+    "bytes": 118005
+  },
+  {
+    "path": "/docs/handbook/compatibility/",
+    "status": 200,
+    "bytes": 118399
+  },
+  {
+    "path": "/docs/components/use-render/",
+    "status": 200,
+    "bytes": 122559
+  },
+  {
+    "path": "/docs/components/csp-provider/",
+    "status": 200,
+    "bytes": 120528
+  },
+  {
+    "path": "/docs/components/direction-provider/",
+    "status": 200,
+    "bytes": 122612
+  },
+  {
+    "path": "/docs/components/avatar/",
+    "status": 200,
+    "bytes": 120730
+  },
+  {
+    "path": "/docs/components/accordion/",
+    "status": 200,
+    "bytes": 134379
+  },
+  {
+    "path": "/docs/components/collapsible/",
+    "status": 200,
+    "bytes": 120302
+  },
+  {
+    "path": "/docs/components/dialog/",
+    "status": 200,
+    "bytes": 175939
+  },
+  {
+    "path": "/docs/components/button/",
+    "status": 200,
+    "bytes": 120105
+  },
+  {
+    "path": "/docs/components/toolbar/",
+    "status": 200,
+    "bytes": 120479
+  },
+  {
+    "path": "/docs/components/toggle-group/",
+    "status": 200,
+    "bytes": 120486
+  },
+  {
+    "path": "/docs/components/scroll-area/",
+    "status": 200,
+    "bytes": 120840
+  },
+  {
+    "path": "/docs/components/remote-form/",
+    "status": 200,
+    "bytes": 123178
+  },
+  {
+    "path": "/docs/about/",
+    "status": 200,
+    "bytes": 118849
+  },
+  {
+    "path": "/fonts/OFL.txt",
+    "status": 200,
+    "bytes": 4402
+  },
+  {
+    "path": "/fonts/paper-mono.woff2",
+    "status": 200,
+    "bytes": 39164
+  }
+]

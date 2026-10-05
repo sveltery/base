@@ -66,6 +66,8 @@ jobs:
         run: pnpm test
       - name: Svelte DOM wiring
         run: pnpm --filter @sveltery/base test:dom
+      - name: Static documentation build
+        run: pnpm --filter @sveltery/docs build
       - name: Fixture SSR and client build
         run: pnpm --filter @sveltery/fixtures build
       - name: Packaged runtime boundary

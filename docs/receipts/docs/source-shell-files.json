@@ -1,0 +1,366 @@
+{
+  "originalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "infraVersion": "0.12.1-canary.42",
+  "files": [
+    {
+      "target": "apps/docs/src/lib/docs/CodeBlock.svelte",
+      "sha256": "09821ebd4b9a9286c76bcab8fea907885f6699678d8ab092f215a553b9acfe3b",
+      "correspondence": "<!-- Adapted Base UI docs/src/components/CodeBlock/CodeBlock.tsx Root/Panel/Content at47b40521; MIT2019 Material-UI SAS. -->"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/Demo.svelte",
+      "sha256": "58ce65ad6ab527fb07e25e24fe1b8ab092a23b2d973eccd0cdd96ca949319e74",
+      "correspondence": "<!-- Adapted Base UI docs/src/components/Demo/Demo.tsx and DemoPlayground at47b40521; MIT2019 Material-UI SAS. One actual Svelte source file; React variant/export branches are deferred. -->"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/DemoCodeBlock.svelte",
+      "sha256": "bede9d7aa13ce3c50f12d04f6b7eddfc644b3407d609d476206ccd1ebb480f8a",
+      "correspondence": "<!-- Adapted Base UI docs/src/components/Demo/DemoCodeBlock.tsx at47b40521; MIT2019 Material-UI SAS. -->"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/DocsLayout.svelte",
+      "sha256": "027a3df471119e6eedcbbd8eaa692095c0b452378b0ee74544d89d1095d758ad",
+      "correspondence": "<!-- Adapted Base UI docs/src/app/(docs)/layout.tsx at47b40521; MIT2019 Material-UI SAS. Native Kit/snippets replace Next/React; canonical native library helpers reused. -->"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/DocsPage.svelte",
+      "sha256": "7df29450239d8e454f008a36ee89b6b8af9a2bd319a7568a6c785a2ce48ea305",
+      "correspondence": "<!-- Source-derived Base UI mdx-components/Subtitle/HeadingLink/CodeBlock/Demo/Reference composition at47b40521; MIT2019 Material-UI SAS. Authored Sveltery prose and actual extracted local types are reused. -->"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/Header.svelte",
+      "sha256": "2d61affe3d7b23f040498084fea148322eb45cbc7ffbb1cfaca89556079e7c50",
+      "correspondence": "<!-- Adapted Base UI docs/src/components/Header.tsx at47b40521; MIT2019 Material-UI SAS. Base UI branded logo replaced by independent Sveltery identity. -->"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/Icons.svelte",
+      "sha256": "a0da8c758eb98feb4a744348ffc9cfdf699fee38d2bdae392e2404896d0ef786",
+      "correspondence": "<!-- Adapted actual Base UI docs/src/icons Copy/Check/MagnifyingGlass SVG bodies at47b40521; MIT2019 Material-UI SAS. -->"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/NativeSearch.svelte",
+      "sha256": "3f8ad567b15565a9f5e70d680f850ae4fa1f63d3e7c1f6c0c260b05bdb40a4d2",
+      "correspondence": "<!-- Source-derived bounded native surface for Base UI SearchControls/SearchDialog/MobileNavContent at47b40521; MIT2019 Material-UI SAS. Autocomplete selection and Drawer gestures are incomplete, recorded in correspondence. -->"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/QuickNav.svelte",
+      "sha256": "7d4acb4445fc4ce6217a5085ddb3206092150d05fb379a80837ed33f28e02f98",
+      "correspondence": "<!-- Adapted Base UI docs/src/components/QuickNav/QuickNav.tsx at47b40521; MIT2019 Material-UI SAS. Analytics omitted; native anchors retain navigation. -->"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/ReferenceItem.svelte",
+      "sha256": "01bd96bb78c846b11aeab98432c4c77afe008e407f7ea5b9351052469e7e5c8a",
+      "correspondence": "<!-- Adapted Base UI docs/src/components/Accordion.tsx Item/Trigger at47b40521; MIT2019 Material-UI SAS. Native details/summary remain source primitives. -->"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/ReferenceTable.svelte",
+      "sha256": "6823c4cfd1136cb31cc5adda6dc64dc9fb7c62ed9f629dcb7cfd9095eb582ba7",
+      "correspondence": "<!-- Adapted Base UI docs/src/components/ReferenceTable/ReferenceAccordion.tsx at47b40521; MIT2019 Material-UI SAS. Input is actual local extracted declarations, not React type metadata. -->"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/ScrollArea.svelte",
+      "sha256": "c6d83d4feb3133cc3971bdf6a039737d536593142722704540292218e6d3857f",
+      "correspondence": "<!-- Adapted Base UI docs/src/components/ScrollArea.tsx at47b40521; MIT2019 Material-UI SAS. See THIRD_PARTY_NOTICES.md. -->"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/SideNav.svelte",
+      "sha256": "3c378b4f0c6d20cc574942a61c494087955a4ac1fca5a5bfc9159647900bb5c1",
+      "correspondence": "<!-- Adapted Base UI docs/src/components/SideNav.tsx Root/Section/Heading/List and (docs)/layout sitemap composition at47b40521; MIT2019 Material-UI SAS. -->"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/SideNavItem.svelte",
+      "sha256": "e39229842a809b24ebabc90aefcf77f3cc647d2caafe35c909f69c0cbce84c41",
+      "correspondence": "<!-- Adapted Base UI docs/src/components/SideNav.tsx Item at47b40521; MIT2019 Material-UI SAS. See THIRD_PARTY_NOTICES.md. -->"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/components/Accordion.css",
+      "sha256": "34dc5cfc7ccfe7941280006c6d1be265175fa78c892bfb57234b288baafe6158",
+      "correspondence": "/* Adapted from Base UI docs/src/components/Accordion.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/components/Code.css",
+      "sha256": "00afd68f9f42d2445c46f5b096783861c8b8a937d5258a686c6256fb5ddc9e10",
+      "correspondence": "/* Adapted from Base UI docs/src/components/Code.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/components/CodeBlock/CodeBlock.css",
+      "sha256": "ad3a407b054e01af84cba962ac5e28d38aa3f7e3faf7240da4a646e01a0e3019",
+      "correspondence": "/* Adapted from Base UI docs/src/components/CodeBlock/CodeBlock.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/components/Demo/Demo.css",
+      "sha256": "d0456321e62113807973a68badd5f698e6fbe0f2faa0250c11593b2706f42a0f",
+      "correspondence": "/* Adapted from Base UI docs/src/components/Demo/Demo.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/components/DescriptionList.css",
+      "sha256": "daffe82c4ce6d87c872a029dc294e67d79d7df4fd11109653d025503371ed6dc",
+      "correspondence": "/* Adapted from Base UI docs/src/components/DescriptionList.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/components/GhostButton.css",
+      "sha256": "71b6cc28ac08d071cf99c22ac7ed10fefce5232882d968e7f745feed3689b709",
+      "correspondence": "/* Adapted from Base UI docs/src/components/GhostButton.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/components/Header.css",
+      "sha256": "10d30301ad1e55dfff6d7793307a7f7f557d6aeb79fbc6270f0afeeb81ad3f99",
+      "correspondence": "/* Adapted from Base UI docs/src/components/Header.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/components/HeadingLink.css",
+      "sha256": "1d97dffd4f675243024d1e5df2608c0dfe3c0480903591f13bf58a8a57d1f7b4",
+      "correspondence": "/* Adapted from Base UI docs/src/components/HeadingLink.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/components/Link.css",
+      "sha256": "d59eb388cef7bb64b3b7b3103d92b26cf61f9972854005d2a39af952d4912274",
+      "correspondence": "/* Adapted from Base UI docs/src/components/Link.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/components/MobileNav.css",
+      "sha256": "dc5b5d4477806319070023f8e09bcebfcd0cdfd05dfe4dcece5355e4c7fdda64",
+      "correspondence": "/* Adapted from Base UI docs/src/components/MobileNav.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/components/QuickNav/QuickNav.css",
+      "sha256": "a68b1eb8e9e03eead0168ed4c8d68bdb5f92cc4d916b64a1ee80cd35a87715d1",
+      "correspondence": "/* Adapted from Base UI docs/src/components/QuickNav/QuickNav.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/components/ReferenceTable/ReferenceTable.css",
+      "sha256": "c3ea2147580f0a157da8d51347bd06d80d156a2de3aac270c08c20e4adef66a7",
+      "correspondence": "/* Adapted from Base UI docs/src/components/ReferenceTable/ReferenceTable.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/components/ScrollArea.css",
+      "sha256": "e8928802a0dcacc23b1bb7c115556790839ca4cbb1693b8a6b7caae8ec876679",
+      "correspondence": "/* Adapted from Base UI docs/src/components/ScrollArea.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/components/Search/Search.css",
+      "sha256": "26a38a918e09012caeed96dd2068eb305bcb68b46028b17fb842320c9059d6c4",
+      "correspondence": "/* Adapted from Base UI docs/src/components/Search/Search.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/components/SearchTrigger.css",
+      "sha256": "11969a19f4954a156c72918d7f9013892c8fd90b02cde714feaab06c1562a903",
+      "correspondence": "/* Adapted from Base UI docs/src/components/SearchTrigger.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/components/SideNav.css",
+      "sha256": "e281f756d997041b9035ce904a8893252490097f0211d944b242988619067e3b",
+      "correspondence": "/* Adapted from Base UI docs/src/components/SideNav.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/components/SkipNav.css",
+      "sha256": "bef611b5fe4f75fd51bbd32809dfd88ce3a477986dbcc3a1ca1f73b2e89ef7e4",
+      "correspondence": "/* Adapted from Base UI docs/src/components/SkipNav.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/components/Subtitle/Subtitle.css",
+      "sha256": "bc40cfd18c9f116eaa444b497bd8c0c35a1cd044832aca2945f965db5983820b",
+      "correspondence": "/* Adapted from Base UI docs/src/components/Subtitle/Subtitle.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/components/Table.css",
+      "sha256": "178f4a39c40b8583e1e22c76549217863e1c93a8ad754e30826a63f4885dc1b4",
+      "correspondence": "/* Adapted from Base UI docs/src/components/Table.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/components/TableCode.css",
+      "sha256": "f3e84d249baca270130e0c71d8d0b1c7eec597d1386f76c284fc06f6a9184d66",
+      "correspondence": "/* Adapted from Base UI docs/src/components/TableCode.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/custom-media.css",
+      "sha256": "399100bd0e43260f00638e5cbc39c1ee33b594b6171ff797d8f1c50b02ebf44d",
+      "correspondence": "/* Adapted from Base UI docs/src/css/custom-media.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/fonts/index.css",
+      "sha256": "18b86951e99f5dcae5ecb16e87c51cca4567eeb187ed0927281a9312a2199c51",
+      "correspondence": "/* Adapted from Base UI docs/src/css/fonts/index.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/index.css",
+      "sha256": "7126c52e05dfa41880de82c0c424dee6ec40561c1b695bca904f72ed8d9a75cc",
+      "correspondence": "/* Adapted from Base UI docs/src/css/index.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/mdx-components.css",
+      "sha256": "8077be0b8db7f7b1fb95b03dc0a9b241e50cbb7754dea7967477b10de29097ee",
+      "correspondence": "/* Adapted from Base UI docs/src/css/mdx-components.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/syntax.css",
+      "sha256": "3508075c6bcdc69a794a1238ea4a74c8ef04117b6dbc068fb748dda52ea6972c",
+      "correspondence": "/* Adapted from Base UI docs/src/css/syntax.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/utilities/align-items.css",
+      "sha256": "e491a1fb54fe935ae2f7861d2b7bcc5b3268668aac756f913b9c0f16278b933a",
+      "correspondence": "/* Adapted from Base UI docs/src/css/utilities/align-items.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/utilities/box-sizing.css",
+      "sha256": "466e98a9717017afcb498c2a8c1c9113aa21cee45611698dedbfb7b91cb8f74f",
+      "correspondence": "/* Adapted from Base UI docs/src/css/utilities/box-sizing.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/utilities/display.css",
+      "sha256": "6b21731de1a7824a08ebeec033b3b292d462fa81415c9bf901ba345c99391f88",
+      "correspondence": "/* Adapted from Base UI docs/src/css/utilities/display.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/utilities/flex-direction.css",
+      "sha256": "70565cb34f3a3c3b1c60cd080ee45ba9c7f0ab048e1affb24d85e1d678911204",
+      "correspondence": "/* Adapted from Base UI docs/src/css/utilities/flex-direction.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/utilities/flex-wrap.css",
+      "sha256": "6ad91481efe4b621d5e426f4efc0964c92d9796c3f0d6bb7d40f40020e941e40",
+      "correspondence": "/* Adapted from Base UI docs/src/css/utilities/flex-wrap.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/utilities/font-weight.css",
+      "sha256": "d545b559f40dcf82cc2ee508ef4de4d35f650c3cb0acb063ddef31a750ac5c95",
+      "correspondence": "/* Adapted from Base UI docs/src/css/utilities/font-weight.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/utilities/gap.css",
+      "sha256": "a31c4384f3f10150ec350577b45baae4aabd8edc7a338e718320725fd8649ef0",
+      "correspondence": "/* Adapted from Base UI docs/src/css/utilities/gap.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/utilities/grid-auto-rows.css",
+      "sha256": "49848a2ef28e0def00a37e777767f4756e87a78b4d5576836db909de216a5585",
+      "correspondence": "/* Adapted from Base UI docs/src/css/utilities/grid-auto-rows.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/utilities/grid-column-end.css",
+      "sha256": "8e824846fd933760d98950fc91a81bad1e8d9d7f11f00ae8b161ac465b7e853b",
+      "correspondence": "/* Adapted from Base UI docs/src/css/utilities/grid-column-end.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/utilities/grid-column-start.css",
+      "sha256": "8994207df5d90d13100d10afcfa8066a1a3807620fa73dc89ba31481e402f395",
+      "correspondence": "/* Adapted from Base UI docs/src/css/utilities/grid-column-start.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/utilities/grid-template-columns.css",
+      "sha256": "f4f5a9f91cabe64aabae161f329572c601d078bf21c266f7a7069d9b530380a5",
+      "correspondence": "/* Adapted from Base UI docs/src/css/utilities/grid-template-columns.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/utilities/height.css",
+      "sha256": "242257b786ef77cc5f2c4241c1d6ac9c77c76325e33b4757563b94e14c6fcd71",
+      "correspondence": "/* Adapted from Base UI docs/src/css/utilities/height.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/utilities/index.css",
+      "sha256": "10e5cf353f46623696f1fd8eb172456608594b4adc02db7f52b4e63d4dcb2459",
+      "correspondence": "/* Adapted from Base UI docs/src/css/utilities/index.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/utilities/justify-content.css",
+      "sha256": "7bc8522a9d640ca6fee151293f929f6e8f5bef2242184b7fa342942ada95d215",
+      "correspondence": "/* Adapted from Base UI docs/src/css/utilities/justify-content.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/utilities/left.css",
+      "sha256": "6320971520fbaca5045c81b18e7d4b7e0ffa6e9e979477acdc2dec941bbe732d",
+      "correspondence": "/* Adapted from Base UI docs/src/css/utilities/left.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/utilities/margin.css",
+      "sha256": "b5d858996201d90a7ceb779159c5c1f36fe94989b49c0f191cd46eba8db4b3c6",
+      "correspondence": "/* Adapted from Base UI docs/src/css/utilities/margin.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/utilities/outline.css",
+      "sha256": "ffd8f7ca0be1e97fde803f9ef5cd8159f262897666720f2d15fbca9b70611859",
+      "correspondence": "/* Adapted from Base UI docs/src/css/utilities/outline.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/utilities/padding.css",
+      "sha256": "8954712e90864fb8381320c008db1c77afd40d196faf2f637fb21a2ff9c2d0b1",
+      "correspondence": "/* Adapted from Base UI docs/src/css/utilities/padding.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/utilities/position.css",
+      "sha256": "0cad2ed49e6bb1ed4a8c8f597f6ce051ed5098726360dd84a144b69cb2d37aa0",
+      "correspondence": "/* Adapted from Base UI docs/src/css/utilities/position.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/utilities/scroll-margin-top.css",
+      "sha256": "9f0dda5876f3efdea7f0e174ce3bded1fcee5b116446fff955488a228a7041a6",
+      "correspondence": "/* Adapted from Base UI docs/src/css/utilities/scroll-margin-top.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/utilities/text-align.css",
+      "sha256": "70879c90ec99adc0a18e9b0899adbfcca7da74dc65d23eb80e5920e98d896249",
+      "correspondence": "/* Adapted from Base UI docs/src/css/utilities/text-align.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/utilities/top.css",
+      "sha256": "baf64a50ff4f480eb620f6605e68c116c0c8e14e8e2e6222b0e67f395d71587f",
+      "correspondence": "/* Adapted from Base UI docs/src/css/utilities/top.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/utilities/visibility.css",
+      "sha256": "0c92d2a2afdf20a6000e698a82cff0926117a9ea01a91289bf920d1ba33ada3d",
+      "correspondence": "/* Adapted from Base UI docs/src/css/utilities/visibility.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/utilities/visually-hidden.css",
+      "sha256": "006abbeafb52068b6dcd2c9d9c39989ce3326cf7a0a9a357ba2f62cd80eec4de",
+      "correspondence": "/* Adapted from Base UI docs/src/css/utilities/visually-hidden.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/utilities/white-space.css",
+      "sha256": "7c222d4bfb3da3b95b9dca3f2f5d62e056324712c7f8bd64b906e966c4d5adfb",
+      "correspondence": "/* Adapted from Base UI docs/src/css/utilities/white-space.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/css/utilities/width.css",
+      "sha256": "732c698d63ab7b3cd595708a17f68c4415d3f75e1ac2ff9ed0894f6d2befd27f",
+      "correspondence": "/* Adapted from Base UI docs/src/css/utilities/width.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/layout.css",
+      "sha256": "022530662f059e62fc255093e121d3d264a5a4fec3b130637910a9fa60154328",
+      "correspondence": "/* Base UI docs/src/app/(docs)/layout.css at47b40521; MIT2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md. */"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/observeScrollableInner.ts",
+      "sha256": "9dfcdba9c3929091a493d8e0f2c484432fedea8b82712a5f42f2615ad379724a",
+      "correspondence": "// Base UI docs/src/utils/observeScrollableInner.ts at47b40521; MIT2019 Material-UI SAS."
+    },
+    {
+      "target": "apps/docs/src/lib/docs/search/engine.js",
+      "sha256": "aeb992e4e8c791abf9632d56c6d890627602d16c20007c6300555178bdb62d21",
+      "correspondence": "// eslint-disable-next-line @typescript-eslint/ban-ts-comment -- Retained published JavaScript is untyped; the native call boundary is inferred from its JSDoc."
+    },
+    {
+      "target": "apps/docs/src/lib/docs/search/loader.ts",
+      "sha256": "e8cbbb7546ea061d2f3f383b678b1e73cd40f81f38cb0f0b91da43d29797a380",
+      "correspondence": "// Base UI docs/src/components/Search/searchSitemap.ts at47b40521; MIT2019 Material-UI SAS. Preserve singleton+failed-load retry."
+    },
+    {
+      "target": "apps/docs/src/lib/docs/search/sitemap.ts",
+      "sha256": "e602718dccc919e1246b1e5e2aa77c92f6550690900cec345fca540fd61205e0",
+      "correspondence": "import { docs, groups } from '../../../../../fixtures/src/lib/docs/content.js';"
+    },
+    {
+      "target": "apps/docs/src/lib/docs/source.ts",
+      "sha256": "1bfaccb5ab470c0b452d51f935f248d6c01cf6be6a0ee176dd0f429ac93ac630",
+      "correspondence": "// Original docs source pin shared by correspondence and native adaptations."
+    },
+    {
+      "target": "apps/docs/src/lib/docs/styles.css",
+      "sha256": "27185fb013f23b5fe2e37a266725fb427c40bd2ce7945c27bc84d4a7c46f1ef8",
+      "correspondence": "/* Original Base UI layered docs CSS composition; MIT2019 Material-UI SAS. See THIRD_PARTY_NOTICES.md. */"
+    }
+  ]
+}

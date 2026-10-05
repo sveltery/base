@@ -1,0 +1,10 @@
+/* Adapted from Base UI docs/src/css/utilities/width.css at47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright2019 Material-UI SAS. See apps/docs/THIRD_PARTY_NOTICES.md. */
+@layer utilities {
+  .bui-w-10 {
+    width: 2.5rem;
+  }
+
+  .bui-w-full {
+    width: 100%;
+  }
+}

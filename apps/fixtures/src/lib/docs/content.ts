@@ -612,7 +612,7 @@ export const docs: Doc[] = [
         title: 'Credit to the originals',
         paragraphs: [
           'Base UI by the MUI contributors provides the upstream component model, names, anatomy, and behavior contracts. shadcn/ui by shadcn and its contributors informs the recognizable documentation flow: getting started, browse a component, try an example, then inspect its API.',
-          'Sveltery is unofficial and independent. It is not affiliated with or endorsed by MUI, Base UI, shadcn, or shadcn/ui. The identity, prose, layout implementation, and live Svelte example on this site are original Sveltery work.',
+          'Sveltery is unofficial and independent. It is not affiliated with or endorsed by MUI, Base UI, shadcn, or shadcn/ui. The standalone documentation interface adapts Base UI source with its retained notices. The identity, prose, fixture layout and live Svelte example remain original Sveltery work.',
         ],
         links: [
           { label: 'Base UI documentation', href: 'https://base-ui.com/' },
@@ -631,8 +631,8 @@ export const docs: Doc[] = [
         id: 'licenses',
         title: 'Licenses & source',
         paragraphs: [
-          'Both upstream repositories use the MIT license. We inspected those notices before implementing this docs foundation. No upstream docs prose, stylesheet, or substantial example code was copied into this site. Existing upstream-derived library code retains its original notices.',
-          'If future docs changes copy substantial upstream code, include its original copyright and MIT permission notice with that material. Documentation inspiration does not make this an official upstream site.',
+          'Both upstream repositories use the MIT license. The standalone documentation interface adapts pinned Base UI components, helpers and stylesheets with their complete MIT notice. Existing upstream-derived library code retains its original notices. Bundled Paper Mono retains its SIL Open Font License; separately licensed Die Grotesk fonts are not distributed.',
+          'Copied upstream code retains its original copyright and permission notice. Documentation source reuse does not make this an official upstream site.',
         ],
         links: [
           {
