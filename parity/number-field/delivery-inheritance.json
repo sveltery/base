@@ -1,0 +1,4378 @@
+{
+  "sourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "previousHead": "f2fa90c077627070de519237bcb2412f8f20b460",
+  "previousTree": "92ba1ee7ff3b5a7d212653dde189f5d5b8d7e9bc",
+  "acceptedMain": "dc2fb8247750b519efab708fc221c201f8cfd517",
+  "normalIntegration": {
+    "head": "d7170f2efdb4e9a43d8a864c268152dbec555038",
+    "parents": [
+      "f2fa90c077627070de519237bcb2412f8f20b460",
+      "dc2fb8247750b519efab708fc221c201f8cfd517"
+    ],
+    "tree": "375c6248d338ce94c9ab372cb6ed335d496564ae"
+  },
+  "historicalProofs": [
+    "integration-inheritance.json",
+    "current-main-inheritance.json"
+  ],
+  "localGraphSHA256": "38900ac2ef95c7f5ac006e6942f956ec436713f287bece282b04523bd146eeef",
+  "counts": {
+    "modules": 132,
+    "runtime": 73,
+    "typeOnly": 59,
+    "directEdges": 517,
+    "inheritedBodies": 132,
+    "inheritedImports": 132,
+    "inheritedReachability": 132,
+    "changedSelectedBodies": 0,
+    "newSelectedModules": 0,
+    "removedSelectedModules": 0
+  },
+  "incomingLibraryFiles": [
+    "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+    "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts",
+    "packages/base/src/lib/floating-ui/hooks/useClick.svelte.ts",
+    "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts",
+    "packages/base/src/lib/floating-ui/safePolygon.ts",
+    "packages/base/src/lib/floating-ui/types.ts",
+    "packages/base/src/lib/floating-ui/utils/constants.ts",
+    "packages/base/src/lib/floating-ui/utils/createEventEmitter.ts",
+    "packages/base/src/lib/floating-ui/utils/element.ts",
+    "packages/base/src/lib/floating-ui/utils/matchesFocusVisible.ts",
+    "packages/base/src/lib/floating-ui/utils/nodes.ts",
+    "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts",
+    "packages/base/src/lib/utils/store/Store.svelte.ts",
+    "packages/base/src/lib/utils/store/SvelteStore.svelte.ts"
+  ],
+  "selectedIncomingFiles": [],
+  "publicSeam": {
+    "indexSHA256": "3e70e148f48992617e1436b26f2b8c3422a8e533e2c2ac1c77f191857f079720",
+    "packageSHA256": "0bb84f36fb67d7d99dbd3e71739941784cbb203a39a69aeced20a72d29e172b7",
+    "result": "Exact accepted-main root and package exports plus NumberField only; all other package metadata/dependencies unchanged."
+  },
+  "status": "Machine proof only. Preserve individually scoped f2 Source/native/maintainability evidence; freshly review the delivery documentation and six authored native characterizations. New-head hosted gates, configured review and Root exact-head PM approval remain required.",
+  "ordinaryDeclarationCredit": 0,
+  "modules": [
+    {
+      "local": "packages/base/src/lib/checkbox-group/CheckboxGroupContext.ts",
+      "sha256": "7e70df699399699bef7aada56b6891899ee7dd1db3084a9cf1c94d0c2f5f2e1d",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../field/root/useFieldValidation.svelte.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts"
+        },
+        {
+          "specifier": "./useCheckboxGroupParent.svelte.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/checkbox-group/useCheckboxGroupParent.svelte.ts"
+        },
+        {
+          "specifier": "../internals/labelable-provider/LabelableContext.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/checkbox-group/types.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/checkbox-group/types.ts",
+      "sha256": "11f60dbbc9279270d57c957da0a587b4328c6a50b6538f11a3cbccb1808d2fa2",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
+          "specifier": "../field/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/types.ts"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/checkbox-group/useCheckboxGroupParent.svelte.ts",
+      "sha256": "8adf195142cc9b97f5c11f32946562d3c3b42cbf7f67d6253d601550f96977b8",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../utils/useStableCallback.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../utils/empty.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/empty.ts"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/checkbox/root/CheckboxRoot.svelte",
+      "sha256": "36fec4ac980a7ad09bb5614726f3fe7479dbc48cdec293641a90a809fa78e7d8",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../../internals/field-control-name/FieldControlNameContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-control-name/FieldControlNameContext.ts"
+        },
+        {
+          "specifier": "../../internals/field-control-value/FieldControlValueContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-control-value/FieldControlValueContext.ts"
+        },
+        {
+          "specifier": "../../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../../utils/useMergedRefs.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+        },
+        {
+          "specifier": "../../internals/nativeRefAttachment.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts"
+        },
+        {
+          "specifier": "../../merge-props/index.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/merge-props/index.ts"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../../utils/useControlled.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useControlled.svelte.ts"
+        },
+        {
+          "specifier": "../../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../../utils/visuallyHidden.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/visuallyHidden.ts"
+        },
+        {
+          "specifier": "../../internals/nativeProps.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        },
+        {
+          "specifier": "../utils/useEnterSubmit.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/checkbox/utils/useEnterSubmit.svelte.ts"
+        },
+        {
+          "specifier": "../utils/getCheckboxStateAttributesMapping.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/checkbox/utils/getCheckboxStateAttributesMapping.ts"
+        },
+        {
+          "specifier": "../../utils/dispatchClickWithModifiers.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts"
+        },
+        {
+          "specifier": "../../internals/useBaseUiId.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/useBaseUiId.ts"
+        },
+        {
+          "specifier": "../../internals/use-button/useButton.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/use-button/useButton.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/field-root-context/FieldRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "../../internals/field-register-control/useRegisterFieldControl.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts"
+        },
+        {
+          "specifier": "../../field/item/FieldItemContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/field/item/FieldItemContext.ts"
+        },
+        {
+          "specifier": "../../internals/form-context/FormContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/form-context/FormContext.ts"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/LabelableContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/useAriaLabelledBy.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/labelable-provider/useAriaLabelledBy.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/useLabelableId.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts"
+        },
+        {
+          "specifier": "../../checkbox-group/CheckboxGroupContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/checkbox-group/CheckboxGroupContext.ts"
+        },
+        {
+          "specifier": "./CheckboxRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/checkbox/root/CheckboxRootContext.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        },
+        {
+          "specifier": "../../internals/useValueChanged.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/useValueChanged.svelte.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/checkbox/types.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/checkbox/root/CheckboxRootContext.ts",
+      "sha256": "fbb7e3014465570926acda685475f426319f920a3d224017f5aa7d883a2177cd",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/checkbox/types.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/checkbox/root/CheckboxRootDataAttributes.ts",
+      "sha256": "fe19991f3e1ae6b1f9f702898a50f3d287a10e4892b64252ce16ed7bc367c19c",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/checkbox/types.ts",
+      "sha256": "d5dd1320ca6d2b45cfb6bc671c0873aae5ad495d32243a791225bbe96c2d5f17",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
+          "specifier": "../field/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/types.ts"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../utils/useMergedRefs.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+        },
+        {
+          "specifier": "../internals/useTransitionStatus.svelte.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/checkbox/utils/getCheckboxStateAttributesMapping.ts",
+      "sha256": "6d59ba1f1e83378e7a8ce1be81143afd51df7e299f20808ca24c3421b494dc97",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../root/CheckboxRootDataAttributes.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/checkbox/root/CheckboxRootDataAttributes.ts"
+        },
+        {
+          "specifier": "../../internals/getStateAttributesProps.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/checkbox/types.ts"
+        },
+        {
+          "specifier": "../../internals/field-constants/constants.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-constants/constants.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/checkbox/utils/useEnterSubmit.svelte.ts",
+      "sha256": "dcceb14ed7d2246a76de528d74260fd5b2b5a6ded04e5eee90b4c95d703cb467",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
+          "specifier": "../../utils/getDefaultFormSubmitter.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/getDefaultFormSubmitter.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/dialog/types.ts",
+      "sha256": "fd700772ea1016359bc934759c01d168caa2914ff136733f30f9c108d28ae931",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../merge-props/index.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/merge-props/index.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/field/Control.svelte",
+      "sha256": "ac623af778620dd68ea7c9234ffd9c27eb22b3406e1ee9fda4d973e823532101",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../utils/useControlled.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useControlled.svelte.ts"
+        },
+        {
+          "specifier": "../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../utils/owner.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/owner.ts"
+        },
+        {
+          "specifier": "../utils/useStableCallback.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../utils/useTimeout.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useTimeout.ts"
+        },
+        {
+          "specifier": "../internals/field-root-context/FieldRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "../internals/field-control-name/FieldControlNameContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-control-name/FieldControlNameContext.ts"
+        },
+        {
+          "specifier": "../internals/field-register-control/useRegisterFieldControl.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts"
+        },
+        {
+          "specifier": "../internals/form-context/FormContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/form-context/FormContext.ts"
+        },
+        {
+          "specifier": "../internals/labelable-provider/LabelableContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts"
+        },
+        {
+          "specifier": "../internals/labelable-provider/useLabelableId.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts"
+        },
+        {
+          "specifier": "../internals/useBaseUiId.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/useBaseUiId.ts"
+        },
+        {
+          "specifier": "../internals/field-constants/constants.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-constants/constants.ts"
+        },
+        {
+          "specifier": "../internals/useValueChanged.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/useValueChanged.svelte.ts"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../internals/reasons.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        },
+        {
+          "specifier": "../utils/shadowDom.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/shadowDom.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/types.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/field/Description.svelte",
+      "sha256": "0581056a31a173472dc8f22ebfd599e74bada6250520d6d4cb82b22aba48fe0b",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../internals/field-root-context/FieldRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "../internals/labelable-provider/LabelableContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts"
+        },
+        {
+          "specifier": "../internals/field-constants/constants.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-constants/constants.ts"
+        },
+        {
+          "specifier": "../internals/useBaseUiId.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/useBaseUiId.ts"
+        },
+        {
+          "specifier": "./item/FieldItemContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/field/item/FieldItemContext.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/types.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/field/Error.svelte",
+      "sha256": "4b8a0755185330e12acf8dacc050ffae8f7b30f744aeebb54aa1c2095b09d6f3",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../internals/field-root-context/FieldRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "../internals/labelable-provider/LabelableContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts"
+        },
+        {
+          "specifier": "../internals/field-constants/constants.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-constants/constants.ts"
+        },
+        {
+          "specifier": "../internals/form-context/FormContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/form-context/FormContext.ts"
+        },
+        {
+          "specifier": "../internals/useBaseUiId.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/useBaseUiId.ts"
+        },
+        {
+          "specifier": "../internals/useOpenChangeComplete.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts"
+        },
+        {
+          "specifier": "../internals/stateAttributesMapping.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/stateAttributesMapping.ts"
+        },
+        {
+          "specifier": "../internals/useTransitionStatus.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts"
+        },
+        {
+          "specifier": "./ErrorMessageList.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/field/ErrorMessageList.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/types.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/field/ErrorMessageList.svelte",
+      "sha256": "27bec6f8217118288cddf98c3e00c4df7efd3934c7ab3f7126cb6f23a4d601c4",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/field/index.parts.ts",
+      "sha256": "97ccc3903310c1264fefd80e4f80583358d43293c33065d6cec76e87bf6eb647",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "./Root.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/field/Root.svelte"
+        },
+        {
+          "specifier": "./Label.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/field/Label.svelte"
+        },
+        {
+          "specifier": "./Description.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/field/Description.svelte"
+        },
+        {
+          "specifier": "./Error.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/field/Error.svelte"
+        },
+        {
+          "specifier": "./Control.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/field/Control.svelte"
+        },
+        {
+          "specifier": "./Validity.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/field/Validity.svelte"
+        },
+        {
+          "specifier": "./Item.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/field/Item.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/types.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/field/Item.svelte",
+      "sha256": "737b50c83d7fb7d9b68567a062eb995c1f98664a09d85a49d2b5ba1938f07fdd",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../internals/labelable-provider/LabelableProvider.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableProvider.svelte"
+        },
+        {
+          "specifier": "../internals/field-root-context/FieldRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "../internals/field-constants/constants.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-constants/constants.ts"
+        },
+        {
+          "specifier": "./item/FieldItemContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/field/item/FieldItemContext.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/types.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/field/item/FieldItemContext.ts",
+      "sha256": "f1a84a8e7fd46dce276cf16590fc2c6919f3167a12ab1fbff2ad86e64ff2eaed",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/field/Label.svelte",
+      "sha256": "c60260581b9295db7aede4b558b02e4fd0d92ff52f3a9e8d4da5143a2ead396c",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../utils/error.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/error.ts"
+        },
+        {
+          "specifier": "../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../internals/field-root-context/FieldRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "../internals/field-constants/constants.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-constants/constants.ts"
+        },
+        {
+          "specifier": "../internals/labelable-provider/LabelableContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts"
+        },
+        {
+          "specifier": "../internals/labelable-provider/useLabel.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/labelable-provider/useLabel.svelte.ts"
+        },
+        {
+          "specifier": "./item/FieldItemContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/field/item/FieldItemContext.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/types.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/field/props.ts",
+      "sha256": "ed3d25745d68f38c06c0f21ae46e9457147a07503e34ae52fd17dee7256d1357",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../dialog/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/dialog/types.ts"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/field/Root.svelte",
+      "sha256": "1a505de7682ed523d1e2568ca19a2cf7116fc8a992b7d3de8b50eef1c1e43f54",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../internals/labelable-provider/LabelableProvider.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableProvider.svelte"
+        },
+        {
+          "specifier": "./root/FieldRootInner.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/field/root/FieldRootInner.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/types.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/field/root/FieldRootInner.svelte",
+      "sha256": "ad785d1c6d42b8346151701855609eaf195deae3843f8d79091d131b415e83b3",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../../utils/useStableCallback.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../../internals/field-root-context/FieldRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "../../internals/field-constants/constants.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-constants/constants.ts"
+        },
+        {
+          "specifier": "../../fieldset/root/FieldsetRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/fieldset/root/FieldsetRootContext.ts"
+        },
+        {
+          "specifier": "../../internals/form-context/FormContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/form-context/FormContext.ts"
+        },
+        {
+          "specifier": "./useFieldValidation.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/field-register-control/useFieldControlRegistration.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/types.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
+      "sha256": "93fd341dc439f2272b06a8857eba538900db8372306efcc6ba4b6b64d073fee1",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../../utils/empty.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/empty.ts"
+        },
+        {
+          "specifier": "../../utils/useTimeout.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useTimeout.ts"
+        },
+        {
+          "specifier": "../../utils/useStableCallback.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../../utils/useRefWithInit.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/LabelableContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts"
+        },
+        {
+          "specifier": "../../merge-props/index.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/merge-props/index.ts"
+        },
+        {
+          "specifier": "../../internals/field-constants/constants.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-constants/constants.ts"
+        },
+        {
+          "specifier": "../../internals/form-context/FormContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/form-context/FormContext.ts"
+        },
+        {
+          "specifier": "../utils/getCombinedFieldValidityData.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/field/utils/getCombinedFieldValidityData.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/types.ts"
+        },
+        {
+          "specifier": "../../form/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/form/types.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/field/types.ts",
+      "sha256": "25fd4710edd0d877d62c4e8874314a2c36344ad346085d5e75655ebbedf051dc",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "./props.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/props.ts"
+        },
+        {
+          "specifier": "../form/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/form/types.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/field/utils/getCombinedFieldValidityData.ts",
+      "sha256": "f5c0e65cc854d8bb6446d2792142ecc64d603a469a576dd0fbc5f3de6bc61b7e",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/types.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/field/Validity.svelte",
+      "sha256": "cd4f22fb12d808cfe1106570579811bc11edcae63d22df48fee24a5946a724a1",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../internals/field-root-context/FieldRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "./utils/getCombinedFieldValidityData.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/field/utils/getCombinedFieldValidityData.ts"
+        },
+        {
+          "specifier": "../internals/useTransitionStatus.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/types.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/fieldset/root/FieldsetRootContext.ts",
+      "sha256": "f5b4b87e5802c40a428e4df9463e84fd36cb649ee3cdfe6f0b153b9721e6ce6c",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/form/types.ts",
+      "sha256": "51cb6c9cbbd82cfc923db96143f5184acb5712d5614298468c9cf391aa783f8b",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../field/props.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/props.ts"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../remote-forms/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/remote-forms/types.ts"
+        },
+        {
+          "specifier": "../remote-forms/index.parts.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/remote-forms/index.parts.ts"
+        },
+        {
+          "specifier": "../field/index.parts.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/index.parts.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts",
+      "sha256": "b08d6af5d6e71ba46076718b4426c7d2e0485a059e9204759406af1f395b6f2c",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        }
+      ],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+      "sha256": "1a9cb6cde2734d421a1bfb03ece9c744584b7e115a0eb3b9de974c22ab8ee684",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../utils/empty.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/empty.ts"
+        },
+        {
+          "specifier": "./reasons.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        }
+      ],
+      "reachability": [
+        "type",
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/field-constants/constants.ts",
+      "sha256": "7a4e8acf35babe4f33b4850da64313dbd19be6b20cb3b4833430d103cd6bf757",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../../field/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/types.ts"
+        }
+      ],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/field-control-name/FieldControlNameContext.ts",
+      "sha256": "c2e281c241321a8fd4148eb0f536dabb56be359deccc0e8a5f23ec4d207c48a8",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        }
+      ],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/field-control-value/FieldControlValueContext.ts",
+      "sha256": "e97a45c620080963320c4ee0bc8a81e5422c5cdc3ebca07cd94d062ee46cb852",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts",
+      "sha256": "2fbe1f3900ce42aff6d9f65e489b9dcac76a90e34c2be6dcd75c4f5d5bc887fe",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../../utils/useStableCallback.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../../field/utils/getCombinedFieldValidityData.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/field/utils/getCombinedFieldValidityData.ts"
+        },
+        {
+          "specifier": "../form-context/FormContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/form-context/FormContext.ts"
+        },
+        {
+          "specifier": "../../field/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/types.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts",
+      "sha256": "b4c1ea76c59f1b6848c3a54e915324b9da25bbdbdf16f61c4cfad1a3521ada03",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../../utils/useRefWithInit.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
+        },
+        {
+          "specifier": "../field-root-context/FieldRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "./useFieldControlRegistration.svelte.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts"
+        }
+      ],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts",
+      "sha256": "21aa11d932c64b362bdb2373d22bf6c108fe9a24a093b0a08a009e3d9b45f614",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../../utils/empty.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/empty.ts"
+        },
+        {
+          "specifier": "../field-constants/constants.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-constants/constants.ts"
+        },
+        {
+          "specifier": "../../field/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/types.ts"
+        },
+        {
+          "specifier": "../../form/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/form/types.ts"
+        },
+        {
+          "specifier": "../../field/root/useFieldValidation.svelte.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts"
+        },
+        {
+          "specifier": "../field-register-control/useFieldControlRegistration.svelte.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts"
+        }
+      ],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/form-context/FormContext.ts",
+      "sha256": "8a0131cd002119715cb0d1a9cb051662353e75797aa4369981a30be4df29a05a",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../../utils/empty.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/empty.ts"
+        },
+        {
+          "specifier": "../../field/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/types.ts"
+        },
+        {
+          "specifier": "../../form/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/form/types.ts"
+        }
+      ],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+      "sha256": "e48367a890024a54cb200eabc5c2a0ba0a397256baacfaec8b0a05ced3b10344",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [],
+      "reachability": [
+        "type",
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
+      "sha256": "2a5fb80fe0cf9ca1d598337f2fddc778833d1dba5445fb5918cae6a1ab478a4b",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../../utils/useStableCallback.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../../utils/useRefWithInit.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
+        },
+        {
+          "specifier": "./LabelableContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts",
+      "sha256": "864b5d1ddb86b7cb3d50217a7bb3b4fbf58428ec43f78c1ec7ed3efa31750799",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../../utils/empty.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/empty.ts"
+        }
+      ],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/labelable-provider/LabelableProvider.svelte",
+      "sha256": "e0719f95f60e6ac6d050e92c0525f465d87c6832887515cbe62948b481915c43",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../useBaseUiId.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/useBaseUiId.ts"
+        },
+        {
+          "specifier": "./createLabelableProvider.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/labelable-provider/useAriaLabelledBy.svelte.ts",
+      "sha256": "bfb47e6426f7df82b1738fb2dcbef7133166addc4a7d54a84deab26655f2bf0e",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/labelable-provider/useLabel.svelte.ts",
+      "sha256": "b96abe4dcc46df31198bbd40cbc6e9278dda323f3bab6b33bc802158ab9d9b26",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../../utils/owner.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/owner.ts"
+        },
+        {
+          "specifier": "../../utils/useStableCallback.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../../utils/shadowDom.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/shadowDom.ts"
+        },
+        {
+          "specifier": "../../utils/useRegisteredLabelId.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts"
+        },
+        {
+          "specifier": "./LabelableContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
+      "sha256": "821459e698c6486f837258547fe73e1db1865bd574444ea867d03b59af8e4456",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../../utils/useStableCallback.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../../utils/useRefWithInit.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
+        },
+        {
+          "specifier": "../../utils/empty.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/empty.ts"
+        },
+        {
+          "specifier": "./LabelableContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts"
+        }
+      ],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/nativeProps.ts",
+      "sha256": "d6b3999ffe54e8c70e0dcdac61474b3bf9f53e60f3b1207dd4f976ef5212e4eb",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "./resolveClassValue.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"
+        },
+        {
+          "specifier": "../utils/mergeObjects.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/mergeObjects.ts"
+        }
+      ],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+      "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../utils/useMergedRefs.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+        }
+      ],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/reason-parts.ts",
+      "sha256": "0326d21ce4be2c41b5488c86e3687249faf3c51f5e10ae49c16e8efdc183abf5",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/reasons.ts",
+      "sha256": "f1f52caeefb14448a7e7c9833e24413b923b7bbf40aa1818ca73dc93710b42e7",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "./reason-parts.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/reason-parts.ts"
+        }
+      ],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/RenderElement.svelte",
+      "sha256": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "resolved": "external:svelte/attachments"
+        },
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "./useRenderElement.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/useRenderElement.ts"
+        },
+        {
+          "specifier": "./nativeRefAttachment.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts"
+        },
+        {
+          "specifier": "./nativeProps.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        }
+      ],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/resolveClassValue.ts",
+      "sha256": "584323b17cb1733a798e9ff86e9ff783d6a26d08ecf005a8c2b3c69917c1e722",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements"
+        }
+      ],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/stateAttributesMapping.ts",
+      "sha256": "d04c73fe454de256e1641245b5db6a3d70824693f0da33272d0863f033b5230d",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "./useTransitionStatus.svelte.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts"
+        },
+        {
+          "specifier": "./getStateAttributesProps.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts"
+        },
+        {
+          "specifier": "./TransitionStatusDataAttributes.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/TransitionStatusDataAttributes.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/TransitionStatusDataAttributes.ts",
+      "sha256": "d3e4a31041bcc80ba21b330d3fedadfadaeae3f498dc09e078e70470cfb98dfe",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/types.ts",
+      "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../merge-props/index.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/merge-props/index.ts"
+        },
+        {
+          "specifier": "./nativeProps.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+      "sha256": "ee71d7077c51139162152716111472919bf80b71e6e9cde62d15ff0b7ce56f59",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "../../utils/useStableCallback.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../../utils/error.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/error.ts"
+        },
+        {
+          "specifier": "../../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../../merge-props/index.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/merge-props/index.ts"
+        },
+        {
+          "specifier": "../composite/root/CompositeRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
+          "specifier": "../../utils/useFocusableWhenDisabled.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts"
+        },
+        {
+          "specifier": "../../utils/dispatchClickWithModifiers.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts"
+        }
+      ],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/useAnimationsFinished.ts",
+      "sha256": "0ae8873174969326a7ac09377ab019af5cd575bbdfde7df9118317d0ec1c1e30",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../utils/useAnimationFrame.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useAnimationFrame.ts"
+        },
+        {
+          "specifier": "../utils/useStableCallback.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../utils/resolveRef.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/resolveRef.ts"
+        },
+        {
+          "specifier": "./TransitionStatusDataAttributes.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/TransitionStatusDataAttributes.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/useBaseUiId.ts",
+      "sha256": "fc6d9571f2fc0f71d6f75a8f34eb981a3e09a9a038fbb9aa8b4b83c2cbb3aaa3",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../utils/useId.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useId.ts"
+        }
+      ],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+      "sha256": "5e966dd1b10cbc1ed448d3583ca948a384d812f9e71afc1e128395485575931f",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../utils/useStableCallback.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "./useAnimationsFinished.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/useAnimationsFinished.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/usePressAndHold.svelte.ts",
+      "sha256": "6f9d6fe34087723aaec3382d4c493db593b616fe19ce610b4009834e9bed6788",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../utils/addEventListener.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/addEventListener.ts"
+        },
+        {
+          "specifier": "../utils/empty.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/empty.ts"
+        },
+        {
+          "specifier": "../utils/useTimeout.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useTimeout.ts"
+        },
+        {
+          "specifier": "../utils/useInterval.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useInterval.ts"
+        },
+        {
+          "specifier": "../utils/useStableCallback.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../utils/owner.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/owner.ts"
+        }
+      ],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/useRenderElement.ts",
+      "sha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../utils/useMergedRefs.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+        },
+        {
+          "specifier": "../utils/mergeObjects.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/mergeObjects.ts"
+        },
+        {
+          "specifier": "../utils/empty.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/empty.ts"
+        },
+        {
+          "specifier": "./getStateAttributesProps.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts"
+        },
+        {
+          "specifier": "../utils/resolveClassName.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/resolveClassName.ts"
+        },
+        {
+          "specifier": "../utils/resolveStyle.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/resolveStyle.ts"
+        },
+        {
+          "specifier": "../merge-props/index.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/merge-props/index.ts"
+        },
+        {
+          "specifier": "./nativeProps.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        },
+        {
+          "specifier": "./nativeRefAttachment.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        }
+      ],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+      "sha256": "1236abbbe5a5e1dec17c77d51d704f3f03e48ecdd34f85a995e1dde00c60c54b",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../utils/useAnimationFrame.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useAnimationFrame.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/internals/useValueChanged.svelte.ts",
+      "sha256": "340a8f5ed100094c283f167c8a8a3e196708cdf238eeadc93f148ee31c4274c9",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../utils/useStableCallback.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../utils/useRefWithInit.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
+        }
+      ],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/merge-props/index.ts",
+      "sha256": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "./mergeProps.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/merge-props/mergeProps.ts"
+        }
+      ],
+      "reachability": [
+        "type",
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/merge-props/mergeProps.ts",
+      "sha256": "7a097b833ae8854c5a26e34009adfb4e0297dd50f56ad5f0c1ac8afa8187f98b",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../internals/nativeProps.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        },
+        {
+          "specifier": "../utils/mergeObjects.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/mergeObjects.ts"
+        }
+      ],
+      "reachability": [
+        "type",
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/decrement/NumberFieldDecrement.svelte",
+      "sha256": "39f8fda2471ef7d3cf64fb5803e254349cc9b50c6e4db2474259e8e67732c842",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../root/StepperButton.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/root/StepperButton.svelte"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/number-field/types.ts"
+        }
+      ],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/group/NumberFieldGroup.svelte",
+      "sha256": "a324f5d4c49586380e4524e6ca8cf31b2b541c90190d31276cbd701785c9289f",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../root/NumberFieldRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/root/NumberFieldRootContext.ts"
+        },
+        {
+          "specifier": "../utils/stateAttributesMapping.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/utils/stateAttributesMapping.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/number-field/types.ts"
+        }
+      ],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/increment/NumberFieldIncrement.svelte",
+      "sha256": "8a9f6213253e10b7c9a56944d7fcfa5251cd8c06d46b4de5dbbb009f24e87b56",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../root/StepperButton.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/root/StepperButton.svelte"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/number-field/types.ts"
+        }
+      ],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/index.parts.ts",
+      "sha256": "674435801f8dad9d22123818dc3f79c48daf0a78e827e17e9a7b37c6259c6313",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "./root/NumberFieldRoot.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/root/NumberFieldRoot.svelte"
+        },
+        {
+          "specifier": "./group/NumberFieldGroup.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/group/NumberFieldGroup.svelte"
+        },
+        {
+          "specifier": "./input/NumberFieldInput.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/input/NumberFieldInput.svelte"
+        },
+        {
+          "specifier": "./increment/NumberFieldIncrement.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/increment/NumberFieldIncrement.svelte"
+        },
+        {
+          "specifier": "./decrement/NumberFieldDecrement.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/decrement/NumberFieldDecrement.svelte"
+        },
+        {
+          "specifier": "./scrub-area/NumberFieldScrubArea.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/scrub-area/NumberFieldScrubArea.svelte"
+        },
+        {
+          "specifier": "./scrub-area-cursor/NumberFieldScrubAreaCursor.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/scrub-area-cursor/NumberFieldScrubAreaCursor.svelte"
+        }
+      ],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/index.ts",
+      "sha256": "0dcd9cd9a44be575f3ba9eaf7c4d9914b33608b9a39c5fd0c3f9673061e1da87",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "./index.parts.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/index.parts.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/number-field/types.ts"
+        }
+      ],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/input/NumberFieldInput.svelte",
+      "sha256": "2bed1ef3697e82206a49b584c6510f4945757f22f3e5da924458a8496e97f7f8",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "../../utils/createLogOnce.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/createLogOnce.ts"
+        },
+        {
+          "specifier": "../../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../../utils/formatNumber.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/formatNumber.ts"
+        },
+        {
+          "specifier": "../root/NumberFieldRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/root/NumberFieldRootContext.ts"
+        },
+        {
+          "specifier": "../../internals/field-root-context/FieldRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "../../internals/field-register-control/useRegisterFieldControl.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/form-context/FormContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/form-context/FormContext.ts"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/LabelableContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts"
+        },
+        {
+          "specifier": "../utils/parse.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/utils/parse.ts"
+        },
+        {
+          "specifier": "../utils/stateAttributesMapping.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/utils/stateAttributesMapping.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/useValueChanged.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/useValueChanged.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/reasons.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        },
+        {
+          "specifier": "../utils/validate.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/utils/validate.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/number-field/types.ts"
+        }
+      ],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/root/NumberFieldRoot.svelte",
+      "sha256": "83c5dbc1f0f96a71cb6732a298b71565a00709db87bbce5ba56337ec6cf782eb",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../../utils/useControlled.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useControlled.svelte.ts"
+        },
+        {
+          "specifier": "../../utils/useStableCallback.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../../utils/addEventListener.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/addEventListener.ts"
+        },
+        {
+          "specifier": "../../utils/platform/index.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/index.ts"
+        },
+        {
+          "specifier": "../../utils/formatNumber.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/formatNumber.ts"
+        },
+        {
+          "specifier": "../../utils/owner.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/owner.ts"
+        },
+        {
+          "specifier": "../../utils/shadowDom.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/shadowDom.ts"
+        },
+        {
+          "specifier": "../../utils/visuallyHidden.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/visuallyHidden.ts"
+        },
+        {
+          "specifier": "../../internals/nativeProps.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        },
+        {
+          "specifier": "../../utils/useMergedRefs.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+        },
+        {
+          "specifier": "../../internals/nativeRefAttachment.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts"
+        },
+        {
+          "specifier": "../../internals/field-root-context/FieldRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "../../internals/field-control-name/FieldControlNameContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-control-name/FieldControlNameContext.ts"
+        },
+        {
+          "specifier": "../../internals/form-context/FormContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/form-context/FormContext.ts"
+        },
+        {
+          "specifier": "../../internals/labelable-provider/useLabelableId.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/useBaseUiId.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/useBaseUiId.ts"
+        },
+        {
+          "specifier": "../utils/stateAttributesMapping.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/utils/stateAttributesMapping.ts"
+        },
+        {
+          "specifier": "../utils/parse.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/utils/parse.ts"
+        },
+        {
+          "specifier": "../utils/validate.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/utils/validate.ts"
+        },
+        {
+          "specifier": "../utils/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/number-field/utils/types.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        },
+        {
+          "specifier": "./NumberFieldRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/root/NumberFieldRootContext.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/number-field/types.ts"
+        }
+      ],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/root/NumberFieldRootContext.ts",
+      "sha256": "088c75e104235f65a4594e1a8e9798d4c846d90f1b97d006858f541fa3ee6bd7",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/number-field/types.ts"
+        },
+        {
+          "specifier": "../utils/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/number-field/utils/types.ts"
+        }
+      ],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/root/StepperButton.svelte",
+      "sha256": "44dc7f473a61d9efccf0629b30c054b769f4a17d1980b717974b1539275ea0c0",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "./useNumberFieldStepperButton.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/root/useNumberFieldStepperButton.svelte.ts"
+        },
+        {
+          "specifier": "../utils/stateAttributesMapping.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/utils/stateAttributesMapping.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/number-field/types.ts"
+        }
+      ],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/root/useNumberFieldStepperButton.svelte.ts",
+      "sha256": "3291a1d1b3275c7e7a2319be86a83582d29de675d5445c29265b365d096a684e",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../../internals/use-button/useButton.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/use-button/useButton.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/usePressAndHold.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/usePressAndHold.svelte.ts"
+        },
+        {
+          "specifier": "../utils/parse.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/utils/parse.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../utils/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/number-field/utils/types.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/number-field/types.ts"
+        },
+        {
+          "specifier": "../../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
+          "specifier": "../../internals/reasons.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        },
+        {
+          "specifier": "./NumberFieldRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/root/NumberFieldRootContext.ts"
+        }
+      ],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/scrub-area-cursor/NumberFieldScrubAreaCursor.svelte",
+      "sha256": "c486065e05d6ed9d928ef9044679f90386ac5283637c16c7f6ac5d104202341d",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../../utils/platform/index.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/index.ts"
+        },
+        {
+          "specifier": "../../utils/owner.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/owner.ts"
+        },
+        {
+          "specifier": "../root/NumberFieldRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/root/NumberFieldRootContext.ts"
+        },
+        {
+          "specifier": "../scrub-area/NumberFieldScrubAreaContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/scrub-area/NumberFieldScrubAreaContext.ts"
+        },
+        {
+          "specifier": "../utils/stateAttributesMapping.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/utils/stateAttributesMapping.ts"
+        },
+        {
+          "specifier": "../../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/number-field/types.ts"
+        }
+      ],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/scrub-area/NumberFieldScrubArea.svelte",
+      "sha256": "fc4f7c692b1a0acd1c221edc9f8df9dc4aa333652a414b5bcb9da27083da3bf3",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../../utils/addEventListener.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/addEventListener.ts"
+        },
+        {
+          "specifier": "../../utils/mergeCleanups.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/mergeCleanups.ts"
+        },
+        {
+          "specifier": "../../utils/owner.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/owner.ts"
+        },
+        {
+          "specifier": "../../utils/platform/index.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/index.ts"
+        },
+        {
+          "specifier": "../../utils/useStableCallback.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../../utils/useTimeout.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useTimeout.ts"
+        },
+        {
+          "specifier": "../../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
+          "specifier": "../root/NumberFieldRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/root/NumberFieldRootContext.ts"
+        },
+        {
+          "specifier": "../utils/stateAttributesMapping.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/utils/stateAttributesMapping.ts"
+        },
+        {
+          "specifier": "./NumberFieldScrubAreaContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/scrub-area/NumberFieldScrubAreaContext.ts"
+        },
+        {
+          "specifier": "../../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../utils/getViewportRect.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/utils/getViewportRect.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        },
+        {
+          "specifier": "../../utils/shadowDom.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/shadowDom.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/number-field/types.ts"
+        }
+      ],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/scrub-area/NumberFieldScrubAreaContext.ts",
+      "sha256": "8c97fccf710e749f414629abee382ab9a69af29a2faafb7185909fd8228b6148",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        }
+      ],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/types.ts",
+      "sha256": "22dc5e8c5b2eecb68cffa470b5fd2350f5e3ae0779f3181a18c3167e0ce86eeb",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../field/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/types.ts"
+        },
+        {
+          "specifier": "../utils/useMergedRefs.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+        },
+        {
+          "specifier": "./utils/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/number-field/utils/types.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/utils/getViewportRect.ts",
+      "sha256": "865a9bd7dc5fc457f3375ff586eb5a23a9dddb9194c5b41c3af3a6908730317a",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../../utils/owner.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/owner.ts"
+        }
+      ],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/utils/parse.ts",
+      "sha256": "ada55bc15947e91c2fd2ed1c95fda2691226d7fd9505a121c10fda2b11ed6383",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../../utils/formatNumber.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/formatNumber.ts"
+        }
+      ],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/utils/stateAttributesMapping.ts",
+      "sha256": "9bd0c28fc1f2ec75c049f8e704276fe44764330ee4a98194d0fe38d9de66b5a4",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../../internals/getStateAttributesProps.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/number-field/types.ts"
+        },
+        {
+          "specifier": "../../internals/field-constants/constants.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-constants/constants.ts"
+        }
+      ],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/utils/types.ts",
+      "sha256": "9b997f75e112c62c01d7824614d026921c301dd11a22a7fb5017acc8938e256d",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../../internals/reasons.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/number-field/utils/validate.ts",
+      "sha256": "aba0d2dd1e4bb6c5977545276d2e191b4a7d84e2aefb7746ebdea41de56edf13",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../../utils/clamp.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/clamp.ts"
+        },
+        {
+          "specifier": "../../utils/formatNumber.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/formatNumber.ts"
+        },
+        {
+          "specifier": "./parse.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/number-field/utils/parse.ts"
+        }
+      ],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/control.types.ts",
+      "sha256": "00cf77f4cb8b407b63862f741bb8249dcc32d6eaf78e99324a99f860c67c9874",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../field/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/types.ts"
+        },
+        {
+          "specifier": "../internals/nativeProps.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
+          "specifier": "../switch/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/switch/types.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/index.parts.ts",
+      "sha256": "764ef610c588dec913e1e63478313ca70c4e4f3a488ca2f72da09b9a94485cb3",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../field/index.parts.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/field/index.parts.ts"
+        },
+        {
+          "specifier": "./RemoteRoot.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/remote-forms/RemoteRoot.svelte"
+        },
+        {
+          "specifier": "./RemoteControl.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/remote-forms/RemoteControl.svelte"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/nativeControlValue.ts",
+      "sha256": "620730edb668abb6f6ccc07f880e7000c6456c7f710a0031490c7feb66aa7072",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../field/root/useFieldValidation.svelte.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/RemoteBooleanControl.svelte",
+      "sha256": "2ec88d564588075320eafa7929bdcf82f3930eb067632875a8052244e804c068",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../checkbox/root/CheckboxRoot.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/checkbox/root/CheckboxRoot.svelte"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "resolved": "external:svelte/attachments"
+        },
+        {
+          "specifier": "../internals/nativeRefAttachment.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts"
+        },
+        {
+          "specifier": "../internals/field-control-name/FieldControlNameContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-control-name/FieldControlNameContext.ts"
+        },
+        {
+          "specifier": "../internals/field-control-value/FieldControlValueContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-control-value/FieldControlValueContext.ts"
+        },
+        {
+          "specifier": "../internals/field-root-context/FieldRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "./RemoteFieldContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/remote-forms/RemoteFieldContext.ts"
+        },
+        {
+          "specifier": "./control.types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/remote-forms/control.types.ts"
+        },
+        {
+          "specifier": "../switch/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/switch/types.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/RemoteControl.svelte",
+      "sha256": "a2c3bf73969d002f99e7571df274a77d97d0603ec1d8c517901992ca58312527",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "./RemoteTextControl.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/remote-forms/RemoteTextControl.svelte"
+        },
+        {
+          "specifier": "./RemoteBooleanControl.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/remote-forms/RemoteBooleanControl.svelte"
+        },
+        {
+          "specifier": "./RemoteNativeControl.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte"
+        },
+        {
+          "specifier": "./RemoteFieldContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/remote-forms/RemoteFieldContext.ts"
+        },
+        {
+          "specifier": "./control.types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/remote-forms/control.types.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/RemoteFieldContext.ts",
+      "sha256": "10184201edc3e9b7b2fb34d6b6f85eec21e9c2e4087d7d305b14e2976f77f98e",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "./runtime.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/remote-forms/runtime.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/RemoteFormContext.ts",
+      "sha256": "21588cc2de0950e70f6de6cd4a40a8b44bf27c7329bbb95699bad710caabb12c",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/remote-forms/types.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte",
+      "sha256": "8b7b061b7d5eb9767098431d4c3415b5446dbe5be74de175c03e98528547038c",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../internals/RenderElement.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
+        },
+        {
+          "specifier": "../internals/field-root-context/FieldRootContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "../field/item/FieldItemContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/field/item/FieldItemContext.ts"
+        },
+        {
+          "specifier": "../internals/form-context/FormContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/form-context/FormContext.ts"
+        },
+        {
+          "specifier": "../internals/labelable-provider/LabelableContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts"
+        },
+        {
+          "specifier": "../internals/labelable-provider/useLabelableId.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts"
+        },
+        {
+          "specifier": "../internals/field-register-control/useRegisterFieldControl.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts"
+        },
+        {
+          "specifier": "../internals/field-control-name/FieldControlNameContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-control-name/FieldControlNameContext.ts"
+        },
+        {
+          "specifier": "../internals/useBaseUiId.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/useBaseUiId.ts"
+        },
+        {
+          "specifier": "../utils/useStableCallback.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+        },
+        {
+          "specifier": "../utils/useTimeout.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useTimeout.ts"
+        },
+        {
+          "specifier": "../utils/owner.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/owner.ts"
+        },
+        {
+          "specifier": "../utils/shadowDom.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/shadowDom.ts"
+        },
+        {
+          "specifier": "../utils/useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../internals/useValueChanged.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/useValueChanged.svelte.ts"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../internals/reasons.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        },
+        {
+          "specifier": "../internals/field-constants/constants.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-constants/constants.ts"
+        },
+        {
+          "specifier": "../utils/areArraysEqual.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/areArraysEqual.ts"
+        },
+        {
+          "specifier": "./RemoteFieldContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/remote-forms/RemoteFieldContext.ts"
+        },
+        {
+          "specifier": "./nativeControlValue.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/remote-forms/nativeControlValue.ts"
+        },
+        {
+          "specifier": "../field/root/useFieldValidation.svelte.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts"
+        },
+        {
+          "specifier": "./control.types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/remote-forms/control.types.ts"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/RemoteRoot.svelte",
+      "sha256": "f71fbc4d572479119a9d30646d1011637d9c3f11a0ac8c2944b8b93747de200f",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../field/Root.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/field/Root.svelte"
+        },
+        {
+          "specifier": "../internals/field-control-name/FieldControlNameContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-control-name/FieldControlNameContext.ts"
+        },
+        {
+          "specifier": "./RemoteFormContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/remote-forms/RemoteFormContext.ts"
+        },
+        {
+          "specifier": "./RemoteFieldContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/remote-forms/RemoteFieldContext.ts"
+        },
+        {
+          "specifier": "./runtime.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/remote-forms/runtime.ts"
+        },
+        {
+          "specifier": "../field/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/types.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/RemoteTextControl.svelte",
+      "sha256": "46a8443f2c9dafaef3dee6635550a8d76a6a275e12e6311e2ab726f8dcfeaa7f",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../field/Control.svelte",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/field/Control.svelte"
+        },
+        {
+          "specifier": "../internals/field-control-name/FieldControlNameContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/field-control-name/FieldControlNameContext.ts"
+        },
+        {
+          "specifier": "./RemoteFieldContext.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/remote-forms/RemoteFieldContext.ts"
+        },
+        {
+          "specifier": "../internals/nativeProps.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        },
+        {
+          "specifier": "../field/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/types.ts"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "./control.types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/remote-forms/control.types.ts"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/runtime.ts",
+      "sha256": "8e0b21e16d8706f7eb835c61df55e2caed81e86be2837006364721cf89806782",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../form/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/form/types.ts"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/remote-forms/types.ts",
+      "sha256": "d8acd95ea2deb62f2db7a96276100d6820c8e3fe262b4ccffa4dbc97c6956d33",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../field/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/types.ts"
+        },
+        {
+          "specifier": "../field/index.parts.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/index.parts.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/switch/types.ts",
+      "sha256": "03507c0edc0efd85c6ae7c4e6c07b2a2c34375de4dcbf454c7cee2414ac8c416",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
+          "specifier": "../field/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/types.ts"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../utils/useMergedRefs.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/addEventListener.ts",
+      "sha256": "77880d75a5c8c5ac2d924e69d7cc7662c616b953d4895c8e6a24de53de4502bf",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/areArraysEqual.ts",
+      "sha256": "c8709b6f9efb30e3257def214aeae097b131b112b74bd1bea965e201efb15a44",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/clamp.ts",
+      "sha256": "96e2dcc83d37bbe52ac6d4f65b205859eae0017c4208551f00a16195c176ec35",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/createLogOnce.ts",
+      "sha256": "a3c52188a495927ef9b49765ca1e70bc384b37b68a5c896ca86df15852a279b1",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "resolved": "external:esm-env"
+        }
+      ],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts",
+      "sha256": "60aab2aa25eb9c0aeaa0a57fc8ccd37aab747577ea22f019aff163946cabd373",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "./owner.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/owner.ts"
+        }
+      ],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/empty.ts",
+      "sha256": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [],
+      "reachability": [
+        "type",
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/error.ts",
+      "sha256": "de9eeee73db42c056c110eb94f3aef8b51ae3003e97d5140bfaf876bdde52c69",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "./createLogOnce.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/createLogOnce.ts"
+        }
+      ],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/formatNumber.ts",
+      "sha256": "393dedb1ddf8bda2d837b3a592f40817768648b86e83f032ad4639394cae7319",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "./stringifyLocale.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/stringifyLocale.ts"
+        }
+      ],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/getDefaultFormSubmitter.ts",
+      "sha256": "15c7fb04d8bacba3abc5f4f2329a3c083892e9169689a2eab60104c3517688e4",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/mergeCleanups.ts",
+      "sha256": "28eb97759c815e7a3edcb4a5ac4464473790ae9294bda5a66ba268bca8efedcb",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/mergeObjects.ts",
+      "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/owner.ts",
+      "sha256": "4f32738229316fe875cf72e949caa4aa7d2fcdf924a2bd5b7f01e88ca5424185",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/engine.ts",
+      "sha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/shared.ts"
+        }
+      ],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/env.ts",
+      "sha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/shared.ts"
+        }
+      ],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/index.ts",
+      "sha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "./parts.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/parts.ts"
+        }
+      ],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/media-query.ts",
+      "sha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/os.ts",
+      "sha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/shared.ts"
+        }
+      ],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/parts.ts",
+      "sha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "./os.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/os.ts"
+        },
+        {
+          "specifier": "./engine.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/engine.ts"
+        },
+        {
+          "specifier": "./screen-reader.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/screen-reader.ts"
+        },
+        {
+          "specifier": "./env.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/env.ts"
+        },
+        {
+          "specifier": "./media-query.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/media-query.ts"
+        }
+      ],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/screen-reader.ts",
+      "sha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "./os.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/platform/os.ts"
+        }
+      ],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/platform/shared.ts",
+      "sha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "resolved": "external:esm-env"
+        }
+      ],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/resolveClassName.ts",
+      "sha256": "b22aead630ca531851a08a63e5165e64ff8cdc9de5765ff20997f578071cb108",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements"
+        }
+      ],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/resolveRef.ts",
+      "sha256": "ac85daa436a61800f824aa34ea08ff4cbe492c86c12be327de957a381acddaa7",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/resolveStyle.ts",
+      "sha256": "cdc420598c1ae4b75a32e7f47ac8cc7f4fe444d4f006e2736f528951fb932977",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../internals/nativeProps.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        }
+      ],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/shadowDom.ts",
+      "sha256": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/stringifyLocale.ts",
+      "sha256": "6822bbd143dfdee434bdecfea1da34fc65681d550b5dd3473f3efb6b8fb746cb",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/useAnimationFrame.ts",
+      "sha256": "4de538634e157740822dc1d3896da18ea84c6a706fe79f28fa6b9e7d380038ad",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "./useRefWithInit.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
+        },
+        {
+          "specifier": "./useOnMount.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useOnMount.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/useControlled.svelte.ts",
+      "sha256": "f74b9a8aa08b323835613037c871a6b85c938555c788c0a8ff51825c1863fd35",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "./error.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/error.ts"
+        }
+      ],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
+      "sha256": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        }
+      ],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/useId.ts",
+      "sha256": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/useInterval.ts",
+      "sha256": "cd770d55465d31d370e1f9822e6af07040d5bc0e15adfed70535d8b3df24d797",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "./useRefWithInit.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
+        },
+        {
+          "specifier": "./useOnMount.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useOnMount.ts"
+        },
+        {
+          "specifier": "./useTimeout.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useTimeout.ts"
+        }
+      ],
+      "reachability": [
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+      "sha256": "0d24dd22dad18fc54341aaedb964a25829ae62322f10bf110a4fd8bde65dd1f3",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        }
+      ],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/useMergedRefs.ts",
+      "sha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "./useRefWithInit.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
+        }
+      ],
+      "reachability": [
+        "type",
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/useOnMount.ts",
+      "sha256": "a7ba4007eff27b601eebcb76755886a23a4dd8548a54f67e15fa1cd648e0e695",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        }
+      ],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/useRefWithInit.ts",
+      "sha256": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [],
+      "reachability": [
+        "type",
+        "runtime"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
+      "sha256": "aeca27deeaadde0c42a027ac7f4788e2a3c62d533db235cada05dd9a70e1e1e2",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "./useIsoLayoutEffect.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../internals/useBaseUiId.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/useBaseUiId.ts"
+        }
+      ],
+      "reachability": [
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/useStableCallback.ts",
+      "sha256": "b790a02da99e0e9365bc05d35a434ef37dcffb2a4db8186b1327b949a994d05e",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        }
+      ],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/useTimeout.ts",
+      "sha256": "a04448de8715b8728243ee6e33572c57bc5b151674628304f6c3906966738c78",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [
+        {
+          "specifier": "./useRefWithInit.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
+        },
+        {
+          "specifier": "./useOnMount.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/useOnMount.ts"
+        }
+      ],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    },
+    {
+      "local": "packages/base/src/lib/utils/visuallyHidden.ts",
+      "sha256": "8f49185df1c0536608090368454cc3d30a3bfc1991b23a4b5e5239184ead8020",
+      "bodyInherited": true,
+      "importsInherited": true,
+      "reachabilityInherited": true,
+      "imports": [],
+      "reachability": [
+        "runtime",
+        "type"
+      ],
+      "manualScope": "Eligible only for this exact module complete-body scope in the independent f2 audit, with unchanged current imports/callers. Machine identity grants no manual reading or current-head verdict."
+    }
+  ]
+}
