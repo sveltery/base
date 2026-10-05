@@ -4,7 +4,7 @@
 // These ports preserve synchronous post-hydration expectations. Native caching evidence is separate.
 import { execFileSync } from 'node:child_process';
 import { resolve } from 'node:path';
-import { expect, it } from 'vitest';
+import { expect, it, vi } from 'vitest';
 import { flushSync, hydrate, unmount } from 'svelte';
 import Fixture from './avatar-fixture.svelte';
 import { cleanupWith, fallback, image, mockImageLoading, renderedCompleteness } from './avatar-test-utils.js';
@@ -28,4 +28,17 @@ it('I:1065 does not replay enter animation for a cached image on hydration (DOM 
 it('I:1100 does not flash fallback for a cached image during SSR hydration (DOM probe cache model)', () => {
   mockImageLoading({ completeOnSet: true }); const fixture = hydrationHost(false); expect(fallback()).not.toBe(null); expect(image()).toBe(null);
   fixture.hydrate(); expect(image()!.getAttribute('src')).toBe(DATA_URI); expect(fallback()).toBe(null);
+});
+
+// Native supplement: the pinned detached probe resolves after hook initialization,
+// so its cached first hydrated commit enters through the shared starting phase.
+// This adds no ordinary declaration credit and leaves the three ports above intact.
+it('supplement cached detached hydration enters after initial idle transition setup', async () => {
+  mockImageLoading({ completeOnSet: true }); const fixture = hydrationHost(false);
+  fixture.hydrate();
+  expect(image()!.hasAttribute('data-starting-style')).toBe(true);
+  expect(image()!.hasAttribute('aria-hidden')).toBe(false);
+  expect(fallback()).toBe(null);
+  await vi.waitFor(() => expect(image()!.hasAttribute('data-starting-style')).toBe(false));
+  expect(fallback()).toBe(null);
 });
