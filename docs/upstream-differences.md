@@ -372,6 +372,11 @@ normally integrates accepted Navigation PR59 main `2f306c27` without changing an
 of the56 used ScrollArea bodies/imports or this native boundary. Both families
 retain their package/root exports and Navigation consumer workflow. It still
 requires checks and independent disposition of the exact current-main successor.
+A real register conflict with accepted Avatar main `95d3d2ae` is resolved by
+normal integration `ddac4fc`; complete Button/Avatar/ScrollArea entries survive.
+All56 ScrollArea bodies/import members and the CSP/security/assertion bytes stay
+unchanged. New canonical Avatar completion helpers and useClick are outside its
+actual graph; no inherited review credit is claimed for those unrelated bodies.
 
 ## AV-S: Avatar Source composition repair
 

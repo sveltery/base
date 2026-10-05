@@ -680,5 +680,31 @@
     "importMemberDelta": 0,
     "publicSeams": "Fresh owner review of complete package map and root barrel: additive union preserves ScrollArea aliases/types plus accepted ToggleGroup/Toolbar; Navigation workflow and installed consumer bytes equal accepted main. Final installed/hosted gates and independent exact-head successor disposition remain pending.",
     "scopeReceipt": "current-main-integration.md"
+  },
+  "priorOwnerIdentityReceipts": [
+    {
+      "head": "a6f202bb1cd3ab296f1995c70dbc9b6aee13698c",
+      "tree": "8a4a72e710c0c05c72d9806d196bfb1172fa9f8c",
+      "receipt": "scroll-area-a6f202b-owner-successor-audit.json",
+      "sha256": "318d7553fad7b78190625595e0766a2b0378b1671b24cc6165113aaaf4d1370c",
+      "basis": "Owner per-body Git/physical/Original/import-member/reachability identity verification and fresh public-seam review; zero new manual Source coverage, no independent successor acceptance."
+    }
+  ],
+  "acceptedAvatarMainIntegration": {
+    "main": "95d3d2ae473dc18a2b9a48112284383a2c392315",
+    "commit": "ddac4fc83911c0ec5414c1363385fc4f00d7f59f",
+    "parents": [
+      "a6f202bb1cd3ab296f1995c70dbc9b6aee13698c",
+      "95d3d2ae473dc18a2b9a48112284383a2c392315"
+    ],
+    "conflict": "Only docs/upstream-differences.md; full compatibility entries from both histories retained, inherited IE accepted PR55 status preserved.",
+    "usedBodyDelta": 0,
+    "importMemberDelta": 0,
+    "outsideScrollAreaGraph": [
+      "useClick",
+      "internals/useAnimationsFinished.ts",
+      "internals/useOpenChangeComplete.svelte.ts"
+    ],
+    "publicSeams": "Fresh complete package/root-barrel and resolved register owner inspection; reviewed exports unchanged and accepted-main bodies preserved. No new manual coverage for unrelated Avatar/Button bodies. Final successor installed/hosted/configured/independent/PM gates pending."
   }
 }

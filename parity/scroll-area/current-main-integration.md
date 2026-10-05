@@ -48,3 +48,37 @@ never counts as a passed review. Independent exact successor source review,
 Root's exact-head PM approval and the owner's normal expected-head merge remain
 separate pending gates. Final receipts live in the PR so this tracked document
 does not contain its own commit hash. No npm release or deployment is included.
+
+## Accepted Avatar main conflict resolution
+
+The next normal integration `ddac4fc83911c0ec5414c1363385fc4f00d7f59f` has ordered
+parents published ScrollArea `a6f202bb1cd3ab296f1995c70dbc9b6aee13698c` and accepted
+Avatar main `95d3d2ae473dc18a2b9a48112284383a2c392315` (which also contains
+accepted Button64). Root reproduced an actual merge-tree conflict solely in
+upstream-differences.md; this integration resolves that real conflict. Complete
+Button, Avatar, ScrollArea and prior register entries remain present, retaining
+the predecessor's truthful accepted PR55 status. Both histories are preserved.
+The entire resolved register and public seams are freshly owner-reviewed.
+
+All56 used module bodies, complete import/export members, graph and native
+runtime/type reachability remain unchanged from a6 and the precise individual
+f2/11eb/Root1a manual scopes. The a6 owner identity audit has SHA256
+`318d7553fad7b78190625595e0766a2b0378b1671b24cc6165113aaaf4d1370c`; it supplies
+per-body identity only, not independent Source acceptance. No new current56
+manual-read count or blanket clearance. useClick and Avatar's canonical
+useAnimationsFinished/useOpenChangeComplete pair are excluded by the actual
+ScrollArea graph; their accepted-main bytes are preserved without claiming
+ScrollArea manual coverage for them. Public package map/root barrel retain the
+reviewed union and accepted main's exact entries. No runtime, test, assertion,
+nonce/CSS/CSP/security or notice edit belongs to this conflict resolution.
+
+Historical a6 exact-head Standards/Verify (66 script/219 unit/1201 DOM), focused123,
+Navigation191, installed strict consumer and configured clean review are preserved.
+Its23-job snapshot recorded22 SUCCESS and broad111578375208 still running; a
+running job is not a passed broad gate. Its running-job log endpoint returned
+BlobNotFound404, so no unavailable partial log is invented. The final successor
+needs its own required Standards/Verify, secured focused/broad/Navigation, actual
+installed consumer and configured review, followed by Root's precise independent
+Source/native/maintainability disposition and exact PM approval. Equivalent
+exact-head hosted installed smoke may establish the consumer gate without a
+duplicate local full Verify or another local build while Popup owns the token.

@@ -37,7 +37,8 @@ and honor disableStyleElements. React stylesheet hoisting/deduplication is a
 framework boundary, with no unchanged source credit for a divergent observation.
 [Source and assertion evidence](../parity/scroll-area/README.md) records current
 execution limits and the normal integration of accepted PR55 and Navigation
-PR59 from actual main `2f306c27dcec4127246fcc4f1345d64af5fef4f4`. All56 used
+PR59 plus accepted Button/Avatar main
+`95d3d2ae473dc18a2b9a48112284383a2c392315`. All56 used
 ScrollArea module bodies and the source/import graph remain unchanged; the root
 barrel and package map preserve both families. Exact current-main successor
 checks, independent source disposition and PM acceptance remain required.

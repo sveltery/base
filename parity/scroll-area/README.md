@@ -98,3 +98,14 @@ ToggleGroup/Toolbar exports; Navigation keeps its own installed-consumer workflo
 Source/native/maintainability coverage from the freshly reviewed public seams.
 Final exact-head hosted checks, configured review (or an actual scoped quota
 disposition), independent successor review and Root PM approval remain required.
+
+Actual compatibility-register conflict with accepted Avatar main
+`95d3d2ae473dc18a2b9a48112284383a2c392315` required normal integration at
+`ddac4fc83911c0ec5414c1363385fc4f00d7f59f`. Complete Button, Avatar and ScrollArea
+entries and both histories remain intact, including the inherited accepted PR55
+status. The56-body graph/import members remain unchanged: useClick and the new
+canonical Avatar completion pair are outside ScrollArea reachability. Exact a6
+checks/consumer/configured review remain historical; its broad job was still
+running at the successor preparation snapshot. No a6 broad result is inferred.
+New-head installed/hosted gates, configured review and Root disposition remain
+required. See the extended [integration scope](current-main-integration.md).

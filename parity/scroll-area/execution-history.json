@@ -173,6 +173,40 @@
       "unchangedOriginalDeclarationCredit": 0,
       "unchangedConformanceCredit": 0,
       "note": "Root independently read exact API metadata and full decoded focused/broad logs. This predecessor pass is historical after normal integration of accepted Navigation main2f306c27. Current-main head has its own required gates; old quota comment5974921965 is only old head/scope."
+    },
+    {
+      "head": "a6f202bb1cd3ab296f1995c70dbc9b6aee13698c",
+      "tree": "8a4a72e710c0c05c72d9806d196bfb1172fa9f8c",
+      "run": 37250987724,
+      "job": 111578375131,
+      "url": "https://github.com/sveltery/base/actions/runs/37250987724",
+      "result": "focused-passed-broad-running-at-successor-preparation",
+      "browserExecuted": true,
+      "passedTests": 123,
+      "failedTests": 0,
+      "runtime": "Ubuntu22 official Chromium153.0.8010.12 sandbox:true workers1 retries0",
+      "installedPublicGate": "PASS hosted and bounded local rebuilt tarball; exactOptional/noUnchecked/skipLibCheck:false aliases/twelve types/SSR/DOM/negative consumers",
+      "navigation": {
+        "run": 37250987791,
+        "job": 111578375214,
+        "result": "PASS191 and installed public consumer"
+      },
+      "requiredCI": {
+        "run": 37250987717,
+        "standardsJob": 111578375191,
+        "verificationJob": 111578374992,
+        "standards": "PASS",
+        "verification": "PASS66 script/219 unit/1201 DOM and builds/type/runtime/consumer/license gates",
+        "broadJob": 111578375208,
+        "broadResult": "running at successor preparation; no passed count inferred",
+        "runningLogAttempt": "GitHub BlobNotFound404 at2026-10-05T02:00:11.8301979Z; no unavailable partial log invented"
+      },
+      "jobSnapshot": "All23 inspected:22 SUCCESS and broad running",
+      "configuredReview": "Exact clean5986556945, summary5986522040; no quota waiver",
+      "ownerAuditSha256": "318d7553fad7b78190625595e0766a2b0378b1671b24cc6165113aaaf4d1370c",
+      "unchangedOriginalDeclarationCredit": 0,
+      "unchangedConformanceCredit": 0,
+      "note": "Historical head requires normal successor due actual register conflict with accepted Avatar main95d3d2ae. Any subsequent a6 completion/cancellation remains attributed to that head; new final-head gates and independent/PM disposition remain separate."
     }
   ]
 }
