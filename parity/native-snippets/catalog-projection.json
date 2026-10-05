@@ -1,0 +1,807 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "scope": "Current declared manifest/source runtime namespace facts. Structural projection only; no new Original, type, runtime, browser or installed-consumer pass credit.",
+  "rootEntry": "packages/base/src/lib/index.ts",
+  "rootEntrySha256": "aa4350286c88e7b1ba72712248860c15b0084b840c94b9d550ee2e2254feef25",
+  "rootRuntimeExports": [
+    "Accordion",
+    "Avatar",
+    "Button",
+    "CSPProvider",
+    "Checkbox",
+    "CheckboxGroup",
+    "Collapsible",
+    "ContextMenu",
+    "Dialog",
+    "DirectionProvider",
+    "Field",
+    "FieldControl",
+    "FieldDescription",
+    "FieldError",
+    "FieldItem",
+    "FieldLabel",
+    "FieldRoot",
+    "FieldValidity",
+    "Fieldset",
+    "FieldsetLegend",
+    "FieldsetRoot",
+    "Form",
+    "Input",
+    "Menu",
+    "Menubar",
+    "Meter",
+    "Popover",
+    "PreviewCard",
+    "Progress",
+    "Radio",
+    "RadioGroup",
+    "RadioIndicator",
+    "RadioRoot",
+    "ScrollArea",
+    "ScrollAreaContent",
+    "ScrollAreaCorner",
+    "ScrollAreaRoot",
+    "ScrollAreaScrollbar",
+    "ScrollAreaThumb",
+    "ScrollAreaViewport",
+    "Separator",
+    "Switch",
+    "Toast",
+    "Toggle",
+    "ToggleGroup",
+    "Toolbar",
+    "Tooltip",
+    "createChangeEventDetails",
+    "createGenericEventDetails",
+    "mergeProps",
+    "mergePropsN",
+    "useDirection"
+  ],
+  "counts": {
+    "bounded": 25,
+    "native-pending-acceptance": 6,
+    "retired-native-successor": 1,
+    "unimplemented": 10
+  },
+  "modules": [
+    {
+      "upstreamModule": "accordion",
+      "status": "bounded",
+      "packageSubpath": "./accordion",
+      "publishedTarget": "./dist/accordion/index.js",
+      "sourceEntry": "packages/base/src/lib/accordion/index.ts",
+      "sourceEntrySha256": "baa5f4d1d68f7481edbd47478adaa868815c84cdf0cc100c970d3d11076df653",
+      "rootExports": [
+        "Accordion"
+      ],
+      "subpathRuntimeExports": [
+        "Accordion",
+        "Header",
+        "Item",
+        "Panel",
+        "Root",
+        "Trigger"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "alert-dialog",
+      "status": "unimplemented",
+      "packageSubpath": null,
+      "publishedTarget": null,
+      "sourceEntry": null,
+      "sourceEntrySha256": null,
+      "rootExports": [],
+      "subpathRuntimeExports": [],
+      "currentAcceptance": "not-implemented"
+    },
+    {
+      "upstreamModule": "autocomplete",
+      "status": "unimplemented",
+      "packageSubpath": null,
+      "publishedTarget": null,
+      "sourceEntry": null,
+      "sourceEntrySha256": null,
+      "rootExports": [],
+      "subpathRuntimeExports": [],
+      "currentAcceptance": "not-implemented"
+    },
+    {
+      "upstreamModule": "avatar",
+      "status": "bounded",
+      "packageSubpath": "./avatar",
+      "publishedTarget": "./dist/avatar/index.js",
+      "sourceEntry": "packages/base/src/lib/avatar/index.ts",
+      "sourceEntrySha256": "7c4417358ec429507d350b54572579071d927a14c5251cfcdbb7271ef23f94ec",
+      "rootExports": [
+        "Avatar"
+      ],
+      "subpathRuntimeExports": [
+        "Avatar"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "button",
+      "status": "bounded",
+      "packageSubpath": "./button",
+      "publishedTarget": "./dist/button/index.js",
+      "sourceEntry": "packages/base/src/lib/button/index.ts",
+      "sourceEntrySha256": "4cbb189e55bd5e0171d73eb0186e1c58522b50267ac30bda6c7f51f7a4d57d32",
+      "rootExports": [
+        "Button"
+      ],
+      "subpathRuntimeExports": [
+        "Button"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "checkbox",
+      "status": "bounded",
+      "packageSubpath": "./checkbox",
+      "publishedTarget": "./dist/checkbox/index.js",
+      "sourceEntry": "packages/base/src/lib/checkbox/index.ts",
+      "sourceEntrySha256": "e7775fa91006de9fc8a7c2e4de6e3ae51b7f3f3fd5baef1770114f2f7a46c71f",
+      "rootExports": [
+        "Checkbox"
+      ],
+      "subpathRuntimeExports": [
+        "Checkbox"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "checkbox-group",
+      "status": "bounded",
+      "packageSubpath": "./checkbox-group",
+      "publishedTarget": "./dist/checkbox-group/index.js",
+      "sourceEntry": "packages/base/src/lib/checkbox-group/index.ts",
+      "sourceEntrySha256": "68d5bce11cb5c7a6b18749cbc54e04d4e0fb13b4aca72f3b635cbe0497740326",
+      "rootExports": [
+        "CheckboxGroup"
+      ],
+      "subpathRuntimeExports": [
+        "CheckboxGroup"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "collapsible",
+      "status": "bounded",
+      "packageSubpath": "./collapsible",
+      "publishedTarget": "./dist/collapsible/index.js",
+      "sourceEntry": "packages/base/src/lib/collapsible/index.ts",
+      "sourceEntrySha256": "7e4f8baf91a2371f9e5d67bb2c31850ed4b9165322eeecfcf86767a16aa6f4c5",
+      "rootExports": [
+        "Collapsible"
+      ],
+      "subpathRuntimeExports": [
+        "Collapsible",
+        "Panel",
+        "Root",
+        "Trigger"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "combobox",
+      "status": "unimplemented",
+      "packageSubpath": null,
+      "publishedTarget": null,
+      "sourceEntry": null,
+      "sourceEntrySha256": null,
+      "rootExports": [],
+      "subpathRuntimeExports": [],
+      "currentAcceptance": "not-implemented"
+    },
+    {
+      "upstreamModule": "context-menu",
+      "status": "native-pending-acceptance",
+      "packageSubpath": "./context-menu",
+      "publishedTarget": "./dist/context-menu/index.js",
+      "sourceEntry": "packages/base/src/lib/context-menu/index.ts",
+      "sourceEntrySha256": "ee6285dbaf87ac0b5993d018da25f6559735074f780d5d111ec0bca8add298d9",
+      "rootExports": [
+        "ContextMenu"
+      ],
+      "subpathRuntimeExports": [
+        "Arrow",
+        "Backdrop",
+        "CheckboxItem",
+        "CheckboxItemIndicator",
+        "ContextMenu",
+        "Group",
+        "GroupLabel",
+        "Item",
+        "LinkItem",
+        "Popup",
+        "Portal",
+        "Positioner",
+        "RadioGroup",
+        "RadioItem",
+        "RadioItemIndicator",
+        "Root",
+        "Separator",
+        "SubmenuRoot",
+        "SubmenuTrigger",
+        "Trigger"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "csp-provider",
+      "status": "bounded",
+      "packageSubpath": "./csp-provider",
+      "publishedTarget": "./dist/csp-provider/index.js",
+      "sourceEntry": "packages/base/src/lib/csp-provider/index.ts",
+      "sourceEntrySha256": "e2c2930b0c89db4feb43dee068206246ebbae540a36920f597e78dc753c421b9",
+      "rootExports": [
+        "CSPProvider"
+      ],
+      "subpathRuntimeExports": [
+        "CSPProvider"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "dialog",
+      "status": "bounded",
+      "packageSubpath": "./dialog",
+      "publishedTarget": "./dist/dialog/index.js",
+      "sourceEntry": "packages/base/src/lib/dialog/index.ts",
+      "sourceEntrySha256": "022a685e1df8e6452b2f44e8374eb91f0f364d5b9f186e83d78de64f7a42ebe5",
+      "rootExports": [
+        "Dialog"
+      ],
+      "subpathRuntimeExports": [
+        "Backdrop",
+        "Close",
+        "Description",
+        "Dialog",
+        "Handle",
+        "Popup",
+        "Portal",
+        "Root",
+        "Title",
+        "Trigger",
+        "Viewport",
+        "createHandle"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "direction-provider",
+      "status": "bounded",
+      "packageSubpath": "./direction-provider",
+      "publishedTarget": "./dist/direction-provider/index.js",
+      "sourceEntry": "packages/base/src/lib/direction-provider/index.ts",
+      "sourceEntrySha256": "9bb751970a18257b610eff38d9c3c714f8c8797e68729f8c775882fc89001d40",
+      "rootExports": [
+        "DirectionProvider",
+        "useDirection"
+      ],
+      "subpathRuntimeExports": [
+        "DirectionProvider",
+        "useDirection"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "drawer",
+      "status": "unimplemented",
+      "packageSubpath": null,
+      "publishedTarget": null,
+      "sourceEntry": null,
+      "sourceEntrySha256": null,
+      "rootExports": [],
+      "subpathRuntimeExports": [],
+      "currentAcceptance": "not-implemented"
+    },
+    {
+      "upstreamModule": "field",
+      "status": "bounded",
+      "packageSubpath": "./field",
+      "publishedTarget": "./dist/field/index.js",
+      "sourceEntry": "packages/base/src/lib/field/index.ts",
+      "sourceEntrySha256": "b508086b5fdc0024d1d611f38a631bce55bcb6bea56c503f9c7d71fe9823db86",
+      "rootExports": [
+        "Field",
+        "FieldControl",
+        "FieldDescription",
+        "FieldError",
+        "FieldItem",
+        "FieldLabel",
+        "FieldRoot",
+        "FieldValidity"
+      ],
+      "subpathRuntimeExports": [
+        "Field",
+        "FieldControl",
+        "FieldDescription",
+        "FieldError",
+        "FieldItem",
+        "FieldLabel",
+        "FieldRoot",
+        "FieldValidity"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "fieldset",
+      "status": "bounded",
+      "packageSubpath": "./fieldset",
+      "publishedTarget": "./dist/fieldset/index.js",
+      "sourceEntry": "packages/base/src/lib/fieldset/index.ts",
+      "sourceEntrySha256": "1f6f2af02203fea2bd7002b7831f8e6c20f467cdea0c00d57fa95c032422531a",
+      "rootExports": [
+        "Fieldset",
+        "FieldsetLegend",
+        "FieldsetRoot"
+      ],
+      "subpathRuntimeExports": [
+        "Fieldset",
+        "FieldsetLegend",
+        "FieldsetRoot"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "form",
+      "status": "bounded",
+      "packageSubpath": "./form",
+      "publishedTarget": "./dist/form/index.js",
+      "sourceEntry": "packages/base/src/lib/form/index.ts",
+      "sourceEntrySha256": "adef7fd51c09119a7fa5517cb78fef9b7fee550977d1205f2ee47d016439bc83",
+      "rootExports": [
+        "Form"
+      ],
+      "subpathRuntimeExports": [
+        "Form"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "input",
+      "status": "bounded",
+      "packageSubpath": "./input",
+      "publishedTarget": "./dist/input/index.js",
+      "sourceEntry": "packages/base/src/lib/input/index.ts",
+      "sourceEntrySha256": "bee0bd6dc6ecde43afd343c2082077b359c78e1af958602a0a77a2ba2e26249d",
+      "rootExports": [
+        "Input"
+      ],
+      "subpathRuntimeExports": [
+        "Input"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "menu",
+      "status": "native-pending-acceptance",
+      "packageSubpath": "./menu",
+      "publishedTarget": "./dist/menu/index.js",
+      "sourceEntry": "packages/base/src/lib/menu/index.ts",
+      "sourceEntrySha256": "0ffcbb12af56545dc5077b9b32fcf1bdc76eae95050bdad25559debf66ee6316",
+      "rootExports": [
+        "Menu"
+      ],
+      "subpathRuntimeExports": [
+        "Arrow",
+        "Backdrop",
+        "CheckboxItem",
+        "CheckboxItemIndicator",
+        "Group",
+        "GroupLabel",
+        "Handle",
+        "Item",
+        "LinkItem",
+        "Menu",
+        "Popup",
+        "Portal",
+        "Positioner",
+        "RadioGroup",
+        "RadioItem",
+        "RadioItemIndicator",
+        "Root",
+        "Separator",
+        "SubmenuRoot",
+        "SubmenuTrigger",
+        "Trigger",
+        "Viewport",
+        "createHandle"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "menubar",
+      "status": "native-pending-acceptance",
+      "packageSubpath": "./menubar",
+      "publishedTarget": "./dist/menubar/index.js",
+      "sourceEntry": "packages/base/src/lib/menubar/index.ts",
+      "sourceEntrySha256": "2914e01ea43042b3cd23798a2b968c951fab7f7667dce154802ef903e03f5e58",
+      "rootExports": [
+        "Menubar"
+      ],
+      "subpathRuntimeExports": [
+        "Menubar"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "merge-props",
+      "status": "bounded",
+      "packageSubpath": "./merge-props",
+      "publishedTarget": "./dist/merge-props/index.js",
+      "sourceEntry": "packages/base/src/lib/merge-props/index.ts",
+      "sourceEntrySha256": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68",
+      "rootExports": [
+        "mergeProps",
+        "mergePropsN"
+      ],
+      "subpathRuntimeExports": [
+        "makeEventPreventable",
+        "mergeClassNames",
+        "mergeProps",
+        "mergePropsN"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "meter",
+      "status": "bounded",
+      "packageSubpath": "./meter",
+      "publishedTarget": "./dist/meter/index.js",
+      "sourceEntry": "packages/base/src/lib/meter/index.ts",
+      "sourceEntrySha256": "e6947941f13dc695f9b8de951d63ad3ed26ce19fe5ed179489bb0e78088d938b",
+      "rootExports": [
+        "Meter"
+      ],
+      "subpathRuntimeExports": [
+        "Indicator",
+        "Label",
+        "Meter",
+        "Root",
+        "Track",
+        "Value"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "navigation-menu",
+      "status": "unimplemented",
+      "packageSubpath": null,
+      "publishedTarget": null,
+      "sourceEntry": null,
+      "sourceEntrySha256": null,
+      "rootExports": [],
+      "subpathRuntimeExports": [],
+      "currentAcceptance": "not-implemented"
+    },
+    {
+      "upstreamModule": "number-field",
+      "status": "unimplemented",
+      "packageSubpath": null,
+      "publishedTarget": null,
+      "sourceEntry": null,
+      "sourceEntrySha256": null,
+      "rootExports": [],
+      "subpathRuntimeExports": [],
+      "currentAcceptance": "not-implemented"
+    },
+    {
+      "upstreamModule": "otp-field",
+      "status": "unimplemented",
+      "packageSubpath": null,
+      "publishedTarget": null,
+      "sourceEntry": null,
+      "sourceEntrySha256": null,
+      "rootExports": [],
+      "subpathRuntimeExports": [],
+      "currentAcceptance": "not-implemented"
+    },
+    {
+      "upstreamModule": "popover",
+      "status": "native-pending-acceptance",
+      "packageSubpath": "./popover",
+      "publishedTarget": "./dist/popover/index.js",
+      "sourceEntry": "packages/base/src/lib/popover/index.ts",
+      "sourceEntrySha256": "a4e4c6012f8db5fb135061882c7cb1448cbbe49a1296e75c3d3a89029f2524c3",
+      "rootExports": [
+        "Popover"
+      ],
+      "subpathRuntimeExports": [
+        "Arrow",
+        "Backdrop",
+        "Close",
+        "Description",
+        "Handle",
+        "Popover",
+        "Popup",
+        "Portal",
+        "Positioner",
+        "Root",
+        "Title",
+        "Trigger",
+        "Viewport",
+        "createHandle"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "preview-card",
+      "status": "native-pending-acceptance",
+      "packageSubpath": "./preview-card",
+      "publishedTarget": "./dist/preview-card/index.js",
+      "sourceEntry": "packages/base/src/lib/preview-card/index.ts",
+      "sourceEntrySha256": "b10d6f1c9fc4c303851250eacb36738d30f2eeaa8f4848d1b51febb4dba6d3c3",
+      "rootExports": [
+        "PreviewCard"
+      ],
+      "subpathRuntimeExports": [
+        "Arrow",
+        "Backdrop",
+        "Handle",
+        "Popup",
+        "Portal",
+        "Positioner",
+        "PreviewCard",
+        "Root",
+        "Trigger",
+        "Viewport",
+        "createHandle"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "progress",
+      "status": "bounded",
+      "packageSubpath": "./progress",
+      "publishedTarget": "./dist/progress/index.js",
+      "sourceEntry": "packages/base/src/lib/progress/index.ts",
+      "sourceEntrySha256": "8e2e6f7b607e98dce10995d5b3ca6dfb360b7e6c046424067679b360914c5b13",
+      "rootExports": [
+        "Progress"
+      ],
+      "subpathRuntimeExports": [
+        "Indicator",
+        "Label",
+        "Progress",
+        "Root",
+        "Track",
+        "Value"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "radio",
+      "status": "bounded",
+      "packageSubpath": "./radio",
+      "publishedTarget": "./dist/radio/index.js",
+      "sourceEntry": "packages/base/src/lib/radio/index.ts",
+      "sourceEntrySha256": "b22ecca1034fcc8ead74f74f088df6bdd4d3b632026c4b0a600321be54333d97",
+      "rootExports": [
+        "Radio",
+        "RadioIndicator",
+        "RadioRoot"
+      ],
+      "subpathRuntimeExports": [
+        "Radio",
+        "RadioIndicator",
+        "RadioRoot"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "radio-group",
+      "status": "bounded",
+      "packageSubpath": "./radio-group",
+      "publishedTarget": "./dist/radio-group/index.js",
+      "sourceEntry": "packages/base/src/lib/radio-group/index.ts",
+      "sourceEntrySha256": "205649bd4284ce40cdf401525d82f0ef7610350e6af0586e848106460a1fc4e1",
+      "rootExports": [
+        "RadioGroup"
+      ],
+      "subpathRuntimeExports": [
+        "RadioGroup"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "scroll-area",
+      "status": "bounded",
+      "packageSubpath": "./scroll-area",
+      "publishedTarget": "./dist/scroll-area/index.js",
+      "sourceEntry": "packages/base/src/lib/scroll-area/index.ts",
+      "sourceEntrySha256": "2d85c2c7f8c00b9a68c4cdb5db7a414c5df3d541f275a1ca5c5795ec49203621",
+      "rootExports": [
+        "ScrollArea",
+        "ScrollAreaContent",
+        "ScrollAreaCorner",
+        "ScrollAreaRoot",
+        "ScrollAreaScrollbar",
+        "ScrollAreaThumb",
+        "ScrollAreaViewport"
+      ],
+      "subpathRuntimeExports": [
+        "ScrollArea",
+        "ScrollAreaContent",
+        "ScrollAreaCorner",
+        "ScrollAreaRoot",
+        "ScrollAreaScrollbar",
+        "ScrollAreaThumb",
+        "ScrollAreaViewport"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "select",
+      "status": "unimplemented",
+      "packageSubpath": null,
+      "publishedTarget": null,
+      "sourceEntry": null,
+      "sourceEntrySha256": null,
+      "rootExports": [],
+      "subpathRuntimeExports": [],
+      "currentAcceptance": "not-implemented"
+    },
+    {
+      "upstreamModule": "separator",
+      "status": "bounded",
+      "packageSubpath": "./separator",
+      "publishedTarget": "./dist/separator/index.js",
+      "sourceEntry": "packages/base/src/lib/separator/index.ts",
+      "sourceEntrySha256": "7cf0255b6470bec86eeffb2ba4d2df166e90c35cdce2409f4cb776f77c9e988b",
+      "rootExports": [
+        "Separator"
+      ],
+      "subpathRuntimeExports": [
+        "Separator"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "slider",
+      "status": "unimplemented",
+      "packageSubpath": null,
+      "publishedTarget": null,
+      "sourceEntry": null,
+      "sourceEntrySha256": null,
+      "rootExports": [],
+      "subpathRuntimeExports": [],
+      "currentAcceptance": "not-implemented"
+    },
+    {
+      "upstreamModule": "switch",
+      "status": "bounded",
+      "packageSubpath": "./switch",
+      "publishedTarget": "./dist/switch/index.js",
+      "sourceEntry": "packages/base/src/lib/switch/index.ts",
+      "sourceEntrySha256": "6e8dcd135eea262eb01cbd8d2af9b55e1a8617d8b63a25975e65fc30d4f88699",
+      "rootExports": [
+        "Switch"
+      ],
+      "subpathRuntimeExports": [
+        "Switch"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "tabs",
+      "status": "unimplemented",
+      "packageSubpath": null,
+      "publishedTarget": null,
+      "sourceEntry": null,
+      "sourceEntrySha256": null,
+      "rootExports": [],
+      "subpathRuntimeExports": [],
+      "currentAcceptance": "not-implemented"
+    },
+    {
+      "upstreamModule": "toast",
+      "status": "bounded",
+      "packageSubpath": "./toast",
+      "publishedTarget": "./dist/toast/index.js",
+      "sourceEntry": "packages/base/src/lib/toast/index.ts",
+      "sourceEntrySha256": "b2c6322e9f78b0185937daec24b746a4a1da55e860e3c8ee952534159a2c2809",
+      "rootExports": [
+        "Toast"
+      ],
+      "subpathRuntimeExports": [
+        "Action",
+        "Close",
+        "Content",
+        "Description",
+        "Portal",
+        "Provider",
+        "Root",
+        "Title",
+        "Viewport",
+        "createToastManager",
+        "getToastManager"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "toggle",
+      "status": "bounded",
+      "packageSubpath": "./toggle",
+      "publishedTarget": "./dist/toggle/index.js",
+      "sourceEntry": "packages/base/src/lib/toggle/index.ts",
+      "sourceEntrySha256": "5e0cf519839cfe2d95047b94522b5f70165de0f701d572dc223a1f1d1f704538",
+      "rootExports": [
+        "Toggle"
+      ],
+      "subpathRuntimeExports": [
+        "Toggle"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "toggle-group",
+      "status": "bounded",
+      "packageSubpath": "./toggle-group",
+      "publishedTarget": "./dist/toggle-group/index.js",
+      "sourceEntry": "packages/base/src/lib/toggle-group/index.ts",
+      "sourceEntrySha256": "eb6704fcba814d66839e0efe22d44efb35ab3e70f6daa741f57f3ffd96289023",
+      "rootExports": [
+        "ToggleGroup"
+      ],
+      "subpathRuntimeExports": [
+        "ToggleGroup"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "toolbar",
+      "status": "bounded",
+      "packageSubpath": "./toolbar",
+      "publishedTarget": "./dist/toolbar/index.js",
+      "sourceEntry": "packages/base/src/lib/toolbar/index.ts",
+      "sourceEntrySha256": "37e47173408b85ca5d3e8d3b17e2ca32265a84bab99b038335266211db0323dc",
+      "rootExports": [
+        "Toolbar"
+      ],
+      "subpathRuntimeExports": [
+        "Toolbar"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "tooltip",
+      "status": "native-pending-acceptance",
+      "packageSubpath": "./tooltip",
+      "publishedTarget": "./dist/tooltip/index.js",
+      "sourceEntry": "packages/base/src/lib/tooltip/index.ts",
+      "sourceEntrySha256": "d36fe380f343baaa38bfa08de2ac844dc188b9bf3ca9e37002aae8544b72c0f2",
+      "rootExports": [
+        "Tooltip"
+      ],
+      "subpathRuntimeExports": [
+        "Arrow",
+        "Handle",
+        "Popup",
+        "Portal",
+        "Positioner",
+        "Provider",
+        "Root",
+        "Tooltip",
+        "Trigger",
+        "Viewport",
+        "createHandle"
+      ],
+      "currentAcceptance": "pending-exact-head-execution-and-review"
+    },
+    {
+      "upstreamModule": "use-render",
+      "status": "retired-native-successor",
+      "packageSubpath": null,
+      "publishedTarget": null,
+      "sourceEntry": null,
+      "sourceEntrySha256": null,
+      "rootExports": [],
+      "subpathRuntimeExports": [],
+      "currentAcceptance": "retired-api-native-counterparts-pending-exact-head-execution-and-review"
+    }
+  ]
+}

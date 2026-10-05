@@ -39,7 +39,7 @@ export const docs: Doc[] = [
         id: 'status',
         title: 'A foundation in progress',
         paragraphs: [
-          'The repository catalog accounts for 22 bounded modules and 19 unimplemented modules, including providers and utilities. Field, Form, Fieldset, Checkbox, CheckboxGroup, Switch, Radio and RadioGroup are available alongside native render snippets and the earlier components. Remote Form exposes typed Field children and control descriptors. Complete upstream compatibility remains unfinished; the catalog ledger records each exported scope and its limits.',
+          'The current catalog has 25 bounded modules, 6 available native modules awaiting acceptance, 10 unimplemented modules, and 1 retired standalone renderer API. Field, Form, Fieldset, Checkbox, CheckboxGroup, Switch, Radio and RadioGroup are available alongside native render snippets and the earlier components. Remote Form exposes typed Field children and control descriptors. Complete upstream compatibility remains unfinished; the catalog ledger records each exported scope and its limits.',
           'The package is private and unpublished. APIs may change. Use this workspace to evaluate the current slice; check the repository contracts before depending on a behavior.',
         ],
         links: [

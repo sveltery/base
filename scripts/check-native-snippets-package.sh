@@ -18,6 +18,7 @@ pnpm --dir "$snippet_consumer" --ignore-workspace install --frozen-lockfile --ig
 cmp LICENSE "$snippet_consumer/node_modules/@sveltery/base/LICENSE"
 cmp packages/base/THIRD_PARTY_NOTICES.md "$snippet_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
 cmp packages/utils/THIRD_PARTY_NOTICES.md "$snippet_consumer/node_modules/@sveltery/utils/THIRD_PARTY_NOTICES.md"
+cp parity/native-snippets/catalog-projection.json "$snippet_consumer/native-catalog.json"
 cat > "$snippet_consumer/PublicTypes.ts" <<'TS'
 import type * as Root from '@sveltery/base';
 import type { Snippet } from 'svelte';
@@ -86,6 +87,17 @@ await assert.rejects(import('@sveltery/base/use-render'), { code: 'ERR_PACKAGE_P
 const utilsMetadata = JSON.parse(readFileSync(new URL('./node_modules/@sveltery/utils/package.json', import.meta.url), 'utf8'));
 assert.equal(utilsMetadata.name, '@sveltery/utils'); assert.equal(utilsMetadata.exports['./useMergedRefs'], undefined);
 await assert.rejects(import('@sveltery/utils/useMergedRefs'), { code: 'ERR_PACKAGE_PATH_NOT_EXPORTED' });
+const catalog = JSON.parse(readFileSync(new URL('./native-catalog.json', import.meta.url), 'utf8'));
+const baseMetadata = JSON.parse(readFileSync(new URL('./node_modules/@sveltery/base/package.json', import.meta.url), 'utf8'));
+assert.deepEqual(Object.keys(root).sort(), catalog.rootRuntimeExports);
+for (const surface of catalog.modules) {
+  if (!surface.packageSubpath) { assert.equal(baseMetadata.exports[`./${surface.upstreamModule}`], undefined); continue; }
+  const metadata = baseMetadata.exports[surface.packageSubpath];
+  assert.equal(typeof metadata === 'string' ? metadata : metadata.svelte ?? metadata.default, surface.publishedTarget);
+  const namespace = await import(`@sveltery/base/${surface.upstreamModule}`);
+  assert.deepEqual(Object.keys(namespace).sort(), surface.subpathRuntimeExports, surface.upstreamModule);
+  for (const name of surface.rootExports) assert.equal(root[name], Object.hasOwn(namespace, name) ? namespace[name] : namespace, `${surface.upstreamModule}: ${name}`);
+}
 assert.equal(typeof window, 'undefined'); assert.equal(typeof document, 'undefined');
 const body = render(Consumer).body;
 assert.match(body, /type="button"/); assert.match(body, /type="submit"/); assert.match(body, /Packed children/);
@@ -93,7 +105,7 @@ assert.match(body, /class="owned base"/); assert.match(body, /data-state="true"/
 assert.match(body, /<svg/); assert.match(body, /data-orientation="vertical"/); assert.match(body, /Native SVG children/);
 assert.match(body, /alt=""/); assert.match(body, /value="seed"/); assert.match(body, /name="email"/);
 assert.match(body, /Packed title/); assert.match(body, /Packed description/); assert.match(body, /Packed action/); assert.doesNotMatch(body, /Ignored action/);
-console.log('Installed native snippet SSR, real state/children/IDs, root/subpath identity and retired API exclusion: PASS');
+console.log('Installed native snippet SSR, current catalog root/subpath namespace and manifest facts, real state/children/IDs and retired API exclusion: PASS');
 JS
 cat > "$snippet_consumer/tsconfig.json" <<'JSON'
 {"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"exactOptionalPropertyTypes":true,"noUncheckedIndexedAccess":true,"skipLibCheck":false,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts"]}

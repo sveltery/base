@@ -275,6 +275,30 @@
       "sha256": "73a34916ef580a0d8b2d824d50316ad92ae251775e54ee12b4571bc90c8e1c3e",
       "disposition": "native-binding-or-consumer-successor",
       "unchangedParityCredit": 0
+    },
+    {
+      "source": "parity/catalog.json",
+      "archive": "parity/native-snippets/acceptance-history/parity/catalog.json",
+      "sha256": "1f92077521bf50f511996cfad628821a64a9cdc47199ed963da44fb74c8bed7a",
+      "predecessor": "cac2913b9d267a008a3b61258f91dba4fabdc382",
+      "disposition": "maintained-native-catalog-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "scripts/tests/catalog.test.mjs",
+      "archive": "parity/native-snippets/acceptance-history/scripts/tests/catalog.test.mjs",
+      "sha256": "a18e6adfb9b55279f3e4665872f02e23887949caac956bb47bd3f0657991645d",
+      "predecessor": "cac2913b9d267a008a3b61258f91dba4fabdc382",
+      "disposition": "maintained-native-catalog-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "docs/catalog.md",
+      "archive": "parity/native-snippets/acceptance-history/docs/catalog.md",
+      "sha256": "3698bf2c1b63596206687d594687eb9b03ae6591e98452793c1ce3a1e1c80a2e",
+      "predecessor": "cac2913b9d267a008a3b61258f91dba4fabdc382",
+      "disposition": "maintained-native-catalog-successor",
+      "unchangedParityCredit": 0
     }
   ]
 }
