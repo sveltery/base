@@ -3,8 +3,9 @@
 import type { Snippet } from 'svelte';
 import type { BaseUIChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
 import type { TooltipHandle } from './store/TooltipHandle.svelte.js';
-export type TooltipRootState = Record<string, never>;
-export type TooltipRootChangeEventReason = 'trigger-hover' | 'trigger-focus' | 'trigger-press' | 'outside-press' | 'escape-key' | 'focus-out' | 'disabled' | 'imperative-action' | 'none';
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type -- Preserve Source empty State assignability.
+export interface TooltipRootState {}
+export type TooltipRootChangeEventReason = 'trigger-hover' | 'trigger-focus' | 'trigger-press' | 'outside-press' | 'escape-key' | 'disabled' | 'imperative-action' | 'none';
 export type TooltipRootChangeEventDetails = BaseUIChangeEventDetails<TooltipRootChangeEventReason, { preventUnmountOnClose(): void }>;
 export interface TooltipRootActions { unmount(): void; close(): void }
 export interface TooltipRootProps<Payload = unknown> {
@@ -21,10 +22,51 @@ export interface TooltipRootProps<Payload = unknown> {
   disableHoverablePopup?: boolean | undefined;
   trackCursorAxis?: 'none' | 'x' | 'y' | 'both' | undefined;
 }
-export type TooltipProviderState = Record<string, never>;
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type -- Preserve Source empty State assignability.
+export interface TooltipProviderState {}
 export interface TooltipProviderProps {
   children?: Snippet | undefined;
   delay?: number | undefined;
   closeDelay?: number | undefined;
   timeout?: number | undefined;
 }
+
+import type { HTMLAttributes } from 'svelte/elements';
+import type { BaseUIComponentProps, WithBaseUIEvent } from '../internals/types.js';
+import type { Side, Align, AnchorPositioningOptions } from '../internals/anchor-positioning/types.js';
+import type { TransitionStatus } from '../internals/useTransitionStatus.svelte.js';
+export type ElementProps<State, Native = HTMLAttributes<HTMLElement>> = Omit<WithBaseUIEvent<Native>, 'class' | 'style' | 'children'> & BaseUIComponentProps<State> & { children?: Snippet | undefined; ref?: HTMLElement | null | undefined };
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type -- Preserve Source empty State assignability.
+export interface TooltipPortalState {}
+export type TooltipPortalProps = ElementProps<TooltipPortalState> & {
+  keepMounted?: boolean | undefined;
+  container?: HTMLElement | ShadowRoot | { current: HTMLElement | ShadowRoot | null } | null | undefined;
+};
+export interface TooltipArrowState {
+  open: boolean; side: Side; align: Align; uncentered: boolean;
+  instant: 'delay' | 'dismiss' | 'focus' | undefined;
+}
+export type TooltipArrowProps = ElementProps<TooltipArrowState>;
+
+import type { HTMLButtonAttributes } from 'svelte/elements';
+export interface TooltipTriggerState { open: boolean }
+export type TooltipTriggerProps<Payload = unknown> = Omit<ElementProps<TooltipTriggerState, HTMLButtonAttributes>, 'disabled'> & {
+  handle?: TooltipHandle<Payload> | undefined;
+  payload?: NoInfer<Payload> | undefined;
+  delay?: number | undefined;
+  closeDelay?: number | undefined;
+  closeOnClick?: boolean | undefined;
+  disabled?: boolean | undefined;
+};
+
+// Source public shared positioning fields; private mounted/tree/middleware fields stay internal.
+type PublicAnchorPositioning = Pick<AnchorPositioningOptions, 'anchor' | 'positionMethod' | 'side' | 'align' | 'sideOffset' | 'alignOffset' | 'collisionBoundary' | 'collisionPadding' | 'sticky' | 'arrowPadding' | 'disableAnchorTracking' | 'collisionAvoidance'>;
+type PositioningProps = { [K in keyof PublicAnchorPositioning]?: PublicAnchorPositioning[K] | undefined };
+export interface TooltipPositionerState { open: boolean; side: Side; align: Align; anchorHidden: boolean; instant: string | undefined }
+export type TooltipPositionerProps = ElementProps<TooltipPositionerState> & PositioningProps;
+
+export interface TooltipPopupState { open: boolean; side: Side; align: Align; instant: 'delay' | 'focus' | 'dismiss' | undefined; transitionStatus: TransitionStatus }
+export type TooltipPopupProps = ElementProps<TooltipPopupState>;
+
+export interface TooltipViewportState { activationDirection: string | undefined; transitioning: boolean; instant: 'delay' | 'dismiss' | 'focus' | undefined }
+export type TooltipViewportProps = ElementProps<TooltipViewportState>;

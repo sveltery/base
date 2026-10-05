@@ -61,3 +61,12 @@ export type { MenubarProps, MenubarState } from './menubar/types.js';
 
 export type { MenuArrow, MenuBackdrop, MenuCheckboxItem, MenuCheckboxItemIndicator, MenuGroup, MenuGroupLabel, MenuItem, MenuLinkItem, MenuPopup, MenuPortal, MenuPositioner, MenuRadioGroup, MenuRadioItem, MenuRadioItemIndicator, MenuRoot, MenuSubmenuRoot, MenuSubmenuTrigger, MenuTrigger, MenuViewport } from './menu/types.js';
 export type { ContextMenuRoot, ContextMenuTrigger, ContextMenuPositioner } from './context-menu/types.js';
+
+export { Popover } from './popover/index.js';
+export type { PopoverRootProps, PopoverRootState, PopoverTriggerProps, PopoverTriggerState, PopoverPortalProps, PopoverPortalState, PopoverPositionerProps, PopoverPositionerState, PopoverPopupProps, PopoverPopupState, PopoverArrowProps, PopoverArrowState, PopoverBackdropProps, PopoverBackdropState, PopoverTitleProps, PopoverTitleState, PopoverDescriptionProps, PopoverDescriptionState, PopoverCloseProps, PopoverCloseState, PopoverViewportProps, PopoverViewportState, PopoverRootActions, PopoverRootChangeEventReason, PopoverRootChangeEventDetails } from './popover/types.js';
+
+export { PreviewCard } from './preview-card/index.js';
+export type { PreviewCardRootProps, PreviewCardRootState, PreviewCardTriggerProps, PreviewCardTriggerState, PreviewCardPortalProps, PreviewCardPortalState, PreviewCardPositionerProps, PreviewCardPositionerState, PreviewCardPopupProps, PreviewCardPopupState, PreviewCardArrowProps, PreviewCardArrowState, PreviewCardBackdropProps, PreviewCardBackdropState, PreviewCardViewportProps, PreviewCardViewportState, PreviewCardRootActions, PreviewCardRootChangeEventReason, PreviewCardRootChangeEventDetails } from './preview-card/types.js';
+
+export { Tooltip } from './tooltip/index.js';
+export type { TooltipProviderProps, TooltipProviderState, TooltipRootProps, TooltipRootState, TooltipTriggerProps, TooltipTriggerState, TooltipPortalProps, TooltipPortalState, TooltipPositionerProps, TooltipPositionerState, TooltipPopupProps, TooltipPopupState, TooltipArrowProps, TooltipArrowState, TooltipViewportProps, TooltipViewportState, TooltipRootActions, TooltipRootChangeEventReason, TooltipRootChangeEventDetails } from './tooltip/types.js';

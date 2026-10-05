@@ -153,6 +153,21 @@
       "types": "./dist/menubar/index.d.ts",
       "svelte": "./dist/menubar/index.js",
       "default": "./dist/menubar/index.js"
+    },
+    "./popover": {
+      "types": "./dist/popover/index.d.ts",
+      "svelte": "./dist/popover/index.js",
+      "default": "./dist/popover/index.js"
+    },
+    "./preview-card": {
+      "types": "./dist/preview-card/index.d.ts",
+      "svelte": "./dist/preview-card/index.js",
+      "default": "./dist/preview-card/index.js"
+    },
+    "./tooltip": {
+      "types": "./dist/tooltip/index.d.ts",
+      "svelte": "./dist/tooltip/index.js",
+      "default": "./dist/tooltip/index.js"
     }
   },
   "svelte": "./dist/index.js",

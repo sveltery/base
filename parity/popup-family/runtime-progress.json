@@ -2,7 +2,7 @@
   "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "preCodeReadingCommit": "41b708601a8cbc72e74a46e550fc79b99da3d0ed",
   "publicDependencyCorrectionCommit": "70b9962b9d4ecc958a3d14dcfb89a0965b9fd1f3",
-  "status": "Six canonical helper families have independently bounded Source/native/maintainability CLR at058/bd. Family state/Root implementation has started; remaining parts and all family delivery gates pending.",
+  "status": "All 27 native Source family public parts and distinct stores/handles are implemented; bounded strict check passes, remaining runtime/public consumer/Source/native/maintainability/browser delivery gates pending.",
   "ordinaryDeclarationCredit": 0,
   "runtimeImplementationStarted": true,
   "helperModules": [
