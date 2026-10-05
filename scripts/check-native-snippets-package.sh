@@ -55,7 +55,7 @@ export type { NativeContracts };
 TS
 cat > "$snippet_consumer/Consumer.svelte" <<'SVELTE'
 <script lang="ts">
-  import { Button, Toggle, Separator, Avatar, Field, Form, Input, Toast, mergeProps, type HTMLProps, type ToggleState } from '@sveltery/base';
+  import { Button, Toggle, Separator, Avatar, Tooltip, Field, Form, Input, Toast, mergeProps, type HTMLProps, type ToggleState } from '@sveltery/base';
   import { Button as SubpathButton } from '@sveltery/base/button';
   import type { Snippet } from 'svelte';
   import type { HTMLAttributes, SVGAttributes } from 'svelte/elements';
@@ -69,6 +69,7 @@ cat > "$snippet_consumer/Consumer.svelte" <<'SVELTE'
 </Toggle>
 <Separator orientation="vertical">{#snippet render(props, _state, children)}<svg {...props as SVGAttributes<SVGSVGElement>} id="packed-svg"><title>Native SVG children</title>{@render children?.()}</svg>{/snippet}</Separator>
 <Avatar.Root><Avatar.Image keepMounted src="/packed.png" /></Avatar.Root>
+<form><Tooltip.Root><Tooltip.Trigger id="packed-tooltip">Tooltip host</Tooltip.Trigger></Tooltip.Root></form>
 <Form><Field.Root name="email"><Field.Label>Email</Field.Label><Input defaultValue="seed"/><Field.Description>Description</Field.Description></Field.Root></Form>
 <Toast.Provider><Toast.Viewport><Toast.Root toast={{ id: 'packed', title: 'Packed title', description: 'Packed description', actionProps: { children: 'Packed action' } }} swipeDirection={[]}>
   <Toast.Title>{#snippet render(props, state, children)}<h4 {...props} data-type={state.type}>{@render children?.()}</h4>{/snippet}</Toast.Title>
@@ -104,6 +105,7 @@ assert.match(body, /type="button"/); assert.match(body, /type="submit"/); assert
 assert.match(body, /class="owned base"/); assert.match(body, /data-state="true"/); assert.match(body, /Replacement children/);
 assert.match(body, /<svg/); assert.match(body, /data-orientation="vertical"/); assert.match(body, /Native SVG children/);
 assert.match(body, /alt=""/); assert.match(body, /value="seed"/); assert.match(body, /name="email"/);
+assert.match(body, /<button(?=[^>]*id="packed-tooltip")(?=[^>]*type="button")[^>]*>/);
 assert.match(body, /Packed title/); assert.match(body, /Packed description/); assert.match(body, /Packed action/); assert.doesNotMatch(body, /Ignored action/);
 console.log('Installed native snippet SSR, current catalog root/subpath namespace and manifest facts, real state/children/IDs and retired API exclusion: PASS');
 JS
@@ -114,7 +116,7 @@ node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$snippet_cons
 node "$sveltery_repo_root/packages/base/node_modules/svelte-check/bin/svelte-check" --workspace "$snippet_consumer" --tsconfig ./tsconfig.json
 cat > "$snippet_consumer/DOMConsumer.svelte" <<'SVELTE'
 <script lang="ts">
-  import { Toggle, Checkbox, Switch, Radio, RadioGroup, type HTMLProps, type ToggleState } from '@sveltery/base';
+  import { Toggle, Checkbox, Switch, Radio, RadioGroup, Tooltip, type HTMLProps, type ToggleState } from '@sveltery/base';
   import { createAttachmentKey } from 'svelte/attachments';
   import type { Snippet } from 'svelte';
   import type { HTMLAttributes } from 'svelte/elements';
@@ -125,6 +127,7 @@ cat > "$snippet_consumer/DOMConsumer.svelte" <<'SVELTE'
   let radioInput = $state<HTMLInputElement | null>();
   let groupInput = $state<HTMLInputElement | null>();
   const calls: unknown[][] = [];
+  let formSubmits = 0;
   const key = createAttachmentKey();
   function observer(label: string) {
     return (host: HTMLElement) => {
@@ -134,7 +137,7 @@ cat > "$snippet_consumer/DOMConsumer.svelte" <<'SVELTE'
   }
   const first = observer('first'), next = observer('next');
   export function advance() { stage += 1; }
-  export function snapshot() { return { element, checkboxInput, switchInput, radioInput, groupInput, calls }; }
+  export function snapshot() { return { element, checkboxInput, switchInput, radioInput, groupInput, calls, formSubmits }; }
 </script>
 {#snippet replacement(props: HTMLProps, state: ToggleState, children: Snippet | undefined)}
   <span {...props as HTMLAttributes<HTMLSpanElement>} data-state={String(state.pressed)}>{@render children?.()}</span>
@@ -144,6 +147,7 @@ cat > "$snippet_consumer/DOMConsumer.svelte" <<'SVELTE'
     render={stage >= 2 ? replacement : undefined} {...{ [key]: stage === 0 ? first : next }}>Packed live children</Toggle>
   <Checkbox.Root bind:inputRef={checkboxInput} /><Switch.Root bind:inputRef={switchInput} />
   <RadioGroup defaultValue="selected" bind:inputRef={groupInput}><Radio.Root value="selected" bind:inputRef={radioInput} /></RadioGroup>
+  <form onsubmit={event => { event.preventDefault(); formSubmits += 1; }}><Tooltip.Root><Tooltip.Trigger id="packed-tooltip-default">Tooltip default</Tooltip.Trigger></Tooltip.Root></form>
 {/if}
 SVELTE
 node "$sveltery_repo_root/packages/base/node_modules/svelte-check/bin/svelte-check" --workspace "$snippet_consumer" --tsconfig ./tsconfig.json
@@ -179,6 +183,7 @@ assert.equal(current.tagName, 'BUTTON'); assert.equal(current.getAttribute('type
 assert.equal(current.textContent, 'Packed live children'); assert.equal(app.snapshot().element, current);
 assert(app.snapshot().checkboxInput instanceof HTMLInputElement); assert(app.snapshot().switchInput instanceof HTMLInputElement);
 assert.equal(app.snapshot().radioInput, app.snapshot().groupInput); assert.equal(app.snapshot().groupInput.checked, true);
+const tooltip = document.querySelector('#packed-tooltip-default'); assert(tooltip instanceof HTMLButtonElement); assert.equal(tooltip.type, 'button'); tooltip.click(); flushSync(); assert.equal(app.snapshot().formSubmits, 0);
 assert.deepEqual(app.snapshot().calls, [['attach', 'first', 'BUTTON', true, 'before']]);
 app.advance(); flushSync(); assert.equal(host(), current); assert.equal(host().getAttribute('data-pressed'), '');
 assert.deepEqual(app.snapshot().calls, [['attach', 'first', 'BUTTON', true, 'before'], ['cleanup', 'first', 'BUTTON', true, 'changed'], ['attach', 'next', 'BUTTON', true, 'changed']]);
