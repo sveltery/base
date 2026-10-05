@@ -2,6 +2,7 @@
 // Only renderer entry, callback observation and scenario selection below are native test harness transport.
 import * as React from 'react';
 import { NavigationMenu } from '@base-ui/react/navigation-menu';
+import { Dialog } from '@base-ui/react/dialog';
 import { DirectionProvider } from '@base-ui/react/direction-provider';
 function TestNavigationMenu(
   props: NavigationMenu.Root.Props & {
@@ -892,6 +893,51 @@ function TestNavigationMenuRapidHoverSizing() {
   );
 }
 
+function TestNavigationMenuWithNestedPopup(props: { children: React.ReactNode }) {
+  const { children } = props;
+  return (
+    <NavigationMenu.Root>
+      <NavigationMenu.List>
+        <NavigationMenu.Item value="item-1">
+          <NavigationMenu.Trigger data-testid="trigger-1">Item 1</NavigationMenu.Trigger>
+
+          <NavigationMenu.Content data-testid="popup-1">{children}</NavigationMenu.Content>
+        </NavigationMenu.Item>
+      </NavigationMenu.List>
+
+      <NavigationMenu.Portal>
+        <NavigationMenu.Positioner>
+          <NavigationMenu.Popup>
+            <NavigationMenu.Viewport />
+          </NavigationMenu.Popup>
+        </NavigationMenu.Positioner>
+      </NavigationMenu.Portal>
+    </NavigationMenu.Root>
+  );
+}
+
+function TestNavigationMenuWithDialog() {
+  return (
+    <TestNavigationMenuWithNestedPopup>
+      <Dialog.Root>
+        <Dialog.Trigger data-testid="dialog-trigger">Open dialog</Dialog.Trigger>
+        <Dialog.Portal>
+          <Dialog.Popup
+            data-testid="dialog-popup"
+            onClick={(event) => {
+              event.stopPropagation();
+            }}
+          >
+            <button type="button" data-testid="dialog-button">
+              Dialog button
+            </button>
+          </Dialog.Popup>
+        </Dialog.Portal>
+      </Dialog.Root>
+    </TestNavigationMenuWithNestedPopup>
+  );
+}
+
 type SourceCall = { value: unknown; reason: string; type: string; canceled: boolean };
 export function NavigationMenuSourceOriginal({ scenario, direction = 'ltr', orientation = 'horizontal', side = 'bottom' }: { scenario: string; direction?: 'ltr' | 'rtl'; orientation?: 'horizontal' | 'vertical'; side?: NavigationMenu.Positioner.Props['side'] }) {
   const [value, setValue] = React.useState<unknown>('item-1');
@@ -922,6 +968,7 @@ export function NavigationMenuSourceOriginal({ scenario, direction = 'ltr', orie
   else if (scenario === 'deep-close') node = <TestDeeplyNestedNavigationMenuWithCloseOnClick />;
   else if (scenario === 'tab-boundary') node = <TestInlineNestedNavigationMenuTabForwardBoundary />;
   else if (scenario === 'tab-flow') node = <TestInlineNestedNavigationMenuTabFlow />;
+  else if (scenario === 'dialog') node = <TestNavigationMenuWithDialog />;
   else if (scenario === 'rapid-hover') node = <TestNavigationMenuRapidHoverSizing />;
   else if (scenario === 'kept-content') node = <TestNavigationMenuWithKeepMountedContent />;
   else if (scenario === 'kept-content-closed') node = <TestNavigationMenuWithKeepMountedContentClosed />;

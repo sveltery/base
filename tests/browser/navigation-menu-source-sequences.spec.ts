@@ -80,6 +80,18 @@ for (const reference of [false, true]) test.describe(`${reference ? 'Original Re
     await advance(page, 0);
     await expect(node(page, 'top-level-positioner')).not.toHaveAttribute('data-instant');
   });
+  test('R:2317 nested Dialog pointerdown retains hover-open menu', async ({ page }) => {
+    await visit(page, reference, 'dialog'); await enter(page, 'trigger-1');
+    await dispatch(page, 'dialog-trigger', 'pointerdown', { pointerType: 'mouse' }); await dispatch(page, 'popup-1', 'mouseleave');
+    await input(node(page, 'dialog-trigger'), 'click');
+    await expect(node(page, 'dialog-popup')).toHaveCount(1); await expect(node(page, 'popup-1')).toHaveCount(1); await expect(node(page, 'trigger-1')).toHaveAttribute('aria-expanded', 'true');
+  });
+  test('R:2339 interaction with actual nested Dialog retains menu', async ({ page }) => {
+    await visit(page, reference, 'dialog'); await input(node(page, 'trigger-1'), 'click');
+    await expect(node(page, 'popup-1')).toHaveCount(1); await expect(node(page, 'trigger-1')).toHaveAttribute('aria-expanded', 'true');
+    await input(node(page, 'dialog-trigger'), 'click'); await expect(node(page, 'dialog-popup')).toHaveCount(1);
+    await input(node(page, 'dialog-button'), 'click'); await expect(node(page, 'popup-1')).toHaveCount(1); await expect(node(page, 'trigger-1')).toHaveAttribute('aria-expanded', 'true');
+  });
   test('R:1657 exact callback sequence', async ({ page }) => { await visit(page, reference); await dispatch(page, 'trigger-1', 'click'); await expect.poll(async () => (await snapshot(page)).calls.map(c => c.value)).toEqual(['item-1']); await dispatch(page, 'trigger-2', 'click'); await expect.poll(async () => (await snapshot(page)).calls.map(c => c.value)).toEqual(['item-1', 'item-2']); });
   test('R:1674 canceled callback', async ({ page }) => { await visit(page, reference, 'cancel'); await dispatch(page, 'trigger-1', 'click'); await expect(node(page, 'popup-1')).toHaveCount(0); await expect(node(page, 'trigger-1')).toHaveAttribute('aria-expanded', 'false'); expect((await snapshot(page)).calls).toHaveLength(1); });
   test('R:1904 custom open delay', async ({ page }) => { await visit(page, reference, 'delay'); await enter(page, 'trigger-1', 75); await expect(node(page, 'popup-1')).toHaveCount(0); await advance(page, 50); await expect(node(page, 'popup-1')).toHaveCount(1); await expect(node(page, 'trigger-1')).toHaveAttribute('aria-expanded', 'true'); });

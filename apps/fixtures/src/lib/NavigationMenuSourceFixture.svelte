@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount, untrack } from 'svelte';
   import { NavigationMenu } from '@sveltery/base/navigation-menu';
+  import * as Dialog from '@sveltery/base/dialog';
   import TreeFixture from './NavigationMenuTreeSourceFixture.svelte';
   import { sourceExtraTree } from './navigation-menu-source-trees.js';
   import { rapidHoverAnimationStyles } from './navigation-menu-source-styles.js';
@@ -75,15 +76,22 @@
 {/snippet}
 <DirectionProvider {direction}>
   {#if scenario.startsWith('focus')}<!-- svelte-ignore a11y_consider_explicit_label (Exact archived outside-focus button fixture.) --><button data-testid="first"></button>{/if}
-  {#if scenario === 'rapid-hover'}
+  {#if scenario === 'dialog'}
+    <NavigationMenu.Root><NavigationMenu.List><NavigationMenu.Item value="item-1">
+      <NavigationMenu.Trigger data-testid="trigger-1">Item 1</NavigationMenu.Trigger>
+      <NavigationMenu.Content data-testid="popup-1">
+        <Dialog.Root><Dialog.Trigger data-testid="dialog-trigger">Open dialog</Dialog.Trigger><Dialog.Portal><Dialog.Popup data-testid="dialog-popup" onclick={event => { event.stopPropagation(); }}><button type="button" data-testid="dialog-button">Dialog button</button></Dialog.Popup></Dialog.Portal></Dialog.Root>
+      </NavigationMenu.Content>
+    </NavigationMenu.Item></NavigationMenu.List><NavigationMenu.Portal><NavigationMenu.Positioner><NavigationMenu.Popup><NavigationMenu.Viewport /></NavigationMenu.Popup></NavigationMenu.Positioner></NavigationMenu.Portal></NavigationMenu.Root>
+  {:else if scenario === 'rapid-hover'}
     <NavigationMenu.Root>
       <svelte:element this={'style'}>{rapidHoverAnimationStyles}</svelte:element>
       <NavigationMenu.List style={{ display: 'flex' }}>
         <NavigationMenu.Item value="product"><NavigationMenu.Trigger>Product</NavigationMenu.Trigger><NavigationMenu.Content><div>
           <button type="button" onclick={() => { isProductExpanded = true; }}>Expand Product</button>
-          {#if isProductExpanded}<div style={{ width: '760px', height: '460px' }}>Expanded product panel</div>{:else}<div style={{ width: '700px', height: '420px' }}>Product panel</div>{/if}
+          {#if isProductExpanded}<div style="width:760px;height:460px">Expanded product panel</div>{:else}<div style="width:700px;height:420px">Product panel</div>{/if}
         </div></NavigationMenu.Content></NavigationMenu.Item>
-        <NavigationMenu.Item value="solutions"><NavigationMenu.Trigger>Solutions</NavigationMenu.Trigger><NavigationMenu.Content><div style={{ width: '500px', height: '320px' }}>Solutions panel</div></NavigationMenu.Content></NavigationMenu.Item>
+        <NavigationMenu.Item value="solutions"><NavigationMenu.Trigger>Solutions</NavigationMenu.Trigger><NavigationMenu.Content><div style="width:500px;height:320px">Solutions panel</div></NavigationMenu.Content></NavigationMenu.Item>
       </NavigationMenu.List>
       <NavigationMenu.Portal><NavigationMenu.Positioner><NavigationMenu.Popup data-testid="popup-root" class="test-navigation-menu-popup"><NavigationMenu.Viewport /></NavigationMenu.Popup></NavigationMenu.Positioner></NavigationMenu.Portal>
     </NavigationMenu.Root>

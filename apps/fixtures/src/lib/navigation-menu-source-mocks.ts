@@ -98,9 +98,9 @@ export function spySetProperty(style: CSSStyleDeclaration) {
   const descriptor = Object.getOwnPropertyDescriptor(style, 'setProperty');
   const original = style.setProperty;
   const calls: Array<[property: string, value: string | null, priority?: string]> = [];
-  style.setProperty = function (property, value, priority) {
-    calls.push([property, value, priority]);
-    return original.call(this, property, value, priority);
+  style.setProperty = function (...args: Parameters<CSSStyleDeclaration['setProperty']>) {
+    calls.push(args);
+    return original.apply(this, args);
   };
   return {
     calls,

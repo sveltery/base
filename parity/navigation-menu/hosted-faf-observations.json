@@ -1,0 +1,284 @@
+{
+  "head": "faf01d9bfd672fb361d0eb3d5c61be33e017996e",
+  "tree": "2d3705c4d86592d6fd78e1296b0ec869718c410d",
+  "runId": 37273771466,
+  "jobId": 111646193468,
+  "artifactId": 11329935630,
+  "artifactSha256": "be12b3502af55ec5d0e6f92b17bb9eee32e5942193cb52f226a6d1df95000001",
+  "artifactReceipt": "/workspace/sveltery-pm-evidence/navigation-menu-faf-hosted",
+  "jobReceipt": "/workspace/sveltery-pm-evidence/navigation-menu-faf-hosted-job.log",
+  "browser": "official Chromium153.0.8010.12",
+  "sandbox": true,
+  "workers": 1,
+  "retries": 0,
+  "collected": 656,
+  "passed": 645,
+  "failed": 11,
+  "skipped": 0,
+  "ordinaryCredit": 0,
+  "status": "Actual frozen656 candidates: all328Original pass; native317 pass/11 fail retained. Two native rapid-hover fixture style representation failures and9 native failures remain distinct. Complete protocol/product Source/native review pending",
+  "failures": [
+    {
+      "file": "navigation-menu-parts.spec.ts",
+      "suite": "native Svelte exact parts",
+      "title": "T:238 focus and positioner height follow switched content",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-sizing.spec.ts",
+      "suite": "native Svelte exact sizing",
+      "title": "R:1854 external close preserves measured size",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-sizing.spec.ts",
+      "suite": "native Svelte exact sizing",
+      "title": "R:1858 external close preserves measured size",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-sizing.spec.ts",
+      "suite": "native Svelte exact sizing",
+      "title": "R:3587 kept trigger switches sizing immediately",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-sizing.spec.ts",
+      "suite": "native Svelte exact sizing",
+      "title": "R:3917 temporary zero close retains auto measured size",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-sizing.spec.ts",
+      "suite": "native Svelte exact sizing",
+      "title": "R:3642 stale opening animation cannot reset the switched size",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-sizing.spec.ts",
+      "suite": "native Svelte exact sizing",
+      "title": "R:3724 reopened panel seeds the captured exiting width first",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-sizing.spec.ts",
+      "suite": "native Svelte exact sizing",
+      "title": "T:455 earlier hover cannot overwrite the later popup width",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-sizing.spec.ts",
+      "suite": "native Svelte exact sizing",
+      "title": "T:501 interrupted resize cannot overwrite the later positioner width",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "native Svelte exact Root sequences",
+      "title": "R:2538 nested closeOnClick propagation",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "native Svelte exact Root sequences",
+      "title": "R:2568 nested closeOnClick propagation",
+      "status": "unexpected",
+      "result": "failed"
+    }
+  ],
+  "suiteCounts": {
+    "native Svelte Root conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte List conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Item conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Icon conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Link conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Trigger conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Portal conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Positioner conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Popup conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Backdrop conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Arrow conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Viewport conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Root conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React List conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Item conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Icon conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Link conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Trigger conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Portal conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Positioner conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Popup conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Backdrop conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Arrow conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Viewport conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte exact parts": {
+      "total": 24,
+      "passed": 23,
+      "failed": 1
+    },
+    "Original React exact parts": {
+      "total": 24,
+      "passed": 24,
+      "failed": 0
+    },
+    "native Svelte exact sizing": {
+      "total": 19,
+      "passed": 11,
+      "failed": 8
+    },
+    "Original React exact sizing": {
+      "total": 19,
+      "passed": 19,
+      "failed": 0
+    },
+    "native Svelte exact Root sequences": {
+      "total": 79,
+      "passed": 77,
+      "failed": 2
+    },
+    "Original React exact Root sequences": {
+      "total": 79,
+      "passed": 79,
+      "failed": 0
+    },
+    "native Svelte": {
+      "total": 26,
+      "passed": 26,
+      "failed": 0
+    },
+    "Original React": {
+      "total": 26,
+      "passed": 26,
+      "failed": 0
+    }
+  },
+  "prerequisites": {
+    "immutableFixtureVerification": "passed",
+    "strictInstalledPublicPackageSSRTypes": "passed",
+    "StandardsJob": 111646286611,
+    "Standards": "success",
+    "VerificationJob": 111646286733,
+    "Verification": "failure at fixture svelte-check: three plain native div style props used objects instead of CSS strings",
+    "VerificationReceipt": "/workspace/sveltery-pm-evidence/navigation-menu-faf-verification-failure.log",
+    "optionalWebKit": "skipped",
+    "supplementalDOM42": "passed"
+  },
+  "frameworkTotals": {
+    "Original": {
+      "total": 328,
+      "passed": 328,
+      "failed": 0
+    },
+    "native": {
+      "total": 328,
+      "passed": 317,
+      "failed": 11
+    }
+  }
+}

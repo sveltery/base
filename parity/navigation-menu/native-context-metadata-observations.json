@@ -1,0 +1,39 @@
+{
+  "sourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "originalFile": "packages/react/src/navigation-menu/root/NavigationMenuRootContext.ts",
+  "originalSha256": "00f904aa82791075861bd1627f2dde871e2d7817b89640b0e21ca622c568dd4c",
+  "actualReferenceModule": "/workspace/navigation-menu-base/node_modules/.pnpm/@base-ui+react@1.8.0_@types+react@19.2.18_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/@base-ui/react/navigation-menu/root/NavigationMenuRootContext.js",
+  "actualReferenceSha256": "49b338d75fd20800315ed387c5aa84754b5b30394ca59f47fab7b28a43e8becc",
+  "referenceTransport": "Two separate actual Node processes, NODE_ENV development/production; each imports the actual installed BaseUI1.8.0 private RootContext module through package resolution, with real React19.2.8. No copied/fake context factory. Complete pinned Original and native RootContext bodies read.",
+  "Original": [
+    {
+      "environment": "development",
+      "displayName": "NavigationMenuRootContext",
+      "hasDisplayName": true
+    },
+    {
+      "environment": "production",
+      "displayName": null,
+      "hasDisplayName": false
+    }
+  ],
+  "native": [
+    {
+      "environment": "development",
+      "keyType": "symbol",
+      "description": "NavigationMenuRootContext",
+      "displayName": null
+    },
+    {
+      "environment": "production",
+      "keyType": "symbol",
+      "description": "NavigationMenuRootContext",
+      "displayName": null
+    }
+  ],
+  "nativeTransport": "Actual rendered Native NavigationMenu.Root; actual child getAllContexts obtains the private provided Symbol key. Native debug description stays in both environments; no React context metadata object is emulated.",
+  "nativeReceipt": "/workspace/sveltery-pm-evidence/navigation-menu-native-context-metadata.log",
+  "decision": "User native-Svelte directive authorizes the primitive substitution; independent whole feature/body/correspondence acceptance pending",
+  "ordinaryCredit": 0,
+  "status": "Framework replacement observed; no unchanged React metadata assertion credit"
+}
