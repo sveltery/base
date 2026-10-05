@@ -1,5 +1,7 @@
 # Dialog contract verification
 
+**Current source replacement:** PR #42 now replaces the historical controller/overlay foundation with the whole pinned Dialog business closure, including Viewport and canonical stores/focus/dismissal/portal/scroll helpers. See [whole-source correspondence](source-correspondence.md) and [current feature/API record](../../docs/dialog-first-slice.md). The records below preserve earlier checkpoints; their controller structure, unsupported style objects and D-01/D-02 corrections do not describe the proposed replacement. Whole-source review and current hosted acceptance remain pending; ordinary assertion credits are unchanged.
+
 Cloud Linux, Node 24.19.0, Corepack-selected pnpm 12.6.0, 2026-10-01. Final foundation base: **`c3230bf07318f9494c9ae9aabe11f5e32f7c2a3a`**; upstream: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. Initial preparation originated at `377419099d869fcf1d03463dbd52ea3384c4009e` and was first published as `76c81aa8bb18c7f569b590157f4be7cd16d4455c`.
 
 | Check on final foundation | Result |

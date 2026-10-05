@@ -9,19 +9,34 @@ export function mountStateReference(node: HTMLElement, scenario: string) {
     const actions = useRef<Dialog.Root.Actions>(null);
     const [calls, setCalls] = useState<{ open: boolean; reason: string; trigger: string | null; triggerIsUndefined: boolean }[]>([]);
     const [clicks, setClicks] = useState(0);
+    const [owner, setOwner] = useState(false);
+    const [controlled, setControlled] = useState(true);
+    const [cancel, setCancel] = useState(false);
+    const [order, setOrder] = useState<object[]>([]);
     return h('main', { 'data-hydrated': 'true', ref: node => {
       if (!node) return;
-      const host = node as HTMLElement & { closeDialog?: () => void };
+      const host = node as HTMLElement & { closeDialog?: () => void; controlOwner?: (name: string) => void };
       host.closeDialog = () => actions.current?.close();
-      return () => { delete host.closeDialog; };
+      host.controlOwner = name => {
+        if (name === 'Owner open') setOwner(true);
+        else if (name === 'Owner close') setOwner(false);
+        else if (name === 'Toggle cancel') setCancel(value => !value);
+        else if (name === 'Release control') setControlled(false);
+        else throw new Error(`Unknown owner control: ${name}`);
+      };
+      return () => { delete host.closeDialog; delete host.controlOwner; };
     } },
       h(Dialog.Root, {
         modal: ['native', 'custom', 'undefined'].includes(scenario),
         defaultOpen: scenario === 'missing' || scenario === 'prevent',
         defaultTriggerId: scenario === 'missing' ? 'missing-trigger' : undefined,
-        open: scenario === 'closed' ? false : undefined,
+        open: scenario === 'closed' ? false : scenario === 'controlled' && controlled ? owner : undefined,
         actionsRef: actions,
-        onOpenChange: (open, details) => setCalls(previous => [...previous, { open, reason: details.reason, trigger: details.trigger?.id ?? null, triggerIsUndefined: details.trigger === undefined }]),
+        onOpenChange: (open, details) => {
+          if (cancel) details.cancel();
+          setCalls(previous => [...previous, { open, reason: details.reason, trigger: details.trigger?.id ?? null, triggerIsUndefined: details.trigger === undefined }]);
+          if (scenario === 'controlled') setOrder(previous => [...previous, { channel: 'consumer', open, before: document.getElementById('state-trigger')?.getAttribute('aria-expanded') ?? null, reason: details.reason, canceled: details.isCanceled }]);
+        },
       },
       scenario === 'ownership' ? h(Dialog.Trigger, { id: 'trigger-1' }, 'Trigger 1') : !['missing', 'prevent', 'closed'].includes(scenario) ? h(Dialog.Trigger, { id: 'state-trigger' }, 'Open') : null,
       scenario === 'ownership' && secondTrigger ? h(Dialog.Trigger, { id: 'trigger-2' }, 'Trigger 2') : null,
@@ -39,7 +54,9 @@ export function mountStateReference(node: HTMLElement, scenario: string) {
             },
           }, 'Close')))),
       h('output', { 'data-testid': 'calls' }, JSON.stringify(calls)),
-      h('output', { 'data-testid': 'clicks' }, clicks));
+      h('output', { 'data-testid': 'clicks' }, clicks),
+      h('output', { 'data-testid': 'owner' }, String(owner)),
+      h('output', { 'data-testid': 'order' }, JSON.stringify(order)));
   }
   const root = createRoot(node);
   root.render(h(Fixture));

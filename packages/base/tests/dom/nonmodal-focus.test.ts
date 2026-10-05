@@ -16,6 +16,18 @@ async function setup(reference: boolean, scenario = 'ordinary') {
 afterEach(async () => { for (const stop of cleanup.splice(0)) await stop(); document.body.replaceChildren(); });
 for (const reference of [false, true]) {
   const framework = reference ? 'React reference' : 'Svelte';
+  it(`${framework}: Portal capture restores tabindex before an inside guard chooses its next target`, async () => {
+    await setup(reference);
+    element('after').focus(); await settle();
+    expect(element('first').tabIndex).toBe(-1);
+    expect(element('last').tabIndex).toBe(-1);
+    const beforeOutside = document.querySelector<HTMLElement>('[data-base-ui-focus-guard][data-type=outside]')!;
+    beforeOutside.focus(); await settle();
+    expect(document.activeElement).toBe(element('first'));
+    expect(element('first').tabIndex).toBe(0);
+    expect(element('last').tabIndex).toBe(0);
+    expect(requests()).toHaveLength(1);
+  });
   it(`${framework}: programmatic Popup exit and unrelated outside focus retain the logical tree`, async () => {
     await setup(reference); element('first').focus(); element('after').focus(); await settle();
     expect(document.querySelector('[role=dialog]')).not.toBeNull(); expect(requests()).toHaveLength(1);

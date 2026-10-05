@@ -1,0 +1,97 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "status": "11 ordinary Source declaration bodies adapted and passing after precision rerun; independent review pending, zero ordinary credit. Conformance calls remain separate and unported.",
+  "ordinaryDeclarationCredit": 0,
+  "nativeTest": "packages/base/tests/dom/popover-leaf-source.test.ts",
+  "nativeFixture": "packages/base/tests/dom/PopoverLeafSourceFixture.svelte",
+  "sourceDeclarations": [
+    {
+      "source": "packages/react/src/popover/backdrop/PopoverBackdrop.test.tsx",
+      "line": 16,
+      "name": "sets `pointer-events: none` style on backdrop if opened by hover",
+      "bodySha256": "addaeaa737e8f5d35c494c2d898bff98cf995a670b07bf5a08f43ed89585acfe",
+      "status": "adapted-passing-pending-independent-review",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/backdrop/PopoverBackdrop.test.tsx",
+      "line": 36,
+      "name": "does not set `pointer-events: none` style on backdrop if opened by click",
+      "bodySha256": "3fb95f0cc39c2b99acd9d2e1d08f3cabbaca8f17335815f01b6b51a90f2977a4",
+      "status": "adapted-passing-pending-independent-review",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/close/PopoverClose.test.tsx",
+      "line": 46,
+      "name": "renders when popover is closed",
+      "bodySha256": "173cf5401e6480d1da0e2262a61b7f04b1c01b80ed260e7ad787ae302dbdcbcf",
+      "status": "adapted-passing-pending-independent-review",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/close/PopoverClose.test.tsx",
+      "line": 56,
+      "name": "should close popover when clicked",
+      "bodySha256": "8a4a38b44683b18c4442b20fc0c93d4cf9af381234d19e5274e2f6c93304630c",
+      "status": "adapted-passing-pending-independent-review",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/close/PopoverClose.test.tsx",
+      "line": 78,
+      "name": "keeps the trigger when closing with a tooltip trigger close button",
+      "bodySha256": "d7508a41b14821151168d0031fcb1d350b6023057ed829874f2f09dc32f7dc6b",
+      "status": "adapted-passing-pending-independent-review",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/close/PopoverClose.test.tsx",
+      "line": 120,
+      "name": "falls back to the active trigger element when the active trigger id is unregistered",
+      "bodySha256": "1b963457e739b816304e798d06eb1a808f1e6e8c71e89852b8cad8fc77488fff",
+      "status": "adapted-passing-pending-independent-review",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/close/PopoverClose.test.tsx",
+      "line": 160,
+      "name": "reports no trigger when the active trigger id has no mounted trigger",
+      "bodySha256": "a07e85f789e9434edbaf19fdc4e8ef9cc7427611f7a3a6febc06aeb1977e9972",
+      "status": "adapted-passing-pending-independent-review",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/close/PopoverClose.test.tsx",
+      "line": 184,
+      "name": "enables modal focus management when `modal=true` and close is rendered",
+      "bodySha256": "ca00790c519772a4f0bb497ff34cd2ce895f0126e84f7698f0eb4fe28eb08a76",
+      "status": "adapted-passing-pending-independent-review",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/close/PopoverClose.test.tsx",
+      "line": 206,
+      "name": "enables modal focus management when `modal=\"trap-focus\"` and close is rendered",
+      "bodySha256": "0302b7bf82b78670f533d4be3a832d7862f2400d3f4fe4e70f5839411327061f",
+      "status": "adapted-passing-pending-independent-review",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/description/PopoverDescription.test.tsx",
+      "line": 25,
+      "name": "describes the popup element with its id",
+      "bodySha256": "d26e5aae9a3d72ec99970adcd546b5e22cd6a2548f60fe328774801cde49e89a",
+      "status": "adapted-passing-pending-independent-review",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/title/PopoverTitle.test.tsx",
+      "line": 25,
+      "name": "labels the popup element with its id",
+      "bodySha256": "75609263602b9cab62935678b05e8e5738d4863e3fe363b99a2f13a5c9d3fd8a",
+      "status": "adapted-passing-pending-independent-review",
+      "ordinaryDeclarationCredit": 0
+    }
+  ]
+}

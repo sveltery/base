@@ -1,0 +1,3843 @@
+{
+  "scope": "Nine actual leased/native shared-helper roots; conservative recursive local runtime/type imports. Named barrels and unselected exported bodies may be included; this graph does not claim selected Source-body completeness, manual local review, ordinary declaration credit, or accepted public dependencies.",
+  "immutableOriginalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "ordinaryDeclarationCredit": 0,
+  "roots": [
+    "packages/base/src/lib/utils/popups/inlineRect.ts",
+    "packages/base/src/lib/utils/closePart.svelte.ts",
+    "packages/base/src/lib/floating-ui/components/FloatingDelayGroup.svelte",
+    "packages/base/src/lib/floating-ui/hooks/useDelayGroup.svelte.ts",
+    "packages/base/src/lib/floating-ui/hooks/useClientPoint.svelte.ts",
+    "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
+    "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+    "packages/base/src/lib/utils/FloatingPortalLite.svelte",
+    "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts"
+  ],
+  "moduleCount": 80,
+  "edgeCount": 218,
+  "externalPackages": [
+    "@floating-ui/dom",
+    "@floating-ui/utils/dom",
+    "esm-env",
+    "svelte",
+    "svelte/attachments",
+    "svelte/elements",
+    "svelte/reactivity"
+  ],
+  "modules": [
+    {
+      "path": "packages/base/src/lib/direction-provider/types.ts",
+      "sha256": "a56af048e882453755ad2948782af4f2f832903e031d4812b8da9fc5f4b82aae",
+      "symbols": [
+        {
+          "name": "TextDirection",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "67643be5241405e28f56fb33d531087fc323a89117af58af7b75f10550b81d5d",
+          "scriptIndex": 0
+        },
+        {
+          "name": "DirectionProviderProps",
+          "kind": "InterfaceDeclaration",
+          "sha256": "1631d60b40724ae01c1c68f80d8d43ed2d604f2a50afb393041314d915188713",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/components/FloatingDelayGroup.svelte",
+      "sha256": "8d23edb74b66c224cba535b1487b475313fae308f6b77957fa298df446021e7e",
+      "symbols": [
+        {
+          "name": "Props",
+          "kind": "InterfaceDeclaration",
+          "sha256": "c29c5876bd272ba8ffa1c09e59ac58475a509ab8a73b071f447924acac7388b2",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/components/FloatingDelayGroupContext.ts",
+      "sha256": "4b3543c1123e580357ce02c3038cf89713de565ae310dca44550e7f90bb2a675",
+      "symbols": [
+        {
+          "name": "FloatingDelayGroupContextValue",
+          "kind": "InterfaceDeclaration",
+          "sha256": "523f2af4c3c02b0fce57405d06c88da2aba73a696888670e57c37663be716c2d",
+          "scriptIndex": 0
+        },
+        {
+          "name": "useFloatingDelayGroupContext",
+          "kind": "FunctionDeclaration",
+          "sha256": "4f3c2d82091ceb85ea42ab4b5293f3641492016879838dbc55bb4a8bfd037a95",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+      "sha256": "8111a018d91b947a0468565c84a636f6abb70196309da0a95fa5a4e86b3705b1",
+      "symbols": [
+        {
+          "name": "beforeOutsideFocus",
+          "kind": "FunctionDeclaration",
+          "sha256": "caf14efbbcc61a3c28dc0896fc2e91c097754a3d66ab56cbb3ef9e1a5b2150f3",
+          "scriptIndex": 0
+        },
+        {
+          "name": "afterOutsideFocus",
+          "kind": "FunctionDeclaration",
+          "sha256": "afe1543f9771e85ac73734da395532ee1e49281876d62090a3ae9c5abff2d673",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/components/FloatingPortalContext.ts",
+      "sha256": "897245ee2d655ee10875e45707bca62d75b11170e2cb5b8a575c6a2848533833",
+      "symbols": [
+        {
+          "name": "FocusManagerState",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "02bb01ba5de711947f6c4b9daa8e6b2b2c79f67039319fcaccf2d5d38d07fd5d",
+          "scriptIndex": 0
+        },
+        {
+          "name": "FloatingPortalContext",
+          "kind": "InterfaceDeclaration",
+          "sha256": "f30aef2aaecafff034752b912563054f65562be0d47298fa004806bff12f8da9",
+          "scriptIndex": 0
+        },
+        {
+          "name": "usePortalContext",
+          "kind": "FunctionDeclaration",
+          "sha256": "0b68cf8497e43564f28988f5caa9672b3bdd5afa71e32e50427093a4907071d6",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+      "sha256": "0f82be0f8c5c542753e3fc8bf5356066c20b71e2618b3decfa3698f5b91d5388",
+      "symbols": [
+        {
+          "name": "FloatingRootState",
+          "kind": "InterfaceDeclaration",
+          "sha256": "0b4b448540b53bf1855d3bdd32e7f1823c0a52a6673306083552f285eba93be8",
+          "scriptIndex": 0
+        },
+        {
+          "name": "FloatingRootStoreContext",
+          "kind": "InterfaceDeclaration",
+          "sha256": "4ff7f82532d866418346a721bfa8f9f2b408cd3cc48ba18fc1abb29c71e71415",
+          "scriptIndex": 0
+        },
+        {
+          "name": "FloatingRootStoreOptions",
+          "kind": "InterfaceDeclaration",
+          "sha256": "b2e330d68d9c9cb4c77eb7b8b445cf2dbd662b7307ed4b250503bd3e36a6607f",
+          "scriptIndex": 0
+        },
+        {
+          "name": "FloatingRootStore",
+          "kind": "ClassDeclaration",
+          "sha256": "15de2df0766df06b0e8163ac84f53fa0fc503f2d3751737536f30f3f229021e3",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
+      "sha256": "40e508a5e0b3facfcf178890bb28a79e753d8e713d2e51c514724d4243a32027",
+      "symbols": [
+        {
+          "name": "useFloatingParentNodeId",
+          "kind": "FunctionDeclaration",
+          "sha256": "3788b758be4af212e84093e6710047bfb9d676b946ec57dbb5aff75797838417",
+          "scriptIndex": 0
+        },
+        {
+          "name": "useFloatingTree",
+          "kind": "FunctionDeclaration",
+          "sha256": "6c508a9ca813e87560a199a41d5bd3f0b0e7c3ef4b78b0b9d88710e2502fb4bb",
+          "scriptIndex": 0
+        },
+        {
+          "name": "provideFloatingTree",
+          "kind": "FunctionDeclaration",
+          "sha256": "d4926396781d23b728aca0b1536db833df960a9a13a640a95a191488ef0132d1",
+          "scriptIndex": 0
+        },
+        {
+          "name": "useFloatingNodeId",
+          "kind": "FunctionDeclaration",
+          "sha256": "f73073e351b4f0d96297a08eaaf4669a20d8a1e5be5f8ed938147f571995f407",
+          "scriptIndex": 0
+        },
+        {
+          "name": "provideFloatingNode",
+          "kind": "FunctionDeclaration",
+          "sha256": "ff4515d46df69a2d8715b6335bda352f1aa78d29f9ad633cefb406db25e9382a",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts",
+      "sha256": "eb351b05f9f15cd7acebfe9b093cb42eb07c27073f41bd670633c94c41effdd3",
+      "symbols": [
+        {
+          "name": "FloatingTreeStore",
+          "kind": "ClassDeclaration",
+          "sha256": "92afb6117b0fa3422caee77495487f2abc1af74caf99dcb150cbdde370b12d5e",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/components/PortalContent.svelte",
+      "sha256": "094ca8f25b2d4622ed70767b472ad6cecc481ae92470caa67385c72a3551f603",
+      "symbols": []
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/hooks/useClientPoint.svelte.ts",
+      "sha256": "6a1953adb81d1875979353bffc2d43d1e1b73a32b55e681bfac1c433fba829a0",
+      "symbols": [
+        {
+          "name": "createVirtualElement",
+          "kind": "FunctionDeclaration",
+          "sha256": "95cacbadea9317ec2cd6a177a75c3dfdcab0aec1476b6f9c3a5453a9e9281f80",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isMouseBasedEvent",
+          "kind": "FunctionDeclaration",
+          "sha256": "98b7a2bc8938e8823c2e37898904227e81ff740bad1c6cc153b724db4ae5afbb",
+          "scriptIndex": 0
+        },
+        {
+          "name": "UseClientPointProps",
+          "kind": "InterfaceDeclaration",
+          "sha256": "9f8fefb1ecea423d06b69e7857c93331f620d31ada4c1be007258a2b784dd58f",
+          "scriptIndex": 0
+        },
+        {
+          "name": "useClientPoint",
+          "kind": "FunctionDeclaration",
+          "sha256": "f27daabf9eb5762c08103d8c81f13d4d606d4e5cddf702f8d6873998522ab42e",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/hooks/useDelayGroup.svelte.ts",
+      "sha256": "5fbd431ac803aa0b09543055ff766e2afcb51c9ab1422b1135e8e5098b3982ed",
+      "symbols": [
+        {
+          "name": "resetDelayRef",
+          "kind": "FunctionDeclaration",
+          "sha256": "3bc05cb85ef3b3787f6e1ccd8577a1340b8bbfdc18fefe1967fc35f87e439e71",
+          "scriptIndex": 0
+        },
+        {
+          "name": "UseDelayGroupOptions",
+          "kind": "InterfaceDeclaration",
+          "sha256": "83a5aa1d8c8b8f480076e4948b5bd3c567aed1fbc671ba42a319600b3ae4def3",
+          "scriptIndex": 0
+        },
+        {
+          "name": "UseDelayGroupReturn",
+          "kind": "InterfaceDeclaration",
+          "sha256": "538ba86c2386b572e77ac03990c59d87e7a43edc850b6ebe2849077740240728",
+          "scriptIndex": 0
+        },
+        {
+          "name": "useDelayGroup",
+          "kind": "FunctionDeclaration",
+          "sha256": "881635d13fa5b0f8d83d2f8532208e10c1efe9b6df69bd37107b1b2efae8ba5a",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
+      "sha256": "6bfb1801f9ae16f8cfb97b87357e1b09e306361e1c005355acd7a34b6390a113",
+      "symbols": [
+        {
+          "name": "PortalContainer",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "508e9458cf9793036bbba65cffb511e58a068c6f7324e55608ad83e318caab71",
+          "scriptIndex": 0
+        },
+        {
+          "name": "UseFloatingPortalNodeProps",
+          "kind": "InterfaceDeclaration",
+          "sha256": "d2f87301f716f29a08c251d5baef7efc7aba415f270e7b308a37b8630e16b91c",
+          "scriptIndex": 0
+        },
+        {
+          "name": "UseFloatingPortalNodeResult",
+          "kind": "InterfaceDeclaration",
+          "sha256": "3e644a3e654f9fa5eaf00eb6ca23d7865994619277d4f1d5ff021aa0faae8eb0",
+          "scriptIndex": 0
+        },
+        {
+          "name": "useFloatingPortalNode",
+          "kind": "FunctionDeclaration",
+          "sha256": "e907d648b7102a5add74d127ee1024dfb1355f30345c1a299f4f04ac95a17aa6",
+          "scriptIndex": 0
+        },
+        {
+          "name": "useFloatingPortalContent",
+          "kind": "FunctionDeclaration",
+          "sha256": "ec449358289d196472d04cf70e4a165edece124da845938361cca40acc0f5d5f",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts",
+      "sha256": "27321c9b2a6773e8743846b8af2a51a4339462f8189f1a9cad36b9702b4517df",
+      "symbols": [
+        {
+          "name": "HandleCloseOptions",
+          "kind": "InterfaceDeclaration",
+          "sha256": "0b72c220042f3f730af0a776b28483ce4f3a8e7534b957ebb3402d27817b1310",
+          "scriptIndex": 0
+        },
+        {
+          "name": "HandleCloseContext",
+          "kind": "InterfaceDeclaration",
+          "sha256": "1fb2e11b8a366b4b170acc09f5dfb94887c819e31e0dc0505707d610f456de39",
+          "scriptIndex": 0
+        },
+        {
+          "name": "HandleCloseContextBase",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "c21700f14149472ebea9d667aa322c44bbb68409164afb0f92696aeae558a576",
+          "scriptIndex": 0
+        },
+        {
+          "name": "HandleClose",
+          "kind": "InterfaceDeclaration",
+          "sha256": "f22b0db409692e4ad510def911e6716fa3730293065f32cec2b0d8027f4f2576",
+          "scriptIndex": 0
+        },
+        {
+          "name": "HoverDelay",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "20138d72237d833be7f9ce9aa66970cd7eba78d062562501c0d3a37fb6ba6ec6",
+          "scriptIndex": 0
+        },
+        {
+          "name": "resolveValue",
+          "kind": "FunctionDeclaration",
+          "sha256": "4d9e32446354b2e5e97534efbe794437404c21a191154d3ed84b6d29cc01ca42",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getDelay",
+          "kind": "FunctionDeclaration",
+          "sha256": "192d24d214ae50c48eaa749dab23d922c25559b4b91f7bcc010a4ae2479046e5",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getRestMs",
+          "kind": "FunctionDeclaration",
+          "sha256": "286cbd8baafd80e1be3cfe5721629c79257983003b90f6a536f402a0b6687b55",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isClickLikeOpenEvent",
+          "kind": "FunctionDeclaration",
+          "sha256": "5cc3b361e87bf4b5ed4cc2faf8c44c8d551d2bd996529e4110e9bce195d54144",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isHoverOpenEvent",
+          "kind": "FunctionDeclaration",
+          "sha256": "fc8d443daa41ec48d9dae931d22532daaee0ec3d9c641f7ddf4e149381f52ec1",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
+      "sha256": "144b7492c4df9f20f8da4b4fdbe5a5983219e2370c1fd6a4afef50226559815d",
+      "symbols": [
+        {
+          "name": "useSyncedFloatingRootContext",
+          "kind": "FunctionDeclaration",
+          "sha256": "45c0ba0bdb2ddc88fa45c8e4fb2f8b994bb82a69f3f603b878eec8adcc96fc6c",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/safePolygon.ts",
+      "sha256": "8140d3e4f809bfe3fd1f6831752c66cf0fb811eee32fe4a0a9e33375387776b6",
+      "symbols": [
+        {
+          "name": "hasIntersectingEdge",
+          "kind": "FunctionDeclaration",
+          "sha256": "133a316e2dbb5a70722844935b4577ea1648d72b2a5db07d01ad10b52422e34a",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isPointInQuadrilateral",
+          "kind": "FunctionDeclaration",
+          "sha256": "be5b141d09c3bbaec9126dc006929f2797e43aa63b9c381f745b66f387293432",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isInsideRect",
+          "kind": "FunctionDeclaration",
+          "sha256": "01e65193f52b98591159c5f82990cde792abddcb946c1c726522f58aaf11f782",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isInsideAxisAlignedRect",
+          "kind": "FunctionDeclaration",
+          "sha256": "eac73e2d729b3e3dfad241c7ffe9370b8e9d319538031f1b3a8db1ad8a7b66d6",
+          "scriptIndex": 0
+        },
+        {
+          "name": "SafePolygonOptions",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "f964c5f1feea0f81e53937ce29e8100c9f7ab44990d82c2bbe481a79c10896ad",
+          "scriptIndex": 0
+        },
+        {
+          "name": "safePolygon",
+          "kind": "FunctionDeclaration",
+          "sha256": "5444263ad26b2c00dc7cb3ff48cd8d1172204cb3062502f1ccb1fc828ebf2a2e",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/types.ts",
+      "sha256": "d75465f0e2fa7f46beab37d200f2f9e5a152dd4ca4a5751e5c9ca2811caed3d5",
+      "symbols": [
+        {
+          "name": "FloatingEvents",
+          "kind": "InterfaceDeclaration",
+          "sha256": "d4614ce91ee71e41b1f9b316eeadd7c47b79fbb379281026f4d3859e00f4b8dc",
+          "scriptIndex": 0
+        },
+        {
+          "name": "ContextData",
+          "kind": "InterfaceDeclaration",
+          "sha256": "13dda09ea7db584ed12a31714dc368a0a9c88034b4e29e23632c289316d6fbc9",
+          "scriptIndex": 0
+        },
+        {
+          "name": "ReferenceType",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "3f10ad68b14c4154a6c16a7dcc57e14b8ad29b3437828ce9e2df7b30b0e009eb",
+          "scriptIndex": 0
+        },
+        {
+          "name": "FloatingRootContext",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "ffd4858714cd7395ba2f15f8fd02d635b470c64d636ab2c1660079fdacde71d1",
+          "scriptIndex": 0
+        },
+        {
+          "name": "FloatingContext",
+          "kind": "InterfaceDeclaration",
+          "sha256": "1d105d6acc7a25a26b8e560ebd3a2888042463929be25899ac524f862f640727",
+          "scriptIndex": 0
+        },
+        {
+          "name": "PositionedFloatingContext",
+          "kind": "InterfaceDeclaration",
+          "sha256": "5cf872b3c79852c3d825137502106916395fef76dda428c1a4f8a39b0c7e42d4",
+          "scriptIndex": 0
+        },
+        {
+          "name": "FloatingNodeType",
+          "kind": "InterfaceDeclaration",
+          "sha256": "c466bb7b460c964561f1f63a08f6e2534d666bd9eb2ea56ec55e6e8fa9223bcb",
+          "scriptIndex": 0
+        },
+        {
+          "name": "FloatingTreeType",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "f470c5d4840854e22520cf81625120dc88244e9e82d4011fd86b6c64bcfe0e28",
+          "scriptIndex": 0
+        },
+        {
+          "name": "ElementProps",
+          "kind": "InterfaceDeclaration",
+          "sha256": "c4a0a95c683b3948a9c4f08715fa92721866ec6abd361a0b0d670d50d0ea14c2",
+          "scriptIndex": 0
+        },
+        {
+          "name": "FloatingUIOpenChangeDetails",
+          "kind": "InterfaceDeclaration",
+          "sha256": "b737c2bea27bacbd1b1f7ff2e61f308b9d9a8dd332034c5b15d670980db41f14",
+          "scriptIndex": 0
+        },
+        {
+          "name": "Delay",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "b34b740d228212c38ca041fd7dca2fc7bbd8ef490ca6d25b75b44531204fbdbf",
+          "scriptIndex": 0
+        },
+        {
+          "name": "ExtendedElements",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "f2ff154f163b15019f84ef711ea86dedb9c1db121312d6263b963affd51809c4",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/utils/composite.ts",
+      "sha256": "96b8fde56711a770d9c1936cfae99d9576009539cc5c68ef139f463533893d27",
+      "symbols": []
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/utils/constants.ts",
+      "sha256": "14ac30673b196081a83c1e023ecfd546294733ceb2f756d2bad01e3a9d24880b",
+      "symbols": []
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/utils/createAttribute.ts",
+      "sha256": "24fb1aacf4668a0ada9cfcb8d1f516b3ef7d5022df3f3b0a375394e260f07f4a",
+      "symbols": [
+        {
+          "name": "createAttribute",
+          "kind": "FunctionDeclaration",
+          "sha256": "8668621f286a8fbee37c783de42b37e5e0f6ad14ea134b387cb0f2ed94eac942",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/utils/createEventEmitter.ts",
+      "sha256": "31ebcaf59c98304ec9944e91a86b0a3c3ed31359e76a102ea62c4213f5dff484",
+      "symbols": [
+        {
+          "name": "createEventEmitter",
+          "kind": "FunctionDeclaration",
+          "sha256": "2863359a74838ed9dfc06f845a2701ef6347d38215cb3a67b36e8e8b2fb222f8",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/utils/element.ts",
+      "sha256": "43da99a8e24b9713afaaa52f09f8b21b92681252d1c17824cc246e15400c79eb",
+      "symbols": [
+        {
+          "name": "isTargetInsideEnabledTrigger",
+          "kind": "FunctionDeclaration",
+          "sha256": "6c769065b991635a668d563be11f10a7ab6d742a5e9277a00213ffce7db02cf5",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isEventTargetWithin",
+          "kind": "FunctionDeclaration",
+          "sha256": "85ad0ab320f30eb9f00259748e4cf824fe549658da9673a3c003464f368938a8",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isRootElement",
+          "kind": "FunctionDeclaration",
+          "sha256": "8d86e910ff64dc7574c28af676632d66ff8a9d16dddd57d37356f02f680436ac",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isTypeableElement",
+          "kind": "FunctionDeclaration",
+          "sha256": "a9d41f934a5e1c0c3885408c58d593772d0d88e75babad084d2be1ca11b3a096",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isInteractiveElement",
+          "kind": "FunctionDeclaration",
+          "sha256": "4cf620df8b9d4e440aca211f51f9c243c94e89aad8113d8293b59e4b722d581f",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isTypeableCombobox",
+          "kind": "FunctionDeclaration",
+          "sha256": "bb473f56f0340a90af6047570dd09eefff3268139172f005f8f24b4e4d504f1f",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getFloatingFocusElement",
+          "kind": "FunctionDeclaration",
+          "sha256": "c489ad4bbfe7b5708337d1d828b3e0299add3500cc5f5abe39d3d139920f0eb2",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/utils/event.ts",
+      "sha256": "b489c469d9e2b134b6cd97baa3a408010decf1399dbaa1367a015d70c770832e",
+      "symbols": [
+        {
+          "name": "stopEvent",
+          "kind": "FunctionDeclaration",
+          "sha256": "e90124eaefe3e5a918b82fac86c74b68bd9b83e90068129614a2ce5f84c323fd",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isVirtualClick",
+          "kind": "FunctionDeclaration",
+          "sha256": "ed1d7f0fda4a462b78e76343ad7599b33189c2cef85ca71ed29c63483b852958",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isVirtualPointerEvent",
+          "kind": "FunctionDeclaration",
+          "sha256": "76b47922f66741088869287bfe485f499a7f6fdcc23115c2b7420160f630ef15",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isMouseLikePointerType",
+          "kind": "FunctionDeclaration",
+          "sha256": "aa60d7edd99c2d3422db94ca4d5c0ec1e404ad9ddbc1b07b57316c1c96aa20f5",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isClickLikeEvent",
+          "kind": "FunctionDeclaration",
+          "sha256": "6d1cd9cc8b73ccb3e3480010c63653494d095b15f955486b24dc72dbfd1a670c",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/utils/matchesFocusVisible.ts",
+      "sha256": "b1788640106924aa5e790e88b711fdf02ce942c0ead034aa94be636188f1c3ac",
+      "symbols": [
+        {
+          "name": "matchesFocusVisible",
+          "kind": "FunctionDeclaration",
+          "sha256": "c7368bd8d5210cf4b961480d2d17d3e03dd05a24984b772d1af7b1f6f04719d4",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/utils/nodes.ts",
+      "sha256": "b78d4c24b96237d20d09a60549535fad0d8e61661b38091cbf5368b53c43f544",
+      "symbols": [
+        {
+          "name": "getNodeChildren",
+          "kind": "FunctionDeclaration",
+          "sha256": "fb253e612144dd451251f8eb0bfb9c36574a2ba8342fb3d240c30bfedf6d040b",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getDeepestNode",
+          "kind": "FunctionDeclaration",
+          "sha256": "9a6bd356d477b7d5ab316683fc81df8c2293fc582d7ae3d69457dfaddda125e3",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getNodeAncestors",
+          "kind": "FunctionDeclaration",
+          "sha256": "836d4c67c0b7a1c1ee7e38d88ba6b55f74f3416d84cf4fceb5b2c02ad8f8fad9",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/utils/tabbable.ts",
+      "sha256": "7e890249d9926089244d66728f1957c9b67f980f4459c874081be0c90016cbbb",
+      "symbols": [
+        {
+          "name": "FocusableElement",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "a0bde0bff14b91e126984075684d110cf5379f707dee8d1c8b4a94825b5570a3",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getParentElement",
+          "kind": "FunctionDeclaration",
+          "sha256": "550e2ffac6e2880c5a85e19dd5c08d61d8789de0ddeec5d60c9ee2f7c09faba9",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getDetailsSummary",
+          "kind": "FunctionDeclaration",
+          "sha256": "6c1a63654b65cbb18234c4949e1d00d628d21a7239c06452c08697102fc77523",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isWithinOpenDetailsSummary",
+          "kind": "FunctionDeclaration",
+          "sha256": "e8450e5724cfba2e58bb24d3ef62bfd6bbbe3110f135170e3726571d383a9f54",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isFocusableCandidate",
+          "kind": "FunctionDeclaration",
+          "sha256": "aed1ae9f8e4ec4fe5973cee0d8265c4c4e9b2617875a228dc87bbcf9992effcc",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isFocusableElement",
+          "kind": "FunctionDeclaration",
+          "sha256": "34288a42333be8e38d83bb2e460a856b2f2f2e61d0ad48ad7c91c95ded4727df",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isVisibleInTabbableTree",
+          "kind": "FunctionDeclaration",
+          "sha256": "e8bb8482d442a5878a54ceddbb5cce47a628ce07e315f1ad8be8dd26f8dd9fd2",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getTabIndex",
+          "kind": "FunctionDeclaration",
+          "sha256": "365afd0bb84eb09dcb9d225c8c91683598c08d1c144513ebfa1347f139c017b0",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getNamedRadioInput",
+          "kind": "FunctionDeclaration",
+          "sha256": "b3d5e0eb73fbe3ad66737386715b92ecde4a45e7aaf0561b20b9937a805b100e",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isTabbableRadio",
+          "kind": "FunctionDeclaration",
+          "sha256": "f9431ea7b719c13c0bc2cb53e5381fe13a07ca6adc67b8ba9845f07ebd10a530",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getComposedChildren",
+          "kind": "FunctionDeclaration",
+          "sha256": "14cc0bae93701aba3326f3d6fa32383b723bb018b1bf68e30870382710b77a4d",
+          "scriptIndex": 0
+        },
+        {
+          "name": "appendCandidates",
+          "kind": "FunctionDeclaration",
+          "sha256": "efc4a08a1cd34598046fc7acee91ac4eb043d455358c1e014d2dd8e1a0cf0845",
+          "scriptIndex": 0
+        },
+        {
+          "name": "appendMatchingElements",
+          "kind": "FunctionDeclaration",
+          "sha256": "9ccab4fc77722d7eb006ac05a65e9ab3254f8517a84ae8320289718487a7b6af",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isTabbable",
+          "kind": "FunctionDeclaration",
+          "sha256": "4cd9b5f29fba77a24fc8af26ea2ff72fbb4590f7523b77d13f41efa8b492c82e",
+          "scriptIndex": 0
+        },
+        {
+          "name": "focusable",
+          "kind": "FunctionDeclaration",
+          "sha256": "ae1ddf85f1f57c4c04bbe49dd863f62700b364b0b1bb9aa8daf5e54a6614e38d",
+          "scriptIndex": 0
+        },
+        {
+          "name": "tabbable",
+          "kind": "FunctionDeclaration",
+          "sha256": "b6b6845d4241071c59b799e5d685715bce9e66bdaf249e91b9a4969260fa88b1",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getTabbableIn",
+          "kind": "FunctionDeclaration",
+          "sha256": "3a7fe3818ac6c771b6e5be7d8b011e24f8889f20b19199fc2205227e2f70b00c",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getNextTabbable",
+          "kind": "FunctionDeclaration",
+          "sha256": "684ad2ede889339c91ecffbdd081aecd73cf82468136e00165405b57f0056f78",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getPreviousTabbable",
+          "kind": "FunctionDeclaration",
+          "sha256": "aa33b31a0b2dccb837647e0d5e7309e2f2ffde0ef7a39e0f8cdb2853fb76622d",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getTabbableNearElement",
+          "kind": "FunctionDeclaration",
+          "sha256": "6b268d5a6b74ba4d47502f655034ca010969c6434b99adbcfb932777e6deead8",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getTabbableAfterElement",
+          "kind": "FunctionDeclaration",
+          "sha256": "fa6af46b1cb8710fb1d993a79e56fce4e1e703246fa72076262dc06cc3b50ebb",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getTabbableBeforeElement",
+          "kind": "FunctionDeclaration",
+          "sha256": "16184f09f88c94ec76a4a7606e925477ae9ca29a9f165feee0064443032aeaba",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isOutsideEvent",
+          "kind": "FunctionDeclaration",
+          "sha256": "e39a073a549548d844dd8de6a1b83b8a1fddb37ea5d9e9c6da039f122102e2d3",
+          "scriptIndex": 0
+        },
+        {
+          "name": "disableFocusInside",
+          "kind": "FunctionDeclaration",
+          "sha256": "547c83ce01bf8372beeb8e2671c047ca5c9d63d19c939f7e38af81491a0a4663",
+          "scriptIndex": 0
+        },
+        {
+          "name": "enableFocusInside",
+          "kind": "FunctionDeclaration",
+          "sha256": "bedb73a27348cc50c7c7a01cc681b4e0bc98eba0c4c86372edaffc2d50d6875d",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/internals/composite/composite.ts",
+      "sha256": "938a8b4ede73c5b5655a800777fe4748a94786a05bf828129de299c04cf94673",
+      "symbols": [
+        {
+          "name": "isHTMLElement",
+          "kind": "FunctionDeclaration",
+          "sha256": "7291ad5cdd76f4c56cb7e701ec8811a8cad4b0b284ca77e3162a40f54e7dc80d",
+          "scriptIndex": 0
+        },
+        {
+          "name": "ModifierKey",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "7f3b264851cff5534a5434550735e39f1dddbd2525b716682fd726eb4e4a5357",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isInputElement",
+          "kind": "FunctionDeclaration",
+          "sha256": "33dbd4d76cc35ac37ca656905940e583140f2f26624ea957b068a697c0dbd25c",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isNativeInput",
+          "kind": "FunctionDeclaration",
+          "sha256": "d1041faec973d3f6c26668fed414c37455851bf877ed0a369a832c480df68228",
+          "scriptIndex": 0
+        },
+        {
+          "name": "scrollIntoViewIfNeeded",
+          "kind": "FunctionDeclaration",
+          "sha256": "c9ca7a482be8cddcd24eb57d666d1df81b8be46a815d0387088610e0acf661ce",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getOffset",
+          "kind": "FunctionDeclaration",
+          "sha256": "e1d85184bcec0151b371865d89755a37dc406c6748bf94443f4f1fd5521e6886",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getStyles",
+          "kind": "FunctionDeclaration",
+          "sha256": "9d564f0894f4a25297f66a3daadf2f0ce3cf6e79ae87a7d76e56069cd13c227d",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/internals/composite/utils/navigation.ts",
+      "sha256": "bb61a6e117cc345c347a3a29618d01e6e608ef1027b8e6464e072d8b70b4a0aa",
+      "symbols": [
+        {
+          "name": "getComputedStyle",
+          "kind": "FunctionDeclaration",
+          "sha256": "55ae58e4b1b6519d46498d314e54a0c275f4f0256b5ccfc60ac6ef75db33bc72",
+          "scriptIndex": 0
+        },
+        {
+          "name": "Dimensions",
+          "kind": "InterfaceDeclaration",
+          "sha256": "c31476d288ae102a600672fee2d29161319fe3e06a9accfc64117e1d6cd64393",
+          "scriptIndex": 0
+        },
+        {
+          "name": "DisabledIndices",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "4021da287fb69a4d98c6c6d4223cc8dc229e75a90f08e0d54870b9bd69d8a820",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isDifferentGridRow",
+          "kind": "FunctionDeclaration",
+          "sha256": "aed1f92e48ec96c042140c36f02ed284796ee5b93a9dfce6385a55bef3f2650f",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isIndexOutOfListBounds",
+          "kind": "FunctionDeclaration",
+          "sha256": "c7dc9eea5722e6e9b4261e030199e1ce5941a51cc54ce02b39aca933ce12d68e",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getMinListIndex",
+          "kind": "FunctionDeclaration",
+          "sha256": "5b5099381b2201f5ad6c9712c2e029559f0962e53a9c57a90364747e57bfd007",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getMaxListIndex",
+          "kind": "FunctionDeclaration",
+          "sha256": "78f7db663fefc30a435a74f69272fc041e0a0901012dac4da91a62d96cf83c41",
+          "scriptIndex": 0
+        },
+        {
+          "name": "findNonDisabledListIndex",
+          "kind": "FunctionDeclaration",
+          "sha256": "ff23d2c40ebe8f77004efa42765466884796b1debebb70d6dfe4e8255b6fe8ab",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getGridNavigatedIndex",
+          "kind": "FunctionDeclaration",
+          "sha256": "f08046afb393c83128766517b8a74af7353a8c726da401512b25bf4d39373210",
+          "scriptIndex": 0
+        },
+        {
+          "name": "createGridCellMap",
+          "kind": "FunctionDeclaration",
+          "sha256": "51ff90eff6ed4c08a096534fd09691a53ef450cacb984383161a2a469326fe60",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getGridCellIndexOfCorner",
+          "kind": "FunctionDeclaration",
+          "sha256": "3779b6288606ffda6f62a96ed34120aa48c6ecd59a0e3f2c9195430217befcaa",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getGridCellIndices",
+          "kind": "FunctionDeclaration",
+          "sha256": "ef769e2fa0d5a8948be7a539a6ce2148ec29d969bbfde3bf87c68acd1570d514",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isListIndexDisabled",
+          "kind": "FunctionDeclaration",
+          "sha256": "701dd3cb2aa5008605f87b14455b3a8c5652b4abdd4914cd2d3a58ec16c8bf09",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isHiddenByStyles",
+          "kind": "FunctionDeclaration",
+          "sha256": "4c54eb9a2fd686ad4d132ceb25205915cbaaef530882662eb275aabd1305fae5",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isElementVisible",
+          "kind": "FunctionDeclaration",
+          "sha256": "2484f399f3c898233c7ad99f447431172995709a0955969a6c1ad6b9ec14c1f5",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/internals/constants.ts",
+      "sha256": "de12c9af7ce208e69f24e5bbfefb3df6840e5b4f284109597087188a338c6893",
+      "symbols": []
+    },
+    {
+      "path": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+      "sha256": "1a9cb6cde2734d421a1bfb03ece9c744584b7e115a0eb3b9de974c22ab8ee684",
+      "symbols": [
+        {
+          "name": "ReasonToEventMap",
+          "kind": "InterfaceDeclaration",
+          "sha256": "2c809089fb652316ed1cb5f80e82d39e0880fc9ad7d1ae05ccffb0aace58aa29",
+          "scriptIndex": 0
+        },
+        {
+          "name": "ReasonToEvent",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "b57977dc39fba2ee86c0191c85919922efd21441786ee98326331542d47b6504",
+          "scriptIndex": 0
+        },
+        {
+          "name": "BaseUIChangeEventDetail",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "40417f2a77dcbbe2718f03d7cb7e76f8eacc6e955a5fdf306df555c9a5d1a773",
+          "scriptIndex": 0
+        },
+        {
+          "name": "BaseUIChangeEventDetails",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "44923d5872cef675bf83d64288bd835a809a2220f4fc61043ad8e3a3a6a7fe90",
+          "scriptIndex": 0
+        },
+        {
+          "name": "BaseUIGenericEventDetail",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "1c8e7ed984157502e835ee7218cd3eef9040f68079cfa5c42543c8766b39e518",
+          "scriptIndex": 0
+        },
+        {
+          "name": "BaseUIGenericEventDetails",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "18ba5e89b06fef827df98391c2a51da7024d0fd3dac2b08a7d6a89491ee523bf",
+          "scriptIndex": 0
+        },
+        {
+          "name": "createChangeEventDetails",
+          "kind": "FunctionDeclaration",
+          "sha256": "996b12af4ff9f567a25fe9972abdde1605a97bcbfc50ec461d1c6d20dd9bb1cd",
+          "scriptIndex": 0
+        },
+        {
+          "name": "createGenericEventDetails",
+          "kind": "FunctionDeclaration",
+          "sha256": "f45faeedb1d8147ce5c44a2ce71a168373efe202927e6c2f332ceb63e8c0c483",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+      "sha256": "e48367a890024a54cb200eabc5c2a0ba0a397256baacfaec8b0a05ced3b10344",
+      "symbols": [
+        {
+          "name": "StateAttributesMapping",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "881cf6488cc06ff52dae502ce9fc3feaa5cc797fafe09d5174dd3501ea9e8053",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getStateAttributesProps",
+          "kind": "FunctionDeclaration",
+          "sha256": "8d301556d6cbde71cabdb39cefab937ac397209d73d490edb7a04bb546228c11",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/internals/nativeProps.ts",
+      "sha256": "d6b3999ffe54e8c70e0dcdac61474b3bf9f53e60f3b1207dd4f976ef5212e4eb",
+      "symbols": [
+        {
+          "name": "NativeStyle",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "1a2e758f5cd7fcf26cc6ef9dabdbfe0dee8dfe92a32333e22e5ee7fc3e7e74c0",
+          "scriptIndex": 0
+        },
+        {
+          "name": "toNativeStyle",
+          "kind": "FunctionDeclaration",
+          "sha256": "5245510fa6b881f4c60a31f31d6cfdfb40d5ff414bda315505edd2e6a9f54e2d",
+          "scriptIndex": 0
+        },
+        {
+          "name": "mergeNativeStyles",
+          "kind": "FunctionDeclaration",
+          "sha256": "d0c88c2c289361dbbf1f9dc9e18fb7b47d166641e860ab70a45113eaea9672c1",
+          "scriptIndex": 0
+        },
+        {
+          "name": "toNativeClass",
+          "kind": "FunctionDeclaration",
+          "sha256": "87054f84404966fdc538cb20582df91c9337f9a74370e99ead3c7f15c35a03db",
+          "scriptIndex": 0
+        },
+        {
+          "name": "copyAttachmentSymbols",
+          "kind": "FunctionDeclaration",
+          "sha256": "6735940d3877a71e2cadea49159c39b94e58658d1c3c5d308da6993c41c1474c",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+      "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319",
+      "symbols": [
+        {
+          "name": "NativeRefAttachment",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "050705fc2cc04e922b21795f9b8e5e4539ebb14d4b52a76bd0497d2a10aea548",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isNativeRefAttachment",
+          "kind": "FunctionDeclaration",
+          "sha256": "b97cf9acf8ca97bbb414142a59e490c05d399efd991982b0fe1b543968aa6a77",
+          "scriptIndex": 0
+        },
+        {
+          "name": "createRefAttachment",
+          "kind": "FunctionDeclaration",
+          "sha256": "b1d8742a727d3a682adc1d91966826a2e23f0fa9a0718e120cbf12d72ef2e58e",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/internals/reason-parts.ts",
+      "sha256": "0326d21ce4be2c41b5488c86e3687249faf3c51f5e10ae49c16e8efdc183abf5",
+      "symbols": []
+    },
+    {
+      "path": "packages/base/src/lib/internals/reasons.ts",
+      "sha256": "f1f52caeefb14448a7e7c9833e24413b923b7bbf40aa1818ca73dc93710b42e7",
+      "symbols": [
+        {
+          "name": "BaseUIEventReasons",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "9efd3e0e780ffbd03e04fc29b18ccce1cd860237aa81b438ba9d91544149bc17",
+          "scriptIndex": 0
+        },
+        {
+          "name": "BaseUIEventReason",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "3859385eb2b0ce0f2077d8700ae1ebbc70da414b53d3f42a608ffa82da43be30",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/internals/RenderElement.svelte",
+      "sha256": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5",
+      "symbols": []
+    },
+    {
+      "path": "packages/base/src/lib/internals/resolveClassValue.ts",
+      "sha256": "584323b17cb1733a798e9ff86e9ff783d6a26d08ecf005a8c2b3c69917c1e722",
+      "symbols": [
+        {
+          "name": "tokens",
+          "kind": "FunctionDeclaration",
+          "sha256": "18e73bc0ab4eb4a403b7fed911d5bcf4d47e8019c951f86d526de6712e230f6c",
+          "scriptIndex": 0
+        },
+        {
+          "name": "resolveClassValue",
+          "kind": "FunctionDeclaration",
+          "sha256": "5e32a092501a094bebe30a0c510754aede28faf384d3a8bbf963f6aaca541673",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/internals/TransitionStatusDataAttributes.ts",
+      "sha256": "d3e4a31041bcc80ba21b330d3fedadfadaeae3f498dc09e078e70470cfb98dfe",
+      "symbols": []
+    },
+    {
+      "path": "packages/base/src/lib/internals/types.ts",
+      "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
+      "symbols": [
+        {
+          "name": "HTMLProps",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "7bfdd68608ae8038a9066ad1755b7715e7d5d12fda200b8ad02e5667ce436ca1",
+          "scriptIndex": 0
+        },
+        {
+          "name": "ComponentRenderFn",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "41ef657ebc798f02fea17a9a22bfdf5a126fed325b20bff549399ae66425430f",
+          "scriptIndex": 0
+        },
+        {
+          "name": "BaseUIEvent",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "a2b528b06abc6b19d26b7158e6b13c6239dbf50baf00c56d1d268e247a89ca48",
+          "scriptIndex": 0
+        },
+        {
+          "name": "WithPreventBaseUIHandler",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "c7cf713224e3e23bfa5a07727b820bde6a809b91595453f0abd28393ec65a313",
+          "scriptIndex": 0
+        },
+        {
+          "name": "WithBaseUIEvent",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "5154c1b31ec1e901375c02c71b30c48914e475fd441dbd3fdb1408be0980a422",
+          "scriptIndex": 0
+        },
+        {
+          "name": "BaseUIComponentProps",
+          "kind": "InterfaceDeclaration",
+          "sha256": "f95c31f44acc097619d97b4270566f46e450076b9d00de7ef5221eea3df9821c",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/internals/useAnimationsFinished.ts",
+      "sha256": "0ae8873174969326a7ac09377ab019af5cd575bbdfde7df9118317d0ec1c1e30",
+      "symbols": [
+        {
+          "name": "flushBeforePaint",
+          "kind": "FunctionDeclaration",
+          "sha256": "d8db7ee86814a60117e4855ea53caf1fabb5edf38b9d91a028d9fcf77ae0aef0",
+          "scriptIndex": 0
+        },
+        {
+          "name": "useAnimationsFinished",
+          "kind": "FunctionDeclaration",
+          "sha256": "6892b748313f63ac9a0a60599d2b8eb25f0c484520796e426b01c3e0dba03e14",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+      "sha256": "5e966dd1b10cbc1ed448d3583ca948a384d812f9e71afc1e128395485575931f",
+      "symbols": [
+        {
+          "name": "UseOpenChangeCompleteParameters",
+          "kind": "InterfaceDeclaration",
+          "sha256": "7b17031175656804f6bb7be1afb3fb5b09513952019ebed9bd662fa217fbfc25",
+          "scriptIndex": 0
+        },
+        {
+          "name": "useOpenChangeComplete",
+          "kind": "FunctionDeclaration",
+          "sha256": "a782bf92c5bc3a6a9c791204c8edf0fa17fd87b0d8a55c19afc70b281bd44e2c",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/internals/useRenderElement.ts",
+      "sha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
+      "symbols": [
+        {
+          "name": "createRenderElement",
+          "kind": "FunctionDeclaration",
+          "sha256": "b647f08a62452cd0e67d31532bbb907669e0bafde8f14a82f95c64dd15e5320b",
+          "scriptIndex": 0
+        },
+        {
+          "name": "resolveRenderFunctionProps",
+          "kind": "FunctionDeclaration",
+          "sha256": "880a41c79a43582ef3bafdbdca9fb726b91eb9dc5cf95de755e16920e682df56",
+          "scriptIndex": 0
+        },
+        {
+          "name": "evaluateRenderProp",
+          "kind": "FunctionDeclaration",
+          "sha256": "d397461ade27363dde76ec8a9a741417e68d6157b33cf6b415e2e437d3e868f7",
+          "scriptIndex": 0
+        },
+        {
+          "name": "renderTag",
+          "kind": "FunctionDeclaration",
+          "sha256": "1375dec5bd1e91fd3cf9278669c2b8703e7e2a8c110ef81f6c864aaaacfc414d",
+          "scriptIndex": 0
+        },
+        {
+          "name": "NativeRenderDescriptor",
+          "kind": "InterfaceDeclaration",
+          "sha256": "89d6938b404653842af36c40bfb2d6be236b89ffbd8cbe7266f9d3d3dbcedaa8",
+          "scriptIndex": 0
+        },
+        {
+          "name": "UseRenderElementParameters",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "8897c67a8ebccf686434dbe6d9cf4bece80eaa157fd3ff194ea96ac8b1280b21",
+          "scriptIndex": 0
+        },
+        {
+          "name": "UseRenderElementComponentProps",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "84e79f6469fee4d01704aec008f911e2965ae58a5750528a32819964b8f3b012",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+      "sha256": "1236abbbe5a5e1dec17c77d51d704f3f03e48ecdd34f85a995e1dde00c60c54b",
+      "symbols": [
+        {
+          "name": "TransitionStatus",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "cd265f92f24f2a11ef0626678a864594a6104e3bf17abd36b426d8d0bdf370bf",
+          "scriptIndex": 0
+        },
+        {
+          "name": "useTransitionStatus",
+          "kind": "FunctionDeclaration",
+          "sha256": "77140656a6d7711a66dc6a2c10955117414220a4321a55aac3790e6bf2e6e889",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/merge-props/index.ts",
+      "sha256": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68",
+      "symbols": []
+    },
+    {
+      "path": "packages/base/src/lib/merge-props/mergeProps.ts",
+      "sha256": "7a097b833ae8854c5a26e34009adfb4e0297dd50f56ad5f0c1ac8afa8187f98b",
+      "symbols": [
+        {
+          "name": "PreventableEvent",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "eb9ac06cc3684a805a70e0ca3d47b657638e349cacb7d24316f482fccf587dda",
+          "scriptIndex": 0
+        },
+        {
+          "name": "Props",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "195274195bed978e090b21ea17efb889e71e811e3521340ae5682750329faa9d",
+          "scriptIndex": 0
+        },
+        {
+          "name": "InputProps",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "e68621259584e864c007946eb93e02d4e470ad7a867d0435bc4f60368f5d32ee",
+          "scriptIndex": 0
+        },
+        {
+          "name": "Handler",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "4c2d9b0c6552ab98e3e85ca6fd93ac212e5aad42b346159bc7eff944aaaccbb4",
+          "scriptIndex": 0
+        },
+        {
+          "name": "mergeProps",
+          "kind": "FunctionDeclaration",
+          "sha256": "d4a3325d351ebc2054cc341a23cd246e82dd00db2ca9cff20867f648409699ef",
+          "scriptIndex": 0
+        },
+        {
+          "name": "mergeProps",
+          "kind": "FunctionDeclaration",
+          "sha256": "57e043518789d3c67a0a799b2b4db8be0b9e179a777efe39c81ac5b63b4324e0",
+          "scriptIndex": 0
+        },
+        {
+          "name": "mergeProps",
+          "kind": "FunctionDeclaration",
+          "sha256": "8f6d91ce4c53c33b12ada8eb118d59d0558fb1e244378b00b1e8034311542e4e",
+          "scriptIndex": 0
+        },
+        {
+          "name": "mergeProps",
+          "kind": "FunctionDeclaration",
+          "sha256": "0139bb239a6205666ba2270db639ed76d6e11dc92aab8c55fd800e4e75aea3c6",
+          "scriptIndex": 0
+        },
+        {
+          "name": "mergeProps",
+          "kind": "FunctionDeclaration",
+          "sha256": "1c6e467e8125b15c2dcc59054a9cff38d98670f12ffa46ee259e4fdc902ec4fb",
+          "scriptIndex": 0
+        },
+        {
+          "name": "mergeProps",
+          "kind": "FunctionDeclaration",
+          "sha256": "16bd3551c3ce75896e85267f30c5e9c2ae2aadd5e37c20dab4e33b997a59b8a6",
+          "scriptIndex": 0
+        },
+        {
+          "name": "mergeProps",
+          "kind": "FunctionDeclaration",
+          "sha256": "92e1427a8591795200d7c8bdc52c139abfcc5ffbdef4c8b18319c08ac8247889",
+          "scriptIndex": 0
+        },
+        {
+          "name": "mergePropsN",
+          "kind": "FunctionDeclaration",
+          "sha256": "0cb5cc98b550c04029d01d19160d60e9f1c7ea5afe3d579f578a7cdbb483fe6a",
+          "scriptIndex": 0
+        },
+        {
+          "name": "createInitialMergedProps",
+          "kind": "FunctionDeclaration",
+          "sha256": "4b2c445cdca5a056615310b66323b5ca205e8ac3b03f7b83b2be525a4cf2ea89",
+          "scriptIndex": 0
+        },
+        {
+          "name": "mergeInto",
+          "kind": "FunctionDeclaration",
+          "sha256": "ee730a32d6c593e5cab7775e3c8bec9895fec8b181ec8f70a6396ef690e5771f",
+          "scriptIndex": 0
+        },
+        {
+          "name": "copyInitialProps",
+          "kind": "FunctionDeclaration",
+          "sha256": "dcad433e4b5518886d6bde8227e3cd7b6699ad23c79001007c4159c2fb313f8e",
+          "scriptIndex": 0
+        },
+        {
+          "name": "mutablyMergeInto",
+          "kind": "FunctionDeclaration",
+          "sha256": "7e2a753fe82219beac26ba0f2048afaad89b9a439830abc130c1cc021090062b",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isEventHandler",
+          "kind": "FunctionDeclaration",
+          "sha256": "53eb197df7db70b0da6f66cd014a68e7ed419707e20769675fb30e57d5091f73",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isPropsGetter",
+          "kind": "FunctionDeclaration",
+          "sha256": "32c80341c146fac24bc73ac295a0d14cc4db8037360e5ed453e22f29a038233c",
+          "scriptIndex": 0
+        },
+        {
+          "name": "resolvePropsGetter",
+          "kind": "FunctionDeclaration",
+          "sha256": "181e43eb0ca803c557a21b56c5cf955099861c247ca937026deb66072e4f7aa5",
+          "scriptIndex": 0
+        },
+        {
+          "name": "mergeEventHandlers",
+          "kind": "FunctionDeclaration",
+          "sha256": "48a25fc8abbe12cc9488b99ba23c8c98253392335bfdcf46eca08e6c4ddcd9bd",
+          "scriptIndex": 0
+        },
+        {
+          "name": "wrapEventHandler",
+          "kind": "FunctionDeclaration",
+          "sha256": "85682b58d008c123e1fae838901bf6ec31a3704e52f3c40c95382a4143942f56",
+          "scriptIndex": 0
+        },
+        {
+          "name": "makeEventPreventable",
+          "kind": "FunctionDeclaration",
+          "sha256": "e7ffba1aefb74f4ffef2708150baf28e1b55412358d77185745574b7b5288129",
+          "scriptIndex": 0
+        },
+        {
+          "name": "mergeClassNames",
+          "kind": "FunctionDeclaration",
+          "sha256": "a17545be45f71e90c4ee6e8511e5a5d7e6880d44e0aea82d7396dcbdac6f8a9a",
+          "scriptIndex": 0
+        },
+        {
+          "name": "isSyntheticEvent",
+          "kind": "FunctionDeclaration",
+          "sha256": "95ea9afa3a4959763cb8abc67e51d8f119d015f528a71e2df1a53245fdea5231",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/addEventListener.ts",
+      "sha256": "77880d75a5c8c5ac2d924e69d7cc7662c616b953d4895c8e6a24de53de4502bf",
+      "symbols": [
+        {
+          "name": "EventTargetWithListeners",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "88db4185d5b449086911de5e7aa0355918d30df462591a6095d05b618b8287ef",
+          "scriptIndex": 0
+        },
+        {
+          "name": "KnownEventTarget",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "f025b3367e994e2e42b619431b1e9e1793905cf455fba86689cf20ebdff6031e",
+          "scriptIndex": 0
+        },
+        {
+          "name": "EventMap",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "a53a6e68a842c745a3ca7e084c5cd51278dacfc6aface640d8bb6d7faaaa622d",
+          "scriptIndex": 0
+        },
+        {
+          "name": "TypedEventListener",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "7a5c5362271babea54646e857b5299189f2ff430531d77ec3110e26d42d25bc4",
+          "scriptIndex": 0
+        },
+        {
+          "name": "addEventListener",
+          "kind": "FunctionDeclaration",
+          "sha256": "92d09575c58b4069c3ff91bf9364ab3bc4a0565e8885357762f4c3a952f46bb1",
+          "scriptIndex": 0
+        },
+        {
+          "name": "addEventListener",
+          "kind": "FunctionDeclaration",
+          "sha256": "e8ebb8af5ae2c19c04f71417aa1948534ea40ad6cb79e69e318c9c843fac1ce1",
+          "scriptIndex": 0
+        },
+        {
+          "name": "addEventListener",
+          "kind": "FunctionDeclaration",
+          "sha256": "7d0437943113ec7da574a05953b2043ab981eac906b27e9bcd05927c515d4dd7",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/closePart.svelte.ts",
+      "sha256": "cf4f7d4a7a2d5616522a165bba1fc8a56ab08a1f746c9872f9cd8e8ad8451466",
+      "symbols": [
+        {
+          "name": "ClosePartContextValue",
+          "kind": "InterfaceDeclaration",
+          "sha256": "e7ae60d1d5f0fed805190b7158b0c77e50cff98533ba1bef8436c77ad8e040ed",
+          "scriptIndex": 0
+        },
+        {
+          "name": "useClosePartCount",
+          "kind": "FunctionDeclaration",
+          "sha256": "71248e7bd1095a99d5004b3d0e19fd5c54c63caae0d5a2ab0c3c48cb68c78736",
+          "scriptIndex": 0
+        },
+        {
+          "name": "useClosePartRegistration",
+          "kind": "FunctionDeclaration",
+          "sha256": "5b01dfb8cb1271ec6021ec222e1426c1b722d8a6772921dbd2793678ae5cb82c",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/empty.ts",
+      "sha256": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b",
+      "symbols": [
+        {
+          "name": "NOOP",
+          "kind": "FunctionDeclaration",
+          "sha256": "352d3e2c94be333a1103c82653bda7b5df94ceb67ba1a93fa81a11ae4b27eab8",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/FloatingPortalLite.svelte",
+      "sha256": "c506d0758a012c2789b9da39f17bd34d7bf3f10d67d3861368f998b6b4a12b72",
+      "symbols": []
+    },
+    {
+      "path": "packages/base/src/lib/utils/FocusGuard.svelte",
+      "sha256": "28a17af6cd0d817c9002e0e2bae206b33452fc6a0153ffb45f6f6f0b8f96c777",
+      "symbols": []
+    },
+    {
+      "path": "packages/base/src/lib/utils/mergeCleanups.ts",
+      "sha256": "28eb97759c815e7a3edcb4a5ac4464473790ae9294bda5a66ba268bca8efedcb",
+      "symbols": [
+        {
+          "name": "Cleanup",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "73dc4e18b9a5399721506fc1d714ed848abb3a8c4be658a4c41c2423ae8da9cf",
+          "scriptIndex": 0
+        },
+        {
+          "name": "mergeCleanups",
+          "kind": "FunctionDeclaration",
+          "sha256": "b2f63ca02003d7be7345874b142291de5867b5f483e93b398acea790140e57d0",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/mergeObjects.ts",
+      "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
+      "symbols": [
+        {
+          "name": "mergeObjects",
+          "kind": "FunctionDeclaration",
+          "sha256": "b23c95ea2ea291cada1cc5967871fe8bb60f1fb880398d02715d35a2926d845b",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/owner.ts",
+      "sha256": "4f32738229316fe875cf72e949caa4aa7d2fcdf924a2bd5b7f01e88ca5424185",
+      "symbols": [
+        {
+          "name": "ownerDocument",
+          "kind": "FunctionDeclaration",
+          "sha256": "470b4bbe3d93f3a8feadb1a9264275a1149aee3c0c208e9d9d1f3c38702c65c0",
+          "scriptIndex": 0
+        },
+        {
+          "name": "ownerWindow",
+          "kind": "FunctionDeclaration",
+          "sha256": "4e57726df2d000c671c0ef808113136ff3dd39940463e192dff949d76e3b9d1b",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/platform/engine.ts",
+      "sha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987",
+      "symbols": []
+    },
+    {
+      "path": "packages/base/src/lib/utils/platform/env.ts",
+      "sha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d",
+      "symbols": []
+    },
+    {
+      "path": "packages/base/src/lib/utils/platform/index.ts",
+      "sha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c",
+      "symbols": []
+    },
+    {
+      "path": "packages/base/src/lib/utils/platform/media-query.ts",
+      "sha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9",
+      "symbols": []
+    },
+    {
+      "path": "packages/base/src/lib/utils/platform/os.ts",
+      "sha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6",
+      "symbols": []
+    },
+    {
+      "path": "packages/base/src/lib/utils/platform/parts.ts",
+      "sha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29",
+      "symbols": []
+    },
+    {
+      "path": "packages/base/src/lib/utils/platform/screen-reader.ts",
+      "sha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7",
+      "symbols": []
+    },
+    {
+      "path": "packages/base/src/lib/utils/platform/shared.ts",
+      "sha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2",
+      "symbols": [
+        {
+          "name": "NavigatorUAData",
+          "kind": "InterfaceDeclaration",
+          "sha256": "215fa59eef2af04ff0c49aa31ed8b85bc40638303f6fc1a1c931615dbb070ff5",
+          "scriptIndex": 0
+        },
+        {
+          "name": "RawNavigatorData",
+          "kind": "InterfaceDeclaration",
+          "sha256": "9bc263ee1d62021f06b582afefcb44bb2f8479d15cff6f336e8a1a87c5e4dd17",
+          "scriptIndex": 0
+        },
+        {
+          "name": "readRawData",
+          "kind": "FunctionDeclaration",
+          "sha256": "b6f5f29e7af45116afe8b0b45bcebb001052899cc42715b69a1329c26f4229da",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/popups/index.ts",
+      "sha256": "8685650fb9e3f7bfe7528330f062c4b3f94df89bf9adc8a48b13728774474e01",
+      "symbols": []
+    },
+    {
+      "path": "packages/base/src/lib/utils/popups/inlineRect.ts",
+      "sha256": "e7e677e1575edf7c0c090442605503b156f557b5b103bf26f27b94eeae6905f4",
+      "symbols": [
+        {
+          "name": "InlineRectCoords",
+          "kind": "InterfaceDeclaration",
+          "sha256": "ba5c4b8553d3973541d893be2a0e21356a49a0995f9f067c7390b6fb239bb9ef",
+          "scriptIndex": 0
+        },
+        {
+          "name": "RectLike",
+          "kind": "InterfaceDeclaration",
+          "sha256": "ed85003e7f4c7b3418eea6bb894f2122b0f7ecfff44641a39a8474ec92c56a8d",
+          "scriptIndex": 0
+        },
+        {
+          "name": "ClientRectLike",
+          "kind": "InterfaceDeclaration",
+          "sha256": "06600c96244578576b78d173792c9eab61db4d9d58fc1dd72951632761393d86",
+          "scriptIndex": 0
+        },
+        {
+          "name": "ClientRectsReference",
+          "kind": "InterfaceDeclaration",
+          "sha256": "3a68ab5cdeb842f34f277c66fedbc7c6e8af33de8339f3d9716df5560817c4f1",
+          "scriptIndex": 0
+        },
+        {
+          "name": "createRect",
+          "kind": "FunctionDeclaration",
+          "sha256": "f850e583260bb0fa904e107f7ad70297c716379cf5246b754658a80550a5eefa",
+          "scriptIndex": 0
+        },
+        {
+          "name": "copyRect",
+          "kind": "FunctionDeclaration",
+          "sha256": "39a5f531101c0cf1241dd224c583137ccdfb5b62db02a51fcc4f0044e3f25381",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getLineRects",
+          "kind": "FunctionDeclaration",
+          "sha256": "3c463c90b9c8418fcc32d80cd6735414b019fe6aab79bdf5abeb14ccd367a120",
+          "scriptIndex": 0
+        },
+        {
+          "name": "findLineIndex",
+          "kind": "FunctionDeclaration",
+          "sha256": "3a3e31afb96edbec5a9412837fdbd8d62406bdaf7fdfba1a7073961cfff4324c",
+          "scriptIndex": 0
+        },
+        {
+          "name": "createClientRect",
+          "kind": "FunctionDeclaration",
+          "sha256": "f80ad78973117886c3d1289e8fd48d0bd3f91909d9be5802240e357b0703e49a",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getInlineRectCoords",
+          "kind": "FunctionDeclaration",
+          "sha256": "959991c4f759e2d5487463505ef4df83716572f0c7a349d8a615a33e4b72a3ef",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getInlineReferenceRect",
+          "kind": "FunctionDeclaration",
+          "sha256": "d82f5b2783e8816383d0ae0bb939a6a8f302464f23efbe0d34922c926acd2151",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getContextElement",
+          "kind": "FunctionDeclaration",
+          "sha256": "8e77df3656624828f8245d4799d51f2baeb6f6f0f5e64cc1bb5a4a11f11b9aa6",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getInlineRectTriggerProps",
+          "kind": "FunctionDeclaration",
+          "sha256": "79f222a25364b24a8f717f18aa3dad0383cb14db5cb577952dc69c9371e7dde8",
+          "scriptIndex": 0
+        },
+        {
+          "name": "updateInlineRectCoords",
+          "kind": "FunctionDeclaration",
+          "sha256": "6111f94d4741f7e201a9fd0886445bea68939c40d0916f4f297d6503246fb906",
+          "scriptIndex": 0
+        },
+        {
+          "name": "createInlineMiddleware",
+          "kind": "FunctionDeclaration",
+          "sha256": "d6030982416ef3e57381d03acbf8e2e8b11770158d02df35b36d06940af902d2",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+      "sha256": "3f80c77e00b2b8d73068a48477096f30f174c433d804b790813894f6624f016e",
+      "symbols": [
+        {
+          "name": "PopupStoreWithOpen",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "e4a97083cabca0700315b23aedbdf5c5b2f028c5dfe0c73810946de7ac2c6371",
+          "scriptIndex": 0
+        },
+        {
+          "name": "PopupOpenState",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "1e505b34a33f8711d13d138ab9a217abd4d62cb5def32c426587531d38c86140",
+          "scriptIndex": 0
+        },
+        {
+          "name": "createPopupOpenState",
+          "kind": "FunctionDeclaration",
+          "sha256": "5143611f2c9c8713a7867ce2184c6c215ba122a749cbf4e694de65cdb26a09f0",
+          "scriptIndex": 0
+        },
+        {
+          "name": "syncTriggerCount",
+          "kind": "FunctionDeclaration",
+          "sha256": "e37a5d4d0a6bb5fe6a880ec32856273f8a3dcc70893ca4dbc51af5d7f4f7154d",
+          "scriptIndex": 0
+        },
+        {
+          "name": "useTriggerRegistration",
+          "kind": "FunctionDeclaration",
+          "sha256": "5fca570b2e12bd3e1570b5cdbcc019ed03ff7e4ee3f8c263aaaa5f8167dac79d",
+          "scriptIndex": 0
+        },
+        {
+          "name": "useTriggerDataForwarding",
+          "kind": "FunctionDeclaration",
+          "sha256": "c888665127aef640751b39311245f7a79c4e8e4a03be8582e5cd4d9dd96c0ad9",
+          "scriptIndex": 0
+        },
+        {
+          "name": "useImplicitActiveTrigger",
+          "kind": "FunctionDeclaration",
+          "sha256": "5a795acdebc8e04fd4a4aa8441a234920bc6e75aac4d442a522ec3ebdf01b65f",
+          "scriptIndex": 0
+        },
+        {
+          "name": "useOpenStateTransitions",
+          "kind": "FunctionDeclaration",
+          "sha256": "2af27efe16c7e43aac799cf2167c1b6e023b414a5170c6c4667b0f6106708625",
+          "scriptIndex": 0
+        },
+        {
+          "name": "usePopupRootSync",
+          "kind": "FunctionDeclaration",
+          "sha256": "64a97e38562f2d77b332d2ad71b986ee3252269e43f912136e8e6e11944a5b89",
+          "scriptIndex": 0
+        },
+        {
+          "name": "createDefaultInitialFocus",
+          "kind": "FunctionDeclaration",
+          "sha256": "5a7c0947ffc464cbe88f9ade31f73e21f515a919913225ce61c60bfa92342e38",
+          "scriptIndex": 0
+        },
+        {
+          "name": "usePopupRootStore",
+          "kind": "FunctionDeclaration",
+          "sha256": "e3fd11f474d55e97fed90750c7eddfd18a57c199b19ebb50cfa320c6bb7249ad",
+          "scriptIndex": 0
+        },
+        {
+          "name": "usePopupInteractionProps",
+          "kind": "FunctionDeclaration",
+          "sha256": "a9e258a09ce2d2dbc96ae2c8b6e3e8c9db0d1e105ad25a1e938bbb22b8ba00ff",
+          "scriptIndex": 0
+        },
+        {
+          "name": "attachPreventUnmountOnClose",
+          "kind": "FunctionDeclaration",
+          "sha256": "acf061a491cbd5601f75f144c5d3a55a104420985bf911b9a20fd748fc46878d",
+          "scriptIndex": 0
+        },
+        {
+          "name": "applyPopupOpenChange",
+          "kind": "FunctionDeclaration",
+          "sha256": "1cc765a933746a4ca50098df5f443690d20e6953a35193ff220891cd6a690bde",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts",
+      "sha256": "812f1d6cb454c0f5236cda69919932ccfc569611050c19fe8198617beacf6b2c",
+      "symbols": [
+        {
+          "name": "getDevElementIds",
+          "kind": "FunctionDeclaration",
+          "sha256": "90aa1d70f6f7e915d55020fe593bcefb47c814acdb8ab27d1ef0f3b758fff386",
+          "scriptIndex": 0
+        },
+        {
+          "name": "PopupTriggerMap",
+          "kind": "ClassDeclaration",
+          "sha256": "083f65d4f89d1a94ba9729e5e127591df17f3c0a99c58578bf7d4a6ab64e9198",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/popups/store.ts",
+      "sha256": "f10a365441f28fa1e93b1d1cc871349a0555944e3fd937344b3415c3d32a87d3",
+      "symbols": [
+        {
+          "name": "PopupStoreState",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "351f5f6d1086760464ba8460b4ae6dabe1fd74eff15ccdda26dc3c0238000ba7",
+          "scriptIndex": 0
+        },
+        {
+          "name": "createInitialPopupStoreState",
+          "kind": "FunctionDeclaration",
+          "sha256": "e31bd6639a381a55b38485e9382e9f46b7d3166ae5b5f62d58c355a95cf86146",
+          "scriptIndex": 0
+        },
+        {
+          "name": "PopupStoreContext",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "446f793e7144fb734e15f95acca68a2388f324474c83d421d33aa62b476e2e86",
+          "scriptIndex": 0
+        },
+        {
+          "name": "S",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "d31fcfd503c65b91f79f2a784f8a97ab5cbb1a67fe59b2965d4c725fc0e92f1d",
+          "scriptIndex": 0
+        },
+        {
+          "name": "triggerOwnsOpenPopup",
+          "kind": "FunctionDeclaration",
+          "sha256": "24b717c13f6eb00733c78851dd2f7a0ad8c8495fa8a59d5ce27507c41348aab2",
+          "scriptIndex": 0
+        },
+        {
+          "name": "triggerOwnsOpenPopupOrIsOnlyTrigger",
+          "kind": "FunctionDeclaration",
+          "sha256": "ab2a81b1ce857199231d465d529437f8c2304efb2781f409154daa4c64ad0009",
+          "scriptIndex": 0
+        },
+        {
+          "name": "PopupStoreSelectors",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "8e366c415919c7bd3ba997e8abcd1723db2a2810fd353f9675138e5cbe06441e",
+          "scriptIndex": 0
+        },
+        {
+          "name": "PopupTriggerStoreKeys",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "c4c8d4e806460a966299f0e8d85b58842be90c0b7e07a33baa075c1776b68dcc",
+          "scriptIndex": 0
+        },
+        {
+          "name": "PopupTriggerDataStore",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "1c90e0b809c4856154e7c893c4e2efd2f6f9c81b76d4dbfd132acbe06ced5625",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/resolveClassName.ts",
+      "sha256": "b22aead630ca531851a08a63e5165e64ff8cdc9de5765ff20997f578071cb108",
+      "symbols": [
+        {
+          "name": "resolveClassName",
+          "kind": "FunctionDeclaration",
+          "sha256": "7a7d738b6b6ac41fac90420d355591dcacdf68930320b1b98b848efedbaf357d",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/resolveRef.ts",
+      "sha256": "ac85daa436a61800f824aa34ea08ff4cbe492c86c12be327de957a381acddaa7",
+      "symbols": [
+        {
+          "name": "resolveRef",
+          "kind": "FunctionDeclaration",
+          "sha256": "889927d91833087f173e5dab4348a9833bb4e9e86ff89e9b56558234ad7f7145",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/resolveStyle.ts",
+      "sha256": "cdc420598c1ae4b75a32e7f47ac8cc7f4fe444d4f006e2736f528951fb932977",
+      "symbols": [
+        {
+          "name": "resolveStyle",
+          "kind": "FunctionDeclaration",
+          "sha256": "0fd01f496a549d4bf9ce7b1091da5c1861e33d5e6721d73410202ff984f22ca5",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/shadowDom.ts",
+      "sha256": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1",
+      "symbols": [
+        {
+          "name": "isShadowRoot",
+          "kind": "FunctionDeclaration",
+          "sha256": "c21630411593bd0e6e903e2a77afdfd264117bf32abbb1d396807084136459c1",
+          "scriptIndex": 0
+        },
+        {
+          "name": "activeElement",
+          "kind": "FunctionDeclaration",
+          "sha256": "5c0ce487f87da826740dbf3f2b61148cd5c367c8497336b9c5725855a90917ea",
+          "scriptIndex": 0
+        },
+        {
+          "name": "contains",
+          "kind": "FunctionDeclaration",
+          "sha256": "770bab67d824e80148c7e9c36669d93a7fa37d0c80cec636a7d9e032598f1d3a",
+          "scriptIndex": 0
+        },
+        {
+          "name": "getTarget",
+          "kind": "FunctionDeclaration",
+          "sha256": "0bd2d8086e4c351952e020f19cde08fac511fc8d4d729cedede981df65874080",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/store/Store.svelte.ts",
+      "sha256": "cb14e7e3e12bffcb353761c48bc275e41949bad5706860f0d877ea3344e0b600",
+      "symbols": [
+        {
+          "name": "Listener",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "2b4bffa37fc18b618b6a2dba64a48ed89ea5a1236f2fd312c9bfb7f717177c64",
+          "scriptIndex": 0
+        },
+        {
+          "name": "Store",
+          "kind": "ClassDeclaration",
+          "sha256": "7bb31f0767a90f5f2d18bd6e0bc71b8832c38be1b05528546bf16b3fd9b2adcf",
+          "scriptIndex": 0
+        },
+        {
+          "name": "ReadonlyStore",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "52ca753d3b755a3267d34c404555974d2368546d17c911ef823d20447265a21c",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts",
+      "sha256": "1a3fe2b85c9b4c3dc0333f43f9988bbfa01e39eb5972b84b3648294199e111a2",
+      "symbols": [
+        {
+          "name": "Selector",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "e4e26c4ecc0b1dad163ce8688e6e3938672e3779fcf0a9b90c8952c99961377c",
+          "scriptIndex": 0
+        },
+        {
+          "name": "Tail",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "0a7cf15c6066214e4f78df2c9b93c2faca3308025fdff3d5c912eb8d28bf1109",
+          "scriptIndex": 0
+        },
+        {
+          "name": "SelectorArgs",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "72922e390d80684df839faa67c9e929f405edadce254100161e83f835cfef842",
+          "scriptIndex": 0
+        },
+        {
+          "name": "KeysAllowingUndefined",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "62eceef48e24d0593c4db238fa6747c58364f8b320d4cae0195aba814f793fc5",
+          "scriptIndex": 0
+        },
+        {
+          "name": "ObserveSelector",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "13558d747df1491556c2856f85dfe7dfc7d2b286239845cabe182dd50cb19521",
+          "scriptIndex": 0
+        },
+        {
+          "name": "SvelteStore",
+          "kind": "ClassDeclaration",
+          "sha256": "24ea831090afef44202ba6030db2727567a91650ffa6edd576b64b7e7d74f343",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/useAnimationFrame.ts",
+      "sha256": "4de538634e157740822dc1d3896da18ea84c6a706fe79f28fa6b9e7d380038ad",
+      "symbols": [
+        {
+          "name": "AnimationFrame",
+          "kind": "ClassDeclaration",
+          "sha256": "aaa06aaa5e06dd4f332817705a202e794dddf599cab5c46ee971428fafc4df54",
+          "scriptIndex": 0
+        },
+        {
+          "name": "useAnimationFrame",
+          "kind": "FunctionDeclaration",
+          "sha256": "cc494b14748ab016e0f8e7fef00b66f2da6f161b98d76fa467b6d9dcd7ba1d42",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/useEnhancedClickHandler.ts",
+      "sha256": "6a045d6b74a7851d3446200f55711ffc1dcc22449a2e92680cdf328750a436d5",
+      "symbols": [
+        {
+          "name": "InteractionType",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "e9ea8d56b275f34dd8ec14f85c7b9835a9b5405655dfbc4bac625de6658da794",
+          "scriptIndex": 0
+        },
+        {
+          "name": "useEnhancedClickHandler",
+          "kind": "FunctionDeclaration",
+          "sha256": "3d1836decb62e78ffad33b90f034e634a57bd8f0ae43232a53d891ffeb1839b2",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+      "sha256": "0d24dd22dad18fc54341aaedb964a25829ae62322f10bf110a4fd8bde65dd1f3",
+      "symbols": [
+        {
+          "name": "EffectCallback",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "654266bd675bf8739cddcce70d57e7c7bdf4b516937d05191534d1e2f4efbfc4",
+          "scriptIndex": 0
+        },
+        {
+          "name": "useIsoLayoutEffect",
+          "kind": "FunctionDeclaration",
+          "sha256": "6d52147823aa6a82049b18e5f279a0545993b806e972bad790651db464d4ba64",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/useMergedRefs.ts",
+      "sha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
+      "symbols": [
+        {
+          "name": "MergedRef",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "869795de752a511839c4436d478a0438b441280ad1ebb1a73077b09a6d6eaa7c",
+          "scriptIndex": 0
+        },
+        {
+          "name": "MergedRefCallback",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "7cb40d6ab1ccaf3f12ec2ca1551552787771d125d4c420e76dbb4c2dc9aa58be",
+          "scriptIndex": 0
+        },
+        {
+          "name": "Empty",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "715a823ae903454eb990784a2e0aab6ab44eda558f953f79882ee6764efd7ac4",
+          "scriptIndex": 0
+        },
+        {
+          "name": "InputRef",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "65ad4dfae3b43aa439a95395aeafceb9c48082eb1086ed14919a7bfcfd9fcc6a",
+          "scriptIndex": 0
+        },
+        {
+          "name": "Result",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "d6836b1bc343dd3156f46607553f0e67956ff813de8ea48465076f3ced910eb5",
+          "scriptIndex": 0
+        },
+        {
+          "name": "Cleanup",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "23f48f4a47a283116d9364219ea507a85c0fa5eb3f624bdbcac58eb4c5ea4e3f",
+          "scriptIndex": 0
+        },
+        {
+          "name": "ForkRef",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "18788c1270dc9f85b2b915ce0d633ee19d1fee3867df163c57eeb6b0a49cade4",
+          "scriptIndex": 0
+        },
+        {
+          "name": "createMergedRefs",
+          "kind": "FunctionDeclaration",
+          "sha256": "52f89e4fb0d5b4799d0f0d5f8e9e0817fd600400e3a5267fbd64b63a05a9a241",
+          "scriptIndex": 0
+        },
+        {
+          "name": "createForkRef",
+          "kind": "FunctionDeclaration",
+          "sha256": "5714e79671a462dc86d6df58372f8e31eb2477343664f47eb4a063c79086cb46",
+          "scriptIndex": 0
+        },
+        {
+          "name": "didChange",
+          "kind": "FunctionDeclaration",
+          "sha256": "e504eb648c96dcafe993a640332ba5ed741bd5e2c304c3468dfe925d8831fafe",
+          "scriptIndex": 0
+        },
+        {
+          "name": "didChangeN",
+          "kind": "FunctionDeclaration",
+          "sha256": "aee90561350d11f016700b0089faf53789e4f3e2cdc779d3e83c4016c90f3db3",
+          "scriptIndex": 0
+        },
+        {
+          "name": "update",
+          "kind": "FunctionDeclaration",
+          "sha256": "22b588ca01a5912edfa6875851b3df546c30dd63acd505c93bfc078f0452f402",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/useOnMount.ts",
+      "sha256": "a7ba4007eff27b601eebcb76755886a23a4dd8548a54f67e15fa1cd648e0e695",
+      "symbols": [
+        {
+          "name": "useOnMount",
+          "kind": "FunctionDeclaration",
+          "sha256": "09ceef687cb2dd6847e5cc2f90e235056f951015c522604b662e199a99bd4b42",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/useRefWithInit.ts",
+      "sha256": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036",
+      "symbols": [
+        {
+          "name": "InitializedRef",
+          "kind": "InterfaceDeclaration",
+          "sha256": "368a10a4f85c0d2b8dc888a03066a313d9c68467f8ae2aac49ee6b1d4f581345",
+          "scriptIndex": 0
+        },
+        {
+          "name": "useRefWithInit",
+          "kind": "FunctionDeclaration",
+          "sha256": "1acda7c229d419fe7b79a1705273da1ecef4376cde083e28e1e1e1b014c1be65",
+          "scriptIndex": 0
+        },
+        {
+          "name": "useRefWithInit",
+          "kind": "FunctionDeclaration",
+          "sha256": "9ef220bdef335bbb14bf345f9dc9cff8afce5078d00aafc0b811cbaca01d8983",
+          "scriptIndex": 0
+        },
+        {
+          "name": "useRefWithInit",
+          "kind": "FunctionDeclaration",
+          "sha256": "8845f470c5a0d4df9a1c347cd8449bf6490c56461be1be3ff0168b99bc9d66b1",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/useStableCallback.ts",
+      "sha256": "b790a02da99e0e9365bc05d35a434ef37dcffb2a4db8186b1327b949a994d05e",
+      "symbols": [
+        {
+          "name": "Callback",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "01539273156f7fdd4f9a86c46725cad0dc633a45badd415bed1745df863b47c4",
+          "scriptIndex": 0
+        },
+        {
+          "name": "useStableCallback",
+          "kind": "FunctionDeclaration",
+          "sha256": "16430c6d069054601639609d57b6a7add04c26e8377c55b318dc6c85b1803add",
+          "scriptIndex": 0
+        },
+        {
+          "name": "createStableCallback",
+          "kind": "FunctionDeclaration",
+          "sha256": "7a84ac0ad0d836f7790c9ec697e87cd952f4bd41a7169dfd38da89fbf3eed544",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/useTimeout.ts",
+      "sha256": "a04448de8715b8728243ee6e33572c57bc5b151674628304f6c3906966738c78",
+      "symbols": [
+        {
+          "name": "TimeoutId",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "587195b3b341c57c57abda441ad698c1ec714854dcbf1732595c0ba4c7839e22",
+          "scriptIndex": 0
+        },
+        {
+          "name": "Timeout",
+          "kind": "ClassDeclaration",
+          "sha256": "b827621736df38b2d17ef5be91f0cfc5e46216501fda4a991b3a20139f401eb6",
+          "scriptIndex": 0
+        },
+        {
+          "name": "useTimeout",
+          "kind": "FunctionDeclaration",
+          "sha256": "1419c63be808cd455043f193c24dfcb6dfcee435d013b1ba46cc076955d46763",
+          "scriptIndex": 0
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/visuallyHidden.ts",
+      "sha256": "8f49185df1c0536608090368454cc3d30a3bfc1991b23a4b5e5239184ead8020",
+      "symbols": []
+    }
+  ],
+  "edges": [
+    {
+      "from": "packages/base/src/lib/utils/popups/inlineRect.ts",
+      "to": null,
+      "external": "svelte/elements",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/popups/inlineRect.ts",
+      "to": null,
+      "external": "@floating-ui/dom",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/popups/inlineRect.ts",
+      "to": null,
+      "external": "@floating-ui/utils/dom",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/closePart.svelte.ts",
+      "to": null,
+      "external": "svelte",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/closePart.svelte.ts",
+      "to": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/closePart.svelte.ts",
+      "to": "packages/base/src/lib/utils/useStableCallback.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingDelayGroup.svelte",
+      "to": null,
+      "external": "svelte",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingDelayGroup.svelte",
+      "to": "packages/base/src/lib/utils/useTimeout.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingDelayGroup.svelte",
+      "to": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingDelayGroup.svelte",
+      "to": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingDelayGroup.svelte",
+      "to": "packages/base/src/lib/floating-ui/types.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingDelayGroup.svelte",
+      "to": "packages/base/src/lib/floating-ui/components/FloatingDelayGroupContext.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useDelayGroup.svelte.ts",
+      "to": null,
+      "external": "svelte",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useDelayGroup.svelte.ts",
+      "to": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useDelayGroup.svelte.ts",
+      "to": "packages/base/src/lib/floating-ui/components/FloatingDelayGroupContext.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useDelayGroup.svelte.ts",
+      "to": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useDelayGroup.svelte.ts",
+      "to": "packages/base/src/lib/floating-ui/types.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useDelayGroup.svelte.ts",
+      "to": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useDelayGroup.svelte.ts",
+      "to": "packages/base/src/lib/internals/reasons.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useClientPoint.svelte.ts",
+      "to": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useClientPoint.svelte.ts",
+      "to": "packages/base/src/lib/utils/addEventListener.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useClientPoint.svelte.ts",
+      "to": "packages/base/src/lib/utils/useStableCallback.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useClientPoint.svelte.ts",
+      "to": null,
+      "external": "@floating-ui/utils/dom",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useClientPoint.svelte.ts",
+      "to": "packages/base/src/lib/floating-ui/types.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useClientPoint.svelte.ts",
+      "to": "packages/base/src/lib/floating-ui/utils/element.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useClientPoint.svelte.ts",
+      "to": "packages/base/src/lib/floating-ui/utils/event.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
+      "to": null,
+      "external": "svelte",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
+      "to": null,
+      "external": "@floating-ui/utils/dom",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
+      "to": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
+      "to": "packages/base/src/lib/utils/useMergedRefs.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
+      "to": "packages/base/src/lib/internals/types.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
+      "to": "packages/base/src/lib/internals/useRenderElement.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
+      "to": "packages/base/src/lib/internals/RenderElement.svelte",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
+      "to": "packages/base/src/lib/floating-ui/components/PortalContent.svelte",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
+      "to": "packages/base/src/lib/floating-ui/utils/createAttribute.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
+      "to": "packages/base/src/lib/floating-ui/components/FloatingPortalContext.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+      "to": null,
+      "external": "svelte",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+      "to": null,
+      "external": "svelte/elements",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+      "to": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+      "to": "packages/base/src/lib/utils/addEventListener.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+      "to": "packages/base/src/lib/utils/mergeCleanups.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+      "to": "packages/base/src/lib/utils/useMergedRefs.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+      "to": "packages/base/src/lib/utils/FocusGuard.svelte",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+      "to": "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+      "to": "packages/base/src/lib/internals/types.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+      "to": "packages/base/src/lib/internals/nativeProps.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+      "to": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+      "to": "packages/base/src/lib/internals/reasons.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+      "to": "packages/base/src/lib/internals/constants.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+      "to": "packages/base/src/lib/floating-ui/utils/tabbable.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+      "to": "packages/base/src/lib/floating-ui/components/FloatingPortalContext.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/FloatingPortalLite.svelte",
+      "to": null,
+      "external": "svelte",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/FloatingPortalLite.svelte",
+      "to": null,
+      "external": "svelte/elements",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/FloatingPortalLite.svelte",
+      "to": "packages/base/src/lib/internals/types.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/FloatingPortalLite.svelte",
+      "to": "packages/base/src/lib/utils/useMergedRefs.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/FloatingPortalLite.svelte",
+      "to": "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+      "to": null,
+      "external": "svelte",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+      "to": "packages/base/src/lib/utils/popups/store.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+      "to": "packages/base/src/lib/utils/empty.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+      "to": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+      "to": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+      "to": "packages/base/src/lib/utils/useStableCallback.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+      "to": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+      "to": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+      "to": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+      "to": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+      "to": "packages/base/src/lib/internals/reasons.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+      "to": "packages/base/src/lib/utils/useEnhancedClickHandler.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+      "to": "packages/base/src/lib/utils/popups/store.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+      "to": null,
+      "external": "svelte",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/useStableCallback.ts",
+      "to": null,
+      "external": "svelte",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/useTimeout.ts",
+      "to": "packages/base/src/lib/utils/useRefWithInit.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/useTimeout.ts",
+      "to": "packages/base/src/lib/utils/useOnMount.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts",
+      "to": "packages/base/src/lib/floating-ui/utils/event.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts",
+      "to": "packages/base/src/lib/floating-ui/types.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts",
+      "to": "packages/base/src/lib/floating-ui/utils/element.ts",
+      "kind": "runtime",
+      "syntax": "export",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/types.ts",
+      "to": null,
+      "external": "@floating-ui/dom",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/types.ts",
+      "to": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/types.ts",
+      "to": "packages/base/src/lib/internals/types.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/types.ts",
+      "to": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/types.ts",
+      "to": "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/types.ts",
+      "to": null,
+      "external": "@floating-ui/dom",
+      "kind": "type",
+      "syntax": "export",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/types.ts",
+      "to": "packages/base/src/lib/floating-ui/safePolygon.ts",
+      "kind": "type",
+      "syntax": "export",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingDelayGroupContext.ts",
+      "to": null,
+      "external": "svelte",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingDelayGroupContext.ts",
+      "to": "packages/base/src/lib/utils/useTimeout.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingDelayGroupContext.ts",
+      "to": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingDelayGroupContext.ts",
+      "to": "packages/base/src/lib/floating-ui/types.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+      "to": "packages/base/src/lib/utils/empty.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+      "to": "packages/base/src/lib/internals/reasons.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/reasons.ts",
+      "to": "packages/base/src/lib/internals/reason-parts.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/utils/element.ts",
+      "to": null,
+      "external": "@floating-ui/utils/dom",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/utils/element.ts",
+      "to": "packages/base/src/lib/utils/shadowDom.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/utils/element.ts",
+      "to": "packages/base/src/lib/floating-ui/utils/constants.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/utils/element.ts",
+      "to": "packages/base/src/lib/utils/popups/index.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/utils/element.ts",
+      "to": "packages/base/src/lib/floating-ui/utils/matchesFocusVisible.ts",
+      "kind": "runtime",
+      "syntax": "export",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/utils/event.ts",
+      "to": "packages/base/src/lib/utils/platform/index.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/useMergedRefs.ts",
+      "to": "packages/base/src/lib/utils/useRefWithInit.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/types.ts",
+      "to": null,
+      "external": "svelte",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/types.ts",
+      "to": null,
+      "external": "svelte/elements",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/types.ts",
+      "to": "packages/base/src/lib/merge-props/index.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/types.ts",
+      "to": "packages/base/src/lib/internals/nativeProps.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/useRenderElement.ts",
+      "to": "packages/base/src/lib/utils/useMergedRefs.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/useRenderElement.ts",
+      "to": "packages/base/src/lib/utils/mergeObjects.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/useRenderElement.ts",
+      "to": "packages/base/src/lib/utils/empty.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/useRenderElement.ts",
+      "to": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/useRenderElement.ts",
+      "to": "packages/base/src/lib/utils/resolveClassName.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/useRenderElement.ts",
+      "to": "packages/base/src/lib/utils/resolveStyle.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/useRenderElement.ts",
+      "to": "packages/base/src/lib/merge-props/index.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/useRenderElement.ts",
+      "to": "packages/base/src/lib/internals/nativeProps.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/useRenderElement.ts",
+      "to": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/useRenderElement.ts",
+      "to": "packages/base/src/lib/internals/types.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/RenderElement.svelte",
+      "to": null,
+      "external": "svelte",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/RenderElement.svelte",
+      "to": null,
+      "external": "svelte/attachments",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/RenderElement.svelte",
+      "to": null,
+      "external": "esm-env",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/RenderElement.svelte",
+      "to": null,
+      "external": "svelte/elements",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/RenderElement.svelte",
+      "to": "packages/base/src/lib/internals/useRenderElement.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/RenderElement.svelte",
+      "to": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/RenderElement.svelte",
+      "to": "packages/base/src/lib/internals/nativeProps.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/PortalContent.svelte",
+      "to": null,
+      "external": "svelte",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingPortalContext.ts",
+      "to": null,
+      "external": "svelte",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingPortalContext.ts",
+      "to": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/FocusGuard.svelte",
+      "to": null,
+      "external": "svelte/elements",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/FocusGuard.svelte",
+      "to": "packages/base/src/lib/utils/platform/index.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/FocusGuard.svelte",
+      "to": "packages/base/src/lib/utils/visuallyHidden.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/FocusGuard.svelte",
+      "to": "packages/base/src/lib/utils/useMergedRefs.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/FocusGuard.svelte",
+      "to": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/FocusGuard.svelte",
+      "to": "packages/base/src/lib/internals/nativeProps.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/nativeProps.ts",
+      "to": null,
+      "external": "svelte/elements",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/nativeProps.ts",
+      "to": "packages/base/src/lib/internals/resolveClassValue.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/nativeProps.ts",
+      "to": "packages/base/src/lib/utils/mergeObjects.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/utils/tabbable.ts",
+      "to": null,
+      "external": "@floating-ui/utils/dom",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/utils/tabbable.ts",
+      "to": "packages/base/src/lib/utils/owner.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/utils/tabbable.ts",
+      "to": "packages/base/src/lib/floating-ui/utils/element.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/utils/tabbable.ts",
+      "to": "packages/base/src/lib/floating-ui/utils/composite.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/popups/store.ts",
+      "to": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/popups/store.ts",
+      "to": "packages/base/src/lib/utils/empty.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/popups/store.ts",
+      "to": "packages/base/src/lib/floating-ui/types.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/popups/store.ts",
+      "to": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/popups/store.ts",
+      "to": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/popups/store.ts",
+      "to": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/popups/store.ts",
+      "to": "packages/base/src/lib/internals/types.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
+      "to": null,
+      "external": "svelte",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
+      "to": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
+      "to": "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
+      "to": "packages/base/src/lib/floating-ui/types.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
+      "to": null,
+      "external": "svelte",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
+      "to": null,
+      "external": "@floating-ui/utils/dom",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
+      "to": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
+      "to": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
+      "to": "packages/base/src/lib/utils/popups/store.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
+      "to": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+      "to": null,
+      "external": "svelte",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+      "to": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+      "to": "packages/base/src/lib/utils/useAnimationFrame.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+      "to": "packages/base/src/lib/utils/useStableCallback.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+      "to": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+      "to": "packages/base/src/lib/internals/useAnimationsFinished.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/useOnMount.ts",
+      "to": null,
+      "external": "svelte",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+      "to": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+      "to": "packages/base/src/lib/floating-ui/types.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+      "to": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+      "to": "packages/base/src/lib/floating-ui/utils/createEventEmitter.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+      "to": "packages/base/src/lib/floating-ui/types.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+      "to": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+      "to": "packages/base/src/lib/floating-ui/utils/event.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+      "to": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts",
+      "to": "packages/base/src/lib/floating-ui/types.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts",
+      "to": "packages/base/src/lib/floating-ui/utils/createEventEmitter.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/safePolygon.ts",
+      "to": null,
+      "external": "@floating-ui/utils/dom",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/safePolygon.ts",
+      "to": "packages/base/src/lib/utils/useTimeout.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/safePolygon.ts",
+      "to": null,
+      "external": "@floating-ui/dom",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/safePolygon.ts",
+      "to": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/safePolygon.ts",
+      "to": "packages/base/src/lib/floating-ui/utils/element.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/safePolygon.ts",
+      "to": "packages/base/src/lib/floating-ui/utils/nodes.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/popups/index.ts",
+      "to": "packages/base/src/lib/utils/popups/store.ts",
+      "kind": "runtime",
+      "syntax": "export",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/popups/index.ts",
+      "to": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts",
+      "kind": "runtime",
+      "syntax": "export",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/popups/index.ts",
+      "to": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+      "kind": "runtime",
+      "syntax": "export",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/utils/matchesFocusVisible.ts",
+      "to": "packages/base/src/lib/utils/platform/index.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/platform/index.ts",
+      "to": "packages/base/src/lib/utils/platform/parts.ts",
+      "kind": "runtime",
+      "syntax": "export",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/merge-props/index.ts",
+      "to": "packages/base/src/lib/merge-props/mergeProps.ts",
+      "kind": "runtime",
+      "syntax": "export",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/resolveClassName.ts",
+      "to": null,
+      "external": "svelte/elements",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/resolveStyle.ts",
+      "to": "packages/base/src/lib/internals/nativeProps.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+      "to": null,
+      "external": "svelte",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+      "to": "packages/base/src/lib/utils/useMergedRefs.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/resolveClassValue.ts",
+      "to": null,
+      "external": "svelte/elements",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/utils/composite.ts",
+      "to": "packages/base/src/lib/internals/composite/utils/navigation.ts",
+      "kind": "runtime",
+      "syntax": "export",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts",
+      "to": null,
+      "external": "svelte",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts",
+      "to": null,
+      "external": "svelte/reactivity",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts",
+      "to": null,
+      "external": "esm-env",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts",
+      "to": "packages/base/src/lib/utils/store/Store.svelte.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts",
+      "to": null,
+      "external": "esm-env",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/useAnimationFrame.ts",
+      "to": "packages/base/src/lib/utils/useRefWithInit.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/useAnimationFrame.ts",
+      "to": "packages/base/src/lib/utils/useOnMount.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/useAnimationsFinished.ts",
+      "to": null,
+      "external": "svelte",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/useAnimationsFinished.ts",
+      "to": "packages/base/src/lib/utils/useAnimationFrame.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/useAnimationsFinished.ts",
+      "to": "packages/base/src/lib/utils/useStableCallback.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/useAnimationsFinished.ts",
+      "to": "packages/base/src/lib/utils/resolveRef.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/useAnimationsFinished.ts",
+      "to": "packages/base/src/lib/internals/TransitionStatusDataAttributes.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/utils/createEventEmitter.ts",
+      "to": "packages/base/src/lib/floating-ui/types.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/floating-ui/utils/nodes.ts",
+      "to": "packages/base/src/lib/floating-ui/types.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/platform/parts.ts",
+      "to": "packages/base/src/lib/utils/platform/os.ts",
+      "kind": "runtime",
+      "syntax": "export",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/platform/parts.ts",
+      "to": "packages/base/src/lib/utils/platform/engine.ts",
+      "kind": "runtime",
+      "syntax": "export",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/platform/parts.ts",
+      "to": "packages/base/src/lib/utils/platform/screen-reader.ts",
+      "kind": "runtime",
+      "syntax": "export",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/platform/parts.ts",
+      "to": "packages/base/src/lib/utils/platform/env.ts",
+      "kind": "runtime",
+      "syntax": "export",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/platform/parts.ts",
+      "to": "packages/base/src/lib/utils/platform/media-query.ts",
+      "kind": "runtime",
+      "syntax": "export",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/merge-props/mergeProps.ts",
+      "to": "packages/base/src/lib/internals/nativeProps.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/merge-props/mergeProps.ts",
+      "to": "packages/base/src/lib/utils/mergeObjects.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/composite/utils/navigation.ts",
+      "to": null,
+      "external": "esm-env",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/composite/utils/navigation.ts",
+      "to": "packages/base/src/lib/floating-ui/utils/event.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/composite/utils/navigation.ts",
+      "to": "packages/base/src/lib/internals/composite/composite.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/platform/os.ts",
+      "to": "packages/base/src/lib/utils/platform/shared.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/platform/engine.ts",
+      "to": "packages/base/src/lib/utils/platform/shared.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/platform/screen-reader.ts",
+      "to": "packages/base/src/lib/utils/platform/os.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/platform/env.ts",
+      "to": "packages/base/src/lib/utils/platform/shared.ts",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/composite/composite.ts",
+      "to": "packages/base/src/lib/direction-provider/types.ts",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/internals/composite/composite.ts",
+      "to": "packages/base/src/lib/internals/composite/utils/navigation.ts",
+      "kind": "runtime",
+      "syntax": "export",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/utils/platform/shared.ts",
+      "to": null,
+      "external": "esm-env",
+      "kind": "runtime",
+      "syntax": "import",
+      "scriptIndex": 0
+    },
+    {
+      "from": "packages/base/src/lib/direction-provider/types.ts",
+      "to": null,
+      "external": "svelte",
+      "kind": "type",
+      "syntax": "import",
+      "scriptIndex": 0
+    }
+  ]
+}
