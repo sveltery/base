@@ -17,6 +17,7 @@ pnpm --dir "$snippet_consumer" --ignore-workspace install --ignore-scripts > /de
 pnpm --dir "$snippet_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
 cmp LICENSE "$snippet_consumer/node_modules/@sveltery/base/LICENSE"
 cmp packages/base/THIRD_PARTY_NOTICES.md "$snippet_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
+cmp packages/utils/THIRD_PARTY_NOTICES.md "$snippet_consumer/node_modules/@sveltery/utils/THIRD_PARTY_NOTICES.md"
 cat > "$snippet_consumer/PublicTypes.ts" <<'TS'
 import type * as Root from '@sveltery/base';
 import type { Snippet } from 'svelte';
@@ -38,6 +39,8 @@ import type { UseRender } from '@sveltery/base';
 import type { UseRenderProps } from '@sveltery/base';
 // @ts-expect-error The retired renderer subpath is absent.
 import type * as Retired from '@sveltery/base/use-render';
+// @ts-expect-error React ref transport is retired from the actual installed utility package.
+import type * as RetiredRefs from '@sveltery/utils/useMergedRefs';
 // @ts-expect-error Pure internal prop composition is not an invented public renderer API.
 import type { mergeComponentProps } from '@sveltery/base';
 // @ts-expect-error A symbol prop is an actual native attachment slot.
@@ -73,12 +76,16 @@ cat > "$snippet_consumer/Consumer.svelte" <<'SVELTE'
 SVELTE
 cat > "$snippet_consumer/check.mjs" <<'JS'
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { render } from 'svelte/server';
 import * as root from '@sveltery/base';
 import { Button } from '@sveltery/base/button';
 import Consumer from './Consumer.svelte';
 assert.equal(root.Button, Button); assert.equal(Object.hasOwn(root, 'UseRender'), false);
 await assert.rejects(import('@sveltery/base/use-render'), { code: 'ERR_PACKAGE_PATH_NOT_EXPORTED' });
+const utilsMetadata = JSON.parse(readFileSync(new URL('./node_modules/@sveltery/utils/package.json', import.meta.url), 'utf8'));
+assert.equal(utilsMetadata.name, '@sveltery/utils'); assert.equal(utilsMetadata.exports['./useMergedRefs'], undefined);
+await assert.rejects(import('@sveltery/utils/useMergedRefs'), { code: 'ERR_PACKAGE_PATH_NOT_EXPORTED' });
 assert.equal(typeof window, 'undefined'); assert.equal(typeof document, 'undefined');
 const body = render(Consumer).body;
 assert.match(body, /type="button"/); assert.match(body, /type="submit"/); assert.match(body, /Packed children/);
