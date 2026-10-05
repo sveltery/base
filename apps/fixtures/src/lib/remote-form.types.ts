@@ -109,9 +109,9 @@ const transformedInput: RemoteFieldRootProps<Transformed['fields']> = {
   name: 'quantity',
   as: 'text',
 };
-// @ts-expect-error The output transformation does not turn a string input into a number field.
 const transformedOutput: RemoteFieldRootProps<Transformed['fields']> = {
   name: 'quantity',
+  // @ts-expect-error The output transformation does not turn a string input into a number field.
   as: 'number',
 };
 void [transformedInput, transformedOutput];
@@ -147,9 +147,9 @@ const recursive: RemoteFieldRootProps<TreeFields, 'children[0].children[1].count
   name: 'children[0].children[1].count',
   as: 'number',
 };
-// @ts-expect-error A recursive path still selects its exact leaf type.
 const recursiveWrongAs: RemoteFieldRootProps<TreeFields, 'children[0].children[1].count'> = {
   name: 'children[0].children[1].count',
+  // @ts-expect-error A recursive path still selects its exact leaf type.
   as: 'text',
 };
 // @ts-expect-error A typo does not produce an unchecked string-name escape hatch.
