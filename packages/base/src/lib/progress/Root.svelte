@@ -1,9 +1,11 @@
 <script lang="ts">
   // Adapted from pinned ProgressRoot; MIT: THIRD_PARTY_NOTICES.md.
+  import { visuallyHidden } from '@sveltery/utils/visuallyHidden';
+  import { toNativeStyle } from '../internals/nativeProps.js';
   import Element from '../dialog/Element.svelte';
   import { resolveClassValue } from '../internals/resolveClassValue.js';
   import { setProgressContext } from './context.js';
-  import { normalize, statusAttributes, visuallyHidden } from './helpers.js';
+  import { normalize, statusAttributes } from './helpers.js';
   import type { ProgressRootProps } from './types.js';
   let { value, min = 0, max = 100, format, locale, getAriaValueText, children, render, class: classProp, ref = $bindable(), ...props }: ProgressRootProps = $props();
   let labelId = $state<string>();
@@ -21,5 +23,5 @@
   });
   const resolved = $derived({ ...props, class: resolveClassValue(typeof classProp === 'function' ? classProp(partState) : classProp) });
 </script>
-{#snippet content()}{@render children?.()}<span role="presentation" style={visuallyHidden}>x</span>{/snippet}
+{#snippet content()}{@render children?.()}<span role="presentation" style={toNativeStyle(visuallyHidden)}>x</span>{/snippet}
 <Element tag="div" {internal} props={resolved} state={partState} {render} children={content} bind:ref />
