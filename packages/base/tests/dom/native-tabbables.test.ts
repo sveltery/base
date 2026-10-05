@@ -1,7 +1,7 @@
-import { afterEach, expect, it } from 'vitest';
+import { afterEach, expect, it, vi } from 'vitest';
 import { mount, tick, unmount } from 'svelte';
 import Fixture from '../../../../apps/fixtures/src/lib/NativeTabbablesFixture.svelte';
-import { tabbables } from '../../src/lib/overlay/focus.js';
+import { tabbable as tabbables } from '../../src/lib/floating-ui/utils/tabbable.js';
 const cleanup: (() => void | Promise<void>)[] = [];
 afterEach(async () => { for (const stop of cleanup.splice(0)) await stop(); document.body.replaceChildren(); });
 function fixture(markup: string) {
@@ -27,12 +27,13 @@ it('reproduces Close followed by an open details summary wrapping Tab prematurel
   const after = popup.nextElementSibling as HTMLElement;
   expect(before.hasAttribute('data-base-ui-focus-guard')).toBe(true);
   expect(after.hasAttribute('data-base-ui-focus-guard')).toBe(true);
-  before.focus(); expect(document.activeElement).toBe(document.getElementById('native-summary'));
-  after.focus(); expect(document.activeElement).toBe(close);
+  before.focus(); await new Promise(resolve => setTimeout(resolve, 30)); expect(document.activeElement).toBe(document.getElementById('native-summary'));
+  after.focus(); await new Promise(resolve => setTimeout(resolve, 30)); expect(document.activeElement).toBe(close);
   const outsideMedia = document.createElement('audio'); outsideMedia.controls = true; outsideMedia.tabIndex = 0;
   document.body.append(outsideMedia); outsideMedia.focus();
   const outsideTab = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true }); outsideMedia.dispatchEvent(outsideTab);
-  expect(outsideTab.defaultPrevented).toBe(true); expect(document.activeElement).toBe(close);
+  // The source does not reroute arbitrary outside Tab keydown; actual modal guards own navigation.
+  expect(outsideTab.defaultPrevented).toBe(false); expect(document.activeElement).toBe(outsideMedia);
 });
 it('keeps only first direct summary, its closed descendants, and summaryless details', () => {
   const host = fixture('<details tabindex="0"><summary id="first"><button id="summary-child">Child</button></summary><summary id="second" tabindex="0">Second</summary><button id="hidden">Hidden</button><div><summary id="nested" tabindex="0">Nested</summary></div></details><summary id="orphan" tabindex="0">Orphan</summary><details id="implicit"></details>');
@@ -45,18 +46,18 @@ it('includes embedded elements, controlled media and editable values with pinned
   for (const id of ['empty', 'true', 'plain']) Object.defineProperty(host.querySelector(`#${id}`), 'isContentEditable', { value: true });
   expect(tabbables(host).map(element => element.id)).toEqual(['frame', 'object', 'embed', 'audio', 'video', 'empty', 'true', 'plain']);
 });
-it('preserves composed details filtering through shadow roots, slots and radio root ownership', () => {
+it('preserves the original composed details filtering and shared name/form radio selection', () => {
   const host = fixture('<div id="shadow"></div><input id="light-radio" type="radio" name="same" checked>');
   const shadowHost = host.querySelector('#shadow')!;
   const root = shadowHost.attachShadow({ mode: 'open' });
   root.innerHTML = '<details><summary id="shadow-summary"><slot></slot></summary><button id="closed-child">Hidden</button></details><input id="shadow-radio" type="radio" name="same" checked>';
   shadowHost.innerHTML = '<button id="slotted">Slotted</button><button slot="absent" id="unslotted">Unslotted</button>';
   for (const element of [...root.querySelectorAll<HTMLElement>('*'), ...shadowHost.querySelectorAll<HTMLElement>('*')]) element.getClientRects = () => [{ width: 20, height: 20 }] as unknown as DOMRectList;
-  expect(tabbables(host).map(element => element.id)).toEqual(['shadow-summary', 'slotted', 'shadow-radio', 'light-radio']);
+  expect(tabbables(host).map(element => element.id)).toEqual(['shadow-summary', 'shadow-radio']);
   root.querySelector('details')!.open = true;
-  expect(tabbables(host).map(element => element.id)).toEqual(['shadow-summary', 'slotted', 'closed-child', 'shadow-radio', 'light-radio']);
+  expect(tabbables(host).map(element => element.id)).toEqual(['shadow-summary', 'slotted', 'closed-child', 'shadow-radio']);
   root.querySelector('summary')!.setAttribute('inert', '');
-  expect(tabbables(host).map(element => element.id)).toEqual(['closed-child', 'shadow-radio', 'light-radio']);
+  expect(tabbables(host).map(element => element.id)).toEqual(['closed-child', 'shadow-radio']);
 });
 
 it('keeps Apple WebKit modal guards exposed for the pinned VoiceOver cursor path', async () => {
@@ -67,8 +68,12 @@ it('keeps Apple WebKit modal guards exposed for the pinned VoiceOver cursor path
   Object.defineProperty(window, 'CSS', { configurable: true, value: { supports: (query: string) => query === '-webkit-backdrop-filter:none' } });
   try {
     const target = document.createElement('div'); document.body.append(target);
-    const component = mount(Fixture, { target, props: { scenario: 'details' } }); cleanup.push(() => unmount(component));
-    await tick(); document.querySelector<HTMLButtonElement>('button')!.click(); await tick();
+    // Original platform classification is static at import, so set the environment before loading it.
+    vi.resetModules();
+    const { mount: appleMount, tick: appleTick, unmount: appleUnmount } = await import('svelte');
+    const { default: AppleFixture } = await import('../../../../apps/fixtures/src/lib/NativeTabbablesFixture.svelte');
+    const component = appleMount(AppleFixture, { target, props: { scenario: 'details' } }); cleanup.push(() => appleUnmount(component));
+    await appleTick(); document.querySelector<HTMLButtonElement>('button')!.click(); await appleTick();
     await new Promise(resolve => setTimeout(resolve, 60));
     const guards = [...document.querySelectorAll<HTMLElement>('[data-base-ui-focus-guard]')];
     expect(guards).toHaveLength(2);
@@ -76,8 +81,8 @@ it('keeps Apple WebKit modal guards exposed for the pinned VoiceOver cursor path
       expect(guard.getAttribute('role')).toBe('button');
       expect(guard.closest('[aria-hidden="true"]')).toBeNull();
     }
-    guards[1].focus(); expect(document.activeElement).toBe(document.getElementById('native-close'));
-    document.getElementById('native-close')!.click(); await tick();
+    guards[1].focus(); await new Promise(resolve => setTimeout(resolve, 30)); expect(document.activeElement).toBe(document.getElementById('native-close'));
+    document.getElementById('native-close')!.click(); await appleTick();
     await new Promise(resolve => setTimeout(resolve, 60));
     expect(document.querySelectorAll('[data-base-ui-focus-guard]')).toHaveLength(0);
   } finally {

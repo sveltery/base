@@ -169,14 +169,14 @@ test('Svelte nested dialogs count descendants, dismiss topmost, retain parent sc
   await expect(page.getByTestId('grandchild-popup')).toHaveCount(0);
   await expect(parent).toHaveCSS('--nested-dialogs', '1');
   await expect(page.getByTestId('child-popup')).toBeVisible();
-  expect(await page.evaluate(() => document.documentElement.style.overflow)).toBe('hidden');
+  expect(await page.evaluate(() => [document.documentElement, document.body].some(node => getComputedStyle(node).overflowY === 'hidden'))).toBe(true);
   await page.keyboard.press('Escape');
   await expect(page.getByTestId('child-popup')).toHaveCount(0);
   await expect(parent).toHaveCSS('--nested-dialogs', '0');
   await expect(parent).toBeVisible();
-  expect(await page.evaluate(() => document.documentElement.style.overflow)).toBe('hidden');
+  expect(await page.evaluate(() => [document.documentElement, document.body].some(node => getComputedStyle(node).overflowY === 'hidden'))).toBe(true);
   await page.keyboard.press('Escape'); await expect(parent).toHaveCount(0);
-  expect(await page.evaluate(() => document.documentElement.style.overflow)).toBe('');
+  expect(await page.evaluate(() => [document.documentElement, document.body].every(node => node.style.overflowY !== 'hidden'))).toBe(true);
 });
 test('Svelte nested outside click closes child only', async ({ page }) => {
   await start(page, '/dialog', '?nested');
@@ -193,7 +193,7 @@ test('Svelte cleanup removes portals, lock, labels and registrations across remo
   await expect(page.getByRole('button', { name: 'Mount toggle' })).toHaveCount(0);
   await page.getByRole('button', { name: 'Mount toggle', includeHidden: true }).evaluate((button: HTMLButtonElement) => button.click());
   await expect(page.locator('[data-base-ui-portal]')).toHaveCount(0);
-  expect(await page.evaluate(() => document.documentElement.style.overflow)).toBe('');
+  expect(await page.evaluate(() => [document.documentElement, document.body].every(node => node.style.overflowY !== 'hidden'))).toBe(true);
   await page.getByRole('button', { name: 'Mount toggle' }).click(); await page.locator('#trigger').click();
   await expect(page.getByTestId('popup')).toHaveCSS('--nested-dialogs', '0');
   await page.keyboard.press('Escape'); await expect(page.getByRole('dialog')).toHaveCount(0);
@@ -208,13 +208,14 @@ test('Svelte deferred unmount remains accessible until imperative action', async
   await page.getByRole('button', { name: 'Imperative unmount' }).evaluate((button: HTMLButtonElement) => button.click());
   await expect(page.getByRole('dialog')).toHaveCount(0);
 });
-test('Svelte exit transition remains accessible, then hides; reopen cancels stale exit', async ({ page }) => {
+test('Svelte completed exit cycles report once per close after focus returns', async ({ page }) => {
   await start(page, '/dialog', '?keep&animate');
   await page.locator('#trigger').click(); await expect(page.getByRole('dialog')).toBeVisible();
   await page.waitForFunction(() => JSON.parse(document.querySelector('[data-testid=log]')!.textContent!).some((x: any) => x.channel === 'complete' && x.open));
   await page.keyboard.press('Escape');
   await expect(page.getByRole('dialog')).toHaveCount(1);
   await expect(page.getByTestId('popup')).toHaveAttribute('data-ending-style', '');
+  // Returned focus follows completion of this close; reopening starts a second cycle.
   await expect(page.locator('#trigger')).toBeFocused();
   await page.keyboard.press('Enter');
   await expect(page.getByTestId('popup')).toHaveAttribute('data-open', '');
@@ -223,7 +224,7 @@ test('Svelte exit transition remains accessible, then hides; reopen cancels stal
   await expect(page.getByRole('dialog')).toBeVisible();
   await page.keyboard.press('Escape'); await expect(page.getByRole('dialog')).toHaveCount(0);
   await expect(page.getByTestId('popup')).toBeHidden();
-  expect((await logs(page)).filter(x => x.channel === 'complete' && x.open === false)).toHaveLength(1);
+  expect((await logs(page)).filter(x => x.channel === 'complete' && x.open === false)).toHaveLength(2);
 });
 test('Svelte initial-open hydration and label lifecycle without console errors', async ({ page, request }) => {
   const response = await request.get('/dialog?initial');
@@ -292,7 +293,7 @@ test('audit: parent modality change preserves child Escape ownership', async ({ 
   await page.getByRole('button', { name: 'Modality toggle', includeHidden: true }).evaluate((button: HTMLButtonElement) => button.click());
   await page.keyboard.press('Escape'); await expect(page.getByTestId('child-popup')).toHaveCount(0);
   await expect(page.getByTestId('popup')).toBeVisible();
-  expect(await page.evaluate(() => document.documentElement.style.overflow)).toBe('');
+  expect(await page.evaluate(() => [document.documentElement, document.body].every(node => node.style.overflowY !== 'hidden'))).toBe(true);
   await page.keyboard.press('Escape'); await expect(page.getByRole('dialog')).toHaveCount(0);
 });
 test('audit: composing Escape leaves popup open without a close request', async ({ page }) => {

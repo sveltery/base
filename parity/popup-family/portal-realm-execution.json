@@ -1,0 +1,47 @@
+{
+  "head": "811bea9849d3a3c2c17b4d03b9d47d57c7998da0",
+  "originalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "publishedOriginalPackage": "1.8.0",
+  "command": "source scripts/toolchain.sh; TMPDIR=/workspace/sveltery-tmp NODE_OPTIONS=--max-old-space-size=512 NODE_COMPILE_CACHE=/workspace/sveltery-tmp/popup-family-node-cache pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/popup-portal-realm-witness.test.ts --maxWorkers=1",
+  "tests": 2,
+  "failed": 2,
+  "status": "NOT CLEAR: inherited native realm observer dereference reproduced. Frozen helper untouched; Root precise repair lease requested.",
+  "sourceResult": {
+    "Full": {
+      "error": null,
+      "portal": true,
+      "child": true
+    },
+    "Lite": {
+      "error": null,
+      "portal": true,
+      "child": true
+    }
+  },
+  "nativeResult": {
+    "Full": {
+      "error": "Cannot read properties of null (reading 'MutationObserver')",
+      "portal": true,
+      "child": false
+    },
+    "Lite": {
+      "error": "Cannot read properties of null (reading 'MutationObserver')",
+      "portal": true,
+      "child": false
+    }
+  },
+  "actualDefaultPlatformRealmHelper": "@floating-ui/utils/dom getWindow(destination) returns global window when ownerDocument.defaultView is null; actual assertion passed.",
+  "sourceBusiness": "Pinned Original shared node helper has no MutationObserver/defaultView dereference. Native observer exists to observe actual opaque host IDs. The defect is inherited approved public Full code, not an Original business defect.",
+  "log": "receipts/811bea9-portal-realm-source-native-failure.log.gz",
+  "uncompressedLogSha256": "beebef508be32ecd5b29fc27ffa82f10acfabacdd855ff3e6abfed7a6d88d284",
+  "setupFailure": "First execution had no tests due missing generated apps/fixtures/.svelte-kit/tsconfig.json; retained receipts/811bea9-portal-realm-setup-failure.log.gz; svelte-kit sync resolved setup without runtime changes.",
+  "fileSha256": {
+    "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts": "9242a7a1fa493144ea156028863dc1e2c8accdb89d10227e7784b83ff746d839",
+    "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte": "62a028f0ee0d3d11ff2bb21724fc8e1e7fdb2305a8330e660dc626e00889e852",
+    "packages/base/src/lib/utils/FloatingPortalLite.svelte": "c506d0758a012c2789b9da39f17bd34d7bf3f10d67d3861368f998b6b4a12b72",
+    "packages/base/tests/dom/popup-portal-realm-witness.test.ts": "83bf8f99c16a53cdcd3509d89f9890294e6b66bee38b25f63c89d176e3ca7aef",
+    "apps/fixtures/src/lib/popup-portal-realm-reference.ts": "279871911c40ae8acf94ef9bd8ce968c4087bbf849ec7ee00faa8efdc3897604"
+  },
+  "ordinaryDeclarationCredit": 0,
+  "fullSuite": "Unexecuted; focused actual 512MiB helper witness only."
+}

@@ -1,14 +1,14 @@
 <script lang="ts">
   // Derived from Base UI 1.8.0 ToastPortal/FloatingPortalLite/useFloatingPortalNode
   // at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, see ../../../THIRD_PARTY_NOTICES.md.
-  import { getAllContexts, getContext, mount, unmount, untrack } from 'svelte';
+  import { getAllContexts, mount, unmount, untrack } from 'svelte';
   import Element from '../dialog/Element.svelte';
-  import { PORTAL, type PortalContext } from '../dialog/context.js';
+  import { usePortalContext } from '../floating-ui/components/FloatingPortalContext.js';
   import RenderContent from './RenderContent.svelte';
   import type { ToastPortalProps, ToastPortalState } from './types.js';
   let { children, container, render, ref = $bindable(), ...props }: ToastPortalProps = $props();
   const context = getAllContexts();
-  const parent = getContext<PortalContext | undefined>(PORTAL);
+  const parent = usePortalContext();
   const generated = $props.id();
   let portalNode = $state.raw<HTMLElement | null>(null);
   function attach(node: HTMLElement) {
@@ -27,7 +27,7 @@
   let resolution: { container: ToastPortalProps['container']; parent: HTMLElement | null | undefined; destination: HTMLElement | ShadowRoot | null } | undefined;
   const destination = $derived.by(() => {
     const containerProp = container;
-    const parentNode = parent?.node;
+    const parentNode = parent?.portalNode;
     if (resolution && resolution.container === containerProp && resolution.parent === parentNode) return resolution.destination;
     const target = containerProp === null ? null : (containerProp && (isContainerNode(containerProp)
       ? containerProp : untrack(() => containerProp.current))) ?? parentNode ?? document.body;

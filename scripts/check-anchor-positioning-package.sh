@@ -40,11 +40,41 @@ import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import * as publicRoot from '@sveltery/base';
+import * as menuSubpath from '@sveltery/base/menu';
+import { Menu as menuParts } from '@sveltery/base/menu';
+import * as popoverSubpath from '@sveltery/base/popover';
+import * as previewCardSubpath from '@sveltery/base/preview-card';
+import * as tooltipSubpath from '@sveltery/base/tooltip';
 const require = createRequire(import.meta.url);
 const metadata = JSON.parse(readFileSync(new URL('./node_modules/@sveltery/base/package.json', import.meta.url), 'utf8'));
 assert.equal(metadata.dependencies['@floating-ui/dom'], '1.8.0'); assert.equal(metadata.dependencies['@floating-ui/utils'], '0.2.12');
 assert.equal(metadata.exports['./anchor-positioning'], undefined);
-for (const name of ['createAnchorPositioning', 'Menu', 'Popover', 'Tooltip', 'Select']) assert.equal(name in publicRoot, false);
+for (const name of ['createAnchorPositioning', 'Select']) assert.equal(name in publicRoot, false);
+assert.equal(publicRoot.Menu, menuParts);
+assert.deepEqual(Object.keys(menuParts).sort(), Object.keys(menuSubpath).filter(name => name !== 'Menu').sort());
+assert.deepEqual(Object.keys(publicRoot.Menu).sort(), Object.keys(menuParts).sort());
+for (const [name, part] of Object.entries(menuParts)) {
+  assert.equal(publicRoot.Menu[name], part, name);
+  assert.equal(menuSubpath[name], part, name);
+}
+for (const name of ['Root', 'Trigger', 'Positioner', 'Popup', 'Viewport', 'createHandle']) assert.equal(typeof publicRoot.Menu[name], 'function', name);
+for (const [family, subpath, parts] of [
+  ['Popover', popoverSubpath, ['Root', 'Trigger', 'Portal', 'Positioner', 'Popup', 'Arrow', 'Backdrop', 'Title', 'Description', 'Close', 'Viewport']],
+  ['PreviewCard', previewCardSubpath, ['Root', 'Trigger', 'Portal', 'Positioner', 'Popup', 'Arrow', 'Backdrop', 'Viewport']],
+  ['Tooltip', tooltipSubpath, ['Provider', 'Root', 'Trigger', 'Portal', 'Positioner', 'Popup', 'Arrow', 'Viewport']],
+]) {
+  const namespace = subpath[family];
+  const names = [...parts, 'Handle', 'createHandle'];
+  assert.equal(publicRoot[family], namespace, family);
+  assert.deepEqual(Object.keys(namespace).sort(), names.toSorted(), family);
+  assert.deepEqual(Object.keys(subpath).filter(name => name !== family).sort(), names.toSorted(), family);
+  for (const name of names) {
+    assert.equal(publicRoot[family][name], subpath[name], `${family}.${name}`);
+    assert.equal(namespace[name], subpath[name], `${family}.${name}`);
+    assert.equal(typeof namespace[name], 'function', `${family}.${name}`);
+  }
+  assert(namespace.createHandle() instanceof namespace.Handle, `${family}.createHandle`);
+}
 const anchor = new URL('./node_modules/@sveltery/base/dist/internals/anchor-positioning/', import.meta.url);
 for (const file of readdirSync(anchor)) {
   if (!/\.(?:js|ts)$/.test(file)) continue;

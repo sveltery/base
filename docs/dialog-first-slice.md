@@ -1,99 +1,62 @@
-# Dialog contained-first draft
+# Dialog source port
 
-This implements `Dialog.Root`, `Trigger`, `Portal`, `Backdrop`, `Popup`, `Title`, `Description`, and `Close` for a bounded, contained Svelte 5 slice. Import the namespace from `@sveltery/base` or parts from `@sveltery/base/dialog`. The package remains private and experimental. **Contained browser probes have passing secured Chromium CI evidence; complete Dialog compatibility is not claimed.**
+PR [#42](https://github.com/sveltery/base/pull/42) replaces the earlier contained Dialog implementation with the pinned Base UI business closure. Its delivery boundary is all nine public parts—Root, Trigger, Portal, Backdrop, Viewport, Popup, Title, Description and Close—plus handles, payload, actions, presence and their shared stores, focus, dismissal, portal and scroll helpers. Whole-source review and final hosted acceptance remain pending; earlier green runs do not certify this replacement.
 
-Reference: [Base UI v1.8.0](https://github.com/mui/base-ui/tree/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/dialog), commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. The [scenario contracts](../parity/dialog/scenarios.md) and byte-exact [175 declarations / 371 candidate records](../parity/dialog/upstream-inventory.json) preserve source provenance. Current status in the [shared manifest](../parity/manifest.json) includes four complete Popup initialFocus ports, P:92/287/310/333, and seven complete contained Root/Close ports, R:239/431 and C:25/55/89/118/137: **11 passing / 164 unported Dialog declarations**, expanding to **13 passing / 358 unported candidate records**. See [initialFocus evidence](../parity/dialog/initial-focus-ports.md) and [state/Close evidence](../parity/dialog/state-ports.md). The prior contained probes remain separately identified source-derived supplements and local wiring regressions; no upstream leaf earns credit from a narrower contained fixture. The [approved core audit changes](audit-fixes.md) propose a Portal fidelity repair and the separately recorded undefined-ref API relaxation; their supplemental regressions add no credit.
+The original reference is Base UI 1.8.0 at immutable [47b40521](https://github.com/mui/base-ui/tree/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/dialog), MIT. The [source correspondence](../parity/dialog/source-correspondence.md), [complete original graph](../parity/dialog/source-graph.json), [per-module decisions](../parity/dialog/source-correspondence.json) and [actual native graph](../parity/dialog/local-graph.json) include original shared dependencies and inherited local code outside the diff. The flat controller and independent overlay/focus/isolation/portal-focus/scroll-lock engines are removed. Root and public handles use the original popup store; one authoritative plain Store owns state, and Svelte subscriptions track its original notification bus.
 
-## Proposed Svelte API adaptations
+## Native API
 
-These mappings are proposals for parent review. They preserve the exercised observable behavior but do not promise React syntax or complete shared composition conformance.
+Import `Dialog` from `@sveltery/base` or parts from `@sveltery/base/dialog`.
 
-| React interface | Svelte draft interface |
+| Pinned interface | Native Svelte interface |
 | --- | --- |
-| `children` | Svelte `children` snippet. Payload-function children and detached handles are unimplemented. |
-| `render(props, state)` / replacement element | `render(props, state, children)` snippet. Spread all provided native props onto the actual replacement node, including symbol attachment props; render the third argument to retain supplied child content. Replacement snippets cannot be introspected: merge additional consumer props with `mergeProps(props, extra)` before spreading to retain callback composition. Automatic replacement-element prop inspection is not supported. |
-| DOM forwarded ref | `bind:ref={element}` accepts an initially undefined or null value and resolves the actual DOM node, including snippet replacements that spread attachment props; cleanup publishes null. Svelte attachments drive cleanup. The approved removal of the implicit null fallback is recorded in [A-01](upstream-differences.md#a-01-approved-proposed-core-audit-repairs-and-substitutions). React ref arrays/callback ref merging are unimplemented. |
-| `actionsRef` | `bind:actions={actions}`, or Root component `bind:this` methods `close()` / `unmount()`. Use `unmount()` after a deferred close. Forced removal while logically open is unimplemented. |
-| `className` / state-resolved class | `class` string or state callback. React class objects/arrays are unsupported. |
-| CSS style | CSS string or state callback returning a CSS string. **Consumer CSS style objects are unsupported and rejected by public types**, including numeric objects; no React object-style equivalence is claimed. Internal style objects are serialized only for library-owned CSS properties. |
-| Synthetic event props | Lowercase native Svelte props, e.g. `onclick`. The actual native event gains `preventBaseUIHandler()`. Native `preventDefault()` remains a distinct channel; custom keyboard activation composes through a generated click carrying modifier keys, as upstream does. |
-| Focus ref | `{ current: element }`, or callback returning an element/boolean/null/undefined. Use Svelte reactive state for refs which resolve or change later. Callback `undefined` means no focus movement; null means default. |
-| Portal container ref | Element, ShadowRoot or `{ current: node }`; undefined and `{ current: null }` use the inherited Portal/body fallback, while an explicitly null container waits. A native node carrying `current` remains the target. Reactive reference changes require Svelte reactive state. The [fidelity repair and target probes](audit-fixes.md#dialog-portal-target-fidelity) still require final-head browser acceptance. |
-| Generated IDs | `base-ui-` + `$props.id()`, using pinned Svelte 5.57.1 ([official ID documentation](https://svelte.dev/docs/svelte/$props#props.id)). Relationships are preserved rather than React's ID bytes. |
+| Children / payload render function | A children snippet. Root supplies `{ payload: Payload \| undefined }`; ordinary no-argument snippets may ignore it. |
+| `className` / state callback | `class`, using native Svelte ClassValue (strings, arrays and objects) or a state callback. |
+| Style / state callback | Native CSS strings or the canonical style object/callback, including CSS variables and numeric conversion. |
+| Replacement element / render function | `render(props, state, children)` snippet. Spread supplied props, including attachment symbols, onto the actual host. Use `mergeProps` to compose extra handlers. Snippets remain opaque; no React element inspection or child replacement machinery is added. Portal separately mounts its children into the actual host even when the snippet ignores the children argument. |
+| Forwarded DOM ref | `bind:ref={element}` accepts initially undefined or null refs. The canonical native attachment publishes the actual host and null on teardown. |
+| `actionsRef` | `bind:actions={actions}`, or Root `bind:this` methods `close()` and `unmount()`. Use unmount after deferred closing animation. Forced unmount while logically open retains the original remount behavior. |
+| Detached handles | `Dialog.createHandle<Payload>()` or `new Dialog.Handle<Payload>()`; pass the same handle to Root and detached Triggers. `open(triggerId)`, `openWithPayload(payload)`, `close()` and `isOpen` retain original store ownership. |
+| Synthetic handlers | Native lowercase event props such as `onclick`. The same native event gains `preventBaseUIHandler()`; default prevention and change-detail cancellation stay separate. |
+| Focus ref / callback | `{ current: element }` or the original interaction-type callback. Null requests default focus; false/undefined requests no movement. |
+| Portal container | HTMLElement, ShadowRoot or `{ current: node }`. Undefined/empty refs fall back to parent Portal/body; explicit null waits. Changed container identity remounts the host, as in the pin. |
+| Generated IDs | Native `$props.id()` for raw source IDs; the canonical useBaseUiId prefix for parts which originally use that helper. Relationships are preserved, while framework ID bytes differ. |
+| Component namespace types | Erased `Dialog.Root.Props<Payload>`, `Trigger.Props<Payload>`, each part's Props/State and the existing named exports. Strict optional properties accept explicit undefined as in source. |
 
 ```svelte
 <script lang="ts">
   import { Dialog } from '@sveltery/base';
-  import type { Actions } from '@sveltery/base/dialog';
-  let actions = $state<Actions | null>(null);
-  let trigger = $state<HTMLElement | null>(null);
+  const handle = Dialog.createHandle<number>();
+  let actions = $state<Dialog.Root.Actions | null>(null);
 </script>
 
-<Dialog.Root bind:actions>
-  <Dialog.Trigger bind:ref={trigger}>Open</Dialog.Trigger>
-  <Dialog.Portal>
-    <Dialog.Backdrop />
-    <Dialog.Popup>
-      <Dialog.Title>Title</Dialog.Title>
-      <Dialog.Description>Description</Dialog.Description>
-      <Dialog.Close>Close</Dialog.Close>
-    </Dialog.Popup>
-  </Dialog.Portal>
+<Dialog.Trigger {handle} payload={7}>Open</Dialog.Trigger>
+<Dialog.Root {handle} bind:actions>
+  {#snippet children({ payload })}
+    <Dialog.Portal>
+      <Dialog.Backdrop />
+      <Dialog.Viewport>
+        <Dialog.Popup>
+          <Dialog.Title>Title</Dialog.Title>
+          <Dialog.Description>Payload {payload}</Dialog.Description>
+          <Dialog.Close>Close</Dialog.Close>
+        </Dialog.Popup>
+      </Dialog.Viewport>
+    </Dialog.Portal>
+  {/snippet}
 </Dialog.Root>
 ```
 
-Replacement snippet with child forwarding:
+Controlled `open` and `triggerId` remain owner inputs; requests do not force a held controlled input. `onInternalOpenChange` remains the existing supplemental observation seam after consumer cancellation and before floating dispatch. Logical open, retained mounted presence and deferred removal remain distinct. Deferred close retains focus until actual focus-manager teardown. A canceled `preventUnmountOnClose()` callback retains the original immediate state side effect; it can defer a later accepted close. Original ShadowRoot outside-guard loops, single-label cleanup, longhand CSS-priority loss, composition-event settlement and sole-trigger payload forwarding remain source behavior. [DS-01](upstream-differences.md#ds-01-dialog-whole-source-native-substitutions) records the native boundary and restoration of earlier local corrections.
 
-```svelte
-<Dialog.Trigger nativeButton={false}>
-  {#snippet render(props, state, children)}
-    <span {...props} data-example-open={state.open}>{@render children?.()}</span>
-  {/snippet}
-  Open
-</Dialog.Trigger>
-```
+## Evidence and limits
 
-Root `open` is a controlled input; use `onOpenChange` to update the owner. `open ?? internalOpen` chooses effective state; a request never forces a held owner input to change. `onInternalOpenChange` is a draft observation seam for the callback → cancellation check → internal dispatch contract. It receives the same live details/native event and is suppressed on cancellation. It is not a substitute for a native DOM openchange event.
+The [175-declaration / 371-candidate inventory](../parity/dialog/upstream-inventory.json) stays unchanged. Previously credited 11 declarations / 13 expansions remain historical execution evidence; this source replacement adds zero ordinary credits. The [complete handle assertion bodies](../parity/dialog/handle-candidates.json), conformance records and original guards remain separate from local supplements.
 
-Each Root owns its controller. Derived open, IDs, labels, trigger ownership and nested counts use getters/runes, with lifecycle registrations rather than copy effects. Effects are limited to external DOM association, portaling, native listeners, focus, scroll-lock ownership and animation completion. Logical open, retained presence and externally deferred removal are separate; generation checks prevent stale completions after reopening/destroying.
+Current supplements include direct Store notification/recursive-write checks; actual React/native scroll, IME, completion, deferred-focus and payload comparisons; native handle/cleanup regressions; guard/backdrop/tree primitive probes; replacement-host/context/ID/Viewport tests; and the [real packed consumer](../scripts/check-dialog-handles-package.sh), which checks public root/subpath identity, no-browser SSR, strict types and actual installed mounting/focus/portal/deferred-presence/reopen/teardown. Synthetic jsdom input establishes wiring only. Secured hosted Chromium and fresh whole-closure source/native/maintainability review remain mandatory.
 
-Portal emits no SSR DOM; body/parent-container relocation happens after mount. The package root now includes Svelte components and requires a Svelte compiler/bundler. The tarball test uses a test-only SSR loader with the declared Svelte peer, rather than pretending plain Node understands `.svelte`. `@sveltery/base/merge-props` remains directly importable JavaScript.
+Exact `aa5c9aa` passed its 56 focused and 2,517 broad secured browser cases, all 21 hosted checks and owner full Verification/Standards. The successor normally integrates accepted main `74f667d`/PR55 without changing any reached native body, then restores the two original DEV warning explanations in canonical useButton from public PR59 `d00a8b0`. Earlier whole-source review missed this helper gap; its historical disposition is preserved rather than applied to the repair. Fresh owner affected checks, actual workspace Svelte checks and strict installed nine-part Dialog consumers pass; the [correspondence](../parity/dialog/source-correspondence.md) records their bounded scope. Fresh hosted checks and full-closure source/native/maintainability review remain required for the resulting head. The repair changes no button business handler and adds no ordinary assertion credit.
 
-## Evidence and gates
+The runtime closure covers Dialog's used business dependencies. Public Drawer, AlertDialog and other popup families remain outside this PR; their dependent Dialog assertion bodies remain individually unimplemented. React Suspense/Activity/StrictMode replay machinery is not recreated; its affected assertions retain explicit framework-unimplemented status and zero unchanged-source credit. Unused Store methods and unselected floating barrel algorithms are recorded rather than copied as dead files. No complete Dialog assertion parity, whole-library parity or exhaustive assistive-technology certification is claimed.
 
-Executed commands, exact environment blockers and independent review are recorded in [implementation verification](../parity/dialog/implementation-verification.md). Each supplemental probe maps to scenario/source context in [probe traceability](../parity/dialog/supplemental-probes.md); these mappings earn no original inventory parity credit.
-
-| Area | Runnable evidence | Current result / limitation |
-| --- | --- | --- |
-| State, cancellation, native identity, composition | [actual Svelte DOM regressions](../packages/base/tests/dom/dialog.test.ts), [public type assertions](../packages/base/tests/dialog.types.ts) | Supplemental jsdom execution; not browser parity. Includes held controlled updates/reopen, callback pre-change DOM observations, canceled open/close with zero internal dispatch, actual Trigger/Close prevention and custom keyboard click composition. |
-| SSR and consumer package | [tarball consumer](../scripts/check-package.sh), [test-only SSR compiler loader](../scripts/svelte-ssr-loader.mjs) | Actual packed root/subpath parts render server-side without document access; generated IDs are unique across two Roots; portals absent on server. The Chromium suite checks the server-generated IDs and label relationships through hydration. |
-| Focus, trusted input, nested dismissal, transitions and hydration | [contained scenario probes](../tests/browser/dialog.spec.ts), [focus ownership regressions](../tests/browser/dialog-focus-ownership.spec.ts), [secured Playwright config](../playwright.config.ts) | Read the exact-head `Dialog browser` log in [CI](https://github.com/sveltery/base/actions/workflows/ci.yml) for current execution counts/results. Existing contained probes and complete initialFocus/state ports remain intact. Paired supplemental regressions cover all-Trigger interaction ownership, final focus on conditional Portal/Popup removal, exactly-once return after ordinary close, disabled return movement, and trusted Tab/arrow input through named radio groups. This certifies only the exercised cases; the supplemental regressions earn no complete upstream leaf credit. |
-| Nesting, labels, cleanup, scroll styles | Actual Svelte DOM regressions | Tests execute contained nested parts, one-Escape ownership, descendant count cleanup, label ID updates/removal, deferred completion/unmount, lock reference counts and restoration of prior shorthand/longhands. Browser probes also exercise contained nesting, lock cleanup and stale exit completion; broader layout-dependent variants remain unported. |
-
-Fixture routes: `/dialog` (Svelte), `/reference` (real `@base-ui/react@1.8.0`), `/dialog-ssr` (two Roots with server-rendered IDs), `/initial-focus` and `/dialog-state` (paired Svelte/React source-port fixtures). React/reference dependencies are fixture-only; none enter the library runtime. Official `@playwright/test`, `playwright`, and `playwright-core` resolve to exact **1.63.0** through the committed lockfile. `chromiumSandbox: true` is explicit; retries are zero and no blanket skips exist.
-
-## Unimplemented or unverified behavior
-
-The [modal isolation supplement](../parity/dialog/modal-isolation.md) adds bounded outside accessibility isolation, preserving live regions and native inert attributes, with per-document overlapping ownership. Its paired tests cover ordinary, sequential nested/body-portal and sibling Dialog cases plus mode changes and conditional cleanup. These supplements add no upstream leaf credit. Read its explicit limits before treating this as full screen-reader isolation or cross-component accessibility support.
-
-Before a complete Dialog milestone, retain all original assertions/variants and implement: Viewport; detached handles/payloads/remount/reparent/overlap; full eight-part ref/render/class conformance; nonmodal body-portal logical Tab order/focus guards; full modal screen-reader isolation and outside interaction routing; deep shadow-root tabbable traversal; touch movement/multitouch dismissal; cross-type Menu/Select/AlertDialog/Drawer/ScrollArea/NumberField cases; scrollbar/third-party lock resilience under asynchronous unlock; all animation replacement/count cases; suspended detached hydration; explicit/late portal target relocation acceptance; forced unmount while open. Single-popup-per-Root and consumer CSS objects being unsupported are current draft restrictions.
-
-The document-wide stack is a contained-first ownership mechanism, not certified sibling/cross-type Floating UI equivalence. Composed paths and owner-document access are used, but full shadow DOM fixture parity remains unported. No behavior in this list should be hidden by weakening an upstream assertion or replacing its real dependency.
-
-## Local browser environment blockers
-
-On the saved Linux environment, official install action:
-
-```sh
-PLAYWRIGHT_BROWSERS_PATH=/workspace/playwright-browsers pnpm exec playwright install chromium
-```
-
-attempted `https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip` and returned **HTTP 403: Domain forbidden**. No network policy changed, no alternate-host bypass attempted.
-
-A secured launch using `DIALOG_CHROMIUM_PATH=/usr/bin/chromium pnpm test:browser` fails before the fixture interaction with **SIGABRT**, `setuid_sandbox_host.cc:166`: `/usr/lib/chromium/chrome-sandbox` must be owned by root and mode 4755. The existing helper is mode 4755, owned by nobody. No sandbox-disabling flags or security changes were made. Read-only managed browser lookup also reported the Orbit launcher requires `ORBIT_OS=true` and `BROWSER_HEADLESS=false`; no managed browser was available.
-
-These local blockers remain. The separate Ubuntu 22.04 CI job downloaded official Chromium and passed all 31 probes with sandboxing enabled, zero retries and no policy changes: [successful run at `088fd76`](https://github.com/sveltery/base/actions/runs/36844887195). Local reruns still require a supported secured browser or authorized official CDN access plus a working sandbox.
-
-The [upstream differences register](upstream-differences.md) records PR #13’s canceled-close deferral and nonmodal ShadowRoot exit corrections. Their divergent paired assertions are supplemental evidence, not parity credit; the disabled Close-anchor and native tabbable repairs restore upstream behavior.
-
-The [core audit record](audit-fixes.md) covers the approved Portal fidelity repair and undefined-ref adaptation against the current main pin, with permanent DOM/browser regressions and pending exact-head gates. Older browser evidence above does not certify these new changes.
+Portal emits no SSR DOM and mounts with inherited native context after client setup. Browser verification uses the official Chromium 153 build on Ubuntu 22.04 with sandboxing enabled, one worker and zero retries. Local Chrome remains blocked by the saved environment; no sandbox-disabling workaround is used. Historical contained-browser and controller evidence remains in the linked parity records and does not substitute for final PR42 acceptance.
