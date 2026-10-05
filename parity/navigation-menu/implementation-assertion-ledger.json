@@ -37,7 +37,7 @@
       "kind": "ordinary-declaration",
       "sha256": "a78ae690edfc01102def49c34b8775d34bb6206231cba3989c2dabedc07c840b",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-parts.spec.ts",
@@ -67,6 +67,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "native Svelte exact parts",
+              "title": "C:30 actual SSR content count",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "Original React exact parts",
+              "title": "C:30 actual SSR content count",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -80,7 +102,7 @@
       "kind": "ordinary-declaration",
       "sha256": "f3adf60337550ddbcb8653f385974c83f085427c6866ed17baed2925ff3f387f",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-parts.spec.ts",
@@ -110,6 +132,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "native Svelte exact parts",
+              "title": "C:55 actual SSR content count",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "Original React exact parts",
+              "title": "C:55 actual SSR content count",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -123,7 +167,7 @@
       "kind": "ordinary-declaration",
       "sha256": "9a1325b206520f3298052b3afa0c8b708035d492f2a1cf870a1b99f13344719c",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-parts.spec.ts",
@@ -153,6 +197,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "native Svelte exact parts",
+              "title": "C:81 actual SSR hydration content count",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "Original React exact parts",
+              "title": "C:81 actual SSR hydration content count",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -166,7 +232,7 @@
       "kind": "ordinary-declaration",
       "sha256": "9c6c874370f610e1d6213a81fe094524c631219c0e3a47aacdf858023eedac50",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-parts.spec.ts",
@@ -196,6 +262,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "native Svelte exact parts",
+              "title": "C:107 actual SSR hydration content count",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "Original React exact parts",
+              "title": "C:107 actual SSR hydration content count",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -209,7 +297,7 @@
       "kind": "ordinary-declaration",
       "sha256": "091d04d65df9e9f91ade6fd7cf02208b36e4e15920db1876dbd9c27cad82765e",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-parts.spec.ts",
@@ -239,6 +327,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "native Svelte exact parts",
+              "title": "C:132 both moved contents remain in viewport",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "Original React exact parts",
+              "title": "C:132 both moved contents remain in viewport",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -252,7 +362,7 @@
       "kind": "ordinary-declaration",
       "sha256": "76e3ebe5cbe3808c6dd5db6dfc2bed3bcbcfa8c9471ff40b0e44b100bda98a5a",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-parts.spec.ts",
@@ -282,6 +392,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "native Svelte exact parts",
+              "title": "C:185 kept portal retains hidden content inside viewport",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "Original React exact parts",
+              "title": "C:185 kept portal retains hidden content inside viewport",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -319,7 +451,7 @@
       "kind": "ordinary-declaration",
       "sha256": "41faabe10c82269a302305d842c369f711d3004750fd9164ca6fe84244911e45",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-parts.spec.ts",
@@ -349,6 +481,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "native Svelte exact parts",
+              "title": "L:21 Source DOM-only closeOnClick protocol browser candidate",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "Original React exact parts",
+              "title": "L:21 Source DOM-only closeOnClick protocol browser candidate",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -362,7 +516,7 @@
       "kind": "ordinary-declaration",
       "sha256": "69c9392a870d8374ee8892dc298971f24fdc485563991eac174d610c1e8252c7",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-parts.spec.ts",
@@ -392,6 +546,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "native Svelte exact parts",
+              "title": "L:61 Source DOM-only closeOnClick protocol browser candidate",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "Original React exact parts",
+              "title": "L:61 Source DOM-only closeOnClick protocol browser candidate",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -405,7 +581,7 @@
       "kind": "ordinary-declaration",
       "sha256": "7df6dee417c7939af4ae3411a6c5c06e412bbabd7612126d98c1163720e42a2e",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-parts.spec.ts",
@@ -435,6 +611,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "native Svelte exact parts",
+              "title": "L:103 active aria-current",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "Original React exact parts",
+              "title": "L:103 active aria-current",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -448,7 +646,7 @@
       "kind": "ordinary-declaration",
       "sha256": "0d66691967b628c415f53275e787f55bb51dfc6e0da0232e4b8b20f4a56cc17d",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-parts.spec.ts",
@@ -478,6 +676,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "native Svelte exact parts",
+              "title": "L:118 active aria-current",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "Original React exact parts",
+              "title": "L:118 active aria-current",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -491,7 +711,7 @@
       "kind": "ordinary-declaration",
       "sha256": "6d555c529dfeacdfaf9b4e0739b6965571fe04d295e08d6c5026a28f765ea290",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-parts.spec.ts",
@@ -521,6 +741,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "native Svelte exact parts",
+              "title": "L:134 null-related-target blur retains open content",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "Original React exact parts",
+              "title": "L:134 null-related-target blur retains open content",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -558,7 +800,7 @@
       "kind": "ordinary-declaration",
       "sha256": "9bf021939529813f24ed9539739fa5d47622f3a7c6290280348584ee87dbfe04",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-parts.spec.ts",
@@ -588,6 +830,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "native Svelte exact parts",
+              "title": "List:29 selected vertical keys stop propagation",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "Original React exact parts",
+              "title": "List:29 selected vertical keys stop propagation",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -601,7 +865,7 @@
       "kind": "ordinary-declaration",
       "sha256": "f0ca13aadcdabac27bdee5efb89fc7cca8f9d59a3790caebfbff4a87f0d4257b",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-parts.spec.ts",
@@ -631,6 +895,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "native Svelte exact parts",
+              "title": "List:77 item removal keeps navigation based on focused trigger",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "Original React exact parts",
+              "title": "List:77 item removal keeps navigation based on focused trigger",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -692,7 +978,7 @@
       "kind": "ordinary-declaration",
       "sha256": "79a8185b222c59190f4aff09f715cd5418bc0399105dae8fd18139ebf58858b2",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -744,6 +1030,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1034 orientation attributes",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1034 orientation attributes",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -757,7 +1065,7 @@
       "kind": "ordinary-declaration",
       "sha256": "6a1155d54332a9628a5488a65db24dfc6b682711c7a0538a64de10233a722dc0",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -809,6 +1117,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1041 orientation attributes",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1041 orientation attributes",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -822,7 +1152,7 @@
       "kind": "ordinary-declaration",
       "sha256": "6cd91ce9d726ecae90fe5b457be117cd90461578563b57cd6b1bdabbfea77bde",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -874,6 +1204,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1049 mouse hover",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1049 mouse hover",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -887,7 +1239,7 @@
       "kind": "ordinary-declaration",
       "sha256": "0df49b701826171e2e1b477e8b452153c1dc55a6c9fcfbd0c16ebb7b9af6087f",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -939,6 +1291,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1062 top-level traversal pointer lock",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1062 top-level traversal pointer lock",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -952,7 +1326,7 @@
       "kind": "ordinary-declaration",
       "sha256": "100c99921004d456d7a832b2deb06f1455d7b04420604b0bc6e7234c4dee0ba6",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -1004,6 +1378,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1084 reapply pointer lock after popup traversal and switch",
+              "status": "unexpected",
+              "result": "failed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1084 reapply pointer lock after popup traversal and switch",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -1017,7 +1413,7 @@
       "kind": "ordinary-declaration",
       "sha256": "28187a3317f886a56d83c7e23e988e3e9a7d9fdfc51d748478cf972a946339a6",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -1069,6 +1465,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1133 direct hover switch pointer lock",
+              "status": "unexpected",
+              "result": "failed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1133 direct hover switch pointer lock",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -1082,7 +1500,7 @@
       "kind": "ordinary-declaration",
       "sha256": "2634f7c8fe43739aa99687a93f92cd07ce21e73bf639017772d677d9870c78cd",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -1134,6 +1552,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1158 pointerdown releases top-level lock",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1158 pointerdown releases top-level lock",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -1147,7 +1587,7 @@
       "kind": "ordinary-declaration",
       "sha256": "111b9ee26eca21e3e1149986b28954c47b8c56a7c46ddf9e5ed387edd83aff99",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-parts.spec.ts",
@@ -1177,6 +1617,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "native Svelte exact parts",
+              "title": "R:1175 custom list scopes pointer lock to document",
+              "status": "unexpected",
+              "result": "failed"
+            },
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "Original React exact parts",
+              "title": "R:1175 custom list scopes pointer lock to document",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -1190,7 +1652,7 @@
       "kind": "ordinary-declaration",
       "sha256": "d0893c39d5fd80419843b2d48b194678ac77506731156e0bc04626942d18e0c5",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -1242,6 +1704,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1221 real hover locks sibling trigger",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1221 real hover locks sibling trigger",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -1255,7 +1739,7 @@
       "kind": "ordinary-declaration",
       "sha256": "422479fbe9560651ae11e7af62035f57b393731592bd10ff5e014f2f332472dd",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -1307,6 +1791,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1239 dispatched mouse click",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1239 dispatched mouse click",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -1320,7 +1826,7 @@
       "kind": "ordinary-declaration",
       "sha256": "7c31dff656a5e084bb92bd54877140ef320757be19a30e0031c4b48adf2a5de2",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -1372,6 +1878,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1250 touch pointerenter blocks synthetic hover",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1250 touch pointerenter blocks synthetic hover",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -1385,7 +1913,7 @@
       "kind": "ordinary-declaration",
       "sha256": "2011b574a4ce18d26724a7d7a8bbd19b2a2095ff7b1c03319eed2eb797d4d2ca",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -1437,6 +1965,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1303 touch click opens",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1303 touch click opens",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -1450,7 +2000,7 @@
       "kind": "ordinary-declaration",
       "sha256": "11e08f9382eb996ff71e8374e5d7a82d80fda2548b18921414b2e55e452950ab",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -1502,6 +2052,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1316 hover returns after touch and outside close",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1316 hover returns after touch and outside close",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -1515,7 +2087,7 @@
       "kind": "ordinary-declaration",
       "sha256": "6e6bbe7efe4e9641ec607f8fcd0ee1e37266c0b39e5cef610ca4fc469d2d385a",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -1567,6 +2139,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1346 hover returns after nested touch and outside close",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1346 hover returns after nested touch and outside close",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -1580,7 +2174,7 @@
       "kind": "ordinary-declaration",
       "sha256": "db9b58c2b9a1313819be8ed6efb4b7b0a35819715d52b9ccbad63ee96ac13f11",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -1632,6 +2226,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1385 hover returns after quick click and switch",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1385 hover returns after quick click and switch",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -1645,7 +2261,7 @@
       "kind": "ordinary-declaration",
       "sha256": "5e3aca60b31068800facf757535aae21fe0597f1395b469c1106ce5f218f8248",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -1697,6 +2313,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1418 pointerdown on hover-open link then leave closes",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1418 pointerdown on hover-open link then leave closes",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -1710,7 +2348,7 @@
       "kind": "ordinary-declaration",
       "sha256": "6404f2480c46656cac7c9326dcd82eb6f46b59f36f9f630f7ea5e077d9165f2b",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -1762,6 +2400,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1440 switch trigger mouse",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1440 switch trigger mouse",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -1775,7 +2435,7 @@
       "kind": "ordinary-declaration",
       "sha256": "0e94c76a8848cb6cc3d2dc34e4e6b931ced5dbf66f941714248df6d3c124e1fd",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -1827,6 +2487,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1460 switch trigger touch",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1460 switch trigger touch",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -1840,7 +2522,7 @@
       "kind": "ordinary-declaration",
       "sha256": "6aa9eaa728f69988651caf7b800209264768131d8fd2c868deeac3c626514c52",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -1892,6 +2574,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1482 Escape returns focus to trigger",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1482 Escape returns focus to trigger",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -1905,7 +2609,7 @@
       "kind": "ordinary-declaration",
       "sha256": "e6862adae246bd5eec5ab73c0a5793bb27ca257f05d361e4925bbebdcfc945dd",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -1957,6 +2661,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1506 outside click retains outside focus",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1506 outside click retains outside focus",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -1970,7 +2696,7 @@
       "kind": "ordinary-declaration",
       "sha256": "2e44c2ce8ca39b42e16d1427ad495da0ea1e8abc7fff9b917a7c0d0eb88822c9",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -2022,6 +2748,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1531 hover close leaves trigger unfocused",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1531 hover close leaves trigger unfocused",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -2035,7 +2783,7 @@
       "kind": "ordinary-declaration",
       "sha256": "e463709f016bae01c85c79d4db5798edd7dafc4ee2178f669e67f47cc0bf94bc",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -2087,6 +2835,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1553 focus outside stays outside",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1553 focus outside stays outside",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -2100,7 +2870,7 @@
       "kind": "ordinary-declaration",
       "sha256": "6f6bf5e896baf6cbfba1c61eb29ce49bdd4d7924ec57b5e443a347a7237725eb",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -2152,6 +2922,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1582 patient click threshold",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1582 patient click threshold",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -2165,7 +2957,7 @@
       "kind": "ordinary-declaration",
       "sha256": "341212a256d28575a3351da75002fdb493beee004335f35dfb095b53936619bd",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -2217,6 +3009,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1603 exact defaultValue",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1603 exact defaultValue",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -2244,7 +3058,7 @@
       "kind": "ordinary-declaration",
       "sha256": "c10f152e954212f998b84972864f6699b0a9041d11c0bccbe60f966a4d100838",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -2296,6 +3110,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1657 exact callback sequence",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1657 exact callback sequence",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -2309,7 +3145,7 @@
       "kind": "ordinary-declaration",
       "sha256": "8b1ab489e8c891954263613f8fbcadb8ee618847a36c79fa7a7cc713a78db3ef",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -2361,6 +3197,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1674 canceled callback",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1674 canceled callback",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -2374,7 +3232,7 @@
       "kind": "ordinary-declaration",
       "sha256": "74bbee0ef107290c7a3639eac4c4ebf0e86470aca5119a10fcbc3c5307f8cd59",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -2426,6 +3284,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1690 keyboard switching callback ownership",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1690 keyboard switching callback ownership",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -2439,7 +3319,7 @@
       "kind": "ordinary-declaration",
       "sha256": "3c291fc4263951e797cab2fa45b1f57cf899a35c4c88985086706ac7bb5f8690",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -2491,6 +3371,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1752 controlled owner selects active value",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1752 controlled owner selects active value",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -2504,7 +3406,7 @@
       "kind": "ordinary-declaration",
       "sha256": "7c59191aa14a33b4c72495e62c2659bfdd5ccfdc3ab149cfa19b3368c303f14b",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-sizing.spec.ts",
@@ -2534,6 +3436,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-sizing.spec.ts",
+              "suite": "native Svelte exact sizing",
+              "title": "R:1854 external close preserves measured size",
+              "status": "unexpected",
+              "result": "failed"
+            },
+            {
+              "file": "navigation-menu-sizing.spec.ts",
+              "suite": "Original React exact sizing",
+              "title": "R:1854 external close preserves measured size",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -2547,7 +3471,7 @@
       "kind": "ordinary-declaration",
       "sha256": "58256552e9a04842de03cd96cfbb627b931e56361790cb0c80a5df8aa86ba193",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-sizing.spec.ts",
@@ -2577,6 +3501,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-sizing.spec.ts",
+              "suite": "native Svelte exact sizing",
+              "title": "R:1858 external close preserves measured size",
+              "status": "unexpected",
+              "result": "failed"
+            },
+            {
+              "file": "navigation-menu-sizing.spec.ts",
+              "suite": "Original React exact sizing",
+              "title": "R:1858 external close preserves measured size",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -2590,7 +3536,7 @@
       "kind": "ordinary-declaration",
       "sha256": "32bd39b45b859fd4973b023b3915b0cfcdbc9d8ae9a12655417dac46d44fc401",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-sizing.spec.ts",
@@ -2620,6 +3566,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-sizing.spec.ts",
+              "suite": "native Svelte exact sizing",
+              "title": "R:1862 external close clears activation direction",
+              "status": "unexpected",
+              "result": "failed"
+            },
+            {
+              "file": "navigation-menu-sizing.spec.ts",
+              "suite": "Original React exact sizing",
+              "title": "R:1862 external close clears activation direction",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -2633,7 +3601,7 @@
       "kind": "ordinary-declaration",
       "sha256": "f5b49684d388a027c6563ad0f1a982c1ad1dcbb6b51cc02c47f0085b01169228",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -2685,6 +3653,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1904 custom open delay",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1904 custom open delay",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -2698,7 +3688,7 @@
       "kind": "ordinary-declaration",
       "sha256": "65dd50e130404b831c57d6d882af1ef12229e2b92662dad8b0546852731551a3",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -2750,6 +3740,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1926 custom close delay",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1926 custom close delay",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -2763,7 +3775,7 @@
       "kind": "ordinary-declaration",
       "sha256": "179e66f576ce8c359a83d2f77d829d4cea2adbaffb69fca35fbadf722e957f32",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -2815,6 +3827,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1953 disabled hover",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1953 disabled hover",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -2828,7 +3862,7 @@
       "kind": "ordinary-declaration",
       "sha256": "b5c23c0fd603b6622d5fce56fa37459c0d964d6282a927257204a4ad4192d508",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -2880,6 +3914,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1968 disabled click",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1968 disabled click",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -2893,7 +3949,7 @@
       "kind": "ordinary-declaration",
       "sha256": "3aaf2ca6a1d5902df43c906e102c7876b6334cd0be712fa278038ca4c9836426",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -2945,6 +4001,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1981 disabled touch",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1981 disabled touch",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -2958,7 +4036,7 @@
       "kind": "ordinary-declaration",
       "sha256": "7a2abfb6d8444bb0edf599461bba5db17b4c988df4ea5d9dde80ad27f5a74c5c",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -3010,6 +4088,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1996 disabled keyboard",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1996 disabled keyboard",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -3023,7 +4123,7 @@
       "kind": "ordinary-declaration",
       "sha256": "efd3354c10bb89e1e7ce4ac9c1184b8ba7f99e657e37d328f4c34d25cced4946",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -3075,6 +4175,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:2016 actual action defers unmount",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:2016 actual action defers unmount",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -3088,7 +4210,7 @@
       "kind": "ordinary-declaration",
       "sha256": "748cc9301bb0b5f610cf3142a5e1afbfa1ea94bdc714660541861fb3b1251f50",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-sizing.spec.ts",
@@ -3118,6 +4240,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-sizing.spec.ts",
+              "suite": "native Svelte exact sizing",
+              "title": "R:2042 manual action immediately unmounts in-flight close",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-sizing.spec.ts",
+              "suite": "Original React exact sizing",
+              "title": "R:2042 manual action immediately unmounts in-flight close",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -3131,7 +4275,7 @@
       "kind": "ordinary-declaration",
       "sha256": "03720a52c45dc2bd63ce67d00e2d4971074a7cf48435399ca52c610874491a9e",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -3183,6 +4327,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:2123 complete forward and reverse tab order",
+              "status": "unexpected",
+              "result": "failed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:2123 complete forward and reverse tab order",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -3196,7 +4362,7 @@
       "kind": "ordinary-declaration",
       "sha256": "e32748e0fbc4a125ab712e4a0e6a5fdc0a72a6cebe0925f47ff3f2aef0afd58d",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -3248,6 +4414,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:2167 tab forward out closes",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:2167 tab forward out closes",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -3261,7 +4449,7 @@
       "kind": "ordinary-declaration",
       "sha256": "5991316999cbe4b5a23f854d6dae8d828a02ec97b8838c6004bee548090b9d5a",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-parts.spec.ts",
@@ -3291,6 +4479,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "native Svelte exact parts",
+              "title": "R:2192 arbitrary button tabbing closes after leaving",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "Original React exact parts",
+              "title": "R:2192 arbitrary button tabbing closes after leaving",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -3304,7 +4514,7 @@
       "kind": "ordinary-declaration",
       "sha256": "95a3b4d53bfdc1e8f382d59950ea5b224b941673e10c4a53eb4104b1f91a1967",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-parts.spec.ts",
@@ -3334,6 +4544,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "native Svelte exact parts",
+              "title": "R:2230 missing viewport guard restores trigger focus",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "Original React exact parts",
+              "title": "R:2230 missing viewport guard restores trigger focus",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -3347,7 +4579,7 @@
       "kind": "ordinary-declaration",
       "sha256": "4e50d3f6e436e7f9389fe445f16f5ab0bd4ff4006f8da8c557f464cdc7a56938",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -3399,6 +4631,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:2260 shift tab restores last submenu link",
+              "status": "unexpected",
+              "result": "failed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:2260 shift tab restores last submenu link",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -3412,7 +4666,7 @@
       "kind": "ordinary-declaration",
       "sha256": "44cb6d7ba312eaabb3820bd52907444b71dc1169e8e1a3afb42d28b168f48bcd",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -3464,6 +4718,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:2290 reverse tab out closes",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:2290 reverse tab out closes",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -3519,7 +4795,7 @@
       "kind": "ordinary-declaration",
       "sha256": "f236cd0892533e07ab42e855dbe5072cd20023159c8c581dc4044161eb6ece07",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -3571,6 +4847,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:2389 nested hover ownership",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:2389 nested hover ownership",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -3584,7 +4882,7 @@
       "kind": "ordinary-declaration",
       "sha256": "e7d87fd12f4fc1c38783fd0f3bfb45fcd281b13c3a350c5e1e266dd10f2180f2",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -3636,6 +4934,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:2423 nested hover ownership",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:2423 nested hover ownership",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -3649,7 +4969,7 @@
       "kind": "ordinary-declaration",
       "sha256": "2ff988e62584f60aefe08f0ceccb1f05f8d9bb3f72000dd6202ecc9e29e58417",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -3701,6 +5021,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:2468 nested hover ownership",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:2468 nested hover ownership",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -3714,7 +5056,7 @@
       "kind": "ordinary-declaration",
       "sha256": "a21f9aa6bd96c2a6b4b53d3e36671910df4c82f1348b64c023675095bfccd443",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -3766,6 +5108,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:2503 nested delayed hover close closes parent",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:2503 nested delayed hover close closes parent",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -3779,7 +5143,7 @@
       "kind": "ordinary-declaration",
       "sha256": "104514848d6cbe3cde4233d545b81b348d05b14d10438615e3f0366c6a38c677",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -3831,6 +5195,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:2538 nested closeOnClick propagation",
+              "status": "unexpected",
+              "result": "failed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:2538 nested closeOnClick propagation",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -3844,7 +5230,7 @@
       "kind": "ordinary-declaration",
       "sha256": "94ba535875f91c5df1d6a37d45543b4b7509421d0a31da1254e6764f5e32d2ad",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -3896,6 +5282,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:2568 nested closeOnClick propagation",
+              "status": "unexpected",
+              "result": "failed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:2568 nested closeOnClick propagation",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -3909,7 +5317,7 @@
       "kind": "ordinary-declaration",
       "sha256": "02c66d224e03ef947a584562ff7a3ff210eff84fa625ae202cd46b5ad5b65dad",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -3961,6 +5369,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:2597 deep closeOnClick closes all levels",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:2597 deep closeOnClick closes all levels",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -3974,7 +5404,7 @@
       "kind": "ordinary-declaration",
       "sha256": "266385ec50a2f11be881d01d8f983676f2d49300a39087e8b78f5388979805bf",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -4026,6 +5456,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:2622 inline viewport default content",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:2622 inline viewport default content",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -4039,7 +5491,7 @@
       "kind": "ordinary-declaration",
       "sha256": "bba1b302eea515e6fab8779c8c1a5f5a30e408b1d3cfeed0214ce6bad2713fbd",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -4091,6 +5543,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:2642 inline viewport hover switches both directions",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:2642 inline viewport hover switches both directions",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -4104,7 +5578,7 @@
       "kind": "ordinary-declaration",
       "sha256": "bb6272751a41ffbc21caab71e07884890b1171ba745e9bd95b3d0bcf8df26170",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -4156,6 +5630,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:2679 inline pointer scope and exit",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:2679 inline pointer scope and exit",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -4169,7 +5665,7 @@
       "kind": "ordinary-declaration",
       "sha256": "ad8f2f6f908747b62e0d4d8b1b92ff13fe0daff2a06f09eadb7e7b88e7edbd48",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -4221,6 +5717,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:2782 inline pointer scope and exit",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:2782 inline pointer scope and exit",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -4234,7 +5752,7 @@
       "kind": "ordinary-declaration",
       "sha256": "d043619784b1d982a2bbdbe36c21270b3a1eff90d94cb54584920dd09687af37",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -4286,6 +5804,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:2815 inline traversal restores original trigger lock",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:2815 inline traversal restores original trigger lock",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -4299,7 +5839,7 @@
       "kind": "ordinary-declaration",
       "sha256": "740c23c5625c3959649c2321ec4c5af46dba783cb8a0fbb937fad59d6b7eb71c",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -4351,6 +5891,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:2869 inline viewport closes with parent",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:2869 inline viewport closes with parent",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -4364,7 +5926,7 @@
       "kind": "ordinary-declaration",
       "sha256": "eaef27ab24b53a349c59950277ae9fa4e6b772a0147ecef0fd15bd8376698556",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -4416,6 +5978,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:2895 inline viewport survives returning to active trigger",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:2895 inline viewport survives returning to active trigger",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -4429,7 +6013,7 @@
       "kind": "ordinary-declaration",
       "sha256": "c34492ca6cded005872220bb01ff26c7cc8daac242751b5ce99b1023d6f1d651",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -4481,6 +6065,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:2931 inline click switching keeps active submenu open",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:2931 inline click switching keeps active submenu open",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -4494,7 +6100,7 @@
       "kind": "ordinary-declaration",
       "sha256": "87a7b4ea0a5ad5fa3f60bfeebc19523220495432c7749d90d462567dc4fe7834",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-parts.spec.ts",
@@ -4524,6 +6130,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "native Svelte exact parts",
+              "title": "R:2962 popup-open icon attribute follows active item",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "Original React exact parts",
+              "title": "R:2962 popup-open icon attribute follows active item",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -4537,7 +6165,7 @@
       "kind": "ordinary-declaration",
       "sha256": "d994c86c7be99525c205e67a341e93e12eb0f669e0dea8a80e61cf9d4fa26480",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -4589,6 +6217,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:3027 falsy nested close propagates to parent",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:3027 falsy nested close propagates to parent",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -4602,7 +6252,7 @@
       "kind": "ordinary-declaration",
       "sha256": "6e3906620f26191b105430bd2b7aeb04cdd6f7089734745cb5273810087cd113",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -4654,6 +6304,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:3051 arrow navigation across inline submenu triggers",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:3051 arrow navigation across inline submenu triggers",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -4667,7 +6339,7 @@
       "kind": "ordinary-declaration",
       "sha256": "98ce9e1f4c3cb92eb15d8a04fcd1a6eb868d9dac1e31035a1cc2a19213f4278e",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -4719,6 +6391,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:3085 arrow navigation across three levels",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:3085 arrow navigation across three levels",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -4732,7 +6426,7 @@
       "kind": "ordinary-declaration",
       "sha256": "6974b84524da78ab12ceec3c5038076616fbce41958da0304e10a387ed0b51f9",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-sizing.spec.ts",
@@ -4762,6 +6456,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-sizing.spec.ts",
+              "suite": "native Svelte exact sizing",
+              "title": "R:3135 inserting inline content updates and settles size",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-sizing.spec.ts",
+              "suite": "Original React exact sizing",
+              "title": "R:3135 inserting inline content updates and settles size",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -4803,7 +6519,7 @@
       "kind": "ordinary-declaration",
       "sha256": "12fb9e2f2fe568b90faf220d5c6d8921b576dceda6102c22e9a5e9f32f1a4d1a",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-sizing.spec.ts",
@@ -4833,6 +6549,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-sizing.spec.ts",
+              "suite": "native Svelte exact sizing",
+              "title": "R:3308 switching kept inline content settles new size",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-sizing.spec.ts",
+              "suite": "Original React exact sizing",
+              "title": "R:3308 switching kept inline content settles new size",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -4846,7 +6584,7 @@
       "kind": "ordinary-declaration",
       "sha256": "e742be10f7e531698a20a0a196540e87ad29c672a3fa4773cb6fb8d1384c9eb0",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-sizing.spec.ts",
@@ -4876,6 +6614,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-sizing.spec.ts",
+              "suite": "native Svelte exact sizing",
+              "title": "R:3370 hidden kept inline content updates mutation size",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-sizing.spec.ts",
+              "suite": "Original React exact sizing",
+              "title": "R:3370 hidden kept inline content updates mutation size",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -4917,7 +6677,7 @@
       "kind": "ordinary-declaration",
       "sha256": "b0defc3accabb6e2c1e54bb2a786cca024c59a35577b56b284a428d6d1d2e7c0",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-sizing.spec.ts",
@@ -4947,6 +6707,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-sizing.spec.ts",
+              "suite": "native Svelte exact sizing",
+              "title": "R:3536 window resize updates without transition",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-sizing.spec.ts",
+              "suite": "Original React exact sizing",
+              "title": "R:3536 window resize updates without transition",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -4960,7 +6742,7 @@
       "kind": "ordinary-declaration",
       "sha256": "34158f9c7de4426071d7c0f978ac7dd5b95acd9fe2e3d2e02f4e104be378ab12",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-sizing.spec.ts",
@@ -4990,6 +6772,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-sizing.spec.ts",
+              "suite": "native Svelte exact sizing",
+              "title": "R:3587 kept trigger switches sizing immediately",
+              "status": "unexpected",
+              "result": "failed"
+            },
+            {
+              "file": "navigation-menu-sizing.spec.ts",
+              "suite": "Original React exact sizing",
+              "title": "R:3587 kept trigger switches sizing immediately",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -5045,7 +6849,7 @@
       "kind": "ordinary-declaration",
       "sha256": "7b8f86f77a1faa066cd74d7174628ba6797bcb2b7d77cf3dfb6581e3eac6f100",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-sizing.spec.ts",
@@ -5075,6 +6879,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-sizing.spec.ts",
+              "suite": "native Svelte exact sizing",
+              "title": "R:3917 temporary zero close retains auto measured size",
+              "status": "unexpected",
+              "result": "failed"
+            },
+            {
+              "file": "navigation-menu-sizing.spec.ts",
+              "suite": "Original React exact sizing",
+              "title": "R:3917 temporary zero close retains auto measured size",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -5088,7 +6914,7 @@
       "kind": "ordinary-declaration",
       "sha256": "75e830fb9b61624c04d651b67a3e5637f05071e44941ba538abe651bc7abb358",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -5140,6 +6966,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:3955 tab leaves last inline panel for next top-level trigger",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:3955 tab leaves last inline panel for next top-level trigger",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -5153,7 +7001,7 @@
       "kind": "ordinary-declaration",
       "sha256": "71bc5bb2e30d270ded40144060b7b38baa22f5910d0cff014eca95b92301b5d4",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -5205,6 +7053,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:3973 tab respects inactive inline panels",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:3973 tab respects inactive inline panels",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -5218,7 +7088,7 @@
       "kind": "ordinary-declaration",
       "sha256": "0d1b4e7ceac2d7193ecf274c291b6e5eedc28f59e6f69554be65c96eebe5b24a",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -5270,6 +7140,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:4004 reverse tab returns to last inline submenu link",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:4004 reverse tab returns to last inline submenu link",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -5365,7 +7257,7 @@
       "kind": "ordinary-declaration",
       "sha256": "356827ff60718baf4b7c0f7e1972d9f98240e2d1ae0ee2ab60cf8c591004c804",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-parts.spec.ts",
@@ -5395,6 +7287,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "native Svelte exact parts",
+              "title": "T:138 data-disabled only follows disabled state",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "Original React exact parts",
+              "title": "T:138 data-disabled only follows disabled state",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -5408,7 +7322,7 @@
       "kind": "ordinary-declaration",
       "sha256": "452b19cb28500b7833a4f608cee5b78543a8eb77a287d168d0ac88ece2ac2bf3",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -5460,6 +7374,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "T:167 vertical RTL mirrored activation key",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "T:167 vertical RTL mirrored activation key",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -5543,7 +7479,7 @@
       "kind": "ordinary-declaration",
       "sha256": "d3a9e42065e2e7e458d3a739e386e8f10100417a4d5da16738ae8662882c2394",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-parts.spec.ts",
@@ -5573,6 +7509,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "native Svelte exact parts",
+              "title": "T:580 dropping open trigger releases list pointer lock",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "Original React exact parts",
+              "title": "T:580 dropping open trigger releases list pointer lock",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -5586,7 +7544,7 @@
       "kind": "ordinary-declaration",
       "sha256": "743c006560db7321b79f3d8c59fb30cef339de4b32a41f94ba0bb788c80e854e",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-parts.spec.ts",
@@ -5616,6 +7574,28 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "native Svelte exact parts",
+              "title": "T:619 hover sweep releases lock without opening",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-parts.spec.ts",
+              "suite": "Original React exact parts",
+              "title": "T:619 hover sweep releases lock without opening",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     }
@@ -5631,7 +7611,7 @@
       "kind": "parameterized-declaration",
       "sha256": "a97918188ff2b9426dae11e053983a9282dea5a86a440bcf0868c065b3e2f2f3",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -5679,6 +7659,42 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1264 horizontal activation directions",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1264 vertical activation directions",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1264 horizontal activation directions",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1264 vertical activation directions",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -5692,7 +7708,7 @@
       "kind": "parameterized-declaration",
       "sha256": "8879bdcb74db28403d40d76bfcb15fb1825137f5cb9c6c903694900cb4d2ba25",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -5755,6 +7771,56 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1716 falsy zero",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1716 falsy empty",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:1716 falsy false",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1716 falsy zero",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1716 falsy empty",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:1716 falsy false",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -5768,7 +7834,7 @@
       "kind": "parameterized-declaration",
       "sha256": "41f9bf4f67c3a0580a84d811f7ef9cb6f957f2b188d01e3b4685d9df248254f8",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -5831,6 +7897,56 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:2082 left in LTR popup origin",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:2082 inline-start in LTR popup origin",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:2082 inline-end in RTL popup origin",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:2082 left in LTR popup origin",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:2082 inline-start in LTR popup origin",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:2082 inline-end in RTL popup origin",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -5844,7 +7960,7 @@
       "kind": "parameterized-declaration",
       "sha256": "4c7ff207e9672bb89ce93f76e17037a8675e70c345e8df2ab7f6ff5baa502ea6",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -5922,6 +8038,70 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:2719 inline traversal right",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:2719 inline traversal left",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:2719 inline traversal bottom",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:2719 inline traversal top",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:2719 inline traversal right",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:2719 inline traversal left",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:2719 inline traversal bottom",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:2719 inline traversal top",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -5935,7 +8115,7 @@
       "kind": "parameterized-declaration",
       "sha256": "0d48210f8d91c1a566c8a10b3aaa8c9c86fc118ef3c63e831d6131a2ee7bbe9c",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -5998,6 +8178,56 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:3000 inline falsy zero",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:3000 inline falsy empty",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "R:3000 inline falsy false",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:3000 inline falsy zero",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:3000 inline falsy empty",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "R:3000 inline falsy false",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     },
@@ -6011,7 +8241,7 @@
       "kind": "parameterized-declaration",
       "sha256": "2dbc323e60d07f5ba7c7d171168ca2a64594d5b813ba21cb319c3f624e3c9482",
       "ordinaryCredit": 0,
-      "status": "Frozen834 literal transport candidate executed; failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
+      "status": "Frozen328 literal transport candidate executed; all Original pass/native failures retained; complete Source/native assertion correspondence and final exact-head execution pending",
       "nativeAssertions": [
         {
           "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
@@ -6074,6 +8304,56 @@
           ],
           "receipt": "parity/navigation-menu/hosted-834-observations.json",
           "result": "Actual frozen628 candidate observation; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
+        },
+        {
+          "head": "328ca4f6494037c41c316cc7c961a7b4e447733b",
+          "runId": 37265968477,
+          "observations": [
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "T:200 ArrowDown keeps Trigger focus",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "T:200 Enter keeps Trigger focus",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "native Svelte exact Root sequences",
+              "title": "T:200 Space keeps Trigger focus",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "T:200 ArrowDown keeps Trigger focus",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "T:200 Enter keeps Trigger focus",
+              "status": "expected",
+              "result": "passed"
+            },
+            {
+              "file": "navigation-menu-source-sequences.spec.ts",
+              "suite": "Original React exact Root sequences",
+              "title": "T:200 Space keeps Trigger focus",
+              "status": "expected",
+              "result": "passed"
+            }
+          ],
+          "receipt": "parity/navigation-menu/hosted-328-observations.json",
+          "result": "Actual frozen628 candidate observations; unchanged Source/native whole assertion correspondence and fidelity review pending, credit0"
         }
       ]
     }

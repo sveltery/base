@@ -580,70 +580,80 @@
     () => [isActiveItem, context, setFloatingRootContext, prevTriggerElementRef, triggerElement],
   );
 
-  function handleActivation(event: MouseEvent | KeyboardEvent) {
-    flushSync(() => {
-      const currentTarget = event.currentTarget as HTMLElement;
-      const prevTriggerRect = prevTriggerElementRef.current?.getBoundingClientRect();
+  // Source constructs this ordinary callback in its component scope. Retain
+  // those selected scalars through flushSync; refs and Store reads stay live.
+  const handleActivation = $derived.by(() => {
+    const { value, mounted, orientation, nested, positionerElement } = root;
+    const { value: itemValue } = item;
+    const activationTrigger = triggerElement;
+    const activationPointerType = pointerType;
+    const activationFloating = positionerElement || root.viewportElement;
+    const blockPointerEvents = shouldBlockSafePolygonPointerEvents;
+    return (event: MouseEvent | KeyboardEvent) => {
+      flushSync(() => {
+        const currentTarget = event.currentTarget as HTMLElement;
+        const prevTriggerRect = prevTriggerElementRef.current?.getBoundingClientRect();
 
-      if (mounted && prevTriggerRect && triggerElement) {
-        const nextTriggerRect = triggerElement.getBoundingClientRect();
-        const isMovingRight = nextTriggerRect.left > prevTriggerRect.left;
-        const isMovingDown = nextTriggerRect.top > prevTriggerRect.top;
+        if (mounted && prevTriggerRect && activationTrigger) {
+          const nextTriggerRect = activationTrigger.getBoundingClientRect();
+          const isMovingRight = nextTriggerRect.left > prevTriggerRect.left;
+          const isMovingDown = nextTriggerRect.top > prevTriggerRect.top;
 
-        if (orientation === 'horizontal' && nextTriggerRect.left !== prevTriggerRect.left) {
-          setActivationDirection(isMovingRight ? 'right' : 'left');
-        } else if (orientation === 'vertical' && nextTriggerRect.top !== prevTriggerRect.top) {
-          setActivationDirection(isMovingDown ? 'down' : 'up');
+          if (orientation === 'horizontal' && nextTriggerRect.left !== prevTriggerRect.left) {
+            setActivationDirection(isMovingRight ? 'right' : 'left');
+          } else if (orientation === 'vertical' && nextTriggerRect.top !== prevTriggerRect.top) {
+            setActivationDirection(isMovingDown ? 'down' : 'up');
+          }
         }
-      }
 
-      // Reset the `openEvent` to `undefined` when the active item changes so that a
-      // `click` -> `hover` on new trigger -> `hover` back to old trigger doesn't unexpectedly
-      // cause the popup to remain stuck open when leaving the old trigger.
-      if (event.type !== 'click' && value != null) {
-        context.context.dataRef.current.openEvent = undefined;
-      }
-
-      if (pointerType === 'touch' && event.type !== 'click') {
-        return;
-      }
-
-      // Keyboard open events reach this activation path after `onkeydown` has already set
-      // the value with the `listNavigation` reason.
-      if (value != null && event.type !== 'keydown') {
-        setValue(
-          itemValue,
-          createChangeEventDetails(
-            event.type === 'mouseenter' ? REASONS.triggerHover : REASONS.triggerPress,
-            event,
-          ),
-        );
-      }
-
-      if (
-        event.type === 'mouseenter' &&
-        shouldBlockSafePolygonPointerEvents &&
-        (!nested || !positionerElement) &&
-        hoverFloatingElement
-      ) {
-        const applyPointerEventsMutation = () => {
-          const scopeElement = getScope() ?? currentTarget.ownerDocument.body;
-
-          applySafePolygonPointerEventsMutation(hoverInteractionState, {
-            scopeElement,
-            referenceElement: currentTarget,
-            floatingElement: hoverFloatingElement,
-          });
-        };
-
-        if (value != null && value !== itemValue) {
-          queueMicrotask(applyPointerEventsMutation);
-        } else {
-          applyPointerEventsMutation();
+        // Reset the `openEvent` to `undefined` when the active item changes so that a
+        // `click` -> `hover` on new trigger -> `hover` back to old trigger doesn't unexpectedly
+        // cause the popup to remain stuck open when leaving the old trigger.
+        if (event.type !== 'click' && value != null) {
+          context.context.dataRef.current.openEvent = undefined;
         }
-      }
-    });
-  }
+
+        if (activationPointerType === 'touch' && event.type !== 'click') {
+          return;
+        }
+
+        // Keyboard open events reach this activation path after `onkeydown` has already set
+        // the value with the `listNavigation` reason.
+        if (value != null && event.type !== 'keydown') {
+          setValue(
+            itemValue,
+            createChangeEventDetails(
+              event.type === 'mouseenter' ? REASONS.triggerHover : REASONS.triggerPress,
+              event,
+            ),
+          );
+        }
+
+        if (
+          event.type === 'mouseenter' &&
+          blockPointerEvents &&
+          (!nested || !positionerElement) &&
+          activationFloating
+        ) {
+          const applyPointerEventsMutation = () => {
+            const scopeElement = getScope() ?? currentTarget.ownerDocument.body;
+
+            applySafePolygonPointerEventsMutation(hoverInteractionState, {
+              scopeElement,
+              referenceElement: currentTarget,
+              floatingElement: activationFloating,
+            });
+          };
+
+          if (value != null && value !== itemValue) {
+            queueMicrotask(applyPointerEventsMutation);
+          } else {
+            applyPointerEventsMutation();
+          }
+        }
+      });
+    };
+  });
 
   const handleOpenEvent = useStableCallback((event: MouseEvent | KeyboardEvent) => {
     if (disabled) {

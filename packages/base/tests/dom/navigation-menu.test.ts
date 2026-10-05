@@ -66,6 +66,26 @@ it('Source Root:1657 switching by dispatched click emits only the two requested 
   expect(component.snapshot().events.map(event => event.value)).toEqual(['first', 'second']);
 });
 
+it('supplement: a direct hover switch retains the new trigger pointer lock after old hover cleanup', async () => {
+  const component = await setup();
+  first().dispatchEvent(new MouseEvent('mouseenter'));
+  first().dispatchEvent(new MouseEvent('mousemove', { bubbles: true }));
+  await new Promise<void>((resolve) => setTimeout(resolve, 70));
+  await tick();
+  const list = document.getElementById('tested-list')!;
+  expect(list.style.pointerEvents).toBe('none');
+
+  const second = document.getElementById('second-trigger')!;
+  second.dispatchEvent(new MouseEvent('mouseenter'));
+  second.dispatchEvent(new MouseEvent('mousemove', { bubbles: true }));
+  await tick();
+  await Promise.resolve();
+  expect(component.snapshot().events.map(event => event.value)).toEqual(['first', 'second']);
+  expect(first().getAttribute('aria-expanded')).toBe('false');
+  expect(second.getAttribute('aria-expanded')).toBe('true');
+  expect(list.style.pointerEvents).toBe('none');
+});
+
 it('supplement: controlled requests wait for live owner state and change active trigger', async () => {
   const component = await setup('controlled');
   first().click();
