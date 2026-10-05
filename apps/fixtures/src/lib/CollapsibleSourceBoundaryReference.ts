@@ -21,3 +21,12 @@ export function mountSourceBoundary(target: HTMLElement, scenario: string) {
   flushSync(() => root.render(h(Fixture)));
   return { snapshot: () => ({ events, callbackOwners }), dispose: () => flushSync(() => root.unmount()) };
 }
+
+export function mountSourceRenderDimensionsBoundary(target: HTMLElement) {
+  const root = createRoot(target);
+  flushSync(() => root.render(h(Collapsible.Root, null,
+    h(Collapsible.Panel, { keepMounted: true, render(props) {
+      return h('div', { ...props, 'data-testid': 'dimension-boundary', style: { ...props.style, '--collapsible-panel-height': '73px' } });
+    } }, 'Source content'))));
+  return () => flushSync(() => root.unmount());
+}

@@ -1,0 +1,9 @@
+
+ RUN  v5.0.3 /workspace/collapsible-source-modernization/packages/base
+
+
+ Test Files  1 passed (1)
+      Tests  33 passed (33)
+   Start at  19:55:53
+   Duration  3.55s (tests 46%, transform 27%, environment 23%, import 4%)
+

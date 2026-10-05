@@ -97,10 +97,113 @@ for (const scenario of [
       expect(result.immediate.alignment).toBe('initial');
       expect(result.immediate.priority).toBe('important');
     }
-    if (framework !== 'Original') expect(result.trace.some(entry => entry.kind === 'cssText')).toBe(true);
+    if (framework === 'bare Svelte') expect(result.trace.some(entry => entry.kind === 'cssText')).toBe(true);
+    if (framework === 'Collapsible') {
+      // The frozen direct-write candidate is retained in hosted-52c6c2c-collapsible.log.
+      // The successor owns only dimensions; Source's motion suppression must survive.
+      expect(result.trace.some(entry => entry.kind === 'cssText')).toBe(false);
+      if (scenario.includes('beforematch')) {
+        expect(result.immediate.duration).toBe('0s');
+        expect(result.afterTwoFrames.duration).toBe('0s');
+        expect(result.afterTwoFrames.animations).toEqual([]);
+        expect(result.afterTwoFrames.actualHeight).toBeGreaterThanOrEqual(18);
+      }
+    }
   }
   console.log(JSON.stringify({ scenario, observations }));
   await testInfo.attach('Source-native-CSS-transport', { body: JSON.stringify({ scenario, observations }, null, 2), contentType: 'application/json' });
+});
+
+async function dimensionsSetup(page: Page, bare: boolean, forwarded: boolean, initial = false) {
+  const query = [bare ? 'bare' : '', forwarded ? 'forwarded' : '', initial ? 'initial' : ''].filter(Boolean).join('&');
+  const response = await page.goto(`/collapsible-dimensions?${query}`);
+  await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+  await page.waitForFunction(() => Boolean((window as Window & { dimensionsWitness?: unknown }).dimensionsWitness));
+  return { response, panel: page.getByTestId('dimensions-panel') };
+}
+async function dimensionsStyle(page: Page, style: string | Record<string, unknown> | undefined) {
+  return page.evaluate(style => {
+    (window as Window & { dimensionsWitness: { setStyle(value: string | Record<string, unknown> | undefined): void } }).dimensionsWitness.setStyle(style);
+    const node = document.querySelector('[data-testid="dimensions-panel"]') as HTMLElement;
+    return { height: node.style.getPropertyValue('--collapsible-panel-height'), width: node.style.getPropertyValue('--collapsible-panel-width'),
+      heightPriority: node.style.getPropertyPriority('--collapsible-panel-height'), widthPriority: node.style.getPropertyPriority('--collapsible-panel-width'), opacity: node.style.opacity };
+  }, style);
+}
+for (const forwarded of [false, true]) test(`native supplement: ${forwarded ? 'forwarding' : 'default'} dimension author precedence/removal matches native CSS (zero ordinary credit)`, async ({ page }) => {
+  const observations: unknown[][] = [];
+  for (const bare of [true, false]) {
+    await dimensionsSetup(page, bare, forwarded);
+    const result = [];
+    result.push(await dimensionsStyle(page, '--collapsible-panel-height:73px!important;--collapsible-panel-width:91px;opacity:.5'));
+    result.push(await dimensionsStyle(page, { '--collapsible-panel-height': '55px', '--collapsible-panel-width': '88px!important', opacity: .75 }));
+    result.push(await dimensionsStyle(page, '--collapsible-panel-height:31px!important;--collapsible-panel-height:44px;--collapsible-panel-width:0'));
+    result.push(await dimensionsStyle(page, { '--collapsible-panel-height': undefined, '--collapsible-panel-width': undefined, opacity: .25 }));
+    result.push(await dimensionsStyle(page, undefined));
+    expect(result).toEqual([
+      { height: '73px', width: '91px', heightPriority: 'important', widthPriority: '', opacity: '0.5' },
+      { height: '55px', width: '88px', heightPriority: '', widthPriority: 'important', opacity: '0.75' },
+      { height: '31px', width: '0', heightPriority: 'important', widthPriority: '', opacity: '' },
+      { height: 'auto', width: 'auto', heightPriority: '', widthPriority: '', opacity: '0.25' },
+      { height: 'auto', width: 'auto', heightPriority: '', widthPriority: '', opacity: '' },
+    ]);
+    observations.push(result);
+  }
+  expect(observations[1]).toEqual(observations[0]);
+  console.log(JSON.stringify({ scenario: 'dimension-author-precedence', forwarded, observations }));
+});
+test('native supplement: measured variables survive unrelated author updates and actual host replacement/cleanup (zero ordinary credit)', async ({ page }) => {
+  const { panel } = await dimensionsSetup(page, false, true);
+  const result = await page.evaluate(() => {
+    const browser = window as Window & { dimensionsWitness: {
+      setStyle(style: string | Record<string, unknown> | undefined): void; setOpen(value: boolean): void;
+      replace(): void; mount(value: boolean): void; ref(): HTMLElement | null | undefined;
+    } };
+    const witness = browser.dimensionsWitness;
+    witness.setOpen(true);
+    const old = witness.ref()!;
+    const measured = old.style.getPropertyValue('--collapsible-panel-height');
+    witness.setStyle({ opacity: .5 });
+    const afterAuthor = old.style.getPropertyValue('--collapsible-panel-height');
+    witness.replace();
+    const replacement = witness.ref()!;
+    const disconnectedHeight = old.style.getPropertyValue('--collapsible-panel-height');
+    witness.setStyle({ '--collapsible-panel-height': '69px!important' });
+    const override = { value: replacement.style.getPropertyValue('--collapsible-panel-height'), priority: replacement.style.getPropertyPriority('--collapsible-panel-height') };
+    witness.setStyle(undefined);
+    const restored = replacement.style.getPropertyValue('--collapsible-panel-height');
+    const oldUnchanged = old.style.getPropertyValue('--collapsible-panel-height') === disconnectedHeight;
+    witness.mount(false);
+    const detached = { connected: replacement.isConnected, ref: witness.ref() ?? null };
+    return { measured, afterAuthor, replaced: replacement !== old, oldConnected: old.isConnected, tag: replacement.tagName, override, restored, oldUnchanged, detached };
+  });
+  expect(result.measured).toBe('40px');
+  expect(result).toEqual({ measured: '40px', afterAuthor: '40px', replaced: true, oldConnected: false, tag: 'SECTION',
+    override: { value: '69px', priority: 'important' }, restored: '40px', oldUnchanged: true, detached: { connected: false, ref: null } });
+  await expect(panel).toHaveCount(0);
+  console.log(JSON.stringify({ scenario: 'dimension-replacement-cleanup', result }));
+});
+for (const forwarded of [false, true]) test(`native supplement: ${forwarded ? 'forwarding' : 'default'} dimension attachment retains SSR host and auto defaults (zero ordinary credit)`, async ({ page }) => {
+  await page.addInitScript(() => {
+    const observer = new MutationObserver(() => {
+      const node = document.querySelector('[data-testid="dimensions-panel"]');
+      if (!node) return;
+      (window as Window & { serverDimensionHost?: Element; dimensionBeforeHydration?: boolean }).serverDimensionHost = node;
+      (window as Window & { dimensionBeforeHydration?: boolean }).dimensionBeforeHydration = document.querySelector('main')?.getAttribute('data-hydrated') === 'false';
+      observer.disconnect();
+    });
+    observer.observe(document, { childList: true, subtree: true });
+  });
+  const errors: string[] = [];
+  page.on('pageerror', error => errors.push(error.message));
+  const { response, panel } = await dimensionsSetup(page, false, forwarded, true);
+  const markup = await response!.text();
+  expect(await page.evaluate(markup => {
+    const node = new DOMParser().parseFromString(markup, 'text/html').querySelector('[data-testid="dimensions-panel"]') as HTMLElement;
+    return [node.style.getPropertyValue('--collapsible-panel-height'), node.style.getPropertyValue('--collapsible-panel-width')];
+  }, markup)).toEqual(['auto', 'auto']);
+  expect(await panel.evaluate(node => node === (window as Window & { serverDimensionHost?: Element }).serverDimensionHost)).toBe(true);
+  expect(await page.evaluate(() => (window as Window & { dimensionBeforeHydration?: boolean }).dimensionBeforeHydration)).toBe(true);
+  expect(errors).toEqual([]);
 });
 
 for (const reference of [false, true]) {

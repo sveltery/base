@@ -1,0 +1,10 @@
+Loading svelte-check in workspace: /tmp/sveltery-collapsible-consumer.M9iMvz
+Getting Svelte diagnostics...
+
+svelte-check found 0 errors and 0 warnings
+Loading svelte-check in workspace: /tmp/sveltery-collapsible-consumer.M9iMvz
+Getting Svelte diagnostics...
+
+svelte-check found 0 errors and 0 warnings
+Installed public Collapsible DOM refs/snippets/attachments, native events, cancellation and replacement cleanup: PASS
+Isolated tarball Collapsible public root/subpath SSR, DOM refs/snippets/attachments and strict positive/negative declarations: PASS

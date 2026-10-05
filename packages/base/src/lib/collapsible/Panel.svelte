@@ -2,6 +2,7 @@
   // Source composition from Base UI v1.8.0 CollapsiblePanel.tsx at
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
   import { DEV } from 'esm-env';
+  import { createAttachmentKey } from 'svelte/attachments';
   import RenderElement from '../internals/RenderElement.svelte';
   import { useIsoLayoutEffect } from '../utils/useIsoLayoutEffect.svelte.js';
   import { warn } from '../utils/warn.js';
@@ -9,6 +10,7 @@
   import { getCollapsibleContext } from './context.js';
   import { collapsibleStateAttributesMapping } from './root/stateAttributesMapping.js';
   import { useCollapsiblePanel } from './panel/useCollapsiblePanel.svelte.js';
+  import { useCollapsiblePanelDimensions } from './panel/useCollapsiblePanelDimensions.svelte.js';
   import * as CollapsiblePanelCssVars from './panel/CollapsiblePanelCssVars.js';
   import type { CollapsiblePanelProps } from './types.js';
 
@@ -38,15 +40,20 @@
   });
   const panelState = $derived({ ...context.state, transitionStatus: panel.transitionStatus });
   const resolvedStyle = $derived(resolveStyle(style, panelState));
+  const dimensionsAttachmentKey = createAttachmentKey();
+  const dimensionsAttachment = useCollapsiblePanelDimensions(() => ({
+    height: panel.height, width: panel.width, style: resolvedStyle,
+  }));
 </script>
 {#if panel.shouldRender}
   <RenderElement tag="div" componentProps={{ render, class: className }} params={{
     state: panelState, ref: panel.ref,
     props: [panel.props, {
       style: {
-        [CollapsiblePanelCssVars.collapsiblePanelHeight]: panel.height === undefined ? 'auto' : `${panel.height}px`,
-        [CollapsiblePanelCssVars.collapsiblePanelWidth]: panel.width === undefined ? 'auto' : `${panel.width}px`,
+        [CollapsiblePanelCssVars.collapsiblePanelHeight]: 'auto',
+        [CollapsiblePanelCssVars.collapsiblePanelWidth]: 'auto',
       },
+      [dimensionsAttachmentKey]: dimensionsAttachment,
     }, elementProps, resolvedStyle ? { style: resolvedStyle } : undefined,
     panel.shouldPreventOpenAnimation ? { style: { animationName: 'none' } } : undefined],
     stateAttributesMapping: collapsibleStateAttributesMapping,

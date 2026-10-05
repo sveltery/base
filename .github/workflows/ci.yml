@@ -145,8 +145,8 @@ jobs:
       - name: Install official Chromium and OS dependencies
         run: pnpm exec playwright install --with-deps chromium
       - name: Paired exact-pin Collapsible acceptance
-        # A failing run stops early for diagnosis; a passing run executes every case.
-        run: pnpm exec playwright test tests/browser/collapsible.spec.ts --max-failures=5
+        # Preserve complete Collapsible evidence even when a candidate is red.
+        run: pnpm exec playwright test tests/browser/collapsible.spec.ts --max-failures=0
       - name: Preserve Collapsible browser failure traces
         if: failure()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2

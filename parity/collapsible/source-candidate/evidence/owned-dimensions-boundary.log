@@ -1,0 +1,12 @@
+
+ RUN  v5.0.3 /workspace/collapsible-source-modernization/packages/base
+
+
+ Test Files  2 passed (2)
+      Tests  4 passed (4)
+   Start at  20:11:21
+   Duration  3.30s (environment 43%, transform 30%, tests 14%, import 12%)
+
+    Isolate  2 workers spawned · ~768ms startup each (spawn + environment, per file)
+             at least ~768ms faster with isolate: false — reuses workers across files instead of one per file
+

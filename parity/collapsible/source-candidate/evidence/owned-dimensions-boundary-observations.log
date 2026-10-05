@@ -1,0 +1,16 @@
+
+ RUN  v5.0.3 /workspace/collapsible-source-modernization/packages/base
+
+{"scenario":"default","observations":{"Original":{"events":[true,true],"callbackOwners":["old","old"],"expanded":"true"},"bare Svelte":{"events":[true,false],"callbackOwners":["old","old"],"expanded":"false"},"canonical control":{"events":[true,false],"callbackOwners":["old","old"],"expanded":"false"},"Collapsible":{"events":[true,false],"callbackOwners":[],"expanded":"false"}}}
+{"scenario":"controlled-consumer","observations":{"Original":{"events":[true],"callbackOwners":["old"],"expanded":"true"},"bare Svelte":{"events":[false],"callbackOwners":["old"],"expanded":"true"},"canonical control":{"events":[false],"callbackOwners":["old"],"expanded":"true"},"Collapsible":{"events":[false],"callbackOwners":[],"expanded":"true"}}}
+{"scenario":"callback-snapshot","observations":{"Original":{"events":[true],"callbackOwners":["old"],"expanded":"true"},"bare Svelte":{"events":[true],"callbackOwners":["new"],"expanded":"true"},"canonical control":{"events":[true],"callbackOwners":["new"],"expanded":"true"},"Collapsible":{"events":[true],"callbackOwners":["new"],"expanded":"true"}}}
+{"scenario":"render-dimension-override","observations":{"Original":"73px","bare Svelte":"73px","Collapsible":"auto"}}
+
+ Test Files  2 passed (2)
+      Tests  4 passed (4)
+   Start at  20:14:58
+   Duration  3.30s (environment 43%, transform 32%, tests 14%, import 12%)
+
+    Isolate  2 workers spawned · ~758ms startup each (spawn + environment, per file)
+             at least ~758ms faster with isolate: false — reuses workers across files instead of one per file
+
