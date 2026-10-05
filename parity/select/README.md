@@ -6,7 +6,7 @@ The immutable baseline is Original Base UI v1.8.0, MIT, commit [`47b40521eab921c
 
 The new owned worktree starts at accepted main `95d3d2ae473dc18a2b9a48112284383a2c392315`. [Preparation provenance](preparation-provenance.json) records a separate unknown dirty predecessor read-only. Its generated files and extractor were not copied. The current generator independently reads physical Original files and verifies each byte sequence against the immutable Git blob from `git ls-tree` before archiving it.
 
-Accepted main `dc2fb8247750b519efab708fc221c201f8cfd517`, then `c1600456d3b4e72910d42823b9df69280c74a262`, were subsequently merged normally into this owned branch. The proposed [source/native plan](source-plan.md), [manual business correspondence](source-correspondence.md), [actual native composition](native-composition.md) and [manual assertion/supplement plan](manual-test-plan.md) distinguish the accepted click/store/scroll-edge foundations from the still-pending Popup helper bridge. The [reading checkpoint](reading-checkpoint.json) records complete whole-body reading independently of archive identity, source acceptance and runtime assertion mapping.
+Accepted main `dc2fb8247750b519efab708fc221c201f8cfd517`, then `c1600456d3b4e72910d42823b9df69280c74a262`, were subsequently merged normally into this owned branch. The proposed [source/native plan](source-plan.md), [manual business correspondence](source-correspondence.md), [actual native composition](native-composition.md) and [manual assertion/supplement plan](manual-test-plan.md) distinguish the accepted click/store/scroll-edge foundations from the still-pending Popup helper bridge. The [reading checkpoint](reading-checkpoint.json) preserves the previous preparing author's whole-body reading attestations and separates this repair reader's bounded fresh scope, archive identity, independent acceptance and runtime assertion mapping. [The old native scope](history/native-precode-82032.json) remains immutable history.
 
 From the repository root, with the repository-pinned TypeScript 5.9.3 installed:
 
@@ -19,7 +19,7 @@ NODE_OPTIONS=--max-old-space-size=768 node parity/select/prepare.mjs \
 
 Use `--check` to verify reproducibility without writing generated products. `--dependencies` selects a directory containing the normal installed TypeScript dependency; it is not an absolute module import. `--source-root` may differ from the Git repository when a partial clone has missing promisor objects. Every read still fails unless its content hashes to the exact pinned blob. No dependency installation or package change is included here.
 
-The independent native extractor records the concrete proposed providers at accepted main `c1600456…` and pending Popup `ad8381b4…`; use checkouts whose actual bodies match those commits:
+The independent native extractor records the concrete proposed providers at accepted main `c1600456…` and pending Popup `8a4aaf0…`; use checkouts whose actual bodies match those commits:
 
 ```sh
 NODE_OPTIONS=--max-old-space-size=768 node parity/select/prepare-native.mjs \
@@ -36,8 +36,8 @@ The evidence currently contains:
 - [195-module conservative source graph](source-graph.json) and [178-module member-selected graph](selected-source-graph.json), preserving runtime/type-only reachability, imported/reexported symbols, caller lines, full-module members and hashes. Barrel fanout is provenance; it does not authorize unrelated feature prerequisites.
 - [741-module conservative test/helper graph](test-helper-graph.json) and [279-module member-selected graph](selected-test-helper-graph.json).
 - [Original assertion inventory](original-assertions.json): 22 Select test/spec files, three actual seam test files, and eleven selected harness/helper files. There is no pinned `serializeValue.test.ts`; serialization is exercised through the real value/label/Select bodies and later supplements must remain separately classified.
-- [173-module proposed native helper/Form graph](proposed-native-helper-graph.json), 13,351 lines and 697 edges, with immutable accepted/pending provider/member/caller/type provenance.
-- [201-module native fixture comparison](proposed-native-fixture-graph.json), 15,476 lines and 878 edges, adding 38 actual Popover/hover/Toolbar source bodies beyond the first native graph without treating fixture helpers as Select runtime prerequisites.
+- [174-module proposed native helper/Form graph](proposed-native-helper-graph.json), 13,379 lines and 701 edges, with immutable accepted/pending provider/member/caller/type provenance.
+- [201-module native fixture comparison](proposed-native-fixture-graph.json), 15,476 lines and 878 edges, adding 37 actual Popover/hover/Toolbar source bodies beyond the first native graph without treating fixture-only helpers as Select runtime prerequisites. Existing useOpenInteractionType is now correctly a Select Root runtime seed, not a fifth helper to implement.
 
 The inventory has 377 declaration sites across its 36 files, five parameterization sites, eighteen conformance/helper invocation sites and twenty type sites. The manual plan distinguishes 314 plain Select declarations plus four parameterized sites, 34 plain shared-seam declarations plus one parameterized site, and 24 harness generator sites. Manual reading identifies eleven literal Select rows and four helper rows; those are proposed variants, not executed or credited ports. All records remain `unported` with zero unchanged ordinary credit. Native renderer/default differences must retain Original expectations and earn zero unchanged credit; future actual native supplements remain a separate category.
 

@@ -2,7 +2,7 @@
   "status": "Unapproved native correspondence for actual nested Popover/Toolbar/Field test fixtures only. This is not the Select runtime helper DAG or a lease for new public features; no acceptance or assertion credit.",
   "originalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "acceptedMain": "c1600456d3b4e72910d42823b9df69280c74a262",
-  "pendingPopup": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+  "pendingPopup": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
   "method": "Verify every actual physical helper body against immutable provider Git blob. Prefer accepted Main except three explicitly pending geometry bridge files; use pending Popup only for concrete missing helper files. Select import members through barrel reexports, retain whole bodies/all imports of selected non-barrels, and propagate inherited type-only reachability. External package declarations remain external and are not claimed manually read.",
   "roots": [
     "packages/base/src/lib/popover/Root.svelte",
@@ -7175,7 +7175,7 @@
     {
       "source": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "c0d9f77faa3fa4fb8f78d01d958fdbc60ed960b043edfeb967f0b138ba367a9f",
       "gitBlob": "088416bbfe1ddc1c9193f4be11150c41d018121f",
       "lines": 986,
@@ -7962,7 +7962,7 @@
     {
       "source": "packages/base/src/lib/floating-ui/components/FloatingFocusManager.svelte",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "02e830d2f21614164344019f3bdd4420c4e0c58ddf49b12023c2202fcc236da8",
       "gitBlob": "5d25846f738c6d2adf39880f324ec431cb8d7732",
       "lines": 12,
@@ -8092,7 +8092,7 @@
     {
       "source": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "8111a018d91b947a0468565c84a636f6abb70196309da0a95fa5a4e86b3705b1",
       "gitBlob": "49b7050a04afb7a0f32fd6fb9d802501b90e9c74",
       "lines": 77,
@@ -8643,7 +8643,7 @@
     {
       "source": "packages/base/src/lib/floating-ui/components/FloatingPortalContext.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "897245ee2d655ee10875e45707bca62d75b11170e2cb5b8a575c6a2848533833",
       "gitBlob": "d9b2b1117f209b1ae51a2585873a36622ddbd87c",
       "lines": 15,
@@ -9120,7 +9120,7 @@
     {
       "source": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "40e508a5e0b3facfcf178890bb28a79e753d8e713d2e51c514724d4243a32027",
       "gitBlob": "7929c3da9081ff6255a198aca2b68b956d85bd2e",
       "lines": 22,
@@ -9565,7 +9565,7 @@
     {
       "source": "packages/base/src/lib/floating-ui/components/PortalContent.svelte",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "094ca8f25b2d4622ed70767b472ad6cecc481ae92470caa67385c72a3551f603",
       "gitBlob": "3f64805121637b5a26f8c6124dd725cb23481149",
       "lines": 6,
@@ -9833,7 +9833,7 @@
     {
       "source": "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "bb2d0d06053246d50d15e8744efc322ed9413573e493a3d8dfba96f90e01d6ae",
       "gitBlob": "3394fb80bd2efe4b95157c5697bd93c65e1b8059",
       "lines": 799,
@@ -10323,7 +10323,7 @@
     {
       "source": "packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "dbd456a378ee02012d7cf8fb2db681f38e0a63b15d6fbb6894c8b293eb77c635",
       "gitBlob": "971340a4f4c7b0e8a1fe96764e0543ec3fced9d8",
       "lines": 118,
@@ -10568,7 +10568,7 @@
     {
       "source": "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "6bfb1801f9ae16f8cfb97b87357e1b09e306361e1c005355acd7a34b6390a113",
       "gitBlob": "12cb30774493d2606d4e8ffdc58af3240550dad7",
       "lines": 105,
@@ -10894,7 +10894,7 @@
     {
       "source": "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "384272183fd4420ea931d08e092e74f5bf7c4aa2ab183f25a019f668ccf9107a",
       "gitBlob": "1ef6566213947acb0635434993af7adeebccf3be",
       "lines": 217,
@@ -11292,7 +11292,7 @@
     {
       "source": "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "ef1574048bab3502c11609c1d085308bfb52f9294bc851efb0af50506dd1550e",
       "gitBlob": "ec8e3a0df34d929cedcd4bf4aa72a196df0b12ab",
       "lines": 137,
@@ -11533,7 +11533,7 @@
     {
       "source": "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "3bbc6e76e17a90be07b1b82536c3f8325e0f08641d771740ba7352494ae205dd",
       "gitBlob": "f3e7de69c279b41aed1ca163214d933083b4e17c",
       "lines": 398,
@@ -12287,7 +12287,7 @@
     {
       "source": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "144b7492c4df9f20f8da4b4fdbe5a5983219e2370c1fd6a4afef50226559815d",
       "gitBlob": "b7d1dbc8af8c540d7d9f120b9e15cad3856d48cd",
       "lines": 29,
@@ -13347,7 +13347,7 @@
     {
       "source": "packages/base/src/lib/floating-ui/utils/composite.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "96b8fde56711a770d9c1936cfae99d9576009539cc5c68ef139f463533893d27",
       "gitBlob": "ebff60779cc610eb5cd8397af84fcb9dcc81cf9e",
       "lines": 3,
@@ -13542,7 +13542,7 @@
     {
       "source": "packages/base/src/lib/floating-ui/utils/createAttribute.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "24fb1aacf4668a0ada9cfcb8d1f516b3ef7d5022df3f3b0a375394e260f07f4a",
       "gitBlob": "5e1530bdd43dfa920afbef3dfc20f50b1e59daac",
       "lines": 5,
@@ -14058,7 +14058,7 @@
     {
       "source": "packages/base/src/lib/floating-ui/utils/enqueueFocus.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "60067b93919c6f4210890af14627b5e064c6d0d3ee9e287f4f7752fab7474773",
       "gitBlob": "7d156a38de3f2b370a1fd858aa6ef6e8fce1985d",
       "lines": 39,
@@ -14364,7 +14364,7 @@
     {
       "source": "packages/base/src/lib/floating-ui/utils/markOthers.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "0a6397de4ac741e96e98ef3756caed2200a6ff8564b55d04a8573aaf06037406",
       "gitBlob": "f9d5c34d70a799dd25f7620fe86b707017634a7f",
       "lines": 221,
@@ -14689,7 +14689,7 @@
     {
       "source": "packages/base/src/lib/floating-ui/utils/tabbable.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "7e890249d9926089244d66728f1957c9b67f980f4459c874081be0c90016cbbb",
       "gitBlob": "dbc99675204f127972c63f2629e65e2fff2a8c00",
       "lines": 283,
@@ -16129,7 +16129,7 @@
     {
       "source": "packages/base/src/lib/internals/anchor-positioning/types.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "fa56b8d2b5fac3e9c1ed9597f89631d6381e1e73d5da507b1d41ec566917b82b",
       "gitBlob": "047a82eecb673adb11768fac71b2b7e8bd11a240",
       "lines": 56,
@@ -16381,7 +16381,7 @@
     {
       "source": "packages/base/src/lib/internals/anchor-positioning/useAnchorPositioning.svelte.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "a2b7d8284ece515de3ca1c65d342fcdbae395d5484a4f8fd121d9d11f835876d",
       "gitBlob": "f03a66c3dcc877b4b60edc91941182e7ece36d07",
       "lines": 113,
@@ -16630,7 +16630,7 @@
     {
       "source": "packages/base/src/lib/internals/anchor-positioning/useFloating.svelte.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "9f504f4289d1b38e2fc78830320beec60d5ec6fe40f183b132916594c7027c8a",
       "gitBlob": "5a717382b16f605fb715472938c5497731740f20",
       "lines": 131,
@@ -19411,7 +19411,7 @@
     {
       "source": "packages/base/src/lib/internals/constants.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "de12c9af7ce208e69f24e5bbfefb3df6840e5b4f284109597087188a338c6893",
       "gitBlob": "a46c39b17ca80be80aaab24f26ca72b3dd7332ae",
       "lines": 14,
@@ -21537,7 +21537,7 @@
     {
       "source": "packages/base/src/lib/internals/getDisabledMountTransitionStyles.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "7fb54d405a10ceeaa1ad3d5d630dc80a7b835eeb2fb92eb13daf47c1f668bd6c",
       "gitBlob": "bff140e1abf822af18ff6bc77f5bc08463d41722",
       "lines": 9,
@@ -27161,7 +27161,7 @@
     {
       "source": "packages/base/src/lib/popover/context.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "1ad794ae8713b062cd6437548a0b37bef3e7ae68c21cc396adc8a381ac0f337a",
       "gitBlob": "14e27312e5324c029b097935e849421f4bfddf91",
       "lines": 21,
@@ -27337,7 +27337,7 @@
     {
       "source": "packages/base/src/lib/popover/Popup.svelte",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "e3e7bb68b209421402cad03a0cf2227c09a3d8a18171ab7107fd21d968bfd8f6",
       "gitBlob": "fb68a985b6737b573b4f2cc7658cf4db6aa3d79e",
       "lines": 58,
@@ -27922,7 +27922,7 @@
     {
       "source": "packages/base/src/lib/popover/Portal.svelte",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "d7fa637af3621b2118cdfe3c72fd9f4f83d69c4d753ffcef250324c23821bbdb",
       "gitBlob": "876c92dd9122769e0939a4cfb67ea49dd99fa46f",
       "lines": 17,
@@ -28051,7 +28051,7 @@
     {
       "source": "packages/base/src/lib/popover/Positioner.svelte",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "f7f928ff3360c9cda92744e8cea20ec5a655b562e36a78dc2029519d6b634e2f",
       "gitBlob": "3182a1a50e2f37ca259c2c9b7e48efdd69fb0979",
       "lines": 65,
@@ -28536,7 +28536,7 @@
     {
       "source": "packages/base/src/lib/popover/positioner/PopoverPositionerContext.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "de7c427adf76adcb5178351f5c14cc11b5c486c06605c35c9772b3804f83b503",
       "gitBlob": "ec0170ca6197e90fdb699332b4da4fa2e217c4ac",
       "lines": 11,
@@ -28657,7 +28657,7 @@
     {
       "source": "packages/base/src/lib/popover/Root.svelte",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "9605e92f2aa58ccf5076f957983da4877d4aafbf6c6b447fcaa6b17cd4fd6130",
       "gitBlob": "cd6bbe3924a7bef771f20c55a154ea69445d1941",
       "lines": 57,
@@ -29023,7 +29023,7 @@
     {
       "source": "packages/base/src/lib/popover/root/PopoverInteractions.svelte",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "df00246317da632a4c83b01aa18a1e6baae62e2397e68d3e267722000d1752ee",
       "gitBlob": "dc901e23a1d17d7466c24a97d1daaba38075eb5b",
       "lines": 17,
@@ -29160,7 +29160,7 @@
     {
       "source": "packages/base/src/lib/popover/store/PopoverHandle.svelte.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "8a3a1c93803ff557264199309062d242f183963f15cf2a1adb59ab877bcfe5f7",
       "gitBlob": "612eaf0da7cddd25f406ef95b328ed4bc700f171",
       "lines": 56,
@@ -29278,7 +29278,7 @@
     {
       "source": "packages/base/src/lib/popover/store/PopoverStore.svelte.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "5893b45b9120dbc282213f6c61781134e29bc3822c208f15f2680d575050c7fb",
       "gitBlob": "20382f5bbbc9f2fbec5803dc0ebb654bf76e649e",
       "lines": 229,
@@ -29736,7 +29736,7 @@
     {
       "source": "packages/base/src/lib/popover/Trigger.svelte",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "f53f01856584df96dcd251007547451099b8719073dfa14e315346097c309cfd",
       "gitBlob": "6d839dab62dcd30d015980140ef8ed1a83f55333",
       "lines": 76,
@@ -30313,7 +30313,7 @@
     {
       "source": "packages/base/src/lib/popover/types.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "a0e46944870708c6ae9b26f8ebdf1a9d094b999edb6e7aaf327275cd670827b1",
       "gitBlob": "52abd5c5e50ec039bc69c20ea89e6ba85bf13228",
       "lines": 144,
@@ -30936,7 +30936,7 @@
     {
       "source": "packages/base/src/lib/popover/utils/constants.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "69a03145627953aab05636e24bfbe7b3e27a772314debe3038d5f634c052f90d",
       "gitBlob": "433cc73aa0c7093d2647368611a34c9017e18965",
       "lines": 3,
@@ -35218,7 +35218,7 @@
     {
       "source": "packages/base/src/lib/utils/closePart.svelte.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "cf4f7d4a7a2d5616522a165bba1fc8a56ab08a1f746c9872f9cd8e8ad8451466",
       "gitBlob": "1fc78eed398af162299c01e26ecfb53b3d388c84",
       "lines": 38,
@@ -35352,7 +35352,7 @@
     {
       "source": "packages/base/src/lib/utils/CommonPopupDataAttributes.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "ed25a93130d096ba883e68999928e43dad59d09ae9dff52f0e8b68d5974abe15",
       "gitBlob": "2248a82624330618a6ea2036cb7f9b36e4792e0a",
       "lines": 39,
@@ -35464,7 +35464,7 @@
     {
       "source": "packages/base/src/lib/utils/CommonTriggerDataAttributes.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "199df87949923494ce8f3f6b3bfcc05e162744891afb12c033f5e7f9ba8f4f92",
       "gitBlob": "38b7bc91f40978e82e7ae6e5c7dd17cf65e5e159",
       "lines": 10,
@@ -36091,7 +36091,7 @@
     {
       "source": "packages/base/src/lib/utils/FocusGuard.svelte",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "28a17af6cd0d817c9002e0e2bae206b33452fc6a0153ffb45f6f6f0b8f96c777",
       "gitBlob": "e61c8bd1218382370f0e1a3fdd2dcff30a17b852",
       "lines": 17,
@@ -36381,7 +36381,7 @@
     {
       "source": "packages/base/src/lib/utils/InternalBackdrop.svelte",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "41a9ef1e56c442d73930a86015e08ff543b871475b26bd5f8da1936c3715822c",
       "gitBlob": "549bf89508505d795cda262f40d2430fd9a7c192",
       "lines": 17,
@@ -36604,7 +36604,7 @@
     {
       "source": "packages/base/src/lib/utils/mergeCleanups.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "28eb97759c815e7a3edcb4a5ac4464473790ae9294bda5a66ba268bca8efedcb",
       "gitBlob": "128c74ed43c1b93ea0232a7d188f58a714916287",
       "lines": 17,
@@ -36783,7 +36783,7 @@
     {
       "source": "packages/base/src/lib/utils/NullStore.svelte.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "442595fdf67989d0bdae8f422a53bfed7622832b0e5112f60e782d8d75a97e43",
       "gitBlob": "7d700c546cf05305dd179f98623bca9c77f4c64e",
       "lines": 11,
@@ -37942,7 +37942,7 @@
     {
       "source": "packages/base/src/lib/utils/popups/index.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "8685650fb9e3f7bfe7528330f062c4b3f94df89bf9adc8a48b13728774474e01",
       "gitBlob": "b01c96c0987db2dbfa32f47d94a12c748151cc5d",
       "lines": 3,
@@ -38114,7 +38114,7 @@
     {
       "source": "packages/base/src/lib/utils/popups/popupHandle.svelte.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "5acdc474609054a89472cdaa01531fa06e2670ac98e735f11f19e1651239ae89",
       "gitBlob": "aff199b18aca179e2b67f005c9fdf626890a262b",
       "lines": 296,
@@ -38344,7 +38344,7 @@
     {
       "source": "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "bb34f4ea941b5579a57d1ff6432f3f5bf59c84a762c663112be7c7a9f4338985",
       "gitBlob": "f5f2cbed05cc2e12e9368ad97331508d196ce359",
       "lines": 6,
@@ -38400,7 +38400,7 @@
     {
       "source": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "3f80c77e00b2b8d73068a48477096f30f174c433d804b790813894f6624f016e",
       "gitBlob": "f268978a6f6c3dcd19acc27b957de52dff90876d",
       "lines": 437,
@@ -39097,7 +39097,7 @@
     {
       "source": "packages/base/src/lib/utils/popups/store.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "f10a365441f28fa1e93b1d1cc871349a0555944e3fd937344b3415c3d32a87d3",
       "gitBlob": "64fdd0ca67199b073e5f0f14a83d6e77383a9567",
       "lines": 228,
@@ -39461,7 +39461,7 @@
     {
       "source": "packages/base/src/lib/utils/popups/usePopupHandleStore.svelte.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "3bbe4fd4132a3acdeb82b575f734b01caccc7c3033b8162fa64ad619a8bfbf58",
       "gitBlob": "c5802f975740a5e9920f10b268d8160898ce7185",
       "lines": 10,
@@ -39547,7 +39547,7 @@
     {
       "source": "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "61c4a5e3e40b0f8ff0d48d40208687ef43a209818cbe4bb6a9058050d91a1678",
       "gitBlob": "c9a391cb460e717112164b5d87a0b0d6d32a7baa",
       "lines": 86,
@@ -39756,7 +39756,7 @@
     {
       "source": "packages/base/src/lib/utils/popupStateMapping.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "07a2ecdd556f8e1371d395f7749cbfb1bff445b4f07b321d8e7d8ecf5393350d",
       "gitBlob": "db419d2231dc9b62b7b5a7467fa80ff59d7674b9",
       "lines": 71,
@@ -40643,7 +40643,7 @@
     {
       "source": "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "583b97998d16e0b1aef3c44fdbef154fa848d8f8385a07dc21aa56b3c8470dce",
       "gitBlob": "51a27e5999e4cf6ccc15dec6352ea51f957768c3",
       "lines": 22,
@@ -41100,7 +41100,7 @@
     {
       "source": "packages/base/src/lib/utils/useEnhancedClickHandler.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "6a045d6b74a7851d3446200f55711ffc1dcc22449a2e92680cdf328750a436d5",
       "gitBlob": "ccd1797bd9bbf97b8d31cac808b7c6d506e8e3dc",
       "lines": 24,
@@ -42323,7 +42323,7 @@
     {
       "source": "packages/base/src/lib/utils/useOpenInteractionType.svelte.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "1e226c9fd96e234f73f7c8889e233455f8e4b0951f1e75059e3e17ac812550e2",
       "gitBlob": "3ab2be3efc87ec0a036259d760cd2eb46e45744b",
       "lines": 28,
@@ -42461,7 +42461,7 @@
     {
       "source": "packages/base/src/lib/utils/usePositioner.svelte.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "59422a6bc1fb88a6027ada39f53382730d151a8e9958e14a2202514ce95b192d",
       "gitBlob": "a90d6c114a979ab198870d901364657bce0fce33",
       "lines": 25,
@@ -42969,7 +42969,7 @@
     {
       "source": "packages/base/src/lib/utils/useScrollLock.svelte.ts",
       "provider": "pending-popup",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "sha256": "414a9408f41af2df8abfe984a0a1c6a667a592bb58467a977d8618e7e8bd5489",
       "gitBlob": "803d7dd572b399e861a78888b9dc9d47e346e077",
       "lines": 320,

@@ -11,7 +11,7 @@ const option = name => { const i = args.indexOf(name); return i < 0 ? undefined 
 const main = resolve(option('--main') ?? '../base');
 const popup = resolve(option('--popup') ?? '../popup-family-source');
 const mainPin = 'c1600456d3b4e72910d42823b9df69280c74a262';
-const popupPin = 'ad8381b446d751c5faabd3b5a0b3f46f5b4be846';
+const popupPin = '8a4aaf077142f3cfb77cec357afc07d2595d576a';
 const ts = createRequire(resolve(option('--dependencies') ?? 'packages/base', 'package.json'))('typescript');
 if (ts.version !== '5.9.3') throw new Error(`Use repository-pinned TypeScript 5.9.3, got ${ts.version}`);
 const execute = promisify(execFile);
@@ -35,7 +35,8 @@ const roots = [
   'floating-ui/hooks/useDismiss.svelte.ts', 'floating-ui/hooks/useListNavigation.svelte.ts', 'floating-ui/hooks/useTypeahead.svelte.ts',
   'floating-ui/components/FloatingFocusManager.svelte', 'floating-ui/components/FloatingPortal.svelte',
   'internals/anchor-positioning/useAnchorPositioning.svelte.ts', 'utils/FocusGuard.svelte', 'utils/InternalBackdrop.svelte',
-  'utils/usePositioner.svelte.ts', 'utils/useAnchoredPopupScrollLock.svelte.ts', 'utils/scrollEdges.ts', 'utils/styles.ts',
+  'utils/usePositioner.svelte.ts', 'utils/useOpenInteractionType.svelte.ts',
+  'utils/useAnchoredPopupScrollLock.svelte.ts', 'utils/scrollEdges.ts', 'utils/styles.ts',
   'internals/serializeValue.ts', 'internals/stateAttributesMapping.ts', 'utils/popupStateMapping.ts',
   'utils/popups/popupStoreUtils.svelte.ts', 'csp-provider/context.ts',
 ].map(path => lib + path);

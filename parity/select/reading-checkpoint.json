@@ -1,37 +1,37 @@
 {
-  "status": "Unapproved precode manual reading checkpoint only; Select unimplemented, all Original records unported, zero SourceFull/ordinary/runtime credit.",
+  "status": "Unapproved repaired precode checkpoint; historical preparing-author whole-body attestations preserved separately from current bounded fresh reading. Select unimplemented; zero SourceFull/ordinary/runtime credit.",
   "date": "2026-10-05",
   "originalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "acceptedMain": "c1600456d3b4e72910d42823b9df69280c74a262",
-  "pendingPopup": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+  "pendingPopup": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
   "unknownPredecessor": "Untouched; initial read-only head/status/14-file SHA snapshot is preparation-provenance.json.",
   "originalSource": {
     "graph": "selected-source-graph.json",
     "sha256": "f36151d78b0988d01785d57ae2456939e1177f7e20612362728bc0903ab60226",
     "modules": 178,
     "lines": 19041,
-    "readStatus": "Author read each complete selected module body; manual business selection is in linked notes. This is not review acceptance or hash-based fidelity proof."
+    "readStatus": "Historical preparing-author whole-body reading attestation retained after listed identity checks; not a fresh whole-closure reading or independent acceptance. Current reader reopened only the precise bodies in plan-repair-evidence.json."
   },
   "originalTestHelper": {
     "graph": "selected-test-helper-graph.json",
     "sha256": "056b862c8d43845b5dbc9355fa701bd160e607fdee6591d1e6c4c0236751aa14",
     "modules": 279,
     "lines": 39459,
-    "readStatus": "Author read each complete selected module body; manual business selection is in linked notes. This is not review acceptance or hash-based fidelity proof."
+    "readStatus": "Historical preparing-author whole-body reading attestation retained after listed identity checks; not a fresh whole-closure reading or independent acceptance. Current reader reopened only the precise bodies in plan-repair-evidence.json."
   },
   "nativeHelper": {
     "graph": "proposed-native-helper-graph.json",
-    "sha256": "0fd9db9d8c0182e89bf2a4973a03ad9be2e4da5b88d521057d54bb3421f7b8d5",
-    "modules": 173,
-    "lines": 13351,
-    "readStatus": "Author read each complete selected module body; manual business selection is in linked notes. This is not review acceptance or hash-based fidelity proof."
+    "sha256": "ad8a969cde60a9dd51eeb2122c51b96e3cedbefa3a92481a2794bd1b906a2388",
+    "modules": 174,
+    "lines": 13379,
+    "readStatus": "Historical preparing-author whole-body reading attestation retained after listed identity checks; not a fresh whole-closure reading or independent acceptance. Current reader reopened only the precise bodies in plan-repair-evidence.json."
   },
   "nativeFixtures": {
     "graph": "proposed-native-fixture-graph.json",
-    "sha256": "3f6a97fdfb5bec41073850a298b7165d0f67001b39437d22bc49436ef50a43cc",
+    "sha256": "1a59ae97c7070d2da6c64af86cff623215a8a8cdfa958decd22c9cefbe301cd7",
     "modules": 201,
     "lines": 15476,
-    "readStatus": "Author read each complete selected module body; manual business selection is in linked notes. This is not review acceptance or hash-based fidelity proof."
+    "readStatus": "Historical preparing-author whole-body reading attestation retained after listed identity checks; not a fresh whole-closure reading or independent acceptance. Current reader reopened only the precise bodies in plan-repair-evidence.json."
   },
   "extraSelectDataFiles": [
     {
@@ -705,26 +705,26 @@
     {
       "source": "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts",
       "sha256": "384272183fd4420ea931d08e092e74f5bf7c4aa2ab183f25a019f668ccf9107a",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "provider": "pending-popup",
       "lines": 217,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts",
       "sha256": "ef1574048bab3502c11609c1d085308bfb52f9294bc851efb0af50506dd1550e",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "provider": "pending-popup",
       "lines": 137,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts",
       "sha256": "3bbc6e76e17a90be07b1b82536c3f8325e0f08641d771740ba7352494ae205dd",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "provider": "pending-popup",
       "lines": 398,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts",
@@ -732,7 +732,7 @@
       "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
       "provider": "accepted-main",
       "lines": 73,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/floating-ui/safePolygon.ts",
@@ -740,7 +740,7 @@
       "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
       "provider": "accepted-main",
       "lines": 449,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/internals/composite/constants.ts",
@@ -748,7 +748,7 @@
       "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
       "provider": "accepted-main",
       "lines": 3,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
@@ -756,7 +756,7 @@
       "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
       "provider": "accepted-main",
       "lines": 40,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
@@ -764,7 +764,7 @@
       "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
       "provider": "accepted-main",
       "lines": 34,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
@@ -772,7 +772,7 @@
       "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
       "provider": "accepted-main",
       "lines": 92,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/internals/composite/root/gridNavigation.ts",
@@ -780,7 +780,7 @@
       "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
       "provider": "accepted-main",
       "lines": 138,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
@@ -788,103 +788,103 @@
       "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
       "provider": "accepted-main",
       "lines": 414,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/popover/context.ts",
       "sha256": "1ad794ae8713b062cd6437548a0b37bef3e7ae68c21cc396adc8a381ac0f337a",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "provider": "pending-popup",
       "lines": 21,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/popover/Popup.svelte",
       "sha256": "e3e7bb68b209421402cad03a0cf2227c09a3d8a18171ab7107fd21d968bfd8f6",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "provider": "pending-popup",
       "lines": 58,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/popover/Portal.svelte",
       "sha256": "d7fa637af3621b2118cdfe3c72fd9f4f83d69c4d753ffcef250324c23821bbdb",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "provider": "pending-popup",
       "lines": 17,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/popover/Positioner.svelte",
       "sha256": "f7f928ff3360c9cda92744e8cea20ec5a655b562e36a78dc2029519d6b634e2f",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "provider": "pending-popup",
       "lines": 65,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/popover/positioner/PopoverPositionerContext.ts",
       "sha256": "de7c427adf76adcb5178351f5c14cc11b5c486c06605c35c9772b3804f83b503",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "provider": "pending-popup",
       "lines": 11,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/popover/Root.svelte",
       "sha256": "9605e92f2aa58ccf5076f957983da4877d4aafbf6c6b447fcaa6b17cd4fd6130",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "provider": "pending-popup",
       "lines": 57,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/popover/root/PopoverInteractions.svelte",
       "sha256": "df00246317da632a4c83b01aa18a1e6baae62e2397e68d3e267722000d1752ee",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "provider": "pending-popup",
       "lines": 17,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/popover/store/PopoverHandle.svelte.ts",
       "sha256": "8a3a1c93803ff557264199309062d242f183963f15cf2a1adb59ab877bcfe5f7",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "provider": "pending-popup",
       "lines": 56,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/popover/store/PopoverStore.svelte.ts",
       "sha256": "5893b45b9120dbc282213f6c61781134e29bc3822c208f15f2680d575050c7fb",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "provider": "pending-popup",
       "lines": 229,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/popover/Trigger.svelte",
       "sha256": "f53f01856584df96dcd251007547451099b8719073dfa14e315346097c309cfd",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "provider": "pending-popup",
       "lines": 76,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/popover/types.ts",
       "sha256": "a0e46944870708c6ae9b26f8ebdf1a9d094b999edb6e7aaf327275cd670827b1",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "provider": "pending-popup",
       "lines": 144,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/popover/utils/constants.ts",
       "sha256": "69a03145627953aab05636e24bfbe7b3e27a772314debe3038d5f634c052f90d",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "provider": "pending-popup",
       "lines": 3,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/separator/types.ts",
@@ -892,7 +892,7 @@
       "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
       "provider": "accepted-main",
       "lines": 12,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/toolbar/button/ToolbarButton.svelte",
@@ -900,7 +900,7 @@
       "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
       "provider": "accepted-main",
       "lines": 27,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/toolbar/group/ToolbarGroupContext.ts",
@@ -908,7 +908,7 @@
       "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
       "provider": "accepted-main",
       "lines": 6,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/toolbar/root/ToolbarRoot.svelte",
@@ -916,7 +916,7 @@
       "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
       "provider": "accepted-main",
       "lines": 31,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts",
@@ -924,7 +924,7 @@
       "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
       "provider": "accepted-main",
       "lines": 15,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/toolbar/types.ts",
@@ -932,15 +932,15 @@
       "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
       "provider": "accepted-main",
       "lines": 38,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/utils/closePart.svelte.ts",
       "sha256": "cf4f7d4a7a2d5616522a165bba1fc8a56ab08a1f746c9872f9cd8e8ad8451466",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "provider": "pending-popup",
       "lines": 38,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/utils/isElementDisabled.ts",
@@ -948,77 +948,69 @@
       "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
       "provider": "accepted-main",
       "lines": 9,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/utils/NullStore.svelte.ts",
       "sha256": "442595fdf67989d0bdae8f422a53bfed7622832b0e5112f60e782d8d75a97e43",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "provider": "pending-popup",
       "lines": 11,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/utils/popups/index.ts",
       "sha256": "8685650fb9e3f7bfe7528330f062c4b3f94df89bf9adc8a48b13728774474e01",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "provider": "pending-popup",
       "lines": 3,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/utils/popups/popupHandle.svelte.ts",
       "sha256": "5acdc474609054a89472cdaa01531fa06e2670ac98e735f11f19e1651239ae89",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "provider": "pending-popup",
       "lines": 296,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte",
       "sha256": "bb34f4ea941b5579a57d1ff6432f3f5bf59c84a762c663112be7c7a9f4338985",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "provider": "pending-popup",
       "lines": 6,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/utils/popups/usePopupHandleStore.svelte.ts",
       "sha256": "3bbe4fd4132a3acdeb82b575f734b01caccc7c3033b8162fa64ad619a8bfbf58",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "provider": "pending-popup",
       "lines": 10,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     },
     {
       "source": "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts",
       "sha256": "61c4a5e3e40b0f8ff0d48d40208687ef43a209818cbe4bb6a9058050d91a1678",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
       "provider": "pending-popup",
       "lines": 86,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
-    },
-    {
-      "source": "packages/base/src/lib/utils/useOpenInteractionType.svelte.ts",
-      "sha256": "1e226c9fd96e234f73f7c8889e233455f8e4b0951f1e75059e3e17ac812550e2",
-      "commit": "ad8381b446d751c5faabd3b5a0b3f46f5b4be846",
-      "provider": "pending-popup",
-      "lines": 28,
-      "readStatus": "Whole native body read for actual fixture composition; no Select runtime prerequisite or inherited acceptance claim."
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
     }
   ],
   "manualNotes": [
     {
       "path": "source-plan.md",
-      "sha256": "2f95ae5a61859396d664297aaa99433859494889890401399d00392420278033"
+      "sha256": "85c35aed8e08cb8d718bec915eee683d77921e89a1201f41c61c0b88c44e8a11"
     },
     {
       "path": "source-correspondence.md",
-      "sha256": "564cee86a0e7944addb8b154e99182245034600d6f399e1328e60aec40504777"
+      "sha256": "322fcf6176ac674c51d0e62cb4390264b876040e24341e8cb552cc95437db30c"
     },
     {
       "path": "native-composition.md",
-      "sha256": "d5fd368e9987122fc7b44f7a1b8d043e68f7e06890a41a463a047372925c9950"
+      "sha256": "7345f710939e9b2d43afd485a449d3ae4d48619e47a280dfe6187a19c6e70f4c"
     },
     {
       "path": "manual-test-plan.md",
@@ -1038,11 +1030,23 @@
     "typeSites": 20,
     "ordinaryCredit": 0
   },
-  "correctedObservation": "Original useListNavigation348–350 item && ... references the later function-scope memo item-props bag; native later derived item bag is Source-same. Initial incomplete-read concern corrected; no blocker, issue or helper repair lease.",
+  "correctedObservation": "Original useListNavigation348\u2013350 item && ... references the later function-scope memo item-props bag; native later derived item bag is Source-same. Initial incomplete-read concern corrected; no blocker, issue or helper repair lease.",
   "remainingGates": [
     "Independent complete precode Source/native/maintainability review and Root approval.",
     "Pending Popup exact integrated hash acceptance and scoped leases for four missing helpers and remote authored-Select extension.",
     "Actual product implementation with faithful per-body/variant/helper/type mapping; paired native-default witnesses and separate supplements.",
     "Exact implementation-head SourceFull/inherited helper/native/maintainability review, focused/SSR/same-node hydration/secured browser/CI/full verification and installed public consumers."
-  ]
+  ],
+  "historicalProposal": {
+    "commit": "82032b16ddadb3dfb51ce5d7528beed5835cde48",
+    "receipt": "history/native-precode-82032.json",
+    "currentReaderScope": "plan-repair-evidence.json"
+  },
+  "correctedCoreDependency": {
+    "source": "packages/base/src/lib/utils/useOpenInteractionType.svelte.ts",
+    "actualCaller": "Pinned SelectRoot.tsx lines47/140; merge order and current/previous exit method in full caller body.",
+    "provider": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
+    "newImplementationNeeded": false,
+    "currentRepairReading": "Original/native whole helper, actual complete Root caller and listed dependencies freshly reopened; three existing native graph proofs remain historical scope, not independent acceptance."
+  }
 }
