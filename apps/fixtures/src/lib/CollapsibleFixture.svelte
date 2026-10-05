@@ -14,7 +14,9 @@
   let calls = $state<Record<string, unknown>[]>([]), order = $state<string[]>([]), callbackOwners = $state<string[]>([]), switched = $state(false), statuses = $state<string[]>([]);
   let submitted = $state(0), reset = $state(0), externalSubmitted = $state(0);
   let panelRef = $state<HTMLElement | null | undefined>();
-  const style = $derived(motionEnabled ? config.panelStyle : '');
+  const style = $derived(scenario.startsWith('css-') && scenario.endsWith('object')
+    ? scenario.includes('keys') ? { animationDuration: '123ms', justifyContent: 'center' } : { transitionDuration: '123ms', justifyContent: 'center' }
+    : motionEnabled ? config.panelStyle : '');
   const motion = $derived(motionEnabled ? config.motionClass : '');
   function changed(next: boolean, details: { reason: string; event: Event; isCanceled: boolean; cancel(): void }) {
     if (scenario === 'beforematch-cancel' && details.reason === 'none' || ['cancel', 'cancel-close'].includes(scenario)) details.cancel();
@@ -62,7 +64,7 @@
           disabled={scenario === 'disabled-override' ? false : undefined}
           {...scenario === 'submit' ? { type: 'submit', name: 'collapsible', value: 'sent' } : scenario === 'reset' ? { type: 'reset' } : scenario === 'external-form' ? { type: 'submit', form: 'external-form', name: 'collapsible', value: 'sent' } : {}}
           onclick={() => { order = [...order, 'consumer']; if (scenario === 'controlled-consumer') ownerOpen = true; if (scenario === 'callback-consumer') switched = true; }}>Trigger</Trigger>
-        {#if panelShown}<Panel id={explicitId} data-testid="panel" class={state => scenario === 'no-motion-status' ? `panel-${state.open ? 'open' : 'closed'}-${state.disabled ? 'disabled' : 'enabled'}-${state.transitionStatus ?? 'undefined'}` : scenario === 'state-callbacks' ? state.open ? 'panel-open' : 'panel-closed' : motion} style={state => scenario === 'state-callbacks' ? `opacity:${state.open ? 1 : 0.5}` : style} bind:ref={panelRef} keepMounted={scenario === 'hidden-warning' ? false : config.keep} hiddenUntilFound={config.hidden} render={panelHost}>{#if scenario !== 'zero'}This is panel content{/if}</Panel>{/if}
+        {#if panelShown}<Panel id={explicitId} data-testid="panel" class={state => scenario === 'no-motion-status' ? `panel-${state.open ? 'open' : 'closed'}-${state.disabled ? 'disabled' : 'enabled'}-${state.transitionStatus ?? 'undefined'}` : scenario === 'state-callbacks' ? state.open ? 'panel-open' : 'panel-closed' : motion} style={state => scenario === 'state-callbacks' ? `opacity:${state.open ? 1 : 0.5}` : style} bind:ref={panelRef} keepMounted={scenario === 'hidden-warning' ? false : config.keep} hiddenUntilFound={config.hidden} render={scenario.startsWith('css-') && scenario.includes('default') ? undefined : panelHost}>{#if scenario !== 'zero'}This is panel content{/if}</Panel>{/if}
       </form>
     </Root>
   {/if}

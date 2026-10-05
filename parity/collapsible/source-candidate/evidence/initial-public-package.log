@@ -1,0 +1,5 @@
+Loading svelte-check in workspace: /tmp/sveltery-collapsible-consumer.JAj3qO
+Getting Svelte diagnostics...
+
+svelte-check found 0 errors and 0 warnings
+Isolated tarball Collapsible public root/subpath SSR and types: PASS

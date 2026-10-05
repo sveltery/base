@@ -1,0 +1,11 @@
+$ pnpm -r check
+$ svelte-check --tsconfig ./tsconfig.json
+Loading svelte-check in workspace: /workspace/collapsible-source-modernization/packages/base
+Getting Svelte diagnostics...
+
+svelte-check found 0 errors and 0 warnings
+$ svelte-kit sync && svelte-check --tsconfig ./tsconfig.json
+Loading svelte-check in workspace: /workspace/collapsible-source-modernization/apps/fixtures
+Getting Svelte diagnostics...
+
+svelte-check found 0 errors and 0 warnings

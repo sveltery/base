@@ -31,6 +31,78 @@ async function installRace(page: Page, phase: 'open' | 'close') {
     };
   }, phase);
 }
+// Diagnostic transport witnesses run before inherited assertion ports. Their
+// native observations are separate evidence and receive zero ordinary credit.
+for (const scenario of [
+  'css-transition-default-string', 'css-transition-forward-object',
+  'css-beforematch-transition-default-string', 'css-beforematch-transition-forward-object',
+  'css-beforematch-keys-default-string', 'css-beforematch-keys-forward-object',
+]) test(`supplement: Source and native CSS transport ${scenario}`, async ({ page }, testInfo) => {
+  const observations: Record<string, unknown> = {};
+  for (const framework of ['Original', 'bare Svelte', 'Collapsible'] as const) {
+    await page.goto(`${framework === 'Original' ? '/collapsible-reference' : framework === 'bare Svelte' ? '/collapsible-css-native' : '/collapsible'}?case=${scenario}`);
+    await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+    await page.waitForFunction(() => Boolean((window as Window & { collapsibleFlush?: unknown }).collapsibleFlush));
+    const result = await page.evaluate(async ({ scenario, framework }) => {
+      const panel = document.querySelector('[data-testid="panel"]') as HTMLElement;
+      const trace: Record<string, unknown>[] = [];
+      const cssText = Object.getOwnPropertyDescriptor(CSSStyleDeclaration.prototype, 'cssText')!;
+      const setProperty = CSSStyleDeclaration.prototype.setProperty;
+      Object.defineProperty(CSSStyleDeclaration.prototype, 'cssText', { ...cssText, set(value: string) {
+        if (this === panel.style) trace.push({ kind: 'cssText', value, beforeAlignment: this.justifyContent, beforeDuration: scenario.includes('keys') ? this.animationDuration : this.transitionDuration });
+        cssText.set!.call(this, value);
+      } });
+      CSSStyleDeclaration.prototype.setProperty = function(property, value, priority) {
+        if (this === panel.style) trace.push({ kind: 'property', property, value, priority: priority ?? '' });
+        return setProperty.call(this, property, value, priority);
+      };
+      const scrollHeight = Object.getOwnPropertyDescriptor(Element.prototype, 'scrollHeight')!.get!;
+      Object.defineProperty(panel, 'scrollHeight', { configurable: true, get() {
+        const value = scrollHeight.call(this) as number;
+        trace.push({ kind: 'real-measure', value, alignment: panel.style.justifyContent, priority: panel.style.getPropertyPriority('justify-content') });
+        return value;
+      } });
+      function snapshot() {
+        return { connected: panel.isConnected, alignment: panel.style.justifyContent, priority: panel.style.getPropertyPriority('justify-content'),
+          duration: scenario.includes('keys') ? panel.style.animationDuration : panel.style.transitionDuration,
+          height: panel.style.getPropertyValue('--collapsible-panel-height'), actualHeight: panel.getBoundingClientRect().height,
+          animations: panel.getAnimations().map(animation => ({ playState: animation.playState, pending: animation.pending })),
+          starting: panel.hasAttribute('data-starting-style'), hidden: panel.getAttribute('hidden') };
+      }
+      const browser = window as Window & { collapsibleFlush: (action: string) => void };
+      browser.collapsibleFlush(scenario.includes('beforematch') ? 'beforematch' : 'click');
+      const immediate = snapshot();
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+      const afterFrame = snapshot();
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+      const afterTwoFrames = snapshot();
+      Array.from(document.querySelectorAll('button')).find(button => button.textContent === 'Toggle mounting')!.click();
+      await new Promise<void>(resolve => setTimeout(resolve, 0));
+      const detached = snapshot();
+      CSSStyleDeclaration.prototype.setProperty = setProperty;
+      Object.defineProperty(CSSStyleDeclaration.prototype, 'cssText', cssText);
+      return { framework, immediate, afterFrame, afterTwoFrames, detached, trace };
+    }, { scenario, framework });
+    observations[framework] = result;
+    // These predicates verify an actual rendered and measured business path;
+    // they do not declare the direct native candidate behavior accepted.
+    expect(result.trace.some(entry => entry.kind === 'real-measure' && Number(entry.value) > 0)).toBe(true);
+    expect(result.detached.connected).toBe(false);
+    if (scenario.includes('beforematch')) {
+      const property = scenario.includes('keys') ? 'animation-duration' : 'transition-duration';
+      expect(result.trace.some(entry => entry.kind === 'property' && entry.property === property && entry.value === '0s')).toBe(true);
+      expect(result.detached.duration).toBe('123ms');
+      if (framework === 'Original') expect(result.immediate.duration).toBe('0s');
+    } else if (framework === 'Original') {
+      expect(result.immediate.alignment).toBe('initial');
+      expect(result.immediate.priority).toBe('important');
+    }
+    if (framework !== 'Original') expect(result.trace.some(entry => entry.kind === 'cssText')).toBe(true);
+  }
+  console.log(JSON.stringify({ scenario, observations }));
+  await testInfo.attach('Source-native-CSS-transport', { body: JSON.stringify({ scenario, observations }, null, 2), contentType: 'application/json' });
+});
+
 for (const reference of [false, true]) {
   const framework = reference ? 'React reference' : 'Svelte';
   test(`R:19 ${framework} sets ARIA attributes`, async ({ page }) => {

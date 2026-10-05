@@ -1,0 +1,32 @@
+
+ RUN  v5.0.3 /workspace/collapsible-source-modernization/packages/base
+
+ ❯ tests/dom/collapsible-source-boundary.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/dom/collapsible-source-boundary.test.ts [ tests/dom/collapsible-source-boundary.test.ts ]
+Error: Transform failed with 1 error:
+
+[31m[TSCONFIG_ERROR] [0mFailed to load tsconfig '../../apps/fixtures/.svelte-kit/tsconfig.json': Tsconfig not found
+
+  Plugin: vite:oxc
+  File: /workspace/collapsible-source-modernization/apps/fixtures/src/lib/CollapsibleSourceBoundaryReference.ts
+ ❯ transformWithOxc ../../node_modules/.pnpm/vite@8.3.1_@types+node@26.6.3/node_modules/vite/dist/node/chunks/node.js:7551:19
+ ❯ TransformPluginContext.transform ../../node_modules/.pnpm/vite@8.3.1_@types+node@26.6.3/node_modules/vite/dist/node/chunks/node.js:7623:26
+ ❯ EnvironmentPluginContainer.transform ../../node_modules/.pnpm/vite@8.3.1_@types+node@26.6.3/node_modules/vite/dist/node/chunks/node.js:8515:51
+ ❯ loadAndTransform ../../node_modules/.pnpm/vite@8.3.1_@types+node@26.6.3/node_modules/vite/dist/node/chunks/node.js:19998:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  19:13:18
+   Duration  1.44s (environment 99%, worker 1%)
+
+Error: ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL
+
+  × "pnpm recursive exec" failed in /workspace/collapsible-source-
+  │ modernization/packages/base
+

@@ -1,0 +1,10 @@
+$ vitest run --maxWorkers=1 tests/collapsible-ssr.test.ts
+
+ RUN  v5.0.3 /workspace/collapsible-source-modernization/packages/base
+
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  19:15:43
+   Duration  2.79s (transform 63%, import 30%, tests 7%)
+
