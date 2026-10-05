@@ -10,3 +10,4 @@ pnpm --filter @sveltery/base test:dom
 pnpm --filter @sveltery/fixtures build
 node --import ./scripts/svelte-ssr-loader.mjs scripts/check-runtime.mjs
 bash scripts/check-package.sh
+bash scripts/check-use-click-package.sh
