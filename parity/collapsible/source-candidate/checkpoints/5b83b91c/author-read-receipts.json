@@ -1,5 +1,5 @@
 {
-  "candidateHead": "16caf0d78b5ab6ffde897cceffb25adaa62c40e9",
+  "candidateHead": "5b83b91c2257cd58cdd5d2c832f3aa8074fbb7fe",
   "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "scope": "Current production/type closure only; test closure is separately inventoried, not falsely claimed freshly reviewed by this receipt.",
   "originalReceipt": "../source-audit/audit.json",
@@ -121,13 +121,11 @@
     },
     {
       "source": "packages/base/src/lib/index.ts",
-      "sha256": "271de60ff4e7b7978f55ebb6b5a6c9de7385020f91cf33cdaae00c8895c1d18c",
+      "sha256": "a0f6dfb0a09301d1c8e4388292e5d33e8515627cd32e5df28f206c5ab0655a56",
       "reachability": "runtime",
-      "authorRead": "Complete integrated-Main body freshly read: public barrel retains the selected Collapsible exports alongside independently accepted sibling exports; warn uses Main’s exact canonical log-once implementation. This author receipt does not substitute for fresh independent final whole-closure review.",
+      "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372",
-      "priorBodyReceipt": "checkpoints/5b83b91c/author-read-receipts.json"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts",
@@ -135,8 +133,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
@@ -144,8 +141,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/internals/getStateAttributesProps.ts",
@@ -153,8 +149,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/internals/nativeProps.ts",
@@ -162,8 +157,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/internals/nativeRefAttachment.ts",
@@ -171,8 +165,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/internals/reason-parts.ts",
@@ -180,8 +173,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/internals/reasons.ts",
@@ -189,8 +181,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/internals/RenderElement.svelte",
@@ -198,8 +189,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/internals/resolveClassValue.ts",
@@ -207,8 +197,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/internals/stateAttributesMapping.ts",
@@ -216,8 +205,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/internals/TransitionStatusDataAttributes.ts",
@@ -225,8 +213,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/internals/types.ts",
@@ -234,8 +221,7 @@
       "reachability": "type",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
@@ -243,8 +229,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/internals/useAnimationsFinished.ts",
@@ -252,8 +237,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/internals/useBaseUiId.ts",
@@ -261,8 +245,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
@@ -270,8 +253,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/internals/useRenderElement.ts",
@@ -279,8 +261,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
@@ -288,8 +269,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/merge-props/index.ts",
@@ -297,8 +277,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/merge-props/mergeProps.ts",
@@ -306,8 +285,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/utils/addEventListener.ts",
@@ -315,8 +293,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/utils/collapsibleOpenStateMapping.ts",
@@ -332,8 +309,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts",
@@ -341,8 +317,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/utils/empty.ts",
@@ -350,8 +325,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/utils/error.ts",
@@ -359,8 +333,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/utils/mergeObjects.ts",
@@ -368,8 +341,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/utils/owner.ts",
@@ -377,8 +349,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/utils/resolveClassName.ts",
@@ -386,8 +357,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/utils/resolveRef.ts",
@@ -395,8 +365,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/utils/resolveStyle.ts",
@@ -404,8 +373,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/utils/useAnimationFrame.ts",
@@ -413,8 +381,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/utils/useControlled.svelte.ts",
@@ -422,8 +389,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
@@ -431,8 +397,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/utils/useId.ts",
@@ -440,8 +405,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
@@ -449,8 +413,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/utils/useMergedRefs.ts",
@@ -458,8 +421,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/utils/useOnMount.ts",
@@ -467,8 +429,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/utils/useRefWithInit.ts",
@@ -476,8 +437,7 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/utils/useStableCallback.ts",
@@ -485,20 +445,15 @@
       "reachability": "runtime",
       "authorRead": "Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372"
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/base/src/lib/utils/warn.ts",
-      "sha256": "58267e2a1dd62afbc707faf9c031dee042605aa74d44dbf72dd997d2ad69db65",
+      "sha256": "20fb2aa3f59ea0ce7224fb7b0a7f7e6a66994c79d2e75c9d1809d7370084f07a",
       "reachability": "runtime",
-      "authorRead": "Complete integrated-Main body freshly read: public barrel retains the selected Collapsible exports alongside independently accepted sibling exports; warn uses Main’s exact canonical log-once implementation. This author receipt does not substitute for fresh independent final whole-closure review.",
+      "authorRead": "Complete current feature-owned body read in bounded passes at the first attachment runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md; render override loss remains blocking.",
       "finalIndependentRead": "PENDING; no acceptance is inferred from earlier reads or identity",
-      "ordinaryCredit": 0,
-      "reuseAuthority": "a879ce6970cf14407d1e3859ee5c9900ca17e372",
-      "priorBodyReceipt": "checkpoints/5b83b91c/author-read-receipts.json"
+      "ordinaryCredit": 0
     }
-  ],
-  "acceptedMain": "a879ce6970cf14407d1e3859ee5c9900ca17e372",
-  "priorCheckpoint": "checkpoints/5b83b91c/author-read-receipts.json"
+  ]
 }
