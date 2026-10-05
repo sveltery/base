@@ -84,7 +84,7 @@ test('selected root-store bridge preserves reference ownership and delegates one
   }
   assert.equal(expression(variable(business, 'position')), 'usePosition(()=>({...options,elements:{reference:positionReference||referenceElement,floating:floatingElement,},}))');
   assert.equal(expression(variable(business, 'tree')), '$derived(options.externalTree??contextTree)');
-  assert.equal(expression(variable(business, 'syncedFloatingElement')), '$derived(localFloatingElement===undefined?store.state.floatingElement:localFloatingElement)');
+  assert.equal(expression(variable(business, 'syncedFloatingElement')), '$derived(localFloatingElement===undefined?floatingElement:localFloatingElement)');
   const updates = nodes(business, node => ts.isCallExpression(node) && expression(node.expression) === 'store.update');
   assert.equal(updates.length, 1);
   assert.equal(expression(updates[0].arguments[0]), '{referenceElement:localDomReference??null,domReferenceElement:localDomReference===undefined?domReferenceElement:localDomReferenceElement,floatingElement:syncedFloatingElement,}');
