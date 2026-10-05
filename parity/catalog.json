@@ -233,19 +233,19 @@
       "upstreamModule": "toggle",
       "status": "bounded",
       "localExport": "Toggle",
-      "evidence": "parity/toggle/README.md"
+      "evidence": "parity/toggle-toolbar/source-correspondence.md"
     },
     {
       "upstreamModule": "toggle-group",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "ToggleGroup",
+      "evidence": "parity/toggle-toolbar/source-correspondence.md"
     },
     {
       "upstreamModule": "toolbar",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "Toolbar",
+      "evidence": "parity/toggle-toolbar/source-correspondence.md"
     },
     {
       "upstreamModule": "tooltip",
