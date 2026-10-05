@@ -1,3 +1,4 @@
+import { resolveNativePackageSource } from './native-package-source.mjs';
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
@@ -10,6 +11,8 @@ const hash = body => createHash('sha256').update(body).digest('hex');
 const roots = ['popover', 'preview-card', 'tooltip'].flatMap(family => ['index.parts.ts', 'handle.svelte.ts'].map(file => `packages/base/src/lib/${family}/${file}`));
 
 function resolveLocal(file, specifier) {
+  const owned = resolveNativePackageSource(root, specifier);
+  if (owned) return owned;
   const base = resolve(root, dirname(file), specifier);
   const candidates = /\.js$/.test(base)
     ? [base.replace(/\.js$/, '.ts'), base.replace(/\.js$/, '.tsx'), base.replace(/\.js$/, '.svelte.ts'), base]
@@ -34,7 +37,7 @@ for (let index = 0; index < queue.length; index += 1) {
     const ast = ts.createSourceFile(file, script, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
     function add(specifier, kind, syntax, node) {
       if (typeof specifier !== 'string') throw new Error(`Nonliteral import at ${file}:${ast.getLineAndCharacterOfPosition(node.pos).line + 1}`);
-      const target = specifier.startsWith('.') ? resolveLocal(file, specifier) : null;
+      const target = specifier.startsWith('.') || specifier.startsWith('@sveltery/utils/') ? resolveLocal(file, specifier) : null;
       if (target) queue.push(target); else external.add(specifier);
       edges.push({ from: file, to: target, external: target ? undefined : specifier, kind, syntax, scriptIndex, members: ts.isImportDeclaration(node) ? [ ...(node.importClause?.name ? [{ imported: 'default', local: node.importClause.name.text, typeOnly: !!node.importClause.isTypeOnly }] : []), ...(node.importClause?.namedBindings && ts.isNamedImports(node.importClause.namedBindings) ? node.importClause.namedBindings.elements.map(value => ({ imported: value.propertyName?.text ?? value.name.text, local: value.name.text, typeOnly: !!node.importClause?.isTypeOnly || value.isTypeOnly })) : node.importClause?.namedBindings ? [{ imported: '*', local: node.importClause.namedBindings.name.text, typeOnly: !!node.importClause.isTypeOnly }] : []) ] : ts.isExportDeclaration(node) && node.exportClause && ts.isNamedExports(node.exportClause) ? node.exportClause.elements.map(value => ({ imported: value.propertyName?.text ?? value.name.text, exported: value.name.text, typeOnly: node.isTypeOnly || value.isTypeOnly })) : [] });
     }

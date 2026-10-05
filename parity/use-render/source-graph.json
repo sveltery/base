@@ -401,7 +401,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/nativeProps.ts",
-        "sha256": "d6b3999ffe54e8c70e0dcdac61474b3bf9f53e60f3b1207dd4f976ef5212e4eb",
+        "sha256": "fbb6178288b28dad7549551064e30bf2b432880f1a5b2476223b011f9e72a71a",
         "reachability": [
           "runtime",
           "type"
@@ -434,9 +434,9 @@
             ]
           },
           {
-            "specifier": "../utils/mergeObjects.js",
+            "specifier": "@sveltery/utils/mergeObjects",
             "kind": "runtime",
-            "resolved": "packages/base/src/lib/utils/mergeObjects.ts",
+            "resolved": "packages/utils/src/lib/mergeObjects.ts",
             "names": [
               "mergeObjects"
             ]
@@ -445,7 +445,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-        "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319",
+        "sha256": "659427aaebb2b294178e5ccd147f6cbb4cb87a9704c18c62ff04a2847a7e1a56",
         "reachability": [
           "runtime",
           "type"
@@ -468,9 +468,9 @@
             ]
           },
           {
-            "specifier": "../utils/useMergedRefs.js",
+            "specifier": "@sveltery/utils/useMergedRefs",
             "kind": "type",
-            "resolved": "packages/base/src/lib/utils/useMergedRefs.ts",
+            "resolved": "packages/utils/src/lib/useMergedRefs.ts",
             "names": [
               "MergedRefCallback"
             ]
@@ -655,7 +655,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/useRenderElement.ts",
-        "sha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
+        "sha256": "d344184b30e91d54544e9c5b00583679762e0ec099306e9a682df8426655c31a",
         "reachability": [
           "runtime",
           "type"
@@ -678,34 +678,34 @@
         ],
         "imports": [
           {
-            "specifier": "../utils/useMergedRefs.js",
+            "specifier": "@sveltery/utils/useMergedRefs",
             "kind": "runtime",
-            "resolved": "packages/base/src/lib/utils/useMergedRefs.ts",
+            "resolved": "packages/utils/src/lib/useMergedRefs.ts",
             "names": [
               "createMergedRefs"
             ]
           },
           {
-            "specifier": "../utils/useMergedRefs.js",
+            "specifier": "@sveltery/utils/useMergedRefs",
             "kind": "type",
-            "resolved": "packages/base/src/lib/utils/useMergedRefs.ts",
+            "resolved": "packages/utils/src/lib/useMergedRefs.ts",
             "names": [
               "MergedRef",
               "MergedRefCallback"
             ]
           },
           {
-            "specifier": "../utils/mergeObjects.js",
+            "specifier": "@sveltery/utils/mergeObjects",
             "kind": "runtime",
-            "resolved": "packages/base/src/lib/utils/mergeObjects.ts",
+            "resolved": "packages/utils/src/lib/mergeObjects.ts",
             "names": [
               "mergeObjects"
             ]
           },
           {
-            "specifier": "../utils/empty.js",
+            "specifier": "@sveltery/utils/empty",
             "kind": "runtime",
-            "resolved": "packages/base/src/lib/utils/empty.ts",
+            "resolved": "packages/utils/src/lib/empty.ts",
             "names": [
               "EMPTY_OBJECT"
             ]
@@ -807,7 +807,7 @@
       },
       {
         "local": "packages/base/src/lib/merge-props/mergeProps.ts",
-        "sha256": "7a097b833ae8854c5a26e34009adfb4e0297dd50f56ad5f0c1ac8afa8187f98b",
+        "sha256": "110f1b7615a7ccadcfc1e8775451eea5f9ca971bcafee6f3ffd4ea8470303d00",
         "reachability": [
           "runtime",
           "type"
@@ -855,9 +855,9 @@
             ]
           },
           {
-            "specifier": "../utils/mergeObjects.js",
+            "specifier": "@sveltery/utils/mergeObjects",
             "kind": "runtime",
-            "resolved": "packages/base/src/lib/utils/mergeObjects.ts",
+            "resolved": "packages/utils/src/lib/mergeObjects.ts",
             "names": [
               "mergeObjects"
             ]
@@ -979,7 +979,7 @@
       },
       {
         "local": "packages/base/src/lib/use-render/types.ts",
-        "sha256": "e2dec96a2391fb2ba2fcaa8c7955199e346d6f82ce1ac8a19acad3ac0034ee7c",
+        "sha256": "119cfe4fa060949cddd7349a4aa76428604f86c55bfe2a44e52a93898ac53dcb",
         "reachability": [
           "type"
         ],
@@ -1032,9 +1032,9 @@
             ]
           },
           {
-            "specifier": "../utils/useMergedRefs.js",
+            "specifier": "@sveltery/utils/useMergedRefs",
             "kind": "type",
-            "resolved": "packages/base/src/lib/utils/useMergedRefs.ts",
+            "resolved": "packages/utils/src/lib/useMergedRefs.ts",
             "names": [
               "MergedRef"
             ]
@@ -1082,40 +1082,6 @@
             ]
           }
         ]
-      },
-      {
-        "local": "packages/base/src/lib/utils/empty.ts",
-        "sha256": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b",
-        "reachability": [
-          "runtime",
-          "type"
-        ],
-        "category": "source-business-port",
-        "provenance": "Used source-bodied port from the immutable Base UI pin; native framework/representation changes are specified in source-correspondence.md.",
-        "originalSources": [
-          "packages/utils/src/empty.ts"
-        ],
-        "declarations": [
-          "NOOP"
-        ],
-        "imports": []
-      },
-      {
-        "local": "packages/base/src/lib/utils/mergeObjects.ts",
-        "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
-        "reachability": [
-          "runtime",
-          "type"
-        ],
-        "category": "source-business-port",
-        "provenance": "Used source-bodied port from the immutable Base UI pin; native framework/representation changes are specified in source-correspondence.md.",
-        "originalSources": [
-          "packages/utils/src/mergeObjects.ts"
-        ],
-        "declarations": [
-          "mergeObjects"
-        ],
-        "imports": []
       },
       {
         "local": "packages/base/src/lib/utils/resolveClassName.ts",
@@ -1170,7 +1136,41 @@
         ]
       },
       {
-        "local": "packages/base/src/lib/utils/useMergedRefs.ts",
+        "local": "packages/utils/src/lib/empty.ts",
+        "sha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "source-business-port",
+        "provenance": "Used source-bodied port from the immutable Base UI pin; native framework/representation changes are specified in source-correspondence.md.",
+        "originalSources": [
+          "packages/utils/src/empty.ts"
+        ],
+        "declarations": [
+          "NOOP"
+        ],
+        "imports": []
+      },
+      {
+        "local": "packages/utils/src/lib/mergeObjects.ts",
+        "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "category": "source-business-port",
+        "provenance": "Used source-bodied port from the immutable Base UI pin; native framework/representation changes are specified in source-correspondence.md.",
+        "originalSources": [
+          "packages/utils/src/mergeObjects.ts"
+        ],
+        "declarations": [
+          "mergeObjects"
+        ],
+        "imports": []
+      },
+      {
+        "local": "packages/utils/src/lib/useMergedRefs.ts",
         "sha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
         "reachability": [
           "runtime",
@@ -1204,7 +1204,7 @@
           {
             "specifier": "./useRefWithInit.js",
             "kind": "runtime",
-            "resolved": "packages/base/src/lib/utils/useRefWithInit.ts",
+            "resolved": "packages/utils/src/lib/useRefWithInit.ts",
             "names": [
               "useRefWithInit"
             ]
@@ -1212,8 +1212,8 @@
         ]
       },
       {
-        "local": "packages/base/src/lib/utils/useRefWithInit.ts",
-        "sha256": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036",
+        "local": "packages/utils/src/lib/useRefWithInit.ts",
+        "sha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7",
         "reachability": [
           "runtime",
           "type"

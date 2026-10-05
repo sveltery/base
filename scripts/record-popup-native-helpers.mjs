@@ -1,3 +1,4 @@
+import { resolveNativePackageSource } from './native-package-source.mjs';
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
@@ -19,6 +20,8 @@ const roots = [
   'packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts',
 ];
 function resolveLocal(file, specifier) {
+  const owned = resolveNativePackageSource(root, specifier);
+  if (owned) return owned;
   const base = resolve(root, dirname(file), specifier);
   const candidates = /\.js$/.test(base)
     ? [base.replace(/\.js$/, '.ts'), base.replace(/\.js$/, '.tsx'), base.replace(/\.js$/, '.svelte.ts'), base]
@@ -43,7 +46,7 @@ for (let index = 0; index < queue.length; index += 1) {
     const ast = ts.createSourceFile(file, script, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
     function add(specifier, kind, syntax, node) {
       if (typeof specifier !== 'string') throw new Error(`Nonliteral import at ${file}:${ast.getLineAndCharacterOfPosition(node.pos).line + 1}`);
-      const target = specifier.startsWith('.') ? resolveLocal(file, specifier) : null;
+      const target = specifier.startsWith('.') || specifier.startsWith('@sveltery/utils/') ? resolveLocal(file, specifier) : null;
       if (target) queue.push(target); else external.add(specifier);
       edges.push({ from: file, to: target, external: target ? undefined : specifier, kind, syntax, scriptIndex });
     }

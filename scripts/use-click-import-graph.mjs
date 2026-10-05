@@ -1,3 +1,4 @@
+import { resolveNativePackageSource } from './native-package-source.mjs';
 import { createRequire } from 'node:module';
 const require = createRequire(new URL('../packages/base/package.json', import.meta.url));
 const ts = require('typescript');
@@ -10,6 +11,8 @@ const source = entries[0].startsWith('packages/react/');
 const records = new Map();
 const queue = [...entries];
 function resolveImport(file, specifier) {
+  const owned = !source && resolveNativePackageSource(directory, specifier);
+  if (owned) return owned;
   let base;
   if (specifier.startsWith('.')) base = resolve(directory, dirname(file), specifier);
   else if (source && specifier.startsWith('@base-ui/utils/')) base = resolve(directory, 'packages/utils/src', specifier.slice('@base-ui/utils/'.length));

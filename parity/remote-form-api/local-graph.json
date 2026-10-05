@@ -22,7 +22,7 @@
   "records": [
     {
       "local": "packages/base/src/lib/checkbox-group/CheckboxGroup.svelte",
-      "sha256": "52a2481dc8e1df2d00451922dac6ffd782c774799700f5aeecf92113233446f4",
+      "sha256": "2249498a2110650b7ec4828de70609bb247a5a5add5591f33ae369f274fb6375",
       "imports": [
         {
           "specifier": "../internals/RenderElement.svelte",
@@ -30,29 +30,29 @@
           "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
         },
         {
-          "specifier": "../utils/useControlled.svelte.js",
+          "specifier": "@sveltery/utils/useControlled",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useControlled.svelte.ts"
+          "resolved": "packages/utils/src/lib/useControlled.svelte.ts"
         },
         {
-          "specifier": "../utils/useIsoLayoutEffect.svelte.js",
+          "specifier": "@sveltery/utils/useIsoLayoutEffect",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts"
         },
         {
-          "specifier": "../utils/useStableCallback.js",
+          "specifier": "@sveltery/utils/useStableCallback",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+          "resolved": "packages/utils/src/lib/useStableCallback.ts"
         },
         {
-          "specifier": "../utils/empty.js",
+          "specifier": "@sveltery/utils/empty",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/empty.ts"
+          "resolved": "packages/utils/src/lib/empty.ts"
         },
         {
-          "specifier": "../utils/areArraysEqual.js",
+          "specifier": "@sveltery/utils/areArraysEqual",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/areArraysEqual.ts"
+          "resolved": "packages/utils/src/lib/areArraysEqual.ts"
         },
         {
           "specifier": "../internals/useBaseUiId.js",
@@ -180,7 +180,7 @@
     },
     {
       "local": "packages/base/src/lib/checkbox-group/useCheckboxGroupParent.svelte.ts",
-      "sha256": "8adf195142cc9b97f5c11f32946562d3c3b42cbf7f67d6253d601550f96977b8",
+      "sha256": "76e3e38225e063ab7be1eb273dd2ac3fc29dff0a2c281459d05046613f69f7b8",
       "imports": [
         {
           "specifier": "svelte",
@@ -188,14 +188,14 @@
           "resolved": "external:svelte"
         },
         {
-          "specifier": "../utils/useStableCallback.js",
+          "specifier": "@sveltery/utils/useStableCallback",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+          "resolved": "packages/utils/src/lib/useStableCallback.ts"
         },
         {
-          "specifier": "../utils/empty.js",
+          "specifier": "@sveltery/utils/empty",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/empty.ts"
+          "resolved": "packages/utils/src/lib/empty.ts"
         },
         {
           "specifier": "../internals/createBaseUIEventDetails.js",
@@ -206,7 +206,7 @@
     },
     {
       "local": "packages/base/src/lib/checkbox/root/CheckboxRoot.svelte",
-      "sha256": "36fec4ac980a7ad09bb5614726f3fe7479dbc48cdec293641a90a809fa78e7d8",
+      "sha256": "3616db3f3ae0e91ea8c024cad143f5dcf1a82c7071175fed67f6098c436f976a",
       "imports": [
         {
           "specifier": "svelte",
@@ -229,9 +229,9 @@
           "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
         },
         {
-          "specifier": "../../utils/useMergedRefs.js",
+          "specifier": "@sveltery/utils/useMergedRefs",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+          "resolved": "packages/utils/src/lib/useMergedRefs.ts"
         },
         {
           "specifier": "../../internals/nativeRefAttachment.js",
@@ -249,19 +249,19 @@
           "resolved": "external:svelte/elements"
         },
         {
-          "specifier": "../../utils/useControlled.svelte.js",
+          "specifier": "@sveltery/utils/useControlled",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useControlled.svelte.ts"
+          "resolved": "packages/utils/src/lib/useControlled.svelte.ts"
         },
         {
-          "specifier": "../../utils/useIsoLayoutEffect.svelte.js",
+          "specifier": "@sveltery/utils/useIsoLayoutEffect",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts"
         },
         {
-          "specifier": "../../utils/visuallyHidden.js",
+          "specifier": "@sveltery/utils/visuallyHidden",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/visuallyHidden.ts"
+          "resolved": "packages/utils/src/lib/visuallyHidden.ts"
         },
         {
           "specifier": "../../internals/nativeProps.js",
@@ -383,7 +383,7 @@
     },
     {
       "local": "packages/base/src/lib/checkbox/types.ts",
-      "sha256": "d5dd1320ca6d2b45cfb6bc671c0873aae5ad495d32243a791225bbe96c2d5f17",
+      "sha256": "0c8eba6e8bcb3c197ea125bf91351d7912a04faf9e3bef0443e2d0cf554d2c6c",
       "imports": [
         {
           "specifier": "svelte",
@@ -411,9 +411,9 @@
           "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
         },
         {
-          "specifier": "../utils/useMergedRefs.js",
+          "specifier": "@sveltery/utils/useMergedRefs",
           "kind": "type",
-          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+          "resolved": "packages/utils/src/lib/useMergedRefs.ts"
         },
         {
           "specifier": "../internals/useTransitionStatus.svelte.js",
@@ -450,7 +450,7 @@
     },
     {
       "local": "packages/base/src/lib/checkbox/utils/useEnterSubmit.svelte.ts",
-      "sha256": "dcceb14ed7d2246a76de528d74260fd5b2b5a6ded04e5eee90b4c95d703cb467",
+      "sha256": "47a12f9d65ba32f7c9babcfb56f6b171637114df64f58b922b444e88fd614f8d",
       "imports": [
         {
           "specifier": "../../internals/types.js",
@@ -458,15 +458,88 @@
           "resolved": "packages/base/src/lib/internals/types.ts"
         },
         {
-          "specifier": "../../utils/getDefaultFormSubmitter.js",
+          "specifier": "@sveltery/utils/getDefaultFormSubmitter",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/getDefaultFormSubmitter.ts"
+          "resolved": "packages/utils/src/lib/getDefaultFormSubmitter.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/dialog/handle.svelte.ts",
+      "sha256": "369b9344e3947c68fa16a1b7616c26404d583a79e3e375bda486c613d0ec3681",
+      "imports": [
+        {
+          "specifier": "./store/DialogHandle.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/dialog/store/DialogHandle.svelte.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/dialog/store/DialogHandle.svelte.ts",
+      "sha256": "5b27a4482df0ea2e6c126fbdca63b41731ba2a268ce3539df6b3954cc9de9d00",
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "./DialogStore.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/dialog/store/DialogStore.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        },
+        {
+          "specifier": "../../utils/popups/popupHandle.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/popups/popupHandle.svelte.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/dialog/store/DialogStore.svelte.ts",
+      "sha256": "a99fee3c61529a7ad3778ecb0f3108f477b8727c71525a2d34fa0a95f49f29bf",
+      "imports": [
+        {
+          "specifier": "@sveltery/utils/store",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/store/index.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/useEnhancedClickHandler",
+          "kind": "type",
+          "resolved": "packages/utils/src/lib/useEnhancedClickHandler.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/dialog/types.ts"
+        },
+        {
+          "specifier": "../../utils/NullStore.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/NullStore.svelte.ts"
+        },
+        {
+          "specifier": "../../utils/popups/index.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/popups/index.ts"
         }
       ]
     },
     {
       "local": "packages/base/src/lib/dialog/types.ts",
-      "sha256": "fd700772ea1016359bc934759c01d168caa2914ff136733f30f9c108d28ae931",
+      "sha256": "733775a8fb40ec9b1472c752624da00ff9426078e253e194f996ed0b2267f858",
       "imports": [
         {
           "specifier": "svelte",
@@ -487,6 +560,26 @@
           "specifier": "../merge-props/index.js",
           "kind": "type",
           "resolved": "packages/base/src/lib/merge-props/index.ts"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
+          "specifier": "../internals/useTransitionStatus.svelte.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/useEnhancedClickHandler",
+          "kind": "type",
+          "resolved": "packages/utils/src/lib/useEnhancedClickHandler.ts"
+        },
+        {
+          "specifier": "./handle.svelte.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/dialog/handle.svelte.ts"
         }
       ]
     },
@@ -519,7 +612,7 @@
     },
     {
       "local": "packages/base/src/lib/field/Control.svelte",
-      "sha256": "ac623af778620dd68ea7c9234ffd9c27eb22b3406e1ee9fda4d973e823532101",
+      "sha256": "fd830681270a06fd5204cc5d6d321a2a5303ad78906dfda5e6c3946d589cb303",
       "imports": [
         {
           "specifier": "../internals/RenderElement.svelte",
@@ -527,29 +620,29 @@
           "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
         },
         {
-          "specifier": "../utils/useControlled.svelte.js",
+          "specifier": "@sveltery/utils/useControlled",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useControlled.svelte.ts"
+          "resolved": "packages/utils/src/lib/useControlled.svelte.ts"
         },
         {
-          "specifier": "../utils/useIsoLayoutEffect.svelte.js",
+          "specifier": "@sveltery/utils/useIsoLayoutEffect",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts"
         },
         {
-          "specifier": "../utils/owner.js",
+          "specifier": "@sveltery/utils/owner",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/owner.ts"
+          "resolved": "packages/utils/src/lib/owner.ts"
         },
         {
-          "specifier": "../utils/useStableCallback.js",
+          "specifier": "@sveltery/utils/useStableCallback",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+          "resolved": "packages/utils/src/lib/useStableCallback.ts"
         },
         {
-          "specifier": "../utils/useTimeout.js",
+          "specifier": "@sveltery/utils/useTimeout",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useTimeout.ts"
+          "resolved": "packages/utils/src/lib/useTimeout.ts"
         },
         {
           "specifier": "../internals/field-root-context/FieldRootContext.js",
@@ -607,9 +700,9 @@
           "resolved": "packages/base/src/lib/internals/reasons.ts"
         },
         {
-          "specifier": "../utils/shadowDom.js",
+          "specifier": "@sveltery/utils/shadowDom",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/shadowDom.ts"
+          "resolved": "packages/utils/src/lib/shadowDom.ts"
         },
         {
           "specifier": "./types.js",
@@ -620,7 +713,7 @@
     },
     {
       "local": "packages/base/src/lib/field/Description.svelte",
-      "sha256": "0581056a31a173472dc8f22ebfd599e74bada6250520d6d4cb82b22aba48fe0b",
+      "sha256": "283385cc4f6d15b382f20da7a80734695d53a83a7e13bd15f5698e6fc10208b2",
       "imports": [
         {
           "specifier": "../internals/RenderElement.svelte",
@@ -628,9 +721,9 @@
           "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
         },
         {
-          "specifier": "../utils/useIsoLayoutEffect.svelte.js",
+          "specifier": "@sveltery/utils/useIsoLayoutEffect",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts"
         },
         {
           "specifier": "../internals/field-root-context/FieldRootContext.js",
@@ -666,7 +759,7 @@
     },
     {
       "local": "packages/base/src/lib/field/Error.svelte",
-      "sha256": "4b8a0755185330e12acf8dacc050ffae8f7b30f744aeebb54aa1c2095b09d6f3",
+      "sha256": "4fbb3612ba21c0e4cfe21c9493dd97bd91c93876ff346b5f2cdacfe9c2dc5852",
       "imports": [
         {
           "specifier": "../internals/RenderElement.svelte",
@@ -674,9 +767,9 @@
           "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
         },
         {
-          "specifier": "../utils/useIsoLayoutEffect.svelte.js",
+          "specifier": "@sveltery/utils/useIsoLayoutEffect",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts"
         },
         {
           "specifier": "../internals/field-root-context/FieldRootContext.js",
@@ -830,7 +923,7 @@
     },
     {
       "local": "packages/base/src/lib/field/Label.svelte",
-      "sha256": "c60260581b9295db7aede4b558b02e4fd0d92ff52f3a9e8d4da5143a2ead396c",
+      "sha256": "b232364ce177575b6ac895ddd084b58fb632f46280751cd9678641299a4255d1",
       "imports": [
         {
           "specifier": "esm-env",
@@ -843,14 +936,14 @@
           "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
         },
         {
-          "specifier": "../utils/error.js",
+          "specifier": "@sveltery/utils/error",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/error.ts"
+          "resolved": "packages/utils/src/lib/error.ts"
         },
         {
-          "specifier": "../utils/useIsoLayoutEffect.svelte.js",
+          "specifier": "@sveltery/utils/useIsoLayoutEffect",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts"
         },
         {
           "specifier": "../internals/field-root-context/FieldRootContext.js",
@@ -928,7 +1021,7 @@
     },
     {
       "local": "packages/base/src/lib/field/root/FieldRootInner.svelte",
-      "sha256": "ad785d1c6d42b8346151701855609eaf195deae3843f8d79091d131b415e83b3",
+      "sha256": "2b7d517ee5adf92dd25b91b72d9610fe572b76aac6f0330555ee62fd6b71c2f6",
       "imports": [
         {
           "specifier": "svelte",
@@ -941,14 +1034,14 @@
           "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
         },
         {
-          "specifier": "../../utils/useIsoLayoutEffect.svelte.js",
+          "specifier": "@sveltery/utils/useIsoLayoutEffect",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts"
         },
         {
-          "specifier": "../../utils/useStableCallback.js",
+          "specifier": "@sveltery/utils/useStableCallback",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+          "resolved": "packages/utils/src/lib/useStableCallback.ts"
         },
         {
           "specifier": "../../internals/field-root-context/FieldRootContext.js",
@@ -989,27 +1082,27 @@
     },
     {
       "local": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
-      "sha256": "93fd341dc439f2272b06a8857eba538900db8372306efcc6ba4b6b64d073fee1",
+      "sha256": "8d054bd67a4ebf998426ab10d5b7ae577ccd57a21c2fab434c3a40a86ac67eae",
       "imports": [
         {
-          "specifier": "../../utils/empty.js",
+          "specifier": "@sveltery/utils/empty",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/empty.ts"
+          "resolved": "packages/utils/src/lib/empty.ts"
         },
         {
-          "specifier": "../../utils/useTimeout.js",
+          "specifier": "@sveltery/utils/useTimeout",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useTimeout.ts"
+          "resolved": "packages/utils/src/lib/useTimeout.ts"
         },
         {
-          "specifier": "../../utils/useStableCallback.js",
+          "specifier": "@sveltery/utils/useStableCallback",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+          "resolved": "packages/utils/src/lib/useStableCallback.ts"
         },
         {
-          "specifier": "../../utils/useRefWithInit.js",
+          "specifier": "@sveltery/utils/useRefWithInit",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
+          "resolved": "packages/utils/src/lib/useRefWithInit.ts"
         },
         {
           "specifier": "../../internals/labelable-provider/LabelableContext.js",
@@ -1128,8 +1221,300 @@
       ]
     },
     {
+      "local": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+      "sha256": "8840439ae903d174103880ac84185b4ccb7d916761ac2e3e96b7f48a88f245d3",
+      "imports": [
+        {
+          "specifier": "@sveltery/utils/store",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/store/index.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/floating-ui/types.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../utils/createEventEmitter.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/floating-ui/utils/createEventEmitter.ts"
+        },
+        {
+          "specifier": "../../utils/popups/popupTriggerMap.svelte.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts"
+        },
+        {
+          "specifier": "../utils/event.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/floating-ui/utils/event.ts"
+        },
+        {
+          "specifier": "../../internals/useTransitionStatus.svelte.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
+      "sha256": "60397e69780dfabab1f9ae08c5ce362b22f24faecb8aa26617ca1e144296a255",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "@sveltery/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "./FloatingTreeStore.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/floating-ui/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts",
+      "sha256": "eb351b05f9f15cd7acebfe9b093cb42eb07c27073f41bd670633c94c41effdd3",
+      "imports": [
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/floating-ui/types.ts"
+        },
+        {
+          "specifier": "../utils/createEventEmitter.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/floating-ui/utils/createEventEmitter.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts",
+      "sha256": "27321c9b2a6773e8743846b8af2a51a4339462f8189f1a9cad36b9702b4517df",
+      "imports": [
+        {
+          "specifier": "../utils/event.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/floating-ui/utils/event.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/floating-ui/types.ts"
+        },
+        {
+          "specifier": "../utils/element.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/floating-ui/utils/element.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
+      "sha256": "8484a9dfa0436a00fffda25ec887bfba2fe199798813dcfba70f4d00c7cabf2a",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "@sveltery/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../components/FloatingRootStore.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts"
+        },
+        {
+          "specifier": "../../utils/popups/store.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/utils/popups/store.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/floating-ui/safePolygon.ts",
+      "sha256": "ee7e5e41dcb23934c4be65722b2c1e52663c6c518e3beafff627b8968430a9e3",
+      "imports": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "@sveltery/utils/useTimeout",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/useTimeout.ts"
+        },
+        {
+          "specifier": "@floating-ui/dom",
+          "kind": "type",
+          "resolved": "external:@floating-ui/dom"
+        },
+        {
+          "specifier": "./hooks/useHoverShared.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts"
+        },
+        {
+          "specifier": "./utils/element.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/floating-ui/utils/element.ts"
+        },
+        {
+          "specifier": "./utils/nodes.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/floating-ui/utils/nodes.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/floating-ui/types.ts",
+      "sha256": "d75465f0e2fa7f46beab37d200f2f9e5a152dd4ca4a5751e5c9ca2811caed3d5",
+      "imports": [
+        {
+          "specifier": "@floating-ui/dom",
+          "kind": "type",
+          "resolved": "external:@floating-ui/dom"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
+          "specifier": "./components/FloatingRootStore.svelte.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts"
+        },
+        {
+          "specifier": "./components/FloatingTreeStore.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts"
+        },
+        {
+          "specifier": "./safePolygon.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/floating-ui/safePolygon.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/floating-ui/utils/constants.ts",
+      "sha256": "14ac30673b196081a83c1e023ecfd546294733ceb2f756d2bad01e3a9d24880b",
+      "imports": []
+    },
+    {
+      "local": "packages/base/src/lib/floating-ui/utils/createEventEmitter.ts",
+      "sha256": "31ebcaf59c98304ec9944e91a86b0a3c3ed31359e76a102ea62c4213f5dff484",
+      "imports": [
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/floating-ui/types.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/floating-ui/utils/element.ts",
+      "sha256": "68a9ee68a6c3d8c0c1d9e8f68fffb3c214201c6f7fed4b0c374298b65fae3ff3",
+      "imports": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "@sveltery/utils/shadowDom",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/shadowDom.ts"
+        },
+        {
+          "specifier": "./constants.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/floating-ui/utils/constants.ts"
+        },
+        {
+          "specifier": "../../utils/popups/popupTriggerMap.svelte.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts"
+        },
+        {
+          "specifier": "./matchesFocusVisible.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/floating-ui/utils/matchesFocusVisible.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/floating-ui/utils/event.ts",
+      "sha256": "d1ee6542732cf647dc9a02e9f40b664de30296df7d2756744a6810e8b3447b5c",
+      "imports": [
+        {
+          "specifier": "@sveltery/utils/platform",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/platform/index.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/floating-ui/utils/matchesFocusVisible.ts",
+      "sha256": "4d5266137ceb919a50e3cd9ad29e23a219b08470f34c275852c320531cc949d3",
+      "imports": [
+        {
+          "specifier": "@sveltery/utils/platform",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/platform/index.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/floating-ui/utils/nodes.ts",
+      "sha256": "b78d4c24b96237d20d09a60549535fad0d8e61661b38091cbf5368b53c43f544",
+      "imports": [
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/floating-ui/types.ts"
+        }
+      ]
+    },
+    {
       "local": "packages/base/src/lib/form/Form.svelte",
-      "sha256": "0d2dc47dba6701c19c5e6074dbc7f49b50a9c10102194b70d018b026e7eee443",
+      "sha256": "ecea11e1a134f30e2fa7c83356cc7741f5e595b2c03f0eabf45e14db12242ffb",
       "imports": [
         {
           "specifier": "svelte",
@@ -1142,14 +1527,14 @@
           "resolved": "external:svelte/elements"
         },
         {
-          "specifier": "../utils/useStableCallback.js",
+          "specifier": "@sveltery/utils/useStableCallback",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+          "resolved": "packages/utils/src/lib/useStableCallback.ts"
         },
         {
-          "specifier": "../utils/empty.js",
+          "specifier": "@sveltery/utils/empty",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/empty.ts"
+          "resolved": "packages/utils/src/lib/empty.ts"
         },
         {
           "specifier": "../internals/createBaseUIEventDetails.js",
@@ -1299,7 +1684,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
-      "sha256": "7447799f42b23f8003e251196e03199f8d703b77fda61d6d3422e657f95a5319",
+      "sha256": "4d122789e9708f4d8de1a0d137e92f22d1d4648a27132ea7d5388a6312c271e1",
       "imports": [
         {
           "specifier": "svelte",
@@ -1312,9 +1697,9 @@
           "resolved": "packages/base/src/lib/internals/types.ts"
         },
         {
-          "specifier": "../../../utils/useMergedRefs.js",
+          "specifier": "@sveltery/utils/useMergedRefs",
           "kind": "type",
-          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+          "resolved": "packages/utils/src/lib/useMergedRefs.ts"
         },
         {
           "specifier": "../../getStateAttributesProps.js",
@@ -1335,12 +1720,12 @@
     },
     {
       "local": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
-      "sha256": "d0faf967447c35339c6ad06b8cc6218cf2002613844a4bdb7b1453fd5262afc3",
+      "sha256": "22fc41339049f398d359434557b63f2290e01b717d4122b3c181a16eb8ac1314",
       "imports": [
         {
-          "specifier": "../../../utils/useMergedRefs.js",
+          "specifier": "@sveltery/utils/useMergedRefs",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+          "resolved": "packages/utils/src/lib/useMergedRefs.ts"
         },
         {
           "specifier": "../root/CompositeRootContext.js",
@@ -1388,7 +1773,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
-      "sha256": "42f4066c8d830385f942f66b216e1b263728f1615dbd7b11cfd3a79db7242400",
+      "sha256": "e1676d4207f91d1b6f7c0b34ef8ef4e08fad4e59d53ba0815cac29ab76bdddfd",
       "imports": [
         {
           "specifier": "svelte",
@@ -1396,9 +1781,9 @@
           "resolved": "external:svelte"
         },
         {
-          "specifier": "../../../utils/useIsoLayoutEffect.svelte.js",
+          "specifier": "@sveltery/utils/useIsoLayoutEffect",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts"
         },
         {
           "specifier": "./CompositeListContext.js",
@@ -1409,7 +1794,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
-      "sha256": "5075468a96b01787b1789e48ee6dfecd178a7ec76ee7726c3a064b9cf663fe12",
+      "sha256": "8677a1a97c41cd56b8e52ac47fb40a3401ece276ebb62d83b6c3ac5cc0763bac",
       "imports": [
         {
           "specifier": "svelte",
@@ -1422,9 +1807,9 @@
           "resolved": "packages/base/src/lib/internals/types.ts"
         },
         {
-          "specifier": "../../../utils/useMergedRefs.js",
+          "specifier": "@sveltery/utils/useMergedRefs",
           "kind": "type",
-          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+          "resolved": "packages/utils/src/lib/useMergedRefs.ts"
         },
         {
           "specifier": "../../getStateAttributesProps.js",
@@ -1492,22 +1877,22 @@
     },
     {
       "local": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
-      "sha256": "8db12d19818afe6509addc02e10a55082126da9be7a40d03f9a8f62a6e6b5d78",
+      "sha256": "2bedbf116c6e555bcae5c423771d0d5072b80e5d191bae0883624784222e8cf1",
       "imports": [
         {
-          "specifier": "../../../utils/useStableCallback.js",
+          "specifier": "@sveltery/utils/useStableCallback",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+          "resolved": "packages/utils/src/lib/useStableCallback.ts"
         },
         {
-          "specifier": "../../../utils/isElementDisabled.js",
+          "specifier": "@sveltery/utils/isElementDisabled",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/isElementDisabled.ts"
+          "resolved": "packages/utils/src/lib/isElementDisabled.ts"
         },
         {
-          "specifier": "../../../utils/useMergedRefs.js",
+          "specifier": "@sveltery/utils/useMergedRefs",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+          "resolved": "packages/utils/src/lib/useMergedRefs.ts"
         },
         {
           "specifier": "../../../direction-provider/types.js",
@@ -1515,9 +1900,9 @@
           "resolved": "packages/base/src/lib/direction-provider/types.ts"
         },
         {
-          "specifier": "../../../utils/shadowDom.js",
+          "specifier": "@sveltery/utils/shadowDom",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/shadowDom.ts"
+          "resolved": "packages/utils/src/lib/shadowDom.ts"
         },
         {
           "specifier": "../composite.js",
@@ -1548,12 +1933,17 @@
     },
     {
       "local": "packages/base/src/lib/internals/composite/utils/navigation.ts",
-      "sha256": "93cd21a5e97c64c93a2272adf51a38b3c51142e860443247b260bf297e95203d",
+      "sha256": "bb61a6e117cc345c347a3a29618d01e6e608ef1027b8e6464e072d8b70b4a0aa",
       "imports": [
         {
           "specifier": "esm-env",
           "kind": "runtime",
           "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "../../../floating-ui/utils/event.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/floating-ui/utils/event.ts"
         },
         {
           "specifier": "../composite.js",
@@ -1564,12 +1954,12 @@
     },
     {
       "local": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
-      "sha256": "1a9cb6cde2734d421a1bfb03ece9c744584b7e115a0eb3b9de974c22ab8ee684",
+      "sha256": "8c72d1cd966a450125d2177842154e603b52779f156660af0633101ea222c772",
       "imports": [
         {
-          "specifier": "../utils/empty.js",
+          "specifier": "@sveltery/utils/empty",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/empty.ts"
+          "resolved": "packages/utils/src/lib/empty.ts"
         },
         {
           "specifier": "./reasons.js",
@@ -1613,17 +2003,17 @@
     },
     {
       "local": "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts",
-      "sha256": "2fbe1f3900ce42aff6d9f65e489b9dcac76a90e34c2be6dcd75c4f5d5bc887fe",
+      "sha256": "f953a295abb084d23186ff9bf58d38a313728b5608eb0958a737f64dcdeb4771",
       "imports": [
         {
-          "specifier": "../../utils/useIsoLayoutEffect.svelte.js",
+          "specifier": "@sveltery/utils/useIsoLayoutEffect",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts"
         },
         {
-          "specifier": "../../utils/useStableCallback.js",
+          "specifier": "@sveltery/utils/useStableCallback",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+          "resolved": "packages/utils/src/lib/useStableCallback.ts"
         },
         {
           "specifier": "../../field/utils/getCombinedFieldValidityData.js",
@@ -1644,17 +2034,17 @@
     },
     {
       "local": "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts",
-      "sha256": "b4c1ea76c59f1b6848c3a54e915324b9da25bbdbdf16f61c4cfad1a3521ada03",
+      "sha256": "ffdcdd66986252427ddb733e6168535889f9371f78daab52690f6a0e7dd9ce14",
       "imports": [
         {
-          "specifier": "../../utils/useIsoLayoutEffect.svelte.js",
+          "specifier": "@sveltery/utils/useIsoLayoutEffect",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts"
         },
         {
-          "specifier": "../../utils/useRefWithInit.js",
+          "specifier": "@sveltery/utils/useRefWithInit",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
+          "resolved": "packages/utils/src/lib/useRefWithInit.ts"
         },
         {
           "specifier": "../field-root-context/FieldRootContext.js",
@@ -1670,7 +2060,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts",
-      "sha256": "21aa11d932c64b362bdb2373d22bf6c108fe9a24a093b0a08a009e3d9b45f614",
+      "sha256": "3fccbca1662ddffee226a809e42fe9219914274c2b33999771bdc974cf7362bf",
       "imports": [
         {
           "specifier": "svelte",
@@ -1678,9 +2068,9 @@
           "resolved": "external:svelte"
         },
         {
-          "specifier": "../../utils/empty.js",
+          "specifier": "@sveltery/utils/empty",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/empty.ts"
+          "resolved": "packages/utils/src/lib/empty.ts"
         },
         {
           "specifier": "../field-constants/constants.js",
@@ -1711,7 +2101,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/form-context/FormContext.ts",
-      "sha256": "8a0131cd002119715cb0d1a9cb051662353e75797aa4369981a30be4df29a05a",
+      "sha256": "3706d7f308604195eb9b141506e9a5ca86caa7460c8b33130704b6816272f074",
       "imports": [
         {
           "specifier": "svelte",
@@ -1719,9 +2109,9 @@
           "resolved": "external:svelte"
         },
         {
-          "specifier": "../../utils/empty.js",
+          "specifier": "@sveltery/utils/empty",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/empty.ts"
+          "resolved": "packages/utils/src/lib/empty.ts"
         },
         {
           "specifier": "../../field/types.js",
@@ -1742,17 +2132,17 @@
     },
     {
       "local": "packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
-      "sha256": "2a5fb80fe0cf9ca1d598337f2fddc778833d1dba5445fb5918cae6a1ab478a4b",
+      "sha256": "e322628bb5395aa50f6686c963ed346b82a11686dd086ea4ba3c1ca47a6a57fc",
       "imports": [
         {
-          "specifier": "../../utils/useStableCallback.js",
+          "specifier": "@sveltery/utils/useStableCallback",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+          "resolved": "packages/utils/src/lib/useStableCallback.ts"
         },
         {
-          "specifier": "../../utils/useRefWithInit.js",
+          "specifier": "@sveltery/utils/useRefWithInit",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
+          "resolved": "packages/utils/src/lib/useRefWithInit.ts"
         },
         {
           "specifier": "./LabelableContext.js",
@@ -1763,7 +2153,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts",
-      "sha256": "864b5d1ddb86b7cb3d50217a7bb3b4fbf58428ec43f78c1ec7ed3efa31750799",
+      "sha256": "68a95cf70657f2b4def641c4160c1bb82fe31b8794c35882d9e7b5c3ca4db937",
       "imports": [
         {
           "specifier": "svelte",
@@ -1771,9 +2161,9 @@
           "resolved": "external:svelte"
         },
         {
-          "specifier": "../../utils/empty.js",
+          "specifier": "@sveltery/utils/empty",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/empty.ts"
+          "resolved": "packages/utils/src/lib/empty.ts"
         }
       ]
     },
@@ -1805,22 +2195,22 @@
     },
     {
       "local": "packages/base/src/lib/internals/labelable-provider/useLabel.svelte.ts",
-      "sha256": "b96abe4dcc46df31198bbd40cbc6e9278dda323f3bab6b33bc802158ab9d9b26",
+      "sha256": "fea67d61c989c64cbcf936e81cb03c8c9e75d36c41343e77e90c110cdac18e64",
       "imports": [
         {
-          "specifier": "../../utils/owner.js",
+          "specifier": "@sveltery/utils/owner",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/owner.ts"
+          "resolved": "packages/utils/src/lib/owner.ts"
         },
         {
-          "specifier": "../../utils/useStableCallback.js",
+          "specifier": "@sveltery/utils/useStableCallback",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+          "resolved": "packages/utils/src/lib/useStableCallback.ts"
         },
         {
-          "specifier": "../../utils/shadowDom.js",
+          "specifier": "@sveltery/utils/shadowDom",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/shadowDom.ts"
+          "resolved": "packages/utils/src/lib/shadowDom.ts"
         },
         {
           "specifier": "../../utils/useRegisteredLabelId.svelte.js",
@@ -1836,7 +2226,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
-      "sha256": "821459e698c6486f837258547fe73e1db1865bd574444ea867d03b59af8e4456",
+      "sha256": "58fdfd620eb3629df76832878feb46704e24cdcaed2419dbbfb3f37ba133c80c",
       "imports": [
         {
           "specifier": "svelte",
@@ -1844,24 +2234,24 @@
           "resolved": "external:svelte"
         },
         {
-          "specifier": "../../utils/useIsoLayoutEffect.svelte.js",
+          "specifier": "@sveltery/utils/useIsoLayoutEffect",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts"
         },
         {
-          "specifier": "../../utils/useStableCallback.js",
+          "specifier": "@sveltery/utils/useStableCallback",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+          "resolved": "packages/utils/src/lib/useStableCallback.ts"
         },
         {
-          "specifier": "../../utils/useRefWithInit.js",
+          "specifier": "@sveltery/utils/useRefWithInit",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
+          "resolved": "packages/utils/src/lib/useRefWithInit.ts"
         },
         {
-          "specifier": "../../utils/empty.js",
+          "specifier": "@sveltery/utils/empty",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/empty.ts"
+          "resolved": "packages/utils/src/lib/empty.ts"
         },
         {
           "specifier": "./LabelableContext.js",
@@ -1872,7 +2262,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/nativeProps.ts",
-      "sha256": "d6b3999ffe54e8c70e0dcdac61474b3bf9f53e60f3b1207dd4f976ef5212e4eb",
+      "sha256": "fbb6178288b28dad7549551064e30bf2b432880f1a5b2476223b011f9e72a71a",
       "imports": [
         {
           "specifier": "svelte/elements",
@@ -1885,15 +2275,15 @@
           "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"
         },
         {
-          "specifier": "../utils/mergeObjects.js",
+          "specifier": "@sveltery/utils/mergeObjects",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/mergeObjects.ts"
+          "resolved": "packages/utils/src/lib/mergeObjects.ts"
         }
       ]
     },
     {
       "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-      "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319",
+      "sha256": "659427aaebb2b294178e5ccd147f6cbb4cb87a9704c18c62ff04a2847a7e1a56",
       "imports": [
         {
           "specifier": "svelte",
@@ -1901,9 +2291,9 @@
           "resolved": "external:svelte"
         },
         {
-          "specifier": "../utils/useMergedRefs.js",
+          "specifier": "@sveltery/utils/useMergedRefs",
           "kind": "type",
-          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+          "resolved": "packages/utils/src/lib/useMergedRefs.ts"
         }
       ]
     },
@@ -2034,7 +2424,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
-      "sha256": "581abfd20827eed41d9478dc30dc5a7b1b944e32d8428ac238d86625545536f1",
+      "sha256": "f56c35343595eafbb9a37d5313b6e9b95129b875a537790667fa32fd4f71b4b2",
       "imports": [
         {
           "specifier": "esm-env",
@@ -2042,19 +2432,19 @@
           "resolved": "external:esm-env"
         },
         {
-          "specifier": "../../utils/useStableCallback.js",
+          "specifier": "@sveltery/utils/useStableCallback",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+          "resolved": "packages/utils/src/lib/useStableCallback.ts"
         },
         {
-          "specifier": "../../utils/error.js",
+          "specifier": "@sveltery/utils/error",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/error.ts"
+          "resolved": "packages/utils/src/lib/error.ts"
         },
         {
-          "specifier": "../../utils/useIsoLayoutEffect.svelte.js",
+          "specifier": "@sveltery/utils/useIsoLayoutEffect",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts"
         },
         {
           "specifier": "../../merge-props/index.js",
@@ -2085,17 +2475,22 @@
     },
     {
       "local": "packages/base/src/lib/internals/useAnimationsFinished.ts",
-      "sha256": "e615700a3c4e81ca22060837af8a8c859430ebd8476d6e0a6daffe7986dc3bc4",
+      "sha256": "64ae89e2c4d398aa049822f4223967202426aa027591a657caf4bf6f4859a2aa",
       "imports": [
         {
-          "specifier": "../utils/useAnimationFrame.js",
+          "specifier": "svelte",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          "resolved": "external:svelte"
         },
         {
-          "specifier": "../utils/useStableCallback.js",
+          "specifier": "@sveltery/utils/useAnimationFrame",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+          "resolved": "packages/utils/src/lib/useAnimationFrame.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/useStableCallback",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/useStableCallback.ts"
         },
         {
           "specifier": "../utils/resolveRef.js",
@@ -2111,28 +2506,28 @@
     },
     {
       "local": "packages/base/src/lib/internals/useBaseUiId.ts",
-      "sha256": "fc6d9571f2fc0f71d6f75a8f34eb981a3e09a9a038fbb9aa8b4b83c2cbb3aaa3",
+      "sha256": "3995d6f7b0b3b0c3bd734f8936778c7a95ec39cc1a701dc24cf49a1313414c92",
       "imports": [
         {
-          "specifier": "../utils/useId.js",
+          "specifier": "@sveltery/utils/useId",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useId.ts"
+          "resolved": "packages/utils/src/lib/useId.ts"
         }
       ]
     },
     {
       "local": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
-      "sha256": "9c8d8b8fcd70c0a9ec69a9cc0f2a6864ab19da26d4e3bd2bf9f7e6eb49831d1f",
+      "sha256": "e84d8a671d521e64183800bc048aa6471f627913efc5015cc74ddd34e2b87973",
       "imports": [
         {
-          "specifier": "../utils/useStableCallback.js",
+          "specifier": "@sveltery/utils/useStableCallback",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+          "resolved": "packages/utils/src/lib/useStableCallback.ts"
         },
         {
-          "specifier": "../utils/useIsoLayoutEffect.svelte.js",
+          "specifier": "@sveltery/utils/useIsoLayoutEffect",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts"
         },
         {
           "specifier": "./useAnimationsFinished.js",
@@ -2143,22 +2538,22 @@
     },
     {
       "local": "packages/base/src/lib/internals/useRenderElement.ts",
-      "sha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
+      "sha256": "d344184b30e91d54544e9c5b00583679762e0ec099306e9a682df8426655c31a",
       "imports": [
         {
-          "specifier": "../utils/useMergedRefs.js",
+          "specifier": "@sveltery/utils/useMergedRefs",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+          "resolved": "packages/utils/src/lib/useMergedRefs.ts"
         },
         {
-          "specifier": "../utils/mergeObjects.js",
+          "specifier": "@sveltery/utils/mergeObjects",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/mergeObjects.ts"
+          "resolved": "packages/utils/src/lib/mergeObjects.ts"
         },
         {
-          "specifier": "../utils/empty.js",
+          "specifier": "@sveltery/utils/empty",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/empty.ts"
+          "resolved": "packages/utils/src/lib/empty.ts"
         },
         {
           "specifier": "./getStateAttributesProps.js",
@@ -2199,7 +2594,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
-      "sha256": "1236abbbe5a5e1dec17c77d51d704f3f03e48ecdd34f85a995e1dde00c60c54b",
+      "sha256": "87ad2d4de3657585d704d2bd7137a65545e8c471d62d0e51349c2ca17f8daa7d",
       "imports": [
         {
           "specifier": "svelte",
@@ -2207,20 +2602,20 @@
           "resolved": "external:svelte"
         },
         {
-          "specifier": "../utils/useIsoLayoutEffect.svelte.js",
+          "specifier": "@sveltery/utils/useIsoLayoutEffect",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts"
         },
         {
-          "specifier": "../utils/useAnimationFrame.js",
+          "specifier": "@sveltery/utils/useAnimationFrame",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          "resolved": "packages/utils/src/lib/useAnimationFrame.ts"
         }
       ]
     },
     {
       "local": "packages/base/src/lib/internals/useValueChanged.svelte.ts",
-      "sha256": "340a8f5ed100094c283f167c8a8a3e196708cdf238eeadc93f148ee31c4274c9",
+      "sha256": "f760d2e83ee33789ae5bfec715308cfc78253eda0fcbd34052bdcad44ce24991",
       "imports": [
         {
           "specifier": "svelte",
@@ -2228,19 +2623,19 @@
           "resolved": "external:svelte"
         },
         {
-          "specifier": "../utils/useIsoLayoutEffect.svelte.js",
+          "specifier": "@sveltery/utils/useIsoLayoutEffect",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts"
         },
         {
-          "specifier": "../utils/useStableCallback.js",
+          "specifier": "@sveltery/utils/useStableCallback",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+          "resolved": "packages/utils/src/lib/useStableCallback.ts"
         },
         {
-          "specifier": "../utils/useRefWithInit.js",
+          "specifier": "@sveltery/utils/useRefWithInit",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
+          "resolved": "packages/utils/src/lib/useRefWithInit.ts"
         }
       ]
     },
@@ -2257,7 +2652,7 @@
     },
     {
       "local": "packages/base/src/lib/merge-props/mergeProps.ts",
-      "sha256": "7a097b833ae8854c5a26e34009adfb4e0297dd50f56ad5f0c1ac8afa8187f98b",
+      "sha256": "110f1b7615a7ccadcfc1e8775451eea5f9ca971bcafee6f3ffd4ea8470303d00",
       "imports": [
         {
           "specifier": "../internals/nativeProps.js",
@@ -2265,15 +2660,15 @@
           "resolved": "packages/base/src/lib/internals/nativeProps.ts"
         },
         {
-          "specifier": "../utils/mergeObjects.js",
+          "specifier": "@sveltery/utils/mergeObjects",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/mergeObjects.ts"
+          "resolved": "packages/utils/src/lib/mergeObjects.ts"
         }
       ]
     },
     {
       "local": "packages/base/src/lib/radio-group/RadioGroup.svelte",
-      "sha256": "703c7296c5980c2b029a05d024e4d01aadc577a1c0ca25b7a2b95cc48d37f5e5",
+      "sha256": "209b8af2ab5962c97a438df46b6030d503a52eb94547d2f3040b0b868ea5d4f6",
       "imports": [
         {
           "specifier": "../internals/composite/root/CompositeRoot.svelte",
@@ -2286,14 +2681,14 @@
           "resolved": "packages/base/src/lib/internals/composite/composite.ts"
         },
         {
-          "specifier": "../utils/useControlled.svelte.js",
+          "specifier": "@sveltery/utils/useControlled",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useControlled.svelte.ts"
+          "resolved": "packages/utils/src/lib/useControlled.svelte.ts"
         },
         {
-          "specifier": "../utils/useStableCallback.js",
+          "specifier": "@sveltery/utils/useStableCallback",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+          "resolved": "packages/utils/src/lib/useStableCallback.ts"
         },
         {
           "specifier": "../internals/useBaseUiId.js",
@@ -2301,9 +2696,9 @@
           "resolved": "packages/base/src/lib/internals/useBaseUiId.ts"
         },
         {
-          "specifier": "../utils/shadowDom.js",
+          "specifier": "@sveltery/utils/shadowDom",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/shadowDom.ts"
+          "resolved": "packages/utils/src/lib/shadowDom.ts"
         },
         {
           "specifier": "../internals/field-root-context/FieldRootContext.js",
@@ -2385,7 +2780,7 @@
     },
     {
       "local": "packages/base/src/lib/radio-group/types.ts",
-      "sha256": "5d880bf3561fc190a1059c66042c1f82357d2003d2bc4eee6ef757da28f3861f",
+      "sha256": "3fd357373fb92f64f44789b1142e833b89574aa16997d6acfc41fd5022584359",
       "imports": [
         {
           "specifier": "svelte",
@@ -2413,15 +2808,15 @@
           "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
         },
         {
-          "specifier": "../utils/useMergedRefs.js",
+          "specifier": "@sveltery/utils/useMergedRefs",
           "kind": "type",
-          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+          "resolved": "packages/utils/src/lib/useMergedRefs.ts"
         }
       ]
     },
     {
       "local": "packages/base/src/lib/radio/root/RadioRoot.svelte",
-      "sha256": "e6a1b213f783d001f3fbe171fc8e51ee4b763ec1a3e0d3f7150bf6ecaa063622",
+      "sha256": "4e3285f7e643e0225eac81efc4c1dfc710c71e5fcab6c34cbe1701560335e503",
       "imports": [
         {
           "specifier": "../../internals/RenderElement.svelte",
@@ -2434,14 +2829,14 @@
           "resolved": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte"
         },
         {
-          "specifier": "../../utils/useIsoLayoutEffect.svelte.js",
+          "specifier": "@sveltery/utils/useIsoLayoutEffect",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts"
         },
         {
-          "specifier": "../../utils/visuallyHidden.js",
+          "specifier": "@sveltery/utils/visuallyHidden",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/visuallyHidden.ts"
+          "resolved": "packages/utils/src/lib/visuallyHidden.ts"
         },
         {
           "specifier": "../../internals/nativeProps.js",
@@ -2584,7 +2979,7 @@
     },
     {
       "local": "packages/base/src/lib/radio/types.ts",
-      "sha256": "fc7094b918d1ad4033455a9578cb6eb91061a0eafdd472f4a384e4fd5d225cb4",
+      "sha256": "31a5a19b9e6d9692fea53bfc9018f22608e66baf052d158003c85dbe356a8435",
       "imports": [
         {
           "specifier": "svelte",
@@ -2607,9 +3002,9 @@
           "resolved": "packages/base/src/lib/field/types.ts"
         },
         {
-          "specifier": "../utils/useMergedRefs.js",
+          "specifier": "@sveltery/utils/useMergedRefs",
           "kind": "type",
-          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+          "resolved": "packages/utils/src/lib/useMergedRefs.ts"
         },
         {
           "specifier": "../internals/useTransitionStatus.svelte.js",
@@ -2802,7 +3197,7 @@
     },
     {
       "local": "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte",
-      "sha256": "8b7b061b7d5eb9767098431d4c3415b5446dbe5be74de175c03e98528547038c",
+      "sha256": "744026bbb8aecaecc8cf4d9ac583a39b9cebc2480d6c54b28b77257cd84e39ca",
       "imports": [
         {
           "specifier": "../internals/RenderElement.svelte",
@@ -2850,29 +3245,29 @@
           "resolved": "packages/base/src/lib/internals/useBaseUiId.ts"
         },
         {
-          "specifier": "../utils/useStableCallback.js",
+          "specifier": "@sveltery/utils/useStableCallback",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useStableCallback.ts"
+          "resolved": "packages/utils/src/lib/useStableCallback.ts"
         },
         {
-          "specifier": "../utils/useTimeout.js",
+          "specifier": "@sveltery/utils/useTimeout",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useTimeout.ts"
+          "resolved": "packages/utils/src/lib/useTimeout.ts"
         },
         {
-          "specifier": "../utils/owner.js",
+          "specifier": "@sveltery/utils/owner",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/owner.ts"
+          "resolved": "packages/utils/src/lib/owner.ts"
         },
         {
-          "specifier": "../utils/shadowDom.js",
+          "specifier": "@sveltery/utils/shadowDom",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/shadowDom.ts"
+          "resolved": "packages/utils/src/lib/shadowDom.ts"
         },
         {
-          "specifier": "../utils/useIsoLayoutEffect.svelte.js",
+          "specifier": "@sveltery/utils/useIsoLayoutEffect",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts"
         },
         {
           "specifier": "../internals/useValueChanged.svelte.js",
@@ -2895,9 +3290,9 @@
           "resolved": "packages/base/src/lib/internals/field-constants/constants.ts"
         },
         {
-          "specifier": "../utils/areArraysEqual.js",
+          "specifier": "@sveltery/utils/areArraysEqual",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/areArraysEqual.ts"
+          "resolved": "packages/utils/src/lib/areArraysEqual.ts"
         },
         {
           "specifier": "./RemoteFieldContext.js",
@@ -3057,7 +3452,7 @@
     },
     {
       "local": "packages/base/src/lib/switch/root/SwitchRoot.svelte",
-      "sha256": "0cb1395cd4a1bf6d50f88c97092f8a0bd3454e5119abff7f2e05d4edad267367",
+      "sha256": "b72da7f12b2630f8ab52caf25811b8943bd2e4849b5e5c904f0275b139bd6777",
       "imports": [
         {
           "specifier": "../../internals/field-control-name/FieldControlNameContext.js",
@@ -3070,9 +3465,9 @@
           "resolved": "packages/base/src/lib/internals/RenderElement.svelte"
         },
         {
-          "specifier": "../../utils/useMergedRefs.js",
+          "specifier": "@sveltery/utils/useMergedRefs",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+          "resolved": "packages/utils/src/lib/useMergedRefs.ts"
         },
         {
           "specifier": "../../internals/nativeRefAttachment.js",
@@ -3085,19 +3480,19 @@
           "resolved": "external:svelte/elements"
         },
         {
-          "specifier": "../../utils/useControlled.svelte.js",
+          "specifier": "@sveltery/utils/useControlled",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useControlled.svelte.ts"
+          "resolved": "packages/utils/src/lib/useControlled.svelte.ts"
         },
         {
-          "specifier": "../../utils/useIsoLayoutEffect.svelte.js",
+          "specifier": "@sveltery/utils/useIsoLayoutEffect",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts"
         },
         {
-          "specifier": "../../utils/visuallyHidden.js",
+          "specifier": "@sveltery/utils/visuallyHidden",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/visuallyHidden.ts"
+          "resolved": "packages/utils/src/lib/visuallyHidden.ts"
         },
         {
           "specifier": "../../internals/nativeProps.js",
@@ -3230,7 +3625,7 @@
     },
     {
       "local": "packages/base/src/lib/switch/types.ts",
-      "sha256": "03507c0edc0efd85c6ae7c4e6c07b2a2c34375de4dcbf454c7cee2414ac8c416",
+      "sha256": "8e7c6c4c83af4823a8d15e05085f52cd3b1d0397ff474b28c80849c826613676",
       "imports": [
         {
           "specifier": "svelte",
@@ -3258,20 +3653,160 @@
           "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
         },
         {
-          "specifier": "../utils/useMergedRefs.js",
+          "specifier": "@sveltery/utils/useMergedRefs",
           "kind": "type",
-          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+          "resolved": "packages/utils/src/lib/useMergedRefs.ts"
         }
       ]
     },
     {
-      "local": "packages/base/src/lib/utils/areArraysEqual.ts",
-      "sha256": "c8709b6f9efb30e3257def214aeae097b131b112b74bd1bea965e201efb15a44",
-      "imports": []
+      "local": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts",
+      "sha256": "fefaa5e71f09eeb27d246b5d1eafef16e2b62f6dd72414528ef7f917c125909a",
+      "imports": [
+        {
+          "specifier": "@sveltery/utils/owner",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/owner.ts"
+        }
+      ]
     },
     {
-      "local": "packages/base/src/lib/utils/createLogOnce.ts",
-      "sha256": "a3c52188a495927ef9b49765ca1e70bc384b37b68a5c896ca86df15852a279b1",
+      "local": "packages/base/src/lib/utils/NullStore.svelte.ts",
+      "sha256": "6192e6fd5b423b4f5f8557c9faaf785c300be4ac55251b73e4dae6126cf96059",
+      "imports": [
+        {
+          "specifier": "@sveltery/utils/store",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/store/index.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/popups/index.ts",
+      "sha256": "8685650fb9e3f7bfe7528330f062c4b3f94df89bf9adc8a48b13728774474e01",
+      "imports": [
+        {
+          "specifier": "./store.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/popups/store.ts"
+        },
+        {
+          "specifier": "./popupTriggerMap.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts"
+        },
+        {
+          "specifier": "./popupStoreUtils.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/popups/popupHandle.svelte.ts",
+      "sha256": "5d8a5b18004cfac22fdac1839a0afd1a8b8b41089368b2642e8c567546a77998",
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "svelte/reactivity",
+          "kind": "runtime",
+          "resolved": "external:svelte/reactivity"
+        },
+        {
+          "specifier": "@sveltery/utils/useAnimationFrame",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/useAnimationFrame.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        },
+        {
+          "specifier": "./popupTriggerMap.svelte.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+      "sha256": "94f6c79bd82778fec3c2df4a420645acc9aa0531b66e709eed971d360b24283e",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "./store.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/utils/popups/store.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/empty",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/empty.ts"
+        },
+        {
+          "specifier": "../../floating-ui/components/FloatingTree.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts"
+        },
+        {
+          "specifier": "../../floating-ui/hooks/useSyncedFloatingRootContext.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/useStableCallback",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/useStableCallback.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/useTransitionStatus.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/useOpenChangeComplete.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/useEnhancedClickHandler",
+          "kind": "type",
+          "resolved": "packages/utils/src/lib/useEnhancedClickHandler.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts",
+      "sha256": "812f1d6cb454c0f5236cda69919932ccfc569611050c19fe8198617beacf6b2c",
       "imports": [
         {
           "specifier": "esm-env",
@@ -3281,51 +3816,45 @@
       ]
     },
     {
-      "local": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts",
-      "sha256": "60aab2aa25eb9c0aeaa0a57fc8ccd37aab747577ea22f019aff163946cabd373",
+      "local": "packages/base/src/lib/utils/popups/store.ts",
+      "sha256": "6b9e93bb4642ec9ddf3b7721d909e0b8baf32871b5070b9831a3c3f464ca5f69",
       "imports": [
         {
-          "specifier": "./owner.js",
-          "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/owner.ts"
-        }
-      ]
-    },
-    {
-      "local": "packages/base/src/lib/utils/empty.ts",
-      "sha256": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b",
-      "imports": []
-    },
-    {
-      "local": "packages/base/src/lib/utils/error.ts",
-      "sha256": "de9eeee73db42c056c110eb94f3aef8b51ae3003e97d5140bfaf876bdde52c69",
-      "imports": [
+          "specifier": "@sveltery/utils/store",
+          "kind": "type",
+          "resolved": "packages/utils/src/lib/store/index.ts"
+        },
         {
-          "specifier": "./createLogOnce.js",
+          "specifier": "@sveltery/utils/empty",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/createLogOnce.ts"
+          "resolved": "packages/utils/src/lib/empty.ts"
+        },
+        {
+          "specifier": "../../floating-ui/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/floating-ui/types.ts"
+        },
+        {
+          "specifier": "../../floating-ui/components/FloatingRootStore.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/useTransitionStatus.svelte.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts"
+        },
+        {
+          "specifier": "./popupTriggerMap.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
         }
       ]
-    },
-    {
-      "local": "packages/base/src/lib/utils/getDefaultFormSubmitter.ts",
-      "sha256": "15c7fb04d8bacba3abc5f4f2329a3c083892e9169689a2eab60104c3517688e4",
-      "imports": []
-    },
-    {
-      "local": "packages/base/src/lib/utils/isElementDisabled.ts",
-      "sha256": "c2f6141d744cb16e458208163d616cefa465b8da0445658c4d9282a05a1b616e",
-      "imports": []
-    },
-    {
-      "local": "packages/base/src/lib/utils/mergeObjects.ts",
-      "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
-      "imports": []
-    },
-    {
-      "local": "packages/base/src/lib/utils/owner.ts",
-      "sha256": "4f32738229316fe875cf72e949caa4aa7d2fcdf924a2bd5b7f01e88ca5424185",
-      "imports": []
     },
     {
       "local": "packages/base/src/lib/utils/resolveClassName.ts",
@@ -3355,29 +3884,274 @@
       ]
     },
     {
-      "local": "packages/base/src/lib/utils/shadowDom.ts",
-      "sha256": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1",
-      "imports": []
-    },
-    {
-      "local": "packages/base/src/lib/utils/useAnimationFrame.ts",
-      "sha256": "4de538634e157740822dc1d3896da18ea84c6a706fe79f28fa6b9e7d380038ad",
+      "local": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
+      "sha256": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c",
       "imports": [
         {
-          "specifier": "./useRefWithInit.js",
-          "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
-        },
-        {
-          "specifier": "./useOnMount.js",
-          "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useOnMount.ts"
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
         }
       ]
     },
     {
-      "local": "packages/base/src/lib/utils/useControlled.svelte.ts",
-      "sha256": "f74b9a8aa08b323835613037c871a6b85c938555c788c0a8ff51825c1863fd35",
+      "local": "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
+      "sha256": "42f32745d82df92f04c76f0cafc86ca93349c4cc6f685af361a46c249d054b1c",
+      "imports": [
+        {
+          "specifier": "@sveltery/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "../internals/useBaseUiId.js",
+          "kind": "runtime",
+          "resolved": "packages/base/src/lib/internals/useBaseUiId.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/utils/src/lib/areArraysEqual.ts",
+      "sha256": "c8709b6f9efb30e3257def214aeae097b131b112b74bd1bea965e201efb15a44",
+      "imports": []
+    },
+    {
+      "local": "packages/utils/src/lib/createLogOnce.ts",
+      "sha256": "f9d8a63ce89aa2d0b31a8d88affb4ff7c49528f12152a9dc99223ee24dca90c9",
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "resolved": "external:esm-env"
+        }
+      ]
+    },
+    {
+      "local": "packages/utils/src/lib/empty.ts",
+      "sha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65",
+      "imports": []
+    },
+    {
+      "local": "packages/utils/src/lib/error.ts",
+      "sha256": "ebbe57877f3f8c77c83631ed4042bd288d13f98fb93afd5390128dbd0d7cec27",
+      "imports": [
+        {
+          "specifier": "./createLogOnce.js",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/createLogOnce.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/utils/src/lib/getDefaultFormSubmitter.ts",
+      "sha256": "15c7fb04d8bacba3abc5f4f2329a3c083892e9169689a2eab60104c3517688e4",
+      "imports": []
+    },
+    {
+      "local": "packages/utils/src/lib/isElementDisabled.ts",
+      "sha256": "c2f6141d744cb16e458208163d616cefa465b8da0445658c4d9282a05a1b616e",
+      "imports": []
+    },
+    {
+      "local": "packages/utils/src/lib/mergeObjects.ts",
+      "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
+      "imports": []
+    },
+    {
+      "local": "packages/utils/src/lib/owner.ts",
+      "sha256": "759c607acc1a103b2d795840051555671fe65fd889dae7694606b9069803f986",
+      "imports": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        }
+      ]
+    },
+    {
+      "local": "packages/utils/src/lib/platform/engine.ts",
+      "sha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987",
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/platform/shared.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/utils/src/lib/platform/env.ts",
+      "sha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d",
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/platform/shared.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/utils/src/lib/platform/index.ts",
+      "sha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c",
+      "imports": [
+        {
+          "specifier": "./parts.js",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/platform/parts.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/utils/src/lib/platform/media-query.ts",
+      "sha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9",
+      "imports": []
+    },
+    {
+      "local": "packages/utils/src/lib/platform/os.ts",
+      "sha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6",
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/platform/shared.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/utils/src/lib/platform/parts.ts",
+      "sha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29",
+      "imports": [
+        {
+          "specifier": "./os.js",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/platform/os.ts"
+        },
+        {
+          "specifier": "./engine.js",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/platform/engine.ts"
+        },
+        {
+          "specifier": "./screen-reader.js",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/platform/screen-reader.ts"
+        },
+        {
+          "specifier": "./env.js",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/platform/env.ts"
+        },
+        {
+          "specifier": "./media-query.js",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/platform/media-query.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/utils/src/lib/platform/screen-reader.ts",
+      "sha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7",
+      "imports": [
+        {
+          "specifier": "./os.js",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/platform/os.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/utils/src/lib/platform/shared.ts",
+      "sha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2",
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "resolved": "external:esm-env"
+        }
+      ]
+    },
+    {
+      "local": "packages/utils/src/lib/shadowDom.ts",
+      "sha256": "5c922c6a0b4cbfd31bb463e486f45524de328687376d622527a5e6cdf12cb8f2",
+      "imports": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom"
+        }
+      ]
+    },
+    {
+      "local": "packages/utils/src/lib/store/index.ts",
+      "sha256": "996a1d7a865fe2ce8a362041ced6b58a7ef139d4d796773971376e5fec0d52d7",
+      "imports": [
+        {
+          "specifier": "./Store.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/store/Store.svelte.ts"
+        },
+        {
+          "specifier": "./SvelteStore.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/store/SvelteStore.svelte.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/utils/src/lib/store/Store.svelte.ts",
+      "sha256": "cb14e7e3e12bffcb353761c48bc275e41949bad5706860f0d877ea3344e0b600",
+      "imports": []
+    },
+    {
+      "local": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
+      "sha256": "cbc2de3e2d78c8cb79bab4613c5f490d799d32f5e3de6d39f51ccc3fa995ca9f",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/reactivity",
+          "kind": "runtime",
+          "resolved": "external:svelte/reactivity"
+        },
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "./Store.svelte.js",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/store/Store.svelte.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/utils/src/lib/useAnimationFrame.ts",
+      "sha256": "d662506c6d7bd1f69b87ea59f3bd7445c413474de2fcda723d1e3248215c9267",
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "./useRefWithInit.js",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/useRefWithInit.ts"
+        },
+        {
+          "specifier": "./useOnMount.js",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/useOnMount.ts"
+        }
+      ]
+    },
+    {
+      "local": "packages/utils/src/lib/useControlled.svelte.ts",
+      "sha256": "21543b53992d1f3856e83251c03329d7c558ee5c5637aa8d42f18bc359843705",
       "imports": [
         {
           "specifier": "esm-env",
@@ -3392,29 +4166,23 @@
         {
           "specifier": "./error.js",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/error.ts"
+          "resolved": "packages/utils/src/lib/error.ts"
         }
       ]
     },
     {
-      "local": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
-      "sha256": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c",
-      "imports": [
-        {
-          "specifier": "../internals/types.js",
-          "kind": "type",
-          "resolved": "packages/base/src/lib/internals/types.ts"
-        }
-      ]
+      "local": "packages/utils/src/lib/useEnhancedClickHandler.ts",
+      "sha256": "6a045d6b74a7851d3446200f55711ffc1dcc22449a2e92680cdf328750a436d5",
+      "imports": []
     },
     {
-      "local": "packages/base/src/lib/utils/useId.ts",
+      "local": "packages/utils/src/lib/useId.ts",
       "sha256": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90",
       "imports": []
     },
     {
-      "local": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
-      "sha256": "0d24dd22dad18fc54341aaedb964a25829ae62322f10bf110a4fd8bde65dd1f3",
+      "local": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
+      "sha256": "19e575ac14e03d20cbd088abda91d4784ed8b3b34944e03ef51e242e0c0247a7",
       "imports": [
         {
           "specifier": "svelte",
@@ -3424,19 +4192,19 @@
       ]
     },
     {
-      "local": "packages/base/src/lib/utils/useMergedRefs.ts",
+      "local": "packages/utils/src/lib/useMergedRefs.ts",
       "sha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
       "imports": [
         {
           "specifier": "./useRefWithInit.js",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
+          "resolved": "packages/utils/src/lib/useRefWithInit.ts"
         }
       ]
     },
     {
-      "local": "packages/base/src/lib/utils/useOnMount.ts",
-      "sha256": "a7ba4007eff27b601eebcb76755886a23a4dd8548a54f67e15fa1cd648e0e695",
+      "local": "packages/utils/src/lib/useOnMount.ts",
+      "sha256": "e596fa519d81dd2fd7cdb1d5d00910622ad9ebed918aafa11111b70942c8ce25",
       "imports": [
         {
           "specifier": "svelte",
@@ -3446,29 +4214,13 @@
       ]
     },
     {
-      "local": "packages/base/src/lib/utils/useRefWithInit.ts",
-      "sha256": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036",
+      "local": "packages/utils/src/lib/useRefWithInit.ts",
+      "sha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7",
       "imports": []
     },
     {
-      "local": "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
-      "sha256": "aeca27deeaadde0c42a027ac7f4788e2a3c62d533db235cada05dd9a70e1e1e2",
-      "imports": [
-        {
-          "specifier": "./useIsoLayoutEffect.svelte.js",
-          "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
-        },
-        {
-          "specifier": "../internals/useBaseUiId.js",
-          "kind": "runtime",
-          "resolved": "packages/base/src/lib/internals/useBaseUiId.ts"
-        }
-      ]
-    },
-    {
-      "local": "packages/base/src/lib/utils/useStableCallback.ts",
-      "sha256": "b790a02da99e0e9365bc05d35a434ef37dcffb2a4db8186b1327b949a994d05e",
+      "local": "packages/utils/src/lib/useStableCallback.ts",
+      "sha256": "dca4f1866715df0bcb597ca5c083825f580717a96e267c77a5325ce22790d04c",
       "imports": [
         {
           "specifier": "svelte",
@@ -3478,23 +4230,23 @@
       ]
     },
     {
-      "local": "packages/base/src/lib/utils/useTimeout.ts",
-      "sha256": "a04448de8715b8728243ee6e33572c57bc5b151674628304f6c3906966738c78",
+      "local": "packages/utils/src/lib/useTimeout.ts",
+      "sha256": "405103d9109d3d115db8b26eef5a9b3747156d4a45365c1f2f9764c172e4f0fb",
       "imports": [
         {
           "specifier": "./useRefWithInit.js",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
+          "resolved": "packages/utils/src/lib/useRefWithInit.ts"
         },
         {
           "specifier": "./useOnMount.js",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useOnMount.ts"
+          "resolved": "packages/utils/src/lib/useOnMount.ts"
         }
       ]
     },
     {
-      "local": "packages/base/src/lib/utils/visuallyHidden.ts",
+      "local": "packages/utils/src/lib/visuallyHidden.ts",
       "sha256": "8f49185df1c0536608090368454cc3d30a3bfc1991b23a4b5e5239184ead8020",
       "imports": []
     }

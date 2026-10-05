@@ -1,3 +1,4 @@
+import { resolveNativePackageSource } from './native-package-source.mjs';
 import ts from '../packages/base/node_modules/typescript/lib/typescript.js';
 import {readFileSync,writeFileSync,existsSync} from 'node:fs';
 import {resolve,relative,dirname} from 'node:path';
@@ -6,6 +7,8 @@ const root=resolve(import.meta.dirname,'..');
 const entries=['form/Form.svelte','remote-forms/index.parts.ts','input/Input.svelte','switch/root/SwitchRoot.svelte','checkbox/root/CheckboxRoot.svelte','checkbox-group/CheckboxGroup.svelte','radio/root/RadioRoot.svelte','radio-group/RadioGroup.svelte'].map(file=>`packages/base/src/lib/${file}`);
 const queue=[...entries], records=new Map();
 function resolveImport(file,specifier) {
+ const owned=resolveNativePackageSource(root,specifier);
+ if(owned) return owned;
  if(!specifier.startsWith('.')) return `external:${specifier}`;
  const base=resolve(root,dirname(file),specifier);
  for(const candidate of [base,base.replace(/\.js$/,'.ts'),base.replace(/\.js$/,'.svelte.ts'),base+'.ts',base+'.svelte',base+'/index.ts']) if(existsSync(candidate)) return relative(root,candidate);

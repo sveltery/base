@@ -18,7 +18,7 @@ test('navigation actual native runtime/type closure and all selected Source mapp
   assert.equal(native.modules.length, 75);
   assert.equal(mapped.size, native.modules.length);
   for (const record of native.modules) assert.equal(mapped.get(record.source), record.sha256, record.source);
-  assert(native.external.every(dependency => /^external:(svelte(?:\/.*)?|esm-env)$/.test(dependency)));
+  assert(native.external.every(dependency => /^external:(svelte(?:\/.*)?|esm-env|@floating-ui\/utils\/dom)$/.test(dependency)));
   assert(!native.modules.some(record => /\/(dialog|field|button)\/.*\.svelte$/.test(record.source) && !record.source.includes('/toolbar/')));
 });
 test('navigation source graph resolves original index.parts and preserves immutable declaration accounting', () => {

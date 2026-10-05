@@ -42,13 +42,13 @@
     },
     {
       "source": "packages/base/src/lib/floating-ui/utils/event.ts",
-      "sha256": "b489c469d9e2b134b6cd97baa3a408010decf1399dbaa1367a015d70c770832e",
+      "sha256": "d1ee6542732cf647dc9a02e9f40b664de30296df7d2756744a6810e8b3447b5c",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "../../utils/platform/index.js",
+          "specifier": "@sveltery/utils/platform",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/platform/index.ts",
+          "resolved": "packages/utils/src/lib/platform/index.ts",
           "edge": "import"
         }
       ]
@@ -80,7 +80,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
-      "sha256": "7447799f42b23f8003e251196e03199f8d703b77fda61d6d3422e657f95a5319",
+      "sha256": "4d122789e9708f4d8de1a0d137e92f22d1d4648a27132ea7d5388a6312c271e1",
       "reachability": "runtime",
       "imports": [
         {
@@ -96,9 +96,9 @@
           "edge": "import"
         },
         {
-          "specifier": "../../../utils/useMergedRefs.js",
+          "specifier": "@sveltery/utils/useMergedRefs",
           "kind": "type",
-          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "resolved": "packages/utils/src/lib/useMergedRefs.ts",
           "edge": "import"
         },
         {
@@ -123,13 +123,13 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
-      "sha256": "d0faf967447c35339c6ad06b8cc6218cf2002613844a4bdb7b1453fd5262afc3",
+      "sha256": "22fc41339049f398d359434557b63f2290e01b717d4122b3c181a16eb8ac1314",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "../../../utils/useMergedRefs.js",
+          "specifier": "@sveltery/utils/useMergedRefs",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "resolved": "packages/utils/src/lib/useMergedRefs.ts",
           "edge": "import"
         },
         {
@@ -186,7 +186,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
-      "sha256": "42f4066c8d830385f942f66b216e1b263728f1615dbd7b11cfd3a79db7242400",
+      "sha256": "e1676d4207f91d1b6f7c0b34ef8ef4e08fad4e59d53ba0815cac29ab76bdddfd",
       "reachability": "runtime",
       "imports": [
         {
@@ -196,9 +196,9 @@
           "edge": "import"
         },
         {
-          "specifier": "../../../utils/useIsoLayoutEffect.svelte.js",
+          "specifier": "@sveltery/utils/useIsoLayoutEffect",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
           "edge": "import"
         },
         {
@@ -211,7 +211,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
-      "sha256": "5075468a96b01787b1789e48ee6dfecd178a7ec76ee7726c3a064b9cf663fe12",
+      "sha256": "8677a1a97c41cd56b8e52ac47fb40a3401ece276ebb62d83b6c3ac5cc0763bac",
       "reachability": "runtime",
       "imports": [
         {
@@ -227,9 +227,9 @@
           "edge": "import"
         },
         {
-          "specifier": "../../../utils/useMergedRefs.js",
+          "specifier": "@sveltery/utils/useMergedRefs",
           "kind": "type",
-          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "resolved": "packages/utils/src/lib/useMergedRefs.ts",
           "edge": "import"
         },
         {
@@ -310,25 +310,25 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
-      "sha256": "8db12d19818afe6509addc02e10a55082126da9be7a40d03f9a8f62a6e6b5d78",
+      "sha256": "2bedbf116c6e555bcae5c423771d0d5072b80e5d191bae0883624784222e8cf1",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "../../../utils/useStableCallback.js",
+          "specifier": "@sveltery/utils/useStableCallback",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useStableCallback.ts",
+          "resolved": "packages/utils/src/lib/useStableCallback.ts",
           "edge": "import"
         },
         {
-          "specifier": "../../../utils/isElementDisabled.js",
+          "specifier": "@sveltery/utils/isElementDisabled",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/isElementDisabled.ts",
+          "resolved": "packages/utils/src/lib/isElementDisabled.ts",
           "edge": "import"
         },
         {
-          "specifier": "../../../utils/useMergedRefs.js",
+          "specifier": "@sveltery/utils/useMergedRefs",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "resolved": "packages/utils/src/lib/useMergedRefs.ts",
           "edge": "import"
         },
         {
@@ -338,9 +338,9 @@
           "edge": "import"
         },
         {
-          "specifier": "../../../utils/shadowDom.js",
+          "specifier": "@sveltery/utils/shadowDom",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/shadowDom.ts",
+          "resolved": "packages/utils/src/lib/shadowDom.ts",
           "edge": "import"
         },
         {
@@ -402,13 +402,13 @@
     },
     {
       "source": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
-      "sha256": "1a9cb6cde2734d421a1bfb03ece9c744584b7e115a0eb3b9de974c22ab8ee684",
+      "sha256": "8c72d1cd966a450125d2177842154e603b52779f156660af0633101ea222c772",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "../utils/empty.js",
+          "specifier": "@sveltery/utils/empty",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/empty.ts",
+          "resolved": "packages/utils/src/lib/empty.ts",
           "edge": "import"
         },
         {
@@ -427,7 +427,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/nativeProps.ts",
-      "sha256": "d6b3999ffe54e8c70e0dcdac61474b3bf9f53e60f3b1207dd4f976ef5212e4eb",
+      "sha256": "fbb6178288b28dad7549551064e30bf2b432880f1a5b2476223b011f9e72a71a",
       "reachability": "runtime",
       "imports": [
         {
@@ -443,16 +443,16 @@
           "edge": "import"
         },
         {
-          "specifier": "../utils/mergeObjects.js",
+          "specifier": "@sveltery/utils/mergeObjects",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/mergeObjects.ts",
+          "resolved": "packages/utils/src/lib/mergeObjects.ts",
           "edge": "import"
         }
       ]
     },
     {
       "source": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-      "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319",
+      "sha256": "659427aaebb2b294178e5ccd147f6cbb4cb87a9704c18c62ff04a2847a7e1a56",
       "reachability": "runtime",
       "imports": [
         {
@@ -462,9 +462,9 @@
           "edge": "import"
         },
         {
-          "specifier": "../utils/useMergedRefs.js",
+          "specifier": "@sveltery/utils/useMergedRefs",
           "kind": "type",
-          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "resolved": "packages/utils/src/lib/useMergedRefs.ts",
           "edge": "import"
         }
       ]
@@ -583,7 +583,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
-      "sha256": "ee71d7077c51139162152716111472919bf80b71e6e9cde62d15ff0b7ce56f59",
+      "sha256": "f56c35343595eafbb9a37d5313b6e9b95129b875a537790667fa32fd4f71b4b2",
       "reachability": "runtime",
       "imports": [
         {
@@ -593,21 +593,21 @@
           "edge": "import"
         },
         {
-          "specifier": "../../utils/useStableCallback.js",
+          "specifier": "@sveltery/utils/useStableCallback",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useStableCallback.ts",
+          "resolved": "packages/utils/src/lib/useStableCallback.ts",
           "edge": "import"
         },
         {
-          "specifier": "../../utils/error.js",
+          "specifier": "@sveltery/utils/error",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/error.ts",
+          "resolved": "packages/utils/src/lib/error.ts",
           "edge": "import"
         },
         {
-          "specifier": "../../utils/useIsoLayoutEffect.svelte.js",
+          "specifier": "@sveltery/utils/useIsoLayoutEffect",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
           "edge": "import"
         },
         {
@@ -644,38 +644,38 @@
     },
     {
       "source": "packages/base/src/lib/internals/useBaseUiId.ts",
-      "sha256": "fc6d9571f2fc0f71d6f75a8f34eb981a3e09a9a038fbb9aa8b4b83c2cbb3aaa3",
+      "sha256": "3995d6f7b0b3b0c3bd734f8936778c7a95ec39cc1a701dc24cf49a1313414c92",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "../utils/useId.js",
+          "specifier": "@sveltery/utils/useId",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useId.ts",
+          "resolved": "packages/utils/src/lib/useId.ts",
           "edge": "import"
         }
       ]
     },
     {
       "source": "packages/base/src/lib/internals/useRenderElement.ts",
-      "sha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
+      "sha256": "d344184b30e91d54544e9c5b00583679762e0ec099306e9a682df8426655c31a",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "../utils/useMergedRefs.js",
+          "specifier": "@sveltery/utils/useMergedRefs",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "resolved": "packages/utils/src/lib/useMergedRefs.ts",
           "edge": "import"
         },
         {
-          "specifier": "../utils/mergeObjects.js",
+          "specifier": "@sveltery/utils/mergeObjects",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/mergeObjects.ts",
+          "resolved": "packages/utils/src/lib/mergeObjects.ts",
           "edge": "import"
         },
         {
-          "specifier": "../utils/empty.js",
+          "specifier": "@sveltery/utils/empty",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/empty.ts",
+          "resolved": "packages/utils/src/lib/empty.ts",
           "edge": "import"
         },
         {
@@ -737,7 +737,7 @@
     },
     {
       "source": "packages/base/src/lib/merge-props/mergeProps.ts",
-      "sha256": "7a097b833ae8854c5a26e34009adfb4e0297dd50f56ad5f0c1ac8afa8187f98b",
+      "sha256": "110f1b7615a7ccadcfc1e8775451eea5f9ca971bcafee6f3ffd4ea8470303d00",
       "reachability": "runtime",
       "imports": [
         {
@@ -747,9 +747,9 @@
           "edge": "import"
         },
         {
-          "specifier": "../utils/mergeObjects.js",
+          "specifier": "@sveltery/utils/mergeObjects",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/mergeObjects.ts",
+          "resolved": "packages/utils/src/lib/mergeObjects.ts",
           "edge": "import"
         }
       ]
@@ -838,25 +838,25 @@
     },
     {
       "source": "packages/base/src/lib/toggle-group/ToggleGroup.svelte",
-      "sha256": "9f164706fc4c861cbfa215107680bd061a50307de53af17cedf89b29a0485012",
+      "sha256": "66803c3610b6609ac9c210e62941ff9b5607e08022b1b1e2cab3dc9500a697d4",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "../utils/useStableCallback.js",
+          "specifier": "@sveltery/utils/useStableCallback",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useStableCallback.ts",
+          "resolved": "packages/utils/src/lib/useStableCallback.ts",
           "edge": "import"
         },
         {
-          "specifier": "../utils/useControlled.svelte.js",
+          "specifier": "@sveltery/utils/useControlled",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useControlled.svelte.ts",
+          "resolved": "packages/utils/src/lib/useControlled.svelte.ts",
           "edge": "import"
         },
         {
-          "specifier": "../utils/empty.js",
+          "specifier": "@sveltery/utils/empty",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/empty.ts",
+          "resolved": "packages/utils/src/lib/empty.ts",
           "edge": "import"
         },
         {
@@ -968,7 +968,7 @@
     },
     {
       "source": "packages/base/src/lib/toggle/Toggle.svelte",
-      "sha256": "0b75e099acb1b62751dc8f5ae84559b342cb4d3bb8ff5ffc21347da1a0fbcccd",
+      "sha256": "5e70eb0ffc0d433d90b8d24af8940f5e4d197a2861aa43a0e8fa51a4ac2b813f",
       "reachability": "runtime",
       "imports": [
         {
@@ -978,15 +978,15 @@
           "edge": "import"
         },
         {
-          "specifier": "../utils/useControlled.svelte.js",
+          "specifier": "@sveltery/utils/useControlled",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useControlled.svelte.ts",
+          "resolved": "packages/utils/src/lib/useControlled.svelte.ts",
           "edge": "import"
         },
         {
-          "specifier": "../utils/error.js",
+          "specifier": "@sveltery/utils/error",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/error.ts",
+          "resolved": "packages/utils/src/lib/error.ts",
           "edge": "import"
         },
         {
@@ -1072,13 +1072,13 @@
     },
     {
       "source": "packages/base/src/lib/toolbar/button/ToolbarButton.svelte",
-      "sha256": "452ffed6ea4bf216fcf5d130d4facf9b12a2458fd5662287674774837faa7166",
+      "sha256": "9fffe5251eb81ff8e1a78e368ce6dc051a10297958d3423ee7ec3ec219cab783",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "../../utils/empty.js",
+          "specifier": "@sveltery/utils/empty",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/empty.ts",
+          "resolved": "packages/utils/src/lib/empty.ts",
           "edge": "import"
         },
         {
@@ -1394,191 +1394,14 @@
       ]
     },
     {
-      "source": "packages/base/src/lib/utils/createLogOnce.ts",
-      "sha256": "a3c52188a495927ef9b49765ca1e70bc384b37b68a5c896ca86df15852a279b1",
-      "reachability": "runtime",
-      "imports": [
-        {
-          "specifier": "esm-env",
-          "kind": "runtime",
-          "resolved": "external:esm-env",
-          "edge": "import"
-        }
-      ]
-    },
-    {
       "source": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts",
-      "sha256": "60aab2aa25eb9c0aeaa0a57fc8ccd37aab747577ea22f019aff163946cabd373",
+      "sha256": "fefaa5e71f09eeb27d246b5d1eafef16e2b62f6dd72414528ef7f917c125909a",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "./owner.js",
+          "specifier": "@sveltery/utils/owner",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/owner.ts",
-          "edge": "import"
-        }
-      ]
-    },
-    {
-      "source": "packages/base/src/lib/utils/empty.ts",
-      "sha256": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b",
-      "reachability": "runtime",
-      "imports": []
-    },
-    {
-      "source": "packages/base/src/lib/utils/error.ts",
-      "sha256": "de9eeee73db42c056c110eb94f3aef8b51ae3003e97d5140bfaf876bdde52c69",
-      "reachability": "runtime",
-      "imports": [
-        {
-          "specifier": "./createLogOnce.js",
-          "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/createLogOnce.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "./createLogOnce.js",
-          "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/createLogOnce.ts",
-          "edge": "export"
-        }
-      ]
-    },
-    {
-      "source": "packages/base/src/lib/utils/isElementDisabled.ts",
-      "sha256": "c2f6141d744cb16e458208163d616cefa465b8da0445658c4d9282a05a1b616e",
-      "reachability": "runtime",
-      "imports": []
-    },
-    {
-      "source": "packages/base/src/lib/utils/mergeObjects.ts",
-      "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
-      "reachability": "runtime",
-      "imports": []
-    },
-    {
-      "source": "packages/base/src/lib/utils/owner.ts",
-      "sha256": "4f32738229316fe875cf72e949caa4aa7d2fcdf924a2bd5b7f01e88ca5424185",
-      "reachability": "runtime",
-      "imports": []
-    },
-    {
-      "source": "packages/base/src/lib/utils/platform/engine.ts",
-      "sha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987",
-      "reachability": "runtime",
-      "imports": [
-        {
-          "specifier": "./shared.js",
-          "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/platform/shared.ts",
-          "edge": "import"
-        }
-      ]
-    },
-    {
-      "source": "packages/base/src/lib/utils/platform/env.ts",
-      "sha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d",
-      "reachability": "runtime",
-      "imports": [
-        {
-          "specifier": "./shared.js",
-          "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/platform/shared.ts",
-          "edge": "import"
-        }
-      ]
-    },
-    {
-      "source": "packages/base/src/lib/utils/platform/index.ts",
-      "sha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c",
-      "reachability": "runtime",
-      "imports": [
-        {
-          "specifier": "./parts.js",
-          "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/platform/parts.ts",
-          "edge": "export"
-        }
-      ]
-    },
-    {
-      "source": "packages/base/src/lib/utils/platform/media-query.ts",
-      "sha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9",
-      "reachability": "runtime",
-      "imports": []
-    },
-    {
-      "source": "packages/base/src/lib/utils/platform/os.ts",
-      "sha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6",
-      "reachability": "runtime",
-      "imports": [
-        {
-          "specifier": "./shared.js",
-          "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/platform/shared.ts",
-          "edge": "import"
-        }
-      ]
-    },
-    {
-      "source": "packages/base/src/lib/utils/platform/parts.ts",
-      "sha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29",
-      "reachability": "runtime",
-      "imports": [
-        {
-          "specifier": "./os.js",
-          "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/platform/os.ts",
-          "edge": "export"
-        },
-        {
-          "specifier": "./engine.js",
-          "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/platform/engine.ts",
-          "edge": "export"
-        },
-        {
-          "specifier": "./screen-reader.js",
-          "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/platform/screen-reader.ts",
-          "edge": "export"
-        },
-        {
-          "specifier": "./env.js",
-          "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/platform/env.ts",
-          "edge": "export"
-        },
-        {
-          "specifier": "./media-query.js",
-          "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/platform/media-query.ts",
-          "edge": "export"
-        }
-      ]
-    },
-    {
-      "source": "packages/base/src/lib/utils/platform/screen-reader.ts",
-      "sha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7",
-      "reachability": "runtime",
-      "imports": [
-        {
-          "specifier": "./os.js",
-          "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/platform/os.ts",
-          "edge": "import"
-        }
-      ]
-    },
-    {
-      "source": "packages/base/src/lib/utils/platform/shared.ts",
-      "sha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2",
-      "reachability": "runtime",
-      "imports": [
-        {
-          "specifier": "esm-env",
-          "kind": "runtime",
-          "resolved": "external:esm-env",
+          "resolved": "packages/utils/src/lib/owner.ts",
           "edge": "import"
         }
       ]
@@ -1610,14 +1433,218 @@
       ]
     },
     {
-      "source": "packages/base/src/lib/utils/shadowDom.ts",
-      "sha256": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1",
+      "source": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
+      "sha256": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/lib/createLogOnce.ts",
+      "sha256": "f9d8a63ce89aa2d0b31a8d88affb4ff7c49528f12152a9dc99223ee24dca90c9",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "resolved": "external:esm-env",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/lib/empty.ts",
+      "sha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65",
       "reachability": "runtime",
       "imports": []
     },
     {
-      "source": "packages/base/src/lib/utils/useControlled.svelte.ts",
-      "sha256": "f74b9a8aa08b323835613037c871a6b85c938555c788c0a8ff51825c1863fd35",
+      "source": "packages/utils/src/lib/error.ts",
+      "sha256": "ebbe57877f3f8c77c83631ed4042bd288d13f98fb93afd5390128dbd0d7cec27",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./createLogOnce.js",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/createLogOnce.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "./createLogOnce.js",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/createLogOnce.ts",
+          "edge": "export"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/lib/isElementDisabled.ts",
+      "sha256": "c2f6141d744cb16e458208163d616cefa465b8da0445658c4d9282a05a1b616e",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/utils/src/lib/mergeObjects.ts",
+      "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/utils/src/lib/owner.ts",
+      "sha256": "759c607acc1a103b2d795840051555671fe65fd889dae7694606b9069803f986",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom",
+          "edge": "export"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/lib/platform/engine.ts",
+      "sha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/platform/shared.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/lib/platform/env.ts",
+      "sha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/platform/shared.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/lib/platform/index.ts",
+      "sha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./parts.js",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/platform/parts.ts",
+          "edge": "export"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/lib/platform/media-query.ts",
+      "sha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
+      "source": "packages/utils/src/lib/platform/os.ts",
+      "sha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/platform/shared.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/lib/platform/parts.ts",
+      "sha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./os.js",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/platform/os.ts",
+          "edge": "export"
+        },
+        {
+          "specifier": "./engine.js",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/platform/engine.ts",
+          "edge": "export"
+        },
+        {
+          "specifier": "./screen-reader.js",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/platform/screen-reader.ts",
+          "edge": "export"
+        },
+        {
+          "specifier": "./env.js",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/platform/env.ts",
+          "edge": "export"
+        },
+        {
+          "specifier": "./media-query.js",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/platform/media-query.ts",
+          "edge": "export"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/lib/platform/screen-reader.ts",
+      "sha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "./os.js",
+          "kind": "runtime",
+          "resolved": "packages/utils/src/lib/platform/os.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/lib/platform/shared.ts",
+      "sha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "resolved": "external:esm-env",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/lib/shadowDom.ts",
+      "sha256": "5c922c6a0b4cbfd31bb463e486f45524de328687376d622527a5e6cdf12cb8f2",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "resolved": "external:@floating-ui/utils/dom",
+          "edge": "import"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/lib/useControlled.svelte.ts",
+      "sha256": "21543b53992d1f3856e83251c03329d7c558ee5c5637aa8d42f18bc359843705",
       "reachability": "runtime",
       "imports": [
         {
@@ -1635,33 +1662,20 @@
         {
           "specifier": "./error.js",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/error.ts",
+          "resolved": "packages/utils/src/lib/error.ts",
           "edge": "import"
         }
       ]
     },
     {
-      "source": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
-      "sha256": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c",
-      "reachability": "runtime",
-      "imports": [
-        {
-          "specifier": "../internals/types.js",
-          "kind": "type",
-          "resolved": "packages/base/src/lib/internals/types.ts",
-          "edge": "import"
-        }
-      ]
-    },
-    {
-      "source": "packages/base/src/lib/utils/useId.ts",
+      "source": "packages/utils/src/lib/useId.ts",
       "sha256": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90",
       "reachability": "runtime",
       "imports": []
     },
     {
-      "source": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
-      "sha256": "0d24dd22dad18fc54341aaedb964a25829ae62322f10bf110a4fd8bde65dd1f3",
+      "source": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
+      "sha256": "19e575ac14e03d20cbd088abda91d4784ed8b3b34944e03ef51e242e0c0247a7",
       "reachability": "runtime",
       "imports": [
         {
@@ -1673,27 +1687,27 @@
       ]
     },
     {
-      "source": "packages/base/src/lib/utils/useMergedRefs.ts",
+      "source": "packages/utils/src/lib/useMergedRefs.ts",
       "sha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
       "reachability": "runtime",
       "imports": [
         {
           "specifier": "./useRefWithInit.js",
           "kind": "runtime",
-          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts",
+          "resolved": "packages/utils/src/lib/useRefWithInit.ts",
           "edge": "import"
         }
       ]
     },
     {
-      "source": "packages/base/src/lib/utils/useRefWithInit.ts",
-      "sha256": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036",
+      "source": "packages/utils/src/lib/useRefWithInit.ts",
+      "sha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7",
       "reachability": "runtime",
       "imports": []
     },
     {
-      "source": "packages/base/src/lib/utils/useStableCallback.ts",
-      "sha256": "b790a02da99e0e9365bc05d35a434ef37dcffb2a4db8186b1327b949a994d05e",
+      "source": "packages/utils/src/lib/useStableCallback.ts",
+      "sha256": "dca4f1866715df0bcb597ca5c083825f580717a96e267c77a5325ce22790d04c",
       "reachability": "runtime",
       "imports": [
         {
@@ -1706,6 +1720,7 @@
     }
   ],
   "external": [
+    "external:@floating-ui/utils/dom",
     "external:esm-env",
     "external:svelte",
     "external:svelte/attachments",

@@ -120,7 +120,7 @@
         }
       ],
       "local": "packages/base/src/lib/checkbox-group/CheckboxGroup.svelte",
-      "localSha256": "c22d35f007ef61a6c777f5bd121ac812a4ed2a2104ad172ed20f3f15c32f9809",
+      "localSha256": "2249498a2110650b7ec4828de70609bb247a5a5add5591f33ae369f274fb6375",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -221,7 +221,7 @@
         }
       ],
       "local": "packages/base/src/lib/checkbox-group/useCheckboxGroupParent.svelte.ts",
-      "localSha256": "8adf195142cc9b97f5c11f32946562d3c3b42cbf7f67d6253d601550f96977b8",
+      "localSha256": "76e3e38225e063ab7be1eb273dd2ac3fc29dff0a2c281459d05046613f69f7b8",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -484,7 +484,7 @@
         }
       ],
       "local": "packages/base/src/lib/checkbox/root/CheckboxRoot.svelte",
-      "localSha256": "a36b319df5260003cf385ea81c73c499a4dbb95fa3f11dadf2c6edd2f4fb5eb8",
+      "localSha256": "3616db3f3ae0e91ea8c024cad143f5dcf1a82c7071175fed67f6098c436f976a",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -654,7 +654,7 @@
         }
       ],
       "local": "packages/base/src/lib/field/root/FieldRootInner.svelte",
-      "localSha256": "ad785d1c6d42b8346151701855609eaf195deae3843f8d79091d131b415e83b3",
+      "localSha256": "2b7d517ee5adf92dd25b91b72d9610fe572b76aac6f0330555ee62fd6b71c2f6",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -731,7 +731,7 @@
         }
       ],
       "local": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
-      "localSha256": "45fa53a30b47a1721fd89108a69526054dff719a199d9cc510d5abd231e12cba",
+      "localSha256": "8d054bd67a4ebf998426ab10d5b7ae577ccd57a21c2fab434c3a40a86ac67eae",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -2790,7 +2790,7 @@
         }
       ],
       "local": "packages/base/src/lib/form/Form.svelte",
-      "localSha256": "99eea09d790e9e56f2718344e87af6c9b248ac066b90bc4409921a6ea1fbd07e",
+      "localSha256": "ecea11e1a134f30e2fa7c83356cc7741f5e595b2c03f0eabf45e14db12242ffb",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -2868,7 +2868,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
-      "localSha256": "1a9cb6cde2734d421a1bfb03ece9c744584b7e115a0eb3b9de974c22ab8ee684",
+      "localSha256": "8c72d1cd966a450125d2177842154e603b52779f156660af0633101ea222c772",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -2932,7 +2932,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts",
-      "localSha256": "2fbe1f3900ce42aff6d9f65e489b9dcac76a90e34c2be6dcd75c4f5d5bc887fe",
+      "localSha256": "f953a295abb084d23186ff9bf58d38a313728b5608eb0958a737f64dcdeb4771",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -2964,7 +2964,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts",
-      "localSha256": "b4c1ea76c59f1b6848c3a54e915324b9da25bbdbdf16f61c4cfad1a3521ada03",
+      "localSha256": "ffdcdd66986252427ddb733e6168535889f9371f78daab52690f6a0e7dd9ce14",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3021,7 +3021,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts",
-      "localSha256": "21aa11d932c64b362bdb2373d22bf6c108fe9a24a093b0a08a009e3d9b45f614",
+      "localSha256": "3fccbca1662ddffee226a809e42fe9219914274c2b33999771bdc974cf7362bf",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3053,7 +3053,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/form-context/FormContext.ts",
-      "localSha256": "8a0131cd002119715cb0d1a9cb051662353e75797aa4369981a30be4df29a05a",
+      "localSha256": "3706d7f308604195eb9b141506e9a5ca86caa7460c8b33130704b6816272f074",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3133,7 +3133,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts",
-      "localSha256": "864b5d1ddb86b7cb3d50217a7bb3b4fbf58428ec43f78c1ec7ed3efa31750799",
+      "localSha256": "68a95cf70657f2b4def641c4160c1bb82fe31b8794c35882d9e7b5c3ca4db937",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3249,7 +3249,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/labelable-provider/useLabel.svelte.ts",
-      "localSha256": "b96abe4dcc46df31198bbd40cbc6e9278dda323f3bab6b33bc802158ab9d9b26",
+      "localSha256": "fea67d61c989c64cbcf936e81cb03c8c9e75d36c41343e77e90c110cdac18e64",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3296,7 +3296,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
-      "localSha256": "821459e698c6486f837258547fe73e1db1865bd574444ea867d03b59af8e4456",
+      "localSha256": "58fdfd620eb3629df76832878feb46704e24cdcaed2419dbbfb3f37ba133c80c",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3312,8 +3312,8 @@
           "resolved": "packages/utils/src/empty.ts"
         }
       ],
-      "local": "packages/base/src/lib/utils/empty.ts",
-      "localSha256": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b",
+      "local": "packages/utils/src/lib/empty.ts",
+      "localSha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3401,7 +3401,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/types.ts",
-      "localSha256": "d20a002ee70ffc90ea8dbd4acefcb2923c79d69de94047aa521a90f8eadab817",
+      "localSha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3418,7 +3418,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
-      "localSha256": "581abfd20827eed41d9478dc30dc5a7b1b944e32d8428ac238d86625545536f1",
+      "localSha256": "f56c35343595eafbb9a37d5313b6e9b95129b875a537790667fa32fd4f71b4b2",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3485,7 +3485,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
-      "localSha256": "581abfd20827eed41d9478dc30dc5a7b1b944e32d8428ac238d86625545536f1",
+      "localSha256": "f56c35343595eafbb9a37d5313b6e9b95129b875a537790667fa32fd4f71b4b2",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3527,7 +3527,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/useAnimationsFinished.ts",
-      "localSha256": "e615700a3c4e81ca22060837af8a8c859430ebd8476d6e0a6daffe7986dc3bc4",
+      "localSha256": "64ae89e2c4d398aa049822f4223967202426aa027591a657caf4bf6f4859a2aa",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3544,7 +3544,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/useBaseUiId.ts",
-      "localSha256": "fc6d9571f2fc0f71d6f75a8f34eb981a3e09a9a038fbb9aa8b4b83c2cbb3aaa3",
+      "localSha256": "3995d6f7b0b3b0c3bd734f8936778c7a95ec39cc1a701dc24cf49a1313414c92",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3571,7 +3571,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
-      "localSha256": "9c8d8b8fcd70c0a9ec69a9cc0f2a6864ab19da26d4e3bd2bf9f7e6eb49831d1f",
+      "localSha256": "e84d8a671d521e64183800bc048aa6471f627913efc5015cc74ddd34e2b87973",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3638,7 +3638,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/useRenderElement.ts",
-      "localSha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
+      "localSha256": "d344184b30e91d54544e9c5b00583679762e0ec099306e9a682df8426655c31a",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes. PR50 canonical native ref transport fidelity repair folds forwarded library attachments after inner refs into the unchanged source fanout lifecycle; authored attachments retain native effects. See parity/rendering/source-correspondence.md.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3665,7 +3665,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
-      "localSha256": "1236abbbe5a5e1dec17c77d51d704f3f03e48ecdd34f85a995e1dde00c60c54b",
+      "localSha256": "87ad2d4de3657585d704d2bd7137a65545e8c471d62d0e51349c2ca17f8daa7d",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3692,7 +3692,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/useValueChanged.svelte.ts",
-      "localSha256": "340a8f5ed100094c283f167c8a8a3e196708cdf238eeadc93f148ee31c4274c9",
+      "localSha256": "f760d2e83ee33789ae5bfec715308cfc78253eda0fcbd34052bdcad44ce24991",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3736,7 +3736,7 @@
         }
       ],
       "local": "packages/base/src/lib/merge-props/mergeProps.ts",
-      "localSha256": "7a097b833ae8854c5a26e34009adfb4e0297dd50f56ad5f0c1ac8afa8187f98b",
+      "localSha256": "110f1b7615a7ccadcfc1e8775451eea5f9ca971bcafee6f3ffd4ea8470303d00",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3917,7 +3917,7 @@
         }
       ],
       "local": "packages/base/src/lib/switch/root/SwitchRoot.svelte",
-      "localSha256": "0cb1395cd4a1bf6d50f88c97092f8a0bd3454e5119abff7f2e05d4edad267367",
+      "localSha256": "b72da7f12b2630f8ab52caf25811b8943bd2e4849b5e5c904f0275b139bd6777",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4063,7 +4063,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/types.ts",
-      "localSha256": "d20a002ee70ffc90ea8dbd4acefcb2923c79d69de94047aa521a90f8eadab817",
+      "localSha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4108,7 +4108,7 @@
         }
       ],
       "local": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts",
-      "localSha256": "60aab2aa25eb9c0aeaa0a57fc8ccd37aab747577ea22f019aff163946cabd373",
+      "localSha256": "fefaa5e71f09eeb27d246b5d1eafef16e2b62f6dd72414528ef7f917c125909a",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4547,7 +4547,7 @@
         }
       ],
       "local": "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
-      "localSha256": "aeca27deeaadde0c42a027ac7f4788e2a3c62d533db235cada05dd9a70e1e1e2",
+      "localSha256": "42f32745d82df92f04c76f0cafc86ca93349c4cc6f685af361a46c249d054b1c",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4568,7 +4568,7 @@
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/areArraysEqual.ts",
       "reachability": "runtime",
       "imports": [],
-      "local": "packages/base/src/lib/utils/areArraysEqual.ts",
+      "local": "packages/utils/src/lib/areArraysEqual.ts",
       "localSha256": "c8709b6f9efb30e3257def214aeae097b131b112b74bd1bea965e201efb15a44",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
@@ -4579,8 +4579,8 @@
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/createLogOnce.ts",
       "reachability": "runtime",
       "imports": [],
-      "local": "packages/base/src/lib/utils/createLogOnce.ts",
-      "localSha256": "a3c52188a495927ef9b49765ca1e70bc384b37b68a5c896ca86df15852a279b1",
+      "local": "packages/utils/src/lib/createLogOnce.ts",
+      "localSha256": "f9d8a63ce89aa2d0b31a8d88affb4ff7c49528f12152a9dc99223ee24dca90c9",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4590,8 +4590,8 @@
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/empty.ts",
       "reachability": "runtime",
       "imports": [],
-      "local": "packages/base/src/lib/utils/empty.ts",
-      "localSha256": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b",
+      "local": "packages/utils/src/lib/empty.ts",
+      "localSha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4612,8 +4612,8 @@
           "resolved": "packages/utils/src/createLogOnce.ts"
         }
       ],
-      "local": "packages/base/src/lib/utils/error.ts",
-      "localSha256": "de9eeee73db42c056c110eb94f3aef8b51ae3003e97d5140bfaf876bdde52c69",
+      "local": "packages/utils/src/lib/error.ts",
+      "localSha256": "ebbe57877f3f8c77c83631ed4042bd288d13f98fb93afd5390128dbd0d7cec27",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4645,7 +4645,7 @@
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/getDefaultFormSubmitter.ts",
       "reachability": "runtime",
       "imports": [],
-      "local": "packages/base/src/lib/utils/getDefaultFormSubmitter.ts",
+      "local": "packages/utils/src/lib/getDefaultFormSubmitter.ts",
       "localSha256": "15c7fb04d8bacba3abc5f4f2329a3c083892e9169689a2eab60104c3517688e4",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
@@ -4689,7 +4689,7 @@
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/mergeObjects.ts",
       "reachability": "runtime",
       "imports": [],
-      "local": "packages/base/src/lib/utils/mergeObjects.ts",
+      "local": "packages/utils/src/lib/mergeObjects.ts",
       "localSha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
@@ -4706,8 +4706,8 @@
           "resolved": "external:@floating-ui/utils/dom"
         }
       ],
-      "local": "packages/base/src/lib/utils/owner.ts",
-      "localSha256": "4f32738229316fe875cf72e949caa4aa7d2fcdf924a2bd5b7f01e88ca5424185",
+      "local": "packages/utils/src/lib/owner.ts",
+      "localSha256": "759c607acc1a103b2d795840051555671fe65fd889dae7694606b9069803f986",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -4901,8 +4901,8 @@
           "resolved": "external:@floating-ui/utils/dom"
         }
       ],
-      "local": "packages/base/src/lib/utils/shadowDom.ts",
-      "localSha256": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1",
+      "local": "packages/utils/src/lib/shadowDom.ts",
+      "localSha256": "5c922c6a0b4cbfd31bb463e486f45524de328687376d622527a5e6cdf12cb8f2",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes. Final Radio integration reuses the reviewed full shared module, adding contains/isShadowRoot while retaining the original Boolean-used activeElement/getTarget business bodies. Whole-body hash includes the additive source closure; no second helper implementation.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -5192,8 +5192,8 @@
           "resolved": "packages/utils/src/useOnMount.ts"
         }
       ],
-      "local": "packages/base/src/lib/utils/useAnimationFrame.ts",
-      "localSha256": "4de538634e157740822dc1d3896da18ea84c6a706fe79f28fa6b9e7d380038ad",
+      "local": "packages/utils/src/lib/useAnimationFrame.ts",
+      "localSha256": "d662506c6d7bd1f69b87ea59f3bd7445c413474de2fcda723d1e3248215c9267",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -5214,8 +5214,8 @@
           "resolved": "packages/utils/src/error.ts"
         }
       ],
-      "local": "packages/base/src/lib/utils/useControlled.svelte.ts",
-      "localSha256": "f74b9a8aa08b323835613037c871a6b85c938555c788c0a8ff51825c1863fd35",
+      "local": "packages/utils/src/lib/useControlled.svelte.ts",
+      "localSha256": "21543b53992d1f3856e83251c03329d7c558ee5c5637aa8d42f18bc359843705",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -5270,7 +5270,7 @@
           "resolved": "packages/utils/src/safeReact.ts"
         }
       ],
-      "local": "packages/base/src/lib/utils/useId.ts",
+      "local": "packages/utils/src/lib/useId.ts",
       "localSha256": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
@@ -5287,8 +5287,8 @@
           "resolved": "external:react"
         }
       ],
-      "local": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
-      "localSha256": "0d24dd22dad18fc54341aaedb964a25829ae62322f10bf110a4fd8bde65dd1f3",
+      "local": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
+      "localSha256": "19e575ac14e03d20cbd088abda91d4784ed8b3b34944e03ef51e242e0c0247a7",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -5309,7 +5309,7 @@
           "resolved": "packages/utils/src/useRefWithInit.ts"
         }
       ],
-      "local": "packages/base/src/lib/utils/useMergedRefs.ts",
+      "local": "packages/utils/src/lib/useMergedRefs.ts",
       "localSha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
@@ -5331,8 +5331,8 @@
           "resolved": "packages/utils/src/empty.ts"
         }
       ],
-      "local": "packages/base/src/lib/utils/useOnMount.ts",
-      "localSha256": "a7ba4007eff27b601eebcb76755886a23a4dd8548a54f67e15fa1cd648e0e695",
+      "local": "packages/utils/src/lib/useOnMount.ts",
+      "localSha256": "e596fa519d81dd2fd7cdb1d5d00910622ad9ebed918aafa11111b70942c8ce25",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -5348,8 +5348,8 @@
           "resolved": "external:react"
         }
       ],
-      "local": "packages/base/src/lib/utils/useRefWithInit.ts",
-      "localSha256": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036",
+      "local": "packages/utils/src/lib/useRefWithInit.ts",
+      "localSha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -5370,8 +5370,8 @@
           "resolved": "packages/utils/src/useRefWithInit.ts"
         }
       ],
-      "local": "packages/base/src/lib/utils/useStableCallback.ts",
-      "localSha256": "b790a02da99e0e9365bc05d35a434ef37dcffb2a4db8186b1327b949a994d05e",
+      "local": "packages/utils/src/lib/useStableCallback.ts",
+      "localSha256": "dca4f1866715df0bcb597ca5c083825f580717a96e267c77a5325ce22790d04c",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -5392,8 +5392,8 @@
           "resolved": "packages/utils/src/useOnMount.ts"
         }
       ],
-      "local": "packages/base/src/lib/utils/useTimeout.ts",
-      "localSha256": "a04448de8715b8728243ee6e33572c57bc5b151674628304f6c3906966738c78",
+      "local": "packages/utils/src/lib/useTimeout.ts",
+      "localSha256": "405103d9109d3d115db8b26eef5a9b3747156d4a45365c1f2f9764c172e4f0fb",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -5431,7 +5431,7 @@
           "resolved": "external:react"
         }
       ],
-      "local": "packages/base/src/lib/utils/visuallyHidden.ts",
+      "local": "packages/utils/src/lib/visuallyHidden.ts",
       "localSha256": "8f49185df1c0536608090368454cc3d30a3bfc1991b23a4b5e5239184ead8020",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
@@ -5468,5 +5468,10 @@
       "runtimeImports": 0,
       "ordinaryDeclarationCredit": 0
     }
-  ]
+  ],
+  "utilsPackageSuccessor": {
+    "record": "../utils-package/current-source-graph.json",
+    "ordinaryDeclarationCredit": 0,
+    "status": "Current package destinations and hashes; frozen source/construction/acceptance/run receipts remain historical. Complete current graph and exact final-head Source/native/maintainability review supersede earlier inventory acceptance."
+  }
 }

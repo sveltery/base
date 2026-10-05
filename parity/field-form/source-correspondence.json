@@ -728,7 +728,7 @@
       "source": "packages/utils/src/useId.ts",
       "sourceSha256": "7d01ffb745d3404ba406ebbd12ddfc8eb73325c3adea3dbda0868e2bad2eef05",
       "symbol": "useId",
-      "local": "packages/base/src/lib/utils/useId.ts",
+      "local": "packages/utils/src/lib/useId.ts",
       "adaptation": "Native Svelte $props.id replaces React.useId; unsupported React17 fallback omitted, no global counter.",
       "status": "written-unverified",
       "imports": [
@@ -752,7 +752,7 @@
       "source": "packages/utils/src/owner.ts",
       "sourceSha256": "94a825206d926b388459df70639476133442c28c83a7e3be750399cb323ea623",
       "symbol": "ownerDocument",
-      "local": "packages/base/src/lib/utils/owner.ts",
+      "local": "packages/utils/src/lib/owner.ts",
       "adaptation": "Original used function body unchanged; ownerWindow is outside this used-symbol closure.",
       "status": "written-unverified",
       "imports": [
@@ -764,7 +764,7 @@
       "source": "packages/utils/src/shadowDom.ts",
       "sourceSha256": "00307496a294b1bde9a09e4d0263cae4bf1eb75f43f5c9b85b37c712210e4e8a",
       "symbol": "activeElement/getTarget",
-      "local": "packages/base/src/lib/utils/shadowDom.ts",
+      "local": "packages/utils/src/lib/shadowDom.ts",
       "adaptation": "Original used shadow-DOM functions unchanged; source useLabel now shares getTarget.",
       "status": "written-unverified",
       "imports": [
@@ -782,7 +782,7 @@
       "source": "packages/utils/src/useControlled.ts",
       "sourceSha256": "487bc45fa3ef1a70177867bb03598230f9926601aed8e3c7f46470feb225f886",
       "symbol": "useControlled",
-      "local": "packages/base/src/lib/utils/useControlled.svelte.ts",
+      "local": "packages/utils/src/lib/useControlled.svelte.ts",
       "adaptation": "shared-utils dependency: initial mode/default/state/declared warnings; live getter API",
       "status": "integrated-dependency-pending-final-review",
       "imports": [
@@ -806,7 +806,7 @@
       "source": "packages/utils/src/useStableCallback.ts",
       "sourceSha256": "908cbd177f86c961983d0124a859f733d341be49e58bc5a553255f47725419c1",
       "symbol": "useStableCallback",
-      "local": "packages/base/src/lib/utils/useStableCallback.ts",
+      "local": "packages/utils/src/lib/useStableCallback.ts",
       "adaptation": "shared-utils dependency: native initialized callback, stable untracked live closure",
       "status": "integrated-dependency-pending-final-review",
       "imports": [
@@ -830,7 +830,7 @@
       "source": "packages/utils/src/useTimeout.ts",
       "sourceSha256": "8d9e4159d9f883e18035811e9f2b4d180afb0d724b55d86dbf4fda52c355e156",
       "symbol": "Timeout/useTimeout",
-      "local": "packages/base/src/lib/utils/useTimeout.ts",
+      "local": "packages/utils/src/lib/useTimeout.ts",
       "adaptation": "shared-utils dependency: actual class and native automatic teardown",
       "status": "integrated-dependency-pending-final-review",
       "imports": [
@@ -854,7 +854,7 @@
       "source": "packages/utils/src/useIsoLayoutEffect.ts",
       "sourceSha256": "13a0ab28d24b04617dc290ad151c145f2435d1e0c381123847af74344ea4b9a0",
       "symbol": "useIsoLayoutEffect",
-      "local": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+      "local": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
       "adaptation": "shared-utils dependency: post-DOM native effect, source dependency getter",
       "status": "integrated-dependency-pending-final-review",
       "imports": [
@@ -872,7 +872,7 @@
       "source": "packages/utils/src/useRefWithInit.ts",
       "sourceSha256": "183cb6e86ab1f8044a431d5b4115c750f7848c9835d519881b3c7a66dae98354",
       "symbol": "useRefWithInit",
-      "local": "packages/base/src/lib/utils/useRefWithInit.ts",
+      "local": "packages/utils/src/lib/useRefWithInit.ts",
       "adaptation": "shared-utils dependency: one native initialization",
       "status": "integrated-dependency-pending-final-review",
       "imports": [
@@ -890,7 +890,7 @@
       "source": "packages/utils/src/empty.ts",
       "sourceSha256": "7d7c8625346dc2344dc551004c5c5da82878ab814818b7a8df4ad7082979ead6",
       "symbol": "NOOP/EMPTY_OBJECT/EMPTY_ARRAY",
-      "local": "packages/base/src/lib/utils/empty.ts",
+      "local": "packages/utils/src/lib/empty.ts",
       "adaptation": "shared-utils dependency: unchanged source constants",
       "status": "integrated-dependency-pending-final-review",
       "imports": [],
@@ -1728,8 +1728,8 @@
       "source": "packages/utils/src/useAnimationFrame.ts",
       "sourceSha256": "229943cee6d42305da4db33ed395ff8ccdde915c2e4e922c5af0c7b0aeeddf82",
       "symbol": "AnimationFrame/useAnimationFrame",
-      "local": "packages/base/src/lib/utils/useAnimationFrame.ts",
-      "adaptation": "Source instance request/cancel/currentId/dispose/ref/mount shape; native rAF replaces source process-global framework scheduler. Scheduler timing/exception differences have zero parity credit.",
+      "local": "packages/utils/src/lib/useAnimationFrame.ts",
+      "adaptation": "Current Utils package successor restores the complete pinned renderer-independent Scheduler/reset/AnimationFrame business and cancellation/reentrancy/ID sequence. Native initialized-ref/onMount owns lifetime; esm-env DEV replaces process environment. Historical scheduler-omission rationale is retained separately and superseded. Final Source/native/maintainability and execution gates remain pending.",
       "status": "source-checkpoint-executed-pending-independent-review",
       "imports": [
         "./useRefWithInit",
@@ -1746,7 +1746,8 @@
           "kind": "runtime",
           "symbols": "{ useOnMount }"
         }
-      ]
+      ],
+      "historicalAdaptation": "Source instance request/cancel/currentId/dispose/ref/mount shape; native rAF replaces source process-global framework scheduler. Scheduler timing/exception differences have zero parity credit."
     },
     {
       "source": "packages/react/src/utils/resolveRef.ts",
@@ -1854,7 +1855,7 @@
       "source": "packages/react/src/internals/noop.ts",
       "sourceSha256": "268edb20da01bc632fc8335f808298027500d577ad3872d340080c40a21fc3a0",
       "symbol": "NOOP alias",
-      "local": "packages/base/src/lib/utils/empty.ts",
+      "local": "packages/utils/src/lib/empty.ts",
       "adaptation": "Original alias points to same canonical shared NOOP; no redundant runtime facade.",
       "status": "source-checkpoint-pending-independent-review",
       "imports": [
@@ -2004,11 +2005,11 @@
       "localBodies": [
         {
           "local": "packages/base/src/lib/internals/useRenderElement.ts",
-          "sha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9"
+          "sha256": "d344184b30e91d54544e9c5b00583679762e0ec099306e9a682df8426655c31a"
         },
         {
           "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-          "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319"
+          "sha256": "659427aaebb2b294178e5ccd147f6cbb4cb87a9704c18c62ff04a2847a7e1a56"
         }
       ],
       "change": "Canonical forwarded library ref attachments participate after inner refs in the same source cleanup/reattachment lifecycle. Authored attachment reactivity and bound-host publication remain native. Canonical source useMergedRefs algorithms and Field/Form runtime are unchanged.",
@@ -2116,5 +2117,10 @@
       "configuredReview": 5966441369,
       "scope": "Bounded source-core delivery; no remote API or ordinary assertion acceptance"
     }
+  },
+  "utilsPackageSuccessor": {
+    "record": "../utils-package/current-source-graph.json",
+    "ordinaryDeclarationCredit": 0,
+    "status": "Current package destinations and hashes; frozen source/construction/acceptance/run receipts remain historical. Complete current graph and exact final-head Source/native/maintainability review supersede earlier inventory acceptance."
   }
 }

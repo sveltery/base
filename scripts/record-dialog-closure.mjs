@@ -1,3 +1,4 @@
+import { resolveNativePackageSource } from './native-package-source.mjs';
 import ts from '../packages/base/node_modules/typescript/lib/typescript.js';
 import { readFileSync, writeFileSync, existsSync, statSync } from 'node:fs';
 import { resolve, relative, dirname } from 'node:path';
@@ -12,6 +13,8 @@ function graph(directory, entries, source = false) {
   const records = new Map();
   const queue = [...entries];
   function resolveImport(file, specifier) {
+    const owned = !source && resolveNativePackageSource(directory, specifier);
+    if (owned) return owned;
     let base;
     if (specifier.startsWith('.')) base = resolve(directory, dirname(file), specifier);
     else if (source && specifier.startsWith('@base-ui/utils/')) base = resolve(directory, 'packages/utils/src', specifier.slice('@base-ui/utils/'.length));

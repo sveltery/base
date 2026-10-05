@@ -76,7 +76,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/nativeProps.ts",
-      "localSha256": "d6b3999ffe54e8c70e0dcdac61474b3bf9f53e60f3b1207dd4f976ef5212e4eb",
+      "localSha256": "fbb6178288b28dad7549551064e30bf2b432880f1a5b2476223b011f9e72a71a",
       "source": "packages/react/src/internals/useRenderElement.tsx",
       "sourceSha256": "0b55dc232a0d630a666a13873213d1bdde040e973031f2b307a64cc157644a4c",
       "kind": "native-renderer",
@@ -87,7 +87,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-      "localSha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319",
+      "localSha256": "659427aaebb2b294178e5ccd147f6cbb4cb87a9704c18c62ff04a2847a7e1a56",
       "source": "packages/utils/src/useMergedRefs.ts",
       "sourceSha256": "5fa12ae01abedc23ba814e9c59f015cf14d306044638b56c977780de43275ba3",
       "kind": "native-ref",
@@ -131,7 +131,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/useBaseUiId.ts",
-      "localSha256": "fc6d9571f2fc0f71d6f75a8f34eb981a3e09a9a038fbb9aa8b4b83c2cbb3aaa3",
+      "localSha256": "3995d6f7b0b3b0c3bd734f8936778c7a95ec39cc1a701dc24cf49a1313414c92",
       "source": "packages/react/src/internals/useBaseUiId.ts",
       "sourceSha256": "c935ee27e3dfee2307e108dc82a36ec2a1f3e76b4692de188e5d3cdc4511157f",
       "kind": "native-id",
@@ -142,7 +142,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/useRenderElement.ts",
-      "localSha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
+      "localSha256": "d344184b30e91d54544e9c5b00583679762e0ec099306e9a682df8426655c31a",
       "source": "packages/react/src/internals/useRenderElement.tsx",
       "sourceSha256": "0b55dc232a0d630a666a13873213d1bdde040e973031f2b307a64cc157644a4c",
       "kind": "native-renderer-business",
@@ -164,7 +164,7 @@
     },
     {
       "local": "packages/base/src/lib/merge-props/mergeProps.ts",
-      "localSha256": "7a097b833ae8854c5a26e34009adfb4e0297dd50f56ad5f0c1ac8afa8187f98b",
+      "localSha256": "110f1b7615a7ccadcfc1e8775451eea5f9ca971bcafee6f3ffd4ea8470303d00",
       "source": "packages/react/src/merge-props/mergeProps.ts",
       "sourceSha256": "cdc8fc165df88ddc4034fb2242ebf1ef32b504755404c343abf965cb3e4c90ce",
       "kind": "business",
@@ -230,7 +230,7 @@
     },
     {
       "local": "packages/base/src/lib/scroll-area/root/ScrollAreaRoot.svelte",
-      "localSha256": "38a51033ec3ded3ca68f37de782341c609cc362475e223bb563f182d0c3d9026",
+      "localSha256": "e7447b4e80edd96e1ef4c560131ef20883f771cb7a4ee88b828df2318b26d67f",
       "source": "packages/react/src/scroll-area/root/ScrollAreaRoot.tsx",
       "sourceSha256": "d896463fba2e039747d766543b72af77ec4f654db3e5cf0986009f7326259ed3",
       "kind": "business-native-lifecycle",
@@ -285,7 +285,7 @@
     },
     {
       "local": "packages/base/src/lib/scroll-area/scrollbar/ScrollAreaScrollbar.svelte",
-      "localSha256": "291f4b709b6cd06e54515069875315497c0572ef465d2477a25ea6cec96e532d",
+      "localSha256": "eaed197a1393aa6e449ca6da7485b791f903ecb1b2166a505a3aee6b5fe9eb09",
       "source": "packages/react/src/scroll-area/scrollbar/ScrollAreaScrollbar.tsx",
       "sourceSha256": "0658fb17cb20fba0b41c617c8e02d2fda928b5fd7a67d168ba923254385ff48e",
       "kind": "business-native-lifecycle",
@@ -362,7 +362,7 @@
     },
     {
       "local": "packages/base/src/lib/scroll-area/viewport/ScrollAreaViewport.svelte",
-      "localSha256": "07f719cb3a8a8a4c4c348f70fddf6986d4adf4f546d26961ab41cfda13961242",
+      "localSha256": "d75079edf47f84064398e70ee0337edce99d8ebf1be88f793dfd9040445658b0",
       "source": "packages/react/src/scroll-area/viewport/ScrollAreaViewport.tsx",
       "sourceSha256": "2de647b48d3863d681fb319b62528df01068a1342ea5986100302492323c7932",
       "kind": "business-native-lifecycle",
@@ -394,7 +394,7 @@
       "unchangedAssertionCredit": 0
     },
     {
-      "local": "packages/base/src/lib/utils/addEventListener.ts",
+      "local": "packages/utils/src/lib/addEventListener.ts",
       "localSha256": "77880d75a5c8c5ac2d924e69d7cc7662c616b953d4895c8e6a24de53de4502bf",
       "source": "packages/utils/src/addEventListener.ts",
       "sourceSha256": "a2d30e30e8151a62347f67620d568bd1550f5069af3652a57892ed9de42f3dcc",
@@ -405,7 +405,7 @@
       "unchangedAssertionCredit": 0
     },
     {
-      "local": "packages/base/src/lib/utils/clamp.ts",
+      "local": "packages/utils/src/lib/clamp.ts",
       "localSha256": "96e2dcc83d37bbe52ac6d4f65b205859eae0017c4208551f00a16195c176ec35",
       "source": "packages/utils/src/clamp.ts",
       "sourceSha256": "6753aee98943086390d6ad62ade7b02ac3432cd2c73de026886e8ca9f27ce221",
@@ -416,8 +416,8 @@
       "unchangedAssertionCredit": 0
     },
     {
-      "local": "packages/base/src/lib/utils/empty.ts",
-      "localSha256": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b",
+      "local": "packages/utils/src/lib/empty.ts",
+      "localSha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65",
       "source": "packages/utils/src/empty.ts",
       "sourceSha256": "7d7c8625346dc2344dc551004c5c5da82878ab814818b7a8df4ad7082979ead6",
       "kind": "canonical-shared",
@@ -427,7 +427,7 @@
       "unchangedAssertionCredit": 0
     },
     {
-      "local": "packages/base/src/lib/utils/mergeObjects.ts",
+      "local": "packages/utils/src/lib/mergeObjects.ts",
       "localSha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
       "source": "packages/utils/src/mergeObjects.ts",
       "sourceSha256": "0e9b1568370f5c1ea28710bae245380281ae366187bfb871b99a14fe6b5b49fa",
@@ -438,7 +438,7 @@
       "unchangedAssertionCredit": 0
     },
     {
-      "local": "packages/base/src/lib/utils/platform/engine.ts",
+      "local": "packages/utils/src/lib/platform/engine.ts",
       "localSha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987",
       "source": "packages/utils/src/platform/engine.ts",
       "sourceSha256": "e943a35942d211e61f511a5d5aca78e9262db4187e8d2c1a1b7791718a7bc3d7",
@@ -449,7 +449,7 @@
       "unchangedAssertionCredit": 0
     },
     {
-      "local": "packages/base/src/lib/utils/platform/env.ts",
+      "local": "packages/utils/src/lib/platform/env.ts",
       "localSha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d",
       "source": "packages/utils/src/platform/env.ts",
       "sourceSha256": "4e06a24df446a27d2b282491ebdf5a213c9c3c155a11ba2007d47dbb675dd438",
@@ -460,7 +460,7 @@
       "unchangedAssertionCredit": 0
     },
     {
-      "local": "packages/base/src/lib/utils/platform/index.ts",
+      "local": "packages/utils/src/lib/platform/index.ts",
       "localSha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c",
       "source": "packages/utils/src/platform/index.ts",
       "sourceSha256": "8f801696b9cd0c681fc4ec36dca1e0eecfafee3f28c73729ec9c3501dbaf6ddb",
@@ -471,7 +471,7 @@
       "unchangedAssertionCredit": 0
     },
     {
-      "local": "packages/base/src/lib/utils/platform/media-query.ts",
+      "local": "packages/utils/src/lib/platform/media-query.ts",
       "localSha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9",
       "source": "packages/utils/src/platform/media-query.ts",
       "sourceSha256": "cb5f9941ec4c24667d7d4061392fbe2b57064c333cf4e94435d2239a0ed45a65",
@@ -482,7 +482,7 @@
       "unchangedAssertionCredit": 0
     },
     {
-      "local": "packages/base/src/lib/utils/platform/os.ts",
+      "local": "packages/utils/src/lib/platform/os.ts",
       "localSha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6",
       "source": "packages/utils/src/platform/os.ts",
       "sourceSha256": "724d78845a13a6b7d27ad7eff40a3bfdc4d5c46c8143a90af1914ee0a5a5c13a",
@@ -493,7 +493,7 @@
       "unchangedAssertionCredit": 0
     },
     {
-      "local": "packages/base/src/lib/utils/platform/parts.ts",
+      "local": "packages/utils/src/lib/platform/parts.ts",
       "localSha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29",
       "source": "packages/utils/src/platform/parts.ts",
       "sourceSha256": "5102b62f441c8d8710a3db052e1dfcf0b4498eb3e9d533b1c444321b989eceb2",
@@ -504,7 +504,7 @@
       "unchangedAssertionCredit": 0
     },
     {
-      "local": "packages/base/src/lib/utils/platform/screen-reader.ts",
+      "local": "packages/utils/src/lib/platform/screen-reader.ts",
       "localSha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7",
       "source": "packages/utils/src/platform/screen-reader.ts",
       "sourceSha256": "36dd99107aca1638e9520f0136dd294a03f3268ab8d44d0202f7be601c892f7a",
@@ -515,7 +515,7 @@
       "unchangedAssertionCredit": 0
     },
     {
-      "local": "packages/base/src/lib/utils/platform/shared.ts",
+      "local": "packages/utils/src/lib/platform/shared.ts",
       "localSha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2",
       "source": "packages/utils/src/platform/shared.ts",
       "sourceSha256": "f12352abb325a222ba5f371c920945c5d03175ee70e133c54e01a23fd51a13ad",
@@ -549,7 +549,7 @@
     },
     {
       "local": "packages/base/src/lib/utils/scrollEdges.ts",
-      "localSha256": "3530bb0ed60d37c6f6f52316ec66c84acc8c00dae71375274d0b6b484fe669b3",
+      "localSha256": "396736be42390623473fb5382375b85cf0072dd67164c2dcacc48530a1eb1c2c",
       "source": "packages/react/src/utils/scrollEdges.ts",
       "sourceSha256": "52d206271054bc29c0fbd39ca625caed941d7d9252e43a30d31cce614222adbd",
       "kind": "business",
@@ -559,8 +559,8 @@
       "unchangedAssertionCredit": 0
     },
     {
-      "local": "packages/base/src/lib/utils/shadowDom.ts",
-      "localSha256": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1",
+      "local": "packages/utils/src/lib/shadowDom.ts",
+      "localSha256": "5c922c6a0b4cbfd31bb463e486f45524de328687376d622527a5e6cdf12cb8f2",
       "source": "packages/utils/src/shadowDom.ts",
       "sourceSha256": "00307496a294b1bde9a09e4d0263cae4bf1eb75f43f5c9b85b37c712210e4e8a",
       "kind": "canonical-shared",
@@ -592,7 +592,7 @@
       "unchangedAssertionCredit": 0
     },
     {
-      "local": "packages/base/src/lib/utils/useId.ts",
+      "local": "packages/utils/src/lib/useId.ts",
       "localSha256": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90",
       "source": "packages/utils/src/useId.ts",
       "sourceSha256": "7d01ffb745d3404ba406ebbd12ddfc8eb73325c3adea3dbda0868e2bad2eef05",
@@ -603,7 +603,7 @@
       "unchangedAssertionCredit": 0
     },
     {
-      "local": "packages/base/src/lib/utils/useMergedRefs.ts",
+      "local": "packages/utils/src/lib/useMergedRefs.ts",
       "localSha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
       "source": "packages/utils/src/useMergedRefs.ts",
       "sourceSha256": "5fa12ae01abedc23ba814e9c59f015cf14d306044638b56c977780de43275ba3",
@@ -614,8 +614,8 @@
       "unchangedAssertionCredit": 0
     },
     {
-      "local": "packages/base/src/lib/utils/useOnMount.ts",
-      "localSha256": "a7ba4007eff27b601eebcb76755886a23a4dd8548a54f67e15fa1cd648e0e695",
+      "local": "packages/utils/src/lib/useOnMount.ts",
+      "localSha256": "e596fa519d81dd2fd7cdb1d5d00910622ad9ebed918aafa11111b70942c8ce25",
       "source": "packages/utils/src/useOnMount.ts",
       "sourceSha256": "9d621d059249ec6ad10dbf35eef28153a8bc6ef893574d26a060385d4d13472b",
       "kind": "native-lifecycle",
@@ -625,8 +625,8 @@
       "unchangedAssertionCredit": 0
     },
     {
-      "local": "packages/base/src/lib/utils/useRefWithInit.ts",
-      "localSha256": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036",
+      "local": "packages/utils/src/lib/useRefWithInit.ts",
+      "localSha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7",
       "source": "packages/utils/src/useRefWithInit.ts",
       "sourceSha256": "183cb6e86ab1f8044a431d5b4115c750f7848c9835d519881b3c7a66dae98354",
       "kind": "native-lifecycle",
@@ -636,8 +636,8 @@
       "unchangedAssertionCredit": 0
     },
     {
-      "local": "packages/base/src/lib/utils/useTimeout.ts",
-      "localSha256": "a04448de8715b8728243ee6e33572c57bc5b151674628304f6c3906966738c78",
+      "local": "packages/utils/src/lib/useTimeout.ts",
+      "localSha256": "405103d9109d3d115db8b26eef5a9b3747156d4a45365c1f2f9764c172e4f0fb",
       "source": "packages/utils/src/useTimeout.ts",
       "sourceSha256": "8d9e4159d9f883e18035811e9f2b4d180afb0d724b55d86dbf4fda52c355e156",
       "kind": "business-native-lifecycle",
@@ -706,5 +706,10 @@
       "internals/useOpenChangeComplete.svelte.ts"
     ],
     "publicSeams": "Fresh complete package/root-barrel and resolved register owner inspection; reviewed exports unchanged and accepted-main bodies preserved. No new manual coverage for unrelated Avatar/Button bodies. Final successor installed/hosted/configured/independent/PM gates pending."
+  },
+  "utilsPackageSuccessor": {
+    "record": "../utils-package/current-source-graph.json",
+    "ordinaryDeclarationCredit": 0,
+    "status": "Current package destinations and hashes; frozen source/construction/acceptance/run receipts remain historical. Complete current graph and exact final-head Source/native/maintainability review supersede earlier inventory acceptance."
   }
 }
