@@ -110,6 +110,16 @@ jobs:
         run: pnpm exec playwright install --with-deps chromium
       - name: Public Svelte component browser
         run: pnpm test:component
+      - name: Record actual early-close Dialog animation samples
+        run: pnpm exec playwright test --config playwright.dialog-diagnostic.config.ts
+      - name: Preserve actual Dialog animation diagnostic
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: dialog-animation-diagnostic
+          path: .checks/dialog-animation-diagnostic/
+          if-no-files-found: error
+          retention-days: 14
       - name: Focused Dialog Source lifecycle pairs
         run: >-
           pnpm exec playwright test --config playwright.source-core.config.ts
