@@ -11,6 +11,7 @@ const graph = read('parity/utils-package/current-source-graph.json');
 const moves = new Map(graph.currentMoves.map(move => [move.from, move]));
 const successorsPath = 'parity/utils-package/feature-successors.json';
 const successors = read(successorsPath);
+successors.currentGraphSha256 = hashFile('parity/utils-package/current-source-graph.json');
 
 function verifiedOwner(path, sha256) {
   if (hashFile(path) !== sha256) throw new Error(`Current Source graph is stale for ${path}; regenerate it first.`);
@@ -23,10 +24,11 @@ for (const record of successors.records) {
     const move = moves.get(previous.old);
     if (!move) throw new Error(`Unknown extracted predecessor: ${previous.old}`);
     if (move.currentOwners) {
+      // Keep the complete owner list in one canonical graph rather than copy it into every receipt.
+      move.currentOwners.forEach(owner => verifiedOwner(owner.path, owner.sha256));
       return {
         old: previous.old,
-        currentReplacement: move.currentReplacement,
-        currentOwners: move.currentOwners.map(owner => verifiedOwner(owner.path, owner.sha256)),
+        currentSuccessor: { graph: record.currentGraph, from: move.from },
       };
     }
     const owner = verifiedOwner(move.to, move.currentLocalSha256);
