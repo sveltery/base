@@ -30,3 +30,12 @@ Indicator exposes the six `--active-tab-*` CSS variables for active tab dimensio
 
 
 Exact normally merged current-main74 adds the canonical shared event/platform closure through Composite navigation. The actual Tabs graph is80 modules/220 runtime/type edges; whole resulting-head review and gates remain pending. The historical3d459 Source review remains NOT CLEAR for the internal nullable-ID caller check, now repaired by normalizing only the caller. Public native HTML id types and the one shared helper are unchanged. The verified Source Panel quirk is also preserved: authored Panel IDs, including explicit undefined, may override the DOM ID while registration still supplies the generated controls ID.
+
+
+## Accepted-main integration successor
+
+Tabs normally integrates accepted main `95d3d2ae473dc18a2b9a48112284383a2c392315`, retaining Button, ToggleGroup/Toolbar and Avatar histories and exports. All80 used runtime/type bodies,220 imports, imported members/kinds and reachability remain identical to independent Source/native/maintainability CLEAR checkpoint `05f5aa93af0ff8c7af964a69bd64fba86b191637`. That carries precise body-specific assessments only; resulting-head independent review, actual package/export/public seam checks, secured browser, Standards/Verification and PM approval remain separate gates. No new or changed used body is hidden by the merge.
+
+The single canonical animation pair is now exact accepted Avatar/main bytes: useAnimationsFinished SHA256 `0ae8873174969326a7ac09377ab019af5cd575bbdfde7df9118317d0ec1c1e30` and useOpenChangeComplete SHA256 `5e966dd1b10cbc1ed448d3583ca948a384d812f9e71afc1e128395485575931f`. No whole Dialog/Menu or private useClick prerequisite is introduced: actual local runtime/type reachability never imports useClick; only the broad immutable Original floating barrel exports that unselected helper.
+
+The authored/explicit-undefined Panel association business quirk remains preserved. No public Tabs issue exists: automatic approval review rejected issue publication, and the explicit user issue question is pending. The current reviewable issue material is `/workspace/sveltery-pm-evidence/tabs-panel-id-issue-ready.md`, backed by the tracked `packages/base/tests/dom/tabs-id-association.test.ts` and `TabsIdAssociationFixture.svelte`; the older unpublished proposal's obsolete paths remain historical. All ordinary declaration credit remains zero.

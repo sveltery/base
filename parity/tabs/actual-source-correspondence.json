@@ -1,10 +1,10 @@
 {
   "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
-  "base": "74f667da95ebc5670b0cc5bee38f2225e65fd0c0",
+  "base": "95d3d2ae473dc18a2b9a48112284383a2c392315",
   "preCodeCommit": "f4e253b",
   "helperCheckpoint": "3d60396",
   "runtimeCheckpoint": "3706588",
-  "status": "Actual80 modules/220 runtime/type import edges after normal exact-main74 integration and precise native nullable Tab ID caller normalization. Historical8bf and3d Source NOT CLEAR verdicts/failing gates remain preserved. Source/native/maintainability review and execution gates at the resulting exact head remain pending.",
+  "status": "Actual80 modules/220 runtime/type import edges after normal integration of accepted main95d3d2a (Button, ToggleGroup/Toolbar and Avatar). All80 used business/native/type bodies, imported symbols/kinds and reachability remain exact independently reviewed05f5aa9 bytes. This records precise per-body continuity; independent resulting-head Source/native/maintainability, public seams, execution gates and PM acceptance remain required.",
   "preCodePlanRetained": "source-correspondence.json (unchanged historical plan)",
   "actualLocalGraph": "actual-local-graph.json",
   "publicInventory": "public-inventory.json",
@@ -2280,5 +2280,19 @@
       "ordinaryDeclarationCredit": 0
     }
   ],
-  "preCodeBase": "6f1f98307ed32a60e88cfb93f3d47b325e8dc9d1"
+  "preCodeBase": "6f1f98307ed32a60e88cfb93f3d47b325e8dc9d1",
+  "currentMainIntegration": {
+    "main": "95d3d2ae473dc18a2b9a48112284383a2c392315",
+    "predecessor": "05f5aa93af0ff8c7af964a69bd64fba86b191637",
+    "actualModules": 80,
+    "actualEdges": 220,
+    "unchangedUsedBodies": 80,
+    "newUsedBodies": 0,
+    "changedUsedBodies": 0,
+    "scope": "Every actual body hash, imported member/kind and reachability matches the exact predecessor audit. Only documentation/package/root exports are conflict resolutions. Accepted main families and both histories retained.",
+    "animationSeam": "One shared useAnimationsFinished (SHA2560ae8873174969326a7ac09377ab019af5cd575bbdfde7df9118317d0ec1c1e30) and useOpenChangeComplete (SHA2565e966dd1b10cbc1ed448d3583ca948a384d812f9e71afc1e128395485575931f) equal accepted Avatar main bytes. No competing completion implementation.",
+    "useClick": "No actual local runtime or type import reaches useClick. The immutable Original broad floating-ui-react index barrel exports it, but it is unselected. The proposed private helper and whole Dialog/Menu are not Tabs dependencies.",
+    "independentReview": "All80 precise per-body Source/native/maintainability assessments from05f5aa9 may carry through proved unchanged body/edge/reachability identity; this owner evidence is not a new independent review or blanket final clearance.",
+    "issuePublication": "No Tabs Panel issue exists. Public issue publication was rejected by automatic approval review and awaits the pending explicit user confirmation; behavior remains preserved."
+  }
 }

@@ -47,3 +47,7 @@ export { RadioGroup } from './radio-group/index.js';
 export type * from './radio-group/types.js';
 
 export * from './tabs/index.js';
+export { ToggleGroup } from './toggle-group/index.js';
+export type * from './toggle-group/types.js';
+export { Toolbar } from './toolbar/index.js';
+export type { ToolbarRootOrientation, ToolbarRootItemMetadata, ToolbarRootState, ToolbarRootProps, ToolbarGroupState, ToolbarGroupProps, ToolbarButtonState, ToolbarButtonProps, ToolbarInputState, ToolbarInputProps, ToolbarLinkState, ToolbarLinkProps, ToolbarSeparatorState, ToolbarSeparatorProps } from './toolbar/types.js';
