@@ -167,7 +167,8 @@ for (const framework of ['react', 'svelte']) {
         return { visible: visible.value, numeric: numeric.value, visibleDefault: visible.defaultValue, numericDefault: numeric.defaultValue, serialized: new FormData(form as HTMLFormElement).get('amount') };
       });
       const stepped = await read();
-      await page.locator('#number-form').evaluate(form => (form as HTMLFormElement).reset());
+      // The existing id="reset" button shadows the form's named reset member.
+      await page.locator('#number-form').evaluate(form => HTMLFormElement.prototype.reset.call(form));
       const expected = framework === 'react' ? '3' : '';
       await expect(input).toHaveValue(expected); await expect(numeric).toHaveValue(expected);
       const reset = await read(); expect(reset).toEqual({ visible: expected, numeric: expected, visibleDefault: expected, numericDefault: expected, serialized: expected });
