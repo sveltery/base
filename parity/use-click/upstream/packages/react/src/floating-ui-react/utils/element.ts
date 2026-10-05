@@ -1,14 +1,11 @@
-// Ported from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
-// MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
 import { isElement, isHTMLElement } from '@floating-ui/utils/dom';
-import { activeElement, contains, getTarget } from '../../utils/shadowDom.js';
-import { FOCUSABLE_ATTRIBUTE, TYPEABLE_SELECTOR } from './constants.js';
-import type { PopupTriggerMap } from '../../utils/popups/popupTriggerMap.svelte.js';
-// Selected TooltipTriggerDataAttributes value; retain the original marker.
-const triggerDisabled = 'data-trigger-disabled';
+import { platform } from '@base-ui/utils/platform';
+import { activeElement, contains, getTarget } from '@base-ui/utils/shadowDom';
+import { FOCUSABLE_ATTRIBUTE, TYPEABLE_SELECTOR } from './constants';
+import { type PopupTriggerMap } from '../../utils/popups';
+import * as TooltipTriggerDataAttributes from '../../tooltip/trigger/TooltipTriggerDataAttributes';
 
 export { activeElement, contains, getTarget };
-export { matchesFocusVisible } from './matchesFocusVisible.js';
 
 export function isTargetInsideEnabledTrigger(
   target: EventTarget | null,
@@ -21,12 +18,12 @@ export function isTargetInsideEnabledTrigger(
   const targetElement = target as Element;
 
   if (triggerElements.hasElement(targetElement)) {
-    return !targetElement.hasAttribute(triggerDisabled);
+    return !targetElement.hasAttribute(TooltipTriggerDataAttributes.triggerDisabled);
   }
 
   for (const [, trigger] of triggerElements.entries()) {
     if (contains(trigger, targetElement)) {
-      return !trigger.hasAttribute(triggerDisabled);
+      return !trigger.hasAttribute(TooltipTriggerDataAttributes.triggerDisabled);
     }
   }
 
@@ -68,6 +65,19 @@ export function isTypeableCombobox(element: Element | null) {
     return false;
   }
   return element.getAttribute('role') === 'combobox' && isTypeableElement(element);
+}
+
+export function matchesFocusVisible(element: Element | null) {
+  // We don't want to block focus from working with `visibleOnly`
+  // (JSDOM doesn't match `:focus-visible` when the element has `:focus`)
+  if (!element || platform.env.jsdom) {
+    return true;
+  }
+  try {
+    return element.matches(':focus-visible');
+  } catch (_e) {
+    return true;
+  }
 }
 
 export function getFloatingFocusElement(

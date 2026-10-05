@@ -1,0 +1,57 @@
+
+ RUN  v5.0.3 /workspace/navigation-menu-base/packages/base
+
+ ❯ tests/dom/use-click.test.ts (20 tests | 2 failed) 133ms
+   × native regression: an earlier composed handler does not change the in-flight toggle choice 7ms
+   × native regression: the scheduled mousedown frame retains selected Store/reason/touch delay 8ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/dom/use-click.test.ts > native regression: an earlier composed handler does not change the in-flight toggle choice
+AssertionError: expected null not to be null
+ ❯ tests/dom/use-click.test.ts:199:25
+    197|   component = await setup({ initialOpen: true, options: { toggle: fals…
+    198|   await click();
+    199|   expect(tooltip()).not.toBeNull();
+       |                         ^
+    200|   expect(component.snapshot().map(change => change.open)).toEqual([tru…
+    201|   await click();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/dom/use-click.test.ts > native regression: the scheduled mousedown frame retains selected Store/reason/touch delay
+AssertionError: expected [ { owner: 'second', …(3) } ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "open": true,
++     "owner": "second",
++     "reason": "trigger-press",
++     "trigger": <button
++       data-testid="reference"
++     >
++       
++     </button>,
++   },
++ ]
+
+ ❯ tests/dom/use-click.test.ts:217:32
+    215|   callbacks.forEach(callback => callback(0));
+    216|   await tick();
+    217|   expect(component.snapshot()).toEqual([]);
+       |                                ^
+    218|   vi.advanceTimersByTime(100);
+    219|   await tick();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 18 passed (20)
+   Start at  01:40:46
+   Duration  2.01s (transform 52%, environment 34%, tests 7%, import 7%)
+
