@@ -130,53 +130,58 @@ async function installDiagnostic(page: Page) {
 }
 
 for (const route of ['/dialog', '/reference']) {
-  test(`${route}: record original early-close physical animation samples`, async ({
-    page,
-  }, info) => {
-    await page.goto(`${route}?keep&animate`);
-    await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
-    await installDiagnostic(page);
-    try {
-      await page.locator('#trigger').click();
-      await expect(page.getByRole('dialog')).toBeVisible();
-      // Reproduce the failed authored setup: an open callback is the only
-      // completion precondition. There is no opening wait or animation pause.
-      await page.waitForFunction(() =>
-        JSON.parse(document.querySelector('[data-testid=log]')!.textContent!).some(
-          (entry: { channel: string; open?: boolean }) =>
-            entry.channel === 'complete' && entry.open,
-        ),
-      );
-      await page.evaluate(() =>
-        (window as DiagnosticWindow).dialogAnimationDiagnostic!.checkpoint('before-escape'),
-      );
-      await page.keyboard.press('Escape');
-      await expect(page.getByRole('dialog')).toHaveCount(0);
-      await expect(page.getByTestId('popup')).toBeHidden();
-      await expect(page.locator('#trigger')).toBeFocused();
-      await expect
-        .poll(async () =>
-          JSON.parse(await page.getByTestId('log').innerText())
-            .filter((entry: { channel: string }) => entry.channel === 'complete')
-            .map((entry: { open: boolean }) => entry.open),
-        )
-        .toEqual([true, false]);
-    } finally {
-      const events = await page.evaluate(() => {
-        const diagnostic = (window as DiagnosticWindow).dialogAnimationDiagnostic!;
-        diagnostic.checkpoint('after-close-observation');
-        diagnostic.cleanup();
-        return diagnostic.events;
-      });
-      const report = {
-        route,
-        purpose: 'Physical browser diagnosis; no ordinary Source credit',
-        events,
-      };
-      const body = JSON.stringify(report, null, 2);
-      writeFileSync(info.outputPath('animation-timeline.json'), body + '\n');
-      await info.attach('actual-animation-timeline', { body, contentType: 'application/json' });
-      console.log(`DIALOG_ANIMATION_DIAGNOSTIC ${JSON.stringify(report)}`);
-    }
-  });
+  for (const observation of ['source-calls-only', 'explicit-style-checkpoint']) {
+    test(`${route}: record early-close animations (${observation})`, async ({ page }, info) => {
+      await page.goto(`${route}?keep&animate`);
+      await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+      await installDiagnostic(page);
+      try {
+        await page.locator('#trigger').click();
+        await expect(page.getByRole('dialog')).toBeVisible();
+        // Reproduce the failed authored setup: an open callback is the only
+        // completion precondition. There is no opening wait or animation pause.
+        await page.waitForFunction(() =>
+          JSON.parse(document.querySelector('[data-testid=log]')!.textContent!).some(
+            (entry: { channel: string; open?: boolean }) =>
+              entry.channel === 'complete' && entry.open,
+          ),
+        );
+        if (observation === 'explicit-style-checkpoint') {
+          // This independent measurement can flush CSS and is deliberately a
+          // separate variant. The source-only variant makes no such call.
+          await page.evaluate(() =>
+            (window as DiagnosticWindow).dialogAnimationDiagnostic!.checkpoint('before-escape'),
+          );
+        }
+        await page.keyboard.press('Escape');
+        await expect(page.getByRole('dialog')).toHaveCount(0);
+        await expect(page.getByTestId('popup')).toBeHidden();
+        await expect(page.locator('#trigger')).toBeFocused();
+        await expect
+          .poll(async () =>
+            JSON.parse(await page.getByTestId('log').innerText())
+              .filter((entry: { channel: string }) => entry.channel === 'complete')
+              .map((entry: { open: boolean }) => entry.open),
+          )
+          .toEqual([true, false]);
+      } finally {
+        const events = await page.evaluate(() => {
+          const diagnostic = (window as DiagnosticWindow).dialogAnimationDiagnostic!;
+          diagnostic.checkpoint('after-close-observation');
+          diagnostic.cleanup();
+          return diagnostic.events;
+        });
+        const report = {
+          route,
+          observation,
+          purpose: 'Physical browser diagnosis; no ordinary Source credit',
+          events,
+        };
+        const body = JSON.stringify(report, null, 2);
+        writeFileSync(info.outputPath('animation-timeline.json'), body + '\n');
+        await info.attach('actual-animation-timeline', { body, contentType: 'application/json' });
+        console.log(`DIALOG_ANIMATION_DIAGNOSTIC ${JSON.stringify(report)}`);
+      }
+    });
+  }
 }
