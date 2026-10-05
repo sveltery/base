@@ -4,8 +4,8 @@
     "packages/base/src/lib/navigation-menu/index.ts"
   ],
   "status": "Actual public syntax runtime/type closure; member/body acceptance is separate and pending",
-  "moduleCount": 146,
-  "statementCount": 589,
+  "moduleCount": 147,
+  "statementCount": 593,
   "ordinaryCredit": 0,
   "modules": [
     {
@@ -37593,8 +37593,8 @@
     },
     {
       "source": "packages/base/src/lib/navigation-menu/Root.svelte",
-      "sha256": "fc623cd3a79239efd4b4e2093078a1c25013eff2791660cc4f6ff5c295192b78",
-      "bytes": 9278,
+      "sha256": "baf5766fb21920f32f932e707daf852ddb9424b061c916e5c0e897a5c0a36c8e",
+      "bytes": 9378,
       "imports": [
         {
           "line": 4,
@@ -37645,6 +37645,20 @@
         },
         {
           "line": 7,
+          "specifier": "../utils/useControlled.svelte.js",
+          "edge": "import",
+          "resolved": "packages/base/src/lib/utils/useControlled.svelte.ts",
+          "names": [
+            {
+              "imported": "useControlled",
+              "local": "useControlled",
+              "kind": "runtime"
+            }
+          ],
+          "kind": "runtime"
+        },
+        {
+          "line": 8,
           "specifier": "../utils/useIsoLayoutEffect.svelte.js",
           "edge": "import",
           "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
@@ -37658,7 +37672,7 @@
           "kind": "runtime"
         },
         {
-          "line": 8,
+          "line": 9,
           "specifier": "../floating-ui/utils/element.js",
           "edge": "import",
           "resolved": "packages/base/src/lib/floating-ui/utils/element.ts",
@@ -37677,7 +37691,7 @@
           "kind": "runtime"
         },
         {
-          "line": 9,
+          "line": 10,
           "specifier": "../floating-ui/components/FloatingTree.svelte.js",
           "edge": "import",
           "resolved": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
@@ -37701,7 +37715,7 @@
           "kind": "runtime"
         },
         {
-          "line": 14,
+          "line": 15,
           "specifier": "../floating-ui/types.js",
           "edge": "import",
           "resolved": "packages/base/src/lib/floating-ui/types.ts",
@@ -37715,7 +37729,7 @@
           "kind": "type"
         },
         {
-          "line": 15,
+          "line": 16,
           "specifier": "../internals/RenderElement.svelte",
           "edge": "import",
           "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
@@ -37729,7 +37743,7 @@
           "kind": "runtime"
         },
         {
-          "line": 16,
+          "line": 17,
           "specifier": "../internals/useTransitionStatus.svelte.js",
           "edge": "import",
           "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
@@ -37743,7 +37757,7 @@
           "kind": "runtime"
         },
         {
-          "line": 17,
+          "line": 18,
           "specifier": "../internals/useOpenChangeComplete.svelte.js",
           "edge": "import",
           "resolved": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
@@ -37757,7 +37771,7 @@
           "kind": "runtime"
         },
         {
-          "line": 18,
+          "line": 19,
           "specifier": "../internals/reasons.js",
           "edge": "import",
           "resolved": "packages/base/src/lib/internals/reasons.ts",
@@ -37771,7 +37785,7 @@
           "kind": "runtime"
         },
         {
-          "line": 19,
+          "line": 20,
           "specifier": "./root/NavigationMenuRootContext.js",
           "edge": "import",
           "resolved": "packages/base/src/lib/navigation-menu/root/NavigationMenuRootContext.ts",
@@ -37795,7 +37809,7 @@
           "kind": "runtime"
         },
         {
-          "line": 24,
+          "line": 25,
           "specifier": "./utils/setSharedFixedSize.js",
           "edge": "import",
           "resolved": "packages/base/src/lib/navigation-menu/utils/setSharedFixedSize.ts",
@@ -37809,7 +37823,7 @@
           "kind": "runtime"
         },
         {
-          "line": 25,
+          "line": 26,
           "specifier": "./positioner/NavigationMenuPositionerCssVars.js",
           "edge": "import",
           "resolved": "packages/base/src/lib/navigation-menu/positioner/NavigationMenuPositionerCssVars.ts",
@@ -37823,7 +37837,7 @@
           "kind": "runtime"
         },
         {
-          "line": 26,
+          "line": 27,
           "specifier": "./root/TreeContext.svelte",
           "edge": "import",
           "resolved": "packages/base/src/lib/navigation-menu/root/TreeContext.svelte",
@@ -37837,7 +37851,7 @@
           "kind": "runtime"
         },
         {
-          "line": 27,
+          "line": 28,
           "specifier": "./types.js",
           "edge": "import",
           "resolved": "packages/base/src/lib/navigation-menu/types.ts",
@@ -37871,22 +37885,22 @@
         {
           "name": "getPositionerFixedSize",
           "kind": "FunctionDeclaration",
-          "line": 94,
-          "endLine": 105,
+          "line": 100,
+          "endLine": 111,
           "sha256": "6a1cebb5486321f90140829b3458deeb4a7628ac1bb607d5b6e929dba0ce5ebf"
         },
         {
           "name": "setValue",
           "kind": "FunctionDeclaration",
-          "line": 120,
-          "endLine": 131,
-          "sha256": "2eb052e97f336a0a22af76bff0d11f5d7fbd05c2e05a85f262a61d91d9c96e46"
+          "line": 126,
+          "endLine": 137,
+          "sha256": "387af9a1d2111e098560e1f63063ede4442a75186e3babeb500514bed908e0ba"
         },
         {
           "name": "handleUnmount",
           "kind": "FunctionDeclaration",
-          "line": 132,
-          "endLine": 151,
+          "line": 138,
+          "endLine": 157,
           "sha256": "6d34843723b6740b4c3894027ba324f03b65fa5d6308413a16a895e64413db3e"
         }
       ],
@@ -50024,6 +50038,491 @@
         "nativeSvelteJudgment": "CLEAR inherited individual complete Source/native scope: Inherited precise complete Source/native body scope from authoritative CLEAR report, with new Menu consumer/caller boundary inspected separately. Not a fresh body reading; no acceptance from hash/graph alone. Exact current whole body, imported members/type edges and reachability preserve prior native composition; changes to repaired dependencies are evaluated in their fresh rows.",
         "callerBoundaryJudgment": "All actual current inbound members resolve; exact unchanged module import/type/reachability/body scope inherits the individually CLEAR prior Source/native caller contract. Dependency repairs FFM/hover/native DOM lifetime are checked in fresh scopes, with the paired old blocker probes now passing. No fresh entire body reading claimed for this unchanged row.",
         "documentationJudgment": "Current per-source records map this used module to packages/utils/src/useAnimationFrame.ts. Prior exact individual manual scope remains binding; no acceptance from filename, graph or SHA alone.",
+        "freshEntireCurrentBodyAndOriginalRead": false,
+        "maintainabilityJudgment": "CLEAR: CLEAR inherited individual complete Source/native scope: Inherited precise complete Source/native body scope from authoritative CLEAR report, with new Menu consumer/caller boundary inspected separately. Not a fresh body reading; no acceptance from hash/graph alone. Exact current whole body, imported members/type edges and reachability preserve prior native composition; changes to repaired dependencies are evaluated in their fresh rows.",
+        "ordinaryDeclarationCredit": 0
+      },
+      "exactReviewedPortalExtraction": false,
+      "portalProvider": null,
+      "reviewStatus": "Final independent whole-body Source/native/maintainability review pending"
+    },
+    {
+      "source": "packages/base/src/lib/utils/useControlled.svelte.ts",
+      "sha256": "f74b9a8aa08b323835613037c871a6b85c938555c788c0a8ff51825c1863fd35",
+      "bytes": 5063,
+      "imports": [
+        {
+          "line": 3,
+          "specifier": "esm-env",
+          "edge": "import",
+          "resolved": "external:esm-env",
+          "names": [
+            {
+              "imported": "DEV",
+              "local": "DEV",
+              "kind": "runtime"
+            }
+          ],
+          "kind": "runtime"
+        },
+        {
+          "line": 4,
+          "specifier": "svelte",
+          "edge": "import",
+          "resolved": "external:svelte",
+          "names": [
+            {
+              "imported": "untrack",
+              "local": "untrack",
+              "kind": "runtime"
+            }
+          ],
+          "kind": "runtime"
+        },
+        {
+          "line": 5,
+          "specifier": "./error.js",
+          "edge": "import",
+          "resolved": "packages/base/src/lib/utils/error.ts",
+          "names": [
+            {
+              "imported": "error",
+              "local": "error",
+              "kind": "runtime"
+            }
+          ],
+          "kind": "runtime"
+        }
+      ],
+      "typeQueries": [],
+      "declarations": [
+        {
+          "name": "SetStateAction",
+          "kind": "TypeAliasDeclaration",
+          "line": 7,
+          "endLine": 7,
+          "sha256": "82790f0d9527190fd807b7f7b5bda5ef19f784aa62ec891f14ff415f09631caa"
+        },
+        {
+          "name": "Dispatch",
+          "kind": "TypeAliasDeclaration",
+          "line": 8,
+          "endLine": 8,
+          "sha256": "8786179debb57340c570015cd5f9ddf3be62871ff86253c1c4f457d66659cf72"
+        },
+        {
+          "name": "UseControlledProps",
+          "kind": "InterfaceDeclaration",
+          "line": 10,
+          "endLine": 27,
+          "sha256": "149851c368c5fd827f20780d2a44c7420b582641af66cedcbd1fdfc6880025d7"
+        },
+        {
+          "name": "useControlled",
+          "kind": "FunctionDeclaration",
+          "line": 31,
+          "endLine": 33,
+          "sha256": "70ec453672cf4b4500dd53c20a0773dce5e529a0e5b061bce0cbe26142ddea66"
+        },
+        {
+          "name": "useControlled",
+          "kind": "FunctionDeclaration",
+          "line": 34,
+          "endLine": 36,
+          "sha256": "b28a579453da9199d0af1972efcbad90d09f423f03800c2552a0f117e0635ca8"
+        },
+        {
+          "name": "useControlled",
+          "kind": "FunctionDeclaration",
+          "line": 37,
+          "endLine": 107,
+          "sha256": "67faddf1c5c07db80bbb01dbfffd93a4de1dcc7373ec6e1a22f2144eea192c81"
+        },
+        {
+          "name": "serializeToDevModeString",
+          "kind": "FunctionDeclaration",
+          "line": 109,
+          "endLine": 140,
+          "sha256": "6274769f2b81e1f78c78d8aabb852373a5e8e0774ad7aad5d3deb1a9bde5a0b5"
+        }
+      ],
+      "reachability": [
+        "runtime"
+      ],
+      "originalModules": [
+        "packages/utils/src/useControlled.ts"
+      ],
+      "exactInheritedNativeBody": true,
+      "inheritedWholeBodyAuthority": {
+        "source": "packages/base/src/lib/utils/useControlled.svelte.ts",
+        "sha256": "f74b9a8aa08b323835613037c871a6b85c938555c788c0a8ff51825c1863fd35",
+        "gitBlob": "c639d17cd5c3fb7a6e428e90f04919e00fcf9687",
+        "exactFinalGitAndPhysicalWholeBytes": true,
+        "exact949SourceBody": true,
+        "unchangedWholeBytesFromFF42": true,
+        "sameFullRecordedImportsFromFF42": true,
+        "sameActualMemberImportsFromFF42": true,
+        "sameReachabilityFromFF42": true,
+        "reachability": "runtime",
+        "actualImports": [
+          {
+            "from": "packages/base/src/lib/utils/useControlled.svelte.ts",
+            "specifier": "esm-env",
+            "resolved": "external:esm-env",
+            "edge": "import",
+            "kind": "runtime",
+            "names": [
+              {
+                "imported": "DEV",
+                "local": "DEV",
+                "kind": "runtime"
+              }
+            ],
+            "line": 3
+          },
+          {
+            "from": "packages/base/src/lib/utils/useControlled.svelte.ts",
+            "specifier": "svelte",
+            "resolved": "external:svelte",
+            "edge": "import",
+            "kind": "runtime",
+            "names": [
+              {
+                "imported": "untrack",
+                "local": "untrack",
+                "kind": "runtime"
+              }
+            ],
+            "line": 4
+          },
+          {
+            "from": "packages/base/src/lib/utils/useControlled.svelte.ts",
+            "specifier": "./error.js",
+            "resolved": "packages/base/src/lib/utils/error.ts",
+            "edge": "import",
+            "kind": "runtime",
+            "names": [
+              {
+                "imported": "error",
+                "local": "error",
+                "kind": "runtime"
+              }
+            ],
+            "line": 5
+          }
+        ],
+        "outsideActualPrDiff": true,
+        "priorModuleVerdict": "CLEAR",
+        "priorManualScope": "Inherited precise complete Source/native body scope from authoritative CLEAR report, with new Menu consumer/caller boundary inspected separately. Not a fresh body reading; no acceptance from hash/graph alone.",
+        "priorModuleRecord": {
+          "source": "packages/base/src/lib/utils/useControlled.svelte.ts",
+          "sha256": "f74b9a8aa08b323835613037c871a6b85c938555c788c0a8ff51825c1863fd35",
+          "reachability": "runtime",
+          "imports": [
+            {
+              "specifier": "esm-env",
+              "kind": "runtime",
+              "symbols": [
+                {
+                  "imported": "DEV",
+                  "typeOnly": false
+                }
+              ],
+              "resolved": "external:esm-env",
+              "edge": "import"
+            },
+            {
+              "specifier": "svelte",
+              "kind": "runtime",
+              "symbols": [
+                {
+                  "imported": "untrack",
+                  "typeOnly": false
+                }
+              ],
+              "resolved": "external:svelte",
+              "edge": "import"
+            },
+            {
+              "specifier": "./error.js",
+              "kind": "runtime",
+              "symbols": [
+                {
+                  "imported": "error",
+                  "typeOnly": false
+                }
+              ],
+              "resolved": "packages/base/src/lib/utils/error.ts",
+              "edge": "import"
+            }
+          ],
+          "originalMappings": [
+            {
+              "source": "packages/utils/src/useControlled.ts",
+              "sha256": "487bc45fa3ef1a70177867bb03598230f9926601aed8e3c7f46470feb225f886",
+              "selection": "used-business-or-type-port",
+              "ownerMapping": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code."
+            }
+          ],
+          "manualReviewKind": "precise-inherited-complete-body",
+          "inheritedReceipt": {
+            "path": "/workspace/sveltery-tmp/navigation-main-source-review-d115303-audit.json",
+            "sha256": "c9c82866ecaf4101130fb01908d6b5051c295a94c4dbc0c3322d3a4c8ac78e38",
+            "head": "d115303d4d6e2078922d15b908e348ae9008bf9e",
+            "exactRecordedWholeBody": true,
+            "exactPriorGitWholeBody": true,
+            "sameImportSpecifierKindResolvedEdges": true,
+            "documentedModuleScope": {
+              "source": "packages/base/src/lib/utils/useControlled.svelte.ts",
+              "sha256": "f74b9a8aa08b323835613037c871a6b85c938555c788c0a8ff51825c1863fd35",
+              "reachability": "runtime",
+              "imports": [
+                {
+                  "specifier": "esm-env",
+                  "kind": "runtime",
+                  "resolved": "external:esm-env",
+                  "edge": "import"
+                },
+                {
+                  "specifier": "svelte",
+                  "kind": "runtime",
+                  "resolved": "external:svelte",
+                  "edge": "import"
+                },
+                {
+                  "specifier": "./error.js",
+                  "kind": "runtime",
+                  "resolved": "packages/base/src/lib/utils/error.ts",
+                  "edge": "import"
+                }
+              ],
+              "exactCurrentGitAndCheckoutWholeBytes": true,
+              "gitBlob": "c639d17cd5c3fb7a6e428e90f04919e00fcf9687",
+              "actualOriginalSources": [
+                "packages/utils/src/useControlled.ts"
+              ],
+              "manualReview": "precise-complete-body-inheritance-from-authoritative-d00-review-not-hash-only-acceptance",
+              "inheritedWholeBodyReceipt": {
+                "source": "packages/base/src/lib/utils/useControlled.svelte.ts",
+                "sha256": "f74b9a8aa08b323835613037c871a6b85c938555c788c0a8ff51825c1863fd35",
+                "reachability": "runtime",
+                "imports": [
+                  {
+                    "specifier": "esm-env",
+                    "kind": "runtime",
+                    "resolved": "external:esm-env",
+                    "edge": "import"
+                  },
+                  {
+                    "specifier": "svelte",
+                    "kind": "runtime",
+                    "resolved": "external:svelte",
+                    "edge": "import"
+                  },
+                  {
+                    "specifier": "./error.js",
+                    "kind": "runtime",
+                    "resolved": "packages/base/src/lib/utils/error.ts",
+                    "edge": "import"
+                  }
+                ],
+                "manualReview": "inherited exact complete-body chain725→523→d00; no fresh complete local body reading claimed",
+                "originalSources": [
+                  "packages/utils/src/useControlled.ts"
+                ],
+                "identityCrossChecks": {
+                  "renderer": {
+                    "priorHead": "c91867591fd77122c75020a420db0466f5449265",
+                    "currentExactWholeBytes": true,
+                    "priorSha256": "f74b9a8aa08b323835613037c871a6b85c938555c788c0a8ff51825c1863fd35",
+                    "report": "/tmp/use-render-fresh-c918675-review.md",
+                    "reportSha256": "b7a986d953e8c0129a055e1b49cdab9b94cf78be1ee0ff67513ab153e1e21fab"
+                  },
+                  "utilities": {
+                    "priorHead": "64662d38915f3a14260e38ed28d5e62a747ef23a",
+                    "currentExactWholeBytes": true,
+                    "priorSha256": "f74b9a8aa08b323835613037c871a6b85c938555c788c0a8ff51825c1863fd35",
+                    "report": "/tmp/shared-utils-pr46-final-64662d3-review.md",
+                    "reportSha256": "6b32ba06695a4fba8d48c0063d7af7eee9e9380cd47d8fbaca634e4c0e92c3a2"
+                  }
+                },
+                "verdict": "no-actionable-source-native-maintainability-finding",
+                "priorManualReview": "fresh-complete-local-body",
+                "priorReviewReport": "/workspace/sveltery-tmp/toggle-toolbar-source-review-725804c.md",
+                "priorAudit": "/workspace/sveltery-tmp/toggle-toolbar-source-review-725804c-audit.json",
+                "exactPriorGitBytes": true,
+                "exactFinalWorktreeBytes": true,
+                "priorGitBlob": "c639d17cd5c3fb7a6e428e90f04919e00fcf9687",
+                "finalGitBlob": "c639d17cd5c3fb7a6e428e90f04919e00fcf9687",
+                "exact523GitBytes": true,
+                "exactD00GitBytes": true,
+                "exactCurrentCheckoutBytes": true,
+                "prior523GitBlob": "c639d17cd5c3fb7a6e428e90f04919e00fcf9687",
+                "finalD00GitBlob": "c639d17cd5c3fb7a6e428e90f04919e00fcf9687",
+                "manualReviewReceiptChain": [
+                  {
+                    "head": "725804c8b5fab628156410963e6223f44dd0cc7b",
+                    "reportSha256": "0aa788ca8c35998e337e397cb5caecb62ac8071976854dfe1066a2e7d0ebc874",
+                    "scope": "fresh complete local module body manual reading"
+                  },
+                  {
+                    "head": "523f4777cd552f59b63cec8c5e67cc0712cf1464",
+                    "reportSha256": "c5ac6c74e7a23da444515aa05129a34db3ba7f6c469af4b17de2584b161429be",
+                    "scope": "exact complete-body inheritance plus fresh authored fixture delta"
+                  }
+                ]
+              },
+              "inheritanceReport": {
+                "path": "/workspace/sveltery-tmp/navigation-final-review-d00a8b0.md",
+                "sha256": "791c14cf24e57768030a036a9dca16ab6b67f48a5de62714c6d506033bd2afcc",
+                "head": "d00a8b0aca67abfdbde6ccf540131557b74e0ca3",
+                "scope": "entire unchanged local body; existing original/native/maintainability verdict and exact earlier receipt chain"
+              },
+              "exactPriorGitWholeBytes": true,
+              "verdict": "no-actionable-source-native-maintainability-finding"
+            },
+            "sameActualImportEdgesByExactPriorWholeBytes": true,
+            "authoritativeCLEARReport": "/workspace/sveltery-tmp/navigation-main-source-review-d115303.md"
+          },
+          "verdict": "CLEAR",
+          "scopeLimit": "Inherited precise complete Source/native body scope from authoritative CLEAR report, with new Menu consumer/caller boundary inspected separately. Not a fresh body reading; no acceptance from hash/graph alone.",
+          "gitIdentity": "ff42fea46f1617b9d624166002cbdc4c02ec1935:packages/base/src/lib/utils/useControlled.svelte.ts",
+          "lineCount": 140,
+          "actualImports": [
+            {
+              "from": "packages/base/src/lib/utils/useControlled.svelte.ts",
+              "specifier": "esm-env",
+              "resolved": "external:esm-env",
+              "edge": "import",
+              "kind": "runtime",
+              "names": [
+                {
+                  "imported": "DEV",
+                  "local": "DEV",
+                  "kind": "runtime"
+                }
+              ],
+              "line": 3
+            },
+            {
+              "from": "packages/base/src/lib/utils/useControlled.svelte.ts",
+              "specifier": "svelte",
+              "resolved": "external:svelte",
+              "edge": "import",
+              "kind": "runtime",
+              "names": [
+                {
+                  "imported": "untrack",
+                  "local": "untrack",
+                  "kind": "runtime"
+                }
+              ],
+              "line": 4
+            },
+            {
+              "from": "packages/base/src/lib/utils/useControlled.svelte.ts",
+              "specifier": "./error.js",
+              "resolved": "packages/base/src/lib/utils/error.ts",
+              "edge": "import",
+              "kind": "runtime",
+              "names": [
+                {
+                  "imported": "error",
+                  "local": "error",
+                  "kind": "runtime"
+                }
+              ],
+              "line": 5
+            }
+          ],
+          "entireCurrentGitAndCheckoutBytesVerified": true,
+          "freshEntireCurrentBodyRead": false,
+          "manualScope": "Inherited precise complete Source/native body scope from authoritative CLEAR report, with new Menu consumer/caller boundary inspected separately. Not a fresh body reading; no acceptance from hash/graph alone.",
+          "outsidePrDiff": true,
+          "additionalPreciseOriginalMappingsFromPriorWholeBodyReceipt": [
+            "packages/utils/src/useControlled.ts"
+          ]
+        },
+        "manualReviewKind": "precise-inherited-individually-CLEAR-complete-body",
+        "verdict": "CLEAR",
+        "inheritedReceipt": {
+          "path": "/workspace/sveltery-tmp/menu-family-review-ff42fea/audit.json",
+          "sha256": "8ff44f56702e38829ced14789487fb3f243916500442dbad0f612c0be31d61a8",
+          "head": "ff42fea46f1617b9d624166002cbdc4c02ec1935",
+          "wholeManualScopeRetainedVerbatim": true,
+          "inheritedOverallVerdict": false,
+          "moduleIndividuallyCLEAR": true,
+          "fullGitPhysicalBodyImportsMembersReachabilityExact": true
+        },
+        "lineCount": 140,
+        "currentSourceCorrespondence": [
+          {
+            "source": "packages/utils/src/useControlled.ts",
+            "sha256": "487bc45fa3ef1a70177867bb03598230f9926601aed8e3c7f46470feb225f886",
+            "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useControlled.ts",
+            "selection": "used-business-or-type-port",
+            "local": [
+              "packages/base/src/lib/utils/useControlled.svelte.ts"
+            ],
+            "localHashes": {
+              "packages/base/src/lib/utils/useControlled.svelte.ts": "f74b9a8aa08b323835613037c871a6b85c938555c788c0a8ff51825c1863fd35"
+            },
+            "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
+            "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
+          }
+        ],
+        "actualCallers": [
+          {
+            "from": "packages/base/src/lib/menu/CheckboxItem.svelte",
+            "specifier": "../utils/useControlled.svelte.js",
+            "resolved": "packages/base/src/lib/utils/useControlled.svelte.ts",
+            "edge": "import",
+            "kind": "runtime",
+            "names": [
+              {
+                "imported": "useControlled",
+                "local": "useControlled",
+                "kind": "runtime"
+              }
+            ],
+            "line": 4
+          },
+          {
+            "from": "packages/base/src/lib/menu/group/MenuGroupContext.ts",
+            "specifier": "../../utils/useControlled.svelte.js",
+            "resolved": "packages/base/src/lib/utils/useControlled.svelte.ts",
+            "edge": "import",
+            "kind": "type",
+            "names": [
+              {
+                "imported": "SetStateAction",
+                "local": "SetStateAction",
+                "kind": "type"
+              }
+            ],
+            "line": 3
+          },
+          {
+            "from": "packages/base/src/lib/menu/RadioGroup.svelte",
+            "specifier": "../utils/useControlled.svelte.js",
+            "resolved": "packages/base/src/lib/utils/useControlled.svelte.ts",
+            "edge": "import",
+            "kind": "runtime",
+            "names": [
+              {
+                "imported": "useControlled",
+                "local": "useControlled",
+                "kind": "runtime"
+              }
+            ],
+            "line": 4
+          }
+        ],
+        "supplementalFreshCallerBoundaryRead": null,
+        "manualScope": "Inherited precise complete Source/native body scope from authoritative CLEAR report, with new Menu consumer/caller boundary inspected separately. Not a fresh body reading; no acceptance from hash/graph alone.",
+        "nativeSvelteJudgment": "CLEAR inherited individual complete Source/native scope: Inherited precise complete Source/native body scope from authoritative CLEAR report, with new Menu consumer/caller boundary inspected separately. Not a fresh body reading; no acceptance from hash/graph alone. Exact current whole body, imported members/type edges and reachability preserve prior native composition; changes to repaired dependencies are evaluated in their fresh rows.",
+        "callerBoundaryJudgment": "All actual current inbound members resolve; exact unchanged module import/type/reachability/body scope inherits the individually CLEAR prior Source/native caller contract. Dependency repairs FFM/hover/native DOM lifetime are checked in fresh scopes, with the paired old blocker probes now passing. No fresh entire body reading claimed for this unchanged row.",
+        "documentationJudgment": "Current per-source records map this used module to packages/utils/src/useControlled.ts. Prior exact individual manual scope remains binding; no acceptance from filename, graph or SHA alone.",
         "freshEntireCurrentBodyAndOriginalRead": false,
         "maintainabilityJudgment": "CLEAR: CLEAR inherited individual complete Source/native scope: Inherited precise complete Source/native body scope from authoritative CLEAR report, with new Menu consumer/caller boundary inspected separately. Not a fresh body reading; no acceptance from hash/graph alone. Exact current whole body, imported members/type edges and reachability preserve prior native composition; changes to repaired dependencies are evaluated in their fresh rows.",
         "ordinaryDeclarationCredit": 0

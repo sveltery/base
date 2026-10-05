@@ -1,0 +1,111 @@
+name: NavigationMenu Source acceptance
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      webkit:
+        description: Run separate optional official WebKit evidence
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: navigation-menu-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_OPTIONS: --max-old-space-size=2048
+
+jobs:
+  navigation-menu-chromium:
+    name: NavigationMenu secured Chromium
+    runs-on: ubuntu-22.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+        with:
+          version: 12.6.0
+          run_install: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Frozen workspace install
+        run: bash scripts/bootstrap.sh
+      - name: Build library and check actual isolated public package
+        run: |
+          pnpm --filter @sveltery/base build
+          bash scripts/check-navigation-menu-package.sh
+      - name: Supplemental native DOM probes
+        run: pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/navigation-menu.test.ts
+      - name: Install official secured Chromium
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Record actual framework and secured browser versions
+        run: node scripts/navigation-menu-environment.mjs
+      - name: Actual Original React and native Svelte assertions
+        env:
+          PLAYWRIGHT_JSON_OUTPUT_NAME: .checks/navigation-menu/browser-results.json
+        run: |
+          set -o pipefail
+          mkdir -p .checks/navigation-menu
+          pnpm exec playwright test --config playwright.navigation-menu.config.ts --reporter=list,json | tee .checks/navigation-menu/browser.log
+      - name: Preserve actual paired observations and traces
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: navigation-menu-chromium-evidence
+          path: |
+            .checks/navigation-menu/
+            test-results/navigation-menu-*/
+          if-no-files-found: warn
+          retention-days: 14
+
+  navigation-menu-webkit:
+    name: Optional NavigationMenu WebKit evidence
+    if: github.event_name == 'workflow_dispatch' && inputs.webkit
+    runs-on: ubuntu-22.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+        with:
+          version: 12.6.0
+          run_install: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Frozen workspace install and library build
+        run: |
+          bash scripts/bootstrap.sh
+          pnpm --filter @sveltery/base build
+      - name: Install official optional WebKit
+        run: pnpm exec playwright install --with-deps webkit
+      - name: Execute separate optional engine observations
+        env:
+          PLAYWRIGHT_JSON_OUTPUT_NAME: .checks/navigation-menu-webkit/browser-results.json
+        run: |
+          set -o pipefail
+          mkdir -p .checks/navigation-menu-webkit
+          pnpm exec playwright test --config playwright.navigation-menu-webkit.config.ts --reporter=list,json | tee .checks/navigation-menu-webkit/browser.log
+      - name: Preserve optional WebKit observations
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: navigation-menu-webkit-evidence
+          path: |
+            .checks/navigation-menu-webkit/
+            test-results/navigation-menu-*/
+          if-no-files-found: warn
+          retention-days: 14

@@ -4,6 +4,7 @@
   import { onDestroy, untrack } from 'svelte';
   import { isHTMLElement } from '@floating-ui/utils/dom';
   import { ownerDocument } from '../utils/owner.js';
+  import { useControlled } from '../utils/useControlled.svelte.js';
   import { useIsoLayoutEffect } from '../utils/useIsoLayoutEffect.svelte.js';
   import { activeElement, contains } from '../floating-ui/utils/element.js';
   import {
@@ -56,8 +57,13 @@
   const parentRootContext = useNavigationMenuRootContext<Value>(true);
   if (!nested) provideFloatingTree();
   const nodeId = useFloatingNodeId(`${nativeId}-node`);
-  let uncontrolledValue = $state<Value | null>(untrack(() => defaultValue));
-  const value = $derived(valueParam !== undefined ? valueParam : uncontrolledValue);
+  const [getValue, setValueUnwrapped] = useControlled<Value | null>(() => ({
+    controlled: valueParam,
+    default: defaultValue,
+    name: 'NavigationMenu',
+    state: 'value',
+  }));
+  const value = $derived(getValue());
   const open = $derived(value != null);
   let closeReason = $state<NavigationMenuRootChangeEventReason | undefined>();
   let positionerElement = $state.raw<HTMLElement | null>(null);
@@ -125,7 +131,7 @@
       activationDirection = null;
       floatingRootContext = undefined;
     }
-    if (valueParam === undefined) uncontrolledValue = nextValue;
+    setValueUnwrapped(nextValue);
     if (nested && nextValue == null && eventDetails.reason === REASONS.linkPress && parentRootContext)
       parentRootContext.setValue(null, eventDetails);
   }
