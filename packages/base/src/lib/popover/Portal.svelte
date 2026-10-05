@@ -4,10 +4,19 @@
   import FloatingPortal from '../floating-ui/components/FloatingPortal.svelte';
   import { PORTAL, usePopoverRootContext } from './context.js';
   import type { PopoverPortalProps } from './types.js';
-  let { keepMounted = false, ref = $bindable(), ...portalProps }: PopoverPortalProps = $props();
+  let {
+    keepMounted = false,
+    ref = $bindable(),
+    ...portalProps
+  }: PopoverPortalProps = $props();
   const store = usePopoverRootContext();
-  setContext(PORTAL, { get keepMounted() { return keepMounted; } });
+  setContext(PORTAL, {
+    get keepMounted() {
+      return keepMounted;
+    },
+  });
 </script>
+
 {#if store.select('mounted') || keepMounted}
   <FloatingPortal {...portalProps} bind:ref />
 {/if}

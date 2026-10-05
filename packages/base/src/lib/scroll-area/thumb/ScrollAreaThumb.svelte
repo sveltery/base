@@ -1,7 +1,7 @@
 <script lang="ts">
-import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
-import { createAttachmentKey } from 'svelte/attachments';
-import { untrack } from 'svelte';
+  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+  import { untrack } from 'svelte';
 
   // Base UI1.8.0 ScrollAreaThumb.tsx source context/render composition; MIT.
   import { useScrollAreaRootContext } from '../root/ScrollAreaRootContext.js';
@@ -23,38 +23,45 @@ import { untrack } from 'svelte';
     scrolling: vertical ? root.scrollingY : root.scrollingX,
     orientation,
   });
-  
-  
-  
 
-const hostAttachmentKey = createAttachmentKey();
-function attachHost(host: HTMLElement) {
-  return untrack(() => {
-    ref = host;
-    const hostOwner1 = vertical ? root.thumbYRef : root.thumbXRef;
-    hostOwner1.current = host;
-    return () => untrack(() => {
-      if (ref === host) ref = null;
-      if (hostOwner1.current === host) hostOwner1.current = null;
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      const hostOwner1 = vertical ? root.thumbYRef : root.thumbXRef;
+      hostOwner1.current = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (hostOwner1.current === host) hostOwner1.current = null;
+        });
     });
-  });
-}
-const mergedProps = $derived({ ...mergeComponentProps(state, { class: classProp, style: style }, [
-      {
-        onpointerdown: root.handlePointerDown,
-        onpointermove: root.handlePointerMove,
-        onpointerup: root.handlePointerUp,
-        onpointercancel: root.handlePointerUp,
-        style: {
-          visibility: root.hasMeasuredScrollbar ? undefined : 'hidden',
-          ...(vertical
-            ? { height: 'var(--scroll-area-thumb-height)' }
-            : { width: 'var(--scroll-area-thumb-width)' }),
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      state,
+      { class: classProp, style: style },
+      [
+        {
+          onpointerdown: root.handlePointerDown,
+          onpointermove: root.handlePointerMove,
+          onpointerup: root.handlePointerUp,
+          onpointercancel: root.handlePointerUp,
+          style: {
+            visibility: root.hasMeasuredScrollbar ? undefined : 'hidden',
+            ...(vertical
+              ? { height: 'var(--scroll-area-thumb-height)' }
+              : { width: 'var(--scroll-area-thumb-width)' }),
+          },
         },
-      },
-      elementProps,
-    ], undefined), [hostAttachmentKey]: attachHost });
+        elementProps,
+      ],
+      undefined,
+    ),
+    [hostAttachmentKey]: attachHost,
+  });
 </script>
+
 {#if render}
   {@render render(mergedProps, state, children)}
 {:else}

@@ -1,6 +1,6 @@
 <script lang="ts">
-import { mergeComponentProps } from '../internals/mergeComponentProps.js';
-import { createAttachmentKey } from 'svelte/attachments';
+  import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
 
   // Ported from Base UI v1.8.0 AvatarImage.tsx.
   // Pin 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: parity/avatar/UPSTREAM_LICENSE.
@@ -12,14 +12,36 @@ import { createAttachmentKey } from 'svelte/attachments';
   import { getAvatarContext } from './context.js';
   import { useImageLoadingStatus } from './useImageLoadingStatus.svelte.js';
   import { avatarStateAttributesMapping } from './stateAttributesMapping.js';
-  import type { AvatarImageProps, AvatarImageState, ImageLoadingStatus } from './types.js';
+  import type {
+    AvatarImageProps,
+    AvatarImageState,
+    ImageLoadingStatus,
+  } from './types.js';
 
-  let { children, render, keepMounted = false, onLoadingStatusChange, class: classProp, style,
-    ref = $bindable(), sizes, srcset, src, ...elementProps }: AvatarImageProps = $props();
+  let {
+    children,
+    render,
+    keepMounted = false,
+    onLoadingStatusChange,
+    class: classProp,
+    style,
+    ref = $bindable(),
+    sizes,
+    srcset,
+    src,
+    ...elementProps
+  }: AvatarImageProps = $props();
   const root = getAvatarContext();
-  const loading = useImageLoadingStatus(() => src, () => ({
-    referrerpolicy: elementProps.referrerpolicy, crossorigin: elementProps.crossorigin, sizes, srcset,
-  }), () => !keepMounted);
+  const loading = useImageLoadingStatus(
+    () => src,
+    () => ({
+      referrerpolicy: elementProps.referrerpolicy,
+      crossorigin: elementProps.crossorigin,
+      sizes,
+      srcset,
+    }),
+    () => !keepMounted,
+  );
   const imageLoadingStatus = $derived(loading.loadingStatus);
   const isVisible = $derived(imageLoadingStatus === 'loaded');
   const transition = useTransitionStatus(() => isVisible);
@@ -30,14 +52,22 @@ import { createAttachmentKey } from 'svelte/attachments';
   // snippets retain the status reported by their forwarded load/error events.
   $effect(() => {
     if (!keepMounted) return;
-    void src; void srcset; void sizes; void elementProps.crossorigin; void elementProps.referrerpolicy; void render;
+    void src;
+    void srcset;
+    void sizes;
+    void elementProps.crossorigin;
+    void elementProps.referrerpolicy;
+    void render;
     const isInitialCommit = initialCommit;
     initialCommit = false;
     const image = imageRef.current as HTMLImageElement | null;
     if (!image) return;
     function resolve(initial: boolean) {
       if (!image) return;
-      if (!image.complete) { loading.setLoadingStatus('loading'); return; }
+      if (!image.complete) {
+        loading.setLoadingStatus('loading');
+        return;
+      }
       const status = image.naturalWidth > 0 ? 'loaded' : 'error';
       loading.setLoadingStatus(status);
       // The complete first-commit image was already painted before hydration.
@@ -49,35 +79,63 @@ import { createAttachmentKey } from 'svelte/attachments';
     const Observer = image.ownerDocument.defaultView?.MutationObserver;
     if (!Observer) return;
     const observer = new Observer(() => resolve(false));
-    observer.observe(image, { attributes: true, attributeFilter: ['src', 'srcset', 'sizes', 'crossorigin', 'referrerpolicy'] });
+    observer.observe(image, {
+      attributes: true,
+      attributeFilter: [
+        'src',
+        'srcset',
+        'sizes',
+        'crossorigin',
+        'referrerpolicy',
+      ],
+    });
     return () => observer.disconnect();
   });
 
-  const renderedStatusProps = $derived(keepMounted ? {
-    'data-loading': imageLoadingStatus === 'loading' ? '' : undefined,
-    'data-error': imageLoadingStatus === 'error' ? '' : undefined,
-    'aria-hidden': imageLoadingStatus !== 'loaded' || undefined,
-    onload() { loading.setLoadingStatus('loaded'); },
-    onerror() { loading.setLoadingStatus('error'); },
-  } : undefined);
+  const renderedStatusProps = $derived(
+    keepMounted
+      ? {
+          'data-loading': imageLoadingStatus === 'loading' ? '' : undefined,
+          'data-error': imageLoadingStatus === 'error' ? '' : undefined,
+          'aria-hidden': imageLoadingStatus !== 'loaded' || undefined,
+          onload() {
+            loading.setLoadingStatus('loaded');
+          },
+          onerror() {
+            loading.setLoadingStatus('error');
+          },
+        }
+      : undefined,
+  );
   const handleLoadingStatusChange = (status: ImageLoadingStatus) => {
     untrack(() => onLoadingStatusChange?.(status));
     root.setImageLoadingStatus(status);
   };
   $effect.pre(() => {
-    if (imageLoadingStatus !== 'idle') handleLoadingStatusChange(imageLoadingStatus);
+    if (imageLoadingStatus !== 'idle')
+      handleLoadingStatusChange(imageLoadingStatus);
   });
   $effect(() => () => root.setImageLoadingStatus('idle'));
 
   useOpenChangeComplete({
-    get enabled() { return !isVisible; },
-    get open() { return isVisible; },
-    
-    onComplete() { if (!isVisible) transition.setMounted(false); },
+    ref: imageRef,
+    get enabled() {
+      return !isVisible;
+    },
+    get open() {
+      return isVisible;
+    },
+
+    onComplete() {
+      if (!isVisible) transition.setMounted(false);
+    },
   });
   const partState: AvatarImageState = $derived({
     imageLoadingStatus,
-    transitionStatus: keepMounted && transition.transitionStatus === 'ending' ? undefined : transition.transitionStatus,
+    transitionStatus:
+      keepMounted && transition.transitionStatus === 'ending'
+        ? undefined
+        : transition.transitionStatus,
   });
   const shouldRender = $derived(keepMounted || transition.mounted);
   const sourceProps = $derived.by(() => {
@@ -87,28 +145,39 @@ import { createAttachmentKey } from 'svelte/attachments';
     if (src !== undefined) source.src = src;
     return source;
   });
-  const stateAttributesMapping = { ...avatarStateAttributesMapping, ...transitionStatusMapping };
-  
-  
+  const stateAttributesMapping = {
+    ...avatarStateAttributesMapping,
+    ...transitionStatusMapping,
+  };
 
-const hostAttachmentKey = createAttachmentKey();
-function attachHost(host: HTMLElement) {
-  return untrack(() => {
-    ref = host;
-    imageRef.current = host;
-    return () => untrack(() => {
-      if (ref === host) ref = null;
-      if (imageRef.current === host) imageRef.current = null;
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      imageRef.current = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (imageRef.current === host) imageRef.current = null;
+        });
     });
+  }
+  const renderEnabled = $derived(shouldRender);
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      partState,
+      { class: classProp, style: style },
+      [renderedStatusProps, elementProps, sourceProps],
+      stateAttributesMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
   });
-}
-const renderEnabled = $derived(shouldRender);
-const mergedProps = $derived({ ...mergeComponentProps(partState, { class: classProp, style: style }, [renderedStatusProps, elementProps, sourceProps], stateAttributesMapping), [hostAttachmentKey]: attachHost });
 </script>
+
 {#if renderEnabled}
-{#if render}
-  {@render render(mergedProps, partState, children)}
-{:else}
-  <img {...mergedProps} />
-{/if}
+  {#if render}
+    {@render render(mergedProps, partState, children)}
+  {:else}
+    <img {...mergedProps} />
+  {/if}
 {/if}

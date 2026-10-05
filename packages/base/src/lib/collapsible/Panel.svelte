@@ -1,6 +1,6 @@
 <script lang="ts">
-import { mergeComponentProps } from '../internals/mergeComponentProps.js';
-import { createAttachmentKey } from 'svelte/attachments';
+  import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
 
   // Adapted from mui/base-ui v1.8.0 CollapsiblePanel/useCollapsiblePanel,
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
@@ -8,10 +8,32 @@ import { createAttachmentKey } from 'svelte/attachments';
   import { resolveClassValue } from '../internals/resolveClassValue.js';
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { getCollapsibleContext } from './context.js';
-  import { afterAnimations, getAnimationType, getDimensions, requestFrame, resetLayoutStyles, setTemporaryStyle, warnOnce, type AnimationType } from './animations.js';
-  import type { CollapsiblePanelProps, CollapsiblePanelState } from './types.js';
+  import {
+    afterAnimations,
+    getAnimationType,
+    getDimensions,
+    requestFrame,
+    resetLayoutStyles,
+    setTemporaryStyle,
+    warnOnce,
+    type AnimationType,
+  } from './animations.js';
+  import type {
+    CollapsiblePanelProps,
+    CollapsiblePanelState,
+  } from './types.js';
 
-  let { children, render, hiddenUntilFound = false, keepMounted: keepMountedProp, id: idProp, class: classProp, style: styleProp, ref = $bindable(), ...props }: CollapsiblePanelProps = $props();
+  let {
+    children,
+    render,
+    hiddenUntilFound = false,
+    keepMounted: keepMountedProp,
+    id: idProp,
+    class: classProp,
+    style: styleProp,
+    ref = $bindable(),
+    ...props
+  }: CollapsiblePanelProps = $props();
   const context = getCollapsibleContext();
   const keepMounted = $derived(keepMountedProp ?? false);
   const registeredId = $derived(idProp || undefined);
@@ -28,11 +50,28 @@ import { createAttachmentKey } from 'svelte/attachments';
   let pendingTemporaryStyleRestore: (() => void) | undefined;
 
   const hidden = $derived(!context.open && !context.mounted);
-  const panelTransitionStatus = $derived(forcePanelIdle ? 'idle' : context.transitionStatus);
-  const shouldPreventOpenAnimation = $derived(context.open && shouldPreventMountAnimation);
-  const renderedDimensions = $derived(!context.open && context.mounted && animationType === 'css-animation' && dimensions.height === undefined && dimensions.width === undefined ? lastMeasuredDimensions : dimensions);
-  const panelState: CollapsiblePanelState = $derived({ ...context.state, transitionStatus: panelTransitionStatus });
-  const shouldRender = $derived(keepMounted || hiddenUntilFound || context.mounted || context.open);
+  const panelTransitionStatus = $derived(
+    forcePanelIdle ? 'idle' : context.transitionStatus,
+  );
+  const shouldPreventOpenAnimation = $derived(
+    context.open && shouldPreventMountAnimation,
+  );
+  const renderedDimensions = $derived(
+    !context.open &&
+      context.mounted &&
+      animationType === 'css-animation' &&
+      dimensions.height === undefined &&
+      dimensions.width === undefined
+      ? lastMeasuredDimensions
+      : dimensions,
+  );
+  const panelState: CollapsiblePanelState = $derived({
+    ...context.state,
+    transitionStatus: panelTransitionStatus,
+  });
+  const shouldRender = $derived(
+    keepMounted || hiddenUntilFound || context.mounted || context.open,
+  );
 
   function setDimensions(next: Dimensions, cache = true) {
     if (cache) lastMeasuredDimensions = next;
@@ -61,41 +100,69 @@ import { createAttachmentKey } from 'svelte/attachments';
   const internal = $derived({
     // SSR retains the source boolean attribute; the attached client host can
     // express the browser's native string without React's coercion workaround.
-    id, hidden: hidden && hiddenUntilFound && node ? 'until-found' : hidden,
+    id,
+    hidden: hidden && hiddenUntilFound && node ? 'until-found' : hidden,
     'data-open': context.open ? '' : undefined,
     'data-closed': context.open ? undefined : '',
     'data-disabled': context.disabled ? '' : undefined,
-    'data-starting-style': panelTransitionStatus === 'starting' || (hiddenUntilFound && hidden && animationType !== 'css-animation') ? '' : undefined,
+    'data-starting-style':
+      panelTransitionStatus === 'starting' ||
+      (hiddenUntilFound && hidden && animationType !== 'css-animation')
+        ? ''
+        : undefined,
     'data-ending-style': panelTransitionStatus === 'ending' ? '' : undefined,
     style: {
-      '--collapsible-panel-height': renderedDimensions.height === undefined ? 'auto' : `${renderedDimensions.height}px`,
-      '--collapsible-panel-width': renderedDimensions.width === undefined ? 'auto' : `${renderedDimensions.width}px`,
+      '--collapsible-panel-height':
+        renderedDimensions.height === undefined
+          ? 'auto'
+          : `${renderedDimensions.height}px`,
+      '--collapsible-panel-width':
+        renderedDimensions.width === undefined
+          ? 'auto'
+          : `${renderedDimensions.width}px`,
     },
   });
   const resolved = $derived.by(() => {
-    const authoredStyle = typeof styleProp === 'function' ? styleProp(panelState) : styleProp;
-    const classValue = typeof classProp === 'function' ? classProp(panelState) : classProp;
+    const authoredStyle =
+      typeof styleProp === 'function' ? styleProp(panelState) : styleProp;
+    const classValue =
+      typeof classProp === 'function' ? classProp(panelState) : classProp;
     return {
       ...props,
-      class: classValue === undefined ? undefined : resolveClassValue(classValue),
-      style: shouldPreventOpenAnimation ? `${authoredStyle ?? ''};animation-name:none` : authoredStyle,
+      class:
+        classValue === undefined ? undefined : resolveClassValue(classValue),
+      style: shouldPreventOpenAnimation
+        ? `${authoredStyle ?? ''};animation-name:none`
+        : authoredStyle,
     };
   });
 
   $effect(() => {
     if (hiddenUntilFound && keepMountedProp === false) {
-      warnOnce('The `keepMounted={false}` prop on `Collapsible.Panel` is ignored when `hiddenUntilFound` is enabled, since the panel must remain mounted while closed.');
+      warnOnce(
+        'The `keepMounted={false}` prop on `Collapsible.Panel` is ignored when `hiddenUntilFound` is enabled, since the panel must remain mounted while closed.',
+      );
     }
   });
 
   $effect(() => {
     const registered = registeredId;
-    untrack(() => context.setPanelIdState(current => registered ?? (current === null ? undefined : current)));
-    return () => untrack(() => context.setPanelIdState(current => current === registered ? null : current));
+    untrack(() =>
+      context.setPanelIdState(
+        (current) => registered ?? (current === null ? undefined : current),
+      ),
+    );
+    return () =>
+      untrack(() =>
+        context.setPanelIdState((current) =>
+          current === registered ? null : current,
+        ),
+      );
   });
 
   $effect(() => {
-    if (forcePanelIdle && context.transitionStatus !== 'starting') forcePanelIdle = false;
+    if (forcePanelIdle && context.transitionStatus !== 'starting')
+      forcePanelIdle = false;
   });
 
   // This effect runs after the corresponding DOM commit, while close's ending
@@ -113,7 +180,12 @@ import { createAttachmentKey } from 'svelte/attachments';
       if (!open) restorePendingTemporaryStyle();
       const mode = getAnimationType(panel, preventOpenAnimation);
       animationType = mode;
-      if (open && status === 'idle' && shouldPreventMountAnimation && mode === 'css-animation') {
+      if (
+        open &&
+        status === 'idle' &&
+        shouldPreventMountAnimation &&
+        mode === 'css-animation'
+      ) {
         lastMeasuredDimensions = getDimensions(panel);
         return;
       }
@@ -129,7 +201,9 @@ import { createAttachmentKey } from 'svelte/attachments';
           const restoreLayout = resetLayoutStyles(panel);
           setDimensions(getDimensions(panel));
           if (skipOpen) {
-            setPendingTemporaryStyleRestore(setTemporaryStyle(panel, 'transition-duration', '0s'));
+            setPendingTemporaryStyleRestore(
+              setTemporaryStyle(panel, 'transition-duration', '0s'),
+            );
             forcePanelIdle = true;
           }
           return restoreLayout;
@@ -140,7 +214,11 @@ import { createAttachmentKey } from 'svelte/attachments';
           restoreName();
           return;
         }
-        const restoreDuration = setTemporaryStyle(panel, 'animation-duration', '0s');
+        const restoreDuration = setTemporaryStyle(
+          panel,
+          'animation-duration',
+          '0s',
+        );
         restoreName();
         setPendingTemporaryStyleRestore(restoreDuration);
         forcePanelIdle = true;
@@ -167,35 +245,65 @@ import { createAttachmentKey } from 'svelte/attachments';
         return;
       }
       setDimensions(next);
-      if (mode === 'css-animation') setTemporaryStyle(panel, 'animation-name', 'none')();
+      if (mode === 'css-animation')
+        setTemporaryStyle(panel, 'animation-name', 'none')();
     });
   });
 
   $effect(() => {
     const panel = node;
-    if (!panel || !context.open || !context.mounted || panelTransitionStatus !== 'idle') return;
-    return untrack(() => afterAnimations(panel, () => {
-      // An animation microtask can run after close's commit but before cleanup.
-      if (node === panel && context.open) setDimensions(emptyDimensions, false);
-    }, true));
+    if (
+      !panel ||
+      !context.open ||
+      !context.mounted ||
+      panelTransitionStatus !== 'idle'
+    )
+      return;
+    return untrack(() =>
+      afterAnimations(
+        panel,
+        () => {
+          // An animation microtask can run after close's commit but before cleanup.
+          if (node === panel && context.open)
+            setDimensions(emptyDimensions, false);
+        },
+        true,
+      ),
+    );
   });
 
   $effect(() => {
     const panel = node;
-    if (!panel || context.open || !context.mounted || panelTransitionStatus !== 'ending') return;
+    if (
+      !panel ||
+      context.open ||
+      !context.mounted ||
+      panelTransitionStatus !== 'ending'
+    )
+      return;
     const abortController = new AbortController();
     let stopObserving: (() => void) | undefined;
     // The ending attribute is committed now. Give Chrome one additional frame
     // to register a transition before the animation helper's observation frame.
     const cancelEndingFrame = requestFrame(panel, () => {
       if (abortController.signal.aborted) return;
-      stopObserving = afterAnimations(panel, () => {
-        if (abortController.signal.aborted || node !== panel || context.open) return;
-        context.setMounted(false);
-        setDimensions(emptyDimensions, false);
-      }, false, abortController.signal);
+      stopObserving = afterAnimations(
+        panel,
+        () => {
+          if (abortController.signal.aborted || node !== panel || context.open)
+            return;
+          context.setMounted(false);
+          setDimensions(emptyDimensions, false);
+        },
+        false,
+        abortController.signal,
+      );
     });
-    return () => { cancelEndingFrame(); abortController.abort(); stopObserving?.(); };
+    return () => {
+      cancelEndingFrame();
+      abortController.abort();
+      stopObserving?.();
+    };
   });
 
   $effect(() => {
@@ -205,9 +313,12 @@ import { createAttachmentKey } from 'svelte/attachments';
     // Svelte supports the string directly. The post-commit restoration also
     // retains the source's forced-until-found behavior over consumer overrides.
     void tick().then(() => {
-      if (!canceled && node === panel && hiddenUntilFound && hidden) panel.setAttribute('hidden', 'until-found');
+      if (!canceled && node === panel && hiddenUntilFound && hidden)
+        panel.setAttribute('hidden', 'until-found');
     });
-    return () => { canceled = true; };
+    return () => {
+      canceled = true;
+    };
   });
 
   // The source subscribes on the component effect lifetime, rather than the
@@ -228,29 +339,36 @@ import { createAttachmentKey } from 'svelte/attachments';
     return () => panel.removeEventListener('beforematch', beforeMatch);
   });
 
-
-
-const hostAttachmentKey = createAttachmentKey();
-function attachHost(host: HTMLElement) {
-  return untrack(() => {
-    ref = host;
-    const disposeHost = (attach)(host);
-    return () => untrack(() => {
-      if (ref === host) ref = null;
-      disposeHost?.();
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      const disposeHost = attach(host);
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          disposeHost?.();
+        });
     });
+  }
+  const mergedProps = $derived.by(() => {
+    const { class: className, style, ...attributes } = resolved;
+    return {
+      ...mergeComponentProps(
+        panelState,
+        { class: className, style },
+        [internal, attributes],
+        false,
+      ),
+      [hostAttachmentKey]: attachHost,
+    };
   });
-}
-const mergedProps = $derived.by(() => {
-  const { class: className, style, ...attributes } = resolved;
-  return { ...mergeComponentProps(panelState, { class: className, style }, [internal, attributes], false), [hostAttachmentKey]: attachHost };
-});
 </script>
 
 {#if shouldRender}
   {#if render}
-  {@render render(mergedProps, panelState, children)}
-{:else}
-  <div {...mergedProps}>{@render children?.()}</div>
-{/if}
+    {@render render(mergedProps, panelState, children)}
+  {:else}
+    <div {...mergedProps}>{@render children?.()}</div>
+  {/if}
 {/if}

@@ -26,20 +26,23 @@ export function useCompositeListItem(
   });
   function attach(node: HTMLElement) {
     const currentRegistration = registration;
-    component = node;
-    register(node, currentRegistration);
-    return () => {
-      unregister(node);
-      if (component === node) component = null;
-    };
+    return untrack(() => {
+      component = node;
+      register(node, currentRegistration);
+      return () =>
+        untrack(() => {
+          unregister(node);
+          if (component === node) component = null;
+        });
+    });
   }
   $effect(() => {
-      if (getParameters().index != null) return;
-      return subscribeMapChange((map) => {
-        const next = component ? map.get(component)?.index : null;
-        if (next != null) internalIndex = next;
-      });
+    if (getParameters().index != null) return;
+    return subscribeMapChange((map) => {
+      const next = component ? map.get(component)?.index : null;
+      if (next != null) internalIndex = next;
     });
+  });
   return {
     attach,
     index,

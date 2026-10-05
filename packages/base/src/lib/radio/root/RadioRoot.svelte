@@ -1,7 +1,7 @@
 <script lang="ts" generics="Value">
-import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
-import { createAttachmentKey } from 'svelte/attachments';
-import { untrack } from 'svelte';
+  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+  import { untrack } from 'svelte';
 
   // Source-ordered port of Base UI v1.8.0 RadioRoot.tsx at
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
@@ -69,16 +69,16 @@ import { untrack } from 'svelte';
     });
   };
   $effect(() => {
-      if (inputRef.current?.checked) field.setFilled(true);
-    });
+    if (inputRef.current?.checked) field.setFilled(true);
+  });
   $effect(() => {
-      if (!inputRef.current) return;
-      if (disabled && checked) {
-        group?.registerInputRef(null);
-        return;
-      }
-      group?.registerInputRef(inputRef.current);
-    });
+    if (!inputRef.current) return;
+    if (disabled && checked) {
+      group?.registerInputRef(null);
+      return;
+    }
+    group?.registerInputRef(inputRef.current);
+  });
   const nativeId = $props.id();
   const id = useBaseUiId(undefined, nativeId);
   const getInputId = useLabelableId(() => ({ id: idProp }), `${id}-input`);
@@ -164,7 +164,7 @@ import { untrack } from 'svelte';
     checked,
   });
   setRadioRootContext(() => rootState);
-  
+
   const rendererProps = $derived([
     rootProps,
     elementProps,
@@ -175,49 +175,77 @@ import { untrack } from 'svelte';
         ? group.validation.getValidationProps(disabled, props)
         : props,
   ]);
-  
-  
-  
 
-const hostAttachmentKeyVisible = createAttachmentKey();
-function attachHostVisible(host: HTMLElement) {
-  return untrack(() => {
-    ref = host;
-    radioRef.current = host;
-    buttonRef?.(host);
-    return () => untrack(() => {
-      if (ref === host) ref = null;
-      if (radioRef.current === host) radioRef.current = null;
-      buttonRef?.(null);
+  const hostAttachmentKeyVisible = createAttachmentKey();
+  function attachHostVisible(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      radioRef.current = host;
+      buttonRef?.(host);
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (radioRef.current === host) radioRef.current = null;
+          buttonRef?.(null);
+        });
     });
+  }
+  const mergedPropsVisible = $derived({
+    ...mergeComponentProps(
+      rootState,
+      { class: classProp, style: style },
+      rendererProps,
+      stateAttributesMapping,
+    ),
+    [hostAttachmentKeyVisible]: attachHostVisible,
   });
-}
-const mergedPropsVisible = $derived({ ...mergeComponentProps(rootState, { class: classProp, style: style }, rendererProps, stateAttributesMapping), [hostAttachmentKeyVisible]: attachHostVisible });
-const renderStateHidden = $derived({});
-const hostAttachmentKeyHidden = createAttachmentKey();
-function attachHostHidden(host: HTMLInputElement) {
-  return untrack(() => {
-    inputRefProp = host as HTMLInputElement;
-    inputRef.current = host;
-    const disposeInput2 = group?.registerInputRef(host as HTMLInputElement);
-    const disposeInput3 = registerInput(host as HTMLInputElement);
-    return () => untrack(() => {
-      if (inputRefProp === host) inputRefProp = null;
-      if (inputRef.current === host) inputRef.current = null;
-      disposeInput2?.();
-      disposeInput3?.();
+  const renderStateHidden = $derived({});
+  const hostAttachmentKeyHidden = createAttachmentKey();
+  function attachHostHidden(host: HTMLInputElement) {
+    return untrack(() => {
+      inputRefProp = host as HTMLInputElement;
+      inputRef.current = host;
+      const disposeInput2 = group?.registerInputRef(host as HTMLInputElement);
+      const disposeInput3 = registerInput(host as HTMLInputElement);
+      return () =>
+        untrack(() => {
+          if (inputRefProp === host) inputRefProp = null;
+          if (inputRef.current === host) inputRef.current = null;
+          disposeInput2?.();
+          disposeInput3?.();
+        });
     });
+  }
+  const mergedPropsHidden = $derived({
+    ...mergeComponentProps(
+      renderStateHidden,
+      { class: undefined, style: undefined },
+      inputProps,
+      undefined,
+    ),
+    [hostAttachmentKeyHidden]: attachHostHidden,
   });
-}
-const mergedPropsHidden = $derived({ ...mergeComponentProps(renderStateHidden, { class: undefined, style: undefined }, inputProps, undefined), [hostAttachmentKeyHidden]: attachHostHidden });
 </script>
+
 {#if group}
-  <CompositeItem tag="span" {render} class={classProp} {style} state={rootState} props={[...rendererProps, { [hostAttachmentKeyVisible]: attachHostVisible }]} {stateAttributesMapping} {children} />
+  <CompositeItem
+    tag="span"
+    {render}
+    class={classProp}
+    {style}
+    state={rootState}
+    props={[
+      ...rendererProps,
+      { [hostAttachmentKeyVisible]: attachHostVisible },
+    ]}
+    {stateAttributesMapping}
+    {children}
+  />
 {:else}
   {#if render}
-  {@render render(mergedPropsVisible, rootState, children)}
-{:else}
-  <span {...mergedPropsVisible}>{@render children?.()}</span>
-{/if}
+    {@render render(mergedPropsVisible, rootState, children)}
+  {:else}
+    <span {...mergedPropsVisible}>{@render children?.()}</span>
+  {/if}
 {/if}
 <input {...mergedPropsHidden} />

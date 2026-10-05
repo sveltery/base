@@ -1,6 +1,6 @@
 <script lang="ts" generics="Payload = unknown">
-import { mergeComponentProps } from '../internals/mergeComponentProps.js';
-import { createAttachmentKey } from 'svelte/attachments';
+  import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
 
   // Original Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
   import { useTooltipRootContext } from './context.js';
@@ -38,7 +38,9 @@ import { createAttachmentKey } from 'svelte/attachments';
     if (isElement(target)) return target;
     return null;
   }
-  function closestEnabledTooltipTrigger(element: Element | null): Element | null {
+  function closestEnabledTooltipTrigger(
+    element: Element | null,
+  ): Element | null {
     let current = element;
     while (current) {
       const trigger = current.closest(`[${TOOLTIP_TRIGGER_IDENTIFIER}]`);
@@ -49,31 +51,70 @@ import { createAttachmentKey } from 'svelte/attachments';
     return null;
   }
   // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
-  let { render, class: className, style, children, ref = $bindable(), handle, payload, id: idProp, disabled: disabledProp, delay, closeOnClick = true, closeDelay, ...elementProps }: TooltipTriggerProps<Payload> = $props();
+  let {
+    render,
+    class: className,
+    style,
+    children,
+    ref = $bindable(),
+    handle,
+    payload,
+    id: idProp,
+    disabled: disabledProp,
+    delay,
+    closeOnClick = true,
+    closeDelay,
+    ...elementProps
+  }: TooltipTriggerProps<Payload> = $props();
   const rootStore = useTooltipRootContext(true);
   const handleStore = usePopupHandleStore(() => handle);
   const store: TooltipHandleStore<unknown> = $derived.by(() => {
     const value = handleStore.store ?? rootStore;
-    if (!value) throw new Error('Base UI: <Tooltip.Trigger> must be either used within a <Tooltip.Root> component or provided with a handle.');
+    if (!value)
+      throw new Error(
+        'Base UI: <Tooltip.Trigger> must be either used within a <Tooltip.Root> component or provided with a handle.',
+      );
     return value;
   });
   const generatedId = $props.id();
   const thisTriggerId = $derived(useBaseUiId(idProp ?? undefined, generatedId));
-  const isTriggerActive = $derived(store.select('isTriggerActive', thisTriggerId));
-  const isOpenedByThisTrigger = $derived(store.select('isOpenedByTrigger', thisTriggerId));
+  const isTriggerActive = $derived(
+    store.select('isTriggerActive', thisTriggerId),
+  );
+  const isOpenedByThisTrigger = $derived(
+    store.select('isOpenedByTrigger', thisTriggerId),
+  );
   const floatingRootContext = $derived(store.select('floatingRootContext'));
   const triggerElementRef = { current: null as HTMLElement | null };
   const closeDelayWithDefault = $derived(closeDelay ?? 0);
-  const forwarding = useTriggerDataForwarding(() => thisTriggerId, triggerElementRef, () => store, () => ({ payload, closeOnClick, closeDelay: closeDelayWithDefault }));
+  const forwarding = useTriggerDataForwarding(
+    () => thisTriggerId,
+    triggerElementRef,
+    () => store,
+    () => ({ payload, closeOnClick, closeDelay: closeDelayWithDefault }),
+  );
   const providerContext = useTooltipProviderContext();
-  const delayGroup = useDelayGroup(() => floatingRootContext, () => ({ open: isOpenedByThisTrigger }));
-  const getHoverInteraction = useHoverInteractionSharedState(() => floatingRootContext);
+  const delayGroup = useDelayGroup(
+    () => floatingRootContext,
+    () => ({ open: isOpenedByThisTrigger }),
+  );
+  const getHoverInteraction = useHoverInteractionSharedState(
+    () => floatingRootContext,
+  );
   const hoverInteraction = $derived(getHoverInteraction());
   // The handle-backed Store pointer may migrate after mount. Native synchronization reads its current owner.
-  $effect(() => { const currentStore = store; const instantPhase = delayGroup.isInstantPhase; untrack(() => currentStore.set('isInstantPhase', instantPhase)); });
+  $effect(() => {
+    const currentStore = store;
+    const instantPhase = delayGroup.isInstantPhase;
+    untrack(() => currentStore.set('isInstantPhase', instantPhase));
+  });
   const rootDisabled = $derived(store.select('disabled'));
   const disabled = $derived(disabledProp ?? rootDisabled);
-  const disabledRef = { get current() { return disabled; } };
+  const disabledRef = {
+    get current() {
+      return disabled;
+    },
+  };
   const trackCursorAxis = $derived(store.select('trackCursorAxis'));
   const disableHoverablePopup = $derived(store.select('disableHoverablePopup'));
   const isNestedTriggerHoveredRef = { current: false };
@@ -96,7 +137,9 @@ import { createAttachmentKey } from 'svelte/attachments';
 
     const nearestTrigger = closestEnabledTooltipTrigger(target);
     return (
-      nearestTrigger !== null && nearestTrigger !== triggerEl && contains(triggerEl, nearestTrigger)
+      nearestTrigger !== null &&
+      nearestTrigger !== triggerEl &&
+      contains(triggerEl, nearestTrigger)
     );
   }
 
@@ -113,34 +156,44 @@ import { createAttachmentKey } from 'svelte/attachments';
     return nestedTriggerHovered;
   }
 
-  const hoverProps = useHoverReferenceInteraction(() => floatingRootContext, () => ({
-    enabled: !disabled,
-    mouseOnly: true,
-    move: false,
-    handleClose: !disableHoverablePopup && trackCursorAxis !== 'both' ? safePolygon() : null,
-    restMs: getOpenDelay,
-    delay() {
-      if (closeDelay == null && delayGroup.hasProvider) {
-        return { close: getDelay(delayGroup.delayRef.current, 'close') };
-      }
-      return { close: closeDelayWithDefault };
-    },
-    triggerElementRef,
-    isActiveTrigger: isTriggerActive,
-    isClosing: () => store.select('transitionStatus') === 'ending',
-    shouldOpen() {
-      return !isNestedTriggerHoveredRef.current;
-    },
-  }));
+  const hoverProps = useHoverReferenceInteraction(
+    () => floatingRootContext,
+    () => ({
+      enabled: !disabled,
+      mouseOnly: true,
+      move: false,
+      handleClose:
+        !disableHoverablePopup && trackCursorAxis !== 'both'
+          ? safePolygon()
+          : null,
+      restMs: getOpenDelay,
+      delay() {
+        if (closeDelay == null && delayGroup.hasProvider) {
+          return { close: getDelay(delayGroup.delayRef.current, 'close') };
+        }
+        return { close: closeDelayWithDefault };
+      },
+      triggerElementRef,
+      isActiveTrigger: isTriggerActive,
+      isClosing: () => store.select('transitionStatus') === 'ending',
+      shouldOpen() {
+        return !isNestedTriggerHoveredRef.current;
+      },
+    }),
+  );
 
-  const focus = useFocus(() => floatingRootContext, () => ({ enabled: !disabled }));
+  const focus = useFocus(
+    () => floatingRootContext,
+    () => ({ enabled: !disabled }),
+  );
 
   const handleNestedTriggerHover = (event: MouseEvent) => {
     const wasNestedTriggerHovered = isNestedTriggerHoveredRef.current;
     const target = getTargetElement(event);
     const nestedTriggerHovered = detectNestedTriggerHover(target);
     const triggerEl = triggerElementRef.current as HTMLElement | null;
-    const targetInsideTrigger = triggerEl && target && contains(triggerEl, target);
+    const targetInsideTrigger =
+      triggerEl && target && contains(triggerEl, target);
 
     // Only close hover-opened parents. Focus/click-like opens remain owned by
     // their original interaction and should not be clobbered by nested hover.
@@ -149,7 +202,10 @@ import { createAttachmentKey } from 'svelte/attachments';
       store.select('open') &&
       store.select('lastOpenChangeReason') === REASONS.triggerHover
     ) {
-      store.setOpen(false, createChangeEventDetails(REASONS.triggerHover, event));
+      store.setOpen(
+        false,
+        createChangeEventDetails(REASONS.triggerHover, event),
+      );
       return;
     }
 
@@ -164,8 +220,15 @@ import { createAttachmentKey } from 'svelte/attachments';
       isMouseLikePointerType(pointerTypeRef.current)
     ) {
       const open = () => {
-        if (!isNestedTriggerHoveredRef.current && !disabledRef.current && !store.select('open')) {
-          store.setOpen(true, createChangeEventDetails(REASONS.triggerHover, event, triggerEl));
+        if (
+          !isNestedTriggerHoveredRef.current &&
+          !disabledRef.current &&
+          !store.select('open')
+        ) {
+          store.setOpen(
+            true,
+            createChangeEventDetails(REASONS.triggerHover, event, triggerEl),
+          );
         }
       };
 
@@ -183,46 +246,75 @@ import { createAttachmentKey } from 'svelte/attachments';
     }
   };
 
-  const shouldApplyRootTriggerProps = $derived(forwarding.isMountedByThisTrigger || trackCursorAxis !== 'none');
+  const shouldApplyRootTriggerProps = $derived(
+    forwarding.isMountedByThisTrigger || trackCursorAxis !== 'none',
+  );
   const state = $derived({ open: isOpenedByThisTrigger });
-  const rootTriggerProps = $derived(store.select('triggerProps', forwarding.isMountedByThisTrigger));
-  
+  const rootTriggerProps = $derived(
+    store.select('triggerProps', forwarding.isMountedByThisTrigger),
+  );
 
-const hostAttachmentKey = createAttachmentKey();
-function attachHost(host: HTMLElement) {
-  return untrack(() => {
-    ref = host;
-    forwarding.registerTrigger?.(host);
-    triggerElementRef.current = host;
-    return () => untrack(() => {
-      if (ref === host) ref = null;
-      forwarding.registerTrigger?.(null);
-      if (triggerElementRef.current === host) triggerElementRef.current = null;
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      forwarding.registerTrigger?.(host);
+      triggerElementRef.current = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          forwarding.registerTrigger?.(null);
+          if (triggerElementRef.current === host)
+            triggerElementRef.current = null;
+        });
     });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      state,
+      { class: className, style: style },
+      [
+        hoverProps(),
+        focus.reference,
+        shouldApplyRootTriggerProps ? rootTriggerProps : undefined,
+        {
+          onmouseover(event: MouseEvent) {
+            handleNestedTriggerHover(event);
+          },
+          onfocusin(event: FocusEvent & { preventBaseUIHandler(): void }) {
+            if (isEnabledNestedTriggerTarget(getTargetElement(event)))
+              event.preventBaseUIHandler();
+          },
+          onmouseleave() {
+            isNestedTriggerHoveredRef.current = false;
+            nestedTriggerOpenTimeout.clear();
+            pointerTypeRef.current = undefined;
+          },
+          onpointerenter(event: PointerEvent) {
+            pointerTypeRef.current = event.pointerType;
+          },
+          onpointerdown(event: PointerEvent) {
+            pointerTypeRef.current = event.pointerType;
+            store.set('closeOnClick', closeOnClick);
+            if (closeOnClick && !store.select('open'))
+              store.cancelPendingOpen(event);
+          },
+          onclick(event: MouseEvent) {
+            if (closeOnClick && !store.select('open'))
+              store.cancelPendingOpen(event);
+          },
+          id: thisTriggerId,
+          'data-trigger-disabled': disabled ? '' : undefined,
+          [TOOLTIP_TRIGGER_IDENTIFIER]: disabled ? undefined : '',
+        },
+        elementProps,
+      ],
+      triggerOpenStateMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
   });
-}
-const mergedProps = $derived({ ...mergeComponentProps(state, { class: className, style: style }, [
-    hoverProps(), focus.reference, shouldApplyRootTriggerProps ? rootTriggerProps : undefined,
-    {
-      onmouseover(event: MouseEvent) { handleNestedTriggerHover(event); },
-      onfocusin(event: FocusEvent & { preventBaseUIHandler(): void }) {
-        if (isEnabledNestedTriggerTarget(getTargetElement(event))) event.preventBaseUIHandler();
-      },
-      onmouseleave() { isNestedTriggerHoveredRef.current = false; nestedTriggerOpenTimeout.clear(); pointerTypeRef.current = undefined; },
-      onpointerenter(event: PointerEvent) { pointerTypeRef.current = event.pointerType; },
-      onpointerdown(event: PointerEvent) {
-        pointerTypeRef.current = event.pointerType;
-        store.set('closeOnClick', closeOnClick);
-        if (closeOnClick && !store.select('open')) store.cancelPendingOpen(event);
-      },
-      onclick(event: MouseEvent) { if (closeOnClick && !store.select('open')) store.cancelPendingOpen(event); },
-      id: thisTriggerId,
-      'data-trigger-disabled': disabled ? '' : undefined,
-      [TOOLTIP_TRIGGER_IDENTIFIER]: disabled ? undefined : '',
-    },
-    elementProps,
-  ], triggerOpenStateMapping), [hostAttachmentKey]: attachHost });
 </script>
+
 {#if render}
   {@render render(mergedProps, state, children)}
 {:else}

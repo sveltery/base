@@ -1,6 +1,6 @@
 <script lang="ts">
-import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
-import { createAttachmentKey } from 'svelte/attachments';
+  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
 
   // Base UI1.8.0 ScrollAreaContent.tsx source observer composition; MIT.
   import { untrack } from 'svelte';
@@ -36,26 +36,34 @@ import { createAttachmentKey } from 'svelte/attachments';
     if (content) resizeObserver.observe(content);
     return () => resizeObserver.disconnect();
   });
-  
-  
-  
 
-const hostAttachmentKey = createAttachmentKey();
-function attachHost(host: HTMLElement) {
-  return untrack(() => {
-    ref = host;
-    contentWrapperRef.current = host;
-    return () => untrack(() => {
-      if (ref === host) ref = null;
-      if (contentWrapperRef.current === host) contentWrapperRef.current = null;
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      contentWrapperRef.current = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (contentWrapperRef.current === host)
+            contentWrapperRef.current = null;
+        });
     });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      root.viewportState,
+      { class: classProp, style: style },
+      [
+        { role: 'presentation', style: { minWidth: 'fit-content' } },
+        elementProps,
+      ],
+      scrollAreaStateAttributesMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
   });
-}
-const mergedProps = $derived({ ...mergeComponentProps(root.viewportState, { class: classProp, style: style }, [
-      { role: 'presentation', style: { minWidth: 'fit-content' } },
-      elementProps,
-    ], scrollAreaStateAttributesMapping), [hostAttachmentKey]: attachHost });
 </script>
+
 {#if render}
   {@render render(mergedProps, root.viewportState, children)}
 {:else}

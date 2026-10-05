@@ -1,7 +1,7 @@
 <script lang="ts">
-import { mergeComponentProps } from '../internals/mergeComponentProps.js';
-import { createAttachmentKey } from 'svelte/attachments';
-import { untrack } from 'svelte';
+  import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+  import { untrack } from 'svelte';
 
   // Original Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
   import { useAnchorPositioning } from '../internals/anchor-positioning/useAnchorPositioning.svelte.js';
@@ -9,9 +9,31 @@ import { untrack } from 'svelte';
   import { POPUP_COLLISION_AVOIDANCE } from '../internals/constants.js';
   import { useTooltipRootContext, useTooltipPortalContext } from './context.js';
   import { provideTooltipPositionerContext } from './positioner/TooltipPositionerContext.js';
-  import type { TooltipPositionerProps, TooltipPositionerState } from './types.js';
+  import type {
+    TooltipPositionerProps,
+    TooltipPositionerState,
+  } from './types.js';
   // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
-  let { render, class: className, style, children, ref = $bindable(), anchor, positionMethod = 'absolute', side = 'top', align = 'center', sideOffset = 0, alignOffset = 0, collisionBoundary = 'clipping-ancestors', collisionPadding = 5, arrowPadding = 5, sticky = false, disableAnchorTracking = false, collisionAvoidance = POPUP_COLLISION_AVOIDANCE, ...elementProps }: TooltipPositionerProps = $props();
+  let {
+    render,
+    class: className,
+    style,
+    children,
+    ref = $bindable(),
+    anchor,
+    positionMethod = 'absolute',
+    side = 'top',
+    align = 'center',
+    sideOffset = 0,
+    alignOffset = 0,
+    collisionBoundary = 'clipping-ancestors',
+    collisionPadding = 5,
+    arrowPadding = 5,
+    sticky = false,
+    disableAnchorTracking = false,
+    collisionAvoidance = POPUP_COLLISION_AVOIDANCE,
+    ...elementProps
+  }: TooltipPositionerProps = $props();
   const store = useTooltipRootContext();
   const portal = useTooltipPortalContext();
   const open = $derived(store.select('open'));
@@ -23,34 +45,73 @@ import { untrack } from 'svelte';
   const trackCursorAxis = $derived(store.select('trackCursorAxis'));
   const disableHoverablePopup = $derived(store.select('disableHoverablePopup'));
   const positioning = useAnchorPositioning(() => ({
-    anchor, floatingRootContext, open, mounted, positionMethod, side, align, sideOffset, alignOffset,
-    collisionBoundary, collisionPadding, arrowPadding, sticky, disableAnchorTracking,
-    keepMounted: portal.keepMounted, collisionAvoidance, adaptiveOrigin,
+    anchor,
+    floatingRootContext,
+    open,
+    mounted,
+    positionMethod,
+    side,
+    align,
+    sideOffset,
+    alignOffset,
+    collisionBoundary,
+    collisionPadding,
+    arrowPadding,
+    sticky,
+    disableAnchorTracking,
+    keepMounted: portal.keepMounted,
+    collisionAvoidance,
+    adaptiveOrigin,
   }));
-  const state: TooltipPositionerState = $derived({ open, side: positioning.side, align: positioning.align, anchorHidden: positioning.anchorHidden, instant: trackCursorAxis !== 'none' ? 'tracking-cursor' : instantType });
-  
+  const state: TooltipPositionerState = $derived({
+    open,
+    side: positioning.side,
+    align: positioning.align,
+    anchorHidden: positioning.anchorHidden,
+    instant: trackCursorAxis !== 'none' ? 'tracking-cursor' : instantType,
+  });
+
   const setPositionerElement = store.useStateSetter('positionerElement');
-  const element = usePositioner(() => state, () => ({ styles: positioning.positionerStyles, transitionStatus, props: elementProps, hidden: !mounted, inert: !open || trackCursorAxis === 'both' || disableHoverablePopup }));
+  const element = usePositioner(
+    () => state,
+    () => ({
+      styles: positioning.positionerStyles,
+      transitionStatus,
+      props: elementProps,
+      hidden: !mounted,
+      inert: !open || trackCursorAxis === 'both' || disableHoverablePopup,
+    }),
+  );
   provideTooltipPositionerContext(positioning);
 
-const renderState = $derived(element.state);
-const hostAttachmentKey = createAttachmentKey();
-function attachHost(host: HTMLElement) {
-  return untrack(() => {
-    ref = host;
-    setPositionerElement(host);
-    return () => untrack(() => {
-      setPositionerElement(null);
-      if (ref === host) ref = null;
+  const renderState = $derived(element.state);
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      setPositionerElement(host);
+      return () =>
+        untrack(() => {
+          setPositionerElement(null);
+          if (ref === host) ref = null;
+        });
     });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      renderState,
+      { class: className, style: style },
+      element.props,
+      element.stateAttributesMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
   });
-}
-const mergedProps = $derived({ ...mergeComponentProps(renderState, { class: className, style: style }, element.props, element.stateAttributesMapping), [hostAttachmentKey]: attachHost });
 </script>
+
 {#if renderEnabled}
-{#if render}
-  {@render render(mergedProps, renderState, children)}
-{:else}
-  <div {...mergedProps}>{@render children?.()}</div>
-{/if}
+  {#if render}
+    {@render render(mergedProps, renderState, children)}
+  {:else}
+    <div {...mergedProps}>{@render children?.()}</div>
+  {/if}
 {/if}

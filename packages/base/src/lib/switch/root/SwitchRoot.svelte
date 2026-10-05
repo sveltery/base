@@ -1,6 +1,6 @@
 <script lang="ts">
-import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
-import { createAttachmentKey } from 'svelte/attachments';
+  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
 
   import { untrack } from 'svelte';
   // Source-ordered business port of Base UI v1.8.0 SwitchRoot.tsx at
@@ -9,7 +9,10 @@ import { createAttachmentKey } from 'svelte/attachments';
   import type { HTMLInputAttributes } from 'svelte/elements';
   import { Controlled } from '@sveltery/utils/Controlled';
 
-  import { visuallyHidden, visuallyHiddenInput } from '@sveltery/utils/visuallyHidden';
+  import {
+    visuallyHidden,
+    visuallyHiddenInput,
+  } from '@sveltery/utils/visuallyHidden';
   import { toNativeStyle } from '../../internals/nativeProps.js';
   import { useBaseUiId } from '../../internals/useBaseUiId.js';
   import { useButton } from '../../internals/use-button/useButton.svelte.js';
@@ -55,14 +58,19 @@ import { createAttachmentKey } from 'svelte/attachments';
   const name = $derived(field.name ?? nameProp);
   const getNativeName = useFieldControlNativeName();
   const nativeName = $derived(getNativeName(name));
-  const inputRef = $state<{ current: HTMLInputElement | null }>({ current: null });
+  const inputRef = $state<{ current: HTMLInputElement | null }>({
+    current: null,
+  });
   const switchRef = $state<{ current: HTMLElement | null }>({ current: null });
   const instanceId = $props.id();
   const id = useBaseUiId(undefined, instanceId);
   const getControlId = useLabelableId(() => ({ id: idProp }), `${id}-input`);
   const controlId = $derived(getControlId());
   const hiddenInputId = $derived(nativeButton ? undefined : controlId);
-  const checkedState = new Controlled(() => checkedProp, untrack(() => Boolean(defaultChecked)));
+  const checkedState = new Controlled(
+    () => checkedProp,
+    untrack(() => Boolean(defaultChecked)),
+  );
   const checked = $derived(checkedState.value);
   useRegisterFieldControl(
     switchRef,
@@ -107,7 +115,8 @@ import { createAttachmentKey } from 'svelte/attachments';
       if (!element || disabled) return;
       field.setTouched(true);
       field.setFocused(false);
-      if (field.validationMode === 'onBlur') void field.validation.commit(element.checked);
+      if (field.validationMode === 'onBlur')
+        void field.validation.commit(element.checked);
     },
     onclick(event: MouseEvent) {
       if (readOnly || disabled) return;
@@ -159,55 +168,71 @@ import { createAttachmentKey } from 'svelte/attachments';
     required,
   });
   setSwitchRootContext(() => rootState);
-  
-  
-  
+
   function attachInput(host: HTMLInputElement) {
     return untrack(() => {
       inputRef.current = host;
       externalInputRef = host;
       field.validation.inputRef.current = host;
-      return () => untrack(() => {
-        if (field.validation.inputRef.current === host) field.validation.inputRef.current = null;
-        if (inputRef.current === host) inputRef.current = null;
-        if (externalInputRef === host) externalInputRef = null;
-      });
+      return () =>
+        untrack(() => {
+          if (field.validation.inputRef.current === host)
+            field.validation.inputRef.current = null;
+          if (inputRef.current === host) inputRef.current = null;
+          if (externalInputRef === host) externalInputRef = null;
+        });
     });
   }
 
-const hostAttachmentKey = createAttachmentKey();
-function attachHost(host: HTMLElement) {
-  return untrack(() => {
-    ref = host;
-    switchRef.current = host;
-    buttonRef?.(host);
-    return () => untrack(() => {
-      if (ref === host) ref = null;
-      if (switchRef.current === host) switchRef.current = null;
-      buttonRef?.(null);
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      switchRef.current = host;
+      buttonRef?.(host);
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (switchRef.current === host) switchRef.current = null;
+          buttonRef?.(null);
+        });
     });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      rootState,
+      { class: classProp, style: style },
+      [
+        rootProps,
+        elementProps,
+        getButtonProps,
+        (props: Record<string, unknown>) =>
+          field.validation.getValidationProps(disabled, props),
+      ],
+      stateAttributesMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
   });
-}
-const mergedProps = $derived({ ...mergeComponentProps(rootState, { class: classProp, style: style }, [
-      rootProps,
-      elementProps,
-      getButtonProps,
-      (props: Record<string, unknown>) =>
-        field.validation.getValidationProps(disabled, props),
-    ], stateAttributesMapping), [hostAttachmentKey]: attachHost });
 </script>
+
 {#if render}
   {@render render(mergedProps, rootState, children)}
 {:else}
   <span {...mergedProps}>{@render children?.()}</span>
 {/if}
 {#if !checked && name && uncheckedValue !== undefined}
-  <input type="hidden" {form} name={nativeName} value={uncheckedValue} {disabled} />
+  <input
+    type="hidden"
+    {form}
+    name={nativeName}
+    value={uncheckedValue}
+    {disabled}
+  />
 {/if}
 <!-- Native binding owns checkbox DOM/default/hydration and form-reset behavior. -->
 <input
   {...inputProps as HTMLInputAttributes}
   type="checkbox"
   {@attach attachInput}
-  bind:checked={() => checkedState.value, next => checkedState.set(next)}
+  bind:checked={() => checkedState.value, (next) => checkedState.set(next)}
 />

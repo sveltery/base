@@ -129,11 +129,7 @@
       "default": "./dist/PreviousValue.svelte.js"
     }
   },
-  "keywords": [
-    "svelte",
-    "utilities",
-    "base-ui"
-  ],
+  "keywords": ["svelte", "utilities", "base-ui"],
   "scripts": {
     "dev": "svelte-package --watch",
     "build": "svelte-package",

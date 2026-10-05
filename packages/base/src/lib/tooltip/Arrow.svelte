@@ -1,7 +1,7 @@
 <script lang="ts">
-import { mergeComponentProps } from '../internals/mergeComponentProps.js';
-import { createAttachmentKey } from 'svelte/attachments';
-import { untrack } from 'svelte';
+  import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+  import { untrack } from 'svelte';
 
   // Original Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
   import { useTooltipRootContext } from './context.js';
@@ -9,25 +9,48 @@ import { untrack } from 'svelte';
   import { popupStateMapping } from '../utils/popupStateMapping.js';
   import type { TooltipArrowProps } from './types.js';
   // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
-  let { render, class: className, style, children, ref = $bindable(), ...elementProps }: TooltipArrowProps = $props();
+  let {
+    render,
+    class: className,
+    style,
+    children,
+    ref = $bindable(),
+    ...elementProps
+  }: TooltipArrowProps = $props();
   const store = useTooltipRootContext();
   const positioner = useTooltipPositionerContext();
-  const state = $derived({ open: store.select('open'), side: positioner.side, align: positioner.align, uncentered: positioner.arrowUncentered, instant: store.select('instantType') });
-  
-
-const hostAttachmentKey = createAttachmentKey();
-function attachHost(host: HTMLElement) {
-  return untrack(() => {
-    ref = host;
-    positioner.arrowRef.current = host;
-    return () => untrack(() => {
-      if (ref === host) ref = null;
-      if (positioner.arrowRef.current === host) positioner.arrowRef.current = null;
-    });
+  const state = $derived({
+    open: store.select('open'),
+    side: positioner.side,
+    align: positioner.align,
+    uncentered: positioner.arrowUncentered,
+    instant: store.select('instantType'),
   });
-}
-const mergedProps = $derived({ ...mergeComponentProps(state, { class: className, style: style }, [{ style: positioner.arrowStyles, 'aria-hidden': true }, elementProps], popupStateMapping), [hostAttachmentKey]: attachHost });
+
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      positioner.arrowRef.current = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (positioner.arrowRef.current === host)
+            positioner.arrowRef.current = null;
+        });
+    });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      state,
+      { class: className, style: style },
+      [{ style: positioner.arrowStyles, 'aria-hidden': true }, elementProps],
+      popupStateMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
+  });
 </script>
+
 {#if render}
   {@render render(mergedProps, state, children)}
 {:else}

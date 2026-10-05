@@ -1,7 +1,7 @@
 <script lang="ts">
-import { mergeComponentProps } from '../internals/mergeComponentProps.js';
-import { createAttachmentKey } from 'svelte/attachments';
-import { untrack } from 'svelte';
+  import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+  import { untrack } from 'svelte';
 
   // Original MenuPopup complete business and focus-manager composition (MIT).
   import FloatingFocusManager from '../floating-ui/components/FloatingFocusManager.svelte';
@@ -18,7 +18,15 @@ import { untrack } from 'svelte';
   import { COMPOSITE_KEYS } from '../internals/composite/composite.js';
   import type { MenuPopupProps, MenuRoot } from './types.js';
   // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
-  let { render, class: className, style, finalFocus, children, ref = $bindable(null), ...elementProps }: MenuPopupProps = $props();
+  let {
+    render,
+    class: className,
+    style,
+    finalFocus,
+    children,
+    ref = $bindable(null),
+    ...elementProps
+  }: MenuPopupProps = $props();
   const insideToolbar = useToolbarRootContext(true) != null;
   const { store } = useMenuRootContext();
   const positioner = useMenuPositionerContext();
@@ -37,52 +45,135 @@ import { untrack } from 'svelte';
   const disabled = $derived(store.useState('disabled'));
   const openMethod = $derived(store.useState('openMethod'));
   const isContextMenu = $derived(parent.type === 'context-menu');
-  useOpenChangeComplete({ get open() { return open; }, ref: store.context.popupRef, onComplete() { if (open) store.context.onOpenChangeComplete?.(true); } });
+  useOpenChangeComplete({
+    get open() {
+      return open;
+    },
+    ref: store.context.popupRef,
+    onComplete() {
+      if (open) store.context.onOpenChangeComplete?.(true);
+    },
+  });
   $effect(() => {
-    function handleClose(event: { domEvent: Event | undefined; reason: MenuRoot.ChangeEventReason }) {
-      store.setOpen(false, createChangeEventDetails(event.reason, event.domEvent));
+    function handleClose(event: {
+      domEvent: Event | undefined;
+      reason: MenuRoot.ChangeEventReason;
+    }) {
+      store.setOpen(
+        false,
+        createChangeEventDetails(event.reason, event.domEvent),
+      );
     }
     floatingTreeRoot.events.on('close', handleClose);
-    return () => { floatingTreeRoot.events.off('close', handleClose); };
+    return () => {
+      floatingTreeRoot.events.off('close', handleClose);
+    };
   });
-  useHoverFloatingInteraction(() => floatingContext, () => ({ enabled: hoverEnabled && !disabled && !isContextMenu && parent.type !== 'menubar', closeDelay }));
+  useHoverFloatingInteraction(
+    () => floatingContext,
+    () => ({
+      enabled:
+        hoverEnabled &&
+        !disabled &&
+        !isContextMenu &&
+        parent.type !== 'menubar',
+      closeDelay,
+    }),
+  );
   const setPopupElement = store.useStateSetter('popupElement');
-  const state = $derived({ transitionStatus, side: positioner.side, align: positioner.align, open, nested: parent.type === 'menu', instant: instantType });
+  const state = $derived({
+    transitionStatus,
+    side: positioner.side,
+    align: positioner.align,
+    open,
+    nested: parent.type === 'menu',
+    instant: instantType,
+  });
   function getDefaultReturnFocus(state = store.state) {
-    let value = state.parent.type === undefined || state.parent.type === 'context-menu';
-    if (state.activeTriggerElement || (state.parent.type === 'menubar' && state.openChangeReason !== REASONS.outsidePress)) value = true;
+    let value =
+      state.parent.type === undefined || state.parent.type === 'context-menu';
+    if (
+      state.activeTriggerElement ||
+      (state.parent.type === 'menubar' &&
+        state.openChangeReason !== REASONS.outsidePress)
+    )
+      value = true;
     return value;
   }
   let mountedReturnFocus = getDefaultReturnFocus();
-  $effect(() => store.observe(
-    state => state.mounted ? getDefaultReturnFocus(state) : null,
-    value => { if (value !== null) mountedReturnFocus = value; },
-  ));
+  $effect(() =>
+    store.observe(
+      (state) => (state.mounted ? getDefaultReturnFocus(state) : null),
+      (value) => {
+        if (value !== null) mountedReturnFocus = value;
+      },
+    ),
+  );
   const returnFocus = $derived.by(() => {
     const isMounted = store.select('mounted');
     return isMounted ? getDefaultReturnFocus() : mountedReturnFocus;
   });
-  const setRef = (node: HTMLElement | null) => { ref = node; };
+  const setRef = (node: HTMLElement | null) => {
+    ref = node;
+  };
 
-const hostAttachmentKey = createAttachmentKey();
-function attachHost(host: HTMLElement) {
-  return untrack(() => {
-    ref = host;
-    store.context.popupRef.current = host;
-    setPopupElement?.(host);
-    return () => untrack(() => {
-      if (ref === host) ref = null;
-      if (store.context.popupRef.current === host) store.context.popupRef.current = null;
-      setPopupElement?.(null);
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      store.context.popupRef.current = host;
+      setPopupElement?.(host);
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (store.context.popupRef.current === host)
+            store.context.popupRef.current = null;
+          setPopupElement?.(null);
+        });
     });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      state,
+      { class: className, style: style },
+      [
+        popupProps,
+        {
+          onkeydown(event: KeyboardEvent) {
+            if (insideToolbar && COMPOSITE_KEYS.has(event.key))
+              event.stopPropagation();
+          },
+        },
+        getDisabledMountTransitionStyles(transitionStatus),
+        elementProps,
+        { 'data-rootownerid': rootId },
+      ],
+      popupTransitionStateMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
   });
-}
-const mergedProps = $derived({ ...mergeComponentProps(state, { class: className, style: style }, [popupProps, { onkeydown(event: KeyboardEvent) { if (insideToolbar && COMPOSITE_KEYS.has(event.key)) event.stopPropagation(); } }, getDisabledMountTransitionStyles(transitionStatus), elementProps, { 'data-rootownerid': rootId }], popupTransitionStateMapping), [hostAttachmentKey]: attachHost });
 </script>
-<FloatingFocusManager context={floatingContext} openInteractionType={openMethod} modal={isContextMenu} disabled={!mounted} returnFocus={finalFocus === undefined ? returnFocus : finalFocus} initialFocus={parent.type !== 'menu'} restoreFocus={true} externalTree={parent.type !== 'menubar' ? floatingTreeRoot : undefined} previousFocusableElement={activeTriggerElement as HTMLElement | null} nextFocusableElement={parent.type === undefined ? store.context.triggerFocusTargetRef : undefined} beforeContentFocusGuardRef={parent.type === undefined ? store.context.beforeContentFocusGuardRef : undefined}>
+
+<FloatingFocusManager
+  context={floatingContext}
+  openInteractionType={openMethod}
+  modal={isContextMenu}
+  disabled={!mounted}
+  returnFocus={finalFocus === undefined ? returnFocus : finalFocus}
+  initialFocus={parent.type !== 'menu'}
+  restoreFocus={true}
+  externalTree={parent.type !== 'menubar' ? floatingTreeRoot : undefined}
+  previousFocusableElement={activeTriggerElement as HTMLElement | null}
+  nextFocusableElement={parent.type === undefined
+    ? store.context.triggerFocusTargetRef
+    : undefined}
+  beforeContentFocusGuardRef={parent.type === undefined
+    ? store.context.beforeContentFocusGuardRef
+    : undefined}
+>
   {#if render}
-  {@render render(mergedProps, state, children)}
-{:else}
-  <div {...mergedProps}>{@render children?.()}</div>
-{/if}
+    {@render render(mergedProps, state, children)}
+  {:else}
+    <div {...mergedProps}>{@render children?.()}</div>
+  {/if}
 </FloatingFocusManager>
