@@ -1,0 +1,96 @@
+{
+  "originalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "originalPackage": "1.8.0",
+  "ReactVersion": "19.2.8",
+  "classification": "Fidelity repair of native opaque-host observer realm; zero ordinary declaration credit",
+  "nativeFullPortal": {
+    "path": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+    "beforeSha256": "56ef7993c9378f0710f7724a40280f8ba31fa7fb515b218802d7935c3a95f75b",
+    "afterSha256": "d9539b6afb9e91075510024a1af979079a356c9694e5a9e188b7111ed05d1f37",
+    "delta": "Existing canonical external getWindow import plus getWindow(node).MutationObserver constructor only"
+  },
+  "menuOriginalWitness": {
+    "head": "2a3ed25",
+    "fullAndContextualSourceResults": [
+      {
+        "kind": "Full",
+        "source": {
+          "error": null,
+          "portal": true,
+          "child": true
+        },
+        "native": {
+          "error": "Cannot read properties of null (reading 'MutationObserver')\n\n\tin <unknown>\n\tin RenderElement.svelte\n\tin undefined\n\tin FloatingPortal.svelte\n\tin MenuPortalRealmFixture.svelte\n\tin undefined\n",
+          "portal": true,
+          "child": false
+        }
+      },
+      {
+        "kind": "Menu",
+        "source": {
+          "error": null,
+          "portal": true,
+          "child": true
+        },
+        "native": {
+          "error": "Cannot read properties of null (reading 'MutationObserver')\n\n\tin <unknown>\n\tin RenderElement.svelte\n\tin undefined\n\tin FloatingPortal.svelte\n\tin Portal.svelte\n\tin Root.svelte\n\tin MenuPortalRealmFixture.svelte\n\tin undefined\n",
+          "portal": true,
+          "child": false
+        }
+      }
+    ],
+    "sameInputAndExpectationsGreen": [
+      {
+        "kind": "Full",
+        "source": {
+          "error": null,
+          "portal": true,
+          "child": true
+        },
+        "native": {
+          "error": null,
+          "portal": true,
+          "child": true
+        }
+      },
+      {
+        "kind": "Menu",
+        "source": {
+          "error": null,
+          "portal": true,
+          "child": true
+        },
+        "native": {
+          "error": null,
+          "portal": true,
+          "child": true
+        }
+      }
+    ],
+    "witnessFileHashes": {
+      "packages/base/tests/dom/MenuPortalRealmFixture.svelte": "16f55f8d2c540bb382a71326ad32b7997f526c4bc2e3702110286483e1e1bf3b",
+      "packages/base/tests/dom/menu-portal-realm.test.ts": "f9211b40fb0f541c3606f35dace85c82610f30ca42a2bff8f49ee03d024ddc96",
+      "apps/fixtures/src/lib/menu-portal-realm-reference.ts": "8f1b009f68c18c2a87631c946e08c9fc39c172397eb1c312b7c8850f2c296952"
+    }
+  },
+  "inheritedRealmLogs": {
+    "portal-realm-old-red.log.gz": {
+      "sha256": "fd86adc596f671ceda2da0daa1312b23ccff2cbc0fcde8dab9ef02ec7e8233f5",
+      "uncompressedSha256": "8228a4bf420b867a2f9d551ea413581e7ff828b07034d49a93631a29a64f80b7"
+    },
+    "portal-realm-new-green.log.gz": {
+      "sha256": "fa237127d74a591454ffbf1ef4e0cca274d3d7c5e91443d79f4bccb4a47fe97e",
+      "uncompressedSha256": "2c3021041c3ffd2735198aab3af48d235ef36c9d621e1ada1ac4efaf68f1610c"
+    }
+  },
+  "freshDialogPublicWitness": {
+    "file": "packages/base/tests/dom/dialog-portal-container.test.ts",
+    "input": "actual createHTMLDocument HTMLElement with null defaultView; existing public Dialog fixtures and actual Original1.8.0 reference",
+    "assertions": "host parent, real child text and teardown",
+    "ownerLog": ".checks/source-realm-motion-dom.log",
+    "ownerLogSha256": "59a50dd31f7aca9c92d6963b35cbda3e58e96257dc51895fc7f57c75bf33b798",
+    "result": "43/43 across portal13, paired business18 and canonical completion12; maxWorkers1, heap768MiB"
+  },
+  "sourceGate": "REOPENED from historical f0 CLEAR; final whole-closure source/native/maintainability successor review still required",
+  "ordinaryDeclarationCredit": 0
+}

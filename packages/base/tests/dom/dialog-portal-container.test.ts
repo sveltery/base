@@ -42,3 +42,24 @@ for (const reference of [true, false]) it(`${reference ? 'React reference' : 'Sv
   if ('stop' in app) app.stop(); else await unmount(app);
   target.remove(); destination.remove();
 });
+
+// Reuses the actual Menu Full-portal realm witness's createHTMLDocument input and
+// unchanged host/child expectations through this public Dialog caller.
+for (const reference of [true, false]) it(`${reference ? 'React reference' : 'Svelte'}: Dialog.Portal mounts its child in an HTMLElement whose document has null defaultView`, async () => {
+  const foreignDocument = document.implementation.createHTMLDocument('portal host');
+  const destination = foreignDocument.createElement('section'); foreignDocument.body.append(destination);
+  expect(foreignDocument.defaultView).toBeNull();
+  const target = document.createElement('main'); document.body.append(target);
+  const app = reference ? mountMutablePortalContainerReference(target) : mount(Fixture, { target, props: { container: null } });
+  async function settle() { flushSync(); await tick(); await new Promise(resolve => setTimeout(resolve, 60)); }
+  try {
+    await settle(); app.setContainer(destination); await settle();
+    const portal = destination.querySelector('[data-testid="container-portal"]');
+    expect(portal?.parentNode).toBe(destination);
+    expect(portal?.querySelector('span')?.textContent).toBe('Child');
+  } finally {
+    if ('stop' in app) app.stop(); else await unmount(app);
+    target.remove();
+  }
+  expect(destination.children.length).toBe(0);
+});
