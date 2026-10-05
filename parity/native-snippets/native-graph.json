@@ -971,7 +971,7 @@
     },
     {
       "source": "packages/base/src/lib/checkbox/root/CheckboxRoot.svelte",
-      "sha256": "768dfe464ddb4304f31dddc725c3c0104a37042fbe3eeb00e1252fcd8b4d8417",
+      "sha256": "13fa34dbac939da0d1d8198eb6416dd4a29222b711560d80a7b8d96dcd2bd3ac",
       "imports": [
         {
           "specifier": "../../internals/mergeComponentProps.js",
@@ -3055,7 +3055,7 @@
     },
     {
       "source": "packages/base/src/lib/field/root/FieldRootInner.svelte",
-      "sha256": "bf1d1cdf5285928d856dd67692ab1e654ef3107e563d4f0e4e6524190210e714",
+      "sha256": "a757440f695348d4ee5937b00520274c706483f1825412e25b952dc77a6c29b5",
       "imports": [
         {
           "specifier": "../../internals/mergeComponentProps.js",
@@ -3098,9 +3098,9 @@
           "resolved": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts"
         },
         {
-          "specifier": "../../internals/field-register-control/useFieldControlRegistration.svelte.js",
+          "specifier": "../../internals/field-register-control/FieldControlRegistration.svelte.js",
           "kind": "runtime-or-mixed",
-          "resolved": "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts"
+          "resolved": "packages/base/src/lib/internals/field-register-control/FieldControlRegistration.svelte.ts"
         },
         {
           "specifier": "../types.js",
@@ -3371,7 +3371,7 @@
     },
     {
       "source": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
-      "sha256": "05d0a05df690a2d6d798ec1c8dfbb0170d1dee65415f79fd92cabfa03937d916",
+      "sha256": "98849b1174e3df19901abbf0622834e52c20dd72244d7df13aae6f398b8d8787",
       "imports": [
         {
           "specifier": "svelte",
@@ -3916,7 +3916,7 @@
     },
     {
       "source": "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts",
-      "sha256": "9cb2079d0a855765fe3d4d8683b4ec3e6a0bc953966d60f150a9dfc6369e2daf",
+      "sha256": "60527bbe6aec547b3c04b426d65d4622070d2f54f771b25105b652c48aeb3365",
       "imports": [
         {
           "specifier": "svelte",
@@ -4094,7 +4094,7 @@
     },
     {
       "source": "packages/base/src/lib/floating-ui/hooks/useFocus.svelte.ts",
-      "sha256": "e16e28e109f66d96fe0676a1a22ce887e746a0a5b8744bdfb75c643671d34514",
+      "sha256": "62b4297a472d497258da824c3ca80d190cfc3cdb1f89456780c824084c0b4724",
       "imports": [
         {
           "specifier": "svelte",
@@ -4267,7 +4267,7 @@
     },
     {
       "source": "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts",
-      "sha256": "bfd059fc001cd86502749abeaf91fb802e00d203f06023d7d42178f62623661a",
+      "sha256": "748c13125fa60bd64f2bf95dc296ac4aadadb966146aece7e1e81b36ece282b7",
       "imports": [
         {
           "specifier": "svelte",
@@ -5811,9 +5811,14 @@
       ]
     },
     {
-      "source": "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts",
-      "sha256": "7ea8c82572f34a06bb8ccbb45d263351ebe699be5efa0aa0412f4987fbdd47ad",
+      "source": "packages/base/src/lib/internals/field-register-control/FieldControlRegistration.svelte.ts",
+      "sha256": "9f1e826a29614f109bed3fd8daeaa3bdca5fa2046145b1c57b644fd6dd8eb665",
       "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte"
+        },
         {
           "specifier": "../../field/utils/getCombinedFieldValidityData.js",
           "kind": "runtime-or-mixed",
@@ -5833,7 +5838,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts",
-      "sha256": "fff160282ff8636c8c6f636a73228d51b2cb8b75e68c339567b541cbe9cd6445",
+      "sha256": "e981ce53dc67889d19af066a7ba96a5ea63f96d18d45dc869f5c7ff25bef9fb2",
       "imports": [
         {
           "specifier": "svelte",
@@ -5846,15 +5851,15 @@
           "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
         },
         {
-          "specifier": "./useFieldControlRegistration.svelte.js",
+          "specifier": "./FieldControlRegistration.svelte.js",
           "kind": "type",
-          "resolved": "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts"
+          "resolved": "packages/base/src/lib/internals/field-register-control/FieldControlRegistration.svelte.ts"
         }
       ]
     },
     {
       "source": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts",
-      "sha256": "3fccbca1662ddffee226a809e42fe9219914274c2b33999771bdc974cf7362bf",
+      "sha256": "c132909099694a749b08403f8480385bce8967077993a0c14ed02a41bb9e99d9",
       "imports": [
         {
           "specifier": "svelte",
@@ -5887,9 +5892,9 @@
           "resolved": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts"
         },
         {
-          "specifier": "../field-register-control/useFieldControlRegistration.svelte.js",
+          "specifier": "../field-register-control/FieldControlRegistration.svelte.js",
           "kind": "type",
-          "resolved": "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts"
+          "resolved": "packages/base/src/lib/internals/field-register-control/FieldControlRegistration.svelte.ts"
         }
       ]
     },
@@ -10844,7 +10849,7 @@
     },
     {
       "source": "packages/base/src/lib/radio/root/RadioRoot.svelte",
-      "sha256": "f6a7fcb4a4a40e663b6093e3004856a74eaa2779100752bcbed70c5d490cbc95",
+      "sha256": "a19d330e1c3b41e60f21550eb3b568a6b8dc56033fdc629ea15c9bba93232076",
       "imports": [
         {
           "specifier": "../../internals/mergeComponentProps.js",
@@ -12790,12 +12795,17 @@
     },
     {
       "source": "packages/base/src/lib/toast/store.ts",
-      "sha256": "8682de5a2de742d0220709f6736ebd29a317565d6237b1e582d5c0bcc477c6a5",
+      "sha256": "0090c07b1331f28393364857d6f5761956c411f0d5a41e997081d0e5a157ffba",
       "imports": [
         {
           "specifier": "svelte/reactivity",
           "kind": "runtime-or-mixed",
           "resolved": "external:svelte/reactivity"
+        },
+        {
+          "specifier": "@sveltery/utils/useTimeout",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/useTimeout.ts"
         },
         {
           "specifier": "./id.js",

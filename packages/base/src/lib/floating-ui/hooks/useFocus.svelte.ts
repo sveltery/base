@@ -83,9 +83,10 @@ export function useFocus(getContext: () => FloatingRootContext | FloatingContext
                 }
             }
         }
-        events.on('openchange', onOpenChangeLocal);
+        const installedEvents = events;
+        installedEvents.on('openchange', onOpenChangeLocal);
         return () => {
-            events.off('openchange', onOpenChangeLocal);
+            installedEvents.off('openchange', onOpenChangeLocal);
         };
     });
     const reference: ElementProps['reference'] = $derived.by(() => {

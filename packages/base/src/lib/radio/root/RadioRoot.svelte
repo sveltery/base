@@ -72,12 +72,15 @@
     if (inputRef.current?.checked) field.setFilled(true);
   });
   $effect(() => {
-    if (!inputRef.current) return;
-    if (disabled && checked) {
+    const input = inputRef.current;
+    const isDisabled = disabled;
+    const isChecked = checked;
+    if (!input) return;
+    if (isDisabled && isChecked) {
       group?.registerInputRef(null);
       return;
     }
-    group?.registerInputRef(inputRef.current);
+    group?.registerInputRef(input);
   });
   const nativeId = $props.id();
   const id = useBaseUiId(undefined, nativeId);

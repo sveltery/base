@@ -178,9 +178,11 @@
     generatedLabelId: `${controlId}-label`,
   }));
   $effect(() => {
-    if (inputRef.current)
-      inputRef.current.indeterminate = computedIndeterminate;
-    if (!groupContext) field.setFilled(checked);
+    // Native activation resets indeterminate; checked changes reassert the business state.
+    const isChecked = checked;
+    const input = inputRef.current;
+    if (input) input.indeterminate = computedIndeterminate;
+    if (!groupContext) field.setFilled(isChecked);
   });
   new ValueChanged(
     () => checked,

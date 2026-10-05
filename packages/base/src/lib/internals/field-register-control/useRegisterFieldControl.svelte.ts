@@ -3,7 +3,7 @@
 import { untrack } from 'svelte';
 
 import { useFieldRootContext } from '../field-root-context/FieldRootContext.js';
-import type { FieldControlRegistration } from './useFieldControlRegistration.svelte.js';
+import type { FieldControlRegistration } from './FieldControlRegistration.svelte.js';
 export function useRegisterFieldControl(
   controlRef: FieldControlRegistration['controlRef'],
   id: () => FieldControlRegistration['id'],
