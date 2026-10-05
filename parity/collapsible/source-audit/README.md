@@ -9,10 +9,10 @@ The audit starts from accepted Main `c1600456d3b4e72910d42823b9df69280c74a262`, 
 | Original public/component closure | 55 | 151 | 53 / 2 |
 | Current native public/component closure | 31 | 87 | 28 / 3 |
 | Original component and actual tests/helpers | 68 | 201 | 66 / 2 |
-| Native component and actual tests/fixtures/package gates | 54 | 143 | 51 / 3 |
+| Native component and actual tests/fixtures/package gates | 54 | 154 | 51 / 3 |
 | Existing canonical helper inputs proposed for reuse | 36 | 71 | 35 / 1 |
 
-Every reached Original and native body was freshly read in full. The prospective helper closure was also read in full; it is not falsely described as current Collapsible reuse. [audit.json](audit.json) records individual hashes, read scopes and dispositions. Graphs preserve declared versus effective type edges, actual imported members, runtime/type reachability and excluded public/test barrel siblings. [archives.json](archives.json) identifies all 68 Original bodies; each archive equals both the immutable Git object and the physical pinned checkout. External React/ReactDOM, Floating UI DOM entry points, the MUI test renderer, Svelte/esm-env and browser/test tools remain explicit boundaries. No inspection of external package internals is claimed.
+Every reached Original and native body was freshly read in full. The prospective helper closure was also read in full; it is not falsely described as current Collapsible reuse. [audit.json](audit.json) records individual hashes, read scopes and dispositions. Graphs preserve declared versus effective type edges, actual imported members, runtime/type reachability and excluded public/test barrel siblings. Concrete shell-generated consumers, child Node programs and require-based compiler imports are included; compiler/package implementation internals remain external. [archives.json](archives.json) identifies all 68 Original bodies; each archive equals both the immutable Git object and the physical pinned checkout. External React/ReactDOM, Floating UI DOM entry points, the MUI test renderer, Svelte/esm-env and browser/test tools remain explicit boundaries. No inspection of external package internals is claimed.
 
 ## Findings
 

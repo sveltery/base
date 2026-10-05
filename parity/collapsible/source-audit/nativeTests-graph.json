@@ -17,7 +17,7 @@
     "scripts/svelte-ssr-loader.mjs"
   ],
   "moduleCount": 54,
-  "edgeCount": 143,
+  "edgeCount": 154,
   "runtimeModules": 51,
   "typeModules": 3,
   "modules": [
@@ -1999,7 +1999,62 @@
       "source": "scripts/check-collapsible-package.sh",
       "sha256": "64ad8777492889d6e9d9d802e97119d2e48a4057cbdf320e69d5220e2c4ab751",
       "reachability": "runtime",
-      "imports": []
+      "imports": [
+        {
+          "specifier": "@sveltery/base",
+          "declaredKind": "generated-consumer-source",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "Collapsible",
+            "CollapsibleRootProps",
+            "CollapsibleRootState",
+            "CollapsibleTriggerProps",
+            "CollapsibleTriggerState",
+            "CollapsiblePanelProps",
+            "CollapsiblePanelState",
+            "CollapsibleTransitionStatus",
+            "CollapsibleRootChangeEventReason",
+            "CollapsibleRootChangeEventDetails"
+          ],
+          "resolved": "packages/base/src/lib/index.ts"
+        },
+        {
+          "specifier": "@sveltery/base/collapsible",
+          "declaredKind": "generated-consumer-source",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "Collapsible",
+            "CollapsibleRootProps",
+            "CollapsibleRootState",
+            "CollapsibleTriggerProps",
+            "CollapsibleTriggerState",
+            "CollapsiblePanelProps",
+            "CollapsiblePanelState",
+            "CollapsibleTransitionStatus",
+            "CollapsibleRootChangeEventReason",
+            "CollapsibleRootChangeEventDetails"
+          ],
+          "resolved": "packages/base/src/lib/collapsible/index.ts"
+        },
+        {
+          "specifier": "svelte/server",
+          "declaredKind": "generated-consumer-source",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:svelte/server"
+        },
+        {
+          "specifier": "svelte",
+          "declaredKind": "generated-consumer-source",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:svelte"
+        }
+      ]
     },
     {
       "source": "scripts/svelte-ssr-loader.mjs",
@@ -2034,6 +2089,24 @@
             "fileURLToPath"
           ],
           "resolved": "external:node:url"
+        },
+        {
+          "specifier": "svelte/compiler",
+          "declaredKind": "require",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:svelte/compiler"
+        },
+        {
+          "specifier": "typescript",
+          "declaredKind": "require",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:typescript"
         }
       ]
     },
@@ -2096,6 +2169,51 @@
           "resolved": "external:node:test"
         },
         {
+          "specifier": "react",
+          "declaredKind": "generated-consumer-source",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:react"
+        },
+        {
+          "specifier": "react-dom/server",
+          "declaredKind": "generated-consumer-source",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:react-dom/server"
+        },
+        {
+          "specifier": "@base-ui/react/collapsible",
+          "declaredKind": "generated-consumer-source",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:@base-ui/react/collapsible"
+        },
+        {
+          "specifier": "jsdom",
+          "declaredKind": "generated-consumer-source",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:jsdom"
+        },
+        {
+          "specifier": "svelte/server",
+          "declaredKind": "generated-consumer-source",
+          "effectiveKind": "runtime",
+          "importedMembers": [
+            "*"
+          ],
+          "resolved": "external:svelte/server"
+        },
+        {
           "specifier": "spawned-source-import",
           "declaredKind": "embedded-test-script",
           "effectiveKind": "runtime",
@@ -2151,8 +2269,10 @@
     "external:react-dom/server",
     "external:svelte",
     "external:svelte/attachments",
+    "external:svelte/compiler",
     "external:svelte/elements",
     "external:svelte/server",
+    "external:typescript",
     "external:vitest"
   ],
   "semantics": "Inventory, not manual Source acceptance. Declared import syntax and TypeScript-emitted dependency kinds are separate. TypeScript 5.9.3 transpileModule elision identifies effective type edges in TS/TSX; non-type Svelte imports retain runtime reachability because markup also uses them. Selected public/test barrel exports are expanded by actual imported members; excluded siblings are recorded, not accepted. All reached module bodies, including type-only, require separate manual inspection receipts."

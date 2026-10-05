@@ -87,15 +87,28 @@ function build(base, seed, original, selections = {}) {
       }
     }
     function calls(node) {
-      if (ts.isCallExpression(node) && (node.expression.kind === ts.SyntaxKind.ImportKeyword || node.expression.getText(value.tree) === 'vi.mock') && node.arguments[0] && ts.isStringLiteral(node.arguments[0])) {
+      if (ts.isCallExpression(node) && (node.expression.kind === ts.SyntaxKind.ImportKeyword || ['vi.mock', 'require', 'baseRequire'].includes(node.expression.getText(value.tree))) && node.arguments[0] && ts.isStringLiteral(node.arguments[0])) {
         const specifier = node.arguments[0].text, destination = physical(base, item.source, specifier, original);
-        const edge = {specifier, declaredKind:node.expression.kind === ts.SyntaxKind.ImportKeyword ? 'dynamic':'mock', effectiveKind:'runtime', importedMembers:['*'], resolved:destination};
+        const edge = {specifier, declaredKind:node.expression.kind === ts.SyntaxKind.ImportKeyword ? 'dynamic':node.expression.getText(value.tree) === 'vi.mock' ? 'mock':'require', effectiveKind:'runtime', importedMembers:['*'], resolved:destination};
         importRecords.push(edge);
         if (!destination.startsWith('external:')) pending.push({source:destination, reachability:item.reachability});
       }
       ts.forEachChild(node, calls);
     }
     calls(value.tree);
+    // Shell-generated consumers and the concrete child Node program are used
+    // source imports, even though they occur inside authored script strings.
+    const generatedImports = {
+      'scripts/tests/collapsible-ssr.test.mjs': ['react', 'react-dom/server', '@base-ui/react/collapsible', 'jsdom', 'svelte/server'],
+      'scripts/check-collapsible-package.sh': ['@sveltery/base', '@sveltery/base/collapsible', 'svelte/server', 'svelte'],
+    };
+    if (!original && generatedImports[item.source]) {
+      for (const specifier of generatedImports[item.source]) {
+        const destination = physical(base, item.source, specifier, original);
+        importRecords.push({specifier, declaredKind:'generated-consumer-source', effectiveKind:'runtime', importedMembers:specifier.startsWith('@sveltery/base') ? publicMembers:['*'], resolved:destination});
+        if (!destination.startsWith('external:')) pending.push({source:destination, reachability:item.reachability});
+      }
+    }
     // Test-only spawned SSR script imports are concrete used dependencies beyond static call syntax.
     if (!original && item.source === 'scripts/tests/collapsible-ssr.test.mjs') {
       for (const destination of ['scripts/svelte-ssr-loader.mjs','packages/base/tests/ssr/Collapsible.svelte']) {

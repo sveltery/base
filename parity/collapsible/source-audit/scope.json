@@ -63,7 +63,7 @@
     },
     "nativeTests": {
       "modules": 54,
-      "edges": 143,
+      "edges": 154,
       "runtime": 51,
       "type": 3,
       "roots": [
@@ -100,8 +100,10 @@
         "external:react-dom/server",
         "external:svelte",
         "external:svelte/attachments",
+        "external:svelte/compiler",
         "external:svelte/elements",
         "external:svelte/server",
+        "external:typescript",
         "external:vitest"
       ]
     },
