@@ -70,3 +70,54 @@ export type TooltipPopupProps = ElementProps<TooltipPopupState>;
 
 export interface TooltipViewportState { activationDirection: string | undefined; transitioning: boolean; instant: 'delay' | 'dismiss' | 'focus' | undefined }
 export type TooltipViewportProps = ElementProps<TooltipViewportState>;
+
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve the pinned prefixed erased part namespace.
+export namespace TooltipProvider {
+  export type Props = TooltipProviderProps;
+  export type State = TooltipProviderState;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve the pinned prefixed erased part namespace.
+export namespace TooltipRoot {
+  export type Props<Payload = unknown> = TooltipRootProps<Payload>;
+  export type State = TooltipRootState;
+  export type Actions = TooltipRootActions;
+  export type ChangeEventReason = TooltipRootChangeEventReason;
+  export type ChangeEventDetails = TooltipRootChangeEventDetails;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve the pinned prefixed erased part namespace.
+export namespace TooltipTrigger {
+  export type Props<Payload = unknown> = TooltipTriggerProps<Payload>;
+  export type State = TooltipTriggerState;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve the pinned prefixed erased part namespace.
+export namespace TooltipPortal {
+  export type Props = TooltipPortalProps;
+  export type State = TooltipPortalState;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve the pinned prefixed erased part namespace.
+export namespace TooltipPositioner {
+  export type Props = TooltipPositionerProps;
+  export type State = TooltipPositionerState;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve the pinned prefixed erased part namespace.
+export namespace TooltipPopup {
+  export type Props = TooltipPopupProps;
+  export type State = TooltipPopupState;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve the pinned prefixed erased part namespace.
+export namespace TooltipArrow {
+  export type Props = TooltipArrowProps;
+  export type State = TooltipArrowState;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve the pinned prefixed erased part namespace.
+export namespace TooltipViewport {
+  export type Props = TooltipViewportProps;
+  export type State = TooltipViewportState;
+}

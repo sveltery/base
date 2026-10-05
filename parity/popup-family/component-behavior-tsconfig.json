@@ -1,0 +1,26 @@
+{
+  "extends": "../../packages/base/tsconfig.json",
+  "compilerOptions": {
+    "skipLibCheck": false,
+    "typeRoots": [
+      "../../packages/base/node_modules/@types"
+    ]
+  },
+  "include": [
+    "../../packages/base/src/lib/popover/**/*.svelte",
+    "../../packages/base/src/lib/preview-card/**/*.svelte",
+    "../../packages/base/src/lib/tooltip/**/*.svelte",
+    "../../packages/base/src/lib/popover/**/*.ts",
+    "../../packages/base/src/lib/preview-card/**/*.ts",
+    "../../packages/base/src/lib/tooltip/**/*.ts",
+    "../../packages/base/tests/PopupFamilyPayloadTypes.svelte",
+    "../../packages/base/tests/popup-family.types.ts",
+    "../../packages/base/tests/dom/PopupFamilyFixture.svelte",
+    "../../packages/base/tests/dom/PopoverLeafSourceFixture.svelte",
+    "../../packages/base/tests/dom/popup-family-source.test.ts",
+    "../../packages/base/tests/dom/popover-leaf-source.test.ts",
+    "../../packages/base/tests/dom/popup-family-hydration.test.ts",
+    "../../packages/base/tests/popup-family-ssr.test.ts",
+    "../../apps/fixtures/src/lib/popup-family-reference.ts"
+  ]
+}

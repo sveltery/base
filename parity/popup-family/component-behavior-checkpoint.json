@@ -1,0 +1,107 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "predecessor": "ed997d2",
+  "status": "Paired DOM48, native hydration6, adapted Source Popover leaf11 pass in one-worker execution; separate native SSR6 and bounded strict public/behavior layer0/0, scoped lint0. Leaf hover/click delay fixture precision changed afterwards and requires rerun. Strict actual packed consumer is prepared but unexecuted. Canonical useClick repair integration, Source/native/maintainability full closure review and secured official browser gates pending.",
+  "ordinaryDeclarationCredit": 0,
+  "runtimeTests": {
+    "pairedDom": 48,
+    "nativeSsr": 6,
+    "nativeHydration": 6,
+    "adaptedSourceLeaf": 11
+  },
+  "typeContracts": {
+    "completeSourceTypeSpecs": 7,
+    "sourceNegativeDirectives": 5,
+    "extraNativeNegativeDirectives": 1,
+    "typeAssertionCalls": 3,
+    "divergentNativeAssertions": [
+      "PreviewCard href is actual native string|null|undefined rather than React string|undefined; zero Original credit"
+    ]
+  },
+  "sourceLeafReviewStatus": "Adapted-passing pending independent complete-body correspondence review, zero ordinary credit. Source fixture delay precision just tightened, rerun pending.",
+  "helperRuntimeEdits": [],
+  "graph": {
+    "path": "parity/popup-family/native-component-graph.json",
+    "sha256": "02a9b40293c4e68c88249acc04e15748df845948d55a4f00bce1bcb3a5e531ad",
+    "modules": 189,
+    "edges": 833,
+    "kind": "recursive runtime/type imports and explicit import-member names; conservative unselected declarations included"
+  },
+  "receipts": [
+    {
+      "path": "parity/popup-family/receipts/popup-family-paired-dom-first.log.gz",
+      "rawSha256": "e40e751024968eb9172ee0d51398076c4f31140f9c46cbd9c7d0180634c325ef",
+      "gzipSha256": "e87b2025ef3daee5457f2259c35a5dfc1efce151d3c465423dcebe22fc7a267e"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-family-ssr-first.log.gz",
+      "rawSha256": "059abb0b65f4e3fae66732cff7d2fb01498032891d685ce21d931f83141628e2",
+      "gzipSha256": "979cbef4839ab196477b297520a438c38dede70043f47174c5dc8c4099807860"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-family-fixture-types.log.gz",
+      "rawSha256": "0ebae972a8d9867d28a02f45d7874d0e94d04b143592261b78294d49d31361dd",
+      "gzipSha256": "b1466d4f4cd3b6b8a33a4d9142f4750f437b743245c4e457f0c6e12dd36ccb9c"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-family-fixture-types-green.log.gz",
+      "rawSha256": "7e27dd779e05a54111112a73012731d0bd0a37ddfa3fc12e8a5b0ab2f516b343",
+      "gzipSha256": "9df8f289a5b910673db185c632a005816eda07e2e4d429f5e7e0065c36c718ec"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-family-public-contract-first.log.gz",
+      "rawSha256": "7e27dd779e05a54111112a73012731d0bd0a37ddfa3fc12e8a5b0ab2f516b343",
+      "gzipSha256": "9df8f289a5b910673db185c632a005816eda07e2e4d429f5e7e0065c36c718ec"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-family-hydration-first.log.gz",
+      "rawSha256": "0657153334eb9573ad6910839cb25180a64cd43b71de3b23f0290f16ea9bc1d2",
+      "gzipSha256": "252048ab44fa828d540fde884bbbfb63e17f3d83c52b27751a431ddfb23bf865"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-family-hydration-second.log.gz",
+      "rawSha256": "58067f4529fee38bc59e04619e502d2ca4641aa2d07cf9d6dbfb9aa7b981c40d",
+      "gzipSha256": "047184c0e465b4c3b7739c6377644447287891d3e237ca2e65e6f6051305a217"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-family-hydration-inprocess-first.log.gz",
+      "rawSha256": "9617e28361c3ca91304d83b700e7b9ca20be579ddf8d50179b8f2c61b7b0abb0",
+      "gzipSha256": "62a27189f1aba2771d47367f8050c4755c2298587d71f7410015c6a55d78dd72"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-family-hydration-inprocess-second.log.gz",
+      "rawSha256": "ae928b7a93ffd32ca4adbea8809bcc63a34bfd401296651fe3af2aa4f43b1181",
+      "gzipSha256": "fdbdd2142339c0344f0dd18e59dafca8a6746bd06756109efe286449c5948505"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-family-hydration-inprocess-third.log.gz",
+      "rawSha256": "04fec7d7ad3695ff5c770203ef18397be360adb343493a8bd1a2bb3a79b6a409",
+      "gzipSha256": "9bb6d81e31e6b51f3ed2ed70dd50083baf4727817096f85a29b27b6b86a574e0"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-popover-leaf-source-first.log.gz",
+      "rawSha256": "a2cd386e22af4f7ac267e8e2dee0aab6a1ebb58257a6c700da2a51b02e3184d2",
+      "gzipSha256": "3a442cb27855770151772a977d1aba44c232a373d779302675929b410c5f789d"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-popover-leaf-source-second.log.gz",
+      "rawSha256": "f3d6643755097b6eca7aea1f54084be2a078c39bbccddd8c47f96dbb3ad2758b",
+      "gzipSha256": "b65b4cbad03f3d9c85474f7bacab298fec83d131d93c08a376876284402a32c6"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-family-dom-hydration-leaf-green.log.gz",
+      "rawSha256": "976361ac2e692b4c7299132946e0b4576b3946012fb5101d33efacbc6e396d1c",
+      "gzipSha256": "538691db4d5684ae0e388a6025c5c4598021e8aa205c898ed63a4063c5097f52"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-family-behavior-types-first.log.gz",
+      "rawSha256": "7e27dd779e05a54111112a73012731d0bd0a37ddfa3fc12e8a5b0ab2f516b343",
+      "gzipSha256": "9df8f289a5b910673db185c632a005816eda07e2e4d429f5e7e0065c36c718ec"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-family-behavior-lint-first.log.gz",
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gzipSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    }
+  ]
+}

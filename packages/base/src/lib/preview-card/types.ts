@@ -60,3 +60,54 @@ export type PreviewCardPopupProps = ElementProps<PreviewCardPopupState>;
 
 export interface PreviewCardViewportState { activationDirection: string | undefined; transitioning: boolean; instant: 'dismiss' | 'focus' | undefined }
 export type PreviewCardViewportProps = ElementProps<PreviewCardViewportState>;
+
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve the pinned prefixed erased part namespace.
+export namespace PreviewCardRoot {
+  export type Props<Payload = unknown> = PreviewCardRootProps<Payload>;
+  export type State = PreviewCardRootState;
+  export type Actions = PreviewCardRootActions;
+  export type ChangeEventReason = PreviewCardRootChangeEventReason;
+  export type ChangeEventDetails = PreviewCardRootChangeEventDetails;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve the pinned prefixed erased part namespace.
+export namespace PreviewCardTrigger {
+  export type Props<Payload = unknown> = PreviewCardTriggerProps<Payload>;
+  export type State = PreviewCardTriggerState;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve the pinned prefixed erased part namespace.
+export namespace PreviewCardPortal {
+  export type Props = PreviewCardPortalProps;
+  export type State = PreviewCardPortalState;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve the pinned prefixed erased part namespace.
+export namespace PreviewCardPositioner {
+  export type Props = PreviewCardPositionerProps;
+  export type State = PreviewCardPositionerState;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve the pinned prefixed erased part namespace.
+export namespace PreviewCardPopup {
+  export type Props = PreviewCardPopupProps;
+  export type State = PreviewCardPopupState;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve the pinned prefixed erased part namespace.
+export namespace PreviewCardArrow {
+  export type Props = PreviewCardArrowProps;
+  export type State = PreviewCardArrowState;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve the pinned prefixed erased part namespace.
+export namespace PreviewCardBackdrop {
+  export type Props = PreviewCardBackdropProps;
+  export type State = PreviewCardBackdropState;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve the pinned prefixed erased part namespace.
+export namespace PreviewCardViewport {
+  export type Props = PreviewCardViewportProps;
+  export type State = PreviewCardViewportState;
+}

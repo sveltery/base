@@ -1,3 +1,4 @@
 export * from './index.parts.js';
 export * as Popover from './index.parts.js';
 export type { PopoverRootProps, PopoverRootState, PopoverTriggerProps, PopoverTriggerState, PopoverPortalProps, PopoverPortalState, PopoverPositionerProps, PopoverPositionerState, PopoverPopupProps, PopoverPopupState, PopoverArrowProps, PopoverArrowState, PopoverBackdropProps, PopoverBackdropState, PopoverTitleProps, PopoverTitleState, PopoverDescriptionProps, PopoverDescriptionState, PopoverCloseProps, PopoverCloseState, PopoverViewportProps, PopoverViewportState, PopoverRootActions, PopoverRootChangeEventReason, PopoverRootChangeEventDetails } from './types.js';
+export type { PopoverRoot, PopoverTrigger, PopoverPortal, PopoverPositioner, PopoverPopup, PopoverArrow, PopoverBackdrop, PopoverTitle, PopoverDescription, PopoverClose, PopoverViewport } from './types.js';

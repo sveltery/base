@@ -73,3 +73,72 @@ export type PopoverPopupProps = ElementProps<PopoverPopupState> & { initialFocus
 
 export interface PopoverViewportState { activationDirection: string | undefined; transitioning: boolean; instant: 'dismiss' | 'click' | 'focus' | 'trigger-change' | undefined }
 export type PopoverViewportProps = ElementProps<PopoverViewportState>;
+
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve the pinned prefixed erased part namespace.
+export namespace PopoverRoot {
+  export type Props<Payload = unknown> = PopoverRootProps<Payload>;
+  export type State = PopoverRootState;
+  export type Actions = PopoverRootActions;
+  export type ChangeEventReason = PopoverRootChangeEventReason;
+  export type ChangeEventDetails = PopoverRootChangeEventDetails;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve the pinned prefixed erased part namespace.
+export namespace PopoverTrigger {
+  export type Props<Payload = unknown> = PopoverTriggerProps<Payload>;
+  export type State = PopoverTriggerState;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve the pinned prefixed erased part namespace.
+export namespace PopoverPortal {
+  export type Props = PopoverPortalProps;
+  export type State = PopoverPortalState;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve the pinned prefixed erased part namespace.
+export namespace PopoverPositioner {
+  export type Props = PopoverPositionerProps;
+  export type State = PopoverPositionerState;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve the pinned prefixed erased part namespace.
+export namespace PopoverPopup {
+  export type Props = PopoverPopupProps;
+  export type State = PopoverPopupState;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve the pinned prefixed erased part namespace.
+export namespace PopoverArrow {
+  export type Props = PopoverArrowProps;
+  export type State = PopoverArrowState;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve the pinned prefixed erased part namespace.
+export namespace PopoverBackdrop {
+  export type Props = PopoverBackdropProps;
+  export type State = PopoverBackdropState;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve the pinned prefixed erased part namespace.
+export namespace PopoverTitle {
+  export type Props = PopoverTitleProps;
+  export type State = PopoverTitleState;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve the pinned prefixed erased part namespace.
+export namespace PopoverDescription {
+  export type Props = PopoverDescriptionProps;
+  export type State = PopoverDescriptionState;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve the pinned prefixed erased part namespace.
+export namespace PopoverClose {
+  export type Props = PopoverCloseProps;
+  export type State = PopoverCloseState;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve the pinned prefixed erased part namespace.
+export namespace PopoverViewport {
+  export type Props = PopoverViewportProps;
+  export type State = PopoverViewportState;
+}

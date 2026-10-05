@@ -70,3 +70,6 @@ export type { PreviewCardRootProps, PreviewCardRootState, PreviewCardTriggerProp
 
 export { Tooltip } from './tooltip/index.js';
 export type { TooltipProviderProps, TooltipProviderState, TooltipRootProps, TooltipRootState, TooltipTriggerProps, TooltipTriggerState, TooltipPortalProps, TooltipPortalState, TooltipPositionerProps, TooltipPositionerState, TooltipPopupProps, TooltipPopupState, TooltipArrowProps, TooltipArrowState, TooltipViewportProps, TooltipViewportState, TooltipRootActions, TooltipRootChangeEventReason, TooltipRootChangeEventDetails } from './tooltip/types.js';
+export type { PopoverRoot, PopoverTrigger, PopoverPortal, PopoverPositioner, PopoverPopup, PopoverArrow, PopoverBackdrop, PopoverTitle, PopoverDescription, PopoverClose, PopoverViewport } from './popover/types.js';
+export type { PreviewCardRoot, PreviewCardTrigger, PreviewCardPortal, PreviewCardPositioner, PreviewCardPopup, PreviewCardArrow, PreviewCardBackdrop, PreviewCardViewport } from './preview-card/types.js';
+export type { TooltipProvider, TooltipRoot, TooltipTrigger, TooltipPortal, TooltipPositioner, TooltipPopup, TooltipArrow, TooltipViewport } from './tooltip/types.js';
