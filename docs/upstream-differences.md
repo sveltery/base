@@ -1,5 +1,13 @@
 # Upstream differences
 
+The [three private Select prerequisites](../parity/select-canonical-leaves/README.md)
+retain pinned item equality and label business, with native scalar/Snippet label
+tokens and an internal ListboxSeparator using canonical RenderElement. Their
+[representation and validation record](../parity/select-canonical-leaves/compatibility.md)
+keeps the temporarily unconsumed status, native renderer/type boundaries and
+pending final Source/installed-consumer/CI acceptance explicit. No public Select
+API, full-family closure or ordinary declaration credit is established.
+
 The private canonical [useClick prerequisite](use-click-prerequisite.md) records its callback-construction fidelity repair and existing native lifetime/type boundaries in [source correspondence](../parity/use-click/source-correspondence.md). Selected scalar options and Store/dataRef identity stay in ordinary callback closures; Source live state/event reads and cancellation stay live. Native events, derived handler construction, Svelte Store subscription and onMount cleanup replace React machinery. The existing browser-rAF adapter omits the Source process-global scheduler, explicitly recorded with zero new ordinary assertion credit. The new direct element type import erases completely; unchanged RootStore inline type imports retain an empty emitted types module without hover/tree business execution. This is bounded private preparation, with exact final review/CI/PM approval pending; existing bespoke Dialog and full affected features remain outside its acceptance.
 
 Behavior reference: [Base UI v1.8.0](upstream-contracts.md), immutable commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. The landed entries below record verified differences present on Base main `4dd04e495fc9f5bb6a0bb872fe103563d49535b1`. Landed does not establish a specific acceptance decision. The cited evidence does not record specific user approval of these deviations. Divergent assertions earn no parity credit; complete Dialog, Button and whole-library parity remain unclaimed.

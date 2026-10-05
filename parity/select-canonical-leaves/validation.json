@@ -1,0 +1,43 @@
+{
+  "scope": "focused developer checks only; not independent Source closure/Select acceptance",
+  "sourceHelperExecutions": {
+    "equality": 15,
+    "labelOrdinaryDeclarations": 15,
+    "labelParameterizedRows": 4,
+    "labelExecutions": 18,
+    "totalExecutions": 33,
+    "result": "pass",
+    "command": "NODE_OPTIONS=--max-old-space-size=768 node node_modules/vitest/vitest.mjs run --config vitest.config.ts --maxWorkers=1 tests/select-item-equality-source.test.ts tests/select-value-label-source.test.ts",
+    "durationMs": 479
+  },
+  "nativeSupplements": {
+    "helper": 7,
+    "dom": 4,
+    "ssr": 2,
+    "result": "pass"
+  },
+  "strictTypes": {
+    "result": "pass",
+    "errors": 0,
+    "warnings": 0,
+    "command": "NODE_OPTIONS=--max-old-space-size=768 node packages/base/node_modules/svelte-check/bin/svelte-check --workspace packages/base --tsconfig ../../.checks/select-leaves-tsconfig.json",
+    "failedHistoricalDiagnostic": {
+      "result": "failed",
+      "error": "Unused @ts-expect-error directive.",
+      "file": "packages/base/tests/select-canonical-leaves.types.ts",
+      "line": 22,
+      "assertion": "class callback state rejection",
+      "reason": "Native canonical Svelte ClassValue admits broad object/function values; assertion was invalid and removed, not passed/ported. Shared types unchanged.",
+      "currentReplacement": "actual style callback state rejection"
+    }
+  },
+  "existingCanonicalByteEquality": {
+    "modules": 17,
+    "result": "pass",
+    "comparison": "current SHA-256 versus actual c160 precode receipt"
+  },
+  "heavyBuildInstalledConsumerFullVerify": "pending Root scheduling; not run",
+  "browser": "pending",
+  "independentFinalSourceReview": "pending",
+  "ordinarySelectDeclarationCredit": 0
+}
