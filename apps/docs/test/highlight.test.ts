@@ -1,6 +1,7 @@
 import { registerHooks } from 'node:module';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import type { HastRoot, HastNode } from '../src/lib/docs/highlight/types.js';
 // Vite's asset import is packaging only; Node's actual Starry Night filesystem
 // WASM loader ignores getOnigurumaUrlFetch. Keep that SSR-only asset boundary
 // explicit while executing the complete real parser/regex/token/gutter bodies.
@@ -11,23 +12,26 @@ registerHooks({
         url: 'data:text/javascript,export default "unused-node-fetch-url"',
         shortCircuit: true,
       };
+    if (
+      specifier.startsWith('.') &&
+      specifier.endsWith('.js') &&
+      context.parentURL?.startsWith(
+        new URL('../src/lib/docs/', import.meta.url).href,
+      )
+    )
+      return nextResolve(specifier.slice(0, -3) + '.ts', context);
     return nextResolve(specifier, context);
   },
 });
-const { createParseSource, parseSource, resetStarryNight } = await import(
-  '../src/lib/docs/highlight/parseSource.mjs'
-);
-const { getHastTextContent } = await import(
-  '../src/lib/docs/highlight/getHastTextContent.mjs'
-);
-const { resolveGrammarScope } = await import(
-  '../src/lib/docs/highlight/grammarMaps.mjs'
-);
-const { areGrammarsRegistered } = await import(
-  '../src/lib/docs/highlight/grammarCache.mjs'
-);
-/** @param {import('../src/lib/docs/highlight/types.js').HastRoot | import('../src/lib/docs/highlight/types.js').HastNode} node @returns {string[]} */
-function classes(node) {
+const { createParseSource, parseSource, resetStarryNight } =
+  await import('../src/lib/docs/highlight/parseSource.ts');
+const { getHastTextContent } =
+  await import('../src/lib/docs/highlight/getHastTextContent.ts');
+const { resolveGrammarScope } =
+  await import('../src/lib/docs/highlight/grammarMaps.ts');
+const { areGrammarsRegistered } =
+  await import('../src/lib/docs/highlight/grammarCache.ts');
+function classes(node: HastRoot | HastNode): string[] {
   return [
     ...(node.type === 'element'
       ? (node.properties?.className ?? []).map(String)
@@ -69,7 +73,10 @@ test('extended token classes and unsupported scopes preserve exact readable sour
     assert.ok(classes(tree).includes(token), token);
   const deferredJson = parseSource('{"key": true}', 'example.json');
   assert.equal(getHastTextContent(deferredJson), '{"key": true}');
-  assert.equal(classes(deferredJson).some(name => name.startsWith('pl-')), false);
+  assert.equal(
+    classes(deferredJson).some((name) => name.startsWith('pl-')),
+    false,
+  );
   const plain = parseSource(source, 'example.unknown');
   assert.equal(getHastTextContent(plain), source);
   assert.equal(
@@ -88,9 +95,14 @@ test('multi-frame gutters preserve terminal newline and frame fallback text', as
   assert.equal(getHastTextContent(tree), source);
   assert.equal(
     tree.children
-      .map((frame) =>
-        getHastTextContent({ type: 'root', children: frame.data?.fallback }),
-      )
+      .map((frame) => {
+        assert.equal(frame.type, 'element');
+        assert.ok(frame.data?.fallback);
+        return getHastTextContent({
+          type: 'root',
+          children: frame.data.fallback,
+        });
+      })
       .join(''),
     source,
   );

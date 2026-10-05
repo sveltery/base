@@ -106,3 +106,22 @@ historical8504 commit. Validate actual19routes/assets/links, SSR/static output,
 keyboard/search/focus/mobile overflow and screenshots where browser startup is
 available. Reopen final independent/configured review at the actual successor
 head before any normal merge. Cloudflare hosting remains user-managed.
+
+## Maintained TypeScript successor
+
+The original pre-code shell plan above is historical. The typed-source successor
+keeps the same pinned published docs-infra authority and all selected business
+bodies. Before its implementation, all 13 JavaScript module bodies and their
+declarations, runtime/type-only import edges, actual Starry Night/Orama APIs,
+native callers, sitemap inputs and Node source/WASM test loader were traced.
+The package has no recoverable TypeScript/source-map source and no immutable
+metadata `gitHead`, so types were restored against its exact published bodies.
+
+Scope is the 12 maintained highlighting helpers, one search engine, their actual
+types/callers and two helper tests. All become maintained TypeScript with useful
+types and without `@ts-nocheck`, blanket `any` or replacement business algorithms.
+The [current correspondence](docs-source-correspondence.md#maintained-typescript-source-correction)
+and new `receipts/docs/typescript-source-files.json` retain the complete closure
+and executed erasure equivalence against frozen `fd4928c`. This adds no widget,
+library/helper or shared authored-data work and changes no pins, notices or
+historical evidence. Fresh exact-head validation/review remain required.

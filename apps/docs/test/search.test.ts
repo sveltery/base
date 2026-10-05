@@ -7,10 +7,18 @@ registerHooks({
   resolve(specifier, context, nextResolve) {
     if (specifier.endsWith('/fixtures/src/lib/docs/content.js'))
       return nextResolve(specifier.slice(0, -3) + '.ts', context);
+    if (
+      specifier.startsWith('.') &&
+      specifier.endsWith('.js') &&
+      context.parentURL?.startsWith(
+        new URL('../src/lib/docs/', import.meta.url).href,
+      )
+    )
+      return nextResolve(specifier.slice(0, -3) + '.ts', context);
     return nextResolve(specifier, context);
   },
 });
-const { createSearchEngine } = await import('../src/lib/docs/search/engine.js');
+const { createSearchEngine } = await import('../src/lib/docs/search/engine.ts');
 test('actual native declaration metadata supports nonempty Source QPS queries', async () => {
   const engine = createSearchEngine({
     sitemap: () => import('../src/lib/docs/search/sitemap.ts'),

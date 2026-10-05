@@ -15,7 +15,7 @@ is retained in `apps/docs/THIRD_PARTY_NOTICES.md`.
 | Demo, DemoCodeBlock | `Demo.svelte`, `DemoCodeBlock.svelte`: actual Collapsible primitives, source retained-mounted panel and closed cutoff, before/after collapse viewport preservation; tick replaces React flushSync, native Svelte boundary replaces React ErrorBoundary. |
 | ReferenceAccordion, Accordion, DescriptionList, TableCode, observeScrollableInner | `ReferenceTable.svelte`, `ReferenceItem.svelte`, `observeScrollableInner.ts`: native details/summary, hash opening, selection/double-mousedown guard, source description wrapper/overscroll gradient and ResizeObserver/RAF lifecycle. Actual local declaration data replaces React useTypes metadata. |
 | Subtitle, ViewSourceLink, MDX headings | `DocsPage.svelte`: native markup and canonical authored IDs/prose; component-only source-directory mapping targets actual Sveltery main directories. No invented Markdown twins. |
-| `useSearch.mjs` schema/flatten/format/index/search/ranking/buildResultUrl | `search/engine.js`: published pure bodies retained; React hook ownership becomes initialized service. JSDoc describes native call boundary; published untyped body retains scoped ts-nocheck. |
+| `useSearch.mjs` schema/flatten/format/index/search/ranking/buildResultUrl | `search/engine.ts`: published pure bodies retained; React hook ownership becomes initialized service. Actual schema, sitemap, result variants, callbacks and Orama options are typed in the maintained implementation. The frozen untyped checkpoint is retained in Git and historical receipts. |
 | useDeferredSearchSitemap | `search/loader.ts`, NativeSearch warmup: lazy cached import, failed promise reset, next activation retries failed engine initialization. |
 | SearchControls/SearchDialog/MobileNav | `NativeSearch.svelte`: source query/loading ownership, pending suppression and IME guard exposed through bounded native dialog/input/list. This is interim; Autocomplete keyboard selection, Drawer gestures, detached handle and Tooltip business remain absent. |
 | docs CSS/token/reset/helper closure | `css`, `components/*.css`, `styles.css`: Original CSS bodies; aliases become relative imports, Tailwind/PostCSS expands Original retained theme/utilities/custom media. Original React-demo scan removed; native adapters explicitly isolated in styles.css. |
@@ -74,7 +74,7 @@ compression machinery. Plain-text frame/gutter fallback remains readable in SSR;
 syntax is loaded after hydration with native effect cleanup/cancellation.
 
 The unchanged `createPlainTextRoot` business body moves to a lightweight shared
-`plainText.mjs` to keep the regex engine out of the initial renderer import.
+`plainText.ts` to keep the regex engine out of the initial renderer import.
 Singleton global key, creation dedup, serialized registration chain, dependency
 fixpoint, fail-open fallback, token enhancement and gutter/frame metadata remain
 Original. The supported `getOnigurumaUrlFetch` option loads actual pinned
@@ -150,3 +150,47 @@ local build; source, copied build and actual HTTP-served bytes match. This focus
 asset check is not a new build or browser acceptance. Historical assertions/run
 history and incomplete licensing checkpoint are retained without parity credit;
 hosted successor browser execution and exact-head review remain pending.
+
+## Maintained TypeScript source correction
+
+The frozen `fd4928c034be417fcdc0451f4214c34ddbc09510` checkpoint used 12
+published parser/helper JavaScript modules and one native search JavaScript
+module, with separate declarations and `@ts-nocheck`. The pinned
+`@mui/internal-docs-infra@0.12.1-canary.42` archive was inspected for original
+TypeScript and source-map `sourcesContent`: it contains compiled `.mjs` and
+`.d.mts` declarations, with no source `.ts`/`.tsx` or `.map` files and no
+immutable `gitHead` in its metadata. That exact published package remains the
+authority; no other upstream revision was substituted.
+
+All 13 maintained runtime modules are now `.ts`, and the four separate local
+declarations are folded into the implementation APIs. The complete token helper
+closure, grammar cache/facade/maps/loaders/barrel, fallback/gutter/frame and
+search/index/ranking bodies are unchanged after type erasure. The new
+`receipts/docs/typescript-source-files.json` records original hashes, frozen and
+typed hashes, all runtime and type-only import edges, and the native caller/test
+closure. Its companion portable Node evidence tool checks the actual installed
+TypeScript 6.0.3 AST after erasure against the frozen 13 bodies; it normalizes only
+import `.mjs` to `.js` spelling, redundant parentheses and shorthand assignments.
+All 13 match. Earlier source archives, receipts, failures and notices are intact.
+
+| Maintained typed owner | Actual types and preserved boundary |
+| --- | --- |
+| `highlight/types.ts` | HAST node/element/root types derive from Starry Night's supplied HAST API; recursive frame fallbacks, line/frame metadata, parser function, grammar singleton and Source frame-kind/truncation unions remain explicit. Starry Night 3.10.0 and its installed `@types/hast` 3.0.5 declare MIT. All these imports erase before runtime. |
+| `parseSource.ts`, `grammarCache.ts` | Typed shared global property, instance creation promise, grammar arrays, registration task/mutex and readiness slice. The facade still has only a dynamic runtime parser import; the engine remains deferred. |
+| `grammarMaps.ts`, `grammarLoaders.ts`, `grammars.ts`, `languageCapabilities.ts` | Unknown map keys return `undefined`; supplied `Grammar` types describe real dynamic/static payloads; Source language capability branches stay unchanged. JSON payload stays absent and unsupported; Svelte grammar and local Vite WASM remain unchanged. |
+| `plainText.ts`, `addLineGutters.ts`, `createFrame.ts`, `isFrameSpan.ts`, `getHastTextContent.ts` | Actual HAST trees, frame/line metadata, class arrays, recursive/shallow text and native parser result APIs. One documented cast acknowledges generic HAST Root can contain a document doctype while this real highlighting/plain-text pipeline emits only element/text children for line spans. |
+| `extendSyntaxTokens.ts` | Every helper parameter/return is typed, including the discriminated string/expression template stack, brace depth, children/target arrays and span mutation. All scanning, enhancement and structural branches remain Source bodies. |
+| `search/engine.ts`, `search/types.ts`, `sitemap.ts`, `searchUtils.ts` | Real sitemap/page/section/API shapes, discriminated page/part/export/section/subsection results, literal Orama schema, supplied `Result`/`Orama`/search options, grouped elapsed/count state, flatten/format/slug callbacks and cache fields. The dummy document still omits `types`; actual declaration metadata still provides it. Source boosts/ranking/grouping/URLs and native lifecycle are unchanged. |
+| `CodeContent.svelte`, `NativeSearch.svelte` | Native snippets/rendering/effect cleanup and dialog/query/timer/focus ownership stay unchanged. Import paths select the typed source; shared real result types replace the earlier partial inline result shape. |
+| `test/highlight.test.ts`, `test/search.test.ts` | Node 24 native type erasure runs actual typed source, actual Starry Night filesystem WASM and actual Orama/QPS. A narrow docs-relative `.js` to `.ts` resolver preserves canonical bundler import spelling. The source WASM URL packaging hook is unchanged; all four tests and their behavior assertions remain, with an additional real frame/fallback existence assertion. |
+
+There are no maintained `.js`/`.mjs` files in `apps/docs/src`, `apps/docs/test` or
+the docs app configuration. The evidence checker remains portable `.mjs`, like
+the existing root API extraction/SSR/build tools and `scripts/tests/docs.test.mjs`.
+No new dependency or version change was needed. This correction does not claim
+the incomplete docs widgets, inherited Collapsible audit or exact visual parity.
+Focused checks executed: docs and fixtures type checks each zero errors/warnings,
+docs ESLint clean, parser 3/3 and actual QPS query 1/1, canonical metadata/API
+checks 3/3, and runtime AST equivalence 13/13. Development port5178 remains live.
+Static build, hosted three browser witnesses and independent final-head review
+must be refreshed for this successor before acceptance.

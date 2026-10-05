@@ -1,8 +1,12 @@
 // Published @mui/internal-docs-infra 0.12.1-canary.42 pipeline; MIT, copyright 2019 Material-UI SAS.
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment -- Retained published untyped JavaScript; native render boundary is separately typed.
-// @ts-nocheck
-import { getShallowTextContent } from "./getHastTextContent.mjs";
-import { getLanguageCapabilitiesFromScope } from "./languageCapabilities.mjs";
+import { getShallowTextContent } from './getHastTextContent.js';
+import { getLanguageCapabilitiesFromScope } from './languageCapabilities.js';
+import type {
+  HastRoot,
+  HastNode,
+  HastElement,
+  HastElementContent,
+} from './types.js';
 
 /**
  * Classes that can represent CSS attribute selector names inside `[...]`.
@@ -14,7 +18,18 @@ const CSS_ATTR_SELECTOR_CLASSES = new Set(['pl-c1', 'pl-e']);
  * TypeScript built-in type keywords that starry-night classifies as `pl-c1`.
  * These are language primitives from the TypeScript specification.
  */
-export const BUILT_IN_TYPES = new Set(['string', 'number', 'boolean', 'void', 'never', 'symbol', 'object', 'any', 'unknown', 'bigint']);
+export const BUILT_IN_TYPES = new Set([
+  'string',
+  'number',
+  'boolean',
+  'void',
+  'never',
+  'symbol',
+  'object',
+  'any',
+  'unknown',
+  'bigint',
+]);
 
 /**
  * Checks whether a `pl-c1` token's text represents a numeric value.
@@ -27,7 +42,7 @@ export const BUILT_IN_TYPES = new Set(['string', 'number', 'boolean', 'void', 'n
  * Matches: `42`, `3.14`, `-1`, `.5`, `0xFF`, `100px`, `50%`, `3em`
  * Does not match: `color`, `red`, `Button`, `NaN`, `Infinity`
  */
-function isNumericConstant(text) {
+function isNumericConstant(text: string): boolean {
   if (text.length === 0) {
     return false;
   }
@@ -53,7 +68,7 @@ function isNumericConstant(text) {
 /**
  * Gets the first CSS class from an element's className array.
  */
-function getFirstClass(element) {
+function getFirstClass(element: HastElement): string | undefined {
   const className = element.properties?.className;
   if (Array.isArray(className) && typeof className[0] === 'string') {
     return className[0];
@@ -64,7 +79,7 @@ function getFirstClass(element) {
 /**
  * Adds a CSS class to an element's className array (additive, never removes existing classes).
  */
-function addClass(element, cls) {
+function addClass(element: HastElement, cls: string): void {
   if (!element.properties) {
     element.properties = {};
   }
@@ -78,7 +93,11 @@ function addClass(element, cls) {
 /**
  * Replaces one CSS class with another in an element's className array.
  */
-function replaceClass(element, oldCls, newCls) {
+function replaceClass(
+  element: HastElement,
+  oldCls: string,
+  newCls: string,
+): void {
   const className = element.properties?.className;
   if (Array.isArray(className)) {
     const idx = className.indexOf(oldCls);
@@ -103,7 +122,11 @@ function replaceClass(element, oldCls, newCls) {
  * TS family only (`isTs`):
  * - Built-in type keywords (`string`, `number`, etc.) → `di-bt`
  */
-function enhanceConstantSpan(element, isJs, isTs) {
+function enhanceConstantSpan(
+  element: HastElement,
+  isJs: boolean,
+  isTs: boolean,
+): void {
   const text = getShallowTextContent(element);
   if (!text) {
     return;
@@ -130,15 +153,18 @@ function enhanceConstantSpan(element, isJs, isTs) {
  * `<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>`
  * so we can detect it structurally without recursively serializing the text.
  */
-function enhanceStringSpan(element) {
-  const {
-    children
-  } = element;
+function enhanceStringSpan(element: HastElement): void {
+  const { children } = element;
   if (children.length !== 2) {
     return;
   }
   const [open, close] = children;
-  if (open.type === 'element' && getFirstClass(open) === 'pl-pds' && close.type === 'element' && getFirstClass(close) === 'pl-pds') {
+  if (
+    open.type === 'element' &&
+    getFirstClass(open) === 'pl-pds' &&
+    close.type === 'element' &&
+    getFirstClass(close) === 'pl-pds'
+  ) {
     addClass(element, 'di-n');
   }
 }
@@ -148,7 +174,7 @@ function enhanceStringSpan(element) {
  * (no letters, digits, or underscore). Used to distinguish symbolic operators
  * (`=`, `=>`, `&&`, `...`) from word keywords (`const`, `if`, `function`).
  */
-function isSymbolicPunctuation(text) {
+function isSymbolicPunctuation(text: string): boolean {
   if (text.length === 0) {
     return false;
   }
@@ -185,13 +211,20 @@ function isSymbolicPunctuation(text) {
  * `:` not part of `::`. The leading-context check avoids tagging ternary/label
  * patterns; the trailing check avoids `::` (TypeScript namespace, pseudo-elements).
  */
-function splitObjectKeys(value, inJsx) {
-  const nodes = [];
+function splitObjectKeys(
+  value: string,
+  inJsx: boolean,
+): HastElementContent[] | null {
+  const nodes: HastElementContent[] = [];
   let lastEnd = 0;
   let i = 0;
   while (i < value.length) {
     const code = value.charCodeAt(i);
-    const isIdentStart = code >= 65 && code <= 90 || code >= 97 && code <= 122 || code === 95 || code === 36;
+    const isIdentStart =
+      (code >= 65 && code <= 90) ||
+      (code >= 97 && code <= 122) ||
+      code === 95 ||
+      code === 36;
     if (!isIdentStart) {
       i += 1;
       continue;
@@ -220,7 +253,12 @@ function splitObjectKeys(value, inJsx) {
     let end = i + 1;
     while (end < value.length) {
       const ec = value.charCodeAt(end);
-      const isIdentPart = ec >= 48 && ec <= 57 || ec >= 65 && ec <= 90 || ec >= 97 && ec <= 122 || ec === 95 || ec === 36;
+      const isIdentPart =
+        (ec >= 48 && ec <= 57) ||
+        (ec >= 65 && ec <= 90) ||
+        (ec >= 97 && ec <= 122) ||
+        ec === 95 ||
+        ec === 36;
       if (!isIdentPart) {
         break;
       }
@@ -247,7 +285,7 @@ function splitObjectKeys(value, inJsx) {
     if (i > lastEnd) {
       nodes.push({
         type: 'text',
-        value: value.slice(lastEnd, i)
+        value: value.slice(lastEnd, i),
       });
     }
     const className = inJsx ? ['di-op', 'di-jv'] : ['di-op'];
@@ -255,12 +293,14 @@ function splitObjectKeys(value, inJsx) {
       type: 'element',
       tagName: 'span',
       properties: {
-        className
+        className,
       },
-      children: [{
-        type: 'text',
-        value: value.slice(i, end)
-      }]
+      children: [
+        {
+          type: 'text',
+          value: value.slice(i, end),
+        },
+      ],
     });
     lastEnd = end;
     i = end;
@@ -271,7 +311,7 @@ function splitObjectKeys(value, inJsx) {
   if (lastEnd < value.length) {
     nodes.push({
       type: 'text',
-      value: value.slice(lastEnd)
+      value: value.slice(lastEnd),
     });
   }
   return nodes;
@@ -281,7 +321,7 @@ function splitObjectKeys(value, inJsx) {
  * Tests whether a string starts with optional whitespace followed by `:`.
  * Used to detect that a `pl-s` span sits in object property-key position.
  */
-function startsWithColon(text) {
+function startsWithColon(text: string): boolean {
   for (let i = 0; i < text.length; i += 1) {
     const ch = text.charCodeAt(i);
     if (ch === 58) {
@@ -301,42 +341,51 @@ function startsWithColon(text) {
  * `${ ... }` interpolation expression, tracking `{`/`}` nesting via `braceDepth`
  * so the matching close brace can be found across object literals and lines.
  */
+type TemplateFrame = { mode: 'string' } | { mode: 'expr'; braceDepth: number };
 
 /** Creates an empty `di-te` interpolation-region span. */
-function createInterpolationRegion() {
+function createInterpolationRegion(): HastElement {
   return {
     type: 'element',
     tagName: 'span',
     properties: {
-      className: ['di-te']
+      className: ['di-te'],
     },
-    children: []
+    children: [],
   };
 }
 
 /** Creates a `di-td` delimiter span wrapping the given `${` or `}` glyph. */
-function createInterpolationDelimiter(value) {
+function createInterpolationDelimiter(value: string): HastElement {
   return {
     type: 'element',
     tagName: 'span',
     properties: {
-      className: ['di-td']
+      className: ['di-td'],
     },
-    children: [{
-      type: 'text',
-      value
-    }]
+    children: [
+      {
+        type: 'text',
+        value,
+      },
+    ],
   };
 }
 
 /** True when a node is a `pl-pds` span whose text is a backtick. */
-function isBacktickDelimiter(node) {
-  return !!node && node.type === 'element' && node.tagName === 'span' && getFirstClass(node) === 'pl-pds' && getShallowTextContent(node) === '`';
+function isBacktickDelimiter(node: HastNode | undefined): boolean {
+  return (
+    !!node &&
+    node.type === 'element' &&
+    node.tagName === 'span' &&
+    getFirstClass(node) === 'pl-pds' &&
+    getShallowTextContent(node) === '`'
+  );
 }
-function pushText(target, value) {
+function pushText(target: HastElementContent[], value: string): void {
   target.push({
     type: 'text',
-    value
+    value,
   });
 }
 
@@ -347,7 +396,11 @@ function pushText(target, value) {
  * (emitting the closing `di-td`). Mutates `stack` and `targets` in place as it
  * crosses boundaries, appending nodes to the innermost current target.
  */
-function processTemplateText(value, stack, targets) {
+function processTemplateText(
+  value: string,
+  stack: TemplateFrame[],
+  targets: HastElementContent[][],
+): void {
   let i = 0;
   let segStart = 0;
   while (i < value.length) {
@@ -366,7 +419,7 @@ function processTemplateText(value, stack, targets) {
       region.children.push(createInterpolationDelimiter('${'));
       stack.push({
         mode: 'expr',
-        braceDepth: 1
+        braceDepth: 1,
       });
       targets.push(region.children);
       i = open + 2;
@@ -412,11 +465,15 @@ function processTemplateText(value, stack, targets) {
  * line opens a fresh `di-te` with no leading `${`. Returns the stack to carry to
  * the next line, or `null` once the closing backtick is consumed (run complete).
  */
-function restructureTemplateLine(pls, entryStack, isOpener) {
+function restructureTemplateLine(
+  pls: HastElement,
+  entryStack: TemplateFrame[],
+  isOpener: boolean,
+): TemplateFrame[] | null {
   const source = pls.children;
-  const out = [];
-  const stack = entryStack.map(frame => ({
-    ...frame
+  const out: HastElementContent[] = [];
+  const stack = entryStack.map((frame) => ({
+    ...frame,
   }));
 
   // Rebuild the physical target chain for the carried stack: each open `expr`
@@ -450,7 +507,7 @@ function restructureTemplateLine(pls, entryStack, isOpener) {
         // A nested template literal opens inside the interpolation expression.
         target.push(node);
         stack.push({
-          mode: 'string'
+          mode: 'string',
         });
         targets.push(target);
       } else if (stack.length === 1) {
@@ -491,7 +548,14 @@ function restructureTemplateLine(pls, entryStack, isOpener) {
  * - JS `'key':` object property string → `di-ps` on `pl-s` spans
  * - JS template literals → `di-te` region / `di-td` delimiters around `${ ... }`
  */
-function enhanceChildren(children, isCss, isHtmlJsx, isJs, isTs, isJsx) {
+function enhanceChildren(
+  children: HastNode[],
+  isCss: boolean,
+  isHtmlJsx: boolean,
+  isJs: boolean,
+  isTs: boolean,
+  isJsx: boolean,
+): void {
   // CSS declaration state: tracks position relative to { } : ; [ ]
   let cssInsideBlock = false;
   let cssInsideBracket = false;
@@ -510,7 +574,7 @@ function enhanceChildren(children, isCss, isHtmlJsx, isJs, isTs, isJsx) {
 
   // Template-literal interpolation state, carried across the per-line `pl-s` spans
   // of one multi-line literal. `null` when not inside a template-literal run.
-  let templateRun = null;
+  let templateRun: TemplateFrame[] | null = null;
   for (let index = 0; index < children.length; index += 1) {
     const child = children[index];
 
@@ -518,9 +582,7 @@ function enhanceChildren(children, isCss, isHtmlJsx, isJs, isTs, isJsx) {
     if (child.type === 'text') {
       const savedSpanFlag = hasSpanSinceLastText;
       hasSpanSinceLastText = false;
-      const {
-        value
-      } = child;
+      const { value } = child;
 
       // CSS: track { } [ ] : ; state and wrap & nesting selectors
       if (isCss) {
@@ -549,29 +611,31 @@ function enhanceChildren(children, isCss, isHtmlJsx, isJs, isTs, isJsx) {
         if (ampIndex !== -1) {
           const before = value.slice(0, ampIndex);
           const after = value.slice(ampIndex + 1);
-          const ampSpan = {
+          const ampSpan: HastElement = {
             type: 'element',
             tagName: 'span',
             properties: {
-              className: ['pl-ent']
+              className: ['pl-ent'],
             },
-            children: [{
-              type: 'text',
-              value: '&'
-            }]
+            children: [
+              {
+                type: 'text',
+                value: '&',
+              },
+            ],
           };
-          const newNodes = [];
+          const newNodes: HastElementContent[] = [];
           if (before) {
             newNodes.push({
               type: 'text',
-              value: before
+              value: before,
             });
           }
           newNodes.push(ampSpan);
           if (after) {
             newNodes.push({
               type: 'text',
-              value: after
+              value: after,
             });
           }
           children.splice(index, 1, ...newNodes);
@@ -591,7 +655,12 @@ function enhanceChildren(children, isCss, isHtmlJsx, isJs, isTs, isJsx) {
           if (value[ci] === '<') {
             if (ci === value.length - 1) {
               const nextChild = children[index + 1];
-              if (isJsx && nextChild && nextChild.type === 'element' && nextChild.tagName === 'span') {
+              if (
+                isJsx &&
+                nextChild &&
+                nextChild.type === 'element' &&
+                nextChild.tagName === 'span'
+              ) {
                 const nextClass = getFirstClass(nextChild);
                 if (nextClass === 'pl-ent') {
                   htmlInsideTag = true;
@@ -618,7 +687,10 @@ function enhanceChildren(children, isCss, isHtmlJsx, isJs, isTs, isJsx) {
       // below, which only fires in attribute context (htmlInsideTag) — the two paths don't conflict.
       // Children expressions (e.g. `<Comp>{children}</Comp>`) are excluded by the htmlInsideTag check.
       if (isJs) {
-        const split = splitObjectKeys(value, isJsx && jsxExpressionDepth > 0 && htmlInsideTag);
+        const split = splitObjectKeys(
+          value,
+          isJsx && jsxExpressionDepth > 0 && htmlInsideTag,
+        );
         if (split) {
           children.splice(index, 1, ...split);
           index += split.length - 1;
@@ -631,41 +703,49 @@ function enhanceChildren(children, isCss, isHtmlJsx, isJs, isTs, isJsx) {
         if (equalsIndex !== -1) {
           // Tag the following pl-s span as attribute value
           const nextChild = children[index + 1];
-          if (nextChild && nextChild.type === 'element' && nextChild.tagName === 'span' && getFirstClass(nextChild) === 'pl-s') {
+          if (
+            nextChild &&
+            nextChild.type === 'element' &&
+            nextChild.tagName === 'span' &&
+            getFirstClass(nextChild) === 'pl-s'
+          ) {
             addClass(nextChild, 'di-av');
           }
 
           // Split text around = and wrap in di-ae span
           const before = value.slice(0, equalsIndex);
           const after = value.slice(equalsIndex + 1);
-          const equalsSpan = {
+          const equalsSpan: HastElement = {
             type: 'element',
             tagName: 'span',
             properties: {
-              className: ['di-ae']
+              className: ['di-ae'],
             },
-            children: [{
-              type: 'text',
-              value: '='
-            }]
+            children: [
+              {
+                type: 'text',
+                value: '=',
+              },
+            ],
           };
-          const newNodes = [];
+          const newNodes: HastElementContent[] = [];
           if (before) {
             newNodes.push({
               type: 'text',
-              value: before
+              value: before,
             });
           }
           newNodes.push(equalsSpan);
           if (after) {
             newNodes.push({
               type: 'text',
-              value: after
+              value: after,
             });
           }
           children.splice(index, 1, ...newNodes);
           index += newNodes.length - 1;
-          hasSpanSinceLastText = newNodes[newNodes.length - 1].type === 'element';
+          hasSpanSinceLastText =
+            newNodes[newNodes.length - 1].type === 'element';
         }
       }
       continue;
@@ -685,18 +765,32 @@ function enhanceChildren(children, isCss, isHtmlJsx, isJs, isTs, isJsx) {
     // backtick. Handled here, before the generic recursion, so the expression
     // tokens are enhanced inside their regions and the outer `pl-s` is skipped.
     if (isJs && child.tagName === 'span' && getFirstClass(child) === 'pl-s') {
-      const opensRun = templateRun === null && isBacktickDelimiter(child.children[0]);
+      const opensRun =
+        templateRun === null && isBacktickDelimiter(child.children[0]);
       if (templateRun !== null || opensRun) {
-        templateRun = restructureTemplateLine(child, templateRun ?? [{
-          mode: 'string'
-        }], opensRun);
+        templateRun = restructureTemplateLine(
+          child,
+          templateRun ?? [
+            {
+              mode: 'string',
+            },
+          ],
+          opensRun,
+        );
         // Empty backtick literals (`` `` ``) keep their nullish (`di-n`) classification.
         enhanceStringSpan(child);
         // Enhance the interpolated expressions (e.g. `di-num` on `${42}`) within
         // each region; nested regions are reached by the recursion.
         for (const region of child.children) {
           if (region.type === 'element' && getFirstClass(region) === 'di-te') {
-            enhanceChildren(region.children, isCss, isHtmlJsx, isJs, isTs, isJsx);
+            enhanceChildren(
+              region.children,
+              isCss,
+              isHtmlJsx,
+              isJs,
+              isTs,
+              isJsx,
+            );
           }
         }
         hasSpanSinceLastText = true;
@@ -775,7 +869,11 @@ function enhanceChildren(children, isCss, isHtmlJsx, isJs, isTs, isJsx) {
     // ── CSS-specific enhancements ──
     if (isCss) {
       // CSS attribute selector name: span preceded by text ending with [
-      if (firstClass && CSS_ATTR_SELECTOR_CLASSES.has(firstClass) && index > 0) {
+      if (
+        firstClass &&
+        CSS_ATTR_SELECTOR_CLASSES.has(firstClass) &&
+        index > 0
+      ) {
         const prev = children[index - 1];
         if (prev.type === 'text' && prev.value.endsWith('[')) {
           addClass(child, 'di-da');
@@ -796,10 +894,19 @@ function enhanceChildren(children, isCss, isHtmlJsx, isJs, isTs, isJsx) {
       }
 
       // Attribute equals: pl-k span containing =
-      if (firstClass === 'pl-k' && getShallowTextContent(child) === '=' && hadPrecedingSpan) {
+      if (
+        firstClass === 'pl-k' &&
+        getShallowTextContent(child) === '=' &&
+        hadPrecedingSpan
+      ) {
         addClass(child, 'di-ae');
         const nextChild = children[index + 1];
-        if (nextChild && nextChild.type === 'element' && nextChild.tagName === 'span' && getFirstClass(nextChild) === 'pl-s') {
+        if (
+          nextChild &&
+          nextChild.type === 'element' &&
+          nextChild.tagName === 'span' &&
+          getFirstClass(nextChild) === 'pl-s'
+        ) {
           addClass(nextChild, 'di-av');
         }
       }
@@ -826,15 +933,29 @@ function enhanceChildren(children, isCss, isHtmlJsx, isJs, isTs, isJsx) {
       // - pl-smi JSX component (PascalCase) → pl-c1 + di-jsx
       // - pl-smi HTML element (lowercase) → pl-ent
       // - Remove pl-k from the adjacent bracket spans
-      if ((firstClass === 'pl-smi' || firstClass === 'pl-c1') && prev.type === 'element' && prev.tagName === 'span' && getFirstClass(prev) === 'pl-k' && getShallowTextContent(prev) === '</') {
+      if (
+        (firstClass === 'pl-smi' || firstClass === 'pl-c1') &&
+        prev.type === 'element' &&
+        prev.tagName === 'span' &&
+        getFirstClass(prev) === 'pl-k' &&
+        getShallowTextContent(prev) === '</'
+      ) {
         // Find the closing bracket span: pl-k(">")
         const closeBracket = children[index + 1];
-        const hasCloseBracket = closeBracket && closeBracket.type === 'element' && closeBracket.tagName === 'span' && getFirstClass(closeBracket) === 'pl-k' && getShallowTextContent(closeBracket) === '>';
+        const hasCloseBracket =
+          closeBracket &&
+          closeBracket.type === 'element' &&
+          closeBracket.tagName === 'span' &&
+          getFirstClass(closeBracket) === 'pl-k' &&
+          getShallowTextContent(closeBracket) === '>';
         if (firstClass === 'pl-c1') {
           addClass(child, 'di-jsx');
         } else {
           const tagText = getShallowTextContent(child);
-          const isComponent = tagText && tagText[0] === tagText[0].toUpperCase() && tagText[0] !== tagText[0].toLowerCase();
+          const isComponent =
+            tagText &&
+            tagText[0] === tagText[0].toUpperCase() &&
+            tagText[0] !== tagText[0].toLowerCase();
           if (isComponent) {
             // JSX component: pl-smi → pl-c1 + di-jsx
             replaceClass(child, 'pl-smi', 'pl-c1');
@@ -850,13 +971,13 @@ function enhanceChildren(children, isCss, isHtmlJsx, isJs, isTs, isJsx) {
         const prevText = getShallowTextContent(prev) ?? '</';
         children[index - 1] = {
           type: 'text',
-          value: prevText
+          value: prevText,
         };
         if (hasCloseBracket) {
           const closeText = getShallowTextContent(closeBracket) ?? '>';
           children[index + 1] = {
             type: 'text',
-            value: closeText
+            value: closeText,
           };
         }
       }
@@ -872,7 +993,7 @@ function enhanceChildren(children, isCss, isHtmlJsx, isJs, isTs, isJsx) {
  * @param tree - The HAST root node produced by starry-night's `highlight()`
  * @param grammarScope - The grammar scope used for highlighting (e.g., 'source.tsx', 'source.css')
  */
-export function extendSyntaxTokens(tree, grammarScope) {
+export function extendSyntaxTokens(tree: HastRoot, grammarScope: string): void {
   const caps = getLanguageCapabilitiesFromScope(grammarScope);
   const isCss = caps.semantics === 'css';
   const isHtmlJsx = caps.supportsJsx || grammarScope === 'text.html.basic';

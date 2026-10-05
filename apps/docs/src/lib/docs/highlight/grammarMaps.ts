@@ -1,6 +1,4 @@
 // Published @mui/internal-docs-infra 0.12.1-canary.42 pipeline; MIT, copyright 2019 Material-UI SAS.
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment -- Retained published untyped JavaScript; native render boundary is separately typed.
-// @ts-nocheck
 /**
  * Light-weight grammar metadata maps. These can be statically imported without
  * pulling in the heavy TextMate grammar JSON payloads (which live in
@@ -8,7 +6,7 @@
  * the bundler can code-split them into their own chunk).
  */
 
-export const extensionMap = {
+export const extensionMap: Readonly<Record<string, string | undefined>> = {
   '.svelte': 'source.svelte',
   '.js': 'source.js',
   '.ts': 'source.ts',
@@ -20,14 +18,16 @@ export const extensionMap = {
   '.html': 'text.html.basic',
   '.css': 'source.css',
   '.sh': 'source.shell',
-  '.yaml': 'source.yaml'
+  '.yaml': 'source.yaml',
 };
 
 /**
  * Maps simplified language names back to grammar scope names.
  * Used when `language` prop is provided instead of fileName.
  */
-export const languageToGrammarMap = {
+export const languageToGrammarMap: Readonly<
+  Record<string, string | undefined>
+> = {
   svelte: 'source.svelte',
   js: 'source.js',
   javascript: 'source.js',
@@ -45,7 +45,7 @@ export const languageToGrammarMap = {
   shell: 'source.shell',
   bash: 'source.shell',
   yaml: 'source.yaml',
-  yml: 'source.yaml'
+  yml: 'source.yaml',
 };
 
 /**
@@ -53,7 +53,7 @@ export const languageToGrammarMap = {
  * @param language - The language name (e.g., 'tsx', 'css', 'typescript')
  * @returns The grammar scope or undefined if not recognized
  */
-export function getGrammarFromLanguage(language) {
+export function getGrammarFromLanguage(language: string): string | undefined {
   return languageToGrammarMap[language.toLowerCase()];
 }
 
@@ -68,7 +68,10 @@ export function getGrammarFromLanguage(language) {
  * @param language - Optional explicit language override (e.g., 'tsx', 'css')
  * @returns The grammar scope, or undefined for unsupported / unknown inputs
  */
-export function resolveGrammarScope(fileName, language) {
+export function resolveGrammarScope(
+  fileName?: string,
+  language?: string,
+): string | undefined {
   if (language) {
     const scope = getGrammarFromLanguage(language);
     if (scope) {
@@ -89,6 +92,8 @@ export function resolveGrammarScope(fileName, language) {
  * are passed through as-is, so an unrecognized scope is simply ignored
  * downstream (it has no loader) rather than throwing.
  */
-export function normalizeToScopes(entries) {
-  return [...new Set(entries.map(entry => getGrammarFromLanguage(entry) ?? entry))];
+export function normalizeToScopes(entries: string[]): string[] {
+  return [
+    ...new Set(entries.map((entry) => getGrammarFromLanguage(entry) ?? entry)),
+  ];
 }

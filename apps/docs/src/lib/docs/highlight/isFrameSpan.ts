@@ -1,6 +1,5 @@
 // Published @mui/internal-docs-infra 0.12.1-canary.42 pipeline; MIT, copyright 2019 Material-UI SAS.
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment -- Retained published untyped JavaScript; native render boundary is separately typed.
-// @ts-nocheck
+import type { HastElement } from './types.js';
 /**
  * Returns `true` when a HAST element carries the given class name.
  *
@@ -8,7 +7,7 @@
  * highlighter, `fallbackToHast` and any HAST that round-trips through
  * serialization produce, and what the compression dictionary encodes.
  */
-export function hasClassName(element, name) {
+export function hasClassName(element: HastElement, name: string): boolean {
   return element.properties?.className?.includes(name) ?? false;
 }
 
@@ -16,6 +15,6 @@ export function hasClassName(element, name) {
  * Returns `true` when a HAST element is a code frame span — its `className`
  * includes `'frame'` (see {@link hasClassName}).
  */
-export function isFrameSpan(element) {
+export function isFrameSpan(element: HastElement): boolean {
   return hasClassName(element, 'frame');
 }

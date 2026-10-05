@@ -1,6 +1,7 @@
 import { docs, groups } from '../../../../../fixtures/src/lib/docs/content.js';
 import dialogApi from '../../../../../fixtures/src/lib/docs/dialog-api.json' with { type: 'json' };
 import accordionApi from '../../../../../../parity/accordion/api.json' with { type: 'json' };
+import type { Sitemap } from './types.js';
 // Native authored metadata and actual extracted declarations replace Original
 // Next/MDX createSitemap/useTypes input; IDs stay canonical rather than re-slugged.
 function declaredTypeNames(declarations: string) {
@@ -13,7 +14,7 @@ const typesByPage: Record<string, string[]> = {
   'components/dialog': declaredTypeNames(dialogApi.types),
   'components/accordion': declaredTypeNames(accordionApi.types),
 };
-export const sitemap = {
+export const sitemap: Sitemap = {
   data: Object.fromEntries(
     groups.map((group) => [
       group,

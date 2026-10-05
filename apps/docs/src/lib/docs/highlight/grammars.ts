@@ -1,6 +1,5 @@
 // Published @mui/internal-docs-infra 0.12.1-canary.42 pipeline; MIT, copyright 2019 Material-UI SAS.
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment -- Retained published untyped JavaScript; native render boundary is separately typed.
-// @ts-nocheck
+import type { Grammar } from '@wooorm/starry-night';
 /**
  * Heavy TextMate grammar payloads. Importing this module pulls in hundreds of
  * KB of JSON. Prefer `await import('./grammars')` so bundlers can code-split
@@ -19,6 +18,16 @@ import textHtmlBasic from '@wooorm/starry-night/text.html.basic';
 import sourceCss from '@wooorm/starry-night/source.css';
 import sourceShell from '@wooorm/starry-night/source.shell';
 import sourceYaml from '@wooorm/starry-night/source.yaml';
-export const grammars = [sourceSvelte, sourceJs, sourceTs, sourceTsx, textMd, sourceMdx,
-// needs sourceTsx
-textHtmlBasic, sourceCss, sourceShell, sourceYaml];
+export const grammars: Grammar[] = [
+  sourceSvelte,
+  sourceJs,
+  sourceTs,
+  sourceTsx,
+  textMd,
+  sourceMdx,
+  // needs sourceTsx
+  textHtmlBasic,
+  sourceCss,
+  sourceShell,
+  sourceYaml,
+];

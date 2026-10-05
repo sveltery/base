@@ -2,13 +2,8 @@
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, copyright 2019 Material-UI SAS.
 // Native KeyboardEvent replaces React's event.nativeEvent; result shape is the
 // selected authored sitemap fields, not React/Autocomplete state ownership.
-export interface SearchResult {
-  title: string;
-  path: string;
-  slug: string;
-  prefix?: string;
-  type?: string;
-}
+import type { SearchResult } from './types.js';
+export type { SearchResult } from './types.js';
 export function normalizeSearchGroup(group: string) {
   return group.replace(/\s+Pages$/, '').replace(/^React\s+/, '');
 }

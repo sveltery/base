@@ -42,6 +42,16 @@ uses the Original Orama index/ranking; code uses its Starry Night parser with lo
 WASM. JSON grammar is deferred pending its exact ISC notice. Paper Mono ships with
 OFL; Die Grotesk is excluded, so typography and visual fidelity are not exact.
 
+Maintained documentation runtime helpers and tests are TypeScript. Node 24 runs
+the actual helper test sources with native type erasure; their narrow resolver
+adapts canonical `.js` import spelling and Vite's WASM asset URL for Node. The
+portable evidence checker compares all 13 helpers after erasure with the frozen
+JavaScript checkpoint without replacing the parser or search engine:
+
+```sh
+node docs/receipts/docs/typescript-source-check.mjs
+```
+
 `pnpm exec playwright test --config playwright.docs.config.ts` runs the dedicated
 standalone app browser checks. Secured hosted `.github/workflows/docs.yml` preserves
 JSON results, logs, traces and screenshots. It leaves component browser discovery

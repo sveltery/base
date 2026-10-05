@@ -3,9 +3,9 @@ parseSource, token and gutter bodies produce the same selected span/text tree.
 Deferred plain-text line/frame fallback remains SSR-visible; React provider,
 compression/transform/editor branches remain outside this bounded renderer. -->
 <script lang="ts">
-  import { parsePlainText } from './highlight/plainText.mjs';
-  import { resolveGrammarScope } from './highlight/grammarMaps.mjs';
-  import { ensureGrammars } from './highlight/grammarCache.mjs';
+  import { parsePlainText } from './highlight/plainText.js';
+  import { resolveGrammarScope } from './highlight/grammarMaps.js';
+  import { ensureGrammars } from './highlight/grammarCache.js';
   import type { HastRoot, HastNode } from './highlight/types.js';
   let {
     code,
@@ -35,7 +35,7 @@ compression/transform/editor branches remain outside this bounded renderer. -->
     void (async () => {
       try {
         await ensureGrammars([scope]);
-        const { parseSource } = await import('./highlight/parseSource.mjs');
+        const { parseSource } = await import('./highlight/parseSource.js');
         const tree = parseSource(source, name, lang);
         if (!cancelled)
           highlighted = { source, fileName: name, language: lang, tree };

@@ -4,6 +4,7 @@
   import { resolve } from '$app/paths';
   import { docs, groups } from '../../../../fixtures/src/lib/docs/content.js';
   import { createSearchEngine } from './search/engine.js';
+  import type { GroupedResults } from './search/types.js';
   import { loadSearchSitemap } from './search/loader.js';
   import Icons from './Icons.svelte';
   import {
@@ -17,18 +18,7 @@
   let mobileTrigger: HTMLButtonElement;
   let query = $state('');
   let mobile = $state(false);
-  let results = $state<
-    {
-      group: string;
-      items: {
-        title: string;
-        path: string;
-        slug: string;
-        prefix?: string;
-        type?: string;
-      }[];
-    }[]
-  >([]);
+  let results = $state<GroupedResults['results']>([]);
   let pending = $state(false);
   let error = $state(false);
   let searchId = 0;

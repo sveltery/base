@@ -1,6 +1,5 @@
 // Published @mui/internal-docs-infra 0.12.1-canary.42 pipeline; MIT, copyright 2019 Material-UI SAS.
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment -- Retained published untyped JavaScript; native render boundary is separately typed.
-// @ts-nocheck
+import type { GrammarGlobal, StarryNight } from './types.js';
 /**
  * Light, client-reachable facade over the grammar engine in `./parseSource`.
  *
@@ -19,8 +18,8 @@ const STARRY_NIGHT_KEY = '__docs_infra_starry_night_instance__';
 
 // The narrow slice of the Starry Night instance this module reads synchronously.
 
-function getInstance() {
-  return globalThis[STARRY_NIGHT_KEY];
+function getInstance(): Pick<StarryNight, 'scopes'> | undefined {
+  return (globalThis as GrammarGlobal)[STARRY_NIGHT_KEY];
 }
 
 /**
@@ -29,7 +28,7 @@ function getInstance() {
  * safe on the render path (e.g. a `useState` initializer) to decide whether a
  * block can highlight immediately or must wait — avoiding a cold flash.
  */
-export function areGrammarsRegistered(scopes) {
+export function areGrammarsRegistered(scopes: string[]): boolean {
   if (scopes.length === 0) {
     return true;
   }
@@ -38,7 +37,7 @@ export function areGrammarsRegistered(scopes) {
     return false;
   }
   const registered = new Set(instance.scopes());
-  return scopes.every(scope => registered.has(scope));
+  return scopes.every((scope) => registered.has(scope));
 }
 
 /**
@@ -49,16 +48,14 @@ export function areGrammarsRegistered(scopes) {
  * is cheap to call on render or as a speculative preload. Fails open: a failed
  * load leaves the affected scope as plain text.
  */
-export async function ensureGrammars(scopes) {
+export async function ensureGrammars(scopes: string[]): Promise<void> {
   if (scopes.length === 0 || areGrammarsRegistered(scopes)) {
     return;
   }
   // Cold: pull the engine + registration impl now (this is when a block is about
   // to highlight, so the engine load is expected and runs in parallel with the
   // content via the speculative preload).
-  const {
-    registerGrammars
-  } = await import("./parseSource.mjs");
+  const { registerGrammars } = await import('./parseSource.js');
   await registerGrammars(scopes);
 }
 
@@ -68,9 +65,7 @@ export async function ensureGrammars(scopes) {
  * in many languages and prefer one upfront fetch over per-language chunks. Fails
  * open.
  */
-export async function preloadAllGrammars() {
-  const {
-    registerAllGrammars
-  } = await import("./parseSource.mjs");
+export async function preloadAllGrammars(): Promise<void> {
+  const { registerAllGrammars } = await import('./parseSource.js');
   await registerAllGrammars();
 }

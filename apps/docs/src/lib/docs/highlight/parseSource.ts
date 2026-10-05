@@ -1,22 +1,22 @@
 // Published @mui/internal-docs-infra 0.12.1-canary.42 pipeline; MIT, copyright 2019 Material-UI SAS.
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment -- Retained published untyped JavaScript; native render boundary is separately typed.
-// @ts-nocheck
 // Native static packaging: supported URL override serves the pinned WASM locally.
 import onigurumaUrl from 'vscode-oniguruma/release/onig.wasm?url';
 import { createStarryNight } from '@wooorm/starry-night';
-import { resolveGrammarScope } from "./grammarMaps.mjs";
-import { grammarLoaders } from "./grammarLoaders.mjs";
-import { createPlainTextRoot } from './plainText.mjs';
-import { starryNightGutter } from "./addLineGutters.mjs";
-import { extendSyntaxTokens } from "./extendSyntaxTokens.mjs";
+import { resolveGrammarScope } from './grammarMaps.js';
+import { grammarLoaders } from './grammarLoaders.js';
+import { createPlainTextRoot } from './plainText.js';
+import { starryNightGutter } from './addLineGutters.js';
+import { extendSyntaxTokens } from './extendSyntaxTokens.js';
+import type { Grammar } from '@wooorm/starry-night';
+import type { GrammarGlobal, ParseSource, StarryNight } from './types.js';
 const STARRY_NIGHT_KEY = '__docs_infra_starry_night_instance__';
 
 // Set DEBUG=true to log grammar load/register failures (e.g. a chunk-load error
 // after a rotated deploy, or offline). Off by default — a failed load fails open
 // (the affected scope renders as plain text) per convention 9.3.
 const DEBUG = false;
-function getInstance() {
-  return globalThis[STARRY_NIGHT_KEY];
+function getInstance(): StarryNight | undefined {
+  return (globalThis as GrammarGlobal)[STARRY_NIGHT_KEY];
 }
 
 // Builds the plain-text HAST fallback used for unsupported file types and for a
@@ -38,7 +38,7 @@ function getInstance() {
  * stays structurally assignable to `ParseSource`, so it drops into the loader in place
  * of the highlighting parser.
  */
-export { parsePlainText } from './plainText.mjs';
+export { parsePlainText } from './plainText.js';
 
 /**
  * Parses source code into a HAST tree with syntax highlighting.
@@ -49,10 +49,12 @@ export { parsePlainText } from './plainText.mjs';
  * @returns HAST Root node containing highlighted code structure with line gutters
  * @throws Error if `createParseSource()` has not been called first
  */
-export const parseSource = (source, fileName, language) => {
+export const parseSource: ParseSource = (source, fileName, language) => {
   const starryNight = getInstance();
   if (!starryNight) {
-    throw new Error('Starry Night not initialized. Use createParseSource to create an initialized parseSource function.');
+    throw new Error(
+      'Starry Night not initialized. Use createParseSource to create an initialized parseSource function.',
+    );
   }
 
   // Determine the grammar scope: prefer explicit language, then fall back to file extension
@@ -70,7 +72,10 @@ export const parseSource = (source, fileName, language) => {
     // Fall back to plain text; the block re-highlights on the next render once
     // the grammar is registered (a one-tick unstyled paint at worst).
     if (DEBUG) {
-      console.error(`[docs-infra] grammar for scope "${grammarScope}" not registered`, error);
+      console.error(
+        `[docs-infra] grammar for scope "${grammarScope}" not registered`,
+        error,
+      );
     }
     return createPlainTextRoot(source);
   }
@@ -83,24 +88,28 @@ export const parseSource = (source, fileName, language) => {
 
 // Resolves the per-scope grammar chunks, ignoring scopes with no loader (an
 // unknown extension degrades to plain text rather than failing the batch).
-async function loadGrammars(scopes) {
-  const loaded = await Promise.all(scopes.map(scope => {
-    const loader = grammarLoaders[scope];
-    return loader ? loader() : undefined;
-  }));
-  return loaded.filter(grammar => grammar !== undefined);
+async function loadGrammars(scopes: string[]): Promise<Grammar[]> {
+  const loaded = await Promise.all(
+    scopes.map((scope) => {
+      const loader = grammarLoaders[scope];
+      return loader ? loader() : undefined;
+    }),
+  );
+  return loaded.filter((grammar) => grammar !== undefined);
 }
 
 // Creation dedup: concurrent first-callers share one `createStarryNight` call.
-let instancePromise;
-async function createIfNeeded(initial) {
+let instancePromise: Promise<StarryNight> | undefined;
+async function createIfNeeded(initial: Grammar[]): Promise<StarryNight> {
   const existing = getInstance();
   if (existing) {
     return existing;
   }
   if (!instancePromise) {
-    instancePromise = createStarryNight(initial, { getOnigurumaUrlFetch: () => new URL(onigurumaUrl, import.meta.url) }).then(instance => {
-      globalThis[STARRY_NIGHT_KEY] = instance;
+    instancePromise = createStarryNight(initial, {
+      getOnigurumaUrlFetch: () => new URL(onigurumaUrl, import.meta.url),
+    }).then((instance) => {
+      (globalThis as GrammarGlobal)[STARRY_NIGHT_KEY] = instance;
       return instance;
     });
   }
@@ -112,7 +121,7 @@ async function createIfNeeded(initial) {
 // previous one settles; the chain itself never stays rejected so the queue
 // keeps draining, while callers still observe their own task's outcome.
 let registrationChain = Promise.resolve();
-function enqueue(task) {
+function enqueue(task: () => Promise<void>): Promise<void> {
   const next = registrationChain.then(task, task);
   registrationChain = next.catch(() => {});
   return next;
@@ -122,9 +131,11 @@ function enqueue(task) {
 // singleton, creating an empty instance first if none exists. Idempotent: a
 // scope already registered, in-flight from an earlier enqueued task, or without
 // a loader is skipped. Runs under the registration mutex.
-async function registerScopes(requested) {
+async function registerScopes(requested: string[]): Promise<void> {
   const instance = await createIfNeeded([]);
-  let pending = [...new Set(requested)].filter(scope => grammarLoaders[scope] && !instance.scopes().includes(scope));
+  let pending = [...new Set(requested)].filter(
+    (scope) => grammarLoaders[scope] && !instance.scopes().includes(scope),
+  );
 
   // Each round depends on the previous — register, then read the freshly-updated
   // `missingScopes()` for the next batch — so the awaits are necessarily
@@ -139,7 +150,9 @@ async function registerScopes(requested) {
     // loader-map intersection bounds this — a markdown fenced ```python block
     // references source.python, but with no loader it is left as plain text.
     const registered = new Set(instance.scopes());
-    pending = instance.missingScopes().filter(scope => grammarLoaders[scope] && !registered.has(scope));
+    pending = instance
+      .missingScopes()
+      .filter((scope) => grammarLoaders[scope] && !registered.has(scope));
   }
 }
 
@@ -153,7 +166,7 @@ async function registerScopes(requested) {
  * code should call the light facade {@link ensureGrammars} from `./grammarCache`
  * instead, so the engine stays out of the client bundle until a block needs it.
  */
-export async function registerGrammars(scopes) {
+export async function registerGrammars(scopes: string[]): Promise<void> {
   if (scopes.length === 0) {
     return;
   }
@@ -166,13 +179,13 @@ export async function registerGrammars(scopes) {
 // created empty by a prior `ensureGrammars`. Serialized through the registration
 // mutex via {@link ensureGrammars}-style callers; call it through
 // `enqueue(registerAllGrammars)` or {@link createParseSource}.
-export async function registerAllGrammars() {
-  const {
-    grammars
-  } = await import("./grammars.mjs");
+export async function registerAllGrammars(): Promise<void> {
+  const { grammars } = await import('./grammars.js');
   const instance = await createIfNeeded(grammars);
   const registered = new Set(instance.scopes());
-  const missing = grammars.filter(grammar => !registered.has(grammar.scopeName));
+  const missing = grammars.filter(
+    (grammar) => !registered.has(grammar.scopeName),
+  );
   if (missing.length > 0) {
     await instance.register(missing);
   }
@@ -191,7 +204,9 @@ export async function registerAllGrammars() {
  *
  * @returns A Promise that resolves to the initialized `parseSource` function
  */
-export const createParseSource = async initialScopes => {
+export const createParseSource = async (
+  initialScopes?: string[],
+): Promise<ParseSource> => {
   if (initialScopes === undefined) {
     await enqueue(registerAllGrammars);
   } else if (initialScopes.length === 0) {
@@ -206,8 +221,8 @@ export const createParseSource = async initialScopes => {
  * Clears the global Starry Night singleton and registration state. Intended for
  * tests exercising lazy registration from a known-empty registry.
  */
-export function resetStarryNight() {
-  globalThis[STARRY_NIGHT_KEY] = undefined;
+export function resetStarryNight(): void {
+  (globalThis as GrammarGlobal)[STARRY_NIGHT_KEY] = undefined;
   instancePromise = undefined;
   registrationChain = Promise.resolve();
 }

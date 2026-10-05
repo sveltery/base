@@ -1,10 +1,14 @@
 // Published @mui/internal-docs-infra 0.12.1-canary.42 pipeline; MIT, copyright 2019 Material-UI SAS.
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment -- Retained published untyped JavaScript; native render boundary is separately typed.
-// @ts-nocheck
 // Example copied from https://github.com/wooorm/starry-night#example-adding-line-numbers
 
-import { createFrame } from "./createFrame.mjs";
-import { hasClassName, isFrameSpan } from "./isFrameSpan.mjs";
+import { createFrame } from './createFrame.js';
+import { hasClassName, isFrameSpan } from './isFrameSpan.js';
+import type {
+  HastRoot,
+  HastNode,
+  HastElement,
+  HastElementContent,
+} from './types.js';
 
 /**
  * Counts the number of lines in a HAST tree without mutating it.
@@ -12,7 +16,7 @@ import { hasClassName, isFrameSpan } from "./isFrameSpan.mjs";
  * @param tree - The HAST tree to count lines in
  * @returns The number of lines in the tree
  */
-export function countLines(tree) {
+export function countLines(tree: HastRoot): number {
   const search = /\r?\n|\r/g;
   let index = -1;
   let start = 0;
@@ -44,15 +48,18 @@ export function countLines(tree) {
   }
   return lineNumber;
 }
-export function starryNightGutter(tree, sourceLines, frameSize = 120) {
-  /** @type {Array<RootContent>} */
-  const replacement = [];
+export function starryNightGutter(
+  tree: HastRoot,
+  sourceLines?: string[],
+  frameSize = 120,
+): void {
+  const replacement: HastNode[] = [];
   const search = /\r?\n|\r/g;
   let index = -1;
   let start = 0;
   let startTextRemainder = '';
   let lineNumber = 0;
-  let frameLines = [];
+  let frameLines: HastElementContent[] = [];
   while (index + 1 < tree.children.length) {
     index += 1;
     const child = tree.children[index];
@@ -67,7 +74,7 @@ export function starryNightGutter(tree, sourceLines, frameSize = 120) {
         if (startTextRemainder) {
           line.unshift({
             type: 'text',
-            value: startTextRemainder
+            value: startTextRemainder,
           });
           startTextRemainder = '';
         }
@@ -76,7 +83,7 @@ export function starryNightGutter(tree, sourceLines, frameSize = 120) {
         if (match.index > textStart) {
           line.push({
             type: 'text',
-            value: child.value.slice(textStart, match.index)
+            value: child.value.slice(textStart, match.index),
           });
         }
 
@@ -86,13 +93,13 @@ export function starryNightGutter(tree, sourceLines, frameSize = 120) {
         if (line.length === 0) {
           line.push({
             type: 'text',
-            value: match[0]
+            value: match[0],
           });
           frameLines.push(createLine(line, lineNumber));
         } else {
           frameLines.push(createLine(line, lineNumber), {
             type: 'text',
-            value: match[0]
+            value: match[0],
           });
         }
 
@@ -117,7 +124,7 @@ export function starryNightGutter(tree, sourceLines, frameSize = 120) {
   if (startTextRemainder) {
     line.unshift({
       type: 'text',
-      value: startTextRemainder
+      value: startTextRemainder,
     });
     // eslint-disable-next-line no-useless-assignment -- Preserve the selected Original gutter reset.
     startTextRemainder = '';
@@ -156,12 +163,23 @@ export function starryNightGutter(tree, sourceLines, frameSize = 120) {
     const lastIndex = replacement.length - 1;
     for (let frameIndex = 0; frameIndex < replacement.length; frameIndex += 1) {
       const frame = replacement[frameIndex];
-      if (frame.type === 'element' && frame.tagName === 'span' && isFrameSpan(frame)) {
+      if (
+        frame.type === 'element' &&
+        frame.tagName === 'span' &&
+        isFrameSpan(frame)
+      ) {
         // Extract line range from child .line elements
-        const lineChildren = frame.children.filter(c => c.type === 'element' && hasClassName(c, 'line') && typeof c.properties.dataLn === 'number');
+        const lineChildren = frame.children.filter(
+          (c): c is HastElement =>
+            c.type === 'element' &&
+            hasClassName(c, 'line') &&
+            typeof c.properties.dataLn === 'number',
+        );
         if (lineChildren.length > 0) {
           const startLine = Number(lineChildren[0].properties.dataLn) - 1;
-          const endLine = Number(lineChildren[lineChildren.length - 1].properties.dataLn);
+          const endLine = Number(
+            lineChildren[lineChildren.length - 1].properties.dataLn,
+          );
           const joined = sourceLines.slice(startLine, endLine).join('\n');
           // Non-final frames are always followed by more content, so their text
           // ends with the line separator. The final frame's text ends with a
@@ -173,7 +191,10 @@ export function starryNightGutter(tree, sourceLines, frameSize = 120) {
           // height as the highlighted render (no hydration jump) AND makes the
           // root fallback dictionary an exact match for the raw source text.
           const sourceEndsWithNewline = sourceLines.length > lineNumber;
-          const text = frameIndex < lastIndex || sourceEndsWithNewline ? `${joined}\n` : joined;
+          const text =
+            frameIndex < lastIndex || sourceEndsWithNewline
+              ? `${joined}\n`
+              : joined;
           // Cast to `ElementData` because `hast-util-from-parse5` augments
           // it with a required `position` field (upstream bug — should be
           // optional). We're not running through that parser here, so the
@@ -181,10 +202,12 @@ export function starryNightGutter(tree, sourceLines, frameSize = 120) {
           if (!frame.data) {
             frame.data = {};
           }
-          frame.data.fallback = [{
-            type: 'text',
-            value: text
-          }];
+          frame.data.fallback = [
+            {
+              type: 'text',
+              value: text,
+            },
+          ];
         }
       }
     }
@@ -203,14 +226,17 @@ export function starryNightGutter(tree, sourceLines, frameSize = 120) {
     tree.data.frameSize = frameSize;
   }
 }
-function createLine(children, line) {
+function createLine(children: HastNode[], line: number): HastElement {
   return {
     type: 'element',
     tagName: 'span',
     properties: {
       className: ['line'],
-      dataLn: line
+      dataLn: line,
     },
-    children
+    // Starry Night and createPlainTextRoot emit element/text children. The
+    // generic HAST Root type also permits document doctypes, which this code
+    // highlighting pipeline never produces inside its line spans.
+    children: children as HastElementContent[],
   };
 }
