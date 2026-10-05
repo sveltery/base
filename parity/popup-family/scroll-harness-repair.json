@@ -1,0 +1,39 @@
+{
+  "predecessor": "4496e0f5e28b7930306b75b42c4a0a9f03a12f81",
+  "scope": "Leased scripts/check-scroll-area-package.sh harness only; production and intended-negative predicates unchanged",
+  "historicalHostedFailure": {
+    "run": 37265832494,
+    "rawReceipt": "Root connector recovery pending; not locally available"
+  },
+  "localRepairedGate": "PASS: positive strict0errors/0warnings; SSR; actual DOM mount/cleanup; exactly4 intended negatives; tarball and all509 installed declarations byte-preserved",
+  "tarballSha256": "7183aacd41fad7143d9e9a07ff761fe77ac5d99d7d283678f439765066090752",
+  "boundedToolchain": "Node24.19.0/pnpm12.6.0; max-old-space-size2048; no build/fullVerify/browser",
+  "receipts": [
+    {
+      "path": "parity/popup-family/receipts/scroll-harness-package-gate.log.gz",
+      "rawSha256": "013c7269b543160fe353f3a3cf3573b0fcb334743abeea825d4544c8113a9085",
+      "gzipSha256": "3579a443e8b55fffa46c0d22105804b117ede109ff7e51550c8c9d9cced4ca85"
+    },
+    {
+      "path": "parity/popup-family/receipts/scroll-harness-package-gate-first-loader-red.log.gz",
+      "rawSha256": "29c4882de212c7b2cc678b89fd0f008e9bbed26f48d70a2c5844a31fc3974ad5",
+      "gzipSha256": "43cafc742218b887fbeb99fae617ff0b9953eb407373665249e78efb89629bd5"
+    },
+    {
+      "path": "parity/popup-family/receipts/scroll-harness-package-gate-second-loader-red.log.gz",
+      "rawSha256": "bc577922396badef3eac36219d949618aefbb65bd0301e228bb9ac7d627bc7d7",
+      "gzipSha256": "6d8beccb83a990b060cea7f405aa6af59284bd755f1f8c52f34324bccada0201"
+    },
+    {
+      "path": "parity/popup-family/receipts/scroll-harness-final-loader-check.log.gz",
+      "rawSha256": "269f4052eaf9d1377563cbff2f7199eef9063891802e44829554d737adf9f5a7",
+      "gzipSha256": "8ef4d4fcaf7b5dd3f5914eea34be675141324799d9f372d1ad86ceee5904d14c"
+    }
+  ],
+  "setupFailures": "First redirect used symlink path rather than real installed package path; second copy missed transitive dependency parent scope. Both red logs preserved. Final uses installed realpath for URL and dependency parent resolution.",
+  "sameInodeProof": "scroll-harness-inode-reproducer.json retains old in-place overwrite; scroll-harness-copy-green.json proves same linked input remains intact with separate compiled output",
+  "acceptance": "Independent exact-head review/configured checks/Root approval remain pending; ordinary credit0",
+  "finalScriptSha256": "1ff7ff974b687a9f9afac8452d6d994584d85631aa9acd90a79c188603ac9952",
+  "unchangedAssertions": "Complete script before client compile and after compile block are byte-identical to4496, including every positive and exactly4 negative count/marker predicate",
+  "finalLoaderReadabilityCheck": "Exact generated final loader, same installed consumer, fresh separate client output, capped768MiB: tarball/all509 declarations preserved and actual DOM PASS"
+}

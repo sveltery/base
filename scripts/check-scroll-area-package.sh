@@ -96,12 +96,35 @@ JS
 node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$scroll_consumer/check.mjs" | tee .checks/scroll-area/public-ssr.log
 # Compile this actual installed consumer for DOM execution and use only its installed package.
 node --input-type=module - "$scroll_consumer" <<'JS'
-import {readFileSync,writeFileSync,readdirSync} from 'node:fs';import {join} from 'node:path';import {createRequire} from 'node:module';
+import {readFileSync,writeFileSync,readdirSync,cpSync,realpathSync} from 'node:fs';import {join} from 'node:path';import {pathToFileURL} from 'node:url';import {createRequire} from 'node:module';
 const directory=process.argv[2];const require=createRequire(join(directory,'package.json'));const {compile,compileModule}=require('svelte/compiler');
-const packageRoot=join(directory,'node_modules/@sveltery/base');
+const packageRoot=realpathSync(join(directory,'node_modules/@sveltery/base'));
+const clientRoot=join(directory,'client-package');
+const tarball=join(directory,readdirSync(directory).find(name=>name.endsWith('.tgz')));const tarballBytes=readFileSync(tarball);
+// Copy bytes to separate output before compiling: pnpm may hardlink identical JS/declarations.
+cpSync(packageRoot,clientRoot,{recursive:true,dereference:true});
+const declarations=new Map();
+function capture(path){for(const name of readdirSync(path,{withFileTypes:true})){const file=join(path,name.name);if(name.isDirectory())capture(file);else if(file.endsWith('.d.ts'))declarations.set(file,readFileSync(file));}}
+capture(join(packageRoot,'dist'));
 function visit(path){for(const name of readdirSync(path,{withFileTypes:true})){const file=join(path,name.name);if(name.isDirectory())visit(file);else if(file.endsWith('.svelte'))writeFileSync(file+'.js',compile(readFileSync(file,'utf8'),{filename:file,generate:'client'}).js.code);else if(file.endsWith('.svelte.js'))writeFileSync(file,compileModule(readFileSync(file,'utf8'),{filename:file,generate:'client'}).js.code);}}
-visit(join(packageRoot,'dist'));writeFileSync(join(directory,'Consumer.js'),compile(readFileSync(join(directory,'Consumer.svelte'),'utf8'),{filename:join(directory,'Consumer.svelte'),generate:'client'}).js.code);
-const loader=`import {registerHooks} from 'node:module'; registerHooks({resolve(specifier,context,nextResolve){return nextResolve(specifier.endsWith('.svelte')?specifier+'.js':specifier,context);}});`;writeFileSync(join(directory,'loader.mjs'),loader);
+visit(join(clientRoot,'dist'));writeFileSync(join(directory,'Consumer.js'),compile(readFileSync(join(directory,'Consumer.svelte'),'utf8'),{filename:join(directory,'Consumer.svelte'),generate:'client'}).js.code);
+for(const [file,bytes] of declarations)if(!bytes.equals(readFileSync(file)))throw new Error(`Installed declaration changed during client compilation: ${file}`);
+if(!tarballBytes.equals(readFileSync(tarball)))throw new Error('Installed tarball changed during client compilation');
+console.log(`Client compilation preserved tarball and all ${declarations.size} installed declarations: PASS`);
+const installedURL=pathToFileURL(packageRoot+'/').href;const clientURL=pathToFileURL(clientRoot+'/').href;
+const loader=`import {registerHooks} from 'node:module';
+const installedURL=${JSON.stringify(installedURL)};
+const clientURL=${JSON.stringify(clientURL)};
+registerHooks({resolve(specifier,context,nextResolve){
+  // Resolve dependencies in the actual installation, then load its separate client output.
+  const parentURL=context.parentURL?.startsWith(clientURL)
+    ? installedURL+context.parentURL.slice(clientURL.length) : context.parentURL;
+  const result=nextResolve(specifier,{...context,parentURL});
+  let url=result.url;
+  if(url.startsWith(installedURL))url=clientURL+url.slice(installedURL.length);
+  if(url.endsWith('.svelte'))url+='.js';
+  return {...result,url};
+}});`;writeFileSync(join(directory,'loader.mjs'),loader);
 JS
 cat > "$scroll_consumer/dom.mjs" <<'JS'
 import assert from 'node:assert/strict';import {JSDOM} from 'jsdom';
