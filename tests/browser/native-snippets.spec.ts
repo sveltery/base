@@ -169,17 +169,15 @@ test('native-snippets honors native identity replacement and independent authore
   );
   await command(page, 'setMode', 'same-span');
   expect(
-    await page
-      .locator('#native-toggle')
-      .evaluate(
-        (node) =>
-          node ===
-          (
-            document.querySelector('main') as HTMLElement & {
-              initialHost: Element;
-            }
-          ).initialHost,
-      ),
+    await page.locator('#native-toggle').evaluate(
+      (node) =>
+        node ===
+        (
+          document.querySelector('main') as HTMLElement & {
+            initialHost: Element;
+          }
+        ).initialHost,
+    ),
   ).toBe(false);
   expect((await snapshot(page)).calls).toContain(
     'cleanup:1:SPAN:false:owned before',

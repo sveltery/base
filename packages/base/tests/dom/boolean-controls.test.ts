@@ -495,15 +495,13 @@ describe('Checkbox native Enter submission boundary', () => {
     );
     flushSync();
     expect(submit).not.toHaveBeenCalled();
-    view.host
-      .querySelector<HTMLElement>('[data-second]')!
-      .dispatchEvent(
-        new KeyboardEvent('keydown', {
-          key: 'Enter',
-          bubbles: true,
-          cancelable: true,
-        }),
-      );
+    view.host.querySelector<HTMLElement>('[data-second]')!.dispatchEvent(
+      new KeyboardEvent('keydown', {
+        key: 'Enter',
+        bubbles: true,
+        cancelable: true,
+      }),
+    );
     flushSync();
     expect(submit).toHaveBeenCalledTimes(1);
   });
