@@ -16,7 +16,7 @@ The immutable Base UI 1.8.0 [root index](https://github.com/mui/base-ui/blob/47b
 | [Avatar](avatar.md) | Root/Image/Fallback with detached and rendered loading, fallback timing and private presence; ordinary declarations, conformance, types and supplements remain separately counted. |
 | [Accordion](accordion.md) | Root/Item/Header/Trigger/Panel, array values and bounded motion; external React.Activity and complete conformance remain deferred. |
 | [DirectionProvider](direction-provider.md) | Nearest-provider direction, default ltr and a retained callable reader; primitive hook typing and same-turn timing differ, and directional control integration remains deferred. |
-| [CSPProvider](csp-provider.md) | Provider/context foundation with reactive optional nonce and style flag; ScrollArea/Select/script consumers and all four ordinary CSP assertions remain deferred. |
+| [CSPProvider](csp-provider.md) | Provider/context foundation with reactive optional nonce/style flag and the implemented ScrollArea stylesheet consumer; Select/script integration and all four complete ordinary CSP assertion ports remain deferred/uncredited. |
 | [UseRender](use-render.md) | Native component/default host and replacement snippets; React return typing, lazy/Flight/RSC and diagnostics remain deferred, and native identity/teardown observations differ. |
 | [Field](field-form.md) | Source Root/Control/Label/Description/Error/Validity/Item, contexts, registration and optional validation; downstream families and final ordinary credit remain bounded. |
 | [Form](field-form.md) | Source validation/focus/submit callbacks and external error ownership, plus typed remote Field children and control descriptors; Kit 2.70.3 cancellation/reset requires the explicit application patch, and complete upstream parity remains unclaimed. |
@@ -25,9 +25,10 @@ The immutable Base UI 1.8.0 [root index](https://github.com/mui/base-ui/blob/47b
 | [Switch](boolean-controls.md) | Source Root/Thumb boolean form control with one hidden checkbox, validation and checked callbacks; full parity remains incomplete. |
 | [CheckboxGroup](boolean-controls.md) | Source array registration, real inputs and parent-selection logic; ordinary assertion parity remains separate. |
 | [Radio and RadioGroup](radio.md) | Source Root/Indicator/Group through actual Composite list/navigation and Field registration; native activation differences and assertion acceptance are separately recorded. |
+| [ScrollArea](scroll-area.md) | Root, Viewport, Content, Scrollbar, Thumb and Corner with canonical source helpers and real CSP stylesheet consumption; native renderer limits, ordinary credit and exact-head acceptance remain separate. |
 | merge-props | Bounded native prop/event merge foundation; see [contracts](upstream-contracts.md). |
 
-These 25 modules are bounded and the remaining 17 are unimplemented. No module is labeled fully compatible. Field, Form and Fieldset now have bounded source ports and public exports. The catalog denominator includes modules such as direction-provider and use-render; it is not a component count or a passing-test denominator. All unimplemented names remain visible in the machine-readable ledger.
+These 26 modules are bounded and the remaining 16 are unimplemented. No module is labeled fully compatible. Field, Form and Fieldset now have bounded source ports and public exports. The catalog denominator includes modules such as direction-provider and use-render; it is not a component count or a passing-test denominator. All unimplemented names remain visible in the machine-readable ledger.
 
 The [ordinary assertion inventory](../parity/README.md) is separately scoped. Shared conformance helpers, paired framework executions and local supplements do not inflate its declaration credit. The dedicated Toggle ledger records five standalone declarations separately from the shared ordinary inventory; its two originally deferred ToggleGroup declarations remain historical and uncredited there; the new source audit records their current probes separately. Full Input/Field/Form integration and remaining controls require their own bounded characterization and review.
 
@@ -35,6 +36,7 @@ The [Collapsible ledger](../parity/collapsible/README.md) separately records 47 
 
 The [Accordion ledger](../parity/accordion/README.md) separately inventories 39 ordinary sites / 43 variants, portable 38 / 42 and one deferred Activity declaration. Parameterized disabled, conformance, types, supplemental execution and final-head acceptance remain separate.
 
-[ScrollArea](scroll-area.md) adds the complete six-part source composition on its
-feature branch. Its source correspondence, assertion accounting and execution
-gates remain separately recorded; it is not labeled fully compatible.
+The bounded ScrollArea entry records implemented six-part source composition and
+real CSP context consumption. Its source correspondence, assertion accounting and
+exact-head execution/approval gates remain separately recorded; it is not labeled
+fully compatible.

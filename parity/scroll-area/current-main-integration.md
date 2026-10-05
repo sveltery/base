@@ -108,3 +108,13 @@ to the implemented-but-uncredited ScrollArea consumer versus missing Select and
 PrehydrationScript, retaining complete Original hashes/predicates,0ported/credited
 and null ordinary port/evidence. This metadata red is preserved; no product or
 Original test assertion changes and no full local Verify/build is repeated.
+
+A second actual configured P2 at7d found remaining top-level catalog/parity CSP
+status contradictions. The complete summaries now reflect implemented bounded
+ScrollArea, catalog26bounded/16unimplemented out of42, and unchanged uncredited
+CSP ordinary ports. Repository-wide ScrollArea status review also updates the
+root README and Dialog dependency rationale: standalone availability does not
+port or credit complete Dialog cross-type/focus fixtures. Their source scenarios
+and observable predicates remain unchanged. Both actual service findings retain
+separate historical heads; final review/resolution and all exact-head gates remain
+required, with no prior clean review carry-forward.
