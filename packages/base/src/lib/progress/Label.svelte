@@ -1,6 +1,9 @@
 <script lang="ts">
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+import { untrack } from 'svelte';
+
   // Adapted from pinned ProgressLabel; MIT: THIRD_PARTY_NOTICES.md.
-  import Element from '../dialog/Element.svelte';
   import { resolveClassValue } from '../internals/resolveClassValue.js';
   import { getProgressContext } from './context.js';
   import { statusAttributes } from './helpers.js';
@@ -18,5 +21,23 @@
   });
   const internal = $derived({ ...statusAttributes(state.status), id, role: 'presentation' });
   const resolved = $derived({ ...props, class: resolveClassValue(typeof classProp === 'function' ? classProp(state) : classProp) });
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+    });
+  });
+}
+const mergedProps = $derived.by(() => {
+  const { class: className, style, ...attributes } = resolved;
+  return { ...mergeComponentProps(state, { class: className, style }, [internal, attributes], false), [hostAttachmentKey]: attachHost };
+});
 </script>
-<Element tag="span" {internal} props={resolved} {state} {render} {children} bind:ref />
+{#if render}
+  {@render render(mergedProps, state, children)}
+{:else}
+  <span {...mergedProps}>{@render children?.()}</span>
+{/if}

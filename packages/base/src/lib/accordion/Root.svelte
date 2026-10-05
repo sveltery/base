@@ -1,10 +1,12 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -- Preserve the pinned generic default. -->
 <script lang="ts" generics="Value = any">
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+
   // Adapted from AccordionRoot/useControlled/useStableCallback, mui/base-ui v1.8.0
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
   import { onDestroy, untrack } from 'svelte';
   import { Controlled } from '@sveltery/utils/Controlled';
-  import Element from '../dialog/Element.svelte';
   import { resolveClassValue } from '../internals/resolveClassValue.js';
   import { warnOnce } from '../collapsible/animations.js';
   import { setAccordionRootContext } from './context.js';
@@ -43,5 +45,23 @@
       warnOnce('The `keepMounted={false}` prop on `Accordion.Root` is ignored when `hiddenUntilFound` is enabled, since panels must remain mounted while closed.');
     }
   });
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+    });
+  });
+}
+const mergedProps = $derived.by(() => {
+  const { class: className, style, ...attributes } = resolved;
+  return { ...mergeComponentProps(rootState, { class: className, style }, [{ 'data-disabled': disabled ? '' : undefined, 'data-orientation': orientation }, attributes], false), [hostAttachmentKey]: attachHost };
+});
 </script>
-<Element tag="div" internal={{ 'data-disabled': disabled ? '' : undefined, 'data-orientation': orientation }} props={resolved} state={rootState} {render} {children} bind:ref />
+{#if render}
+  {@render render(mergedProps, rootState, children)}
+{:else}
+  <div {...mergedProps}>{@render children?.()}</div>
+{/if}

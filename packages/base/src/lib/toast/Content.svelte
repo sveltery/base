@@ -1,6 +1,9 @@
 <script lang="ts">
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+import { untrack } from 'svelte';
+
   // Derived from Base UI v1.8.0 Toast parts; MIT, see ../../../THIRD_PARTY_NOTICES.md.
-  import Element from '../dialog/Element.svelte';
   import { root } from './root-context.js';
   import type { ToastContentProps } from './types.js';
   let { children, ref = $bindable(), ...props }: ToastContentProps = $props();
@@ -17,5 +20,21 @@
     mutation.observe(node, { childList: true, subtree: true, characterData: true });
     return () => { resize.disconnect(); mutation.disconnect(); };
   }
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    const disposeHost = (attach)(host);
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+      disposeHost?.();
+    });
+  });
+}
+const mergedProps = $derived.by(() => {
+  const { class: className, style, ...attributes } = props;
+  return { ...mergeComponentProps(state, { class: className, style }, [internal, attributes], false), [hostAttachmentKey]: attachHost };
+});
 </script>
-<Element {internal} {props} {state} {children} {attach} bind:ref />
+<div {...mergedProps}>{@render children?.()}</div>

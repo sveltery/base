@@ -131,33 +131,3 @@ export function resetLayoutStyles(element: HTMLElement): () => void {
   return () => { cancel(); restore(); };
 }
 
-/**
- * React diffs style objects property by property; Svelte assigns CSS strings as
- * cssText. Preserve an imperative value when its authored value did not change,
- * so updating the measured CSS variables cannot erase temporary motion/layout
- * overrides (or restore an alignment priority the pinned source discarded).
- * Call before the DOM update, then invoke the returned function after it.
- */
-export function preserveUnchangedInlineStyles(
-  element: HTMLElement,
-  previousStyle: string | undefined,
-  nextStyle: string,
-): () => void {
-  const previous = element.ownerDocument.createElement('div').style;
-  const next = element.ownerDocument.createElement('div').style;
-  previous.cssText = previousStyle ?? '';
-  next.cssText = nextStyle;
-  const properties = new Set([...Array.from(element.style), ...Array.from(previous), ...Array.from(next)]);
-  const preserved: Array<[string, string, string]> = [];
-  for (const property of properties) {
-    if (previous.getPropertyValue(property) !== next.getPropertyValue(property)
-      || previous.getPropertyPriority(property) !== next.getPropertyPriority(property)) continue;
-    preserved.push([property, element.style.getPropertyValue(property), element.style.getPropertyPriority(property)]);
-  }
-  return () => {
-    for (const [property, value, priority] of preserved) {
-      if (value === '') element.style.removeProperty(property);
-      else element.style.setProperty(property, value, priority);
-    }
-  };
-}

@@ -6,7 +6,6 @@
 
   import { addEventListener } from '@sveltery/utils/addEventListener';
   import { mergeCleanups } from '@sveltery/utils/mergeCleanups';
-  import type { MergedRef } from '@sveltery/utils/useMergedRefs';
   import FocusGuard from '../../utils/FocusGuard.svelte';
   import { useFloatingPortalNode, useFloatingPortalContent } from '../hooks/useFloatingPortalNode.svelte.js';
   import type { BaseUIComponentProps, WithBaseUIEvent } from '../../internals/types.js';
@@ -16,12 +15,16 @@
   import { ownerVisuallyHidden } from '../../internals/constants.js';
   import { enableFocusInside, disableFocusInside, getPreviousTabbable, getNextTabbable, isOutsideEvent } from '../utils/tabbable.js';
   import { PORTAL, type FocusManagerState, type FloatingPortalContext } from './FloatingPortalContext.js';
-  let { children, container, ref, portalOwnerRole, ...componentProps }: Omit<WithBaseUIEvent<HTMLAttributes<HTMLElement>>, 'children' | 'class' | 'style'> & BaseUIComponentProps<Record<string, never>> & {
+  let { children, container, ref = $bindable(), portalOwnerRole, ...componentProps }: Omit<WithBaseUIEvent<HTMLAttributes<HTMLElement>>, 'children' | 'class' | 'style'> & BaseUIComponentProps<Record<string, never>> & {
     children?: Snippet; container?: HTMLElement | ShadowRoot | { current: HTMLElement | ShadowRoot | null } | null;
-    ref?: MergedRef<HTMLElement>; portalOwnerRole?: HTMLAttributes<HTMLSpanElement>['role'];
+    ref?: HTMLElement | null; portalOwnerRole?: HTMLAttributes<HTMLSpanElement>['role'];
   } = $props();
+  function attachHost(host: HTMLElement) {
+    ref = host;
+    return () => { if (ref === host) ref = null; };
+  }
   const generatedId = $props.id();
-  const portal = useFloatingPortalNode(() => ({ container, ref, componentProps, elementProps }), generatedId);
+  const portal = useFloatingPortalNode(() => ({ container, onHost: attachHost, componentProps, elementProps }), generatedId);
   const portalNode = $derived(portal.node);
   const portalNodeId = $derived(portal.nodeId);
   const beforeOutsideRef: { current: HTMLSpanElement | null } = { current: null };
@@ -73,5 +76,5 @@
   }
 </script>
 <!-- Source onFocus supplies native focusin to the shared outside-guard business callbacks. -->
-{#if shouldRenderGuards}<FocusGuard data-type="outside" ref={beforeOutsideRef} onfocusin={beforeOutsideFocus}/><span role={portalOwnerRole} aria-owns={portalNodeId} style={toNativeStyle(ownerVisuallyHidden)}></span>{/if}
-{#if shouldRenderGuards}<FocusGuard data-type="outside" ref={afterOutsideRef} onfocusin={afterOutsideFocus}/>{/if}
+{#if shouldRenderGuards}<FocusGuard data-type="outside" bind:ref={beforeOutsideRef.current} onfocusin={beforeOutsideFocus}/><span role={portalOwnerRole} aria-owns={portalNodeId} style={toNativeStyle(ownerVisuallyHidden)}></span>{/if}
+{#if shouldRenderGuards}<FocusGuard data-type="outside" bind:ref={afterOutsideRef.current} onfocusin={afterOutsideFocus}/>{/if}

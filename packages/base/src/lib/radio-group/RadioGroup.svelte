@@ -35,7 +35,7 @@
     defaultValue,
     form,
     name: nameProp,
-    inputRef,
+    inputRef = $bindable(),
     id: idProp,
     style,
     children,
@@ -66,11 +66,8 @@
   const groupInputRef = { current: null as HTMLInputElement | null };
   const firstEnabledInputRef = { current: null as HTMLInputElement | null };
   function setInputRef(input: HTMLInputElement | null) {
-    let cleanup: void | (() => void) = undefined;
-    if (typeof inputRef === 'function') cleanup = inputRef(input);
-    else if (inputRef) inputRef.current = input;
+    inputRef = input;
     groupInputRef.current = input;
-    return cleanup;
   }
   const registerInputRef = (input: HTMLInputElement | null) => {
     if (!input || input.disabled) return;
@@ -186,14 +183,6 @@
       }
     },
   });
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(value: HTMLElement | null) {
-      ref = value;
-    },
-  };
   const rendererProps = $derived([
     defaultProps,
     elementProps,
@@ -201,4 +190,4 @@
       field.validation.getValidationProps(disabled ?? false, props),
   ]);
 </script>
-<CompositeRoot {render} class={classProp} {style} state={groupState} props={rendererProps} refs={[forwardedRef]} stateAttributesMapping={fieldValidityMapping} enableHomeAndEndKeys={false} {modifierKeys} {children} />
+<CompositeRoot {render} class={classProp} {style} state={groupState} props={rendererProps} bind:ref stateAttributesMapping={fieldValidityMapping} enableHomeAndEndKeys={false} {modifierKeys} {children} />

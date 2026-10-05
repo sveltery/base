@@ -1,7 +1,9 @@
 <script lang="ts">
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+
   // Derived from Base UI v1.8.0 ToastRoot; MIT, see ../../../THIRD_PARTY_NOTICES.md.
   import { flushSync, untrack } from 'svelte';
-  import Element from '../dialog/Element.svelte';
   import { provider } from './context.js';
   import { setRootContext, type ToastRootContext } from './root-context.js';
   import { selectors } from './store.js';
@@ -95,5 +97,21 @@
       if (event.key === 'Escape' && node && contains(node, activeElement(node.ownerDocument))) store.closeToast(toast.id);
     },
   });
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    const disposeHost = (attach)(host);
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+      disposeHost?.();
+    });
+  });
+}
+const mergedProps = $derived.by(() => {
+  const { class: className, style, ...attributes } = props;
+  return { ...mergeComponentProps(rootState, { class: className, style }, [internal, attributes], false), [hostAttachmentKey]: attachHost };
+});
 </script>
-<Element {internal} {props} state={rootState} {children} bind:ref {attach}/>
+<div {...mergedProps}>{@render children?.()}</div>

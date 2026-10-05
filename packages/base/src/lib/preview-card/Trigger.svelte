@@ -1,6 +1,9 @@
 <script lang="ts" generics="Payload = unknown">
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+import { untrack } from 'svelte';
+
   // Original Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
-  import RenderElement from '../internals/RenderElement.svelte';
   import { usePreviewCardRootContext } from './context.js';
   import { usePopupHandleStore } from '../utils/popups/usePopupHandleStore.svelte.js';
   import { useTriggerDataForwarding } from '../utils/popups/popupStoreUtils.svelte.js';
@@ -41,13 +44,27 @@
   const inlineRectTriggerProps = $derived(getInlineRectTriggerProps(store.context.inlineRectCoordsRef, isOpenedByThisTrigger));
   const state = $derived({ open: isOpenedByThisTrigger });
   const rootTriggerProps = $derived(store.select('triggerProps', forwarding.isMountedByThisTrigger));
-  const forwardedRef = (node: HTMLElement | null) => { ref = node; };
-</script>
-<RenderElement tag="a" componentProps={{ render, class: className, style }} params={{
-  state,
-  ref: [forwardedRef, forwarding.registerTrigger, triggerElementRef],
-  props: [
+  
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    forwarding.registerTrigger?.(host);
+    triggerElementRef.current = host;
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+      forwarding.registerTrigger?.(null);
+      if (triggerElementRef.current === host) triggerElementRef.current = null;
+    });
+  });
+}
+const mergedProps = $derived({ ...mergeComponentProps(state, { class: className, style: style }, [
     hoverProps(), focusProps.reference, rootTriggerProps, inlineRectTriggerProps, { id: thisTriggerId }, elementProps,
-  ],
-  stateAttributesMapping: triggerOpenStateMapping,
-}} {children} />
+  ], triggerOpenStateMapping), [hostAttachmentKey]: attachHost });
+</script>
+{#if render}
+  {@render render(mergedProps, state, children)}
+{:else}
+  <a {...mergedProps}>{@render children?.()}</a>
+{/if}

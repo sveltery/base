@@ -1,11 +1,30 @@
 <script lang="ts">
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+import { untrack } from 'svelte';
+
   // Original MenuGroup label/provider/render composition (MIT).
-  import RenderElement from '../internals/RenderElement.svelte';
   import { provideMenuGroupContext, type MenuGroupContext } from './group/MenuGroupContext.js';
   import type { MenuGroupProps } from './types.js';
   let { render, class: className, style, children, ref = $bindable(null), ...elementProps }: MenuGroupProps = $props();
   let labelId = $state<string | undefined>(undefined);
   const setLabelId: MenuGroupContext = value => { labelId = typeof value === 'function' ? value(labelId) : value; };
   provideMenuGroupContext(setLabelId);
+
+const renderState = $derived({});
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+    });
+  });
+}
+const mergedProps = $derived({ ...mergeComponentProps(renderState, { class: className, style: style }, { role: 'group', 'aria-labelledby': labelId, ...elementProps }, undefined), [hostAttachmentKey]: attachHost });
 </script>
-<RenderElement tag="div" componentProps={{ render, class: className, style }} params={{ props: { role: 'group', 'aria-labelledby': labelId, ...elementProps } }} bind:element={ref} {children} />
+{#if render}
+  {@render render(mergedProps, renderState, children)}
+{:else}
+  <div {...mergedProps}>{@render children?.()}</div>
+{/if}

@@ -1,6 +1,9 @@
 <script lang="ts">
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+import { untrack } from 'svelte';
+
   // Adapted from Base UI v1.8.0 CollapsibleTrigger. MIT: THIRD_PARTY_NOTICES.md.
-  import Element from '../dialog/Element.svelte';
   import { resolveClassValue } from '../internals/resolveClassValue.js';
   import { getButtonProps } from '../button/props.js';
   import { mergeProps } from '../merge-props/index.js';
@@ -20,5 +23,23 @@
       onclick: context.handleTrigger,
     }, { ...props, class: classValue === undefined ? undefined : resolveClassValue(classValue) }) }, disabled, true, nativeButton);
   });
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+    });
+  });
+}
+const mergedProps = $derived.by(() => {
+  const { class: className, style, ...attributes } = resolved;
+  return { ...mergeComponentProps(state, { class: className, style }, [render ? {} : { type: 'button' }, attributes], false), [hostAttachmentKey]: attachHost };
+});
 </script>
-<Element tag="button" internal={render ? {} : { type: 'button' }} props={resolved} {state} {render} {children} bind:ref />
+{#if render}
+  {@render render(mergedProps, state, children)}
+{:else}
+  <button {...mergedProps}>{@render children?.()}</button>
+{/if}

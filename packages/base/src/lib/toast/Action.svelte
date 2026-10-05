@@ -1,6 +1,7 @@
 <script lang="ts">
   // Derived from Base UI v1.8.0 Toast parts; MIT, see ../../../THIRD_PARTY_NOTICES.md.
-  import Element from '../dialog/Element.svelte';
+  import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
   import RenderContent from './RenderContent.svelte';
   import { isRenderableContent } from './content.js';
   import { mergeButtonProps, nativeButtonProps } from './native-button.js';
@@ -23,9 +24,18 @@
       style: [mergedProps.style, style].filter(Boolean).join(';') || undefined,
     };
   });
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    ref = host;
+    return () => { if (ref === host) ref = null; };
+  }
+  const nativeProps = $derived.by(() => {
+    const { class: className, style, ...attributes } = merged;
+    return { ...mergeComponentProps(state, { class: className, style }, [{ 'data-type': state.type }, attributes], false), [hostAttachmentKey]: attachHost };
+  });
 </script>
 {#if isRenderableContent(content)}
-  <Element tag="button" internal={{ 'data-type': state.type }} props={merged} {state} bind:ref>
+  <button {...nativeProps}>
     <RenderContent {content} />
-  </Element>
+  </button>
 {/if}

@@ -1,10 +1,11 @@
 <script lang="ts" generics="State extends object = Record<string, unknown>">
+import { mergeComponentProps } from '../../mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+
   // Base UI v1.8.0 CompositeItem source composition; MIT: THIRD_PARTY_NOTICES.md.
-  import type { Snippet } from 'svelte';
+  import { type Snippet, untrack } from 'svelte';
   import type { BaseUIComponentProps, HTMLProps } from '../../types.js';
-  import type { MergedRef } from '@sveltery/utils/useMergedRefs';
   import type { StateAttributesMapping } from '../../getStateAttributesProps.js';
-  import RenderElement from '../../RenderElement.svelte';
   import { useCompositeItem } from './useCompositeItem.svelte.js';
   let {
     render,
@@ -12,7 +13,7 @@
     style,
     state = {} as State,
     props = [],
-    refs = [],
+    ref = $bindable(),
     metadata,
     stateAttributesMapping,
     tag = 'div',
@@ -22,19 +23,25 @@
     BaseUIComponentProps<State> & {
       state?: State;
       props?: readonly (HTMLProps | ((props: HTMLProps) => HTMLProps))[];
-      refs?: readonly MergedRef<HTMLElement>[];
+      ref?: HTMLElement | null | undefined;
       metadata?: Record<string, unknown>;
       stateAttributesMapping?: StateAttributesMapping<State>;
       tag?: string;
       children?: Snippet;
     } = $props();
   const composite = useCompositeItem(() => ({ metadata }));
-  const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({
-    state,
-    ref: [composite.compositeRef, ...refs],
-    props: [composite.compositeProps, ...props, elementProps],
-    stateAttributesMapping,
-  });
+  
+  
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  ref = host;
+  return () => { if (ref === host) ref = null; };
+}
+const mergedProps = $derived({ ...mergeComponentProps(state, { class: classProp, style: style }, [composite.compositeProps, ...props, elementProps], stateAttributesMapping), [hostAttachmentKey]: attachHost });
 </script>
-<RenderElement {tag} {componentProps} {params} {children} />
+{#if render}
+  {@render render(mergedProps, state, children)}
+{:else}
+  {#if tag === 'button'}<button {...mergedProps}>{@render children?.()}</button>{:else if tag === 'a'}<a {...mergedProps}>{@render children?.()}</a>{:else if tag === 'input'}<input {...mergedProps} />{:else}<div {...mergedProps}>{@render children?.()}</div>{/if}
+{/if}

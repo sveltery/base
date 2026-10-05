@@ -1,4 +1,7 @@
 <script lang="ts" generics="Values extends FormValues = FormValues, Remote extends RemoteFormLike | undefined = undefined">
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+
   // Mechanically ported from Base UI v1.8.0 form/Form.tsx.
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
   import { untrack, type Snippet } from 'svelte';
@@ -8,7 +11,6 @@
   import { createGenericEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../internals/reasons.js';
   import { setFormContext, type FormContext } from '../internals/form-context/FormContext.js';
-  import RenderElement from '../internals/RenderElement.svelte';
   import { ValueChanged } from '../internals/ValueChanged.svelte.js';
   import type { FormActions, FormErrors, FormFieldNamespace, FormProps, FormState, FormValues } from './types.js';
   import { setRemoteFormContext } from '../remote-forms/RemoteFormContext.js';
@@ -100,13 +102,28 @@
     get errors() { return errors ?? EMPTY_OBJECT; }, clearErrors, submitCountRef,
   };
   setFormContext(contextValue);
-  const forwardedRef = { get current() { return ref ?? null; }, set current(value: HTMLElement | null) { ref = value; } };
-  const componentProps = $derived({ render: render ? renderForm : undefined, class: classProp, style });
-  const params = $derived({ ref: [forwardedRef, elementRef], props: [internal, elementProps] });
+  
+  
+  
   function comesBeforeInSameTree(element: Node, reference: Node) {
     const position = element.compareDocumentPosition(reference);
     return (position & Node.DOCUMENT_POSITION_DISCONNECTED) === 0 && (position & Node.DOCUMENT_POSITION_FOLLOWING) !== 0;
   }
+
+const renderState = $derived({});
+const renderSnippet = $derived(render ? renderForm : undefined);
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    elementRef.current = host;
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+      if (elementRef.current === host) elementRef.current = null;
+    });
+  });
+}
+const mergedProps = $derived({ ...mergeComponentProps(renderState, { class: classProp, style: style }, [internal, elementProps], undefined), [hostAttachmentKey]: attachHost });
 </script>
 {#snippet renderForm(nativeProps: Record<string | symbol, unknown>, state: FormState, content: Snippet | undefined)}
   {@render render!(nativeProps as HTMLFormAttributes & { noValidate?: boolean } & Record<string | symbol, unknown>, state, content)}
@@ -114,4 +131,8 @@
 {#snippet formChildren()}
   {@render children?.(fieldNamespace)}
 {/snippet}
-<RenderElement tag="form" {componentProps} {params} children={children ? formChildren : undefined} />
+{#if renderSnippet}
+  {@render renderSnippet(mergedProps, renderState, children ? formChildren : undefined)}
+{:else}
+  <form {...mergedProps}>{@render (children ? formChildren : undefined)?.()}</form>
+{/if}

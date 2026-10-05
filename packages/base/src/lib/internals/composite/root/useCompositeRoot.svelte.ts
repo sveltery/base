@@ -2,10 +2,7 @@
 // MIT: THIRD_PARTY_NOTICES.md; parity/radio/source-correspondence.md.
 
 import { isElementDisabled } from '@sveltery/utils/isElementDisabled';
-import {
-  MergedRefs,
-  type MergedRef,
-} from '@sveltery/utils/useMergedRefs';
+import { createAttachmentKey } from 'svelte/attachments';
 import type { TextDirection } from '../../../direction-provider/types.js';
 import { getTarget } from '@sveltery/utils/shadowDom';
 import {
@@ -45,7 +42,6 @@ export interface UseCompositeRootParameters {
   highlightedIndex?: number | undefined;
   onHighlightedIndexChange?: ((index: number) => void) | undefined;
   direction: TextDirection;
-  rootRef?: MergedRef<HTMLElement> | undefined;
   /**
    * When `true`, pressing the Home key moves focus to the first item,
    * and pressing the End key moves focus to the last item.
@@ -76,7 +72,11 @@ export function useCompositeRoot(
 ) {
   let internalHighlightedIndex = $state(0);
   const rootRef = { current: null as HTMLElement | null };
-  const refsMerger = new MergedRefs<HTMLElement>();
+  const attachmentKey = createAttachmentKey();
+  function attachRoot(node: HTMLElement) {
+    rootRef.current = node;
+    return () => { if (rootRef.current === node) rootRef.current = null; };
+  }
   const elementsRef = { current: [] as Array<HTMLElement | null> };
   const hasSetDefaultIndexRef = { current: false };
   const highlightedElementRef = { current: null as HTMLElement | null };
@@ -349,7 +349,7 @@ export function useCompositeRoot(
 
   function getProps(): HTMLProps {
     return {
-      ref: refsMerger.merge(rootRef, getParameters().rootRef),
+      [attachmentKey]: attachRoot,
       onfocusin(event: FocusEvent) {
         const element = rootRef.current;
         const target = getTarget(event);

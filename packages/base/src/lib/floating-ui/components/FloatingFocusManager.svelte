@@ -7,6 +7,6 @@
   const manager = createFloatingFocusManager(() => props);
 </script>
 <!-- Source onFocus delegates native focusin, after the Portal capture listener restores tabindex. -->
-{#if manager.shouldRenderGuards}<FocusGuard data-type="inside" ref={manager.beforeRef} onfocusin={manager.onBeforeFocus}/>{/if}
+{#if manager.shouldRenderGuards}<FocusGuard data-type="inside" {...manager.beforeGuardProps} onfocusin={manager.onBeforeFocus}/>{/if}
 {@render children?.()}
-{#if manager.shouldRenderGuards}<FocusGuard data-type="inside" ref={manager.afterRef} onfocusin={manager.onAfterFocus}/>{/if}
+{#if manager.shouldRenderGuards}<FocusGuard data-type="inside" {...manager.afterGuardProps} onfocusin={manager.onAfterFocus}/>{/if}

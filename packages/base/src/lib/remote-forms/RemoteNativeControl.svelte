@@ -1,9 +1,11 @@
 <script lang="ts">
-  import { onDestroy } from 'svelte';
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+
+  import { onDestroy, untrack } from 'svelte';
   // Narrow native-host boundary. Source Field registration, validation, labels
   // and callback/dirty ordering are reused; native hosts own selection and reset.
   // FieldControl business branches: Base UI 1.8.0 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
-  import RenderElement from '../internals/RenderElement.svelte';
   import { useFieldRootContext } from '../internals/field-root-context/FieldRootContext.js';
   import { useFieldItemContext } from '../field/item/FieldItemContext.js';
   import { useFormContext } from '../internals/form-context/FormContext.js';
@@ -112,23 +114,31 @@
       } else void field.validation.commit(getValue());
     },
   });
-  const forwardedRef = { get current() { return ref ?? null; }, set current(element: HTMLElement | null) { ref = element; } };
+  
   const nativeProps = $derived.by(() => {
     const { class: _class, style: _style, id: _id, disabled: _disabled, inputRef: _inputRef, nativeButton: _nativeButton, uncheckedValue: _uncheckedValue, ...attributes } = descriptor;
     void [_class, _style, _id, _disabled, _inputRef, _nativeButton, _uncheckedValue];
     return attributes;
   });
-  const componentProps = $derived({ class: descriptor.class, style: descriptor.style, render: render ? renderNative : kind.startsWith('select') ? selectHost : undefined });
-  const params = $derived({
-    state: controlState, ref: [forwardedRef, controlRef],
-    props: [internal, nativeProps, (merged: Record<string, unknown>) => field.validation.getValidationProps(disabled, merged)],
-    stateAttributesMapping: fieldValidityMapping,
+  
+  
+
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    controlRef.current = host;
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+      if (controlRef.current === host) controlRef.current = null;
+    });
   });
+}
+const mergedProps = $derived({ ...mergeComponentProps(controlState, { class: descriptor.class, style: descriptor.style }, [internal, nativeProps, (merged: Record<string, unknown>) => field.validation.getValidationProps(disabled, merged)], fieldValidityMapping), [hostAttachmentKey]: attachHost });
 </script>
-{#snippet renderNative(native: HTMLProps, state: RemoteControlState, content: Snippet | undefined)}
-  {@render render!(native, state, content)}
-{/snippet}
-{#snippet selectHost(native: HTMLProps)}
-  <select {...native as HTMLSelectAttributes}>{@render children?.()}</select>
-{/snippet}
-<RenderElement tag={kind.startsWith('select') ? 'select' : 'input'} {componentProps} {params} {children} />
+{#if render}
+  {@render render(mergedProps, controlState, children)}
+{:else}
+  {#if kind.startsWith('select')}<select {...mergedProps}>{@render children?.()}</select>{:else}<input {...mergedProps} />{/if}
+{/if}

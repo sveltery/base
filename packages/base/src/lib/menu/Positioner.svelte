@@ -1,6 +1,9 @@
 <script lang="ts">
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+import { untrack } from 'svelte';
+
   // Original MenuPositioner context/backdrop/node/list composition (MIT).
-  import RenderElement from '../internals/RenderElement.svelte';
   import InternalBackdrop from '../utils/InternalBackdrop.svelte';
   import { useMenuRootContext } from './root/MenuRootContext.js';
   import { createMenuPositioner } from './positioner/createMenuPositioner.svelte.js';
@@ -17,8 +20,24 @@
   provideMenuPositionerContext({ get side() { return root.positioner.side; }, get align() { return root.positioner.align; }, arrowRef: root.positioner.arrowRef, get arrowUncentered() { return root.positioner.arrowUncentered; }, get arrowStyles() { return root.positioner.arrowStyles; }, context });
   provideFloatingNode(() => store.select('floatingNodeId'));
   createCompositeList(() => ({ elementsRef: store.context.itemDomElements, labelsRef: store.context.itemLabels }));
+
+const renderState = $derived(root.element.state);
+const renderSnippet = $derived((props).render);
+const mergedProps = $derived({ ...mergeComponentProps(renderState, { class: (props).class, style: (props).style }, root.element.props, root.element.stateAttributesMapping) });
+const backdropAttachmentKey = createAttachmentKey();
+const backdropProps = $derived({ [backdropAttachmentKey]: (host: HTMLDivElement) => {
+  const owner = root.parent.type === 'context-menu' || root.parent.type === 'nested-context-menu' ? root.parent.context.internalBackdropRef : undefined;
+  if (owner) owner.current = host;
+  return () => { if (owner?.current === host) owner.current = null; };
+} });
 </script>
 {#if root.shouldRenderBackdrop}
-  <InternalBackdrop ref={root.parent.type === 'context-menu' || root.parent.type === 'nested-context-menu' ? root.parent.context.internalBackdropRef : undefined} inert={!root.open} cutout={root.backdropCutout} />
+  <InternalBackdrop {...backdropProps} inert={!root.open} cutout={root.backdropCutout} />
 {/if}
-<RenderElement tag="div" componentProps={props} params={root.element.params} children={props.children} />
+{#if renderEnabled}
+{#if renderSnippet}
+  {@render renderSnippet(mergedProps, renderState, props.children)}
+{:else}
+  <div {...mergedProps}>{@render props.children?.()}</div>
+{/if}
+{/if}

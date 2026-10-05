@@ -1,4 +1,7 @@
 <script lang="ts" generics="Value extends string = string">
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+
   import { untrack } from 'svelte';
   // Source-ordered Base UI v1.8.0 Toggle.tsx at
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
@@ -6,7 +9,6 @@
   import { Controlled } from '@sveltery/utils/Controlled';
   import { error } from '@sveltery/utils/error';
   import { useBaseUiId } from '../internals/useBaseUiId.js';
-  import RenderElement from '../internals/RenderElement.svelte';
   import { useToggleGroupContext } from '../toggle-group/ToggleGroupContext.js';
   import { useButton } from '../internals/use-button/useButton.svelte.js';
   import CompositeItem from '../internals/composite/item/CompositeItem.svelte';
@@ -42,11 +44,7 @@
   const pressed = $derived(pressedState.value);
   const { getButtonProps, buttonRef } = useButton(() => ({ disabled, native: nativeButton }));
   const state: ToggleState = $derived({ disabled, pressed });
-  const forwardedRef = {
-    get current() { return ref ?? null; },
-    set current(element: HTMLElement | null) { ref = element; },
-  };
-  const refs = [buttonRef, forwardedRef];
+  
   const rendererProps = $derived([
     {
       'aria-pressed': pressed,
@@ -64,12 +62,29 @@
     elementProps,
     getButtonProps,
   ]);
-  const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({ state, ref: refs, props: rendererProps });
+  
+  
   const itemMetadata = $derived({ disabled, focusableWhenDisabled: false });
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    buttonRef?.(host);
+    ref = host;
+    return () => untrack(() => {
+      buttonRef?.(null);
+      if (ref === host) ref = null;
+    });
+  });
+}
+const mergedProps = $derived({ ...mergeComponentProps(state, { class: classProp, style: style }, rendererProps, undefined), [hostAttachmentKey]: attachHost });
 </script>
 {#if groupContext}
-  <CompositeItem tag="button" {render} class={classProp} {style} metadata={itemMetadata} {state} {refs} props={rendererProps} {children} />
+  <CompositeItem tag="button" {render} class={classProp} {style} metadata={itemMetadata} {state} props={[...rendererProps, { [hostAttachmentKey]: attachHost }]} {children} />
 {:else}
-  <RenderElement tag="button" {componentProps} {params} {children} />
+  {#if render}
+  {@render render(mergedProps, state, children)}
+{:else}
+  <button {...mergedProps}>{@render children?.()}</button>
+{/if}
 {/if}

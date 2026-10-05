@@ -1,6 +1,9 @@
 <script lang="ts">
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+import { untrack } from 'svelte';
+
   // Original MenuPopup complete business and focus-manager composition (MIT).
-  import RenderElement from '../internals/RenderElement.svelte';
   import FloatingFocusManager from '../floating-ui/components/FloatingFocusManager.svelte';
   import { useHoverFloatingInteraction } from '../floating-ui/hooks/useHoverFloatingInteraction.svelte.js';
   import { useMenuRootContext } from './root/MenuRootContext.js';
@@ -60,7 +63,26 @@
     return isMounted ? getDefaultReturnFocus() : mountedReturnFocus;
   });
   const setRef = (node: HTMLElement | null) => { ref = node; };
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    store.context.popupRef.current = host;
+    setPopupElement?.(host);
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+      if (store.context.popupRef.current === host) store.context.popupRef.current = null;
+      setPopupElement?.(null);
+    });
+  });
+}
+const mergedProps = $derived({ ...mergeComponentProps(state, { class: className, style: style }, [popupProps, { onkeydown(event: KeyboardEvent) { if (insideToolbar && COMPOSITE_KEYS.has(event.key)) event.stopPropagation(); } }, getDisabledMountTransitionStyles(transitionStatus), elementProps, { 'data-rootownerid': rootId }], popupTransitionStateMapping), [hostAttachmentKey]: attachHost });
 </script>
 <FloatingFocusManager context={floatingContext} openInteractionType={openMethod} modal={isContextMenu} disabled={!mounted} returnFocus={finalFocus === undefined ? returnFocus : finalFocus} initialFocus={parent.type !== 'menu'} restoreFocus={true} externalTree={parent.type !== 'menubar' ? floatingTreeRoot : undefined} previousFocusableElement={activeTriggerElement as HTMLElement | null} nextFocusableElement={parent.type === undefined ? store.context.triggerFocusTargetRef : undefined} beforeContentFocusGuardRef={parent.type === undefined ? store.context.beforeContentFocusGuardRef : undefined}>
-  <RenderElement tag="div" componentProps={{ render, class: className, style }} params={{ state, ref: [setRef, store.context.popupRef, setPopupElement], stateAttributesMapping: popupTransitionStateMapping, props: [popupProps, { onkeydown(event: KeyboardEvent) { if (insideToolbar && COMPOSITE_KEYS.has(event.key)) event.stopPropagation(); } }, getDisabledMountTransitionStyles(transitionStatus), elementProps, { 'data-rootownerid': rootId }] }} {children} />
+  {#if render}
+  {@render render(mergedProps, state, children)}
+{:else}
+  <div {...mergedProps}>{@render children?.()}</div>
+{/if}
 </FloatingFocusManager>

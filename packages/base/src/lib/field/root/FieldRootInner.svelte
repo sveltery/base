@@ -1,8 +1,10 @@
 <script lang="ts">
+import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+
   // Ported from Base UI v1.8.0 FieldRootInner in field/root/FieldRoot.tsx.
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
   import { untrack } from 'svelte';
-  import RenderElement from '../../internals/RenderElement.svelte';
 
 
   import { setFieldRootContext, type FieldRootContext } from '../../internals/field-root-context/FieldRootContext.js';
@@ -80,8 +82,23 @@
     get state() { return fieldRootState; }, registerFieldControl, validation,
   };
   setFieldRootContext(contextValue);
-  const componentProps = $derived({ ...elementProps, render, class: classProp, style });
-  const forwardedRef = { get current() { return ref ?? null; }, set current(value: HTMLElement | null) { ref = value; } };
-  const params = $derived({ ref: forwardedRef, state: fieldRootState, props: elementProps, stateAttributesMapping: fieldValidityMapping });
+  
+  
+  
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+    });
+  });
+}
+const mergedProps = $derived({ ...mergeComponentProps(fieldRootState, { class: classProp, style: style }, elementProps, fieldValidityMapping), [hostAttachmentKey]: attachHost });
 </script>
-<RenderElement tag="div" {componentProps} {params} {children} />
+{#if render}
+  {@render render(mergedProps, fieldRootState, children)}
+{:else}
+  <div {...mergedProps}>{@render children?.()}</div>
+{/if}

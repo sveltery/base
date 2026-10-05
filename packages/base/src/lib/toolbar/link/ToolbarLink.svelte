@@ -7,10 +7,6 @@
   let { class: classProp, render, style, children, ref = $bindable(), ...elementProps }: ToolbarLinkProps = $props();
   const toolbar = useToolbarRootContext();
   const state: ToolbarLinkState = $derived({ orientation: toolbar.orientation });
-  const forwardedRef = {
-    get current() { return ref ?? null; },
-    set current(element: HTMLElement | null) { ref = element; },
-  };
   const rendererProps = $derived([elementProps]);
 </script>
-<CompositeItem tag="a" {render} class={classProp} {style} metadata={TOOLBAR_LINK_METADATA} {state} refs={[forwardedRef]} props={rendererProps} {children} />
+<CompositeItem tag="a" {render} class={classProp} {style} metadata={TOOLBAR_LINK_METADATA} {state} bind:ref props={rendererProps} {children} />

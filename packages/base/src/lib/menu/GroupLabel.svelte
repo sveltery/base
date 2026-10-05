@@ -1,6 +1,9 @@
 <script lang="ts">
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+import { untrack } from 'svelte';
+
   // Original MenuGroupLabel ID/conditional-cleanup/render body (MIT).
-  import RenderElement from '../internals/RenderElement.svelte';
 
   import { useBaseUiId } from '../internals/useBaseUiId.js';
   import { useMenuGroupRootContext } from './group/MenuGroupContext.js';
@@ -10,5 +13,21 @@
   const id = $derived(useBaseUiId(idProp ?? undefined, generatedId));
   const setLabelId = useMenuGroupRootContext();
   $effect(() => { setLabelId(id); return () => { setLabelId(currentId => currentId === id ? undefined : currentId); }; });
+
+const renderState = $derived({});
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+    });
+  });
+}
+const mergedProps = $derived({ ...mergeComponentProps(renderState, { class: className, style: style }, { id, 'aria-hidden': true, ...elementProps }, undefined), [hostAttachmentKey]: attachHost });
 </script>
-<RenderElement tag="div" componentProps={{ render, class: className, style }} params={{ props: { id, 'aria-hidden': true, ...elementProps } }} bind:element={ref} {children} />
+{#if render}
+  {@render render(mergedProps, renderState, children)}
+{:else}
+  <div {...mergedProps}>{@render children?.()}</div>
+{/if}

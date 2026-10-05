@@ -1,6 +1,9 @@
 <script lang="ts">
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+import { untrack } from 'svelte';
+
   // Original Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
-  import RenderElement from '../internals/RenderElement.svelte';
   import { useAnchorPositioning } from '../internals/anchor-positioning/useAnchorPositioning.svelte.js';
   import { usePositioner } from '../utils/usePositioner.svelte.js';
   import { POPUP_COLLISION_AVOIDANCE } from '../internals/constants.js';
@@ -53,13 +56,33 @@
   const trueModalNonHover = $derived(modal === true && openReason !== REASONS.triggerHover);
   useAnchoredPopupScrollLock(() => open && trueModalNonHover, () => openMethod === 'touch', () => positionerElement, () => triggerElement);
   const state: PopoverPositionerState = $derived({ open, side: positioning.side, align: positioning.align, anchorHidden: positioning.anchorHidden, instant: instantType });
-  const forwardedRef = (node: HTMLElement | null) => { ref = node; };
+  
   const setPositionerElement = store.useStateSetter('positionerElement');
-  const element = usePositioner(() => state, () => ({ styles: positioning.positionerStyles, transitionStatus, props: elementProps, refs: [forwardedRef, setPositionerElement], hidden: !mounted, inert: !open }));
+  const element = usePositioner(() => state, () => ({ styles: positioning.positionerStyles, transitionStatus, props: elementProps, hidden: !mounted, inert: !open }));
   providePopoverPositionerContext(positioning);
   provideFloatingNode(() => nodeId);
+
+const renderState = $derived(element.state);
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    setPositionerElement(host);
+    return () => untrack(() => {
+      setPositionerElement(null);
+      if (ref === host) ref = null;
+    });
+  });
+}
+const mergedProps = $derived({ ...mergeComponentProps(renderState, { class: className, style: style }, element.props, element.stateAttributesMapping), [hostAttachmentKey]: attachHost });
 </script>
 {#if mounted && trueModalNonHover}
   <InternalBackdrop inert={!open} cutout={triggerElement} />
 {/if}
-<RenderElement tag="div" componentProps={{ render, class: className, style }} params={element.params} {children} />
+{#if renderEnabled}
+{#if render}
+  {@render render(mergedProps, renderState, children)}
+{:else}
+  <div {...mergedProps}>{@render children?.()}</div>
+{/if}
+{/if}

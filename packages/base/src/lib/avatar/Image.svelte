@@ -1,8 +1,10 @@
 <script lang="ts">
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+
   // Ported from Base UI v1.8.0 AvatarImage.tsx.
   // Pin 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: parity/avatar/UPSTREAM_LICENSE.
   import { untrack } from 'svelte';
-  import RenderElement from '../internals/RenderElement.svelte';
   import { useTransitionStatus } from '../internals/useTransitionStatus.svelte.js';
   import { useOpenChangeComplete } from '../internals/useOpenChangeComplete.svelte.js';
   import { transitionStatusMapping } from '../internals/stateAttributesMapping.js';
@@ -70,7 +72,7 @@
   useOpenChangeComplete({
     get enabled() { return !isVisible; },
     get open() { return isVisible; },
-    ref: imageRef,
+    
     onComplete() { if (!isVisible) transition.setMounted(false); },
   });
   const partState: AvatarImageState = $derived({
@@ -86,11 +88,27 @@
     return source;
   });
   const stateAttributesMapping = { ...avatarStateAttributesMapping, ...transitionStatusMapping };
-  const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({
-    state: partState, ref: imageRef,
-    props: [renderedStatusProps, elementProps, sourceProps],
-    stateAttributesMapping, enabled: shouldRender,
+  
+  
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    imageRef.current = host;
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+      if (imageRef.current === host) imageRef.current = null;
+    });
   });
+}
+const renderEnabled = $derived(shouldRender);
+const mergedProps = $derived({ ...mergeComponentProps(partState, { class: classProp, style: style }, [renderedStatusProps, elementProps, sourceProps], stateAttributesMapping), [hostAttachmentKey]: attachHost });
 </script>
-<RenderElement tag="img" {componentProps} {params} {children} bind:element={ref} />
+{#if renderEnabled}
+{#if render}
+  {@render render(mergedProps, partState, children)}
+{:else}
+  <img {...mergedProps} />
+{/if}
+{/if}

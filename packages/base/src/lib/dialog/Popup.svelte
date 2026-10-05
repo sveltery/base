@@ -1,6 +1,9 @@
 <script lang="ts">
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+import { untrack } from 'svelte';
+
   // Original DialogPopup → FloatingFocusManager business and shared renderer composition (MIT).
-  import RenderElement from '../internals/RenderElement.svelte';
   import FloatingFocusManager from '../floating-ui/components/FloatingFocusManager.svelte';
   import { useOpenChangeComplete } from '../internals/useOpenChangeComplete.svelte.js';
   import { COMPOSITE_KEYS } from '../internals/composite/composite.js';
@@ -29,24 +32,21 @@
     nestedDialogOpen: nestedOpenDialogCount > 0,
   });
   const setPopupElement = store.useStateSetter('popupElement');
-</script>
-<FloatingFocusManager
-  context={store.select('floatingRootContext')}
-  openInteractionType={store.select('openMethod')}
-  disabled={!mounted}
-  closeOnFocusOut={!store.select('disablePointerDismissal')}
-  initialFocus={resolvedInitialFocus}
-  returnFocus={finalFocus}
-  modal={store.select('modal') !== false}
-  restoreFocus="popup"
->
-  <RenderElement
-    tag="div"
-    componentProps={{ render, class: className, style }}
-    params={{
-      state,
-      ref: [store.context.popupRef, setPopupElement],
-      props: [
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    store.context.popupRef.current = host;
+    setPopupElement?.(host);
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+      if (store.context.popupRef.current === host) store.context.popupRef.current = null;
+      setPopupElement?.(null);
+    });
+  });
+}
+const mergedProps = $derived({ ...mergeComponentProps(state, { class: className, style: style }, [
         store.select('popupProps'),
         {
           id: store.state.floatingRootContext.select('floatingId'),
@@ -59,10 +59,21 @@
           style: { [DialogPopupCssVars.nestedDialogs]: nestedOpenDialogCount },
         },
         elementProps,
-      ],
-      stateAttributesMapping: dialogStateAttributesMapping,
-    }}
-    {children}
-    bind:element={ref}
-  />
+      ], dialogStateAttributesMapping), [hostAttachmentKey]: attachHost });
+</script>
+<FloatingFocusManager
+  context={store.select('floatingRootContext')}
+  openInteractionType={store.select('openMethod')}
+  disabled={!mounted}
+  closeOnFocusOut={!store.select('disablePointerDismissal')}
+  initialFocus={resolvedInitialFocus}
+  returnFocus={finalFocus}
+  modal={store.select('modal') !== false}
+  restoreFocus="popup"
+>
+  {#if render}
+  {@render render(mergedProps, state, children)}
+{:else}
+  <div {...mergedProps}>{@render children?.()}</div>
+{/if}
 </FloatingFocusManager>

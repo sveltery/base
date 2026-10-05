@@ -1,6 +1,9 @@
 <script lang="ts">
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+import { untrack } from 'svelte';
+
   // Original MenuRadioItem complete radio/item/consumer-order composition (MIT).
-  import RenderElement from '../internals/RenderElement.svelte';
   import { NOOP } from '@sveltery/utils/empty';
   import { useMenuRootContext } from './root/MenuRootContext.js';
   import { useBaseUiId } from '../internals/useBaseUiId.js';
@@ -33,5 +36,24 @@
     group.setValue(value, details);
   }
   const setRef = (node: HTMLElement | null) => { ref = node; };
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    const disposeItem = item.attachItem(host);
+    ref = host;
+    const unregisterItem = listItem.attach(host);
+    return () => untrack(() => {
+      disposeItem();
+      if (ref === host) ref = null;
+      unregisterItem();
+    });
+  });
+}
+const mergedProps = $derived({ ...mergeComponentProps(componentState, { class: className, style: style }, [itemProps, { role: 'menuitemradio', 'aria-checked': checked, onclick: handleClick }, elementProps, item.getItemProps], itemMapping), [hostAttachmentKey]: attachHost });
 </script>
-<RenderElement tag="div" componentProps={{ render, class: className, style }} params={{ state: componentState, stateAttributesMapping: itemMapping, props: [itemProps, { role: 'menuitemradio', 'aria-checked': checked, onclick: handleClick }, elementProps, item.getItemProps], ref: [item.itemRef, setRef, listItem.ref] }} {children} />
+{#if render}
+  {@render render(mergedProps, componentState, children)}
+{:else}
+  <div {...mergedProps}>{@render children?.()}</div>
+{/if}

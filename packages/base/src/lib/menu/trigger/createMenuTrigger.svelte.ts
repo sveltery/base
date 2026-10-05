@@ -1,3 +1,4 @@
+import { createAttachmentKey } from 'svelte/attachments';
 import { onDestroy, untrack } from 'svelte';
 // Original MenuTrigger complete business, native live props/event/ref boundary (MIT).
 import { Timeout } from '@sveltery/utils/useTimeout';
@@ -146,8 +147,22 @@ export function createMenuTrigger<Payload>(getProps: () => MenuTriggerProps<Payl
         disabled,
         open: isOpenedByThisTrigger,
     });
-    const ref = [triggerRef, setRef, buttonRef, forwarding.registerTrigger, triggerElementRef];
-    const props = $derived([
+    const hostAttachmentKey = createAttachmentKey();
+    function attachHost(host: HTMLElement) {
+        triggerRef.current = host;
+        setRef(host);
+        buttonRef(host);
+        forwarding.registerTrigger(host);
+        triggerElementRef.current = host;
+        return () => {
+            if (triggerRef.current === host) triggerRef.current = null;
+            setRef(null);
+            buttonRef(null);
+            forwarding.registerTrigger(null);
+            if (triggerElementRef.current === host) triggerElementRef.current = null;
+        };
+    }
+    const props = $derived([{ [hostAttachmentKey]: attachHost }, 
         localInteractionProps,
         hoverProps() ?? EMPTY_OBJECT,
         rootTriggerProps,
@@ -172,7 +187,7 @@ export function createMenuTrigger<Payload>(getProps: () => MenuTriggerProps<Payl
         elementProps,
         getButtonProps,
     ]);
-    return { get state() { return state; }, get ref() { return ref; }, get props() { return props; }, get isInMenubar() { return isInMenubar; }, get isOpenedByThisTrigger() { return isOpenedByThisTrigger; }, store: () => store, preFocusGuardRef, handlePreFocusGuardFocus, handleFocusTargetFocus };
+    return { get state() { return state; }, get props() { return props; }, get isInMenubar() { return isInMenubar; }, get isOpenedByThisTrigger() { return isOpenedByThisTrigger; }, store: () => store, preFocusGuardRef, handlePreFocusGuardFocus, handleFocusTargetFocus };
 }
 function useStickIfOpen(getOpen: () => boolean, getOpenReason: () => string | null) {
     const stickIfOpenTimeout = new Timeout();

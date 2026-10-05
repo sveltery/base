@@ -1,11 +1,11 @@
 <script lang="ts">
+import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+
   import { untrack } from 'svelte';
   // Source-ordered business port of Base UI v1.8.0 SwitchRoot.tsx at
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
   import { useFieldControlNativeName } from '../../internals/field-control-name/FieldControlNameContext.js';
-  import RenderElement from '../../internals/RenderElement.svelte';
-  import { MergedRefs } from '@sveltery/utils/useMergedRefs';
-  import { createRefAttachment } from '../../internals/nativeRefAttachment.js';
   import type { HTMLInputAttributes } from 'svelte/elements';
   import { Controlled } from '@sveltery/utils/Controlled';
 
@@ -33,7 +33,7 @@
     'aria-labelledby': ariaLabelledByProp,
     form,
     id: idProp,
-    inputRef: externalInputRef,
+    inputRef: externalInputRef = $bindable(),
     name: nameProp,
     nativeButton = false,
     onCheckedChange,
@@ -159,36 +159,48 @@
     required,
   });
   setSwitchRootContext(() => rootState);
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(element: HTMLElement | null) {
-      ref = element;
-    },
-  };
-  const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({
-    state: rootState,
-    ref: [forwardedRef, switchRef, buttonRef],
-    props: [
+  
+  
+  
+  function attachInput(host: HTMLInputElement) {
+    return untrack(() => {
+      inputRef.current = host;
+      externalInputRef = host;
+      field.validation.inputRef.current = host;
+      return () => untrack(() => {
+        if (field.validation.inputRef.current === host) field.validation.inputRef.current = null;
+        if (inputRef.current === host) inputRef.current = null;
+        if (externalInputRef === host) externalInputRef = null;
+      });
+    });
+  }
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    switchRef.current = host;
+    buttonRef?.(host);
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+      if (switchRef.current === host) switchRef.current = null;
+      buttonRef?.(null);
+    });
+  });
+}
+const mergedProps = $derived({ ...mergeComponentProps(rootState, { class: classProp, style: style }, [
       rootProps,
       elementProps,
       getButtonProps,
       (props: Record<string, unknown>) =>
         field.validation.getValidationProps(disabled, props),
-    ],
-    stateAttributesMapping,
-  });
-  const refsMerger = new MergedRefs<HTMLInputElement>();
-  const resolveInputAttachment = createRefAttachment<HTMLInputElement>(() => {});
-  const inputAttachment = $derived(
-    resolveInputAttachment(
-      refsMerger.merge(inputRef, externalInputRef, field.validation.inputRef),
-    ),
-  );
+    ], stateAttributesMapping), [hostAttachmentKey]: attachHost });
 </script>
-<RenderElement tag="span" {componentProps} {params} {children} />
+{#if render}
+  {@render render(mergedProps, rootState, children)}
+{:else}
+  <span {...mergedProps}>{@render children?.()}</span>
+{/if}
 {#if !checked && name && uncheckedValue !== undefined}
   <input type="hidden" {form} name={nativeName} value={uncheckedValue} {disabled} />
 {/if}
@@ -196,6 +208,6 @@
 <input
   {...inputProps as HTMLInputAttributes}
   type="checkbox"
-  {@attach inputAttachment}
+  {@attach attachInput}
   bind:checked={() => checkedState.value, next => checkedState.set(next)}
 />

@@ -1,11 +1,13 @@
 <script lang="ts" generics="Value extends string = string">
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+
   // Source-ordered Base UI v1.8.0 ToggleGroup.tsx at
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
 
   import { untrack } from 'svelte';
   import { Controlled } from '@sveltery/utils/Controlled';
   import { EMPTY_ARRAY } from '@sveltery/utils/empty';
-  import RenderElement from '../internals/RenderElement.svelte';
   import CompositeRoot from '../internals/composite/root/CompositeRoot.svelte';
   import { useToolbarRootContext } from '../toolbar/root/ToolbarRootContext.js';
   import { useToolbarGroupContext } from '../toolbar/group/ToolbarGroupContext.js';
@@ -42,16 +44,28 @@
     get isValueInitialized() { return isValueInitialized; },
   });
   const defaultProps = { role: 'group' };
-  const forwardedRef = {
-    get current() { return ref ?? null; },
-    set current(element: HTMLElement | null) { ref = element; },
-  };
+  
   const rendererProps = $derived([defaultProps, elementProps]);
-  const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({ state, ref: forwardedRef, props: rendererProps });
+  
+  
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+    });
+  });
+}
+const mergedProps = $derived({ ...mergeComponentProps(state, { class: classProp, style: style }, rendererProps, undefined), [hostAttachmentKey]: attachHost });
 </script>
 {#if toolbarContext}
-  <RenderElement tag="div" {componentProps} {params} {children} />
+  {#if render}
+  {@render render(mergedProps, state, children)}
 {:else}
-  <CompositeRoot {render} class={classProp} {style} {state} refs={[forwardedRef]} props={rendererProps} {loopFocus} enableHomeAndEndKeys {orientation} {children} />
+  <div {...mergedProps}>{@render children?.()}</div>
+{/if}
+{:else}
+  <CompositeRoot {render} class={classProp} {style} {state} bind:ref props={[...rendererProps, { [hostAttachmentKey]: attachHost }]} {loopFocus} enableHomeAndEndKeys {orientation} {children} />
 {/if}

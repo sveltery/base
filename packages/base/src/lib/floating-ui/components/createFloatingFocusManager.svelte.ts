@@ -4,7 +4,7 @@ import { onDestroy } from 'svelte';
 import { getNodeName, isHTMLElement } from '@floating-ui/utils/dom';
 import { addEventListener } from '@sveltery/utils/addEventListener';
 import { mergeCleanups } from '@sveltery/utils/mergeCleanups';
-import { MergedRefs } from '@sveltery/utils/useMergedRefs';
+import { createAttachmentKey } from 'svelte/attachments';
 
 
 import { Timeout } from '@sveltery/utils/useTimeout';
@@ -299,14 +299,28 @@ export function createFloatingFocusManager(getProps: () => FloatingFocusManagerP
   const beforeGuardRef = { current: null as HTMLSpanElement | null };
   const afterGuardRef = { current: null as HTMLSpanElement | null };
 
-  const beforeRefs = new MergedRefs<HTMLSpanElement>();
-  const afterRefs = new MergedRefs<HTMLSpanElement>();
-  const mergedBeforeGuardRef = $derived(beforeRefs.merge(
-    beforeGuardRef,
-    beforeContentFocusGuardRef,
-    portalContext?.beforeInsideRef,
-  ));
-  const mergedAfterGuardRef = $derived(afterRefs.merge(afterGuardRef, portalContext?.afterInsideRef));
+  const beforeAttachmentKey = createAttachmentKey();
+  const afterAttachmentKey = createAttachmentKey();
+  function attachBeforeGuard(host: HTMLSpanElement) {
+    beforeGuardRef.current = host;
+    if (beforeContentFocusGuardRef) beforeContentFocusGuardRef.current = host;
+    if (portalContext) portalContext.beforeInsideRef.current = host;
+    return () => {
+      if (beforeGuardRef.current === host) beforeGuardRef.current = null;
+      if (beforeContentFocusGuardRef?.current === host) beforeContentFocusGuardRef.current = null;
+      if (portalContext?.beforeInsideRef.current === host) portalContext.beforeInsideRef.current = null;
+    };
+  }
+  function attachAfterGuard(host: HTMLSpanElement) {
+    afterGuardRef.current = host;
+    if (portalContext) portalContext.afterInsideRef.current = host;
+    return () => {
+      if (afterGuardRef.current === host) afterGuardRef.current = null;
+      if (portalContext?.afterInsideRef.current === host) portalContext.afterInsideRef.current = null;
+    };
+  }
+  const beforeGuardProps = { [beforeAttachmentKey]: attachBeforeGuard };
+  const afterGuardProps = { [afterAttachmentKey]: attachAfterGuard };
 
   const blurTimeout = new Timeout();
 
@@ -919,7 +933,7 @@ export function createFloatingFocusManager(getProps: () => FloatingFocusManagerP
   }
   return {
     get shouldRenderGuards() { return shouldRenderGuards; },
-    get beforeRef() { return mergedBeforeGuardRef; }, get afterRef() { return mergedAfterGuardRef; },
+    beforeGuardProps, afterGuardProps,
     onBeforeFocus, onAfterFocus,
   };
 }

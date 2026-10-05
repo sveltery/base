@@ -1,7 +1,9 @@
 <script lang="ts">
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+
   import { untrack } from 'svelte';
   // Original MenuRadioGroup controlled/cancellation/label/context composition (MIT).
-  import RenderElement from '../internals/RenderElement.svelte';
   import { Controlled } from '@sveltery/utils/Controlled';
 
   import { provideMenuRadioGroupContext } from './radio-group/MenuRadioGroupContext.js';
@@ -20,5 +22,20 @@
   const setLabelId: MenuGroupContext = value => { labelId = typeof value === 'function' ? value(labelId) : value; };
   provideMenuGroupContext(setLabelId);
   provideMenuRadioGroupContext({ get value() { return value; }, setValue, get disabled() { return disabled; } });
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+    });
+  });
+}
+const mergedProps = $derived({ ...mergeComponentProps(componentState, { class: className, style: style }, { role: 'group', 'aria-labelledby': ariaLabelledByProp ?? labelId, 'aria-disabled': disabled || undefined, ...elementProps }, undefined), [hostAttachmentKey]: attachHost });
 </script>
-<RenderElement tag="div" componentProps={{ render, class: className, style }} params={{ state: componentState, props: { role: 'group', 'aria-labelledby': ariaLabelledByProp ?? labelId, 'aria-disabled': disabled || undefined, ...elementProps } }} bind:element={ref} {children} />
+{#if render}
+  {@render render(mergedProps, componentState, children)}
+{:else}
+  <div {...mergedProps}>{@render children?.()}</div>
+{/if}

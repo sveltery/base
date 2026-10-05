@@ -1,6 +1,9 @@
 <script lang="ts">
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+import { untrack } from 'svelte';
+
   // Original MenuLinkItem link/button/common-item/composite-list composition (MIT).
-  import RenderElement from '../internals/RenderElement.svelte';
   import { useMenuRootContext } from './root/MenuRootContext.js';
   import { useBaseUiId } from '../internals/useBaseUiId.js';
   import { useCompositeListItem } from '../internals/composite/list/useCompositeListItem.svelte.js';
@@ -27,5 +30,26 @@
   function getItemProps(externalProps?: HTMLProps): HTMLProps { return mergeProps(commonProps(), externalProps, getButtonProps); }
   const componentState = $derived({ highlighted });
   const setRef = (node: HTMLElement | null) => { ref = node; };
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    linkRef.current = host;
+    buttonRef?.(host);
+    ref = host;
+    const unregisterItem = listItem.attach(host);
+    return () => untrack(() => {
+      if (linkRef.current === host) linkRef.current = null;
+      buttonRef?.(null);
+      if (ref === host) ref = null;
+      unregisterItem();
+    });
+  });
+}
+const mergedProps = $derived({ ...mergeComponentProps(componentState, { class: className, style: style }, [itemProps, elementProps, getItemProps], undefined), [hostAttachmentKey]: attachHost });
 </script>
-<RenderElement tag="a" componentProps={{ render, class: className, style }} params={{ state: componentState, props: [itemProps, elementProps, getItemProps], ref: [linkRef, buttonRef, setRef, listItem.ref] }} {children} />
+{#if render}
+  {@render render(mergedProps, componentState, children)}
+{:else}
+  <a {...mergedProps}>{@render children?.()}</a>
+{/if}

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { createAttachmentKey } from 'svelte/attachments';
   // Original Menubar and MenubarContent complete Composite/context/tree business (MIT).
   import CompositeRoot from '../internals/composite/root/CompositeRoot.svelte';
   import { provideFloatingTree, useFloatingNodeId, provideFloatingNode } from '../floating-ui/components/FloatingTree.svelte.js';
@@ -41,5 +42,14 @@
   });
   const setRef = (node: HTMLElement | null) => { ref = node; };
   const stateAttributesMapping = { hasSubmenuOpen(value: boolean) { return value ? { 'data-has-submenu-open': '' } : null; } };
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    contentRef.current = host;
+    context.setContentElement(host);
+    return () => {
+      context.setContentElement(null);
+      if (contentRef.current === host) contentRef.current = null;
+    };
+  }
 </script>
-<CompositeRoot {render} class={className} {style} state={componentState} {stateAttributesMapping} refs={[setRef, context.setContentElement, contentRef]} props={[{ role: 'menubar', id, 'aria-orientation': orientation }, elementProps]} {orientation} {loopFocus} enableHomeAndEndKeys={true} highlightItemOnHover={hasSubmenuOpen} {children} />
+<CompositeRoot {render} class={className} {style} state={componentState} {stateAttributesMapping} bind:ref props={[{ role: 'menubar', id, 'aria-orientation': orientation }, elementProps, { [hostAttachmentKey]: attachHost }]} {orientation} {loopFocus} enableHomeAndEndKeys={true} highlightItemOnHover={hasSubmenuOpen} {children} />

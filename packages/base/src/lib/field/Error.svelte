@@ -1,7 +1,9 @@
 <script lang="ts">
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+
   import { untrack } from 'svelte';
   // Ported from Base UI v1.8.0 FieldError.tsx; MIT: THIRD_PARTY_NOTICES.md.
-  import RenderElement from '../internals/RenderElement.svelte';
 
   import { useFieldRootContext } from '../internals/field-root-context/FieldRootContext.js';
   import { useLabelableContext } from '../internals/labelable-provider/LabelableContext.js';
@@ -51,16 +53,33 @@
   });
   const errorState: FieldErrorState = $derived({ ...field.state, transitionStatus: transition.transitionStatus });
   const stateAttributesMapping = { ...fieldValidityMapping, ...transitionStatusMapping };
-  const forwardedRef = { get current() { return ref ?? null; }, set current(value: HTMLElement | null) { ref = value; } };
-  const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({
-    ref: [forwardedRef, errorRef], state: errorState,
-    props: [{ id, children: errorContent }, elementProps], stateAttributesMapping, enabled: transition.mounted,
+  
+  
+  
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    errorRef.current = host;
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+      if (errorRef.current === host) errorRef.current = null;
+    });
   });
+}
+const renderEnabled = $derived(transition.mounted);
+const mergedProps = $derived({ ...mergeComponentProps(errorState, { class: classProp, style: style }, [{ id,  }, elementProps], stateAttributesMapping), [hostAttachmentKey]: attachHost });
 </script>
 {#snippet errorContent()}
   {#if Array.isArray(message)}
     {#if message.length > 1}<ErrorMessageList messages={message} />{:else}{message[0] ?? ''}{/if}
   {:else}{message ?? ''}{/if}
 {/snippet}
-{#if transition.mounted}<RenderElement tag="div" {componentProps} {params} />{/if}
+{#if transition.mounted}{#if renderEnabled}
+{#if render}
+  {@render render(mergedProps, errorState, errorContent)}
+{:else}
+  <div {...mergedProps}>{@render errorContent?.()}</div>
+{/if}
+{/if}{/if}

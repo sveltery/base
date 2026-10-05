@@ -1,3 +1,4 @@
+import { createAttachmentKey } from 'svelte/attachments';
 // Original MenuPositioner complete business body, native component/render boundary (MIT).
 import { onDestroy, untrack } from 'svelte';
 
@@ -213,11 +214,19 @@ export function createMenuPositioner(getProps: () => MenuPositionerProps, store:
     const menubarModal = $derived(parent.type === 'menubar' && parent.context.modal);
     const popupModal = $derived(modal && lastOpenChangeReason !== REASONS.triggerHover);
     useAnchoredPopupScrollLock(() => open && (menubarModal || popupModal), () => openMethod === 'touch', () => positionerElement, () => triggerElement);
+    const hostAttachmentKey = createAttachmentKey();
+    function attachHost(host: HTMLElement) {
+        getRef(host);
+        setPositionerElement(host);
+        return () => {
+            getRef(null);
+            setPositionerElement(null);
+        };
+    }
     const element = usePositioner(() => state, () => ({
         styles: positioner.positionerStyles,
         transitionStatus,
-        props: elementProps,
-        refs: [getRef, setPositionerElement],
+        props: { ...elementProps, [hostAttachmentKey]: attachHost },
         hidden: !mounted,
         inert: !open,
     }));

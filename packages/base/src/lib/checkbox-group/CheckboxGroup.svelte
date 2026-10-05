@@ -1,7 +1,9 @@
 <script lang="ts">
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+
   import { untrack } from 'svelte';
   // Source business port of Base UI v1.8.0 CheckboxGroup.tsx. MIT.
-  import RenderElement from '../internals/RenderElement.svelte';
   import { Controlled } from '@sveltery/utils/Controlled';
 
 
@@ -113,24 +115,27 @@
     validation: field.validation,
     registerControlId: labelable.registerControlId,
   });
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(element: HTMLDivElement | null) {
-      ref = element;
-    },
-  };
-  const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({
-    state: groupState,
-    ref: forwardedRef,
-    props: [
+  
+  
+  
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+    });
+  });
+}
+const mergedProps = $derived({ ...mergeComponentProps(groupState, { class: classProp, style: style }, [
       { id: idProp, role: 'group', 'aria-labelledby': labelable.labelId },
       elementProps,
       labelable.getDescriptionProps,
-    ],
-    stateAttributesMapping: fieldValidityMapping,
-  });
+    ], fieldValidityMapping), [hostAttachmentKey]: attachHost });
 </script>
-<RenderElement tag="div" {componentProps} {params} {children} />
+{#if render}
+  {@render render(mergedProps, groupState, children)}
+{:else}
+  <div {...mergedProps}>{@render children?.()}</div>
+{/if}

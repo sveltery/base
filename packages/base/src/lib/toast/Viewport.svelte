@@ -1,10 +1,12 @@
 <script lang="ts">
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+
   // Derived from mui/base-ui at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, see ../../../THIRD_PARTY_NOTICES.md.
   import { onDestroy, untrack } from 'svelte';
   import { provider } from './context.js';
   import { selectors } from './store.js';
   import { activeElement, contains, getTarget, isFocusVisible } from './viewport-focus.js';
-  import Element from '../dialog/Element.svelte';
   import type { ToastViewportProps } from './types.js';
   let { children, ref = $bindable(), ...props }: ToastViewportProps = $props();
   const { store } = provider();
@@ -170,6 +172,23 @@
       : undefined;
     if (first) first.ref?.focus(); else restoreFocus();
   }
+
+const renderState = $derived({ expanded });
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    const disposeHost = (attach)(host);
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+      disposeHost?.();
+    });
+  });
+}
+const mergedProps = $derived.by(() => {
+  const { class: className, style, ...attributes } = props;
+  return { ...mergeComponentProps(renderState, { class: className, style }, [{ tabindex: -1, role: 'region', 'aria-live': 'polite', 'aria-atomic': false, 'aria-relevant': 'additions text', 'aria-label': 'Notifications', 'data-expanded': expanded ? '' : undefined, onmouseenter: mouseEnter, onmousemove: mouseEnter, onmouseleave: mouseLeave, onfocusin: focus, onfocusout: blur, onkeydown: keydown, onclick: focus, onpointerdown: pointerDown, onpointerup: pointerEnd, onpointercancel: pointerEnd, style: { '--toast-frontmost-height': snapshot.toasts[0]?.height ? `${snapshot.toasts[0].height}px` : undefined } }, attributes], false), [hostAttachmentKey]: attachHost };
+});
 </script>
 {#snippet guard()}
   {#if !isEmpty && snapshot.prevFocusElement}
@@ -179,11 +198,14 @@
   {/if}
 {/snippet}
 {@render guard()}
-<Element {props} bind:ref {attach} state={{ expanded }} internal={{ tabindex: -1, role: 'region', 'aria-live': 'polite', 'aria-atomic': false, 'aria-relevant': 'additions text', 'aria-label': 'Notifications', 'data-expanded': expanded ? '' : undefined, onmouseenter: mouseEnter, onmousemove: mouseEnter, onmouseleave: mouseLeave, onfocusin: focus, onfocusout: blur, onkeydown: keydown, onclick: focus, onpointerdown: pointerDown, onpointerup: pointerEnd, onpointercancel: pointerEnd, style: { '--toast-frontmost-height': snapshot.toasts[0]?.height ? `${snapshot.toasts[0].height}px` : undefined } }}>
+{#snippet hostChildren()}
+
   {@render guard()}
   {@render children?.()}
   {@render guard()}
-</Element>
+
+{/snippet}
+<div {...mergedProps}>{@render hostChildren?.()}</div>
 {#if !snapshot.focused && highPriorityToasts.length > 0}
   <div style={hiddenStyle}>
     {#each highPriorityToasts as toast (toast.id)}

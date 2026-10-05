@@ -1,12 +1,14 @@
 <script lang="ts">
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+
   // Adapted from mui/base-ui v1.8.0 CollapsiblePanel/useCollapsiblePanel,
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
   import { onDestroy, tick, untrack } from 'svelte';
-  import Element from '../dialog/Element.svelte';
   import { resolveClassValue } from '../internals/resolveClassValue.js';
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { getCollapsibleContext } from './context.js';
-  import { afterAnimations, getAnimationType, getDimensions, preserveUnchangedInlineStyles, requestFrame, resetLayoutStyles, setTemporaryStyle, warnOnce, type AnimationType } from './animations.js';
+  import { afterAnimations, getAnimationType, getDimensions, requestFrame, resetLayoutStyles, setTemporaryStyle, warnOnce, type AnimationType } from './animations.js';
   import type { CollapsiblePanelProps, CollapsiblePanelState } from './types.js';
 
   let { children, render, hiddenUntilFound = false, keepMounted: keepMountedProp, id: idProp, class: classProp, style: styleProp, ref = $bindable(), ...props }: CollapsiblePanelProps = $props();
@@ -48,8 +50,6 @@
     };
   }
   function attach(element: HTMLElement) {
-    styledNode = element;
-    previousStyle = mergedStyle;
     node = element;
     return () => {
       restorePendingTemporaryStyle();
@@ -81,7 +81,6 @@
       style: shouldPreventOpenAnimation ? `${authoredStyle ?? ''};animation-name:none` : authoredStyle,
     };
   });
-  const mergedStyle = $derived(`--collapsible-panel-height:${internal.style['--collapsible-panel-height']};--collapsible-panel-width:${internal.style['--collapsible-panel-width']}${resolved.style ? `;${resolved.style}` : ''}`);
 
   $effect(() => {
     if (hiddenUntilFound && keepMountedProp === false) {
@@ -97,32 +96,6 @@
 
   $effect(() => {
     if (forcePanelIdle && context.transitionStatus !== 'starting') forcePanelIdle = false;
-  });
-
-  let styledNode: HTMLElement | null = null;
-  let previousStyle: string | undefined;
-  let restoreUnchangedStyles: (() => void) | undefined;
-  $effect.pre(() => {
-    const panel = node;
-    const nextStyle = mergedStyle;
-    if (!panel) {
-      styledNode = null;
-      previousStyle = undefined;
-      restoreUnchangedStyles = undefined;
-      return;
-    }
-    restoreUnchangedStyles = preserveUnchangedInlineStyles(panel, styledNode === panel ? previousStyle : undefined, nextStyle);
-    styledNode = panel;
-    previousStyle = nextStyle;
-  });
-  $effect(() => {
-    // Track the same commit as the snapshot, then restore before measurement.
-    const panel = node;
-    const nextStyle = mergedStyle;
-    untrack(() => {
-      if (panel === styledNode && nextStyle === previousStyle) restoreUnchangedStyles?.();
-      restoreUnchangedStyles = undefined;
-    });
   });
 
   // This effect runs after the corresponding DOM commit, while close's ending
@@ -256,8 +229,28 @@
   });
 
 
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    const disposeHost = (attach)(host);
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+      disposeHost?.();
+    });
+  });
+}
+const mergedProps = $derived.by(() => {
+  const { class: className, style, ...attributes } = resolved;
+  return { ...mergeComponentProps(panelState, { class: className, style }, [internal, attributes], false), [hostAttachmentKey]: attachHost };
+});
 </script>
 
 {#if shouldRender}
-  <Element tag="div" {internal} props={resolved} state={panelState} {render} {children} bind:ref {attach} />
+  {#if render}
+  {@render render(mergedProps, panelState, children)}
+{:else}
+  <div {...mergedProps}>{@render children?.()}</div>
+{/if}
 {/if}

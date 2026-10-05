@@ -27,8 +27,7 @@ export { Accordion } from './accordion/index.js';
 export type { AccordionValue, AccordionRootProps, AccordionRootState, AccordionItemProps, AccordionItemState, AccordionHeaderProps, AccordionHeaderState, AccordionTriggerProps, AccordionTriggerState, AccordionPanelProps, AccordionPanelState, AccordionRootChangeEventReason, AccordionRootChangeEventDetails, AccordionItemChangeEventReason, AccordionItemChangeEventDetails } from './accordion/index.js';
 export { CSPProvider } from './csp-provider/index.js';
 export type { CSPProviderProps, CSPProviderState } from './csp-provider/index.js';
-export { UseRender } from './use-render/index.js';
-export type { UseRenderProps, UseRenderParameters, UseRenderState, UseRenderRef, UseRenderRefs, UseRenderRenderProp, UseRenderHostProps, UseRenderTagName, UseRenderStateAttributesMapping, UseRenderElementProps, UseRenderComponentProps, HTMLProps, ComponentRenderFn } from './use-render/index.js';
+export type { HTMLProps, ComponentRenderFn } from './internals/types.js';
 
 export { Field, FieldRoot, FieldLabel, FieldDescription, FieldError, FieldControl, FieldValidity, FieldItem } from './field/index.js';
 export type * from './field/types.js';

@@ -7,7 +7,6 @@ import type {
 } from '../internals/types.js';
 import type { FieldRootState } from '../field/types.js';
 import type { BaseUIChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
-import type { MergedRef } from '@sveltery/utils/useMergedRefs';
 export interface RadioGroupState extends FieldRootState {
   required: boolean;
   readOnly: boolean;
@@ -33,5 +32,5 @@ export type RadioGroupProps<Value = any> = Omit<
     onValueChange?:
       | ((value: Value, details: RadioGroupChangeEventDetails) => void)
       | undefined;
-    inputRef?: MergedRef<HTMLInputElement> | null | undefined;
+    inputRef?: HTMLInputElement | null | undefined;
   };

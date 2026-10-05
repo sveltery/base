@@ -12,4 +12,4 @@
   const shouldRender = $derived(store.useState('mounted') || keepMounted);
   const portalOwnerRole = parent.type === 'menu' || parent.type === 'menubar' ? 'group' : undefined;
 </script>
-{#if shouldRender}<FloatingPortal {...(portalProps as ComponentProps<typeof FloatingPortal>)} ref={(node) => { ref = node; }} {portalOwnerRole} />{/if}
+{#if shouldRender}<FloatingPortal {...(portalProps as ComponentProps<typeof FloatingPortal>)} bind:ref {portalOwnerRole} />{/if}

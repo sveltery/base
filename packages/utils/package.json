@@ -88,10 +88,6 @@
       "types": "./dist/useId.d.ts",
       "default": "./dist/useId.js"
     },
-    "./useMergedRefs": {
-      "types": "./dist/useMergedRefs.d.ts",
-      "default": "./dist/useMergedRefs.js"
-    },
     "./useScrollLock": {
       "types": "./dist/useScrollLock.svelte.d.ts",
       "svelte": "./dist/useScrollLock.svelte.js",

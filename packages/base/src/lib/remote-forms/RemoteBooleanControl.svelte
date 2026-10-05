@@ -1,7 +1,6 @@
 <script lang="ts">
   import CheckboxRoot from '../checkbox/root/CheckboxRoot.svelte';
   import { createAttachmentKey } from 'svelte/attachments';
-  import { createRefAttachment } from '../internals/nativeRefAttachment.js';
   import { setFieldControlNameContext } from '../internals/field-control-name/FieldControlNameContext.js';
   import { setFieldControlValueContext } from '../internals/field-control-value/FieldControlValueContext.js';
   import { useFieldRootContext } from '../internals/field-root-context/FieldRootContext.js';
@@ -48,9 +47,10 @@
     required: semanticProps.required ?? false,
   });
   const attachmentKey = createAttachmentKey();
-  const resolveRefAttachment = createRefAttachment<HTMLElement>((node, previous) => {
-    if (node !== null || ref === previous) ref = node;
-  });
+  function attachHost(host: HTMLElement) {
+    ref = host;
+    return () => { if (ref === host) ref = null; };
+  }
   const renderedProps = $derived.by(() => {
     const attributes = { ...semanticProps };
     if ((descriptor.type ?? remote?.kind) === 'radio') {
@@ -60,7 +60,7 @@
       delete attributes.defaultChecked;
       delete attributes.onCheckedChange;
     }
-    return { ...attributes, [attachmentKey]: resolveRefAttachment(null) };
+    return { ...attributes, [attachmentKey]: attachHost };
   });
 </script>
 {#if render}

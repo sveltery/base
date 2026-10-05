@@ -1,4 +1,7 @@
 <script module lang="ts">
+import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+
   import { platform } from '@sveltery/utils/platform';
   import * as ScrollAreaViewportCssVars from './ScrollAreaViewportCssVars.js';
   const OVERFLOW_EDGE_VARS = [
@@ -47,11 +50,23 @@
 
     scrollAreaOverflowVarsRegistered = true;
   }
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    viewportRef.current = host;
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+      if (viewportRef.current === host) viewportRef.current = null;
+    });
+  });
+}
+const mergedProps = $derived({ ...mergeComponentProps(root.viewportState, { class: classProp, style: style }, [internalProps, elementProps], scrollAreaStateAttributesMapping), [hostAttachmentKey]: attachHost });
 </script>
 <script lang="ts">
   // Base UI1.8.0 ScrollAreaViewport.tsx source geometry/lifetimes; MIT.
   import { onDestroy, onMount, untrack } from 'svelte';
-  import RenderElement from '../../internals/RenderElement.svelte';
   import { Timeout } from '@sveltery/utils/useTimeout';
   import { clamp } from '@sveltery/utils/clamp';
   import { styleDisableScrollbar } from '../../utils/styles.js';
@@ -370,21 +385,9 @@
   });
 
   setScrollAreaViewportContext({ computeThumbPosition });
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(value: HTMLElement | null) {
-      ref = value;
-    },
-  };
-  const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({
-    ref: [forwardedRef, viewportRef],
-    state: root.viewportState,
-    props: [internalProps, elementProps],
-    stateAttributesMapping: scrollAreaStateAttributesMapping,
-  });
+  
+  
+  
   function getHiddenState(viewport: HTMLElement): HiddenState {
     const y = viewport.clientHeight >= viewport.scrollHeight;
     const x = viewport.clientWidth >= viewport.scrollWidth;
@@ -440,4 +443,8 @@
     return offset + (overscroll > 0 ? size - nextSize : 0);
   }
 </script>
-<RenderElement tag="div" {componentProps} {params} {children} />
+{#if render}
+  {@render render(mergedProps, root.viewportState, children)}
+{:else}
+  <div {...mergedProps}>{@render children?.()}</div>
+{/if}

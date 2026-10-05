@@ -1,7 +1,10 @@
 <script lang="ts">
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+import { untrack } from 'svelte';
+
   // Ported from Base UI v1.8.0 FieldLabel.tsx; MIT: THIRD_PARTY_NOTICES.md.
   import { DEV } from 'esm-env';
-  import RenderElement from '../internals/RenderElement.svelte';
   import { error } from '@sveltery/utils/error';
 
   import { useFieldRootContext } from '../internals/field-root-context/FieldRootContext.js';
@@ -31,8 +34,25 @@
       'non-native, which can cause unexpected pointer behavior. Use a non-<label> in the ' +
       '`render` prop, or set `nativeLabel` to `true`.');
   });
-  const forwardedRef = { get current() { return ref ?? null; }, set current(value: HTMLElement | null) { ref = value; } };
-  const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({ ref: [forwardedRef, labelRef], state: labelState, props: [getLabelProps(), elementProps], stateAttributesMapping: fieldValidityMapping });
+  
+  
+  
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    labelRef.current = host;
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+      if (labelRef.current === host) labelRef.current = null;
+    });
+  });
+}
+const mergedProps = $derived({ ...mergeComponentProps(labelState, { class: classProp, style: style }, [getLabelProps(), elementProps], fieldValidityMapping), [hostAttachmentKey]: attachHost });
 </script>
-<RenderElement tag="label" {componentProps} {params} {children} />
+{#if render}
+  {@render render(mergedProps, labelState, children)}
+{:else}
+  <label {...mergedProps}>{@render children?.()}</label>
+{/if}

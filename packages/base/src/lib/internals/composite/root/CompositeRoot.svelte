@@ -1,10 +1,11 @@
 <script lang="ts" generics="State extends object = Record<string, unknown>">
+import { mergeComponentProps } from '../../mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+
   // Base UI v1.8.0 CompositeRoot source composition; MIT: THIRD_PARTY_NOTICES.md.
-  import type { Snippet } from 'svelte';
+  import { type Snippet, untrack } from 'svelte';
   import type { BaseUIComponentProps, HTMLProps } from '../../types.js';
-  import type { MergedRef } from '@sveltery/utils/useMergedRefs';
   import type { StateAttributesMapping } from '../../getStateAttributesProps.js';
-  import RenderElement from '../../RenderElement.svelte';
   import { useDirection } from '../../../direction-provider/context.js';
   import { createCompositeList } from '../list/createCompositeList.svelte.js';
   import type { CompositeMetadata } from '../list/CompositeListContext.js';
@@ -17,7 +18,7 @@
     render,
     class: classProp,
     style,
-    refs = [],
+    ref = $bindable(),
     props = [],
     state = {} as State,
     stateAttributesMapping,
@@ -30,17 +31,15 @@
     enableHomeAndEndKeys,
     onMapChange,
     stopEventPropagation = true,
-    rootRef,
     disabledIndices,
     modifierKeys,
     highlightItemOnHover = false,
-    tag = 'div',
     children,
     ...elementProps
   }: HTMLProps &
     BaseUIComponentProps<State> &
     Omit<UseCompositeRootParameters, 'direction'> & {
-      refs?: readonly MergedRef<HTMLElement>[];
+      ref?: HTMLElement | null | undefined;
       props?: readonly (HTMLProps | ((props: HTMLProps) => HTMLProps))[];
       state?: State;
       stateAttributesMapping?: StateAttributesMapping<State>;
@@ -57,7 +56,6 @@
     orientation,
     highlightedIndex,
     onHighlightedIndexChange,
-    rootRef,
     stopEventPropagation,
     enableHomeAndEndKeys,
     direction: getDirection(),
@@ -81,12 +79,18 @@
       composite.onMapChange(map);
     },
   }));
-  const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({
-    state,
-    ref: refs,
-    props: [composite.getProps(), ...props, elementProps],
-    stateAttributesMapping,
-  });
+  
+  
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  ref = host;
+  return () => { if (ref === host) ref = null; };
+}
+const mergedProps = $derived({ ...mergeComponentProps(state, { class: classProp, style: style }, [composite.getProps(), ...props, elementProps], stateAttributesMapping), [hostAttachmentKey]: attachHost });
 </script>
-<RenderElement {tag} {componentProps} {params} {children} />
+{#if render}
+  {@render render(mergedProps, state, children)}
+{:else}
+  <div {...mergedProps}>{@render children?.()}</div>
+{/if}

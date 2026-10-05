@@ -140,7 +140,7 @@ function copyInitialProps(
   inputProps: Props | undefined,
 ) {
   const copiedProps = { ...inputProps } as Props;
-  // Legacy component callbacks are resolved by useRenderElement, not ClassValue stringification.
+  // Component state callbacks are resolved before class-value stringification.
   if (copiedProps.class !== undefined && typeof copiedProps.class !== 'function') copiedProps.class = toNativeClass(copiedProps.class);
 
   // `copiedProps` is our fresh own-object copy, so iterating with `for...in` is safe here.

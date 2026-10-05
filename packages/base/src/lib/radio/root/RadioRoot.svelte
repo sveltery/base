@@ -1,7 +1,10 @@
 <script lang="ts" generics="Value">
+import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+import { untrack } from 'svelte';
+
   // Source-ordered port of Base UI v1.8.0 RadioRoot.tsx at
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
-  import RenderElement from '../../internals/RenderElement.svelte';
   import CompositeItem from '../../internals/composite/item/CompositeItem.svelte';
 
   import {
@@ -35,7 +38,7 @@
     required: requiredProp = false,
     'aria-labelledby': ariaLabelledByProp,
     value,
-    inputRef: inputRefProp,
+    inputRef: inputRefProp = $bindable(),
     nativeButton = false,
     id: idProp,
     style,
@@ -161,15 +164,7 @@
     checked,
   });
   setRadioRootContext(() => rootState);
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(element: HTMLElement | null) {
-      ref = element;
-    },
-  };
-  const refs = $derived([forwardedRef, radioRef, buttonRef]);
+  
   const rendererProps = $derived([
     rootProps,
     elementProps,
@@ -180,21 +175,49 @@
         ? group.validation.getValidationProps(disabled, props)
         : props,
   ]);
-  const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({
-    state: rootState,
-    ref: refs,
-    props: rendererProps,
-    stateAttributesMapping,
+  
+  
+  
+
+const hostAttachmentKeyVisible = createAttachmentKey();
+function attachHostVisible(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    radioRef.current = host;
+    buttonRef?.(host);
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+      if (radioRef.current === host) radioRef.current = null;
+      buttonRef?.(null);
+    });
   });
-  const hiddenParams = $derived({
-    props: inputProps,
-    ref: [inputRefProp, inputRef, group?.registerInputRef, registerInput],
+}
+const mergedPropsVisible = $derived({ ...mergeComponentProps(rootState, { class: classProp, style: style }, rendererProps, stateAttributesMapping), [hostAttachmentKeyVisible]: attachHostVisible });
+const renderStateHidden = $derived({});
+const hostAttachmentKeyHidden = createAttachmentKey();
+function attachHostHidden(host: HTMLInputElement) {
+  return untrack(() => {
+    inputRefProp = host as HTMLInputElement;
+    inputRef.current = host;
+    const disposeInput2 = group?.registerInputRef(host as HTMLInputElement);
+    const disposeInput3 = registerInput(host as HTMLInputElement);
+    return () => untrack(() => {
+      if (inputRefProp === host) inputRefProp = null;
+      if (inputRef.current === host) inputRef.current = null;
+      disposeInput2?.();
+      disposeInput3?.();
+    });
   });
+}
+const mergedPropsHidden = $derived({ ...mergeComponentProps(renderStateHidden, { class: undefined, style: undefined }, inputProps, undefined), [hostAttachmentKeyHidden]: attachHostHidden });
 </script>
 {#if group}
-  <CompositeItem tag="span" {render} class={classProp} {style} state={rootState} {refs} props={rendererProps} {stateAttributesMapping} {children} />
+  <CompositeItem tag="span" {render} class={classProp} {style} state={rootState} props={[...rendererProps, { [hostAttachmentKeyVisible]: attachHostVisible }]} {stateAttributesMapping} {children} />
 {:else}
-  <RenderElement tag="span" {componentProps} {params} {children} />
+  {#if render}
+  {@render render(mergedPropsVisible, rootState, children)}
+{:else}
+  <span {...mergedPropsVisible}>{@render children?.()}</span>
 {/if}
-<RenderElement tag="input" params={hiddenParams} />
+{/if}
+<input {...mergedPropsHidden} />

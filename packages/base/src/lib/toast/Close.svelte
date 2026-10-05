@@ -1,6 +1,9 @@
 <script lang="ts">
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+import { untrack } from 'svelte';
+
   // Derived from Base UI v1.8.0 Toast parts; MIT, see ../../../THIRD_PARTY_NOTICES.md.
-  import Element from '../dialog/Element.svelte';
   import RenderContent from './RenderContent.svelte';
   import { mergeButtonProps, nativeButtonProps } from './native-button.js';
   import { root } from './root-context.js';
@@ -18,5 +21,22 @@
     onfocus: () => { hasFocus = true; },
     onblur: () => { hasFocus = false; },
   }, props), Boolean(disabled)));
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+    });
+  });
+}
+const mergedProps = $derived.by(() => {
+  const { class: className, style, ...attributes } = merged;
+  return { ...mergeComponentProps(buttonState, { class: className, style }, [{}, attributes], false), [hostAttachmentKey]: attachHost };
+});
 </script>
-<Element tag="button" props={merged} state={buttonState} bind:ref><RenderContent content={children} /></Element>
+{#snippet hostChildren()}
+<RenderContent content={children} />
+{/snippet}
+<button {...mergedProps}>{@render hostChildren?.()}</button>

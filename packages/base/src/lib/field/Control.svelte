@@ -1,8 +1,10 @@
 <script lang="ts">
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+
   import { onDestroy, untrack } from 'svelte';
   // Ported in source order from Base UI v1.8.0 field/control/FieldControl.tsx.
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
-  import RenderElement from '../internals/RenderElement.svelte';
   import { Controlled } from '@sveltery/utils/Controlled';
 
   import { ownerDocument } from '@sveltery/utils/owner';
@@ -59,7 +61,7 @@
     if (autofocus && inputRef.current === activeElement(ownerDocument(inputRef.current))) field.setFocused(true);
   });
   const internal = $derived({
-    id, disabled, name: getNativeName(name), ref: field.validation.inputRef,
+    id, disabled, name: getNativeName(name), 
     'aria-labelledby': labelable.labelId, autofocus,
     // Native Svelte keeps an authored reset default independent from the current value (I-02).
     ...(defaultValue !== undefined ? { defaultValue } : {}),
@@ -104,12 +106,27 @@
       }
     },
   });
-  const forwardedRef = { get current() { return ref ?? null; }, set current(value: HTMLElement | null) { ref = value; } };
-  const componentProps = $derived({ ...elementProps, render, class: classProp, style });
-  const params = $derived({
-    ref: [forwardedRef, inputRef], state: controlState,
-    props: [internal, elementProps, (props: Record<string, unknown>) => field.validation.getValidationProps(disabled, props)],
-    stateAttributesMapping: fieldValidityMapping,
+  
+  
+  
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    field.validation.inputRef.current = host as HTMLInputElement;
+    ref = host;
+    inputRef.current = host;
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+      if (inputRef.current === host) inputRef.current = null;
+      if (field.validation.inputRef.current === host) field.validation.inputRef.current = null;
+    });
   });
+}
+const mergedProps = $derived({ ...mergeComponentProps(controlState, { class: classProp, style: style }, [internal, elementProps, (props: Record<string, unknown>) => field.validation.getValidationProps(disabled, props)], fieldValidityMapping), [hostAttachmentKey]: attachHost });
 </script>
-<RenderElement tag="input" {componentProps} {params} />
+{#if render}
+  {@render render(mergedProps, controlState, undefined)}
+{:else}
+  <input {...mergedProps} />
+{/if}

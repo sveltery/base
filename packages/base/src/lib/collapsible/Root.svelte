@@ -1,9 +1,11 @@
 <script lang="ts">
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+
   // Adapted from Base UI v1.8.0 CollapsibleRoot/useCollapsibleRoot/useTransitionStatus.
   // Immutable pin 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
   import { untrack } from 'svelte';
   import { Controlled } from '@sveltery/utils/Controlled';
-  import Element from '../dialog/Element.svelte';
   import { resolveClassValue } from '../internals/resolveClassValue.js';
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { setCollapsibleContext } from './context.js';
@@ -62,5 +64,23 @@
     });
     return () => view.cancelAnimationFrame(frame);
   });
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+    });
+  });
+}
+const mergedProps = $derived.by(() => {
+  const { class: className, style, ...attributes } = resolved;
+  return { ...mergeComponentProps(rootState, { class: className, style }, [stateAttributes(rootState), attributes], false), [hostAttachmentKey]: attachHost };
+});
 </script>
-<Element tag="div" internal={stateAttributes(rootState)} props={resolved} state={rootState} {render} {children} bind:ref />
+{#if render}
+  {@render render(mergedProps, rootState, children)}
+{:else}
+  <div {...mergedProps}>{@render children?.()}</div>
+{/if}

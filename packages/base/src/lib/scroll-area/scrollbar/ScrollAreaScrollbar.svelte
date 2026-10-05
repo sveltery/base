@@ -1,6 +1,9 @@
 <script lang="ts">
+import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+import { untrack } from 'svelte';
+
   // Base UI1.8.0 ScrollAreaScrollbar.tsx source wheel/track bodies; MIT.
-  import RenderElement from '../../internals/RenderElement.svelte';
   import { addEventListener } from '@sveltery/utils/addEventListener';
   import { contains, getTarget } from '@sveltery/utils/shadowDom';
   import { useDirection } from '../../direction-provider/context.js';
@@ -226,20 +229,26 @@
     },
   });
 
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(value: HTMLElement | null) {
-      ref = value;
-    },
-  };
-  const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({
-    ref: [forwardedRef, vertical ? scrollbarYRef : scrollbarXRef],
-    state,
-    props: [internalProps, elementProps],
-    stateAttributesMapping: scrollAreaStateAttributesMapping,
+  
+  
+  
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    const hostOwner1 = vertical ? scrollbarYRef : scrollbarXRef;
+    hostOwner1.current = host;
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+      if (hostOwner1.current === host) hostOwner1.current = null;
+    });
   });
+}
+const mergedProps = $derived({ ...mergeComponentProps(state, { class: classProp, style: style }, [internalProps, elementProps], scrollAreaStateAttributesMapping), [hostAttachmentKey]: attachHost });
 </script>
-{#if shouldRender}<RenderElement tag="div" {componentProps} {params} {children} />{/if}
+{#if shouldRender}{#if render}
+  {@render render(mergedProps, state, children)}
+{:else}
+  <div {...mergedProps}>{@render children?.()}</div>
+{/if}{/if}

@@ -1,3 +1,4 @@
+import { createAttachmentKey } from 'svelte/attachments';
 // Original MenuSubmenuTrigger full item/navigation/hover business, native live props (MIT).
 import { untrack } from 'svelte';
 import { DEV } from 'esm-env';
@@ -86,7 +87,7 @@ export function createMenuSubmenuTrigger(getProps: () => MenuSubmenuTriggerProps
             }
         },
     }));
-    const { getItemProps, itemRef } = useMenuItem(() => ({
+    const { getItemProps, attachItem } = useMenuItem(() => ({
         closeOnClick: false,
         disabled,
         highlighted,
@@ -130,7 +131,22 @@ export function createMenuSubmenuTrigger(getProps: () => MenuSubmenuTriggerProps
     // `openMethod` stays null there; Enter and Space do dispatch one and report `keyboard`.
     const openedByKeyboard = $derived(lastOpenChangeReason === REASONS.listNavigation || openMethod === 'keyboard');
     const shouldOmitExpanded = $derived(open && openedByKeyboard && platform.screenReader.voiceOver);
-    const props = $derived([localInteractionProps, hoverProps(), triggerProps, itemProps, shouldOmitExpanded ? VOICE_OVER_EXPANDED_PROPS : undefined, { 'aria-controls': popupId, tabindex: open || highlighted ? 0 : -1, onfocusout() { if (highlighted)
+    const hostAttachmentKey = createAttachmentKey();
+    function attachHost(host: HTMLElement) {
+        setRef(host);
+        const unregisterItem = listItem.attach(host);
+        const disposeItem = attachItem(host);
+        registerTrigger(host);
+        handleTriggerElementRef(host);
+        return () => {
+            setRef(null);
+            unregisterItem();
+            disposeItem();
+            registerTrigger(null);
+            handleTriggerElementRef(null);
+        };
+    }
+    const props = $derived([{ [hostAttachmentKey]: attachHost }, localInteractionProps, hoverProps(), triggerProps, itemProps, shouldOmitExpanded ? VOICE_OVER_EXPANDED_PROPS : undefined, { 'aria-controls': popupId, tabindex: open || highlighted ? 0 : -1, onfocusout() { if (highlighted)
                 parentMenuStore.set('activeIndex', null); } }, elementProps, getItemProps]);
-    return { get state() { return state; }, get props() { return props; }, get refs() { return [setRef, listItem.ref, itemRef, registerTrigger, handleTriggerElementRef]; } };
+    return { get state() { return state; }, get props() { return props; },  };
 }

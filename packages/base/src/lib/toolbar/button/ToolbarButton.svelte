@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { createAttachmentKey } from 'svelte/attachments';
   // Source-ordered Base UI v1.8.0 ToolbarButton.tsx; MIT: THIRD_PARTY_NOTICES.md.
   import { EMPTY_OBJECT } from '@sveltery/utils/empty';
   import { useButton } from '../../internals/use-button/useButton.svelte.js';
@@ -16,12 +17,13 @@
   const itemMetadata = $derived({ disabled, focusableWhenDisabled });
   const { getButtonProps, buttonRef } = useButton(() => ({ disabled, focusableWhenDisabled, native: nativeButton }));
   const state: ToolbarButtonState = $derived({ disabled, orientation: toolbar.orientation, focusable: focusableWhenDisabled });
-  const forwardedRef = {
-    get current() { return ref ?? null; },
-    set current(element: HTMLElement | null) { ref = element; },
-  };
   // Source forwards disabled to rendered components, while keeping default
   // focusable disabled native buttons hoverable for interactions such as tooltips.
   const rendererProps = $derived([elementProps, render ? { disabled } : EMPTY_OBJECT, getButtonProps]);
+  const buttonAttachmentKey = createAttachmentKey();
+  function attachButton(host: HTMLElement) {
+    buttonRef(host);
+    return () => buttonRef(null);
+  }
 </script>
-<CompositeItem tag="button" {render} class={classProp} {style} metadata={itemMetadata} {state} refs={[forwardedRef, buttonRef]} props={rendererProps} {children} />
+<CompositeItem tag="button" {render} class={classProp} {style} metadata={itemMetadata} {state} bind:ref props={[...rendererProps, { [buttonAttachmentKey]: attachButton }]} {children} />

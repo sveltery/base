@@ -22,10 +22,6 @@
   });
   const rootState: ToolbarRootState = $derived({ disabled, orientation });
   const defaultProps = $derived({ 'aria-orientation': orientation, role: 'toolbar' });
-  const forwardedRef = {
-    get current() { return ref ?? null; },
-    set current(element: HTMLElement | null) { ref = element; },
-  };
   const rendererProps = $derived([defaultProps, elementProps]);
 </script>
-<CompositeRoot {render} class={classProp} {style} state={rootState} refs={[forwardedRef]} props={rendererProps} {disabledIndices} {loopFocus} onMapChange={map => { itemMap = map; }} {orientation} {children} />
+<CompositeRoot {render} class={classProp} {style} state={rootState} bind:ref props={rendererProps} {disabledIndices} {loopFocus} onMapChange={map => { itemMap = map; }} {orientation} {children} />

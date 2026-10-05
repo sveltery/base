@@ -5,10 +5,10 @@
 import { getAllContexts, mount, unmount, untrack, type Snippet } from 'svelte';
 import { getWindow, isNode } from '@floating-ui/utils/dom';
 
-import type { MergedRef } from '@sveltery/utils/useMergedRefs';
+import type { Attachment } from 'svelte/attachments';
 import type { HTMLProps } from '../../internals/types.js';
-import type { UseRenderElementComponentProps } from '../../internals/useRenderElement.js';
-import RenderElement from '../../internals/RenderElement.svelte';
+import type { BaseUIComponentProps } from '../../internals/types.js';
+import PortalHost from '../components/PortalHost.svelte';
 import PortalContent from '../components/PortalContent.svelte';
 import { createAttribute } from '../utils/createAttribute.js';
 import { usePortalContext } from '../components/FloatingPortalContext.js';
@@ -20,9 +20,9 @@ export type PortalContainer =
   | null;
 
 export interface UseFloatingPortalNodeProps<State extends object> {
-  ref?: MergedRef<HTMLElement> | undefined;
+  onHost?: Attachment<HTMLElement> | undefined;
   container?: PortalContainer | undefined;
-  componentProps?: UseRenderElementComponentProps<State> | undefined;
+  componentProps?: BaseUIComponentProps<State> | undefined;
   elementProps?: HTMLProps | undefined;
 }
 
@@ -35,7 +35,7 @@ export function useFloatingPortalNode<State extends object = Record<string, neve
   getProps: () => UseFloatingPortalNodeProps<State>,
   generatedId: string,
 ): UseFloatingPortalNodeResult {
-  const { ref, container, componentProps = {}, elementProps } = $derived(getProps());
+  const { onHost, container, componentProps = {}, elementProps } = $derived(getProps());
   const uniqueId = generatedId;
   const attr = createAttribute('portal');
   const parentPortal = usePortalContext();
@@ -58,26 +58,28 @@ export function useFloatingPortalNode<State extends object = Record<string, neve
     }
     if (containerRef !== resolvedContainer) { containerRef = resolvedContainer; portalNode = null; containerElement = resolvedContainer; }
   });
-  function portalRef(node: HTMLElement | null) {
+  function attachPortal(node: HTMLElement) {
     portalNode = node;
-    if (!node) { portalNodeId = undefined; return; }
     // Opaque Svelte snippets own their native element/id. Observe the actual host, including replacement ids.
     const updateId = () => { portalNodeId = node.id || undefined; };
     updateId();
     const observer = new (getWindow(node).MutationObserver)(updateId);
     observer.observe(node, { attributes: true, attributeFilter: ['id'] });
-    return () => { observer.disconnect(); if (portalNode === node) { portalNode = null; portalNodeId = undefined; } };
+    const cleanup = onHost?.(node);
+    return () => { cleanup?.(); observer.disconnect(); if (portalNode === node) { portalNode = null; portalNodeId = undefined; } };
   }
   // One native host mount replaces Original's shared node createPortal.
   $effect(() => {
     const target = containerElement;
     if (!target) return;
-    const instance = untrack(() => mount(RenderElement<State, HTMLElement>, {
+    const instance = untrack(() => mount(PortalHost<State>, {
       target, context: hostContext,
       props: {
-        tag: 'div',
-        get componentProps() { return componentProps; },
-        get params() { return { ref: [ref, portalRef], props: [{ id: uniqueId, [attr]: '' }, elementProps] }; },
+        get render() { return componentProps.render; },
+        get class() { return componentProps.class; },
+        get style() { return componentProps.style; },
+        get attributes() { return { id: uniqueId, [attr]: '', ...elementProps }; },
+        onHost: attachPortal,
       },
     }));
     return () => { void unmount(instance); };

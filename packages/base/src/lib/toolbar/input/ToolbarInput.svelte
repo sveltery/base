@@ -19,10 +19,6 @@
   const state: ToolbarInputState = $derived({ disabled, orientation: toolbar.orientation, focusable: focusableWhenDisabled });
   function preventWhenDisabled(event: Event) { if (disabled) event.preventDefault(); }
   const defaultProps = { onclick: preventWhenDisabled, onpointerdown: preventWhenDisabled };
-  const forwardedRef = {
-    get current() { return ref ?? null; },
-    set current(element: HTMLElement | null) { ref = element; },
-  };
   const rendererProps = $derived([defaultProps, elementProps, focusableWhenDisabledProps]);
 </script>
-<CompositeItem tag="input" {render} class={classProp} {style} metadata={itemMetadata} {state} refs={[forwardedRef]} props={rendererProps} {children} />
+<CompositeItem tag="input" {render} class={classProp} {style} metadata={itemMetadata} {state} bind:ref props={rendererProps} {children} />

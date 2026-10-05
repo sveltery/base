@@ -1,8 +1,11 @@
 <script lang="ts">
+import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+import { createAttachmentKey } from 'svelte/attachments';
+import { untrack } from 'svelte';
+
   // Adapted from pinned MeterRoot; MIT: THIRD_PARTY_NOTICES.md.
   import { visuallyHidden } from '@sveltery/utils/visuallyHidden';
   import { toNativeStyle } from '../internals/nativeProps.js';
-  import Element from '../dialog/Element.svelte';
   import { resolveClassValue } from '../internals/resolveClassValue.js';
   import { setMeterContext } from './context.js';
   import { emptyState, normalize } from './helpers.js';
@@ -22,6 +25,24 @@
     'aria-valuetext': getAriaValueText ? getAriaValueText(normalized.formattedValue, value) : normalized.formattedValue,
   });
   const resolved = $derived({ ...props, class: resolveClassValue(typeof classProp === 'function' ? classProp(partState) : classProp) });
+
+const hostAttachmentKey = createAttachmentKey();
+function attachHost(host: HTMLElement) {
+  return untrack(() => {
+    ref = host;
+    return () => untrack(() => {
+      if (ref === host) ref = null;
+    });
+  });
+}
+const mergedProps = $derived.by(() => {
+  const { class: className, style, ...attributes } = resolved;
+  return { ...mergeComponentProps(partState, { class: className, style }, [internal, attributes], false), [hostAttachmentKey]: attachHost };
+});
 </script>
 {#snippet content()}{@render children?.()}<span role="presentation" style={toNativeStyle(visuallyHidden)}>x</span>{/snippet}
-<Element tag="div" {internal} props={resolved} state={partState} {render} children={content} bind:ref />
+{#if render}
+  {@render render(mergedProps, partState, content)}
+{:else}
+  <div {...mergedProps}>{@render content?.()}</div>
+{/if}

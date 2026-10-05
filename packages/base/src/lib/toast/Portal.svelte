@@ -2,7 +2,7 @@
   // Derived from Base UI 1.8.0 ToastPortal/FloatingPortalLite/useFloatingPortalNode
   // at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, see ../../../THIRD_PARTY_NOTICES.md.
   import { getAllContexts, mount, unmount, untrack } from 'svelte';
-  import Element from '../dialog/Element.svelte';
+  import PortalHost from '../floating-ui/components/PortalHost.svelte';
   import { usePortalContext } from '../floating-ui/components/FloatingPortalContext.js';
   import RenderContent from './RenderContent.svelte';
   import type { ToastPortalProps, ToastPortalState } from './types.js';
@@ -13,7 +13,8 @@
   let portalNode = $state.raw<HTMLElement | null>(null);
   function attach(node: HTMLElement) {
     portalNode = node;
-    return () => { if (portalNode === node) portalNode = null; };
+    ref = node;
+    return () => { if (portalNode === node) portalNode = null; if (ref === node) ref = null; };
   }
   function isContainerNode(value: NonNullable<ToastPortalProps['container']>): value is HTMLElement | ShadowRoot {
     return 'ownerDocument' in value && value instanceof (value.ownerDocument?.defaultView?.Node ?? Node);
@@ -37,16 +38,15 @@
   $effect(() => {
     const target = destination;
     if (!target) return;
-    const instance = untrack(() => mount(Element<ToastPortalState>, {
+    const instance = untrack(() => mount(PortalHost<ToastPortalState>, {
       target,
       context,
       props: {
-        internal: { id: generated, 'data-base-ui-portal': '' },
-        get props() { return props; },
+        get attributes() { return { id: generated, 'data-base-ui-portal': '', ...props }; },
+        get class() { return props.class; },
+        get style() { return props.style; },
         get render() { return render; },
-        get ref() { return ref; },
-        set ref(value) { ref = value; },
-        attach,
+        onHost: attach,
       },
     }));
     return () => { void unmount(instance); };

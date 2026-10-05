@@ -24,14 +24,15 @@ export function useCompositeListItem(
     const { metadata, index, label, textRef } = getParameters();
     return { metadata: metadata ?? null, index: index ?? null, label, textRef };
   });
-  const ref = $derived.by(() => {
+  function attach(node: HTMLElement) {
     const currentRegistration = registration;
-    return (node: HTMLElement | null) => {
-      if (component) unregister(component);
-      component = node;
-      if (node) register(node, currentRegistration);
+    component = node;
+    register(node, currentRegistration);
+    return () => {
+      unregister(node);
+      if (component === node) component = null;
     };
-  });
+  }
   $effect(() => {
       if (getParameters().index != null) return;
       return subscribeMapChange((map) => {
@@ -40,9 +41,7 @@ export function useCompositeListItem(
       });
     });
   return {
-    get ref() {
-      return ref;
-    },
+    attach,
     index,
   };
 }
