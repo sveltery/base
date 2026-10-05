@@ -39,7 +39,7 @@ export const docs: Doc[] = [
         id: 'status',
         title: 'A foundation in progress',
         paragraphs: [
-          'The repository catalog accounts for 23 bounded modules and 19 unimplemented modules, including providers and utilities. Field, Form, Fieldset, Checkbox, CheckboxGroup, Switch, Radio and RadioGroup are available alongside UseRender composition and the earlier components. Remote Form exposes typed Field children and control descriptors. Complete upstream compatibility remains unfinished; the catalog ledger records each exported scope and its limits.',
+          'The repository includes bounded component ports, providers and utilities; its catalog records the implemented scope and remaining work. Button, Avatar, Toolbar, ToggleGroup and ScrollArea have merged source slices alongside Field, Form, Fieldset, Checkbox, CheckboxGroup, Switch, Radio, RadioGroup and UseRender composition. Remote Form exposes typed Field children and control descriptors. Complete upstream compatibility remains unfinished; the catalog ledger records each exported scope and its limits.',
           'The package is private and unpublished. APIs may change. Use this workspace to evaluate the current slice; check the repository contracts before depending on a behavior.',
         ],
         links: [
@@ -63,9 +63,9 @@ export const docs: Doc[] = [
         title: 'Run this workspace',
         paragraphs: [
           'Use Node 24.x and the pinned pnpm 12.6.0 toolchain. Clone the repository, then run these commands from its root. The bootstrap script installs the committed lockfile; build the library before running the app.',
-          'Open http://localhost:5173/docs. The docs and browser fixtures use the same SvelteKit app and consume the real local package. No npm release of @sveltery/base is available.',
+          'Open http://localhost:5173/docs. The fixture app previews the same authored docs as the standalone static docs app; both consume the real local package. No npm release of @sveltery/base is available.',
         ],
-        code: 'git clone https://github.com/sveltery/base.git\ncd base\nbash scripts/bootstrap.sh\n# Select the pinned pnpm launcher when using Corepack:\nsource scripts/toolchain.sh\npnpm --filter @sveltery/base build\npnpm --filter @sveltery/fixtures dev',
+        code: 'git clone https://github.com/sveltery/base.git\ncd base\nbash scripts/bootstrap.sh\n# Select the pinned pnpm launcher when using Corepack:\nsource scripts/toolchain.sh\npnpm --filter @sveltery/base build\npnpm --filter @sveltery/docs dev',
       },
       {
         id: 'dependency',
@@ -207,7 +207,7 @@ export const docs: Doc[] = [
         title: 'Current documented surface',
         paragraphs: [
           'Dialog exports Root, Trigger, Portal, Backdrop, Popup, Title, Description, and Close. Only selected upstream cases have acceptance evidence. The docs describe this partial surface, rather than claiming complete 1:1 compatibility.',
-          'Drawer and Toast are pending in this docs baseline. Other Base UI components are unsupported. This site includes no placeholder APIs or installation commands for them.',
+          'The site documents selected merged slices, including Button, Avatar, Toolbar, ToggleGroup, ScrollArea and typed remote Form. Other exports and pending modules are tracked by the repository catalog. A merged slice does not establish complete upstream compatibility.',
         ],
       },
       {
@@ -251,7 +251,7 @@ export const docs: Doc[] = [
       { id: 'provide', title: 'Provide settings', paragraphs: ['CSPProvider renders its children without a wrapper element. It accepts an optional string nonce and optional boolean disableStyleElements.'], code: '<script lang="ts">\n  import { CSPProvider } from "@sveltery/base/csp-provider";\n</script>\n<CSPProvider nonce="server-provided-nonce" disableStyleElements>\n  <Content />\n</CSPProvider>' },
       { id: 'defaults', title: 'Defaults and nesting', paragraphs: ['Without a provider, the internal default has disableStyleElements=false. A provider supplies its own optional values, including undefined when omitted. Nested providers replace outer settings, and prop updates reach existing descendants.'] },
       { id: 'imports', title: 'Imports and types', paragraphs: ['Import CSPProvider from @sveltery/base or @sveltery/base/csp-provider. CSPProviderProps and CSPProviderState are named type exports from either entry. CSPProvider.Props and CSPProvider.State preserve the pinned type-only aliases without runtime properties. Children use a Svelte snippet; the provider has no native host attributes or public context reader.'] },
-      { id: 'limits', title: 'Current support', paragraphs: ['This release provides the context foundation. No downstream style or script consumer is implemented yet: ScrollArea, Select and prehydration scripts remain future work. Passing a nonce does not currently establish nonce application or style-tag suppression. The provider does not generate a nonce or set response headers. Four dependent upstream declarations remain deferred and uncredited.'], links: [{ label: 'Read the CSPProvider contract and evidence', href: 'https://github.com/sveltery/base/blob/main/docs/csp-provider.md' }] },
+      { id: 'limits', title: 'Current support', paragraphs: ['CSPProvider supplies context without generating a nonce or setting response headers. ScrollArea now consumes its nonce and disableStyleElements settings for Root-owned native Svelte style elements. This does not establish support for pending Select or prehydration consumers, or React stylesheet hoisting equivalence.'], links: [{ label: 'Read the CSPProvider contract and evidence', href: 'https://github.com/sveltery/base/blob/main/docs/csp-provider.md' }] },
     ],
   },
   {
@@ -262,7 +262,7 @@ export const docs: Doc[] = [
       { id: 'read', title: 'Read reactive direction', paragraphs: ['In a descendant component, call useDirection once during initialization. Retain the returned reader and call it in markup, $derived or event handlers. Reading once during initialization captures only that value.'], code: '<script lang="ts">\n  import { useDirection } from "@sveltery/base/direction-provider";\n  const direction = useDirection();\n  let isRTL = $derived(direction() === "rtl");\n</script>\n<span dir={direction()}>{isRTL ? "RTL content" : "LTR content"}</span>' },
       { id: 'defaults', title: 'Defaults and nesting', paragraphs: ['Readers outside a provider return ltr. An omitted or undefined provider direction also defaults to ltr. A nested provider owns its direction and defaults to ltr rather than inheriting its parent. Prop updates reach its existing descendants.'] },
       { id: 'imports', title: 'Imports and types', paragraphs: ['Import DirectionProvider and useDirection from @sveltery/base or @sveltery/base/direction-provider. DirectionProviderProps and TextDirection are named types; DirectionProvider.Props and the empty DirectionProvider.State are type-only aliases. The hook takes no override argument.'] },
-      { id: 'limits', title: 'Compatibility limits', paragraphs: ['The reader is a callable Svelte API. It reads live owner changes, including inside the same event handler. Existing controls are not automatically connected to this context, and full directional interaction compatibility remains unfinished.'], links: [{ label: 'Read the DirectionProvider contract and evidence', href: 'https://github.com/sveltery/base/blob/main/docs/direction-provider.md' }] },
+      { id: 'limits', title: 'Compatibility limits', paragraphs: ['The reader is a callable Svelte API. It reads live owner changes, including inside the same event handler. Toolbar, ToggleGroup and ScrollArea consume this direction context. Set matching dir/CSS direction on authored content; full directional interaction compatibility across all exports remains unfinished.'], links: [{ label: 'Read the DirectionProvider contract and evidence', href: 'https://github.com/sveltery/base/blob/main/docs/direction-provider.md' }] },
     ],
   },
   {
@@ -358,6 +358,248 @@ export const docs: Doc[] = [
       },
     ],
   },
+  {
+  "slug": "components/button",
+  "group": "Components",
+  "title": "Button",
+  "description": "A native action button with disabled state and replacement rendering.",
+  "sections": [
+    {
+      "id": "example",
+      "title": "Use a button",
+      "paragraphs": [
+        "This is a composition snippet using the merged local Button export. It is not a live preview."
+      ],
+      "code": "<script lang=\"ts\">\n  import { Button } from \"@sveltery/base\";\n</script>\n<Button onclick={() => console.log(\"Save requested\")}>Save</Button>"
+    },
+    {
+      "id": "api",
+      "title": "Local API",
+      "paragraphs": [
+        "Import Button from @sveltery/base or @sveltery/base/button. ButtonProps and ButtonState are public types. disabled=false, focusableWhenDisabled=false and nativeButton=true are defaults. Native buttons default to type=\"button\"; explicitly undefined or null type retains native submit semantics.",
+        "Children and render are Svelte snippets. Render receives props, state and children: spread all supplied props onto the actual host, then render children. bind:ref observes that host; class and style support state callbacks. Compose replacement handlers through mergeProps."
+      ],
+      "links": [
+        {
+          "label": "Actual Button declarations",
+          "href": "https://github.com/sveltery/base/blob/main/packages/base/src/lib/button/types.ts"
+        }
+      ]
+    },
+    {
+      "id": "limits",
+      "title": "Source and limits",
+      "paragraphs": [
+        "The merged source audit uses the canonical useButton and shared renderer. Disabled mousedown preserves the pinned upstream focus quirk; the source documentation records that behavior. Complete upstream assertion and framework parity is not claimed."
+      ],
+      "links": [
+        {
+          "label": "Button source contract and evidence",
+          "href": "https://github.com/sveltery/base/blob/main/docs/button.md"
+        }
+      ]
+    }
+  ]
+},
+  {
+  "slug": "components/toolbar",
+  "group": "Components",
+  "title": "Toolbar",
+  "description": "Group actions and inputs with shared keyboard navigation.",
+  "sections": [
+    {
+      "id": "example",
+      "title": "Assemble the toolbar",
+      "paragraphs": [
+        "This composition snippet uses the merged Toolbar parts. Supply an accessible name and your visual styling."
+      ],
+      "code": "<script lang=\"ts\">\n  import { Toolbar } from \"@sveltery/base\";\n</script>\n<Toolbar.Root aria-label=\"Formatting\">\n  <Toolbar.Button>Save</Toolbar.Button>\n  <Toolbar.Separator />\n  <Toolbar.Input aria-label=\"Search\" defaultValue=\"\" />\n  <Toolbar.Link href=\"https://github.com/sveltery/base\">Source</Toolbar.Link>\n</Toolbar.Root>"
+    },
+    {
+      "id": "api",
+      "title": "Parts and navigation",
+      "paragraphs": [
+        "Toolbar exports Root, Group, Button, Input, Link and Separator. Import the namespace from @sveltery/base or @sveltery/base/toolbar; named Props/State types are exported from the subpath. Root defaults to horizontal orientation with looping focus. Direction comes from DirectionProvider.",
+        "Button and Input remain focusable while disabled by default; direct disabled Toggle items are skipped. Links remain enabled. Input is a native input with caret-aware navigation rather than Field.Control. Separator defaults to the opposite toolbar orientation. Nested ToggleGroup shares the toolbar navigation."
+      ],
+      "links": [
+        {
+          "label": "Actual Toolbar declarations",
+          "href": "https://github.com/sveltery/base/blob/main/packages/base/src/lib/toolbar/types.ts"
+        },
+        {
+          "label": "ToggleGroup composition",
+          "href": "/docs/components/toggle-group"
+        }
+      ]
+    },
+    {
+      "id": "limits",
+      "title": "Source and limits",
+      "paragraphs": [
+        "The merged source slice preserves shared Composite navigation. Replacement snippets must retain host props, attachments and refs. Cross-family overlay assertions remain with their own component families; full upstream parity is unfinished."
+      ],
+      "links": [
+        {
+          "label": "Navigation contract and evidence",
+          "href": "https://github.com/sveltery/base/blob/main/docs/navigation.md"
+        }
+      ]
+    }
+  ]
+},
+  {
+  "slug": "components/toggle-group",
+  "group": "Components",
+  "title": "ToggleGroup",
+  "description": "Select one or several actions with typed values and keyboard navigation.",
+  "sections": [
+    {
+      "id": "example",
+      "title": "Compose grouped toggles",
+      "paragraphs": [
+        "This is a composition snippet. Give each Toggle an explicit value when initializing selection."
+      ],
+      "code": "<script lang=\"ts\">\n  import { Toggle, ToggleGroup } from \"@sveltery/base\";\n</script>\n<ToggleGroup multiple defaultValue={[\"bold\"]} aria-label=\"Formatting\">\n  <Toggle value=\"bold\">Bold</Toggle>\n  <Toggle value=\"italic\">Italic</Toggle>\n</ToggleGroup>"
+    },
+    {
+      "id": "api",
+      "title": "Selection and callbacks",
+      "paragraphs": [
+        "Import ToggleGroup and Toggle from @sveltery/base or their toggle-group and toggle subpaths. A group owns value/defaultValue arrays of strings. multiple=false, orientation=\"horizontal\" and loopFocus=true are defaults; Toggle pressed/defaultPressed default false.",
+        "A Toggle callback precedes the group callback with the same cancelable event details. Canceling either vetoes the state commit. Controlled values change after their owner accepts the request. A standalone group owns Home/End navigation; a toolbar group shares its navigation. Toggle strips native form and type and does not submit its selected value."
+      ],
+      "links": [
+        {
+          "label": "Actual ToggleGroup declarations",
+          "href": "https://github.com/sveltery/base/blob/main/packages/base/src/lib/toggle-group/types.ts"
+        },
+        {
+          "label": "Actual Toggle declarations",
+          "href": "https://github.com/sveltery/base/blob/main/packages/base/src/lib/toggle/types.ts"
+        }
+      ]
+    },
+    {
+      "id": "limits",
+      "title": "Source and limits",
+      "paragraphs": [
+        "Native Svelte snippet identity, attachment/ref lifecycle and same-turn state timing are documented framework substitutions. These bounded merged APIs do not establish complete cross-component assertion parity."
+      ],
+      "links": [
+        {
+          "label": "Navigation source and evidence",
+          "href": "https://github.com/sveltery/base/blob/main/docs/navigation.md"
+        }
+      ]
+    }
+  ]
+},
+  {
+  "slug": "components/scroll-area",
+  "group": "Components",
+  "title": "ScrollArea",
+  "description": "A scrollable viewport with authored tracks and thumbs.",
+  "sections": [
+    {
+      "id": "example",
+      "title": "Assemble a scroll area",
+      "paragraphs": [
+        "This composition snippet shows the six merged parts. Supply content that overflows, dimensions and visible track/thumb styling for your design."
+      ],
+      "code": "<script lang=\"ts\">\n  import { ScrollArea } from \"@sveltery/base\";\n</script>\n<ScrollArea.Root style={{ width: \"320px\", height: \"240px\" }}>\n  <ScrollArea.Viewport style={{ width: \"100%\", height: \"100%\" }}>\n    <ScrollArea.Content>Scrollable content</ScrollArea.Content>\n  </ScrollArea.Viewport>\n  <ScrollArea.Scrollbar style={{ width: \"10px\" }}>\n    <ScrollArea.Thumb />\n  </ScrollArea.Scrollbar>\n  <ScrollArea.Corner />\n</ScrollArea.Root>"
+    },
+    {
+      "id": "api",
+      "title": "Parts and observable state",
+      "paragraphs": [
+        "ScrollArea exports Root, Viewport, Content, Scrollbar, Thumb and Corner from @sveltery/base or @sveltery/base/scroll-area, with named ScrollArea-prefixed part aliases and Props/State types. Root overflowEdgeThreshold accepts a nonnegative number or partial xStart/xEnd/yStart/yEnd object.",
+        "Scrollbar defaults to vertical and unmounts without overflow unless keepMounted. Viewport becomes tab-focusable when overflow exists. Root, Viewport, Content and tracks expose overflow state; thumb and track scrolling state is per axis. CSS variables include --scroll-area-overflow-{x,y}-{start,end}, --scroll-area-corner-width/height and --scroll-area-thumb-width/height.",
+        "DirectionProvider supplies the RTL algorithms; set matching authored CSS direction. CSPProvider nonce and disableStyleElements govern Root-owned native Svelte style elements."
+      ],
+      "links": [
+        {
+          "label": "Actual ScrollArea declarations",
+          "href": "https://github.com/sveltery/base/blob/main/packages/base/src/lib/scroll-area/types.ts"
+        }
+      ]
+    },
+    {
+      "id": "limits",
+      "title": "Source and limits",
+      "paragraphs": [
+        "The merged bounded slice uses the pinned source business algorithms and shared renderer. Native Svelte style ownership differs from React hoisting/deduplication. Full upstream assertion parity remains unfinished; follow the evidence ledger for its executed scope."
+      ],
+      "links": [
+        {
+          "label": "ScrollArea source and evidence",
+          "href": "https://github.com/sveltery/base/blob/main/docs/scroll-area.md"
+        }
+      ]
+    }
+  ]
+},
+  {
+  "slug": "components/remote-form",
+  "group": "Components",
+  "title": "Remote Form",
+  "description": "Keep SvelteKit remote forms, typed field names and original enhancement together.",
+  "sections": [
+    {
+      "id": "example",
+      "title": "Typed names and styled controls",
+      "paragraphs": [
+        "This is an illustrative SvelteKit application snippet, not a live server form on this static documentation site. survey and getSurveys must be real remote functions defined by the consuming app. Form itself has no runtime SvelteKit dependency."
+      ],
+      "code": "<script lang=\"ts\">\n  import { Form, Switch } from \"@sveltery/base\";\n  import { survey, getSurveys } from \"./survey.remote.js\";\n</script>\n<Form remote={survey} {...survey.enhance(async (form) => {\n  await form.submit().updates(getSurveys());\n  form.element.reset();\n})}>\n  {#snippet children(Field)}\n    <Field.Root name=\"storageType\" as=\"text\">\n      <Field.Label>Storage type</Field.Label>\n      <Field.Control required />\n      <Field.Error />\n    </Field.Root>\n    <Field.Root name=\"enabled\" as=\"checkbox\">\n      <Field.Label>Enabled</Field.Label>\n      <Field.Control>\n        {#snippet render(props)}\n          <Switch.Root {...props}><Switch.Thumb /></Switch.Root>\n        {/snippet}\n      </Field.Control>\n    </Field.Root>\n    <button type=\"submit\">Save</button>\n  {/snippet}\n</Form>"
+    },
+    {
+      "id": "api",
+      "title": "Name, as and render contracts",
+      "paragraphs": [
+        "Pass the original remote object as Form.remote and spread its descriptor or original enhance result. The children snippet receives a Field namespace whose Root name and as options derive from the actual remote accessor types. Names remain logical paths, such as profile.email or items[0].label, while native inputs use Kit serialization.",
+        "as=\"text\" value=\"seed\" is shorthand for as={[\"text\", \"seed\"]}. value is an accessor option argument, not the current controlled input value. Root accepts supported tuples, required radio/array-checkbox option values, and file selections without value. A name-only Root supports original manual Control descriptor spreads.",
+        "Native select/file/option hosts share source registration and validation. Render snippets must spread supplied props and attachments onto their semantic host. Styled checkbox/radio options require their real CheckboxGroup/RadioGroup and explicit remote value bindings; do not synthesize a group around an unrelated host. Use optional booleans for unchecked HTML checkboxes and let the schema provide a false default."
+      ],
+      "links": [
+        {
+          "label": "Remote Form API and complete examples",
+          "href": "https://github.com/sveltery/base/blob/main/docs/remote-forms.md"
+        },
+        {
+          "label": "Public type contracts",
+          "href": "https://github.com/sveltery/base/blob/main/docs/remote-form-types.md"
+        }
+      ]
+    },
+    {
+      "id": "enhancement",
+      "title": "Keep the original enhancement",
+      "paragraphs": [
+        "The original Kit object owns pending, result, preflight, submitter and form instance metadata. Your enhance callback owns query updates, custom JavaScript and reset decisions. remote.for(id) creates independent instances. Explicit errors={} is authoritative; omitted errors maps remote issues.",
+        "Native submit buttons and requestSubmit() run source Form validation. Direct remote.submit() does not dispatch the native submit event. File forms require enctype=\"multipart/form-data\". Kit 2.70.3 server functions must honor requested query refreshes, as described in the repository examples."
+      ]
+    },
+    {
+      "id": "limits",
+      "title": "Kit compatibility and evidence",
+      "paragraphs": [
+        "For pinned Kit 2.70.3, synchronous Field rejection, authored submit cancellation and settled reset values require the shipped native form compatibility patch. Copy the patch and configure patchedDependencies in your app; installing Base alone does not patch Kit.",
+        "Strict packaged consumers and supplemental integration evidence establish bounded contracts; they do not establish whole-library or unchanged upstream parity. The hosted docs are static and do not execute remote server functions."
+      ],
+      "links": [
+        {
+          "label": "Required Kit 2.70.3 patch",
+          "href": "https://github.com/sveltery/base/blob/main/docs/sveltekit-submit-compat.md"
+        },
+        {
+          "label": "Actual Form declarations",
+          "href": "https://github.com/sveltery/base/blob/main/packages/base/src/lib/form/types.ts"
+        }
+      ]
+    }
+  ]
+},
   {
     slug: 'about',
     group: 'Overview',

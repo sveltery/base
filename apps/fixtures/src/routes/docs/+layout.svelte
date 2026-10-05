@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { base, resolve } from '$app/paths';
+  import { resolve } from '$app/paths';
   import { onMount, tick } from 'svelte';
   import { page } from '$app/state';
   import { docs, groups } from '../../lib/docs/content.js';
@@ -11,7 +11,7 @@
   let menuOpen = $state(false);
   let searchInput: HTMLInputElement;
   let menuButton: HTMLButtonElement;
-  const current = $derived(docs.find(doc => '/docs' + (doc.slug ? '/' + doc.slug : '') === page.url.pathname.slice(base.length).replace(/\/$/, '')));
+  const current = $derived(docs.find(doc => doc.slug === (page.params.slug ?? '').replace(/\/$/, '')));
   const matches = $derived(docs.filter(doc => (doc.title + ' ' + doc.description + ' ' + doc.group).toLowerCase().includes(query.trim().toLowerCase())));
   async function shortcut(event: KeyboardEvent) {
     if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
@@ -44,7 +44,7 @@
         <nav aria-label="Documentation">
           {#each groups as group (group)}<div class="docs-nav-group"><h2>{group}</h2>{#each docs.filter(doc => doc.group === group) as doc (doc.slug)}<a class="docs-nav-link" aria-current={current?.slug === doc.slug ? 'page' : undefined} href={doc.slug ? resolve('/docs/[...slug]', { slug: doc.slug }) : resolve('/docs')} onclick={() => menuOpen = false}>{doc.slug === '' ? 'Introduction' : doc.title}{#if doc.slug === 'components/dialog'}<span class="docs-nav-dot" title="Partial implementation"></span>{/if}</a>{/each}</div>{/each}
         </nav>
-        <p class="docs-sidebar-note">Drawer & Toast pending.<br />Other components unsupported.</p>
+        <p class="docs-sidebar-note">Experimental source slices.<br />Full parity remains unfinished.</p>
       {/if}
     </aside>
     <main id="docs-content" tabindex="-1" class="docs-main">{@render children?.()}

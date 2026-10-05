@@ -11,7 +11,8 @@
     "test": "pnpm --filter @sveltery/base test",
     "build": "pnpm --filter @sveltery/base build && pnpm --filter @sveltery/fixtures build",
     "verify": "bash scripts/verify.sh",
-    "test:browser": "playwright test"
+    "test:browser": "playwright test",
+    "build:docs": "pnpm --filter @sveltery/base build && pnpm --filter @sveltery/docs build"
   },
   "license": "MIT",
   "devDependencies": {
