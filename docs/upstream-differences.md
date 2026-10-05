@@ -177,7 +177,7 @@ Decision status: specific delegated PM implementation decisions in this resumed 
 
 Source: pinned [CSPProvider](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/csp-provider/CSPProvider.tsx) and [CSPContext](https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/csp-context/CSPContext.tsx). ReactNode children become Svelte Snippets under the accepted T-01 framework baseline, while pinned type-only CSPProvider.Props/State aliases remain alongside named CSPProviderProps/CSPProviderState exports without adding runtime properties. The empty State interface preserves pinned assignability. React memoizes replacement context objects on nonce/flag changes; Svelte initialization context owns a stable object with getters reading current reactive props. No public context reader is added. Observable optional values, missing-provider fallback, nested replacement, wrapperless output and updates are retained; internal object identity and cross-framework batching are not claimed equivalent.
 
-Rationale: provide the pinned CSP context foundation for future real consumer ports using native Svelte context ownership. [Feature docs](csp-provider.md) and the [source ledger](../parity/csp-provider/README.md) distinguish supplemental DOM/SSR/types/consumer/browser evidence from four deferred ScrollArea/Select ordinary declarations. Those declarations remain uncredited; style suppression, style/script nonce application and PrehydrationScript integration are still unimplemented obligations. Context value probes do not establish downstream behavior.
+Rationale: provide the pinned CSP context foundation for real consumer ports using native Svelte context ownership. ScrollArea now consumes this same context for supplied stylesheet nonce and disableStyleElements, with real DOM/SSR/hydration and paired browser supplements including actual HTTP-header CSP enforcement. Repeated Root styles retain the measured React1→1 versus native Svelte2→0 ownership boundary in SA-01, earning zero unchanged renderer credit. [Feature docs](csp-provider.md) and the [source ledger](../parity/csp-provider/README.md) keep all four complete ordinary declaration ports deferred and uncredited: the three ScrollArea declarations await complete port provenance/reconciliation and review; the Select declaration remains blocked by missing Select. PrehydrationScript and script nonce integration also remain unimplemented. Context probes or ScrollArea supplements do not establish those ordinary ports or complete downstream parity.
 
 Decision status: implementation scope and the concrete child/context/public type design were approved by the PM under the user's delegated project design authority in the current project conversation on 2026-10-02. The later type-fidelity refinement preserves the feasible pinned namespace aliases, removing the earlier bounded named-only substitution; that earlier proposal is not treated as explicit user acceptance. This records a PM design decision, not explicit user deviation approval, landing or exact-head merge acceptance. Implementation is proposed in [PR #39](https://github.com/sveltery/base/pull/39); [source checkpoint evidence](../parity/csp-provider/browser-evidence.json) records five passing CSP supplements and 1,238 total secured browser executions in CI 37056606091 at `d77182579f151bf08c9b7d192e5feff5bd2f3ede`. This is source-checkpoint evidence with zero ordinary credit; exact final integrated-head gates remain pending. Final integrated current-main head still requires secured paired browser execution, CI and independent/automatic review. No behavioral correction or complete parity approval is claimed. The PM verified actual configured Codex quota exhaustion in [bot comment 5960165735](https://github.com/sveltery/base/pull/39#issuecomment-5960165735) and applied the requirements Page's recorded exception on 2026-10-02. The [scoped record](../parity/csp-provider/review-waiver.json) marks automatic review quota-waived, never passed; independent exact-head review, CI/browser/public consumer and post-merge gates remain mandatory.
 
@@ -375,6 +375,62 @@ The independently measured DelayGroup ownership repair captures the actual regis
 Historical accepted-main IE prerequisite wording before the delivered IE-01 record above:
 
 > This framework substitution was requested during the source review; it introduces no new platform algorithm or component assertion credit. The [scoped source correspondence and complete original graph](../parity/shared-interaction-events/source-correspondence.md) record the source boundary, no-browser SSR classifiers, installed private utility import with no Node process, and public Radio browser navigation witness. The prerequisite is proposed and requires exact-head independent review and mandatory CI. Whole Dialog/OTP acceptance remains separate.
+
+
+Delivered accepted-main interaction-classifier checkpoint (historical prerequisite wording remains above):
+
+This framework substitution was requested during the source review; it introduces no new platform algorithm or component assertion credit. The [scoped source correspondence and complete original graph](../parity/shared-interaction-events/source-correspondence.md) record the source boundary, no-browser SSR classifiers, installed private utility import with no Node process, and public Radio browser navigation witness. The previously proposed prerequisite normally merged through [PR55](https://github.com/sveltery/base/pull/55) to actual main at `74f667da95ebc5670b0cc5bee38f2225e65fd0c0`, with the exact reviewed public `a4fcfa0` tree. Whole Dialog/OTP acceptance remains separate.
+
+## SA-01: native ScrollArea framework boundary
+
+Pinned Base UI1.8.0 immutable47b40521 `scroll-area` six-part source and
+`utils/styles.tsx`, MIT. Root/Viewport/Content/Scrollbar/Thumb/Corner preserve
+business algorithms and use native Svelte runes, contexts, lifecycle, snippets and
+attachments through the canonical renderer. The public native substitution uses
+`class`, lowercase DOM event props and bindable actual host refs. Native style
+markup stays within each owning Root rather than implementing React's stylesheet
+hoisting/deduplication. CSP nonce and exact constant scrollbar CSS are preserved;
+style suppression belongs to the real CSPProvider context.
+
+Decision: native framework substitutions follow the user's source-first/native
+Svelte directive. The predecessor exact1a9fa4f source
+disposition is SOURCE CLEAR through precise same-body f2 manual coverage and11eb
+naming review, with required checks, focused123 and broad2468 passed. The
+current-main successor independent disposition, required checks and PM acceptance
+remain pending. No business fix or generic waiver is
+approved. Original95 ordinary declarations, one parameterized declaration/three
+variants and six conformance calls retain separate provenance; divergent native
+assertions earn zero unchanged credit. See [ScrollArea evidence](../parity/scroll-area/README.md)
+and [API](scroll-area.md). Historical development integration of reviewed PUBLIC
+PR55 at `a64ed9a` did not bypass its then-blocked actual-main merge. Accepted PR55
+has since normally merged at actual main `74f667da`; ScrollArea normally integrates
+that actual main with all56 used bodies, imports and reachability unchanged.
+
+Executed b301446 paired browser evidence measures the style boundary: two Roots
+produce one hoisted React style retained after unmount, and two native styles
+removed at native teardown. Both live viewports apply the exact CSS and nonce.
+The fabricated S:279 event follows composedPath through the thumb under native
+Svelte delegation; the source React synthetic target stays on the track. The
+next synthetic probe supplies capture mocks while the actual mouse drag/capture
+probe already passed. No custom event dispatch/capture engine was added. The
+native R:951 context effect verifies unchanged corner object identity while
+React committed-render accounting receives zero unchanged credit. Detailed
+[observations and actual artifacts](../parity/scroll-area/native-observations.md)
+keep the113/115 failed browser gate visible. The later c07e121/123 failed CSP gate
+also remains visible: the f2 repair sends the unchanged policy from the actual
+fixture HTTP origin. At published11eb, [run37166095432](https://github.com/sveltery/base/actions/runs/37166095432)
+passed all123 with strict error checks, official secured Chromium, one worker and
+zero retries. This prior-head execution earns zero new ordinary or unchanged
+conformance credit. Proposed [PR61](https://github.com/sveltery/base/pull/61)
+normally integrates accepted Navigation PR59 main `2f306c27` without changing any
+of the56 used ScrollArea bodies/imports or this native boundary. Both families
+retain their package/root exports and Navigation consumer workflow. It still
+requires checks and independent disposition of the exact current-main successor.
+A real register conflict with accepted Avatar main `95d3d2ae` is resolved by
+normal integration `ddac4fc`; complete Button/Avatar/ScrollArea entries survive.
+All56 ScrollArea bodies/import members and the CSP/security/assertion bytes stay
+unchanged. New canonical Avatar completion helpers and useClick are outside its
+actual graph; no inherited review credit is claimed for those unrelated bodies.
 
 ## AV-S: Avatar Source composition repair
 
