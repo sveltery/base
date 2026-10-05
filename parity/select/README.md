@@ -6,6 +6,8 @@ The immutable baseline is Original Base UI v1.8.0, MIT, commit [`47b40521eab921c
 
 The new owned worktree starts at accepted main `95d3d2ae473dc18a2b9a48112284383a2c392315`. [Preparation provenance](preparation-provenance.json) records a separate unknown dirty predecessor read-only. Its generated files and extractor were not copied. The current generator independently reads physical Original files and verifies each byte sequence against the immutable Git blob from `git ls-tree` before archiving it.
 
+Accepted main `dc2fb8247750b519efab708fc221c201f8cfd517` was subsequently merged normally into this owned branch. The proposed [source/native plan](source-plan.md) and [manual business correspondence](source-correspondence.md) distinguish its canonical click/store foundations from the still-pending Popup helper bridge. The whole 178-module selected Original source closure and ten extra Select data files are read; source acceptance, final native dependency comparison and full assertion correspondence remain open gates.
+
 From the repository root, with the repository-pinned TypeScript 5.9.3 installed:
 
 ```sh
