@@ -193,8 +193,7 @@ it('native: selected reason/delay stay with the scheduled callback', async () =>
 });
 
 it('native regression: an earlier composed handler does not change the in-flight toggle choice', async () => {
-  let component: Awaited<ReturnType<typeof setup>>;
-  component = await setup({
+  const component: Awaited<ReturnType<typeof setup>> = await setup({
     initialOpen: true,
     options: { toggle: false },
     beforeClick: () => component.setOptions({ toggle: true }),
