@@ -13,8 +13,10 @@ export function useImageLoadingStatus(
   let loadingStatus = $state<ImageLoadingStatus>('idle');
   function setLoadingStatus(status: ImageLoadingStatus) { loadingStatus = status; }
 
-  // A client pre-DOM effect owns the source probe; SSR never constructs an Image.
-  $effect.pre(() => {
+  // Probe after component setup, as the source layout effect does: transition
+  // state must initialize from idle before a cached probe publishes loaded.
+  // Native client synchronization owns cleanup; SSR never constructs an Image.
+  $effect(() => {
     if (!getEnabled()) return;
     const src = getSrc();
     const { referrerpolicy, crossorigin, sizes, srcset } = getOptions();
