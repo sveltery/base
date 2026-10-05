@@ -189,9 +189,9 @@
     },
     {
       "upstreamModule": "scroll-area",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "bounded",
+      "localExport": "ScrollArea",
+      "evidence": "parity/scroll-area/README.md"
     },
     {
       "upstreamModule": "select",
