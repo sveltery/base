@@ -2,6 +2,7 @@
 // Use the public API's supported-mode filter; retain the complete, unmodified analysis.
 import assert from 'node:assert/strict';
 import { readFileSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
 import {
   checkPackage,
   createPackageFromTarballData,
@@ -11,7 +12,19 @@ import {
   filterProblems,
 } from '@arethetypeswrong/core/problems';
 
-const [tarball, report] = process.argv.slice(2);
+const [tarball, report, packageDirectory = 'packages/base'] =
+  process.argv.slice(2);
+const sourceMetadata = JSON.parse(
+  readFileSync(join(packageDirectory, 'package.json'), 'utf8'),
+);
+const nodeESMEntries = {
+  '@sveltery/base': ['./merge-props'],
+  '@sveltery/utils': Object.keys(sourceMetadata.exports),
+}[sourceMetadata.name];
+assert(
+  nodeESMEntries,
+  `${sourceMetadata.name}: reviewed consumer resolution profile required`,
+);
 assert(
   tarball && report,
   'Usage: check-package-types.mjs <actual.tgz> <analysis.json>',
@@ -21,7 +34,7 @@ const packageData = createPackageFromTarballData(
 );
 const analysis = await checkPackage(packageData);
 writeFileSync(report, JSON.stringify(analysis, null, 2) + '\n');
-assert.equal(analysis.packageName, '@sveltery/base');
+assert.equal(analysis.packageName, sourceMetadata.name);
 assert.equal(
   analysis.types?.kind,
   'included',
@@ -42,10 +55,7 @@ assert.deepEqual(
   Object.keys(metadata.exports).sort(),
   'every actual public export must be analyzed',
 );
-assert(
-  entries.includes('.') && entries.includes('./merge-props'),
-  'root and plain-JS entry required',
-);
+assert(entries.length > 0, 'actual public entrypoints required');
 for (const entry of entries)
   assert(
     analysis.entrypoints[entry].resolutions.bundler,
@@ -57,22 +67,28 @@ assert.deepEqual(
   [],
   'ATTW problems in supported Bundler resolution',
 );
-const plainESMProblems = filterProblems(analysis, {
-  entrypoint: './merge-props',
-  resolutionKind: 'node16-esm',
-});
-assert(
-  analysis.entrypoints['./merge-props'].resolutions['node16-esm'],
-  'plain-JS ESM analysis required',
-);
-assert.deepEqual(
-  plainESMProblems,
-  [],
-  'ATTW problems in plain-JS Node16 ESM resolution',
+for (const entry of nodeESMEntries) {
+  assert(
+    analysis.entrypoints[entry]?.resolutions['node16-esm'],
+    `${entry}: plain-JS ESM analysis required`,
+  );
+  assert.deepEqual(
+    filterProblems(analysis, {
+      entrypoint: entry,
+      resolutionKind: 'node16-esm',
+    }),
+    [],
+    `${entry}: ATTW problems in plain-JS Node16 ESM resolution`,
+  );
+}
+console.log(
+  `${analysis.packageName} ATTW: all ${entries.length} public entries pass Bundler; ${nodeESMEntries.join(', ')} pass Node16 ESM. Complete analysis: ${report}`,
 );
 console.log(
-  `ATTW: all ${entries.length} public entries pass Bundler; merge-props passes Node16 ESM. Complete analysis: ${report}`,
+  'Type resolution does not establish plain-Node execution of Svelte components or rune modules; installed compiler-backed consumers remain required.',
 );
-console.log(
-  'Svelte component entries require Svelte-aware tooling; Node16 .svelte declaration resolution is unsupported.',
-);
+if (analysis.packageName === '@sveltery/base') {
+  console.log(
+    'Base component entries require Svelte-aware tooling; Node16 .svelte declaration resolution is unsupported.',
+  );
+}

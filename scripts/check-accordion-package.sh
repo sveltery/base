@@ -1,29 +1,36 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
 accordion_consumer="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-accordion-consumer.XXXXXX")"
 trap 'rm -rf "$accordion_consumer"' EXIT
-pnpm --filter @sveltery/base pack --pack-destination "$accordion_consumer" > /dev/null
+sveltery_pack_package @sveltery/base "$accordion_consumer" > /dev/null
 mkdir -p "$accordion_consumer/node_modules/@sveltery/base"
 tar -xzf "$accordion_consumer"/*.tgz --strip-components=1 -C "$accordion_consumer/node_modules/@sveltery/base"
 test -f "$accordion_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
 cmp LICENSE "$accordion_consumer/node_modules/@sveltery/base/LICENSE"
+node --input-type=module - "$accordion_consumer" <<'JS'
+import { readdirSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+const destination = process.argv[2];
+const tarball = readdirSync(destination).find(name => name.endsWith('.tgz'));
+writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(destination, tarball)}`, svelte: '5.57.1' } }));
+JS
+rm -rf "$accordion_consumer/node_modules"
+sveltery_prepare_consumer "$accordion_consumer"
+pnpm --dir "$accordion_consumer" --ignore-workspace install --ignore-scripts > /dev/null
+pnpm --dir "$accordion_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
 if [[ "${1:-}" == '--public' ]]; then
   node --input-type=module - "$accordion_consumer" <<'JS'
 import assert from 'node:assert/strict';
-import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 const destination = process.argv[2];
 const packed = JSON.parse(readFileSync(join(destination, 'node_modules/@sveltery/base/package.json'), 'utf8'));
 assert.equal(packed.dependencies?.['esm-env'], '1.2.2');
 assert.equal(packed.exports?.['./accordion']?.types, './dist/accordion/index.d.ts');
-const tarball = readdirSync(destination).find(name => name.endsWith('.tgz'));
-writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(destination, tarball)}`, svelte: '5.57.1' } }));
+
 JS
-  rm -rf "$accordion_consumer/node_modules"
-  pnpm --dir "$accordion_consumer" --ignore-workspace install --ignore-scripts > /dev/null
-  pnpm --dir "$accordion_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
   cat > "$accordion_consumer/imports.js" <<'JS'
 export { Accordion as First } from '@sveltery/base';
 export { Accordion as Second, Root, Item, Header, Trigger, Panel } from '@sveltery/base/accordion';
@@ -34,11 +41,6 @@ export { Accordion as First,
 export { Accordion as Second, Root, Item, Header, Trigger, Panel } from '@sveltery/base/accordion';
 TS
 else
-  ln -s "$sveltery_repo_root/packages/base/node_modules/svelte" "$accordion_consumer/node_modules/svelte"
-  ln -s "$sveltery_repo_root/packages/base/node_modules/esm-env" "$accordion_consumer/node_modules/esm-env"
-  cat > "$accordion_consumer/package.json" <<'JSON'
-{"private":true,"type":"module"}
-JSON
   cat > "$accordion_consumer/imports.js" <<'JS'
 export { Accordion as First, Accordion as Second, Root, Item, Header, Trigger, Panel } from './node_modules/@sveltery/base/dist/accordion/index.js';
 JS
