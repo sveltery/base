@@ -10,7 +10,7 @@
         {
           "old": "packages/base/src/lib/utils/empty.ts",
           "current": "packages/utils/src/lib/empty.ts",
-          "currentSha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65"
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
         },
         {
           "old": "packages/base/src/lib/utils/mergeObjects.ts",
@@ -19,38 +19,52 @@
         },
         {
           "old": "packages/base/src/lib/utils/useAnimationFrame.ts",
-          "current": "packages/utils/src/lib/useAnimationFrame.ts",
-          "currentSha256": "d662506c6d7bd1f69b87ea59f3bd7445c413474de2fcda723d1e3248215c9267"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
-          "current": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-          "currentSha256": "19e575ac14e03d20cbd088abda91d4784ed8b3b34944e03ef51e242e0c0247a7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useMergedRefs.ts",
-          "current": "packages/utils/src/lib/useMergedRefs.ts",
-          "currentSha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useOnMount.ts",
-          "current": "packages/utils/src/lib/useOnMount.ts",
-          "currentSha256": "e596fa519d81dd2fd7cdb1d5d00910622ad9ebed918aafa11111b70942c8ce25"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useOnMount.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useRefWithInit.ts",
-          "current": "packages/utils/src/lib/useRefWithInit.ts",
-          "currentSha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useStableCallback.ts",
-          "current": "packages/utils/src/lib/useStableCallback.ts",
-          "currentSha256": "dca4f1866715df0bcb597ca5c083825f580717a96e267c77a5325ce22790d04c"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useStableCallback.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useTimeout.ts",
-          "current": "packages/utils/src/lib/useTimeout.ts",
-          "currentSha256": "405103d9109d3d115db8b26eef5a9b3747156d4a45365c1f2f9764c172e4f0fb"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useTimeout.ts"
+          }
         }
       ],
       "ordinaryDeclarationCredit": 0,
@@ -65,7 +79,7 @@
         {
           "old": "packages/base/src/lib/utils/empty.ts",
           "current": "packages/utils/src/lib/empty.ts",
-          "currentSha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65"
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
         },
         {
           "old": "packages/base/src/lib/utils/mergeObjects.ts",
@@ -74,13 +88,17 @@
         },
         {
           "old": "packages/base/src/lib/utils/useMergedRefs.ts",
-          "current": "packages/utils/src/lib/useMergedRefs.ts",
-          "currentSha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useRefWithInit.ts",
-          "current": "packages/utils/src/lib/useRefWithInit.ts",
-          "currentSha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
         }
       ],
       "ordinaryDeclarationCredit": 0,
@@ -95,7 +113,7 @@
         {
           "old": "packages/base/src/lib/utils/empty.ts",
           "current": "packages/utils/src/lib/empty.ts",
-          "currentSha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65"
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
         },
         {
           "old": "packages/base/src/lib/utils/mergeObjects.ts",
@@ -104,13 +122,17 @@
         },
         {
           "old": "packages/base/src/lib/utils/useMergedRefs.ts",
-          "current": "packages/utils/src/lib/useMergedRefs.ts",
-          "currentSha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useRefWithInit.ts",
-          "current": "packages/utils/src/lib/useRefWithInit.ts",
-          "currentSha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
         }
       ],
       "ordinaryDeclarationCredit": 0,
@@ -125,7 +147,7 @@
         {
           "old": "packages/base/src/lib/utils/empty.ts",
           "current": "packages/utils/src/lib/empty.ts",
-          "currentSha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65"
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
         },
         {
           "old": "packages/base/src/lib/utils/mergeObjects.ts",
@@ -134,13 +156,17 @@
         },
         {
           "old": "packages/base/src/lib/utils/useMergedRefs.ts",
-          "current": "packages/utils/src/lib/useMergedRefs.ts",
-          "currentSha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useRefWithInit.ts",
-          "current": "packages/utils/src/lib/useRefWithInit.ts",
-          "currentSha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
         }
       ],
       "ordinaryDeclarationCredit": 0,
@@ -155,7 +181,7 @@
         {
           "old": "packages/base/src/lib/utils/empty.ts",
           "current": "packages/utils/src/lib/empty.ts",
-          "currentSha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65"
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
         },
         {
           "old": "packages/base/src/lib/utils/mergeObjects.ts",
@@ -164,33 +190,45 @@
         },
         {
           "old": "packages/base/src/lib/utils/useAnimationFrame.ts",
-          "current": "packages/utils/src/lib/useAnimationFrame.ts",
-          "currentSha256": "d662506c6d7bd1f69b87ea59f3bd7445c413474de2fcda723d1e3248215c9267"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
-          "current": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-          "currentSha256": "19e575ac14e03d20cbd088abda91d4784ed8b3b34944e03ef51e242e0c0247a7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useMergedRefs.ts",
-          "current": "packages/utils/src/lib/useMergedRefs.ts",
-          "currentSha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useOnMount.ts",
-          "current": "packages/utils/src/lib/useOnMount.ts",
-          "currentSha256": "e596fa519d81dd2fd7cdb1d5d00910622ad9ebed918aafa11111b70942c8ce25"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useOnMount.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useRefWithInit.ts",
-          "current": "packages/utils/src/lib/useRefWithInit.ts",
-          "currentSha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useStableCallback.ts",
-          "current": "packages/utils/src/lib/useStableCallback.ts",
-          "currentSha256": "dca4f1866715df0bcb597ca5c083825f580717a96e267c77a5325ce22790d04c"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useStableCallback.ts"
+          }
         }
       ],
       "ordinaryDeclarationCredit": 0,
@@ -205,7 +243,7 @@
         {
           "old": "packages/base/src/lib/utils/empty.ts",
           "current": "packages/utils/src/lib/empty.ts",
-          "currentSha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65"
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
         },
         {
           "old": "packages/base/src/lib/utils/mergeObjects.ts",
@@ -214,33 +252,45 @@
         },
         {
           "old": "packages/base/src/lib/utils/useAnimationFrame.ts",
-          "current": "packages/utils/src/lib/useAnimationFrame.ts",
-          "currentSha256": "d662506c6d7bd1f69b87ea59f3bd7445c413474de2fcda723d1e3248215c9267"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
-          "current": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-          "currentSha256": "19e575ac14e03d20cbd088abda91d4784ed8b3b34944e03ef51e242e0c0247a7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useMergedRefs.ts",
-          "current": "packages/utils/src/lib/useMergedRefs.ts",
-          "currentSha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useOnMount.ts",
-          "current": "packages/utils/src/lib/useOnMount.ts",
-          "currentSha256": "e596fa519d81dd2fd7cdb1d5d00910622ad9ebed918aafa11111b70942c8ce25"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useOnMount.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useRefWithInit.ts",
-          "current": "packages/utils/src/lib/useRefWithInit.ts",
-          "currentSha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useStableCallback.ts",
-          "current": "packages/utils/src/lib/useStableCallback.ts",
-          "currentSha256": "dca4f1866715df0bcb597ca5c083825f580717a96e267c77a5325ce22790d04c"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useStableCallback.ts"
+          }
         }
       ],
       "ordinaryDeclarationCredit": 0,
@@ -255,7 +305,7 @@
         {
           "old": "packages/base/src/lib/utils/empty.ts",
           "current": "packages/utils/src/lib/empty.ts",
-          "currentSha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65"
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
         },
         {
           "old": "packages/base/src/lib/utils/mergeObjects.ts",
@@ -264,33 +314,45 @@
         },
         {
           "old": "packages/base/src/lib/utils/useAnimationFrame.ts",
-          "current": "packages/utils/src/lib/useAnimationFrame.ts",
-          "currentSha256": "d662506c6d7bd1f69b87ea59f3bd7445c413474de2fcda723d1e3248215c9267"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
-          "current": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-          "currentSha256": "19e575ac14e03d20cbd088abda91d4784ed8b3b34944e03ef51e242e0c0247a7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useMergedRefs.ts",
-          "current": "packages/utils/src/lib/useMergedRefs.ts",
-          "currentSha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useOnMount.ts",
-          "current": "packages/utils/src/lib/useOnMount.ts",
-          "currentSha256": "e596fa519d81dd2fd7cdb1d5d00910622ad9ebed918aafa11111b70942c8ce25"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useOnMount.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useRefWithInit.ts",
-          "current": "packages/utils/src/lib/useRefWithInit.ts",
-          "currentSha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useStableCallback.ts",
-          "current": "packages/utils/src/lib/useStableCallback.ts",
-          "currentSha256": "dca4f1866715df0bcb597ca5c083825f580717a96e267c77a5325ce22790d04c"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useStableCallback.ts"
+          }
         }
       ],
       "ordinaryDeclarationCredit": 0,
@@ -305,7 +367,7 @@
         {
           "old": "packages/base/src/lib/utils/empty.ts",
           "current": "packages/utils/src/lib/empty.ts",
-          "currentSha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65"
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
         },
         {
           "old": "packages/base/src/lib/utils/mergeObjects.ts",
@@ -314,33 +376,45 @@
         },
         {
           "old": "packages/base/src/lib/utils/useAnimationFrame.ts",
-          "current": "packages/utils/src/lib/useAnimationFrame.ts",
-          "currentSha256": "d662506c6d7bd1f69b87ea59f3bd7445c413474de2fcda723d1e3248215c9267"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
-          "current": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-          "currentSha256": "19e575ac14e03d20cbd088abda91d4784ed8b3b34944e03ef51e242e0c0247a7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useMergedRefs.ts",
-          "current": "packages/utils/src/lib/useMergedRefs.ts",
-          "currentSha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useOnMount.ts",
-          "current": "packages/utils/src/lib/useOnMount.ts",
-          "currentSha256": "e596fa519d81dd2fd7cdb1d5d00910622ad9ebed918aafa11111b70942c8ce25"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useOnMount.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useRefWithInit.ts",
-          "current": "packages/utils/src/lib/useRefWithInit.ts",
-          "currentSha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useStableCallback.ts",
-          "current": "packages/utils/src/lib/useStableCallback.ts",
-          "currentSha256": "dca4f1866715df0bcb597ca5c083825f580717a96e267c77a5325ce22790d04c"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useStableCallback.ts"
+          }
         }
       ],
       "ordinaryDeclarationCredit": 0,
@@ -365,7 +439,7 @@
         {
           "old": "packages/base/src/lib/utils/empty.ts",
           "current": "packages/utils/src/lib/empty.ts",
-          "currentSha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65"
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
         },
         {
           "old": "packages/base/src/lib/utils/error.ts",
@@ -439,13 +513,17 @@
         },
         {
           "old": "packages/base/src/lib/utils/useAnimationFrame.ts",
-          "current": "packages/utils/src/lib/useAnimationFrame.ts",
-          "currentSha256": "d662506c6d7bd1f69b87ea59f3bd7445c413474de2fcda723d1e3248215c9267"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useControlled.svelte.ts",
-          "current": "packages/utils/src/lib/useControlled.svelte.ts",
-          "currentSha256": "21543b53992d1f3856e83251c03329d7c558ee5c5637aa8d42f18bc359843705"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useControlled.svelte.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useEnhancedClickHandler.ts",
@@ -459,38 +537,50 @@
         },
         {
           "old": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
-          "current": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-          "currentSha256": "19e575ac14e03d20cbd088abda91d4784ed8b3b34944e03ef51e242e0c0247a7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useMergedRefs.ts",
-          "current": "packages/utils/src/lib/useMergedRefs.ts",
-          "currentSha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useOnMount.ts",
-          "current": "packages/utils/src/lib/useOnMount.ts",
-          "currentSha256": "e596fa519d81dd2fd7cdb1d5d00910622ad9ebed918aafa11111b70942c8ce25"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useOnMount.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useRefWithInit.ts",
-          "current": "packages/utils/src/lib/useRefWithInit.ts",
-          "currentSha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useScrollLock.svelte.ts",
           "current": "packages/utils/src/lib/useScrollLock.svelte.ts",
-          "currentSha256": "414a9408f41af2df8abfe984a0a1c6a667a592bb58467a977d8618e7e8bd5489"
+          "currentSha256": "bc1ca9bc05badf4935c35d4bc3492173a6ee462e065e21a542b4efecb6d202d3"
         },
         {
           "old": "packages/base/src/lib/utils/useStableCallback.ts",
-          "current": "packages/utils/src/lib/useStableCallback.ts",
-          "currentSha256": "dca4f1866715df0bcb597ca5c083825f580717a96e267c77a5325ce22790d04c"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useStableCallback.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useTimeout.ts",
-          "current": "packages/utils/src/lib/useTimeout.ts",
-          "currentSha256": "405103d9109d3d115db8b26eef5a9b3747156d4a45365c1f2f9764c172e4f0fb"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useTimeout.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/visuallyHidden.ts",
@@ -525,7 +615,7 @@
         {
           "old": "packages/base/src/lib/utils/empty.ts",
           "current": "packages/utils/src/lib/empty.ts",
-          "currentSha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65"
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
         },
         {
           "old": "packages/base/src/lib/utils/error.ts",
@@ -604,18 +694,24 @@
         },
         {
           "old": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts",
-          "current": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
-          "currentSha256": "cbc2de3e2d78c8cb79bab4613c5f490d799d32f5e3de6d39f51ccc3fa995ca9f"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useAnimationFrame.ts",
-          "current": "packages/utils/src/lib/useAnimationFrame.ts",
-          "currentSha256": "d662506c6d7bd1f69b87ea59f3bd7445c413474de2fcda723d1e3248215c9267"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useControlled.svelte.ts",
-          "current": "packages/utils/src/lib/useControlled.svelte.ts",
-          "currentSha256": "21543b53992d1f3856e83251c03329d7c558ee5c5637aa8d42f18bc359843705"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useControlled.svelte.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useEnhancedClickHandler.ts",
@@ -629,43 +725,57 @@
         },
         {
           "old": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
-          "current": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-          "currentSha256": "19e575ac14e03d20cbd088abda91d4784ed8b3b34944e03ef51e242e0c0247a7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useMergedRefs.ts",
-          "current": "packages/utils/src/lib/useMergedRefs.ts",
-          "currentSha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useOnMount.ts",
-          "current": "packages/utils/src/lib/useOnMount.ts",
-          "currentSha256": "e596fa519d81dd2fd7cdb1d5d00910622ad9ebed918aafa11111b70942c8ce25"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useOnMount.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/usePreviousValue.svelte.ts",
-          "current": "packages/utils/src/lib/usePreviousValue.svelte.ts",
-          "currentSha256": "9583824fa430b3db985b9a288f69305b2a0f29b6a4defa06d20bb5b39f9b6d46"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/usePreviousValue.svelte.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useRefWithInit.ts",
-          "current": "packages/utils/src/lib/useRefWithInit.ts",
-          "currentSha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useScrollLock.svelte.ts",
           "current": "packages/utils/src/lib/useScrollLock.svelte.ts",
-          "currentSha256": "414a9408f41af2df8abfe984a0a1c6a667a592bb58467a977d8618e7e8bd5489"
+          "currentSha256": "bc1ca9bc05badf4935c35d4bc3492173a6ee462e065e21a542b4efecb6d202d3"
         },
         {
           "old": "packages/base/src/lib/utils/useStableCallback.ts",
-          "current": "packages/utils/src/lib/useStableCallback.ts",
-          "currentSha256": "dca4f1866715df0bcb597ca5c083825f580717a96e267c77a5325ce22790d04c"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useStableCallback.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useTimeout.ts",
-          "current": "packages/utils/src/lib/useTimeout.ts",
-          "currentSha256": "405103d9109d3d115db8b26eef5a9b3747156d4a45365c1f2f9764c172e4f0fb"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useTimeout.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/visuallyHidden.ts",
@@ -700,7 +810,7 @@
         {
           "old": "packages/base/src/lib/utils/empty.ts",
           "current": "packages/utils/src/lib/empty.ts",
-          "currentSha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65"
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
         },
         {
           "old": "packages/base/src/lib/utils/error.ts",
@@ -779,18 +889,24 @@
         },
         {
           "old": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts",
-          "current": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
-          "currentSha256": "cbc2de3e2d78c8cb79bab4613c5f490d799d32f5e3de6d39f51ccc3fa995ca9f"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useAnimationFrame.ts",
-          "current": "packages/utils/src/lib/useAnimationFrame.ts",
-          "currentSha256": "d662506c6d7bd1f69b87ea59f3bd7445c413474de2fcda723d1e3248215c9267"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useControlled.svelte.ts",
-          "current": "packages/utils/src/lib/useControlled.svelte.ts",
-          "currentSha256": "21543b53992d1f3856e83251c03329d7c558ee5c5637aa8d42f18bc359843705"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useControlled.svelte.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useEnhancedClickHandler.ts",
@@ -804,43 +920,57 @@
         },
         {
           "old": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
-          "current": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-          "currentSha256": "19e575ac14e03d20cbd088abda91d4784ed8b3b34944e03ef51e242e0c0247a7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useMergedRefs.ts",
-          "current": "packages/utils/src/lib/useMergedRefs.ts",
-          "currentSha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useOnMount.ts",
-          "current": "packages/utils/src/lib/useOnMount.ts",
-          "currentSha256": "e596fa519d81dd2fd7cdb1d5d00910622ad9ebed918aafa11111b70942c8ce25"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useOnMount.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/usePreviousValue.svelte.ts",
-          "current": "packages/utils/src/lib/usePreviousValue.svelte.ts",
-          "currentSha256": "9583824fa430b3db985b9a288f69305b2a0f29b6a4defa06d20bb5b39f9b6d46"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/usePreviousValue.svelte.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useRefWithInit.ts",
-          "current": "packages/utils/src/lib/useRefWithInit.ts",
-          "currentSha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useScrollLock.svelte.ts",
           "current": "packages/utils/src/lib/useScrollLock.svelte.ts",
-          "currentSha256": "414a9408f41af2df8abfe984a0a1c6a667a592bb58467a977d8618e7e8bd5489"
+          "currentSha256": "bc1ca9bc05badf4935c35d4bc3492173a6ee462e065e21a542b4efecb6d202d3"
         },
         {
           "old": "packages/base/src/lib/utils/useStableCallback.ts",
-          "current": "packages/utils/src/lib/useStableCallback.ts",
-          "currentSha256": "dca4f1866715df0bcb597ca5c083825f580717a96e267c77a5325ce22790d04c"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useStableCallback.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useTimeout.ts",
-          "current": "packages/utils/src/lib/useTimeout.ts",
-          "currentSha256": "405103d9109d3d115db8b26eef5a9b3747156d4a45365c1f2f9764c172e4f0fb"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useTimeout.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/visuallyHidden.ts",
@@ -875,7 +1005,7 @@
         {
           "old": "packages/base/src/lib/utils/empty.ts",
           "current": "packages/utils/src/lib/empty.ts",
-          "currentSha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65"
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
         },
         {
           "old": "packages/base/src/lib/utils/error.ts",
@@ -939,13 +1069,17 @@
         },
         {
           "old": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts",
-          "current": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
-          "currentSha256": "cbc2de3e2d78c8cb79bab4613c5f490d799d32f5e3de6d39f51ccc3fa995ca9f"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useAnimationFrame.ts",
-          "current": "packages/utils/src/lib/useAnimationFrame.ts",
-          "currentSha256": "d662506c6d7bd1f69b87ea59f3bd7445c413474de2fcda723d1e3248215c9267"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useEnhancedClickHandler.ts",
@@ -959,33 +1093,43 @@
         },
         {
           "old": "packages/base/src/lib/utils/useMergedRefs.ts",
-          "current": "packages/utils/src/lib/useMergedRefs.ts",
-          "currentSha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useOnMount.ts",
-          "current": "packages/utils/src/lib/useOnMount.ts",
-          "currentSha256": "e596fa519d81dd2fd7cdb1d5d00910622ad9ebed918aafa11111b70942c8ce25"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useOnMount.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/usePreviousValue.svelte.ts",
-          "current": "packages/utils/src/lib/usePreviousValue.svelte.ts",
-          "currentSha256": "9583824fa430b3db985b9a288f69305b2a0f29b6a4defa06d20bb5b39f9b6d46"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/usePreviousValue.svelte.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useScrollLock.svelte.ts",
           "current": "packages/utils/src/lib/useScrollLock.svelte.ts",
-          "currentSha256": "414a9408f41af2df8abfe984a0a1c6a667a592bb58467a977d8618e7e8bd5489"
+          "currentSha256": "bc1ca9bc05badf4935c35d4bc3492173a6ee462e065e21a542b4efecb6d202d3"
         },
         {
           "old": "packages/base/src/lib/utils/useStableCallback.ts",
-          "current": "packages/utils/src/lib/useStableCallback.ts",
-          "currentSha256": "dca4f1866715df0bcb597ca5c083825f580717a96e267c77a5325ce22790d04c"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useStableCallback.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useTimeout.ts",
-          "current": "packages/utils/src/lib/useTimeout.ts",
-          "currentSha256": "405103d9109d3d115db8b26eef5a9b3747156d4a45365c1f2f9764c172e4f0fb"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useTimeout.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/visuallyHidden.ts",
@@ -1009,23 +1153,31 @@
       "moves": [
         {
           "old": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts",
-          "current": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
-          "currentSha256": "cbc2de3e2d78c8cb79bab4613c5f490d799d32f5e3de6d39f51ccc3fa995ca9f"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
-          "current": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-          "currentSha256": "19e575ac14e03d20cbd088abda91d4784ed8b3b34944e03ef51e242e0c0247a7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useStableCallback.ts",
-          "current": "packages/utils/src/lib/useStableCallback.ts",
-          "currentSha256": "dca4f1866715df0bcb597ca5c083825f580717a96e267c77a5325ce22790d04c"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useStableCallback.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useTimeout.ts",
-          "current": "packages/utils/src/lib/useTimeout.ts",
-          "currentSha256": "405103d9109d3d115db8b26eef5a9b3747156d4a45365c1f2f9764c172e4f0fb"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useTimeout.ts"
+          }
         }
       ],
       "ordinaryDeclarationCredit": 0,
@@ -1045,7 +1197,7 @@
         {
           "old": "packages/base/src/lib/utils/empty.ts",
           "current": "packages/utils/src/lib/empty.ts",
-          "currentSha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65"
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
         },
         {
           "old": "packages/base/src/lib/utils/error.ts",
@@ -1074,13 +1226,17 @@
         },
         {
           "old": "packages/base/src/lib/utils/useAnimationFrame.ts",
-          "current": "packages/utils/src/lib/useAnimationFrame.ts",
-          "currentSha256": "d662506c6d7bd1f69b87ea59f3bd7445c413474de2fcda723d1e3248215c9267"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useControlled.svelte.ts",
-          "current": "packages/utils/src/lib/useControlled.svelte.ts",
-          "currentSha256": "21543b53992d1f3856e83251c03329d7c558ee5c5637aa8d42f18bc359843705"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useControlled.svelte.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useId.ts",
@@ -1089,33 +1245,45 @@
         },
         {
           "old": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
-          "current": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-          "currentSha256": "19e575ac14e03d20cbd088abda91d4784ed8b3b34944e03ef51e242e0c0247a7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useMergedRefs.ts",
-          "current": "packages/utils/src/lib/useMergedRefs.ts",
-          "currentSha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useOnMount.ts",
-          "current": "packages/utils/src/lib/useOnMount.ts",
-          "currentSha256": "e596fa519d81dd2fd7cdb1d5d00910622ad9ebed918aafa11111b70942c8ce25"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useOnMount.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useRefWithInit.ts",
-          "current": "packages/utils/src/lib/useRefWithInit.ts",
-          "currentSha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useStableCallback.ts",
-          "current": "packages/utils/src/lib/useStableCallback.ts",
-          "currentSha256": "dca4f1866715df0bcb597ca5c083825f580717a96e267c77a5325ce22790d04c"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useStableCallback.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useTimeout.ts",
-          "current": "packages/utils/src/lib/useTimeout.ts",
-          "currentSha256": "405103d9109d3d115db8b26eef5a9b3747156d4a45365c1f2f9764c172e4f0fb"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useTimeout.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/visuallyHidden.ts",
@@ -1135,7 +1303,7 @@
         {
           "old": "packages/base/src/lib/utils/empty.ts",
           "current": "packages/utils/src/lib/empty.ts",
-          "currentSha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65"
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
         },
         {
           "old": "packages/base/src/lib/utils/mergeObjects.ts",
@@ -1194,33 +1362,45 @@
         },
         {
           "old": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts",
-          "current": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
-          "currentSha256": "cbc2de3e2d78c8cb79bab4613c5f490d799d32f5e3de6d39f51ccc3fa995ca9f"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useAnimationFrame.ts",
-          "current": "packages/utils/src/lib/useAnimationFrame.ts",
-          "currentSha256": "d662506c6d7bd1f69b87ea59f3bd7445c413474de2fcda723d1e3248215c9267"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
-          "current": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-          "currentSha256": "19e575ac14e03d20cbd088abda91d4784ed8b3b34944e03ef51e242e0c0247a7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useOnMount.ts",
-          "current": "packages/utils/src/lib/useOnMount.ts",
-          "currentSha256": "e596fa519d81dd2fd7cdb1d5d00910622ad9ebed918aafa11111b70942c8ce25"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useOnMount.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useRefWithInit.ts",
-          "current": "packages/utils/src/lib/useRefWithInit.ts",
-          "currentSha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useTimeout.ts",
-          "current": "packages/utils/src/lib/useTimeout.ts",
-          "currentSha256": "405103d9109d3d115db8b26eef5a9b3747156d4a45365c1f2f9764c172e4f0fb"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useTimeout.ts"
+          }
         }
       ],
       "ordinaryDeclarationCredit": 0,
@@ -1235,7 +1415,7 @@
         {
           "old": "packages/base/src/lib/utils/empty.ts",
           "current": "packages/utils/src/lib/empty.ts",
-          "currentSha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65"
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
         },
         {
           "old": "packages/base/src/lib/utils/mergeObjects.ts",
@@ -1294,43 +1474,57 @@
         },
         {
           "old": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts",
-          "current": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
-          "currentSha256": "cbc2de3e2d78c8cb79bab4613c5f490d799d32f5e3de6d39f51ccc3fa995ca9f"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useAnimationFrame.ts",
-          "current": "packages/utils/src/lib/useAnimationFrame.ts",
-          "currentSha256": "d662506c6d7bd1f69b87ea59f3bd7445c413474de2fcda723d1e3248215c9267"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
-          "current": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-          "currentSha256": "19e575ac14e03d20cbd088abda91d4784ed8b3b34944e03ef51e242e0c0247a7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useMergedRefs.ts",
-          "current": "packages/utils/src/lib/useMergedRefs.ts",
-          "currentSha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useOnMount.ts",
-          "current": "packages/utils/src/lib/useOnMount.ts",
-          "currentSha256": "e596fa519d81dd2fd7cdb1d5d00910622ad9ebed918aafa11111b70942c8ce25"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useOnMount.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useRefWithInit.ts",
-          "current": "packages/utils/src/lib/useRefWithInit.ts",
-          "currentSha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useScrollLock.svelte.ts",
           "current": "packages/utils/src/lib/useScrollLock.svelte.ts",
-          "currentSha256": "414a9408f41af2df8abfe984a0a1c6a667a592bb58467a977d8618e7e8bd5489"
+          "currentSha256": "bc1ca9bc05badf4935c35d4bc3492173a6ee462e065e21a542b4efecb6d202d3"
         },
         {
           "old": "packages/base/src/lib/utils/useTimeout.ts",
-          "current": "packages/utils/src/lib/useTimeout.ts",
-          "currentSha256": "405103d9109d3d115db8b26eef5a9b3747156d4a45365c1f2f9764c172e4f0fb"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useTimeout.ts"
+          }
         }
       ],
       "ordinaryDeclarationCredit": 0,
@@ -1359,18 +1553,24 @@
         },
         {
           "old": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts",
-          "current": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
-          "currentSha256": "cbc2de3e2d78c8cb79bab4613c5f490d799d32f5e3de6d39f51ccc3fa995ca9f"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useAnimationFrame.ts",
-          "current": "packages/utils/src/lib/useAnimationFrame.ts",
-          "currentSha256": "d662506c6d7bd1f69b87ea59f3bd7445c413474de2fcda723d1e3248215c9267"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useTimeout.ts",
-          "current": "packages/utils/src/lib/useTimeout.ts",
-          "currentSha256": "405103d9109d3d115db8b26eef5a9b3747156d4a45365c1f2f9764c172e4f0fb"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useTimeout.ts"
+          }
         }
       ],
       "ordinaryDeclarationCredit": 0,
@@ -1385,7 +1585,7 @@
         {
           "old": "packages/base/src/lib/utils/empty.ts",
           "current": "packages/utils/src/lib/empty.ts",
-          "currentSha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65"
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
         },
         {
           "old": "packages/base/src/lib/utils/mergeObjects.ts",
@@ -1444,43 +1644,57 @@
         },
         {
           "old": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts",
-          "current": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
-          "currentSha256": "cbc2de3e2d78c8cb79bab4613c5f490d799d32f5e3de6d39f51ccc3fa995ca9f"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useAnimationFrame.ts",
-          "current": "packages/utils/src/lib/useAnimationFrame.ts",
-          "currentSha256": "d662506c6d7bd1f69b87ea59f3bd7445c413474de2fcda723d1e3248215c9267"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
-          "current": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-          "currentSha256": "19e575ac14e03d20cbd088abda91d4784ed8b3b34944e03ef51e242e0c0247a7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useMergedRefs.ts",
-          "current": "packages/utils/src/lib/useMergedRefs.ts",
-          "currentSha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useOnMount.ts",
-          "current": "packages/utils/src/lib/useOnMount.ts",
-          "currentSha256": "e596fa519d81dd2fd7cdb1d5d00910622ad9ebed918aafa11111b70942c8ce25"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useOnMount.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useRefWithInit.ts",
-          "current": "packages/utils/src/lib/useRefWithInit.ts",
-          "currentSha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useScrollLock.svelte.ts",
           "current": "packages/utils/src/lib/useScrollLock.svelte.ts",
-          "currentSha256": "414a9408f41af2df8abfe984a0a1c6a667a592bb58467a977d8618e7e8bd5489"
+          "currentSha256": "bc1ca9bc05badf4935c35d4bc3492173a6ee462e065e21a542b4efecb6d202d3"
         },
         {
           "old": "packages/base/src/lib/utils/useTimeout.ts",
-          "current": "packages/utils/src/lib/useTimeout.ts",
-          "currentSha256": "405103d9109d3d115db8b26eef5a9b3747156d4a45365c1f2f9764c172e4f0fb"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useTimeout.ts"
+          }
         }
       ],
       "ordinaryDeclarationCredit": 0,
@@ -1495,7 +1709,7 @@
         {
           "old": "packages/base/src/lib/utils/empty.ts",
           "current": "packages/utils/src/lib/empty.ts",
-          "currentSha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65"
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
         },
         {
           "old": "packages/base/src/lib/utils/mergeObjects.ts",
@@ -1504,22 +1718,27 @@
         },
         {
           "old": "packages/base/src/lib/utils/useMergedRefs.ts",
-          "current": "packages/utils/src/lib/useMergedRefs.ts",
-          "currentSha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
         },
         {
           "old": "packages/base/src/lib/utils/useRefWithInit.ts",
-          "current": "packages/utils/src/lib/useRefWithInit.ts",
-          "currentSha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7"
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
         }
       ],
       "ordinaryDeclarationCredit": 0,
       "acceptance": "No historical review/acceptance transfer; independent final-head review pending."
     }
   ],
-  "avatarCurrentNativeGraphs": [
+  "scope": "Old package-path receipts remain byte-identical historical evidence. This explicit successor points every affected old path to the actual current owner and fresh complete two-package graph.",
+  "historicalAvatarNativeGraphs": [
     "avatar-successor/native-graph.json",
     "avatar-successor/nativeTests-graph.json"
   ],
-  "scope": "Old package-path receipts remain byte-identical historical evidence. This explicit successor points every affected old path to the actual current owner and fresh complete two-package graph."
+  "currentGraphSha256": "b08085e9584cbb4d3a62e78856997233d36c17d6a2ef8425602b38e42d2ea8d9"
 }

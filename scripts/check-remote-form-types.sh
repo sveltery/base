@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
 remote_types_consumer="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-remote-types.XXXXXX")"
 trap 'rm -rf "$remote_types_consumer"' EXIT
-pnpm --filter @sveltery/base pack --pack-destination "$remote_types_consumer" > /dev/null
+sveltery_pack_package @sveltery/base "$remote_types_consumer" > /dev/null
 node --input-type=module - "$remote_types_consumer" "${1:-}" "${2:-2.70.3}" <<'JS'
 import { copyFileSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -35,6 +35,7 @@ const options = { target: 'ES2022', module: 'ESNext', moduleResolution: 'Bundler
 writeFileSync(join(destination, 'tsconfig.positive.json'), JSON.stringify({ compilerOptions: options, include: ['imports.ts', 'forms.ts', 'PublicTypes.ts', 'Positive.svelte', 'RecursivePositive.svelte', 'TypedRoot.svelte'] }));
 writeFileSync(join(destination, 'tsconfig.negative.json'), JSON.stringify({ compilerOptions: options, include: ['imports.ts', 'forms.ts', 'Negative.svelte', 'RecursiveNegative.svelte', 'TypedRoot.svelte'] }));
 JS
+sveltery_prepare_consumer "$remote_types_consumer"
 pnpm --dir "$remote_types_consumer" --ignore-workspace install --ignore-scripts > /dev/null
 pnpm --dir "$remote_types_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
 node "$sveltery_repo_root/packages/base/node_modules/svelte-check/bin/svelte-check" --workspace "$remote_types_consumer" --tsconfig ./tsconfig.positive.json

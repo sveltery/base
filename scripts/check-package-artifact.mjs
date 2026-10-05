@@ -6,9 +6,50 @@ import { fileURLToPath } from 'node:url';
 
 const repository = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const artifact = resolve(process.argv[2]);
+const packageDirectory = resolve(
+  process.argv[3] ?? join(repository, 'packages/base'),
+);
+const sourceMetadata = JSON.parse(
+  readFileSync(join(packageDirectory, 'package.json'), 'utf8'),
+);
 const metadata = JSON.parse(
   readFileSync(join(artifact, 'package.json'), 'utf8'),
 );
+assert.equal(metadata.name, sourceMetadata.name);
+assert.equal(metadata.version, sourceMetadata.version);
+assert.deepEqual(
+  metadata.exports,
+  sourceMetadata.exports,
+  'actual public export map required',
+);
+assert.deepEqual(metadata.sideEffects, sourceMetadata.sideEffects);
+for (const [name, version] of Object.entries(
+  sourceMetadata.dependencies ?? {},
+)) {
+  if (version.startsWith('workspace:')) {
+    assert.equal(
+      version,
+      'workspace:*',
+      `${name}: reviewed workspace version convention`,
+    );
+    assert(
+      process.argv[4],
+      `${name}: actual workspace artifact manifest required`,
+    );
+    const manifest = JSON.parse(readFileSync(process.argv[4], 'utf8'));
+    assert.equal(
+      metadata.dependencies[name],
+      manifest.packages[name].version,
+      `${name}: published workspace dependency version`,
+    );
+  } else {
+    assert.equal(
+      metadata.dependencies[name],
+      version,
+      `${name}: runtime dependency preserved`,
+    );
+  }
+}
 
 function files(directory) {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -28,7 +69,7 @@ for (const [entry, conditions] of Object.entries(metadata.exports)) {
     'default',
     `${entry}: default resolves last`,
   );
-  if (entry !== './merge-props')
+  if (conditions.svelte)
     assert.equal(
       conditions.svelte,
       conditions.default,
@@ -42,7 +83,8 @@ for (const [entry, conditions] of Object.entries(metadata.exports)) {
     );
   }
 }
-assert.equal(metadata.svelte, metadata.exports['.'].svelte);
+if (sourceMetadata.svelte) assert.equal(metadata.svelte, sourceMetadata.svelte);
+if (sourceMetadata.types) assert.equal(metadata.types, sourceMetadata.types);
 assert.equal(metadata.type, 'module');
 assert.equal(metadata.license, 'MIT');
 assert.equal(
@@ -51,27 +93,20 @@ assert.equal(
 );
 assert.equal(
   readFileSync(join(artifact, 'THIRD_PARTY_NOTICES.md'), 'utf8'),
-  readFileSync(
-    join(repository, 'packages/base/THIRD_PARTY_NOTICES.md'),
-    'utf8',
-  ),
+  readFileSync(join(packageDirectory, 'THIRD_PARTY_NOTICES.md'), 'utf8'),
 );
-assert.equal(
-  readFileSync(join(artifact, 'patches/@sveltejs__kit@2.70.3.patch'), 'utf8'),
-  readFileSync(
-    join(repository, 'packages/base/patches/@sveltejs__kit@2.70.3.patch'),
-    'utf8',
-  ),
-);
-assert.equal(
-  readFileSync(join(artifact, 'patches/LICENSE.sveltekit'), 'utf8'),
-  readFileSync(
-    join(repository, 'packages/base/patches/LICENSE.sveltekit'),
-    'utf8',
-  ),
-);
+if (sourceMetadata.files.includes('patches')) {
+  for (const path of files(join(packageDirectory, 'patches'))) {
+    const name = relative(packageDirectory, path);
+    assert.equal(
+      readFileSync(join(artifact, name), 'utf8'),
+      readFileSync(path, 'utf8'),
+      `${name}: shipped patch bytes preserved`,
+    );
+  }
+}
 
-const source = join(repository, 'packages/base/src/lib');
+const source = join(packageDirectory, 'src/lib');
 let components = 0;
 let runeModules = 0;
 for (const path of files(source)) {
@@ -116,10 +151,7 @@ for (const path of files(source)) {
     if (originalRunes.length) runeModules++;
   }
 }
-assert(
-  components > 0 && runeModules > 0,
-  'actual components and rune modules must be shipped',
-);
+assert(files(source).length > 0, 'actual library source must be shipped');
 for (const path of files(artifact)) {
   const name = relative(artifact, path).replaceAll('\\', '/');
   assert(
@@ -138,5 +170,5 @@ for (const path of files(artifact)) {
   );
 }
 console.log(
-  `Package artifact: ${Object.keys(metadata.exports).length} exports, ${components} Svelte components, ${runeModules} rune modules, declarations and attribution PASS`,
+  `${metadata.name} artifact: ${Object.keys(metadata.exports).length} exports, ${components} Svelte components, ${runeModules} rune modules, declarations and attribution PASS`,
 );

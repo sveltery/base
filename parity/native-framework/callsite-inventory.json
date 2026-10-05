@@ -12,7 +12,7 @@
       "previousCallHashes": [
         "e95305a75003ff6876f2a5c3cca9b6a4f4ab570210963f9babe3ead0acddcbf7"
       ],
-      "currentFileSha256": "d014f54aa4cdab64d8da47ea0c3e23ed51b6b4b69c549f41606965648eb0eccc"
+      "currentFileSha256": "a9b3eed56583f33a5e8e015ab63aa20c32a041601ca70ea26c3504f3e16256ef"
     },
     {
       "path": "packages/base/src/lib/checkbox/root/CheckboxRoot.svelte",
@@ -408,7 +408,7 @@
       "previousCallHashes": [
         "6c2957b3338b6b95251b94e0714142d6a7529297754cd6e13e38e129aba41ddf"
       ],
-      "currentFileSha256": "b679ac30cbaa48bc6805f3bae5f39f161c4703891c0a3b311fdae3fa25fc84ad"
+      "currentFileSha256": "23eb5511dcf4148f349cf871670705b2121e32e118dee42ebb67f70bc443bb60"
     },
     {
       "path": "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts",
@@ -717,7 +717,7 @@
         "3ea943b4e7e5cec912776714a3659454b0d245711601c04b52c7cd9b0ce030f6",
         "4a722ffca4230a22e004e4414af7822197cdfa4ca52373626965c080a33b8557"
       ],
-      "currentFileSha256": "9aa46971ac979d3342c35c91ee2a2210712a90818335b7736b77b1b3cdbdf537"
+      "currentFileSha256": "c43b5394c1b49c9cd3c9663e7db1fbac5874743039b97108d69095d746a35148"
     },
     {
       "path": "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte",
@@ -777,7 +777,7 @@
         "b547bf005421531f856d43b047078491760bfeccdb4a79b56ade8e7771551d5b",
         "0a7d03a4744858f6a52fec644be639bd2c881641dc289821bb3a002486c15a4d"
       ],
-      "currentFileSha256": "6db6239c0da3836138c06b99f9fb65a97102b9585f739682a84c1122c56ab62c"
+      "currentFileSha256": "1c738dbb36b67087f6001050a08084910e053fe1b787a9856b3f847cbd983cb6"
     },
     {
       "path": "packages/base/src/lib/utils/closePart.svelte.ts",
@@ -966,6 +966,14 @@
       "imports": 2437,
       "failures": 0
     },
-    "executionStatus": "Pending coordinated heavy lane and final-head independent review; lightweight scans do not establish runtime/type/parity acceptance."
+    "executionStatus": "Pending coordinated heavy lane and final-head independent review; lightweight scans do not establish runtime/type/parity acceptance.",
+    "callbackPublicationFollowUp": {
+      "files": 5,
+      "syntaxFailures": 0,
+      "svelteWarnings": 0,
+      "maintainedLocalImports": 2445,
+      "importFailures": 0,
+      "regressionExecution": "Four native callback publication witnesses authored; execution pending coordinated heavy lane."
+    }
   }
 }

@@ -3,6 +3,7 @@
 
 import { isElementDisabled } from '@sveltery/utils/isElementDisabled';
 import { createAttachmentKey } from 'svelte/attachments';
+import { untrack } from 'svelte';
 import type { TextDirection } from '../../../direction-provider/types.js';
 import { getTarget } from '@sveltery/utils/shadowDom';
 import {
@@ -89,7 +90,7 @@ export function useCompositeRoot(
         orientation = 'both',
       } = getParameters();
       highlightedElementRef.current = elementsRef.current[index] ?? null;
-      if (externalSetHighlightedIndex) externalSetHighlightedIndex(index);
+      if (externalSetHighlightedIndex) untrack(() => externalSetHighlightedIndex(index));
       else internalHighlightedIndex = index;
       if (shouldScrollIntoView)
         scrollIntoViewIfNeeded(

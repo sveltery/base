@@ -11,11 +11,15 @@ const pin = '47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c';
 const hash = text => createHash('sha256').update(text).digest('hex');
 const printer = ts.createPrinter({ removeComments: true });
 const cases = [
-  ['useAnimationFrame', ['Scheduler', 'resetAnimationFrameScheduler', 'AnimationFrame', 'useAnimationFrame']],
+  ['useAnimationFrame', ['Scheduler', 'resetAnimationFrameScheduler', 'AnimationFrame']],
   ['owner', ['ownerDocument']],
   ['formatNumber', ['getFormatter', 'formatNumber']],
   ['stringifyLocale', ['stringifyLocale']],
 ];
+const framework = JSON.parse(readFileSync(resolve(root, 'parity/utils-package/native-framework-status.json'), 'utf8'));
+if (!framework.sourceSuccessors?.some(record => record.from === 'packages/utils/src/lib/useAnimationFrame.ts' && record.currentOwners?.includes('packages/utils/src/lib/useAnimationFrame.ts'))) {
+  throw new Error('Class-only frame proof requires an explicit native factory successor record.');
+}
 const records = [];
 for (const [module, names] of cases) {
   const originalPath = `packages/utils/src/${module}.ts`;
@@ -36,6 +40,6 @@ for (const [module, names] of cases) {
   }
   if (module === 'owner' && !/export\s*\{\s*getWindow\s+as\s+ownerWindow\s*\}\s*from\s*['"]@floating-ui\/utils\/dom['"]/.test(local)) throw new Error('ownerWindow must reexport the actual Source dependency.');
 }
-const output = { immutableOriginalPin: pin, ordinaryDeclarationCredit: 0, method: 'Full named declaration AST printing with comments removed; literal Source process.env development expression is replaced only by esm-env DEV. No statement, branch, identifier, type, callback, cancellation or normalization stripping is allowed. Import spelling/native useRefWithInit/useOnMount wrappers are independently reviewed.', records, scope: 'Bounded Scheduler/reset/AnimationFrame/owner/format/locale equality only; not full moved-closure or feature acceptance.' };
+const output = { immutableOriginalPin: pin, ordinaryDeclarationCredit: 0, method: 'Full named business declaration AST printing with comments removed; literal Source process.env development expression is replaced only by esm-env DEV. No statement, branch, identifier, type, callback, cancellation or normalization stripping is allowed. Removed setup factories are mapped separately to native class/lifecycle owners.', historicalProof: 'parity/native-framework/historical/utils-body-fidelity-pre-native.json', records, scope: 'Bounded Scheduler/reset/AnimationFrame/owner/format/locale equality only; not full moved-closure or feature acceptance.' };
 writeFileSync(resolve(root,'parity/utils-package/body-fidelity.json'),JSON.stringify(output,null,2)+'\n');
 console.log(`${records.length} complete pinned declarations retain exact comparable AST bodies.`);

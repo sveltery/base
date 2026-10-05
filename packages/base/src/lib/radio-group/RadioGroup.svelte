@@ -66,26 +66,17 @@
   const groupInputRef = { current: null as HTMLInputElement | null };
   const firstEnabledInputRef = { current: null as HTMLInputElement | null };
   function setInputRef(input: HTMLInputElement | null) {
-    inputRef = input;
+    untrack(() => { inputRef = input; });
     groupInputRef.current = input;
   }
   const registerInputRef = (input: HTMLInputElement | null) => {
     if (!input || input.disabled) return;
     if (!firstEnabledInputRef.current) firstEnabledInputRef.current = input;
     const currentInput = groupInputRef.current;
-    const cleanup =
-      input.checked || currentInput == null || currentInput.disabled
-        ? setInputRef(input)
-        : undefined;
+    if (input.checked || currentInput == null || currentInput.disabled) setInputRef(input);
     return () => {
-      if (firstEnabledInputRef.current === input)
-        firstEnabledInputRef.current = null;
-      if (groupInputRef.current === input) {
-        if (cleanup) {
-          cleanup();
-          groupInputRef.current = null;
-        } else void setInputRef(null);
-      } else cleanup?.();
+      if (firstEnabledInputRef.current === input) firstEnabledInputRef.current = null;
+      if (groupInputRef.current === input) setInputRef(null);
     };
   };
   const getFormValue = () => {

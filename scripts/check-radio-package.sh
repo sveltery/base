@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
 radio_consumer="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-radio-consumer.XXXXXX")"
 trap 'rm -rf "$radio_consumer"' EXIT
-pnpm --filter @sveltery/base pack --pack-destination "$radio_consumer" > /dev/null
+sveltery_pack_package @sveltery/base "$radio_consumer" > /dev/null
 node --input-type=module - "$radio_consumer" <<'JS'
 import { readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -12,6 +12,7 @@ const directory = process.argv[2];
 const tarball = readdirSync(directory).find(name => name.endsWith('.tgz'));
 writeFileSync(join(directory, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(directory, tarball)}`, svelte: '5.57.1' } }));
 JS
+sveltery_prepare_consumer "$radio_consumer"
 pnpm --dir "$radio_consumer" --ignore-workspace install --ignore-scripts > /dev/null
 pnpm --dir "$radio_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
 cmp LICENSE "$radio_consumer/node_modules/@sveltery/base/LICENSE"
@@ -114,8 +115,10 @@ JSON
 node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$radio_consumer/check.mjs"
 node "$sveltery_repo_root/packages/base/node_modules/svelte-check/bin/svelte-check" --workspace "$radio_consumer" --tsconfig ./tsconfig.json
 
-# Diagnostic import of the installed private shared utility (no public export is added).
+# Diagnostic import of the actual installed public shared utility.
 # Test the native environment boundary with browser-style globals and no Node process.
+(
+cd "$radio_consumer"
 node --conditions=development --input-type=module - "$radio_consumer/node_modules/@sveltery/base" <<'JS'
 import assert from 'node:assert/strict';
 import { pathToFileURL } from 'node:url';
@@ -127,11 +130,12 @@ Object.defineProperty(globalThis, 'navigator', { configurable: true, value: {
 } });
 try {
   globalThis.process = undefined;
-  const { platform } = await import(new URL('utils/platform/index.js', installed));
+  const { platform } = await import('@sveltery/utils/platform');
   const { stopEvent, isClickLikeEvent } = await import(new URL('floating-ui/utils/event.js', installed));
   assert.equal(platform.os.ios, true); assert.equal(platform.os.mac, false); assert.equal(platform.engine.blink, true);
   const event = new Event('keydown', { cancelable: true }); stopEvent(event);
   assert.equal(event.defaultPrevented, true); assert.equal(event.cancelBubble, true); assert.equal(isClickLikeEvent(event), true);
 } finally { globalThis.process = nodeProcess; }
-console.log('Installed private native interaction platform imports without Node process and retains UA-CH/event branches: PASS');
+console.log('Installed public native interaction platform imports without Node process and retains UA-CH/event branches: PASS');
 JS
+)

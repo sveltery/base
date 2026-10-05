@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
 progress_consumer="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-progress-consumer.XXXXXX")"
 trap 'rm -rf "$progress_consumer"' EXIT
-pnpm --filter @sveltery/base pack --pack-destination "$progress_consumer" > /dev/null
+sveltery_pack_package @sveltery/base "$progress_consumer" > /dev/null
 mkdir -p "$progress_consumer/node_modules/@sveltery/base"
 tar -xzf "$progress_consumer"/*.tgz --strip-components=1 -C "$progress_consumer/node_modules/@sveltery/base"
 # Install the packed runtime dependency closure and its Svelte peer in isolation.
@@ -16,6 +16,7 @@ const tarball = readdirSync(destination).find(name => name.endsWith('.tgz'));
 writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(destination, tarball)}`, svelte: '5.57.1' } }));
 JS
 rm -rf "$progress_consumer/node_modules"
+sveltery_prepare_consumer "$progress_consumer"
 pnpm --dir "$progress_consumer" --ignore-workspace install --ignore-scripts > /dev/null
 pnpm --dir "$progress_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
 test -f "$progress_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
