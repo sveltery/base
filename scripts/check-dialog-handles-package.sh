@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
 dialog_consumer="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-dialog-consumer.XXXXXX")"
 trap 'rm -rf "$dialog_consumer"' EXIT
-pnpm --filter @sveltery/base pack --pack-destination "$dialog_consumer" > /dev/null
+sveltery_pack_package @sveltery/base "$dialog_consumer" > /dev/null
 node --input-type=module - "$dialog_consumer" <<'JS'
 import { readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -12,6 +12,7 @@ const destination = process.argv[2];
 const tarball = readdirSync(destination).find(name => name.endsWith('.tgz'));
 writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(destination, tarball)}`, svelte: '5.57.1' } }));
 JS
+sveltery_prepare_consumer "$dialog_consumer"
 pnpm --dir "$dialog_consumer" --ignore-workspace install --ignore-scripts > /dev/null
 pnpm --dir "$dialog_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
 cmp LICENSE "$dialog_consumer/node_modules/@sveltery/base/LICENSE"

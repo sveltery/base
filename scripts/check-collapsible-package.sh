@@ -1,30 +1,37 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
 collapsible_consumer="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-collapsible-consumer.XXXXXX")"
 trap 'rm -rf "$collapsible_consumer"' EXIT
-pnpm --filter @sveltery/base pack --pack-destination "$collapsible_consumer" > /dev/null
+sveltery_pack_package @sveltery/base "$collapsible_consumer" > /dev/null
 mkdir -p "$collapsible_consumer/node_modules/@sveltery/base"
 tar -xzf "$collapsible_consumer"/*.tgz --strip-components=1 -C "$collapsible_consumer/node_modules/@sveltery/base"
 test -f "$collapsible_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
 cmp LICENSE "$collapsible_consumer/node_modules/@sveltery/base/LICENSE"
+node --input-type=module - "$collapsible_consumer" <<'JS'
+import { readdirSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+const destination = process.argv[2];
+const tarball = readdirSync(destination).find(name => name.endsWith('.tgz'));
+writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(destination, tarball)}`, svelte: '5.57.1' } }));
+JS
+rm -rf "$collapsible_consumer/node_modules"
+sveltery_prepare_consumer "$collapsible_consumer"
+pnpm --dir "$collapsible_consumer" --ignore-workspace install --ignore-scripts > /dev/null
+pnpm --dir "$collapsible_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
 if [[ "${1:-}" == '--public' ]]; then
   # Public acceptance must prove packed dependency metadata and real resolution.
   # The internal mode below is explicitly a source/package checkpoint only.
   node --input-type=module - "$collapsible_consumer" <<'JS'
 import assert from 'node:assert/strict';
-import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 const destination = process.argv[2];
 const packed = JSON.parse(readFileSync(join(destination, 'node_modules/@sveltery/base/package.json'), 'utf8'));
 assert.equal(packed.dependencies?.['esm-env'], '1.2.2', 'the packed runtime must declare its environment dependency');
-const tarball = readdirSync(destination).find(name => name.endsWith('.tgz'));
-writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(destination, tarball)}`, svelte: '5.57.1' } }));
+
 JS
-  rm -rf "$collapsible_consumer/node_modules"
-  pnpm --dir "$collapsible_consumer" --ignore-workspace install --ignore-scripts > /dev/null
-  pnpm --dir "$collapsible_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
   cat > "$collapsible_consumer/imports.js" <<'JS'
 export { Collapsible as First } from '@sveltery/base';
 export { Collapsible as Second } from '@sveltery/base/collapsible';
@@ -34,11 +41,6 @@ export { Collapsible as First, type CollapsibleRootProps, type CollapsibleTrigge
 export { Collapsible as Second } from '@sveltery/base/collapsible';
 TS
 else
-  ln -s "$sveltery_repo_root/packages/base/node_modules/svelte" "$collapsible_consumer/node_modules/svelte"
-  ln -s "$sveltery_repo_root/packages/base/node_modules/esm-env" "$collapsible_consumer/node_modules/esm-env"
-  cat > "$collapsible_consumer/package.json" <<'JSON'
-{"private":true,"type":"module"}
-JSON
   cat > "$collapsible_consumer/imports.js" <<'JS'
 export { Collapsible as First, Collapsible as Second } from './node_modules/@sveltery/base/dist/collapsible/index.js';
 JS

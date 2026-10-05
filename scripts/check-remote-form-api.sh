@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
 remote_api_consumer="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-remote-api.XXXXXX")"
 trap 'rm -rf "$remote_api_consumer"' EXIT
-pnpm --filter @sveltery/base pack --pack-destination "$remote_api_consumer" > /dev/null
+sveltery_pack_package @sveltery/base "$remote_api_consumer" > /dev/null
 node --input-type=module - "$remote_api_consumer" "${1:-2.70.3}" <<'JS'
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -21,6 +21,7 @@ for (const [source, name] of [['apps/fixtures/src/lib/RemoteFormApiTypeFixture.s
 const compilerOptions = { target: 'ESNext', lib: ['ESNext', 'DOM', 'DOM.Iterable'], module: 'ESNext', moduleResolution: 'Bundler', strict: true, exactOptionalPropertyTypes: true, skipLibCheck: false, allowJs: true, types: ['svelte', 'node'] };
 for (const kind of ['positive', 'negative']) writeFileSync(join(destination, `tsconfig.${kind}.json`), JSON.stringify({ compilerOptions, include: kind === 'positive' ? ['Positive.svelte', 'NativeHosts.svelte'] : ['Negative.svelte'] }));
 JS
+sveltery_prepare_consumer "$remote_api_consumer"
 pnpm --dir "$remote_api_consumer" --ignore-workspace install --ignore-scripts > /dev/null
 pnpm --dir "$remote_api_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
 node "$sveltery_repo_root/packages/base/node_modules/svelte-check/bin/svelte-check" --workspace "$remote_api_consumer" --tsconfig ./tsconfig.positive.json

@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
 popup_consumer="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-popup-consumer.XXXXXX")"
 trap 'rm -rf "$popup_consumer"' EXIT
-pnpm --filter @sveltery/base pack --pack-destination "$popup_consumer" > /dev/null
+sveltery_pack_package @sveltery/base "$popup_consumer" > /dev/null
 node --input-type=module - "$popup_consumer" <<'JS'
 import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -14,6 +14,7 @@ const tarball = readdirSync(destination).find(name => name.endsWith('.tgz'));
 console.log(`Actual installed Popup family package: ${tarball} SHA256 ${createHash('sha256').update(readFileSync(join(destination, tarball))).digest('hex')}`);
 writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(destination, tarball)}`, svelte: '5.57.1' } }));
 JS
+sveltery_prepare_consumer "$popup_consumer"
 pnpm --dir "$popup_consumer" --ignore-workspace install --ignore-scripts > /dev/null
 pnpm --dir "$popup_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
 cmp LICENSE "$popup_consumer/node_modules/@sveltery/base/LICENSE"

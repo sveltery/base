@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
+artifact_directory="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-artifacts.XXXXXX")"
+trap 'rm -rf "$artifact_directory"' EXIT
+sveltery_create_package_artifacts "$artifact_directory" @sveltery/base
 node --test scripts/tests/*.test.mjs
-pnpm --filter @sveltery/base build
 pnpm check
 pnpm test
 pnpm --filter @sveltery/base test:dom

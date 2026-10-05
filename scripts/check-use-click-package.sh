@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
 export TMPDIR="${TMPDIR:-$PWD/.checks/use-click-tmp}"
 mkdir -p "$TMPDIR"
 consumer_dir="$(mktemp -d "$TMPDIR/consumer.XXXXXX")"
 trap 'rm -rf "$consumer_dir"' EXIT
-pnpm --filter @sveltery/base pack --pack-destination "$consumer_dir" > /dev/null
+sveltery_pack_package @sveltery/base "$consumer_dir" > /dev/null
 node --input-type=module - "$consumer_dir" <<'JS'
 import { readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -14,6 +14,7 @@ const destination = process.argv[2];
 const tarball = readdirSync(destination).find(name => name.endsWith('.tgz'));
 writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(destination, tarball)}`, svelte: '5.57.1' } }));
 JS
+sveltery_prepare_consumer "$consumer_dir"
 pnpm --dir "$consumer_dir" --ignore-workspace install --ignore-scripts > /dev/null
 cat > "$consumer_dir/Consumer.svelte" <<'SVELTE'
 <script lang="ts">

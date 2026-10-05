@@ -41,6 +41,8 @@ jobs:
     name: Verification
     runs-on: ubuntu-24.04
     timeout-minutes: 15
+    env:
+      SVELTERY_PACKAGE_ARTIFACTS: ${{ github.workspace }}/.checks/npm-package/artifacts.json
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
@@ -58,8 +60,8 @@ jobs:
         run: bash scripts/bootstrap.sh
       - name: Script regressions
         run: node --test scripts/tests/*.test.mjs
-      - name: Library build
-        run: pnpm --filter @sveltery/base build
+      - name: Fresh native library tarballs
+        run: bash scripts/prepare-package-artifacts.sh
       - name: Type and Svelte checks
         run: pnpm check
       - name: Runtime tests

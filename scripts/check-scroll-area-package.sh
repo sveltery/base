@@ -4,16 +4,17 @@ cd "$(dirname "$0")/.."
 export TMPDIR="${TMPDIR:-$PWD/.checks/scroll-area/tmp}"
 export NODE_COMPILE_CACHE="${NODE_COMPILE_CACHE:-$PWD/.checks/scroll-area/node-cache}"
 mkdir -p "$TMPDIR" "$NODE_COMPILE_CACHE"
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
 scroll_consumer="$(mktemp -d "${TMPDIR}/sveltery-scroll-area-consumer.XXXXXX")"
 mkdir -p .checks/scroll-area
-pnpm --filter @sveltery/base pack --pack-destination "$scroll_consumer" > /dev/null
+sveltery_pack_package @sveltery/base "$scroll_consumer" > /dev/null
 node --input-type=module - "$scroll_consumer" <<'JS'
 import { readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 const directory=process.argv[2];const tarball=readdirSync(directory).find(name=>name.endsWith('.tgz'));
 writeFileSync(join(directory,'package.json'),JSON.stringify({private:true,type:'module',dependencies:{'@sveltery/base':`file:${join(directory,tarball)}`,svelte:'5.57.1',jsdom:'30.1.1'}}));
 JS
+sveltery_prepare_consumer "$scroll_consumer"
 pnpm --dir "$scroll_consumer" --ignore-workspace install --ignore-scripts > /dev/null
 pnpm --dir "$scroll_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
 cmp LICENSE "$scroll_consumer/node_modules/@sveltery/base/LICENSE"
@@ -95,33 +96,35 @@ console.log('Installed public root/subpath aliases,12 type exports, strict exact
 JS
 node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$scroll_consumer/check.mjs" | tee .checks/scroll-area/public-ssr.log
 # Compile this actual installed consumer for DOM execution and use only its installed package.
-node --input-type=module - "$scroll_consumer" <<'JS'
-import {readFileSync,writeFileSync,readdirSync,cpSync,realpathSync} from 'node:fs';import {join} from 'node:path';import {pathToFileURL} from 'node:url';import {createRequire} from 'node:module';
+node --input-type=module - "$scroll_consumer" "$SVELTERY_PACKAGE_ARTIFACTS" <<'JS'
+import {readFileSync,writeFileSync,readdirSync,cpSync,realpathSync} from 'node:fs';import {dirname,join} from 'node:path';import {pathToFileURL} from 'node:url';import {createRequire} from 'node:module';
 const directory=process.argv[2];const require=createRequire(join(directory,'package.json'));const {compile,compileModule}=require('svelte/compiler');
-const packageRoot=realpathSync(join(directory,'node_modules/@sveltery/base'));
-const clientRoot=join(directory,'client-package');
-const tarball=join(directory,readdirSync(directory).find(name=>name.endsWith('.tgz')));const tarballBytes=readFileSync(tarball);
+const packageNames=Object.keys(JSON.parse(readFileSync(join(directory,'package.json'),'utf8')).dependencies).filter(name=>name.startsWith('@sveltery/'));
+const mappings=packageNames.map(name=>({packageRoot:realpathSync(join(directory,'node_modules',name)),clientRoot:join(directory,'client-packages',name)}));
+const manifestPath=process.argv[3];const manifest=JSON.parse(readFileSync(manifestPath,'utf8'));
+const tarballs=new Set([...Object.values(manifest.packages).map(({tarball})=>join(dirname(manifestPath),tarball)),...readdirSync(directory).filter(name=>name.endsWith('.tgz')).map(name=>join(directory,name))]);
+const archiveBytes=new Map([...tarballs].map(file=>[file,readFileSync(file)]));
 // Copy bytes to separate output before compiling: pnpm may hardlink identical JS/declarations.
-cpSync(packageRoot,clientRoot,{recursive:true,dereference:true});
+for(const {packageRoot,clientRoot} of mappings)cpSync(packageRoot,clientRoot,{recursive:true,dereference:true});
 const declarations=new Map();
 function capture(path){for(const name of readdirSync(path,{withFileTypes:true})){const file=join(path,name.name);if(name.isDirectory())capture(file);else if(file.endsWith('.d.ts'))declarations.set(file,readFileSync(file));}}
-capture(join(packageRoot,'dist'));
+for(const {packageRoot} of mappings)capture(join(packageRoot,'dist'));
 function visit(path){for(const name of readdirSync(path,{withFileTypes:true})){const file=join(path,name.name);if(name.isDirectory())visit(file);else if(file.endsWith('.svelte'))writeFileSync(file+'.js',compile(readFileSync(file,'utf8'),{filename:file,generate:'client'}).js.code);else if(file.endsWith('.svelte.js'))writeFileSync(file,compileModule(readFileSync(file,'utf8'),{filename:file,generate:'client'}).js.code);}}
-visit(join(clientRoot,'dist'));writeFileSync(join(directory,'Consumer.js'),compile(readFileSync(join(directory,'Consumer.svelte'),'utf8'),{filename:join(directory,'Consumer.svelte'),generate:'client'}).js.code);
+for(const {clientRoot} of mappings)visit(join(clientRoot,'dist'));writeFileSync(join(directory,'Consumer.js'),compile(readFileSync(join(directory,'Consumer.svelte'),'utf8'),{filename:join(directory,'Consumer.svelte'),generate:'client'}).js.code);
 for(const [file,bytes] of declarations)if(!bytes.equals(readFileSync(file)))throw new Error(`Installed declaration changed during client compilation: ${file}`);
-if(!tarballBytes.equals(readFileSync(tarball)))throw new Error('Installed tarball changed during client compilation');
-console.log(`Client compilation preserved tarball and all ${declarations.size} installed declarations: PASS`);
-const installedURL=pathToFileURL(packageRoot+'/').href;const clientURL=pathToFileURL(clientRoot+'/').href;
+for(const [file,bytes] of archiveBytes)if(!bytes.equals(readFileSync(file)))throw new Error(`Workspace tarball changed during client compilation: ${file}`);
+console.log(`Client compilation preserved all ${archiveBytes.size} archive copies and ${declarations.size} installed declarations: PASS`);
+const urls=mappings.map(({packageRoot,clientRoot})=>({installedURL:pathToFileURL(packageRoot+'/').href,clientURL:pathToFileURL(clientRoot+'/').href}));
 const loader=`import {registerHooks} from 'node:module';
-const installedURL=${JSON.stringify(installedURL)};
-const clientURL=${JSON.stringify(clientURL)};
+const urls=${JSON.stringify(urls)};
 registerHooks({resolve(specifier,context,nextResolve){
   // Resolve dependencies in the actual installation, then load its separate client output.
-  const parentURL=context.parentURL?.startsWith(clientURL)
-    ? installedURL+context.parentURL.slice(clientURL.length) : context.parentURL;
+  const parent=urls.find(({clientURL})=>context.parentURL?.startsWith(clientURL));
+  const parentURL=parent ? parent.installedURL+context.parentURL.slice(parent.clientURL.length) : context.parentURL;
   const result=nextResolve(specifier,{...context,parentURL});
   let url=result.url;
-  if(url.startsWith(installedURL))url=clientURL+url.slice(installedURL.length);
+  const target=urls.find(({installedURL})=>url.startsWith(installedURL));
+  if(target)url=target.clientURL+url.slice(target.installedURL.length);
   if(url.endsWith('.svelte'))url+='.js';
   return {...result,url};
 }});`;writeFileSync(join(directory,'loader.mjs'),loader);
