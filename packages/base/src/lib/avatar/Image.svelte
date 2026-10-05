@@ -59,7 +59,7 @@
     onerror() { loading.setLoadingStatus('error'); },
   } : undefined);
   const handleLoadingStatusChange = (status: ImageLoadingStatus) => {
-    onLoadingStatusChange?.(status);
+    untrack(() => onLoadingStatusChange?.(status));
     root.setImageLoadingStatus(status);
   };
   $effect.pre(() => {

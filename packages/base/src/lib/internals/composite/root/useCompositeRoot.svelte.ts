@@ -2,6 +2,7 @@
 // MIT: THIRD_PARTY_NOTICES.md; parity/radio/source-correspondence.md.
 
 import { isElementDisabled } from '@sveltery/utils/isElementDisabled';
+import { untrack } from 'svelte';
 import {
   MergedRefs,
   type MergedRef,
@@ -89,7 +90,7 @@ export function useCompositeRoot(
         orientation = 'both',
       } = getParameters();
       highlightedElementRef.current = elementsRef.current[index] ?? null;
-      if (externalSetHighlightedIndex) externalSetHighlightedIndex(index);
+      if (externalSetHighlightedIndex) untrack(() => externalSetHighlightedIndex(index));
       else internalHighlightedIndex = index;
       if (shouldScrollIntoView)
         scrollIntoViewIfNeeded(

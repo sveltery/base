@@ -754,7 +754,7 @@
       "currentOwners": [
         {
           "path": "packages/base/src/lib/avatar/Image.svelte",
-          "sha256": "d014f54aa4cdab64d8da47ea0c3e23ed51b6b4b69c549f41606965648eb0eccc"
+          "sha256": "a9b3eed56583f33a5e8e015ab63aa20c32a041601ca70ea26c3504f3e16256ef"
         },
         {
           "path": "packages/base/src/lib/checkbox-group/CheckboxGroup.svelte",
@@ -814,7 +814,7 @@
         },
         {
           "path": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
-          "sha256": "b679ac30cbaa48bc6805f3bae5f39f161c4703891c0a3b311fdae3fa25fc84ad"
+          "sha256": "23eb5511dcf4148f349cf871670705b2121e32e118dee42ebb67f70bc443bb60"
         },
         {
           "path": "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts",
@@ -862,7 +862,7 @@
         },
         {
           "path": "packages/base/src/lib/radio-group/RadioGroup.svelte",
-          "sha256": "9aa46971ac979d3342c35c91ee2a2210712a90818335b7736b77b1b3cdbdf537"
+          "sha256": "c43b5394c1b49c9cd3c9663e7db1fbac5874743039b97108d69095d746a35148"
         },
         {
           "path": "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte",
@@ -4239,7 +4239,7 @@
       },
       {
         "path": "packages/base/src/lib/avatar/Image.svelte",
-        "sha256": "d014f54aa4cdab64d8da47ea0c3e23ed51b6b4b69c549f41606965648eb0eccc",
+        "sha256": "a9b3eed56583f33a5e8e015ab63aa20c32a041601ca70ea26c3504f3e16256ef",
         "symbols": [],
         "imports": [
           {
@@ -21784,7 +21784,7 @@
       },
       {
         "path": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
-        "sha256": "b679ac30cbaa48bc6805f3bae5f39f161c4703891c0a3b311fdae3fa25fc84ad",
+        "sha256": "23eb5511dcf4148f349cf871670705b2121e32e118dee42ebb67f70bc443bb60",
         "symbols": [
           {
             "name": "UseCompositeRootParameters",
@@ -21794,7 +21794,7 @@
           {
             "name": "useCompositeRoot",
             "kind": "FunctionDeclaration",
-            "sha256": "33119cbe4accc800eff466990ac95773c1ac68bbfaca71401df4a82a584b5d31"
+            "sha256": "e64b990c49349ea5d966afd678d9f50fe1a0e698f7294cb9d7e9aef7420b5918"
           },
           {
             "name": "getFallbackIndex",
@@ -21820,6 +21820,19 @@
             ],
             "syntax": "import",
             "resolved": "packages/utils/src/lib/isElementDisabled.ts"
+          },
+          {
+            "specifier": "svelte",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "untrack",
+                "local": "untrack",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "import",
+            "resolved": "external:svelte"
           },
           {
             "specifier": "@sveltery/utils/useMergedRefs",
@@ -36689,12 +36702,12 @@
       },
       {
         "path": "packages/base/src/lib/radio-group/RadioGroup.svelte",
-        "sha256": "9aa46971ac979d3342c35c91ee2a2210712a90818335b7736b77b1b3cdbdf537",
+        "sha256": "c43b5394c1b49c9cd3c9663e7db1fbac5874743039b97108d69095d746a35148",
         "symbols": [
           {
             "name": "setInputRef",
             "kind": "FunctionDeclaration",
-            "sha256": "70fdad4942b4ea3c1422cfee68a7adc9e6ebe482ebeef0ba0edf209bcdb34ac2"
+            "sha256": "74f413017ad25854530fed680fc6cc138f83614bfc4c5ce947acedadf488e6ce"
           }
         ],
         "imports": [

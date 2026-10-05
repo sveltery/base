@@ -66,9 +66,11 @@
   const groupInputRef = { current: null as HTMLInputElement | null };
   const firstEnabledInputRef = { current: null as HTMLInputElement | null };
   function setInputRef(input: HTMLInputElement | null) {
-    let cleanup: void | (() => void) = undefined;
-    if (typeof inputRef === 'function') cleanup = inputRef(input);
-    else if (inputRef) inputRef.current = input;
+    const target = inputRef;
+    const cleanup = untrack(() => {
+      if (typeof target === 'function') return target(input);
+      if (target) target.current = input;
+    });
     groupInputRef.current = input;
     return cleanup;
   }
