@@ -1,6 +1,6 @@
 # Select source/native plan — unapproved precode proposal
 
-This is an unapproved precode proposal. It does not clear shared helper leases, runtime work or merge. Whole-body reading covers the selected Original source and test/helper closures and the proposed native helper closure; the concrete composition and test obligations are recorded below and in the [native comparison](native-composition.md) and [manual test plan](manual-test-plan.md). No implementation is added by this plan. [Manual business selection](source-correspondence.md) remains distinct from archive identity and requires independent review.
+This is an unapproved precode proposal. It does not clear shared helper leases, runtime work or merge. Historical preparing-author whole-body reading covers the predecessor selected Original source/test/helper and native helper closures; the current repair reader's fresh body scope is listed separately in [repair evidence](plan-repair-evidence.json); the concrete composition and test obligations are recorded below and in the [native comparison](native-composition.md) and [manual test plan](manual-test-plan.md). No implementation is added by this plan. [Manual business selection](source-correspondence.md) remains distinct from archive identity and requires independent review.
 
 ## Scope and source boundaries
 
@@ -71,7 +71,7 @@ Autofill must retain forced mounting followed by deferred lookup: disabled/readO
 
 Real Field/Form remains optional. Schema-free/global Select must work without providers and with existing external form libraries. Authored name/id/errors, value/default/open, refs/callbacks and validation mode must remain available. Logical error/registration name and serialization-name override use existing canonical separation where explicitly present; never infer Kit prefixes or import Kit runtime.
 
-Typed remote Form composition remains an integration extension: retain actual accessor-derived args/names, manual overrides, error/issue precedence, direct native descriptor spreads, programmatic updates and native reset. Existing remote native select is not a Select feature implementation. A later separately approved integration must route a consumer Select.Root/Trigger render through real source registration/validation without inventing another value store or reset listener. Public remote namespace selection changes are shared integration scope and need their own lease.
+Typed remote Form composition remains a separately proposed integration extension with a concrete [ownership, writer and type contract](remote-select-contract.md): retain actual accessor-derived args/names, manual overrides, error/issue precedence, direct native descriptor spreads, programmatic updates and native reset. Existing remote native select is not a Select feature implementation. A later separately approved integration must route a consumer Select.Root/Trigger render through real source registration/validation without inventing another value store or reset listener. Public remote namespace selection changes are shared integration scope and need their own lease.
 
 ## Planned behavior/type/browser gates
 

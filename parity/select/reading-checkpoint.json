@@ -1002,19 +1002,23 @@
   "manualNotes": [
     {
       "path": "source-plan.md",
-      "sha256": "85c35aed8e08cb8d718bec915eee683d77921e89a1201f41c61c0b88c44e8a11"
+      "sha256": "bfa3376f1fe09145a2dc92fd1082b96fd4283fa0df0703143e0835592caf1127"
     },
     {
       "path": "source-correspondence.md",
-      "sha256": "322fcf6176ac674c51d0e62cb4390264b876040e24341e8cb552cc95437db30c"
+      "sha256": "33de4e58e714aa4daeeef707ddc6c06d0199e2f31861f18cc245a11de2268e29"
     },
     {
       "path": "native-composition.md",
-      "sha256": "7345f710939e9b2d43afd485a449d3ae4d48619e47a280dfe6187a19c6e70f4c"
+      "sha256": "53c2fb0939d52b22424bccd8988445446258d441c7fd832e80feb73f6e603987"
     },
     {
       "path": "manual-test-plan.md",
-      "sha256": "71b7a6bb3492ae93e0b73fc460b7460fc5a5b8c4c82a68343fa319cf1d6ede3a"
+      "sha256": "2d4e19e3705c7cbbc6e610cfece84a60b963bee00b27ed4ba03f56097e43e3b5"
+    },
+    {
+      "path": "remote-select-contract.md",
+      "sha256": "959b8338f550433a74cf198fa9d3ae6649a96910d3a5f347ebb5ab48ddf8af02"
     }
   ],
   "accounting": {

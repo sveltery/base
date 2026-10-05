@@ -30,6 +30,8 @@ NODE_OPTIONS=--max-old-space-size=768 node parity/select/prepare-native.mjs \
 
 It generates the Select helper and actual test-fixture graphs separately, including native Svelte script imports and complete markup/body hashes. The only pending overrides of existing main files are the three geometry bridge files named in the native comparison. Neither graph grants helper acceptance or creates a new public feature prerequisite from an unused export. External package edges are recorded; their declarations are not claimed manually read.
 
+The separately proposed [remote ownership/type contract](remote-select-contract.md) gives explicit manual/remote ownership, live fallback/reset rules, a guarded public writer and correlated Root/Trigger render payload. Actual SDK Select routes are string/string[] only; number/boolean leaves remain negatives for remote Select, while core nonremote Select keeps its full generic API. This is a reviewable proposal, not a type/runtime implementation or an inferred lease.
+
 The evidence currently contains:
 
 - [751 immutable MIT archives and SHA-256 manifest](archive-manifest.json), including every Select family source/type/data-attribute file and conservative source/test closure.
