@@ -1,8 +1,6 @@
 // Ported from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT: THIRD_PARTY_NOTICES.md; parity/radio/source-correspondence.md.
-function isShadowRoot(node: Node): node is ShadowRoot {
-  return node.nodeType === 11 && 'host' in node;
-}
+import { isShadowRoot } from '@floating-ui/utils/dom';
 
 export function activeElement(doc: Document) {
   let element = doc.activeElement;
