@@ -72,6 +72,8 @@ jobs:
         run: node --import ./scripts/svelte-ssr-loader.mjs scripts/check-runtime.mjs
       - name: Isolated tarball consumer and license
         run: bash scripts/check-package.sh
+      - name: Installed private click and public consumer boundary
+        run: bash scripts/check-use-click-package.sh
   dialog-browser:
     name: Dialog browser
     # Officially supported Playwright image; its default policy permits Chromium sandbox startup.
