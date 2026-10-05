@@ -191,3 +191,47 @@ it('native: selected reason/delay stay with the scheduled callback', async () =>
   await tick();
   expect(component.snapshot()[0]).toMatchObject({ open: true, reason: 'input-press' });
 });
+
+it('native regression: an earlier composed handler does not change the in-flight toggle choice', async () => {
+  let component: Awaited<ReturnType<typeof setup>>;
+  component = await setup({
+    initialOpen: true,
+    options: { toggle: false },
+    beforeClick: () => component.setOptions({ toggle: true }),
+  });
+  await click();
+  expect(tooltip()).not.toBeNull();
+  expect(component.snapshot().map((change) => change.open)).toEqual([true]);
+  await click();
+  expect(tooltip()).toBeNull();
+  expect(component.snapshot().map((change) => change.open)).toEqual([true, false]);
+});
+
+it('native regression: the scheduled mousedown frame retains selected Store/reason/touch delay', async () => {
+  vi.useFakeTimers();
+  const callbacks: FrameRequestCallback[] = [];
+  vi.spyOn(window, 'requestAnimationFrame').mockImplementation((callback) => {
+    callbacks.push(callback);
+    return callbacks.length;
+  });
+  const component = await setup({
+    options: { event: 'mousedown', touchOpenDelay: 100, reason: 'input-press' },
+  });
+  await pressMouse('touch');
+  component.setOptions({ event: 'mousedown', touchOpenDelay: 0, reason: 'trigger-press' });
+  component.selectSecondStore();
+  await tick();
+  callbacks.forEach((callback) => callback(0));
+  await tick();
+  expect(component.snapshot()).toEqual([]);
+  vi.advanceTimersByTime(100);
+  await tick();
+  expect(component.snapshot()).toHaveLength(1);
+  expect(component.snapshot()[0]).toMatchObject({
+    owner: 'first',
+    open: true,
+    reason: 'input-press',
+    trigger: reference(),
+  });
+  expect(tooltip()).toBeNull();
+});
