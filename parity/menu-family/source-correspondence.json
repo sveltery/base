@@ -1704,7 +1704,7 @@
       ],
       "localHashes": {
         "packages/base/src/lib/merge-props/index.ts": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68",
-        "packages/base/src/lib/merge-props/mergeProps.ts": "e0a046d77de72d64d5f38af7ac7cfff73c5c819b14fef2b3a5607f802e2e7e91"
+        "packages/base/src/lib/merge-props/mergeProps.ts": "1b758134ab0efecd9601638e928440561944d226e5ebb9276d39723738d0301a"
       },
       "correspondence": "One canonical complete Source prop/event merging business with lower-case native event/preventBaseUIHandler framework boundary; index.ts is a reexport of the actual mergeProps body.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."

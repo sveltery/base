@@ -17,7 +17,7 @@ it('follows nested shadow focus, containment and the dispatched composed target'
     expect(contains(host, button)).toBe(true);
     expect(contains(innerHost, button)).toBe(true);
     expect(contains(button, host)).toBe(false);
-    let target: EventTarget | undefined;
+    let target: EventTarget | null | undefined;
     host.addEventListener(
       'click',
       (event) => {

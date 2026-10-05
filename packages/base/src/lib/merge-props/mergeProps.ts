@@ -225,7 +225,7 @@ function isEventHandler(key: string, value: unknown): value is Handler | undefin
     code0 === 111 /* o */ &&
     code1 === 110 /* n */ &&
     ((code2 >= 65 /* A */ && code2 <= 90) /* Z */ ||
-      (code2 >= 97 /* a */ && code2 <= 122) /* z */) &&
+      (code2 >= 97 /* a */ && code2 <= 122)) /* z */ &&
     (typeof value === 'function' || typeof value === 'undefined')
   );
 }

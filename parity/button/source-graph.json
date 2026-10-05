@@ -1582,7 +1582,7 @@
       },
       {
         "local": "packages/base/src/lib/merge-props/mergeProps.ts",
-        "sha256": "e0a046d77de72d64d5f38af7ac7cfff73c5c819b14fef2b3a5607f802e2e7e91",
+        "sha256": "1b758134ab0efecd9601638e928440561944d226e5ebb9276d39723738d0301a",
         "declarations": [
           "PreventableEvent",
           "Props",
