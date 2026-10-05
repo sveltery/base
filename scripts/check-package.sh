@@ -51,8 +51,8 @@ writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true,
 JS
 rm -rf "$consumer_dir/node_modules"
 sveltery_prepare_consumer "$consumer_dir"
-pnpm --dir "$consumer_dir" --ignore-workspace install --ignore-scripts > /dev/null
-pnpm --dir "$consumer_dir" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+pnpm --dir "$consumer_dir" install --ignore-scripts > /dev/null
+pnpm --dir "$consumer_dir" install --frozen-lockfile --ignore-scripts > /dev/null
 cat > "$consumer_dir/DialogConsumer.svelte" <<'SVELTE'
 <script>
   import { Dialog } from '@sveltery/base';

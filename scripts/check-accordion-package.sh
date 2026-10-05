@@ -18,8 +18,8 @@ writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true,
 JS
 rm -rf "$accordion_consumer/node_modules"
 sveltery_prepare_consumer "$accordion_consumer"
-pnpm --dir "$accordion_consumer" --ignore-workspace install --ignore-scripts > /dev/null
-pnpm --dir "$accordion_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+pnpm --dir "$accordion_consumer" install --ignore-scripts > /dev/null
+pnpm --dir "$accordion_consumer" install --frozen-lockfile --ignore-scripts > /dev/null
 if [[ "${1:-}" == '--public' ]]; then
   node --input-type=module - "$accordion_consumer" <<'JS'
 import assert from 'node:assert/strict';

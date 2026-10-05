@@ -15,7 +15,7 @@ const tarball = readdirSync(destination).find(name => name.endsWith('.tgz'));
 writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(destination, tarball)}`, svelte: '5.57.1' } }));
 JS
 sveltery_prepare_consumer "$consumer_dir"
-pnpm --dir "$consumer_dir" --ignore-workspace install --ignore-scripts > /dev/null
+pnpm --dir "$consumer_dir" install --ignore-scripts > /dev/null
 cat > "$consumer_dir/Consumer.svelte" <<'SVELTE'
 <script lang="ts">
   import { flushSync } from 'svelte';
