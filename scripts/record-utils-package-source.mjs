@@ -16,6 +16,11 @@ const files = new Set(git('ls-tree', '-r', '--name-only', pin).trim().split('\n'
 const extraction = JSON.parse(readFileSync(resolve(root, 'parity/utils-package/extraction.json'), 'utf8'));
 const manifest = JSON.parse(readFileSync(resolve(root, 'packages/utils/package.json'), 'utf8'));
 const nativeFrameworkCleanup = JSON.parse(readFileSync(resolve(root, 'parity/utils-package/native-framework-status.json'), 'utf8'));
+const successorPaths = new Set();
+for (const successor of nativeFrameworkCleanup.sourceSuccessors ?? []) {
+  if (!extraction.moves.some(move => move.to === successor.from) || successorPaths.has(successor.from)) throw new Error(`Unknown or duplicate extracted successor: ${successor.from}`);
+  successorPaths.add(successor.from);
+}
 function resolveImport(file, specifier, original) {
   if (!original) {
     const owned = resolveNativePackageSource(root, specifier);
@@ -71,7 +76,21 @@ const native = graph(['packages/base/src/lib/index.ts', ...utilsEntries]);
 const original = graph([...new Set(extraction.moves.map(move => move.source).concat(['packages/utils/src/formatNumber.ts','packages/utils/src/stringifyLocale.ts']))], true);
 const originalInventory = [...files].filter(file => file.startsWith('packages/utils/src/') && /\.(ts|tsx)$/.test(file) && !/\.(test|spec)\./.test(file)).sort().map(file => ({ path: file, sha256: hash(git('show', `${pin}:${file}`)) }));
 const currentByPath = new Map(native.modules.map(module => [module.path, module]));
-const currentMoves = extraction.moves.map(move => ({ ...move, currentLocalSha256: currentByPath.get(move.to)?.sha256 ?? hash(readFileSync(resolve(root, move.to))), reviewStatus: 'Source/native/maintainability final-head review pending; extraction hash is immutable initial lineage.' }));
+const reviewStatus = 'Source/native/maintainability final-head review pending; extraction hash is immutable initial lineage.';
+const currentMoves = extraction.moves.map(move => {
+  const successor = nativeFrameworkCleanup.sourceSuccessors?.find(item => item.from === move.to);
+  if (successor) {
+    if (!successor.replacement || !successor.currentOwners?.length) throw new Error(`Incomplete native successor for ${move.to}`);
+    const currentOwners = successor.currentOwners.map(path => {
+      const owner = currentByPath.get(path);
+      if (!owner) throw new Error(`Native successor is absent from the actual public closure: ${move.to} -> ${path}`);
+      return { path, sha256: owner.sha256 };
+    });
+    return { ...move, currentReplacement: successor.replacement, currentOwners, reviewStatus };
+  }
+  if (!existsSync(resolve(root, move.to))) throw new Error(`Missing explicit native successor for ${move.to}`);
+  return { ...move, currentLocalSha256: currentByPath.get(move.to)?.sha256 ?? hash(readFileSync(resolve(root, move.to))), reviewStatus };
+});
 const output = { immutableOriginalPin: pin, ordinaryDeclarationCredit: 0, method: `TypeScript ${ts.version} full AST import/reexport/import-type/literal dynamic graph; actual declared Utils export targets resolve to current source owners across both packages for audit only. Published dist remains build/consumer authority. Conservative barrel closure is not selected-body acceptance.`, basePublicExportsUnchanged: JSON.stringify(JSON.parse(readFileSync(resolve(root,'packages/base/package.json'),'utf8')).exports) === JSON.stringify(extraction.baseExports), utilsExports: manifest.exports, currentMoves, originalInventory, original, native, inheritedLimits: ['No new ordinary component assertion credit.', 'Existing Toast private store/ID and unaudited feature algorithms remain outside acceptance.', 'Native SvelteStore used surface is not a complete ReactStore/useStore/selector/inspector API port.', 'Historical exact-head source/audit/review/run receipts and immutable source archives remain historical.'], finalGates: 'Source/native/maintainability independent review, actual dual-tarball SSR/types/Svelte/browser consumers, secured hosted browser execution and CI remain pending.' };
 output.nativeFrameworkCleanup = nativeFrameworkCleanup;
 writeFileSync(resolve(root,'parity/utils-package/current-source-graph.json'), JSON.stringify(output,null,2)+'\n');
