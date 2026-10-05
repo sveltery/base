@@ -11,7 +11,7 @@
   import InternalBackdrop from '../utils/InternalBackdrop.svelte';
   import { useAnimationsFinished } from '../internals/useAnimationsFinished.js';
   import { useAnchoredPopupScrollLock } from '../utils/useAnchoredPopupScrollLock.svelte.js';
-  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+  
   import { REASONS } from '../internals/reasons.js';
   // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
   let { render, class: className, style, children, ref = $bindable(), anchor, positionMethod, side, align, sideOffset, alignOffset, collisionBoundary = 'clipping-ancestors', collisionPadding, arrowPadding, sticky, disableAnchorTracking = false, collisionAvoidance = POPUP_COLLISION_AVOIDANCE, ...elementProps }: PopoverPositionerProps = $props();
@@ -38,7 +38,7 @@
     keepMounted: portal.keepMounted, collisionAvoidance, adaptiveOrigin, nodeId,
   }));
   const domReference = $derived(floatingRootContext.useState('domReferenceElement'));
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     const currentTriggerElement = domReference;
     const prevTriggerElement = prevTriggerElementRef.current;
     if (currentTriggerElement) prevTriggerElementRef.current = currentTriggerElement;
@@ -49,7 +49,7 @@
       return () => ac.abort();
     }
     return undefined;
-  }, () => [domReference, runOnceAnimationsFinish, store]);
+  });
   const trueModalNonHover = $derived(modal === true && openReason !== REASONS.triggerHover);
   useAnchoredPopupScrollLock(() => open && trueModalNonHover, () => openMethod === 'touch', () => positionerElement, () => triggerElement);
   const state: PopoverPositionerState = $derived({ open, side: positioning.side, align: positioning.align, anchorHidden: positioning.anchorHidden, instant: instantType });

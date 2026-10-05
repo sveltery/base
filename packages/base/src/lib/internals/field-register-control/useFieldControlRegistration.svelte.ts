@@ -1,7 +1,7 @@
 // Mechanically ported from Base UI v1.8.0 useFieldControlRegistration.ts.
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
-import { useStableCallback } from '@sveltery/utils/useStableCallback';
+
+
 import { getCombinedFieldValidityData } from '../../field/utils/getCombinedFieldValidityData.js';
 import { useFormContext } from '../form-context/FormContext.js';
 import type { FieldValidityData } from '../../field/types.js';
@@ -21,7 +21,7 @@ export function useFieldControlRegistration(params: UseFieldControlRegistrationP
   const registrationRef = { current: null as FieldControlRegistration | null };
   const initialValueCapturedRef = { current: false };
 
-  const getValueForForm = useStableCallback(() => {
+  const getValueForForm = () => {
     const registration = registrationRef.current;
     if (!registration) {
       return undefined;
@@ -32,13 +32,13 @@ export function useFieldControlRegistration(params: UseFieldControlRegistrationP
     }
 
     return registration.value;
-  });
+  };
 
   function getRegistrationValue(registration: FieldControlRegistration) {
     return registration.value === undefined ? getValueForForm() : registration.value;
   }
 
-  const validate = useStableCallback(() => {
+  const validate = () => {
     const registration = registrationRef.current;
     params.markedDirtyRef.current = true;
 
@@ -48,7 +48,7 @@ export function useFieldControlRegistration(params: UseFieldControlRegistrationP
     }
 
     params.commit(getRegistrationValue(registration));
-  });
+  };
 
   function refreshRegistration() {
     const registration = registrationRef.current;
@@ -90,7 +90,7 @@ export function useFieldControlRegistration(params: UseFieldControlRegistrationP
     );
   }
 
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     const registration = registrationRef.current;
     if (!registration || !registration.id) {
       return;
@@ -105,9 +105,9 @@ export function useFieldControlRegistration(params: UseFieldControlRegistrationP
       validityData: getCombinedFieldValidityData(params.validityData, params.invalid),
       validate,
     });
-  }, () => [formRef, getValueForForm, params.invalid, params.name, params.setRegisteredFieldName, validate, params.validityData]);
+  });
 
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     const fields = formRef.current.fields;
 
     return () => {
@@ -116,10 +116,9 @@ export function useFieldControlRegistration(params: UseFieldControlRegistrationP
         fields.delete(id);
       }
     };
-  }, () => [formRef]);
+  });
 
-  const register = useStableCallback(
-    (source: symbol, registration: FieldControlRegistration | undefined) => {
+  const register = (source: symbol, registration: FieldControlRegistration | undefined) => {
       if (!registration) {
         if (activeFieldControlSourceRef.current === source) {
           activeFieldControlSourceRef.current = null;
@@ -153,8 +152,7 @@ export function useFieldControlRegistration(params: UseFieldControlRegistrationP
 
       captureInitialValue(registration);
       refreshRegistration();
-    },
-  );
+    };
 
   return [validate, register] as const;
 }

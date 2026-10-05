@@ -2,8 +2,8 @@
 import { flushSync, untrack, type Snippet } from 'svelte';
 import { useAnimationFrame } from '@sveltery/utils/useAnimationFrame';
 import { usePreviousValue } from '@sveltery/utils/usePreviousValue';
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
-import { useStableCallback } from '@sveltery/utils/useStableCallback';
+
+
 import { ownerDocument } from '@sveltery/utils/owner';
 import { useAnimationsFinished } from '../internals/useAnimationsFinished.js';
 import { usePopupAutoResize } from './usePopupAutoResize.svelte.js';
@@ -59,26 +59,26 @@ export function usePopupViewport(getParameters: () => {
     const cleanupControllerRef = { current: null as AbortController | null };
     let previousContentDimensions = $state.raw<Dimensions | null>(null);
     let showStartingStyleAttribute = $state.raw<boolean>(false);
-    useIsoLayoutEffect(() => {
+    $effect(() => {
         store.set('adaptiveOrigin', adaptiveOrigin);
         return () => {
             store.set('adaptiveOrigin', undefined);
         };
-    }, () => [store]);
-    const handleMeasureLayout = useStableCallback(() => {
+    });
+    const handleMeasureLayout = () => {
         currentContainerRef.current?.style.setProperty('animation', 'none');
         currentContainerRef.current?.style.setProperty('transition', 'none');
         previousContainerRef.current?.style.setProperty('display', 'none');
-    });
-    const handleMeasureLayoutComplete = useStableCallback((previousDimensions: Dimensions | null) => {
+    };
+    const handleMeasureLayoutComplete = (previousDimensions: Dimensions | null) => {
         currentContainerRef.current?.style.removeProperty('animation');
         currentContainerRef.current?.style.removeProperty('transition');
         previousContainerRef.current?.style.removeProperty('display');
         if (previousDimensions) {
             previousContentDimensions = previousDimensions;
         }
-    });
-    const armViewportCleanup = useStableCallback(() => {
+    };
+    const armViewportCleanup = () => {
         cleanupControllerRef.current?.abort();
         const controller = new AbortController();
         cleanupControllerRef.current = controller;
@@ -87,14 +87,14 @@ export function usePopupViewport(getParameters: () => {
             previousContentDimensions = null;
             capturedNodeRef.current = null;
         }, controller.signal);
-    });
+    };
     const lastHandledTriggerRef = { current: null as Element | null };
-    useIsoLayoutEffect(() => {
+    $effect(() => {
         if (!open || !mounted) {
             lastHandledTriggerRef.current = null;
         }
-    }, () => [open, mounted]);
-    useIsoLayoutEffect(() => {
+    });
+    $effect(() => {
         // When a trigger changes, set the captured children HTML to state,
         // so we can render both new and old content.
         if (activeTrigger &&
@@ -110,14 +110,17 @@ export function usePopupViewport(getParameters: () => {
             newTriggerOffset = offset;
             lastHandledTriggerRef.current = activeTrigger;
         }
-    }, () => [activeTrigger, previousActiveTrigger()]);
+    });
     // Arm cleanup after a trigger change, and re-arm it if the current container remounts
     // mid-transition when a lagging payload bumps `currentContentKey`. The remount discards
     // the running entry animation (and with transition-style CSS the replacement mounts at
     // final styles with no animation at all), so re-run the starting-style choreography —
     // otherwise the watcher either strands or fires before the previous container's exit
     // animation finishes.
-    useIsoLayoutEffect(() => {
+    $effect(() => {
+        // A content remount cancels the old animation and needs a fresh watcher.
+        void currentContentKey();
+        void currentContainerRef.current;
         if (previousContentNode == null) {
             return;
         }
@@ -132,10 +135,10 @@ export function usePopupViewport(getParameters: () => {
             });
             armViewportCleanup();
         });
-    }, () => [currentContentKey(), previousContentNode, armViewportCleanup, cleanupFrame]);
+    });
     // Capture a clone of the current content DOM subtree when not transitioning.
     // We can't store previous React nodes as they may be stateful; instead we capture DOM clones for visual continuity.
-    useIsoLayoutEffect(() => {
+    $effect(() => {
         // When a transition is in progress, we store the next content in capturedNodeRef.
         // This handles the case where the trigger changes multiple times before the transition finishes.
         // We want to always capture the latest content for the previous snapshot.
@@ -158,13 +161,13 @@ export function usePopupViewport(getParameters: () => {
     // Observe the actual native attachment as well as the Source content state: attachments
     // commit the new host after the content-state effect has created its markup.
     // When previousContentNode is present, imperatively populate the previous container with the cloned children.
-    useIsoLayoutEffect(() => {
+    $effect(() => {
         const container = previousContainerRef.current;
         if (!container || !previousContentNode) {
             return;
         }
         container.replaceChildren(...Array.from(previousContentNode.childNodes));
-    }, () => [previousContentNode, previousContainerElement]);
+    });
     usePopupAutoResize(() => ({
         popupElement,
         positionerElement,
@@ -245,7 +248,7 @@ function usePopupContentKey(getActiveTriggerId: () => string | null, getPayload:
     const previousActiveTriggerIdRef = { current: untrack(() => activeTriggerId) };
     const previousPayloadRef = { current: untrack(() => payload) };
     const pendingPayloadUpdateRef = { current: false };
-    useIsoLayoutEffect(() => {
+    $effect(() => {
         // Compare against the last committed values to decide whether we need a new DOM subtree.
         const previousActiveTriggerId = previousActiveTriggerIdRef.current;
         const previousPayload = previousPayloadRef.current;
@@ -264,6 +267,6 @@ function usePopupContentKey(getActiveTriggerId: () => string | null, getPayload:
         // Persist current values for the next render's comparison.
         previousActiveTriggerIdRef.current = activeTriggerId;
         previousPayloadRef.current = payload;
-    }, () => [activeTriggerId, payload]);
+    });
     return () => `${activeTriggerId ?? 'current'}-${contentKey}`;
 }

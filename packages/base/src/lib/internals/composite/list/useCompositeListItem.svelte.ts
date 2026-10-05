@@ -1,6 +1,6 @@
 // Ported from Base UI v1.8.0 useCompositeListItem; MIT: THIRD_PARTY_NOTICES.md.
 import { untrack } from 'svelte';
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
 import { useCompositeListContext } from './CompositeListContext.js';
 export interface UseCompositeListItemParameters {
   guess?: boolean;
@@ -32,16 +32,13 @@ export function useCompositeListItem(
       if (node) register(node, currentRegistration);
     };
   });
-  useIsoLayoutEffect(
-    () => {
+  $effect(() => {
       if (getParameters().index != null) return;
       return subscribeMapChange((map) => {
         const next = component ? map.get(component)?.index : null;
         if (next != null) internalIndex = next;
       });
-    },
-    () => [getParameters().index, subscribeMapChange],
-  );
+    });
   return {
     get ref() {
       return ref;

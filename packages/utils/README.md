@@ -1,6 +1,6 @@
 # @sveltery/utils
 
-Current native cleanup status: Latest user directive: React-only mechanisms with native Svelte equivalents use native primitives/behavior; port business roles without an equivalent. Custom-hook roles use classes. Controlled replaces React-style diagnostics/serializer/functional dispatch with the requested class API; native $effect replaces manual useIsoLayoutEffect dependency tuples. Current f57da39d implementation is a package/source checkpoint; this native cleanup is pending in a separate stacked change and current helper framework acceptance remains open.
+The native-framework successor replaces React hook transport with `Controlled` and direct Svelte effects/live closures. Exact-head source review and execution gates remain pending; this is a proposed semantic change stacked on the package extraction.
 
 Experimental shared utilities for the unofficial Svelte 5 port of Base UI 1.8.0. This private `0.0.0` package is not ready for npm publication.
 
@@ -8,7 +8,9 @@ Base imports the implemented helper subpaths from this package. There is no root
 
 Plain utilities ship ESM and adjacent declarations. Rune utilities retain native `.svelte.js` source and declarations for compilation by a Svelte 5.57.1+ consumer. Both packages use the official `@sveltejs/package` packager. Utils has no Base, React or SvelteKit runtime dependency.
 
-Native Svelte setup owns initialized refs; live closures and `untrack` own stable callbacks; `$props.id()` supplies framework IDs; runes and lifecycle own controlled state and synchronization; `createSubscriber` supplies selected Store reads. The native calling conventions are documented by the declarations. React-only APIs and unimplemented selector, interval, idle, inspector and ID-generator APIs are not exported. Moving existing helpers does not accept inherited feature source debt; Toast's private store/ID and unaudited feature algorithms retain their existing limits.
+`@sveltery/utils/Controlled` exports the reusable rune state owner. Construct it with a live controlled-value getter and the initial default; read `.value` and call `.set(next)` with a direct value. Initial controlled mode stays fixed. A disappearing controlled value falls back to the initial default. Uncontrolled writes are immediate, including function values; business updater functions execute at their call site. The minimal generic uses `defaultValue: T`, `.value: T` and `.set(next: T)`; optional state includes `undefined` in `T`. Svelte supports its private rune field’s first constructor assignment, preserving defined-default types without assertions or overloads.
+
+Native setup initializes local values once; ordinary closures retain identity and read live props. `$props.id()` supplies framework IDs and direct `$effect` supplies SSR-safe client synchronization. `useControlled`, `useIsoLayoutEffect`, `useStableCallback`, `useOnMount` and `useRefWithInit` are removed subpaths. Pure business utilities and canonical Store, Scheduler, Timeout, AnimationFrame and ref fan-out algorithms stay shared. No Base, React or SvelteKit runtime dependency is added.
 
 Run the root bootstrap/build/dev/check commands to build Utils before Base and applications. When editing Utils, the root development command runs the official utility packager watcher. The normal workspace and published package export paths resolve `dist`; a frozen install alone does not produce build output.
 

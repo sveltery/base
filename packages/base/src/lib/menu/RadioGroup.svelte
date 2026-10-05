@@ -1,20 +1,21 @@
 <script lang="ts">
+  import { untrack } from 'svelte';
   // Original MenuRadioGroup controlled/cancellation/label/context composition (MIT).
   import RenderElement from '../internals/RenderElement.svelte';
-  import { useControlled } from '@sveltery/utils/useControlled';
-  import { useStableCallback } from '@sveltery/utils/useStableCallback';
+  import { Controlled } from '@sveltery/utils/Controlled';
+  
   import { provideMenuRadioGroupContext } from './radio-group/MenuRadioGroupContext.js';
   import { provideMenuGroupContext, type MenuGroupContext } from './group/MenuGroupContext.js';
   import type { MenuRadioGroupProps, MenuRadioGroup } from './types.js';
   let { render, class: className, value: valueProp, defaultValue, onValueChange: onValueChangeProp, disabled = false, style, 'aria-labelledby': ariaLabelledByProp, children, ref = $bindable(null), ...elementProps }: MenuRadioGroupProps = $props();
   let labelId = $state<string | undefined>(undefined);
-  const [getValue, setValueUnwrapped] = useControlled(() => ({ controlled: valueProp, default: defaultValue, name: 'MenuRadioGroup' }));
-  const value = $derived(getValue());
-  const setValue = useStableCallback((newValue: unknown, eventDetails: MenuRadioGroup.ChangeEventDetails) => {
+  const valueState = new Controlled(() => valueProp, untrack(() => defaultValue));
+  const value = $derived(valueState.value);
+  const setValue = (newValue: unknown, eventDetails: MenuRadioGroup.ChangeEventDetails) => {
     onValueChangeProp?.(newValue, eventDetails);
     if (eventDetails.isCanceled) return;
-    setValueUnwrapped(newValue);
-  });
+    valueState.set(newValue);
+  };
   const componentState = $derived({ disabled });
   const setLabelId: MenuGroupContext = value => { labelId = typeof value === 'function' ? value(labelId) : value; };
   provideMenuGroupContext(setLabelId);

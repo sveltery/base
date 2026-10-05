@@ -24,16 +24,17 @@ async function setup(initialControlled?: unknown, initialDefault?: unknown) {
   return { component, events, target };
 }
 
-it('native: preserves initial mode and computes business updates at the call site', async () => {
+it('preserves initial uncontrolled mode, default initialization and functional updates', async () => {
   const error = vi.spyOn(console, 'error').mockImplementation(() => {});
   const { component, target } = await setup(undefined, 1);
-  component.incrementLocal();
+  component.setLocal((previous: unknown) => Number(previous) + 1);
   await tick();
   expect(target.querySelector('output')!.textContent).toBe('2');
   component.setControlled(3);
   await tick();
   expect(component.snapshot().value).toBe(2);
-  expect(error).not.toHaveBeenCalled();
+  expect(error).toHaveBeenCalledTimes(1);
+  expect(error.mock.calls[0][0]).toContain('changing the uncontrolled value state of SharedUtilsFixture to be controlled');
   component.setLocal(4);
   await tick();
   expect(component.snapshot().value).toBe(4);
@@ -53,7 +54,7 @@ it('reads controlled updates, falls back to initial default and ignores its sett
   component.setLocal('still-ignored');
   await tick();
   expect(component.snapshot().value).toBe('seed');
-  expect(error).not.toHaveBeenCalled();
+  expect(error).toHaveBeenCalledTimes(1);
 });
 
 it('retains native function values and object identity as defaults', async () => {
@@ -66,26 +67,22 @@ it('retains native function values and object identity as defaults', async () =>
   expect(objectDefault.component.snapshot().value).toBe(object);
 });
 
-it('native: defaults remain initial values without React diagnostics or serialization', async () => {
+it('retains the development serializer and default-only warning dependency', async () => {
   const error = vi.spyOn(console, 'error').mockImplementation(() => {});
   const cyclic: { value: bigint; self?: unknown } = { value: 1n };
   cyclic.self = cyclic;
   const { component } = await setup(undefined, cyclic);
-  component.setDefault({ value: 2n });
-  component.setControlled('ignored owner mode change');
+  const equivalent: { value: bigint; self?: unknown } = { value: 1n };
+  equivalent.self = equivalent;
+  component.setDefault(equivalent);
   await tick();
-  expect(component.snapshot().value).toBe(cyclic);
   expect(error).not.toHaveBeenCalled();
-});
-
-it('native: direct setters retain function values and permit optional state clearing', async () => {
-  const { component } = await setup(undefined, 1);
-  const callable = vi.fn(() => 17);
-  component.setLocal(callable);
-  expect(component.snapshot().value).toBe(callable);
-  expect(callable).not.toHaveBeenCalled();
-  component.setLocal(undefined);
-  expect(component.snapshot().value).toBeUndefined();
+  component.setDefault({ value: 2n });
+  await tick();
+  expect(error).toHaveBeenCalledTimes(1);
+  component.setName('RenamedFixture');
+  await tick();
+  expect(error).toHaveBeenCalledTimes(1);
 });
 
 it('uses a stable native closure during setup, attachment, effects and same-turn updates', async () => {
@@ -100,29 +97,29 @@ it('uses a stable native closure during setup, attachment, effects and same-turn
   expect(stable()).toBe('new');
   await tick();
   expect(component.getStable()).toBe(stable);
-  expect(component.snapshot().stableEffectRuns).toBe(2);
+  expect(component.snapshot().stableEffectRuns).toBe(1);
   component.replaceCallback();
   expect(stable()).toBe('replacement:new');
   expect(component.callOptional()).toBeUndefined();
 });
 
-it('native: tracks actual effect reads and cleans up before rerunning', async () => {
+it('tracks explicit effect dependencies and preserves cleanup when unrelated reads change', async () => {
   const { component } = await setup();
   expect(component.snapshot().effectRuns).toBe(1);
   component.setUnrelated(1);
   component.setCallbackRead(1);
   await tick();
-  expect(component.snapshot().effectRuns).toBe(2);
-  expect(component.snapshot().effectCleanups).toBe(1);
+  expect(component.snapshot().effectRuns).toBe(1);
+  expect(component.snapshot().effectCleanups).toBe(0);
   component.setDependency(-0);
   await tick();
-  expect(component.snapshot().effectRuns).toBe(3);
-  expect(component.snapshot().effectCleanups).toBe(2);
+  expect(component.snapshot().effectRuns).toBe(2);
+  expect(component.snapshot().effectCleanups).toBe(1);
   component.setDependency(1);
   await tick();
-  expect(component.snapshot().effectRuns).toBe(4);
+  expect(component.snapshot().effectRuns).toBe(3);
   await unmount(mounted.pop()!);
-  expect(component.snapshot().effectCleanups).toBe(4);
+  expect(component.snapshot().effectCleanups).toBe(3);
 });
 
 it('retains -0 as previous value and calls the callback before committing the observed value', async () => {

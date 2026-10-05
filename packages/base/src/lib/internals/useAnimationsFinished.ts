@@ -1,7 +1,7 @@
 // Ported from Base UI v1.8.0 useAnimationsFinished.ts; MIT: THIRD_PARTY_NOTICES.md.
 import { flushSync } from 'svelte';
 import { useAnimationFrame } from '@sveltery/utils/useAnimationFrame';
-import { useStableCallback } from '@sveltery/utils/useStableCallback';
+
 import { resolveRef } from '../utils/resolveRef.js';
 import * as TransitionStatusDataAttributes from './TransitionStatusDataAttributes.js';
 
@@ -28,7 +28,7 @@ export function useAnimationsFinished(
   getBatch: () => boolean = () => false,
 ) {
   const frame = useAnimationFrame();
-  return useStableCallback((fnToExecute: () => void, signal: AbortSignal | null = null) => {
+  return (fnToExecute: () => void, signal: AbortSignal | null = null) => {
     const batch = getBatch();
     frame.cancel();
     const element = resolveRef(elementOrRef);
@@ -68,5 +68,5 @@ export function useAnimationsFinished(
       return;
     }
     frame.request(exec);
-  });
+  };
 }

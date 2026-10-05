@@ -3,9 +3,8 @@
 import { DEV } from 'esm-env';
 import { untrack } from 'svelte';
 import { useTimeout } from '@sveltery/utils/useTimeout';
-import { useStableCallback } from '@sveltery/utils/useStableCallback';
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
-import { useRefWithInit } from '@sveltery/utils/useRefWithInit';
+
+
 import { EMPTY_ARRAY, EMPTY_OBJECT } from '@sveltery/utils/empty';
 import { useDismiss } from '../../floating-ui/hooks/useDismiss.svelte.js';
 import { useFloatingNodeId, useFloatingParentNodeId } from '../../floating-ui/components/FloatingTree.svelte.js';
@@ -73,7 +72,7 @@ export function createMenuRoot<Payload>(getProps: () => MenuRootProps<Payload>, 
     // Mirror an instantly-opened parent (e.g. keyboard click) so `[data-instant]` styling
     // suppresses the enter transition on both popups or neither. Captured once —
     // `animateInitialOpen` is only meaningful during the first render.
-    const seededInstantType = useRefWithInit(() => animateInitialOpen ? parentMenuStore?.state.instantType : undefined).current;
+    const seededInstantType = animateInitialOpen ? parentMenuStore?.state.instantType : undefined;
     const store = untrack(() => useMenuRootStore<Payload>({
         open: defaultOpen,
         openProp,
@@ -107,13 +106,13 @@ export function createMenuRoot<Payload>(getProps: () => MenuRootProps<Payload>, 
     const allowTouchToCloseRef = { current: true };
     const allowTouchToCloseTimeout = useTimeout();
     const nested = $derived(floatingParentNodeId != null);
-    useIsoLayoutEffect(() => {
+    $effect(() => {
       if (DEV) {
         if (parent.type !== undefined && modalProp !== undefined) {
             console.warn('Base UI: The `modal` prop is not supported on nested menus. It will be ignored.');
         }
       }
-    }, () => [parent, modalProp]);
+    });
     const interaction = useOpenInteractionType(() => open);
     const openMethod = $derived(interaction.openMethod);
     const interactionTypeProps = interaction.triggerProps;
@@ -135,7 +134,7 @@ export function createMenuRoot<Payload>(getProps: () => MenuRootProps<Payload>, 
     // bypasses `setOpen`, so nothing would reset it and `[data-instant]` would wrongly suppress
     // every subsequent transition. Clear it once the enter phase settles, unless an interactive
     // open change already replaced it.
-    useIsoLayoutEffect(() => {
+    $effect(() => {
         if (seededInstantType === undefined) {
             return undefined;
         }
@@ -169,8 +168,8 @@ export function createMenuRoot<Payload>(getProps: () => MenuRootProps<Payload>, 
         return () => {
             abortController.abort();
         };
-    }, () => [seededInstantType, open, transitionStatus, runOnceAnimationsFinish, store]);
-    useIsoLayoutEffect(() => {
+    });
+    $effect(() => {
         if (contextMenuContext && !parentMenuRootContext) {
             // This is a context menu root.
             // It doesn't support detached triggers yet, so we have to sync the parent context manually.
@@ -189,14 +188,8 @@ export function createMenuRoot<Payload>(getProps: () => MenuRootProps<Payload>, 
                 floatingParentNodeId: floatingParentNodeIdFromContext,
             });
         }
-    }, () => [
-        contextMenuContext,
-        parentMenuRootContext,
-        floatingNodeIdFromContext,
-        floatingParentNodeIdFromContext,
-        store,
-    ]);
-    useIsoLayoutEffect(() => {
+    });
+    $effect(() => {
         if (!open) {
             openEventRef.current = null;
         }
@@ -214,13 +207,13 @@ export function createMenuRoot<Payload>(getProps: () => MenuRootProps<Payload>, 
         allowOutsidePressDismissalTimeout.start(500, () => {
             allowOutsidePressDismissalRef.current = true;
         });
-    }, () => [allowOutsidePressDismissalTimeout, open, parent.type]);
-    useIsoLayoutEffect(() => {
+    });
+    $effect(() => {
         if (!open && !hoverEnabled) {
             store.set('hoverEnabled', true);
         }
-    }, () => [open, hoverEnabled, store]);
-    const setOpen = useStableCallback((nextOpen: boolean, eventDetails: Omit<MenuRoot.ChangeEventDetails, 'preventUnmountOnClose'>) => {
+    });
+    const setOpen = (nextOpen: boolean, eventDetails: Omit<MenuRoot.ChangeEventDetails, 'preventUnmountOnClose'>) => {
         const reason = eventDetails.reason;
         // Read the store directly, as relayed tree events and stale hover timers can request
         // a close after the state changed but before this component re-rendered.
@@ -294,7 +287,7 @@ export function createMenuRoot<Payload>(getProps: () => MenuRootProps<Payload>, 
         // after it would come too late for an initially open submenu seeding its own store from
         // this one during that flush.
         store.update(popupOpenState);
-    });
+    };
     const floatingRootContext = useSyncedFloatingRootContext({
         popupStore: store,
         floatingRootContext: store.state.floatingRootContext,
@@ -306,7 +299,7 @@ export function createMenuRoot<Payload>(getProps: () => MenuRootProps<Payload>, 
     // Registered in a layout effect (not a passive one) so `setOpen` emits from imperative
     // `MenuHandle.open()` calls made in the same commit this root mounts — e.g. from another layout
     // effect during a route-transition handoff — are received instead of being silently dropped.
-    useIsoLayoutEffect(() => {
+    $effect(() => {
         const handleSetOpenEvent = ({ open: nextOpen, eventDetails, }: {
             open: boolean;
             eventDetails: MenuRoot.ChangeEventDetails;
@@ -315,12 +308,12 @@ export function createMenuRoot<Payload>(getProps: () => MenuRootProps<Payload>, 
         return () => {
             floatingEvents?.off('setOpen', handleSetOpenEvent);
         };
-    }, () => [floatingEvents, setOpen]);
+    });
     const handleImperativeClose = () => {
         store.setOpen(false, createChangeEventDetails(REASONS.imperativeAction));
     };
     const ctx = $derived(parent.type === 'context-menu' ? parent.context : undefined);
-    useIsoLayoutEffect(() => {
+    $effect(() => {
         if (!ctx)
             return;
         ctx.positionerRef.current = positionerElement;
@@ -329,7 +322,7 @@ export function createMenuRoot<Payload>(getProps: () => MenuRootProps<Payload>, 
             ctx.positionerRef.current = null;
             ctx.actionsRef.current = null;
         } };
-    }, () => [ctx, positionerElement, setOpen]);
+    });
     const dismiss = useDismiss(() => floatingRootContext, () => ({
         enabled: !disabled,
         bubbles: { escapeKey: closeParentOnEsc && parent.type === 'menu' },
@@ -397,10 +390,7 @@ export function createMenuRoot<Payload>(getProps: () => MenuRootProps<Payload>, 
     });
     // The initial render has no store subscribers yet. Seed these props before triggers render so
     // the synchronization effect below doesn't make every trigger render twice in the first commit.
-    useRefWithInit(() => {
-        store.update({ inactiveTriggerProps });
-        return null;
-    });
+    store.update({ inactiveTriggerProps });
     const popupProps = $derived.by(() => mergeProps(FOCUSABLE_POPUP_PROPS, {
         id: floatingId,
         role: 'menu' as const,
@@ -444,6 +434,6 @@ function useMenuRootStore<Payload>(initialState: Partial<MenuStoreState<Payload>
     // Default values are only initial values; controlled values and root state are synced after creation.
     // Unlike other popups, Menu wires its floating root context separately (it relays open changes
     // through an event).
-    const store = useRefWithInit(() => new MenuStore<Payload>(initialState, floatingId, nested)).current;
+    const store = new MenuStore<Payload>(initialState, floatingId, nested);
     return store;
 }

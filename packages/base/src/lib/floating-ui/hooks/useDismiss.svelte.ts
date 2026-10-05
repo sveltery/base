@@ -1,10 +1,10 @@
 // Ported business body from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
 import { addEventListener } from '@sveltery/utils/addEventListener';
 import { mergeCleanups } from '@sveltery/utils/mergeCleanups';
 import { ownerDocument } from '@sveltery/utils/owner';
-import { useStableCallback } from '@sveltery/utils/useStableCallback';
+
 import { Timeout, useTimeout } from '@sveltery/utils/useTimeout';
 import {
   getComputedStyle,
@@ -136,12 +136,10 @@ export function useDismiss(
 
   const contextTree = useFloatingTree();
   const tree = $derived(externalTree ?? contextTree);
-  const outsidePressFn = useStableCallback(
-    (event: MouseEvent | TouchEvent) => typeof outsidePressProp === 'function' ? outsidePressProp(event) : false,
-  );
+  const outsidePressFn = (event: MouseEvent | TouchEvent) => typeof outsidePressProp === 'function' ? outsidePressProp(event) : false;
   const outsidePress = $derived(typeof outsidePressProp === 'function' ? outsidePressFn : outsidePressProp);
   const outsidePressEnabled = $derived(outsidePress !== false);
-  const getOutsidePressEventProp = useStableCallback(() => outsidePressEvent);
+  const getOutsidePressEventProp = () => outsidePressEvent;
 
   const { escapeKey: escapeKeyBubbles, outsidePress: outsidePressBubbles } = $derived(normalizeProp(bubbles));
 
@@ -166,30 +164,28 @@ export function useDismiss(
   const cancelDismissOnEndTimeout = useTimeout();
   const clearInsideTreeTimeout = useTimeout();
 
-  const clearInsideTree = useStableCallback(() => {
+  const clearInsideTree = () => {
     clearInsideTreeTimeout.clear();
     dataRef.current.insideTree = false;
-  });
+  };
 
-  const hasBlockingChild = useStableCallback(
-    (bubbleKey: '__escapeKeyBubbles' | '__outsidePressBubbles') => {
+  const hasBlockingChild = (bubbleKey: '__escapeKeyBubbles' | '__outsidePressBubbles') => {
       const nodeId = dataRef.current.floatingContext?.nodeId;
       const children = tree ? getNodeChildren(tree.nodesRef.current, nodeId) : [];
 
       return children.some(
         (child) => child.context?.open && !child.context.dataRef.current[bubbleKey],
       );
-    },
-  );
+    };
 
-  const isEventWithinOwnElements = useStableCallback((event: Event) => {
+  const isEventWithinOwnElements = (event: Event) => {
     return (
       isEventTargetWithin(event, store.select('floatingElement')) ||
       isEventTargetWithin(event, store.select('domReferenceElement'))
     );
-  });
+  };
 
-  const closeOnReferencePress = useStableCallback((event: Event) => {
+  const closeOnReferencePress = (event: Event) => {
     if (!referencePress()) {
       return;
     }
@@ -201,10 +197,9 @@ export function useDismiss(
         event as MouseEvent | PointerEvent | TouchEvent | KeyboardEvent,
       ),
     );
-  });
+  };
 
-  const closeOnEscapeKeyDown = useStableCallback(
-    (event: KeyboardEvent) => {
+  const closeOnEscapeKeyDown = (event: KeyboardEvent) => {
       if (!open || !enabled || !escapeKey || event.key !== 'Escape') {
         return;
       }
@@ -231,16 +226,14 @@ export function useDismiss(
       if (!escapeKeyBubbles && !eventDetails.isPropagationAllowed) {
         event.stopPropagation();
       }
-    },
-  );
+    };
 
-  const markInsideTree = useStableCallback(() => {
+  const markInsideTree = () => {
     dataRef.current.insideTree = true;
     clearInsideTreeTimeout.start(0, clearInsideTree);
-  });
+  };
 
-  const markPressStartedInsideTree = useStableCallback(
-    (event: PointerEvent | MouseEvent) => {
+  const markPressStartedInsideTree = (event: PointerEvent | MouseEvent) => {
       if (!open || !enabled || event.button !== 0) {
         return;
       }
@@ -257,11 +250,9 @@ export function useDismiss(
         pressStartedInsideRef.current = true;
         pressStartPreventedRef.current = false;
       }
-    },
-  );
+    };
 
-  const markInsidePressStartPrevented = useStableCallback(
-    (event: PointerEvent | MouseEvent) => {
+  const markInsidePressStartPrevented = (event: PointerEvent | MouseEvent) => {
       if (!open || !enabled) {
         return;
       }
@@ -273,12 +264,11 @@ export function useDismiss(
       if (pressStartedInsideRef.current) {
         pressStartPreventedRef.current = true;
       }
-    },
-  );
+    };
 
   // A same-batch close+reopen never renders `open === false`, so only `openchange` can
   // observe that session boundary. The effect below covers controlled flips.
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     function handleOpenChange(details: FloatingUIOpenChangeDetails) {
       // Only the closing half ends the session: `setOpen(true)` on an already-open
       // element (hovering an inactive trigger) must not drop a press mid-gesture.
@@ -291,9 +281,9 @@ export function useDismiss(
     return () => {
       events.off('openchange', handleOpenChange);
     };
-  }, () => [events]);
+  });
 
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     if (!open || !enabled) {
       // Reset in the effect body, not the cleanup, which also runs when a dependency
       // changes mid-gesture.
@@ -748,25 +738,7 @@ export function useDismiss(
       suppressNextOutsideClickRef.current = false;
       clearInsideTree();
     };
-  }, () => [
-    dataRef,
-    floatingElement,
-    escapeKey,
-    outsidePressEnabled,
-    outsidePress,
-    open,
-    enabled,
-    escapeKeyBubbles,
-    outsidePressBubbles,
-    closeOnEscapeKeyDown,
-    clearInsideTree,
-    getOutsidePressEventProp,
-    hasBlockingChild,
-    isEventWithinOwnElements,
-    tree,
-    store,
-    cancelDismissOnEndTimeout,
-  ]);
+  });
 
   const reference: ElementProps['reference'] = {
       onkeydown: closeOnEscapeKeyDown,

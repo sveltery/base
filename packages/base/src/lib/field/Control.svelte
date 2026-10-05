@@ -1,11 +1,12 @@
 <script lang="ts">
+  import { untrack } from 'svelte';
   // Ported in source order from Base UI v1.8.0 field/control/FieldControl.tsx.
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
   import RenderElement from '../internals/RenderElement.svelte';
-  import { useControlled } from '@sveltery/utils/useControlled';
-  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+  import { Controlled } from '@sveltery/utils/Controlled';
+  
   import { ownerDocument } from '@sveltery/utils/owner';
-  import { useStableCallback } from '@sveltery/utils/useStableCallback';
+  
   import { useTimeout } from '@sveltery/utils/useTimeout';
   import { useFieldRootContext } from '../internals/field-root-context/FieldRootContext.js';
   import { useFieldControlNativeName } from '../internals/field-control-name/FieldControlNameContext.js';
@@ -35,16 +36,16 @@
   const instanceId = $props.id();
   const getId = useLabelableId(() => ({ id: idProp }), useBaseUiId(undefined, instanceId));
   const id = $derived(getId());
-  const [getValueUnwrapped] = useControlled(() => ({ controlled: valueProp, default: defaultValue, name: 'FieldControl', state: 'value' }));
+  const valueState = new Controlled(() => valueProp, untrack(() => defaultValue));
   const isControlled = $derived(valueProp !== undefined);
-  const value = $derived(isControlled ? getValueUnwrapped() : undefined);
+  const value = $derived(isControlled ? valueState.value : undefined);
   const serializedValue = $derived(value == null ? undefined : String(value));
-  const getValueFromInput = useStableCallback(() => field.validation.inputRef.current?.value);
+  const getValueFromInput = () => field.validation.inputRef.current?.value;
   useRegisterFieldControl(field.validation.inputRef, () => id, () => serializedValue, getValueFromInput, () => !disabled, () => nameProp ?? undefined);
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     const currentValue = serializedValue ?? field.validation.inputRef.current?.value;
     if (currentValue !== undefined) field.setFilled(currentValue !== '');
-  }, () => [serializedValue, field.validation.inputRef, field.setFilled]);
+  });
   useValueChanged(() => serializedValue, () => () => {
     if (serializedValue === undefined) return;
     form.clearErrors(name ?? undefined);
@@ -53,9 +54,9 @@
   });
   const inputRef = $state<{ current: HTMLElement | null }>({ current: null });
   const enterValidationTimeout = useTimeout();
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     if (autofocus && inputRef.current === activeElement(ownerDocument(inputRef.current))) field.setFocused(true);
-  }, () => [autofocus, field.setFocused]);
+  });
   const internal = $derived({
     id, disabled, name: getNativeName(name), ref: field.validation.inputRef,
     'aria-labelledby': labelable.labelId, autofocus,

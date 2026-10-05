@@ -9,8 +9,8 @@
   import { createRefAttachment } from '../../internals/nativeRefAttachment.js';
   import { mergePropsN } from '../../merge-props/index.js';
   import type { HTMLInputAttributes } from 'svelte/elements';
-  import { useControlled } from '@sveltery/utils/useControlled';
-  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+  import { Controlled } from '@sveltery/utils/Controlled';
+  
   import { visuallyHidden, visuallyHiddenInput } from '@sveltery/utils/visuallyHidden';
   import { toNativeStyle } from '../../internals/nativeProps.js';
   import { useEnterSubmit } from '../utils/useEnterSubmit.svelte.js';
@@ -120,16 +120,10 @@
     native: nativeButton,
   }));
   const validation = $derived(groupContext?.validation ?? field.validation);
-  const [getChecked, setCheckedState] = useControlled(() => ({
-    controlled:
-      value !== undefined && groupContext !== undefined && !parent
+  const checkedState = new Controlled(() => value !== undefined && groupContext !== undefined && !parent
         ? groupContext.value.includes(value)
-        : groupChecked,
-    default: defaultChecked,
-    name: 'Checkbox',
-    state: 'checked',
-  }));
-  const checked = $derived(getChecked());
+        : groupChecked, untrack(() => defaultChecked));
+  const checked = $derived(checkedState.value);
   const computedChecked = $derived(isGroupedWithParent ? Boolean(groupChecked) : checked);
   const computedIndeterminate = $derived(
     Boolean(isGroupedWithParent ? groupIndeterminate || indeterminate : indeterminate),
@@ -160,13 +154,10 @@
     enableFallback: !nativeButton,
     generatedLabelId: `${controlId}-label`,
   }));
-  useIsoLayoutEffect(
-    () => {
+  $effect(() => {
       if (inputRef.current) inputRef.current.indeterminate = computedIndeterminate;
       if (!groupContext) field.setFilled(checked);
-    },
-    () => [checked, computedIndeterminate, groupContext, field.setFilled],
-  );
+    });
   useValueChanged(
     () => checked,
     () => () => {
@@ -206,7 +197,7 @@
         event.preventDefault();
         return;
       }
-      setCheckedState(nextChecked);
+      checkedState.set(nextChecked);
       if (
         value !== undefined &&
         groupContext !== undefined &&
@@ -344,5 +335,5 @@
   {...hiddenInputProps as HTMLInputAttributes}
   type="checkbox"
   {@attach inputAttachment}
-  bind:checked={getChecked, setCheckedState}
+  bind:checked={() => checkedState.value, next => checkedState.set(next)}
 />

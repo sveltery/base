@@ -1,6 +1,5 @@
 // Mechanically ported from mui/base-ui v1.8.0 useMergedRefs.ts at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
-import { useRefWithInit } from './useRefWithInit.js';
 export type MergedRef<I> = { current: I | null } | ((instance: I | null) => void | (() => void));
 export type MergedRefCallback<I> = (instance: I | null) => void;
 type Empty = null | undefined;
@@ -16,7 +15,7 @@ type ForkRef<I> = {
 
 /** Native setup owner: one initialized source ref per component, shared by fixed/N calls. */
 export function createMergedRefs<I>() {
-  const storage = useRefWithInit(createForkRef<I>);
+  const storage = createForkRef<I>();
   /**
    * Merges refs into a single memoized callback ref or `null`.
    * This makes sure multiple refs are updated together and have the same value.
@@ -38,7 +37,7 @@ export function createMergedRefs<I>() {
     c?: InputRef<I>,
     d?: InputRef<I>,
   ): Result<I> {
-    const forkRef = storage.current;
+    const forkRef = storage;
     if (didChange(forkRef, a, b, c, d)) {
       update(forkRef, [a, b, c, d]);
     }
@@ -51,7 +50,7 @@ export function createMergedRefs<I>() {
    * If you need to merge a fixed number (up to four) of refs, use `useMergedRefs` instead for better performance.
    */
   function useMergedRefsN(refs: InputRef<I>[]): Result<I> {
-    const forkRef = storage.current;
+    const forkRef = storage;
     if (didChangeN(forkRef, refs)) {
       update(forkRef, refs);
     }

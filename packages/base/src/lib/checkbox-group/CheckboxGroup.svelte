@@ -1,9 +1,10 @@
 <script lang="ts">
+  import { untrack } from 'svelte';
   // Source business port of Base UI v1.8.0 CheckboxGroup.tsx. MIT.
   import RenderElement from '../internals/RenderElement.svelte';
-  import { useControlled } from '@sveltery/utils/useControlled';
-  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
-  import { useStableCallback } from '@sveltery/utils/useStableCallback';
+  import { Controlled } from '@sveltery/utils/Controlled';
+  
+  
   import { EMPTY_ARRAY } from '@sveltery/utils/empty';
   import { areArraysEqual } from '@sveltery/utils/areArraysEqual';
   import { useBaseUiId } from '../internals/useBaseUiId.js';
@@ -40,20 +41,13 @@
   const labelable = useLabelableContext();
   const form = useFormContext();
   const disabled = $derived(Boolean(field.disabled || disabledProp));
-  const [getValue, setValueUnwrapped] = useControlled(() => ({
-    controlled: externalValue,
-    default: defaultValueProp ?? (EMPTY_ARRAY as string[]),
-    name: 'CheckboxGroup',
-    state: 'value',
-  }));
-  const value = $derived(getValue());
-  const setValue = useStableCallback(
-    (nextValue: string[], details: CheckboxGroupChangeEventDetails) => {
+  const valueState = new Controlled(() => externalValue, untrack(() => defaultValueProp ?? (EMPTY_ARRAY as string[])));
+  const value = $derived(valueState.value);
+  const setValue = (nextValue: string[], details: CheckboxGroupChangeEventDetails) => {
       onValueChange?.(nextValue, details);
       if (details.isCanceled) return;
-      setValueUnwrapped(nextValue);
-    },
-  );
+      valueState.set(nextValue);
+    };
   const parent = useCheckboxGroupParent(() => ({
     allValues,
     value,
@@ -68,7 +62,7 @@
       return field.validation.getInputControl();
     },
   };
-  const getFormValue = useStableCallback(() => {
+  const getFormValue = () => {
     const formElement = form.elementRef.current;
     if (!formElement) return value;
     // eslint-disable-next-line svelte/prefer-svelte-reactivity -- source snapshot collector is not reactive state
@@ -82,7 +76,7 @@
         successfulValues.add(registration.value);
     }
     return value.filter((inputValue) => successfulValues.has(inputValue));
-  });
+  };
   useRegisterFieldControl(
     controlRef,
     () => id,
@@ -91,10 +85,7 @@
     () => Boolean(field.name) && !disabled,
     () => field.name,
   );
-  useIsoLayoutEffect(
-    () => field.setFilled(value.length > 0),
-    () => [value, field.setFilled],
-  );
+  $effect(() => field.setFilled(value.length > 0));
   useValueChanged(
     () => value,
     () => () => {

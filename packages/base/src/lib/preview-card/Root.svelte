@@ -8,7 +8,7 @@
   import { ROOT, usePreviewCardRootContext } from './context.js';
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../internals/reasons.js';
-  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+  
   import { useImplicitActiveTrigger, useOpenStateTransitions, usePopupRootStore } from '../utils/popups/popupStoreUtils.svelte.js';
   import type { PreviewCardRootProps, PreviewCardRootChangeEventDetails } from './types.js';
   import { provideFloatingTree } from '../floating-ui/components/FloatingTree.svelte.js';
@@ -37,9 +37,9 @@
   const { forceUnmount } = useOpenStateTransitions(() => open, store, () => {
     store.context.inlineRectCoordsRef.current = undefined;
   });
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     if (open && activeTriggerId == null) store.set('payload', undefined);
-  }, () => [store, activeTriggerId, open]);
+  });
   export function close() { store.setOpen(false, createChangeEventDetails(REASONS.imperativeAction)); }
   export function unmount() { forceUnmount(); }
   // eslint-disable-next-line no-useless-assignment -- Native bind:actions replaces the Source actionsRef output.

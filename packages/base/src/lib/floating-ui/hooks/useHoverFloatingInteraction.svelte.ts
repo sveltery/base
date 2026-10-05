@@ -2,9 +2,9 @@
 // MIT: THIRD_PARTY_NOTICES.md. Native Svelte live readers/effects replace React hooks.
 import { addEventListener } from '@sveltery/utils/addEventListener';
 import { mergeCleanups } from '@sveltery/utils/mergeCleanups';
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
 import { ownerDocument } from '@sveltery/utils/owner';
-import { useStableCallback } from '@sveltery/utils/useStableCallback';
+
 import { useTimeout } from '@sveltery/utils/useTimeout';
 import { isElement } from '@floating-ui/utils/dom';
 import { createChangeEventDetails } from '../../internals/createBaseUIEventDetails.js';
@@ -50,27 +50,27 @@ export function useHoverFloatingInteraction(getContext: () => FloatingRootContex
     const getInstance = useHoverInteractionSharedState(() => store);
     const instance = $derived(getInstance());
     const childClosedTimeout = useTimeout();
-    const isClickLikeOpenEvent = useStableCallback(() => {
+    const isClickLikeOpenEvent = () => {
         return isClickLikeOpenEventShared(dataRef.current.openEvent?.type, instance.interactedInside);
-    });
-    const isHoverOpen = useStableCallback(() => {
+    };
+    const isHoverOpen = () => {
         return isHoverOpenEvent(dataRef.current.openEvent?.type);
-    });
-    const clearPointerEvents = useStableCallback(() => {
+    };
+    const clearPointerEvents = () => {
         clearSafePolygonPointerEventsMutation(instance);
-    });
-    useIsoLayoutEffect(() => {
+    };
+    $effect(() => {
         if (!open) {
             instance.pointerType = undefined;
             instance.restTimeoutPending = false;
             instance.interactedInside = false;
             clearPointerEvents();
         }
-    }, () => [open, instance, clearPointerEvents]);
-    useIsoLayoutEffect(() => {
+    });
+    $effect(() => {
         return clearPointerEvents;
-    }, () => [clearPointerEvents]);
-    useIsoLayoutEffect(() => {
+    });
+    $effect(() => {
         if (!enabled) {
             return undefined;
         }
@@ -109,18 +109,8 @@ export function useHoverFloatingInteraction(getContext: () => FloatingRootContex
             };
         }
         return undefined;
-    }, () => [
-        enabled,
-        open,
-        domReferenceElement,
-        floatingElement,
-        instance,
-        isHoverOpen,
-        tree,
-        parentId,
-        clearPointerEvents,
-    ]);
-    useIsoLayoutEffect(() => {
+    });
+    $effect(() => {
         if (!enabled) {
             return undefined;
         }
@@ -199,19 +189,5 @@ export function useHoverFloatingInteraction(getContext: () => FloatingRootContex
         return mergeCleanups(floating && addEventListener(floating, 'mouseenter', onFloatingMouseEnter), floating && addEventListener(floating, 'mouseleave', onFloatingMouseLeave), floating && addEventListener(floating, 'pointerdown', handleInteractInside, true), () => {
             tree?.events.off('floating.closed', onNodeClosed);
         });
-    }, () => [
-        enabled,
-        floatingElement,
-        store,
-        dataRef,
-        closeDelayProp,
-        nodeIdProp,
-        isHoverOpen,
-        isClickLikeOpenEvent,
-        clearPointerEvents,
-        instance,
-        tree,
-        parentId,
-        childClosedTimeout,
-    ]);
+    });
 }

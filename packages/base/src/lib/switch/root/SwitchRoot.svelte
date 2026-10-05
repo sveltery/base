@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { untrack } from 'svelte';
   // Source-ordered business port of Base UI v1.8.0 SwitchRoot.tsx at
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
   import { useFieldControlNativeName } from '../../internals/field-control-name/FieldControlNameContext.js';
@@ -6,8 +7,8 @@
   import { createMergedRefs } from '@sveltery/utils/useMergedRefs';
   import { createRefAttachment } from '../../internals/nativeRefAttachment.js';
   import type { HTMLInputAttributes } from 'svelte/elements';
-  import { useControlled } from '@sveltery/utils/useControlled';
-  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+  import { Controlled } from '@sveltery/utils/Controlled';
+  
   import { visuallyHidden, visuallyHiddenInput } from '@sveltery/utils/visuallyHidden';
   import { toNativeStyle } from '../../internals/nativeProps.js';
   import { useBaseUiId } from '../../internals/useBaseUiId.js';
@@ -61,13 +62,8 @@
   const getControlId = useLabelableId(() => ({ id: idProp }), `${id}-input`);
   const controlId = $derived(getControlId());
   const hiddenInputId = $derived(nativeButton ? undefined : controlId);
-  const [getChecked, setCheckedState] = useControlled(() => ({
-    controlled: checkedProp,
-    default: Boolean(defaultChecked),
-    name: 'Switch',
-    state: 'checked',
-  }));
-  const checked = $derived(getChecked());
+  const checkedState = new Controlled(() => checkedProp, untrack(() => Boolean(defaultChecked)));
+  const checked = $derived(checkedState.value);
   useRegisterFieldControl(
     switchRef,
     () => id,
@@ -76,10 +72,7 @@
     () => !disabled,
     () => nameProp,
   );
-  useIsoLayoutEffect(
-    () => field.setFilled(checked),
-    () => [checked, field.setFilled],
-  );
+  $effect(() => field.setFilled(checked));
   useValueChanged(
     () => checked,
     () => () => {
@@ -151,7 +144,7 @@
         event.preventDefault();
         return;
       }
-      setCheckedState(nextChecked);
+      checkedState.set(nextChecked);
     },
     onfocus() {
       switchRef.current?.focus();
@@ -204,5 +197,5 @@
   {...inputProps as HTMLInputAttributes}
   type="checkbox"
   {@attach inputAttachment}
-  bind:checked={getChecked, setCheckedState}
+  bind:checked={() => checkedState.value, next => checkedState.set(next)}
 />

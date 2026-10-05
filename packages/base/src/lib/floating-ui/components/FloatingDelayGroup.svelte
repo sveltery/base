@@ -3,7 +3,7 @@
   // MIT: THIRD_PARTY_NOTICES.md; pin 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
   import { setContext, untrack, type Snippet } from 'svelte';
   import { useTimeout } from '@sveltery/utils/useTimeout';
-  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+  
   import { getDelay } from '../hooks/useHoverShared.js';
   import type { Delay } from '../types.js';
   import {
@@ -25,7 +25,7 @@
   const currentContextRef: FloatingDelayGroupContextValue['currentContextRef'] = { current: null };
   const timeout = useTimeout();
 
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     initialDelayRef.current = delay;
 
     if (!currentIdRef.current) {
@@ -37,7 +37,7 @@
       open: getDelay(delayRef.current, 'open'),
       close: getDelay(delay, 'close'),
     };
-  }, () => [delay, currentIdRef, delayRef, initialDelayRef]);
+  });
 
   setContext<FloatingDelayGroupContextValue>(FloatingDelayGroupContext, {
     hasProvider: true,

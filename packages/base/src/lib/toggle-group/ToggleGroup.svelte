@@ -1,7 +1,7 @@
 <script lang="ts" generics="Value extends string = string">
   // Source-ordered Base UI v1.8.0 ToggleGroup.tsx at
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
-  import { useStableCallback } from '@sveltery/utils/useStableCallback';
+  
   import { useControlled } from '@sveltery/utils/useControlled';
   import { EMPTY_ARRAY } from '@sveltery/utils/empty';
   import RenderElement from '../internals/RenderElement.svelte';
@@ -24,7 +24,7 @@
     controlled: valueProp, default: defaultValue, name: 'ToggleGroup', state: 'value',
   }));
   const groupValue = $derived(getGroupValue());
-  const setGroupValue = useStableCallback((newValue: Value, nextPressed: boolean, eventDetails: ToggleGroupChangeEventDetails) => {
+  const setGroupValue = (newValue: Value, nextPressed: boolean, eventDetails: ToggleGroupChangeEventDetails) => {
     let newGroupValue: Value[];
     if (multiple) {
       newGroupValue = groupValue.slice();
@@ -36,7 +36,7 @@
     onValueChange?.(newGroupValue, eventDetails);
     if (eventDetails.isCanceled) return;
     setValueState(newGroupValue);
-  });
+  };
   const state: ToggleGroupState = $derived({ disabled, multiple, orientation });
   setToggleGroupContext<Value>({
     get disabled() { return disabled; }, setGroupValue,

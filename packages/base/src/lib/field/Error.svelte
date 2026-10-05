@@ -1,7 +1,8 @@
 <script lang="ts">
+  import { untrack } from 'svelte';
   // Ported from Base UI v1.8.0 FieldError.tsx; MIT: THIRD_PARTY_NOTICES.md.
   import RenderElement from '../internals/RenderElement.svelte';
-  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+  
   import { useFieldRootContext } from '../internals/field-root-context/FieldRootContext.js';
   import { useLabelableContext } from '../internals/labelable-provider/LabelableContext.js';
   import { fieldValidityMapping } from '../internals/field-constants/constants.js';
@@ -28,12 +29,12 @@
     return hasFormError || field.validityData.state.valid === false;
   });
   const transition = useTransitionStatus(() => rendered);
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     if (!rendered || !id) return;
     const installedId = id;
-    setMessageIds(v => v.concat(installedId));
+    untrack(() => setMessageIds(v => v.concat(installedId)));
     return () => { setMessageIds(v => v.filter(item => item !== installedId)); };
-  }, () => [rendered, id, setMessageIds]);
+  });
   const errorRef = $state<{ current: HTMLElement | null }>({ current: null });
   let lastRenderedMessage = $state.raw<string | string[] | null>(null);
   let lastRenderedMessageKey = $state<string | null>(null);

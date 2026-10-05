@@ -1,8 +1,9 @@
 <script lang="ts" generics="Value extends string = string">
+  import { untrack } from 'svelte';
   // Source-ordered Base UI v1.8.0 Toggle.tsx at
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
   import { DEV } from 'esm-env';
-  import { useControlled } from '@sveltery/utils/useControlled';
+  import { Controlled } from '@sveltery/utils/Controlled';
   import { error } from '@sveltery/utils/error';
   import { useBaseUiId } from '../internals/useBaseUiId.js';
   import RenderElement from '../internals/RenderElement.svelte';
@@ -37,11 +38,8 @@
       }
     });
   }
-  const [getPressed, setPressedState] = useControlled(() => ({
-    controlled: groupContext ? value !== undefined && groupValue.indexOf(value) > -1 : pressedProp,
-    default: defaultPressed, name: 'Toggle', state: 'pressed',
-  }));
-  const pressed = $derived(getPressed());
+  const pressedState = new Controlled(() => groupContext ? value !== undefined && groupValue.indexOf(value) > -1 : pressedProp, untrack(() => defaultPressed));
+  const pressed = $derived(pressedState.value);
   const { getButtonProps, buttonRef } = useButton(() => ({ disabled, native: nativeButton }));
   const state: ToggleState = $derived({ disabled, pressed });
   const forwardedRef = {
@@ -60,7 +58,7 @@
         if (details.isCanceled) return;
         if (value) groupContext?.setGroupValue(value, nextPressed, details);
         if (details.isCanceled) return;
-        setPressedState(nextPressed);
+        pressedState.set(nextPressed);
       },
     },
     elementProps,

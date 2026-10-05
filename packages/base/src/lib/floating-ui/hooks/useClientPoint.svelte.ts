@@ -1,8 +1,8 @@
 // Original Base UI 1.8.0 useClientPoint business, native live readers/effects.
 // MIT: THIRD_PARTY_NOTICES.md; pin 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
 import { addEventListener } from '@sveltery/utils/addEventListener';
-import { useStableCallback } from '@sveltery/utils/useStableCallback';
+
 import { getWindow } from '@floating-ui/utils/dom';
 import type { ContextData, ElementProps, FloatingContext, FloatingRootContext } from '../types.js';
 import { contains, getTarget } from '../utils/element.js';
@@ -131,12 +131,11 @@ export function useClientPoint(
   // Native invalidation restarts the listener after returning from the popup.
   let listenerRevision = $state(0);
 
-  const resetReference = useStableCallback((reference: Element | null) => {
+  const resetReference = (reference: Element | null) => {
     store.set('positionReference', reference);
-  });
+  };
 
-  const setReference = useStableCallback(
-    (newX: number | null, newY: number | null, referenceElement?: Element | null) => {
+  const setReference = (newX: number | null, newY: number | null, referenceElement?: Element | null) => {
       if (initialRef.current) {
         return;
       }
@@ -158,10 +157,9 @@ export function useClientPoint(
           pointerType,
         }),
       );
-    },
-  );
+    };
 
-  const handleReferenceEnterOrMove = useStableCallback((event: MouseEvent) => {
+  const handleReferenceEnterOrMove = (event: MouseEvent) => {
     if (!open) {
       setReference(event.clientX, event.clientY, event.currentTarget as Element);
     } else if (!cleanupListenerRef.current) {
@@ -171,7 +169,7 @@ export function useClientPoint(
       setReference(event.clientX, event.clientY, event.currentTarget as Element);
       listenerRevision += 1;
     }
-  });
+  };
 
   // If the pointer is a mouse-like pointer, we want to continue following the
   // mouse even if the floating element is transitioning out. On touch
@@ -179,7 +177,9 @@ export function useClientPoint(
   // the dismissal touch point.
   const openCheck = $derived(isMouseLikePointerType(pointerType) ? floating : open);
 
-  useIsoLayoutEffect(() => {
+  $effect(() => {
+    // Returning from the interactive popup re-arms cursor tracking.
+    void listenerRevision;
     if (!enabled) {
       resetReference(domReference);
       return undefined;
@@ -213,38 +213,28 @@ export function useClientPoint(
     }
 
     return cleanupListener;
-  }, () => [
-    openCheck,
-    enabled,
-    floating,
-    dataRef,
-    domReference,
-    store,
-    setReference,
-    resetReference,
-    listenerRevision,
-  ]);
+  });
 
   // Clear virtual cursor references when the hook unmounts. Enabled flips are handled above.
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     // Cleanup owns the same Source store whose effect is being removed.
     const effectStore = store;
     return () => {
       effectStore.set('positionReference', null);
     };
-  }, () => [store]);
+  });
 
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     if (enabled && !floating) {
       initialRef.current = false;
     }
-  }, () => [enabled, floating]);
+  });
 
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     if (!enabled && open) {
       initialRef.current = true;
     }
-  }, () => [enabled, open]);
+  });
 
   function setPointerTypeRef(event: PointerEvent) {
     pointerType = event.pointerType;

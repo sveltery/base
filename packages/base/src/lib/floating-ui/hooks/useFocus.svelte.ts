@@ -1,6 +1,6 @@
 // Original Base UI 1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT: THIRD_PARTY_NOTICES.md. Native Svelte live readers/effects replace React hooks.
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
 import { addEventListener } from '@sveltery/utils/addEventListener';
 import { platform } from '@sveltery/utils/platform';
 import { mergeCleanups } from '@sveltery/utils/mergeCleanups';
@@ -42,7 +42,7 @@ export function useFocus(getContext: () => FloatingRootContext | FloatingContext
     const blockedReferenceRef = { current: null as Element | null };
     const keyboardModalityRef = { current: true };
     const timeout = useTimeout();
-    useIsoLayoutEffect(() => {
+    $effect(() => {
         const domReference = store.select('domReferenceElement');
         if (!enabled) {
             return undefined;
@@ -67,8 +67,8 @@ export function useFocus(getContext: () => FloatingRootContext | FloatingContext
             keyboardModalityRef.current = false;
         }
         return mergeCleanups(addEventListener(win, 'blur', onfocusout), isMacSafari && addEventListener(win, 'keydown', onkeydown, true), isMacSafari && addEventListener(win, 'pointerdown', onpointerdown, true));
-    }, () => [store, enabled]);
-    useIsoLayoutEffect(() => {
+    });
+    $effect(() => {
         if (!enabled) {
             return undefined;
         }
@@ -85,7 +85,7 @@ export function useFocus(getContext: () => FloatingRootContext | FloatingContext
         return () => {
             events.off('openchange', onOpenChangeLocal);
         };
-    }, () => [events, enabled, store]);
+    });
     const reference: ElementProps['reference'] = $derived.by(() => {
         function resetBlockedFocus() {
             blockFocusRef.current = false;

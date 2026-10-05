@@ -1,11 +1,11 @@
 // Original Base UI 1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT: THIRD_PARTY_NOTICES.md. Native Svelte live readers/effects replace React hooks.
 import { flushSync } from 'svelte';
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
 import { addEventListener } from '@sveltery/utils/addEventListener';
 import { mergeCleanups } from '@sveltery/utils/mergeCleanups';
 import { ownerDocument } from '@sveltery/utils/owner';
-import { useStableCallback } from '@sveltery/utils/useStableCallback';
+
 import { isElement } from '@floating-ui/utils/dom';
 import { createChangeEventDetails } from '../../internals/createBaseUIEventDetails.js';
 import { REASONS } from '../../internals/reasons.js';
@@ -92,13 +92,13 @@ export function useHoverReferenceInteraction(getContext: () => FloatingRootConte
     const isClosingRef = { get current() {
             return isClosing;
         } };
-    const isClickLikeOpenEvent = useStableCallback(() => {
+    const isClickLikeOpenEvent = () => {
         return isClickLikeOpenEventShared(dataRef.current.openEvent?.type, instance.interactedInside);
-    });
-    const checkShouldOpen = useStableCallback(() => {
+    };
+    const checkShouldOpen = () => {
         return shouldOpenRef.current?.() !== false;
-    });
-    const isOverInactiveTrigger = useStableCallback((currentDomReference: Element | null, currentTarget: Element, target: EventTarget | null): boolean => {
+    };
+    const isOverInactiveTrigger = (currentDomReference: Element | null, currentTarget: Element, target: EventTarget | null): boolean => {
         const allTriggers = store.context.triggerElements;
         // Fast path for normal usage where handlers are attached directly to triggers.
         if (allTriggers.hasElement(currentTarget)) {
@@ -111,23 +111,23 @@ export function useHoverReferenceInteraction(getContext: () => FloatingRootConte
         const targetElement = target as Element;
         return (allTriggers.hasMatchingElement((trigger) => contains(trigger, targetElement)) &&
             (!currentDomReference || !contains(currentDomReference, targetElement)));
-    });
-    const cleanupMouseMoveHandler = useStableCallback(() => {
+    };
+    const cleanupMouseMoveHandler = () => {
         if (!instance.handler) {
             return;
         }
         const doc = ownerDocument(store.select('domReferenceElement'));
         doc.removeEventListener('mousemove', instance.handler);
         instance.handler = undefined;
-    });
-    const clearPointerEvents = useStableCallback(() => {
+    };
+    const clearPointerEvents = () => {
         clearSafePolygonPointerEventsMutation(instance);
-    });
+    };
     $effect(() => { if (isActiveTrigger) instance.handleCloseOptions = handleClose?.__options; });
-    useIsoLayoutEffect(() => cleanupMouseMoveHandler, () => [cleanupMouseMoveHandler]);
+    $effect(() => cleanupMouseMoveHandler);
     // When closing before opening, clear the delay timeouts to cancel it
     // from showing.
-    useIsoLayoutEffect(() => {
+    $effect(() => {
         if (!enabled) {
             return undefined;
         }
@@ -148,8 +148,8 @@ export function useHoverReferenceInteraction(getContext: () => FloatingRootConte
         return () => {
             events.off('openchange', onOpenChangeLocal);
         };
-    }, () => [enabled, events, instance, cleanupMouseMoveHandler]);
-    useIsoLayoutEffect(() => {
+    });
+    $effect(() => {
         if (!enabled) {
             return undefined;
         }
@@ -304,29 +304,7 @@ export function useHoverReferenceInteraction(getContext: () => FloatingRootConte
             return mergeCleanups(addEventListener(trigger, 'mousemove', onMouseEnter, { once: true }), addEventListener(trigger, 'mouseenter', onMouseEnter), addEventListener(trigger, 'mouseleave', onmouseleave), staleOpenGuard);
         }
         return mergeCleanups(addEventListener(trigger, 'mouseenter', onMouseEnter), addEventListener(trigger, 'mouseleave', onmouseleave), staleOpenGuard);
-    }, () => [
-        cleanupMouseMoveHandler,
-        clearPointerEvents,
-        dataRef,
-        delayRef,
-        store,
-        enabled,
-        handleCloseRef,
-        instance,
-        isActiveTrigger,
-        isOverInactiveTrigger,
-        isClickLikeOpenEvent,
-        mouseOnly,
-        move,
-        restMsRef,
-        triggerElementRef,
-        tree,
-        enabledRef,
-        getHandleCloseContext,
-        isClosingRef,
-        checkShouldOpen,
-        guardStaleOpen,
-    ]);
+    });
     const reference = $derived.by(() => {
         if (!enabled) {
             return undefined;

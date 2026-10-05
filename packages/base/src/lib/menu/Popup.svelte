@@ -10,7 +10,7 @@
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../internals/reasons.js';
   import { getDisabledMountTransitionStyles } from '../internals/getDisabledMountTransitionStyles.js';
-  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+  
   import { useToolbarRootContext } from '../toolbar/root/ToolbarRootContext.js';
   import { COMPOSITE_KEYS } from '../internals/composite/composite.js';
   import type { MenuPopupProps, MenuRoot } from './types.js';
@@ -35,13 +35,13 @@
   const openMethod = $derived(store.useState('openMethod'));
   const isContextMenu = $derived(parent.type === 'context-menu');
   useOpenChangeComplete({ get open() { return open; }, ref: store.context.popupRef, onComplete() { if (open) store.context.onOpenChangeComplete?.(true); } });
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     function handleClose(event: { domEvent: Event | undefined; reason: MenuRoot.ChangeEventReason }) {
       store.setOpen(false, createChangeEventDetails(event.reason, event.domEvent));
     }
     floatingTreeRoot.events.on('close', handleClose);
     return () => { floatingTreeRoot.events.off('close', handleClose); };
-  }, () => [floatingTreeRoot.events, store]);
+  });
   useHoverFloatingInteraction(() => floatingContext, () => ({ enabled: hoverEnabled && !disabled && !isContextMenu && parent.type !== 'menubar', closeDelay }));
   const setPopupElement = store.useStateSetter('popupElement');
   const state = $derived({ transitionStatus, side: positioner.side, align: positioner.align, open, nested: parent.type === 'menu', instant: instantType });
@@ -51,10 +51,10 @@
     return value;
   }
   let mountedReturnFocus = getDefaultReturnFocus();
-  useIsoLayoutEffect(() => store.observe(
+  $effect(() => store.observe(
     state => state.mounted ? getDefaultReturnFocus(state) : null,
     value => { if (value !== null) mountedReturnFocus = value; },
-  ), () => [store]);
+  ));
   const returnFocus = $derived.by(() => {
     const isMounted = store.select('mounted');
     return isMounted ? getDefaultReturnFocus() : mountedReturnFocus;

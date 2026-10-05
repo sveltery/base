@@ -11,11 +11,11 @@
   import { useRegisterFieldControl } from '../internals/field-register-control/useRegisterFieldControl.svelte.js';
   import { useFieldControlNativeName } from '../internals/field-control-name/FieldControlNameContext.js';
   import { useBaseUiId } from '../internals/useBaseUiId.js';
-  import { useStableCallback } from '@sveltery/utils/useStableCallback';
+  
   import { useTimeout } from '@sveltery/utils/useTimeout';
   import { ownerDocument } from '@sveltery/utils/owner';
   import { activeElement } from '@sveltery/utils/shadowDom';
-  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+  
   import { useValueChanged } from '../internals/useValueChanged.svelte.js';
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../internals/reasons.js';
@@ -43,25 +43,25 @@
   const id = $derived(getId());
   const controlRef = $state<{ current: NativeValidationControl | null }>({ current: null });
   const ownerValue = $derived(remote?.accessor?.value());
-  const getValue = useStableCallback(() => ownerValue ?? (controlRef.current ? nativeControlValue(controlRef.current, descriptor.value) : descriptor.value));
+  const getValue = () => ownerValue ?? (controlRef.current ? nativeControlValue(controlRef.current, descriptor.value) : descriptor.value);
   const sameValue = (left: unknown, right: unknown) => Array.isArray(left) && Array.isArray(right) ? areArraysEqual(left, right) : left === right;
   const filled = (value: unknown) => Array.isArray(value) ? value.length > 0 : value != null && value !== '';
   useRegisterFieldControl(controlRef, () => id, () => ownerValue, getValue, () => !disabled, () => descriptor.name);
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     const element = controlRef.current;
     if (!element || disabled) return;
     return field.validation.registerInput(element, { controlRef, value: undefined });
-  }, () => [controlRef.current, disabled, field.validation]);
-  useIsoLayoutEffect(() => field.setFilled(filled(getValue())), () => [ownerValue, controlRef.current, field.setFilled]);
+  });
+  $effect(() => field.setFilled(filled(getValue())));
   useValueChanged(() => ownerValue, () => () => {
     form.clearErrors(name);
     field.setDirty(!sameValue(ownerValue, field.validityData.initialValue));
     field.validation.change(ownerValue);
   });
   const enterValidationTimeout = useTimeout();
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     if (descriptor.autofocus && controlRef.current === activeElement(ownerDocument(controlRef.current))) field.setFocused(true);
-  }, () => [descriptor.autofocus, controlRef.current, field.setFocused]);
+  });
   const controlState: RemoteControlState = $derived({ ...field.state, disabled, checked: typeof descriptor.checked === 'boolean' ? descriptor.checked : undefined });
   const internal = $derived({
     id, disabled, name: getNativeName(name), 'aria-labelledby': labelable.labelId,

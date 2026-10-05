@@ -1,7 +1,10 @@
 <script lang="ts">
   import { untrack } from 'svelte';
-  import { Controlled } from '@sveltery/utils/Controlled';
+  import { useControlled, type SetStateAction } from '@sveltery/utils/useControlled';
+  import { useStableCallback } from '@sveltery/utils/useStableCallback';
   import { useTimeout } from '@sveltery/utils/useTimeout';
+  import { useRefWithInit } from '@sveltery/utils/useRefWithInit';
+  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
   import { useValueChanged } from '../../src/lib/internals/useValueChanged.svelte.js';
   import Child from './SharedSourceUtilsChild.svelte';
 
@@ -12,6 +15,7 @@
   } = $props();
   let controlled = $state.raw<unknown>(untrack(() => initialControlled));
   let defaultValue = $state.raw<unknown>(untrack(() => initialDefault));
+  let name = $state('SharedUtilsFixture');
   let owner = $state('old');
   let ownerCallback = $state.raw<(value: string) => string>((value) => value);
   let changedValue = $state.raw({ value: 0 });
@@ -31,24 +35,23 @@
     if (mutateDuringChange && changedValue.value === 1) changedValue = { value: 2 };
   });
 
-  const valueState = new Controlled(() => controlled, untrack(() => defaultValue));
-  initialized += 1;
-  const ref = { current: { seed: 'seed' } };
-  const stable = () => ownerCallback(owner);
+  const [value, setValue] = useControlled(() => ({ controlled, default: defaultValue, name }));
+  const ref = useRefWithInit((seed: string) => { initialized += 1; return { seed }; }, 'seed');
+  const stable = useStableCallback(() => ownerCallback(owner));
+  const optional = useStableCallback(undefined);
   const timeout = useTimeout();
   untrack(() => events.push(`parent-setup:${stable()}`));
 
-  $effect(() => {
+  useIsoLayoutEffect(() => {
     events.push(`parent-effect:${stable()}`);
     return () => { events.push('parent-cleanup'); };
-  });
+  }, () => [stable]);
 
-  $effect(() => {
+  useIsoLayoutEffect(() => {
     effectRuns += 1;
-    void dependency.value;
     void callbackOnlyValue;
     return () => { effectCleanups += 1; };
-  });
+  }, () => { void unrelated; return [dependency.value]; });
 
   $effect(() => {
     stableEffectRuns += 1;
@@ -59,12 +62,12 @@
 
   export const setControlled = (next: unknown) => { controlled = next; };
   export const setDefault = (next: unknown) => { defaultValue = next; };
-  export const setLocal = (next: unknown) => { valueState.set(next); };
-  export const incrementLocal = () => { valueState.set(Number(valueState.value) + 1); };
+  export const setName = (next: string) => { name = next; };
+  export const setLocal = (next: SetStateAction<unknown>) => { setValue(next); };
   export const setOwner = (next: string) => { owner = next; };
   export const replaceCallback = () => { ownerCallback = (next) => `replacement:${next}`; };
   export const getStable = () => stable;
-  export const callOptional = () => undefined;
+  export const callOptional = () => optional();
   export const setChanged = (next: number) => { changedValue = { value: next }; };
   export const setValueChangeCallback = (next: ((previous: number) => void) | undefined) => {
     valueChangeCallback = next;
@@ -77,10 +80,10 @@
   export const timerStarted = () => timeout.isStarted();
   export const updateRef = (seed: string) => { ref.current = { seed }; };
   export const snapshot = () => ({
-    value: valueState.value, initialized, ref: ref.current, effectRuns, effectCleanups,
+    value: value(), initialized, ref: ref.current, effectRuns, effectCleanups,
     stableEffectRuns, changePrevious, readsInsideCallback,
   });
 </script>
 
-<output data-value>{String(valueState.value)}</output>
+<output data-value>{String(value())}</output>
 <Child {stable} {events} />

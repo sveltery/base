@@ -1,7 +1,6 @@
 // Base UI 1.8.0 Original shared hover instance/pointer-mutation ownership. MIT: THIRD_PARTY_NOTICES.md.
-import { untrack } from 'svelte';
-import { useOnMount } from '@sveltery/utils/useOnMount';
-import { useRefWithInit } from '@sveltery/utils/useRefWithInit';
+import { onMount, untrack } from 'svelte';
+
 import { Timeout } from '@sveltery/utils/useTimeout';
 
 import type { ContextData, FloatingRootContext, SafePolygonOptions } from '../types.js';
@@ -118,9 +117,7 @@ type HoverContextData = ContextData & {
 
 export function useHoverInteractionSharedState(getStore: () => FloatingRootContext): () => HoverInteraction {
   const data = untrack(() => getStore().context.dataRef.current) as HoverContextData;
-  const instance = useRefWithInit(
-    () => data.hoverInteractionState ?? HoverInteraction.create(),
-  ).current;
+  const instance = data.hoverInteractionState ?? new HoverInteraction();
 
   if (!data.hoverInteractionState) {
     data.hoverInteractionState = instance;
@@ -131,7 +128,7 @@ export function useHoverInteractionSharedState(getStore: () => FloatingRootConte
     if (!nextData.hoverInteractionState) nextData.hoverInteractionState = instance;
     return nextData.hoverInteractionState;
   });
-  useOnMount(data.hoverInteractionState.disposeEffect);
+  onMount(data.hoverInteractionState.disposeEffect);
 
   return () => currentInstance;
 }

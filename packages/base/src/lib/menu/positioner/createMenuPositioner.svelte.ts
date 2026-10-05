@@ -1,6 +1,6 @@
 // Original MenuPositioner complete business body, native component/render boundary (MIT).
 import { untrack } from 'svelte';
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
 import { useTimeout } from '@sveltery/utils/useTimeout';
 import { useMenuPortalContext } from '../portal/MenuPortalContext.js';
 import { useContextMenuRootContext } from '../../context-menu/root/ContextMenuRootContext.js';
@@ -99,7 +99,7 @@ export function createMenuPositioner(getProps: () => MenuPositionerProps, store:
             adaptiveOrigin,
         };
     });
-    useIsoLayoutEffect(() => {
+    $effect(() => {
         function onMenuOpenChange(details: MenuOpenEventDetails) {
             if (details.open) {
                 if (details.parentNodeId === floatingNodeId) {
@@ -115,8 +115,8 @@ export function createMenuPositioner(getProps: () => MenuPositionerProps, store:
         return () => {
             floatingTreeRoot.events.off('menuopenchange', onMenuOpenChange);
         };
-    }, () => [store, floatingTreeRoot.events, floatingNodeId]);
-    useIsoLayoutEffect(() => {
+    });
+    $effect(() => {
         if (store.select('floatingParentNodeId') == null) {
             return undefined;
         }
@@ -131,16 +131,16 @@ export function createMenuPositioner(getProps: () => MenuPositionerProps, store:
         return () => {
             floatingTreeRoot.events.off('menuopenchange', onParentClose);
         };
-    }, () => [floatingTreeRoot.events, store]);
+    });
     const closeTimeout = useTimeout();
     // Clear pending close timeout when the menu closes.
-    useIsoLayoutEffect(() => {
+    $effect(() => {
         if (!open) {
             closeTimeout.clear();
         }
-    }, () => [open, closeTimeout]);
+    });
     // Close unrelated child submenus when hovering a different item in the parent menu.
-    useIsoLayoutEffect(() => {
+    $effect(() => {
         function onItemHover(event: {
             nodeId: string | undefined;
             target: Element | null;
@@ -172,18 +172,18 @@ export function createMenuPositioner(getProps: () => MenuPositionerProps, store:
         return () => {
             floatingTreeRoot.events.off('itemhover', onItemHover);
         };
-    }, () => [floatingTreeRoot.events, open, triggerElement, store, closeTimeout]);
-    useIsoLayoutEffect(() => {
+    });
+    $effect(() => {
         const eventDetails: MenuOpenEventDetails = {
             open,
             nodeId: floatingNodeId,
             parentNodeId: floatingParentNodeId,
             reason: store.select('lastOpenChangeReason'),
         };
-        floatingTreeRoot.events.emit('menuopenchange', eventDetails);
-    }, () => [floatingTreeRoot.events, open, store, floatingNodeId, floatingParentNodeId]);
+        untrack(() => floatingTreeRoot.events.emit('menuopenchange', eventDetails));
+    });
     // Keep positioner transition behavior aligned with Popover when switching detached triggers.
-    useIsoLayoutEffect(() => {
+    $effect(() => {
         const currentTrigger = domReference;
         const previousTrigger = previousTriggerRef.current;
         if (currentTrigger) {
@@ -200,7 +200,7 @@ export function createMenuPositioner(getProps: () => MenuPositionerProps, store:
             };
         }
         return undefined;
-    }, () => [domReference, runOnceAnimationsFinish, store]);
+    });
     const state: MenuPositionerState = $derived({
         open,
         side: positioner.side,

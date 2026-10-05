@@ -3,7 +3,7 @@
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
   import RenderElement from '../../internals/RenderElement.svelte';
   import CompositeItem from '../../internals/composite/item/CompositeItem.svelte';
-  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+  
   import {
     visuallyHidden,
     visuallyHiddenInput,
@@ -65,23 +65,17 @@
       value: undefined,
     });
   };
-  useIsoLayoutEffect(
-    () => {
+  $effect(() => {
       if (inputRef.current?.checked) field.setFilled(true);
-    },
-    () => [field.setFilled],
-  );
-  useIsoLayoutEffect(
-    () => {
+    });
+  $effect(() => {
       if (!inputRef.current) return;
       if (disabled && checked) {
         group?.registerInputRef(null);
         return;
       }
       group?.registerInputRef(inputRef.current);
-    },
-    () => [checked, disabled, group?.registerInputRef],
-  );
+    });
   const nativeId = $props.id();
   const id = useBaseUiId(undefined, nativeId);
   const getInputId = useLabelableId(() => ({ id: idProp }), `${id}-input`);

@@ -8,7 +8,7 @@
   import { ROOT, usePopoverRootContext } from './context.js';
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../internals/reasons.js';
-  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+  
   import { useImplicitActiveTrigger, useOpenStateTransitions, usePopupRootStore, usePopupRootSync } from '../utils/popups/popupStoreUtils.svelte.js';
   import type { PopoverRootProps, PopoverRootChangeEventDetails } from './types.js';
   import { provideFloatingTree } from '../floating-ui/components/FloatingTree.svelte.js';
@@ -40,7 +40,7 @@
     store.update({ stickIfOpen: true, openChangeReason: null });
   });
   store.useSyncedValues(() => ({ modal }));
-  useIsoLayoutEffect(() => { if (!open) store.context.stickIfOpenTimeout.clear(); }, () => [store, open]);
+  $effect(() => { if (!open) store.context.stickIfOpenTimeout.clear(); });
   onDestroy(store.context.stickIfOpenTimeout.disposeEffect());
   export function close() { store.setOpen(false, createChangeEventDetails(REASONS.imperativeAction)); }
   export function unmount() { forceUnmount(); }

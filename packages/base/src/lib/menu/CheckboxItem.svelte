@@ -1,7 +1,8 @@
 <script lang="ts">
+  import { untrack } from 'svelte';
   // Original MenuCheckboxItem complete controlled/cancelable item composition (MIT).
   import RenderElement from '../internals/RenderElement.svelte';
-  import { useControlled } from '@sveltery/utils/useControlled';
+  import { Controlled } from '@sveltery/utils/Controlled';
   import { NOOP } from '@sveltery/utils/empty';
   import { provideMenuCheckboxItemContext } from './checkbox-item/MenuCheckboxItemContext.js';
   import { REGULAR_ITEM, useMenuItem } from './item/useMenuItem.svelte.js';
@@ -23,8 +24,8 @@
   const disabled = $derived(disabledProp || store.useState('disabled'));
   const highlighted = $derived(store.useState('isActive', listItem.index()));
   const itemProps = $derived(store.useState('itemProps'));
-  const [getChecked, setChecked] = useControlled(() => ({ controlled: checkedProp, default: defaultChecked ?? false, name: 'MenuCheckboxItem', state: 'checked' }));
-  const checked = $derived(getChecked());
+  const checkedState = new Controlled(() => checkedProp, untrack(() => defaultChecked ?? false));
+  const checked = $derived(checkedState.value);
   const item = useMenuItem(() => ({ closeOnClick, disabled, highlighted, id, store, nativeButton, nodeId: positioner?.context.nodeId, itemMetadata: REGULAR_ITEM }));
   const componentState = $derived({ disabled, highlighted, checked });
   provideMenuCheckboxItemContext({ get disabled() { return disabled; }, get highlighted() { return highlighted; }, get checked() { return checked; } });
@@ -32,7 +33,7 @@
     const details = createChangeEventDetails(REASONS.itemPress, event, undefined, { preventUnmountOnClose: NOOP });
     onCheckedChange?.(!checked, details);
     if (details.isCanceled) return;
-    setChecked(currentlyChecked => !currentlyChecked);
+    checkedState.set(!checkedState.value);
   }
   const setRef = (node: HTMLElement | null) => { ref = node; };
 </script>

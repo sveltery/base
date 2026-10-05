@@ -1,6 +1,6 @@
 // Ported business state from Base UI v1.8.0 useTransitionStatus.ts; MIT: THIRD_PARTY_NOTICES.md.
 import { untrack } from 'svelte';
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
 import { AnimationFrame } from '@sveltery/utils/useAnimationFrame';
 export type TransitionStatus = 'starting' | 'ending' | 'idle' | undefined;
 
@@ -25,23 +25,23 @@ export function useTransitionStatus(
     if (!open && retainedMounted && phase !== 'ending' && !deferEndingState) phase = 'ending';
     if (!open && !retainedMounted && phase === 'ending') phase = undefined;
   });
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     if (!getOpen() && mounted && transitionStatus !== 'ending' && deferEndingState) {
       const frame = AnimationFrame.request(() => { phase = 'ending'; });
       return () => AnimationFrame.cancel(frame);
     }
-  }, () => [getOpen(), mounted, transitionStatus, deferEndingState]);
-  useIsoLayoutEffect(() => {
+  });
+  $effect(() => {
     if (!getOpen() || enableIdleState) return;
     const frame = AnimationFrame.request(() => { phase = undefined; });
     return () => AnimationFrame.cancel(frame);
-  }, () => [enableIdleState, getOpen()]);
-  useIsoLayoutEffect(() => {
+  });
+  $effect(() => {
     if (!getOpen() || !enableIdleState) return;
     if (getOpen() && mounted && transitionStatus !== 'idle') phase = 'starting';
     const frame = AnimationFrame.request(() => { phase = 'idle'; });
     return () => AnimationFrame.cancel(frame);
-  }, () => [enableIdleState, getOpen(), mounted, transitionStatus]);
+  });
   return {
     get mounted() { return mounted; },
     setMounted(value: boolean) { retainedMounted = value; },

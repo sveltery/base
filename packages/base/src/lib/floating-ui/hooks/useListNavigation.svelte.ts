@@ -3,9 +3,9 @@
 import { DEV } from 'esm-env';
 import { untrack } from 'svelte';
 import { useAnimationFrame } from '@sveltery/utils/useAnimationFrame';
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
 import { ownerDocument } from '@sveltery/utils/owner';
-import { useStableCallback } from '@sveltery/utils/useStableCallback';
+
 import { platform } from '@sveltery/utils/platform';
 import { isHTMLElement } from '@floating-ui/utils/dom';
 import { createChangeEventDetails } from '../../internals/createBaseUIEventDetails.js';
@@ -193,7 +193,7 @@ export function useListNavigation(getContext: () => FloatingRootContext | Floati
     const context = $derived(getContext());
     const { listRef, activeIndex, onNavigate: onNavigateProp = () => { }, enabled = true, selectedIndex = null, allowEscape = false, loopFocus = false, nested = false, rtl = false, virtual = false, focusItemOnOpen = 'auto', focusItemOnHover = true, openOnArrowKeyDown = true, disabledIndices = undefined, orientation = 'vertical', parentOrientation, id, resetOnPointerLeave = true, externalTree, grid: navigateGrid, } = $derived(getProps());
     const isGrid = $derived(navigateGrid != null);
-    useIsoLayoutEffect(() => {
+    $effect(() => {
       if (DEV) {
         if (allowEscape) {
             if (!loopFocus) {
@@ -207,7 +207,7 @@ export function useListNavigation(getContext: () => FloatingRootContext | Floati
             console.warn('In grid list navigation mode, the `orientation` should', 'be either "horizontal" or "both".');
         }
       }
-    }, () => [allowEscape, loopFocus, virtual, orientation, isGrid]);
+    });
     const store = $derived('rootStore' in context ? context.rootStore : context);
     const open = $derived(store.useState('open'));
     const floatingElement = $derived(store.useState('floatingElement'));
@@ -225,9 +225,9 @@ export function useListNavigation(getContext: () => FloatingRootContext | Floati
     const indexRef = { current: untrack(() => selectedIndex ?? -1) };
     const keyRef = { current: null as null | string };
     const isPointerModalityRef = { current: true };
-    const onNavigate = useStableCallback((event?: Event) => {
+    const onNavigate = (event?: Event) => {
         onNavigateProp(indexRef.current === -1 ? null : indexRef.current, event);
-    });
+    };
     const previousMountedRef = { current: untrack(() => !!floatingElement) };
     const previousOpenRef = { current: untrack(() => open) };
     const forceSyncFocusRef = { current: false };
@@ -247,7 +247,7 @@ export function useListNavigation(getContext: () => FloatingRootContext | Floati
         } };
     const focusFrame = useAnimationFrame();
     const waitForListPopulatedFrame = useAnimationFrame();
-    const focusItem = useStableCallback(() => {
+    const focusItem = () => {
         function runFocus(item: HTMLElement) {
             if (virtual) {
                 tree?.events.emit('virtualfocus', item);
@@ -283,13 +283,13 @@ export function useListNavigation(getContext: () => FloatingRootContext | Floati
                 waitedItem.scrollIntoView?.({ block: 'nearest', inline: 'nearest' });
             }
         });
-    });
-    useIsoLayoutEffect(() => {
+    };
+    $effect(() => {
         dataRef.current.orientation = orientation;
-    }, () => [dataRef, orientation]);
+    });
     // Sync `selectedIndex` to be the `activeIndex` upon opening the floating
     // element. Also, reset `activeIndex` upon closing the floating element.
-    useIsoLayoutEffect(() => {
+    $effect(() => {
         if (!enabled) {
             return;
         }
@@ -309,10 +309,10 @@ export function useListNavigation(getContext: () => FloatingRootContext | Floati
             indexRef.current = -1;
             onNavigate();
         }
-    }, () => [enabled, open, floatingElement, selectedIndex, onNavigate]);
+    });
     // Sync `activeIndex` to be the focused item while the floating element is
     // open.
-    useIsoLayoutEffect(() => {
+    $effect(() => {
         if (!enabled) {
             return;
         }
@@ -374,23 +374,10 @@ export function useListNavigation(getContext: () => FloatingRootContext | Floati
             focusItem();
             forceScrollIntoViewRef.current = false;
         }
-    }, () => [
-        enabled,
-        open,
-        floatingElement,
-        activeIndex,
-        selectedIndexRef,
-        nested,
-        listRef,
-        orientation,
-        rtl,
-        onNavigate,
-        focusItem,
-        waitForListPopulatedFrame,
-    ]);
+    });
     // Ensure the parent floating element has focus when a nested child closes
     // to allow arrow key navigation to work after the pointer leaves the child.
-    useIsoLayoutEffect(() => {
+    $effect(() => {
         if (!enabled || floatingElement || !tree || virtual || !previousMountedRef.current) {
             return;
         }
@@ -404,19 +391,19 @@ export function useListNavigation(getContext: () => FloatingRootContext | Floati
         if (parent && !treeContainsActiveEl && isPointerModalityRef.current) {
             parent.focus({ preventScroll: true });
         }
-    }, () => [enabled, floatingElement, domReferenceElement, tree, parentId, virtual]);
-    useIsoLayoutEffect(() => {
+    });
+    $effect(() => {
         previousOpenRef.current = open;
         previousMountedRef.current = !!floatingElement;
     });
-    useIsoLayoutEffect(() => {
+    $effect(() => {
         if (!open) {
             keyRef.current = null;
             focusItemOnOpenRef.current = focusItemOnOpen;
         }
-    }, () => [open, focusItemOnOpen]);
+    });
     const hasActiveIndex = $derived(activeIndex != null);
-    const syncCurrentTarget = useStableCallback((event: Event) => {
+    const syncCurrentTarget = (event: Event) => {
         if (!latestOpenRef.current) {
             return;
         }
@@ -425,16 +412,16 @@ export function useListNavigation(getContext: () => FloatingRootContext | Floati
             indexRef.current = index;
             onNavigate(event);
         }
-    });
-    const getParentOrientation = useStableCallback(() => {
+    };
+    const getParentOrientation = () => {
         return (parentOrientation ??
             (tree?.nodesRef.current.find((node) => node.id === parentId)?.context?.dataRef?.current
                 .orientation as UseListNavigationProps['orientation']));
-    });
-    const getMinEnabledIndex = useStableCallback(() => {
+    };
+    const getMinEnabledIndex = () => {
         return getMinListIndex(listRef, disabledIndicesRef.current);
-    });
-    const commonOnKeyDown = useStableCallback((event: KeyboardEvent) => {
+    };
+    const commonOnKeyDown = (event: KeyboardEvent) => {
         isPointerModalityRef.current = false;
         forceSyncFocusRef.current = true;
         // When composing a character, Chrome fires ArrowDown twice. Firefox/Safari
@@ -563,7 +550,7 @@ export function useListNavigation(getContext: () => FloatingRootContext | Floati
             }
             onNavigate(event);
         }
-    });
+    };
     const item = $derived.by(() => {
         const itemProps: ElementProps['item'] = {
             onfocusin(event: FocusEvent) {

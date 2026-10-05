@@ -2,7 +2,7 @@
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
 // Native Svelte store/host lifetime delegates to the single default-platform DOM geometry driver.
 import { isElement } from '@floating-ui/utils/dom';
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
 import { useFloating as usePosition, type NativeFloatingOptions } from '../../internals/anchor-positioning/useFloating.svelte.js';
 import { useFloatingTree } from '../components/FloatingTree.svelte.js';
 import type { FloatingRootStore } from '../components/FloatingRootStore.svelte.js';
@@ -45,13 +45,13 @@ function useFloatingWithStore(getOptions: () => BaseUIFloatingOptions) {
   }));
   const localDomReferenceElement = $derived(isElement(localDomReference) ? localDomReference : null);
   const syncedFloatingElement = $derived(localFloatingElement === undefined ? floatingElement : localFloatingElement);
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     store.update({
       referenceElement: localDomReference ?? null,
       domReferenceElement: localDomReference === undefined ? domReferenceElement : localDomReferenceElement,
       floatingElement: syncedFloatingElement,
     });
-  }, () => [store, localDomReference, domReferenceElement, localDomReferenceElement, syncedFloatingElement]);
+  });
 
   function setPositionReference(node: ReferenceType | null) {
     const computedPositionReference = isElement(node)
@@ -94,10 +94,10 @@ function useFloatingWithStore(getOptions: () => BaseUIFloatingOptions) {
     get events() { return store.context.events; }, get floatingId() { return floatingId; },
     refs, elements, get nodeId() { return options.nodeId; }, get rootStore() { return store; },
   };
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     if (domReferenceElement) domReferenceRef.current = domReferenceElement;
-  }, () => [domReferenceElement]);
-  useIsoLayoutEffect(() => {
+  });
+  $effect(() => {
     const dataRef = store.context.dataRef;
     dataRef.current.floatingContext = context;
     const node = tree?.nodesRef.current.find(entry => entry.id === options.nodeId);

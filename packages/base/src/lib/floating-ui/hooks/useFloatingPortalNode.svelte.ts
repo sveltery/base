@@ -4,7 +4,7 @@
 // SHA256 56ef7993c9378f0710f7724a40280f8ba31fa7fb515b218802d7935c3a95f75b.
 import { getAllContexts, mount, unmount, untrack, type Snippet } from 'svelte';
 import { getWindow, isNode } from '@floating-ui/utils/dom';
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
 import type { MergedRef } from '@sveltery/utils/useMergedRefs';
 import type { HTMLProps } from '../../internals/types.js';
 import type { UseRenderElementComponentProps } from '../../internals/useRenderElement.js';
@@ -46,7 +46,7 @@ export function useFloatingPortalNode<State extends object = Record<string, neve
   let portalNode = $state.raw<HTMLElement | null>(null);
   let portalNodeId = $state<string | undefined>();
   let containerRef: HTMLElement | ShadowRoot | null = null;
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     if (container === null) {
       if (containerRef) { containerRef = null; portalNode = null; containerElement = null; }
       return;
@@ -57,7 +57,7 @@ export function useFloatingPortalNode<State extends object = Record<string, neve
       return;
     }
     if (containerRef !== resolvedContainer) { containerRef = resolvedContainer; portalNode = null; containerElement = resolvedContainer; }
-  }, () => [container, parentPortal?.portalNode]);
+  });
   function portalRef(node: HTMLElement | null) {
     portalNode = node;
     if (!node) { portalNodeId = undefined; return; }

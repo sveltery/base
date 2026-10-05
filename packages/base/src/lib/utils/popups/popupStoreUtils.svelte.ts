@@ -1,12 +1,12 @@
 // Business body from Base UI v1.8.0 popupStoreUtils.ts at
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
-import { flushSync } from 'svelte';
+import { flushSync, untrack } from 'svelte';
 import type { PopupStoreState, PopupStoreContext } from './store.js';
 import { EMPTY_OBJECT } from '@sveltery/utils/empty';
 import { useFloatingParentNodeId } from '../../floating-ui/components/FloatingTree.svelte.js';
 import { useSyncedFloatingRootContext } from '../../floating-ui/hooks/useSyncedFloatingRootContext.svelte.js';
-import { useStableCallback } from '@sveltery/utils/useStableCallback';
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
+
 import { useTransitionStatus } from '../../internals/useTransitionStatus.svelte.js';
 import { useOpenChangeComplete } from '../../internals/useOpenChangeComplete.svelte.js';
 import { createChangeEventDetails, type BaseUIChangeEventDetails } from '../../internals/createBaseUIEventDetails.js';
@@ -62,7 +62,7 @@ export function useTriggerRegistration<State extends PopupStoreState<unknown>>(
     element: Element;
   } | null } = { current: null };
 
-  return useStableCallback((element: Element | null) => {
+  return (element: Element | null) => {
     const id = getId();
     const store = getStore();
     const registration = registrationRef.current;
@@ -92,7 +92,7 @@ export function useTriggerRegistration<State extends PopupStoreState<unknown>>(
       store.context.triggerElements.add(id, element);
       syncTriggerCount(store);
     }
-  });
+  };
 }
 
 export function useTriggerDataForwarding<
@@ -114,7 +114,7 @@ export function useTriggerDataForwarding<
   // Applies trigger-owned state (active-trigger ownership and payload) when the trigger registers.
   // Stable so payload/`stateUpdates` changes do not change the ref identity (which would needlessly
   // churn registration); it reads the latest closure values when invoked.
-  const applyTriggerData = useStableCallback((element: Element) => {
+  const applyTriggerData = (element: Element) => {
     const open = store.select('open');
     const activeTriggerId = store.select('activeTriggerId');
 
@@ -138,25 +138,29 @@ export function useTriggerDataForwarding<
       } as Pick<Readonly<State>, Key | 'activeTriggerId' | 'activeTriggerElement'>;
       store.update(changes);
     }
-  });
+  };
 
   // Stable, so the merged ref on the rendered element keeps its identity for the trigger's whole
   // lifetime.
-  const registerTrigger = useStableCallback((element: Element | null) => {
+  const registerTrigger = (element: Element | null) => {
     baseRegisterTrigger(element);
     if (element) {
       applyTriggerData(element);
     }
-  });
+  };
 
   // A stable ref does not re-fire on a store or id change, so migrate here instead: unregister from
   // the previous store, then register the element the trigger still renders into the current one.
-  useIsoLayoutEffect(() => {
-    registerTrigger(triggerElementRef.current);
+  $effect(() => {
+    // Native identity reads own migration; registration publishes to the Store.
+    void store;
+    void triggerId;
+    const element = triggerElementRef.current;
+    untrack(() => registerTrigger(element));
     return () => registerTrigger(null);
-  }, () => [registerTrigger, triggerElementRef, store, triggerId]);
+  });
 
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     if (isMountedByThisTrigger) {
       const changes = {
         activeTriggerElement: triggerElementRef.current,
@@ -164,7 +168,7 @@ export function useTriggerDataForwarding<
       } as Pick<Readonly<State>, Key | 'activeTriggerElement'>;
       store.update(changes);
     }
-  }, () => [isMountedByThisTrigger, store, triggerElementRef, ...Object.values(stateUpdates)]);
+  });
 
   return { registerTrigger, get isMountedByThisTrigger() { return isMountedByThisTrigger; } };
 }
@@ -190,7 +194,7 @@ export function useImplicitActiveTrigger<State extends PopupStoreState<unknown>>
   // misclassified as pending, disabling `closeOnActiveTriggerUnmount`.
   const reactiveActiveTriggerElement = $derived(store.useState('activeTriggerElement'));
 
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     if (!open) {
       resolvedActiveTriggerIdRef.current = null;
       if (store.state.triggerCount !== 0) {
@@ -282,14 +286,7 @@ export function useImplicitActiveTrigger<State extends PopupStoreState<unknown>>
         });
       }
     }
-  }, () => [
-    open,
-    store,
-    reactiveTriggerCount,
-    activeTriggerId,
-    reactiveActiveTriggerElement,
-    closeOnActiveTriggerUnmount,
-  ]);
+  });
 }
 
 
@@ -303,12 +300,12 @@ export function useOpenStateTransitions<State extends PopupStoreState<unknown>>(
   const transition = useTransitionStatus(getOpen, false, false, animateInitialOpen);
   const syncedPreventUnmountingOnClose = $derived(getOpen() ? false : store.select('preventUnmountingOnClose'));
   store.useSyncedValues(() => ({ mounted: transition.mounted, transitionStatus: transition.transitionStatus, preventUnmountingOnClose: syncedPreventUnmountingOnClose } as Pick<State, 'mounted' | 'transitionStatus' | 'preventUnmountingOnClose'>));
-  const forceUnmount = useStableCallback(() => {
+  const forceUnmount = () => {
     transition.setMounted(false);
     store.update({ activeTriggerId: null, activeTriggerElement: null, mounted: false, preventUnmountingOnClose: false } as Pick<State, 'activeTriggerId' | 'activeTriggerElement' | 'mounted' | 'preventUnmountingOnClose'>);
     onUnmount?.();
     store.context.onOpenChangeComplete?.(false);
-  });
+  };
   useOpenChangeComplete({
     get enabled() { return transition.mounted && !getOpen() && !syncedPreventUnmountingOnClose; },
     get open() { return getOpen(); },
@@ -319,8 +316,8 @@ export function useOpenStateTransitions<State extends PopupStoreState<unknown>>(
 }
 
 export function usePopupRootSync<State extends PopupStoreState<unknown> & { openMethod: InteractionType | null }>(store: PopupStoreWithOpen<State>, getOpen: () => boolean) {
-  useIsoLayoutEffect(() => { if (!getOpen() && store.state.openMethod !== null) store.set('openMethod', null); }, () => [getOpen()]);
-  useIsoLayoutEffect(() => () => { if (store.state.openMethod !== null) store.set('openMethod', null); }, () => [store]);
+  $effect(() => { if (!getOpen() && store.state.openMethod !== null) store.set('openMethod', null); });
+  $effect(() => () => { if (store.state.openMethod !== null) store.set('openMethod', null); });
 }
 
 export function createDefaultInitialFocus(popupRef: { current: HTMLElement | null }) {
@@ -346,7 +343,7 @@ export function usePopupInteractionProps<State extends PopupStoreState<unknown>,
   getStatePart: () => Pick<State, Key | 'activeTriggerProps' | 'inactiveTriggerProps' | 'popupProps'>,
 ) {
   store.useSyncedValues(getStatePart);
-  useIsoLayoutEffect(() => () => { store.update({ activeTriggerProps: EMPTY_OBJECT, inactiveTriggerProps: EMPTY_OBJECT, popupProps: EMPTY_OBJECT } as Pick<State, 'activeTriggerProps' | 'inactiveTriggerProps' | 'popupProps'>); }, () => [store]);
+  $effect(() => () => { store.update({ activeTriggerProps: EMPTY_OBJECT, inactiveTriggerProps: EMPTY_OBJECT, popupProps: EMPTY_OBJECT } as Pick<State, 'activeTriggerProps' | 'inactiveTriggerProps' | 'popupProps'>); });
 }
 
 export function attachPreventUnmountOnClose(eventDetails: { preventUnmountOnClose(): void }) {

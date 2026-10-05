@@ -104,13 +104,10 @@ it('supplement: controlled requests observe rendered state and await owner accep
   expect(component.snapshot().events.map(event => ({ open: event.open, before: event.before }))).toEqual([{ open: true, before: 'false' }]);
   component.setOwnerOpen(true); await settle(); expect(trigger.getAttribute('aria-expanded')).toBe('true');
 });
-it('native supplement: changed defaults and owner mode retain initial state without React warnings', async () => {
-  const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-  const { component, trigger } = await setup('default');
-  component.setDefaultOpen(true);
-  component.setOwnerOpen(true);
-  await tick();
-  expect(errorSpy).not.toHaveBeenCalled();
+it('supplement: fixed control mode and changed default preserve development warnings', async () => {
+  const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {}); const { component, trigger } = await setup('default');
+  component.setDefaultOpen(true); await tick(); expect(errorSpy).toHaveBeenCalledWith('Base UI: A component is changing the default open state of an uncontrolled Collapsible after being initialized. To suppress this warning opt to use a controlled Collapsible.');
+  component.setOwnerOpen(true); await tick(); expect(errorSpy).toHaveBeenCalledWith("Base UI: A component is changing the uncontrolled open state of Collapsible to be controlled.\nElements should not switch from uncontrolled to controlled (or vice versa).\nDecide between using a controlled or uncontrolled Collapsible element for the lifetime of the component.\nThe nature of the state is determined during the first render. It's considered controlled if the value is not `undefined`.\nMore info: https://fb.me/react-controlled-components");
   expect(trigger.getAttribute('aria-expanded')).toBe('false');
 });
 it('supplement: initial uncontrolled mode and default remain fixed', async () => {
@@ -132,18 +129,18 @@ it('supplement: missing animation API completes opening and closing', async () =
   const { trigger } = await setup('default'); trigger.click(); await settle(); expect(panel()).not.toBe(null); expect(panel()!.hasAttribute('data-starting-style')).toBe(false);
   trigger.click(); await settle(); expect(panel()).toBe(null);
 });
-it('native supplement: same-turn uncontrolled clicks observe the live open state', async () => {
+it('supplement: same-turn uncontrolled clicks use the last rendered open snapshot', async () => {
   const { trigger, component } = await setup('default'); trigger.click(); trigger.click(); await settle();
-  expect(component.snapshot().events.map(event => event.open)).toEqual([true, false]); expect(trigger.getAttribute('aria-expanded')).toBe('false');
-  trigger.click(); await settle(); expect(component.snapshot().events.map(event => event.open)).toEqual([true, false, true]);
+  expect(component.snapshot().events.map(event => event.open)).toEqual([true, true]); expect(trigger.getAttribute('aria-expanded')).toBe('true');
+  trigger.click(); await settle(); expect(component.snapshot().events.map(event => event.open)).toEqual([true, true, false]);
 });
-it('native supplement: earlier consumer controlled writes are visible to the change request', async () => {
+it('supplement: earlier consumer controlled write retains rendered change request', async () => {
   const { trigger, component } = await setup('controlled-consumer'); trigger.click(); await settle();
-  expect(component.snapshot().events.map(event => event.open)).toEqual([false]); expect(trigger.getAttribute('aria-expanded')).toBe('true');
+  expect(component.snapshot().events.map(event => event.open)).toEqual([true]); expect(trigger.getAttribute('aria-expanded')).toBe('true');
 });
-it('native supplement: callback replacement is visible in the same event', async () => {
-  const { trigger, component } = await setup('callback-snapshot'); trigger.click(); await settle(); expect(component.snapshot().callbackOwners).toEqual(['new']);
-  trigger.click(); await settle(); expect(component.snapshot().callbackOwners).toEqual(['new', 'new']);
+it('supplement: rendered callback identity refreshes after the consumer callback prop write commits', async () => {
+  const { trigger, component } = await setup('callback-snapshot'); trigger.click(); await settle(); expect(component.snapshot().callbackOwners).toEqual(['old']);
+  trigger.click(); await settle(); expect(component.snapshot().callbackOwners).toEqual(['old', 'new']);
 });
 it('supplement: Trigger render state remains Root disabled state when explicit false enables activation', async () => {
   const { trigger, component, root } = await setup('disabled-override'); expect(root.hasAttribute('data-disabled')).toBe(true); expect(trigger.hasAttribute('data-disabled')).toBe(true);

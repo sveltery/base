@@ -1,6 +1,6 @@
 // Ported from Base UI v1.8.0 labelable-provider/useLabel.ts; MIT: THIRD_PARTY_NOTICES.md.
 import { ownerDocument } from '@sveltery/utils/owner';
-import { useStableCallback } from '@sveltery/utils/useStableCallback';
+
 import { getTarget } from '@sveltery/utils/shadowDom';
 import { useRegisteredLabelId } from '../../utils/useRegisteredLabelId.svelte.js';
 import { useLabelableContext, type LabelableContext } from './LabelableContext.js';
@@ -15,10 +15,10 @@ export interface UseLabelParameters {
 
 export function useLabel(getParams: () => UseLabelParameters, nativeId: string) {
   const context = useLabelableContext();
-  const syncLabelId = useStableCallback((nextLabelId: Parameters<LabelableContext['setLabelId']>[0]) => {
+  const syncLabelId = (nextLabelId: Parameters<LabelableContext['setLabelId']>[0]) => {
     context.setLabelId(nextLabelId);
     getParams().setLabelId?.(nextLabelId);
-  });
+  };
   const getId = useRegisteredLabelId(() => getParams().id, syncLabelId, nativeId);
   const resolvedControlId = $derived(context.controlId ?? getParams().fallbackControlId);
 

@@ -3,7 +3,7 @@ import { untrack } from 'svelte';
 import { addEventListener } from '@sveltery/utils/addEventListener';
 import { ownerDocument } from '@sveltery/utils/owner';
 import { useTimeout } from '@sveltery/utils/useTimeout';
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
 import { contains, getTarget } from '../../floating-ui/utils/element.js';
 import { stopEvent } from '../../floating-ui/utils/event.js';
 import { useContextMenuRootContext } from '../root/ContextMenuRootContext.js';
@@ -116,11 +116,11 @@ export function createContextMenuTrigger(getProps: () => ContextMenuTriggerProps
             }
         }
     }
-    useIsoLayoutEffect(() => () => {
+    $effect(() => () => {
         // Abort a pending mouseup listener if the trigger unmounts before it fires.
         mouseUpAbortControllerRef.current?.abort();
-    }, () => []);
-    useIsoLayoutEffect(() => {
+    });
+    $effect(() => {
         function handleDocumentContextMenu(event: MouseEvent) {
             if (disabled) {
                 return;
@@ -135,7 +135,7 @@ export function createContextMenuTrigger(getProps: () => ContextMenuTriggerProps
         }
         const doc = ownerDocument(triggerRef.current);
         return addEventListener(doc, 'contextmenu', handleDocumentContextMenu);
-    }, () => [backdropRef, disabled, internalBackdropRef]);
+    });
     const state: ContextMenuTriggerState = $derived({
         open,
     });

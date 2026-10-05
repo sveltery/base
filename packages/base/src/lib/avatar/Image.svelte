@@ -6,7 +6,7 @@
   import { useTransitionStatus } from '../internals/useTransitionStatus.svelte.js';
   import { useOpenChangeComplete } from '../internals/useOpenChangeComplete.svelte.js';
   import { transitionStatusMapping } from '../internals/stateAttributesMapping.js';
-  import { useStableCallback } from '@sveltery/utils/useStableCallback';
+  
   import { getAvatarContext } from './context.js';
   import { useImageLoadingStatus } from './useImageLoadingStatus.svelte.js';
   import { avatarStateAttributesMapping } from './stateAttributesMapping.js';
@@ -58,10 +58,10 @@
     onload() { loading.setLoadingStatus('loaded'); },
     onerror() { loading.setLoadingStatus('error'); },
   } : undefined);
-  const handleLoadingStatusChange = useStableCallback((status: ImageLoadingStatus) => {
+  const handleLoadingStatusChange = (status: ImageLoadingStatus) => {
     onLoadingStatusChange?.(status);
     root.setImageLoadingStatus(status);
-  });
+  };
   $effect.pre(() => {
     if (imageLoadingStatus !== 'idle') handleLoadingStatusChange(imageLoadingStatus);
   });

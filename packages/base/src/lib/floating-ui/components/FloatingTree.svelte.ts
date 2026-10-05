@@ -1,7 +1,7 @@
 // Base UI v1.8.0 FloatingTree node/context lifetime using native Svelte context.
 // MIT: THIRD_PARTY_NOTICES.md; pin 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 import { getContext, setContext } from 'svelte';
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
 import { FloatingTreeStore } from './FloatingTreeStore.js';
 import type { FloatingNodeType } from '../types.js';
 const NODE = Symbol('FloatingNode');
@@ -11,7 +11,7 @@ export function useFloatingTree(externalTree?: FloatingTreeStore) { return exter
 export function provideFloatingTree(externalTree?: FloatingTreeStore) { const tree = externalTree ?? new FloatingTreeStore(); setContext(TREE, tree); return tree; }
 export function useFloatingNodeId(id: string | undefined, externalTree?: FloatingTreeStore) {
   const tree = useFloatingTree(externalTree); const parentId = useFloatingParentNodeId(); const node: FloatingNodeType = { id, parentId };
-  useIsoLayoutEffect(() => { if (!id) return; tree?.addNode(node); return () => { tree?.removeNode(node); }; }, () => [tree, id, parentId]);
+  $effect(() => { if (!id) return; tree?.addNode(node); return () => { tree?.removeNode(node); }; });
   return id;
 }
 

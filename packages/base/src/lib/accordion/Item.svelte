@@ -32,13 +32,9 @@
   const defaultTriggerId = `base-ui-${generatedId}-trigger`;
   let registeredTriggerId = $state<string | null | undefined>(undefined);
   const triggerId = $derived(registeredTriggerId === null ? undefined : registeredTriggerId ?? defaultTriggerId);
-  let committedOpen = untrack(() => open);
-  let committedValue = untrack(() => value);
-  let committedCallback = untrack(() => onOpenChange);
-
   function requestOpenChange(next: boolean, details: AccordionItemChangeEventDetails) {
-    const callback = committedCallback;
-    const itemValue = committedValue;
+    const callback = onOpenChange;
+    const itemValue = value;
     callback?.(next, details);
     if (details.isCanceled) return;
     root.handleValueChange(itemValue, next, details);
@@ -54,7 +50,7 @@
     setMounted(next: boolean) { retainedMounted = next; if (!next && !open && phase === 'ending') phase = undefined; },
     onOpenChange: requestOpenChange,
     handleTrigger(event: MouseEvent | KeyboardEvent) {
-      const next = !committedOpen;
+      const next = !open;
       const details = createChangeEventDetails('trigger-press', event);
       requestOpenChange(next, details);
       if (!details.isCanceled) collapsible.setOpen(next);
@@ -78,11 +74,6 @@
   function attach(node: HTMLElement) {
     return root.registerItem(node, next => { index = next; });
   }
-  $effect.pre(() => {
-    committedOpen = open;
-    committedValue = value;
-    committedCallback = onOpenChange;
-  });
   // Defer ending styles so the Panel can cache its expanded dimensions first.
   $effect.pre(() => {
     const nextOpen = open;

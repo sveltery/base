@@ -4,7 +4,7 @@
   import { provideFloatingTree, useFloatingNodeId, provideFloatingNode } from '../floating-ui/components/FloatingTree.svelte.js';
   import { provideMenubarContext, type MenubarContext } from './MenubarContext.js';
   import { useBaseUiId } from '../internals/useBaseUiId.js';
-  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+  
   import { REASONS } from '../internals/reasons.js';
   import type { MenubarProps } from './types.js';
   import type { MenuRoot } from '../menu/types.js';
@@ -27,7 +27,7 @@
   const tree = provideFloatingTree();
   const nodeId = useFloatingNodeId(`${generatedId}-node`, tree);
   provideFloatingNode(() => nodeId);
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     function onSubmenuOpenChange(details: { open: boolean; reason: MenuRoot.ChangeEventReason | null; nodeId: string | undefined; parentNodeId: string | null }) {
       if (!details.nodeId || details.parentNodeId !== nodeId) return;
       if (details.open) {
@@ -38,7 +38,7 @@
     }
     tree.events.on('menuopenchange', onSubmenuOpenChange);
     return () => { tree.events.off('menuopenchange', onSubmenuOpenChange); };
-  }, () => [tree.events, nodeId, context]);
+  });
   const setRef = (node: HTMLElement | null) => { ref = node; };
   const stateAttributesMapping = { hasSubmenuOpen(value: boolean) { return value ? { 'data-has-submenu-open': '' } : null; } };
 </script>

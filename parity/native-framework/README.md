@@ -1,0 +1,21 @@
+# Native framework successor
+
+This semantic successor follows the user's explicit native-framework/class directive. It is stacked on the private Utils extraction; package checkpoint and historical review receipts do not accept this changed implementation. Exact-head independent source/native/maintainability review and execution gates remain pending. No publication or whole-feature acceptance is claimed.
+
+Source remains Base UI v1.8.0, immutable `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, MIT. [Baseline call hashes and current owners](callsite-inventory.json) identify the inspected transport closure. [Historical assertions](historical/manifest.json) preserve exact previous fixture/test bytes; immutable original assertions and earlier review receipts remain unchanged.
+
+| Original role at the immutable pin | Used native successor | Decision and review boundary |
+| --- | --- | --- |
+| `packages/utils/src/useControlled.ts` | `packages/utils/src/lib/Controlled.svelte.ts`, ten Base controlled consumers | Initial mode, live value and initial default remain; native direct setter replaces dispatch, serializer and React diagnostics. Minimal generic `T` includes undefined for optional state. No overloads or casts are added. |
+| `packages/utils/src/useIsoLayoutEffect.ts` | Direct `$effect` at 123 runtime call sites across 55 consumer modules | Native read tracking and post-DOM cleanup replace dependency arrays and tuple identity caches. `$effect` skips SSR without a Kit dependency. |
+| `packages/utils/src/useStableCallback.ts` | 79 ordinary live runtime closures | Svelte setup provides identity. No insertion effect, commit snapshot or wrapper-wide untracking remains. Imperative registration, dispatch and measurement callbacks have narrow `untrack` boundaries. |
+| `packages/utils/src/useRefWithInit.ts` | Direct component setup initialization | Symbols, registries, class instances and retained values initialize once. No React ref sentinel or function wrapper remains. |
+| `packages/utils/src/useOnMount.ts` | Direct `onMount` in the three lifetime consumers | Native lifecycle owns teardown; actual Timeout, AnimationFrame Scheduler and HoverInteraction business classes remain. |
+| Collapsible/Accordion root controlled and committed-callback copies | Shared `Controlled` and native live event reads | Initial defaults, event-detail cancellation and domain branches remain. React warnings/serializer and callback/value snapshot-copy effects are removed. Panel motion/style ownership is unchanged and remains separate audit scope. |
+| ReactStore framework diagnostics | Native `SvelteStore` synchronization | Canonical Store mutations, subscription, cleanup and observer algorithms remain; React controlled-mode warnings and stable-key bookkeeping are removed. |
+
+Resource invalidation remains real business: open/host changes abort completion watchers; changed popup content remeasures dimensions; content-key/container remounts re-arm viewport cleanup; cursor listener revision re-arms tracking; DelayGroup observes open before a plain-ref early return. Registry mutations and synchronous publication run outside reactive observation after native inputs are read. No inline dependency tuple or lifecycle cache replaces the deleted helper.
+
+Native fixtures expect immediate uncontrolled writes, function values stored directly, live callback replacement and actual effect reads. Historical diagnostics, functional dispatch and rendered snapshot expectations earn no current unchanged upstream parity credit. Retained business assertions keep separate provenance; all new native witnesses grant zero ordinary declaration credit.
+
+The first checkpoint has only lightweight Svelte compiler/syntax evidence. Browser, SSR/hydration, strict types, two-package consumers, CI and final-head review must run after toolkit/Utils integration in the coordinated heavy lane. Remaining cleanup inventory: convert the small timer/frame setup factories and previous-value owner to direct primitive/class roles; reusable component controller ownership such as Field validation, labelable context and popup viewport requires its own bounded component lease rather than a wholesale rewrite here. Preserve real Scheduler/Store/ref fan-out algorithms that have no native equivalent.

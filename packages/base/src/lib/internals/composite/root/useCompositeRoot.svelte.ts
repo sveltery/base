@@ -1,6 +1,6 @@
 // Ported from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT: THIRD_PARTY_NOTICES.md; parity/radio/source-correspondence.md.
-import { useStableCallback } from '@sveltery/utils/useStableCallback';
+
 import { isElementDisabled } from '@sveltery/utils/isElementDisabled';
 import {
   createMergedRefs,
@@ -82,8 +82,7 @@ export function useCompositeRoot(
   const highlightedElementRef = { current: null as HTMLElement | null };
   const getHighlightedIndex = () =>
     getParameters().highlightedIndex ?? internalHighlightedIndex;
-  const onHighlightedIndexChange = useStableCallback(
-    (index: number, shouldScrollIntoView = false) => {
+  const onHighlightedIndexChange = (index: number, shouldScrollIntoView = false) => {
       const {
         onHighlightedIndexChange: externalSetHighlightedIndex,
         direction,
@@ -99,8 +98,7 @@ export function useCompositeRoot(
           direction,
           orientation,
         );
-    },
-  );
+    };
   const onMapChange = (map: Map<Element, CompositeMetadata>) => {
     const {
       disabledIndices,

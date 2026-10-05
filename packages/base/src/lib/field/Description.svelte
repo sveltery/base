@@ -1,7 +1,8 @@
 <script lang="ts">
+  import { untrack } from 'svelte';
   // Ported from Base UI v1.8.0 FieldDescription.tsx; MIT: THIRD_PARTY_NOTICES.md.
   import RenderElement from '../internals/RenderElement.svelte';
-  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+  
   import { useFieldRootContext } from '../internals/field-root-context/FieldRootContext.js';
   import { useLabelableContext } from '../internals/labelable-provider/LabelableContext.js';
   import { fieldValidityMapping } from '../internals/field-constants/constants.js';
@@ -15,12 +16,12 @@
   const fieldItemContext = useFieldItemContext();
   const { setMessageIds } = useLabelableContext();
   const descriptionState = $derived({ ...fieldRootContext.state, disabled: fieldRootContext.disabled || fieldItemContext.disabled });
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     if (!id) return;
     const installedId = id;
-    setMessageIds(v => v.concat(installedId));
+    untrack(() => setMessageIds(v => v.concat(installedId)));
     return () => { setMessageIds(v => v.filter(item => item !== installedId)); };
-  }, () => [id, setMessageIds]);
+  });
   const forwardedRef = { get current() { return ref ?? null; }, set current(value: HTMLElement | null) { ref = value; } };
   const componentProps = $derived({ render, class: classProp, style });
   const params = $derived({ ref: forwardedRef, state: descriptionState, props: [{ id }, elementProps], stateAttributesMapping: fieldValidityMapping });

@@ -8,7 +8,7 @@
   import { ROOT } from './context.js';
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../internals/reasons.js';
-  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+  
   import { useImplicitActiveTrigger, useOpenStateTransitions, usePopupRootStore } from '../utils/popups/popupStoreUtils.svelte.js';
   import type { TooltipRootProps, TooltipRootChangeEventDetails } from './types.js';
   // eslint-disable-next-line no-useless-assignment -- Native bind:actions publishes the imperative Source actionsRef result.
@@ -41,10 +41,10 @@
   const instantType = $derived(store.select('instantType'));
   const lastOpenChangeReason = $derived(store.select('lastOpenChangeReason'));
   const previousInstantTypeRef = { current: null as State<Payload>['instantType'] | null };
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     if (openState && disabled) store.setOpen(false, createChangeEventDetails(REASONS.disabled));
-  }, () => [openState, disabled, store]);
-  useIsoLayoutEffect(() => {
+  });
+  $effect(() => {
     if ((transitionStatus === 'ending' && lastOpenChangeReason === REASONS.none) ||
         (transitionStatus !== 'ending' && isInstantPhase)) {
       if (instantType !== 'delay') previousInstantTypeRef.current = instantType;
@@ -53,10 +53,10 @@
       store.set('instantType', previousInstantTypeRef.current);
       previousInstantTypeRef.current = null;
     }
-  }, () => [transitionStatus, isInstantPhase, lastOpenChangeReason, instantType, store]);
-  useIsoLayoutEffect(() => {
+  });
+  $effect(() => {
     if (open && activeTriggerId == null) store.set('payload', undefined);
-  }, () => [store, activeTriggerId, open]);
+  });
   export function close() { store.setOpen(false, createChangeEventDetails(REASONS.imperativeAction)); }
   export function unmount() { forceUnmount(); }
   // eslint-disable-next-line no-useless-assignment -- Native bind:actions replaces the Source actionsRef output.

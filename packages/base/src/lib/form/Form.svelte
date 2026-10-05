@@ -3,7 +3,7 @@
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
   import { untrack, type Snippet } from 'svelte';
   import type { HTMLFormAttributes } from 'svelte/elements';
-  import { useStableCallback } from '@sveltery/utils/useStableCallback';
+  
   import { EMPTY_OBJECT } from '@sveltery/utils/empty';
   import { createGenericEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../internals/reasons.js';
@@ -31,7 +31,7 @@
   const elementRef = $state<{ current: HTMLFormElement | null }>({ current: null });
   const submittedRef = { current: false };
   const submitCountRef = { current: 0 };
-  const focusFirstInvalid = useStableCallback(() => {
+  const focusFirstInvalid = () => {
     let hasInvalid = false;
     let firstControl: HTMLElement | null = null;
     for (const field of formRef.current.fields.values()) {
@@ -46,7 +46,7 @@
       return true;
     }
     return hasInvalid;
-  });
+  };
   let errors = $state<FormErrors | undefined>(untrack(() => externalErrors));
   useValueChanged(() => externalErrors, () => () => { errors = externalErrors; });
   $effect(() => {
@@ -88,13 +88,13 @@
       }
     },
   };
-  const clearErrors = useStableCallback((name: string | undefined) => {
+  const clearErrors = (name: string | undefined) => {
     if (!name) return;
     if (!errors || !Object.hasOwn(errors, name)) return;
     const nextErrors = { ...errors };
     delete nextErrors[name];
     errors = nextErrors;
-  });
+  };
   const contextValue: FormContext = {
     elementRef, formRef, get validationMode() { return validationMode; },
     get errors() { return errors ?? EMPTY_OBJECT; }, clearErrors, submitCountRef,

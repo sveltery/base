@@ -3,8 +3,8 @@
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
   import { untrack } from 'svelte';
   import RenderElement from '../../internals/RenderElement.svelte';
-  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
-  import { useStableCallback } from '@sveltery/utils/useStableCallback';
+  
+  
   import { setFieldRootContext, type FieldRootContext } from '../../internals/field-root-context/FieldRootContext.js';
   import { DEFAULT_VALIDITY_STATE, fieldValidityMapping } from '../../internals/field-constants/constants.js';
   import { useFieldsetRootContext } from '../../fieldset/root/FieldsetRootContext.js';
@@ -20,7 +20,7 @@
     children, ref = $bindable(), ...elementProps
   }: FieldRootProps = $props();
   const fieldset = useFieldsetRootContext(true);
-  const validate = useStableCallback((value: unknown, values: Parameters<NonNullable<FieldRootProps['validate']>>[1]) => (validateProp || (() => null))(value, values));
+  const validate = (value: unknown, values: Parameters<NonNullable<FieldRootProps['validate']>>[1]) => (validateProp || (() => null))(value, values);
   const disabled = $derived(Boolean(fieldset?.disabled || disabledProp));
   let touchedState = $state(false);
   let dirtyState = $state(false);
@@ -32,19 +32,19 @@
   const registeredFieldIdRef = { current: undefined as string | undefined };
   let registeredFieldName = $state<string>();
   const effectiveName = $derived(name ?? registeredFieldName);
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     if (dirtyProp !== undefined) markedDirtyRef.current = dirtyProp;
-  }, () => [dirtyProp]);
-  const setDirty = useStableCallback((value: boolean) => {
+  });
+  const setDirty = (value: boolean) => {
     if (dirtyProp !== undefined) return;
     if (value) markedDirtyRef.current = true;
     dirtyState = value;
-  });
-  const setTouched = useStableCallback((value: boolean) => {
+  };
+  const setTouched = (value: boolean) => {
     if (touchedProp !== undefined) return;
     touchedState = value;
-  });
-  const shouldValidateOnChange = useStableCallback(() => validationMode === 'onChange' || (validationMode === 'onSubmit' && form.submitCountRef.current > 0));
+  };
+  const shouldValidateOnChange = () => validationMode === 'onChange' || (validationMode === 'onSubmit' && form.submitCountRef.current > 0);
   const formError = $derived(effectiveName && Object.hasOwn(form.errors, effectiveName) ? form.errors[effectiveName] : null);
   const hasFormError = $derived(Boolean(Array.isArray(formError) ? formError.length : formError));
   const invalid = $derived(invalidProp === true || hasFormError);
@@ -65,12 +65,12 @@
     setValidityData, get validityData() { return validityData; },
   });
   const actions: FieldRootActions = { validate: validateFieldControl };
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     const target = actionsRef;
     if (!target) return;
     target.current = actions;
     return () => { if (target.current === actions) target.current = null; };
-  }, () => [actionsRef, validateFieldControl]);
+  });
   const contextValue: FieldRootContext = {
     get invalid() { return invalid; }, get name() { return effectiveName; },
     get validityData() { return validityData; }, setValidityData,

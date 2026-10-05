@@ -5,8 +5,8 @@ import { isElementDisabled } from '@sveltery/utils/isElementDisabled';
 import { warn } from '@sveltery/utils/warn';
 import { EMPTY_OBJECT } from '@sveltery/utils/empty';
 import { platform } from '@sveltery/utils/platform';
-import { useStableCallback } from '@sveltery/utils/useStableCallback';
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
+
 import { safePolygon } from '../../floating-ui/safePolygon.js';
 import { useClick } from '../../floating-ui/hooks/useClick.svelte.js';
 import { useHoverReferenceInteraction } from '../../floating-ui/hooks/useHoverReferenceInteraction.svelte.js';
@@ -39,7 +39,7 @@ export function createMenuSubmenuTrigger(getProps: () => MenuSubmenuTriggerProps
     const baseRegisterTrigger = useTriggerRegistration(() => thisTriggerId, () => store);
     // Stable, so the merged ref on the rendered element keeps its identity for the trigger's whole
     // lifetime; the latest `closeDelay` is read when it runs.
-    const registerTrigger = useStableCallback((element: Element | null) => {
+    const registerTrigger = (element: Element | null) => {
         baseRegisterTrigger(element);
         if (element !== null && store.select('open') && store.select('activeTriggerId') == null) {
             store.update({
@@ -48,7 +48,7 @@ export function createMenuSubmenuTrigger(getProps: () => MenuSubmenuTriggerProps
                 closeDelay,
             });
         }
-    });
+    };
     const triggerElementRef = { current: null as HTMLElement | null };
     const handleTriggerElementRef = (el: HTMLElement | null) => {
         triggerElementRef.current = el;
@@ -57,10 +57,13 @@ export function createMenuSubmenuTrigger(getProps: () => MenuSubmenuTriggerProps
     // A stable ref does not re-fire when the id changes, so register the rendered element here
     // instead. On React 17 the id also starts out `undefined`, so this is what registers the trigger
     // at all.
-    useIsoLayoutEffect(() => {
-        registerTrigger(triggerElementRef.current);
+    $effect(() => {
+        void thisTriggerId;
+        void store;
+        const element = triggerElementRef.current;
+        untrack(() => registerTrigger(element));
         return () => registerTrigger(null);
-    }, () => [registerTrigger, thisTriggerId, store]);
+    });
     store.useSyncedValue('closeDelay', () => closeDelay);
     const parentMenuStore = submenuRootContext.parentMenu;
     const rootDisabled = $derived(store.useState('disabled'));
@@ -68,7 +71,7 @@ export function createMenuSubmenuTrigger(getProps: () => MenuSubmenuTriggerProps
     const disabled = $derived(disabledProp || rootDisabled || parentDisabled);
     if (DEV) {
 
-        useIsoLayoutEffect(() => {
+        $effect(() => {
             const element = triggerElementRef.current;
             if (element && isElementDisabled(element) && !disabled) {
                 warn(`A disabled element was detected on <Menu.SubmenuTrigger>. To properly disable the trigger, use the \`disabled\` prop on the component instead of setting it on the rendered element.`);

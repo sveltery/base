@@ -1,10 +1,11 @@
 <script lang="ts" generics="Value">
+  import { untrack } from 'svelte';
   // Source-ordered port of Base UI v1.8.0 RadioGroup.tsx at
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
   import CompositeRoot from '../internals/composite/root/CompositeRoot.svelte';
   import { SHIFT } from '../internals/composite/composite.js';
-  import { useControlled } from '@sveltery/utils/useControlled';
-  import { useStableCallback } from '@sveltery/utils/useStableCallback';
+  import { Controlled } from '@sveltery/utils/Controlled';
+  
   import { useBaseUiId } from '../internals/useBaseUiId.js';
   import { contains } from '@sveltery/utils/shadowDom';
   import { useFieldRootContext } from '../internals/field-root-context/FieldRootContext.js';
@@ -49,21 +50,14 @@
   const name = $derived(field.name ?? nameProp);
   const nativeId = $props.id();
   const id = $derived(useBaseUiId(idProp ?? undefined, nativeId));
-  const [getCheckedValue, setCheckedValueUnwrapped] = useControlled(() => ({
-    controlled: externalValue,
-    default: defaultValue,
-    name: 'RadioGroup',
-    state: 'value',
-  }));
-  const checkedValue = $derived(getCheckedValue());
+  const checkedValueState = new Controlled(() => externalValue, untrack(() => defaultValue));
+  const checkedValue = $derived(checkedValueState.value);
   let touched = $state(false);
-  const setCheckedValue = useStableCallback(
-    (value: Value, details: RadioGroupChangeEventDetails) => {
+  const setCheckedValue = (value: Value, details: RadioGroupChangeEventDetails) => {
       onValueChange?.(value, details);
       if (details.isCanceled) return;
-      setCheckedValueUnwrapped(value);
-    },
-  );
+      checkedValueState.set(value);
+    };
   const controlRef = {
     get current() {
       return field.validation.getInputControl();
@@ -78,7 +72,7 @@
     groupInputRef.current = input;
     return cleanup;
   }
-  const registerInputRef = useStableCallback((input: HTMLInputElement | null) => {
+  const registerInputRef = (input: HTMLInputElement | null) => {
     if (!input || input.disabled) return;
     if (!firstEnabledInputRef.current) firstEnabledInputRef.current = input;
     const currentInput = groupInputRef.current;
@@ -96,8 +90,8 @@
         } else void setInputRef(null);
       } else cleanup?.();
     };
-  });
-  const getFormValue = useStableCallback(() => {
+  };
+  const getFormValue = () => {
     const formElement = formContext.elementRef.current;
     if (!formElement) return checkedValue ?? null;
     for (const input of field.validation.registeredInputs.keys()) {
@@ -105,7 +99,7 @@
         return checkedValue ?? null;
     }
     return null;
-  });
+  };
   useRegisterFieldControl(
     controlRef,
     () => id,

@@ -5,7 +5,6 @@ import { DEV } from 'esm-env';
 
 export type AnimationType = 'css-transition' | 'css-animation' | 'none';
 const warnings = new Set<string>();
-const errors = new Set<string>();
 
 /** Matches the pinned development-only, once-per-message warning contract. */
 export function warnOnce(...messages: string[]) {
@@ -14,15 +13,6 @@ export function warnOnce(...messages: string[]) {
   if (warnings.has(message)) return;
   warnings.add(message);
   console.warn(message);
-}
-
-/** useControlled diagnostics use the same once-per-message rule, at error severity. */
-export function errorOnce(...messages: string[]) {
-  if (!DEV) return;
-  const message = `Base UI: ${messages.join(' ')}`;
-  if (errors.has(message)) return;
-  errors.add(message);
-  console.error(message);
 }
 
 /** A frame is owned by the actual element's window and by its lifecycle cleanup. */

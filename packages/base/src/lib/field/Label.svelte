@@ -3,7 +3,7 @@
   import { DEV } from 'esm-env';
   import RenderElement from '../internals/RenderElement.svelte';
   import { error } from '@sveltery/utils/error';
-  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+  
   import { useFieldRootContext } from '../internals/field-root-context/FieldRootContext.js';
   import { fieldValidityMapping } from '../internals/field-constants/constants.js';
   import { useLabelableContext } from '../internals/labelable-provider/LabelableContext.js';
@@ -19,7 +19,7 @@
   const nativeId = $props.id();
   const getLabelProps = useLabel(() => ({ id: labelable.labelId ?? idProp ?? undefined, native: nativeLabel }), nativeId);
   // Native post-DOM lifecycle replaces React.useEffect and its optional owner-stack API.
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     if (!DEV || !labelRef.current) return;
     const isLabelTag = labelRef.current.tagName === 'LABEL';
     if (nativeLabel) {
@@ -30,7 +30,7 @@
       'Rendering a <label> assumes native label behavior while Base UI treats it as ' +
       'non-native, which can cause unexpected pointer behavior. Use a non-<label> in the ' +
       '`render` prop, or set `nativeLabel` to `true`.');
-  }, () => [nativeLabel]);
+  });
   const forwardedRef = { get current() { return ref ?? null; }, set current(value: HTMLElement | null) { ref = value; } };
   const componentProps = $derived({ render, class: classProp, style });
   const params = $derived({ ref: [forwardedRef, labelRef], state: labelState, props: [getLabelProps(), elementProps], stateAttributesMapping: fieldValidityMapping });
