@@ -111,9 +111,9 @@ for (const reference of [false, true]) test.describe(`${reference ? 'Original Re
   });
   test('R:1614 kept portal opening suppresses popup and arrow transitions', async ({ page }) => {
     await visit(page, reference, 'kept-transitions');
-    const opening = await page.evaluate(async () => {
+    const opening = await page.evaluate(() => {
       const state = window as unknown as State;
-      await state.navigationMenuTestTransport.fire(document.querySelector('[data-testid="trigger-1"]')!, 'click');
+      state.navigationMenuTestTransport.fireSync(document.querySelector('[data-testid="trigger-1"]')!, 'click');
       return ['popup-root', 'arrow'].map(id => getComputedStyle(document.querySelector(`[data-testid="${id}"]`)!).transition);
     });
     expect(opening).toEqual(['none', 'none']);

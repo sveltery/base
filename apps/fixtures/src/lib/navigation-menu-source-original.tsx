@@ -840,6 +840,58 @@ function TestDeeplyNestedNavigationMenuWithCloseOnClick() {
   );
 }
 
+const rapidHoverAnimationStyles = `
+  .test-navigation-menu-popup {
+    transition:
+      width 350ms cubic-bezier(0.22, 1, 0.36, 1),
+      height 350ms cubic-bezier(0.22, 1, 0.36, 1);
+    width: var(--popup-width);
+    height: var(--popup-height);
+  }
+`;
+
+function TestNavigationMenuRapidHoverSizing() {
+  const [isProductExpanded, setIsProductExpanded] = React.useState(false);
+
+  return (
+    <NavigationMenu.Root>
+      {/* eslint-disable-next-line react/no-danger */}
+      <style dangerouslySetInnerHTML={{ __html: rapidHoverAnimationStyles }} />
+      <NavigationMenu.List style={{ display: 'flex' }}>
+        <NavigationMenu.Item value="product">
+          <NavigationMenu.Trigger>Product</NavigationMenu.Trigger>
+          <NavigationMenu.Content>
+            <div>
+              <button type="button" onClick={() => setIsProductExpanded(true)}>
+                Expand Product
+              </button>
+              {isProductExpanded ? (
+                <div style={{ width: 760, height: 460 }}>Expanded product panel</div>
+              ) : (
+                <div style={{ width: 700, height: 420 }}>Product panel</div>
+              )}
+            </div>
+          </NavigationMenu.Content>
+        </NavigationMenu.Item>
+
+        <NavigationMenu.Item value="solutions">
+          <NavigationMenu.Trigger>Solutions</NavigationMenu.Trigger>
+          <NavigationMenu.Content>
+            <div style={{ width: 500, height: 320 }}>Solutions panel</div>
+          </NavigationMenu.Content>
+        </NavigationMenu.Item>
+      </NavigationMenu.List>
+      <NavigationMenu.Portal>
+        <NavigationMenu.Positioner>
+          <NavigationMenu.Popup data-testid="popup-root" className="test-navigation-menu-popup">
+            <NavigationMenu.Viewport />
+          </NavigationMenu.Popup>
+        </NavigationMenu.Positioner>
+      </NavigationMenu.Portal>
+    </NavigationMenu.Root>
+  );
+}
+
 type SourceCall = { value: unknown; reason: string; type: string; canceled: boolean };
 export function NavigationMenuSourceOriginal({ scenario, direction = 'ltr', orientation = 'horizontal', side = 'bottom' }: { scenario: string; direction?: 'ltr' | 'rtl'; orientation?: 'horizontal' | 'vertical'; side?: NavigationMenu.Positioner.Props['side'] }) {
   const [value, setValue] = React.useState<unknown>('item-1');
@@ -870,6 +922,7 @@ export function NavigationMenuSourceOriginal({ scenario, direction = 'ltr', orie
   else if (scenario === 'deep-close') node = <TestDeeplyNestedNavigationMenuWithCloseOnClick />;
   else if (scenario === 'tab-boundary') node = <TestInlineNestedNavigationMenuTabForwardBoundary />;
   else if (scenario === 'tab-flow') node = <TestInlineNestedNavigationMenuTabFlow />;
+  else if (scenario === 'rapid-hover') node = <TestNavigationMenuRapidHoverSizing />;
   else if (scenario === 'kept-content') node = <TestNavigationMenuWithKeepMountedContent />;
   else if (scenario === 'kept-content-closed') node = <TestNavigationMenuWithKeepMountedContentClosed />;
   else if (scenario === 'scoped-exit') node = <TestNavigationMenuWithScopedPopupExitAnimation onOpenChangeComplete={open => { completions.current.push(open); }} />;

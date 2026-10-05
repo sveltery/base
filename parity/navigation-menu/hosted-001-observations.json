@@ -1,0 +1,263 @@
+{
+  "head": "00164d85c3b7bc664c9552d2b43acaa8d03189c5",
+  "tree": "5a28e99893c0fdd71e7d5fde4469bba888f73c14",
+  "runId": 37272156325,
+  "jobId": 111641260655,
+  "artifactId": 11329276665,
+  "artifactSha256": "cc32be81b5033a316542c8cbe4aa0b408c1a8adfe2e50800de3232d10c340f65",
+  "artifactReceipt": "/workspace/sveltery-pm-evidence/navigation-menu-001-hosted",
+  "jobReceipt": "/workspace/sveltery-pm-evidence/navigation-menu-001-hosted-job.log",
+  "browser": "official Chromium153.0.8010.12",
+  "sandbox": true,
+  "workers": 1,
+  "retries": 0,
+  "collected": 638,
+  "passed": 630,
+  "failed": 8,
+  "skipped": 0,
+  "ordinaryCredit": 0,
+  "status": "Actual frozen638 candidates: Original318 pass/1 fail; native312 pass/7 fail retained. OriginalR1614 synchronous protocol and nativeT238 height are new red scope; complete protocol and product review pending",
+  "failures": [
+    {
+      "file": "navigation-menu-parts.spec.ts",
+      "suite": "native Svelte exact parts",
+      "title": "T:238 focus and positioner height follow switched content",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-parts.spec.ts",
+      "suite": "Original React exact parts",
+      "title": "R:1614 kept portal opening suppresses popup and arrow transitions",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-sizing.spec.ts",
+      "suite": "native Svelte exact sizing",
+      "title": "R:1854 external close preserves measured size",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-sizing.spec.ts",
+      "suite": "native Svelte exact sizing",
+      "title": "R:1858 external close preserves measured size",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-sizing.spec.ts",
+      "suite": "native Svelte exact sizing",
+      "title": "R:3587 kept trigger switches sizing immediately",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-sizing.spec.ts",
+      "suite": "native Svelte exact sizing",
+      "title": "R:3917 temporary zero close retains auto measured size",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "native Svelte exact Root sequences",
+      "title": "R:2538 nested closeOnClick propagation",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "native Svelte exact Root sequences",
+      "title": "R:2568 nested closeOnClick propagation",
+      "status": "unexpected",
+      "result": "failed"
+    }
+  ],
+  "suiteCounts": {
+    "native Svelte Root conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte List conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Item conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Icon conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Link conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Trigger conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Portal conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Positioner conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Popup conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Backdrop conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Arrow conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Viewport conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Root conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React List conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Item conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Icon conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Link conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Trigger conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Portal conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Positioner conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Popup conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Backdrop conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Arrow conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Viewport conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte exact parts": {
+      "total": 24,
+      "passed": 23,
+      "failed": 1
+    },
+    "Original React exact parts": {
+      "total": 24,
+      "passed": 23,
+      "failed": 1
+    },
+    "native Svelte exact sizing": {
+      "total": 10,
+      "passed": 6,
+      "failed": 4
+    },
+    "Original React exact sizing": {
+      "total": 10,
+      "passed": 10,
+      "failed": 0
+    },
+    "native Svelte exact Root sequences": {
+      "total": 79,
+      "passed": 77,
+      "failed": 2
+    },
+    "Original React exact Root sequences": {
+      "total": 79,
+      "passed": 79,
+      "failed": 0
+    },
+    "native Svelte": {
+      "total": 26,
+      "passed": 26,
+      "failed": 0
+    },
+    "Original React": {
+      "total": 26,
+      "passed": 26,
+      "failed": 0
+    }
+  },
+  "prerequisites": {
+    "immutableFixtureVerification": "passed",
+    "strictInstalledPublicPackageSSRTypes": "passed",
+    "StandardsJob": 111641342695,
+    "Standards": "success",
+    "VerificationJob": 111641342810,
+    "Verification": "success",
+    "VerificationReceipt": "/workspace/sveltery-pm-evidence/navigation-menu-001-verify.log",
+    "optionalWebKit": "skipped",
+    "supplementalDOM42": "passed"
+  },
+  "frameworkTotals": {
+    "Original": {
+      "total": 319,
+      "passed": 318,
+      "failed": 1
+    },
+    "native": {
+      "total": 319,
+      "passed": 312,
+      "failed": 7
+    }
+  }
+}

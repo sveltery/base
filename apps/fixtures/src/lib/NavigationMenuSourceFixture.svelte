@@ -3,6 +3,7 @@
   import { NavigationMenu } from '@sveltery/base/navigation-menu';
   import TreeFixture from './NavigationMenuTreeSourceFixture.svelte';
   import { sourceExtraTree } from './navigation-menu-source-trees.js';
+  import { rapidHoverAnimationStyles } from './navigation-menu-source-styles.js';
   import { DirectionProvider } from '@sveltery/base/direction-provider';
   let { scenario, direction = 'ltr', orientation = 'horizontal', side = 'bottom' }: { scenario: string; direction?: 'ltr' | 'rtl'; orientation?: 'horizontal' | 'vertical'; side?: NavigationMenu.Positioner.Props['side'] } = $props();
   const falsy = $derived(scenario.endsWith('zero') ? 0 : scenario.endsWith('false') ? false : '');
@@ -10,6 +11,7 @@
   const nested = $derived(inline || scenario.startsWith('nested'));
   let value = $state<unknown>('item-1');
   let contentStage = $state(untrack(() => scenario === 'dynamic-initial' ? 1 : 0));
+  let isProductExpanded = $state(false);
   let actions: NavigationMenu.Root.Actions | null = $state(null);
   const calls: { value: unknown; reason: string; type: string; canceled: boolean }[] = [];
   const completions: boolean[] = [];
@@ -73,7 +75,19 @@
 {/snippet}
 <DirectionProvider {direction}>
   {#if scenario.startsWith('focus')}<!-- svelte-ignore a11y_consider_explicit_label (Exact archived outside-focus button fixture.) --><button data-testid="first"></button>{/if}
-  {#if ['nested-close', 'deep', 'deep-close', 'tab-boundary', 'tab-flow', 'kept-content', 'kept-content-closed', 'scoped-exit', 'scoped-top-link'].includes(scenario)}<TreeFixture tree={sourceExtraTree(scenario)} rootProps={['nested-close', 'scoped-exit'].includes(scenario) ? rootProps : undefined} />
+  {#if scenario === 'rapid-hover'}
+    <NavigationMenu.Root>
+      <svelte:element this={'style'}>{rapidHoverAnimationStyles}</svelte:element>
+      <NavigationMenu.List style={{ display: 'flex' }}>
+        <NavigationMenu.Item value="product"><NavigationMenu.Trigger>Product</NavigationMenu.Trigger><NavigationMenu.Content><div>
+          <button type="button" onclick={() => { isProductExpanded = true; }}>Expand Product</button>
+          {#if isProductExpanded}<div style={{ width: '760px', height: '460px' }}>Expanded product panel</div>{:else}<div style={{ width: '700px', height: '420px' }}>Product panel</div>{/if}
+        </div></NavigationMenu.Content></NavigationMenu.Item>
+        <NavigationMenu.Item value="solutions"><NavigationMenu.Trigger>Solutions</NavigationMenu.Trigger><NavigationMenu.Content><div style={{ width: '500px', height: '320px' }}>Solutions panel</div></NavigationMenu.Content></NavigationMenu.Item>
+      </NavigationMenu.List>
+      <NavigationMenu.Portal><NavigationMenu.Positioner><NavigationMenu.Popup data-testid="popup-root" class="test-navigation-menu-popup"><NavigationMenu.Viewport /></NavigationMenu.Popup></NavigationMenu.Positioner></NavigationMenu.Portal>
+    </NavigationMenu.Root>
+  {:else if ['nested-close', 'deep', 'deep-close', 'tab-boundary', 'tab-flow', 'kept-content', 'kept-content-closed', 'scoped-exit', 'scoped-top-link'].includes(scenario)}<TreeFixture tree={sourceExtraTree(scenario)} rootProps={['nested-close', 'scoped-exit'].includes(scenario) ? rootProps : undefined} />
   {:else if scenario === 'keyboard' || scenario === 'side'}<NavigationMenu.Root {orientation}><NavigationMenu.List><NavigationMenu.Item value={scenario === 'side' ? 'item-1' : undefined}><NavigationMenu.Trigger data-testid="trigger-1">{scenario === 'side' ? 'Item 1' : 'Overview'}</NavigationMenu.Trigger><NavigationMenu.Content><NavigationMenu.Link href={scenario === 'side' ? '#link-1' : '#quick-start'}>{scenario === 'side' ? 'Link 1' : 'Quick Start'}</NavigationMenu.Link></NavigationMenu.Content></NavigationMenu.Item></NavigationMenu.List><NavigationMenu.Portal><NavigationMenu.Positioner side={scenario === 'side' ? side : undefined}><NavigationMenu.Popup data-testid="popup-root"><NavigationMenu.Viewport /></NavigationMenu.Popup></NavigationMenu.Positioner></NavigationMenu.Portal></NavigationMenu.Root>
   {:else if scenario.startsWith('falsy-')}<NavigationMenu.Root onValueChange={rootProps.onValueChange}><NavigationMenu.List><NavigationMenu.Item value={falsy}><NavigationMenu.Trigger data-testid="trigger-0">Zero</NavigationMenu.Trigger><NavigationMenu.Content data-testid="popup-0"><NavigationMenu.Link href="#link-0">Zero link</NavigationMenu.Link></NavigationMenu.Content></NavigationMenu.Item></NavigationMenu.List><NavigationMenu.Portal><NavigationMenu.Positioner><NavigationMenu.Popup><NavigationMenu.Viewport /></NavigationMenu.Popup></NavigationMenu.Positioner></NavigationMenu.Portal></NavigationMenu.Root>
   {:else if scenario === 'manual'}<NavigationMenu.Root {...rootProps} bind:actions>{@render menu()}</NavigationMenu.Root>{:else}<NavigationMenu.Root {...rootProps}>{@render menu()}</NavigationMenu.Root>{/if}

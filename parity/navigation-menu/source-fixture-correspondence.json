@@ -3,9 +3,9 @@
   "source": "packages/react/src/navigation-menu/root/NavigationMenuRoot.test.tsx",
   "sourceSha256": "91d0f84501dc110d1a948bb8c26ad82cc2b54f7a18f3de5e7117a921b0e4e266",
   "reference": "apps/fixtures/src/lib/navigation-menu-source-original.tsx",
-  "referenceSha256": "9133e13796a2470a67575c1c206f6e27f0b7bf3a72e5d40e228009e2db701653",
+  "referenceSha256": "a4297918da16bcae6b564bec79f76384041768c03d9e8c55e32d1789ed6fb2a0",
   "native": "apps/fixtures/src/lib/NavigationMenuSourceFixture.svelte",
-  "nativeSha256": "88bac2b535df551d25696047289398e35d3dc27c965317eed8fa027c5ee10818",
+  "nativeSha256": "6b55d84743dd06673e09fa5adf8945415de4145a94cca0599720c341e5ff04cb",
   "functions": [
     {
       "name": "TestNavigationMenu",
@@ -117,6 +117,56 @@
       "sourceLine": 168,
       "referenceLine": 398,
       "sha256": "9520e91a070f757cdd86506029af37bf173c875e4f2eb1e159e4a4bb5560955e",
+      "exactCompleteOriginalBody": true
+    }
+  ],
+  "additionalFixtures": [
+    {
+      "source": "packages/react/src/navigation-menu/trigger/NavigationMenuTrigger.test.tsx",
+      "sourceSha256": "9f14d3b046ecfc413f2ddd9e8188b7f610e8fb151a4587974afac3364a71d213",
+      "name": "TestNavigationMenuRapidHoverSizing",
+      "sourceLine": 19,
+      "local": "apps/fixtures/src/lib/navigation-menu-source-original.tsx",
+      "localLine": 853,
+      "sha256": "22952408a55a4345054d50ed99ad40e46c020b584e0af359cf6f58cc90ce6efc",
+      "exactCompleteOriginalBody": true
+    },
+    {
+      "source": "packages/react/src/navigation-menu/trigger/NavigationMenuTrigger.test.tsx",
+      "sourceSha256": "9f14d3b046ecfc413f2ddd9e8188b7f610e8fb151a4587974afac3364a71d213",
+      "name": "getPopupWidthCalls",
+      "sourceLine": 61,
+      "local": "apps/fixtures/src/lib/navigation-menu-source-mocks.ts",
+      "localLine": 114,
+      "sha256": "d7a79f032bf4ba31b25aaf2d0d721538f4c3abd8bac51aba00272b93320e4876",
+      "exactCompleteOriginalBody": true
+    },
+    {
+      "source": "packages/react/src/navigation-menu/trigger/NavigationMenuTrigger.test.tsx",
+      "sourceSha256": "9f14d3b046ecfc413f2ddd9e8188b7f610e8fb151a4587974afac3364a71d213",
+      "name": "getPositionerWidthCalls",
+      "sourceLine": 65,
+      "local": "apps/fixtures/src/lib/navigation-menu-source-mocks.ts",
+      "localLine": 118,
+      "sha256": "6b7bb93e173dd26d79fe65a980a0007563c4b5a5e809c5374a3fc3e58c625745",
+      "exactCompleteOriginalBody": true
+    },
+    {
+      "source": "packages/react/src/navigation-menu/trigger/NavigationMenuTrigger.test.tsx",
+      "sourceSha256": "9f14d3b046ecfc413f2ddd9e8188b7f610e8fb151a4587974afac3364a71d213",
+      "name": "rapidHoverAnimationStyles",
+      "sourceLine": 9,
+      "local": "apps/fixtures/src/lib/navigation-menu-source-original.tsx",
+      "sha256": "77359e0993ef847e62e89a283f40b532e9870fb670c78e0330acf85050f35f69",
+      "exactCompleteOriginalBody": true
+    },
+    {
+      "source": "packages/react/src/navigation-menu/trigger/NavigationMenuTrigger.test.tsx",
+      "sourceSha256": "9f14d3b046ecfc413f2ddd9e8188b7f610e8fb151a4587974afac3364a71d213",
+      "name": "rapidHoverAnimationStyles",
+      "sourceLine": 9,
+      "local": "apps/fixtures/src/lib/navigation-menu-source-styles.ts",
+      "sha256": "77359e0993ef847e62e89a283f40b532e9870fb670c78e0330acf85050f35f69",
       "exactCompleteOriginalBody": true
     }
   ],

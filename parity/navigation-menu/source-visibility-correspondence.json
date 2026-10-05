@@ -1,0 +1,25 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "sourceSetup": "test/setupVitest.ts imports @testing-library/jest-dom/vitest; immutable pnpm-lock pins6.9.1",
+  "package": "@testing-library/jest-dom@6.9.1",
+  "tarballSha256": "ee52ab258e9599f6ad914dc28c95f4f53aae23973ebf568976e067d25aee69b1",
+  "integrity": "Source SHA512 lock integrity independently verified before safe extraction",
+  "module": "dist/matchers-35e4d3bd.mjs",
+  "moduleSha256": "33167022cf99e774a37bccaeb598532e23da27a411522147a2bbad574e415aa9",
+  "wholeReadSymbols": [
+    "isStyleVisible",
+    "isAttributeVisible",
+    "isElementVisible",
+    "toBeVisible"
+  ],
+  "local": "apps/fixtures/src/lib/navigation-menu-source-visibility.ts",
+  "localSha256": "1ea90084a984938ceaf249d05bf8e2663d9a4809059a85f15ed046145f4b9c96",
+  "substitution": "Native Element types replace untyped JS arguments. Source numeric/string opacity checks, ancestor display/visibility/opacity, hidden/details and composed-document containment pass predicates all retained. Actual getByText supplies the Element; assertion formatting/checkHtmlElement diagnostics are replaced by test errors and outer Playwright assertions. No geometry hit-test or changed expected visibility. Actual Testing Library DOM10.4.1 waitFor/config/getByText bodies read and used directly in per-fixture configured transport.",
+  "usedBy": [
+    "Trigger455",
+    "Trigger501"
+  ],
+  "ordinaryCredit": 0,
+  "status": "Prepared test-only observable predicate correspondence; fresh complete protocol review and hosted execution pending",
+  "license": "parity/navigation-menu/source-test-library-LICENSE.txt"
+}

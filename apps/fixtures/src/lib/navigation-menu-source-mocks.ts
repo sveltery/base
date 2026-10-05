@@ -91,3 +91,33 @@ function primeOpenPopupSize(
   positioner.style.setProperty('--positioner-height', `${height}px`);
 }
 export { mockBoundingClientRect, mockAnimations, mockResizeObserver, primeOpenPopupSize };
+
+// Browser counterpart of Source vi.spyOn(style, 'setProperty'): call the actual
+// DOM method, retain its arguments, and restore the exact own descriptor.
+export function spySetProperty(style: CSSStyleDeclaration) {
+  const descriptor = Object.getOwnPropertyDescriptor(style, 'setProperty');
+  const original = style.setProperty;
+  const calls: Array<[property: string, value: string | null, priority?: string]> = [];
+  style.setProperty = function (property, value, priority) {
+    calls.push([property, value, priority]);
+    return original.call(this, property, value, priority);
+  };
+  return {
+    calls,
+    restore() {
+      if (descriptor) Object.defineProperty(style, 'setProperty', descriptor);
+      else Reflect.deleteProperty(style, 'setProperty');
+    },
+  };
+}
+
+function getPopupWidthCalls(calls: Array<[property: string, value: string, priority?: string]>) {
+  return calls.filter((call) => call[0] === '--popup-width').map((call) => call[1]);
+}
+
+function getPositionerWidthCalls(
+  calls: Array<[property: string, value: string, priority?: string]>,
+) {
+  return calls.filter((call) => call[0] === '--positioner-width').map((call) => call[1]);
+}
+export { getPopupWidthCalls, getPositionerWidthCalls };

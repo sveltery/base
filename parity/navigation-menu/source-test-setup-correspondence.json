@@ -54,5 +54,36 @@
     ],
     "R3917": "Original captures popupRoot and positioner before priming and blur. One browser evaluation preserves the literal click/fire/flush/capture/mock/blur/flush/read order with real selected framework transport; all four expected CSS strings remain unchanged."
   },
-  "rendererDomain": "Test-only actual React and Svelte renderer transport. Page closes after each case; no production/global browser security override."
+  "rendererDomain": "Test-only actual React and Svelte renderer transport. Page closes after each case; no production/global browser security override.",
+  "successorSizing": {
+    "preparedOnly": true,
+    "animationsDisabledFalse": [
+      3198,
+      3245,
+      3418,
+      3642,
+      3724,
+      3843
+    ],
+    "animationsDisabledTrue": [
+      3489,
+      "Trigger455",
+      "Trigger501"
+    ],
+    "realTimers": [
+      "Trigger455",
+      "Trigger501"
+    ],
+    "synchronousFireSites": [
+      "Root1614",
+      "Root3198",
+      "Root3245",
+      "Root3418",
+      "Root3489",
+      "Root3642",
+      "Root3724",
+      "Root3843"
+    ],
+    "synchronousBoundary": "Actual wrapped React Testing Library fireEvent; native Svelte flushSync around the same real DOM fireEvent. No flush-microtask insertion before Source geometry setup or immediate style assertions. Existing628 async protocols unchanged."
+  }
 }

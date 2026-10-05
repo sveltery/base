@@ -1,8 +1,9 @@
 // Test-only transport selected by the immutable Original renderer, MIT.
 // Event construction and user input stay owned by the pinned Testing Library packages.
-import { configure, fireEvent, getConfig, type EventType } from '@testing-library/dom';
+import { configure, fireEvent, getByText, getConfig, waitFor, type EventType } from '@testing-library/dom';
 import { userEvent } from '@testing-library/user-event';
-import { tick } from 'svelte';
+import { flushSync, tick } from 'svelte';
+import { isSourceVisible } from './navigation-menu-source-visibility.js';
 
 type ReferenceTransport = {
   fireEvent: typeof fireEvent;
@@ -28,6 +29,7 @@ export function createNavigationMenuTestTransport() {
   let finishClock: (() => void) | undefined;
   let clockAct: PromiseLike<void> | undefined;
   let unmountRoot: (() => void | Promise<void>) | undefined;
+  const disposers: Array<() => void> = [];
 
   function setup(pointerEventsCheck?: 0) {
     // userEvent.setup adds its two document preparation listeners. Own those exact
@@ -89,6 +91,18 @@ export function createNavigationMenuTestTransport() {
     selected[method](target, init);
     await flush();
   }
+  function fireSync(target: Element | Document | Window, event: string, init: Record<string, unknown> = {}) {
+    const selected = reference?.fireEvent ?? fireEvent;
+    const method = Object.keys(selected).find(key => key.toLowerCase() === event.toLowerCase()) as EventType | undefined;
+    if (!method) throw new Error(`Unknown Testing Library event: ${event}`);
+    if ((method === 'keyDown' || method === 'keyUp') && target !== document.activeElement) {
+      throw new Error('Original keyboard fireEvent requires the active element as its target');
+    }
+    // Original's wrapped fireEvent commits synchronously. Native flushSync commits
+    // its real DOM event so immediate Source geometry setup precedes microtasks.
+    if (reference) selected[method](target, init);
+    else flushSync(() => { selected[method](target, init); });
+  }
   async function input(method: InputMethod, target: Element | null = null, options: { text?: string; shift?: boolean; releasePrevious?: boolean; pointerEventsCheck?: 0 } = {}) {
     const selected = options.pointerEventsCheck === 0 ? (uncheckedUser ??= setup(0)) : user;
     if (!selected) throw new Error('Fixture transport is not ready');
@@ -116,6 +130,7 @@ export function createNavigationMenuTestTransport() {
     const unmount = unmountRoot;
     unmountRoot = undefined;
     await unmount?.();
+    for (const dispose of disposers.splice(0).reverse()) dispose();
     for (const [type, listener, options] of listeners) document.removeEventListener(type, listener, options);
     for (const symbol of Object.getOwnPropertySymbols(document)) if (!documentSymbols.has(symbol)) Reflect.deleteProperty(document, symbol);
     for (const symbol of Object.getOwnPropertySymbols(HTMLElement.prototype)) if (!prototypeSymbols.has(symbol)) Reflect.deleteProperty(HTMLElement.prototype, symbol);
@@ -129,5 +144,5 @@ export function createNavigationMenuTestTransport() {
     user = undefined;
     uncheckedUser = undefined;
   }
-  return { ready, isReady: () => Boolean(user), fire, input, pointer, flush, mutate, beginClock, endClock, dispose };
+  return { ready, isReady: () => Boolean(user), fire, fireSync, input, pointer, flush, mutate, waitFor, getByText, isSourceVisible, beginClock, endClock, onDispose: (callback: () => void) => { disposers.push(callback); }, dispose };
 }

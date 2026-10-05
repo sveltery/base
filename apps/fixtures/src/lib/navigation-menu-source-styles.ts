@@ -50,3 +50,13 @@ export const scopedPopupAnimationStyles = `
     transform: translateX(-2rem);
   }
 `;
+
+export const rapidHoverAnimationStyles = `
+  .test-navigation-menu-popup {
+    transition:
+      width 350ms cubic-bezier(0.22, 1, 0.36, 1),
+      height 350ms cubic-bezier(0.22, 1, 0.36, 1);
+    width: var(--popup-width);
+    height: var(--popup-height);
+  }
+`;
