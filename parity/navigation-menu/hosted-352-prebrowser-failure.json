@@ -1,0 +1,14 @@
+{
+  "head": "3521994f064871c274e59d9522a7a3c59523f692",
+  "tree": "025c6654eed79933acc81fd5fe9d58ab40b066af",
+  "runId": 37264228758,
+  "jobId": 111617532985,
+  "result": "failure before Chromium installation or browser assertion execution",
+  "passed": ["Frozen workspace install", "Exact immutable fixture body verifiers", "Library build", "Strict actual isolated public NavigationMenu package/SSR/types", "20 canonical useClick DOM regressions", "15 NavigationMenu DOM probes"],
+  "failed": "New three-case fixture transport suite could not collect: fresh apps/fixtures/.svelte-kit/tsconfig.json was not generated",
+  "repair": "Actual svelte-kit sync before supplemental fixture-importing DOM probes; no library, event, predicate or expected-data change",
+  "rawReceipt": "/workspace/sveltery-pm-evidence/navigation-menu-352-prebrowser-failure.log",
+  "browserExecuted": 0,
+  "ordinaryCredit": 0,
+  "successor": "pending actual secured execution"
+}
