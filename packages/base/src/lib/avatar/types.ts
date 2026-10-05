@@ -2,21 +2,24 @@
 // MIT attribution: parity/avatar/UPSTREAM_LICENSE and THIRD_PARTY_NOTICES.md.
 import type { Snippet } from 'svelte';
 import type { ClassValue, HTMLAttributes, HTMLImgAttributes } from 'svelte/elements';
-import type { ElementProps } from '../dialog/types.js';
+import type { HTMLProps, WithBaseUIEvent } from '../internals/types.js';
 export type ImageLoadingStatus = 'idle' | 'loading' | 'loaded' | 'error';
 export interface AvatarRootState { imageLoadingStatus: ImageLoadingStatus }
 export interface AvatarImageState extends AvatarRootState { transitionStatus: 'starting' | 'ending' | 'idle' | undefined }
 export type AvatarFallbackState = AvatarRootState;
-type PartProps<State, NativeProps> = Omit<ElementProps<State, NativeProps>, 'class' | 'render'> & {
+type PartProps<State, NativeProps> = Omit<WithBaseUIEvent<NativeProps>, 'class' | 'style' | 'children'> & {
+  children?: Snippet;
+  ref?: HTMLElement | null;
+  style?: string | ((state: State) => string | undefined);
   class?: ClassValue | ((state: State) => ClassValue);
-  render?: Snippet<[Record<string | symbol, unknown>, State, Snippet | undefined]>;
+  render?: Snippet<[HTMLProps, State, Snippet | undefined]>;
 };
 export type AvatarRootProps = PartProps<AvatarRootState, HTMLAttributes<HTMLSpanElement>>;
 // Source and alt remain typed on replacement snippets, as on the pinned React render callback.
 export type AvatarImageProps = Omit<PartProps<AvatarImageState, HTMLImgAttributes>, 'render' | 'src' | 'alt'> & {
   src?: string;
   alt?: string;
-  render?: Snippet<[Record<string | symbol, unknown> & { src?: string; alt?: string }, AvatarImageState, Snippet | undefined]>;
+  render?: Snippet<[HTMLProps & { src?: string; alt?: string }, AvatarImageState, Snippet | undefined]>;
   keepMounted?: boolean;
   onLoadingStatusChange?: (status: ImageLoadingStatus) => void;
 };

@@ -57,10 +57,10 @@ for (const scenario of ['undefined-type', 'null-type']) it(`supplement: omitted 
   await unmount(mounted.pop()!);
   const explicit = await setup(scenario); expect(explicit.hasAttribute('type')).toBe(false); expect((explicit as HTMLButtonElement).type).toBe('submit');
 });
-for (const scenario of ['custom-disabled', 'native-focusable']) it(`supplement: disabled mousedown cancels default without preceding pointerdown (${scenario})`, async () => {
+for (const scenario of ['custom-disabled', 'native-focusable']) it(`supplement: pinned disabled mousedown retains uncanceled default without preceding pointerdown (${scenario})`, async () => {
   const button = await setup(scenario);
   const event = new MouseEvent('mousedown', { bubbles: true, cancelable: true, button: 0, buttons: 3 });
-  expect(button.dispatchEvent(event)).toBe(false); expect(event.defaultPrevented).toBe(true); await tick(); expect(calls().mouse).toBe(0);
+  expect(button.dispatchEvent(event)).toBe(true); expect(event.defaultPrevented).toBe(false); await tick(); expect(calls().mouse).toBe(0);
 });
 it('supplement: enabled mousedown retains browser default and invokes the consumer', async () => {
   const button = await setup('custom'); const event = new MouseEvent('mousedown', { bubbles: true, cancelable: true });
