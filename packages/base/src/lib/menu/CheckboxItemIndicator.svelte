@@ -6,13 +6,13 @@
   import { useTransitionStatus } from '../internals/useTransitionStatus.svelte.js';
   import { useOpenChangeComplete } from '../internals/useOpenChangeComplete.svelte.js';
   import type { MenuCheckboxItemIndicatorProps } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
   let {
     render,
     class: className,
     style,
     keepMounted = false,
     children,
+    // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
     ref = $bindable(null),
     ...elementProps
   }: MenuCheckboxItemIndicatorProps = $props();

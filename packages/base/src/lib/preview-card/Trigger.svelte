@@ -13,12 +13,12 @@
   import type { PreviewCardTriggerProps } from './types.js';
   import { useFocus } from '../floating-ui/hooks/useFocus.svelte.js';
   import { getInlineRectTriggerProps } from '../utils/popups/inlineRect.js';
-  // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
   let {
     render,
     class: className,
     style,
     children,
+    // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
     ref = $bindable(),
     handle,
     payload,

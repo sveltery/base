@@ -12,7 +12,6 @@
   import { REASONS } from '../internals/reasons.js';
   import type { MenubarProps } from './types.js';
   import type { MenuRoot } from '../menu/types.js';
-  // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
   let {
     orientation = 'horizontal',
     loopFocus = true,
@@ -23,6 +22,7 @@
     id: idProp,
     style,
     children,
+    // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
     ref = $bindable(null),
     ...elementProps
   }: MenubarProps = $props();

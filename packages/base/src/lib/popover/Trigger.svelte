@@ -21,12 +21,12 @@
   import { REASONS } from '../internals/reasons.js';
   import { useTriggerFocusGuards } from '../utils/popups/useTriggerFocusGuards.svelte.js';
   import { useOpenMethodTriggerProps } from '../utils/useOpenInteractionType.svelte.js';
-  // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
   let {
     render,
     class: className,
     style,
     children,
+    // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
     ref = $bindable(),
     handle,
     payload,

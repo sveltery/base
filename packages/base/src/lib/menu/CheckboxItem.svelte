@@ -13,7 +13,6 @@
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../internals/reasons.js';
   import type { MenuCheckboxItemProps } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
   let {
     render,
     class: className,
@@ -27,6 +26,7 @@
     onCheckedChange,
     style,
     children,
+    // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
     ref = $bindable(null),
     ...elementProps
   }: MenuCheckboxItemProps = $props();

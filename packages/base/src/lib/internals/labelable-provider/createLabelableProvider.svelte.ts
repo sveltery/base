@@ -40,9 +40,9 @@ export function createLabelableProvider(defaultId: string): LabelableContext {
     const description = externalProps['aria-describedby'] as string | undefined;
     const ids = description ? description.split(' ') : [];
     ids.push(...parent.messageIds, ...messageIds);
-    // eslint-disable-next-line svelte/prefer-svelte-reactivity -- This temporary Set only deduplicates the current derived message array.
     return {
       ...externalProps,
+      // eslint-disable-next-line svelte/prefer-svelte-reactivity -- This temporary Set only deduplicates the current derived message array.
       'aria-describedby': Array.from(new Set(ids)).join(' ') || undefined,
     };
   }

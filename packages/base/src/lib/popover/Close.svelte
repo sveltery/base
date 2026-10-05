@@ -7,7 +7,6 @@
   import { REASONS } from '../internals/reasons.js';
   import { useClosePartRegistration } from '../utils/closePart.svelte.js';
   import type { PopoverCloseProps } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
   let {
     render,
     class: className,
@@ -15,6 +14,7 @@
     children,
     disabled = false,
     nativeButton = true,
+    // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
     ref = $bindable(),
     ...elementProps
   }: PopoverCloseProps = $props();

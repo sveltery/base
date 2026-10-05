@@ -1,4 +1,6 @@
 import { test, expect, type Page } from '@playwright/test';
+type DialogEventWindow = Window & { lastClick?: Event | null; dialogEvent?: Event };
+type DialogLog = { channel: string; open?: boolean };
 // These are contained-first source-derived acceptance probes, not complete upstream leaf ports.
 // Exact upstream cross-products remain untouched/unported in parity/dialog/upstream-inventory.json.
 async function start(page: Page, path = '/dialog', query = '') {
@@ -14,6 +16,7 @@ async function start(page: Page, path = '/dialog', query = '') {
 async function logs(page: Page) {
   return JSON.parse(await page.getByTestId('log').innerText()) as {
     channel: string;
+    before?: boolean;
     open?: boolean;
     reason?: string;
     trigger?: string;
@@ -151,9 +154,9 @@ test('Svelte accepted changes dispatch consumer then internal with native identi
 }) => {
   await start(page);
   await page.evaluate(() => {
-    (window as any).lastClick = null;
+    (window as DialogEventWindow).lastClick = null;
     document.querySelector('#trigger')!.addEventListener('click', (event) => {
-      (window as any).lastClick = event;
+      (window as DialogEventWindow).lastClick = event;
     });
   });
   await page.locator('#trigger').click();
@@ -161,11 +164,13 @@ test('Svelte accepted changes dispatch consumer then internal with native identi
     ['click', 'consumer', 'internal'].includes(x.channel),
   );
   expect(sequence.map((x) => x.channel)).toEqual(['click', 'consumer', 'internal']);
-  expect((sequence[1] as any).before).toBe(false);
+  expect(sequence[1].before).toBe(false);
   // Runtime identity is recorded by the fixture rather than inferred from event.type.
-  expect(await page.evaluate(() => (window as any).dialogEvent === (window as any).lastClick)).toBe(
-    true,
-  );
+  expect(
+    await page.evaluate(
+      () => (window as DialogEventWindow).dialogEvent === (window as DialogEventWindow).lastClick,
+    ),
+  ).toBe(true);
 });
 for (const custom of [false, true]) {
   test(`Svelte disabled ${custom ? 'span' : 'button'} composition`, async ({ page }) => {
@@ -314,7 +319,7 @@ test('Svelte completed exit cycles report once per close after focus returns', a
   await expect(page.getByRole('dialog')).toBeVisible();
   await page.waitForFunction(() =>
     JSON.parse(document.querySelector('[data-testid=log]')!.textContent!).some(
-      (x: any) => x.channel === 'complete' && x.open,
+      (x: DialogLog) => x.channel === 'complete' && x.open,
     ),
   );
   await page.keyboard.press('Escape');
@@ -409,7 +414,7 @@ test('audit: imperative unmount cancels a pending keepMounted exit completion', 
   await expect(page.getByRole('dialog')).toBeVisible();
   await page.waitForFunction(() =>
     JSON.parse(document.querySelector('[data-testid=log]')!.textContent!).some(
-      (x: any) => x.channel === 'complete' && x.open,
+      (x: DialogLog) => x.channel === 'complete' && x.open,
     ),
   );
   await page.keyboard.press('Escape');
@@ -464,7 +469,7 @@ for (const custom of [false, true])
     await expect(page.getByTestId('spinner')).toBeVisible();
     await page.waitForFunction(() =>
       JSON.parse(document.querySelector('[data-testid=log]')!.textContent!).some(
-        (x: any) => x.channel === 'complete' && x.open,
+        (x: DialogLog) => x.channel === 'complete' && x.open,
       ),
     );
     await page.keyboard.press('Escape');

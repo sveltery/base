@@ -7,7 +7,6 @@
   import { useCompositeListItem } from '../internals/composite/list/useCompositeListItem.svelte.js';
   import { useBaseUiId } from '../internals/useBaseUiId.js';
   import type { MenuItemProps } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
   let {
     render,
     class: className,
@@ -18,6 +17,7 @@
     closeOnClick = true,
     style,
     children,
+    // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
     ref = $bindable(null),
     ...elementProps
   }: MenuItemProps = $props();

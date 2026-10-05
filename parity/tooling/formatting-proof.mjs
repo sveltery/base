@@ -11,12 +11,27 @@ const ts = require('typescript');
 const { compile } = require('svelte/compiler');
 const baselineOption = process.argv.find((argument) => argument.startsWith('--baseline='));
 const verify = process.argv.includes('--verify');
+const semanticOnly = process.argv.includes('--semantic-only');
+const scope = process.argv
+  .find((argument) => argument.startsWith('--scope='))
+  ?.slice('--scope='.length);
+const output =
+  process.argv.find((argument) => argument.startsWith('--output='))?.slice('--output='.length) ??
+  '.checks/formatting-successor.json';
+const targetOption = process.argv.find((argument) => argument.startsWith('--target='));
+const target = targetOption
+  ? execFileSync('git', ['rev-parse', targetOption.slice('--target='.length)], {
+      encoding: 'utf8',
+    }).trim()
+  : undefined;
+const gitBytes = (commit, file) =>
+  execFileSync('git', ['show', `${commit}:${file}`], { maxBuffer: 16 * 1024 * 1024 });
 const baseline =
   baselineOption?.slice('--baseline='.length) ??
   execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
-const files = execFileSync('git', ['ls-files', '-z'], { encoding: 'utf8' })
+const files = execFileSync('git', ['ls-tree', '-rz', '--name-only', baseline], { encoding: 'utf8' })
   .split('\0')
-  .filter(Boolean);
+  .filter((file) => file && (!scope || file.startsWith(scope)));
 const hash = (value) => createHash('sha256').update(value).digest('hex');
 const candidates = [];
 const records = [];
@@ -168,10 +183,8 @@ assert.deepEqual(syntax('a || (b || c);'), syntax('(a || b) || c;'));
 assert.notDeepEqual(css('a b { content: "a  b"; }'), css('ab { content: "a b"; }'));
 assert.notDeepEqual(svelte('<p>a  b</p>', 'probe.svelte'), svelte('<p>a c</p>', 'probe.svelte'));
 for (const file of files) {
-  const observed = readFileSync(file);
-  const before = execFileSync('git', ['show', `${baseline}:${file}`], {
-    maxBuffer: 16 * 1024 * 1024,
-  });
+  const observed = target ? gitBytes(target, file) : readFileSync(file);
+  const before = gitBytes(baseline, file);
   if (!verify)
     assert.deepEqual(observed, before, `${file}: preimage must equal the recorded baseline commit`);
   const info = await prettier.getFileInfo(file, { ignorePath: '.prettierignore' });
@@ -182,7 +195,17 @@ for (const file of files) {
   }
   const original = before.toString('utf8');
   const options = await prettier.resolveConfig(file);
-  const formatted = await prettier.format(original, { ...options, filepath: file });
+  let formatted = semanticOnly ? observed.toString('utf8') : original;
+  let stable = semanticOnly;
+  for (let pass = 0; !semanticOnly && pass < 4; pass++) {
+    const next = await prettier.format(formatted, { ...options, filepath: file });
+    if (next === formatted) {
+      stable = true;
+      break;
+    }
+    formatted = next;
+  }
+  assert(stable, `${file}: formatter must reach a stable result`);
   if (verify)
     assert.equal(
       observed.toString('utf8'),
@@ -237,7 +260,7 @@ for (const { file, formatted } of candidates) {
   if (process.argv.includes('--write')) writeFileSync(file, formatted);
 }
 writeFileSync(
-  '.checks/formatting-successor.json',
+  output,
   JSON.stringify(
     {
       baseline,

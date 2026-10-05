@@ -33,6 +33,11 @@ export default defineConfig(
       },
     },
   },
+  // Isolated positive/negative consumer fixtures are checked by their own compiler.
+  {
+    files: ['scripts/fixtures/**/*.svelte'],
+    languageOptions: { parserOptions: { projectService: false } },
+  },
   // Empty defaults preserve upstream generic event-detail types.
   {
     files: ['packages/base/src/lib/internals/createBaseUIEventDetails.ts'],

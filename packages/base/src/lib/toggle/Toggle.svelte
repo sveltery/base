@@ -27,6 +27,7 @@
     // Upstream deliberately consumes these props: Toggle never participates in a form.
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     form: _form,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- Consume the form type without forwarding it.
     type: _type,
     ...elementProps
   }: ToggleProps<Value> = $props();

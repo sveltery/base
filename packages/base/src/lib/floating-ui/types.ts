@@ -5,16 +5,18 @@ import type { BaseUIChangeEventDetails } from '../internals/createBaseUIEventDet
 import type { HTMLProps } from '../internals/types.js';
 import type { FloatingRootStore } from './components/FloatingRootStore.svelte.js';
 import type { FloatingTreeStore } from './components/FloatingTreeStore.js';
-// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Original shared interaction event bus carries component-specific payloads.
 export interface FloatingEvents {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Original shared interaction event bus carries component-specific payloads.
   emit<T extends string>(event: T, data?: any): void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Original shared interaction event bus carries component-specific payloads.
   on(event: string, handler: (data: any) => void): void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Original shared interaction event bus carries component-specific payloads.
   off(event: string, handler: (data: any) => void): void;
 }
-// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Original dataRef is open shared interaction bookkeeping.
 export interface ContextData {
   openEvent?: Event;
   floatingContext?: FloatingContext;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Original dataRef is open shared interaction bookkeeping.
   [key: string]: any;
 }
 export type ReferenceType = Element | VirtualElement;
