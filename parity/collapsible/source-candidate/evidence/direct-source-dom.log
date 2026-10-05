@@ -1,0 +1,104 @@
+$ vitest run --config vitest.dom.config.ts --maxWorkers=1 tests/dom/collapsible.test.ts
+
+ RUN  v5.0.3 /workspace/collapsible-source-modernization/packages/base
+
+ ❯ tests/dom/collapsible.test.ts (33 tests | 4 failed) 1477ms
+   × supplement: same-turn uncontrolled clicks use the last rendered open snapshot 44ms
+   × supplement: earlier consumer controlled write retains rendered change request 43ms
+   × supplement: rendered callback identity refreshes after the consumer callback prop write commits 47ms
+   × supplement: measured variable writes preserve temporary inline alignment until its restore frame 9ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/dom/collapsible.test.ts > supplement: same-turn uncontrolled clicks use the last rendered open snapshot
+AssertionError: expected [ true, false ] to deeply equal [ true, true ]
+
+- Expected
++ Received
+
+  [
+    true,
+-   true,
++   false,
+  ]
+
+ ❯ tests/dom/collapsible.test.ts:134:64
+    132| it('supplement: same-turn uncontrolled clicks use the last rendered op…
+    133|   const { trigger, component } = await setup('default'); trigger.click…
+    134|   expect(component.snapshot().events.map(event => event.open)).toEqual…
+       |                                                                ^
+    135|   trigger.click(); await settle(); expect(component.snapshot().events.…
+    136| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  tests/dom/collapsible.test.ts > supplement: earlier consumer controlled write retains rendered change request
+AssertionError: expected [ false ] to deeply equal [ true ]
+
+- Expected
++ Received
+
+  [
+-   true,
++   false,
+  ]
+
+ ❯ tests/dom/collapsible.test.ts:139:64
+    137| it('supplement: earlier consumer controlled write retains rendered cha…
+    138|   const { trigger, component } = await setup('controlled-consumer'); t…
+    139|   expect(component.snapshot().events.map(event => event.open)).toEqual…
+       |                                                                ^
+    140| });
+    141| it('supplement: rendered callback identity refreshes after the consume…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  tests/dom/collapsible.test.ts > supplement: rendered callback identity refreshes after the consumer callback prop write commits
+AssertionError: expected [ 'new' ] to deeply equal [ 'old' ]
+
+- Expected
++ Received
+
+  [
+-   "old",
++   "new",
+  ]
+
+ ❯ tests/dom/collapsible.test.ts:142:145
+    140| });
+    141| it('supplement: rendered callback identity refreshes after the consume…
+    142|   const { trigger, component } = await setup('callback-snapshot'); tri…
+       |                                                                                                                                                 ^
+    143|   trigger.click(); await settle(); expect(component.snapshot().callbac…
+    144| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  tests/dom/collapsible.test.ts > supplement: measured variable writes preserve temporary inline alignment until its restore frame
+AssertionError: expected 'center' to be 'initial' // Object.is equality
+
+Expected: "initial"
+Received: "center"
+
+ ❯ tests/dom/collapsible.test.ts:176:40
+    174|   Object.defineProperty(content, 'getAnimations', { configurable: true…
+    175|   trigger.click(); await tick();
+    176|   expect(content.style.justifyContent).toBe('initial'); expect(content…
+       |                                        ^
+    177|   await settle(); expect(content.style.justifyContent).toBe('center');…
+    178| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed | 29 passed (33)
+   Start at  19:08:55
+   Duration  3.37s (tests 46%, transform 29%, environment 21%, import 4%)
+
+[ELIFECYCLE] Command failed with exit code 1.
+Error: ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL
+
+  × "pnpm recursive run" failed in /workspace/collapsible-source-
+  │ modernization/packages/base
+

@@ -1,263 +1,54 @@
 <script lang="ts">
-  // Adapted from mui/base-ui v1.8.0 CollapsiblePanel/useCollapsiblePanel,
+  // Source composition from Base UI v1.8.0 CollapsiblePanel.tsx at
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
-  import { onDestroy, tick, untrack } from 'svelte';
-  import Element from '../dialog/Element.svelte';
-  import { resolveClassValue } from '../internals/resolveClassValue.js';
-  import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
+  import { DEV } from 'esm-env';
+  import RenderElement from '../internals/RenderElement.svelte';
+  import { useIsoLayoutEffect } from '../utils/useIsoLayoutEffect.svelte.js';
+  import { warn } from '../utils/warn.js';
+  import { resolveStyle } from '../utils/resolveStyle.js';
   import { getCollapsibleContext } from './context.js';
-  import { afterAnimations, getAnimationType, getDimensions, preserveUnchangedInlineStyles, requestFrame, resetLayoutStyles, setTemporaryStyle, warnOnce, type AnimationType } from './animations.js';
-  import type { CollapsiblePanelProps, CollapsiblePanelState } from './types.js';
+  import { collapsibleStateAttributesMapping } from './root/stateAttributesMapping.js';
+  import { useCollapsiblePanel } from './panel/useCollapsiblePanel.svelte.js';
+  import * as CollapsiblePanelCssVars from './panel/CollapsiblePanelCssVars.js';
+  import type { CollapsiblePanelProps } from './types.js';
 
-  let { children, render, hiddenUntilFound = false, keepMounted: keepMountedProp, id: idProp, class: classProp, style: styleProp, ref = $bindable(), ...props }: CollapsiblePanelProps = $props();
+  let { children, class: className, hiddenUntilFound: hiddenUntilFoundProp, keepMounted: keepMountedProp,
+    render, id: idProp, style, ref = $bindable(), ...elementProps }: CollapsiblePanelProps = $props();
+  if (DEV) $effect(() => {
+    if (hiddenUntilFoundProp && keepMountedProp === false) warn(
+      'The `keepMounted={false}` prop on `Collapsible.Panel` is ignored when `hiddenUntilFound` is enabled, since the panel must remain mounted while closed.',
+    );
+  });
   const context = getCollapsibleContext();
+  const hiddenUntilFound = $derived(hiddenUntilFoundProp ?? false);
   const keepMounted = $derived(keepMountedProp ?? false);
   const registeredId = $derived(idProp || undefined);
   const id = $derived(registeredId ?? context.defaultPanelId);
-  let node = $state<HTMLElement | null>(null);
-  type Dimensions = { height: number | undefined; width: number | undefined };
-  const emptyDimensions: Dimensions = { height: undefined, width: undefined };
-  let dimensions = $state.raw<Dimensions>(emptyDimensions);
-  let lastMeasuredDimensions = $state.raw<Dimensions>(emptyDimensions);
-  let animationType = $state<AnimationType | null>(null);
-  let shouldPreventMountAnimation = $state(untrack(() => context.open));
-  let shouldSkipNextOpen = false;
-  let forcePanelIdle = $state(false);
-  let pendingTemporaryStyleRestore: (() => void) | undefined;
-
-  const hidden = $derived(!context.open && !context.mounted);
-  const panelTransitionStatus = $derived(forcePanelIdle ? 'idle' : context.transitionStatus);
-  const shouldPreventOpenAnimation = $derived(context.open && shouldPreventMountAnimation);
-  const renderedDimensions = $derived(!context.open && context.mounted && animationType === 'css-animation' && dimensions.height === undefined && dimensions.width === undefined ? lastMeasuredDimensions : dimensions);
-  const panelState: CollapsiblePanelState = $derived({ ...context.state, transitionStatus: panelTransitionStatus });
-  const shouldRender = $derived(keepMounted || hiddenUntilFound || context.mounted || context.open);
-
-  function setDimensions(next: Dimensions, cache = true) {
-    if (cache) lastMeasuredDimensions = next;
-    dimensions = next;
-  }
-  function restorePendingTemporaryStyle() {
-    pendingTemporaryStyleRestore?.();
-    pendingTemporaryStyleRestore = undefined;
-  }
-  function setPendingTemporaryStyleRestore(restore: () => void) {
-    restorePendingTemporaryStyle();
-    pendingTemporaryStyleRestore = () => {
-      pendingTemporaryStyleRestore = undefined;
-      restore();
-    };
-  }
-  function attach(element: HTMLElement) {
-    styledNode = element;
-    previousStyle = mergedStyle;
-    node = element;
-    return () => {
-      restorePendingTemporaryStyle();
-      if (node === element) node = null;
-    };
-  }
-  onDestroy(restorePendingTemporaryStyle);
-
-  const internal = $derived({
-    // SSR retains the source boolean attribute; the attached client host can
-    // express the browser's native string without React's coercion workaround.
-    id, hidden: hidden && hiddenUntilFound && node ? 'until-found' : hidden,
-    'data-open': context.open ? '' : undefined,
-    'data-closed': context.open ? undefined : '',
-    'data-disabled': context.disabled ? '' : undefined,
-    'data-starting-style': panelTransitionStatus === 'starting' || (hiddenUntilFound && hidden && animationType !== 'css-animation') ? '' : undefined,
-    'data-ending-style': panelTransitionStatus === 'ending' ? '' : undefined,
-    style: {
-      '--collapsible-panel-height': renderedDimensions.height === undefined ? 'auto' : `${renderedDimensions.height}px`,
-      '--collapsible-panel-width': renderedDimensions.width === undefined ? 'auto' : `${renderedDimensions.width}px`,
-    },
-  });
-  const resolved = $derived.by(() => {
-    const authoredStyle = typeof styleProp === 'function' ? styleProp(panelState) : styleProp;
-    const classValue = typeof classProp === 'function' ? classProp(panelState) : classProp;
-    return {
-      ...props,
-      class: classValue === undefined ? undefined : resolveClassValue(classValue),
-      style: shouldPreventOpenAnimation ? `${authoredStyle ?? ''};animation-name:none` : authoredStyle,
-    };
-  });
-  const mergedStyle = $derived(`--collapsible-panel-height:${internal.style['--collapsible-panel-height']};--collapsible-panel-width:${internal.style['--collapsible-panel-width']}${resolved.style ? `;${resolved.style}` : ''}`);
-
-  $effect(() => {
-    if (hiddenUntilFound && keepMountedProp === false) {
-      warnOnce('The `keepMounted={false}` prop on `Collapsible.Panel` is ignored when `hiddenUntilFound` is enabled, since the panel must remain mounted while closed.');
-    }
-  });
-
-  $effect(() => {
+  useIsoLayoutEffect(() => {
     const registered = registeredId;
-    untrack(() => context.setPanelIdState(current => registered ?? (current === null ? undefined : current)));
-    return () => untrack(() => context.setPanelIdState(current => current === registered ? null : current));
+    context.setPanelIdState(currentId => registered ?? (currentId === null ? undefined : currentId));
+    return () => context.setPanelIdState(currentId => currentId === registered ? null : currentId);
+  }, () => [registeredId, context.setPanelIdState]);
+  const panel = useCollapsiblePanel({
+    get hiddenUntilFound() { return hiddenUntilFound; }, get id() { return id; },
+    get keepMounted() { return keepMounted; }, get mounted() { return context.mounted; },
+    onOpenChange: context.onOpenChange, get open() { return context.open; },
+    setMounted: context.setMounted, setOpen: context.setOpen,
+    get transitionStatus() { return context.transitionStatus; },
   });
-
-  $effect(() => {
-    if (forcePanelIdle && context.transitionStatus !== 'starting') forcePanelIdle = false;
-  });
-
-  let styledNode: HTMLElement | null = null;
-  let previousStyle: string | undefined;
-  let restoreUnchangedStyles: (() => void) | undefined;
-  $effect.pre(() => {
-    const panel = node;
-    const nextStyle = mergedStyle;
-    if (!panel) {
-      styledNode = null;
-      previousStyle = undefined;
-      restoreUnchangedStyles = undefined;
-      return;
-    }
-    restoreUnchangedStyles = preserveUnchangedInlineStyles(panel, styledNode === panel ? previousStyle : undefined, nextStyle);
-    styledNode = panel;
-    previousStyle = nextStyle;
-  });
-  $effect(() => {
-    // Track the same commit as the snapshot, then restore before measurement.
-    const panel = node;
-    const nextStyle = mergedStyle;
-    untrack(() => {
-      if (panel === styledNode && nextStyle === previousStyle) restoreUnchangedStyles?.();
-      restoreUnchangedStyles = undefined;
-    });
-  });
-
-  // This effect runs after the corresponding DOM commit, while close's ending
-  // phase is deferred by Root for a frame. Measurements therefore precede it.
-  $effect(() => {
-    const panel = node;
-    const open = context.open;
-    const mounted = context.mounted;
-    const status = context.transitionStatus;
-    const preventOpenAnimation = shouldPreventOpenAnimation;
-    // The pin returns when the custom host disappears; its Root ending status
-    // remains retained. Finalizing here would correct shared source behavior.
-    if (!panel) return;
-    return untrack(() => {
-      if (!open) restorePendingTemporaryStyle();
-      const mode = getAnimationType(panel, preventOpenAnimation);
-      animationType = mode;
-      if (open && status === 'idle' && shouldPreventMountAnimation && mode === 'css-animation') {
-        lastMeasuredDimensions = getDimensions(panel);
-        return;
-      }
-      if (open && status === 'starting') {
-        const skipOpen = shouldSkipNextOpen;
-        shouldSkipNextOpen = false;
-        if (mode === 'none') {
-          setDimensions(getDimensions(panel));
-          forcePanelIdle = true;
-          return;
-        }
-        if (mode === 'css-transition') {
-          const restoreLayout = resetLayoutStyles(panel);
-          setDimensions(getDimensions(panel));
-          if (skipOpen) {
-            setPendingTemporaryStyleRestore(setTemporaryStyle(panel, 'transition-duration', '0s'));
-            forcePanelIdle = true;
-          }
-          return restoreLayout;
-        }
-        setDimensions(getDimensions(panel));
-        const restoreName = setTemporaryStyle(panel, 'animation-name', 'none');
-        if (!skipOpen) {
-          restoreName();
-          return;
-        }
-        const restoreDuration = setTemporaryStyle(panel, 'animation-duration', '0s');
-        restoreName();
-        setPendingTemporaryStyleRestore(restoreDuration);
-        forcePanelIdle = true;
-        return;
-      }
-      if (!open && mounted && (status === 'idle' || status === 'starting')) {
-        shouldPreventMountAnimation = false;
-        if (mode === 'none') {
-          setDimensions(emptyDimensions, false);
-          context.setMounted(false);
-          return;
-        }
-        setDimensions(getDimensions(panel));
-        return;
-      }
-      if (status !== 'ending') return;
-      if (mode === 'none') {
-        context.setMounted(false);
-        return;
-      }
-      const next = getDimensions(panel);
-      if (!(next.height > 0 || next.width > 0)) {
-        context.setMounted(false);
-        return;
-      }
-      setDimensions(next);
-      if (mode === 'css-animation') setTemporaryStyle(panel, 'animation-name', 'none')();
-    });
-  });
-
-  $effect(() => {
-    const panel = node;
-    if (!panel || !context.open || !context.mounted || panelTransitionStatus !== 'idle') return;
-    return untrack(() => afterAnimations(panel, () => {
-      // An animation microtask can run after close's commit but before cleanup.
-      if (node === panel && context.open) setDimensions(emptyDimensions, false);
-    }, true));
-  });
-
-  $effect(() => {
-    const panel = node;
-    if (!panel || context.open || !context.mounted || panelTransitionStatus !== 'ending') return;
-    const abortController = new AbortController();
-    let stopObserving: (() => void) | undefined;
-    // The ending attribute is committed now. Give Chrome one additional frame
-    // to register a transition before the animation helper's observation frame.
-    const cancelEndingFrame = requestFrame(panel, () => {
-      if (abortController.signal.aborted) return;
-      stopObserving = afterAnimations(panel, () => {
-        if (abortController.signal.aborted || node !== panel || context.open) return;
-        context.setMounted(false);
-        setDimensions(emptyDimensions, false);
-      }, false, abortController.signal);
-    });
-    return () => { cancelEndingFrame(); abortController.abort(); stopObserving?.(); };
-  });
-
-  $effect(() => {
-    const panel = node;
-    if (!panel || !hiddenUntilFound || !hidden) return;
-    let canceled = false;
-    // Svelte supports the string directly. The post-commit restoration also
-    // retains the source's forced-until-found behavior over consumer overrides.
-    void tick().then(() => {
-      if (!canceled && node === panel && hiddenUntilFound && hidden) panel.setAttribute('hidden', 'until-found');
-    });
-    return () => { canceled = true; };
-  });
-
-  // The source subscribes on the component effect lifetime, rather than the
-  // changing host ref. Keep that ownership until replacement behavior is proven.
-  $effect(() => {
-    const onOpenChange = context.onOpenChange;
-    const setOpen = context.setOpen;
-    const panel = untrack(() => node);
-    if (!panel) return;
-    function beforeMatch(event: Event) {
-      const details = createChangeEventDetails('none', event);
-      onOpenChange(true, details);
-      if (details.isCanceled) return;
-      shouldSkipNextOpen = true;
-      setOpen(true);
-    }
-    panel.addEventListener('beforematch', beforeMatch);
-    return () => panel.removeEventListener('beforematch', beforeMatch);
-  });
-
-
+  const panelState = $derived({ ...context.state, transitionStatus: panel.transitionStatus });
+  const resolvedStyle = $derived(resolveStyle(style, panelState));
 </script>
-
-{#if shouldRender}
-  <Element tag="div" {internal} props={resolved} state={panelState} {render} {children} bind:ref {attach} />
+{#if panel.shouldRender}
+  <RenderElement tag="div" componentProps={{ render, class: className }} params={{
+    state: panelState, ref: panel.ref,
+    props: [panel.props, {
+      style: {
+        [CollapsiblePanelCssVars.collapsiblePanelHeight]: panel.height === undefined ? 'auto' : `${panel.height}px`,
+        [CollapsiblePanelCssVars.collapsiblePanelWidth]: panel.width === undefined ? 'auto' : `${panel.width}px`,
+      },
+    }, elementProps, resolvedStyle ? { style: resolvedStyle } : undefined,
+    panel.shouldPreventOpenAnimation ? { style: { animationName: 'none' } } : undefined],
+    stateAttributesMapping: collapsibleStateAttributesMapping,
+  }} {children} bind:element={ref} />
 {/if}

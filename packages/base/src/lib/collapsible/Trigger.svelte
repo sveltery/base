@@ -1,24 +1,22 @@
 <script lang="ts">
-  // Adapted from Base UI v1.8.0 CollapsibleTrigger. MIT: THIRD_PARTY_NOTICES.md.
-  import Element from '../dialog/Element.svelte';
-  import { resolveClassValue } from '../internals/resolveClassValue.js';
-  import { getButtonProps } from '../button/props.js';
-  import { mergeProps } from '../merge-props/index.js';
+  // Source composition from Base UI v1.8.0 CollapsibleTrigger.tsx at
+  // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
+  import RenderElement from '../internals/RenderElement.svelte';
+  import { triggerOpenStateMapping } from '../utils/collapsibleOpenStateMapping.js';
+  import { transitionStatusMapping } from '../internals/stateAttributesMapping.js';
+  import { useButton } from '../internals/use-button/useButton.svelte.js';
   import { getCollapsibleContext } from './context.js';
-  import { stateAttributes } from './state.js';
   import type { CollapsibleTriggerProps } from './types.js';
-  let { children, render, disabled: disabledProp, nativeButton = true, class: classProp, ref = $bindable(), ...props }: CollapsibleTriggerProps = $props();
+
+  const stateAttributesMapping = { ...triggerOpenStateMapping, ...transitionStatusMapping };
+  let { children, class: className, disabled: disabledProp, render, nativeButton = true,
+    style, ref = $bindable(), ...elementProps }: CollapsibleTriggerProps = $props();
   const context = getCollapsibleContext();
   const disabled = $derived(disabledProp ?? context.disabled);
-  const state = $derived(context.state);
-  const resolved = $derived.by(() => {
-    const classValue = typeof classProp === 'function' ? classProp(state) : classProp;
-    return getButtonProps({ ...props, ...mergeProps({
-      ...stateAttributes(state, true),
-      'aria-controls': context.open ? context.panelId : undefined,
-      'aria-expanded': context.open,
-      onclick: context.handleTrigger,
-    }, { ...props, class: classValue === undefined ? undefined : resolveClassValue(classValue) }) }, disabled, true, nativeButton);
-  });
+  const { getButtonProps, buttonRef } = useButton(() => ({ disabled, focusableWhenDisabled: true, native: nativeButton }));
 </script>
-<Element tag="button" internal={render ? {} : { type: 'button' }} props={resolved} {state} {render} {children} bind:ref />
+<RenderElement tag="button" componentProps={{ render, class: className, style }}
+  params={{ state: context.state, ref: [buttonRef], props: [
+    { 'aria-controls': context.open ? context.panelId : undefined, 'aria-expanded': context.open, onclick: context.handleTrigger },
+    elementProps, getButtonProps,
+  ], stateAttributesMapping }} {children} bind:element={ref} />

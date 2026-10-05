@@ -6,7 +6,6 @@ export interface CollapsibleContext {
   readonly mounted: boolean;
   readonly transitionStatus: CollapsibleTransitionStatus;
   readonly defaultPanelId: string;
-  readonly registeredPanelId: string | null | undefined;
   readonly panelId: string | undefined;
   readonly state: CollapsibleRootState;
   setMounted(next: boolean): void;

@@ -1,0 +1,31 @@
+$ vitest run --config vitest.dom.config.ts --maxWorkers=1 tests/dom/collapsible.test.ts
+
+ RUN  v5.0.3 /workspace/collapsible-source-modernization/packages/base
+
+ ❯ tests/dom/collapsible.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/dom/collapsible.test.ts [ tests/dom/collapsible.test.ts ]
+CompileError: src/lib/collapsible/Root.svelte:14:96 `$props.id()` can only be used at the top level of components as a variable declaration initializer
+https://svelte.dev/e/props_id_invalid_placement
+ 12 |      onOpenChange: onOpenChangeProp, open, style, ref = $bindable(), ...elementProps }: CollapsibleRootProps = $props();
+ 13 |    const onOpenChange = useStableCallback((next: boolean, details: CollapsibleRootChangeEventDetails) => onOpenChangeProp?.(next, details));
+ 14 |    const collapsible = useCollapsibleRoot(() => ({ open, defaultOpen, onOpenChange, disabled }), $props.id());
+                                                                                                                  ^
+ 15 |    const state = $derived({ open: collapsible.open, disabled: collapsible.disabled, transitionStatus: collapsible.transitionStatus });
+ 16 |    setCollapsibleContext({
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  19:08:31
+   Duration  1.43s (environment 99%, worker 1%)
+
+[ELIFECYCLE] Command failed with exit code 1.
+Error: ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL
+
+  × "pnpm recursive run" failed in /workspace/collapsible-source-
+  │ modernization/packages/base
+
