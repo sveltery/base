@@ -199,7 +199,9 @@
         "verification": "PASS66 script/219 unit/1201 DOM and builds/type/runtime/consumer/license gates",
         "broadJob": 111578375208,
         "broadResult": "running at successor preparation; no passed count inferred",
-        "runningLogAttempt": "GitHub BlobNotFound404 at2026-10-05T02:00:11.8301979Z; no unavailable partial log invented"
+        "runningLogAttempt": "GitHub BlobNotFound404 at2026-10-05T02:00:11.8301979Z; no unavailable partial log invented",
+        "subsequentBroadResult": "CANCELLED by successor concurrency; complete canceled log preserved, no passed count",
+        "cancelledLogSha256": "05e1c4844db846ee8cb7801aad644c44745773e389a2467009c539a9269ba37f"
       },
       "jobSnapshot": "All23 inspected:22 SUCCESS and broad running",
       "configuredReview": "Exact clean5986556945, summary5986522040; no quota waiver",
@@ -207,6 +209,29 @@
       "unchangedOriginalDeclarationCredit": 0,
       "unchangedConformanceCredit": 0,
       "note": "Historical head requires normal successor due actual register conflict with accepted Avatar main95d3d2ae. Any subsequent a6 completion/cancellation remains attributed to that head; new final-head gates and independent/PM disposition remain separate."
+    },
+    {
+      "head": "cfc7a845380b1628829ea37687724928bbc3d9b4",
+      "tree": "efc2d83fd7c16f12d1392c552b1aecdfc57a0d33",
+      "run": 37253842500,
+      "job": 111586710558,
+      "url": "https://github.com/sveltery/base/actions/runs/37253842500",
+      "result": "focused-passed-configured-review-docs-finding-successor-required",
+      "browserExecuted": true,
+      "passedTests": 123,
+      "failedTests": 0,
+      "installedPublicGate": "PASS real build and installed root/subpath aliases/12types, exactOptional/noUnchecked/skipLibCheck:false, SSR/native snippet, DOM mount/teardown and four intended negative diagnostics",
+      "runtime": "Ubuntu22 official Chromium153.0.8010.12 sandbox:true workers1 retries0",
+      "focusedRawLogSha256": "eb44c9ebf5eed98e0c048cf3e8c6cecc335a66a2c39b3928db798885801d9d47",
+      "configuredReview": "Actual P2 PRRC4180235747: stale CSPProvider missing-ScrollArea docs/ledger; not clean, no quota waiver",
+      "ownerAuditSha256": "365f4d0d92d4ee2abd932fac49f802f2f6d68931f2e03af9b8903eb913df5ba9",
+      "requiredCI": {
+        "run": 37253842535,
+        "status": "queued at docs-finding preparation; no final pass/count inferred"
+      },
+      "unchangedOriginalDeclarationCredit": 0,
+      "unchangedConformanceCredit": 0,
+      "note": "Actual installed and focused success retained at this exact historical head. Documentation correction preserves all four original CSP ordinary declarations unported/uncredited and requires fresh final-head CI/review; later completion/cancellation stays attributed to this head."
     }
   ]
 }

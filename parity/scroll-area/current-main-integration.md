@@ -82,3 +82,21 @@ installed consumer and configured review, followed by Root's precise independent
 Source/native/maintainability disposition and exact PM approval. Equivalent
 exact-head hosted installed smoke may establish the consumer gate without a
 duplicate local full Verify or another local build while Popup owns the token.
+
+## CSPProvider evidence reconciliation
+
+Fresh configured review of the first Avatar-main successor found stale CSPProvider
+claims that ScrollArea was unimplemented. The correction updates the complete CSP
+feature document, README, ledger status/rationale and CSP-01 register entry together.
+ScrollArea actually consumes the canonical context for nonce/CSS and style suppression,
+with real DOM/SSR/hydration and actual HTTP-header paired browser witnesses. All four
+Original CSP ordinary declarations stay unported/uncredited; no predicates, source
+hashes, tests or runtime bodies change. Select/PrehydrationScript remain missing and
+the measured native React1→1/Svelte2→0 stylesheet boundary remains explicit.
+
+At historical cfc7a84, focused123 and actual installed strict public SSR/types/DOM
+passed; the actual configured P2 was a docs finding, not a clean review. The new
+documentation successor requires fresh configured review, resolved finding status
+and all final-head hosted gates. The earlier a6 broad job was canceled by successor
+concurrency; its complete canceled log is preserved and no broad pass is inferred.
+Root exact-head Source/native/maintainability and PM approval remain separate.
