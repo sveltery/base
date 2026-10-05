@@ -21,6 +21,8 @@
     "../../packages/base/tests/dom/popover-leaf-source.test.ts",
     "../../packages/base/tests/dom/popup-family-hydration.test.ts",
     "../../packages/base/tests/popup-family-ssr.test.ts",
-    "../../apps/fixtures/src/lib/popup-family-reference.ts"
+    "../../apps/fixtures/src/lib/popup-family-reference.ts",
+    "../../packages/base/tests/dom/PopupDetachedSourceFixture.svelte",
+    "../../packages/base/tests/dom/popup-detached-source.test.ts"
   ]
 }
