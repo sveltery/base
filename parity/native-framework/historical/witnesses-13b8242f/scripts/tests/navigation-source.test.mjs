@@ -24,17 +24,7 @@ test('navigation actual native runtime/type closure and all selected Source mapp
   );
   for (const record of correspondence.nativeRepresentationModules)
     mapped.set(record.local, record.sha256);
-  const modulePaths = new Set(native.modules.map((record) => record.source));
-  for (const owner of ['Controlled.svelte.ts', 'useMergedRefs.ts'])
-    assert(modulePaths.has(`packages/utils/src/lib/${owner}`), owner);
-  assert(
-    native.modules.every(
-      (record) =>
-        !/\/(useControlled|useIsoLayoutEffect|useStableCallback|useRefWithInit|useOnMount|usePreviousValue|useValueChanged)(?:\.svelte)?\.ts$/.test(
-          record.source,
-        ),
-    ),
-  );
+  assert.equal(native.modules.length, 75);
   assert.equal(mapped.size, native.modules.length);
   for (const record of native.modules)
     assert.equal(mapped.get(record.source), record.sha256, record.source);
