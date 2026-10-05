@@ -1,0 +1,31 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "source": "packages/react/src/navigation-menu/root/NavigationMenuRoot.test.tsx",
+  "sourceSha256": "91d0f84501dc110d1a948bb8c26ad82cc2b54f7a18f3de5e7117a921b0e4e266",
+  "native": "apps/fixtures/src/lib/navigation-menu-source-mocks.ts",
+  "functions": [
+    {
+      "name": "mockBoundingClientRect",
+      "line": 673,
+      "sha256": "f64b6adeb26d234bd7bffff62cd36f41942e13c19f18271bee39b4a8b94c6ad9"
+    },
+    {
+      "name": "mockAnimations",
+      "line": 695,
+      "sha256": "a11ceeffe7d45d1206392cacea62e9b05b625f713a63aef83eb365e6a26f2a84"
+    },
+    {
+      "name": "mockResizeObserver",
+      "line": 739,
+      "sha256": "475dd49985c78f187bcc5ec9919f870710569ce287111e5115a0e9fd3565a4f4"
+    },
+    {
+      "name": "primeOpenPopupSize",
+      "line": 753,
+      "sha256": "372ddaaa4f00316c6f6ac26efdb4ed3882ac90b936e308d29bc08958808f9d82"
+    }
+  ],
+  "status": "Complete unchanged Original test helpers; no runtime component implementation or ordinary declaration credit",
+  "ordinaryCredit": 0,
+  "nativeSha256": "6179b089563b140291a4543ec68ab294deff4789659d024776b81c13588dc314"
+}

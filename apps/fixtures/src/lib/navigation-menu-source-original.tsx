@@ -858,7 +858,7 @@ export function NavigationMenuSourceOriginal({ scenario, direction = 'ltr', orie
   const falsy = scenario.endsWith('zero') ? 0 : scenario.endsWith('false') ? false : '';
   const rootProps: NavigationMenu.Root.Props = { orientation, onValueChange, onOpenChangeComplete: (open) => { completions.current.push(open); },
     ...(['open', 'patient'].includes(scenario) ? { defaultValue: 'item-1' } : {}),
-    ...(['controlled', 'controlled-owner', 'manual'].includes(scenario) ? { value } : {}),
+    ...(['controlled', 'controlled-owner', 'controlled-kept', 'manual'].includes(scenario) ? { value } : {}),
     ...(scenario === 'manual' ? { actionsRef: actions } : {}),
     ...(scenario === 'delay' ? { delay: 100 } : {}),
     ...(scenario === 'close-delay' ? { closeDelay: 100 } : {}),
@@ -881,7 +881,7 @@ export function NavigationMenuSourceOriginal({ scenario, direction = 'ltr', orie
   else if (scenario === 'disabled') node = <TestNavigationMenuWithDisabledTrigger {...rootProps} />;
   else if (scenario === 'nested' || scenario === 'nested-close-delay') node = <TestNestedNavigationMenu {...rootProps} />;
   else if (scenario === 'inline' || scenario === 'inline-outside' || scenario === 'inline-falsy-close' || scenario === 'inline-closed' || scenario === 'inline-keep' || scenario.startsWith('inline-falsy-')) node = <TestInlineNestedNavigationMenu {...(scenario === 'inline-closed' ? { nestedDefaultValue: null } : {})} {...(scenario === 'inline-falsy-close' ? { nestedDefaultValue: false, nestedItem1Value: false, nestedLinkCloseOnClick: true } : scenario.startsWith('inline-falsy-') ? { nestedDefaultValue: falsy, nestedItem1Value: falsy } : {})} keepMountedContent={scenario === 'inline-keep'} />;
-  else if (scenario === 'dynamic') node = <TestInlineNestedNavigationMenuWithDynamicContent />;
-  else node = <TestNavigationMenu {...rootProps} keepMountedPortal={scenario === 'kept-portal'} />;
+  else if (scenario.startsWith('dynamic')) node = <TestInlineNestedNavigationMenuWithDynamicContent initialContentStage={scenario === 'dynamic-initial' ? 1 : 0} />;
+  else node = <TestNavigationMenu {...rootProps} keepMountedPortal={scenario === 'kept-portal' || scenario === 'controlled-kept'} />;
   return <DirectionProvider direction={direction}>{scenario.startsWith('focus') && <button data-testid="first" />}{node}{['touch-outside', 'inline-outside'].includes(scenario) && <button data-testid="outside" />}{scenario === 'focus' && <button data-testid="last" />}</DirectionProvider>;
 }

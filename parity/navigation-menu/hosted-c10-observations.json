@@ -1,0 +1,230 @@
+{
+  "head": "c10d7f6abf283282867b40b14f180e38bc2c6ced",
+  "tree": "52bfd6c2e0760ad6e0a83c9cd347e85e153d270a",
+  "runId": 37259823227,
+  "jobId": 111604514612,
+  "artifactId": 11325130284,
+  "artifactSha256": "c9f436de247437e66740a00f40977410c7a31464f4b5e2cccf25e55b35082329",
+  "artifactReceipt": "/workspace/sveltery-pm-evidence/navigation-menu-c10-hosted",
+  "jobReceipt": "/workspace/sveltery-pm-evidence/navigation-menu-c10-hosted-job.log",
+  "browser": "official Chromium153.0.8010.12",
+  "sandbox": true,
+  "workers": 1,
+  "retries": 0,
+  "collected": 568,
+  "passed": 540,
+  "failed": 28,
+  "skipped": 0,
+  "ordinaryCredit": 0,
+  "status": "Historical pre-repair test transport failures retained; no successor results or unchanged ordinary credit",
+  "failures": [
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "native Svelte exact Root sequences",
+      "title": "R:1084 reapply pointer lock after popup traversal and switch",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "native Svelte exact Root sequences",
+      "title": "R:1133 direct hover switch pointer lock",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "native Svelte exact Root sequences",
+      "title": "R:2123 complete forward and reverse tab order",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "native Svelte exact Root sequences",
+      "title": "R:2260 shift tab restores last submenu link",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "native Svelte exact Root sequences",
+      "title": "R:2719 inline traversal right",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "native Svelte exact Root sequences",
+      "title": "R:2719 inline traversal left",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "native Svelte exact Root sequences",
+      "title": "R:2719 inline traversal bottom",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "native Svelte exact Root sequences",
+      "title": "R:2719 inline traversal top",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "native Svelte exact Root sequences",
+      "title": "R:1346 hover returns after nested touch and outside close",
+      "status": "unexpected",
+      "result": "timedOut"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "native Svelte exact Root sequences",
+      "title": "R:1385 hover returns after quick click and switch",
+      "status": "unexpected",
+      "result": "timedOut"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "native Svelte exact Root sequences",
+      "title": "R:2538 nested closeOnClick propagation",
+      "status": "unexpected",
+      "result": "timedOut"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "native Svelte exact Root sequences",
+      "title": "R:2568 nested closeOnClick propagation",
+      "status": "unexpected",
+      "result": "timedOut"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "Original React exact Root sequences",
+      "title": "R:1084 reapply pointer lock after popup traversal and switch",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "Original React exact Root sequences",
+      "title": "R:1133 direct hover switch pointer lock",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "Original React exact Root sequences",
+      "title": "R:1250 touch pointerenter blocks synthetic hover",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "Original React exact Root sequences",
+      "title": "R:2423 nested hover ownership",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "Original React exact Root sequences",
+      "title": "R:2468 nested hover ownership",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "Original React exact Root sequences",
+      "title": "R:2642 inline viewport hover switches both directions",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "Original React exact Root sequences",
+      "title": "R:2895 inline viewport survives returning to active trigger",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "Original React exact Root sequences",
+      "title": "R:2719 inline traversal right",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "Original React exact Root sequences",
+      "title": "R:2719 inline traversal left",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "Original React exact Root sequences",
+      "title": "R:2719 inline traversal bottom",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "Original React exact Root sequences",
+      "title": "R:2719 inline traversal top",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "Original React exact Root sequences",
+      "title": "R:2679 inline pointer scope and exit",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "Original React exact Root sequences",
+      "title": "R:2782 inline pointer scope and exit",
+      "status": "unexpected",
+      "result": "failed"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "Original React exact Root sequences",
+      "title": "R:1346 hover returns after nested touch and outside close",
+      "status": "unexpected",
+      "result": "timedOut"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "Original React exact Root sequences",
+      "title": "R:1385 hover returns after quick click and switch",
+      "status": "unexpected",
+      "result": "timedOut"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "Original React exact Root sequences",
+      "title": "R:2815 inline traversal restores original trigger lock",
+      "status": "unexpected",
+      "result": "failed"
+    }
+  ],
+  "sourceSequences": {
+    "Original React exact Root sequences": {
+      "total": 78,
+      "passed": 62,
+      "failed": 16
+    },
+    "native Svelte exact Root sequences": {
+      "total": 78,
+      "passed": 66,
+      "failed": 12
+    }
+  }
+}

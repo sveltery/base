@@ -31,6 +31,20 @@ const functions = selected.map(name => {
   if (!originalBody || !referenceBody || originalBody.getText(sourceAst) !== referenceBody.getText(referenceAst)) throw new Error(`Changed actual Original fixture body: ${name}`);
   return { name, sourceLine: sourceAst.getLineAndCharacterOfPosition(originalBody.getStart(sourceAst)).line + 1, referenceLine: referenceAst.getLineAndCharacterOfPosition(referenceBody.getStart(referenceAst)).line + 1, sha256: hash(originalBody.getText(sourceAst)), exactCompleteOriginalBody: true };
 });
-const record = { pin: original.pin, source, sourceSha256: hash(body), reference, referenceSha256: hash(referenceBody), native, nativeSha256: hash(fs.readFileSync(path.join(root, native))), functions, transport: 'Original React createRoot client mount; actual native Svelte mount. Dedicated SSR/hydration probes remain separate. Root callbacks and owner controls only observe public behavior.', ordinaryCredit: 0, status: 'Exact Original fixture bodies verified; native full sequence execution/correspondence review pending' };
+const mockRecordPath = path.join(directory, 'source-mock-correspondence.json');
+if (fs.existsSync(mockRecordPath)) {
+  const mockRecord = JSON.parse(fs.readFileSync(mockRecordPath, 'utf8'));
+  if (mockRecord.pin !== original.pin || mockRecord.sourceSha256 !== hash(body)) throw new Error('Original mock Source authority mismatch');
+  const mockBody = fs.readFileSync(path.join(root, mockRecord.native), 'utf8');
+  const mockAst = ts.createSourceFile(mockRecord.native, mockBody, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
+  for (const selected of mockRecord.functions) {
+    const source = sourceAst.statements.find(node => ts.isFunctionDeclaration(node) && node.name?.text === selected.name);
+    const native = mockAst.statements.find(node => ts.isFunctionDeclaration(node) && node.name?.text === selected.name);
+    if (!source || !native || hash(source.getText(sourceAst)) !== selected.sha256 || source.getText(sourceAst) !== native.getText(mockAst)) throw new Error(`Changed complete Original test helper ${selected.name}`);
+  }
+  mockRecord.nativeSha256 = hash(mockBody);
+  fs.writeFileSync(mockRecordPath, JSON.stringify(mockRecord, null, 2) + '\n');
+}
+const record = { pin: original.pin, source, sourceSha256: hash(body), reference, referenceSha256: hash(referenceBody), native, nativeSha256: hash(fs.readFileSync(path.join(root, native))), functions, transport: 'Actual pinned Testing Library React render with Original strict true, real fireEvent/act and document-owned userEvent.setup; native Svelte mount/DOM fireEvent/tick with the same literal input operations. Playwright owns each page clock; real React async act surrounds explicit advancement. Dedicated actual SSR/hydration remains separate. Whole assertion correspondence and execution-domain review pending.', ordinaryCredit: 0, status: 'Exact Original fixture bodies verified; native full sequence execution/correspondence review pending' };
 fs.writeFileSync(path.join(directory, 'source-fixture-correspondence.json'), JSON.stringify(record, null, 2) + '\n');
 console.log(`${functions.length} complete Original fixture bodies verified; ordinary credit remains zero`);

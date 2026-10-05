@@ -3,9 +3,9 @@
   "source": "packages/react/src/navigation-menu/root/NavigationMenuRoot.test.tsx",
   "sourceSha256": "91d0f84501dc110d1a948bb8c26ad82cc2b54f7a18f3de5e7117a921b0e4e266",
   "reference": "apps/fixtures/src/lib/navigation-menu-source-original.tsx",
-  "referenceSha256": "fdd9bb469e3deebd415932800b927192ed3c47e7e48814965b7a4e6433c803b7",
+  "referenceSha256": "9133e13796a2470a67575c1c206f6e27f0b7bf3a72e5d40e228009e2db701653",
   "native": "apps/fixtures/src/lib/NavigationMenuSourceFixture.svelte",
-  "nativeSha256": "b35651a4defd089e8f3902927d8cbb9feab53b3459b20d0a30423c78af56e0c8",
+  "nativeSha256": "88bac2b535df551d25696047289398e35d3dc27c965317eed8fa027c5ee10818",
   "functions": [
     {
       "name": "TestNavigationMenu",
@@ -120,7 +120,7 @@
       "exactCompleteOriginalBody": true
     }
   ],
-  "transport": "Original React createRoot client mount; actual native Svelte mount. Dedicated SSR/hydration probes remain separate. Root callbacks and owner controls only observe public behavior.",
+  "transport": "Actual pinned Testing Library React render with Original strict true, real fireEvent/act and document-owned userEvent.setup; native Svelte mount/DOM fireEvent/tick with the same literal input operations. Playwright owns each page clock; real React async act surrounds explicit advancement. Dedicated actual SSR/hydration remains separate. Whole assertion correspondence and execution-domain review pending.",
   "ordinaryCredit": 0,
   "status": "Exact Original fixture bodies verified; native full sequence execution/correspondence review pending"
 }
