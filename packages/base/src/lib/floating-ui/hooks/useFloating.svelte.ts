@@ -44,7 +44,7 @@ function useFloatingWithStore(getOptions: () => BaseUIFloatingOptions) {
     },
   }));
   const localDomReferenceElement = $derived(isElement(localDomReference) ? localDomReference : null);
-  const syncedFloatingElement = $derived(localFloatingElement === undefined ? store.state.floatingElement : localFloatingElement);
+  const syncedFloatingElement = $derived(localFloatingElement === undefined ? floatingElement : localFloatingElement);
   useIsoLayoutEffect(() => {
     store.update({
       referenceElement: localDomReference ?? null,

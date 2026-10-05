@@ -1,0 +1,559 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "status": "Selected regular Root coverage117variants pass after canonical subscription repair;39 Source sites referenced, two are explicit supplements/incomplete setups; independent full declaration review pending. Immutable435site/718variant ledger remains unchanged/unported/zero credit.",
+  "ordinaryDeclarationCredit": 0,
+  "nativeFixture": "packages/base/tests/dom/PopupRootSourceFixture.svelte",
+  "nativeTest": "packages/base/tests/dom/popup-root-source.test.ts",
+  "sourceDeclarations": [
+    {
+      "source": "packages/react/src/popover/root/PopoverRoot.test.tsx",
+      "line": 41,
+      "name": "should render the children",
+      "bodySha256": "11214148fd66c4898d8d702a4cb51a23e72ab0ff5466dce655349833df66ae29",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/root/PopoverRoot.test.tsx",
+      "line": 48,
+      "name": "should close when the anchor is clicked twice",
+      "bodySha256": "e9f88c5a758542df2a90c0ce789dfcf668d4e09a780c0b6cfa206d568c13b211",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/root/PopoverRoot.test.tsx",
+      "line": 97,
+      "name": "should call onChange when the open state changes",
+      "bodySha256": "b95aa33ccfaded336496c9a0b3c36e47c8d645035b8cfb85b1fb2c8f9852e0c7",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/root/PopoverRoot.test.tsx",
+      "line": 433,
+      "name": "should open when the component is rendered",
+      "bodySha256": "d656cc575d4012e6ca1e6cc60f342af8418d234896eefa789ce27180675e9c6e",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/root/PopoverRoot.test.tsx",
+      "line": 439,
+      "name": "should not open when the component is rendered and open is controlled",
+      "bodySha256": "a85f7f13ea3e9a06fe2fc1049491d81193b7d545c8ed40b2d4bb3d8b9831878c",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/root/PopoverRoot.test.tsx",
+      "line": 445,
+      "name": "should not close when the component is rendered and open is controlled",
+      "bodySha256": "3fd21fdb55f6c81a87b931f7734d2500f00a867cd3d6fd01c4242c2b98c7d35b",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/root/PopoverRoot.test.tsx",
+      "line": 1362,
+      "name": "unmounts the popover when the `unmount` method is called",
+      "bodySha256": "890b939c55cdfe3a7bed134b1013d96cb318e8c5c6080469aadaf2428b6d0e3b",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/root/PopoverRoot.test.tsx",
+      "line": 1401,
+      "name": "closes the popover when the `close` method is called",
+      "bodySha256": "1122c12458f7b44d1b1a028ab6021e659b56c8b6c81b1526c3b5d13c94715ed8",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "imperative-action-supplement-incomplete-Source-setup",
+      "note": "Source initializes defaultOpen=true then closes; current native case opens with click then verifies close/reason. Does not earn complete Source declaration credit.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/preview-card/root/PreviewCardRoot.test.tsx",
+      "line": 56,
+      "name": "should open when the trigger is hovered",
+      "bodySha256": "a13797ff3eaaf8420bafdf2f710cf78eb363aae4b3fc98a7877833b4505200da",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/preview-card/root/PreviewCardRoot.test.tsx",
+      "line": 72,
+      "name": "should close when the trigger is unhovered",
+      "bodySha256": "bf19a05df9ac1e1064caeef3e896560d837d2f4e22933c11a145fe7af001200d",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/preview-card/root/PreviewCardRoot.test.tsx",
+      "line": 94,
+      "name": "should open when the trigger is focused",
+      "bodySha256": "2f2f4a32d880b4aca963b3d628fd6c4fbc3dbfdca204e03c021aa4488b212070",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/preview-card/root/PreviewCardRoot.test.tsx",
+      "line": 113,
+      "name": "should close when the trigger is blurred",
+      "bodySha256": "4e26dc9f13d4ff430e0100404051b6b0feff97f00c2a4ae65cbca239e73132c6",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/preview-card/root/PreviewCardRoot.test.tsx",
+      "line": 132,
+      "name": "should call onOpenChange when the open state changes",
+      "bodySha256": "869b4b9ff67d4fba30666ad4d0957dbeb3609cd93cf1ba0ab02cd8c3adcf24fe",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/preview-card/root/PreviewCardRoot.test.tsx",
+      "line": 178,
+      "name": "does not close after hovering out of a popup opened externally",
+      "bodySha256": "d681700f7831c57608847e6436b5d205460953fa97815195258cbc0e9ee15c00",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/preview-card/root/PreviewCardRoot.test.tsx",
+      "line": 212,
+      "name": "closes after hovering out of a popup opened by its trigger",
+      "bodySha256": "b1c588805e808289e249fb22f413708dfa44b79ab174bc40d45124db11bc3b4e",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/preview-card/root/PreviewCardRoot.test.tsx",
+      "line": 244,
+      "name": "should not call onChange when the open state does not change",
+      "bodySha256": "4de44a04a5d1d66dfc3b662784d7ca97b6bf4d2fc3298d289deb90cddd40b90f",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/preview-card/root/PreviewCardRoot.test.tsx",
+      "line": 285,
+      "name": "should open when the component is rendered",
+      "bodySha256": "4827e24c5a909ac1b9287022bca9320ca057e895eb0b3e77ecabe0697362fa41",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/preview-card/root/PreviewCardRoot.test.tsx",
+      "line": 297,
+      "name": "should not open when the component is rendered and open is controlled",
+      "bodySha256": "e033d95e9699edc661aed8d5da3e8a0a771e0223cb9a7d7c13483a8b5aca3180",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/preview-card/root/PreviewCardRoot.test.tsx",
+      "line": 310,
+      "name": "should not close when the component is rendered and open is controlled",
+      "bodySha256": "b13dabdd6885168a39338c46ed676b826474b4e86fae0e04c469672a2308f8a5",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/preview-card/root/PreviewCardRoot.test.tsx",
+      "line": 323,
+      "name": "should remain uncontrolled",
+      "bodySha256": "d8f5b1c8bf7bb13af8d1e6855f5e39b9940a5122c3d613bac0ee9adf5b0b4e8d",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/preview-card/root/PreviewCardRoot.test.tsx",
+      "line": 345,
+      "name": "does not close after hovering out of a popup opened without trigger hover",
+      "bodySha256": "27e7ced3974d2c17b77821f5539ca9d64fd5484579bc0bf96b993926cc6c9922",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/preview-card/root/PreviewCardRoot.test.tsx",
+      "line": 373,
+      "name": "should open after delay with rest type by default",
+      "bodySha256": "3ee5c415ca9d9fdc30e185dddc3518aceb62cc19a963bb0fe48da1fdcafbd414",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/preview-card/root/PreviewCardRoot.test.tsx",
+      "line": 396,
+      "name": "should close after delay",
+      "bodySha256": "8dbbf78281e23e24331e6c640c23d225f6f85d2746060e9e54773b43ed4aae94",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/preview-card/root/PreviewCardRoot.test.tsx",
+      "line": 479,
+      "name": "unmounts the preview card when the `unmount` method is called",
+      "bodySha256": "60e5f26713db6a36fa9176725e11e4a2fe6b79d5e7dd7ddd16d2a9db03945245",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/preview-card/root/PreviewCardRoot.test.tsx",
+      "line": 522,
+      "name": "closes the preview card when the `close` method is called",
+      "bodySha256": "95ace197d2f29ea12fe4fd34dd14f2e5f3d6e0cd1fa200e12d5ac9bf9fe507c6",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/tooltip/root/TooltipRoot.test.tsx",
+      "line": 50,
+      "name": "should open when the trigger is hovered",
+      "bodySha256": "0be32d9540cecb15e4c96d0f386645024ba020541ed5495e4c989e8f9dcc9140",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/tooltip/root/TooltipRoot.test.tsx",
+      "line": 66,
+      "name": "should close when the trigger is unhovered",
+      "bodySha256": "a8d396bc3d49aa59dee9398344a65cf8162bc737265a1f30af7ff641bdd9161a",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/tooltip/root/TooltipRoot.test.tsx",
+      "line": 85,
+      "name": "should open when the trigger is focused",
+      "bodySha256": "94d0bb8f191153870946b3063272597e604c15856e2c49ddbae814e84036f891",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "native-focus-supplement-zero-Original-credit",
+      "note": "Original skips this declaration in JSDOM and tests immediate focus opening in browser. Native JSDOM focus600ms case is a supplement, not an unchanged port of that browser declaration.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/tooltip/root/TooltipRoot.test.tsx",
+      "line": 101,
+      "name": "should close when the trigger is blurred",
+      "bodySha256": "888819ff92b4d844134f438898226f16356848776e4333b4dedcdea05080f3dc",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/tooltip/root/TooltipRoot.test.tsx",
+      "line": 125,
+      "name": "should call onOpenChange when the open state changes",
+      "bodySha256": "3d1841d5aea2f74e09723aff1cb45439961217ca842b44a6ac4f625563de5460",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/tooltip/root/TooltipRoot.test.tsx",
+      "line": 167,
+      "name": "should not call onChange when the open state does not change",
+      "bodySha256": "a0aff8d10d64466d186b3507ba82f43c8423685302d0e286e0c9ac9b612792b6",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/tooltip/root/TooltipRoot.test.tsx",
+      "line": 206,
+      "name": "should open when the component is rendered",
+      "bodySha256": "21e18558cd4f20129ee375d15f7d03c25f701a4816cac3599b1f8c940805ffcf",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/tooltip/root/TooltipRoot.test.tsx",
+      "line": 214,
+      "name": "should not open when the component is rendered and open is controlled",
+      "bodySha256": "4dd2bc9738e0953e849bd5a6181a17a2aee5109d2f9b89371c48dee8760ee0e9",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/tooltip/root/TooltipRoot.test.tsx",
+      "line": 222,
+      "name": "should not close when the component is rendered and open is controlled",
+      "bodySha256": "f46595349716187d481e8c2e65e198308c4c1dbaab2a8c69e1c1a6de70048081",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/tooltip/root/TooltipRoot.test.tsx",
+      "line": 230,
+      "name": "should remain uncontrolled",
+      "bodySha256": "072a3b2ae25542596c75d8a47d6a273f599ce29ba879742ac8d9c912f9b67519",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/tooltip/root/TooltipRoot.test.tsx",
+      "line": 250,
+      "name": "should open after rest delay",
+      "bodySha256": "59ba3d241c1d10a57e345fea3b45fb35115d169dbeb22280861c5695d4e2370c",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/tooltip/root/TooltipRoot.test.tsx",
+      "line": 273,
+      "name": "should close after delay",
+      "bodySha256": "fc74730cf4b332079e2f99afdb2da808e1db9fd8f85dca821520e84d0aebdc4a",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/tooltip/root/TooltipRoot.test.tsx",
+      "line": 345,
+      "name": "unmounts the tooltip when the `unmount` method is called",
+      "bodySha256": "389ccacf3a79e65ec6f1fd83375051214826bc6e493076d0934575e3da2d9089",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/tooltip/root/TooltipRoot.test.tsx",
+      "line": 384,
+      "name": "closes the tooltip when the `close` method is called",
+      "bodySha256": "11be628646fac350a99bb2a413cfafdb8a91b6e1eb5b568ea7369e31ff7b1814",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
+      "ordinaryDeclarationCredit": 0
+    }
+  ],
+  "preservedFirstRun": "114/117 pass; three unchanged expected controlled multiple-detached hover-close failures",
+  "afterRun": "117/117 pass with same expected predicates after canonical helper repair",
+  "literalTransport": "Separate actual Original/native6-case supplement reproduces the three failures before repair and passes after; zero ordinary credit",
+  "receiptsRecord": "parity/popup-family/floating-subscription-repair.json"
+}

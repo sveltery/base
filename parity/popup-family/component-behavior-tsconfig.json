@@ -23,6 +23,10 @@
     "../../packages/base/tests/popup-family-ssr.test.ts",
     "../../apps/fixtures/src/lib/popup-family-reference.ts",
     "../../packages/base/tests/dom/PopupDetachedSourceFixture.svelte",
-    "../../packages/base/tests/dom/popup-detached-source.test.ts"
+    "../../packages/base/tests/dom/popup-detached-source.test.ts",
+    "../../packages/base/tests/dom/PopupRootSourceFixture.svelte",
+    "../../packages/base/tests/dom/popup-root-source.test.ts",
+    "../../packages/base/tests/dom/popup-root-hover-transport.test.ts",
+    "../../apps/fixtures/src/lib/popup-root-hover-reference.ts"
   ]
 }

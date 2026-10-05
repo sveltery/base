@@ -389,7 +389,7 @@
     },
     {
       "path": "packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts",
-      "sha256": "3cb683af9f2da1d7e2fdb289c55e4397ea596af3d1de90b02e9cf1ff94c4929c",
+      "sha256": "dbd456a378ee02012d7cf8fb2db681f38e0a63b15d6fbb6894c8b293eb77c635",
       "symbols": [
         {
           "name": "BaseUIFloatingOptions",
@@ -406,7 +406,7 @@
         {
           "name": "useFloatingWithStore",
           "kind": "FunctionDeclaration",
-          "sha256": "de04252e72c13a839ccbeb187c3e5ba41e87f1cf1044a673f137fc212d00064b",
+          "sha256": "a8b26c315cca77b43a8a646120af3178c06a1d82c77a0706efb8c209cd8e3ba4",
           "scriptIndex": 0
         }
       ]
