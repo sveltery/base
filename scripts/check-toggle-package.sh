@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
 toggle_consumer="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-toggle-consumer.XXXXXX")"
 trap 'rm -rf "$toggle_consumer"' EXIT
-pnpm --filter @sveltery/base pack --pack-destination "$toggle_consumer" > /dev/null
+sveltery_pack_package @sveltery/base "$toggle_consumer" > /dev/null
 mkdir -p "$toggle_consumer/node_modules/@sveltery/base"
 tar -xzf "$toggle_consumer"/*.tgz --strip-components=1 -C "$toggle_consumer/node_modules/@sveltery/base"
 # Install the packed runtime dependency closure and its Svelte peer in isolation.
@@ -16,6 +16,7 @@ const tarball = readdirSync(destination).find(name => name.endsWith('.tgz'));
 writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(destination, tarball)}`, svelte: '5.57.1' } }));
 JS
 rm -rf "$toggle_consumer/node_modules"
+sveltery_prepare_consumer "$toggle_consumer"
 pnpm --dir "$toggle_consumer" --ignore-workspace install --ignore-scripts > /dev/null
 pnpm --dir "$toggle_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
 test -f "$toggle_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"

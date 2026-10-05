@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
 render_consumer="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-use-render-consumer.XXXXXX")"
 trap 'rm -rf "$render_consumer"' EXIT
-pnpm --filter @sveltery/base pack --pack-destination "$render_consumer" > /dev/null
+sveltery_pack_package @sveltery/base "$render_consumer" > /dev/null
 node --input-type=module - "$render_consumer" <<'JS'
 import { readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -12,6 +12,7 @@ const directory = process.argv[2];
 const tarball = readdirSync(directory).find(name => name.endsWith('.tgz'));
 writeFileSync(join(directory, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(directory, tarball)}`, svelte: '5.57.1' } }));
 JS
+sveltery_prepare_consumer "$render_consumer"
 pnpm --dir "$render_consumer" --ignore-workspace install --ignore-scripts > /dev/null
 pnpm --dir "$render_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
 test -f "$render_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
