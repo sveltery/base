@@ -14,6 +14,8 @@ Plain utilities ship ESM and adjacent declarations. Rune utilities retain native
 
 Native setup initializes local values once; ordinary closures retain identity and read live props. `$props.id()` supplies framework IDs and direct `$effect` supplies SSR-safe client synchronization. `useControlled`, `useIsoLayoutEffect`, `useStableCallback`, `useOnMount`, `useRefWithInit` and `usePreviousValue` are removed subpaths. Pure business utilities and canonical Store, Scheduler, Timeout, AnimationFrame and ref fan-out algorithms stay shared. No Base, React or SvelteKit runtime dependency is added.
 
+Remaining bounded owner cleanup is recorded in [native correspondence](../../parity/native-framework/README.md): enhanced-click pointer-type state and the scroll-lock effect setup still have their existing function APIs. Their business and the shared ScrollLocker must remain recognizable when those roles migrate. This checkpoint does not claim complete framework acceptance.
+
 Run the root bootstrap/build/dev/check commands to build Utils before Base and applications. When editing Utils, the root development command runs the official utility packager watcher. The normal workspace and published package export paths resolve `dist`; a frozen install alone does not produce build output.
 
 Base UI and Floating UI attribution is included in `THIRD_PARTY_NOTICES.md`. Source correspondence, package move hashes and review status are retained in `parity/utils-package` in the repository.
