@@ -58,3 +58,16 @@ Full/contextual Menu old RED and unchanged-expectation repair PASS. The
 while Full gains the canonical external `getWindow` member. Identity preserves
 historical evidence; a fresh independent whole-used-source successor review is
 required for this source change. No current Source CLEAR is claimed.
+
+
+Accepted main `2f306c2` is normally integrated through `cbf6721`, preserving all
+197 used full-body hashes and 891 actual member/kind edges from frozen `2a3ed25`.
+The [fresh successor identity receipt](completed-close-source-identity.json)
+records each complete module and its imports/reachability individually, while
+[the authored completed-close repair](completed-close-repair.md) preserves failed
+raw evidence and causal Source/native lifecycle proof. Only the exact canonical
+completed-case title/comment/count changes; interrupted false1, the canonical
+motion fixture, product animation helpers, FullPortal getWindow realm support
+and retained focus/hover/native teardown repairs stay exact. Immutable ordinary
+and conformance totals remain separate and uncredited. Independent successor
+Source/native/maintainability review and exact-head hosted gates remain required.

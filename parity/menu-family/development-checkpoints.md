@@ -413,3 +413,34 @@ archived; complete emitted JavaScript is byte-identical. Final bounded library
 check reports zero errors/warnings, the actual library build passes, six Source
 provenance/SSR checks pass, and final Standards passes. Exact raw logs, fixture
 hashes and retained failure provenance are in [portal-realm-execution.json](portal-realm-execution.json).
+
+## Accepted main and completed-close harness successor
+
+Normal merge `cbf6721bb4053b446c777fdf50b582a6ab3ad49d` integrates accepted main
+`2f306c27dcec4127246fcc4f1345d64af5fef4f4` as a parent, preserving all197
+used Menu-family runtime/type bodies and their actual891 member/kind edges.
+The documentation conflict retains complete Dialog/Menu/interaction history
+and accepted Toolbar evidence. Toolbar PR59 is now normally merged on main;
+its earlier unaccepted development statements retain their historical scope.
+Dialog PR42 still remains independently unaccepted as a whole component.
+
+The [completed-close repair](completed-close-repair.md) retains the failed
+2a broad2643PASS/1FAIL raw evidence and exact authored predecessor. Actual
+pinned Source/native proof establishes two completed closes after returned
+focus versus one completed close after an interrupted physical exit. Root's
+precise lease transplants only the canonical completed-case title/comment/count,
+with the full sequence intact. The physical interrupted pair remains strict
+false1 and the canonical motion fixture remains exactad4d335f. Product completion
+helpers, FullPortal's canonical getWindow observer and all retained focus/hover/
+teardown repairs remain unchanged. No ordinary declaration credit is added.
+
+The [successor identity receipt](completed-close-source-identity.json) freshly
+extracts the actual complete197/891 import graph, hashes every complete used
+body and compares each individual module and member/kind/reachability against
+frozen2a. All200 Original runtime and745 helper archives,331 ordinary declarations
+and19 conformance calls remain immutable and separately uncredited. This owner
+identity evidence does not replace independent Source/native/maintainability
+review. Fresh exact-head full Verify, strict installed public Menu/SSR/types,
+Standards, configured review, secured focused44/Anchor33/Dialog56 and full broad
+browser gates, followed by Root approval and normal expected-head owner merge,
+remain required.

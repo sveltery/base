@@ -208,13 +208,14 @@ test('Svelte deferred unmount remains accessible until imperative action', async
   await page.getByRole('button', { name: 'Imperative unmount' }).evaluate((button: HTMLButtonElement) => button.click());
   await expect(page.getByRole('dialog')).toHaveCount(0);
 });
-test('Svelte exit transition remains accessible, then hides; reopen cancels stale exit', async ({ page }) => {
+test('Svelte completed exit cycles report once per close after focus returns', async ({ page }) => {
   await start(page, '/dialog', '?keep&animate');
   await page.locator('#trigger').click(); await expect(page.getByRole('dialog')).toBeVisible();
   await page.waitForFunction(() => JSON.parse(document.querySelector('[data-testid=log]')!.textContent!).some((x: any) => x.channel === 'complete' && x.open));
   await page.keyboard.press('Escape');
   await expect(page.getByRole('dialog')).toHaveCount(1);
   await expect(page.getByTestId('popup')).toHaveAttribute('data-ending-style', '');
+  // Returned focus follows completion of this close; reopening starts a second cycle.
   await expect(page.locator('#trigger')).toBeFocused();
   await page.keyboard.press('Enter');
   await expect(page.getByTestId('popup')).toHaveAttribute('data-open', '');
@@ -223,7 +224,7 @@ test('Svelte exit transition remains accessible, then hides; reopen cancels stal
   await expect(page.getByRole('dialog')).toBeVisible();
   await page.keyboard.press('Escape'); await expect(page.getByRole('dialog')).toHaveCount(0);
   await expect(page.getByTestId('popup')).toBeHidden();
-  expect((await logs(page)).filter(x => x.channel === 'complete' && x.open === false)).toHaveLength(1);
+  expect((await logs(page)).filter(x => x.channel === 'complete' && x.open === false)).toHaveLength(2);
 });
 test('Svelte initial-open hydration and label lifecycle without console errors', async ({ page, request }) => {
   const response = await request.get('/dialog?initial');
