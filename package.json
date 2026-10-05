@@ -7,9 +7,9 @@
     "node": ">=24 <25"
   },
   "scripts": {
-    "dev": "pnpm package:build && pnpm run --parallel '/^dev:/'",
+    "dev": "pnpm package:build && pnpm --include-workspace-root run --parallel '/^dev:/'",
     "check": "pnpm package:prepare && pnpm --recursive --sort --workspace-concurrency 1 run check",
-    "check:watch": "pnpm package:build && pnpm run --parallel '/^check:watch:/'",
+    "check:watch": "pnpm package:build && pnpm --include-workspace-root run --parallel '/^check:watch:/'",
     "lint": "prettier --check . && eslint .",
     "format": "prettier --write .",
     "test": "pnpm package:prepare && pnpm --recursive --filter './packages/*' --sort --workspace-concurrency 1 run test",
