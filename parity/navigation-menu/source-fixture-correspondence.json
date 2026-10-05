@@ -1,0 +1,63 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "source": "packages/react/src/navigation-menu/root/NavigationMenuRoot.test.tsx",
+  "sourceSha256": "91d0f84501dc110d1a948bb8c26ad82cc2b54f7a18f3de5e7117a921b0e4e266",
+  "reference": "apps/fixtures/src/lib/navigation-menu-source-original.tsx",
+  "referenceSha256": "7841ef8104209af8dc3f55ff8af50fd5ce6c625f41f3759785ed20a5dcd3b298",
+  "native": "apps/fixtures/src/lib/NavigationMenuSourceFixture.svelte",
+  "nativeSha256": "80cadd78cc95fdb4cf408c076376b954c98d572f1abe8c9ad0612f9c3e29f1cb",
+  "functions": [
+    {
+      "name": "TestNavigationMenu",
+      "sourceLine": 20,
+      "referenceLine": 6,
+      "sha256": "6d97dab552b243a094d7a707fa39001bce469633e436016aa5fcc30fb122bb96",
+      "exactCompleteOriginalBody": true
+    },
+    {
+      "name": "TestNavigationMenuWithTopLevelLink",
+      "sourceLine": 57,
+      "referenceLine": 43,
+      "sha256": "0d4bdb3f60842f0f68498d8a1bf40ce235796e068d27d7cf71239b8d67fcbb5e",
+      "exactCompleteOriginalBody": true
+    },
+    {
+      "name": "TestNavigationMenuWithDisabledTrigger",
+      "sourceLine": 91,
+      "referenceLine": 77,
+      "sha256": "c4f984469ecf35706dc2703bbd7a4834c7b90c42d9c8c477438a94f58dc2df97",
+      "exactCompleteOriginalBody": true
+    },
+    {
+      "name": "TestNestedNavigationMenu",
+      "sourceLine": 206,
+      "referenceLine": 102,
+      "sha256": "2b5e423a2a8b5405f0fc6fe7f1d62561e8dc91081cd1a43077e18a0986b4a44f",
+      "exactCompleteOriginalBody": true
+    },
+    {
+      "name": "TestNavigationMenuOrientationAttributes",
+      "sourceLine": 257,
+      "referenceLine": 153,
+      "sha256": "66bf452a1894180b3096543a5b435b8781e64d939bef0690655aacc0707eb0cd",
+      "exactCompleteOriginalBody": true
+    },
+    {
+      "name": "TestInlineNestedNavigationMenu",
+      "sourceLine": 295,
+      "referenceLine": 191,
+      "sha256": "8ab66af20474c04a61e2e4961d671b2cced6916708e535ba35bfb78542452317",
+      "exactCompleteOriginalBody": true
+    },
+    {
+      "name": "TestInlineNestedNavigationMenuWithDynamicContent",
+      "sourceLine": 375,
+      "referenceLine": 271,
+      "sha256": "08c1587b462bc7f8d6f5a8200db76c4b9518768516eba60627feeacfac02621f",
+      "exactCompleteOriginalBody": true
+    }
+  ],
+  "transport": "Original React createRoot client mount; actual native Svelte mount. Dedicated SSR/hydration probes remain separate. Root callbacks and owner controls only observe public behavior.",
+  "ordinaryCredit": 0,
+  "status": "Exact Original fixture bodies verified; native full sequence execution/correspondence review pending"
+}

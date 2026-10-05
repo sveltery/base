@@ -41,6 +41,8 @@ jobs:
           package-manager-cache: false
       - name: Frozen workspace install
         run: bash scripts/bootstrap.sh
+      - name: Verify complete immutable Original runtime fixture bodies
+        run: node parity/navigation-menu/source-fixtures.mjs
       - name: Build library and check actual isolated public package
         run: |
           pnpm --filter @sveltery/base build
