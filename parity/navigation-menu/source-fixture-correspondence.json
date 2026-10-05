@@ -3,9 +3,9 @@
   "source": "packages/react/src/navigation-menu/root/NavigationMenuRoot.test.tsx",
   "sourceSha256": "91d0f84501dc110d1a948bb8c26ad82cc2b54f7a18f3de5e7117a921b0e4e266",
   "reference": "apps/fixtures/src/lib/navigation-menu-source-original.tsx",
-  "referenceSha256": "78107c1c6de8cb1c606a8d6485628452cfa2ce3b667752c8dfe1ceba4e33ade3",
+  "referenceSha256": "fdd9bb469e3deebd415932800b927192ed3c47e7e48814965b7a4e6433c803b7",
   "native": "apps/fixtures/src/lib/NavigationMenuSourceFixture.svelte",
-  "nativeSha256": "1b52fc6500aa005278fb516db53b8ac5211c3bb7e5efeb03aafabc6a8eaeba3a",
+  "nativeSha256": "b35651a4defd089e8f3902927d8cbb9feab53b3459b20d0a30423c78af56e0c8",
   "functions": [
     {
       "name": "TestNavigationMenu",

@@ -8,13 +8,13 @@
 <NavigationMenu.Root {...rootProps} {...tree.root}>
   {#if tree.scopedStyles}<svelte:element this={'style'}>{scopedPopupAnimationStyles}</svelte:element>{/if}
   <NavigationMenu.List data-testid={tree.listTestId}>
-    {#each tree.items as item}
+    {#each tree.items as item (item)}
       <NavigationMenu.Item value={item.value}>
         {#if item.directLink}<NavigationMenu.Link href={item.directLink.href} data-testid={item.directLink.id}>{item.directLink.text}</NavigationMenu.Link>
         {:else}
           <NavigationMenu.Trigger data-testid={item.triggerId}>{item.trigger}</NavigationMenu.Trigger>
           <NavigationMenu.Content data-testid={item.contentId} class={item.contentClass} keepMounted={item.keepContent}>
-            {#each item.links ?? [] as link}<NavigationMenu.Link href={link.href} data-testid={link.id} closeOnClick={link.close}>{link.text}</NavigationMenu.Link>{/each}
+            {#each item.links ?? [] as link (link)}<NavigationMenu.Link href={link.href} data-testid={link.id} closeOnClick={link.close}>{link.text}</NavigationMenu.Link>{/each}
             {#if item.children}<TreeFixture tree={item.children} />{/if}
             {#if item.box}<div style={`width: ${item.box.width}px; height: ${item.box.height}px`}>{item.box.text}</div>{/if}
           </NavigationMenu.Content>

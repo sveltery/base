@@ -26,6 +26,12 @@ export default [
       ],
     },
   },
+  // Immutable React fixture bodies retain comments for rules from the upstream toolchain.
+  // Run all configured rules without applying those archived inline directives.
+  {
+    files: ['apps/fixtures/src/lib/navigation-menu-source-original.tsx'],
+    linterOptions: { noInlineConfig: true },
+  },
   // Empty defaults preserve upstream generic event-detail types.
   {
     files: ['packages/base/src/lib/internals/createBaseUIEventDetails.ts'],

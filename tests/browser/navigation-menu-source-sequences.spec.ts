@@ -1,7 +1,7 @@
 // Actual Original Root assertion sequences at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT.
 // Declaration identities and credit remain separately owned by the parity ledger.
 import { expect, test, type Page } from '@playwright/test';
-type API = { snapshot(): { calls: { value: unknown; reason: string; type: string; canceled: boolean }[]; completions: boolean[] }; setValue(value: unknown): void; unmount(): void };
+type API = { snapshot(): { calls: { value: unknown; reason: string; type: string; canceled: boolean }[]; completions: boolean[]; actionType: string }; setValue(value: unknown): void; unmount(): void };
 async function visit(page: Page, reference: boolean, scenario = 'default', query = '') {
   await page.goto(`/navigation-menu/source?case=${scenario}${reference ? '&reference' : ''}${query}`);
   await page.waitForFunction(() => Boolean((window as unknown as { navigationMenuSource?: API }).navigationMenuSource));
@@ -140,6 +140,111 @@ for (const reference of [false, true]) test.describe(`${reference ? 'Original Re
     else expect(await node(page, 'inline-nested-list').evaluate(n => (n as HTMLElement).style.pointerEvents)).toBe('');
     await expect(node(page, 'nested-trigger-1')).toHaveAttribute('aria-expanded', 'true'); await expect(node(page, 'nested-popup-1')).toHaveCount(1);
     if (inside) { await dispatch(page, 'inline-nested-viewport', 'mouseenter'); expect(await node(page, 'inline-nested-list').evaluate(n => (n as HTMLElement).style.pointerEvents)).toBe(''); }
+  });
+
+  test('R:1316 hover returns after touch and outside close', async ({ page }) => {
+    await visit(page, reference, 'touch-outside');
+    for (const event of ['pointerenter', 'pointerdown', 'pointerup']) await dispatch(page, 'trigger-1', event, { pointerType: 'touch' });
+    await dispatch(page, 'trigger-1', 'click'); await expect(node(page, 'popup-1')).toHaveCount(1);
+    await node(page, 'outside').click(); await expect(node(page, 'popup-1')).toHaveCount(0);
+    await node(page, 'trigger-2').hover(); await expect(node(page, 'popup-2')).toHaveCount(1);
+  });
+  test('R:1346 hover returns after nested touch and outside close', async ({ page }) => {
+    await visit(page, reference, 'inline-outside');
+    for (const id of ['trigger-1', 'nested-trigger-2']) {
+      for (const event of ['pointerenter', 'pointerdown', 'pointerup']) await dispatch(page, id, event, { pointerType: 'touch' });
+      await dispatch(page, id, 'click');
+    }
+    await expect(node(page, 'nested-popup-2')).toHaveCount(1);
+    await node(page, 'outside').click(); await expect(node(page, 'popup-1')).toHaveCount(0);
+    await node(page, 'trigger-1').hover(); await expect(node(page, 'popup-1')).toHaveCount(1);
+  });
+  test('R:1385 hover returns after quick click and switch', async ({ page }) => {
+    await visit(page, reference); await node(page, 'trigger-1').hover(); await expect(node(page, 'popup-1')).toHaveCount(1);
+    await node(page, 'trigger-1').click(); await node(page, 'trigger-2').hover(); await expect(node(page, 'popup-2')).toHaveCount(1);
+    await page.mouse.move(0, 0); await expect(node(page, 'popup-2')).toHaveCount(0);
+    await node(page, 'trigger-1').hover(); await expect(node(page, 'popup-1')).toHaveCount(1);
+  });
+  test('R:1418 pointerdown on hover-open link then leave closes', async ({ page }) => {
+    await visit(page, reference); await node(page, 'trigger-1').hover(); await expect(node(page, 'popup-1')).toHaveCount(1);
+    const link = page.getByRole('link', { name: 'Link 1', exact: true }); await link.hover();
+    await link.dispatchEvent('pointerdown', { pointerType: 'mouse' }); await page.mouse.move(0, 0);
+    await expect(node(page, 'popup-1')).toHaveCount(0);
+  });
+  test('R:1752 controlled owner selects active value', async ({ page }) => {
+    await visit(page, reference, 'controlled-owner'); await page.clock.install(); await enter(page, 'trigger-1');
+    await expect(node(page, 'trigger-1')).toHaveAttribute('aria-expanded', 'true');
+    await page.evaluate(() => (window as unknown as { navigationMenuSource: API }).navigationMenuSource.setValue('item-2'));
+    await dispatch(page, 'trigger-1', 'mouseleave'); await enter(page, 'trigger-2', 0);
+    await expect(node(page, 'trigger-1')).toHaveAttribute('aria-expanded', 'false'); await expect(node(page, 'trigger-2')).toHaveAttribute('aria-expanded', 'true');
+  });
+  test('R:2016 actual action defers unmount', async ({ page }) => {
+    await visit(page, reference, 'manual'); expect((await snapshot(page)).actionType).toBe('function'); await expect(node(page, 'popup-root')).toHaveCount(1);
+    await page.evaluate(() => (window as unknown as { navigationMenuSource: API }).navigationMenuSource.setValue(null)); await expect(node(page, 'popup-root')).toHaveCount(1);
+    await page.evaluate(() => (window as unknown as { navigationMenuSource: API }).navigationMenuSource.unmount()); await expect(node(page, 'popup-root')).toHaveCount(0);
+  });
+  test('R:2503 nested delayed hover close closes parent', async ({ page }) => {
+    await visit(page, reference, 'nested-close-delay'); await page.clock.install(); await enter(page, 'trigger-1'); await expect(node(page, 'popup-1')).toHaveCount(1);
+    await enter(page, 'nested-trigger-1'); await expect(node(page, 'nested-popup-1')).toHaveCount(1);
+    for (const id of ['nested-trigger-1', 'nested-positioner', 'top-level-positioner']) await dispatch(page, id, 'mouseleave');
+    await page.clock.runFor(200); await expect(node(page, 'nested-popup-1')).toHaveCount(0); await expect(node(page, 'popup-1')).toHaveCount(0); await expect(node(page, 'trigger-1')).toHaveAttribute('aria-expanded', 'false');
+  });
+  for (const line of [2538, 2568]) test(`R:${line} nested closeOnClick propagation`, async ({ page }) => {
+    await visit(page, reference, 'nested-close'); await page.clock.install(); await node(page, 'trigger-1').click(); await expect(node(page, 'popup-1')).toHaveCount(1);
+    await enter(page, 'nested-trigger-1'); if (line === 2538) await expect(node(page, 'nested-popup-1')).toHaveCount(1);
+    await node(page, 'nested-link-1').click();
+    if (line === 2568) await expect.poll(async () => (await snapshot(page)).calls.at(-1)?.value).toBe(null);
+    else { await expect(node(page, 'nested-popup-1')).toHaveCount(0); await expect(node(page, 'popup-1')).toHaveCount(0); await expect(node(page, 'trigger-1')).toHaveAttribute('aria-expanded', 'false'); }
+  });
+  test('R:2597 deep closeOnClick closes all levels', async ({ page }) => {
+    await visit(page, reference, 'deep-close'); await node(page, 'trigger-1').click(); await expect(node(page, 'content-1')).toHaveCount(1);
+    await expect(node(page, 'level2-content-1')).toHaveCount(1); await expect(node(page, 'level3-content-1')).toHaveCount(1);
+    await node(page, 'level3-link-1').click(); for (const id of ['level3-content-1', 'level2-content-1', 'content-1']) await expect(node(page, id)).toHaveCount(0);
+    await expect(node(page, 'trigger-1')).toHaveAttribute('aria-expanded', 'false');
+  });
+  test('R:2815 inline traversal restores original trigger lock', async ({ page }) => {
+    await visit(page, reference, 'inline'); await page.clock.install(); await enter(page, 'trigger-1');
+    for (const [id, x, y, w, h] of [['nested-trigger-1', 0, 40, 100, 40], ['nested-trigger-2', 0, 100, 100, 40], ['inline-nested-viewport', 200, 0, 300, 300]] as const) await node(page, id).evaluate((n, [x, y, w, h]) => { n.getBoundingClientRect = () => new DOMRect(x, y, w, h); }, [x, y, w, h]);
+    const traverse = async () => { await dispatch(page, 'nested-trigger-1', 'mouseleave', { clientX: 98, clientY: 60 }); await page.evaluate(() => document.dispatchEvent(new MouseEvent('mousemove', { clientX: 150, clientY: 80, bubbles: true }))); };
+    await dispatch(page, 'nested-trigger-1', 'mouseenter'); await traverse(); await dispatch(page, 'inline-nested-viewport', 'mouseenter');
+    await enter(page, 'nested-trigger-2'); await enter(page, 'nested-trigger-1');
+    expect(await node(page, 'inline-nested-list').evaluate(n => (n as HTMLElement).style.pointerEvents)).toBe('none'); await traverse();
+    expect(await node(page, 'inline-nested-list').evaluate(n => (n as HTMLElement).style.pointerEvents)).toBe('none');
+    await expect(node(page, 'nested-trigger-1')).toHaveAttribute('aria-expanded', 'true'); await expect(node(page, 'nested-trigger-2')).toHaveAttribute('aria-expanded', 'false');
+    await expect(node(page, 'nested-popup-1')).toHaveCount(1); await expect(node(page, 'nested-popup-2')).toHaveCount(0);
+  });
+  test('R:3027 falsy nested close propagates to parent', async ({ page }) => {
+    await visit(page, reference, 'inline-falsy-close'); await dispatch(page, 'trigger-1', 'click'); await expect(node(page, 'nested-trigger-1')).toHaveAttribute('aria-expanded', 'true');
+    await page.getByRole('link', { name: 'Nested Link 1', exact: true }).dispatchEvent('click'); await expect(node(page, 'trigger-1')).toHaveAttribute('aria-expanded', 'false'); await expect(node(page, 'popup-1')).toHaveCount(0);
+  });
+  test('R:3051 arrow navigation across inline submenu triggers', async ({ page }) => {
+    await visit(page, reference, 'inline'); await dispatch(page, 'trigger-1', 'click'); await expect(node(page, 'popup-1')).toHaveCount(1);
+    const link = page.getByRole('link', { name: 'Link 1', exact: true }); await link.focus();
+    for (const [key, target] of [['ArrowDown', node(page, 'nested-trigger-1')], ['ArrowDown', node(page, 'nested-trigger-2')], ['ArrowUp', node(page, 'nested-trigger-1')], ['ArrowUp', link]] as const) { await page.keyboard.press(key); await expect(target).toBeFocused(); }
+  });
+  test('R:3085 arrow navigation across three levels', async ({ page }) => {
+    await visit(page, reference, 'deep'); await dispatch(page, 'trigger-1', 'click'); await expect(node(page, 'content-1')).toHaveCount(1);
+    for (const [linkId, first, second] of [['link-1', 'level2-trigger-1', 'level2-trigger-2'], ['level2-link-1', 'level3-trigger-1', 'level3-trigger-2']]) {
+      await node(page, linkId).focus();
+      for (const [key, id] of [['ArrowDown', first], ['ArrowDown', second], ['ArrowUp', first], ['ArrowUp', linkId]]) { await page.keyboard.press(key); await expect(node(page, id)).toBeFocused(); }
+    }
+  });
+  test('R:3955 tab leaves last inline panel for next top-level trigger', async ({ page }) => {
+    await visit(page, reference, 'tab-boundary'); await node(page, 'trigger-1').click(); await node(page, 'nested-last-link').focus(); await expect(node(page, 'nested-last-link')).toBeFocused();
+    await page.keyboard.press('Tab'); await expect(node(page, 'trigger-2')).toBeFocused(); await expect(node(page, 'nested-popup-2')).toHaveCount(1); await expect(node(page, 'nested-trigger-2')).toHaveAttribute('aria-expanded', 'true');
+  });
+  test('R:3973 tab respects inactive inline panels', async ({ page }) => {
+    await visit(page, reference, 'tab-flow'); await node(page, 'trigger-product').click(); await node(page, 'nested-trigger-developers').focus(); await expect(node(page, 'nested-trigger-developers')).toBeFocused();
+    for (const [key, id] of [['Tab', 'nested-link-get-started'], ['Shift+Tab', 'nested-trigger-developers'], ['Tab', 'nested-link-get-started'], ['Tab', 'nested-link-composition'], ['Tab', 'nested-trigger-design-systems']]) { await page.keyboard.press(key); await expect(node(page, id)).toBeFocused(); }
+    await expect(node(page, 'nested-popup-design-systems')).toHaveCount(0); await page.keyboard.press('Tab'); await expect(page.getByText('Engineering Leads', { exact: true })).toBeFocused();
+  });
+  test('R:4004 reverse tab returns to last inline submenu link', async ({ page }) => {
+    await visit(page, reference, 'tab-flow'); await node(page, 'trigger-product').click();
+    for (const id of ['nested-trigger-developers', 'nested-link-get-started', 'nested-link-composition', 'nested-trigger-design-systems']) { await page.keyboard.press('Tab'); await expect(node(page, id)).toBeFocused(); }
+    await page.keyboard.press('Shift+Tab'); await expect(node(page, 'nested-link-composition')).toBeFocused();
+  });
+  test('T:167 vertical RTL mirrored activation key', async ({ page }) => {
+    await visit(page, reference, 'keyboard', '&direction=rtl&orientation=vertical'); const trigger = page.getByRole('button', { name: 'Overview' }); await trigger.focus(); await page.keyboard.press('ArrowLeft'); await expect(page.getByRole('link', { name: 'Quick Start' })).toBeVisible();
   });
 
 });

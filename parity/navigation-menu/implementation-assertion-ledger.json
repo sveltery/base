@@ -549,8 +549,14 @@
       "kind": "ordinary-declaration",
       "sha256": "11e08f9382eb996ff71e8374e5d7a82d80fda2548b18921414b2e55e452950ab",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source sequence candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
+          "testPrefix": "R:1316",
+          "fixtures": "Complete archived Original fixture bodies verified by source-fixtures.mjs; actual native component tree; ordered Source events, owner controls, timing and expectations retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -563,8 +569,14 @@
       "kind": "ordinary-declaration",
       "sha256": "6e6bbe7efe4e9641ec607f8fcd0ee1e37266c0b39e5cef610ca4fc469d2d385a",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source sequence candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
+          "testPrefix": "R:1346",
+          "fixtures": "Complete archived Original fixture bodies verified by source-fixtures.mjs; actual native component tree; ordered Source events, owner controls, timing and expectations retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -577,8 +589,14 @@
       "kind": "ordinary-declaration",
       "sha256": "db9b58c2b9a1313819be8ed6efb4b7b0a35819715d52b9ccbad63ee96ac13f11",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source sequence candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
+          "testPrefix": "R:1385",
+          "fixtures": "Complete archived Original fixture bodies verified by source-fixtures.mjs; actual native component tree; ordered Source events, owner controls, timing and expectations retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -591,8 +609,14 @@
       "kind": "ordinary-declaration",
       "sha256": "5e3aca60b31068800facf757535aae21fe0597f1395b469c1106ce5f218f8248",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source sequence candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
+          "testPrefix": "R:1418",
+          "fixtures": "Complete archived Original fixture bodies verified by source-fixtures.mjs; actual native component tree; ordered Source events, owner controls, timing and expectations retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -839,8 +863,14 @@
       "kind": "ordinary-declaration",
       "sha256": "3c291fc4263951e797cab2fa45b1f57cf899a35c4c88985086706ac7bb5f8690",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source sequence candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
+          "testPrefix": "R:1752",
+          "fixtures": "Complete archived Original fixture bodies verified by source-fixtures.mjs; actual native component tree; ordered Source events, owner controls, timing and expectations retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -1015,8 +1045,14 @@
       "kind": "ordinary-declaration",
       "sha256": "efd3354c10bb89e1e7ce4ac9c1184b8ba7f99e657e37d328f4c34d25cced4946",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source sequence candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
+          "testPrefix": "R:2016",
+          "fixtures": "Complete archived Original fixture bodies verified by source-fixtures.mjs; actual native component tree; ordered Source events, owner controls, timing and expectations retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -1253,8 +1289,14 @@
       "kind": "ordinary-declaration",
       "sha256": "a21f9aa6bd96c2a6b4b53d3e36671910df4c82f1348b64c023675095bfccd443",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source sequence candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
+          "testPrefix": "R:2503",
+          "fixtures": "Complete archived Original fixture bodies verified by source-fixtures.mjs; actual native component tree; ordered Source events, owner controls, timing and expectations retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -1267,8 +1309,14 @@
       "kind": "ordinary-declaration",
       "sha256": "104514848d6cbe3cde4233d545b81b348d05b14d10438615e3f0366c6a38c677",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source sequence candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
+          "testPrefix": "R:2538",
+          "fixtures": "Complete archived Original fixture bodies verified by source-fixtures.mjs; actual native component tree; ordered Source events, owner controls, timing and expectations retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -1281,8 +1329,14 @@
       "kind": "ordinary-declaration",
       "sha256": "94ba535875f91c5df1d6a37d45543b4b7509421d0a31da1254e6764f5e32d2ad",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source sequence candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
+          "testPrefix": "R:2568",
+          "fixtures": "Complete archived Original fixture bodies verified by source-fixtures.mjs; actual native component tree; ordered Source events, owner controls, timing and expectations retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -1295,8 +1349,14 @@
       "kind": "ordinary-declaration",
       "sha256": "02c66d224e03ef947a584562ff7a3ff210eff84fa625ae202cd46b5ad5b65dad",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source sequence candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
+          "testPrefix": "R:2597",
+          "fixtures": "Complete archived Original fixture bodies verified by source-fixtures.mjs; actual native component tree; ordered Source events, owner controls, timing and expectations retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -1389,8 +1449,14 @@
       "kind": "ordinary-declaration",
       "sha256": "d043619784b1d982a2bbdbe36c21270b3a1eff90d94cb54584920dd09687af37",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source sequence candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
+          "testPrefix": "R:2815",
+          "fixtures": "Complete archived Original fixture bodies verified by source-fixtures.mjs; actual native component tree; ordered Source events, owner controls, timing and expectations retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -1477,8 +1543,14 @@
       "kind": "ordinary-declaration",
       "sha256": "d994c86c7be99525c205e67a341e93e12eb0f669e0dea8a80e61cf9d4fa26480",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source sequence candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
+          "testPrefix": "R:3027",
+          "fixtures": "Complete archived Original fixture bodies verified by source-fixtures.mjs; actual native component tree; ordered Source events, owner controls, timing and expectations retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -1491,8 +1563,14 @@
       "kind": "ordinary-declaration",
       "sha256": "6e3906620f26191b105430bd2b7aeb04cdd6f7089734745cb5273810087cd113",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source sequence candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
+          "testPrefix": "R:3051",
+          "fixtures": "Complete archived Original fixture bodies verified by source-fixtures.mjs; actual native component tree; ordered Source events, owner controls, timing and expectations retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -1505,8 +1583,14 @@
       "kind": "ordinary-declaration",
       "sha256": "98ce9e1f4c3cb92eb15d8a04fcd1a6eb868d9dac1e31035a1cc2a19213f4278e",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source sequence candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
+          "testPrefix": "R:3085",
+          "fixtures": "Complete archived Original fixture bodies verified by source-fixtures.mjs; actual native component tree; ordered Source events, owner controls, timing and expectations retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -1701,8 +1785,14 @@
       "kind": "ordinary-declaration",
       "sha256": "75e830fb9b61624c04d651b67a3e5637f05071e44941ba538abe651bc7abb358",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source sequence candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
+          "testPrefix": "R:3955",
+          "fixtures": "Complete archived Original fixture bodies verified by source-fixtures.mjs; actual native component tree; ordered Source events, owner controls, timing and expectations retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -1715,8 +1805,14 @@
       "kind": "ordinary-declaration",
       "sha256": "71bc5bb2e30d270ded40144060b7b38baa22f5910d0cff014eca95b92301b5d4",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source sequence candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
+          "testPrefix": "R:3973",
+          "fixtures": "Complete archived Original fixture bodies verified by source-fixtures.mjs; actual native component tree; ordered Source events, owner controls, timing and expectations retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -1729,8 +1825,14 @@
       "kind": "ordinary-declaration",
       "sha256": "0d1b4e7ceac2d7193ecf274c291b6e5eedc28f59e6f69554be65c96eebe5b24a",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source sequence candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
+          "testPrefix": "R:4004",
+          "fixtures": "Complete archived Original fixture bodies verified by source-fixtures.mjs; actual native component tree; ordered Source events, owner controls, timing and expectations retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -1839,8 +1941,14 @@
       "kind": "ordinary-declaration",
       "sha256": "452b19cb28500b7833a4f608cee5b78543a8eb77a287d168d0ac88ece2ac2bf3",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Literal Source sequence candidate mapped; paired hosted execution and complete correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
+          "testPrefix": "T:167",
+          "fixtures": "Complete archived Original fixture bodies verified by source-fixtures.mjs; actual native component tree; ordered Source events, owner controls, timing and expectations retained."
+        }
+      ],
       "executedEvidence": []
     },
     {
