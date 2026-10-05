@@ -21,6 +21,37 @@ const nodes = (root, predicate) => {
   return found;
 };
 const expression = (node) => node.getText().replace(/\s+/g, '');
+// Compare the complete expression tree while ignoring optional presentation parentheses.
+// Optional-chain flags, evaluated literals and prefix/postfix operators remain binding.
+function assertExpression(actual, expected) {
+  const tree = ts.createSourceFile(
+    'expected.ts',
+    `const value = ${expected};`,
+    ts.ScriptTarget.Latest,
+    true,
+  );
+  assert.equal(tree.parseDiagnostics.length, 0);
+  function shape(node) {
+    if (ts.isParenthesizedExpression(node)) return shape(node.expression);
+    const children = [];
+    ts.forEachChild(node, (child) => {
+      children.push(shape(child));
+    });
+    return {
+      kind: node.kind,
+      flags: node.flags & (ts.NodeFlags.OptionalChain | ts.NodeFlags.Let | ts.NodeFlags.Const),
+      text: node.text,
+      rawText: node.rawText,
+      operator: node.operator,
+      children,
+    };
+  }
+  assert.deepEqual(
+    shape(actual),
+    shape(tree.statements[0].declarationList.declarations[0].initializer),
+  );
+}
+
 const variable = (root, name) => {
   const matches = nodes(
     root,
@@ -122,10 +153,22 @@ test('selected root-store bridge preserves reference ownership and delegates one
   const selected = variable(anchor, 'position');
   assert(ts.isConditionalExpression(selected));
   assert.equal(expression(selected.condition), 'rootContext');
-  assert.equal(
-    expression(selected.whenTrue),
-    'useBaseUIFloating(()=>({...getFloatingOptions(),rootContext,nodeId:options.nodeId,externalTree:options.externalTree}))',
-  );
+  const baseCall = selected.whenTrue;
+  assert(ts.isCallExpression(baseCall));
+  assert.equal(expression(baseCall.expression), 'useBaseUIFloating');
+  assert.equal(baseCall.arguments.length, 1);
+  const getOptions = baseCall.arguments[0];
+  assert(ts.isArrowFunction(getOptions));
+  assert.equal(getOptions.parameters.length, 0);
+  assert.equal(getOptions.modifiers?.length ?? 0, 0);
+  assert(ts.isParenthesizedExpression(getOptions.body));
+  assert(ts.isObjectLiteralExpression(getOptions.body.expression));
+  assert.deepEqual(getOptions.body.expression.properties.map(expression), [
+    '...getFloatingOptions()',
+    'rootContext',
+    'nodeId:options.nodeId',
+    'externalTree:options.externalTree',
+  ]);
   assert.equal(expression(selected.whenFalse), 'useFloating(getFloatingOptions)');
 
   const bridgePath = 'packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts';
@@ -152,9 +195,13 @@ test('selected root-store bridge preserves reference ownership and delegates one
     expression(variable(business, 'tree')),
     '$derived(options.externalTree??contextTree)',
   );
+  const syncedFloating = variable(business, 'syncedFloatingElement');
+  assert(ts.isCallExpression(syncedFloating));
+  assert.equal(expression(syncedFloating.expression), '$derived');
+  assert.equal(syncedFloating.arguments.length, 1);
   assert.equal(
-    expression(variable(business, 'syncedFloatingElement')),
-    '$derived(localFloatingElement===undefined?floatingElement:localFloatingElement)',
+    expression(syncedFloating.arguments[0]),
+    'localFloatingElement===undefined?floatingElement:localFloatingElement',
   );
   const updates = nodes(
     business,
@@ -167,10 +214,16 @@ test('selected root-store bridge preserves reference ownership and delegates one
   );
 
   const setPosition = bodyOf(business, 'setPositionReference');
-  assert.equal(
-    expression(variable(setPosition, 'computedPositionReference')),
-    'isElement(node)?{getBoundingClientRect:()=>node.getBoundingClientRect(),getClientRects:()=>node.getClientRects(),contextElement:node}:node',
-  );
+  const computedReference = variable(setPosition, 'computedPositionReference');
+  assert(ts.isConditionalExpression(computedReference));
+  assert.equal(expression(computedReference.condition), 'isElement(node)');
+  assert(ts.isObjectLiteralExpression(computedReference.whenTrue));
+  assert.deepEqual(computedReference.whenTrue.properties.map(expression), [
+    'getBoundingClientRect:()=>node.getBoundingClientRect()',
+    'getClientRects:()=>node.getClientRects()',
+    'contextElement:node',
+  ]);
+  assert.equal(expression(computedReference.whenFalse), 'node');
   assert.deepEqual(setPosition.statements.slice(1).map(expression), [
     'positionReference=computedPositionReference;',
     'position.refs.setReference(computedPositionReference);',
@@ -244,8 +297,8 @@ test('selected root-store bridge preserves reference ownership and delegates one
     },
   ]);
   const driver = parse(calls[0].source);
-  assert.equal(
-    expression(variable(driver, 'reference')),
+  assertExpression(
+    variable(driver, 'reference'),
     '$derived(options.elements?options.elements.reference||localReference:positionReference??domReference)',
   );
   const current = variable(driver, 'isCurrent');

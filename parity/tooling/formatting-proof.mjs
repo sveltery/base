@@ -243,7 +243,7 @@ for (const file of files) {
   records.push({ file, before: hash(before), after: hash(formatted), mode });
   if (records.length % 100 === 0)
     console.log(
-      `Checked ${records.length}/${files.length} tracked files, ${candidates.length} formatting changes`,
+      `Checked ${records.length}/${files.length} tracked files, ${candidates.length} ${semanticOnly ? 'semantic successor' : 'formatting'} changes`,
     );
 }
 if (process.exitCode) process.exit();
@@ -264,9 +264,24 @@ writeFileSync(
   JSON.stringify(
     {
       baseline,
+      target: target ?? null,
+      scope: scope ?? 'all tracked baseline files',
+      semanticOnly,
+      verify,
+      mode: semanticOnly
+        ? 'actual syntax and compiled Svelte successor'
+        : 'stable mechanical formatting',
+      toolSha256: hash(readFileSync(new URL(import.meta.url))),
+      versions: {
+        Node: process.versions.node,
+        TypeScript: ts.version,
+        Svelte: require('svelte/compiler').VERSION,
+        Prettier: prettier.version,
+      },
       ordinaryDeclarationCredit: 0,
-      method:
-        'Mechanical Prettier formatting; TypeScript AST retains evaluated literals, all template raw tokens, declaration flags and compiler directives. Svelte compares client and server emitted AST with stable CSS scope and parsed CSS values/selectors; text literals remain observable. Source positions and CSS spacing metadata are excluded; historical files remain byte-identical. Documentation/YAML/HTML changes require human review.',
+      method: semanticOnly
+        ? 'Compare exact committed successor syntax and compiled Svelte output, retaining evaluated literals, raw template tokens, declaration/optional-chain flags, compiler directives, observable markup and parsed CSS. Positions/comment trivia are excluded. No Source acceptance or ordinary parity credit transfers.'
+        : 'Mechanical Prettier formatting; TypeScript AST retains evaluated literals, all template raw tokens, declaration flags and compiler directives. Svelte compares client and server emitted AST with stable CSS scope and parsed CSS values/selectors; text literals remain observable. Source positions and CSS spacing metadata are excluded; historical files remain byte-identical. Documentation/YAML/HTML changes require human review.',
       files: records,
     },
     null,
@@ -274,5 +289,5 @@ writeFileSync(
   ) + '\n',
 );
 console.log(
-  `PASS: ${records.length} files recorded, ${candidates.length} formatting changes ${process.argv.includes('--write') ? 'written' : 'proved before writing'}`,
+  `PASS: ${records.length} files recorded, ${candidates.length} ${semanticOnly ? 'semantic successor' : 'formatting'} changes ${process.argv.includes('--write') ? 'written' : verify ? 'verified against the actual successor' : 'proved before writing'}`,
 );

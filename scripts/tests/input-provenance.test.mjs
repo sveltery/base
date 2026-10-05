@@ -10,9 +10,14 @@ const sha = (value) => createHash('sha256').update(value).digest('hex');
 const inventory = JSON.parse(read('parity/input/upstream-inventory.json'));
 const ledger = JSON.parse(read('parity/input/conformance.json'));
 const nativeDefaults = JSON.parse(read('parity/input/native-defaults/provenance.json'));
+const formattingHistory = JSON.parse(read('parity/tooling/input-preformat-records.json'));
+const historicalRecords = [
+  ...nativeDefaults.historicalRecords,
+  ...formattingHistory.historicalRecords,
+];
 // Historical evidence remains byte-exact; current native suites are separate executions.
 function historicalRead(path, hash) {
-  const snapshot = nativeDefaults.historicalRecords.find(
+  const snapshot = historicalRecords.find(
     (record) => record.originalFile === path && record.sha256 === hash,
   );
   return read(snapshot?.historicalFile ?? path);

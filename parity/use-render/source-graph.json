@@ -401,7 +401,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/nativeProps.ts",
-        "sha256": "d6b3999ffe54e8c70e0dcdac61474b3bf9f53e60f3b1207dd4f976ef5212e4eb",
+        "sha256": "93f89e293d254eb00f8bd3c8fde69c869dcddc6352d11cc1f4b347c0839b2c65",
         "reachability": [
           "runtime",
           "type"
@@ -445,7 +445,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-        "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319",
+        "sha256": "0c949e442d844fbc896bced779b5c03d002e65a45d3165fdff89a8073a9b2dda",
         "reachability": [
           "runtime",
           "type"
@@ -479,7 +479,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/RenderElement.svelte",
-        "sha256": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5",
+        "sha256": "7468c314806abe0b4ed1fc2dd95d3a2defd6e86a9021012ced3f0154d0028daa",
         "reachability": [
           "runtime"
         ],
@@ -599,7 +599,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/types.ts",
-        "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
+        "sha256": "6a36f5f103ef940b8a32d63f0288d897096c846fb2361b4ef44733e9a899907e",
         "reachability": [
           "type"
         ],
@@ -655,7 +655,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/useRenderElement.ts",
-        "sha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
+        "sha256": "5614461317d2c5d8cc26660b8324b9908ab819557ff2846a5ff4689ebdd9fa8f",
         "reachability": [
           "runtime",
           "type"
@@ -807,7 +807,7 @@
       },
       {
         "local": "packages/base/src/lib/merge-props/mergeProps.ts",
-        "sha256": "7a097b833ae8854c5a26e34009adfb4e0297dd50f56ad5f0c1ac8afa8187f98b",
+        "sha256": "5ff37ce0c8373fc88483f23c65e4f193aa5a66f01d7298d5a5ec802d013d97dc",
         "reachability": [
           "runtime",
           "type"
@@ -866,7 +866,7 @@
       },
       {
         "local": "packages/base/src/lib/use-render/index.ts",
-        "sha256": "c2609c1ee5ff75c94ff3f8fa6023316759c89c0a130f552c91a5994b74d47e06",
+        "sha256": "a5efc8e71816ee3fb46148f509f073fb4ba72ebe1ec29c8c7763154db8b2dda9",
         "reachability": [
           "runtime"
         ],
@@ -947,7 +947,7 @@
       },
       {
         "local": "packages/base/src/lib/use-render/RenderElement.svelte",
-        "sha256": "e6eccccbbd9ccb57d48f1138fa478e0ff1666444a11f38d96cadf4e45f9ca12c",
+        "sha256": "2f51d447691ac1e8d894ceb8911de391e1115e5763e268d45c7aecb12f76d3a9",
         "reachability": [
           "runtime"
         ],
@@ -979,7 +979,7 @@
       },
       {
         "local": "packages/base/src/lib/use-render/types.ts",
-        "sha256": "e2dec96a2391fb2ba2fcaa8c7955199e346d6f82ce1ac8a19acad3ac0034ee7c",
+        "sha256": "baec480041e8f8a6cb451f4d3e6883b1defd30d1e6b0323c0ecb62c2b2accfec",
         "reachability": [
           "type"
         ],
@@ -1053,7 +1053,7 @@
       },
       {
         "local": "packages/base/src/lib/use-render/UseRender.svelte",
-        "sha256": "6aaa0850574a34a30d5c872f82140c322d7a18d90e8fa62b65a4512e445cee28",
+        "sha256": "4a20a9a70537c208c5a0decdad03400e2f3762e107ed8004cc214ad41f5a5bfb",
         "reachability": [
           "runtime"
         ],
@@ -1171,7 +1171,7 @@
       },
       {
         "local": "packages/base/src/lib/utils/useMergedRefs.ts",
-        "sha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
+        "sha256": "0c41f7c8a065fa8a464f56852ba4c8196d51865905a5277f139ebaaa4b81ce1b",
         "reachability": [
           "runtime",
           "type"
