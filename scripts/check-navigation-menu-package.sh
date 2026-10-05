@@ -25,6 +25,8 @@ cat > "$navigation_menu_consumer/Consumer.svelte" <<'SVELTE'
   type Equal<A, B> = (<T>() => T extends A ? 1 : 2) extends (<T>() => T extends B ? 1 : 2) ? true : false;
   const stringValue = 'item-1';
   const nullableValue: string | null = 'item-1';
+  const UnionRoot = NavigationMenu.Root<'a' | 'b'>;
+  const NullableRoot = NavigationMenu.Root<string | null>;
   const stringHandler: NavigationMenu.Root.Props<string>['onValueChange'] = value => { const exact: Equal<typeof value, string | null> = true; void exact; };
   const numberHandler: NavigationMenu.Root.Props<number>['onValueChange'] = value => { const exact: Equal<typeof value, number | null> = true; void exact; };
   const unionHandler: NavigationMenu.Root.Props<'a' | 'b'>['onValueChange'] = value => { const exact: Equal<typeof value, 'a' | 'b' | null> = true; void exact; };
@@ -47,6 +49,12 @@ cat > "$navigation_menu_consumer/Consumer.svelte" <<'SVELTE'
   const snippet: Snippet<[HTMLAnchorAttributes, NavigationMenu.Link.State, Snippet | undefined]> | undefined = undefined;
   void [alias, rootState, selected, invalid, invalidAction, keep, item, linked, snippet];
 </script>
+<!-- Original Root.spec.tsx:10/17/25/32/39 actual component inference. -->
+<NavigationMenu.Root value={stringValue} onValueChange={value => { const exact: Equal<typeof value, string | null> = true; void exact; }} />
+<NavigationMenu.Root defaultValue={1} onValueChange={value => { const exact: Equal<typeof value, number | null> = true; void exact; }} />
+<UnionRoot onValueChange={value => { const exact: Equal<typeof value, 'a' | 'b' | null> = true; void exact; }} />
+<NullableRoot value={nullableValue} onValueChange={value => { const exact: Equal<typeof value, string | null> = true; void exact; }} />
+<NavigationMenu.Root onValueChange={value => { const exact: IsAny<typeof value> = true; void exact; }} />
 <NavigationMenu.Root value={stringValue} onValueChange={stringHandler} />
 <NavigationMenu.Root defaultValue={1} onValueChange={numberHandler} />
 <NavigationMenu.Root value={'a' as 'a' | 'b'} onValueChange={unionHandler} />

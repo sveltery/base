@@ -32,7 +32,22 @@ test('private anchor foundation keeps immutable source/assertions and zero defer
   const controller = read('packages/base/src/lib/internals/anchor-positioning/useFloating.svelte.ts');
   assert.doesNotMatch(controller.replace(/\/\/[^\n]*/g, ''), /platform\s*:/); assert.match(controller, /await computePosition\(currentReference, currentFloating, config\)/);
   const anchor = read('packages/base/src/lib/internals/anchor-positioning/useAnchorPositioning.svelte.ts');
-  assert.match(anchor, /const position = useFloating\(/);
+  // The default path remains the canonical private driver. The Source opt-in
+  // boundary selects its supplied hook without duplicating options or geometry.
+  assert.match(anchor, /export function useAnchorPositioning\(readOptions: \(\) => AnchorPositioningOptions\) \{\s*return useAnchorPositioningWithHook\(readOptions\);\s*\}/);
+  assert.match(anchor, /export function useAnchorPositioningWithHook\(readOptions: \(\) => AnchorPositioningOptions, useFloatingHook\?: FloatingHook\)/);
+  assert.match(anchor, /const position = useFloatingHook\s*\? useFloatingHook\(\(\) => \(\{ \.\.\.getFloatingOptions\(\), rootContext: options\.floatingRootContext!, nodeId: options\.nodeId, externalTree: options\.externalTree \}\)\)\s*: rootContext\s*\? useBaseUIFloating\(\(\) => \(\{ \.\.\.getFloatingOptions\(\), rootContext, nodeId: options\.nodeId, externalTree: options\.externalTree \}\)\)\s*: useFloating\(getFloatingOptions\);/);
+  assert.match(anchor, /open: currentOptions\.keepMounted \? currentOptions\.mounted : undefined,/);
+  assert.match(anchor, /mounted: currentOptions\.mounted,/);
+  assert.match(anchor, /transform: currentOptions\.transform,/);
+  assert.match(anchor, /autoUpdate\(reference, floating, update, getAutoUpdateOptions\(currentOptions\.disableAnchorTracking\)\)/);
+  const bridge = read('packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts');
+  assert.match(bridge, /import \{ useFloating as usePosition, type NativeFloatingOptions \} from '\.\.\/\.\.\/internals\/anchor-positioning\/useFloating\.svelte\.js';/);
+  assert.match(bridge, /export function useBaseUIFloating\(getOptions: \(\) => BaseUIFloatingOptions\) \{\s*return useFloatingWithStore\(getOptions\);\s*\}/);
+  assert.match(bridge, /const internalStore = useFloatingRootContext\(getOptions, floatingId\);/);
+  assert.match(bridge, /return useFloatingWithStore\(\(\) => \{\s*const options = getOptions\(\);\s*return \{ \.\.\.options, rootContext: options\.rootContext \|\| internalStore \};\s*\}\);/);
+  assert.match(bridge, /const position = usePosition\(\(\) => \(\{\s*\.\.\.options,\s*elements: \{\s*reference: positionReference \|\| referenceElement,\s*floating: floatingElement,\s*\},\s*\}\)\);/);
+  assert.doesNotMatch(bridge.replace(/\/\/[^\n]*/g, ''), /\bcomputePosition\b|platform\s*:/);
   assert.match(anchor, /createPositioningPolicy\(currentOptions, \(\) => currentArrow, isCurrent, currentMountSide\)/);
   const pkg = JSON.parse(read('packages/base/package.json')); assert.equal(pkg.exports['./anchor-positioning'], undefined);
   assert.equal(pkg.dependencies['@floating-ui/dom'], '1.8.0'); assert.equal(pkg.dependencies['@floating-ui/utils'], '0.2.12');

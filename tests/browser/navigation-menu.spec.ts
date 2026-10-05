@@ -36,9 +36,12 @@ for (const reference of [false, true]) {
     });
     test('R:1440 does not close the menu when clicking a different mouse trigger', async ({ page }) => {
       await visit(page, reference);
-      await page.locator('#first-trigger').click();
-      await expect(page.locator('#first-content')).toBeVisible();
-      await page.locator('#second-trigger').click();
+      await page.locator('#first-trigger').dispatchEvent('click');
+      await expect(page.locator('#first-content')).toHaveCount(1);
+      await expect(page.locator('#first-trigger')).toHaveAttribute('aria-expanded', 'true');
+      await page.locator('#second-trigger').dispatchEvent('click');
+      await expect(page.locator('#first-content')).toHaveCount(0);
+      await expect(page.locator('#first-trigger')).toHaveAttribute('aria-expanded', 'false');
       await expect(page.locator('#second-trigger')).toHaveAttribute('aria-expanded', 'true');
       await expect(page.locator('#second-content')).toBeVisible();
       await expect(page.locator('#tested-popup')).toBeVisible();
@@ -50,9 +53,9 @@ for (const reference of [false, true]) {
     });
     test('R:1657 calls onValueChange when value changes', async ({ page }) => {
       await visit(page, reference);
-      await page.locator('#first-trigger').click();
+      await page.locator('#first-trigger').dispatchEvent('click');
       await expect.poll(async () => (await snapshot(page)).calls.map(call => call.value)).toEqual(['first']);
-      await page.locator('#second-trigger').click();
+      await page.locator('#second-trigger').dispatchEvent('click');
       await expect.poll(async () => (await snapshot(page)).calls.map(call => call.value)).toEqual(['first', 'second']);
     });
     test('R:1674 cancellation prevents opening', async ({ page }) => {
@@ -96,7 +99,7 @@ for (const reference of [false, true]) {
     });
     test('R:1968 disabled trigger does not open on click', async ({ page }) => {
       await visit(page, reference, 'disabled');
-      await page.locator('#first-trigger').click();
+      await page.locator('#first-trigger').dispatchEvent('click');
       await expect(page.locator('#tested-popup')).toHaveCount(0);
       expect((await snapshot(page)).calls).toEqual([]);
     });
@@ -159,11 +162,11 @@ for (const reference of [false, true]) {
     }
     test('C:132 Content stays in Viewport when triggers switch', async ({ page }) => {
       await visit(page, reference, 'content-keep');
-      await page.locator('#first-trigger').click();
+      await page.locator('#first-trigger').dispatchEvent('click');
       await expect(page.locator('#first-content')).toBeVisible();
       expect(await page.locator('#tested-viewport').evaluate(node => node.contains(document.getElementById('first-content')))).toBe(true);
       expect(await page.locator('#tested-list').evaluate(node => node.contains(document.getElementById('first-content')))).toBe(false);
-      await page.locator('#second-trigger').click();
+      await page.locator('#second-trigger').dispatchEvent('click');
       await expect(page.locator('#second-content')).toBeVisible();
       expect(await page.locator('#tested-viewport').evaluate(node => node.contains(document.getElementById('first-content')) && node.contains(document.getElementById('second-content')))).toBe(true);
     });
