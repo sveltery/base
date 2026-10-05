@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { test } from 'node:test';
+import { execFileSync } from 'node:child_process';
 const read = path => readFileSync(new URL(`../../${path}`, import.meta.url), 'utf8');
 test('Button ports retain complete direct declarations and selected non-composite support assertions', () => {
   const trace = JSON.parse(read('parity/button/upstream-inventory.json'));
@@ -31,4 +32,9 @@ test('Button ports retain complete direct declarations and selected non-composit
   // Standalone ledger avoids changing shared aggregate claims while Toast advances.
   const shared = JSON.parse(read('parity/manifest.json'));
   assert.ok(!shared.cases.some(item => item.source.includes('/button/Button.')));
+});
+
+test('Button graph retains the original source pin and hashes the actual canonical closure', () => {
+  const result = execFileSync(process.execPath, [new URL('../../parity/button/graph.mjs', import.meta.url).pathname, '--check'], { encoding: 'utf8' });
+  assert.match(result, /30 immutable source modules \/ 27 actual used local modules/);
 });
