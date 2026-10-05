@@ -165,7 +165,9 @@ assert.notDeepEqual(css('a b { content: "a  b"; }'), css('ab { content: "a b"; }
 assert.notDeepEqual(svelte('<p>a  b</p>', 'probe.svelte'), svelte('<p>a c</p>', 'probe.svelte'));
 for (const file of files) {
   const before = readFileSync(file);
-  const committed = execFileSync('git', ['show', `${baseline}:${file}`]);
+  const committed = execFileSync('git', ['show', `${baseline}:${file}`], {
+    maxBuffer: 16 * 1024 * 1024,
+  });
   assert.deepEqual(before, committed, `${file}: preimage must equal the recorded baseline commit`);
   const info = await prettier.getFileInfo(file, { ignorePath: '.prettierignore' });
   if (info.ignored || !info.inferredParser) {
