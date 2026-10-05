@@ -11,12 +11,27 @@
   const { store } = provider();
   let hasFocus = $state(false);
   const buttonState = $derived({ type: controller.toast.type });
-  const merged = $derived(nativeButtonProps(mergeButtonProps({
-    'aria-hidden': !controller.expanded && !hasFocus,
-    'data-type': buttonState.type,
-    onclick: () => store.closeToast(controller.toast.id),
-    onfocus: () => { hasFocus = true; },
-    onblur: () => { hasFocus = false; },
-  }, props), Boolean(disabled)));
+  const merged = $derived(
+    nativeButtonProps(
+      mergeButtonProps(
+        {
+          'aria-hidden': !controller.expanded && !hasFocus,
+          'data-type': buttonState.type,
+          onclick: () => store.closeToast(controller.toast.id),
+          onfocus: () => {
+            hasFocus = true;
+          },
+          onblur: () => {
+            hasFocus = false;
+          },
+        },
+        props,
+      ),
+      Boolean(disabled),
+    ),
+  );
 </script>
-<Element tag="button" props={merged} state={buttonState} bind:ref><RenderContent content={children} /></Element>
+
+<Element tag="button" props={merged} state={buttonState} bind:ref
+  ><RenderContent content={children} /></Element
+>

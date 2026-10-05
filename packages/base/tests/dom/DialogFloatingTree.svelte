@@ -6,6 +6,11 @@
   let { tree }: { tree: FloatingTreeStore } = $props();
   provideFloatingTree(untrack(() => tree));
   let child = $state(true);
-  export function removeChild() { child = false; }
+  export function removeChild() {
+    child = false;
+  }
 </script>
-<Node id="parent">{#if child}<Node id="child"/>{/if}</Node>
+
+<Node id="parent"
+  >{#if child}<Node id="child" />{/if}</Node
+>

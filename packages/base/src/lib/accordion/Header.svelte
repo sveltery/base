@@ -5,12 +5,30 @@
   import { getAccordionItemContext } from './context.js';
   import { stateAttributes } from './state.js';
   import type { AccordionHeaderProps } from './types.js';
-  let { children, render, class: classProp, ref = $bindable(), ...props }: AccordionHeaderProps = $props();
+  let {
+    children,
+    render,
+    class: classProp,
+    ref = $bindable(),
+    ...props
+  }: AccordionHeaderProps = $props();
   const context = getAccordionItemContext();
   const state = $derived(context.state);
   const resolved = $derived.by(() => {
     const classValue = typeof classProp === 'function' ? classProp(state) : classProp;
-    return { ...props, class: classValue === undefined ? undefined : resolveClassValue(classValue) };
+    return {
+      ...props,
+      class: classValue === undefined ? undefined : resolveClassValue(classValue),
+    };
   });
 </script>
-<Element tag="h3" internal={stateAttributes(state)} props={resolved} {state} {render} {children} bind:ref />
+
+<Element
+  tag="h3"
+  internal={stateAttributes(state)}
+  props={resolved}
+  {state}
+  {render}
+  {children}
+  bind:ref
+/>

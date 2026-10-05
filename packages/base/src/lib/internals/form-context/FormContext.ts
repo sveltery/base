@@ -20,11 +20,17 @@ export interface FormContext {
   submitCountRef: { current: number };
 }
 export const DEFAULT_FORM_CONTEXT: FormContext = {
-  elementRef: { current: null }, formRef: { current: { fields: new Map() } },
-  errors: {}, clearErrors: NOOP, validationMode: 'onSubmit', submitCountRef: { current: 0 },
+  elementRef: { current: null },
+  formRef: { current: { fields: new Map() } },
+  errors: {},
+  clearErrors: NOOP,
+  validationMode: 'onSubmit',
+  submitCountRef: { current: 0 },
 };
 const formKey = Symbol('base-ui-form');
-export function setFormContext(value: FormContext) { setContext(formKey, value); }
+export function setFormContext(value: FormContext) {
+  setContext(formKey, value);
+}
 export function useFormContext(): FormContext {
   return getContext<FormContext | undefined>(formKey) ?? DEFAULT_FORM_CONTEXT;
 }

@@ -38,4 +38,5 @@
     ],
   });
 </script>
+
 {#if !root.hiddenState.corner}<RenderElement tag="div" {componentProps} {params} {children} />{/if}

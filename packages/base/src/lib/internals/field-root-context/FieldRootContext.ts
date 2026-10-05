@@ -11,7 +11,9 @@ export interface FieldRootContext {
   readonly invalid: boolean | undefined;
   readonly name: string | undefined;
   readonly validityData: FieldValidityData;
-  setValidityData(data: FieldValidityData | ((previous: FieldValidityData) => FieldValidityData)): void;
+  setValidityData(
+    data: FieldValidityData | ((previous: FieldValidityData) => FieldValidityData),
+  ): void;
   readonly disabled: boolean | undefined;
   setTouched(value: boolean): void;
   setDirty(value: boolean): void;
@@ -24,24 +26,46 @@ export interface FieldRootContext {
   validation: UseFieldValidationReturnValue;
 }
 export const DEFAULT_FIELD_ROOT_CONTEXT: FieldRootContext = {
-  invalid: undefined, name: undefined,
-  validityData: { state: DEFAULT_VALIDITY_STATE, errors: [], error: '', value: '', initialValue: null },
-  setValidityData: NOOP, disabled: undefined,
-  setTouched: NOOP, setDirty: NOOP, setFilled: NOOP, setFocused: NOOP,
-  validationMode: 'onSubmit', shouldValidateOnChange: () => false,
-  state: DEFAULT_FIELD_ROOT_STATE, registerFieldControl: NOOP,
+  invalid: undefined,
+  name: undefined,
+  validityData: {
+    state: DEFAULT_VALIDITY_STATE,
+    errors: [],
+    error: '',
+    value: '',
+    initialValue: null,
+  },
+  setValidityData: NOOP,
+  disabled: undefined,
+  setTouched: NOOP,
+  setDirty: NOOP,
+  setFilled: NOOP,
+  setFocused: NOOP,
+  validationMode: 'onSubmit',
+  shouldValidateOnChange: () => false,
+  state: DEFAULT_FIELD_ROOT_STATE,
+  registerFieldControl: NOOP,
   validation: {
     getValidationProps: (_disabled, props = EMPTY_OBJECT) => props,
-    inputRef: { current: null }, registeredInputs: new Map(), registerInput: NOOP,
-    getInputControl: () => null, commit: async () => {}, change: NOOP,
+    inputRef: { current: null },
+    registeredInputs: new Map(),
+    registerInput: NOOP,
+    getInputControl: () => null,
+    commit: async () => {},
+    change: NOOP,
   },
 };
 const fieldRootKey = Symbol('base-ui-field');
-export function setFieldRootContext(value: FieldRootContext) { setContext(fieldRootKey, value); }
+export function setFieldRootContext(value: FieldRootContext) {
+  setContext(fieldRootKey, value);
+}
 export function useFieldRootContext(optional = true): FieldRootContext {
-  const context = getContext<FieldRootContext | undefined>(fieldRootKey) ?? DEFAULT_FIELD_ROOT_CONTEXT;
+  const context =
+    getContext<FieldRootContext | undefined>(fieldRootKey) ?? DEFAULT_FIELD_ROOT_CONTEXT;
   if (context.setValidityData === NOOP && !optional) {
-    throw new Error('Base UI: FieldRootContext is missing. Field parts must be placed within <Field.Root>.');
+    throw new Error(
+      'Base UI: FieldRootContext is missing. Field parts must be placed within <Field.Root>.',
+    );
   }
   return context;
 }

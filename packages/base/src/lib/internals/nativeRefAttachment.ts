@@ -16,22 +16,26 @@ export function isNativeRefAttachment(value: unknown): value is NativeRefAttachm
 }
 
 /** Native Svelte attachments own attach/detach timing; source fanout owns callback/object ref semantics. */
-export function createRefAttachment<Host extends Element>(publish: (node: Host | null, previous?: Host) => void) {
+export function createRefAttachment<Host extends Element>(
+  publish: (node: Host | null, previous?: Host) => void,
+) {
   let previous: MergedRefCallback<Host> | null | undefined;
   let attachment: ((node: Element) => () => void) | undefined;
   return function resolve(callback: MergedRefCallback<Host> | null) {
     if (!attachment || previous !== callback) {
       previous = callback;
       attachment = Object.assign(
-        (node: Element) => untrack(() => {
-          const host = node as Host;
-          publish(host);
-          callback?.(host);
-          return () => untrack(() => {
-            callback?.(null);
-            publish(null, host);
-          });
-        }),
+        (node: Element) =>
+          untrack(() => {
+            const host = node as Host;
+            publish(host);
+            callback?.(host);
+            return () =>
+              untrack(() => {
+                callback?.(null);
+                publish(null, host);
+              });
+          }),
         { [nativeRefAttachmentMarker]: true as const },
       );
     }

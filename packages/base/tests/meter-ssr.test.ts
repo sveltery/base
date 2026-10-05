@@ -13,23 +13,47 @@ it('SSR omits the layout-registered label relationship and preserves hidden pres
   expect(body).toContain('role="meter"');
 });
 
-for (const scenario of ['default', 'update', 'custom', 'over', 'under', 'equal', 'nan', 'infinity', 'negative', 'currency', 'locale', 'value-callback', 'replacement', 'replacement-callback']) it(`SSR Meter fixture ${scenario}`, () => {
-  const { body } = render(Fixture, { props: { scenario } });
-  expect(body).toContain('data-hydrated="false"');
-  expect(body).toContain('id="tested-meter"');
-  expect(body).toContain('>x</span>');
-  expect(body).toContain('aria-valuenow=');
-  expect(body).not.toContain('data-indeterminate');
-  if (scenario === 'nan') { expect(body).toContain('aria-valuenow="0"'); expect(body).toContain('width:0%'); }
-  if (scenario === 'replacement') expect(body).toContain('<section');
-});
+for (const scenario of [
+  'default',
+  'update',
+  'custom',
+  'over',
+  'under',
+  'equal',
+  'nan',
+  'infinity',
+  'negative',
+  'currency',
+  'locale',
+  'value-callback',
+  'replacement',
+  'replacement-callback',
+])
+  it(`SSR Meter fixture ${scenario}`, () => {
+    const { body } = render(Fixture, { props: { scenario } });
+    expect(body).toContain('data-hydrated="false"');
+    expect(body).toContain('id="tested-meter"');
+    expect(body).toContain('>x</span>');
+    expect(body).toContain('aria-valuenow=');
+    expect(body).not.toContain('data-indeterminate');
+    if (scenario === 'nan') {
+      expect(body).toContain('aria-valuenow="0"');
+      expect(body).toContain('width:0%');
+    }
+    if (scenario === 'replacement') expect(body).toContain('<section');
+  });
 
-for (const Component of [Meter.Label, Meter.Indicator, Meter.Value]) it('SSR missing Meter context rejects without browser globals', () => {
-  expect(() => render(Component).body).toThrow('Base UI: MeterRootContext is missing. Meter parts must be placed within <Meter.Root>.');
-});
+for (const Component of [Meter.Label, Meter.Indicator, Meter.Value])
+  it('SSR missing Meter context rejects without browser globals', () => {
+    expect(() => render(Component).body).toThrow(
+      'Base UI: MeterRootContext is missing. Meter parts must be placed within <Meter.Root>.',
+    );
+  });
 
 it('SSR Meter.Track is a context-free div as in the exact pin', () => {
-  const { body } = render(Meter.Track, { props: { id: 'standalone-track', 'data-owner': 'consumer' } });
+  const { body } = render(Meter.Track, {
+    props: { id: 'standalone-track', 'data-owner': 'consumer' },
+  });
   expect(body).toContain('<div');
   expect(body).toContain('id="standalone-track"');
   expect(body).toContain('data-owner="consumer"');

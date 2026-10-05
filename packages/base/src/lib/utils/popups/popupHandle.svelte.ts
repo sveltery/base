@@ -121,7 +121,7 @@ export class BasePopupHandle<
    * used while no root is attached.
    * @internal
    */
-  private readonly trackStore = createSubscriber(update => this.subscribeStore(update));
+  private readonly trackStore = createSubscriber((update) => this.subscribeStore(update));
 
   get store(): HandleStore {
     this.trackStore();

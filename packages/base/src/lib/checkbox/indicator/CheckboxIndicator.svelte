@@ -59,4 +59,5 @@
     stateAttributesMapping,
   });
 </script>
+
 {#if shouldRender}<RenderElement tag="span" {componentProps} {params} {children} />{/if}

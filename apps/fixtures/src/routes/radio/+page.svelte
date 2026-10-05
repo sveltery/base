@@ -11,10 +11,17 @@
     void import('../../lib/radio-reference.js').then(({ mountRadioReference }) => {
       if (!disposed) cleanup = mountRadioReference(node, data.scenario);
     });
-    return () => { disposed = true; cleanup?.(); };
+    return () => {
+      disposed = true;
+      cleanup?.();
+    };
   });
 </script>
-{#if data.reference}<section bind:this={host}></section>{:else}<Fixture scenario={data.scenario} />{/if}
+
+{#if data.reference}<section bind:this={host}></section>{:else}<Fixture
+    scenario={data.scenario}
+  />{/if}
+
 <style>
   :global(#radio-group [role='radio']) {
     display: inline-flex;

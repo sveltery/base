@@ -5,14 +5,23 @@
   let { stable, events }: { stable: () => string; events: string[] } = $props();
   const attachmentKey = createAttachmentKey();
   untrack(() => events.push(`child-setup:${stable()}`));
-  useIsoLayoutEffect(() => {
-    events.push(`child-effect:${stable()}`);
-    return () => { events.push('child-cleanup'); };
-  }, () => [stable]);
-  const refProps = { [attachmentKey]: () => {
-    events.push(`attachment:${stable()}`);
-    return () => { events.push('attachment-cleanup'); };
-  } };
+  useIsoLayoutEffect(
+    () => {
+      events.push(`child-effect:${stable()}`);
+      return () => {
+        events.push('child-cleanup');
+      };
+    },
+    () => [stable],
+  );
+  const refProps = {
+    [attachmentKey]: () => {
+      events.push(`attachment:${stable()}`);
+      return () => {
+        events.push('attachment-cleanup');
+      };
+    },
+  };
 </script>
 
 <input {...refProps} aria-label="helper fixture" />

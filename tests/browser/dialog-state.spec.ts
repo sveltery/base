@@ -1,20 +1,43 @@
 import { test, expect, type Page } from '@playwright/test';
 // Complete source ports. MIT: parity/dialog/UPSTREAM_LICENSE. Mapping: state-ports.md.
 const cases = [
-  ['R', 239, 'ownership'], ['R', 431, 'missing'],
-  ['C', 25, 'native'], ['C', 55, 'custom'], ['C', 89, 'undefined'],
-  ['C', 118, 'prevent'], ['C', 137, 'closed'],
+  ['R', 239, 'ownership'],
+  ['R', 431, 'missing'],
+  ['C', 25, 'native'],
+  ['C', 55, 'custom'],
+  ['C', 89, 'undefined'],
+  ['C', 118, 'prevent'],
+  ['C', 137, 'closed'],
 ] as const;
 // These uncredited ownership supplements update props without adding a virtual outside click.
-async function control(page: Page, name: string) { await page.locator('main').evaluate((node, name) => (node as HTMLElement & { controlOwner: (name: string) => Promise<void> }).controlOwner(name), name); }
-async function calls(page: Page) { return JSON.parse(await page.getByTestId('calls').innerText()) as { open: boolean; reason: string; trigger: string | null; triggerIsUndefined: boolean }[]; }
+async function control(page: Page, name: string) {
+  await page
+    .locator('main')
+    .evaluate(
+      (node, name) =>
+        (node as HTMLElement & { controlOwner: (name: string) => Promise<void> }).controlOwner(
+          name,
+        ),
+      name,
+    );
+}
+async function calls(page: Page) {
+  return JSON.parse(await page.getByTestId('calls').innerText()) as {
+    open: boolean;
+    reason: string;
+    trigger: string | null;
+    triggerIsUndefined: boolean;
+  }[];
+}
 for (const reference of [false, true]) {
   for (const [part, line, scenario] of cases) {
     // R:431 directly mounts one fixture; the enclosing three variants do not use TestDialog.
     for (const repetition of scenario === 'missing' ? [1, 2, 3] : [1]) {
-      test(`${part}:${line} ${reference ? 'React reference' : 'Svelte'} state ${scenario} variant ${repetition}`, async ({ page }) => {
+      test(`${part}:${line} ${reference ? 'React reference' : 'Svelte'} state ${scenario} variant ${repetition}`, async ({
+        page,
+      }) => {
         const errors: string[] = [];
-        page.on('pageerror', error => errors.push(error.message));
+        page.on('pageerror', (error) => errors.push(error.message));
         await page.goto(`/dialog-state?case=${scenario}${reference ? '&reference' : ''}`);
         await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
         const popup = page.getByRole('dialog');
@@ -32,7 +55,9 @@ for (const reference of [false, true]) {
           await expect(second).not.toHaveAttribute('aria-controls'); // :272
         } else if (scenario === 'missing') {
           await expect(popup).toBeVisible();
-          await page.locator('main').evaluate((node: HTMLElement & { closeDialog: () => void }) => node.closeDialog());
+          await page
+            .locator('main')
+            .evaluate((node: HTMLElement & { closeDialog: () => void }) => node.closeDialog());
           const requests = await calls(page);
           expect(requests).toHaveLength(1); // :453
           expect(requests[0].open).toBe(false); // :454
@@ -44,7 +69,9 @@ for (const reference of [false, true]) {
           expect(await calls(page)).toHaveLength(0); // :134
         } else if (scenario === 'closed') {
           // Source fireEvent.click on the hidden retained button; use the same synthetic channel.
-          await page.getByRole('button', { name: 'Close', includeHidden: true }).evaluate(button => button.dispatchEvent(new MouseEvent('click', { bubbles: true })));
+          await page
+            .getByRole('button', { name: 'Close', includeHidden: true })
+            .evaluate((button) => button.dispatchEvent(new MouseEvent('click', { bubbles: true })));
           await expect(page.getByTestId('clicks')).toHaveText('1'); // :153
           expect(await calls(page)).toHaveLength(0); // :154
         } else {
@@ -55,7 +82,8 @@ for (const reference of [false, true]) {
           expect(opened[0].open).toBe(true); // :45 / :77 / :109
           const close = page.getByRole('button', { name: 'Close', exact: true });
           if (scenario === 'native' || scenario === 'custom') {
-            if (scenario === 'native') await expect(close).toHaveAttribute('disabled'); // :48
+            if (scenario === 'native')
+              await expect(close).toHaveAttribute('disabled'); // :48
             else await expect(close).not.toHaveAttribute('disabled'); // :80
             await expect(close).toHaveAttribute('data-disabled'); // :49 / :81
             if (scenario === 'custom') await expect(close).toHaveAttribute('aria-disabled', 'true'); // :82
@@ -77,7 +105,9 @@ for (const reference of [false, true]) {
   }
 }
 
-test('supplement: controlled external updates and callback order/reasons survive reopening', async ({ page }) => {
+test('supplement: controlled external updates and callback order/reasons survive reopening', async ({
+  page,
+}) => {
   await page.goto('/dialog-state?case=controlled');
   await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
   const popup = page.getByRole('dialog');
@@ -92,7 +122,10 @@ test('supplement: controlled external updates and callback order/reasons survive
   await expect(page.getByTestId('owner')).toHaveText('true');
   await control(page, 'Owner close');
   await expect(popup).toHaveCount(0);
-  expect((await calls(page)).map(({ open, reason }) => [open, reason])).toEqual([[true, 'trigger-press'], [false, 'close-press']]);
+  expect((await calls(page)).map(({ open, reason }) => [open, reason])).toEqual([
+    [true, 'trigger-press'],
+    [false, 'close-press'],
+  ]);
   expect(JSON.parse(await page.getByTestId('order').innerText())).toEqual([
     { channel: 'consumer', open: true, before: 'false', reason: 'trigger-press', canceled: false },
     { channel: 'internal', open: true, before: 'false', reason: 'trigger-press', canceled: false },
@@ -108,35 +141,45 @@ test('supplement: controlled external updates and callback order/reasons survive
   await expect(popup).toHaveCount(0);
 });
 
-for (const reference of [false, true]) for (const initiallyOpen of [false, true]) test(`supplement: ${reference ? 'React reference' : 'Svelte'} canceled ${initiallyOpen ? 'close' : 'open'} preserves the held controlled snapshot`, async ({ page }) => {
-  await page.goto(`/dialog-state?case=controlled${reference ? '&reference' : ''}`);
-  await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
-  const popup = page.getByRole('dialog');
-  // Establish matching internal/owner state before testing cancellation.
-  if (initiallyOpen) {
-    await page.getByRole('button', { name: 'Open', exact: true }).click();
-    await control(page, 'Owner open');
-    await expect(popup).toBeVisible();
-  }
-  const beforeCalls = (await calls(page)).length;
-  const beforeOrder = JSON.parse(await page.getByTestId('order').innerText()).length;
-  await control(page, 'Toggle cancel');
-  if (initiallyOpen) await page.keyboard.press('Escape');
-  else await page.getByRole('button', { name: 'Open', exact: true }).click();
-  await expect(page.getByTestId('owner')).toHaveText(String(initiallyOpen));
-  expect(await calls(page)).toHaveLength(beforeCalls + 1);
-  expect(JSON.parse(await page.getByTestId('order').innerText()).slice(beforeOrder)).toEqual([
-    { channel: 'consumer', open: !initiallyOpen, before: String(initiallyOpen), reason: initiallyOpen ? 'escape-key' : 'trigger-press', canceled: true },
-  ]);
-  // Original ReactStore synchronization skips undefined and retains its last controlled value.
-  // The diagnosed controlled/uncontrolled mode change does not invent a release contract.
-  await control(page, 'Release control');
-  if (initiallyOpen) await expect(popup).toBeVisible();
-  else await expect(popup).toHaveCount(0);
-  await control(page, 'Toggle cancel');
-  if (initiallyOpen) await page.keyboard.press('Escape');
-  else await page.getByRole('button', { name: 'Open', exact: true }).click();
-  if (initiallyOpen) await expect(popup).toBeVisible();
-  else await expect(popup).toHaveCount(0);
-  expect((await calls(page)).at(-1)?.open).toBe(!initiallyOpen);
-});
+for (const reference of [false, true])
+  for (const initiallyOpen of [false, true])
+    test(`supplement: ${reference ? 'React reference' : 'Svelte'} canceled ${initiallyOpen ? 'close' : 'open'} preserves the held controlled snapshot`, async ({
+      page,
+    }) => {
+      await page.goto(`/dialog-state?case=controlled${reference ? '&reference' : ''}`);
+      await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+      const popup = page.getByRole('dialog');
+      // Establish matching internal/owner state before testing cancellation.
+      if (initiallyOpen) {
+        await page.getByRole('button', { name: 'Open', exact: true }).click();
+        await control(page, 'Owner open');
+        await expect(popup).toBeVisible();
+      }
+      const beforeCalls = (await calls(page)).length;
+      const beforeOrder = JSON.parse(await page.getByTestId('order').innerText()).length;
+      await control(page, 'Toggle cancel');
+      if (initiallyOpen) await page.keyboard.press('Escape');
+      else await page.getByRole('button', { name: 'Open', exact: true }).click();
+      await expect(page.getByTestId('owner')).toHaveText(String(initiallyOpen));
+      expect(await calls(page)).toHaveLength(beforeCalls + 1);
+      expect(JSON.parse(await page.getByTestId('order').innerText()).slice(beforeOrder)).toEqual([
+        {
+          channel: 'consumer',
+          open: !initiallyOpen,
+          before: String(initiallyOpen),
+          reason: initiallyOpen ? 'escape-key' : 'trigger-press',
+          canceled: true,
+        },
+      ]);
+      // Original ReactStore synchronization skips undefined and retains its last controlled value.
+      // The diagnosed controlled/uncontrolled mode change does not invent a release contract.
+      await control(page, 'Release control');
+      if (initiallyOpen) await expect(popup).toBeVisible();
+      else await expect(popup).toHaveCount(0);
+      await control(page, 'Toggle cancel');
+      if (initiallyOpen) await page.keyboard.press('Escape');
+      else await page.getByRole('button', { name: 'Open', exact: true }).click();
+      if (initiallyOpen) await expect(popup).toBeVisible();
+      else await expect(popup).toHaveCount(0);
+      expect((await calls(page)).at(-1)?.open).toBe(!initiallyOpen);
+    });

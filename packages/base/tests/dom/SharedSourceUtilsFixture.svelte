@@ -8,7 +8,11 @@
   import { useValueChanged } from '../../src/lib/internals/useValueChanged.svelte.js';
   import Child from './SharedSourceUtilsChild.svelte';
 
-  let { initialControlled, initialDefault, events = [] }: {
+  let {
+    initialControlled,
+    initialDefault,
+    events = [],
+  }: {
     initialControlled?: unknown;
     initialDefault?: unknown;
     events?: string[];
@@ -36,52 +40,103 @@
   });
 
   const [value, setValue] = useControlled(() => ({ controlled, default: defaultValue, name }));
-  const ref = useRefWithInit((seed: string) => { initialized += 1; return { seed }; }, 'seed');
+  const ref = useRefWithInit((seed: string) => {
+    initialized += 1;
+    return { seed };
+  }, 'seed');
   const stable = useStableCallback(() => ownerCallback(owner));
   const optional = useStableCallback(undefined);
   const timeout = useTimeout();
   untrack(() => events.push(`parent-setup:${stable()}`));
 
-  useIsoLayoutEffect(() => {
-    events.push(`parent-effect:${stable()}`);
-    return () => { events.push('parent-cleanup'); };
-  }, () => [stable]);
+  useIsoLayoutEffect(
+    () => {
+      events.push(`parent-effect:${stable()}`);
+      return () => {
+        events.push('parent-cleanup');
+      };
+    },
+    () => [stable],
+  );
 
-  useIsoLayoutEffect(() => {
-    effectRuns += 1;
-    void callbackOnlyValue;
-    return () => { effectCleanups += 1; };
-  }, () => { void unrelated; return [dependency.value]; });
+  useIsoLayoutEffect(
+    () => {
+      effectRuns += 1;
+      void callbackOnlyValue;
+      return () => {
+        effectCleanups += 1;
+      };
+    },
+    () => {
+      void unrelated;
+      return [dependency.value];
+    },
+  );
 
   $effect(() => {
     stableEffectRuns += 1;
     stable();
   });
 
-  useValueChanged(() => changedValue.value, () => valueChangeCallback);
+  useValueChanged(
+    () => changedValue.value,
+    () => valueChangeCallback,
+  );
 
-  export const setControlled = (next: unknown) => { controlled = next; };
-  export const setDefault = (next: unknown) => { defaultValue = next; };
-  export const setName = (next: string) => { name = next; };
-  export const setLocal = (next: SetStateAction<unknown>) => { setValue(next); };
-  export const setOwner = (next: string) => { owner = next; };
-  export const replaceCallback = () => { ownerCallback = (next) => `replacement:${next}`; };
+  export const setControlled = (next: unknown) => {
+    controlled = next;
+  };
+  export const setDefault = (next: unknown) => {
+    defaultValue = next;
+  };
+  export const setName = (next: string) => {
+    name = next;
+  };
+  export const setLocal = (next: SetStateAction<unknown>) => {
+    setValue(next);
+  };
+  export const setOwner = (next: string) => {
+    owner = next;
+  };
+  export const replaceCallback = () => {
+    ownerCallback = (next) => `replacement:${next}`;
+  };
   export const getStable = () => stable;
   export const callOptional = () => optional();
-  export const setChanged = (next: number) => { changedValue = { value: next }; };
+  export const setChanged = (next: number) => {
+    changedValue = { value: next };
+  };
   export const setValueChangeCallback = (next: ((previous: number) => void) | undefined) => {
     valueChangeCallback = next;
   };
-  export const mutateOnChange = () => { mutateDuringChange = true; };
-  export const setDependency = (next: number) => { dependency = { value: next }; };
-  export const setUnrelated = (next: number) => { unrelated = next; };
-  export const setCallbackRead = (next: number) => { callbackOnlyValue = next; };
-  export const start = (delay: number, callback: () => void) => { timeout.start(delay, callback); };
+  export const mutateOnChange = () => {
+    mutateDuringChange = true;
+  };
+  export const setDependency = (next: number) => {
+    dependency = { value: next };
+  };
+  export const setUnrelated = (next: number) => {
+    unrelated = next;
+  };
+  export const setCallbackRead = (next: number) => {
+    callbackOnlyValue = next;
+  };
+  export const start = (delay: number, callback: () => void) => {
+    timeout.start(delay, callback);
+  };
   export const timerStarted = () => timeout.isStarted();
-  export const updateRef = (seed: string) => { ref.current = { seed }; };
+  export const updateRef = (seed: string) => {
+    ref.current = { seed };
+  };
   export const snapshot = () => ({
-    value: value(), initialized, ref: ref.current, effectRuns, effectCleanups,
-    stableEffectRuns, changePrevious, readsInsideCallback,
+    value: value(),
+    initialized,
+    ref: ref.current,
+    effectRuns,
+    effectCleanups,
+    stableEffectRuns,
+    changePrevious,
+    readsInsideCallback,
   });
 </script>
 

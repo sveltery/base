@@ -6,7 +6,10 @@
   import { createChangeEventDetails } from '../../src/lib/internals/createBaseUIEventDetails.js';
   import { REASONS } from '../../src/lib/internals/reasons.js';
 
-  let { label, onRequest }: {
+  let {
+    label,
+    onRequest,
+  }: {
     label: string;
     onRequest: (label: string, open: boolean, reason: string) => void;
   } = $props();
@@ -26,7 +29,10 @@
     },
   });
   const open = $derived(store.useState('open'));
-  const group = useDelayGroup(() => store, () => ({ open }));
+  const group = useDelayGroup(
+    () => store,
+    () => ({ open }),
+  );
 
   export function setOpen(value: boolean) {
     store.setOpen(value, createChangeEventDetails(REASONS.none));

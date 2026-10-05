@@ -2,7 +2,9 @@
 import { mergeProps } from '../merge-props/index.js';
 
 /** Preserve Svelte attachment symbols alongside the pinned string-key merge. */
-export function mergeButtonProps(...sources: Record<string | symbol, unknown>[]): Record<string | symbol, unknown> {
+export function mergeButtonProps(
+  ...sources: Record<string | symbol, unknown>[]
+): Record<string | symbol, unknown> {
   const result: Record<string | symbol, unknown> = mergeProps(...sources);
   for (const source of sources) {
     for (const key of Object.getOwnPropertySymbols(source)) {
@@ -14,7 +16,10 @@ export function mergeButtonProps(...sources: Record<string | symbol, unknown>[])
 
 /** The pinned native useButton defaults precede external scalar props;
  * its event handlers still guard the part-level disabled flag. */
-export function nativeButtonProps(props: Record<string, unknown>, disabled: boolean): Record<string, unknown> {
+export function nativeButtonProps(
+  props: Record<string, unknown>,
+  disabled: boolean,
+): Record<string, unknown> {
   const result = mergeButtonProps({ type: 'button', tabindex: 0, disabled }, props);
   for (const eventName of ['onclick', 'onmousedown', 'onkeydown', 'onkeyup', 'onpointerdown']) {
     const handler = result[eventName];

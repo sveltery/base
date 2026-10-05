@@ -16,8 +16,7 @@ function setup(props: Record<string, unknown> = {}) {
   flushSync();
   const radio = (value: string) =>
     host.querySelector<HTMLElement>(`[data-testid="radio-${value}"]`)!;
-  const input = (value: string) =>
-    host.querySelector<HTMLInputElement>(`#input-${value}`)!;
+  const input = (value: string) => host.querySelector<HTMLInputElement>(`#input-${value}`)!;
   const form = () => host.querySelector<HTMLFormElement>('#form')!;
   const click = (value: string) => {
     radio(value).click();
@@ -103,15 +102,11 @@ it('supplement Field name precedence, label registration and Form value projecti
   const submit = vi.fn();
   const { host, click, form, radio, input } = setup({ onSubmit: submit });
   expect(input('a').name).toBe('choice');
-  expect(host.querySelector<HTMLLabelElement>('#label-a')?.htmlFor).toBe(
-    'input-a',
-  );
+  expect(host.querySelector<HTMLLabelElement>('#label-a')?.htmlFor).toBe('input-a');
   expect(radio('a').getAttribute('aria-labelledby')).toBe('label-a');
   expect(radio('a').getAttribute('aria-describedby')).toBe('description');
   click('c');
-  form().dispatchEvent(
-    new Event('submit', { bubbles: true, cancelable: true }),
-  );
+  form().dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
   flushSync();
   expect(submit).toHaveBeenLastCalledWith({ choice: 'c' });
 });
@@ -173,9 +168,7 @@ it('supplement group registry drops removed radios and consumer representative r
   flushSync();
   expect(host.querySelector('input[type="radio"]')).toBe(null);
   expect(ref.mock.lastCall?.[0]).toBe(null);
-  form().dispatchEvent(
-    new Event('submit', { bubbles: true, cancelable: true }),
-  );
+  form().dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
   flushSync();
   expect(submit).toHaveBeenLastCalledWith({ choice: null });
 });
@@ -186,16 +179,12 @@ it('supplement required empty group blocks submit through real Field validation'
     required: true,
     onSubmit: submit,
   });
-  form().dispatchEvent(
-    new Event('submit', { bubbles: true, cancelable: true }),
-  );
+  form().dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
   flushSync();
   expect(submit).not.toHaveBeenCalled();
   expect(host.querySelector('#field')?.hasAttribute('data-invalid')).toBe(true);
   click('a');
-  form().dispatchEvent(
-    new Event('submit', { bubbles: true, cancelable: true }),
-  );
+  form().dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
   flushSync();
   expect(input('a').checked).toBe(true);
   expect(submit).toHaveBeenLastCalledWith({ choice: 'a' });
@@ -240,9 +229,7 @@ for (const controlled of [false, true])
       controlled,
       onChange: changed,
     });
-    const defaults = [
-      ...host.querySelectorAll<HTMLInputElement>('input[type="radio"]'),
-    ]
+    const defaults = [...host.querySelectorAll<HTMLInputElement>('input[type="radio"]')]
       .filter((input) => input.defaultChecked)
       .map((input) => input.value);
     click('a');
@@ -267,9 +254,7 @@ it('supplement source external form association is excluded from owner Form proj
   const externalForm = host.querySelector<HTMLFormElement>('#external-form')!;
   expect(new FormData(externalForm).getAll('external')).toEqual(['a']);
   expect(new FormData(ownerForm).getAll('external')).toEqual([]);
-  ownerForm.dispatchEvent(
-    new Event('submit', { bubbles: true, cancelable: true }),
-  );
+  ownerForm.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
   flushSync();
   expect(submit).toHaveBeenLastCalledWith({
     external: null,
@@ -283,10 +268,8 @@ it('supplement source null/object serialization, context-free empty fallback and
   const component = mount(EdgesFixture, { target: host });
   cleanups.push(() => unmount(component));
   flushSync();
-  const radio = (name: string) =>
-    host.querySelector<HTMLElement>(`[data-testid="${name}-radio"]`)!;
-  const input = (name: string) =>
-    radio(name).nextElementSibling as HTMLInputElement;
+  const radio = (name: string) => host.querySelector<HTMLElement>(`[data-testid="${name}-radio"]`)!;
+  const input = (name: string) => radio(name).nextElementSibling as HTMLInputElement;
   expect(input('object').value).toBe('{"storage":"cloud","size":42}');
   expect(input('null').value).toBe('');
   expect(radio('null').getAttribute('aria-checked')).toBe('true');
@@ -301,16 +284,12 @@ it('supplement source null/object serialization, context-free empty fallback and
   const external = radio('external');
   const labelledBy = external.getAttribute('aria-labelledby');
   expect(labelledBy).not.toBe(null);
-  expect(host.querySelector(`#${labelledBy}`)?.textContent).toBe(
-    'External option',
-  );
+  expect(host.querySelector(`#${labelledBy}`)?.textContent).toBe('External option');
 });
 
 it('supplement native hidden radio lengths preserve the source pixel geometry', () => {
   const { host } = setup();
-  for (const input of host.querySelectorAll<HTMLInputElement>(
-    'input[type="radio"]',
-  )) {
+  for (const input of host.querySelectorAll<HTMLInputElement>('input[type="radio"]')) {
     expect(input.style.width).toBe('1px');
     expect(input.style.height).toBe('1px');
     expect(input.style.margin).toBe('-1px');

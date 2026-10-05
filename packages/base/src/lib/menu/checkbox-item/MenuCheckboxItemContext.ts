@@ -8,7 +8,9 @@ export interface MenuCheckboxItemContext {
 }
 
 export const MenuCheckboxItemContext = Symbol('MenuCheckboxItemContext');
-export function provideMenuCheckboxItemContext(value: MenuCheckboxItemContext) { setContext(MenuCheckboxItemContext, value); }
+export function provideMenuCheckboxItemContext(value: MenuCheckboxItemContext) {
+  setContext(MenuCheckboxItemContext, value);
+}
 
 export function useMenuCheckboxItemContext() {
   const context = getContext<MenuCheckboxItemContext | undefined>(MenuCheckboxItemContext);

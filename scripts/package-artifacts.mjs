@@ -7,41 +7,23 @@ import { fileURLToPath } from 'node:url';
 const repository = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const [command, input, ...args] = process.argv.slice(2);
 const readJSON = (path) => JSON.parse(readFileSync(path, 'utf8'));
-const digest = (path) =>
-  createHash('sha256').update(readFileSync(path)).digest('hex');
+const digest = (path) => createHash('sha256').update(readFileSync(path)).digest('hex');
 
 function manifest(path) {
   const data = readJSON(path);
   assert.equal(data.schema, 1, 'known artifact manifest required');
-  assert(
-    data.packages && typeof data.packages === 'object',
-    'package artifacts required',
-  );
+  assert(data.packages && typeof data.packages === 'object', 'package artifacts required');
   for (const [name, entry] of Object.entries(data.packages)) {
-    assert.match(
-      name,
-      /^(?:@[a-z0-9._-]+\/)?[a-z0-9._-]+$/i,
-      'valid package name required',
-    );
+    assert.match(name, /^(?:@[a-z0-9._-]+\/)?[a-z0-9._-]+$/i, 'valid package name required');
     assert.equal(
       basename(entry.tarball),
       entry.tarball,
       `${name}: local artifact filename required`,
     );
-    assert.equal(
-      typeof entry.version,
-      'string',
-      `${name}: package version required`,
-    );
-    assert(
-      Array.isArray(entry.dependencies),
-      `${name}: workspace dependencies required`,
-    );
+    assert.equal(typeof entry.version, 'string', `${name}: package version required`);
+    assert(Array.isArray(entry.dependencies), `${name}: workspace dependencies required`);
     for (const dependency of entry.dependencies) {
-      assert(
-        Object.hasOwn(data.packages, dependency),
-        `${name}: missing ${dependency} artifact`,
-      );
+      assert(Object.hasOwn(data.packages, dependency), `${name}: missing ${dependency} artifact`);
     }
     assert.equal(
       digest(join(dirname(path), entry.tarball)),
@@ -67,16 +49,9 @@ function closure(packages, roots) {
 if (command === 'record') {
   const directory = resolve(args[0]);
   const projects = readJSON(input);
-  assert(
-    Array.isArray(projects) && projects.length,
-    'selected workspace packages required',
-  );
+  assert(Array.isArray(projects) && projects.length, 'selected workspace packages required');
   const names = new Set(projects.map((project) => project.name));
-  assert.equal(
-    names.size,
-    projects.length,
-    'unique workspace package names required',
-  );
+  assert.equal(names.size, projects.length, 'unique workspace package names required');
   const packages = {};
   for (const project of projects) {
     const metadata = readJSON(join(project.path, 'package.json'));
@@ -120,10 +95,7 @@ if (command === 'record') {
     const target = join(destination, entry.tarball);
     if (source !== target) copyFileSync(source, target);
   }
-  writeFileSync(
-    join(destination, 'artifacts.json'),
-    JSON.stringify(data, null, 2) + '\n',
-  );
+  writeFileSync(join(destination, 'artifacts.json'), JSON.stringify(data, null, 2) + '\n');
 } else if (command === 'entries') {
   const { packages } = manifest(input);
   for (const [name, entry] of Object.entries(packages)) {

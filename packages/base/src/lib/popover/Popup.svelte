@@ -18,7 +18,16 @@
   import { createDefaultInitialFocus } from '../utils/popups/popupStoreUtils.svelte.js';
   import { REASONS } from '../internals/reasons.js';
   // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
-  let { render, class: className, style, children, ref = $bindable(), initialFocus, finalFocus, ...elementProps }: PopoverPopupProps = $props();
+  let {
+    render,
+    class: className,
+    style,
+    children,
+    ref = $bindable(),
+    initialFocus,
+    finalFocus,
+    ...elementProps
+  }: PopoverPopupProps = $props();
   const store = usePopoverRootContext();
   const positioner = usePopoverPositionerContext();
   const open = $derived(store.select('open'));
@@ -29,8 +38,13 @@
   const closeDelay = $derived(store.select('closeDelay'));
   const disabled = $derived(store.select('disabled'));
   useOpenChangeComplete({
-    get open() { return open; }, ref: store.context.popupRef,
-    onComplete() { if (open) store.context.onOpenChangeComplete?.(true); },
+    get open() {
+      return open;
+    },
+    ref: store.context.popupRef,
+    onComplete() {
+      if (open) store.context.onOpenChangeComplete?.(true);
+    },
   });
   const insideToolbar = useToolbarRootContext(true) != null;
   const closePart = useClosePartCount();
@@ -45,14 +59,63 @@
   const floatingId = $derived(floatingContext.useState('floatingId'));
   const openOnHover = $derived(store.select('openOnHover'));
   const defaultInitialFocus = createDefaultInitialFocus(store.context.popupRef);
-  const resolvedInitialFocus = $derived(initialFocus === undefined ? defaultInitialFocus : initialFocus);
+  const resolvedInitialFocus = $derived(
+    initialFocus === undefined ? defaultInitialFocus : initialFocus,
+  );
   const focusManagerModal = $derived(modal !== false && closePart.hasClosePart);
   store.useSyncedValue('focusManagerModal', () => focusManagerModal);
-  useHoverFloatingInteraction(() => floatingContext, () => ({ enabled: openOnHover && !disabled, closeDelay }));
-  const state: PopoverPopupState = $derived({ open, side: positioner.side, align: positioner.align, instant: instantType, transitionStatus });
-  const forwardedRef = (node: HTMLElement | null) => { ref = node; };
+  useHoverFloatingInteraction(
+    () => floatingContext,
+    () => ({ enabled: openOnHover && !disabled, closeDelay }),
+  );
+  const state: PopoverPopupState = $derived({
+    open,
+    side: positioner.side,
+    align: positioner.align,
+    instant: instantType,
+    transitionStatus,
+  });
+  const forwardedRef = (node: HTMLElement | null) => {
+    ref = node;
+  };
   const setPopupElement = store.useStateSetter('popupElement');
 </script>
-<FloatingFocusManager context={floatingContext} openInteractionType={openMethod} modal={focusManagerModal} disabled={!mounted || openReason === REASONS.triggerHover} initialFocus={resolvedInitialFocus} returnFocus={finalFocus} restoreFocus="popup" previousFocusableElement={isHTMLElement(activeTriggerElement) ? activeTriggerElement : undefined} nextFocusableElement={store.context.triggerFocusTargetRef} beforeContentFocusGuardRef={store.context.beforeContentFocusGuardRef}>
-  <RenderElement tag="div" componentProps={{ render, class: className, style }} params={{ state, ref: [forwardedRef, store.context.popupRef, setPopupElement], props: [popupProps, { id: floatingId, role: 'dialog', ...FOCUSABLE_POPUP_PROPS, 'aria-labelledby': titleId, 'aria-describedby': descriptionId, onkeydown(event: KeyboardEvent) { if (insideToolbar && COMPOSITE_KEYS.has(event.key)) event.stopPropagation(); } }, getDisabledMountTransitionStyles(transitionStatus), elementProps], stateAttributesMapping: popupTransitionStateMapping }} {children} />
+
+<FloatingFocusManager
+  context={floatingContext}
+  openInteractionType={openMethod}
+  modal={focusManagerModal}
+  disabled={!mounted || openReason === REASONS.triggerHover}
+  initialFocus={resolvedInitialFocus}
+  returnFocus={finalFocus}
+  restoreFocus="popup"
+  previousFocusableElement={isHTMLElement(activeTriggerElement) ? activeTriggerElement : undefined}
+  nextFocusableElement={store.context.triggerFocusTargetRef}
+  beforeContentFocusGuardRef={store.context.beforeContentFocusGuardRef}
+>
+  <RenderElement
+    tag="div"
+    componentProps={{ render, class: className, style }}
+    params={{
+      state,
+      ref: [forwardedRef, store.context.popupRef, setPopupElement],
+      props: [
+        popupProps,
+        {
+          id: floatingId,
+          role: 'dialog',
+          ...FOCUSABLE_POPUP_PROPS,
+          'aria-labelledby': titleId,
+          'aria-describedby': descriptionId,
+          onkeydown(event: KeyboardEvent) {
+            if (insideToolbar && COMPOSITE_KEYS.has(event.key)) event.stopPropagation();
+          },
+        },
+        getDisabledMountTransitionStyles(transitionStatus),
+        elementProps,
+      ],
+      stateAttributesMapping: popupTransitionStateMapping,
+    }}
+    {children}
+  />
 </FloatingFocusManager>

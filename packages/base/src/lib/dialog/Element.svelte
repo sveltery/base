@@ -6,18 +6,37 @@
   import type { HTMLProps } from '../internals/types.js';
   import type { NativeStyle } from '../internals/nativeProps.js';
   import type { ClassValue } from 'svelte/elements';
-  let { tag = 'div', internal = {}, props = {}, state = {} as State, render, children, ref = $bindable(), attach }: {
-    tag?: string; internal?: HTMLProps; props?: HTMLProps; state?: State;
-    render?: Snippet<[HTMLProps, State, Snippet | undefined]>; children?: Snippet;
-    ref?: HTMLElement | null; attach?: (node: HTMLElement) => void | (() => void);
+  let {
+    tag = 'div',
+    internal = {},
+    props = {},
+    state = {} as State,
+    render,
+    children,
+    ref = $bindable(),
+    attach,
+  }: {
+    tag?: string;
+    internal?: HTMLProps;
+    props?: HTMLProps;
+    state?: State;
+    render?: Snippet<[HTMLProps, State, Snippet | undefined]>;
+    children?: Snippet;
+    ref?: HTMLElement | null;
+    attach?: (node: HTMLElement) => void | (() => void);
   } = $props();
   const componentProps = $derived.by(() => {
     const { class: classProp, style: styleProp } = props;
-    return { render, class: classProp as ClassValue | ((state: State) => ClassValue), style: styleProp as NativeStyle | ((state: State) => NativeStyle | undefined) };
+    return {
+      render,
+      class: classProp as ClassValue | ((state: State) => ClassValue),
+      style: styleProp as NativeStyle | ((state: State) => NativeStyle | undefined),
+    };
   });
   const elementProps = $derived.by(() => {
     const { class: _class, style: _style, ...rest } = props;
-    void _class; void _style;
+    void _class;
+    void _style;
     return rest;
   });
   const legacyStateAttributesMapping = $derived.by(() => {
@@ -27,6 +46,20 @@
     for (const key in state) mapping[key] = () => null;
     return mapping;
   });
-  function attachmentRef(node: HTMLElement | null) { if (node) return attach?.(node); }
+  function attachmentRef(node: HTMLElement | null) {
+    if (node) return attach?.(node);
+  }
 </script>
-<RenderElement {tag} {componentProps} params={{ state, props: [internal, elementProps], ref: attachmentRef, stateAttributesMapping: legacyStateAttributesMapping }} {children} bind:element={ref} />
+
+<RenderElement
+  {tag}
+  {componentProps}
+  params={{
+    state,
+    props: [internal, elementProps],
+    ref: attachmentRef,
+    stateAttributesMapping: legacyStateAttributesMapping,
+  }}
+  {children}
+  bind:element={ref}
+/>

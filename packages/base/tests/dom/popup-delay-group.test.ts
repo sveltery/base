@@ -6,7 +6,9 @@ import Fixture from './PopupDelayGroupFixture.svelte';
 
 const mounted: ReturnType<typeof mount>[] = [];
 
-beforeEach(() => { vi.useFakeTimers(); });
+beforeEach(() => {
+  vi.useFakeTimers();
+});
 afterEach(async () => {
   await Promise.all(mounted.splice(0).map((component) => unmount(component)));
   vi.useRealTimers();
@@ -43,13 +45,25 @@ it('takes over the group, closes the previous context with none and resets with 
   const group = await setup();
   group.setOpen('one', true);
   await tick();
-  expect(group.readState('one')).toMatchObject({ open: true, activeId: 'one', isInstantPhase: false });
+  expect(group.readState('one')).toMatchObject({
+    open: true,
+    activeId: 'one',
+    isInstantPhase: false,
+  });
   expect(group.readState('one')?.delay).toEqual({ open: 0, close: 200 });
 
   group.setOpen('two', true);
   await tick();
-  expect(group.readState('one')).toMatchObject({ open: false, activeId: 'two', isInstantPhase: true });
-  expect(group.readState('two')).toMatchObject({ open: true, activeId: 'two', isInstantPhase: true });
+  expect(group.readState('one')).toMatchObject({
+    open: false,
+    activeId: 'two',
+    isInstantPhase: true,
+  });
+  expect(group.readState('two')).toMatchObject({
+    open: true,
+    activeId: 'two',
+    isInstantPhase: true,
+  });
   expect(group.readRequests()).toEqual([
     { label: 'one', open: true, reason: 'none' },
     { label: 'two', open: true, reason: 'none' },
@@ -58,7 +72,11 @@ it('takes over the group, closes the previous context with none and resets with 
 
   group.setOpen('two', false);
   await tick();
-  expect(group.readState('two')).toMatchObject({ open: false, activeId: null, isInstantPhase: false });
+  expect(group.readState('two')).toMatchObject({
+    open: false,
+    activeId: null,
+    isInstantPhase: false,
+  });
   expect(group.readState('two')?.delay).toEqual({ open: 1000, close: 200 });
 });
 
@@ -71,7 +89,10 @@ it('keeps the instant delay until the complete group timeout expires', async () 
   await advance(499);
   expect(group.readState('two')).toMatchObject({ activeId: 'one', delay: { open: 0, close: 200 } });
   await advance(1);
-  expect(group.readState('two')).toMatchObject({ activeId: null, delay: { open: 1000, close: 200 } });
+  expect(group.readState('two')).toMatchObject({
+    activeId: null,
+    delay: { open: 1000, close: 200 },
+  });
 });
 
 it('cancels a closing context timeout when another consumer takes over', async () => {
@@ -84,7 +105,11 @@ it('cancels a closing context timeout when another consumer takes over', async (
   group.setOpen('two', true);
   await tick();
   await advance(500);
-  expect(group.readState('two')).toMatchObject({ open: true, activeId: 'two', isInstantPhase: true });
+  expect(group.readState('two')).toMatchObject({
+    open: true,
+    activeId: 'two',
+    isInstantPhase: true,
+  });
   expect(group.readState('two')?.delay).toEqual({ open: 0, close: 200 });
 });
 
@@ -98,7 +123,11 @@ it('cancels its pending reset when the same consumer reopens', async () => {
   group.setOpen('one', true);
   await tick();
   await advance(500);
-  expect(group.readState('one')).toMatchObject({ open: true, activeId: 'one', isInstantPhase: false });
+  expect(group.readState('one')).toMatchObject({
+    open: true,
+    activeId: 'one',
+    isInstantPhase: false,
+  });
 });
 
 it('preserves the active context when an inactive consumer unmounts', async () => {
@@ -110,7 +139,11 @@ it('preserves the active context when an inactive consumer unmounts', async () =
   group.setOpen('three', true);
   await tick();
   expect(group.readState('one')).toMatchObject({ open: false, activeId: 'three' });
-  expect(group.readState('three')).toMatchObject({ open: true, activeId: 'three', isInstantPhase: true });
+  expect(group.readState('three')).toMatchObject({
+    open: true,
+    activeId: 'three',
+    isInstantPhase: true,
+  });
 });
 
 it('preserves the closing timeout across closed-consumer removal and permits takeover', async () => {
@@ -125,7 +158,11 @@ it('preserves the closing timeout across closed-consumer removal and permits tak
   group.setOpen('two', true);
   await tick();
   await advance(500);
-  expect(group.readState('two')).toMatchObject({ open: true, activeId: 'two', isInstantPhase: true });
+  expect(group.readState('two')).toMatchObject({
+    open: true,
+    activeId: 'two',
+    isInstantPhase: true,
+  });
 });
 
 it('resets after the last closed consumer unmounts when nobody takes over', async () => {
@@ -137,7 +174,10 @@ it('resets after the last closed consumer unmounts when nobody takes over', asyn
   group.show('one', false);
   await tick();
   await advance(500);
-  expect(group.readState('two')).toMatchObject({ activeId: null, delay: { open: 1000, close: 200 } });
+  expect(group.readState('two')).toMatchObject({
+    activeId: null,
+    delay: { open: 1000, close: 200 },
+  });
 });
 
 it('clears the active group when its open consumer unmounts', async () => {
@@ -146,7 +186,10 @@ it('clears the active group when its open consumer unmounts', async () => {
   await tick();
   group.show('one', false);
   await tick();
-  expect(group.readState('two')).toMatchObject({ activeId: null, delay: { open: 1000, close: 200 } });
+  expect(group.readState('two')).toMatchObject({
+    activeId: null,
+    delay: { open: 1000, close: 200 },
+  });
   group.setOpen('two', true);
   await tick();
   expect(group.readState('two')?.isInstantPhase).toBe(false);
@@ -188,7 +231,11 @@ it('retains the actual Source default context without inventing a provider', asy
   expect(group.readState('one')).toMatchObject({ hasProvider: false, delay: 0 });
   group.setOpen('one', true);
   await tick();
-  expect(group.readState('one')).toMatchObject({ open: true, activeId: 'one', delay: { open: 0, close: 0 } });
+  expect(group.readState('one')).toMatchObject({
+    open: true,
+    activeId: 'one',
+    delay: { open: 0, close: 0 },
+  });
   group.setOpen('one', false);
   await tick();
   expect(group.readState('one')).toMatchObject({ open: false, activeId: null, delay: 0 });
@@ -214,6 +261,9 @@ it('observes a live timeout prop and clears the pending reset when it becomes ze
   await tick();
   group.setTimeoutMs(0);
   await tick();
-  expect(group.readState('two')).toMatchObject({ activeId: null, delay: { open: 1000, close: 200 } });
+  expect(group.readState('two')).toMatchObject({
+    activeId: null,
+    delay: { open: 1000, close: 200 },
+  });
   expect(vi.getTimerCount()).toBe(0);
 });

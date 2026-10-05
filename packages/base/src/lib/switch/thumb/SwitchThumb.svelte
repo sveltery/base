@@ -30,4 +30,5 @@
     stateAttributesMapping,
   });
 </script>
+
 <RenderElement tag="span" {componentProps} {params} {children} />

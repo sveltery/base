@@ -6,9 +6,17 @@ import type { HTMLProps } from '../internals/types.js';
 import type { FloatingRootStore } from './components/FloatingRootStore.svelte.js';
 import type { FloatingTreeStore } from './components/FloatingTreeStore.js';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Original shared interaction event bus carries component-specific payloads.
-export interface FloatingEvents { emit<T extends string>(event: T, data?: any): void; on(event: string, handler: (data: any) => void): void; off(event: string, handler: (data: any) => void): void }
+export interface FloatingEvents {
+  emit<T extends string>(event: T, data?: any): void;
+  on(event: string, handler: (data: any) => void): void;
+  off(event: string, handler: (data: any) => void): void;
+}
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Original dataRef is open shared interaction bookkeeping.
-export interface ContextData { openEvent?: Event; floatingContext?: FloatingContext; [key: string]: any }
+export interface ContextData {
+  openEvent?: Event;
+  floatingContext?: FloatingContext;
+  [key: string]: any;
+}
 export type ReferenceType = Element | VirtualElement;
 export type FloatingRootContext = FloatingRootStore;
 export interface FloatingContext {
@@ -19,8 +27,15 @@ export interface FloatingContext {
   readonly nodeId: string | undefined;
   readonly floatingId: string | undefined;
   readonly rootStore: FloatingRootStore;
-  readonly refs: { domReference: { current: Element | null }; floating: { current: HTMLElement | null } };
-  readonly elements: { domReference: Element | null; reference: ReferenceType | null; floating: HTMLElement | null };
+  readonly refs: {
+    domReference: { current: Element | null };
+    floating: { current: HTMLElement | null };
+  };
+  readonly elements: {
+    domReference: Element | null;
+    reference: ReferenceType | null;
+    floating: HTMLElement | null;
+  };
 }
 /** Original positioned context. Root-only Dialog interaction contexts remain geometry-free. */
 export interface PositionedFloatingContext extends FloatingContext {
@@ -39,10 +54,25 @@ export interface PositionedFloatingContext extends FloatingContext {
     setFloating(node: HTMLElement | null): void;
   };
 }
-export interface FloatingNodeType { id: string | undefined; parentId: string | null; context?: FloatingContext }
+export interface FloatingNodeType {
+  id: string | undefined;
+  parentId: string | null;
+  context?: FloatingContext;
+}
 export type FloatingTreeType = FloatingTreeStore;
-export interface ElementProps { reference?: HTMLProps; floating?: HTMLProps; item?: HTMLProps; trigger?: HTMLProps }
-export interface FloatingUIOpenChangeDetails { open: boolean; reason: string; nativeEvent: Event; nested: boolean; triggerElement?: Element }
+export interface ElementProps {
+  reference?: HTMLProps;
+  floating?: HTMLProps;
+  item?: HTMLProps;
+  trigger?: HTMLProps;
+}
+export interface FloatingUIOpenChangeDetails {
+  open: boolean;
+  reason: string;
+  nativeEvent: Event;
+  nested: boolean;
+  triggerElement?: Element;
+}
 
 // Selected Original hover type boundaries; SafePolygonOptions has one canonical definition.
 export type Delay = number | Partial<{ open: number; close: number }>;

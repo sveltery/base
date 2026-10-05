@@ -14,7 +14,6 @@ export interface FieldControlRegistration {
 }
 
 export function useFieldControlRegistration(params: UseFieldControlRegistrationParameters) {
-
   const { formRef } = useFormContext();
 
   const activeFieldControlSourceRef = { current: null as symbol | null };
@@ -90,33 +89,47 @@ export function useFieldControlRegistration(params: UseFieldControlRegistrationP
     );
   }
 
-  useIsoLayoutEffect(() => {
-    const registration = registrationRef.current;
-    if (!registration || !registration.id) {
-      return;
-    }
-
-    params.setRegisteredFieldName(params.name ? undefined : registration.name);
-
-    formRef.current.fields.set(registration.id, {
-      getValue: getValueForForm,
-      name: params.name ?? registration.name,
-      controlRef: registration.controlRef,
-      validityData: getCombinedFieldValidityData(params.validityData, params.invalid),
-      validate,
-    });
-  }, () => [formRef, getValueForForm, params.invalid, params.name, params.setRegisteredFieldName, validate, params.validityData]);
-
-  useIsoLayoutEffect(() => {
-    const fields = formRef.current.fields;
-
-    return () => {
-      const id = registrationRef.current?.id;
-      if (id) {
-        fields.delete(id);
+  useIsoLayoutEffect(
+    () => {
+      const registration = registrationRef.current;
+      if (!registration || !registration.id) {
+        return;
       }
-    };
-  }, () => [formRef]);
+
+      params.setRegisteredFieldName(params.name ? undefined : registration.name);
+
+      formRef.current.fields.set(registration.id, {
+        getValue: getValueForForm,
+        name: params.name ?? registration.name,
+        controlRef: registration.controlRef,
+        validityData: getCombinedFieldValidityData(params.validityData, params.invalid),
+        validate,
+      });
+    },
+    () => [
+      formRef,
+      getValueForForm,
+      params.invalid,
+      params.name,
+      params.setRegisteredFieldName,
+      validate,
+      params.validityData,
+    ],
+  );
+
+  useIsoLayoutEffect(
+    () => {
+      const fields = formRef.current.fields;
+
+      return () => {
+        const id = registrationRef.current?.id;
+        if (id) {
+          fields.delete(id);
+        }
+      };
+    },
+    () => [formRef],
+  );
 
   const register = useStableCallback(
     (source: symbol, registration: FieldControlRegistration | undefined) => {
@@ -167,6 +180,8 @@ export interface UseFieldControlRegistrationParameters {
   readonly name: string | undefined;
   setRegisteredFieldName(name: string | undefined): void;
   registeredFieldIdRef: { current: string | undefined };
-  setValidityData(data: FieldValidityData | ((previous: FieldValidityData) => FieldValidityData)): void;
+  setValidityData(
+    data: FieldValidityData | ((previous: FieldValidityData) => FieldValidityData),
+  ): void;
   readonly validityData: FieldValidityData;
 }

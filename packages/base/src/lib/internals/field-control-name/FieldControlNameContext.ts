@@ -12,7 +12,9 @@ export function setFieldControlNameContext(context: FieldControlNameContext): vo
 }
 
 /** Read only when building an actual native input's name prop. */
-export function useFieldControlNativeName(): (businessName: string | null | undefined) => string | null | undefined {
+export function useFieldControlNativeName(): (
+  businessName: string | null | undefined,
+) => string | null | undefined {
   const context = getContext<FieldControlNameContext | undefined>(FIELD_CONTROL_NAME_CONTEXT);
   return (businessName) => context?.name ?? businessName;
 }

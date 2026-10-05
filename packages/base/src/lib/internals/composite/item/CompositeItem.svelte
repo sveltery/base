@@ -37,4 +37,5 @@
     stateAttributesMapping,
   });
 </script>
+
 <RenderElement {tag} {componentProps} {params} {children} />

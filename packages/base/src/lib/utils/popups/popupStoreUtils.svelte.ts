@@ -9,7 +9,10 @@ import { useStableCallback } from '../useStableCallback.js';
 import { useIsoLayoutEffect } from '../useIsoLayoutEffect.svelte.js';
 import { useTransitionStatus } from '../../internals/useTransitionStatus.svelte.js';
 import { useOpenChangeComplete } from '../../internals/useOpenChangeComplete.svelte.js';
-import { createChangeEventDetails, type BaseUIChangeEventDetails } from '../../internals/createBaseUIEventDetails.js';
+import {
+  createChangeEventDetails,
+  type BaseUIChangeEventDetails,
+} from '../../internals/createBaseUIEventDetails.js';
 import { REASONS } from '../../internals/reasons.js';
 import type { InteractionType } from '../useEnhancedClickHandler.js';
 import type { PopupTriggerDataStore } from './store.js';
@@ -19,15 +22,26 @@ type PopupStoreWithOpen<State extends PopupStoreState<unknown>> = PopupTriggerDa
   useSyncedValues<const Key extends keyof State>(getValues: () => Pick<State, Key>): void;
 };
 
-type PopupOpenState = Pick<PopupStoreState<unknown>, 'open' | 'preventUnmountingOnClose' | 'activeTriggerId' | 'activeTriggerElement'>;
-export function createPopupOpenState(state: PopupOpenState, open: boolean, trigger: Element | undefined, preventUnmountOnClose = false): PopupOpenState {
+type PopupOpenState = Pick<
+  PopupStoreState<unknown>,
+  'open' | 'preventUnmountingOnClose' | 'activeTriggerId' | 'activeTriggerElement'
+>;
+export function createPopupOpenState(
+  state: PopupOpenState,
+  open: boolean,
+  trigger: Element | undefined,
+  preventUnmountOnClose = false,
+): PopupOpenState {
   let preventUnmountingOnClose = state.preventUnmountingOnClose;
   if (open) preventUnmountingOnClose = false;
   else if (preventUnmountOnClose) preventUnmountingOnClose = true;
   const triggerId = trigger?.id ?? null;
   let activeTriggerId = state.activeTriggerId;
   let activeTriggerElement = state.activeTriggerElement;
-  if (triggerId || open) { activeTriggerId = triggerId; activeTriggerElement = trigger ?? null; }
+  if (triggerId || open) {
+    activeTriggerId = triggerId;
+    activeTriggerElement = trigger ?? null;
+  }
   return { open, preventUnmountingOnClose, activeTriggerId, activeTriggerElement };
 }
 function syncTriggerCount(store: PopupTriggerDataStore<PopupStoreState<unknown>>) {
@@ -56,11 +70,13 @@ export function useTriggerRegistration<State extends PopupStoreState<unknown>>(
   getId: () => string | undefined,
   getStore: () => PopupTriggerDataStore<State>,
 ) {
-  const registrationRef: { current: {
-    store: PopupTriggerDataStore<State>;
-    id: string;
-    element: Element;
-  } | null } = { current: null };
+  const registrationRef: {
+    current: {
+      store: PopupTriggerDataStore<State>;
+      id: string;
+      element: Element;
+    } | null;
+  } = { current: null };
 
   return useStableCallback((element: Element | null) => {
     const id = getId();
@@ -151,22 +167,33 @@ export function useTriggerDataForwarding<
 
   // A stable ref does not re-fire on a store or id change, so migrate here instead: unregister from
   // the previous store, then register the element the trigger still renders into the current one.
-  useIsoLayoutEffect(() => {
-    registerTrigger(triggerElementRef.current);
-    return () => registerTrigger(null);
-  }, () => [registerTrigger, triggerElementRef, store, triggerId]);
+  useIsoLayoutEffect(
+    () => {
+      registerTrigger(triggerElementRef.current);
+      return () => registerTrigger(null);
+    },
+    () => [registerTrigger, triggerElementRef, store, triggerId],
+  );
 
-  useIsoLayoutEffect(() => {
-    if (isMountedByThisTrigger) {
-      const changes = {
-        activeTriggerElement: triggerElementRef.current,
-        ...stateUpdates,
-      } as Pick<Readonly<State>, Key | 'activeTriggerElement'>;
-      store.update(changes);
-    }
-  }, () => [isMountedByThisTrigger, store, triggerElementRef, ...Object.values(stateUpdates)]);
+  useIsoLayoutEffect(
+    () => {
+      if (isMountedByThisTrigger) {
+        const changes = {
+          activeTriggerElement: triggerElementRef.current,
+          ...stateUpdates,
+        } as Pick<Readonly<State>, Key | 'activeTriggerElement'>;
+        store.update(changes);
+      }
+    },
+    () => [isMountedByThisTrigger, store, triggerElementRef, ...Object.values(stateUpdates)],
+  );
 
-  return { registerTrigger, get isMountedByThisTrigger() { return isMountedByThisTrigger; } };
+  return {
+    registerTrigger,
+    get isMountedByThisTrigger() {
+      return isMountedByThisTrigger;
+    },
+  };
 }
 
 export function useImplicitActiveTrigger<State extends PopupStoreState<unknown>>(
@@ -190,108 +217,110 @@ export function useImplicitActiveTrigger<State extends PopupStoreState<unknown>>
   // misclassified as pending, disabling `closeOnActiveTriggerUnmount`.
   const reactiveActiveTriggerElement = $derived(store.useState('activeTriggerElement'));
 
-  useIsoLayoutEffect(() => {
-    if (!open) {
-      resolvedActiveTriggerIdRef.current = null;
-      if (store.state.triggerCount !== 0) {
-        store.set('triggerCount', 0);
-      }
-      return;
-    }
-
-    const triggerCount = store.context.triggerElements.size;
-    const stateUpdates = {} as Pick<
-      State,
-      'triggerCount' | 'activeTriggerId' | 'activeTriggerElement'
-    >;
-
-    if (store.state.triggerCount !== triggerCount) {
-      stateUpdates.triggerCount = triggerCount;
-    }
-
-    const currentActiveTriggerId = store.select('activeTriggerId');
-    let lostActiveTriggerId: string | null = null;
-
-    if (currentActiveTriggerId) {
-      const activeTriggerElement = store.context.triggerElements.getById(currentActiveTriggerId);
-      if (!activeTriggerElement) {
-        for (const [triggerId, triggerElement] of store.context.triggerElements.entries()) {
-          if (triggerElement === store.state.activeTriggerElement) {
-            stateUpdates.activeTriggerId = triggerId;
-            stateUpdates.activeTriggerElement = triggerElement;
-            resolvedActiveTriggerIdRef.current = triggerId;
-            break;
-          }
+  useIsoLayoutEffect(
+    () => {
+      if (!open) {
+        resolvedActiveTriggerIdRef.current = null;
+        if (store.state.triggerCount !== 0) {
+          store.set('triggerCount', 0);
         }
+        return;
+      }
 
-        if (stateUpdates.activeTriggerId === undefined) {
-          if (resolvedActiveTriggerIdRef.current === currentActiveTriggerId) {
-            lostActiveTriggerId = currentActiveTriggerId;
-          } else {
-            resolvedActiveTriggerIdRef.current = null;
+      const triggerCount = store.context.triggerElements.size;
+      const stateUpdates = {} as Pick<
+        State,
+        'triggerCount' | 'activeTriggerId' | 'activeTriggerElement'
+      >;
+
+      if (store.state.triggerCount !== triggerCount) {
+        stateUpdates.triggerCount = triggerCount;
+      }
+
+      const currentActiveTriggerId = store.select('activeTriggerId');
+      let lostActiveTriggerId: string | null = null;
+
+      if (currentActiveTriggerId) {
+        const activeTriggerElement = store.context.triggerElements.getById(currentActiveTriggerId);
+        if (!activeTriggerElement) {
+          for (const [triggerId, triggerElement] of store.context.triggerElements.entries()) {
+            if (triggerElement === store.state.activeTriggerElement) {
+              stateUpdates.activeTriggerId = triggerId;
+              stateUpdates.activeTriggerElement = triggerElement;
+              resolvedActiveTriggerIdRef.current = triggerId;
+              break;
+            }
+          }
+
+          if (stateUpdates.activeTriggerId === undefined) {
+            if (resolvedActiveTriggerIdRef.current === currentActiveTriggerId) {
+              lostActiveTriggerId = currentActiveTriggerId;
+            } else {
+              resolvedActiveTriggerIdRef.current = null;
+            }
+          }
+        } else {
+          resolvedActiveTriggerIdRef.current = currentActiveTriggerId;
+          if (activeTriggerElement !== store.state.activeTriggerElement) {
+            stateUpdates.activeTriggerElement = activeTriggerElement;
           }
         }
       } else {
-        resolvedActiveTriggerIdRef.current = currentActiveTriggerId;
-        if (activeTriggerElement !== store.state.activeTriggerElement) {
-          stateUpdates.activeTriggerElement = activeTriggerElement;
+        resolvedActiveTriggerIdRef.current = null;
+      }
+
+      if (!lostActiveTriggerId && !currentActiveTriggerId && triggerCount === 1) {
+        const iteratorResult = store.context.triggerElements.entries().next();
+        if (!iteratorResult.done) {
+          const [implicitTriggerId, implicitTriggerElement] = iteratorResult.value;
+          stateUpdates.activeTriggerId = implicitTriggerId;
+          stateUpdates.activeTriggerElement = implicitTriggerElement;
+          resolvedActiveTriggerIdRef.current = implicitTriggerId;
         }
       }
-    } else {
-      resolvedActiveTriggerIdRef.current = null;
-    }
 
-    if (!lostActiveTriggerId && !currentActiveTriggerId && triggerCount === 1) {
-      const iteratorResult = store.context.triggerElements.entries().next();
-      if (!iteratorResult.done) {
-        const [implicitTriggerId, implicitTriggerElement] = iteratorResult.value;
-        stateUpdates.activeTriggerId = implicitTriggerId;
-        stateUpdates.activeTriggerElement = implicitTriggerElement;
-        resolvedActiveTriggerIdRef.current = implicitTriggerId;
+      if (
+        stateUpdates.triggerCount !== undefined ||
+        stateUpdates.activeTriggerId !== undefined ||
+        stateUpdates.activeTriggerElement !== undefined
+      ) {
+        store.update(stateUpdates);
       }
-    }
 
-    if (
-      stateUpdates.triggerCount !== undefined ||
-      stateUpdates.activeTriggerId !== undefined ||
-      stateUpdates.activeTriggerElement !== undefined
-    ) {
-      store.update(stateUpdates);
-    }
-
-    if (lostActiveTriggerId) {
-      if (closeOnActiveTriggerUnmount) {
-        // Defer so a same-tick replacement trigger with the same id can register first.
-        queueMicrotask(() => {
-          if (
-            store.select('open') &&
-            store.select('activeTriggerId') === lostActiveTriggerId &&
-            !store.context.triggerElements.getById(lostActiveTriggerId)
-          ) {
-            const eventDetails = createChangeEventDetails(REASONS.none);
-            store.setOpen(false, eventDetails);
-            // If closing is canceled, keep the previous active trigger ownership for the
-            // still-open popup instead of claiming another trigger implicitly.
-            if (!eventDetails.isCanceled) {
-              store.update({
-                activeTriggerId: null,
-                activeTriggerElement: null,
-              });
+      if (lostActiveTriggerId) {
+        if (closeOnActiveTriggerUnmount) {
+          // Defer so a same-tick replacement trigger with the same id can register first.
+          queueMicrotask(() => {
+            if (
+              store.select('open') &&
+              store.select('activeTriggerId') === lostActiveTriggerId &&
+              !store.context.triggerElements.getById(lostActiveTriggerId)
+            ) {
+              const eventDetails = createChangeEventDetails(REASONS.none);
+              store.setOpen(false, eventDetails);
+              // If closing is canceled, keep the previous active trigger ownership for the
+              // still-open popup instead of claiming another trigger implicitly.
+              if (!eventDetails.isCanceled) {
+                store.update({
+                  activeTriggerId: null,
+                  activeTriggerElement: null,
+                });
+              }
             }
-          }
-        });
+          });
+        }
       }
-    }
-  }, () => [
-    open,
-    store,
-    reactiveTriggerCount,
-    activeTriggerId,
-    reactiveActiveTriggerElement,
-    closeOnActiveTriggerUnmount,
-  ]);
+    },
+    () => [
+      open,
+      store,
+      reactiveTriggerCount,
+      activeTriggerId,
+      reactiveActiveTriggerElement,
+      closeOnActiveTriggerUnmount,
+    ],
+  );
 }
-
 
 /** Source popup presence/ownership lifecycle; native canonical transition and completion owners. */
 export function useOpenStateTransitions<State extends PopupStoreState<unknown>>(
@@ -301,52 +330,124 @@ export function useOpenStateTransitions<State extends PopupStoreState<unknown>>(
   animateInitialOpen?: boolean,
 ) {
   const transition = useTransitionStatus(getOpen, false, false, animateInitialOpen);
-  const syncedPreventUnmountingOnClose = $derived(getOpen() ? false : store.select('preventUnmountingOnClose'));
-  store.useSyncedValues(() => ({ mounted: transition.mounted, transitionStatus: transition.transitionStatus, preventUnmountingOnClose: syncedPreventUnmountingOnClose } as Pick<State, 'mounted' | 'transitionStatus' | 'preventUnmountingOnClose'>));
+  const syncedPreventUnmountingOnClose = $derived(
+    getOpen() ? false : store.select('preventUnmountingOnClose'),
+  );
+  store.useSyncedValues(
+    () =>
+      ({
+        mounted: transition.mounted,
+        transitionStatus: transition.transitionStatus,
+        preventUnmountingOnClose: syncedPreventUnmountingOnClose,
+      }) as Pick<State, 'mounted' | 'transitionStatus' | 'preventUnmountingOnClose'>,
+  );
   const forceUnmount = useStableCallback(() => {
     transition.setMounted(false);
-    store.update({ activeTriggerId: null, activeTriggerElement: null, mounted: false, preventUnmountingOnClose: false } as Pick<State, 'activeTriggerId' | 'activeTriggerElement' | 'mounted' | 'preventUnmountingOnClose'>);
+    store.update({
+      activeTriggerId: null,
+      activeTriggerElement: null,
+      mounted: false,
+      preventUnmountingOnClose: false,
+    } as Pick<
+      State,
+      'activeTriggerId' | 'activeTriggerElement' | 'mounted' | 'preventUnmountingOnClose'
+    >);
     onUnmount?.();
     store.context.onOpenChangeComplete?.(false);
   });
   useOpenChangeComplete({
-    get enabled() { return transition.mounted && !getOpen() && !syncedPreventUnmountingOnClose; },
-    get open() { return getOpen(); },
+    get enabled() {
+      return transition.mounted && !getOpen() && !syncedPreventUnmountingOnClose;
+    },
+    get open() {
+      return getOpen();
+    },
     ref: store.context.popupRef,
-    onComplete() { if (!getOpen()) forceUnmount(); },
+    onComplete() {
+      if (!getOpen()) forceUnmount();
+    },
   });
-  return { forceUnmount, get transitionStatus() { return transition.transitionStatus; } };
+  return {
+    forceUnmount,
+    get transitionStatus() {
+      return transition.transitionStatus;
+    },
+  };
 }
 
-export function usePopupRootSync<State extends PopupStoreState<unknown> & { openMethod: InteractionType | null }>(store: PopupStoreWithOpen<State>, getOpen: () => boolean) {
-  useIsoLayoutEffect(() => { if (!getOpen() && store.state.openMethod !== null) store.set('openMethod', null); }, () => [getOpen()]);
-  useIsoLayoutEffect(() => () => { if (store.state.openMethod !== null) store.set('openMethod', null); }, () => [store]);
+export function usePopupRootSync<
+  State extends PopupStoreState<unknown> & { openMethod: InteractionType | null },
+>(store: PopupStoreWithOpen<State>, getOpen: () => boolean) {
+  useIsoLayoutEffect(
+    () => {
+      if (!getOpen() && store.state.openMethod !== null) store.set('openMethod', null);
+    },
+    () => [getOpen()],
+  );
+  useIsoLayoutEffect(
+    () => () => {
+      if (store.state.openMethod !== null) store.set('openMethod', null);
+    },
+    () => [store],
+  );
 }
 
 export function createDefaultInitialFocus(popupRef: { current: HTMLElement | null }) {
-  return (interactionType: InteractionType) => interactionType === 'touch' ? popupRef.current : true;
+  return (interactionType: InteractionType) =>
+    interactionType === 'touch' ? popupRef.current : true;
 }
 export const FOCUSABLE_POPUP_PROPS = { tabindex: -1, 'data-base-ui-focusable': '' };
 
 /** Native once-only Root ownership, with the actual shared floating-root state synchronization. */
-export function usePopupRootStore<State extends PopupStoreState<unknown>, SetOpenEventDetails extends BaseUIChangeEventDetails<string>, Store extends PopupTriggerDataStore<State> & { setOpen(open: boolean, details: SetOpenEventDetails): void }>(
+export function usePopupRootStore<
+  State extends PopupStoreState<unknown>,
+  SetOpenEventDetails extends BaseUIChangeEventDetails<string>,
+  Store extends PopupTriggerDataStore<State> & {
+    setOpen(open: boolean, details: SetOpenEventDetails): void;
+  },
+>(
   createStore: (floatingId: string | undefined, nested: boolean) => Store,
   floatingId: string | undefined,
   treatPopupAsFloatingElement = false,
 ) {
   const nested = useFloatingParentNodeId() != null;
   const store = createStore(floatingId, nested);
-  useSyncedFloatingRootContext({ popupStore: store, treatPopupAsFloatingElement, floatingRootContext: store.state.floatingRootContext, floatingId, nested, onOpenChange: store.setOpen as (open: boolean, details: BaseUIChangeEventDetails<string>) => void });
+  useSyncedFloatingRootContext({
+    popupStore: store,
+    treatPopupAsFloatingElement,
+    floatingRootContext: store.state.floatingRootContext,
+    floatingId,
+    nested,
+    onOpenChange: store.setOpen as (
+      open: boolean,
+      details: BaseUIChangeEventDetails<string>,
+    ) => void,
+  });
   return store;
 }
 
 /** Source interaction props are reset when the rendered interactions owner leaves. */
-export function usePopupInteractionProps<State extends PopupStoreState<unknown>, const Key extends keyof State>(
+export function usePopupInteractionProps<
+  State extends PopupStoreState<unknown>,
+  const Key extends keyof State,
+>(
   store: PopupStoreWithOpen<State>,
-  getStatePart: () => Pick<State, Key | 'activeTriggerProps' | 'inactiveTriggerProps' | 'popupProps'>,
+  getStatePart: () => Pick<
+    State,
+    Key | 'activeTriggerProps' | 'inactiveTriggerProps' | 'popupProps'
+  >,
 ) {
   store.useSyncedValues(getStatePart);
-  useIsoLayoutEffect(() => () => { store.update({ activeTriggerProps: EMPTY_OBJECT, inactiveTriggerProps: EMPTY_OBJECT, popupProps: EMPTY_OBJECT } as Pick<State, 'activeTriggerProps' | 'inactiveTriggerProps' | 'popupProps'>); }, () => [store]);
+  useIsoLayoutEffect(
+    () => () => {
+      store.update({
+        activeTriggerProps: EMPTY_OBJECT,
+        inactiveTriggerProps: EMPTY_OBJECT,
+        popupProps: EMPTY_OBJECT,
+      } as Pick<State, 'activeTriggerProps' | 'inactiveTriggerProps' | 'popupProps'>);
+    },
+    () => [store],
+  );
 }
 
 export function attachPreventUnmountOnClose(eventDetails: { preventUnmountOnClose(): void }) {

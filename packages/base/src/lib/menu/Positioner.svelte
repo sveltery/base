@@ -11,14 +11,51 @@
   // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
   let { ref = $bindable(null), ...props }: MenuPositionerProps = $props();
   const { store } = useMenuRootContext();
-  const root = createMenuPositioner(() => props, store, (node) => { ref = node; });
+  const root = createMenuPositioner(
+    () => props,
+    store,
+    (node) => {
+      ref = node;
+    },
+  );
   const context = root.positioner.context;
-  if (!context) throw new Error('Base UI: Menu.Positioner requires its actual floating root context.');
-  provideMenuPositionerContext({ get side() { return root.positioner.side; }, get align() { return root.positioner.align; }, arrowRef: root.positioner.arrowRef, get arrowUncentered() { return root.positioner.arrowUncentered; }, get arrowStyles() { return root.positioner.arrowStyles; }, context });
+  if (!context)
+    throw new Error('Base UI: Menu.Positioner requires its actual floating root context.');
+  provideMenuPositionerContext({
+    get side() {
+      return root.positioner.side;
+    },
+    get align() {
+      return root.positioner.align;
+    },
+    arrowRef: root.positioner.arrowRef,
+    get arrowUncentered() {
+      return root.positioner.arrowUncentered;
+    },
+    get arrowStyles() {
+      return root.positioner.arrowStyles;
+    },
+    context,
+  });
   provideFloatingNode(() => store.select('floatingNodeId'));
-  createCompositeList(() => ({ elementsRef: store.context.itemDomElements, labelsRef: store.context.itemLabels }));
+  createCompositeList(() => ({
+    elementsRef: store.context.itemDomElements,
+    labelsRef: store.context.itemLabels,
+  }));
 </script>
+
 {#if root.shouldRenderBackdrop}
-  <InternalBackdrop ref={root.parent.type === 'context-menu' || root.parent.type === 'nested-context-menu' ? root.parent.context.internalBackdropRef : undefined} inert={!root.open} cutout={root.backdropCutout} />
+  <InternalBackdrop
+    ref={root.parent.type === 'context-menu' || root.parent.type === 'nested-context-menu'
+      ? root.parent.context.internalBackdropRef
+      : undefined}
+    inert={!root.open}
+    cutout={root.backdropCutout}
+  />
 {/if}
-<RenderElement tag="div" componentProps={props} params={root.element.params} children={props.children} />
+<RenderElement
+  tag="div"
+  componentProps={props}
+  params={root.element.params}
+  children={props.children}
+/>

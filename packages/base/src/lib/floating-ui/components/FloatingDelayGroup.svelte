@@ -25,26 +25,31 @@
   const currentContextRef: FloatingDelayGroupContextValue['currentContextRef'] = { current: null };
   const timeout = useTimeout();
 
-  useIsoLayoutEffect(() => {
-    initialDelayRef.current = delay;
+  useIsoLayoutEffect(
+    () => {
+      initialDelayRef.current = delay;
 
-    if (!currentIdRef.current) {
-      delayRef.current = delay;
-      return;
-    }
+      if (!currentIdRef.current) {
+        delayRef.current = delay;
+        return;
+      }
 
-    delayRef.current = {
-      open: getDelay(delayRef.current, 'open'),
-      close: getDelay(delay, 'close'),
-    };
-  }, () => [delay, currentIdRef, delayRef, initialDelayRef]);
+      delayRef.current = {
+        open: getDelay(delayRef.current, 'open'),
+        close: getDelay(delay, 'close'),
+      };
+    },
+    () => [delay, currentIdRef, delayRef, initialDelayRef],
+  );
 
   setContext<FloatingDelayGroupContextValue>(FloatingDelayGroupContext, {
     hasProvider: true,
     delayRef,
     initialDelayRef,
     currentIdRef,
-    get timeoutMs() { return timeoutMs; },
+    get timeoutMs() {
+      return timeoutMs;
+    },
     currentContextRef,
     timeout,
   });

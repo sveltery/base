@@ -13,12 +13,19 @@ export interface LabelableContext {
   getDescriptionProps(externalProps: Record<string, unknown>): Record<string, unknown>;
 }
 export const DEFAULT_LABELABLE_CONTEXT: LabelableContext = {
-  controlId: undefined, registerControlId: NOOP, resetControlId: NOOP,
-  labelId: undefined, setLabelId: NOOP, messageIds: [], setMessageIds: NOOP,
-  getDescriptionProps: externalProps => externalProps,
+  controlId: undefined,
+  registerControlId: NOOP,
+  resetControlId: NOOP,
+  labelId: undefined,
+  setLabelId: NOOP,
+  messageIds: [],
+  setMessageIds: NOOP,
+  getDescriptionProps: (externalProps) => externalProps,
 };
 const labelableKey = Symbol('base-ui-labelable');
-export function setLabelableContext(value: LabelableContext) { setContext(labelableKey, value); }
+export function setLabelableContext(value: LabelableContext) {
+  setContext(labelableKey, value);
+}
 export function useLabelableContext(): LabelableContext {
   return getContext<LabelableContext | undefined>(labelableKey) ?? DEFAULT_LABELABLE_CONTEXT;
 }

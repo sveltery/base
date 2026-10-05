@@ -8,8 +8,22 @@ it('creates isolated Provider stores for SSR requests and never attaches a manag
   const manager = createToastManager();
   const subscribe = vi.spyOn(manager, ' subscribe');
   const contexts: ToastProviderContext[] = [];
-  const first = render(Fixture, { props: { manager, capture: (context) => { contexts.push(context); } } });
-  const second = render(Fixture, { props: { manager, capture: (context) => { contexts.push(context); } } });
+  const first = render(Fixture, {
+    props: {
+      manager,
+      capture: (context) => {
+        contexts.push(context);
+      },
+    },
+  });
+  const second = render(Fixture, {
+    props: {
+      manager,
+      capture: (context) => {
+        contexts.push(context);
+      },
+    },
+  });
   expect(first.body).toContain('data-testid="titles"');
   expect(second.body).toContain('data-testid="titles"');
   expect(contexts).toHaveLength(2);

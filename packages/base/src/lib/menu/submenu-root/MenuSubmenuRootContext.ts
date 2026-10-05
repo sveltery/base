@@ -3,12 +3,14 @@ import { getContext, setContext } from 'svelte';
 import { MenuStore } from '../store/MenuStore.svelte.js';
 
 export const MenuSubmenuRootContext = Symbol('MenuSubmenuRootContext');
-export function provideMenuSubmenuRootContext(value: MenuSubmenuRootContext | undefined) { setContext(MenuSubmenuRootContext, value); }
+export function provideMenuSubmenuRootContext(value: MenuSubmenuRootContext | undefined) {
+  setContext(MenuSubmenuRootContext, value);
+}
 
 export interface MenuSubmenuRootContext {
   parentMenu: MenuStore<unknown>;
 }
 
 export function useMenuSubmenuRootContext(): MenuSubmenuRootContext | undefined {
-  return (getContext<MenuSubmenuRootContext | undefined>(MenuSubmenuRootContext) ?? undefined);
+  return getContext<MenuSubmenuRootContext | undefined>(MenuSubmenuRootContext) ?? undefined;
 }

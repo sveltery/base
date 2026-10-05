@@ -10,23 +10,70 @@
   import { toNativeStyle } from '../internals/nativeProps.js';
   import type { PreviewCardViewportProps, PreviewCardViewportState } from './types.js';
   // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
-  let { render, class: className, style, children, ref = $bindable(), ...elementProps }: PreviewCardViewportProps = $props();
+  let {
+    render,
+    class: className,
+    style,
+    children,
+    ref = $bindable(),
+    ...elementProps
+  }: PreviewCardViewportProps = $props();
   const store = usePreviewCardRootContext();
   const positioner = usePreviewCardPositionerContext();
   const viewport = usePopupViewport(() => ({ store, side: positioner.side, children }));
-  const state: PreviewCardViewportState = $derived({ activationDirection: viewport.state.activationDirection, transitioning: viewport.state.transitioning, instant: store.select('instantType') });
+  const state: PreviewCardViewportState = $derived({
+    activationDirection: viewport.state.activationDirection,
+    transitioning: viewport.state.transitioning,
+    instant: store.select('instantType'),
+  });
   const currentAttachment = createRefAttachment<HTMLDivElement>(() => {});
   const previousAttachment = createRefAttachment<HTMLDivElement>(() => {});
   const attachmentKey = createAttachmentKey();
-  const currentProps = $derived({ [attachmentKey]: currentAttachment(viewport.setCurrentContainer) });
-  const previousProps = $derived({ [attachmentKey]: previousAttachment(viewport.setPreviousContainer) });
-  const forwardedRef = (node: HTMLElement | null) => { ref = node; };
+  const currentProps = $derived({
+    [attachmentKey]: currentAttachment(viewport.setCurrentContainer),
+  });
+  const previousProps = $derived({
+    [attachmentKey]: previousAttachment(viewport.setPreviousContainer),
+  });
+  const forwardedRef = (node: HTMLElement | null) => {
+    ref = node;
+  };
 </script>
-<RenderElement tag="div" componentProps={{ render, class: className, style }} params={{ state, ref: forwardedRef, props: [elementProps], stateAttributesMapping: popupViewportStateMapping }}>
+
+<RenderElement
+  tag="div"
+  componentProps={{ render, class: className, style }}
+  params={{
+    state,
+    ref: forwardedRef,
+    props: [elementProps],
+    stateAttributesMapping: popupViewportStateMapping,
+  }}
+>
   {#if viewport.previousContentNode}
-    <div data-previous inert {...previousProps} style={toNativeStyle({ ...(viewport.previousContentDimensions ? { [CommonPopupCssVars.popupWidth]: `${viewport.previousContentDimensions.width}px`, [CommonPopupCssVars.popupHeight]: `${viewport.previousContentDimensions.height}px` } : null), position: 'absolute' })} data-ending-style={viewport.showStartingStyleAttribute ? undefined : ''}></div>
+    <div
+      data-previous
+      inert
+      {...previousProps}
+      style={toNativeStyle({
+        ...(viewport.previousContentDimensions
+          ? {
+              [CommonPopupCssVars.popupWidth]: `${viewport.previousContentDimensions.width}px`,
+              [CommonPopupCssVars.popupHeight]: `${viewport.previousContentDimensions.height}px`,
+            }
+          : null),
+        position: 'absolute',
+      })}
+      data-ending-style={viewport.showStartingStyleAttribute ? undefined : ''}
+    ></div>
   {/if}
   {#key viewport.currentContentKey}
-    <div data-current {...currentProps} data-starting-style={viewport.previousContentNode && viewport.showStartingStyleAttribute ? '' : undefined}>{@render children?.()}</div>
+    <div
+      data-current
+      {...currentProps}
+      data-starting-style={viewport.previousContentNode && viewport.showStartingStyleAttribute
+        ? ''
+        : undefined}>{@render children?.()}</div
+    >
   {/key}
 </RenderElement>

@@ -76,7 +76,8 @@
     for (const [input, registration] of field.validation.registeredInputs) {
       if (
         registration.value !== undefined &&
-        'checked' in input && input.checked &&
+        'checked' in input &&
+        input.checked &&
         isEligibleInput(input, formElement)
       )
         successfulValues.add(registration.value);
@@ -142,4 +143,5 @@
     stateAttributesMapping: fieldValidityMapping,
   });
 </script>
+
 <RenderElement tag="div" {componentProps} {params} {children} />

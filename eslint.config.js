@@ -18,10 +18,7 @@ export default defineConfig(
   {
     rules: {
       'svelte/no-at-const-tags': 'error',
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        { argsIgnorePattern: '^_' },
-      ],
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     },
   },
   // TypeScript checks undeclared names; retain no-undef for JavaScript scripts.
@@ -40,10 +37,7 @@ export default defineConfig(
   {
     files: ['packages/base/src/lib/internals/createBaseUIEventDetails.ts'],
     rules: {
-      '@typescript-eslint/no-empty-object-type': [
-        'error',
-        { allowObjectTypes: 'always' },
-      ],
+      '@typescript-eslint/no-empty-object-type': ['error', { allowObjectTypes: 'always' }],
     },
   },
   // Preserve the source-derived no-op branch until that port is deliberately revised.

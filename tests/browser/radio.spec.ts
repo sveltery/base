@@ -4,27 +4,17 @@ for (const framework of ['react', 'svelte']) {
   test(`${framework} nested Composite shared host preserves outer metadata, repeated updates and navigation`, async ({
     page,
   }) => {
-    await page.goto(
-      `/composite-nested${framework === 'react' ? '?reference=react' : ''}`,
-    );
+    await page.goto(`/composite-nested${framework === 'react' ? '?reference=react' : ''}`);
     await expect(page.locator('main[data-hydrated="true"]')).toBeVisible();
     if (framework === 'react') {
-      await expect(page.locator('main')).toHaveAttribute(
-        'data-renderer',
-        '19.2.8/19.2.8',
-      );
+      await expect(page.locator('main')).toHaveAttribute('data-renderer', '19.2.8/19.2.8');
     }
     const snapshots: unknown[] = [];
     const readMap = async () =>
-      JSON.parse(await page.locator('#nested-map').innerText()) as Record<
-        string,
-        unknown
-      >[];
+      JSON.parse(await page.locator('#nested-map').innerText()) as Record<string, unknown>[];
     const assertOuter = async (phase: string) => {
       await expect
-        .poll(async () =>
-          (await readMap()).find((item) => item.testId === 'shared'),
-        )
+        .poll(async () => (await readMap()).find((item) => item.testId === 'shared'))
         .toMatchObject({
           owner: 'outer',
           disabled: true,
@@ -49,29 +39,20 @@ for (const framework of ['react', 'svelte']) {
     await page.locator('#toggle-shared').click();
     await assertOuter('reinsert');
     await page.locator('#replace-host').click();
-    await expect(page.getByTestId('shared')).toHaveJSProperty(
-      'tagName',
-      'SPAN',
-    );
+    await expect(page.getByTestId('shared')).toHaveJSProperty('tagName', 'SPAN');
     await assertOuter('replace-host');
     await test.info().attach('nested-composite-source-lifecycle', {
       body: JSON.stringify({ framework, snapshots }),
       contentType: 'application/json',
     });
   });
-  const open = async (
-    page: import('@playwright/test').Page,
-    scenario = 'default',
-  ) => {
+  const open = async (page: import('@playwright/test').Page, scenario = 'default') => {
     await page.goto(
       `/radio?scenario=${scenario}${framework === 'react' ? '&reference=react' : ''}`,
     );
     await expect(page.locator('main[data-hydrated="true"]')).toBeVisible();
     if (framework === 'react')
-      await expect(page.locator('main')).toHaveAttribute(
-        'data-renderer',
-        '19.2.8/19.2.8',
-      );
+      await expect(page.locator('main')).toHaveAttribute('data-renderer', '19.2.8/19.2.8');
   };
   test(`${framework} group descendant focus and containment preserve onBlur validation`, async ({
     page,
@@ -88,10 +69,7 @@ for (const framework of ['react', 'svelte']) {
     await expect(field).toHaveAttribute('data-focused', '');
     await expect(field).not.toHaveAttribute('data-touched');
     await expect(page.locator('#validation-calls')).toHaveText('0');
-    await expect(page.getByTestId('radio-b')).toHaveAttribute(
-      'aria-checked',
-      'true',
-    );
+    await expect(page.getByTestId('radio-b')).toHaveAttribute('aria-checked', 'true');
     await page.locator('#submit').focus();
     await expect(field).not.toHaveAttribute('data-focused');
     await expect(field).toHaveAttribute('data-touched', '');
@@ -109,9 +87,7 @@ for (const framework of ['react', 'svelte']) {
         );
         const field = page.locator('#field');
         const textbox = page.locator('#focus-textbox');
-        await textbox.evaluate((element) =>
-          (element as HTMLInputElement).setSelectionRange(5, 5),
-        );
+        await textbox.evaluate((element) => (element as HTMLInputElement).setSelectionRange(5, 5));
         await textbox.focus();
         await expect(page.locator('#focus-calls')).toHaveText(
           JSON.stringify([
@@ -157,29 +133,21 @@ for (const framework of ['react', 'svelte']) {
         await expect(field).not.toHaveAttribute('data-focused');
         if (prevent) await expect(field).not.toHaveAttribute('data-touched');
         else await expect(field).toHaveAttribute('data-touched', '');
-        await expect(page.locator('#validation-calls')).toHaveText(
-          prevent ? '0' : '1',
-        );
-        await test
-          .info()
-          .attach(`group-focus-${prevent ? 'canceled' : 'accepted'}`, {
-            body: JSON.stringify(
-              {
-                framework,
-                renderOverride,
-                prevent,
-                callbacks: JSON.parse(
-                  (await page.locator('#focus-calls').textContent()) ?? '[]',
-                ),
-                validationCalls: Number(
-                  await page.locator('#validation-calls').textContent(),
-                ),
-              },
-              null,
-              2,
-            ),
-            contentType: 'application/json',
-          });
+        await expect(page.locator('#validation-calls')).toHaveText(prevent ? '0' : '1');
+        await test.info().attach(`group-focus-${prevent ? 'canceled' : 'accepted'}`, {
+          body: JSON.stringify(
+            {
+              framework,
+              renderOverride,
+              prevent,
+              callbacks: JSON.parse((await page.locator('#focus-calls').textContent()) ?? '[]'),
+              validationCalls: Number(await page.locator('#validation-calls').textContent()),
+            },
+            null,
+            2,
+          ),
+          contentType: 'application/json',
+        });
       }
     });
   }
@@ -190,9 +158,7 @@ for (const framework of ['react', 'svelte']) {
       await open(page, `focus-item-${mode}`);
       const field = page.locator('#field');
       const textbox = page.locator('#focus-textbox');
-      await textbox.evaluate((element) =>
-        (element as HTMLInputElement).setSelectionRange(5, 5),
-      );
+      await textbox.evaluate((element) => (element as HTMLInputElement).setSelectionRange(5, 5));
       if (mode !== 'focus') {
         await page.getByTestId('radio-b').dispatchEvent('keydown', {
           key: 'ArrowRight',
@@ -218,11 +184,11 @@ for (const framework of ['react', 'svelte']) {
           return [input.selectionStart, input.selectionEnd];
         }),
       ).toEqual(mode === 'cancel' ? [5, 5] : [0, 5]);
-      await expect(
-        page.getByTestId(mode === 'arrow' ? 'radio-c' : 'radio-b'),
-      ).toHaveAttribute('aria-checked', 'true');
-      if (mode === 'arrow')
-        await expect(field).toHaveAttribute('data-touched', '');
+      await expect(page.getByTestId(mode === 'arrow' ? 'radio-c' : 'radio-b')).toHaveAttribute(
+        'aria-checked',
+        'true',
+      );
+      if (mode === 'arrow') await expect(field).toHaveAttribute('data-touched', '');
       else await expect(field).not.toHaveAttribute('data-touched');
       const calls = await page.locator('#calls').textContent();
       expect(JSON.parse(calls ?? '[]')).toHaveLength(mode === 'arrow' ? 1 : 0);
@@ -235,16 +201,10 @@ for (const framework of ['react', 'svelte']) {
               const input = element as HTMLInputElement;
               return [input.selectionStart, input.selectionEnd];
             }),
-            bTabindex: await page
-              .getByTestId('radio-b')
-              .getAttribute('tabindex'),
-            cTabindex: await page
-              .getByTestId('radio-c')
-              .getAttribute('tabindex'),
+            bTabindex: await page.getByTestId('radio-b').getAttribute('tabindex'),
+            cTabindex: await page.getByTestId('radio-c').getAttribute('tabindex'),
             checked: mode === 'arrow' ? 'c' : 'b',
-            touched: await field.evaluate((element) =>
-              element.hasAttribute('data-touched'),
-            ),
+            touched: await field.evaluate((element) => element.hasAttribute('data-touched')),
             calls: JSON.parse(calls ?? '[]'),
           },
           null,
@@ -267,11 +227,9 @@ for (const framework of ['react', 'svelte']) {
         await expect(radio).toHaveAttribute('aria-checked', String(selected));
         await expect(field).not.toHaveAttribute('data-touched');
         expect(await input.isChecked()).toBe(selected);
-        expect(
-          await field.evaluate((element) =>
-            element.hasAttribute('data-filled'),
-          ),
-        ).toBe(selected);
+        expect(await field.evaluate((element) => element.hasAttribute('data-filled'))).toBe(
+          selected,
+        );
         await input.evaluate((element) => {
           const input = element as HTMLInputElement;
           input.dataset.nativeEvents = '[]';
@@ -285,42 +243,29 @@ for (const framework of ['react', 'svelte']) {
           }
         });
         if (action === 'visible') await radio.click();
-        else
-          await input.evaluate((element) =>
-            (element as HTMLInputElement).click(),
-          );
+        else await input.evaluate((element) => (element as HTMLInputElement).click());
         await expect(radio).toHaveAttribute('aria-checked', String(selected));
         if (selected) await expect(field).not.toHaveAttribute('data-touched');
         else await expect(field).toHaveAttribute('data-touched', '');
-        expect(await input.isChecked()).toBe(
-          selected || framework === 'svelte',
+        expect(await input.isChecked()).toBe(selected || framework === 'svelte');
+        expect(await field.evaluate((element) => element.hasAttribute('data-filled'))).toBe(
+          selected,
         );
-        expect(
-          await field.evaluate((element) =>
-            element.hasAttribute('data-filled'),
-          ),
-        ).toBe(selected);
         const observations = {
           framework,
           scenario,
           action,
           checked: await input.isChecked(),
           ariaChecked: await radio.getAttribute('aria-checked'),
-          touched: await field.evaluate((element) =>
-            element.hasAttribute('data-touched'),
-          ),
-          nativeEvents: JSON.parse(
-            (await input.getAttribute('data-native-events')) ?? '[]',
-          ),
+          touched: await field.evaluate((element) => element.hasAttribute('data-touched')),
+          nativeEvents: JSON.parse((await input.getAttribute('data-native-events')) ?? '[]'),
         };
         await test.info().attach('standalone-native-observations', {
           body: JSON.stringify(observations, null, 2),
           contentType: 'application/json',
         });
         expect(observations.nativeEvents).toEqual(
-          selected || (framework === 'react' && action === 'hidden')
-            ? []
-            : ['input', 'change'],
+          selected || (framework === 'react' && action === 'hidden') ? [] : ['input', 'change'],
         );
       });
     }
@@ -345,21 +290,14 @@ for (const framework of ['react', 'svelte']) {
         }
       });
       if (action === 'visible') await page.getByTestId('literal-radio').click();
-      else
-        await input.evaluate((element) =>
-          (element as HTMLInputElement).click(),
-        );
+      else await input.evaluate((element) => (element as HTMLInputElement).click());
       await expect(page.locator('#literal-calls')).toHaveText('1');
       const observations = {
         framework,
         action,
         checked: await input.isChecked(),
-        changeCallbacks: Number(
-          await page.locator('#literal-calls').textContent(),
-        ),
-        nativeEvents: JSON.parse(
-          (await input.getAttribute('data-native-events')) ?? '[]',
-        ),
+        changeCallbacks: Number(await page.locator('#literal-calls').textContent()),
+        nativeEvents: JSON.parse((await input.getAttribute('data-native-events')) ?? '[]'),
       };
       await test.info().attach('literal-radio-native-observations', {
         body: JSON.stringify(observations, null, 2),
@@ -377,21 +315,19 @@ for (const framework of ['react', 'svelte']) {
     page,
   }) => {
     await open(page);
-    const geometry = await page
-      .locator('input[type="radio"]')
-      .evaluateAll((inputs) =>
-        inputs.map((element) => {
-          const input = element as HTMLInputElement;
-          const bounds = input.getBoundingClientRect();
-          return {
-            width: input.style.width,
-            height: input.style.height,
-            margin: input.style.margin,
-            actualWidth: bounds.width,
-            actualHeight: bounds.height,
-          };
-        }),
-      );
+    const geometry = await page.locator('input[type="radio"]').evaluateAll((inputs) =>
+      inputs.map((element) => {
+        const input = element as HTMLInputElement;
+        const bounds = input.getBoundingClientRect();
+        return {
+          width: input.style.width,
+          height: input.style.height,
+          margin: input.style.margin,
+          actualWidth: bounds.width,
+          actualHeight: bounds.height,
+        };
+      }),
+    );
     expect(geometry).toEqual(
       Array.from({ length: 3 }, () => ({
         width: '1px',
@@ -406,27 +342,15 @@ for (const framework of ['react', 'svelte']) {
     page,
   }) => {
     await open(page);
-    await expect(page.getByTestId('radio-b')).toHaveAttribute(
-      'data-checked',
-      '',
-    );
-    await expect(page.getByTestId('radio-b')).not.toHaveAttribute(
-      'data-unchecked',
-    );
-    await expect(page.getByTestId('radio-a')).toHaveAttribute(
-      'data-unchecked',
-      '',
-    );
-    await expect(page.getByTestId('radio-a')).not.toHaveAttribute(
-      'data-checked',
-    );
+    await expect(page.getByTestId('radio-b')).toHaveAttribute('data-checked', '');
+    await expect(page.getByTestId('radio-b')).not.toHaveAttribute('data-unchecked');
+    await expect(page.getByTestId('radio-a')).toHaveAttribute('data-unchecked', '');
+    await expect(page.getByTestId('radio-a')).not.toHaveAttribute('data-checked');
     expect(await page.locator('input[type="radio"]').count()).toBe(3);
     expect(
       await page
         .locator('#form')
-        .evaluate((form) =>
-          new FormData(form as HTMLFormElement).getAll('choice'),
-        ),
+        .evaluate((form) => new FormData(form as HTMLFormElement).getAll('choice')),
     ).toEqual(['b']);
   });
   test(`${framework} source RadioGroup:38 one value callback and authored ancestor handler with native delegated observations`, async ({
@@ -443,26 +367,15 @@ for (const framework of ['react', 'svelte']) {
       );
     });
     await page.getByTestId('radio-a').click();
-    await expect(page.getByTestId('radio-a')).toHaveAttribute(
-      'aria-checked',
-      'true',
-    );
+    await expect(page.getByTestId('radio-a')).toHaveAttribute('aria-checked', 'true');
     await expect(page.locator('#calls')).toHaveText(
       '[{"value":"a","reason":"none","type":"click","shiftKey":false}]',
     );
-    expect(
-      await page.locator('input[type="radio"]:checked').getAttribute('value'),
-    ).toBe('a');
-    await expect(page.locator('#form')).toHaveAttribute(
-      'data-click-events',
-      '2',
-    );
+    expect(await page.locator('input[type="radio"]:checked').getAttribute('value')).toBe('a');
+    await expect(page.locator('#form')).toHaveAttribute('data-click-events', '2');
     await expect(page.locator('#ancestor-clicks')).toHaveText('1');
     await page.getByTestId('radio-a').click();
-    await expect(page.locator('#form')).toHaveAttribute(
-      'data-click-events',
-      '4',
-    );
+    await expect(page.locator('#form')).toHaveAttribute('data-click-events', '4');
     await expect(page.locator('#ancestor-clicks')).toHaveText('2');
     await expect(page.locator('#calls')).toHaveText(
       '[{"value":"a","reason":"none","type":"click","shiftKey":false}]',
@@ -478,13 +391,8 @@ for (const framework of ['react', 'svelte']) {
     await page.keyboard.down('Space');
     await expect(page.locator('#calls')).toHaveText('[]');
     await page.keyboard.up('Space');
-    await expect(page.getByTestId('radio-a')).toHaveAttribute(
-      'aria-checked',
-      'true',
-    );
-    expect(
-      JSON.parse((await page.locator('#calls').textContent()) ?? '[]'),
-    ).toHaveLength(1);
+    await expect(page.getByTestId('radio-a')).toHaveAttribute('aria-checked', 'true');
+    expect(JSON.parse((await page.locator('#calls').textContent()) ?? '[]')).toHaveLength(1);
   });
   for (const scenario of ['cancel', 'native-button-cancel'])
     test(`${framework} ${scenario} native cancellation preserves source value and characterizes input/change phase`, async ({
@@ -502,10 +410,7 @@ for (const framework of ['react', 'svelte']) {
         form.addEventListener('change', count);
       });
       await page.getByTestId('radio-a').click();
-      await expect(page.getByTestId('radio-b')).toHaveAttribute(
-        'aria-checked',
-        'true',
-      );
+      await expect(page.getByTestId('radio-b')).toHaveAttribute('aria-checked', 'true');
       await expect(page.locator('#form')).toHaveAttribute(
         'data-input-events',
         framework === 'react' ? '2' : '0',
@@ -513,9 +418,7 @@ for (const framework of ['react', 'svelte']) {
       expect(
         await page
           .locator('#form')
-          .evaluate((form) =>
-            new FormData(form as HTMLFormElement).getAll('choice'),
-          ),
+          .evaluate((form) => new FormData(form as HTMLFormElement).getAll('choice')),
       ).toEqual(['b']);
     });
   for (const scenario of ['default', 'rtl', 'first-disabled', 'native-button'])
@@ -523,62 +426,34 @@ for (const framework of ['react', 'svelte']) {
       page,
     }) => {
       await open(page, scenario);
-      await expect(page.getByTestId('radio-b')).toHaveAttribute(
-        'tabindex',
-        '0',
-      );
+      await expect(page.getByTestId('radio-b')).toHaveAttribute('tabindex', '0');
       await page.getByTestId('radio-b').focus();
-      await page.keyboard.press(
-        scenario === 'rtl' ? 'ArrowLeft' : 'ArrowRight',
-      );
+      await page.keyboard.press(scenario === 'rtl' ? 'ArrowLeft' : 'ArrowRight');
       await expect(page.getByTestId('radio-c')).toBeFocused();
-      await expect(page.getByTestId('radio-c')).toHaveAttribute(
-        'aria-checked',
-        'true',
-      );
-      await page.keyboard.press(
-        scenario === 'rtl' ? 'ArrowLeft' : 'ArrowRight',
-      );
+      await expect(page.getByTestId('radio-c')).toHaveAttribute('aria-checked', 'true');
+      await page.keyboard.press(scenario === 'rtl' ? 'ArrowLeft' : 'ArrowRight');
       await expect(
         page.getByTestId(scenario === 'first-disabled' ? 'radio-b' : 'radio-a'),
       ).toBeFocused();
-      expect(await page.locator('[role="radio"][tabindex="0"]').count()).toBe(
-        1,
-      );
+      expect(await page.locator('[role="radio"][tabindex="0"]').count()).toBe(1);
     });
   for (const scenario of ['disabled', 'readonly'])
-    test(`${framework} ${scenario} suppresses selection and source callback`, async ({
-      page,
-    }) => {
+    test(`${framework} ${scenario} suppresses selection and source callback`, async ({ page }) => {
       await open(page, scenario);
       await page.getByTestId('radio-a').click({ force: true });
-      await expect(page.getByTestId('radio-b')).toHaveAttribute(
-        'aria-checked',
-        'true',
-      );
+      await expect(page.getByTestId('radio-b')).toHaveAttribute('aria-checked', 'true');
       await expect(page.locator('#calls')).toHaveText('[]');
     });
-  test(`${framework} labels, Field registration and required Form validation`, async ({
-    page,
-  }) => {
+  test(`${framework} labels, Field registration and required Form validation`, async ({ page }) => {
     await open(page, 'empty-required');
     await expect(page.locator('#label-a')).toHaveAttribute('for', 'input-a');
-    await expect(page.getByTestId('radio-a')).toHaveAttribute(
-      'aria-labelledby',
-      'label-a',
-    );
-    await expect(page.getByTestId('radio-a')).toHaveAttribute(
-      'aria-describedby',
-      'description',
-    );
+    await expect(page.getByTestId('radio-a')).toHaveAttribute('aria-labelledby', 'label-a');
+    await expect(page.getByTestId('radio-a')).toHaveAttribute('aria-describedby', 'description');
     await page.locator('#submit').click();
     await expect(page.locator('#submissions')).toHaveText('[]');
     await expect(page.locator('#field')).toHaveAttribute('data-invalid', '');
     await page.locator('#label-a').click();
-    await expect(page.getByTestId('radio-a')).toHaveAttribute(
-      'aria-checked',
-      'true',
-    );
+    await expect(page.getByTestId('radio-a')).toHaveAttribute('aria-checked', 'true');
     await page.locator('#submit').click();
     await expect(page.locator('#submissions')).toHaveText('[{"choice":"a"}]');
   });
@@ -591,9 +466,7 @@ for (const framework of ['react', 'svelte']) {
     await page.getByTestId('radio-b').focus();
     await page.keyboard.press('ArrowRight');
     await expect(page.getByTestId('radio-c')).toBeFocused();
-    await page
-      .getByRole('button', { name: 'Remove selected', exact: true })
-      .click();
+    await page.getByRole('button', { name: 'Remove selected', exact: true }).click();
     expect(await page.locator('[role="radio"][tabindex="0"]').count()).toBe(1);
     await page.getByRole('button', { name: 'Remove all', exact: true }).click();
     expect(await page.locator('input[type="radio"]').count()).toBe(0);
@@ -605,20 +478,10 @@ for (const framework of ['react', 'svelte']) {
   }) => {
     await open(page, 'controlled');
     await page.getByTestId('radio-a').click();
-    await expect(page.getByTestId('radio-a')).toHaveAttribute(
-      'aria-checked',
-      'true',
-    );
-    await page
-      .getByRole('button', { name: 'Programmatic', exact: true })
-      .click();
-    await expect(page.getByTestId('radio-c')).toHaveAttribute(
-      'aria-checked',
-      'true',
-    );
-    expect(
-      await page.locator('input[type="radio"]:checked').getAttribute('value'),
-    ).toBe('c');
+    await expect(page.getByTestId('radio-a')).toHaveAttribute('aria-checked', 'true');
+    await page.getByRole('button', { name: 'Programmatic', exact: true }).click();
+    await expect(page.getByTestId('radio-c')).toHaveAttribute('aria-checked', 'true');
+    expect(await page.locator('input[type="radio"]:checked').getAttribute('value')).toBe('c');
   });
   for (const scenario of ['default', 'controlled'])
     test(`${framework} ${scenario} native reset follows each renderer's checked defaults`, async ({
@@ -633,10 +496,7 @@ for (const framework of ['react', 'svelte']) {
             .map((input) => (input as HTMLInputElement).value),
         );
       await page.getByTestId('radio-a').click();
-      await expect(page.getByTestId('radio-a')).toHaveAttribute(
-        'aria-checked',
-        'true',
-      );
+      await expect(page.getByTestId('radio-a')).toHaveAttribute('aria-checked', 'true');
       const calls = await page.locator('#calls').textContent();
       const defaultValues = await page
         .locator('input[type="radio"]')
@@ -649,14 +509,9 @@ for (const framework of ['react', 'svelte']) {
       expect(
         await page
           .locator('#form')
-          .evaluate((form) =>
-            new FormData(form as HTMLFormElement).getAll('choice'),
-          ),
+          .evaluate((form) => new FormData(form as HTMLFormElement).getAll('choice')),
       ).toEqual(defaultValues);
-      await expect(page.getByTestId('radio-a')).toHaveAttribute(
-        'aria-checked',
-        'true',
-      );
+      await expect(page.getByTestId('radio-a')).toHaveAttribute('aria-checked', 'true');
       await expect(page.locator('#calls')).toHaveText(calls ?? '[]');
       await test.info().attach('native-reset-observation', {
         body: JSON.stringify({
@@ -675,16 +530,12 @@ for (const framework of ['react', 'svelte']) {
     expect(
       await page
         .locator('#form')
-        .evaluate((form) =>
-          new FormData(form as HTMLFormElement).getAll('choice'),
-        ),
+        .evaluate((form) => new FormData(form as HTMLFormElement).getAll('choice')),
     ).toEqual([]);
     expect(
       await page
         .locator('#external-form')
-        .evaluate((form) =>
-          new FormData(form as HTMLFormElement).getAll('choice'),
-        ),
+        .evaluate((form) => new FormData(form as HTMLFormElement).getAll('choice')),
     ).toEqual(['b']);
     await page.locator('#submit').click();
     await expect(page.locator('#submissions')).toHaveText('[{"choice":null}]');
@@ -694,14 +545,11 @@ for (const framework of ['react', 'svelte']) {
   }) => {
     await open(page, 'controlled-reject');
     await page.getByTestId('radio-a').click();
-    await expect(page.getByTestId('radio-b')).toHaveAttribute(
-      'aria-checked',
-      'true',
-    );
+    await expect(page.getByTestId('radio-b')).toHaveAttribute('aria-checked', 'true');
     // Native framework characterization; divergent expectations receive zero source credit.
-    expect(
-      await page.locator('input[type="radio"]:checked').getAttribute('value'),
-    ).toBe(framework === 'react' ? 'b' : 'a');
+    expect(await page.locator('input[type="radio"]:checked').getAttribute('value')).toBe(
+      framework === 'react' ? 'b' : 'a',
+    );
   });
 }
 test('Svelte SSR/no JavaScript radios preserve native initial successful input values', async ({
@@ -711,13 +559,8 @@ test('Svelte SSR/no JavaScript radios preserve native initial successful input v
   const page = await context.newPage();
   await page.goto('/radio');
   expect(await page.locator('input[type="radio"]').count()).toBe(3);
-  await expect(page.getByTestId('radio-b')).toHaveAttribute(
-    'aria-checked',
-    'true',
-  );
-  expect(
-    await page.locator('input[type="radio"][checked]').getAttribute('value'),
-  ).toBe('b');
+  await expect(page.getByTestId('radio-b')).toHaveAttribute('aria-checked', 'true');
+  expect(await page.locator('input[type="radio"][checked]').getAttribute('value')).toBe('b');
   await context.close();
 });
 
@@ -736,9 +579,7 @@ test('Svelte source SSR hydration preserves initial values without hydration war
   expect(
     await page
       .locator('#form')
-      .evaluate((form) =>
-        new FormData(form as HTMLFormElement).getAll('choice'),
-      ),
+      .evaluate((form) => new FormData(form as HTMLFormElement).getAll('choice')),
   ).toEqual(['b']);
   expect(diagnostics).toEqual([]);
 });

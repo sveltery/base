@@ -116,7 +116,9 @@ type HoverContextData = ContextData & {
   hoverInteractionState?: HoverInteraction | undefined;
 };
 
-export function useHoverInteractionSharedState(getStore: () => FloatingRootContext): () => HoverInteraction {
+export function useHoverInteractionSharedState(
+  getStore: () => FloatingRootContext,
+): () => HoverInteraction {
   const data = untrack(() => getStore().context.dataRef.current) as HoverContextData;
   const instance = useRefWithInit(
     () => data.hoverInteractionState ?? HoverInteraction.create(),

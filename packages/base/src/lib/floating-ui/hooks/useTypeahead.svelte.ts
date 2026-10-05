@@ -92,7 +92,9 @@ export function useTypeahead(
 
   const timeout = useTimeout();
   const stringRef = { current: '' };
-  const prevIndexRef = { current: untrack(() => selectedIndex ?? activeIndex ?? -1) as number | null };
+  const prevIndexRef = {
+    current: untrack(() => selectedIndex ?? activeIndex ?? -1) as number | null,
+  };
   const matchIndexRef = { current: null as number | null };
 
   const onKeyDown = useStableCallback((event: KeyboardEvent) => {
@@ -227,22 +229,29 @@ export function useTypeahead(
     onTyping?.(false);
   });
 
-  useIsoLayoutEffect(() => {
-    if (!open && selectedIndex !== null) {
-      return;
-    }
+  useIsoLayoutEffect(
+    () => {
+      if (!open && selectedIndex !== null) {
+        return;
+      }
 
-    timeout.clear();
-    matchIndexRef.current = null;
+      timeout.clear();
+      matchIndexRef.current = null;
 
-    if (stringRef.current !== '') {
-      stringRef.current = '';
-    }
-  }, () => [open, selectedIndex, timeout]);
+      if (stringRef.current !== '') {
+        stringRef.current = '';
+      }
+    },
+    () => [open, selectedIndex, timeout],
+  );
 
   const sharedProps = { onkeydown: onKeyDown, onfocusout: onBlur };
   return {
-    get reference() { return enabled ? sharedProps : undefined; },
-    get floating() { return enabled ? sharedProps : undefined; },
+    get reference() {
+      return enabled ? sharedProps : undefined;
+    },
+    get floating() {
+      return enabled ? sharedProps : undefined;
+    },
   };
 }

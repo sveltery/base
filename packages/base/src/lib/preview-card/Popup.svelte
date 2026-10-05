@@ -10,7 +10,14 @@
   import { FOCUSABLE_POPUP_PROPS } from '../utils/popups/popupStoreUtils.svelte.js';
   import type { PreviewCardPopupProps, PreviewCardPopupState } from './types.js';
   // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
-  let { render, class: className, style, children, ref = $bindable(), ...elementProps }: PreviewCardPopupProps = $props();
+  let {
+    render,
+    class: className,
+    style,
+    children,
+    ref = $bindable(),
+    ...elementProps
+  }: PreviewCardPopupProps = $props();
   const store = usePreviewCardRootContext();
   const positioner = usePreviewCardPositionerContext();
   const open = $derived(store.select('open'));
@@ -20,12 +27,44 @@
   const floatingContext = $derived(store.select('floatingRootContext'));
   const closeDelay = $derived(store.select('closeDelay'));
   useOpenChangeComplete({
-    get open() { return open; }, ref: store.context.popupRef,
-    onComplete() { if (open) store.context.onOpenChangeComplete?.(true); },
+    get open() {
+      return open;
+    },
+    ref: store.context.popupRef,
+    onComplete() {
+      if (open) store.context.onOpenChangeComplete?.(true);
+    },
   });
-  useHoverFloatingInteraction(() => floatingContext, () => ({ closeDelay }));
-  const state: PreviewCardPopupState = $derived({ open, side: positioner.side, align: positioner.align, instant: instantType, transitionStatus });
-  const forwardedRef = (node: HTMLElement | null) => { ref = node; };
+  useHoverFloatingInteraction(
+    () => floatingContext,
+    () => ({ closeDelay }),
+  );
+  const state: PreviewCardPopupState = $derived({
+    open,
+    side: positioner.side,
+    align: positioner.align,
+    instant: instantType,
+    transitionStatus,
+  });
+  const forwardedRef = (node: HTMLElement | null) => {
+    ref = node;
+  };
   const setPopupElement = store.useStateSetter('popupElement');
 </script>
-<RenderElement tag="div" componentProps={{ render, class: className, style }} params={{ state, ref: [forwardedRef, store.context.popupRef, setPopupElement], props: [FOCUSABLE_POPUP_PROPS, popupProps, getDisabledMountTransitionStyles(transitionStatus), elementProps], stateAttributesMapping: popupTransitionStateMapping }} {children} />
+
+<RenderElement
+  tag="div"
+  componentProps={{ render, class: className, style }}
+  params={{
+    state,
+    ref: [forwardedRef, store.context.popupRef, setPopupElement],
+    props: [
+      FOCUSABLE_POPUP_PROPS,
+      popupProps,
+      getDisabledMountTransitionStyles(transitionStatus),
+      elementProps,
+    ],
+    stateAttributesMapping: popupTransitionStateMapping,
+  }}
+  {children}
+/>

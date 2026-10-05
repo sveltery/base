@@ -8,10 +8,18 @@
     const node = host;
     let stopped = false;
     let cleanup: (() => void) | undefined;
-    void import('../../lib/native-tabbables-reference.js').then(({ mountNativeTabbablesReference }) => {
-      if (!stopped) cleanup = mountNativeTabbablesReference(node, data.scenario);
-    });
-    return () => { stopped = true; cleanup?.(); };
+    void import('../../lib/native-tabbables-reference.js').then(
+      ({ mountNativeTabbablesReference }) => {
+        if (!stopped) cleanup = mountNativeTabbablesReference(node, data.scenario);
+      },
+    );
+    return () => {
+      stopped = true;
+      cleanup?.();
+    };
   });
 </script>
-{#if data.reference}<div bind:this={host}></div>{:else}<NativeTabbablesFixture scenario={data.scenario} />{/if}
+
+{#if data.reference}<div bind:this={host}></div>{:else}<NativeTabbablesFixture
+    scenario={data.scenario}
+  />{/if}

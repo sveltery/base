@@ -182,19 +182,17 @@
       rootProps,
       elementProps,
       getButtonProps,
-      (props: Record<string, unknown>) =>
-        field.validation.getValidationProps(disabled, props),
+      (props: Record<string, unknown>) => field.validation.getValidationProps(disabled, props),
     ],
     stateAttributesMapping,
   });
   const { useMergedRefs } = createMergedRefs<HTMLInputElement>();
   const resolveInputAttachment = createRefAttachment<HTMLInputElement>(() => {});
   const inputAttachment = $derived(
-    resolveInputAttachment(
-      useMergedRefs(inputRef, externalInputRef, field.validation.inputRef),
-    ),
+    resolveInputAttachment(useMergedRefs(inputRef, externalInputRef, field.validation.inputRef)),
   );
 </script>
+
 <RenderElement tag="span" {componentProps} {params} {children} />
 {#if !checked && name && uncheckedValue !== undefined}
   <input type="hidden" {form} name={nativeName} value={uncheckedValue} {disabled} />

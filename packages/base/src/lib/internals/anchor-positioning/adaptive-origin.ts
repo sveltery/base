@@ -9,8 +9,13 @@ export const adaptiveOrigin: Middleware = {
   name: 'adaptiveOrigin',
   async fn(state) {
     const {
-      x: rawX, y: rawY, rects: { floating: floatRect },
-      elements: { floating }, platform, strategy, placement,
+      x: rawX,
+      y: rawY,
+      rects: { floating: floatRect },
+      elements: { floating },
+      platform,
+      strategy,
+      placement,
     } = state;
     const win = floating.ownerDocument.defaultView!;
     const styles = win.getComputedStyle(floating);
@@ -23,7 +28,10 @@ export const adaptiveOrigin: Middleware = {
       offsetDimensions = { width: win.visualViewport.width, height: win.visualViewport.height };
     } else if (offsetParent === win) {
       const doc = floating.ownerDocument;
-      offsetDimensions = { width: doc.documentElement.clientWidth, height: doc.documentElement.clientHeight };
+      offsetDimensions = {
+        width: doc.documentElement.clientWidth,
+        height: doc.documentElement.clientHeight,
+      };
     } else if (await platform.isElement?.(offsetParent)) {
       offsetDimensions = await platform.getDimensions(offsetParent as Element);
     }
@@ -34,7 +42,8 @@ export const adaptiveOrigin: Middleware = {
     if (currentSide === 'left') x = offsetDimensions.width - (rawX + floatRect.width);
     if (currentSide === 'top') y = offsetDimensions.height - (rawY + floatRect.height);
     return {
-      x, y,
+      x,
+      y,
       data: {
         sideX: currentSide === 'left' ? 'right' : DEFAULT_SIDES.sideX,
         sideY: currentSide === 'top' ? 'bottom' : DEFAULT_SIDES.sideY,

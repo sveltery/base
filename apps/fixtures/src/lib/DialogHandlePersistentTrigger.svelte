@@ -4,4 +4,5 @@
   import type { Payload } from './dialog-handle-cases.js';
   let { handle }: { handle: DialogHandle<Payload> } = $props();
 </script>
+
 <Trigger {handle} id="trigger">Trigger</Trigger>

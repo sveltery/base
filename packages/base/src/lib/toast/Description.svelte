@@ -15,6 +15,7 @@
   });
   const state = $derived({ type: controller.toast.type });
 </script>
+
 {#if isRenderableContent(content)}
   <Element tag="p" internal={{ id: resolvedId, 'data-type': state.type }} {props} {state} bind:ref>
     <RenderContent {content} />

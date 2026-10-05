@@ -9,11 +9,15 @@ export function usePreviewCardRootContext(optional: true): PreviewCardStore<unkn
 export function usePreviewCardRootContext(optional = false): PreviewCardStore<unknown> | undefined {
   const context = getContext<PreviewCardStore<unknown> | undefined>(ROOT);
   if (context === undefined && !optional) {
-    throw new Error('Base UI: PreviewCardRootContext is missing. PreviewCard parts must be placed within <PreviewCard.Root>.');
+    throw new Error(
+      'Base UI: PreviewCardRootContext is missing. PreviewCard parts must be placed within <PreviewCard.Root>.',
+    );
   }
   return context;
 }
-export interface PreviewCardPortalContext { readonly keepMounted: boolean }
+export interface PreviewCardPortalContext {
+  readonly keepMounted: boolean;
+}
 export function usePreviewCardPortalContext() {
   const context = getContext<PreviewCardPortalContext | undefined>(PORTAL);
   if (context === undefined) throw new Error('Base UI: <PreviewCard.Portal> is missing.');

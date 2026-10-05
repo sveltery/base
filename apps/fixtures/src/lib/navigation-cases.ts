@@ -4,15 +4,23 @@ export function navigationCase(scenario: string) {
     toolbar: scenario.startsWith('toolbar-'),
     input: scenario.startsWith('toolbar-input'),
     wrapped: scenario === 'toolbar-wrapped-toggles' || scenario === 'toolbar-wrapped-disabled',
-    grouped: scenario.startsWith('group-') || scenario.includes('toggles') || scenario.includes('wrapped'),
+    grouped:
+      scenario.startsWith('group-') || scenario.includes('toggles') || scenario.includes('wrapped'),
     controlled: scenario.includes('controlled'),
     accept: scenario.includes('accept'),
-    defaultValue: scenario.includes('omitted') ? undefined : scenario.includes('default') ? ['two'] : scenario.includes('multiple') ? ['one'] : undefined,
+    defaultValue: scenario.includes('omitted')
+      ? undefined
+      : scenario.includes('default')
+        ? ['two']
+        : scenario.includes('multiple')
+          ? ['one']
+          : undefined,
     multiple: scenario.includes('multiple'),
     missingValues: scenario.includes('omitted') || scenario.includes('warning'),
     initialized: scenario.includes('warning'),
     rootDisabled: scenario === 'toolbar-disabled',
-    groupDisabled: scenario === 'toolbar-group-disabled' || scenario === 'toolbar-toggles-group-disabled',
+    groupDisabled:
+      scenario === 'toolbar-group-disabled' || scenario === 'toolbar-toggles-group-disabled',
     groupRootDisabled: scenario === 'group-disabled',
     nestedGroups: scenario === 'toolbar-nested-groups',
     disabled: scenario.includes('disabled') || scenario === 'toolbar-metadata',
@@ -25,7 +33,19 @@ export function navigationCase(scenario: string) {
     consumerPrevent: scenario === 'group-prevent-handler',
     consumerDefault: scenario === 'group-prevent-default',
     separatorOverride: scenario === 'toolbar-separator-override',
-    inputDisabled: scenario === 'toolbar-input-disabled' || scenario === 'toolbar-input-skip' || scenario === 'toolbar-input-checkbox',
+    inputDisabled:
+      scenario === 'toolbar-input-disabled' ||
+      scenario === 'toolbar-input-skip' ||
+      scenario === 'toolbar-input-checkbox',
   };
 }
-export interface NavigationCall { part: string; value: boolean | string[]; same: boolean; reason: string; type: string; canceled: boolean; defaultPrevented: boolean; before: string | null }
+export interface NavigationCall {
+  part: string;
+  value: boolean | string[];
+  same: boolean;
+  reason: string;
+  type: string;
+  canceled: boolean;
+  defaultPrevented: boolean;
+  before: string | null;
+}

@@ -4,7 +4,14 @@
   import { useDialogPortalContext, useDialogRootContext } from './context.js';
   import { dialogStateAttributesMapping } from './utils/stateAttributesMapping.js';
   import type { DialogViewportProps } from './types.js';
-  let { children, render, class: className, style, ref = $bindable(), ...elementProps }: DialogViewportProps = $props();
+  let {
+    children,
+    render,
+    class: className,
+    style,
+    ref = $bindable(),
+    ...elementProps
+  }: DialogViewportProps = $props();
   const portal = useDialogPortalContext();
   const store = useDialogRootContext();
   const state = $derived({
@@ -15,6 +22,7 @@
   });
   const setViewportElement = store.useStateSetter('viewportElement');
 </script>
+
 <RenderElement
   tag="div"
   componentProps={{ render, class: className, style }}
@@ -24,7 +32,11 @@
     ref: setViewportElement,
     stateAttributesMapping: dialogStateAttributesMapping,
     props: [
-      { role: 'presentation', hidden: !store.select('mounted'), style: { pointerEvents: !state.open ? 'none' : undefined } },
+      {
+        role: 'presentation',
+        hidden: !store.select('mounted'),
+        style: { pointerEvents: !state.open ? 'none' : undefined },
+      },
       elementProps,
     ],
   }}

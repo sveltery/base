@@ -21,9 +21,18 @@
   import { activeElement } from '../utils/shadowDom.js';
   import type { FieldControlProps, FieldControlState } from './types.js';
   let {
-    render, class: classProp, id: idProp, name: nameProp, value: valueProp,
-    disabled: disabledProp = false, onValueChange, defaultValue, autofocus = false,
-    style, ref = $bindable(), ...elementProps
+    render,
+    class: classProp,
+    id: idProp,
+    name: nameProp,
+    value: valueProp,
+    disabled: disabledProp = false,
+    onValueChange,
+    defaultValue,
+    autofocus = false,
+    style,
+    ref = $bindable(),
+    ...elementProps
   }: FieldControlProps = $props();
   const field = useFieldRootContext();
   const form = useFormContext();
@@ -35,30 +44,56 @@
   const instanceId = $props.id();
   const getId = useLabelableId(() => ({ id: idProp }), useBaseUiId(undefined, instanceId));
   const id = $derived(getId());
-  const [getValueUnwrapped] = useControlled(() => ({ controlled: valueProp, default: defaultValue, name: 'FieldControl', state: 'value' }));
+  const [getValueUnwrapped] = useControlled(() => ({
+    controlled: valueProp,
+    default: defaultValue,
+    name: 'FieldControl',
+    state: 'value',
+  }));
   const isControlled = $derived(valueProp !== undefined);
   const value = $derived(isControlled ? getValueUnwrapped() : undefined);
   const serializedValue = $derived(value == null ? undefined : String(value));
   const getValueFromInput = useStableCallback(() => field.validation.inputRef.current?.value);
-  useRegisterFieldControl(field.validation.inputRef, () => id, () => serializedValue, getValueFromInput, () => !disabled, () => nameProp ?? undefined);
-  useIsoLayoutEffect(() => {
-    const currentValue = serializedValue ?? field.validation.inputRef.current?.value;
-    if (currentValue !== undefined) field.setFilled(currentValue !== '');
-  }, () => [serializedValue, field.validation.inputRef, field.setFilled]);
-  useValueChanged(() => serializedValue, () => () => {
-    if (serializedValue === undefined) return;
-    form.clearErrors(name ?? undefined);
-    field.setDirty(serializedValue !== (field.validityData.initialValue ?? ''));
-    field.validation.change(serializedValue);
-  });
+  useRegisterFieldControl(
+    field.validation.inputRef,
+    () => id,
+    () => serializedValue,
+    getValueFromInput,
+    () => !disabled,
+    () => nameProp ?? undefined,
+  );
+  useIsoLayoutEffect(
+    () => {
+      const currentValue = serializedValue ?? field.validation.inputRef.current?.value;
+      if (currentValue !== undefined) field.setFilled(currentValue !== '');
+    },
+    () => [serializedValue, field.validation.inputRef, field.setFilled],
+  );
+  useValueChanged(
+    () => serializedValue,
+    () => () => {
+      if (serializedValue === undefined) return;
+      form.clearErrors(name ?? undefined);
+      field.setDirty(serializedValue !== (field.validityData.initialValue ?? ''));
+      field.validation.change(serializedValue);
+    },
+  );
   const inputRef = $state<{ current: HTMLElement | null }>({ current: null });
   const enterValidationTimeout = useTimeout();
-  useIsoLayoutEffect(() => {
-    if (autofocus && inputRef.current === activeElement(ownerDocument(inputRef.current))) field.setFocused(true);
-  }, () => [autofocus, field.setFocused]);
+  useIsoLayoutEffect(
+    () => {
+      if (autofocus && inputRef.current === activeElement(ownerDocument(inputRef.current)))
+        field.setFocused(true);
+    },
+    () => [autofocus, field.setFocused],
+  );
   const internal = $derived({
-    id, disabled, name: getNativeName(name), ref: field.validation.inputRef,
-    'aria-labelledby': labelable.labelId, autofocus,
+    id,
+    disabled,
+    name: getNativeName(name),
+    ref: field.validation.inputRef,
+    'aria-labelledby': labelable.labelId,
+    autofocus,
     // Native Svelte keeps an authored reset default independent from the current value (I-02).
     ...(defaultValue !== undefined ? { defaultValue } : {}),
     ...(isControlled ? { value } : {}),
@@ -74,17 +109,25 @@
         field.validation.change(inputValue);
       }
     },
-    onfocus() { field.setFocused(true); },
+    onfocus() {
+      field.setFocused(true);
+    },
     onblur(event: FocusEvent) {
       field.setTouched(true);
       field.setFocused(false);
       if (field.validationMode === 'onBlur') {
         const inputValue = (event.currentTarget as HTMLInputElement).value;
         void field.validation.commit(inputValue);
-        if (isControlled) queueMicrotask(() => {
-          const nextValue = field.validation.inputRef.current?.value;
-          if (nextValue !== undefined && nextValue !== inputValue && nextValue !== (field.validityData.initialValue ?? '')) void field.validation.commit(nextValue);
-        });
+        if (isControlled)
+          queueMicrotask(() => {
+            const nextValue = field.validation.inputRef.current?.value;
+            if (
+              nextValue !== undefined &&
+              nextValue !== inputValue &&
+              nextValue !== (field.validityData.initialValue ?? '')
+            )
+              void field.validation.commit(nextValue);
+          });
       }
     },
     onkeydown(event: KeyboardEvent) {
@@ -96,18 +139,32 @@
         if (formElement && formElement === form.elementRef.current && !event.defaultPrevented) {
           const submitCount = form.submitCountRef.current;
           enterValidationTimeout.start(0, () => {
-            if (form.submitCountRef.current === submitCount) void field.validation.commit(input.value);
+            if (form.submitCountRef.current === submitCount)
+              void field.validation.commit(input.value);
           });
         } else void field.validation.commit(value);
       }
     },
   });
-  const forwardedRef = { get current() { return ref ?? null; }, set current(value: HTMLElement | null) { ref = value; } };
+  const forwardedRef = {
+    get current() {
+      return ref ?? null;
+    },
+    set current(value: HTMLElement | null) {
+      ref = value;
+    },
+  };
   const componentProps = $derived({ ...elementProps, render, class: classProp, style });
   const params = $derived({
-    ref: [forwardedRef, inputRef], state: controlState,
-    props: [internal, elementProps, (props: Record<string, unknown>) => field.validation.getValidationProps(disabled, props)],
+    ref: [forwardedRef, inputRef],
+    state: controlState,
+    props: [
+      internal,
+      elementProps,
+      (props: Record<string, unknown>) => field.validation.getValidationProps(disabled, props),
+    ],
     stateAttributesMapping: fieldValidityMapping,
   });
 </script>
+
 <RenderElement tag="input" {componentProps} {params} />
