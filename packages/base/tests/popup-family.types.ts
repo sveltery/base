@@ -32,15 +32,15 @@ const tooltipRoot: Tooltip.Root.Props<number> = {
   trackCursorAxis: undefined,
 };
 // Source popover/root/PopoverRoot.spec.tsx negative payload directive.
-// @ts-expect-error Number Handle rejects the string payload.
 const wrongPopover: ComponentProps<typeof Popover.Trigger<number>> = {
   handle: popover,
+  // @ts-expect-error Number Handle rejects the string payload.
   payload: 'hello',
 };
 // Source preview-card/root/PreviewCardRoot.spec.tsx negative payload directive.
-// @ts-expect-error Number Handle rejects the string payload.
 const wrongPreview: ComponentProps<typeof PreviewCard.Trigger<number>> = {
   handle: previewCard,
+  // @ts-expect-error Number Handle rejects the string payload.
   payload: 'hello',
 };
 // Source popover/positioner/PopoverPositioner.spec.tsx mounting policy directive.

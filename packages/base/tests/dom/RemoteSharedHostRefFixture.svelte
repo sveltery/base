@@ -1,9 +1,9 @@
 <script lang="ts">
   import { Form, Radio, RadioGroup, Switch } from '../../src/lib/index.js';
-  // @ts-expect-error Actual installed Kit helper has no declarations; test-only runtime probe.
   import {
     create_field_proxy,
     deep_set,
+    // @ts-expect-error Actual installed Kit helper has no declarations; test-only runtime probe.
   } from '../../../../apps/fixtures/node_modules/@sveltejs/kit/src/runtime/form-utils.js';
   let { submitted }: { submitted: (values: Record<string, unknown>) => void } = $props();
   let owner = $state<Record<string, unknown>>({ enabled: false, choice: 3 });

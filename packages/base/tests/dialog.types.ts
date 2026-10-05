@@ -79,8 +79,8 @@ const popupHandlers: Popup = {
 };
 // @ts-expect-error Native button type remains constrained.
 const invalidButton: Trigger = { type: 'link' };
-// @ts-expect-error Native pointer handlers must retain PointerEvent inference.
 const invalidPointer: Trigger = {
+  // @ts-expect-error Native pointer handlers must retain PointerEvent inference.
   onpointerdown(event: KeyboardEvent) {
     void event;
   },

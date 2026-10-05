@@ -33,8 +33,8 @@ const props: Props = {
 const invalidDisabled: Props = { disabled: 'true' };
 // @ts-expect-error React CSS objects are outside the accepted native CSS string API.
 const invalidStyle: Props = { style: { opacity: 0.5 } };
-// @ts-expect-error Value callbacks retain string value inference.
 const invalidCallback: Props = {
+  // @ts-expect-error Value callbacks retain string value inference.
   onValueChange(value: number) {
     void value;
   },

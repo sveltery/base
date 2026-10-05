@@ -37,12 +37,12 @@ const invalidType: Props = { type: 'link' };
 // @ts-expect-error Disabled is boolean.
 const invalidDisabled: Props = { disabled: 'true' };
 const nativeStyle: Props = { style: { opacity: 0.5 }, class: ['native', { disabled: true }] };
-// @ts-expect-error A style callback receives ButtonState.
 const invalidStyle: Props = {
+  // @ts-expect-error A style callback receives ButtonState.
   style: (state: { active: boolean }) => ({ opacity: state.active ? 1 : 0.5 }),
 };
-// @ts-expect-error Native event inference must remain intact.
 const invalidPointer: Props = {
+  // @ts-expect-error Native event inference must remain intact.
   onpointerdown(event: KeyboardEvent) {
     void event;
   },
