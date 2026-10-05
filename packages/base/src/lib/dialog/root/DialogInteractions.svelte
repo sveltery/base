@@ -1,7 +1,7 @@
 <script lang="ts" generics="Payload">
   // Original DialogInteractions/useDialogRoot business body; native effects and DOM events (MIT).
   import { untrack } from 'svelte';
-  
+
   import { useScrollLock } from '@sveltery/utils/useScrollLock';
   import { useDismiss } from '../../floating-ui/hooks/useDismiss.svelte.js';
   import { contains, getTarget } from '../../floating-ui/utils/element.js';

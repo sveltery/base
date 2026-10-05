@@ -10,7 +10,7 @@
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../internals/reasons.js';
   import { getDisabledMountTransitionStyles } from '../internals/getDisabledMountTransitionStyles.js';
-  
+
   import { useToolbarRootContext } from '../toolbar/root/ToolbarRootContext.js';
   import { COMPOSITE_KEYS } from '../internals/composite/composite.js';
   import type { MenuPopupProps, MenuRoot } from './types.js';

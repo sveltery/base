@@ -1,7 +1,7 @@
 // Original MenuPositioner complete business body, native component/render boundary (MIT).
-import { untrack } from 'svelte';
+import { onDestroy, untrack } from 'svelte';
 
-import { useTimeout } from '@sveltery/utils/useTimeout';
+import { Timeout } from '@sveltery/utils/useTimeout';
 import { useMenuPortalContext } from '../portal/MenuPortalContext.js';
 import { useContextMenuRootContext } from '../../context-menu/root/ContextMenuRootContext.js';
 import { useAnchorPositioning } from '../../internals/anchor-positioning/useAnchorPositioning.svelte.js';
@@ -132,7 +132,8 @@ export function createMenuPositioner(getProps: () => MenuPositionerProps, store:
             floatingTreeRoot.events.off('menuopenchange', onParentClose);
         };
     });
-    const closeTimeout = useTimeout();
+    const closeTimeout = new Timeout();
+    onDestroy(closeTimeout.clear);
     // Clear pending close timeout when the menu closes.
     $effect(() => {
         if (!open) {

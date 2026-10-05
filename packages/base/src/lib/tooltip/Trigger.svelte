@@ -12,9 +12,9 @@
   import type { TooltipHandleStore } from './store/TooltipStore.svelte.js';
   import type { TooltipTriggerProps } from './types.js';
   import { useFocus } from '../floating-ui/hooks/useFocus.svelte.js';
-  import { untrack } from 'svelte';
+  import { onDestroy, untrack } from 'svelte';
   import { isElement } from '@floating-ui/utils/dom';
-  import { useTimeout } from '@sveltery/utils/useTimeout';
+  import { Timeout } from '@sveltery/utils/useTimeout';
   import { useTooltipProviderContext } from './provider/TooltipProviderContext.js';
   import { useDelayGroup } from '../floating-ui/hooks/useDelayGroup.svelte.js';
   import { useHoverInteractionSharedState } from '../floating-ui/hooks/useHoverInteractionSharedState.svelte.js';
@@ -75,7 +75,8 @@
   const trackCursorAxis = $derived(store.select('trackCursorAxis'));
   const disableHoverablePopup = $derived(store.select('disableHoverablePopup'));
   const isNestedTriggerHoveredRef = { current: false };
-  const nestedTriggerOpenTimeout = useTimeout();
+  const nestedTriggerOpenTimeout = new Timeout();
+  onDestroy(nestedTriggerOpenTimeout.clear);
   const pointerTypeRef = { current: undefined as string | undefined };
   function getOpenDelay() {
     // Adjacent tooltips open instantly while the group is active.

@@ -5,7 +5,7 @@
   import CompositeRoot from '../internals/composite/root/CompositeRoot.svelte';
   import { SHIFT } from '../internals/composite/composite.js';
   import { Controlled } from '@sveltery/utils/Controlled';
-  
+
   import { useBaseUiId } from '../internals/useBaseUiId.js';
   import { contains } from '@sveltery/utils/shadowDom';
   import { useFieldRootContext } from '../internals/field-root-context/FieldRootContext.js';
@@ -15,7 +15,7 @@
   import { useFieldsetRootContext } from '../fieldset/root/FieldsetRootContext.js';
   import { useFormContext } from '../internals/form-context/FormContext.js';
   import { useLabelableContext } from '../internals/labelable-provider/LabelableContext.js';
-  import { useValueChanged } from '../internals/useValueChanged.svelte.js';
+  import { ValueChanged } from '../internals/ValueChanged.svelte.js';
   import { setRadioGroupContext } from './RadioGroupContext.js';
   import type {
     RadioGroupProps,
@@ -108,7 +108,7 @@
     () => !disabled,
     () => nameProp,
   );
-  useValueChanged(
+  new ValueChanged(
     () => checkedValue,
     () => () => {
       formContext.clearErrors(name);

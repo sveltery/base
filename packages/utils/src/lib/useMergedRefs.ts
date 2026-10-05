@@ -13,31 +13,31 @@ type ForkRef<I> = {
   refs: InputRef<I>[];
 };
 
-/** Native setup owner: one initialized source ref per component, shared by fixed/N calls. */
-export function createMergedRefs<I>() {
-  const storage = createForkRef<I>();
+/** Reusable source ref fan-out owner; native setup retains one instance. */
+export class MergedRefs<I> {
+  #storage = createForkRef<I>();
   /**
    * Merges refs into a single memoized callback ref or `null`.
    * This makes sure multiple refs are updated together and have the same value.
    *
    * This function accepts up to four refs. If you need to merge more, or have an unspecified number of refs to merge,
-   * use `useMergedRefsN` instead.
+   * use `mergeN` instead.
    */
-  function useMergedRefs(a: InputRef<I>, b: InputRef<I>): Result<I>;
-  function useMergedRefs(a: InputRef<I>, b: InputRef<I>, c: InputRef<I>): Result<I>;
-  function useMergedRefs(
+  merge(a: InputRef<I>, b: InputRef<I>): Result<I>;
+  merge(a: InputRef<I>, b: InputRef<I>, c: InputRef<I>): Result<I>;
+  merge(
     a: InputRef<I>,
     b: InputRef<I>,
     c: InputRef<I>,
     d: InputRef<I>,
   ): Result<I>;
-  function useMergedRefs(
+  merge(
     a: InputRef<I>,
     b: InputRef<I>,
     c?: InputRef<I>,
     d?: InputRef<I>,
   ): Result<I> {
-    const forkRef = storage;
+    const forkRef = this.#storage;
     if (didChange(forkRef, a, b, c, d)) {
       update(forkRef, [a, b, c, d]);
     }
@@ -47,16 +47,15 @@ export function createMergedRefs<I>() {
   /**
    * Merges an array of refs into a single memoized callback ref or `null`.
    *
-   * If you need to merge a fixed number (up to four) of refs, use `useMergedRefs` instead for better performance.
+   * If you need to merge a fixed number (up to four) of refs, use `merge` instead for better performance.
    */
-  function useMergedRefsN(refs: InputRef<I>[]): Result<I> {
-    const forkRef = storage;
+  mergeN(refs: InputRef<I>[]): Result<I> {
+    const forkRef = this.#storage;
     if (didChangeN(forkRef, refs)) {
       update(forkRef, refs);
     }
     return forkRef.callback;
   }
-  return { useMergedRefs, useMergedRefsN };
 }
 
 function createForkRef<I>(): ForkRef<I> {

@@ -1,7 +1,8 @@
+import { onDestroy } from 'svelte';
 // Ported business body from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
-import { useAnimationFrame } from '@sveltery/utils/useAnimationFrame';
-import { useTimeout } from '@sveltery/utils/useTimeout';
+import { AnimationFrame } from '@sveltery/utils/useAnimationFrame';
+import { Timeout } from '@sveltery/utils/useTimeout';
 import type { ElementProps, FloatingContext, FloatingRootContext } from '../types.js';
 import { getTarget, isTypeableElement } from '../utils/element.js';
 import { isMouseLikePointerType, isVirtualPointerEvent } from '../utils/event.js';
@@ -65,8 +66,10 @@ export function useClick(
   const pointerTypeRef = {
     current: undefined as 'mouse' | 'pen' | 'touch' | 'virtual' | undefined,
   };
-  const frame = useAnimationFrame();
-  const touchOpenTimeout = useTimeout();
+  const frame = new AnimationFrame();
+  onDestroy(frame.cancel);
+  const touchOpenTimeout = new Timeout();
+  onDestroy(touchOpenTimeout.clear);
 
   // Native derived handler construction corresponds to Source useMemo. An
   // in-flight DOM callback retains its selected scalar options through a

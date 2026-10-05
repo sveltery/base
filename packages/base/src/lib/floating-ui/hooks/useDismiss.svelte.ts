@@ -1,3 +1,4 @@
+import { onDestroy } from 'svelte';
 // Ported business body from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
 
@@ -5,7 +6,7 @@ import { addEventListener } from '@sveltery/utils/addEventListener';
 import { mergeCleanups } from '@sveltery/utils/mergeCleanups';
 import { ownerDocument } from '@sveltery/utils/owner';
 
-import { Timeout, useTimeout } from '@sveltery/utils/useTimeout';
+import { Timeout } from '@sveltery/utils/useTimeout';
 import {
   getComputedStyle,
   getParentNode,
@@ -161,8 +162,11 @@ export function useDismiss(
     dismissOnMouseDown: boolean;
   } | null };
 
-  const cancelDismissOnEndTimeout = useTimeout();
-  const clearInsideTreeTimeout = useTimeout();
+  const cancelDismissOnEndTimeout = new Timeout();
+
+  onDestroy(cancelDismissOnEndTimeout.clear);
+  const clearInsideTreeTimeout = new Timeout();
+  onDestroy(clearInsideTreeTimeout.clear);
 
   const clearInsideTree = () => {
     clearInsideTreeTimeout.clear();

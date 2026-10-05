@@ -44,10 +44,8 @@ function syncTriggerCount(store: PopupTriggerDataStore<PopupStoreState<unknown>>
  * trigger's current store. The registration is tracked as a `(store, id, element)` triple, so
  * unregistering targets the store the element was actually registered in.
  *
- * Since the callback never changes, the caller must re-run it from a layout effect keyed on
- * `[store, id]` to migrate an already-registered element. That effect is also what registers the
- * element in the first place when `id` only resolves after the first commit (React 17's `useId`
- * fallback), because the register call made while the id is still `undefined` does nothing.
+ * Native effects observe the current Store and ID and migrate an already registered
+ * element when either owner changes. Registration is an imperative publication boundary.
  *
  * @param id Id of the trigger.
  * @param store The Store instance where the trigger should be registered.
@@ -183,16 +181,6 @@ export function useImplicitActiveTrigger<State extends PopupStoreState<unknown>>
   // Distinguishes a trigger that unmounted from a new active trigger that has not hydrated yet.
   const resolvedActiveTriggerIdRef: { current: string | null } = { current: null };
   const open = $derived(store.useState('open'));
-  const reactiveTriggerCount = $derived(store.useState('triggerCount'));
-  // Subscribe to the active trigger id so the reconciliation below reruns when ownership moves to
-  // another trigger while the popup stays open (e.g. a focus/hover handoff between triggers).
-  const activeTriggerId = $derived(store.useState('activeTriggerId'));
-  // Subscribe to the active trigger element so the reconciliation reruns when a pending active
-  // trigger registers in a commit where the trigger count nets out unchanged (registration
-  // forwards the element to the store when the registering trigger matches the active id).
-  // Without this, the id would never be marked resolved and a later genuine unmount would be
-  // misclassified as pending, disabling `closeOnActiveTriggerUnmount`.
-  const reactiveActiveTriggerElement = $derived(store.useState('activeTriggerElement'));
 
   $effect(() => {
     if (!open) {

@@ -1,3 +1,4 @@
+import { onDestroy } from 'svelte';
 // Original Base UI 1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT: THIRD_PARTY_NOTICES.md. Native Svelte live readers/effects replace React hooks.
 
@@ -5,7 +6,7 @@ import { addEventListener } from '@sveltery/utils/addEventListener';
 import { platform } from '@sveltery/utils/platform';
 import { mergeCleanups } from '@sveltery/utils/mergeCleanups';
 import { ownerDocument } from '@sveltery/utils/owner';
-import { useTimeout } from '@sveltery/utils/useTimeout';
+import { Timeout } from '@sveltery/utils/useTimeout';
 import { getWindow, isElement, isHTMLElement } from '@floating-ui/utils/dom';
 import type { ElementProps, FloatingContext, FloatingRootContext } from '../types.js';
 import { createAttribute } from '../utils/createAttribute.js';
@@ -41,7 +42,8 @@ export function useFocus(getContext: () => FloatingRootContext | FloatingContext
     // Track which reference should be blocked from re-opening after Escape/press dismissal.
     const blockedReferenceRef = { current: null as Element | null };
     const keyboardModalityRef = { current: true };
-    const timeout = useTimeout();
+    const timeout = new Timeout();
+    onDestroy(timeout.clear);
     $effect(() => {
         const domReference = store.select('domReferenceElement');
         if (!enabled) {

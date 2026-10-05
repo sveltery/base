@@ -1,8 +1,8 @@
 // Original Base UI 1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT: THIRD_PARTY_NOTICES.md. Native Svelte live readers/effects replace React hooks.
 import { DEV } from 'esm-env';
-import { untrack } from 'svelte';
-import { useAnimationFrame } from '@sveltery/utils/useAnimationFrame';
+import { onDestroy, untrack } from 'svelte';
+import { AnimationFrame } from '@sveltery/utils/useAnimationFrame';
 
 import { ownerDocument } from '@sveltery/utils/owner';
 
@@ -226,7 +226,8 @@ export function useListNavigation(getContext: () => FloatingRootContext | Floati
     const keyRef = { current: null as null | string };
     const isPointerModalityRef = { current: true };
     const onNavigate = (event?: Event) => {
-        onNavigateProp(indexRef.current === -1 ? null : indexRef.current, event);
+        const requestedIndex = indexRef.current === -1 ? null : indexRef.current;
+        untrack(() => onNavigateProp(requestedIndex, event));
     };
     const previousMountedRef = { current: untrack(() => !!floatingElement) };
     const previousOpenRef = { current: untrack(() => open) };
@@ -245,12 +246,14 @@ export function useListNavigation(getContext: () => FloatingRootContext | Floati
     const resetOnPointerLeaveRef = { get current() {
             return resetOnPointerLeave;
         } };
-    const focusFrame = useAnimationFrame();
-    const waitForListPopulatedFrame = useAnimationFrame();
+    const focusFrame = new AnimationFrame();
+    onDestroy(focusFrame.cancel);
+    const waitForListPopulatedFrame = new AnimationFrame();
+    onDestroy(waitForListPopulatedFrame.cancel);
     const focusItem = () => {
         function runFocus(item: HTMLElement) {
             if (virtual) {
-                tree?.events.emit('virtualfocus', item);
+                untrack(() => tree?.events.emit('virtualfocus', item));
             }
             else {
                 cancelQueuedFocusRef.current = enqueueFocus(item, {
@@ -304,7 +307,7 @@ export function useListNavigation(getContext: () => FloatingRootContext | Floati
         }
         else if (previousMountedRef.current) {
             // Reset the active index when the list is no longer open and mounted (closing or
-            // unmounting). `onNavigate` is a stable callback that always forwards to the latest
+            // unmounting). `onNavigate` is a live closure that forwards to the latest
             // `onNavigate` prop.
             indexRef.current = -1;
             onNavigate();
@@ -446,7 +449,7 @@ export function useListNavigation(getContext: () => FloatingRootContext | Floati
             store.setOpen(false, createChangeEventDetails(REASONS.listNavigation, event));
             if (isHTMLElement(domReferenceElement)) {
                 if (virtual) {
-                    tree?.events.emit('virtualfocus', domReferenceElement);
+                    untrack(() => tree?.events.emit('virtualfocus', domReferenceElement));
                 }
                 else {
                     domReferenceElement.focus();

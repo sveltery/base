@@ -3,12 +3,12 @@
   import type { HTMLAttributes } from 'svelte/elements';
   import { platform } from '@sveltery/utils/platform';
   import { visuallyHidden } from '@sveltery/utils/visuallyHidden';
-  import { createMergedRefs, type MergedRef } from '@sveltery/utils/useMergedRefs';
+  import { MergedRefs, type MergedRef } from '@sveltery/utils/useMergedRefs';
   import { createRefAttachment } from '../internals/nativeRefAttachment.js';
   import { toNativeStyle } from '../internals/nativeProps.js';
   let { ref, ...props }: HTMLAttributes<HTMLSpanElement> & { ref?: MergedRef<HTMLSpanElement> | null } = $props();
-  const refs = createMergedRefs<HTMLSpanElement>();
-  const callback = $derived(refs.useMergedRefs(ref, null));
+  const refs = new MergedRefs<HTMLSpanElement>();
+  const callback = $derived(refs.merge(ref, null));
   const resolveAttachment = createRefAttachment<HTMLSpanElement>(() => {});
   const attachment = $derived(resolveAttachment(callback));
   const role = platform.screenReader.voiceOver && platform.engine.webkit ? 'button' : undefined;

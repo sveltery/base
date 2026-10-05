@@ -1,8 +1,9 @@
 <script lang="ts" generics="Value extends string = string">
   // Source-ordered Base UI v1.8.0 ToggleGroup.tsx at
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
-  
-  import { useControlled } from '@sveltery/utils/useControlled';
+
+  import { untrack } from 'svelte';
+  import { Controlled } from '@sveltery/utils/Controlled';
   import { EMPTY_ARRAY } from '@sveltery/utils/empty';
   import RenderElement from '../internals/RenderElement.svelte';
   import CompositeRoot from '../internals/composite/root/CompositeRoot.svelte';
@@ -17,13 +18,10 @@
   }: ToggleGroupProps<Value> = $props();
   const toolbarContext = useToolbarRootContext(true);
   const toolbarGroupContext = useToolbarGroupContext();
-  const defaultValue = $derived(defaultValueProp ?? EMPTY_ARRAY);
   const isValueInitialized = $derived(valueProp !== undefined || defaultValueProp !== undefined);
   const disabled = $derived((toolbarContext?.disabled ?? false) || (toolbarGroupContext?.disabled ?? false) || disabledProp);
-  const [getGroupValue, setValueState] = useControlled<readonly Value[]>(() => ({
-    controlled: valueProp, default: defaultValue, name: 'ToggleGroup', state: 'value',
-  }));
-  const groupValue = $derived(getGroupValue());
+  const valueState = new Controlled<readonly Value[]>(() => valueProp, untrack(() => defaultValueProp ?? EMPTY_ARRAY));
+  const groupValue = $derived(valueState.value);
   const setGroupValue = (newValue: Value, nextPressed: boolean, eventDetails: ToggleGroupChangeEventDetails) => {
     let newGroupValue: Value[];
     if (multiple) {
@@ -35,7 +33,7 @@
     }
     onValueChange?.(newGroupValue, eventDetails);
     if (eventDetails.isCanceled) return;
-    setValueState(newGroupValue);
+    valueState.set(newGroupValue);
   };
   const state: ToggleGroupState = $derived({ disabled, multiple, orientation });
   setToggleGroupContext<Value>({

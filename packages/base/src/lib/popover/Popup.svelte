@@ -14,7 +14,7 @@
   import FloatingFocusManager from '../floating-ui/components/FloatingFocusManager.svelte';
   import { useToolbarRootContext } from '../toolbar/root/ToolbarRootContext.js';
   import { COMPOSITE_KEYS } from '../internals/composite/composite.js';
-  import { ClosePartContext, useClosePartCount } from '../utils/closePart.svelte.js';
+  import { ClosePartContext, ClosePartCount } from '../utils/closePart.svelte.js';
   import { createDefaultInitialFocus } from '../utils/popups/popupStoreUtils.svelte.js';
   import { REASONS } from '../internals/reasons.js';
   // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
@@ -33,7 +33,7 @@
     onComplete() { if (open) store.context.onOpenChangeComplete?.(true); },
   });
   const insideToolbar = useToolbarRootContext(true) != null;
-  const closePart = useClosePartCount();
+  const closePart = new ClosePartCount();
   setContext(ClosePartContext, closePart.context);
   const openMethod = $derived(store.select('openMethod'));
   const titleId = $derived(store.select('titleElementId'));

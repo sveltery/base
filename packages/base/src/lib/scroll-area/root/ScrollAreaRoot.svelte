@@ -1,7 +1,8 @@
 <script lang="ts">
+  import { onDestroy } from 'svelte';
   // Base UI1.8.0 ScrollAreaRoot.tsx source business bodies; MIT.
   import RenderElement from '../../internals/RenderElement.svelte';
-  import { useTimeout } from '@sveltery/utils/useTimeout';
+  import { Timeout } from '@sveltery/utils/useTimeout';
   import { useBaseUiId } from '../../internals/useBaseUiId.js';
   import { contains } from '@sveltery/utils/shadowDom';
   import { getCSPContext } from '../../csp-provider/context.js';
@@ -34,8 +35,10 @@
   const overflowEdgeThreshold = $derived(
     normalizeOverflowEdgeThreshold(overflowEdgeThresholdProp),
   );
-  const scrollYTimeout = useTimeout();
-  const scrollXTimeout = useTimeout();
+  const scrollYTimeout = new Timeout();
+  onDestroy(scrollYTimeout.clear);
+  const scrollXTimeout = new Timeout();
+  onDestroy(scrollXTimeout.clear);
   const csp = getCSPContext();
   let hovering = $state(false);
   let scrollingX = $state(false);

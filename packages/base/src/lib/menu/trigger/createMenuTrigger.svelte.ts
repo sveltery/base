@@ -1,6 +1,6 @@
-import { untrack } from 'svelte';
+import { onDestroy, untrack } from 'svelte';
 // Original MenuTrigger complete business, native live props/event/ref boundary (MIT).
-import { useTimeout } from '@sveltery/utils/useTimeout';
+import { Timeout } from '@sveltery/utils/useTimeout';
 import { ownerDocument } from '@sveltery/utils/owner';
 
 
@@ -76,7 +76,8 @@ export function createMenuTrigger<Payload>(getProps: () => MenuTriggerProps<Payl
         }
     });
     const triggerRef = { current: null as HTMLElement | null };
-    const allowMouseUpTriggerTimeout = useTimeout();
+    const allowMouseUpTriggerTimeout = new Timeout();
+    onDestroy(allowMouseUpTriggerTimeout.clear);
     const handleDocumentMouseUp = (mouseEvent: MouseEvent) => {
         if (!triggerRef.current) {
             return;
@@ -174,7 +175,8 @@ export function createMenuTrigger<Payload>(getProps: () => MenuTriggerProps<Payl
     return { get state() { return state; }, get ref() { return ref; }, get props() { return props; }, get isInMenubar() { return isInMenubar; }, get isOpenedByThisTrigger() { return isOpenedByThisTrigger; }, store: () => store, preFocusGuardRef, handlePreFocusGuardFocus, handleFocusTargetFocus };
 }
 function useStickIfOpen(getOpen: () => boolean, getOpenReason: () => string | null) {
-    const stickIfOpenTimeout = useTimeout();
+    const stickIfOpenTimeout = new Timeout();
+    onDestroy(stickIfOpenTimeout.clear);
     let stickIfOpen = $state(false);
     const open = $derived(getOpen());
     const openReason = $derived(getOpenReason());

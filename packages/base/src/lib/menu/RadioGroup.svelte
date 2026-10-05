@@ -3,7 +3,7 @@
   // Original MenuRadioGroup controlled/cancellation/label/context composition (MIT).
   import RenderElement from '../internals/RenderElement.svelte';
   import { Controlled } from '@sveltery/utils/Controlled';
-  
+
   import { provideMenuRadioGroupContext } from './radio-group/MenuRadioGroupContext.js';
   import { provideMenuGroupContext, type MenuGroupContext } from './group/MenuGroupContext.js';
   import type { MenuRadioGroupProps, MenuRadioGroup } from './types.js';

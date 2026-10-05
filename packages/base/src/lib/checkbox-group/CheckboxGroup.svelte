@@ -3,8 +3,8 @@
   // Source business port of Base UI v1.8.0 CheckboxGroup.tsx. MIT.
   import RenderElement from '../internals/RenderElement.svelte';
   import { Controlled } from '@sveltery/utils/Controlled';
-  
-  
+
+
   import { EMPTY_ARRAY } from '@sveltery/utils/empty';
   import { areArraysEqual } from '@sveltery/utils/areArraysEqual';
   import { useBaseUiId } from '../internals/useBaseUiId.js';
@@ -17,7 +17,7 @@
   import { fieldValidityMapping } from '../internals/field-constants/constants.js';
   import { useCheckboxGroupParent } from './useCheckboxGroupParent.svelte.js';
   import { useFormContext } from '../internals/form-context/FormContext.js';
-  import { useValueChanged } from '../internals/useValueChanged.svelte.js';
+  import { ValueChanged } from '../internals/ValueChanged.svelte.js';
   import type {
     CheckboxGroupProps,
     CheckboxGroupState,
@@ -86,7 +86,7 @@
     () => field.name,
   );
   $effect(() => field.setFilled(value.length > 0));
-  useValueChanged(
+  new ValueChanged(
     () => value,
     () => () => {
       if (field.name) form.clearErrors(field.name);

@@ -11,6 +11,8 @@ it('cancels a rendered utility owner before the real browser frame and timer fir
     await tick(); component.schedule(); await unmount(component);
     await vi.waitFor(() => expect(component.pending()).toEqual({ frame: null, timeout: false }));
     await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+    // Observe beyond the actual 10ms timer deadline as well as the frame.
+    await new Promise<void>(resolve => setTimeout(resolve, 20));
     expect(events).toEqual([]);
   } finally { target.remove(); resetAnimationFrameScheduler(); }
 });

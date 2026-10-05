@@ -3,7 +3,7 @@
   // MIT: THIRD_PARTY_NOTICES.md; pin 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
   import { getAllContexts, setContext, type Snippet } from 'svelte';
   import type { HTMLAttributes } from 'svelte/elements';
-  
+
   import { addEventListener } from '@sveltery/utils/addEventListener';
   import { mergeCleanups } from '@sveltery/utils/mergeCleanups';
   import type { MergedRef } from '@sveltery/utils/useMergedRefs';

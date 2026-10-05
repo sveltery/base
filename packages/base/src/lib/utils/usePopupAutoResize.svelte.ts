@@ -1,6 +1,6 @@
 // Original usePopupAutoResize full measurement/restore/animation business (MIT).
-import { untrack } from 'svelte';
-import { useAnimationFrame } from '@sveltery/utils/useAnimationFrame';
+import { onDestroy, untrack } from 'svelte';
+import { AnimationFrame } from '@sveltery/utils/useAnimationFrame';
 
 
 import { NOOP, EMPTY_OBJECT } from '@sveltery/utils/empty';
@@ -16,7 +16,8 @@ import * as CommonPositionerCssVars from './CommonPositionerCssVars.js';
 export function usePopupAutoResize(getParameters: () => UsePopupAutoResizeParameters) {
     const { popupElement, positionerElement, content, mounted, onMeasureLayout: onMeasureLayoutParam, onMeasureLayoutComplete: onMeasureLayoutCompleteParam, side, direction, } = $derived(getParameters());
     const runOnceAnimationsFinish = useAnimationsFinished({ get current() { return popupElement; } }, () => true);
-    const animationFrame = useAnimationFrame();
+    const animationFrame = new AnimationFrame();
+    onDestroy(animationFrame.cancel);
     const committedDimensionsRef = { current: null as Dimensions | null };
     const isInitialRenderRef = { current: true };
     const restoreAnchoringStylesRef = { current: NOOP };

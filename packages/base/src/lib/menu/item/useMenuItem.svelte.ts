@@ -1,6 +1,6 @@
 // Original useMenuItem full business body, native button/ref composition (MIT).
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-empty-object-type -- Retain Original erased store/empty state contracts. */
-import { createMergedRefs } from '@sveltery/utils/useMergedRefs';
+import { MergedRefs } from '@sveltery/utils/useMergedRefs';
 import { useButton } from '../../internals/use-button/useButton.svelte.js';
 import { mergeProps } from '../../merge-props/index.js';
 import type { HTMLProps } from '../../internals/types.js';
@@ -39,8 +39,8 @@ export function useMenuItem(getParams: () => UseMenuItemParameters): UseMenuItem
             },
         }, externalProps, getButtonProps);
     };
-    const merger = createMergedRefs<HTMLElement>();
-    const mergedRef = merger.useMergedRefs(itemRef, buttonRef);
+    const merger = new MergedRefs<HTMLElement>();
+    const mergedRef = merger.merge(itemRef, buttonRef);
     return { getItemProps, itemRef: mergedRef };
 }
 export interface UseMenuItemParameters {

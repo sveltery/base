@@ -4,11 +4,11 @@
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
   import { useFieldControlNativeName } from '../../internals/field-control-name/FieldControlNameContext.js';
   import RenderElement from '../../internals/RenderElement.svelte';
-  import { createMergedRefs } from '@sveltery/utils/useMergedRefs';
+  import { MergedRefs } from '@sveltery/utils/useMergedRefs';
   import { createRefAttachment } from '../../internals/nativeRefAttachment.js';
   import type { HTMLInputAttributes } from 'svelte/elements';
   import { Controlled } from '@sveltery/utils/Controlled';
-  
+
   import { visuallyHidden, visuallyHiddenInput } from '@sveltery/utils/visuallyHidden';
   import { toNativeStyle } from '../../internals/nativeProps.js';
   import { useBaseUiId } from '../../internals/useBaseUiId.js';
@@ -24,7 +24,7 @@
   import { useLabelableId } from '../../internals/labelable-provider/useLabelableId.svelte.js';
   import { createChangeEventDetails } from '../../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../../internals/reasons.js';
-  import { useValueChanged } from '../../internals/useValueChanged.svelte.js';
+  import { ValueChanged } from '../../internals/ValueChanged.svelte.js';
   import type { SwitchRootProps, SwitchRootState } from '../types.js';
   let {
     checked: checkedProp,
@@ -73,7 +73,7 @@
     () => nameProp,
   );
   $effect(() => field.setFilled(checked));
-  useValueChanged(
+  new ValueChanged(
     () => checked,
     () => () => {
       formContext.clearErrors(name);
@@ -180,11 +180,11 @@
     ],
     stateAttributesMapping,
   });
-  const { useMergedRefs } = createMergedRefs<HTMLInputElement>();
+  const refsMerger = new MergedRefs<HTMLInputElement>();
   const resolveInputAttachment = createRefAttachment<HTMLInputElement>(() => {});
   const inputAttachment = $derived(
     resolveInputAttachment(
-      useMergedRefs(inputRef, externalInputRef, field.validation.inputRef),
+      refsMerger.merge(inputRef, externalInputRef, field.validation.inputRef),
     ),
   );
 </script>

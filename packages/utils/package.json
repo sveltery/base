@@ -92,11 +92,6 @@
       "types": "./dist/useMergedRefs.d.ts",
       "default": "./dist/useMergedRefs.js"
     },
-    "./usePreviousValue": {
-      "types": "./dist/usePreviousValue.svelte.d.ts",
-      "svelte": "./dist/usePreviousValue.svelte.js",
-      "default": "./dist/usePreviousValue.svelte.js"
-    },
     "./useScrollLock": {
       "types": "./dist/useScrollLock.svelte.d.ts",
       "svelte": "./dist/useScrollLock.svelte.js",
@@ -131,6 +126,11 @@
     "./stringifyLocale": {
       "types": "./dist/stringifyLocale.d.ts",
       "default": "./dist/stringifyLocale.js"
+    },
+    "./PreviousValue": {
+      "types": "./dist/PreviousValue.svelte.d.ts",
+      "svelte": "./dist/PreviousValue.svelte.js",
+      "default": "./dist/PreviousValue.svelte.js"
     }
   },
   "keywords": [

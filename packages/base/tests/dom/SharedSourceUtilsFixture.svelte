@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { untrack } from 'svelte';
+  import { onDestroy, untrack } from 'svelte';
   import { Controlled } from '@sveltery/utils/Controlled';
-  import { useTimeout } from '@sveltery/utils/useTimeout';
-  import { useValueChanged } from '../../src/lib/internals/useValueChanged.svelte.js';
+  import { Timeout } from '@sveltery/utils/useTimeout';
+  import { ValueChanged } from '../../src/lib/internals/ValueChanged.svelte.js';
   import Child from './SharedSourceUtilsChild.svelte';
 
   let { initialControlled, initialDefault, events = [] }: {
@@ -35,7 +35,8 @@
   initialized += 1;
   const ref = { current: { seed: 'seed' } };
   const stable = () => ownerCallback(owner);
-  const timeout = useTimeout();
+  const timeout = new Timeout();
+  onDestroy(timeout.clear);
   untrack(() => events.push(`parent-setup:${stable()}`));
 
   $effect(() => {
@@ -55,7 +56,7 @@
     stable();
   });
 
-  useValueChanged(() => changedValue.value, () => valueChangeCallback);
+  new ValueChanged(() => changedValue.value, () => valueChangeCallback);
 
   export const setControlled = (next: unknown) => { controlled = next; };
   export const setDefault = (next: unknown) => { defaultValue = next; };

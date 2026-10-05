@@ -2,11 +2,11 @@
   import { setContext } from 'svelte';
   import {
     ClosePartContext,
-    useClosePartCount,
+    ClosePartCount,
   } from '../../src/lib/utils/closePart.svelte.js';
   import Child from './PopupClosePartChild.svelte';
 
-  const count = useClosePartCount();
+  const count = new ClosePartCount();
   setContext(ClosePartContext, count.context);
 
   let first = $state(false);

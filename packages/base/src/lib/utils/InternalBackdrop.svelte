@@ -1,13 +1,13 @@
 <script lang="ts">
   // Original InternalBackdrop cutout/props/style body; shared native ref attachment (MIT).
   import type { HTMLAttributes } from 'svelte/elements';
-  import { createMergedRefs, type MergedRef } from '@sveltery/utils/useMergedRefs';
+  import { MergedRefs, type MergedRef } from '@sveltery/utils/useMergedRefs';
   import { createRefAttachment } from '../internals/nativeRefAttachment.js';
   import { toNativeStyle } from '../internals/nativeProps.js';
   let { cutout, ref, ...props }: HTMLAttributes<HTMLDivElement> & { cutout?: Element | null; ref?: MergedRef<HTMLDivElement> } = $props();
-  const refs = createMergedRefs<HTMLDivElement>();
+  const refs = new MergedRefs<HTMLDivElement>();
   const resolveAttachment = createRefAttachment<HTMLDivElement>(() => {});
-  const attachment = $derived(resolveAttachment(refs.useMergedRefs(ref, null)));
+  const attachment = $derived(resolveAttachment(refs.merge(ref, null)));
   const clipPath = $derived.by(() => {
     if (!cutout) return undefined;
     const rect = cutout.getBoundingClientRect();

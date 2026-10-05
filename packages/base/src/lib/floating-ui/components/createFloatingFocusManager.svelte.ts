@@ -1,15 +1,16 @@
+import { onDestroy } from 'svelte';
 // Ported business body from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
 import { getNodeName, isHTMLElement } from '@floating-ui/utils/dom';
 import { addEventListener } from '@sveltery/utils/addEventListener';
 import { mergeCleanups } from '@sveltery/utils/mergeCleanups';
-import { createMergedRefs } from '@sveltery/utils/useMergedRefs';
+import { MergedRefs } from '@sveltery/utils/useMergedRefs';
 
 
-import { useTimeout } from '@sveltery/utils/useTimeout';
+import { Timeout } from '@sveltery/utils/useTimeout';
 import { platform } from '@sveltery/utils/platform';
 import type { InteractionType } from '@sveltery/utils/useEnhancedClickHandler';
-import { useAnimationFrame } from '@sveltery/utils/useAnimationFrame';
+import { AnimationFrame } from '@sveltery/utils/useAnimationFrame';
 import { ownerDocument, ownerWindow } from '@sveltery/utils/owner';
 import {
   activeElement,
@@ -298,18 +299,22 @@ export function createFloatingFocusManager(getProps: () => FloatingFocusManagerP
   const beforeGuardRef = { current: null as HTMLSpanElement | null };
   const afterGuardRef = { current: null as HTMLSpanElement | null };
 
-  const beforeRefs = createMergedRefs<HTMLSpanElement>();
-  const afterRefs = createMergedRefs<HTMLSpanElement>();
-  const mergedBeforeGuardRef = $derived(beforeRefs.useMergedRefs(
+  const beforeRefs = new MergedRefs<HTMLSpanElement>();
+  const afterRefs = new MergedRefs<HTMLSpanElement>();
+  const mergedBeforeGuardRef = $derived(beforeRefs.merge(
     beforeGuardRef,
     beforeContentFocusGuardRef,
     portalContext?.beforeInsideRef,
   ));
-  const mergedAfterGuardRef = $derived(afterRefs.useMergedRefs(afterGuardRef, portalContext?.afterInsideRef));
+  const mergedAfterGuardRef = $derived(afterRefs.merge(afterGuardRef, portalContext?.afterInsideRef));
 
-  const blurTimeout = useTimeout();
-  const pointerDownTimeout = useTimeout();
-  const restoreFocusFrame = useAnimationFrame();
+  const blurTimeout = new Timeout();
+
+  onDestroy(blurTimeout.clear);
+  const pointerDownTimeout = new Timeout();
+  onDestroy(pointerDownTimeout.clear);
+  const restoreFocusFrame = new AnimationFrame();
+  onDestroy(restoreFocusFrame.cancel);
 
   const isInsidePortal = portalContext != null;
   const floatingFocusElement = $derived(getFloatingFocusElement(floating));

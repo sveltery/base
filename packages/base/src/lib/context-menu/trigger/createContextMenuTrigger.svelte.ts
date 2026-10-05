@@ -1,8 +1,8 @@
 // Original ContextMenuTrigger full pointer/long-press/listener business (MIT).
-import { untrack } from 'svelte';
+import { onDestroy, untrack } from 'svelte';
 import { addEventListener } from '@sveltery/utils/addEventListener';
 import { ownerDocument } from '@sveltery/utils/owner';
-import { useTimeout } from '@sveltery/utils/useTimeout';
+import { Timeout } from '@sveltery/utils/useTimeout';
 
 import { contains, getTarget } from '../../floating-ui/utils/element.js';
 import { stopEvent } from '../../floating-ui/utils/event.js';
@@ -26,8 +26,10 @@ export function createContextMenuTrigger(getProps: () => ContextMenuTriggerProps
             x: number;
             y: number;
         } | null };
-    const longPressTimeout = useTimeout();
-    const allowMouseUpTimeout = useTimeout();
+    const longPressTimeout = new Timeout();
+    onDestroy(longPressTimeout.clear);
+    const allowMouseUpTimeout = new Timeout();
+    onDestroy(allowMouseUpTimeout.clear);
     const allowMouseUpRef = { current: false };
     const mouseUpAbortControllerRef = { current: null as AbortController | null };
     function handleLongPress(x: number, y: number, event: MouseEvent | TouchEvent) {

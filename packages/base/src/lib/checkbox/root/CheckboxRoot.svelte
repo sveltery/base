@@ -5,12 +5,12 @@
   import { useFieldControlNativeName } from '../../internals/field-control-name/FieldControlNameContext.js';
   import { useFieldControlNativeValue } from '../../internals/field-control-value/FieldControlValueContext.js';
   import RenderElement from '../../internals/RenderElement.svelte';
-  import { createMergedRefs } from '@sveltery/utils/useMergedRefs';
+  import { MergedRefs } from '@sveltery/utils/useMergedRefs';
   import { createRefAttachment } from '../../internals/nativeRefAttachment.js';
   import { mergePropsN } from '../../merge-props/index.js';
   import type { HTMLInputAttributes } from 'svelte/elements';
   import { Controlled } from '@sveltery/utils/Controlled';
-  
+
   import { visuallyHidden, visuallyHiddenInput } from '@sveltery/utils/visuallyHidden';
   import { toNativeStyle } from '../../internals/nativeProps.js';
   import { useEnterSubmit } from '../utils/useEnterSubmit.svelte.js';
@@ -29,7 +29,7 @@
   import { setCheckboxRootContext } from './CheckboxRootContext.js';
   import { createChangeEventDetails } from '../../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../../internals/reasons.js';
-  import { useValueChanged } from '../../internals/useValueChanged.svelte.js';
+  import { ValueChanged } from '../../internals/ValueChanged.svelte.js';
   import type { CheckboxRootProps, CheckboxRootState } from '../types.js';
   let {
     checked: checkedProp,
@@ -158,7 +158,7 @@
       if (inputRef.current) inputRef.current.indeterminate = computedIndeterminate;
       if (!groupContext) field.setFilled(checked);
     });
-  useValueChanged(
+  new ValueChanged(
     () => checked,
     () => () => {
       if (groupContext) return;
@@ -318,11 +318,11 @@
       (props: Record<string, unknown>) => validation.getValidationProps(disabled, props),
     ]),
   );
-  const { useMergedRefs } = createMergedRefs<HTMLInputElement>();
+  const refsMerger = new MergedRefs<HTMLInputElement>();
   const resolveInputAttachment = createRefAttachment<HTMLInputElement>(() => {});
   const inputAttachment = $derived(
     resolveInputAttachment(
-      useMergedRefs(inputRefProp, inputRef, parent ? undefined : registerInput),
+      refsMerger.merge(inputRefProp, inputRef, parent ? undefined : registerInput),
     ),
   );
 </script>

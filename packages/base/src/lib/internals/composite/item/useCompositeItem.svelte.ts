@@ -1,5 +1,5 @@
 // Ported from Base UI v1.8.0 useCompositeItem; MIT: THIRD_PARTY_NOTICES.md.
-import { createMergedRefs } from '@sveltery/utils/useMergedRefs';
+import { MergedRefs } from '@sveltery/utils/useMergedRefs';
 import { useCompositeRootContext } from '../root/CompositeRootContext.js';
 import { useCompositeListItem } from '../list/useCompositeListItem.svelte.js';
 export function useCompositeItem(
@@ -8,10 +8,10 @@ export function useCompositeItem(
   const root = useCompositeRootContext();
   const item = useCompositeListItem(getParameters);
   const itemRef = { current: null as HTMLElement | null };
-  const { useMergedRefs } = createMergedRefs<HTMLElement>();
+  const refsMerger = new MergedRefs<HTMLElement>();
   return {
     get compositeRef() {
-      return useMergedRefs(item.ref, itemRef);
+      return refsMerger.merge(item.ref, itemRef);
     },
     get compositeProps() {
       const isHighlighted = root.highlightedIndex === item.index();

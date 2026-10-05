@@ -50,9 +50,9 @@
 </script>
 <script lang="ts">
   // Base UI1.8.0 ScrollAreaViewport.tsx source geometry/lifetimes; MIT.
-  import { onMount, untrack } from 'svelte';
+  import { onDestroy, onMount, untrack } from 'svelte';
   import RenderElement from '../../internals/RenderElement.svelte';
-  import { useTimeout } from '@sveltery/utils/useTimeout';
+  import { Timeout } from '@sveltery/utils/useTimeout';
   import { clamp } from '@sveltery/utils/clamp';
   import { styleDisableScrollbar } from '../../utils/styles.js';
   import { useDirection } from '../../direction-provider/context.js';
@@ -93,8 +93,10 @@
   const getDirection = useDirection();
   const programmaticScrollRef = { current: true };
   const lastMeasuredViewportMetricsRef = { current: [NaN, NaN, NaN, NaN] };
-  const scrollEndTimeout = useTimeout();
-  const waitForAnimationsTimeout = useTimeout();
+  const scrollEndTimeout = new Timeout();
+  onDestroy(scrollEndTimeout.clear);
+  const waitForAnimationsTimeout = new Timeout();
+  onDestroy(waitForAnimationsTimeout.clear);
   function computeThumbPosition() {
     const viewportEl = viewportRef.current;
     const scrollbarYEl = scrollbarYRef.current;

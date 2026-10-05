@@ -1,7 +1,7 @@
 // Original usePopupViewport complete captured DOM/content-key/transition business (MIT).
-import { flushSync, untrack, type Snippet } from 'svelte';
-import { useAnimationFrame } from '@sveltery/utils/useAnimationFrame';
-import { usePreviousValue } from '@sveltery/utils/usePreviousValue';
+import { onDestroy, flushSync, untrack, type Snippet } from 'svelte';
+import { AnimationFrame } from '@sveltery/utils/useAnimationFrame';
+import { PreviousValue } from '@sveltery/utils/PreviousValue';
 
 
 import { ownerDocument } from '@sveltery/utils/owner';
@@ -43,7 +43,7 @@ export function usePopupViewport(getParameters: () => {
     const mounted = $derived(store.useState('mounted'));
     const popupElement = $derived(store.useState('popupElement'));
     const positionerElement = $derived(store.useState('positionerElement'));
-    const previousActiveTrigger = usePreviousValue(() => open ? activeTrigger : null);
+    const previousActiveTrigger = new PreviousValue(() => open ? activeTrigger : null);
     // Remount current content on trigger changes (and once more when payload lags) to avoid DOM reuse flashes.
     // The key bumps immediately on trigger switches, then again if the payload arrives on a later render.
     const currentContentKey = usePopupContentKey(() => activeTriggerId, () => payload);
@@ -55,7 +55,8 @@ export function usePopupViewport(getParameters: () => {
     let previousContainerElement = $state.raw<HTMLDivElement | null>(null);
     const previousContainerRef = { get current() { return previousContainerElement; } };
     const onAnimationsFinished = useAnimationsFinished(currentContainerRef, () => true);
-    const cleanupFrame = useAnimationFrame();
+    const cleanupFrame = new AnimationFrame();
+    onDestroy(cleanupFrame.cancel);
     const cleanupControllerRef = { current: null as AbortController | null };
     let previousContentDimensions = $state.raw<Dimensions | null>(null);
     let showStartingStyleAttribute = $state.raw<boolean>(false);
@@ -98,15 +99,15 @@ export function usePopupViewport(getParameters: () => {
         // When a trigger changes, set the captured children HTML to state,
         // so we can render both new and old content.
         if (activeTrigger &&
-            previousActiveTrigger() &&
-            activeTrigger !== previousActiveTrigger() &&
+            previousActiveTrigger.value &&
+            activeTrigger !== previousActiveTrigger.value &&
             lastHandledTriggerRef.current !== activeTrigger &&
             capturedNodeRef.current) {
             previousContentNode = capturedNodeRef.current;
             showStartingStyleAttribute = true;
             // Calculate the relative position between the previous and new trigger,
             // so we can pass it to the style hook for animation purposes.
-            const offset = calculateRelativePosition(previousActiveTrigger()!, activeTrigger);
+            const offset = calculateRelativePosition(previousActiveTrigger.value!, activeTrigger);
             newTriggerOffset = offset;
             lastHandledTriggerRef.current = activeTrigger;
         }

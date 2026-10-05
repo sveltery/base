@@ -54,9 +54,7 @@ export function createMenuSubmenuTrigger(getProps: () => MenuSubmenuTriggerProps
         triggerElementRef.current = el;
         store.set('activeTriggerElement', el);
     };
-    // A stable ref does not re-fire when the id changes, so register the rendered element here
-    // instead. On React 17 the id also starts out `undefined`, so this is what registers the trigger
-    // at all.
+    // The rendered ref keeps its identity; native ID/Store changes migrate its registration.
     $effect(() => {
         void thisTriggerId;
         void store;

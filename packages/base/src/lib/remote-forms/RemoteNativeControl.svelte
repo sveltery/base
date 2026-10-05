@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onDestroy } from 'svelte';
   // Narrow native-host boundary. Source Field registration, validation, labels
   // and callback/dirty ordering are reused; native hosts own selection and reset.
   // FieldControl business branches: Base UI 1.8.0 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
@@ -11,12 +12,12 @@
   import { useRegisterFieldControl } from '../internals/field-register-control/useRegisterFieldControl.svelte.js';
   import { useFieldControlNativeName } from '../internals/field-control-name/FieldControlNameContext.js';
   import { useBaseUiId } from '../internals/useBaseUiId.js';
-  
-  import { useTimeout } from '@sveltery/utils/useTimeout';
+
+  import { Timeout } from '@sveltery/utils/useTimeout';
   import { ownerDocument } from '@sveltery/utils/owner';
   import { activeElement } from '@sveltery/utils/shadowDom';
-  
-  import { useValueChanged } from '../internals/useValueChanged.svelte.js';
+
+  import { ValueChanged } from '../internals/ValueChanged.svelte.js';
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../internals/reasons.js';
   import { fieldValidityMapping } from '../internals/field-constants/constants.js';
@@ -53,12 +54,13 @@
     return field.validation.registerInput(element, { controlRef, value: undefined });
   });
   $effect(() => field.setFilled(filled(getValue())));
-  useValueChanged(() => ownerValue, () => () => {
+  new ValueChanged(() => ownerValue, () => () => {
     form.clearErrors(name);
     field.setDirty(!sameValue(ownerValue, field.validityData.initialValue));
     field.validation.change(ownerValue);
   });
-  const enterValidationTimeout = useTimeout();
+  const enterValidationTimeout = new Timeout();
+  onDestroy(enterValidationTimeout.clear);
   $effect(() => {
     if (descriptor.autofocus && controlRef.current === activeElement(ownerDocument(controlRef.current))) field.setFocused(true);
   });

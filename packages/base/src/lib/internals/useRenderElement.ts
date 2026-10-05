@@ -1,6 +1,6 @@
 // Mechanically ported from mui/base-ui v1.8.0 useRenderElement.tsx at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
-import { createMergedRefs, type MergedRef, type MergedRefCallback } from '@sveltery/utils/useMergedRefs';
+import { MergedRefs, type MergedRef, type MergedRefCallback } from '@sveltery/utils/useMergedRefs';
 import { mergeObjects } from '@sveltery/utils/mergeObjects';
 import { EMPTY_OBJECT } from '@sveltery/utils/empty';
 import { getStateAttributesProps, type StateAttributesMapping } from './getStateAttributesProps.js';
@@ -13,7 +13,7 @@ import type { BaseUIComponentProps, ComponentRenderFn, HTMLProps } from './types
 
 /** Native setup owner of the single merged-ref storage shared by both source ref branches. */
 export function createRenderElement<Host extends Element = Element>() {
-  const { useMergedRefs, useMergedRefsN } = createMergedRefs<Host>();
+  const refsMerger = new MergedRefs<Host>();
 
   function useRenderElement<State extends object>(
     element: string | undefined,
@@ -67,19 +67,19 @@ export function createRenderElement<Host extends Element = Element>() {
       }
 
       if (!enabled) {
-        void useMergedRefs(null, null);
+        void refsMerger.merge(null, null);
       } else if (Array.isArray(ref)) {
         // Native snippets have no cloneable embedded ref; preserve the source slot for fixed/N memo identity.
-        outProps.ref = useMergedRefsN([outProps.ref, null, ...ref, ...forwardedRefs]);
+        outProps.ref = refsMerger.mergeN([outProps.ref, null, ...ref, ...forwardedRefs]);
       } else if (forwardedRefs.length > 0) {
-        outProps.ref = useMergedRefsN([
+        outProps.ref = refsMerger.mergeN([
           outProps.ref,
           null,
           ref as MergedRef<Host> | null | undefined,
           ...forwardedRefs,
         ]);
       } else {
-        outProps.ref = useMergedRefs(outProps.ref, null, ref as MergedRef<Host> | null | undefined);
+        outProps.ref = refsMerger.merge(outProps.ref, null, ref as MergedRef<Host> | null | undefined);
       }
     }
 

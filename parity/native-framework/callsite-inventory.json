@@ -12,7 +12,7 @@
       "previousCallHashes": [
         "e95305a75003ff6876f2a5c3cca9b6a4f4ab570210963f9babe3ead0acddcbf7"
       ],
-      "currentFileSha256": "ed25329df61f8980912428f92a1bd2a4de34b0b2045df85d9e5dfdf97474834c"
+      "currentFileSha256": "d014f54aa4cdab64d8da47ea0c3e23ed51b6b4b69c549f41606965648eb0eccc"
     },
     {
       "path": "packages/base/src/lib/checkbox/root/CheckboxRoot.svelte",
@@ -24,7 +24,7 @@
         "368e457db312cbbf06963cf6addeb6469095a0aaf0e512996bc0f4a66a9f1fb1",
         "8a07c65e03f4f2492bdf94eeddc8f5e92defeca7383921fef17570453a2f92d4"
       ],
-      "currentFileSha256": "0f677dc05080549a2aec9bfb7ff494a74834570df045511012579bbc28434c64"
+      "currentFileSha256": "2756992c27345ff4a138619d84ea2c00a308c223b2260bf7b13f590e0b5e2a14"
     },
     {
       "path": "packages/base/src/lib/checkbox-group/CheckboxGroup.svelte",
@@ -39,7 +39,7 @@
         "6c5208e719d9cbe9037f93ad80b723b5ed1217aee1340916a9456e3fccbb54b8",
         "c84ee1e5d656ff5d1afdae3a11e7f147e1d75a333c46e6c11853ccb5820948bb"
       ],
-      "currentFileSha256": "27d354ecad1e538faba00460b954976d138b02e0533f06c89cea96ba5d8f6b5f"
+      "currentFileSha256": "6dad1fef9e70359e8068f2c7a9bceb04289361e328ed40dc91d9fc1c30e6e72f"
     },
     {
       "path": "packages/base/src/lib/checkbox-group/useCheckboxGroupParent.svelte.ts",
@@ -61,7 +61,7 @@
         "096a33dfe6b807d3eb983e525f57f7b4c88393e49797807ab48b6cb6d195dfce",
         "0f06744b474236bc5b28f3ec1364acfe96d0ca08e7f397c7e36c28c3aa55bf8d"
       ],
-      "currentFileSha256": "0056136c754f1c004b0f816423b04627651892ce3ad67b911a2e6c1165131383"
+      "currentFileSha256": "3e0d8efcdaf72eee729fcf0f840a9dd1541c134a536ec178ece4a55f8ed1be5b"
     },
     {
       "path": "packages/base/src/lib/dialog/root/DialogInteractions.svelte",
@@ -71,7 +71,7 @@
       "previousCallHashes": [
         "8c8ddae228aee36820880fdd74e840c0531e82c60ddbcf9aac0f2ccdb3c38e5a"
       ],
-      "currentFileSha256": "8f34bdb9b478ad4ea293be1dbf968530d8797fbff0230858623a82b9c74a8412"
+      "currentFileSha256": "02db118526297a21119222a76fdd4de559cfe1afaf10d4f308f813ffd84bb182"
     },
     {
       "path": "packages/base/src/lib/field/Control.svelte",
@@ -86,7 +86,7 @@
         "04b9419f74a16e2e5c7a3aefa6ad0f392cd9500ee6c96890b3ad3ddaf2812a5e",
         "d9aace464640dd09138d77acc02746774273b460fc4e950ee4281c5b0dafa155"
       ],
-      "currentFileSha256": "2a09c7cc549958e6938372e286c91be0528405959c4cb995d8cb433463228ea3"
+      "currentFileSha256": "680733ce5b98d3005b4d6896039ce83eec1f6f5342a5b7afdc2cf5eebf96d7fd"
     },
     {
       "path": "packages/base/src/lib/field/Description.svelte",
@@ -96,7 +96,7 @@
       "previousCallHashes": [
         "e6008c462e12df589484c5314f3d1449ded67cae95d9daab2b451740f80467f5"
       ],
-      "currentFileSha256": "12dd1117d33ef4b19393dd7cdafd2dd0e4c028ff802cdc68c199d330a84356e1"
+      "currentFileSha256": "8266019378e92a8554ac3dae2e76177a51ac599b68592345f563ded386d939da"
     },
     {
       "path": "packages/base/src/lib/field/Error.svelte",
@@ -106,7 +106,7 @@
       "previousCallHashes": [
         "a848f0d9b59df7c32cb7df1a7e8e0439d8fabffb3124f5f15919e45929a64c42"
       ],
-      "currentFileSha256": "9193b3d688cc97605311141b7b9fd31b2aa1b5f50569c6f8e79005add22f1efb"
+      "currentFileSha256": "a70381785a1481ae964a91092dde7ee6126b66bb127c65bff5b4322785bf191d"
     },
     {
       "path": "packages/base/src/lib/field/Label.svelte",
@@ -116,7 +116,7 @@
       "previousCallHashes": [
         "d5451fee4c100639b4ae326bcb482756498bc6099d35ff93b882483e6fd4bb3a"
       ],
-      "currentFileSha256": "2c27a8e69739e881e6a4c8fd04d0767180053b76133912985ad098dba651aedb"
+      "currentFileSha256": "49cd51d44553780f4c4d511030586add5e0c91ef233b53ceccbd9b44a0365acd"
     },
     {
       "path": "packages/base/src/lib/field/root/FieldRootInner.svelte",
@@ -132,7 +132,7 @@
         "e304f08b73ee8618274cf13ad6780e7bc528dd5c5c697f591efa253a177b35e8",
         "bbad94e9848d6b0de1b7d5f73d93407804071c113427509fc0d33aa63fa43da1"
       ],
-      "currentFileSha256": "4b7a24c7ba9dde11e835ff835916dcd456ffa64b2e6b59951ea5a3b540c1d7ed"
+      "currentFileSha256": "3f7b0432d2bdec17dfae05acc6df88fe5746a79ef49399538f21c4b0b532a41b"
     },
     {
       "path": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
@@ -147,7 +147,7 @@
         "1db070e3bb25136563053f0a3faa72dca8381d26c045e1ff535391d7414db2bd",
         "fb9ccca9afa0d69ccba12bdf808f0baa4b52443fe6347376779e85b157c4a50b"
       ],
-      "currentFileSha256": "deebbf89397fd2916c5906317d137bbdff90d4fcd3bb6dd6fe0a95b9f45de32d"
+      "currentFileSha256": "24903684183b96aae42dad7faad4d1e3e89ee7b2c3fd4beccc524d3534e776b6"
     },
     {
       "path": "packages/base/src/lib/floating-ui/components/FloatingDelayGroup.svelte",
@@ -157,7 +157,7 @@
       "previousCallHashes": [
         "139696582692ef9022b30bf73c5cb80d9248ddf140e90c699cc51d3e7aef6060"
       ],
-      "currentFileSha256": "3ad74dae6316459779279d85fc9b600c7cd0d0ecdcb49def95cc0e9a1caba7e8"
+      "currentFileSha256": "b51eb02e6028aad7df37fc2a44dd5236ed5f3a08b63d980228f3c9d9c6b895dd"
     },
     {
       "path": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
@@ -167,7 +167,7 @@
       "previousCallHashes": [
         "e7aaf2654c412c909f4b65602184af6aa4e5227fb05366cb8640d4d600c1ae7f"
       ],
-      "currentFileSha256": "45f744e1f6f91ed3d6928c7da7bfe39faac32ac5784323d62577eba6b75a06cb"
+      "currentFileSha256": "707dd120b5cde470178b6315d449515a7f17cec2f0d171d281b2b804610806e8"
     },
     {
       "path": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
@@ -199,7 +199,7 @@
         "818d5acc2647817bd61a41f7f78e09a8516e79139cd2d3734412b963b88b7035",
         "4f731f386921ce82c00602c3fb8e402a4523e48f316ccf2881fd3449d5a27083"
       ],
-      "currentFileSha256": "bd54d971d8a4f36d785ccbf001d7bb558e2b35687232ece84d669aa68cce0c11"
+      "currentFileSha256": "82fd7360bc42e3370253083084986bd672bb6de33851239fbbc64f829c9b06fa"
     },
     {
       "path": "packages/base/src/lib/floating-ui/hooks/useClientPoint.svelte.ts",
@@ -251,7 +251,7 @@
         "ea62c3d6ef9ba6f0d06f690b2e751307ad9d013735eb059b718205b5c94d78ab",
         "9e138388cbfb7c3d9e8c1b060ec371b32bf14007fcbbdd048c158bb6bfd58809"
       ],
-      "currentFileSha256": "2ea0ce01632cb2065908fda7466e4be6d20fc7a951a2076391621a3c0190c83e"
+      "currentFileSha256": "9cb2079d0a855765fe3d4d8683b4ec3e6a0bc953966d60f150a9dfc6369e2daf"
     },
     {
       "path": "packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts",
@@ -284,7 +284,7 @@
         "f1edaf0144cadcf3dbf7f5afd5758792a2df61f365cea87dbae3f68a4aeb4544",
         "eeef2224d5c795e07bb21431c726697fba0f3b86cbefec87b7c2f7d40159de96"
       ],
-      "currentFileSha256": "0b8dcf2abe0caec7d1646cc8ef7880c995da138c19239dd5819b04a1b5420951"
+      "currentFileSha256": "e16e28e109f66d96fe0676a1a22ce887e746a0a5b8744bdfb75c643671d34514"
     },
     {
       "path": "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts",
@@ -301,7 +301,7 @@
         "504a6b6459ab9856e53c3504984396a4f3b664f1a1562ba419065141b3048874",
         "9815a05643d8759984a3c9dd80e0168dee2afd81327719d967367a08d9707a7f"
       ],
-      "currentFileSha256": "dba6041f447b6d61e9fa9c40f9d0b1466feb416fd9c193617838b3c52897e3b6"
+      "currentFileSha256": "cecd4674386777e60e2e2cadedfa80d8e646d4551930771752befa084765926d"
     },
     {
       "path": "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts",
@@ -354,7 +354,7 @@
         "a02ac178b1386d9a8b3906d34b1b8b3989863d474204d899d76d515f4427a5ae",
         "f74e6bae2fa7da1deaa025b2ecefb02ca0ebc72e7bbbfed3217e64838096e369"
       ],
-      "currentFileSha256": "0630c98fb950b0f44c32f09bc574e37365c03744482d7d570c9aa59d0f110750"
+      "currentFileSha256": "06b3738e0f294d24b5f2a1682ace245e3a59bb49002096d0aa172b1bf477c8b0"
     },
     {
       "path": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
@@ -377,7 +377,7 @@
         "42dc7b5729ca9e86b670f0127e04323fb2285ed101e3ee517a367c94d89b1504",
         "e30f6fd44bd746b775cfe05232af6746c823e19872239e1397b41a952043e57b"
       ],
-      "currentFileSha256": "d78dd7641fc51a0f1d641ba1f1de555e3d7f6408f987d965e6439e41741acfe0"
+      "currentFileSha256": "2157f5db94426f3656d6b8bfdfc0c5f4c759cafefceaab2ded1dd45f9d2f20a2"
     },
     {
       "path": "packages/base/src/lib/form/Form.svelte",
@@ -388,7 +388,7 @@
         "a9e43b38448710d01bebabd2e02474864c85ea03bec6760139898986f8ce9aee",
         "c2e570d094ce4a89fd59fb7ebf19b86c352f4696e0500759ed1b67484244a707"
       ],
-      "currentFileSha256": "6783af5e3e1e80b2238234d70b43f5989cb11602fa40a765215251b6d0c505cd"
+      "currentFileSha256": "802690e29eff3056d4527577052541b5063bc87b9326594505585a4bcd897dda"
     },
     {
       "path": "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
@@ -408,7 +408,7 @@
       "previousCallHashes": [
         "6c2957b3338b6b95251b94e0714142d6a7529297754cd6e13e38e129aba41ddf"
       ],
-      "currentFileSha256": "15bd3c06990acb636da09c87b07a6e733dca897b4c82dc0b93a9e7a89a0a98d7"
+      "currentFileSha256": "b679ac30cbaa48bc6805f3bae5f39f161c4703891c0a3b311fdae3fa25fc84ad"
     },
     {
       "path": "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts",
@@ -496,7 +496,7 @@
       "previousCallHashes": [
         "b8cefee78f6b0ac44554d3893fad9eaea7fd39ff266cd8ade14791c37ce55cfc"
       ],
-      "currentFileSha256": "ac7037992de5a03632498391ecaec313039ba1fdaa32885c38e026b762e61671"
+      "currentFileSha256": "541e40aa71a7af68cd10592ade98c00176b3ce30cc7b4e1764859cee4666d767"
     },
     {
       "path": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
@@ -534,7 +534,8 @@
         "63846d450b66729b8203624d82c03994608af43aed34b5b5960ad2de45765685",
         "a05e4d6df5daba440b4caa30b966dc86adcd916a896abb4184772ffe1aa7c112"
       ],
-      "currentFileSha256": "7e6fa9c5a68395d9d30ed69f81d28b062c886bea735b81755fa14c93f3bec533"
+      "currentFileSha256": "f169e9eec98d817327dd31fc0c39c019173cdb64fac3350b898004222107e54e",
+      "currentPath": "packages/base/src/lib/internals/ValueChanged.svelte.ts"
     },
     {
       "path": "packages/base/src/lib/menu/CheckboxItem.svelte",
@@ -544,7 +545,7 @@
       "previousCallHashes": [
         "721feaac010dcd6349db3909ecd3784fd6f9f3de924be98d40589dec6701ddd5"
       ],
-      "currentFileSha256": "2fdf2368444b5adb4c1c7fa0be16cfbc3664999811d9eb38eaaa61f9a5270d31"
+      "currentFileSha256": "4d137abd3891df04490803007866b7054cb1264c6020c7a5579009b78aab046d"
     },
     {
       "path": "packages/base/src/lib/menu/GroupLabel.svelte",
@@ -554,7 +555,7 @@
       "previousCallHashes": [
         "d766df5c89eba47e20aa49c5e7bb32bf5a2a1e30b4d66ef85c96e95b348e6cc3"
       ],
-      "currentFileSha256": "456da82b14dd454d051846eaeb9810e62d126a9597cb98337ad63a8fc1006c9d"
+      "currentFileSha256": "0e758314608d20353c15f1a4109b74ba9ff8408641df6c3a19736c297428cba6"
     },
     {
       "path": "packages/base/src/lib/menu/Popup.svelte",
@@ -565,7 +566,7 @@
         "8f015971c70f7a866216172364665c3cd5b5e966916a731cc05b08f7f36ad978",
         "e919475aba45c5560066197b8c6bf5faece2bd495fbd241f7f2f8d19790f057c"
       ],
-      "currentFileSha256": "cfe68b7f6adda59e21ad5b5ebd6d1b0eba50693ec6db6a036f1ac8244e0dd3b8"
+      "currentFileSha256": "a9dca93e85262b733b07c32fdc9ea2c957d0512eb91ee78f5ff1814d2c4f097c"
     },
     {
       "path": "packages/base/src/lib/menu/RadioGroup.svelte",
@@ -577,7 +578,7 @@
         "9e658324de4805a276ccff4a7b72231b634e45dda2f96d6186882931bc45a7c5",
         "03d39975e60aa72222a351ecad783d2d57b20c6f8ee239c3fe24318aed1167b7"
       ],
-      "currentFileSha256": "6a32ccef56cadbf86a927790acb82c98414a0ad01e282abaa4b0b2eaa8c073be"
+      "currentFileSha256": "cd95e747d277537cbab004349d9e5e223b6e67e9aabcf64adb938d39ec765a1f"
     },
     {
       "path": "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
@@ -592,7 +593,7 @@
         "89c32d318f911a9ed7960561e85cb78ee0c8e8915ebb8706c3a114f181af6c59",
         "303e5526b74580490a2292015e959832e5af864b0324f928385883863636edd9"
       ],
-      "currentFileSha256": "6d620bc06ae3f06d77f3629dfef398badffadff5c3c5200d34f36ac31df87e5f"
+      "currentFileSha256": "22ab98f47b66dcd6727f5dd8fa6208b326cdabb337242619ff325860158ea11d"
     },
     {
       "path": "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
@@ -614,7 +615,7 @@
         "7040e0fb7a946ea8f0b3e5f12f86f58000ba5c4dc4df9d507b48bb8aff5e6453",
         "99827ffa9d1a054d20eac5ae38765142aa99a139e6a6016f7f6955a84041f90c"
       ],
-      "currentFileSha256": "cfe38102109821505f9997d6c5a2fc95bb0ce9eb322e10a4519bf9efe9dd11d2"
+      "currentFileSha256": "273d29260868e06f36bffe02f53b890a5b680a2d9e6acdb071d2ee65d3fcb1f0"
     },
     {
       "path": "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
@@ -627,7 +628,7 @@
         "43f512e73b349aa952636c0e5c89c17a3fb403271963b3ce0b367c8c158437d9",
         "703c7b4dd6566a1889c36d61ad021da24f8e2ce5ad34a77dd4281ffff6183929"
       ],
-      "currentFileSha256": "c4cbd7e03575efbc300f8ef5b59ab5ae134f3e99c8ed7d6d50267139c22c37a2"
+      "currentFileSha256": "7b4603f44efe3a43e52fa1e93929c6fb59e56bfc004952431efbb681f12908a8"
     },
     {
       "path": "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
@@ -641,7 +642,7 @@
         "a024b066119b381766f1b5ef18fdac97147fe7a48bcd91bb529de2f5975e09cd",
         "bd8f48e0eee41bdcfbea702e8cae8e8dc97daaf696b47690d77e98f03979922c"
       ],
-      "currentFileSha256": "c1daebcf8e7d7d298eb179696881c3b52720c2c11a49474a2a70ace5bdfa85d0"
+      "currentFileSha256": "582a98e4638715568a1c4c7301aac68c686de6fcba450c679cdaa1def425afad"
     },
     {
       "path": "packages/base/src/lib/menubar/Menubar.svelte",
@@ -651,7 +652,7 @@
       "previousCallHashes": [
         "252079292d57dfdaa7fda03b5a3973814b7db1bea29f8f7dcd06d796f8f179c8"
       ],
-      "currentFileSha256": "cad95bb90f00e8943d9090b12a901046f721622022b2ea1b43d68b2ba3a95477"
+      "currentFileSha256": "c72205bacdc0b629a78fb61ede5bedc496693fa6e3929b62a184a76a54f37da5"
     },
     {
       "path": "packages/base/src/lib/popover/Positioner.svelte",
@@ -661,7 +662,7 @@
       "previousCallHashes": [
         "7753c3809beaac0a618114b3abeaeefbeec6ed771b8612a55a7032a020c0bd98"
       ],
-      "currentFileSha256": "7653ffffb11a846505cb0fde9dae5d92b8ba617378556d47a4843d42a9f90031"
+      "currentFileSha256": "06c69775901e4176643d5c88be2a8c0fff63966a9689426500ca6e93cc071383"
     },
     {
       "path": "packages/base/src/lib/popover/Root.svelte",
@@ -671,7 +672,7 @@
       "previousCallHashes": [
         "4da20f634ef0a28fb9b204232b7f97044f2f52075d72711c07325750271118ff"
       ],
-      "currentFileSha256": "df428a534a2e63f92edd2a54ab06056a15514a7df7b678c0938930873cc02da2"
+      "currentFileSha256": "f26509aeebf9675c6e58fea156e10587c764980c017ac4642d1fc02913352a8c"
     },
     {
       "path": "packages/base/src/lib/preview-card/Positioner.svelte",
@@ -681,7 +682,7 @@
       "previousCallHashes": [
         "1f3dd561905532ed78e6d1da7b42dcee76fe45d80d3de775a1abdcb9d4e91697"
       ],
-      "currentFileSha256": "7029f3b2ef5da06e67dfe81e664b37207245480a197d4a3d897b043ffd1b93b1"
+      "currentFileSha256": "6e6f15733bc9e92671196ebcca31f3dcfa36c956af8f635e8b6a48a143d75797"
     },
     {
       "path": "packages/base/src/lib/preview-card/Root.svelte",
@@ -691,7 +692,7 @@
       "previousCallHashes": [
         "0a7d03a4744858f6a52fec644be639bd2c881641dc289821bb3a002486c15a4d"
       ],
-      "currentFileSha256": "c9c91558e8ec86b7c9c43872d7ab994d8624059b5cf00a4d5a7815b62b2e807f"
+      "currentFileSha256": "d309ab74af2bc744105b21cd6633dd0e82f9d598a0d395d75e6d69f60ccfc700"
     },
     {
       "path": "packages/base/src/lib/radio/root/RadioRoot.svelte",
@@ -702,7 +703,7 @@
         "b6a7948c4258588f966a937ea4d8457b9e0d2632042fa1086ec665a1ffe0017b",
         "959680792a0d0e9bfd6b48df4994c9829c3f5223512c0b8a28ef579867a1eb1d"
       ],
-      "currentFileSha256": "9079aa3d87fa20d8e851607469f3a5009073999ecc3e9332bda1bc1e7d4ffdd6"
+      "currentFileSha256": "2918d83bd1cd48df79ae2657d141771353dd584cff565cd6031d83188a65dc9c"
     },
     {
       "path": "packages/base/src/lib/radio-group/RadioGroup.svelte",
@@ -716,7 +717,7 @@
         "3ea943b4e7e5cec912776714a3659454b0d245711601c04b52c7cd9b0ce030f6",
         "4a722ffca4230a22e004e4414af7822197cdfa4ca52373626965c080a33b8557"
       ],
-      "currentFileSha256": "14fe4acfd67b664e97f78c0607b0193afcffc17bbcd9fc624637877c45492875"
+      "currentFileSha256": "9aa46971ac979d3342c35c91ee2a2210712a90818335b7736b77b1b3cdbdf537"
     },
     {
       "path": "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte",
@@ -730,7 +731,7 @@
         "b16b4c60c7bf0889c532d15225cced2ac8f8ca6c134aa90aaafa242708ef87ce",
         "c0e47a9d513003383c38bda74569ffb5bdf70a31e4b54b420decddd8b15b32bf"
       ],
-      "currentFileSha256": "92b0fecd916f9ba781d9d289d55c800a1dd4adca64daf6721fbfbf61c4479237"
+      "currentFileSha256": "4658255b6d6781518da13a257fc9d4f0890d15a1c9552a49250ec6f007113cdf"
     },
     {
       "path": "packages/base/src/lib/switch/root/SwitchRoot.svelte",
@@ -742,7 +743,7 @@
         "ebeecde3eb7161f1256a17163299d7541db73fe34bac28ba00397ea6993aead4",
         "00d300d962055ff6c84ac2f78d5db16f73e5fa8ed41dfb462a8faea7162a01f1"
       ],
-      "currentFileSha256": "a83e004352255708743692a5b289eadbfc8cf31a965caf9e1086a59bf834703e"
+      "currentFileSha256": "190510b86e2ac96d3063d052a43ddc716e7f7678c347ff90e4f7e0a8b7f0b9bf"
     },
     {
       "path": "packages/base/src/lib/toggle/Toggle.svelte",
@@ -752,7 +753,7 @@
       "previousCallHashes": [
         "f553bbe95d9bd2bcc7865c619e0462e054f0803c541644b6bdc1a4e79268e7c3"
       ],
-      "currentFileSha256": "9e2c8b0206382114d52a98ebe49e3a5d409d4bcc06272e4d401d718d71e1ddbd"
+      "currentFileSha256": "d543dbd8e7878e8fd5772b99e45c2b3d446af7fc53c6309232e2e62fb6dd4c43"
     },
     {
       "path": "packages/base/src/lib/toggle-group/ToggleGroup.svelte",
@@ -764,7 +765,7 @@
         "b32219b6a34b62a8088696888392f606b5e2c8be7bdab0554e120a3abd0b2838",
         "84449c41d099a65f737ecd5344405a594716013be653de24e064dfc4532b83a6"
       ],
-      "currentFileSha256": "d0ff6e06d3c1d6c67123faff72536de8c6eebe779aa60483d50f00b6a084a72c"
+      "currentFileSha256": "91960301cd5973321198e1bf60356f0e58de9febce6c199b6d3afce0fbd3276c"
     },
     {
       "path": "packages/base/src/lib/tooltip/Root.svelte",
@@ -776,7 +777,7 @@
         "b547bf005421531f856d43b047078491760bfeccdb4a79b56ade8e7771551d5b",
         "0a7d03a4744858f6a52fec644be639bd2c881641dc289821bb3a002486c15a4d"
       ],
-      "currentFileSha256": "c90c305aff558169f128d42b0306272f369378ea8762a5489663b34ec771ef46"
+      "currentFileSha256": "6db6239c0da3836138c06b99f9fb65a97102b9585f739682a84c1122c56ab62c"
     },
     {
       "path": "packages/base/src/lib/utils/closePart.svelte.ts",
@@ -788,7 +789,7 @@
         "0dca022e31014686ddb83f125d49c9e1799a46da2187754a853a7196615629e2",
         "c6ae75cfb6bd7506a977d16a921e184cffb7105cbbfc4e5ebbcc2abdd0ad343c"
       ],
-      "currentFileSha256": "988ea2a0d7de08918d524f219680a9c6699b47dce109c42754a9a0367512ba8f"
+      "currentFileSha256": "0a7c1c52abdcfbd665a5ddba1365024920241702e221bc22a1c9906d461bf714"
     },
     {
       "path": "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte",
@@ -798,7 +799,7 @@
       "previousCallHashes": [
         "c228517bbb2f609b1d65cfbb8d6f2a467251c8a37600d1c4c57e5b11d19d3ef4"
       ],
-      "currentFileSha256": "8993336ff07725209ac1d06bee0e626d8827943f6693e5a82ff8456f59e2a785"
+      "currentFileSha256": "a4afc586582ecf50aa65f39c579c7a7effa6957192ce98795498e487b5ab0df5"
     },
     {
       "path": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
@@ -818,7 +819,7 @@
         "0318c777e82d99abd964fa684fee3114ce7faef0896befaeb81814e0c9f01601",
         "b309b47478034ea9a5963efde91d4808027f0f7d48d99cfa57b8eda8c5095ad4"
       ],
-      "currentFileSha256": "4a8405d06363dee7cab0b5ad21370dedb4afbe4fc171cc378a82df5b6c340b39"
+      "currentFileSha256": "f82a73387d00d82030fc061cdf43a1eaf1653d32ef13b90c425ddbc14909c1d5"
     },
     {
       "path": "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts",
@@ -841,7 +842,7 @@
         "038338297b6acdaa846ac8482e6a8881226e2644f422535e1a34b845c9f12c05",
         "029c3131fcdffef1b30af305ffe8d56f7d43463a89bd9b6885e6c426fef22946"
       ],
-      "currentFileSha256": "cc5e1df26d186e29afb1256588cf7e40082878c01f584ae2b92823015bbce33e"
+      "currentFileSha256": "e5380f6859941be33711370643d373a96e3f81ff99ca776f7f35f893d0b58870"
     },
     {
       "path": "packages/base/src/lib/utils/usePopupViewport.svelte.ts",
@@ -861,7 +862,7 @@
         "69b7e8370d21632d63f62c8174870c8543fdef932fec9899ba9ed749c12a5e57",
         "f9d1f20dc0e1c6c249b11d191e686e20e380a7986afee786803b04efdfc38476"
       ],
-      "currentFileSha256": "4d3a7128d0d2427a488d7c3d60bba3463e21dcf140bcc09291309cb05b247e77"
+      "currentFileSha256": "28aa4c167556cc5a0f2302b4271e48c19119665ecb267f5fb61c488f1b8e3e59"
     },
     {
       "path": "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
@@ -883,7 +884,7 @@
         "a4a029292e9c8c41b222f3713341ecdd4141e95cad9e7671017638ae7858e88f",
         "2f5f1530ce4fbe1a6a6ce79b871ea2777ac66fc6e78a9d2dce0d5af612b7d6b1"
       ],
-      "currentFileSha256": "8ae5e4ed53ea4f71b844876ca8041243447be6ca8054e25628bcfb593663e415"
+      "currentFileSha256": "ebc5b091057ebe56bb4d1aade43ad89177edbac18929cf99643978411b63a88b"
     },
     {
       "path": "packages/utils/src/lib/useMergedRefs.ts",
@@ -893,7 +894,7 @@
       "previousCallHashes": [
         "e96c82297fd3361fdf48b412320b5c28929c5211997e76368e76d7129e8bd651"
       ],
-      "currentFileSha256": "38e09b27e8306cc1a778ee3cd0cd06c3edb66add1baff3d79e8911f3923eb834"
+      "currentFileSha256": "b438eb00051be41efa911b968e00f3a6f69c8b50b133367d132b7b7d88f904ff"
     },
     {
       "path": "packages/utils/src/lib/useScrollLock.svelte.ts",
@@ -915,7 +916,56 @@
         "2bc329ed2e134984c8cd94070fef1aac699ad43211a9748961347a446495d01a",
         "2f5f1530ce4fbe1a6a6ce79b871ea2777ac66fc6e78a9d2dce0d5af612b7d6b1"
       ],
-      "currentFileSha256": "9b3a125b31f5a36d1043d4c3315add16666fee1fa0184dc0f939131d02e9ac52"
+      "currentFileSha256": "06130c6374e14371471cc3af14638ddb3cadb514bb985fcbc4b8a7a606008b7f"
     }
-  ]
+  ],
+  "nativeOwners": [
+    {
+      "path": "packages/utils/src/lib/Controlled.svelte.ts",
+      "role": "Initial-mode controlled/default state owner; native direct-value setter",
+      "sha256": "3bb64556d51b6cd471e21e2db4c54179b3eb072757f043f7a4489a4134283304"
+    },
+    {
+      "path": "packages/utils/src/lib/PreviousValue.svelte.ts",
+      "role": "Retained current/previous pair and Object.is comparison",
+      "sha256": "dd2568c59abea39decf4e350c2855b11a26c8b384a766706a9e755706367ee9c"
+    },
+    {
+      "path": "packages/utils/src/lib/useTimeout.ts",
+      "role": "Source Timeout class; direct component onDestroy lifetime",
+      "sha256": "06130c6374e14371471cc3af14638ddb3cadb514bb985fcbc4b8a7a606008b7f"
+    },
+    {
+      "path": "packages/utils/src/lib/useAnimationFrame.ts",
+      "role": "Source Scheduler/reset/AnimationFrame business; direct onDestroy lifetime",
+      "sha256": "ebc5b091057ebe56bb4d1aade43ad89177edbac18929cf99643978411b63a88b"
+    },
+    {
+      "path": "packages/utils/src/lib/useMergedRefs.ts",
+      "role": "MergedRefs owner with Source ref fan-out/cleanup business",
+      "sha256": "b438eb00051be41efa911b968e00f3a6f69c8b50b133367d132b7b7d88f904ff"
+    },
+    {
+      "path": "packages/base/src/lib/internals/ValueChanged.svelte.ts",
+      "role": "Previous-value notification ordering with imperative delivery",
+      "sha256": "f169e9eec98d817327dd31fc0c39c019173cdb64fac3350b898004222107e54e"
+    },
+    {
+      "path": "packages/base/src/lib/utils/closePart.svelte.ts",
+      "role": "Counted ClosePart registration owner; direct native context/effect setup",
+      "sha256": "0a7c1c52abdcfbd665a5ddba1365024920241702e221bc22a1c9906d461bf714"
+    }
+  ],
+  "checkpointEvidence": {
+    "svelteCompilerAndSyntax": {
+      "files": 69,
+      "failures": 0,
+      "warnings": 0
+    },
+    "maintainedLocalImportExportScan": {
+      "imports": 2437,
+      "failures": 0
+    },
+    "executionStatus": "Pending coordinated heavy lane and final-head independent review; lightweight scans do not establish runtime/type/parity acceptance."
+  }
 }

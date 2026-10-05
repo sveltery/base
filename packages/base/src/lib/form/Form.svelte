@@ -3,13 +3,13 @@
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
   import { untrack, type Snippet } from 'svelte';
   import type { HTMLFormAttributes } from 'svelte/elements';
-  
+
   import { EMPTY_OBJECT } from '@sveltery/utils/empty';
   import { createGenericEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../internals/reasons.js';
   import { setFormContext, type FormContext } from '../internals/form-context/FormContext.js';
   import RenderElement from '../internals/RenderElement.svelte';
-  import { useValueChanged } from '../internals/useValueChanged.svelte.js';
+  import { ValueChanged } from '../internals/ValueChanged.svelte.js';
   import type { FormActions, FormErrors, FormFieldNamespace, FormProps, FormState, FormValues } from './types.js';
   import { setRemoteFormContext } from '../remote-forms/RemoteFormContext.js';
   import { remoteFormErrors } from '../remote-forms/runtime.js';
@@ -48,7 +48,7 @@
     return hasInvalid;
   };
   let errors = $state<FormErrors | undefined>(untrack(() => externalErrors));
-  useValueChanged(() => externalErrors, () => () => { errors = externalErrors; });
+  new ValueChanged(() => externalErrors, () => () => { errors = externalErrors; });
   $effect(() => {
     void errors;
     untrack(() => {

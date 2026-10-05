@@ -3,7 +3,7 @@
 
 import { isElementDisabled } from '@sveltery/utils/isElementDisabled';
 import {
-  createMergedRefs,
+  MergedRefs,
   type MergedRef,
 } from '@sveltery/utils/useMergedRefs';
 import type { TextDirection } from '../../../direction-provider/types.js';
@@ -76,7 +76,7 @@ export function useCompositeRoot(
 ) {
   let internalHighlightedIndex = $state(0);
   const rootRef = { current: null as HTMLElement | null };
-  const { useMergedRefs } = createMergedRefs<HTMLElement>();
+  const refsMerger = new MergedRefs<HTMLElement>();
   const elementsRef = { current: [] as Array<HTMLElement | null> };
   const hasSetDefaultIndexRef = { current: false };
   const highlightedElementRef = { current: null as HTMLElement | null };
@@ -349,7 +349,7 @@ export function useCompositeRoot(
 
   function getProps(): HTMLProps {
     return {
-      ref: useMergedRefs(rootRef, getParameters().rootRef),
+      ref: refsMerger.merge(rootRef, getParameters().rootRef),
       onfocusin(event: FocusEvent) {
         const element = rootRef.current;
         const target = getTarget(event);

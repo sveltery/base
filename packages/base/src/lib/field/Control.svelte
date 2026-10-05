@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { untrack } from 'svelte';
+  import { onDestroy, untrack } from 'svelte';
   // Ported in source order from Base UI v1.8.0 field/control/FieldControl.tsx.
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
   import RenderElement from '../internals/RenderElement.svelte';
   import { Controlled } from '@sveltery/utils/Controlled';
-  
+
   import { ownerDocument } from '@sveltery/utils/owner';
-  
-  import { useTimeout } from '@sveltery/utils/useTimeout';
+
+  import { Timeout } from '@sveltery/utils/useTimeout';
   import { useFieldRootContext } from '../internals/field-root-context/FieldRootContext.js';
   import { useFieldControlNativeName } from '../internals/field-control-name/FieldControlNameContext.js';
   import { useRegisterFieldControl } from '../internals/field-register-control/useRegisterFieldControl.svelte.js';
@@ -16,7 +16,7 @@
   import { useLabelableId } from '../internals/labelable-provider/useLabelableId.svelte.js';
   import { useBaseUiId } from '../internals/useBaseUiId.js';
   import { fieldValidityMapping } from '../internals/field-constants/constants.js';
-  import { useValueChanged } from '../internals/useValueChanged.svelte.js';
+  import { ValueChanged } from '../internals/ValueChanged.svelte.js';
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../internals/reasons.js';
   import { activeElement } from '@sveltery/utils/shadowDom';
@@ -46,14 +46,15 @@
     const currentValue = serializedValue ?? field.validation.inputRef.current?.value;
     if (currentValue !== undefined) field.setFilled(currentValue !== '');
   });
-  useValueChanged(() => serializedValue, () => () => {
+  new ValueChanged(() => serializedValue, () => () => {
     if (serializedValue === undefined) return;
     form.clearErrors(name ?? undefined);
     field.setDirty(serializedValue !== (field.validityData.initialValue ?? ''));
     field.validation.change(serializedValue);
   });
   const inputRef = $state<{ current: HTMLElement | null }>({ current: null });
-  const enterValidationTimeout = useTimeout();
+  const enterValidationTimeout = new Timeout();
+  onDestroy(enterValidationTimeout.clear);
   $effect(() => {
     if (autofocus && inputRef.current === activeElement(ownerDocument(inputRef.current))) field.setFocused(true);
   });

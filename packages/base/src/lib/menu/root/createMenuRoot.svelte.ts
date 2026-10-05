@@ -1,8 +1,8 @@
 // Original MenuRoot full business body at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // Native Svelte component initialization, context, live props and host effects; MIT.
 import { DEV } from 'esm-env';
-import { untrack } from 'svelte';
-import { useTimeout } from '@sveltery/utils/useTimeout';
+import { onDestroy, untrack } from 'svelte';
+import { Timeout } from '@sveltery/utils/useTimeout';
 
 
 import { EMPTY_ARRAY, EMPTY_OBJECT } from '@sveltery/utils/empty';
@@ -102,9 +102,11 @@ export function createMenuRoot<Payload>(getProps: () => MenuRootProps<Payload>, 
     const floatingParentNodeId = $derived(store.useState('floatingParentNodeId'));
     const openEventRef = { current: null as Event | null };
     const allowOutsidePressDismissalRef = { current: untrack(() => parent.type !== 'context-menu') };
-    const allowOutsidePressDismissalTimeout = useTimeout();
+    const allowOutsidePressDismissalTimeout = new Timeout();
+    onDestroy(allowOutsidePressDismissalTimeout.clear);
     const allowTouchToCloseRef = { current: true };
-    const allowTouchToCloseTimeout = useTimeout();
+    const allowTouchToCloseTimeout = new Timeout();
+    onDestroy(allowTouchToCloseTimeout.clear);
     const nested = $derived(floatingParentNodeId != null);
     $effect(() => {
       if (DEV) {

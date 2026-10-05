@@ -1,9 +1,9 @@
 // Ported from Base UI 1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT: THIRD_PARTY_NOTICES.md; native Svelte replaces React hooks and native focusout replaces bubbling synthetic blur.
-import { untrack } from 'svelte';
+import { onDestroy, untrack } from 'svelte';
 
 
-import { useTimeout } from '@sveltery/utils/useTimeout';
+import { Timeout } from '@sveltery/utils/useTimeout';
 import { EMPTY_ARRAY } from '@sveltery/utils/empty';
 import { isElementVisible, isListIndexDisabled, type DisabledIndices } from '../utils/composite.js';
 import type { ElementProps, FloatingContext, FloatingRootContext } from '../types.js';
@@ -90,7 +90,9 @@ export function useTypeahead(
 
   const open = $derived(store.useState('open'));
 
-  const timeout = useTimeout();
+  const timeout = new Timeout();
+
+  onDestroy(timeout.clear);
   const stringRef = { current: '' };
   const prevIndexRef = { current: untrack(() => selectedIndex ?? activeIndex ?? -1) as number | null };
   const matchIndexRef = { current: null as number | null };

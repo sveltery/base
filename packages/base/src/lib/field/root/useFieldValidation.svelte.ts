@@ -1,7 +1,8 @@
+import { onDestroy } from 'svelte';
 // Mechanically ported from Base UI v1.8.0 field/root/useFieldValidation.ts.
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
 import { EMPTY_OBJECT } from '@sveltery/utils/empty';
-import { useTimeout } from '@sveltery/utils/useTimeout';
+import { Timeout } from '@sveltery/utils/useTimeout';
 
 import { useLabelableContext } from '../../internals/labelable-provider/LabelableContext.js';
 import { mergeProps } from '../../merge-props/index.js';
@@ -81,7 +82,9 @@ export function useFieldValidation(
 
   const labelable = useLabelableContext();
 
-  const timeout = useTimeout();
+  const timeout = new Timeout();
+
+  onDestroy(timeout.clear);
   const inputRef = $state<{ current: HTMLInputElement | null }>({ current: null });
   // eslint-disable-next-line svelte/prefer-svelte-reactivity -- Source registration Map is imperative and does not subscribe rendering.
   const registeredInputs: RegisteredInputs = new Map();
