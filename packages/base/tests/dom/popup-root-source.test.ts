@@ -7,7 +7,7 @@ import Fixture from './PopupRootSourceFixture.svelte';
 type Family = 'popover' | 'preview-card' | 'tooltip';
 type Arrangement = 'contained' | 'detached' | 'multiple-detached';
 const cleanup: (() => Promise<void>)[] = [];
-const trigger = () => document.getElementById('trigger')!;
+const trigger = () => document.querySelector<HTMLElement>('[data-testid=trigger]')!;
 const content = () => document.querySelector('[data-testid=popup]');
 const positioner = () => document.querySelector('[data-testid=positioner]');
 async function setup(family: Family, arrangement: Arrangement, options: Partial<ComponentProps<typeof Fixture>> = {}) {
@@ -93,6 +93,29 @@ for (const family of ['popover', 'preview-card', 'tooltip'] as const) for (const
   }
 
   if (family === 'popover') {
+    it(`${label}: canceled close press keeps the owning trigger`, async () => {
+      let closePressTriggerId: string | undefined;
+      await setup(family, arrangement, { triggerId: 'trigger-1', closePart: true, onOpenChange(nextOpen, details) {
+        if (!nextOpen && details.reason === 'close-press') { closePressTriggerId = details.trigger?.id; details.cancel(); }
+      } });
+      mouse(trigger(), 'click'); await tick();
+      mouse(document.querySelector('[data-testid=close]')!, 'click'); await tick();
+      expect(closePressTriggerId).toBe('trigger-1'); expect(document.querySelector('[data-testid=close]')).not.toBeNull();
+    });
+    it(`${label}: retained first close unmounts after trigger reopen and normal close`, async () => {
+      await setup(family, arrangement, { preventFirstUnmount: true });
+      mouse(trigger(), 'click'); await tick(); expect(trigger().hasAttribute('data-popup-open')).toBe(true); expect(content()).not.toBeNull();
+      mouse(trigger(), 'click'); await tick(); expect(trigger().hasAttribute('data-popup-open')).toBe(false); expect(content()).not.toBeNull();
+      mouse(trigger(), 'click'); await tick(); expect(trigger().hasAttribute('data-popup-open')).toBe(true);
+      mouse(trigger(), 'click'); await tick(); expect(content()).toBeNull();
+    });
+    it(`${label}: rewires dismiss interactions after Escape close and reopening`, async () => {
+      await setup(family, arrangement, { closePart: true });
+      mouse(trigger(), 'click'); await tick(); expect(content()?.getAttribute('role')).toBe('dialog');
+      flushSync(() => document.body.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))); await tick(); expect(content()).toBeNull();
+      mouse(trigger(), 'click'); await tick(); expect(content()?.getAttribute('role')).toBe('dialog');
+      mouse(document.body, 'click'); await tick(); expect(content()).toBeNull();
+    });
     it(`${label}: defaultOpen remains uncontrolled`, async () => {
       await setup(family, arrangement, { defaultOpen: true }); expect(content()).not.toBeNull();
       mouse(trigger(), 'click'); await tick(); expect(content()).toBeNull();
@@ -146,6 +169,36 @@ for (const family of ['popover', 'preview-card', 'tooltip'] as const) for (const
     hover(); await tick(); expect(trigger().hasAttribute('data-popup-open')).toBe(true);
     mouse(trigger(), 'mouseleave'); await tick(); expect(positioner()).toBeNull();
   });
+
+  if (family === 'tooltip') {
+    it(`${label}: disabled Root does not open on hover or focus`, async () => {
+      await setup(family, arrangement, { rootDisabled: true, delay: 0 }); hover(); await tick(); expect(content()).toBeNull();
+      flushSync(() => trigger().focus()); await tick(); expect(content()).toBeNull();
+    });
+    it(`${label}: disabled Trigger does not open on focus`, async () => {
+      await setup(family, arrangement, { triggerDisabled: true, delay: 0 }); flushSync(() => trigger().focus()); await tick(); expect(content()).toBeNull();
+    });
+    it(`${label}: defaultOpen closes when Root becomes disabled`, async () => {
+      await setup(family, arrangement, { defaultOpen: true, mutableDisabled: true, delay: 0 }); expect(content()).not.toBeNull();
+      mouse(document.querySelector('[data-testid=disabled]')!, 'click'); await tick(); expect(content()).toBeNull();
+    });
+    it(`${label}: disabled with defaultOpen does not throw or render popup`, async () => {
+      await setup(family, arrangement, { defaultOpen: true, rootDisabled: true }); expect(content()).toBeNull();
+    });
+    it(`${label}: Root disabled is inherited by Trigger data attribute`, async () => {
+      await setup(family, arrangement, { rootDisabled: true }); expect(trigger().hasAttribute('data-trigger-disabled')).toBe(true);
+    });
+    it(`${label}: explicit enabled Trigger keeps Root disabled behavior`, async () => {
+      await setup(family, arrangement, { rootDisabled: true, triggerDisabled: false, delay: 0 });
+      expect(trigger().hasAttribute('data-trigger-disabled')).toBe(false); hover(); await tick(); expect(content()).toBeNull();
+    });
+    for (const [disableHoverablePopup, expected] of [[true, 'none'], [false, '']] as const) it(`${label}: disableHoverablePopup=${disableHoverablePopup} sets positioner pointerEvents=${expected}`, async () => {
+      await setup(family, arrangement, { disableHoverablePopup, delay: 0 }); hover(); await tick(); expect((positioner() as HTMLElement).style.pointerEvents).toBe(expected);
+    });
+    for (const [trackCursorAxis, expected] of [['both', 'none'], ['x', '']] as const) it(`${label}: trackCursorAxis=${trackCursorAxis} sets positioner pointerEvents=${expected}`, async () => {
+      await setup(family, arrangement, { trackCursorAxis, delay: 0 }); hover(); await tick(); expect((positioner() as HTMLElement).style.pointerEvents).toBe(expected);
+    });
+  }
 
   it(`${label}: public close action reports imperative-action`, async () => {
     const change = vi.fn(); const instance = await setup(family, arrangement, { onOpenChange: change, delay: 0, defaultOpen: family === 'popover' });
