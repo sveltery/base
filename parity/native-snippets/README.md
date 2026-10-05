@@ -9,3 +9,5 @@ The pinned Original is Base UI v1.8.0, `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c
 [Source correspondence](source-correspondence.md) records used business, native replacements and limits. [Public rendering documentation](../../docs/rendering.md) describes the API migration and native precedence. Active tests, fixtures and package checks require the separate acceptance migration; predecessor renderer assertions cannot certify this successor. Source parsing and import closure checks do not establish runtime, browser, package or type acceptance. Final exact-head execution and independent approval remain required.
 
 Native snippet/element identity, attachment lifetime, style update and void-element behavior are deliberate framework choices. Divergent observations earn zero unchanged upstream assertion credit. The catalog's 42 Original modules and ordinary assertion denominators remain historical accounting, independent of this renderer replacement.
+
+Proposed implementation: [PR #77](https://github.com/sveltery/base/pull/77), stacked on the native framework successor. Exact-head source review and coordinated execution remain pending.

@@ -233,14 +233,14 @@
 
   const hostAttachmentKey = createAttachmentKey();
   function attachHost(host: HTMLElement) {
+    const hostOwner = vertical ? scrollbarYRef : scrollbarXRef;
     return untrack(() => {
       ref = host;
-      const hostOwner1 = vertical ? scrollbarYRef : scrollbarXRef;
-      hostOwner1.current = host;
+      hostOwner.current = host;
       return () =>
         untrack(() => {
           if (ref === host) ref = null;
-          if (hostOwner1.current === host) hostOwner1.current = null;
+          if (hostOwner.current === host) hostOwner.current = null;
         });
     });
   }

@@ -1,7 +1,6 @@
 <script lang="ts" generics="Payload = unknown">
   import { mergeComponentProps } from '../internals/mergeComponentProps.js';
   import { createAttachmentKey } from 'svelte/attachments';
-  import { untrack } from 'svelte';
 
   // Original MenuTrigger CompositeItem/FocusGuard/render composition (MIT).
   import CompositeItem from '../internals/composite/item/CompositeItem.svelte';

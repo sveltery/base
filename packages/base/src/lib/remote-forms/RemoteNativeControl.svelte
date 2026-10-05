@@ -31,9 +31,6 @@
     RemoteControlProps,
     RemoteControlState,
   } from './control.types.js';
-  import type { HTMLSelectAttributes } from 'svelte/elements';
-  import type { Snippet } from 'svelte';
-  import type { HTMLProps } from '../internals/types.js';
   let {
     kind,
     ref = $bindable(),
@@ -212,7 +209,7 @@
   });
 
   const hostAttachmentKey = createAttachmentKey();
-  function attachHost(host: HTMLElement) {
+  function attachHost(host: NativeValidationControl) {
     return untrack(() => {
       ref = host;
       controlRef.current = host;

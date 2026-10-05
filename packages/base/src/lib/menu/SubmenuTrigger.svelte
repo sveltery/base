@@ -1,7 +1,5 @@
 <script lang="ts">
   import { mergeComponentProps } from '../internals/mergeComponentProps.js';
-  import { createAttachmentKey } from 'svelte/attachments';
-  import { untrack } from 'svelte';
 
   // Original submenu-trigger renderer composition (MIT).
   import { triggerOpenStateMapping } from '../utils/popupStateMapping.js';

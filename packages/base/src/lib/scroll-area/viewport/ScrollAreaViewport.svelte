@@ -1,7 +1,4 @@
 <script module lang="ts">
-  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
-  import { createAttachmentKey } from 'svelte/attachments';
-
   import { platform } from '@sveltery/utils/platform';
   import * as ScrollAreaViewportCssVars from './ScrollAreaViewportCssVars.js';
   const OVERFLOW_EDGE_VARS = [
@@ -50,31 +47,12 @@
 
     scrollAreaOverflowVarsRegistered = true;
   }
-
-  const hostAttachmentKey = createAttachmentKey();
-  function attachHost(host: HTMLElement) {
-    return untrack(() => {
-      ref = host;
-      viewportRef.current = host;
-      return () =>
-        untrack(() => {
-          if (ref === host) ref = null;
-          if (viewportRef.current === host) viewportRef.current = null;
-        });
-    });
-  }
-  const mergedProps = $derived({
-    ...mergeComponentProps(
-      root.viewportState,
-      { class: classProp, style: style },
-      [internalProps, elementProps],
-      scrollAreaStateAttributesMapping,
-    ),
-    [hostAttachmentKey]: attachHost,
-  });
 </script>
 
 <script lang="ts">
+  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+
   // Base UI1.8.0 ScrollAreaViewport.tsx source geometry/lifetimes; MIT.
   import { onDestroy, onMount, untrack } from 'svelte';
   import { Timeout } from '@sveltery/utils/useTimeout';
@@ -461,6 +439,28 @@
     const offset = maxScroll ? (clamped / maxScroll) * maxThumbOffset : 0;
     return offset + (overscroll > 0 ? size - nextSize : 0);
   }
+
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      viewportRef.current = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (viewportRef.current === host) viewportRef.current = null;
+        });
+    });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      root.viewportState,
+      { class: classProp, style: style },
+      [internalProps, elementProps],
+      scrollAreaStateAttributesMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
+  });
 </script>
 
 {#if render}
