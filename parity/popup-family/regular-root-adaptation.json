@@ -1,6 +1,6 @@
 {
   "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
-  "status": "Selected regular Root coverage117variants pass after canonical subscription repair;39 Source sites referenced, two are explicit supplements/incomplete setups; independent full declaration review pending. Immutable435site/718variant ledger remains unchanged/unported/zero credit.",
+  "status": "Local pure Source protocol successor150variants PASS;50 Source sites referenced, Tooltip JSDOMfocus remains a native supplement. Popover imperative defaultOpen setup now matches Source. Independent full declaration review pending; immutable435site/718variant ledger unchanged/unported/zero credit.",
   "ordinaryDeclarationCredit": 0,
   "nativeFixture": "packages/base/tests/dom/PopupRootSourceFixture.svelte",
   "nativeTest": "packages/base/tests/dom/popup-root-source.test.ts",
@@ -113,8 +113,8 @@
         "detached",
         "multiple-detached"
       ],
-      "status": "imperative-action-supplement-incomplete-Source-setup",
-      "note": "Source initializes defaultOpen=true then closes; current native case opens with click then verifies close/reason. Does not earn complete Source declaration credit.",
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Now initializes defaultOpen=true as Source does, then invokes public close and verifies absence. Extra last-callback imperative-action predicate remains a supplement; ordinary credit0.",
       "ordinaryDeclarationCredit": 0
     },
     {
@@ -550,10 +550,198 @@
       "status": "selected-body-adaptation-passing-pending-independent-review",
       "note": "React render/act/useState -> native mount/tick/runes; same expected business predicates, selected contained/detached/multiple-detached variants. Independent complete declaration/body correspondence remains pending.",
       "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/root/PopoverRoot.test.tsx",
+      "line": 136,
+      "name": "unmounts on a normal close after preventUnmountOnClose and external reopen",
+      "bodySha256": "53498db370153e978641c7b3e6938512a5e44d3cd0cfa0cb022d6c3073a4732f",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Pinned complete declaration/setup protocol reread; native commands/render/tick/runes replace React transport; unchanged expected business predicates.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/root/PopoverRoot.test.tsx",
+      "line": 191,
+      "name": "does not close after hovering out of a popup opened externally",
+      "bodySha256": "4fd9805c03d980ea527b2321b1195668d2e0d92397b7f6b2d5b37822883452e8",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Pinned complete declaration/setup protocol reread; native commands/render/tick/runes replace React transport; unchanged expected business predicates.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/root/PopoverRoot.test.tsx",
+      "line": 224,
+      "name": "closes after hovering out of a popup opened by its trigger",
+      "bodySha256": "37c9132ea26a8e76d6dc983f67b68ed7e0f8559a4b4d50e5bd644faeda6b8e8d",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Pinned complete declaration/setup protocol reread; native commands/render/tick/runes replace React transport; unchanged expected business predicates.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/root/PopoverRoot.test.tsx",
+      "line": 451,
+      "name": "should remain uncontrolled",
+      "bodySha256": "45a1125bf481ed713cd08d7b3d70d8725ed8e75012592f464c8cead1be2e72f2",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Pinned complete declaration/setup protocol reread; native commands/render/tick/runes replace React transport; unchanged expected business predicates.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/root/PopoverRoot.test.tsx",
+      "line": 463,
+      "name": "does not close after hovering out of a popup opened without trigger hover",
+      "bodySha256": "6c87160fe9efb07759b50d050a3ee81fb902e50ddd3638db8406047e36bdcef4",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Pinned complete declaration/setup protocol reread; native commands/render/tick/runes replace React transport; unchanged expected business predicates.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/root/PopoverRoot.test.tsx",
+      "line": 482,
+      "name": "should open after delay with rest type by default",
+      "bodySha256": "226caa64db3d271d975c54b116af6929795ee51b5202647bf6cb1be610c4780e",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Pinned complete declaration/setup protocol reread; native commands/render/tick/runes replace React transport; unchanged expected business predicates.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/root/PopoverRoot.test.tsx",
+      "line": 505,
+      "name": "should close after delay",
+      "bodySha256": "3e13c0275a70b35e05d0a8850fa8e4ab6a3b308930f0d23c3a37589679eaf893",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Pinned complete declaration/setup protocol reread; native commands/render/tick/runes replace React transport; unchanged expected business predicates.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/popover/root/PopoverRoot.test.tsx",
+      "line": 593,
+      "name": "onOpenChange cancel() prevents opening while uncontrolled",
+      "bodySha256": "21ae88ffc98d840a23e7f3287d5ec76604695ee72624c3e0c44ce6851faad5d2",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Pinned complete declaration/setup protocol reread; native commands/render/tick/runes replace React transport; unchanged expected business predicates.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/preview-card/root/PreviewCardRoot.test.tsx",
+      "line": 421,
+      "name": "onOpenChange cancel() prevents opening while uncontrolled",
+      "bodySha256": "ffecdca3d2ea8084de41a7f334cf69ce95ff088c2f4e29b65a6699ef30bb0cdc",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Pinned complete declaration/setup protocol reread; native commands/render/tick/runes replace React transport; unchanged expected business predicates. Extra600ms check verifies actual cancellation beyond Source immediate absence; extra predicate is supplemental.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/preview-card/root/PreviewCardRoot.test.tsx",
+      "line": 447,
+      "name": "reopens on hover after Escape closes it",
+      "bodySha256": "1b35f13378cc16fc48d54c4b80701084095aa82d42bf44e01f68a32167d1762c",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Pinned complete declaration/setup protocol reread; native commands/render/tick/runes replace React transport; unchanged expected business predicates.",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "source": "packages/react/src/tooltip/root/TooltipRoot.test.tsx",
+      "line": 298,
+      "name": "does not prevent unmounting on later closes",
+      "bodySha256": "744e13ac256a0d13d669ff67311df3c76c205769834cdd79621fd1ea330f5207",
+      "nativeVariants": [
+        "contained",
+        "detached",
+        "multiple-detached"
+      ],
+      "status": "selected-body-adaptation-passing-pending-independent-review",
+      "note": "Pinned complete declaration/setup protocol reread; native commands/render/tick/runes replace React transport; unchanged expected business predicates.",
+      "ordinaryDeclarationCredit": 0
     }
   ],
   "preservedFirstRun": "114/117 pass; three unchanged expected controlled multiple-detached hover-close failures",
-  "afterRun": "117/117 pass with same expected predicates after canonical helper repair",
+  "afterRun": "150/150PASS, retaining earlier117 hover-close expected predicates and adding33 Source protocol variants. Runtime/helper/actual graph bytes unchanged from frozen pushed de989.",
   "literalTransport": "Separate actual Original/native6-case supplement reproduces the three failures before repair and passes after; zero ordinary credit",
-  "receiptsRecord": "parity/popup-family/floating-subscription-repair.json"
+  "receiptsRecord": "parity/popup-family/floating-subscription-repair.json",
+  "precedingCheckpoint": {
+    "head": "de98922a3eba042d4097dc6edb0a51ab860ed72c",
+    "mapping": "https://github.com/sveltery/base/blob/de98922a3eba042d4097dc6edb0a51ab860ed72c/parity/popup-family/regular-root-adaptation.json",
+    "sites": 39,
+    "variants": 117,
+    "limits": "Old Popover click-open imperative setup explicitly incomplete; Tooltip native JSDOM focus supplement. Preserved old114/117 failure receipts and unchanged hover-close predicates."
+  },
+  "protocolSuccessorReceipts": [
+    {
+      "path": "parity/popup-family/receipts/popup-root-source-protocol-next-first.log.gz",
+      "rawSha256": "839ae7458203b32f635db210a08a8429d8099d5bc6e07c1e7be67a30ef0030fe",
+      "gzipSha256": "2b3fae37712b694e9fc7066464895d99e49e8ca62273119d2c61a59c9cf2e3ce"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-root-source-protocol-next-types.log.gz",
+      "rawSha256": "edc775b9335e057cd1d32dffe1b9e92750d93ab84490b793b83bfb5b42842717",
+      "gzipSha256": "2a585e0f95d8b08e9c5c201c16602eb5c720a1a6b919c829d2cf5b94bb416d3b"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-root-source-protocol-next-lint.log.gz",
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gzipSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-root-source-protocol-next-final.log.gz",
+      "rawSha256": "43868957c20bfab32f031814352de0d866f1c405975d6ad88d89576bf40bd43b",
+      "gzipSha256": "76aa17eed1ffdf64e1d8e13f1482176b97124dcc3b13447a8bf885c12206582a"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-root-source-protocol-next-lint-final.log.gz",
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gzipSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    }
+  ]
 }

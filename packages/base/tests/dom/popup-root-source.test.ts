@@ -92,9 +92,64 @@ for (const family of ['popover', 'preview-card', 'tooltip'] as const) for (const
     });
   }
 
+  if (family === 'popover') {
+    it(`${label}: defaultOpen remains uncontrolled`, async () => {
+      await setup(family, arrangement, { defaultOpen: true }); expect(content()).not.toBeNull();
+      mouse(trigger(), 'click'); await tick(); expect(content()).toBeNull();
+    });
+    it(`${label}: retained first close unmounts after external reopen and normal close`, async () => {
+      const instance = await setup(family, arrangement, { controlledSync: true, preventFirstUnmount: true });
+      mouse(trigger(), 'click'); await tick(); expect(trigger().hasAttribute('data-popup-open')).toBe(true); expect(content()).not.toBeNull();
+      mouse(trigger(), 'click'); await tick(); expect(trigger().hasAttribute('data-popup-open')).toBe(false); expect(content()).not.toBeNull();
+      flushSync(() => instance.openExternally()); await tick(); expect(trigger().hasAttribute('data-popup-open')).toBe(true);
+      mouse(trigger(), 'click'); await tick(); expect(content()).toBeNull();
+    });
+    it(`${label}: does not close after hovering out of a popup opened externally`, async () => {
+      const instance = await setup(family, arrangement, { controlledSync: true, openOnHover: true, delay: 0 });
+      flushSync(() => instance.openExternally()); await tick(); expect(content()).not.toBeNull();
+      mouse(positioner()!, 'mouseenter'); mouse(positioner()!, 'mouseleave'); await tick(); expect(content()).not.toBeNull();
+    });
+    it(`${label}: closes after hovering out of a popup opened by its trigger`, async () => {
+      await setup(family, arrangement, { controlledSync: true, openOnHover: true, delay: 0 });
+      hover(); await tick(); expect(content()).not.toBeNull();
+      mouse(positioner()!, 'mouseenter'); mouse(positioner()!, 'mouseleave'); await tick(); expect(content()).toBeNull();
+    });
+    it(`${label}: defaultOpen does not close after hovering out without trigger hover`, async () => {
+      await setup(family, arrangement, { defaultOpen: true, openOnHover: true }); expect(content()).not.toBeNull();
+      mouse(positioner()!, 'mouseenter'); mouse(positioner()!, 'mouseleave'); await tick(); expect(content()).not.toBeNull();
+    });
+    it(`${label}: opens after delay100`, async () => {
+      await setup(family, arrangement, { openOnHover: true, delay: 100 }); hover(); await tick(); expect(content()).toBeNull();
+      await advance(100); expect(content()).not.toBeNull();
+    });
+    it(`${label}: closeDelay100 retains through50 then closes at100`, async () => {
+      await setup(family, arrangement, { openOnHover: true, closeDelay: 100 }); hover(); await advance(300); expect(content()).not.toBeNull();
+      mouse(trigger(), 'mouseleave'); await advance(50); expect(content()).not.toBeNull(); await advance(50); expect(content()).toBeNull();
+    });
+  }
+
+  if (family !== 'tooltip') it(`${label}: onOpenChange cancel prevents uncontrolled opening`, async () => {
+    await setup(family, arrangement, { onOpenChange: (next, details) => { if (next) details.cancel(); } });
+    if (family === 'popover') mouse(trigger(), 'click'); else hover(); await tick(); expect(content()).toBeNull();
+    if (family === 'preview-card') { await advance(600); expect(content()).toBeNull(); }
+  });
+
+  if (family === 'preview-card') it(`${label}: reopens on mouse-only hover after Escape`, async () => {
+    await setup(family, arrangement, { delay: 100 }); hover(); await advance(100); expect(content()).not.toBeNull();
+    flushSync(() => document.body.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))); await tick(); expect(content()).toBeNull();
+    mouse(trigger(), 'mouseenter'); mouse(trigger(), 'mousemove'); await advance(100); expect(content()).not.toBeNull();
+  });
+
+  if (family === 'tooltip') it(`${label}: first preventUnmountOnClose does not retain later closes`, async () => {
+    await setup(family, arrangement, { preventFirstUnmount: true, delay: 0, closeDelay: 0 });
+    hover(); await tick(); expect(positioner()).not.toBeNull(); mouse(trigger(), 'mouseleave'); await tick(); expect(positioner()).not.toBeNull();
+    hover(); await tick(); expect(trigger().hasAttribute('data-popup-open')).toBe(true);
+    mouse(trigger(), 'mouseleave'); await tick(); expect(positioner()).toBeNull();
+  });
+
   it(`${label}: public close action reports imperative-action`, async () => {
-    const change = vi.fn(); const instance = await setup(family, arrangement, { onOpenChange: change, delay: 0 });
-    if (family === 'popover') mouse(trigger(), 'click'); else hover(); await tick(); expect(content()).not.toBeNull();
+    const change = vi.fn(); const instance = await setup(family, arrangement, { onOpenChange: change, delay: 0, defaultOpen: family === 'popover' });
+    if (family !== 'popover') hover(); await tick(); expect(content()).not.toBeNull();
     flushSync(() => instance.close()); await advance(0); expect(positioner()).toBeNull(); expect(trigger().hasAttribute('data-popup-open')).toBe(false);
     expect(change).toHaveBeenLastCalledWith(false, expect.objectContaining({ reason: 'imperative-action' }));
   });

@@ -39,7 +39,7 @@
 {/snippet}
 {#snippet previewCardTrigger(detached: boolean)}
   <PreviewCard.Trigger id="trigger" data-testid="trigger" handle={detached ? previewCard : undefined} {delay} {closeDelay} href="#">{family === 'preview-card' ? 'Link' : 'Toggle'}</PreviewCard.Trigger>
-  {#if arrangement === 'multiple-detached'}<PreviewCard.Trigger id="trigger-2" data-testid="trigger-2" handle={previewCard} href="#">Toggle another</PreviewCard.Trigger>{/if}
+  {#if arrangement === 'multiple-detached'}<PreviewCard.Trigger id="trigger-2" data-testid="trigger-2" handle={previewCard} href="#">Another link</PreviewCard.Trigger>{/if}
 {/snippet}
 {#snippet tooltipTrigger(detached: boolean)}
   <Tooltip.Trigger id="trigger" data-testid="trigger" handle={detached ? tooltip : undefined} {delay} {closeDelay} {disabled}>{family === 'preview-card' ? 'Link' : 'Toggle'}</Tooltip.Trigger>
