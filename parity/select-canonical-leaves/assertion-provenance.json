@@ -1,6 +1,6 @@
 {
   "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
-  "originalOrdinaryDeclarations": 30,
+  "originalOrdinaryDeclarations": 29,
   "originalHelperExecutions": 33,
   "separateNativeSupplements": {
     "pure": 7,
@@ -19,7 +19,8 @@
       "parameterizedDeclarationCount": 0,
       "literalParameterizedRows": 0,
       "executions": 15,
-      "acceptanceCredit": "none; focused execution is separate from final review or Select credit"
+      "acceptanceCredit": "none; focused execution is separate from final review or Select credit",
+      "ordinaryDeclarations": 15
     },
     {
       "original": "packages/react/src/internals/resolveValueLabel.test.ts",
@@ -31,7 +32,10 @@
       "parameterizedDeclarationCount": 1,
       "literalParameterizedRows": 4,
       "executions": 18,
-      "acceptanceCredit": "none; focused execution is separate from final review or Select credit"
+      "acceptanceCredit": "none; focused execution is separate from final review or Select credit",
+      "ordinaryDeclarations": 14
     }
-  ]
+  ],
+  "originalDeclarations": 30,
+  "originalParameterizedDeclarations": 1
 }

@@ -2,13 +2,15 @@
   "scope": "focused developer checks only; not independent Source closure/Select acceptance",
   "sourceHelperExecutions": {
     "equality": 15,
-    "labelOrdinaryDeclarations": 15,
     "labelParameterizedRows": 4,
     "labelExecutions": 18,
     "totalExecutions": 33,
     "result": "pass",
     "command": "NODE_OPTIONS=--max-old-space-size=768 node node_modules/vitest/vitest.mjs run --config vitest.config.ts --maxWorkers=1 tests/select-item-equality-source.test.ts tests/select-value-label-source.test.ts",
-    "durationMs": 479
+    "durationMs": 479,
+    "labelDeclarations": 15,
+    "labelOrdinaryDeclarations": 14,
+    "labelParameterizedDeclarations": 1
   },
   "nativeSupplements": {
     "helper": 7,
