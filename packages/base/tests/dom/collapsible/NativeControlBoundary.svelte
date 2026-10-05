@@ -6,8 +6,8 @@
   let { scenario, canonical = false }: { scenario: string; canonical?: boolean } = $props();
   let ownerOpen = $state<boolean | undefined>(untrack(() => scenario === 'controlled-consumer' ? false : undefined));
   let localOpen = $state(false), switched = $state(false);
-  const [controlledOpen, setControlledOpen] = useControlled(() => ({ controlled: ownerOpen, default: false, name: 'Native boundary' }));
-  const open = $derived(canonical ? controlledOpen() : ownerOpen ?? localOpen);
+  const control = untrack(() => canonical) ? useControlled(() => ({ controlled: ownerOpen, default: false, name: 'Native boundary' })) : undefined;
+  const open = $derived(control ? control[0]() : ownerOpen ?? localOpen);
   const events: boolean[] = [], callbackOwners: string[] = [];
   function oldChanged(next: boolean) { callbackOwners.push('old'); events.push(next); }
   function newChanged(next: boolean) { callbackOwners.push('new'); events.push(next); }
@@ -15,13 +15,13 @@
   function request() {
     const next = !open;
     callback(next);
-    if (canonical) setControlledOpen(next); else if (ownerOpen === undefined) localOpen = next;
+    if (control) control[1](next); else if (ownerOpen === undefined) localOpen = next;
   }
-  const stableRequest = useStableCallback(request);
+  const stableRequest = untrack(() => canonical) ? useStableCallback(request) : request;
   function click() {
     if (scenario === 'controlled-consumer') ownerOpen = true;
     if (scenario === 'callback-snapshot') switched = true;
-    (canonical ? stableRequest : request)();
+    stableRequest();
   }
   export function snapshot() { return { events, callbackOwners }; }
 </script>
