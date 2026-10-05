@@ -14,7 +14,7 @@
     }
   ],
   "nativePolicy": {
-    "source": "packages/react/src/utils/useAnimationsFinished.ts",
+    "source": "packages/react/src/internals/useAnimationsFinished.ts",
     "original": "A batch change retains already pending invocation policy; both prior watchers stay live.",
     "native": "Actual native batch reads invalidate the effect, abort both old watchers synchronously, and schedule fresh invocation queries. Fresh batched completion publishes owner and dependent before cleanup; individual completion commits owner and aborts dependent before publication.",
     "witness": "packages/base/tests/dom/native-completion-batch-policy.test.ts",
