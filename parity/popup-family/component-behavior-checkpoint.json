@@ -1,7 +1,7 @@
 {
   "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "predecessor": "ed997d2",
-  "status": "Paired DOM48, native hydration6, adapted Source Popover leaf11 pass in one-worker execution; separate native SSR6 and bounded strict public/behavior layer0/0, scoped lint0. Leaf hover/click delay fixture precision changed afterwards and requires rerun. Strict actual packed consumer is prepared but unexecuted. Canonical useClick repair integration, Source/native/maintainability full closure review and secured official browser gates pending.",
+  "status": "Paired DOM48, native hydration6, adapted Source Popover leaf11 and separate native SSR6 pass; leaf precision rerun11 passes. Actual library rebuild and isolated packed27-part root/subpath identity/SSR/strict consumer pass at a397bf3560d6261996232e87fc5debae58e672d9. Scoped browser fixture check0/0, lint0, browser list48. Canonical useClick integration, independent whole closure review, secured official browser execution and final gates remain pending.",
   "ordinaryDeclarationCredit": 0,
   "runtimeTests": {
     "pairedDom": 48,
@@ -18,7 +18,7 @@
       "PreviewCard href is actual native string|null|undefined rather than React string|undefined; zero Original credit"
     ]
   },
-  "sourceLeafReviewStatus": "Adapted-passing pending independent complete-body correspondence review, zero ordinary credit. Source fixture delay precision just tightened, rerun pending.",
+  "sourceLeafReviewStatus": "Adapted-passing after delay precision rerun11; independent complete-body correspondence review pending, zero ordinary credit.",
   "helperRuntimeEdits": [],
   "graph": {
     "path": "parity/popup-family/native-component-graph.json",
@@ -102,6 +102,56 @@
       "path": "parity/popup-family/receipts/popup-family-behavior-lint-first.log.gz",
       "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "gzipSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-family-library-build-first.log.gz",
+      "rawSha256": "1cff3a15b64eec658c1cc9cf77f8d3579688147204a80d9fde225dac5d71b3ff",
+      "gzipSha256": "e1a298b34f399311efc4dba86f32ac2f88a43b74dc9bba5cc7b0819f36a89b19"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-family-packed-consumer-first.log.gz",
+      "rawSha256": "0f4e03bcb234e52fed67ce1a50db1c474080f206ca29b5b94307bfb15bb92f11",
+      "gzipSha256": "57b866174fd10d0d65226650e0e0fec6575a3b7b5333689ce6fc478e18fff696"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-popover-leaf-source-delay-rerun.log.gz",
+      "rawSha256": "a8a9fbd50e0d9d7f76e8d813ff033a43cccf07c307e5c96dcdc747ecba07f0e8",
+      "gzipSha256": "8257dfbaf5852ee75e6aaf68708157f0e92cccb0df00d84eb4371a2a589525e1"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-family-browser-types-first.log.gz",
+      "rawSha256": "7e27dd779e05a54111112a73012731d0bd0a37ddfa3fc12e8a5b0ab2f516b343",
+      "gzipSha256": "9df8f289a5b910673db185c632a005816eda07e2e4d429f5e7e0065c36c718ec"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-family-browser-lint-first.log.gz",
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gzipSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-family-browser-list.log.gz",
+      "rawSha256": "cda2908143e4eb425abdd58a01dacf3ea1370c1bef6d487087c8e2ed52c97360",
+      "gzipSha256": "adf4099bc261af349be25366c5380d9abfce392e79a88e79e25576776374cb17"
     }
-  ]
+  ],
+  "installedConsumer": {
+    "sourceHead": "a397bf3560d6261996232e87fc5debae58e672d9",
+    "libraryBuild": "passed",
+    "strictPositiveErrors": 0,
+    "strictPositiveWarnings": 0,
+    "runtimeParts": 27,
+    "sourceNegativeDirectives": 5,
+    "typeEqualities": 3,
+    "intendedNegativeDiagnostics": 9,
+    "tarballIdentity": "First successful run did not print the tarball digest before temporary isolation cleanup. Script now prints it for the required next exact final-head gate; no digest is fabricated."
+  },
+  "browser": {
+    "status": "prepared-unexecuted",
+    "listedPairedScenarios": 48,
+    "typeErrors": 0,
+    "typeWarnings": 0,
+    "lintDiagnostics": 0,
+    "workflow": ".github/workflows/popup-family-browser.yml",
+    "security": "official Chromium, sandbox true, workers1, retries0 on Ubuntu22.04"
+  }
 }
