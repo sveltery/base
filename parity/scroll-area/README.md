@@ -18,9 +18,10 @@ canonical renderer/event/ref/helper implementation is reused.
 variants) and six conformance calls are separately inventoried. Browser ports,
 private DOM supplements, native renderer observations, strict installed public
 consumers and SSR are separate evidence. No unexecuted browser assertion earns
-passed or unchanged credit. The prior exact11eb whole-source receipt is SOURCE
-CLEAR using its precise inherited f2 manual basis. Final successor source
-disposition, required checks and PM acceptance remain pending; native conformance
+passed or unchanged credit. The predecessor exact1a9fa4f whole-source disposition is SOURCE
+CLEAR through its precise inherited f2 manual basis and11eb naming addendum.
+Current-main successor source disposition, required checks and PM acceptance
+remain pending; native conformance
 still earns zero unchanged upstream conformance credit. This is not a complete
 compatibility claim.
 
@@ -44,7 +45,9 @@ header-only f2 successor preserves all56 product module bytes. Published11eb
 passed all10 hosted workflows; CI run37166095427 and focused ScrollArea
 run37166095432 are historical exact-head evidence. The latter executed all123
 paired probes and its build/strict installed public consumer gates passed.
-Actual-main successor checks remain pending until executed on its own final head.
+The1a9fa4f predecessor also passed required Standards/Verification, all22 checks,
+focused123 and broad2468. Those runs remain historical after the new accepted-main
+integration. Current-main successor checks require execution on its own final head.
 Hosted655601e executed82/92 probes; hostedb301446 executed113/115;
 hostedc07e executed121/123. All failed gates are preserved in [execution history](execution-history.json), with
 fixture/locator/simulation corrections and measured native styles recorded in
@@ -84,3 +87,14 @@ implementation. It earns no retroactive pre-code or unchanged conformance credit
 Unselected popup/temporal test-barrel bodies remain inventory only. No business
 bug shared with the exact original has been established by the paired failures;
 all repairs preserve the source business algorithms.
+
+Current-main delivery normally integrates accepted Navigation PR59 main
+`2f306c27dcec4127246fcc4f1345d64af5fef4f4` at `b266cbc899671a7bbc9e13b541ec5f4921ba88dd`,
+retaining both histories and every compatibility entry. All56 used ScrollArea
+bodies, import members, graph and assertion/fixture/security bytes remain
+unchanged. The package map and root barrel retain both ScrollArea and the accepted
+ToggleGroup/Toolbar exports; Navigation keeps its own installed-consumer workflow.
+[Integration scope](current-main-integration.md) separates inherited manual
+Source/native/maintainability coverage from the freshly reviewed public seams.
+Final exact-head hosted checks, configured review (or an actual scoped quota
+disposition), independent successor review and Root PM approval remain required.

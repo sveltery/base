@@ -331,9 +331,11 @@ hoisting/deduplication. CSP nonce and exact constant scrollbar CSS are preserved
 style suppression belongs to the real CSPProvider context.
 
 Decision: native framework substitutions follow the user's source-first/native
-Svelte directive. The prior exact11eb source receipt is SOURCE CLEAR and its
-secured hosted browser gate passed123 probes; exact successor independent
-disposition, required checks and PM acceptance remain pending. No business fix or generic waiver is
+Svelte directive. The predecessor exact1a9fa4f source
+disposition is SOURCE CLEAR through precise same-body f2 manual coverage and11eb
+naming review, with required checks, focused123 and broad2468 passed. The
+current-main successor independent disposition, required checks and PM acceptance
+remain pending. No business fix or generic waiver is
 approved. Original95 ordinary declarations, one parameterized declaration/three
 variants and six conformance calls retain separate provenance; divergent native
 assertions earn zero unchanged credit. See [ScrollArea evidence](../parity/scroll-area/README.md)
@@ -358,4 +360,7 @@ fixture HTTP origin. At published11eb, [run37166095432](https://github.com/svelt
 passed all123 with strict error checks, official secured Chromium, one worker and
 zero retries. This prior-head execution earns zero new ordinary or unchanged
 conformance credit. Proposed [PR61](https://github.com/sveltery/base/pull/61)
-still requires checks and independent disposition of its actual-main successor.
+normally integrates accepted Navigation PR59 main `2f306c27` without changing any
+of the56 used ScrollArea bodies/imports or this native boundary. Both families
+retain their package/root exports and Navigation consumer workflow. It still
+requires checks and independent disposition of the exact current-main successor.

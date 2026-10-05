@@ -148,6 +148,31 @@
       "unchangedOriginalDeclarationCredit": 0,
       "unchangedConformanceCredit": 0,
       "note": "Verified historical exact-head success from GitHub workflow metadata and actual job log. Earlier failed runs remain intact. Actual-main successor checks and independent disposition remain pending; no unchanged ordinary/conformance credit inferred."
+    },
+    {
+      "head": "1a9fa4f9e042dbe57b20538c5d78dd25c38b3070",
+      "tree": "b1b39af0f40671544f3d16de68892e22f0ffee59",
+      "run": 37183612685,
+      "job": 111380931281,
+      "url": "https://github.com/sveltery/base/actions/runs/37183612685",
+      "browserExecuted": true,
+      "result": "passed",
+      "passedTests": 123,
+      "failedTests": 0,
+      "runtime": "Ubuntu22.04, official Chromium153.0.8010.12, chromiumSandbox:true, workers1, retries0; actual React19.2.8/ReactDOM19.2.8/@base-ui/react1.8.0 versus native public imports",
+      "installedPublicGate": "PASS actual library build and strict root/subpath aliases/types/SSR/DOM/negative consumers",
+      "requiredCI": {
+        "run": 37183612705,
+        "result": "success",
+        "standardsJob": 111380931593,
+        "verificationJob": 111380931540,
+        "broadJob": 111380931423,
+        "broadPassedTests": 2468
+      },
+      "all22HostedChecks": "success",
+      "unchangedOriginalDeclarationCredit": 0,
+      "unchangedConformanceCredit": 0,
+      "note": "Root independently read exact API metadata and full decoded focused/broad logs. This predecessor pass is historical after normal integration of accepted Navigation main2f306c27. Current-main head has its own required gates; old quota comment5974921965 is only old head/scope."
     }
   ]
 }

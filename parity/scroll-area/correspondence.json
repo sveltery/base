@@ -660,6 +660,25 @@
       "receipt": "scroll-area-source-review-11ebc86.json",
       "sha256": "ef621a7caf2cbe80aad75e51770e8a48123bb03dd2dca8fa7fa4b78ab847b49a",
       "basis": "Precise same-body inherited f2 whole56 receipt plus fresh complete scrollEdges naming addendum. Only manualScope correction; no fresh final whole56 manual-read claim. SOURCE CLEAR."
+    },
+    {
+      "head": "1a9fa4f9e042dbe57b20538c5d78dd25c38b3070",
+      "tree": "b1b39af0f40671544f3d16de68892e22f0ffee59",
+      "receipt": "scroll-area-1a9fa4f-root-source-audit.json",
+      "sha256": "96f5eeae77035bde9254c32e43f084d9abc5d804e4fef6093016f4d17420a913",
+      "basis": "Root independent exact successor disposition: per-module whole-body f2 manual Source/native/maintainability scope plus11eb naming addendum after physical/Git/import/Original identity proof for all56. No fresh current56 manual-read count; archives confer zero manual or assertion credit."
     }
-  ]
+  ],
+  "currentMainIntegration": {
+    "main": "2f306c27dcec4127246fcc4f1345d64af5fef4f4",
+    "commit": "b266cbc899671a7bbc9e13b541ec5f4921ba88dd",
+    "parents": [
+      "1a9fa4f9e042dbe57b20538c5d78dd25c38b3070",
+      "2f306c27dcec4127246fcc4f1345d64af5fef4f4"
+    ],
+    "usedBodyDelta": 0,
+    "importMemberDelta": 0,
+    "publicSeams": "Fresh owner review of complete package map and root barrel: additive union preserves ScrollArea aliases/types plus accepted ToggleGroup/Toolbar; Navigation workflow and installed consumer bytes equal accepted main. Final installed/hosted gates and independent exact-head successor disposition remain pending.",
+    "scopeReceipt": "current-main-integration.md"
+  }
 }
