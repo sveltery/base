@@ -132,3 +132,21 @@ Dialog/Accordion declaration JSON (the native counterpart of Source useTypes
 metadata transport). Actual queries button/avatar/remote form return their correct
 first route. A focused regression runs those real queries; the original failure
 receipt is retained. This does not claim the complete Source API formatter.
+
+## Frozen fa041 review checkpoint and focused repairs
+
+Fresh review identified a nonexistent `.QuickNav` browser target; desktop
+visibility was unvalidated and mobile absence made its hidden assertion vacuous.
+Tests now target the rendered `.QuickNavRoot`, and mobile first asserts actual
+SideNav/QuickNav node existence. IME/229 modifier-Enter probes target a genuinely
+focused native result link, where the selected helper runs, rather than the input.
+
+The fa041 notices incorrectly grouped QPS under Orama's2023 copyright and only
+linked Apache terms. Exact package-specific2024 QPS and2023 stemmer/stopword
+notices are now retained, along with the genuine complete Apache2 license from
+installed `/usr/share/common-licenses/Apache-2.0`. Only trailing whitespace was
+normalized. The static-adapter-copy asset was refreshed directly in the retained
+local build; source, copied build and actual HTTP-served bytes match. This focused
+asset check is not a new build or browser acceptance. Historical assertions/run
+history and incomplete licensing checkpoint are retained without parity credit;
+hosted successor browser execution and exact-head review remain pending.

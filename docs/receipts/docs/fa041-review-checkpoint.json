@@ -1,0 +1,14 @@
+{
+  "checkpoint": "fa04143274f8d9f881fbbd5b09272a2b0099d93a",
+  "findings": [
+    "QuickNav selector targeted nonexistent class; mobile absence made hidden check vacuous",
+    "QPS2024 copyright missing from grouped Orama2023 notice",
+    "Complete Apache2.0 license terms missing from shipped notices"
+  ],
+  "status": "Historical incomplete/unvalidated checkpoint; no browser or product acceptance credit",
+  "fullApacheSource": "/usr/share/common-licenses/Apache-2.0",
+  "fullApacheSourceSha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+  "adaptation": "Only trailing whitespace normalized; all full license text retained",
+  "staticAsset": "apps/docs/static/THIRD_PARTY_NOTICES.txt",
+  "staticAssetSha256": "108d62507e1ca5994b13b7a009e5d6b4ed00e192f23fbe37ba17d590d7c1095e"
+}
