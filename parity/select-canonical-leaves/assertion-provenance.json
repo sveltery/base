@@ -1,0 +1,37 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "originalOrdinaryDeclarations": 30,
+  "originalHelperExecutions": 33,
+  "separateNativeSupplements": {
+    "pure": 7,
+    "DOM": 4,
+    "SSR": 2
+  },
+  "ordinarySelectDeclarationCredit": 0,
+  "ports": [
+    {
+      "original": "packages/react/src/internals/itemEquality.test.ts",
+      "originalSha256": "8b22574b13412a582151aafd3e6646863fa14e7f49c5bd243bf4581809263613",
+      "native": "packages/base/tests/select-item-equality-source.test.ts",
+      "nativeSha256": "66be005170e2bd94d79209b9b9833411a0317d6464a7d06d2d25feb30cdb01d3",
+      "wholeAssertionBodiesAndExpectationsEqualAfterAttributionAndImportOnly": true,
+      "declarations": 15,
+      "parameterizedDeclarationCount": 0,
+      "literalParameterizedRows": 0,
+      "executions": 15,
+      "acceptanceCredit": "none; focused execution is separate from final review or Select credit"
+    },
+    {
+      "original": "packages/react/src/internals/resolveValueLabel.test.ts",
+      "originalSha256": "7756b8d17cca0004e6f78f61ab10e3b13814fdc6c93ee037240528b324242ce7",
+      "native": "packages/base/tests/select-value-label-source.test.ts",
+      "nativeSha256": "f1b11e10ee3c0bdb494f67305d1b9d9b2a6df7de0f9438ee3a735d17c354cb7e",
+      "wholeAssertionBodiesAndExpectationsEqualAfterAttributionAndImportOnly": true,
+      "declarations": 15,
+      "parameterizedDeclarationCount": 1,
+      "literalParameterizedRows": 4,
+      "executions": 18,
+      "acceptanceCredit": "none; focused execution is separate from final review or Select credit"
+    }
+  ]
+}
