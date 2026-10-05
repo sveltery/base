@@ -34,7 +34,7 @@
     {
       "record": "parity/toggle-toolbar/source-correspondence.json",
       "previousSha256": "6cf2f0ac3735f9d049006735eeeb1cc3d553e5c163b871bcd4211a8d433fb2d6",
-      "currentSha256": "87e911724640c9060bab631c2ef0e03f3b02877c0f93c046cd93616d33f378f7",
+      "currentSha256": "f5d101cecc49f4f1d9084cfb5bd95ed41e07381e35d286e27352392d210e8c8b",
       "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
     },
     {
@@ -46,7 +46,7 @@
     {
       "record": "parity/rendering/source-graph.json",
       "previousSha256": "21652065bee5567e1a95de9b3b188d2c74ab2ea2dfb7fcbb101597dab89f49a0",
-      "currentSha256": "fdac6213656faadf2c017b6e17e3764bad8dc71b5a6268b45c8dda3b6a998fbc",
+      "currentSha256": "1edd474ec27022eec303a3970d1092a388dcf92bddff4792e867512f71b4f43a",
       "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
     }
   ],

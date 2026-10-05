@@ -422,7 +422,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/nativeProps.ts",
-        "sha256": "fbb6178288b28dad7549551064e30bf2b432880f1a5b2476223b011f9e72a71a",
+        "sha256": "4c1f8df953df631d3b410b9a12e48e156ad90bcd5fef6feaec97a4426068ec29",
         "reachability": [
           "type",
           "runtime"
@@ -468,7 +468,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-        "sha256": "659427aaebb2b294178e5ccd147f6cbb4cb87a9704c18c62ff04a2847a7e1a56",
+        "sha256": "ab007711c5ea5bd558b06a704c5f06c2c37e46ff52b547c01c14e119116402d9",
         "reachability": [
           "runtime"
         ],
@@ -671,7 +671,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/useRenderElement.ts",
-        "sha256": "d344184b30e91d54544e9c5b00583679762e0ec099306e9a682df8426655c31a",
+        "sha256": "851c5b39cef485c29b87f7f006daa9763dc3a131ac45c6c6f72d9b4b978ca617",
         "reachability": [
           "runtime"
         ],
@@ -816,7 +816,7 @@
       },
       {
         "local": "packages/base/src/lib/merge-props/mergeProps.ts",
-        "sha256": "110f1b7615a7ccadcfc1e8775451eea5f9ca971bcafee6f3ffd4ea8470303d00",
+        "sha256": "e0a046d77de72d64d5f38af7ac7cfff73c5c819b14fef2b3a5607f802e2e7e91",
         "reachability": [
           "runtime",
           "type"
@@ -958,7 +958,7 @@
       },
       {
         "local": "packages/utils/src/lib/useMergedRefs.ts",
-        "sha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
+        "sha256": "0c41f7c8a065fa8a464f56852ba4c8196d51865905a5277f139ebaaa4b81ce1b",
         "reachability": [
           "runtime",
           "type"

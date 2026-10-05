@@ -42,7 +42,7 @@
     },
     {
       "source": "packages/base/src/lib/floating-ui/utils/event.ts",
-      "sha256": "d1ee6542732cf647dc9a02e9f40b664de30296df7d2756744a6810e8b3447b5c",
+      "sha256": "32391b7e254d578d4a374a8f95270e0fea8c763e8f56c52db2e9931243ad5e56",
       "reachability": "runtime",
       "imports": [
         {
@@ -80,7 +80,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
-      "sha256": "4d122789e9708f4d8de1a0d137e92f22d1d4648a27132ea7d5388a6312c271e1",
+      "sha256": "cc6fb52a0a0c161bf52b52701739de6a3d6cf2df61d1e0862fb7980cc6e3d8f2",
       "reachability": "runtime",
       "imports": [
         {
@@ -123,7 +123,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
-      "sha256": "22fc41339049f398d359434557b63f2290e01b717d4122b3c181a16eb8ac1314",
+      "sha256": "f4373372837e7254fa6a53bbe6cb3ed2d3a9a2780ee5efe8e10154bedfdaef86",
       "reachability": "runtime",
       "imports": [
         {
@@ -186,7 +186,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
-      "sha256": "e1676d4207f91d1b6f7c0b34ef8ef4e08fad4e59d53ba0815cac29ab76bdddfd",
+      "sha256": "24439ae0169b37dcf90a711cd756bb019b37426b765b7cdd002b42a172d451d5",
       "reachability": "runtime",
       "imports": [
         {
@@ -211,7 +211,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
-      "sha256": "8677a1a97c41cd56b8e52ac47fb40a3401ece276ebb62d83b6c3ac5cc0763bac",
+      "sha256": "aa0ec1d30f45ec09215f705a363585c5811124b6a8de1d030057cbcf43de0f6e",
       "reachability": "runtime",
       "imports": [
         {
@@ -310,7 +310,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
-      "sha256": "2bedbf116c6e555bcae5c423771d0d5072b80e5d191bae0883624784222e8cf1",
+      "sha256": "de5c954f8c1b4fea9d8ae87eed7df97baa4d834f23d32037887c4de619adc46b",
       "reachability": "runtime",
       "imports": [
         {
@@ -427,7 +427,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/nativeProps.ts",
-      "sha256": "fbb6178288b28dad7549551064e30bf2b432880f1a5b2476223b011f9e72a71a",
+      "sha256": "4c1f8df953df631d3b410b9a12e48e156ad90bcd5fef6feaec97a4426068ec29",
       "reachability": "runtime",
       "imports": [
         {
@@ -452,7 +452,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-      "sha256": "659427aaebb2b294178e5ccd147f6cbb4cb87a9704c18c62ff04a2847a7e1a56",
+      "sha256": "ab007711c5ea5bd558b06a704c5f06c2c37e46ff52b547c01c14e119116402d9",
       "reachability": "runtime",
       "imports": [
         {
@@ -583,7 +583,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
-      "sha256": "f56c35343595eafbb9a37d5313b6e9b95129b875a537790667fa32fd4f71b4b2",
+      "sha256": "e56dc193c3f2b1317916711b4b9f549ccfc49e60ac13cf10842c5ab5cc8be68a",
       "reachability": "runtime",
       "imports": [
         {
@@ -657,7 +657,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/useRenderElement.ts",
-      "sha256": "d344184b30e91d54544e9c5b00583679762e0ec099306e9a682df8426655c31a",
+      "sha256": "851c5b39cef485c29b87f7f006daa9763dc3a131ac45c6c6f72d9b4b978ca617",
       "reachability": "runtime",
       "imports": [
         {
@@ -737,7 +737,7 @@
     },
     {
       "source": "packages/base/src/lib/merge-props/mergeProps.ts",
-      "sha256": "110f1b7615a7ccadcfc1e8775451eea5f9ca971bcafee6f3ffd4ea8470303d00",
+      "sha256": "e0a046d77de72d64d5f38af7ac7cfff73c5c819b14fef2b3a5607f802e2e7e91",
       "reachability": "runtime",
       "imports": [
         {
@@ -838,7 +838,7 @@
     },
     {
       "source": "packages/base/src/lib/toggle-group/ToggleGroup.svelte",
-      "sha256": "66803c3610b6609ac9c210e62941ff9b5607e08022b1b1e2cab3dc9500a697d4",
+      "sha256": "f36d336a3ac1b41caa7dec0b0efa65184f53373c5e08e647838b1e277d16d3d5",
       "reachability": "runtime",
       "imports": [
         {
@@ -968,7 +968,7 @@
     },
     {
       "source": "packages/base/src/lib/toggle/Toggle.svelte",
-      "sha256": "5e70eb0ffc0d433d90b8d24af8940f5e4d197a2861aa43a0e8fa51a4ac2b813f",
+      "sha256": "407d005daa486ffc3d2a2f5877783c44cf386a2ba0e3e051858a46337e9ee05e",
       "reachability": "runtime",
       "imports": [
         {
@@ -1072,7 +1072,7 @@
     },
     {
       "source": "packages/base/src/lib/toolbar/button/ToolbarButton.svelte",
-      "sha256": "9fffe5251eb81ff8e1a78e368ce6dc051a10297958d3423ee7ec3ec219cab783",
+      "sha256": "65ab0070733369bb087cba963788264cf739f5005e10725604cde72839840456",
       "reachability": "runtime",
       "imports": [
         {
@@ -1434,7 +1434,7 @@
     },
     {
       "source": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
-      "sha256": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c",
+      "sha256": "f30838a56f41ea3672d26627fb42145d016e3b54b512c4c381e6aafb05431db2",
       "reachability": "runtime",
       "imports": [
         {
@@ -1631,7 +1631,7 @@
     },
     {
       "source": "packages/utils/src/lib/shadowDom.ts",
-      "sha256": "5c922c6a0b4cbfd31bb463e486f45524de328687376d622527a5e6cdf12cb8f2",
+      "sha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a",
       "reachability": "runtime",
       "imports": [
         {
@@ -1644,7 +1644,7 @@
     },
     {
       "source": "packages/utils/src/lib/useControlled.svelte.ts",
-      "sha256": "21543b53992d1f3856e83251c03329d7c558ee5c5637aa8d42f18bc359843705",
+      "sha256": "44a226c403bbe09dc85dec853303244f0c95ab94a708c3c599f606f4f93afd2f",
       "reachability": "runtime",
       "imports": [
         {
@@ -1669,7 +1669,7 @@
     },
     {
       "source": "packages/utils/src/lib/useId.ts",
-      "sha256": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90",
+      "sha256": "584864eb7f538f5adc40ab128461db75c960984c51265aead1ca3821e4bf879a",
       "reachability": "runtime",
       "imports": []
     },
@@ -1688,7 +1688,7 @@
     },
     {
       "source": "packages/utils/src/lib/useMergedRefs.ts",
-      "sha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
+      "sha256": "0c41f7c8a065fa8a464f56852ba4c8196d51865905a5277f139ebaaa4b81ce1b",
       "reachability": "runtime",
       "imports": [
         {

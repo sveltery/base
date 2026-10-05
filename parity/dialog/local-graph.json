@@ -8,7 +8,7 @@
   "records": [
     {
       "local": "packages/base/src/lib/dialog/Backdrop.svelte",
-      "sha256": "99293c2e7f8d9aa74c44334cca75bb3fc59693e6c109dffede81224d16888374",
+      "sha256": "b141ef710558db7ed03e9c321ae419ddb997c1b36c22dbf1042eb1d54c5d5a76",
       "imports": [
         {
           "specifier": "../internals/RenderElement.svelte",
@@ -34,7 +34,7 @@
     },
     {
       "local": "packages/base/src/lib/dialog/Close.svelte",
-      "sha256": "399981f723670074c6e0201592dd03ad8914a5e82a607675ac763842a51a6ec1",
+      "sha256": "a7fdf1325f32a3990c1891daffc6a3091cbdff4a425cbcd0511be742d0c42355",
       "imports": [
         {
           "specifier": "../internals/RenderElement.svelte",
@@ -70,7 +70,7 @@
     },
     {
       "local": "packages/base/src/lib/dialog/context.ts",
-      "sha256": "a028ecb86287df771f45a1284a71ab86a76662966aefa9ef25b6dae975a77530",
+      "sha256": "2bf8c514db4d0dd6fe97a1c9fe5e1e943e3cd5ca94618b89a7f201cc86637f2b",
       "imports": [
         {
           "specifier": "svelte",
@@ -86,7 +86,7 @@
     },
     {
       "local": "packages/base/src/lib/dialog/Description.svelte",
-      "sha256": "c61de79d3b876bbade14757b74158935065f4bc5b617d239618d8be61e0f3dfe",
+      "sha256": "e763eef4371ca9e8b38da86792377abae0cd17ca3b052f2c5d1b8c8c9aef6aac",
       "imports": [
         {
           "specifier": "../internals/RenderElement.svelte",
@@ -123,7 +123,7 @@
     },
     {
       "local": "packages/base/src/lib/dialog/index.parts.ts",
-      "sha256": "460e314ed47e17acf0743516d01e9ef12b227a2540856f44c97e7d6991cd8d07",
+      "sha256": "82d326b73c4c1ba7a2170a7648b5c3ea08c7fe10f8c2aedb3985a60649a938c7",
       "imports": [
         {
           "specifier": "./Root.svelte",
@@ -184,7 +184,7 @@
     },
     {
       "local": "packages/base/src/lib/dialog/index.ts",
-      "sha256": "022a685e1df8e6452b2f44e8374eb91f0f364d5b9f186e83d78de64f7a42ebe5",
+      "sha256": "f790a9f627040be2b4d54c2c0c9923a9b7b7a4b5e0c85e17b0b825f53e6fe8bc",
       "imports": [
         {
           "specifier": "./index.parts.js",
@@ -200,7 +200,7 @@
     },
     {
       "local": "packages/base/src/lib/dialog/Popup.svelte",
-      "sha256": "f2a3d15a730eec1a68adb0968add533d8c55f5428e168201857b1bf0bfa35355",
+      "sha256": "96a9de7d5f4ddc6d69fa72951d8c3df779304659e2e817726957c2cca401a54e",
       "imports": [
         {
           "specifier": "../internals/RenderElement.svelte",
@@ -267,7 +267,7 @@
     },
     {
       "local": "packages/base/src/lib/dialog/Portal.svelte",
-      "sha256": "d56dc3d03be2a89a6c7a4505bc7140d9c4e96c6bb78673efc26840daef94d46b",
+      "sha256": "4f7ce5302599e36523ed74b7b8cd9c5ebb9cc22f14eb7f8a926defdcfcb11ab5",
       "imports": [
         {
           "specifier": "svelte",
@@ -298,7 +298,7 @@
     },
     {
       "local": "packages/base/src/lib/dialog/Root.svelte",
-      "sha256": "48a560f1ab11353a04e9db63ca35f6442213249beb0a3f66c146481381da4950",
+      "sha256": "cdc41ae1360ee7b70a2cb9054ffab8d4206af3bb9148e1900b96c8a4b922d3be",
       "imports": [
         {
           "specifier": "svelte",
@@ -334,7 +334,7 @@
     },
     {
       "local": "packages/base/src/lib/dialog/root/DialogInteractions.svelte",
-      "sha256": "36a430ef7903615a8aae3c66e46c22f46a24ee7a91c54d1c26e0ae11e6f1e083",
+      "sha256": "1f40abec25b767192cbc55ed589f4933b14cadddafd9c881bb274d98c160e7b5",
       "imports": [
         {
           "specifier": "svelte",
@@ -375,7 +375,7 @@
     },
     {
       "local": "packages/base/src/lib/dialog/root/useRenderDialogRoot.svelte.ts",
-      "sha256": "9678478d3a05799e1c6e77bdb2be6dd4957eb26169defb6d9b86ebaf523ea945",
+      "sha256": "2bcea3fb73fe1b1578ebf52b656cdc5b284e68deecfe01d687aa25f6f790bac7",
       "imports": [
         {
           "specifier": "../store/DialogStore.svelte.js",
@@ -411,7 +411,7 @@
     },
     {
       "local": "packages/base/src/lib/dialog/store/DialogHandle.svelte.ts",
-      "sha256": "5b27a4482df0ea2e6c126fbdca63b41731ba2a268ce3539df6b3954cc9de9d00",
+      "sha256": "a5cb05869d04ff9e87dce1422599c86a4f2974b88049a73b9c7f12383b83aca3",
       "imports": [
         {
           "specifier": "esm-env",
@@ -442,7 +442,7 @@
     },
     {
       "local": "packages/base/src/lib/dialog/store/DialogStore.svelte.ts",
-      "sha256": "a99fee3c61529a7ad3778ecb0f3108f477b8727c71525a2d34fa0a95f49f29bf",
+      "sha256": "bcfef95cae3d29ea6a193d62abcb678f78fe51cf90301c1fc528c86714bc8f32",
       "imports": [
         {
           "specifier": "@sveltery/utils/store",
@@ -473,7 +473,7 @@
     },
     {
       "local": "packages/base/src/lib/dialog/Title.svelte",
-      "sha256": "ac8d2b665aa1e8c504775705ea42eff4c686c9770633c2f2c6daed21cceed4af",
+      "sha256": "4729870dcbbcac20a2134e0fca56e987dc6b0a19fc2731e754384890f4c6dd9e",
       "imports": [
         {
           "specifier": "../internals/RenderElement.svelte",
@@ -499,7 +499,7 @@
     },
     {
       "local": "packages/base/src/lib/dialog/Trigger.svelte",
-      "sha256": "a0374753c3db8d75108ce0e3e5398b6abc306db599c0f8a3aca618e634406f1d",
+      "sha256": "e117dbbcc177f5fbdecaf385617d7efe66dd23e853582ad082433d2615481fbe",
       "imports": [
         {
           "specifier": "../internals/RenderElement.svelte",
@@ -565,7 +565,7 @@
     },
     {
       "local": "packages/base/src/lib/dialog/types.ts",
-      "sha256": "733775a8fb40ec9b1472c752624da00ff9426078e253e194f996ed0b2267f858",
+      "sha256": "aa9e6e11495e8a8218fd5f69c913d10d8794338a6e01fc685d545c4d9729874c",
       "imports": [
         {
           "specifier": "svelte",
@@ -642,7 +642,7 @@
     },
     {
       "local": "packages/base/src/lib/dialog/Viewport.svelte",
-      "sha256": "7940c5f1f767a68cf2e15ae1980b17bc3cb2b62ae43d56d55464c42b8e29b6af",
+      "sha256": "c54d43fba4624062af99c09482be3d17863f23597a48f2dcc248e218143e2af8",
       "imports": [
         {
           "specifier": "../internals/RenderElement.svelte",
@@ -679,7 +679,7 @@
     },
     {
       "local": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
-      "sha256": "ecc569748bb20499eefea586b68593708473f8420d0e23a078ddd20502707686",
+      "sha256": "ae02788ef295c9a613402109a31236e757d5abc8270dea5923d7949b475651c5",
       "imports": [
         {
           "specifier": "@floating-ui/utils/dom",
@@ -820,7 +820,7 @@
     },
     {
       "local": "packages/base/src/lib/floating-ui/components/FloatingFocusManager.svelte",
-      "sha256": "02e830d2f21614164344019f3bdd4420c4e0c58ddf49b12023c2202fcc236da8",
+      "sha256": "86113226b200d67c3251ba1addc0bc22189a39b22c4ce28c79e6f918380a3b23",
       "imports": [
         {
           "specifier": "svelte",
@@ -841,7 +841,7 @@
     },
     {
       "local": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
-      "sha256": "6db4ddd8289c3ec20d4019117571b702ea55e5c4c7b9e9af1a83db54f384eb5c",
+      "sha256": "4e9214fd0a8b8d29f004e9dd8d728969cbea57dae332062206f14cb3f7aeab4e",
       "imports": [
         {
           "specifier": "svelte",
@@ -922,7 +922,7 @@
     },
     {
       "local": "packages/base/src/lib/floating-ui/components/FloatingPortalContext.ts",
-      "sha256": "897245ee2d655ee10875e45707bca62d75b11170e2cb5b8a575c6a2848533833",
+      "sha256": "022afce07c643e0ee4a9bc2177ff8feb41fa5d6a1b63774eb682dd06d34494d5",
       "imports": [
         {
           "specifier": "svelte",
@@ -979,7 +979,7 @@
     },
     {
       "local": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
-      "sha256": "60397e69780dfabab1f9ae08c5ce362b22f24faecb8aa26617ca1e144296a255",
+      "sha256": "cc303f1b22e6d03be86b2b46572c5be0e32a0d96dd1eb86649ae048cbaa0433d",
       "imports": [
         {
           "specifier": "svelte",
@@ -1021,7 +1021,7 @@
     },
     {
       "local": "packages/base/src/lib/floating-ui/components/PortalContent.svelte",
-      "sha256": "094ca8f25b2d4622ed70767b472ad6cecc481ae92470caa67385c72a3551f603",
+      "sha256": "41cf8f68f099889990ab71c57ca1c5de2e1db746e2b54639fef873d9335c6600",
       "imports": [
         {
           "specifier": "svelte",
@@ -1073,7 +1073,7 @@
     },
     {
       "local": "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts",
-      "sha256": "2ffeb2d34f1c14053121830fb2dc6e715a254dfd08af7877454bd33e8280ed06",
+      "sha256": "6d013166a023400154b2f7a38c3240890b07d46dbf816b8db0675e524d159552",
       "imports": [
         {
           "specifier": "@sveltery/utils/useIsoLayoutEffect",
@@ -1164,7 +1164,7 @@
     },
     {
       "local": "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
-      "sha256": "17678a394ab0e2cfebe951952e293b09d6ef38a2e6864fcadff616f56edace18",
+      "sha256": "9cdd2bf28f214c02af6702e9bca0cdc20f6745f60958d39a95eff0d7d5e0477c",
       "imports": [
         {
           "specifier": "svelte",
@@ -1241,7 +1241,7 @@
     },
     {
       "local": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
-      "sha256": "8484a9dfa0436a00fffda25ec887bfba2fe199798813dcfba70f4d00c7cabf2a",
+      "sha256": "e0478293396446e37dc6604366a3b1ba79c617068157a634f1cc6b696dca0839",
       "imports": [
         {
           "specifier": "svelte",
@@ -1313,7 +1313,7 @@
     },
     {
       "local": "packages/base/src/lib/floating-ui/types.ts",
-      "sha256": "d75465f0e2fa7f46beab37d200f2f9e5a152dd4ca4a5751e5c9ca2811caed3d5",
+      "sha256": "5c4e86d68644ba65a89798d584d75bb7c1dacde7f892c9ea9fdfdd64523d3473",
       "imports": [
         {
           "specifier": "@floating-ui/dom",
@@ -1428,7 +1428,7 @@
     },
     {
       "local": "packages/base/src/lib/floating-ui/utils/event.ts",
-      "sha256": "d1ee6542732cf647dc9a02e9f40b664de30296df7d2756744a6810e8b3447b5c",
+      "sha256": "32391b7e254d578d4a374a8f95270e0fea8c763e8f56c52db2e9931243ad5e56",
       "imports": [
         {
           "specifier": "@sveltery/utils/platform",
@@ -1503,7 +1503,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/composite/composite.ts",
-      "sha256": "938a8b4ede73c5b5655a800777fe4748a94786a05bf828129de299c04cf94673",
+      "sha256": "f4e02dc8034a749a29f2c63d12f34c25d17c73ffd4075bc31e8f4a55306c0a9e",
       "imports": [
         {
           "specifier": "../../direction-provider/types.js",
@@ -1530,7 +1530,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/composite/utils/navigation.ts",
-      "sha256": "bb61a6e117cc345c347a3a29618d01e6e608ef1027b8e6464e072d8b70b4a0aa",
+      "sha256": "bcfb35db31e9b53c86be39c229e041eaaf48f82df10d4dfaac79b69ecfd5a6dd",
       "imports": [
         {
           "specifier": "esm-env",
@@ -1577,7 +1577,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/nativeProps.ts",
-      "sha256": "fbb6178288b28dad7549551064e30bf2b432880f1a5b2476223b011f9e72a71a",
+      "sha256": "4c1f8df953df631d3b410b9a12e48e156ad90bcd5fef6feaec97a4426068ec29",
       "imports": [
         {
           "specifier": "svelte/elements",
@@ -1598,7 +1598,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-      "sha256": "659427aaebb2b294178e5ccd147f6cbb4cb87a9704c18c62ff04a2847a7e1a56",
+      "sha256": "ab007711c5ea5bd558b06a704c5f06c2c37e46ff52b547c01c14e119116402d9",
       "imports": [
         {
           "specifier": "svelte",
@@ -1630,7 +1630,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/RenderElement.svelte",
-      "sha256": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5",
+      "sha256": "7468c314806abe0b4ed1fc2dd95d3a2defd6e86a9021012ced3f0154d0028daa",
       "imports": [
         {
           "specifier": "svelte",
@@ -1708,7 +1708,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/types.ts",
-      "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
+      "sha256": "6a36f5f103ef940b8a32d63f0288d897096c846fb2361b4ef44733e9a899907e",
       "imports": [
         {
           "specifier": "svelte",
@@ -1734,7 +1734,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
-      "sha256": "f56c35343595eafbb9a37d5313b6e9b95129b875a537790667fa32fd4f71b4b2",
+      "sha256": "e56dc193c3f2b1317916711b4b9f549ccfc49e60ac13cf10842c5ab5cc8be68a",
       "imports": [
         {
           "specifier": "esm-env",
@@ -1785,7 +1785,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/useAnimationsFinished.ts",
-      "sha256": "64ae89e2c4d398aa049822f4223967202426aa027591a657caf4bf6f4859a2aa",
+      "sha256": "31222cee2d8d0e15af4b6c9e7bb4fdc5293942b3ab1e2d4a651d84a63b5e5c26",
       "imports": [
         {
           "specifier": "svelte",
@@ -1827,7 +1827,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
-      "sha256": "e84d8a671d521e64183800bc048aa6471f627913efc5015cc74ddd34e2b87973",
+      "sha256": "f2de05237ca0eb539c18480d9245c10c4cbc6064ac24615e57e8d229ae5f2538",
       "imports": [
         {
           "specifier": "@sveltery/utils/useStableCallback",
@@ -1848,7 +1848,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/useRenderElement.ts",
-      "sha256": "d344184b30e91d54544e9c5b00583679762e0ec099306e9a682df8426655c31a",
+      "sha256": "851c5b39cef485c29b87f7f006daa9763dc3a131ac45c6c6f72d9b4b978ca617",
       "imports": [
         {
           "specifier": "@sveltery/utils/useMergedRefs",
@@ -1904,7 +1904,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
-      "sha256": "87ad2d4de3657585d704d2bd7137a65545e8c471d62d0e51349c2ca17f8daa7d",
+      "sha256": "e7b8958ce0c77110534a4179e0a8d3fdc35276021b9bf87d47d7addccc10c0ab",
       "imports": [
         {
           "specifier": "svelte",
@@ -1925,7 +1925,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/useValueChanged.svelte.ts",
-      "sha256": "f760d2e83ee33789ae5bfec715308cfc78253eda0fcbd34052bdcad44ce24991",
+      "sha256": "60f5b1675968fbdfd54c892217932b3d0592b1fa41f0cbcd5c03b097b84ee66a",
       "imports": [
         {
           "specifier": "svelte",
@@ -1962,7 +1962,7 @@
     },
     {
       "local": "packages/base/src/lib/merge-props/mergeProps.ts",
-      "sha256": "110f1b7615a7ccadcfc1e8775451eea5f9ca971bcafee6f3ffd4ea8470303d00",
+      "sha256": "e0a046d77de72d64d5f38af7ac7cfff73c5c819b14fef2b3a5607f802e2e7e91",
       "imports": [
         {
           "specifier": "../internals/nativeProps.js",
@@ -2005,7 +2005,7 @@
     },
     {
       "local": "packages/base/src/lib/utils/FocusGuard.svelte",
-      "sha256": "3beb00d3971b5af385876a648eb9a93cbd73f1027d4b70e33b4f5dd8b485961b",
+      "sha256": "3744d075b6bfb5db88e198fe1e60abccbeaffd30fe02d219d2efd32c5130db13",
       "imports": [
         {
           "specifier": "svelte/elements",
@@ -2041,7 +2041,7 @@
     },
     {
       "local": "packages/base/src/lib/utils/InternalBackdrop.svelte",
-      "sha256": "7901d8740b533ca2cb7b2c87fc47ab59295b99edea4383df6cd8c5fa44c3e13d",
+      "sha256": "2203a2991ad3c5c0bd0d6078939d50b9469f35694f842a2b1ba59cb926fa5aec",
       "imports": [
         {
           "specifier": "svelte/elements",
@@ -2067,7 +2067,7 @@
     },
     {
       "local": "packages/base/src/lib/utils/NullStore.svelte.ts",
-      "sha256": "6192e6fd5b423b4f5f8557c9faaf785c300be4ac55251b73e4dae6126cf96059",
+      "sha256": "f23ac9ae6b5303aa9adf6499e3101c06fa981a516e6d22e95f981903674ec49c",
       "imports": [
         {
           "specifier": "@sveltery/utils/store",
@@ -2099,7 +2099,7 @@
     },
     {
       "local": "packages/base/src/lib/utils/popups/popupHandle.svelte.ts",
-      "sha256": "5d8a5b18004cfac22fdac1839a0afd1a8b8b41089368b2642e8c567546a77998",
+      "sha256": "c3a56400141a1075b20c783a5da24f827911b7d622c5eb92f78a4cf1f49da778",
       "imports": [
         {
           "specifier": "esm-env",
@@ -2135,7 +2135,7 @@
     },
     {
       "local": "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte",
-      "sha256": "67735d7d8b17ad6d86743c6a9e74afab2c50436f645dca33a394565b7564e8e9",
+      "sha256": "b97151e8cbb31945f286d9f8f086c6377a9c21f44c31301febea838357352925",
       "imports": [
         {
           "specifier": "@sveltery/utils/useIsoLayoutEffect",
@@ -2146,7 +2146,7 @@
     },
     {
       "local": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
-      "sha256": "94f6c79bd82778fec3c2df4a420645acc9aa0531b66e709eed971d360b24283e",
+      "sha256": "3807cd539769eec5cb365fc251cc6a27c8a4bc8d21c0e4cdee13c9109b0ece8f",
       "imports": [
         {
           "specifier": "svelte",
@@ -2264,7 +2264,7 @@
     },
     {
       "local": "packages/base/src/lib/utils/popups/usePopupHandleStore.svelte.ts",
-      "sha256": "3bbe4fd4132a3acdeb82b575f734b01caccc7c3033b8162fa64ad619a8bfbf58",
+      "sha256": "d96d4ca763135cddc2ddbc931e772954b47ceb057bf1172660ec73203c9dbd0b",
       "imports": [
         {
           "specifier": "svelte",
@@ -2322,7 +2322,7 @@
     },
     {
       "local": "packages/base/src/lib/utils/resolveRef.ts",
-      "sha256": "ac85daa436a61800f824aa34ea08ff4cbe492c86c12be327de957a381acddaa7",
+      "sha256": "d8500030750c389af091f3f4f43b100f675772f3d22b6f1699a29db80d564d0a",
       "imports": []
     },
     {
@@ -2338,7 +2338,7 @@
     },
     {
       "local": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
-      "sha256": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c",
+      "sha256": "f30838a56f41ea3672d26627fb42145d016e3b54b512c4c381e6aafb05431db2",
       "imports": [
         {
           "specifier": "../internals/types.js",
@@ -2349,7 +2349,7 @@
     },
     {
       "local": "packages/base/src/lib/utils/useOpenInteractionType.svelte.ts",
-      "sha256": "ac11999848b8be1067e5947ac7085ff6fe16d56cdd89ce6c1e7f942fe71915c3",
+      "sha256": "637782dee378fc4fe0d551e6082e5c52cbb0432ba47956dbe477cae48bd05968",
       "imports": [
         {
           "specifier": "@sveltery/utils/useEnhancedClickHandler",
@@ -2525,7 +2525,7 @@
     },
     {
       "local": "packages/utils/src/lib/shadowDom.ts",
-      "sha256": "5c922c6a0b4cbfd31bb463e486f45524de328687376d622527a5e6cdf12cb8f2",
+      "sha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a",
       "imports": [
         {
           "specifier": "@floating-ui/utils/dom",
@@ -2552,12 +2552,12 @@
     },
     {
       "local": "packages/utils/src/lib/store/Store.svelte.ts",
-      "sha256": "cb14e7e3e12bffcb353761c48bc275e41949bad5706860f0d877ea3344e0b600",
+      "sha256": "289f1c151106f981843140b9d508d300597ee1f5a90437dca446738b861cad3c",
       "imports": []
     },
     {
       "local": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
-      "sha256": "cbc2de3e2d78c8cb79bab4613c5f490d799d32f5e3de6d39f51ccc3fa995ca9f",
+      "sha256": "0da85c6816b78b849db5378755cee67272a3af3fbdedd57060b1b46fe2186556",
       "imports": [
         {
           "specifier": "svelte",
@@ -2583,7 +2583,7 @@
     },
     {
       "local": "packages/utils/src/lib/useAnimationFrame.ts",
-      "sha256": "d662506c6d7bd1f69b87ea59f3bd7445c413474de2fcda723d1e3248215c9267",
+      "sha256": "07601e67af74f8cb6151f78cc525075cb25202476684199510aa8ac60f629aea",
       "imports": [
         {
           "specifier": "esm-env",
@@ -2609,7 +2609,7 @@
     },
     {
       "local": "packages/utils/src/lib/useId.ts",
-      "sha256": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90",
+      "sha256": "584864eb7f538f5adc40ab128461db75c960984c51265aead1ca3821e4bf879a",
       "imports": []
     },
     {
@@ -2625,7 +2625,7 @@
     },
     {
       "local": "packages/utils/src/lib/useMergedRefs.ts",
-      "sha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
+      "sha256": "0c41f7c8a065fa8a464f56852ba4c8196d51865905a5277f139ebaaa4b81ce1b",
       "imports": [
         {
           "specifier": "./useRefWithInit.js",
@@ -2652,7 +2652,7 @@
     },
     {
       "local": "packages/utils/src/lib/useScrollLock.svelte.ts",
-      "sha256": "414a9408f41af2df8abfe984a0a1c6a667a592bb58467a977d8618e7e8bd5489",
+      "sha256": "165f3a8e5394893ce5e6e15bc6b31ad6590cab59ac3721d2f1dd1928643be567",
       "imports": [
         {
           "specifier": "@floating-ui/utils/dom",
