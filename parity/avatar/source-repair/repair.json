@@ -344,7 +344,7 @@
     },
     {
       "source": "packages/base/src/lib/avatar/useImageLoadingStatus.svelte.ts",
-      "sha256": "5590bac7947b7a01266548051a28e6cbf90aa8ab828db0df11b4af64e21cff60",
+      "sha256": "215cfee57e7eeb294a6b9b0f856ce715e5a6a1949a853f70a8c064981f4cfe55",
       "reachability": "runtime",
       "imports": [
         {
@@ -1535,8 +1535,8 @@
     },
     {
       "source": "packages/base/src/lib/avatar/useImageLoadingStatus.svelte.ts",
-      "sha256": "5590bac7947b7a01266548051a28e6cbf90aa8ab828db0df11b4af64e21cff60",
-      "bodyEvidence": "new/changed used body; current graph, full component body inspection or bounded paired-completion validation applies"
+      "sha256": "215cfee57e7eeb294a6b9b0f856ce715e5a6a1949a853f70a8c064981f4cfe55",
+      "bodyEvidence": "full changed helper body re-read against pinned helper; external post-DOM effect preserves idle initialization before cached probing, all business branches/order unchanged"
     },
     {
       "source": "packages/base/src/lib/index.ts",
@@ -1705,8 +1705,8 @@
     },
     {
       "source": "packages/base/tests/dom/avatar-hydration.test.ts",
-      "sha256": "0a971a2b62a69a6486a57c133437a9b302a8d2e1d82f7da41e5e82b95137e9c3",
-      "bodyEvidence": "unchanged bytes from full-read historical audit60ac5cf"
+      "sha256": "56cbbd96ec5a39e79f24304d67162b745c52e52154ff853487c4eaa0bf65b776",
+      "bodyEvidence": "full changed hydration body re-read; original three declaration bodies preserved, one separate native supplement reproduces cached detached starting failure before fix then verifies starting/removal/no-fallback"
     },
     {
       "source": "packages/base/tests/dom/avatar-supplements.test.ts",
@@ -1776,11 +1776,12 @@
   "repairs": {
     "AV-S01": "Dedicated used loading helper, shared transition/completion composition and removal of avatar/animations.ts",
     "AV-S02": "Direct canonical RenderElement, explicit feature/shared mappings, canonical snippet attachment typing and removal of Avatar Dialog adapter/type import",
-    "AV-S03": "Current used graph/full-body correspondence supplements immutable pre-repair record; no retroactive credit"
+    "AV-S03": "Current used graph/full-body correspondence supplements immutable pre-repair record; no retroactive credit",
+    "AV-R01": "cec0285: native post-DOM external probe effect repairs verified cached detached hydration initialization order; no phase guard or scheduler engine"
   },
   "nativeBoundaries": [
     "Svelte live closure status callback before Root publication and idle suppression",
-    "Native $effect.pre detached probe + $effect rendered host synchronization; no SSR browser effects",
+    "Native post-DOM $effect detached probe and rendered host synchronization preserve idle component initialization before external probing; status publication remains pre-DOM; no SSR browser effects",
     "Existing AV-01 observer for lexical source attributes and native bindable refs/attachments/classes/string CSS/events",
     "Svelte native flushSync retains Source individual/shared completion commits; no activation/snapshot engine",
     "Direct native Fallback timer cleanup/monotonic delay instead of artificial wrapper"
@@ -1794,7 +1795,8 @@
     "typeAssertions": 6,
     "newSharedCompletionSupplementCases": 12,
     "unchangedOrdinaryCreditAdded": 0,
-    "historicalAssertionsChanged": false
+    "historicalAssertionsChanged": false,
+    "newNativeCachedHydrationSupplementCases": 1
   },
   "executed": [
     {
@@ -1847,6 +1849,29 @@
       "check": "Full repository Standards after normal main integration",
       "result": "PASS: complete ESLint and prescribed Prettier; same source/tooling bytes as successor evidence commit",
       "log": "/workspace/sveltery-pm-evidence/avatar-repair-standards-main-successor.log"
+    },
+    {
+      "check": "cec0285 Avatar loading/conformance/animations/hydration/shared completion DOM",
+      "result": "PASS117/117 in6files; one worker; cached detached starting then removal and keepMounted suppression",
+      "log": "/workspace/sveltery-pm-evidence/avatar-repair-loading-lifecycle-after-fix.log"
+    },
+    {
+      "check": "cec0285 Avatar native SSR and paired no-browser SSR/provenance",
+      "result": "PASS5/5 native and3/3 paired/provenance",
+      "logs": [
+        "/workspace/sveltery-pm-evidence/avatar-repair-ssr-cec0285.log",
+        "/workspace/sveltery-pm-evidence/avatar-repair-paired-ssr-provenance-cec0285.log"
+      ]
+    },
+    {
+      "check": "cec0285 rebuilt actual strict installed public consumer",
+      "result": "PASS;0errors/0warnings; public root/subpath SSR,7 type pairs, native refs/render/event callback order/cleanup, cached hydration model",
+      "log": "/workspace/sveltery-pm-evidence/avatar-repair-build-package-cec0285.log"
+    },
+    {
+      "check": "Full Standards after cec0285 lifecycle fix and receipt refresh",
+      "result": "PASS: complete ESLint and prescribed Prettier",
+      "log": "/workspace/sveltery-pm-evidence/avatar-repair-standards-cec0285.log"
     }
   ],
   "pending": [
@@ -1885,5 +1910,32 @@
     "changedNativeComponentBody": "packages/base/src/lib/index.ts",
     "selection": "Full barrel re-read; new Toolbar/ToggleGroup exports explicitly excluded from selected Avatar graph; all Avatar business/helper bodies unchanged.",
     "sourceAuditUnchanged": true
+  },
+  "cachedProbeInitializationRepair": {
+    "failedHead": "9cf486bb59c92d0604a28e851c3b25a2b7833a6f",
+    "failedBrowser": {
+      "job": 111570102656,
+      "run": 37248142967,
+      "passed": 203,
+      "failed": 1,
+      "url": "https://github.com/sveltery/base/actions/runs/37248142967/job/111570102656",
+      "predicate": "Svelte detached synchronous hydration starting expected true, received false; image/fallback/hidden and React comparator passed"
+    },
+    "independentBlockedReview": {
+      "report": "/workspace/sveltery-pm-evidence/avatar-independent-whole-9cf486b/report.md",
+      "sha256": "8d933d18b412ecb5f754840980f54523c35e945c64df81555d00f6085976d965",
+      "finding": "AV-R01 P2; Source and native NOT CLEAR"
+    },
+    "cause": "Svelte5.57.1 user_pre_effect creates RENDER_EFFECT|USER_EFFECT and executes update_effect synchronously during helper setup; cached loading published before transition initialized. Original initializes idle/loading and transition before layout probing.",
+    "fixCheckpoint": "cec0285788c1df6ce1a237809d24003dbac0bba7",
+    "fix": "Use native post-DOM external $effect; preserve all source options/assignments/stale callbacks, idle suppression and keepMounted behavior.",
+    "beforeFixNativeSupplement": {
+      "result": "1 failed /3 passed; same starting false/true predicate",
+      "log": "/workspace/sveltery-pm-evidence/avatar-repair-cached-hydration-before-fix.log"
+    },
+    "originalThreeHydrationPortBodiesUnchanged": true,
+    "sharedHelpersUnchanged": true,
+    "unchangedOrdinaryCreditAdded": 0,
+    "successorAcceptance": "Fresh final-head source/native/maintainability review, CI and secured browser pending"
   }
 }

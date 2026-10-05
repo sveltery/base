@@ -851,7 +851,7 @@
     },
     {
       "source": "packages/base/src/lib/avatar/useImageLoadingStatus.svelte.ts",
-      "sha256": "5590bac7947b7a01266548051a28e6cbf90aa8ab828db0df11b4af64e21cff60",
+      "sha256": "215cfee57e7eeb294a6b9b0f856ce715e5a6a1949a853f70a8c064981f4cfe55",
       "reachability": "runtime",
       "imports": [
         {
@@ -2254,7 +2254,7 @@
     },
     {
       "source": "packages/base/tests/dom/avatar-hydration.test.ts",
-      "sha256": "0a971a2b62a69a6486a57c133437a9b302a8d2e1d82f7da41e5e82b95137e9c3",
+      "sha256": "56cbbd96ec5a39e79f24304d67162b745c52e52154ff853487c4eaa0bf65b776",
       "reachability": "runtime",
       "imports": [
         {
@@ -2281,7 +2281,8 @@
           "effectiveKind": "runtime",
           "importedMembers": [
             "expect",
-            "it"
+            "it",
+            "vi"
           ],
           "resolved": "external:vitest"
         },

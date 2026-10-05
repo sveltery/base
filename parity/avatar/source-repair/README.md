@@ -8,6 +8,8 @@ Image now composes the actual dedicated `useImageLoadingStatus`, canonical `useT
 
 Native $state/$derived, pre-DOM/post-DOM effects, actual host refs/attachments and browser defaults are retained. Loading source/options order, stale callbacks, keepMounted/no detached probe, ref-less events, initial complete rendered suppression, callback-before-Root publication, idle suppression/teardown and Fallback monotonic delay remain. The existing AV-01 lexical-source observer and within-frame/native renderer limits are documented; no React render snapshot, activation, geometry or generic controller is introduced.
 
+Required secured Avatar job [111570102656](https://github.com/sveltery/base/actions/runs/37248142967/job/111570102656) at `9cf486b` passed203 of204 cases and found a real cached detached hydration initialization-order regression. Svelte's pre-DOM effect runs synchronously during helper setup, so the extracted probe could publish loaded before `useTransitionStatus` initialized from idle. Source repair `cec0285` moves that external probe to native post-DOM `$effect`, retaining every source/options assignment and stale-callback branch. A separate native hydration supplement fails before the fix and passes afterward, requiring synchronous starting, eventual frame cleanup and no fallback. The existing cached keepMounted port remains starting-free. This is a fidelity repair; the failed head receives no Source or browser acceptance, and a fresh exact-successor review/run remains required.
+
 The strengthened [isolated public consumer gate](../../../scripts/check-avatar-package.sh) checks declarations without skipLibCheck and mounts the actual tarball with its installed Svelte peer. It exercises native replacement attachments/refs, source replacement, event cancellation, callback-before-Root publication and cleanup, then hydrates emitted server HTML with an explicit cached-completion model. Its shell-embedded ephemeral installed modules are a separate test-only boundary in the repair receipt; they are not library runtime modules or browser paint evidence.
 
 Executed bounded validation:
@@ -23,6 +25,7 @@ Executed bounded validation:
 | Full repository Standards before public-script supplement |PASS |
 | Exact leased helper hashes and immutable source archive equality |2 / 2 helpers;53 / 53 bodies |
 | Full local Verify at `dab1264` before unrelated main integration |PASS;63 script,219 runtime and1176 DOM tests; workspace checks0errors/0warnings; fixtures and all installed consumers |
+| Post-DOM probe lifecycle successor at `cec0285` |117 /117 targeted Avatar DOM in6 files;5 /5 native SSR;3 /3 paired no-browser SSR/provenance; rebuilt strict installed public consumer PASS |
 
 Normal merge `2a44e5003900895fcddc10a02e5d88d2b57ba15e` integrates landed main `2f306c27` so its current navigation workflow can execute the newly landed package script. The successor graphs were regenerated: all40 Original bodies and34 of35 current native component bodies remain identical. The full changed public barrel was re-read; new ToggleGroup/Toolbar sibling exports are explicitly excluded and Avatar's selected graph remains35 modules /85 edges. Both leased helper hashes remain exact. The earlier full local pass belongs to `dab1264`; successor exact-head CI and independent review remain required.
 

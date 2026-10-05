@@ -343,7 +343,7 @@
     },
     {
       "source": "packages/base/src/lib/avatar/useImageLoadingStatus.svelte.ts",
-      "sha256": "5590bac7947b7a01266548051a28e6cbf90aa8ab828db0df11b4af64e21cff60",
+      "sha256": "215cfee57e7eeb294a6b9b0f856ce715e5a6a1949a853f70a8c064981f4cfe55",
       "reachability": "runtime",
       "imports": [
         {
