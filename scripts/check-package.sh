@@ -9,6 +9,14 @@ mkdir -p "$consumer_dir/node_modules/@sveltery/base"
 tar -xzf "$consumer_dir"/*.tgz --strip-components=1 -C "$consumer_dir/node_modules/@sveltery/base"
 test -f "$consumer_dir/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
 cmp LICENSE "$consumer_dir/node_modules/@sveltery/base/LICENSE"
+# All three validators inspect this same tarball; neither tool repacks the workspace.
+node scripts/check-package-artifact.mjs "$consumer_dir/node_modules/@sveltery/base"
+pnpm exec publint "$consumer_dir"/*.tgz --strict
+# ATTW's public mode filter validates all Bundler entries and the plain-JS Node16 ESM entry.
+# Preserve unsupported-mode findings too, instead of suppressing a diagnostic rule or entrypoint.
+mkdir -p .checks/npm-package
+cp "$consumer_dir"/*.tgz .checks/npm-package/
+node scripts/check-package-types.mjs "$consumer_dir"/*.tgz .checks/npm-package/attw-analysis.json
 cat > "$consumer_dir/check.mjs" <<'JS'
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';

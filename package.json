@@ -10,11 +10,15 @@
     "check": "pnpm -r check",
     "test": "pnpm --filter @sveltery/base test",
     "build": "pnpm --filter @sveltery/base build && pnpm --filter @sveltery/fixtures build",
+    "package:check": "pnpm --filter @sveltery/base build && bash scripts/check-package.sh",
     "verify": "bash scripts/verify.sh",
     "test:browser": "playwright test"
   },
   "license": "MIT",
   "devDependencies": {
-    "@playwright/test": "1.63.0"
+    "@arethetypeswrong/cli": "0.18.5",
+    "@arethetypeswrong/core": "0.18.5",
+    "@playwright/test": "1.63.0",
+    "publint": "0.3.25"
   }
 }
