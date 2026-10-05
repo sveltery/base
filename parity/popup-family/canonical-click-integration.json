@@ -54,14 +54,16 @@
     }
   ],
   "finalOwnedPackedConsumer": {
-    "productAtRun": "b8dd3382508cd83bef2760bb6615ced430e84bb7",
+    "productAtRun": "f068c4ff2e1534bc77705130e719c404c31c7c9d",
+    "acceptedMain": "c1600456d3b4e72910d42823b9df69280c74a262",
     "script": "scripts/check-popup-family-package.sh",
-    "libraryRebuild": "PASS, node cap2048MiB/TMPDIR/workspace/sveltery-tmp",
+    "libraryRebuild": "PASS, capped2048MiB/TMPDIR/workspace/sveltery-tmp",
     "tarball": "sveltery-base-0.0.0.tgz",
-    "tarballSha256": "79a14e744e162622960d59af6a7c5e05f90da918f2116fffc20193b784c70da1",
+    "tarballSha256": "7183aacd41fad7143d9e9a07ff761fe77ac5d99d7d283678f439765066090752",
     "result": "Actual isolated installed all27 root/subpath identities/3handles+3factories, realSSR, strict public refs/optionalfields0errors0warnings,5Source directives/3typeequalities/exact9 intended negative diagnostics PASS",
     "toolchain": "pnpm12.6.0/Node24.19.0",
-    "laterProductDelta": "None; only test/reference fixture/config/evidence additions after b8dd. No duplicate fullVerify/browser."
+    "finalUnion": "Accepted ScrollArea and prior CSP/catalog/public histories coexist with all3 public popup namespaces; all56 Scroll bodies equal acceptedMain and all189 family bodies/graph equal ad838.",
+    "laterProductDelta": "None; receipts/documentation only after f068. No full local Verify/browser duplication."
   },
   "testOnlyNormalMerge": "b8dd3382508cd83bef2760bb6615ced430e84bb7",
   "nativeDOM": "317/317PASS across7files incl Root189/literal6/hydration6/canonicalClick20; real incoming caller pair additional2/2PASS",
@@ -149,6 +151,40 @@
       "path": "parity/popup-family/receipts/popup-canonical-main-real-caller-pair-old-final.log.gz",
       "rawSha256": "f326e8b44f7d68ea045839d9f4c7516c27f0f146bd676664921e466c5f37f24c",
       "gzipSha256": "552deaaac22c18e1fda479495648223a2b8f93f4ae64c3f196749dad0d345ba7"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-c160-final-build.log.gz",
+      "rawSha256": "9a4f84168e429925dd22c0ca2f38d299b0e9bd4344706a834e00c30d741a9ac1",
+      "gzipSha256": "16ba7ad9ab15da1bd787b8a50d342c1659b4cb31e806161fd956387301ce87d2"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-c160-final-package.log.gz",
+      "rawSha256": "028ba3d0c7d6f1440f763afbbcb0b9797f19096d4a8cc760503541c1c5c8d333",
+      "gzipSha256": "24b17d6eeea59790aba716c615ec275cc9fa3ab3eec02585ecd3cecdc859db6d"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-c160-final-package-toolchain.log.gz",
+      "rawSha256": "3df44716e8e37a19ecf338f2fdc53bad0e05d08e191b1e4d58596e8acc1b32ad",
+      "gzipSha256": "1e9769beec524a1f65fd99897a2da188409eb34a37c8b8a421644945b1b8a290"
     }
-  ]
+  ],
+  "acceptedScrollMainIntegration": {
+    "acceptedMain": "c1600456d3b4e72910d42823b9df69280c74a262",
+    "normalMerge": "f068c4ff2e1534bc77705130e719c404c31c7c9d",
+    "onlyConflict": "Complete compatibility register union retained; accepted IE delivery checkpoint and full ScrollArea SA-01 appended to existing Menu/Popup/historical entries.",
+    "publicUnion": "ScrollArea root/subpath/catalog/CSP acceptedMain histories plus all27 family parts/3handle/3factories preserved.",
+    "actualFamilyGraph": "Exact unchanged189/833 bytes; SHA2560c403c9310af6823a813acc879e31d2fd3dbec67ab44089ca67bb4e8c61d4077",
+    "familyHelperCallerBodies": "All unchanged relative ad8381b; canonical399f7e0/d46588 retained",
+    "packedGate": "PASS actual current public root union; tarball7183aacd. Prior79a14/b8dd proof remains historical."
+  },
+  "historicalPreScrollOwnedPackedConsumer": {
+    "productAtRun": "b8dd3382508cd83bef2760bb6615ced430e84bb7",
+    "script": "scripts/check-popup-family-package.sh",
+    "libraryRebuild": "PASS, node cap2048MiB/TMPDIR/workspace/sveltery-tmp",
+    "tarball": "sveltery-base-0.0.0.tgz",
+    "tarballSha256": "79a14e744e162622960d59af6a7c5e05f90da918f2116fffc20193b784c70da1",
+    "result": "Actual isolated installed all27 root/subpath identities/3handles+3factories, realSSR, strict public refs/optionalfields0errors0warnings,5Source directives/3typeequalities/exact9 intended negative diagnostics PASS",
+    "toolchain": "pnpm12.6.0/Node24.19.0",
+    "laterProductDelta": "None; only test/reference fixture/config/evidence additions after b8dd. No duplicate fullVerify/browser."
+  }
 }
