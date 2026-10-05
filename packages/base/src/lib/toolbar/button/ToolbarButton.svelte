@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { untrack } from 'svelte';
   import { createAttachmentKey } from 'svelte/attachments';
   // Source-ordered Base UI v1.8.0 ToolbarButton.tsx; MIT: THIRD_PARTY_NOTICES.md.
   import { EMPTY_OBJECT } from '@sveltery/utils/empty';
@@ -43,8 +44,8 @@
   ]);
   const buttonAttachmentKey = createAttachmentKey();
   function attachButton(host: HTMLElement) {
-    buttonRef(host);
-    return () => buttonRef(null);
+    untrack(() => buttonRef(host));
+    return () => untrack(() => buttonRef(null));
   }
 </script>
 

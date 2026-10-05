@@ -6,7 +6,7 @@ The immutable Base UI 1.8.0 [root index](https://github.com/mui/base-ui/blob/47b
 | --- | --- |
 | [Button](../parity/button/README.md) | Standalone native/custom button, keyboard and disabled behavior; broader conformance remains incomplete. |
 | [Dialog](dialog-first-slice.md) | Contained parts and selected reviewed focus/portal/state behavior; complete Dialog and detached handles remain incomplete. |
-| [Toast](../parity/toast/rendering-interface.md) | Bounded store/rendering and standalone Portal; gestures, anchored positioning and remaining conformance remain incomplete. |
+| [Toast](rendering.md) | Bounded store and native replacement snippets, canonical lightweight Portal and shared button behavior; gestures, anchored positioning and remaining conformance remain incomplete. |
 | [Separator](separator.md) | Standalone divider, orientation, native prop overrides and composition; acceptance gates are recorded separately. |
 | [Toggle, ToggleGroup and Toolbar](navigation.md) | Source Toggle and generic Group with single/multiple cancellation, real Composite navigation and all six Toolbar parts; source closure/native differences/exact-head gates are separate from complete assertion parity. |
 | [Input](input.md) | Thin source Field.Control wrapper with native Svelte input/default/reset semantics and optional shared Field state/validation; remaining control families and remote API acceptance are separate. |
@@ -17,7 +17,7 @@ The immutable Base UI 1.8.0 [root index](https://github.com/mui/base-ui/blob/47b
 | [Accordion](accordion.md) | Root/Item/Header/Trigger/Panel, array values and bounded motion; external React.Activity and complete conformance remain deferred. |
 | [DirectionProvider](direction-provider.md) | Nearest-provider direction, default ltr and a retained callable reader; primitive hook typing and same-turn timing differ, and directional control integration remains deferred. |
 | [CSPProvider](csp-provider.md) | Provider/context foundation with reactive optional nonce/style flag and the implemented ScrollArea stylesheet consumer; Select/script integration and all four complete ordinary CSP assertion ports remain deferred/uncredited. |
-| [UseRender](use-render.md) | Native component/default host and replacement snippets; React return typing, lazy/Flight/RSC and diagnostics remain deferred, and native identity/teardown observations differ. |
+| [Native rendering](rendering.md) | Direct per-part replacement snippets and intrinsic fallbacks; public UseRender is retired, native framework differences earn zero unchanged upstream assertion credit, and successor acceptance remains pending. |
 | [Field](field-form.md) | Source Root/Control/Label/Description/Error/Validity/Item, contexts, registration and optional validation; downstream families and final ordinary credit remain bounded. |
 | [Form](field-form.md) | Source validation/focus/submit callbacks and external error ownership, plus typed remote Field children and control descriptors; Kit 2.70.3 cancellation/reset requires the explicit application patch, and complete upstream parity remains unclaimed. |
 | [Fieldset](field-form.md) | Source nested disabled precedence, legend association and native rendering; downstream assertions remain separate. |

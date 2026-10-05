@@ -149,7 +149,10 @@ export type ToastActionComponentProps = ToastElementProps<
   ToastLabelState,
   HTMLButtonAttributes,
   ToastContent
->;
+> & {
+  /** Set false when render supplies a non-button host. */
+  nativeButton?: boolean | undefined;
+};
 export type ToastCloseProps = ToastActionComponentProps;
 
 /** Standalone lightweight portal; empty upstream state, native props and replacement composition. */

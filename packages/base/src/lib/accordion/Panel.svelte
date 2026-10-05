@@ -4,7 +4,7 @@
 
   // Adapted from mui/base-ui v1.8.0 AccordionPanel/useCollapsiblePanel,
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
-  import { onDestroy, tick, untrack } from 'svelte';
+  import { onDestroy, untrack } from 'svelte';
   import { resolveClassValue } from '../internals/resolveClassValue.js';
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { getCollapsibleContext } from '../collapsible/context.js';
@@ -105,10 +105,8 @@
   onDestroy(restorePendingTemporaryStyle);
 
   const internal = $derived({
-    // The pin passes a boolean, then forces until-found in its state-owned
-    // effect. A replacement host does not rerun that effect by itself.
     id,
-    hidden,
+    hidden: hidden && hiddenUntilFound ? 'until-found' : hidden,
     ...stateAttributes(panelState),
     role: 'region',
     'aria-labelledby': item.triggerId,
@@ -313,29 +311,11 @@
     };
   });
 
-  $effect(() => {
-    const isHidden = hidden;
-    const untilFound = hiddenUntilFound;
-    const panel = untrack(() => node);
-    if (!panel || !untilFound || !isHidden) return;
-    let canceled = false;
-    // Restoration follows the same state dependencies as the pin, including
-    // forcing the string over consumer overrides on those state commits.
-    void tick().then(() => {
-      if (!canceled && node === panel && hiddenUntilFound && hidden)
-        panel.setAttribute('hidden', 'until-found');
-    });
-    return () => {
-      canceled = true;
-    };
-  });
-
-  // The source subscribes on the component effect lifetime, rather than the
-  // changing host ref. Keep that ownership until replacement behavior is proven.
+  // Native listener ownership follows the actual panel and live business callbacks.
   $effect(() => {
     const onOpenChange = context.onOpenChange;
     const setOpen = context.setOpen;
-    const panel = untrack(() => node);
+    const panel = node;
     if (!panel) return;
     function beforeMatch(event: Event) {
       const details = createChangeEventDetails('none', event);

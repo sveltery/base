@@ -113,9 +113,6 @@
     const isMounted = store.select('mounted');
     return isMounted ? getDefaultReturnFocus() : mountedReturnFocus;
   });
-  const setRef = (node: HTMLElement | null) => {
-    ref = node;
-  };
 
   const hostAttachmentKey = createAttachmentKey();
   function attachHost(host: HTMLElement) {

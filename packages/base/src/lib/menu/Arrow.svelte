@@ -25,9 +25,6 @@
     align: positioner.align,
     uncentered: positioner.arrowUncentered,
   });
-  const setRef = (node: HTMLElement | null) => {
-    ref = node;
-  };
 
   const hostAttachmentKey = createAttachmentKey();
   function attachHost(host: HTMLElement) {

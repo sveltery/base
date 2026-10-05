@@ -10,9 +10,6 @@
   // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
   let { ref = $bindable(null), ...props }: ContextMenuTriggerProps = $props();
   const trigger = createContextMenuTrigger(() => props);
-  const setRef = (node: HTMLElement | null) => {
-    ref = node;
-  };
 
   const renderSnippet = $derived(props.render);
   const hostAttachmentKey = createAttachmentKey();

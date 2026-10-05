@@ -44,3 +44,7 @@ Shared-host nested Composite rendering preserves the source inner-ref then forwa
 
 
 Replacing a group `inputRef` while its selected Radio stays mounted does not immediately move the representative ref, matching the pinned original. A subsequent selection publishes the replacement. Teardown uses Svelte's live prop closure, while React's original cleanup captures the old prop: callbacks may clear different ref identities, and object refs may retain a disconnected old or replacement input. [The compatibility record](upstream-differences.md#ra-01-source-radio-composition-and-native-checked-event-ownership) preserves both observed limitations. There is no reactive ref-refresh API or React snapshot emulation.
+
+## Native host bindings
+
+The native snippet successor replaces callback/object `inputRef` transport with optional bindable `HTMLInputElement | null | undefined`. Use `bind:inputRef` to observe the actual input; RadioGroup retains its selected/enabled representative-input registration business. `bind:ref` and native attachment props supply visible-host integration. See [native rendering](rendering.md). Historical Original assertions and receipts retain their provenance; divergent native binding assertions earn zero unchanged upstream credit.

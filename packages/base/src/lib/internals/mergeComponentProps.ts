@@ -30,16 +30,14 @@ export function mergeComponentProps<State extends object>(
   sources?: PropSources,
   mapping?: StateAttributesMapping<State> | false,
 ): HTMLProps {
+  const className = resolveClassName(appearance.class, state);
+  const style = resolveStyle(appearance.style, state);
+  const stateProps =
+    mapping === false ? {} : getStateAttributesProps(state, mapping);
   const props = Array.isArray(sources)
     ? mergePropsN(sources)
     : mergeProps(undefined, sources as PropSource);
-  const merged =
-    mergeObjects(
-      mapping === false ? {} : getStateAttributesProps(state, mapping),
-      props,
-    ) ?? {};
-  const className = resolveClassName(appearance.class, state);
-  const style = resolveStyle(appearance.style, state);
+  const merged = mergeObjects(stateProps, props) ?? {};
   if (className !== undefined)
     merged.class = mergeClassNames(
       toNativeClass(merged.class),

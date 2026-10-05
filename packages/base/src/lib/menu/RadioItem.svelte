@@ -74,9 +74,6 @@
     );
     group.setValue(value, details);
   }
-  const setRef = (node: HTMLElement | null) => {
-    ref = node;
-  };
 
   const hostAttachmentKey = createAttachmentKey();
   function attachHost(host: HTMLElement) {
