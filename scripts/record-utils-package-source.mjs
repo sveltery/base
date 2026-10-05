@@ -15,6 +15,7 @@ if (git('rev-parse', `${pin}^{commit}`).trim() !== pin) throw new Error('Immutab
 const files = new Set(git('ls-tree', '-r', '--name-only', pin).trim().split('\n'));
 const extraction = JSON.parse(readFileSync(resolve(root, 'parity/utils-package/extraction.json'), 'utf8'));
 const manifest = JSON.parse(readFileSync(resolve(root, 'packages/utils/package.json'), 'utf8'));
+const nativeFrameworkCleanup = JSON.parse(readFileSync(resolve(root, 'parity/utils-package/native-framework-status.json'), 'utf8'));
 function resolveImport(file, specifier, original) {
   if (!original) {
     const owned = resolveNativePackageSource(root, specifier);
@@ -72,5 +73,6 @@ const originalInventory = [...files].filter(file => file.startsWith('packages/ut
 const currentByPath = new Map(native.modules.map(module => [module.path, module]));
 const currentMoves = extraction.moves.map(move => ({ ...move, currentLocalSha256: currentByPath.get(move.to)?.sha256 ?? hash(readFileSync(resolve(root, move.to))), reviewStatus: 'Source/native/maintainability final-head review pending; extraction hash is immutable initial lineage.' }));
 const output = { immutableOriginalPin: pin, ordinaryDeclarationCredit: 0, method: `TypeScript ${ts.version} full AST import/reexport/import-type/literal dynamic graph; actual declared Utils export targets resolve to current source owners across both packages for audit only. Published dist remains build/consumer authority. Conservative barrel closure is not selected-body acceptance.`, basePublicExportsUnchanged: JSON.stringify(JSON.parse(readFileSync(resolve(root,'packages/base/package.json'),'utf8')).exports) === JSON.stringify(extraction.baseExports), utilsExports: manifest.exports, currentMoves, originalInventory, original, native, inheritedLimits: ['No new ordinary component assertion credit.', 'Existing Toast private store/ID and unaudited feature algorithms remain outside acceptance.', 'Native SvelteStore used surface is not a complete ReactStore/useStore/selector/inspector API port.', 'Historical exact-head source/audit/review/run receipts and immutable source archives remain historical.'], finalGates: 'Source/native/maintainability independent review, actual dual-tarball SSR/types/Svelte/browser consumers, secured hosted browser execution and CI remain pending.' };
+output.nativeFrameworkCleanup = nativeFrameworkCleanup;
 writeFileSync(resolve(root,'parity/utils-package/current-source-graph.json'), JSON.stringify(output,null,2)+'\n');
 console.log(`Current Source ${original.modules.length} modules; native ${native.modules.length} modules; ${Object.keys(manifest.exports).length} actual utility exports; stable Base exports ${output.basePublicExportsUnchanged}.`);
