@@ -28,7 +28,9 @@ Native context, effects, bindings/attachments, snippets, content union and `$pro
 
 ## Validation status
 
-Pre-edit reading and clean seed/worktree verification are complete. Source implementation, independent exact-head review, native types/SSR/runtime, installed dual-package consumer and secure browser execution are pending. No install, build, test or browser work has used the heavy lane. Historical core/rendering proofs and counts do not become fresh acceptance through this record.
+Pre-edit reading, clean seed/worktree verification and the bounded implementation are complete. The [current body record](native-source-contracts.json) records actual independent Source/native hashes and 20 significant-token-identical Store business bodies; [the recorder](../../scripts/record-toast-native-source.mjs) regenerates those comparisons from the pinned checkout. These comparisons establish source preservation for the listed bodies, not executed equivalence or acceptance of their native callers.
+
+Meaningful Store publication/ID/reentrant/timer, actual label overlap/removal/renderability, focus/touch and paired public Native/Original browser witnesses are prepared. Independent exact-head review, native types/SSR/runtime, installed dual-package consumer and secure browser execution remain pending. No install, build, test or browser work has used the heavy lane. Historical core/rendering proofs and counts do not become fresh acceptance through this record.
 
 ## Next feature lease
 
