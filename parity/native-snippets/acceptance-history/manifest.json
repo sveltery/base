@@ -299,6 +299,30 @@
       "predecessor": "cac2913b9d267a008a3b61258f91dba4fabdc382",
       "disposition": "maintained-native-catalog-successor",
       "unchangedParityCredit": 0
+    },
+    {
+      "source": "scripts/tests/navigation-source.test.mjs",
+      "archive": "parity/native-snippets/acceptance-history/scripts/tests/navigation-source.test.mjs",
+      "sha256": "cb72216284dfaa9cb0ee7de5e40df7d4581c645f510c5dc87b9ce0affc213c99",
+      "predecessor": "0da3d9712d25831a97be208c563234a452da067d",
+      "disposition": "maintained-native-source-api-projection-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "scripts/tests/menu-family-provenance.test.mjs",
+      "archive": "parity/native-snippets/acceptance-history/scripts/tests/menu-family-provenance.test.mjs",
+      "sha256": "40d533a62545c5f747f1cc006e63a8db241281c817b0389d8aaf8d719c0eefad",
+      "predecessor": "0da3d9712d25831a97be208c563234a452da067d",
+      "disposition": "maintained-native-source-api-projection-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "scripts/tests/anchor-positioning-provenance.test.mjs",
+      "archive": "parity/native-snippets/acceptance-history/scripts/tests/anchor-positioning-provenance.test.mjs",
+      "sha256": "177fd8878ce72abc01901eade32f6a3e352dda411e736a85e266d6b757c37a0e",
+      "predecessor": "0da3d9712d25831a97be208c563234a452da067d",
+      "disposition": "maintained-native-source-api-projection-successor",
+      "unchangedParityCredit": 0
     }
   ]
 }
