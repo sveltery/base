@@ -3,9 +3,9 @@
   "source": "packages/react/src/navigation-menu/root/NavigationMenuRoot.test.tsx",
   "sourceSha256": "91d0f84501dc110d1a948bb8c26ad82cc2b54f7a18f3de5e7117a921b0e4e266",
   "reference": "apps/fixtures/src/lib/navigation-menu-source-original.tsx",
-  "referenceSha256": "7841ef8104209af8dc3f55ff8af50fd5ce6c625f41f3759785ed20a5dcd3b298",
+  "referenceSha256": "78107c1c6de8cb1c606a8d6485628452cfa2ce3b667752c8dfe1ceba4e33ade3",
   "native": "apps/fixtures/src/lib/NavigationMenuSourceFixture.svelte",
-  "nativeSha256": "80cadd78cc95fdb4cf408c076376b954c98d572f1abe8c9ad0612f9c3e29f1cb",
+  "nativeSha256": "1b52fc6500aa005278fb516db53b8ac5211c3bb7e5efeb03aafabc6a8eaeba3a",
   "functions": [
     {
       "name": "TestNavigationMenu",
@@ -54,6 +54,69 @@
       "sourceLine": 375,
       "referenceLine": 271,
       "sha256": "08c1587b462bc7f8d6f5a8200db76c4b9518768516eba60627feeacfac02621f",
+      "exactCompleteOriginalBody": true
+    },
+    {
+      "name": "TestNestedNavigationMenuWithCloseOnClick",
+      "sourceLine": 841,
+      "referenceLine": 735,
+      "sha256": "2032717d9faecd2fc603c206f0417ac6164eb108d20f089aee762a80132fd016",
+      "exactCompleteOriginalBody": true
+    },
+    {
+      "name": "TestDeeplyNestedNavigationMenu",
+      "sourceLine": 765,
+      "referenceLine": 659,
+      "sha256": "13c14446adb64d3d742a63e6b93345138b5190b497ff552db56f7c2b33aa9367",
+      "exactCompleteOriginalBody": true
+    },
+    {
+      "name": "TestDeeplyNestedNavigationMenuWithCloseOnClick",
+      "sourceLine": 895,
+      "referenceLine": 789,
+      "sha256": "34c6ba74faa12227a298856d4f6a8c8e032a89dd0d599043659b5c3c99116b59",
+      "exactCompleteOriginalBody": true
+    },
+    {
+      "name": "TestInlineNestedNavigationMenuTabForwardBoundary",
+      "sourceLine": 450,
+      "referenceLine": 436,
+      "sha256": "793925f5703af4554bbec182ccec1b5063b08ef581599108bcc98c1c0af3ed78",
+      "exactCompleteOriginalBody": true
+    },
+    {
+      "name": "TestInlineNestedNavigationMenuTabFlow",
+      "sourceLine": 506,
+      "referenceLine": 492,
+      "sha256": "20ed67b591345e54c9b100ffd3ff6f12b44467056d6ad7a2c83e9300852371c2",
+      "exactCompleteOriginalBody": true
+    },
+    {
+      "name": "TestNavigationMenuWithKeepMountedContent",
+      "sourceLine": 575,
+      "referenceLine": 561,
+      "sha256": "d7947bbe7c96af176c71fac70cdb0b08bcf66d63df6fa6427dcec15d50dd963e",
+      "exactCompleteOriginalBody": true
+    },
+    {
+      "name": "TestNavigationMenuWithKeepMountedContentClosed",
+      "sourceLine": 605,
+      "referenceLine": 591,
+      "sha256": "13463fd75ef5ee6931ee7066093e5780344be404066648d7fa5246d8de4da52a",
+      "exactCompleteOriginalBody": true
+    },
+    {
+      "name": "TestNavigationMenuWithScopedPopupExitAnimation",
+      "sourceLine": 635,
+      "referenceLine": 621,
+      "sha256": "019c8cef94e4600e80342ba5695dc3eabe5f2e6d88ba8095e2636d5c504c9290",
+      "exactCompleteOriginalBody": true
+    },
+    {
+      "name": "TestNavigationMenuWithTopLevelLinkScopedPopupAnimation",
+      "sourceLine": 168,
+      "referenceLine": 398,
+      "sha256": "9520e91a070f757cdd86506029af37bf173c875e4f2eb1e159e4a4bb5560955e",
       "exactCompleteOriginalBody": true
     }
   ],
