@@ -1,0 +1,111 @@
+{
+  "originReviewHead": "61f3b42de379d681a0daaf886e2d57cccd9c42e6",
+  "scope": "Audit aid for the selected 13 runtime helper bodies; independent full closure/source review remains required.",
+  "historicalInitialConcern": {
+    "concern": "Unconditional parenthesis normalization might equate optional-chain or directive-sensitive source.",
+    "disposition": "Not reproduced by the exact checker; corrected after exact probes. The confirmed finding was tagged-template raw spelling."
+  },
+  "confirmedCounterexample": {
+    "beforeCorrection": {
+      "before": "tag`\\n`",
+      "after": "tag`\n`",
+      "semanticRawBefore": "\\n",
+      "semanticRawAfter": "\n",
+      "ownerComparisonEqual": true
+    },
+    "afterCorrection": {
+      "before": "tag`\\n`",
+      "after": "tag`\n`",
+      "semanticRawBefore": "\\n",
+      "semanticRawAfter": "\n",
+      "ownerComparisonEqual": false
+    },
+    "repair": "Retain template rawText, with actual source token spelling as fallback."
+  },
+  "probes": [
+    {
+      "before": "const x=(a+b)*c",
+      "after": "const x=a+b*c",
+      "expectedEqual": false,
+      "actualEqual": false,
+      "ownerEqual": false
+    },
+    {
+      "before": "const x=(a?.b).c",
+      "after": "const x=a?.b.c",
+      "expectedEqual": false,
+      "actualEqual": false,
+      "ownerEqual": false
+    },
+    {
+      "before": "(\"use strict\");f()",
+      "after": "\"use strict\";f()",
+      "expectedEqual": false,
+      "actualEqual": false,
+      "ownerEqual": false
+    },
+    {
+      "before": "tag`\\n`",
+      "after": "tag`\n`",
+      "expectedEqual": false,
+      "actualEqual": false,
+      "ownerEqual": false
+    },
+    {
+      "before": "const x={a}",
+      "after": "const x={a:a}",
+      "expectedEqual": true,
+      "actualEqual": true,
+      "ownerEqual": true
+    },
+    {
+      "before": "const x={a}",
+      "after": "const x={a:b}",
+      "expectedEqual": false,
+      "actualEqual": false,
+      "ownerEqual": false
+    },
+    {
+      "before": "let x=1; x++",
+      "after": "let x=1; x--",
+      "expectedEqual": false,
+      "actualEqual": false,
+      "ownerEqual": false
+    },
+    {
+      "before": "const x=1",
+      "after": "let x=1",
+      "expectedEqual": false,
+      "actualEqual": false,
+      "ownerEqual": false
+    },
+    {
+      "before": "f();g()",
+      "after": "g();f()",
+      "expectedEqual": false,
+      "actualEqual": false,
+      "ownerEqual": false
+    },
+    {
+      "before": "try{f()}finally{cleanup()}",
+      "after": "try{f()}finally{}",
+      "expectedEqual": false,
+      "actualEqual": false,
+      "ownerEqual": false
+    },
+    {
+      "before": "import x from \"./a.mjs\"",
+      "after": "import x from \"./a.js\"",
+      "expectedEqual": true,
+      "actualEqual": true,
+      "ownerEqual": true
+    },
+    {
+      "before": "import x from \"./a.mjs\"",
+      "after": "import x from \"./b.js\"",
+      "expectedEqual": false,
+      "actualEqual": false,
+      "ownerEqual": false
+    }
+  ]
+}

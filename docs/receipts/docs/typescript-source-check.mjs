@@ -92,6 +92,9 @@ function runtime(source, fileName) {
       ts.isTemplateLiteralToken(node)
         ? { text: node.text }
         : {}),
+      ...(ts.isTemplateLiteralToken(node)
+        ? { rawText: node.rawText ?? node.getText(ast) }
+        : {}),
       ...(ts.isVariableDeclarationList(node)
         ? { declaration: node.flags & (ts.NodeFlags.Let | ts.NodeFlags.Const) }
         : {}),
@@ -186,7 +189,7 @@ const report = {
   compiler: ts.version,
   node: process.version,
   method:
-    'TypeScript transpileModule ESNext erasure; normalize import .mjs to .js, parenthesized expressions and shorthand assignments; compare runtime AST node kinds, literal/identifier text, const/let/var flags, unary operators and ordered child structures',
+    'TypeScript transpileModule ESNext erasure; normalize import .mjs to .js, parenthesized expressions and shorthand assignments; compare runtime AST node kinds, literal/identifier text, template raw spelling, const/let/var flags, unary operators and ordered child structures',
   runtimeModules: files.length,
   maintainedHighlightFiles: readdirSync(resolve(root, highlight)).sort(),
   files,

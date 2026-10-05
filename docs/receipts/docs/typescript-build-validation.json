@@ -1,0 +1,174 @@
+{
+  "authoredDocsPages": 19,
+  "exportedInternalTargets": 125,
+  "wasmAssets": [
+    {
+      "path": "_app/immutable/assets/onig.CwjCXqnP.wasm",
+      "bytes": 473151,
+      "sha256": "76ebc1f0d87b2e7449a45ff3cd1a1546a9f05f54bdac44ee03e8a2b8348897be"
+    }
+  ],
+  "http": [
+    {
+      "path": "/docs/",
+      "status": 200,
+      "bytes": 118207,
+      "sha256": "d2b6b1f5ff0b7c49e6bcc65d37e786a3b86bb188f9b50e5c755720bf08df8ab9"
+    },
+    {
+      "path": "/docs/getting-started/",
+      "status": 200,
+      "bytes": 123132,
+      "sha256": "90ce061e2404d3e16ab014e392a7731e062bfd9d5d22ea5f2b260f80b2125aa1"
+    },
+    {
+      "path": "/docs/handbook/styling/",
+      "status": 200,
+      "bytes": 121482,
+      "sha256": "4c349c814b47fd46b6061a5fb1edafcfd502a298d7b1c2e93eec09706f91f926"
+    },
+    {
+      "path": "/docs/handbook/composition/",
+      "status": 200,
+      "bytes": 123420,
+      "sha256": "f416b347df8c29ed1b63cdac7948a4642c431207a198812fd77fdd242f678553"
+    },
+    {
+      "path": "/docs/handbook/accessibility/",
+      "status": 200,
+      "bytes": 118014,
+      "sha256": "6bb09e7c5d55ea866c069f793371363600afa4a9a70ba4deee4c17a775a14213"
+    },
+    {
+      "path": "/docs/handbook/compatibility/",
+      "status": 200,
+      "bytes": 118408,
+      "sha256": "dbbe874200fa5d1b2da41ba4ec43c300b14ba54b50f915c73f570d89676368d3"
+    },
+    {
+      "path": "/docs/components/use-render/",
+      "status": 200,
+      "bytes": 124650,
+      "sha256": "6e9f800201f8055c88e515cdb3c1dfda2a009391d271802b4657ed907d7878c7"
+    },
+    {
+      "path": "/docs/components/csp-provider/",
+      "status": 200,
+      "bytes": 121297,
+      "sha256": "c78482413bd6d05b00bf68a8f7f2af96d6864805ba52ef5bffd6004333fa2a4a"
+    },
+    {
+      "path": "/docs/components/direction-provider/",
+      "status": 200,
+      "bytes": 123581,
+      "sha256": "936e2205ba2e2e5fb47e3da4cd9e0ec8d1a44a467980d4ba1b601caa3f8764dc"
+    },
+    {
+      "path": "/docs/components/avatar/",
+      "status": 200,
+      "bytes": 120939,
+      "sha256": "7c9e588b0ca524653b17ec0bbef46dcccbd2ffa5a005fdc629cca7c9e55e6343"
+    },
+    {
+      "path": "/docs/components/accordion/",
+      "status": 200,
+      "bytes": 142457,
+      "sha256": "6c917fee46904d3fd9251b9b08f1b927a4ad1232f891633f07e5a1f125a1b0dc"
+    },
+    {
+      "path": "/docs/components/collapsible/",
+      "status": 200,
+      "bytes": 120511,
+      "sha256": "794464a8614dbe442bffc987a7cd445ff55a54e3cafd968a0e4597da6da08fe5"
+    },
+    {
+      "path": "/docs/components/dialog/",
+      "status": 200,
+      "bytes": 188844,
+      "sha256": "ffe2aa2650fadefa9e5926241c81605734593c51e22892888b538685cbf30497"
+    },
+    {
+      "path": "/docs/components/button/",
+      "status": 200,
+      "bytes": 120650,
+      "sha256": "47b09b81e78d739eca19d485f610765336c18ee672e7eaafa4b6ba84a9c7a7fe"
+    },
+    {
+      "path": "/docs/components/toolbar/",
+      "status": 200,
+      "bytes": 121584,
+      "sha256": "6f48191e1e6dc1ca0f8695ac7033982e9e3d6339918c3fc344d1806de025eae9"
+    },
+    {
+      "path": "/docs/components/toggle-group/",
+      "status": 200,
+      "bytes": 121367,
+      "sha256": "80453678f760d70002d2b941c5f9190ae3c98f7f61b718c8b27d04603dbabab5"
+    },
+    {
+      "path": "/docs/components/scroll-area/",
+      "status": 200,
+      "bytes": 122284,
+      "sha256": "aa3ef5dbe61fdec09082ba2bad0e1fa9be39eec71088a210b52f313b80e2fa72"
+    },
+    {
+      "path": "/docs/components/remote-form/",
+      "status": 200,
+      "bytes": 126091,
+      "sha256": "6a18d7962163efd919d4146534db633717b52fcdb98a56348a65c4b5d15f23f2"
+    },
+    {
+      "path": "/docs/about/",
+      "status": 200,
+      "bytes": 118934,
+      "sha256": "af70fe2cc880d26022100417f9d3f8446405dfc8038830f982e91bd2188f57b9"
+    },
+    {
+      "path": "/fonts/OFL.txt",
+      "status": 200,
+      "bytes": 4401,
+      "sha256": "205c22ce5128f844498c0992f67fefd1d76869d694bf18f0601f55cd69042b60"
+    },
+    {
+      "path": "/fonts/paper-mono.woff2",
+      "status": 200,
+      "bytes": 39164,
+      "sha256": "8b9b4c6112923a5b9b16d89b7b1b76ca4d76b9b6367f614b7d23f35b76c38f7d"
+    },
+    {
+      "path": "/THIRD_PARTY_NOTICES.txt",
+      "status": 200,
+      "bytes": 34839,
+      "sha256": "108d62507e1ca5994b13b7a009e5d6b4ed00e192f23fbe37ba17d590d7c1095e"
+    }
+  ],
+  "notices": [
+    {
+      "path": "apps/docs/THIRD_PARTY_NOTICES.md",
+      "sha256": "108d62507e1ca5994b13b7a009e5d6b4ed00e192f23fbe37ba17d590d7c1095e"
+    },
+    {
+      "path": "apps/docs/static/THIRD_PARTY_NOTICES.txt",
+      "sha256": "108d62507e1ca5994b13b7a009e5d6b4ed00e192f23fbe37ba17d590d7c1095e"
+    },
+    {
+      "path": "apps/docs/build/THIRD_PARTY_NOTICES.txt",
+      "sha256": "108d62507e1ca5994b13b7a009e5d6b4ed00e192f23fbe37ba17d590d7c1095e"
+    }
+  ],
+  "failures": [],
+  "validationMethod": "Read actual href/src attributes from HTML tags in all 19 authored documentation output files; resolve local files and actual fragment IDs; verify local WASM, all 19 live docs routes plus font/OFL/notices, and exact source/copied/build notice bytes.",
+  "build": {
+    "node": "v24.19.0",
+    "vite": "8.3.1",
+    "svelteKit": "3.0.0",
+    "typescript": "6.0.3",
+    "maxOldSpaceSizeMiB": 2048,
+    "exitCode": 0,
+    "ssrModules": 533,
+    "clientModules": 1269,
+    "log": "docs-typescript-build.log.gz",
+    "uncompressedLogSha256": "cd149f970b11f1247e0120d9b56f38c204e7d9c23756afe029c4faca9ffacbc2"
+  },
+  "browserAcceptance": "Pending fresh secured hosted run and exact-head independent review; HTTP/static output checks grant no browser interaction credit."
+}

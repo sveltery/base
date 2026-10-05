@@ -16,6 +16,9 @@ pnpm --filter @sveltery/docs dev --port 5178 --strictPort
 ```
 
 Open `http://localhost:5178/docs/`. The development server binds to `0.0.0.0`.
+The docs Vite configuration first runs the real fixture app's Kit 2 sync command
+because its imported authored TypeScript uses that app's generated tsconfig.
+This prerequisite also runs for a direct Vite/Playwright start and static build.
 
 ```sh
 pnpm --filter @sveltery/docs check

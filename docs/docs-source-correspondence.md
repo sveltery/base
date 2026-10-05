@@ -173,6 +173,18 @@ TypeScript 6.0.3 AST after erasure against the frozen 13 bodies; it normalizes o
 import `.mjs` to `.js` spelling, redundant parentheses and shorthand assignments.
 All 13 match. Earlier source archives, receipts, failures and notices are intact.
 
+Fresh independent review found the initial audit tool recorded template cooked
+text without its raw spelling: escaped `\\n` and a literal linefeed inside a
+tagged template compared equal even though `strings.raw[0]` differs. The evidence
+tool now retains `rawText` (or the actual source token spelling), and that exact
+counterexample correctly differs. All 13 maintained bodies still match and all
+12 independent normalization-sensitivity probes now pass through the owner tool.
+`receipts/docs/typescript-proof-sensitivity.json` preserves the original false
+positive and correction. An earlier speculative optional-chain/directive concern
+was not reproduced by the exact checker and is recorded as corrected. These
+checks support this selected source audit; final independent closure review is
+still required.
+
 | Maintained typed owner | Actual types and preserved boundary |
 | --- | --- |
 | `highlight/types.ts` | HAST node/element/root types derive from Starry Night's supplied HAST API; recursive frame fallbacks, line/frame metadata, parser function, grammar singleton and Source frame-kind/truncation unions remain explicit. Starry Night 3.10.0 and its installed `@types/hast` 3.0.5 declare MIT. All these imports erase before runtime. |
@@ -192,5 +204,38 @@ the incomplete docs widgets, inherited Collapsible audit or exact visual parity.
 Focused checks executed: docs and fixtures type checks each zero errors/warnings,
 docs ESLint clean, parser 3/3 and actual QPS query 1/1, canonical metadata/API
 checks 3/3, and runtime AST equivalence 13/13. Development port5178 remains live.
-Static build, hosted three browser witnesses and independent final-head review
-must be refreshed for this successor before acceptance.
+The capped 2 GiB static build now passes: 19 authored docs pages, 125 distinct
+local HTML href/src targets with real fragment IDs, one 473151-byte local WASM,
+and 22 live HTTP probes. Source/copied/build/HTTP notice bytes match exactly.
+`receipts/docs/typescript-build-validation.json` and its actual compressed build
+log record that execution. Hosted three browser witnesses and independent
+final-head review still need refresh before acceptance.
+
+## Clean standalone startup repair
+
+The actual hosted frozen `fd4928c` run37362408379/job111939919714 failed all three
+browser tests. Vite reported `[TSCONFIG_ERROR]` for the missing generated fixture
+`../fixtures/.svelte-kit/tsconfig.json`; Show code/Search/Navigation clicks never
+reached the expected interactive controls. This failure is retained in
+`receipts/docs/clean-startup-validation.json`, including exact decoded log and
+artifact hashes. It is no browser acceptance credit, and the observed startup
+error does not by itself attribute every failed interaction.
+
+An isolated clean archive of the typed source, with no generated fixture config,
+reproduced that same actual Vite 8 scan error. The docs-owned Vite configuration
+now invokes the installed fixture Kit 2 `svelte-kit.js sync` before dependency
+scan, because the canonical imported authored TypeScript retains that real
+nearest tsconfig. No source data copy, fake generated config, dependency scan
+disablement or canonical fixture/library runtime change was introduced.
+A second isolated cold start with the fixture generated config initially absent
+and a separate Vite cache generated the real prerequisite and returned HTTP200
+for the docs route, actual NativeSearch module and actual authored metadata.
+The source config, cold log and observations are recorded in the new receipt.
+The original three browser assertions and focused modifier/IME/existence probes
+remain unchanged; fresh secured hosted execution remains pending.
+
+The original development process stopped between the pre-build and post-build
+availability checks. Both Root and the docs developer found its terminal session
+unavailable, so its cause is undiagnosed. The authorized live development service
+was restored at port5178 (session52036, PID1168484) and returns HTTP200. That
+availability observation is separate from browser interaction acceptance.

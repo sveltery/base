@@ -125,3 +125,12 @@ and new `receipts/docs/typescript-source-files.json` retain the complete closure
 and executed erasure equivalence against frozen `fd4928c`. This adds no widget,
 library/helper or shared authored-data work and changes no pins, notices or
 historical evidence. Fresh exact-head validation/review remain required.
+
+The frozen hosted browser run then exposed a clean-start prerequisite: imported
+fixture-authored TypeScript extends the fixture app's generated Kit 2 tsconfig,
+which a docs-only clean start had not generated. A scoped docs-owned Vite startup
+step now runs that real sync command before scan. The same error was reproduced
+in an isolated clean archive; a fresh absent-config cold start passes after the
+repair. The capped static build passes. The [startup correspondence](docs-source-correspondence.md#clean-standalone-startup-repair)
+and `receipts/docs/clean-startup-validation.json` retain the original three
+hosted failures, actual source/observations and pending fresh browser/review gates.

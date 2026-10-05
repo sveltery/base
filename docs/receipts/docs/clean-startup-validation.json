@@ -1,0 +1,47 @@
+{
+  "historicalHostedFailure": {
+    "head": "fd4928c034be417fcdc0451f4214c34ddbc09510",
+    "workflowRun": 37362408379,
+    "job": 111939919714,
+    "browserPassed": 0,
+    "browserFailed": 3,
+    "causeObserved": "Vite8 dependency scan [TSCONFIG_ERROR]: missing ../fixtures/.svelte-kit/tsconfig.json; all three rendered controls failed to respond. This is a startup diagnosis, not complete attribution of every interaction failure.",
+    "decodedLogBytes": 58931,
+    "decodedLogSha256": "160c5bb4790fa3d0d42808f2c8bf58dd055cf21746837b88a0f7a7bcb8d945b5",
+    "artifactId": 11367033387,
+    "artifactZipSha256": "3aab8807131bee4daa83b85ccb0f818d2f1dc149bb9507548584f9ca7a1c3f3c"
+  },
+  "localReproduction": {
+    "sourceHead": "61f3b42de379d681a0daaf886e2d57cccd9c42e6",
+    "checkout": "isolated git archive in /tmp/docs-clean-startup",
+    "fixtureGeneratedConfigInitiallyAbsent": true,
+    "actualVite": "8.3.1",
+    "actualFixtureKit": "2.70.3",
+    "before": "Actual Vite dependency scan reproduced the same missing generated fixture tsconfig error.",
+    "repair": "Docs-owned Vite configuration invokes the real installed fixture svelte-kit.js sync before docs dependency scanning.",
+    "configSha256": "6f7a78a60cfd492998b6149eb441a98966e30a3c2576d7e9b926867fa9804866",
+    "coldValidation": {
+      "port": 5181,
+      "separateCache": "/tmp/docs-clean-startup/cold-vite-cache",
+      "fixtureGeneratedConfigInitiallyAbsent": true,
+      "generatedConfigCreated": true,
+      "dependencyScanError": false,
+      "http200": [
+        "/docs/",
+        "/src/lib/docs/NativeSearch.svelte",
+        "/@fs/tmp/docs-clean-startup/apps/fixtures/src/lib/docs/content.ts"
+      ],
+      "log": "docs-clean-startup-cold.log.gz",
+      "uncompressedLogSha256": "d6202bbaf5e9bc60ecd2c7b4e746f2a537d6c7aade4886f24cfbe5ca4c220e9f"
+    },
+    "discardedAttempt": "An initial validation restart found isolated port5180 occupied; it provided no credit. The surviving proven-owned isolated server was terminated before the valid port5181 cold run."
+  },
+  "liveDevelopment": {
+    "port": 5178,
+    "session": 52036,
+    "pid": 1168484,
+    "httpStatus": 200,
+    "observedAvailabilityLapse": "The original session12438/PID1140925 stopped between the pre-build and post-build HTTP checks. Its terminal session was unavailable to both developer and Root; cause is undiagnosed. The authorized dev service was restored on the same port."
+  },
+  "freshHostedBrowserAcceptance": "Pending; the three original browser assertions, QuickNavRoot/mobile existence checks and focused CtrlEnter/IME/229 cases are unchanged."
+}

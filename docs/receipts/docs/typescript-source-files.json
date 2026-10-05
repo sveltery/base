@@ -3,7 +3,7 @@
   "authority": "@mui/internal-docs-infra@0.12.1-canary.42 published JavaScript and declarations",
   "compiler": "6.0.3",
   "node": "v24.19.0",
-  "method": "TypeScript transpileModule ESNext erasure; normalize import .mjs to .js, parenthesized expressions and shorthand assignments; compare runtime AST node kinds, literal/identifier text, const/let/var flags, unary operators and ordered child structures",
+  "method": "TypeScript transpileModule ESNext erasure; normalize import .mjs to .js, parenthesized expressions and shorthand assignments; compare runtime AST node kinds, literal/identifier text, template raw spelling, const/let/var flags, unary operators and ordered child structures",
   "runtimeModules": 13,
   "maintainedHighlightFiles": [
     "addLineGutters.ts",
@@ -28,7 +28,7 @@
       "originalSha256": "7ccc85db82551548e00362548d8f33a10630aa43a274da1eddaf068ef85ac4f0",
       "baselineSha256": "3e78e9d770ea785a28879edc956b8bfd74d8b6d42ac894ddda909d8ad4ff6e15",
       "targetSha256": "53287cf1a89978928dda62c5315498b0afdaa3eeef7310a8fdc319a4bc757ed8",
-      "normalizedRuntimeSha256": "e8dae230594be107cdc7ce0ae0da8f0a6b394bff15d11bb250a6ca7ba25f2d2e",
+      "normalizedRuntimeSha256": "7840c1b62ab2bce8322dcb123be395595cfb96d745e71011df997a228cfa964d",
       "normalizedRuntimeMatchesBaseline": true,
       "imports": {
         "runtime": [
@@ -215,7 +215,7 @@
       "originalSha256": "0dca83e7058428ae752afae2abd33077a9d8af9ca02759f1991ad009f9c2cb54",
       "baselineSha256": "ea60441b0169dfd24635d5c1d1a889cb2430bed1601e2429a9e8fb5060412cc7",
       "targetSha256": "c544535528ae105a53c2498569ce3b5e0a4be2e5df5e7e0f76b12b18a5d7f48f",
-      "normalizedRuntimeSha256": "bb03f85571c4d9949667e181368b0842da903d5d0d685ba1ead5fc097498ba87",
+      "normalizedRuntimeSha256": "9d6066e60e78ee067266713a60f1031847228bf9798aea83be5954c33e026d77",
       "normalizedRuntimeMatchesBaseline": true,
       "imports": {
         "runtime": [
@@ -260,7 +260,7 @@
       "originalSha256": "342a13b974150122216ed5c85ccdfe86bdc7bda5eaf10774473886eadf4dd84d",
       "baselineSha256": "aeb992e4e8c791abf9632d56c6d890627602d16c20007c6300555178bdb62d21",
       "targetSha256": "686ce280a51bfcb2896ef07d061586154a096df86de0ead0eb54d7eb87823d63",
-      "normalizedRuntimeSha256": "a7f8c4755f3bb863084d6d064caf784eae8f336a278cbc2de8246d81d9f5cb0d",
+      "normalizedRuntimeSha256": "04dc21927ebca8aac1a799a60f78569475361746d8f559ab2bbf667070be01f3",
       "normalizedRuntimeMatchesBaseline": true,
       "imports": {
         "runtime": [
