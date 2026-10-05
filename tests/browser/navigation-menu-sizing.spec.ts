@@ -4,13 +4,15 @@ import { fire, advance, waitTransport } from './navigation-menu-transport.js';
 import type { NavigationMenuTestTransport } from '../../apps/fixtures/src/lib/navigation-menu-test-transport.js';
 type Mocks = typeof import('../../apps/fixtures/src/lib/navigation-menu-source-mocks.js');
 type State = { navigationMenuMocks: Mocks; navigationMenuAnimations: ReturnType<Mocks['mockAnimations']>; navigationMenuSize: { width: number; height: number }; navigationMenuSource: { setValue(value: unknown): void; unmount(): void }; navigationMenuTestTransport: NavigationMenuTestTransport };
-async function visit(page: Page, reference: boolean, scenario: string, resize: 'none' | 'mock' | undefined = undefined) {
+async function visit(page: Page, reference: boolean, scenario: string, resize: 'none' | 'mock' | undefined = undefined, animationsDisabled = false) {
   await page.clock.install();
-  await page.addInitScript(({ resize }) => {
-    (globalThis as typeof globalThis & { BASE_UI_ANIMATIONS_DISABLED?: boolean }).BASE_UI_ANIMATIONS_DISABLED = false;
+  await page.addInitScript(({ resize, animationsDisabled }) => {
+    // Original setupVitest defaults to true; these eight selected animation
+    // declarations explicitly opt into false, while3536/3917 retain the default.
+    (globalThis as typeof globalThis & { BASE_UI_ANIMATIONS_DISABLED?: boolean }).BASE_UI_ANIMATIONS_DISABLED = animationsDisabled;
     if (resize === 'none') globalThis.ResizeObserver = undefined as unknown as typeof ResizeObserver;
     if (resize === 'mock') globalThis.ResizeObserver = class { observe() {} unobserve() {} disconnect() {} } as unknown as typeof ResizeObserver;
-  }, { resize });
+  }, { resize, animationsDisabled });
   await page.goto(`/navigation-menu/source?case=${scenario}${reference ? '&reference' : ''}`);
   await page.waitForFunction(() => Boolean((window as unknown as State).navigationMenuSource));
   await waitTransport(page);
@@ -81,7 +83,7 @@ for (const reference of [false, true]) test.describe(`${reference ? 'Original Re
     await expect.poll(() => values(page)).toEqual({ ...settled, height: '300px' });
   });
   test('R:3536 window resize updates without transition', async ({ page }) => {
-    await visit(page, reference, 'kept-content', 'mock'); await fixedSize(page, 675, 220);
+    await visit(page, reference, 'kept-content', 'mock', true); await fixedSize(page, 675, 220);
     await page.evaluate(async () => { const state = window as unknown as State & { navigationMenuTestTransport: import('../../apps/fixtures/src/lib/navigation-menu-test-transport.js').NavigationMenuTestTransport }; state.navigationMenuMocks.primeOpenPopupSize(document.querySelector('[data-testid="popup-root"]') as HTMLElement, document.querySelector('[data-testid="positioner"]') as HTMLElement, 675, 220); state.navigationMenuSize = { width: 500, height: 180 }; await state.navigationMenuTestTransport.fire(window, 'resize'); });
     await expect(node(page, 'positioner')).toHaveAttribute('data-instant'); await advance(page, 0); await expect(node(page, 'positioner')).toHaveAttribute('data-instant'); await advance(page, 100); await expect(node(page, 'positioner')).not.toHaveAttribute('data-instant');
     await expect.poll(() => values(page)).toEqual({ popupWidth: 'auto', popupHeight: 'auto', width: '500px', height: '180px' });
@@ -93,11 +95,30 @@ for (const reference of [false, true]) test.describe(`${reference ? 'Original Re
     await expect.poll(() => values(page)).toEqual({ popupWidth: 'auto', popupHeight: 'auto', width: '500px', height: '180px' });
   });
   test('R:3917 temporary zero close retains auto measured size', async ({ page }) => {
-    await visit(page, reference, 'dynamic'); await open(page);
-    await page.evaluate(async () => { const state = window as unknown as State; const popup = document.querySelector('[data-testid="popup-root"]') as HTMLElement; const positioner = document.querySelector('[data-testid="positioner"]') as HTMLElement; state.navigationMenuMocks.primeOpenPopupSize(popup, positioner, 250, 120);
-      for (const [property, size] of [['offsetWidth', 250], ['offsetHeight', 120]] as const) { Object.defineProperty(popup, property, { configurable: true, get: () => document.querySelector('[data-testid="popup-1"]')?.hasAttribute('data-open') ? size : 0 }); Object.defineProperty(positioner, property, { configurable: true, get: () => 0 }); }
+    await visit(page, reference, 'dynamic', undefined, true);
+    const capturedValues = await page.evaluate(async () => {
+      const state = window as unknown as State;
+      const trigger = document.querySelector('[data-testid="trigger-1"]');
+      if (!trigger) throw new Error('Original trigger is missing');
+      await state.navigationMenuTestTransport.fire(trigger, 'click');
+      const popupRoot = document.querySelector('[data-testid="popup-root"]') as HTMLElement | null;
+      const positioner = document.querySelector('[data-testid="positioner"]') as HTMLElement | null;
+      if (!popupRoot || !positioner) throw new Error('Original captured sizing elements are missing');
+      state.navigationMenuMocks.primeOpenPopupSize(popupRoot, positioner, 250, 120);
+      for (const [property, size] of [['offsetWidth', 250], ['offsetHeight', 120]] as const) {
+        Object.defineProperty(popupRoot, property, { configurable: true, get: () => document.querySelector('[data-testid="popup-1"]')?.hasAttribute('data-open') ? size : 0 });
+        Object.defineProperty(positioner, property, { configurable: true, get: () => 0 });
+      }
+      await state.navigationMenuTestTransport.fire(trigger, 'blur', { relatedTarget: document.body });
+      // Original retains these two objects through close. Keep its ordered DOM
+      // setup/fire/flush/read flow together instead of re-querying after RPCs.
+      return {
+        popupWidth: popupRoot.style.getPropertyValue('--popup-width'),
+        popupHeight: popupRoot.style.getPropertyValue('--popup-height'),
+        width: positioner.style.getPropertyValue('--positioner-width'),
+        height: positioner.style.getPropertyValue('--positioner-height'),
+      };
     });
-    await node(page, 'trigger-1').evaluate(async n => { await (window as unknown as { navigationMenuTestTransport: import('../../apps/fixtures/src/lib/navigation-menu-test-transport.js').NavigationMenuTestTransport }).navigationMenuTestTransport.fire(n, 'blur', { relatedTarget: document.body }); });
-    expect(await values(page)).toEqual({ popupWidth: '250px', popupHeight: '120px', width: '250px', height: '120px' });
+    expect(capturedValues).toEqual({ popupWidth: '250px', popupHeight: '120px', width: '250px', height: '120px' });
   });
 });

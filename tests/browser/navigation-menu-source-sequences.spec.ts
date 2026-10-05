@@ -7,6 +7,9 @@ type API = { snapshot(): { calls: { value: unknown; reason: string; type: string
 type State = { navigationMenuSource: API; navigationMenuTestTransport: NavigationMenuTestTransport };
 async function visit(page: Page, reference: boolean, scenario = 'default', query = '') {
   if (scenario !== 'keyboard') await page.clock.install();
+  await page.addInitScript(() => {
+    (globalThis as typeof globalThis & { BASE_UI_ANIMATIONS_DISABLED?: boolean }).BASE_UI_ANIMATIONS_DISABLED = true;
+  });
   await page.goto(`/navigation-menu/source?case=${scenario}${reference ? '&reference' : ''}${query}`);
   await page.waitForFunction(() => Boolean((window as unknown as { navigationMenuSource?: API }).navigationMenuSource));
   await waitTransport(page);

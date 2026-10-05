@@ -5,6 +5,9 @@ import type { NavigationMenuTestTransport } from '../../apps/fixtures/src/lib/na
 type State = { navigationMenuTestTransport: NavigationMenuTestTransport; navigationMenuParts: { removeFirst(): void; navigate(): void } };
 async function visit(page: Page, reference: boolean, scenario: string, hydrate = false) {
   if (['custom-list', 'arbitrary', 'no-viewport', 'icons'].includes(scenario)) await page.clock.install();
+  await page.addInitScript(() => {
+    (globalThis as typeof globalThis & { BASE_UI_ANIMATIONS_DISABLED?: boolean }).BASE_UI_ANIMATIONS_DISABLED = true;
+  });
   await page.goto(`/navigation-menu/parts?case=${scenario}${reference ? '&reference' : ''}${hydrate ? '&hydrate' : ''}`);
   await page.waitForFunction(() => Boolean((window as unknown as { navigationMenuParts?: unknown }).navigationMenuParts));
   await waitTransport(page);

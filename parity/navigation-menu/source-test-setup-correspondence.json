@@ -1,0 +1,58 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "ordinaryCredit": 0,
+  "status": "Literal test setup correspondence prepared; independent complete protocol review and fresh actual628 execution pending",
+  "files": [
+    {
+      "source": "test/setupVitest.ts",
+      "sha256": "24fa3cb89ecf743a3b9ebf21cd4040abd5db040073fb33940653499b508aa48d",
+      "bytes": 1814,
+      "immutableURL": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/test/setupVitest.ts",
+      "physicalGitBytesVerified": true,
+      "completeBodyRead": true
+    },
+    {
+      "source": "vitest.shared.mts",
+      "sha256": "c9bfcdce9d0011c9b0eb66bfe35aceb068afa675f0b9aa383e15b89d85674ab0",
+      "bytes": 1993,
+      "immutableURL": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/vitest.shared.mts",
+      "physicalGitBytesVerified": true,
+      "completeBodyRead": true
+    }
+  ],
+  "librarySetup": {
+    "package": "@mui/internal-test-utils",
+    "version": "2.0.18-canary.25",
+    "source": "setupVitest.js",
+    "sha256": "a2017df3a3bacbff2e3b3766d5bc631da66a33d6af07923d11bf58aa292e07b9",
+    "completeBodyRead": true,
+    "authority": "Original immutable lock and its SHA512-verified authorized package archive; no library runtime dependency"
+  },
+  "globalSetup": {
+    "BASE_UI_ANIMATIONS_DISABLED": true,
+    "reset": "Original afterEach restores true and resets mocks/error/frame schedulers. Browser fixture page ownership destroys its document/module/clocks; actual transport unmounts the framework root and restores its owned globals/listeners."
+  },
+  "sourceSpecs": [
+    "tests/browser/navigation-menu-source-sequences.spec.ts",
+    "tests/browser/navigation-menu-parts.spec.ts"
+  ],
+  "sizing": {
+    "nativeFile": "tests/browser/navigation-menu-sizing.spec.ts",
+    "explicitFalseSourceSites": [
+      1854,
+      1858,
+      1862,
+      2042,
+      3135,
+      3370,
+      3308,
+      3587
+    ],
+    "defaultTrueSourceSites": [
+      3536,
+      3917
+    ],
+    "R3917": "Original captures popupRoot and positioner before priming and blur. One browser evaluation preserves the literal click/fire/flush/capture/mock/blur/flush/read order with real selected framework transport; all four expected CSS strings remain unchanged."
+  },
+  "rendererDomain": "Test-only actual React and Svelte renderer transport. Page closes after each case; no production/global browser security override."
+}

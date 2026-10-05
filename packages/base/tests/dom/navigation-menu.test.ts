@@ -4,6 +4,7 @@ import { afterEach, expect, it, vi } from 'vitest';
 import { mount, tick, unmount } from 'svelte';
 import Fixture from './NavigationMenuFixture.svelte';
 import { createNavigationMenuTestTransport } from '../../../../apps/fixtures/src/lib/navigation-menu-test-transport.js';
+import { mockAnimations, mockBoundingClientRect } from '../../../../apps/fixtures/src/lib/navigation-menu-source-mocks.js';
 const mounted: ReturnType<typeof mount>[] = [];
 const transports: ReturnType<typeof createNavigationMenuTestTransport>[] = [];
 async function setup(scenario = 'default') {
@@ -28,6 +29,7 @@ afterEach(async () => {
   for (const component of mounted.splice(0)) await unmount(component);
   document.body.replaceChildren();
   vi.restoreAllMocks();
+  vi.unstubAllGlobals();
 });
 
 it('supplement: Source composition opens and moves the active Content into the actual Viewport', async () => {
@@ -106,6 +108,35 @@ it('supplement: capture restores tabbing before the inside guard forwards focus 
   await settle();
   await transport.input('tab');
   expect(document.activeElement).toBe(document.getElementById('second-link'));
+});
+
+it('supplement: parent completion retains the captured exiting Content attributes while its animation is pending', async () => {
+  vi.stubGlobal('BASE_UI_ANIMATIONS_DISABLED', false);
+  const component = await setup('controlled');
+  component.setValue('first');
+  await settle();
+  const second = document.getElementById('second-trigger') as HTMLButtonElement;
+  mockBoundingClientRect(first(), { x: 0, y: 0, width: 80, height: 32 });
+  mockBoundingClientRect(second, { x: 120, y: 0, width: 80, height: 32 });
+  second.click();
+  component.setValue('second');
+  await settle();
+  const exiting = document.getElementById('second-content')!;
+  expect(exiting.getAttribute('data-activation-direction')).toBe('right');
+  const animations = mockAnimations(exiting);
+  animations.start();
+  // Browser's real empty parent animation list completes independently of the
+  // Source Content mock; JSDOM has no getAnimations implementation by default.
+  Object.defineProperty(popup()!, 'getAnimations', { configurable: true, value: () => [] });
+  component.setValue(null);
+  await tick();
+  expect(exiting.hasAttribute('data-ending-style')).toBe(true);
+  await settle();
+  expect(popup()).toBeNull();
+  expect(exiting.isConnected).toBe(false);
+  expect(exiting.hasAttribute('data-ending-style')).toBe(true);
+  expect(exiting.hasAttribute('data-activation-direction')).toBe(false);
+  await animations.finish();
 });
 
 it('supplement: controlled requests wait for live owner state and change active trigger', async () => {

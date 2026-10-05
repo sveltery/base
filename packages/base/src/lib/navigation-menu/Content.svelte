@@ -112,9 +112,11 @@
   );
 </script>
 {#snippet portalContent()}
-  <ContentProvider {nodeId}>
-    <CompositeRoot {render} class={classProp} {style} state={partState} {refs} props={[defaultProps, hidden ? { hidden: true } : {}, elementProps]} {stateAttributesMapping} {children} />
-  </ContentProvider>
+  {#if shouldPortal}
+    <ContentProvider {nodeId}>
+      <CompositeRoot {render} class={classProp} {style} state={partState} {refs} props={[defaultProps, hidden ? { hidden: true } : {}, elementProps]} {stateAttributesMapping} {children} />
+    </ContentProvider>
+  {/if}
 {/snippet}
 {#if shouldRenderInline}
   <CompositeRoot {render} class={classProp} {style} state={partState} refs={inlineRefs} props={[defaultProps, { hidden: true }, elementProps]} {stateAttributesMapping} {children} />

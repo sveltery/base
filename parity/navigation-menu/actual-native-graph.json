@@ -33402,8 +33402,8 @@
     },
     {
       "source": "packages/base/src/lib/navigation-menu/Content.svelte",
-      "sha256": "53444a56b6f103b91d18811e30f393966eab1b110d36faa11b67bf2d98ff7d3e",
-      "bytes": 5088,
+      "sha256": "00dfff6f383262d87fca011f5dfd5028d59e0425ce3e47243def44b6a3e31884",
+      "bytes": 5123,
       "imports": [
         {
           "line": 3,
