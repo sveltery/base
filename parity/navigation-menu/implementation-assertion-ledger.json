@@ -4672,8 +4672,14 @@
       "kind": "ordinary-declaration",
       "sha256": "90437040c9275e1e14289648e12dc71d3ce92e4995ce9faa30e064d5817051d9",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Complete immutable Source fixture and literal operation candidate prepared; secured execution and whole assertion correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-parts.spec.ts",
+          "testPrefix": "R:1614",
+          "fixtures": "Actual Source fixture JSX or complete helper bytes verified; actual native public parts. Literal pointer arrays, keyboard/focus, exact geometry values and dedicated initial-open non-advancing clock preserved."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -10959,8 +10965,14 @@
       "kind": "ordinary-declaration",
       "sha256": "1850f23d55c0eb2c63411eb396bfe3ef99dc2d6d15d05d7210fc23c445100a80",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Complete immutable Source fixture and literal operation candidate prepared; secured execution and whole assertion correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-source-sequences.spec.ts",
+          "testPrefix": "R:4038",
+          "fixtures": "Actual Source fixture JSX or complete helper bytes verified; actual native public parts. Literal pointer arrays, keyboard/focus, exact geometry values and dedicated initial-open non-advancing clock preserved."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -11281,8 +11293,14 @@
       "kind": "ordinary-declaration",
       "sha256": "81320d1564aa078ccd61a0d389e128081ce9cbeb06772759ea02939feba286a2",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Complete immutable Source fixture and literal operation candidate prepared; secured execution and whole assertion correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-parts.spec.ts",
+          "testPrefix": "T:238",
+          "fixtures": "Actual Source fixture JSX or complete helper bytes verified; actual native public parts. Literal pointer arrays, keyboard/focus, exact geometry values and dedicated initial-open non-advancing clock preserved."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -11295,8 +11313,14 @@
       "kind": "ordinary-declaration",
       "sha256": "4b052ef89af0a7631cd23f37c26d74839a69ebcb8ef0a699aa9af6611ae17c7d",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Complete immutable Source fixture and literal operation candidate prepared; secured execution and whole assertion correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-parts.spec.ts",
+          "testPrefix": "T:354",
+          "fixtures": "Actual Source fixture JSX or complete helper bytes verified; actual native public parts. Literal pointer arrays, keyboard/focus, exact geometry values and dedicated initial-open non-advancing clock preserved."
+        }
+      ],
       "executedEvidence": []
     },
     {
@@ -11309,8 +11333,14 @@
       "kind": "ordinary-declaration",
       "sha256": "194d54ad697ab3f2696e133d1d03d6c5902f80b8200ab7004c2b5f969c9505c7",
       "ordinaryCredit": 0,
-      "status": "pending",
-      "nativeAssertions": [],
+      "status": "Complete immutable Source fixture and literal operation candidate prepared; secured execution and whole assertion correspondence review pending",
+      "nativeAssertions": [
+        {
+          "file": "tests/browser/navigation-menu-parts.spec.ts",
+          "testPrefix": "T:404",
+          "fixtures": "Actual Source fixture JSX or complete helper bytes verified; actual native public parts. Literal pointer arrays, keyboard/focus, exact geometry values and dedicated initial-open non-advancing clock preserved."
+        }
+      ],
       "executedEvidence": []
     },
     {

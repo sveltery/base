@@ -8,6 +8,102 @@ export function NavigationMenuPartsOriginal({scenario}:{scenario:string}) {
  const handleKeyDown=(event:React.KeyboardEvent)=>{keyCalls.current.push(event.key);};
  React.useEffect(()=>{Object.assign(window,{navigationMenuParts:{snapshot:()=>({keys:[...keyCalls.current]}),removeFirst:()=>setShowFirst(false),navigate:()=>navigate.current()}});return()=>{delete (window as unknown as {navigationMenuParts?:unknown}).navigationMenuParts;};},[]);
  switch(scenario){
+ case 'kept-transitions': return (
+<NavigationMenu.Root>
+          <NavigationMenu.List>
+            <NavigationMenu.Item value="item-1">
+              <NavigationMenu.Trigger data-testid="trigger-1">Item 1</NavigationMenu.Trigger>
+              <NavigationMenu.Content>
+                <NavigationMenu.Link href="#link-1">Link 1</NavigationMenu.Link>
+              </NavigationMenu.Content>
+            </NavigationMenu.Item>
+          </NavigationMenu.List>
+          <NavigationMenu.Portal keepMounted>
+            <NavigationMenu.Positioner>
+              <NavigationMenu.Popup data-testid="popup-root">
+                <NavigationMenu.Arrow data-testid="arrow" />
+                <NavigationMenu.Viewport />
+              </NavigationMenu.Popup>
+            </NavigationMenu.Positioner>
+          </NavigationMenu.Portal>
+        </NavigationMenu.Root>
+);
+ case 'trigger-height': return (
+<NavigationMenu.Root>
+        <NavigationMenu.List>
+          <NavigationMenu.Item>
+            <NavigationMenu.Trigger>Overview</NavigationMenu.Trigger>
+            <NavigationMenu.Content>
+              <NavigationMenu.Link href="#">Quick Start</NavigationMenu.Link>
+            </NavigationMenu.Content>
+          </NavigationMenu.Item>
+          <NavigationMenu.Item>
+            <NavigationMenu.Trigger>Handbook</NavigationMenu.Trigger>
+            <NavigationMenu.Content>
+              <NavigationMenu.Link href="#">Styling Base UI components</NavigationMenu.Link>
+            </NavigationMenu.Content>
+            <NavigationMenu.Content>
+              <NavigationMenu.Link href="#">Second Link</NavigationMenu.Link>
+            </NavigationMenu.Content>
+          </NavigationMenu.Item>
+        </NavigationMenu.List>
+        <NavigationMenu.Portal>
+          <NavigationMenu.Positioner data-testid="positioner">
+            <NavigationMenu.Popup>
+              <NavigationMenu.Viewport />
+            </NavigationMenu.Popup>
+          </NavigationMenu.Positioner>
+        </NavigationMenu.Portal>
+      </NavigationMenu.Root>
+);
+ case 'trigger-width': return (
+<NavigationMenu.Root>
+        <NavigationMenu.List>
+          <NavigationMenu.Item>
+            <NavigationMenu.Trigger>noContent</NavigationMenu.Trigger>
+          </NavigationMenu.Item>
+          <NavigationMenu.Item>
+            <NavigationMenu.Trigger>withContent</NavigationMenu.Trigger>
+            <NavigationMenu.Content>
+              <NavigationMenu.Link href="#">Styling Base UI components</NavigationMenu.Link>
+            </NavigationMenu.Content>
+          </NavigationMenu.Item>
+        </NavigationMenu.List>
+        <NavigationMenu.Portal>
+          <NavigationMenu.Positioner data-testid="positioner">
+            <NavigationMenu.Popup>
+              <NavigationMenu.Viewport />
+            </NavigationMenu.Popup>
+          </NavigationMenu.Positioner>
+        </NavigationMenu.Portal>
+      </NavigationMenu.Root>
+);
+ case 'trigger-reposition': return (
+<NavigationMenu.Root>
+        <NavigationMenu.List style={{ display: 'flex' }}>
+          <NavigationMenu.Item>
+            <NavigationMenu.Trigger>Overview</NavigationMenu.Trigger>
+            <NavigationMenu.Content>
+              <NavigationMenu.Link href="#">Overview Link</NavigationMenu.Link>
+            </NavigationMenu.Content>
+          </NavigationMenu.Item>
+          <NavigationMenu.Item>
+            <NavigationMenu.Trigger>Handbook</NavigationMenu.Trigger>
+            <NavigationMenu.Content>
+              <NavigationMenu.Link href="#">Handbook Link</NavigationMenu.Link>
+            </NavigationMenu.Content>
+          </NavigationMenu.Item>
+        </NavigationMenu.List>
+        <NavigationMenu.Portal>
+          <NavigationMenu.Positioner data-testid="positioner">
+            <NavigationMenu.Popup>
+              <NavigationMenu.Viewport />
+            </NavigationMenu.Popup>
+          </NavigationMenu.Positioner>
+        </NavigationMenu.Portal>
+      </NavigationMenu.Root>
+);
+
  case 'list-removal': return <ListRemoval showFirst={showFirst} />;
  case 'trigger-enable': return <TriggerEnable />;
  case 'drop-trigger': return <TestActiveItemDropsTrigger registerNavigate={fn=>{navigate.current=fn;}} />;

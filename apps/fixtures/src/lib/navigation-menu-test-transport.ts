@@ -101,6 +101,13 @@ export function createNavigationMenuTestTransport() {
     }
     await flush();
   }
+  async function pointer(actions: Array<{ target: Element; releasePrevious?: boolean }>, options: { pointerEventsCheck?: 0 } = {}) {
+    const selected = options.pointerEventsCheck === 0 ? (uncheckedUser ??= setup(0)) : user;
+    if (!selected) throw new Error('Fixture transport is not ready');
+    // Source sends its rapid traversal as one literal user.pointer action array.
+    await selected.pointer(actions);
+    await flush();
+  }
   async function dispose() {
     finishClock?.();
     finishClock = undefined;
@@ -122,5 +129,5 @@ export function createNavigationMenuTestTransport() {
     user = undefined;
     uncheckedUser = undefined;
   }
-  return { ready, isReady: () => Boolean(user), fire, input, flush, mutate, beginClock, endClock, dispose };
+  return { ready, isReady: () => Boolean(user), fire, input, pointer, flush, mutate, beginClock, endClock, dispose };
 }

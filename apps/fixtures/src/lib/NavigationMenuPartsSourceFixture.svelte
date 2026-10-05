@@ -68,4 +68,26 @@
   </NavigationMenu.List>{@render portal()}</NavigationMenu.Root>
 {:else if scenario === 'sweep'}
   <NavigationMenu.Root><NavigationMenu.List data-testid="list">{#each ['a', 'b'] as letter (letter)}<NavigationMenu.Item value={letter}><NavigationMenu.Trigger>{letter.toUpperCase()}</NavigationMenu.Trigger><NavigationMenu.Content><NavigationMenu.Link href={`#${letter}`}>{letter.toUpperCase()} link</NavigationMenu.Link></NavigationMenu.Content></NavigationMenu.Item>{/each}</NavigationMenu.List>{@render portal(true)}</NavigationMenu.Root>
+{:else if scenario === 'kept-transitions'}
+  <NavigationMenu.Root><NavigationMenu.List><NavigationMenu.Item value="item-1">
+    <NavigationMenu.Trigger data-testid="trigger-1">Item 1</NavigationMenu.Trigger>
+    <NavigationMenu.Content><NavigationMenu.Link href="#link-1">Link 1</NavigationMenu.Link></NavigationMenu.Content>
+  </NavigationMenu.Item></NavigationMenu.List>
+    <NavigationMenu.Portal keepMounted><NavigationMenu.Positioner><NavigationMenu.Popup data-testid="popup-root"><NavigationMenu.Arrow data-testid="arrow" /><NavigationMenu.Viewport /></NavigationMenu.Popup></NavigationMenu.Positioner></NavigationMenu.Portal>
+  </NavigationMenu.Root>
+{:else if scenario === 'trigger-height'}
+  <NavigationMenu.Root><NavigationMenu.List>
+    <NavigationMenu.Item><NavigationMenu.Trigger>Overview</NavigationMenu.Trigger><NavigationMenu.Content><NavigationMenu.Link href="#">Quick Start</NavigationMenu.Link></NavigationMenu.Content></NavigationMenu.Item>
+    <NavigationMenu.Item><NavigationMenu.Trigger>Handbook</NavigationMenu.Trigger><NavigationMenu.Content><NavigationMenu.Link href="#">Styling Base UI components</NavigationMenu.Link></NavigationMenu.Content><NavigationMenu.Content><NavigationMenu.Link href="#">Second Link</NavigationMenu.Link></NavigationMenu.Content></NavigationMenu.Item>
+  </NavigationMenu.List><NavigationMenu.Portal><NavigationMenu.Positioner data-testid="positioner"><NavigationMenu.Popup><NavigationMenu.Viewport /></NavigationMenu.Popup></NavigationMenu.Positioner></NavigationMenu.Portal></NavigationMenu.Root>
+{:else if scenario === 'trigger-width'}
+  <NavigationMenu.Root><NavigationMenu.List>
+    <NavigationMenu.Item><NavigationMenu.Trigger>noContent</NavigationMenu.Trigger></NavigationMenu.Item>
+    <NavigationMenu.Item><NavigationMenu.Trigger>withContent</NavigationMenu.Trigger><NavigationMenu.Content><NavigationMenu.Link href="#">Styling Base UI components</NavigationMenu.Link></NavigationMenu.Content></NavigationMenu.Item>
+  </NavigationMenu.List><NavigationMenu.Portal><NavigationMenu.Positioner data-testid="positioner"><NavigationMenu.Popup><NavigationMenu.Viewport /></NavigationMenu.Popup></NavigationMenu.Positioner></NavigationMenu.Portal></NavigationMenu.Root>
+{:else if scenario === 'trigger-reposition'}
+  <NavigationMenu.Root><NavigationMenu.List style={{ display: 'flex' }}>
+    <NavigationMenu.Item><NavigationMenu.Trigger>Overview</NavigationMenu.Trigger><NavigationMenu.Content><NavigationMenu.Link href="#">Overview Link</NavigationMenu.Link></NavigationMenu.Content></NavigationMenu.Item>
+    <NavigationMenu.Item><NavigationMenu.Trigger>Handbook</NavigationMenu.Trigger><NavigationMenu.Content><NavigationMenu.Link href="#">Handbook Link</NavigationMenu.Link></NavigationMenu.Content></NavigationMenu.Item>
+  </NavigationMenu.List><NavigationMenu.Portal><NavigationMenu.Positioner data-testid="positioner"><NavigationMenu.Popup><NavigationMenu.Viewport /></NavigationMenu.Popup></NavigationMenu.Positioner></NavigationMenu.Portal></NavigationMenu.Root>
 {/if}

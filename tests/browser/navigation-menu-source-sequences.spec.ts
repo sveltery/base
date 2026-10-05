@@ -5,8 +5,12 @@ import { fire, input, key as keyboard, focus, advance, documentEvent, waitTransp
 import type { NavigationMenuTestTransport } from '../../apps/fixtures/src/lib/navigation-menu-test-transport.js';
 type API = { snapshot(): { calls: { value: unknown; reason: string; type: string; canceled: boolean }[]; completions: boolean[]; actionType: string }; setValue(value: unknown): void; unmount(): void };
 type State = { navigationMenuSource: API; navigationMenuTestTransport: NavigationMenuTestTransport };
-async function visit(page: Page, reference: boolean, scenario = 'default', query = '') {
-  if (scenario !== 'keyboard') await page.clock.install();
+async function visit(page: Page, reference: boolean, scenario = 'default', query = '', frozenClock = false) {
+  if (frozenClock) {
+    const now = new Date('2026-10-05T00:00:00Z');
+    await page.clock.install({ time: now });
+    await page.clock.pauseAt(now);
+  } else if (scenario !== 'keyboard') await page.clock.install();
   await page.addInitScript(() => {
     (globalThis as typeof globalThis & { BASE_UI_ANIMATIONS_DISABLED?: boolean }).BASE_UI_ANIMATIONS_DISABLED = true;
   });
@@ -69,6 +73,13 @@ for (const reference of [false, true]) test.describe(`${reference ? 'Original Re
   test('R:1531 hover close leaves trigger unfocused', async ({ page }) => { await visit(page, reference); await enter(page, 'trigger-1'); await expect(node(page, 'popup-1')).toHaveCount(1); await expect(node(page, 'trigger-1')).toHaveAttribute('aria-expanded', 'true'); await dispatch(page, 'trigger-1', 'mouseleave'); await dispatch(page, 'popup-1', 'mouseleave'); await advance(page, 50); await expect(node(page, 'popup-1')).toHaveCount(0); await expect(node(page, 'trigger-1')).toHaveAttribute('aria-expanded', 'false'); await expect(node(page, 'trigger-1')).not.toBeFocused(); });
   test('R:1582 patient click threshold', async ({ page }) => { await visit(page, reference); await dispatch(page, 'trigger-1', 'click'); await advance(page, 50); await expect(node(page, 'popup-1')).toHaveCount(1); await advance(page, 500); await dispatch(page, 'trigger-1', 'click'); await expect(node(page, 'popup-1')).toHaveCount(0); await expect(node(page, 'trigger-1')).toHaveAttribute('aria-expanded', 'false'); });
   test('R:1603 exact defaultValue', async ({ page }) => { await visit(page, reference, 'open'); await expect(node(page, 'popup-1')).toHaveCount(1); await expect(node(page, 'trigger-1')).toHaveAttribute('aria-expanded', 'true'); });
+  test('R:4038 initial open suppresses transition until the next tick', async ({ page }) => {
+    // Original uses a dedicated non-advancing fake clock for this one-frame state.
+    await visit(page, reference, 'open', '', true);
+    await expect(node(page, 'top-level-positioner')).toHaveAttribute('data-instant');
+    await advance(page, 0);
+    await expect(node(page, 'top-level-positioner')).not.toHaveAttribute('data-instant');
+  });
   test('R:1657 exact callback sequence', async ({ page }) => { await visit(page, reference); await dispatch(page, 'trigger-1', 'click'); await expect.poll(async () => (await snapshot(page)).calls.map(c => c.value)).toEqual(['item-1']); await dispatch(page, 'trigger-2', 'click'); await expect.poll(async () => (await snapshot(page)).calls.map(c => c.value)).toEqual(['item-1', 'item-2']); });
   test('R:1674 canceled callback', async ({ page }) => { await visit(page, reference, 'cancel'); await dispatch(page, 'trigger-1', 'click'); await expect(node(page, 'popup-1')).toHaveCount(0); await expect(node(page, 'trigger-1')).toHaveAttribute('aria-expanded', 'false'); expect((await snapshot(page)).calls).toHaveLength(1); });
   test('R:1904 custom open delay', async ({ page }) => { await visit(page, reference, 'delay'); await enter(page, 'trigger-1', 75); await expect(node(page, 'popup-1')).toHaveCount(0); await advance(page, 50); await expect(node(page, 'popup-1')).toHaveCount(1); await expect(node(page, 'trigger-1')).toHaveAttribute('aria-expanded', 'true'); });

@@ -109,4 +109,53 @@ for (const reference of [false, true]) test.describe(`${reference ? 'Original Re
     await page.evaluate(async () => { const state = window as unknown as State; await state.navigationMenuTestTransport.mutate(() => state.navigationMenuParts.navigate()); });
     await expect.poll(async () => node(page, 'list').evaluate(n => (n as HTMLElement).style.pointerEvents)).toBe('');
   });
+  test('R:1614 kept portal opening suppresses popup and arrow transitions', async ({ page }) => {
+    await visit(page, reference, 'kept-transitions');
+    const opening = await page.evaluate(async () => {
+      const state = window as unknown as State;
+      await state.navigationMenuTestTransport.fire(document.querySelector('[data-testid="trigger-1"]')!, 'click');
+      return ['popup-root', 'arrow'].map(id => getComputedStyle(document.querySelector(`[data-testid="${id}"]`)!).transition);
+    });
+    expect(opening).toEqual(['none', 'none']);
+    await expect.poll(async () => node(page, 'popup-root').evaluate(n => getComputedStyle(n).transition)).not.toBe('none');
+    expect(await node(page, 'arrow').evaluate(n => getComputedStyle(n).transition)).not.toBe('none');
+  });
+  test('T:238 focus and positioner height follow switched content', async ({ page }) => {
+    await visit(page, reference, 'trigger-height');
+    const overview = page.getByRole('button', { name: 'Overview' });
+    const handbook = page.getByRole('button', { name: 'Handbook' });
+    const heightDifference = (expected: number) => node(page, 'positioner').evaluate((n, expected) => Math.abs(parseInt(getComputedStyle(n).getPropertyValue('--positioner-height'), 10) - expected), expected);
+    await focus(overview); await key(page, 'ArrowDown');
+    await expect.poll(() => heightDifference(18)).toBeLessThanOrEqual(1);
+    await expect(overview).toBeFocused(); await key(page, 'Tab'); await expect(page.getByRole('link', { name: 'Quick Start' })).toBeFocused();
+    await key(page, 'Shift+Tab'); await expect(overview).toBeFocused(); await key(page, 'ArrowRight'); await expect(handbook).toBeFocused();
+    await key(page, 'ArrowDown'); await expect.poll(() => heightDifference(36)).toBeLessThanOrEqual(1); await expect(handbook).toBeFocused();
+    await key(page, 'Tab'); await expect(page.getByRole('link', { name: 'Styling Base UI components' })).toBeFocused();
+    await key(page, 'Shift+Tab'); await expect(handbook).toBeFocused(); await key(page, 'ArrowLeft'); await expect(overview).toBeFocused();
+    await key(page, 'ArrowDown'); await expect.poll(() => heightDifference(18)).toBeLessThanOrEqual(1); await expect(overview).toBeFocused();
+  });
+  test('T:354 rapid pointer array retains exact positioner width', async ({ page }) => {
+    await visit(page, reference, 'trigger-width');
+    await page.evaluate(async () => {
+      const buttons = [...document.querySelectorAll('button')];
+      const noContentButton = buttons.find(n => n.textContent === 'noContent')!;
+      const withContentButton = buttons.find(n => n.textContent === 'withContent')!;
+      await (window as unknown as State).navigationMenuTestTransport.pointer([
+        { target: withContentButton },
+        { target: noContentButton, releasePrevious: true },
+        { target: withContentButton, releasePrevious: true },
+      ]);
+    });
+    await expect(page.getByRole('link', { name: 'Styling Base UI components' })).toBeVisible();
+    await expect.poll(() => node(page, 'positioner').evaluate(n => Math.abs(parseInt(getComputedStyle(n).getPropertyValue('--positioner-width'), 10) - 183))).toBeLessThanOrEqual(1);
+  });
+  test('T:404 hover switch repositions beyond twenty pixels', async ({ page }) => {
+    await visit(page, reference, 'trigger-reposition');
+    await input(page.getByRole('button', { name: 'Overview' }), 'pointer', { pointerEventsCheck: 0 });
+    await expect(page.getByRole('link', { name: 'Overview Link' })).toBeVisible();
+    const firstLeft = await node(page, 'positioner').evaluate(n => n.getBoundingClientRect().left);
+    await input(page.getByRole('button', { name: 'Handbook' }), 'pointer', { releasePrevious: true, pointerEventsCheck: 0 });
+    await expect(page.getByRole('link', { name: 'Handbook Link' })).toBeVisible();
+    await expect.poll(() => node(page, 'positioner').evaluate((n, firstLeft) => Math.abs(n.getBoundingClientRect().left - firstLeft), firstLeft)).toBeGreaterThan(20);
+  });
 });
