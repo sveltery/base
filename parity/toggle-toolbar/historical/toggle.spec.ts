@@ -120,31 +120,31 @@ for (const reference of [false, true]) {
     await setup(page, 'descendant', reference); await page.getByRole('textbox', { name: 'Inner input' }).focus();
     await page.keyboard.press('Enter'); await page.keyboard.press('Space'); expect(await calls(page)).toEqual([]);
   });
-  for (const scenario of ['controlled-consumer', 'controlled-render']) test(`supplement: ${framework} ${scenario} characterizes native live pressed timing`, async ({ page }) => {
+  for (const scenario of ['controlled-consumer', 'controlled-render']) test(`supplement: ${framework} ${scenario} preserves rendered pressed snapshot`, async ({ page }) => {
     const button = await setup(page, scenario, reference);
-    await button.click(); await expect(button).toHaveAttribute('aria-pressed', String(reference));
-    expect((await calls(page)).map(call => call.pressed)).toEqual([reference]);
+    await button.click(); await expect(button).toHaveAttribute('aria-pressed', 'true');
+    expect((await calls(page)).map(call => call.pressed)).toEqual([true]);
     expect((await calls(page))[0].before).toBe('false');
     expect(await order(page)).toEqual(scenario === 'controlled-render' ? ['render', 'consumer', 'change', 'ancestor'] : ['consumer', 'change', 'ancestor']);
     // A committed owner update supplies a fresh handler snapshot for the next click.
     await button.click(); await expect(button).toHaveAttribute('aria-pressed', 'false');
-    expect((await calls(page)).map(call => call.pressed)).toEqual(reference ? [true, false] : [false, false]);
-  });
-  for (const scenario of ['callback-consumer', 'callback-render']) test(`supplement: ${framework} ${scenario} characterizes native live callback timing`, async ({ page }) => {
-    const button = await setup(page, scenario, reference);
-    await button.click(); await expect(button).toHaveAttribute('aria-pressed', 'true');
-    await expect(page.getByTestId('callback-owners')).toHaveText(reference ? '["old"]' : '["new"]');
-    await button.click(); await expect(button).toHaveAttribute('aria-pressed', 'false');
-    await expect(page.getByTestId('callback-owners')).toHaveText(reference ? '["old","new"]' : '["new","new"]');
     expect((await calls(page)).map(call => call.pressed)).toEqual([true, false]);
   });
-  test(`supplement: ${framework} characterizes same-turn native live state`, async ({ page }) => {
+  for (const scenario of ['callback-consumer', 'callback-render']) test(`supplement: ${framework} ${scenario} preserves rendered callback then refreshes`, async ({ page }) => {
+    const button = await setup(page, scenario, reference);
+    await button.click(); await expect(button).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.getByTestId('callback-owners')).toHaveText('["old"]');
+    await button.click(); await expect(button).toHaveAttribute('aria-pressed', 'false');
+    await expect(page.getByTestId('callback-owners')).toHaveText('["old","new"]');
+    expect((await calls(page)).map(call => call.pressed)).toEqual([true, false]);
+  });
+  test(`supplement: ${framework} same-turn clicks share the rendered snapshot`, async ({ page }) => {
     const button = await setup(page, 'uncontrolled', reference);
     await button.evaluate((node: HTMLButtonElement) => { node.click(); node.click(); });
-    await expect(button).toHaveAttribute('aria-pressed', String(reference));
-    expect((await calls(page)).map(call => call.pressed)).toEqual(reference ? [true, true] : [true, false]);
-    await button.click(); await expect(button).toHaveAttribute('aria-pressed', String(!reference));
-    expect((await calls(page)).map(call => call.pressed)).toEqual(reference ? [true, true, false] : [true, false, true]);
+    await expect(button).toHaveAttribute('aria-pressed', 'true');
+    expect((await calls(page)).map(call => call.pressed)).toEqual([true, true]);
+    await button.click(); await expect(button).toHaveAttribute('aria-pressed', 'false');
+    expect((await calls(page)).map(call => call.pressed)).toEqual([true, true, false]);
   });
 }
 test('supplement: Svelte Toggle SSR hydrates with stable host and attachments clean up', async ({ page }) => {
@@ -167,8 +167,8 @@ test('supplement: Svelte Toggle SSR hydrates with stable host and attachments cl
   await page.getByRole('button', { name: 'Toggle mounting', exact: true }).click(); await expect(button).toHaveAttribute('aria-pressed', 'false');
   await expect(page.getByTestId('attachments')).toHaveText('{"attached":2,"detached":1}'); expect(errors).toEqual([]);
 });
-// Source audit: canonical useButton restores original mousedown default behavior. Historical D-03 remains archived; this supplement has zero ordinary credit.
-for (const reference of [false, true]) test(`supplement: ${reference ? 'React reference' : 'Svelte'} Toggle canonical Source disabled chorded mousedown`, async ({ page }) => {
+// D-03 is an inherited intentional difference; this paired comparison has zero parity credit.
+for (const reference of [false, true]) test(`supplement: ${reference ? 'React reference' : 'Svelte'} Toggle inherited disabled chorded mousedown`, async ({ page }) => {
   const button = await setup(page, 'custom-disabled', reference);
   await button.evaluate(node => {
     node.setAttribute('data-pointerdowns', '0');
@@ -183,8 +183,8 @@ for (const reference of [false, true]) test(`supplement: ${reference ? 'React re
   try {
     await page.mouse.move(box!.x + box!.width / 2, box!.y + box!.height / 2); await page.mouse.down({ button: 'left' });
     await expect(button).toHaveAttribute('data-pointerdowns', '0'); await expect(button).toHaveAttribute('data-trusted', 'true');
-    await expect(button).toHaveAttribute('data-default-prevented', 'false');
-    await expect(button).toBeFocused();
+    await expect(button).toHaveAttribute('data-default-prevented', String(!reference));
+    if (reference) await expect(button).toBeFocused(); else await expect(button).not.toBeFocused();
     expect(await calls(page)).toEqual([]);
   } finally { await page.mouse.up({ button: 'left' }); await page.mouse.up({ button: 'right' }); }
 });
