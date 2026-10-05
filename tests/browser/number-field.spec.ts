@@ -152,6 +152,32 @@ for (const framework of ['react', 'svelte']) {
     // React restores its controlled value; the native Svelte spread retains the DOM edit.
     expect(observed).toBe(framework === 'react' ? '2' : '8');
   });
+  for (const renderMode of ['csr', 'hydrated']) for (const controlled of [false, true]) {
+    test(`${framework} literal form-reset defaults ${renderMode} controlled=${controlled}`, async ({ page }) => {
+      const hydrationWarnings: string[] = [];
+      page.on('console', message => { if (/hydration|mismatch/i.test(message.text())) hydrationWarnings.push(message.text()); });
+      await page.goto(`/number-field?scenario=reset${controlled ? '-controlled' : ''}&renderMode=${renderMode}${framework === 'react' ? '&reference=react' : ''}`);
+      await expect(page.locator('main[data-hydrated="true"]')).toBeVisible();
+      const input = page.getByTestId('visible'), numeric = page.locator('input[type="number"]');
+      await expect(input).toHaveValue('2'); await expect(numeric).toHaveValue('2');
+      await input.press('ArrowUp'); await expect(input).toHaveValue('3'); await expect(numeric).toHaveValue('3');
+      const before = await traces(page);
+      const read = () => page.locator('#number-form').evaluate(form => {
+        const visible = form.querySelector<HTMLInputElement>('input[type="text"]')!, numeric = form.querySelector<HTMLInputElement>('input[type="number"]')!;
+        return { visible: visible.value, numeric: numeric.value, visibleDefault: visible.defaultValue, numericDefault: numeric.defaultValue, serialized: new FormData(form as HTMLFormElement).get('amount') };
+      });
+      const stepped = await read();
+      await page.locator('#number-form').evaluate(form => (form as HTMLFormElement).reset());
+      const expected = framework === 'react' ? '3' : '';
+      await expect(input).toHaveValue(expected); await expect(numeric).toHaveValue(expected);
+      const reset = await read(); expect(reset).toEqual({ visible: expected, numeric: expected, visibleDefault: expected, numericDefault: expected, serialized: expected });
+      expect(await traces(page)).toEqual(before);
+      await input.press('ArrowUp'); await expect(input).toHaveValue('4'); await expect(numeric).toHaveValue('4');
+      expect((await traces(page)).at(-1)).toMatchObject({ kind: 'commit', value: 4, reason: 'keyboard' });
+      expect(hydrationWarnings).toEqual([]);
+      await test.info().attach('native-form-reset-defaults', { body: JSON.stringify({ framework, renderMode, controlled, stepped, reset, nextStep: await read(), storedNumericAfterReset: 3, resetChangeCommitCalls: 0 }), contentType: 'application/json' });
+    });
+  }
 }
 test('Svelte native SSR hydration retains value, labels, IDs and emits no hydration warning', async ({ page }) => {
   const warnings: string[] = []; page.on('console', message => { if (/hydration|mismatch/i.test(message.text())) warnings.push(message.text()); });

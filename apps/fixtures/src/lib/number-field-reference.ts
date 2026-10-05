@@ -1,11 +1,12 @@
 // Actual pinned Base UI 1.8.0 source-family witness on React/ReactDOM 19.2.8 (MIT).
 import { createElement as h, useEffect, useState, useRef, version as reactVersion } from 'react';
 import { version as reactDomVersion } from 'react-dom';
-import { createRoot } from 'react-dom/client';
+import { createRoot, hydrateRoot } from 'react-dom/client';
+import { renderToString } from 'react-dom/server';
 import { NumberField, type NumberFieldRootProps, type NumberFieldRootChangeEventDetails, type NumberFieldRootCommitEventDetails } from '@base-ui/react/number-field';
 import { Field } from '@base-ui/react/field';
 import { Form } from '@base-ui/react/form';
-export function mountNumberFieldReference(node: HTMLElement, scenario: string) {
+export function mountNumberFieldReference(node: HTMLElement, scenario: string, renderMode: 'csr' | 'hydrated' = 'csr') {
   function Fixture() {
     const initial = scenario.includes('empty') ? undefined : scenario.includes('rounding-blur') ? 1.234 : scenario.includes('precision') ? 1.23456789 : scenario === 'percent' ? 0.12 : 2;
     const controlled = scenario.includes('controlled');
@@ -66,6 +67,12 @@ export function mountNumberFieldReference(node: HTMLElement, scenario: string) {
       h('output', { id: 'number-traces' }, JSON.stringify(traces)), h('output', { id: 'number-submissions' }, JSON.stringify(submissions)),
       h('output', { id: 'number-validation-calls' }, JSON.stringify(validationCalls)),
       h('output', { id: 'ref-state' }, JSON.stringify({ root: rootRef.current?.isConnected ?? false, visible: visibleRef.current?.isConnected ?? false, hidden: hiddenRef.current?.isConnected ?? false })));
+  }
+  if (renderMode === 'hydrated') {
+    // Actual ReactDOMServer markup and hydrateRoot exercise controlled reset defaults.
+    node.innerHTML = renderToString(h(Fixture));
+    const root = hydrateRoot(node, h(Fixture));
+    return () => root.unmount();
   }
   const root = createRoot(node); root.render(h(Fixture)); return () => root.unmount();
 }
