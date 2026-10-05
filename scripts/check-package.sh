@@ -17,6 +17,9 @@ while IFS=$'\t' read -r package_name package_directory tarball; do
   pnpm exec publint ".checks/npm-package/$tarball" --strict
   node scripts/check-package-types.mjs ".checks/npm-package/$tarball" ".checks/npm-package/${tarball%.tgz}.attw.json" "$sveltery_repo_root/$package_directory"
 done < "$consumer_dir/artifacts.tsv"
+if [[ -f packages/utils/package.json ]]; then
+  bash scripts/check-utils-package.sh
+fi
 cat > "$consumer_dir/check.mjs" <<'JS'
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
