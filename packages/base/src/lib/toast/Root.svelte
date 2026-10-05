@@ -6,9 +6,8 @@
   import { flushSync, untrack } from 'svelte';
   import { provider } from './context.js';
   import { setRootContext, type ToastRootContext } from './root-context.js';
-  import { selectors } from './store.js';
-  import { afterAnimations } from './animations.js';
-  import { activeElement, contains } from './viewport-focus.js';
+  import { useOpenChangeComplete } from '../internals/useOpenChangeComplete.svelte.js';
+  import { activeElement, contains } from '@sveltery/utils/shadowDom';
   import type { ToastRootProps } from './types.js';
 
   let {
@@ -21,30 +20,26 @@
   }: ToastRootProps = $props();
   const store = provider().store;
   let node = $state<HTMLElement | null>(null);
-  let title = $state.raw<{ id: string | undefined }>();
-  let description = $state.raw<{ id: string | undefined }>();
-  let registeredId: string | undefined;
-  let registeredLifecycle: object | undefined;
-  const snapshot = $derived(store.getSnapshot());
-  const expanded = $derived(selectors.expanded(snapshot));
-  const focused = $derived(snapshot.focused);
-  const visibleIndex = $derived(
-    selectors.toastVisibleIndex(snapshot, toast.id),
-  );
-  const domIndex = $derived(selectors.toastIndex(snapshot, toast.id));
-  const offsetY = $derived(selectors.toastOffsetY(snapshot, toast.id));
-  const lifecycle = $derived.by(() => {
-    void snapshot.toasts;
-    return store.getLifecycle(toast.id);
+  let titleId = $state<string>();
+  let descriptionId = $state<string>();
+  let lastToastId: string | undefined;
+  let lastHost: HTMLElement | null = null;
+  const expanded = $derived(store.useState('expanded'));
+  const focused = $derived(store.useState('focused'));
+  const visibleIndex = $derived(store.useState('toastVisibleIndex', toast.id));
+  const domIndex = $derived(store.useState('toastIndex', toast.id));
+  const offsetY = $derived(store.useState('toastOffsetY', toast.id));
+
+  useOpenChangeComplete({
+    get open() { return toast.transitionStatus !== 'ending'; },
+    ref: { get current() { return node; } },
+    onComplete() {
+      if (toast.transitionStatus === 'ending') store.removeToast(toast.id);
+    },
   });
 
   function recalculateHeight(flush = false) {
     if (!node) return;
-    if (registeredId !== undefined && registeredId !== toast.id) {
-      store.clearToastRef(registeredId, node, registeredLifecycle);
-    }
-    registeredId = toast.id;
-    registeredLifecycle = store.getLifecycle(toast.id);
     const previousHeight = node.style.height;
     node.style.height = 'auto';
     const height = node.offsetHeight;
@@ -69,24 +64,18 @@
       return visibleIndex;
     },
     get titleId() {
-      return title?.id;
+      return titleId;
     },
     get descriptionId() {
-      return description?.id;
+      return descriptionId;
     },
     setTitleId(id) {
-      const registration = { id };
-      title = registration;
-      return () => {
-        if (title === registration) title = undefined;
-      };
+      titleId = id;
+      return () => { if (titleId === id) titleId = undefined; };
     },
     setDescriptionId(id) {
-      const registration = { id };
-      description = registration;
-      return () => {
-        if (description === registration) description = undefined;
-      };
+      descriptionId = id;
+      return () => { if (descriptionId === id) descriptionId = undefined; };
     },
     recalculateHeight,
   };
@@ -95,8 +84,7 @@
     node = element;
     return () => {
       if (node === element) node = null;
-      if (registeredId !== undefined)
-        store.clearToastRef(registeredId, element, registeredLifecycle);
+
     };
   }
   $effect(() => {
@@ -105,24 +93,22 @@
         'Base UI: this Toast.Root slice requires swipeDirection={[]}.',
       );
   });
-  // Prop clones and index-keyed roots rebind to the store lifecycle, rather than object identity.
+  // Capture the actual native host/ID pair for binding cleanup.
+  $effect(() => {
+    const element = node;
+    const id = toast.id;
+    if (!element) return;
+    return () => untrack(() => store.clearToastRef(id, element));
+  });
   $effect(() => {
     const element = node;
     const id = toast.id;
     const status = toast.transitionStatus;
-    const token = lifecycle;
-    if (!element || !token) return;
-    if (status === 'ending') {
-      return untrack(() =>
-        afterAnimations(element, () => store.removeToast(id, false, token)),
-      );
-    }
-    if (
-      status === 'starting' ||
-      untrack(() => selectors.toast(store.getSnapshot(), id)?.ref) !== element
-    ) {
-      untrack(recalculateHeight);
-    }
+    if (!element) return;
+    if (status !== 'starting' && lastToastId === id && lastHost === element) return;
+    lastToastId = id;
+    lastHost = element;
+    untrack(recalculateHeight);
   });
   const rootState = $derived({
     transitionStatus: toast.transitionStatus,
@@ -136,8 +122,8 @@
     role: toast.priority === 'high' ? 'alertdialog' : 'dialog',
     tabindex: 0,
     'aria-modal': false,
-    'aria-labelledby': title?.id,
-    'aria-describedby': description?.id,
+    'aria-labelledby': titleId,
+    'aria-describedby': descriptionId,
     'aria-hidden': toast.priority === 'high' && !focused ? true : undefined,
     inert: toast.limited ? true : undefined,
     'data-starting-style':

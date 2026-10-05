@@ -16,12 +16,16 @@
     ...props
   }: ToastDescriptionProps = $props();
   const controller = root();
+  let node = $state<HTMLElement | null>(null);
   const generated = $props.id();
   const resolvedId = $derived(id ?? `base-ui-${generated}`);
   const content = $derived(children ?? controller.toast.description);
   $effect(() => {
-    if (isRenderableContent(content))
-      return controller.setDescriptionId(resolvedId);
+    const host = node;
+    const id = resolvedId;
+    const shouldRender = isRenderableContent(content);
+    if (!host || !shouldRender) return;
+    return untrack(() => controller.setDescriptionId(id));
   });
   const state = $derived({ type: controller.toast.type });
 
@@ -29,9 +33,11 @@
   function attachHost(host: HTMLElement) {
     return untrack(() => {
       ref = host;
+      node = host;
       return () =>
         untrack(() => {
           if (ref === host) ref = null;
+          if (node === host) node = null;
         });
     });
   }

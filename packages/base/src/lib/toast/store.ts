@@ -1,11 +1,14 @@
-// Derived from mui/base-ui at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, see ../../../THIRD_PARTY_NOTICES.md.
-/* eslint-disable @typescript-eslint/no-explicit-any -- Preserve upstream erased internal data and promise handoff. */
-import { createSubscriber } from 'svelte/reactivity';
+// Ported from mui/base-ui at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, see ../../../THIRD_PARTY_NOTICES.md.
+/* eslint-disable @typescript-eslint/no-explicit-any -- Preserve Source internal data and promise handoff erasure. */
+import { SvelteStore } from '@sveltery/utils/store';
+import { generateId } from '@sveltery/utils/generateId';
+import { ownerDocument } from '@sveltery/utils/owner';
 import { Timeout } from '@sveltery/utils/useTimeout';
-import { createIdGenerator } from './id.js';
-import type { ToastManager } from './createToastManager.js';
 import type { ToastManagerAddOptions, ToastManagerPromiseOptions, ToastManagerUpdateOptions, ToastObject } from './types.js';
 import { resolvePromiseOptions } from './resolve-promise-options.js';
+import { activeElement, contains, getTarget } from '@sveltery/utils/shadowDom';
+import { matchesFocusVisible as isFocusVisible } from '../floating-ui/utils/matchesFocusVisible.js';
+
 type ToastInternalUpdateOptions<Data extends object> = Partial<
   Omit<ToastObject<Data>, 'id' | 'updateKey'>
 >;
@@ -90,106 +93,25 @@ export const selectors = {
   prevFocusElement: (state: State) => state.prevFocusElement,
 };
 
-export class ToastStore {
-  private snapshot: State;
-  private readonly listeners = new Set<() => void>();
-  private readonly track = createSubscriber((update) => this.subscribe(update));
-  private readonly generateId = createIdGenerator();
-  private managerCleanup: (() => void) | undefined;
-  private closeFocusRegistration: { handler: (toastId?: string) => void } | undefined;
-  private disposed = false;
-
-  private readonly lifecycles = new Map<string, object>();
-  private readonly removingLifecycles = new Set<object>();
-
-  /** Snapshots are immutable by convention. Do not mutate their arrays or metadata. */
-  get state() { return this.getSnapshot(); }
-  getSnapshot = (): State => { this.track(); return this.snapshot; };
-  subscribe = (listener: () => void): (() => void) => {
-    if (this.disposed) return () => {};
-    this.listeners.add(listener);
-    return () => { this.listeners.delete(listener); };
-  };
-
-  set<Key extends keyof State>(key: Key, value: State[Key]) {
-    this.update({ [key]: value } as Pick<State, Key>);
-  }
-
-  update(updates: Partial<State>) {
-    if (this.disposed) return;
-    this.snapshot = { ...this.snapshot, ...updates };
-    this.listeners.forEach((listener) => listener());
-  }
-
-  /** Replaces the Provider's channel attachment; earlier events are never replayed. */
-  attachManager(manager?: ToastManager): () => void {
-    this.managerCleanup?.();
-    if (this.disposed || !manager) return () => {};
-    const unsubscribe = manager[' subscribe'](({ action, options }) => {
-      if (action === 'promise') {
-        // Each Provider handles settlement independently. Observe rejection on
-        // every branch; the manager still returns the last subscriber's promise.
-        void this.promiseToast(options.promise, options).catch(() => {});
-      } else if (action === 'update') this.updateToast(options.id, options.updates);
-      else if (action === 'close') this.closeToast(options.id);
-      else this.addToast(options);
-    });
-    const cleanup = () => {
-      unsubscribe();
-      if (this.managerCleanup === cleanup) this.managerCleanup = undefined;
-    };
-    this.managerCleanup = cleanup;
-    return cleanup;
-  }
-
-  /** Capture at Root mount; stale exit completion must not remove a replacement. */
-  getLifecycle(id: string): object | undefined { return this.lifecycles.get(id); }
-
-  /** Unregister only this node/lifecycle, including while ending rejects ordinary writes. */
-  clearToastRef(id: string, node: HTMLElement, expectedLifecycle?: object) {
-    if (this.disposed || (expectedLifecycle && this.lifecycles.get(id) !== expectedLifecycle)) return;
-    const toast = selectors.toast(this.state, id);
-    if (toast?.ref !== node) return;
-    this.setToasts(this.state.toasts.map(item => item.id === id ? { ...item, ref: null } : item));
-  }
-
-  /** Viewport-owned DOM work runs after every onClose callback, synchronously. */
-  setCloseFocusHandler(handler: (toastId?: string) => void): () => void {
-    if (this.disposed) return () => {};
-    const registration = { handler };
-    this.closeFocusRegistration = registration;
-    return () => {
-      if (this.closeFocusRegistration === registration) this.closeFocusRegistration = undefined;
-    };
-  }
-
-  /** Opaque ownership token for revalidating synchronous Viewport commits. */
-  getCloseFocusRegistration(): object | undefined {
-    return this.disposed ? undefined : this.closeFocusRegistration;
-  }
-
-  /** Final Provider teardown. No callbacks fire and pending settlements cannot write. */
-  dispose = () => {
-    if (this.disposed) return;
-    this.disposed = true;
-    this.managerCleanup?.();
-    this.closeFocusRegistration = undefined;
-    this.clearTimers();
-    this.listeners.clear();
-    this.lifecycles.clear();
-    this.removingLifecycles.clear();
-  };
+export class ToastStore extends SvelteStore<State, Record<string, never>, typeof selectors> {
   private timers = new Map<string, TimerInfo>();
 
   private areTimersPaused = false;
 
   constructor(initialState: InitialState = { toasts: [], timeout: 5000, limit: 3, hovering: false, focused: false, isWindowFocused: true, viewport: null, prevFocusElement: null }) {
-    this.snapshot = {
-      ...initialState,
-      toastMetadata: createToastMetadata(initialState.toasts),
-    };
-    initialState.toasts.forEach((toast) => this.lifecycles.set(toast.id, {}));
+    super(
+      {
+        ...initialState,
+        toastMetadata: createToastMetadata(initialState.toasts),
+      },
+      {},
+      selectors,
+    );
   }
+
+  setViewport = (viewport: HTMLElement | null) => {
+    this.set('viewport', viewport);
+  };
 
   syncProviderProps(timeout: number, limit: number) {
     const limitChanged = this.state.limit !== limit;
@@ -212,42 +134,46 @@ export class ToastStore {
     this.update(updates);
   }
 
-  /** Compatibility seam for the retained source tests; Provider should call dispose. */
+  // Native Provider teardown keeps the Source timer-only cleanup semantics.
+  dispose = () => {
+    this.timers.forEach((timer) => { timer.timeout?.clear(); });
+    this.timers.clear();
+  };
+
   disposeEffect = () => this.dispose;
 
-  removeToast(toastId: string, skipOnRemove: boolean = false, expectedLifecycle?: object) {
-    const lifecycle = this.lifecycles.get(toastId);
-    if (this.disposed || !lifecycle || (expectedLifecycle && lifecycle !== expectedLifecycle) || this.removingLifecycles.has(lifecycle)) return;
-    const toast = selectors.toast(this.state, toastId);
-    if (!toast) return;
-    this.removingLifecycles.add(lifecycle);
-    try {
-      // Match upstream: the callback can still read the toast, and a thrown
-      // callback prevents removal. Only recursive removal of this lifecycle is blocked.
-      if (!skipOnRemove) toast.onRemove?.();
-      // The callback may dispose, add other toasts, or replace this ending ID.
-      // Re-read state and remove only the lifecycle whose callback just ran.
-      if (this.disposed || this.lifecycles.get(toastId) !== lifecycle) return;
-      this.clearTimer(toastId);
-      this.lifecycles.delete(toastId);
-      this.setToasts(this.state.toasts.filter((item) => item.id !== toastId));
-    } finally {
-      this.removingLifecycles.delete(lifecycle);
+  /** Native host bindings clear their captured node, including while ending. */
+  clearToastRef(id: string, node: HTMLElement) {
+    if (selectors.toast(this.state, id)?.ref !== node) return;
+    this.setToasts(this.state.toasts.map(toast => toast.id === id ? { ...toast, ref: null } : toast));
+  }
+
+  removeToast(toastId: string, skipOnRemove: boolean = false) {
+    const index = selectors.toastIndex(this.state, toastId);
+    if (index === -1) {
+      return;
     }
+
+    const toast = this.state.toasts[index];
+    if (!skipOnRemove) {
+      toast?.onRemove?.();
+    }
+
+    const newToasts = [...this.state.toasts];
+    newToasts.splice(index, 1);
+    this.setToasts(newToasts);
   }
 
   addToast = <Data extends object>(toast: ToastManagerAddOptions<Data>): string => {
     const { timeout, limit } = this.state;
-    const id = toast.id || this.generateId();
-    if (this.disposed) return id;
+    const id = toast.id || generateId('toast');
 
     if (toast.id) {
       const existingToast = selectors.toast(this.state, toast.id);
 
       if (existingToast) {
         if (existingToast.transitionStatus === 'ending') {
-          // Replacement is one published state: subscribers never see a gap.
-          this.clearTimer(toast.id);
+          this.removeToast(toast.id, true);
         } else {
           const updates = { ...toast };
           delete updates.id;
@@ -265,8 +191,8 @@ export class ToastStore {
       transitionStatus: 'starting',
     };
 
-    const updatedToasts = [toastToAdd, ...this.state.toasts.filter((item) => item.id !== id)];
-    this.lifecycles.set(id, {});
+    const updatedToasts = [toastToAdd, ...this.state.toasts];
+    this.setToasts(applyLimited(updatedToasts, limit));
 
     const duration = toastToAdd.timeout ?? timeout;
     if (toastToAdd.type !== 'loading' && duration > 0) {
@@ -277,7 +203,6 @@ export class ToastStore {
       this.pauseTimers();
     }
 
-    this.setToasts(applyLimited(updatedToasts, limit));
     return id;
   };
 
@@ -287,7 +212,6 @@ export class ToastStore {
       | ToastManagerUpdateOptions<Data>
       | ((prevToast: ToastObject<Data>) => ToastManagerUpdateOptions<Data>),
   ) => {
-    if (this.disposed) return;
     const prevToast = selectors.toast(this.state, id);
     // Never run the updater for an update the store is going to ignore.
     if (!prevToast || prevToast.transitionStatus === 'ending') {
@@ -311,7 +235,6 @@ export class ToastStore {
     markUpdated: boolean = false,
   ) => {
     const { timeout, toasts } = this.state;
-    if (this.disposed) return;
     const prevToast = selectors.toast(this.state, id);
     if (!prevToast) {
       return;
@@ -332,6 +255,8 @@ export class ToastStore {
       }),
     };
 
+    this.setToasts(toasts.map((toast) => (toast.id === id ? nextToast : toast)));
+
     const nextTimeout = nextToast.timeout ?? timeout;
     const prevTimeout = prevToast.timeout ?? timeout;
 
@@ -346,6 +271,7 @@ export class ToastStore {
 
     if (!shouldHaveTimer && hasTimer) {
       this.clearTimer(id);
+      return;
     }
 
     // Schedule or reschedule timer if needed
@@ -361,12 +287,9 @@ export class ToastStore {
         this.pauseTimers();
       }
     }
-
-    this.setToasts(toasts.map((toast) => (toast.id === id ? nextToast : toast)));
   };
 
   closeToast = (toastId?: string) => {
-    if (this.disposed) return;
     const closeAll = toastId === undefined;
     const { limit, toasts } = this.state;
     let toastsToClose: StoredToast[];
@@ -397,9 +320,7 @@ export class ToastStore {
       }
     });
 
-    // Callbacks may replace the viewport, move focus, add toasts, or dispose.
-    // Read the current registration only after the complete callback loop.
-    if (!this.disposed) this.closeFocusRegistration?.handler(toastId);
+    this.handleFocusManagement(toastId);
   };
 
   promiseToast = <Value, Data extends object>(
@@ -445,7 +366,6 @@ export class ToastStore {
   };
 
   pauseTimers() {
-    if (this.disposed) return;
     if (this.areTimersPaused) {
       return;
     }
@@ -464,7 +384,6 @@ export class ToastStore {
   }
 
   resumeTimers() {
-    if (this.disposed) return;
     if (!this.areTimersPaused) {
       return;
     }
@@ -479,6 +398,26 @@ export class ToastStore {
       timer.start = Date.now();
     });
   }
+
+  restoreFocusToPrevElement() {
+    this.state.prevFocusElement?.focus({ preventScroll: true });
+  }
+
+  handleDocumentPointerDown = (event: PointerEvent) => {
+    if (event.pointerType !== 'touch') {
+      return;
+    }
+
+    const target = getTarget(event) as Element | null;
+    if (contains(this.state.viewport, target)) {
+      return;
+    }
+
+    // This is explicit touch activity outside the viewport, so the paused
+    // interaction state should end even if the window focus state is unchanged.
+    this.resumeTimers();
+    this.update({ hovering: false, focused: false });
+  };
 
   private scheduleTimer(id: string, delay: number, callback: () => void) {
     const start = Date.now();
@@ -542,6 +481,40 @@ export class ToastStore {
     this.update(updates);
   }
 
+  private handleFocusManagement(toastId: string | undefined) {
+    // Native SSR has no document when no actual viewport is registered.
+    if (!this.state.viewport) return;
+    const activeEl = activeElement(ownerDocument(this.state.viewport));
+    if (!contains(this.state.viewport, activeEl) || !isFocusVisible(activeEl)) {
+      return;
+    }
+
+    if (toastId === undefined) {
+      this.restoreFocusToPrevElement();
+      return;
+    }
+
+    const toasts = selectors.toasts(this.state);
+    const currentIndex = selectors.toastIndex(this.state, toastId);
+
+    const scan = (from: number, step: number) => {
+      for (let index = from; index >= 0 && index < toasts.length; index += step) {
+        if (toasts[index].transitionStatus !== 'ending') {
+          return toasts[index];
+        }
+      }
+      return null;
+    };
+
+    // Try to find the next toast that isn't animating out, then fall back to the previous one.
+    const nextToast = scan(currentIndex + 1, 1) ?? scan(currentIndex - 1, -1);
+
+    if (nextToast) {
+      nextToast.ref?.focus();
+    } else {
+      this.restoreFocusToPrevElement();
+    }
+  }
 }
 
 interface TimerInfo {

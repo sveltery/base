@@ -1,6 +1,6 @@
 // Derived from mui/base-ui at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, see ../../../THIRD_PARTY_NOTICES.md.
 /* eslint-disable @typescript-eslint/no-explicit-any -- Preserve pinned generic defaults and private event payload erasure. */
-import { createIdGenerator } from './id.js';
+import { generateId } from '@sveltery/utils/generateId';
 import type {
   ToastObject,
   ToastManagerAddOptions,
@@ -12,7 +12,6 @@ import type {
  * Creates a new toast manager.
  */
 export function createToastManager<Data extends object = any>(): ToastManager<Data> {
-  const generateId = createIdGenerator();
   const listeners = new Set<(data: ToastManagerEvent) => void>();
 
   function emit(data: ToastManagerEvent) {
@@ -30,7 +29,7 @@ export function createToastManager<Data extends object = any>(): ToastManager<Da
     },
 
     add<T extends Data = Data>(options: ToastManagerAddOptions<T>): string {
-      const id = options.id || generateId();
+      const id = options.id || generateId('toast');
       const toastToAdd: ToastObject<T> = {
         ...options,
         id,
@@ -101,9 +100,8 @@ export interface ToastManager<Data extends object = any> {
   ) => Promise<Value>;
 }
 
-/** Internal channel payloads, discriminated for the Provider bridge. */
-export type ToastManagerEvent =
-  | { action: 'add'; options: ToastObject<any> }
-  | { action: 'close'; options: { id?: string } }
-  | { action: 'update'; options: { id: string; updates: ToastManagerUpdateOptions<any> | ((previous: ToastObject<any>) => ToastManagerUpdateOptions<any>) } }
-  | { action: 'promise'; options: ToastManagerPromiseOptions<any, any> & { promise: Promise<any>; setPromise(promise: Promise<any>): void } };
+// Source private channel erases payload data and promise generics.
+export interface ToastManagerEvent {
+  action: 'add' | 'close' | 'update' | 'promise';
+  options: any;
+}

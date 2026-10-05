@@ -27,7 +27,22 @@
     const nextLimit = limit;
     untrack(() => store.syncProviderProps(nextTimeout, nextLimit));
   });
-  $effect.pre(() => store.attachManager(toastManager));
+  $effect(() => {
+    const manager = toastManager;
+    if (!manager) return;
+    return manager[' subscribe'](({ action, options }) => {
+      const id = options.id;
+      if (action === 'promise' && options.promise) {
+        store.promiseToast(options.promise, options);
+      } else if (action === 'update' && id) {
+        store.updateToast(id, options.updates);
+      } else if (action === 'close') {
+        store.closeToast(id);
+      } else {
+        store.addToast(options);
+      }
+    });
+  });
   onDestroy(store.dispose);
 </script>
 
