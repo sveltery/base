@@ -25,9 +25,6 @@
   const lastOpenChangeReason = $derived(store.useState('lastOpenChangeReason'));
   const context = useContextMenuRootContext();
   const componentState = $derived({ open, transitionStatus });
-  const setRef = (node: HTMLElement | null) => {
-    ref = node;
-  };
 
   const hostAttachmentKey = createAttachmentKey();
   function attachHost(host: HTMLElement) {

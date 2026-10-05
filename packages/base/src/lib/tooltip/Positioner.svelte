@@ -108,10 +108,8 @@
   });
 </script>
 
-{#if renderEnabled}
-  {#if render}
-    {@render render(mergedProps, renderState, children)}
-  {:else}
-    <div {...mergedProps}>{@render children?.()}</div>
-  {/if}
+{#if render}
+  {@render render(mergedProps, renderState, children)}
+{:else}
+  <div {...mergedProps}>{@render children?.()}</div>
 {/if}

@@ -53,9 +53,6 @@
     return mergeProps(commonProps(), externalProps, getButtonProps);
   }
   const componentState = $derived({ highlighted });
-  const setRef = (node: HTMLElement | null) => {
-    ref = node;
-  };
 
   const hostAttachmentKey = createAttachmentKey();
   function attachHost(host: HTMLElement) {

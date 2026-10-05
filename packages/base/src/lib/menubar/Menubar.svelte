@@ -90,9 +90,6 @@
       tree.events.off('menuopenchange', onSubmenuOpenChange);
     };
   });
-  const setRef = (node: HTMLElement | null) => {
-    ref = node;
-  };
   const stateAttributesMapping = {
     hasSubmenuOpen(value: boolean) {
       return value ? { 'data-has-submenu-open': '' } : null;

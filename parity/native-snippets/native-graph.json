@@ -176,7 +176,7 @@
     },
     {
       "source": "packages/base/src/lib/accordion/Panel.svelte",
-      "sha256": "c632b0315b82c26410c1a1132b9e8ffeed1ee8fd93bdb7cacc38b16b682b5e67",
+      "sha256": "448a3803eda2dc6ccd5d68d619711e5c16197e1efc3459534c8e1f9353be4494",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -1290,7 +1290,7 @@
     },
     {
       "source": "packages/base/src/lib/collapsible/Panel.svelte",
-      "sha256": "ac6f5d0c65362a06ccb55f37e9fa4c33cb654c4ee6fbdae37b79e234d7280f85",
+      "sha256": "de23db970bf2ae2060274561172d6ef20a09f090f194c41316731301545ccbd7",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -1579,7 +1579,7 @@
     },
     {
       "source": "packages/base/src/lib/context-menu/Trigger.svelte",
-      "sha256": "b2b7f7afba8bd9955238cb52e5540af60ee3ee8d172c691ce476b3b66cdac266",
+      "sha256": "3f675b9621bfe84c1ef6ffbe4eeef7dd1fe14a0af0830fcafa68aeba4c46faa1",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -2722,7 +2722,7 @@
     },
     {
       "source": "packages/base/src/lib/field/Error.svelte",
-      "sha256": "a02ff2c76807e25ad1bac16f3c5722eb93646cca9f800b36663a532e79a171ce",
+      "sha256": "c6a86130cfd05b0f5de51af86e68b10e7ff88af93f7bbb760123d236840bcaa5",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -4353,6 +4353,11 @@
           "specifier": "./useHoverShared.js",
           "kind": "runtime-or-mixed",
           "resolved": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "import-type-or-dynamic",
+          "resolved": "packages/base/src/lib/floating-ui/types.ts"
         }
       ]
     },
@@ -4901,6 +4906,16 @@
           "specifier": "../remote-forms/types.js",
           "kind": "type",
           "resolved": "packages/base/src/lib/remote-forms/types.ts"
+        },
+        {
+          "specifier": "../remote-forms/index.parts.js",
+          "kind": "import-type-or-dynamic",
+          "resolved": "packages/base/src/lib/remote-forms/index.parts.ts"
+        },
+        {
+          "specifier": "../field/index.parts.js",
+          "kind": "import-type-or-dynamic",
+          "resolved": "packages/base/src/lib/field/index.parts.ts"
         }
       ]
     },
@@ -6032,7 +6047,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/mergeComponentProps.ts",
-      "sha256": "0b46a03724727f788eca9a62f878772e23dcfcb8867191c80bbb451755ae294c",
+      "sha256": "9bac34159edaa562b7a018594a875a51873c16ac8293f4a8351d5583f595ac67",
       "imports": [
         {
           "specifier": "@sveltery/utils/mergeObjects",
@@ -6073,7 +6088,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/nativeProps.ts",
-      "sha256": "fbb6178288b28dad7549551064e30bf2b432880f1a5b2476223b011f9e72a71a",
+      "sha256": "598301c5f9e7fcfe39e8eaa45092b7935cd61e9d353a89766d45bc9230861a96",
       "imports": [
         {
           "specifier": "svelte/elements",
@@ -6294,7 +6309,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/Arrow.svelte",
-      "sha256": "c5e34a34f066d76383fc590970e2ca1fb6e642545861664c2f81c31bc09e826d",
+      "sha256": "6490f60a1e91c2fa2e6cbccff6afc639d555b4788437adf958eb83b1fdfe7890",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -6335,7 +6350,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/Backdrop.svelte",
-      "sha256": "0620df49ddc4bf2337ccd7c00487a0866459d0a12bc52ee47d9b29a2561606b4",
+      "sha256": "f10c9c1fe2b825451da259f58fd381dc1da4df9b371a923b82985118ebf6f717",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -6397,7 +6412,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/CheckboxItem.svelte",
-      "sha256": "8549c784fe42f3a6379594a241285fc36eecabf1347365b394f7310a8a35f5e4",
+      "sha256": "5f2820a951b645fae95aa23b1ca1eaf32588aa6aa3c6f37e8522f068676ce5cc",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -6478,7 +6493,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/CheckboxItemIndicator.svelte",
-      "sha256": "52235aa57113d032f40b30d6a4f851c8d0094f7f5c908bcbfc244ab9ba2de1a0",
+      "sha256": "c2e49738eb420de28c58836f1eb21bc0ee9d065ec2873995e3a2e6f3654506d5",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -6829,7 +6844,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/Item.svelte",
-      "sha256": "c30d0f3effc25800257d15f9d8db4b7e8bf6757b77ee2423426d1902fc1da5a7",
+      "sha256": "59b581b44f5c8f25294b870d50e87020b90d568a4357010e726cdeb37f219532",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -6952,7 +6967,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/LinkItem.svelte",
-      "sha256": "9a3a1ff2e89dad7a342645c6efb52810292a3161fe5a422192a13df3d9edbb65",
+      "sha256": "188cf6739f2bda3d9690b9896b6bccee2aaf3a457bec7bb4cf3c75f872f3a12a",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -7023,7 +7038,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/Popup.svelte",
-      "sha256": "71415ef72aec5a505362f271d12a40ca89ec7be7f6b9caa5fd1a73b5e2ded049",
+      "sha256": "3c071e821c295924e0ef78804a38d8cec3b29ec73f7797d9d55d152321118366",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -7146,7 +7161,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/Positioner.svelte",
-      "sha256": "e123cd8e8ba6b9185117cb6b2d2fc2ed7bc8753dbeaf71d5a822b1f0e3f5227a",
+      "sha256": "c1cc5b0bcf49de1210e760cd1b99bdfc0283877dcf8c018947b929abb057a658",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -7157,11 +7172,6 @@
           "specifier": "svelte/attachments",
           "kind": "runtime-or-mixed",
           "resolved": "external:svelte/attachments"
-        },
-        {
-          "specifier": "svelte",
-          "kind": "runtime-or-mixed",
-          "resolved": "external:svelte"
         },
         {
           "specifier": "../utils/InternalBackdrop.svelte",
@@ -7367,7 +7377,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/RadioItem.svelte",
-      "sha256": "322a2e274f89109a954f1c7c40864ec96b474587bf970391f0175de1457411c3",
+      "sha256": "a91d29760c30b4b12e2707598c5e5c4d32fa4bae2c8c8564518e127ac784ad2e",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -7448,7 +7458,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/RadioItemIndicator.svelte",
-      "sha256": "014df830c04697a73ee2cdf1d64828b8dc7e3e05bfd5413113de82683f1d17e1",
+      "sha256": "f1dfae985b1fea38c0464c06e9cdb609b045a88dd210c2da38a9556f651a61a0",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -8290,7 +8300,7 @@
     },
     {
       "source": "packages/base/src/lib/menubar/Menubar.svelte",
-      "sha256": "25979e3daff9ac4b4f80b8872e88076e9cf2325286d535d7457badc91cd8cf85",
+      "sha256": "a2cba809b2ec7eb5ac73136b38c9de5f34f2e89cb8d7b7ce0ea838cca6a1799b",
       "imports": [
         {
           "specifier": "svelte/attachments",
@@ -9100,7 +9110,7 @@
     },
     {
       "source": "packages/base/src/lib/popover/Positioner.svelte",
-      "sha256": "b1fbc55b8e5a9b771afaa06e31f430cc51541ceaba9ddd544ce257e6aa0546ad",
+      "sha256": "50ec1198fed5947113012873413fd3a7df372d3b667f90b18d95fb753f50d42e",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -9878,7 +9888,7 @@
     },
     {
       "source": "packages/base/src/lib/preview-card/Positioner.svelte",
-      "sha256": "67ea0f6b72aede8419c514d956073c291f6955b7dca3752a4fe9f876d93d8799",
+      "sha256": "c1f653f41bd7a9d44bcf7647ee2d1ca24a1424be6a7621684d023a9d5dbedbc8",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -11470,6 +11480,11 @@
           "specifier": "../field/types.js",
           "kind": "type",
           "resolved": "packages/base/src/lib/field/types.ts"
+        },
+        {
+          "specifier": "../field/index.parts.js",
+          "kind": "import-type-or-dynamic",
+          "resolved": "packages/base/src/lib/field/index.parts.ts"
         }
       ]
     },
@@ -12328,17 +12343,27 @@
     },
     {
       "source": "packages/base/src/lib/toast/Action.svelte",
-      "sha256": "52703ce4eeb6c2d0c744b6ba37aa8bd9fe88b001618e0399948085f1ce9264f5",
+      "sha256": "cdae37c12878b60341534993bfe6b1b7508f242318c124bc63be85696c1e1890",
       "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte/attachments"
+        },
         {
           "specifier": "../internals/mergeComponentProps.js",
           "kind": "runtime-or-mixed",
           "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"
         },
         {
-          "specifier": "svelte/attachments",
+          "specifier": "../internals/use-button/useButton.svelte.js",
           "kind": "runtime-or-mixed",
-          "resolved": "external:svelte/attachments"
+          "resolved": "packages/base/src/lib/internals/use-button/useButton.svelte.ts"
         },
         {
           "specifier": "./RenderContent.svelte",
@@ -12349,11 +12374,6 @@
           "specifier": "./content.js",
           "kind": "runtime-or-mixed",
           "resolved": "packages/base/src/lib/toast/content.ts"
-        },
-        {
-          "specifier": "./native-button.js",
-          "kind": "runtime-or-mixed",
-          "resolved": "packages/base/src/lib/toast/native-button.ts"
         },
         {
           "specifier": "./root-context.js",
@@ -12380,12 +12400,12 @@
     },
     {
       "source": "packages/base/src/lib/toast/Close.svelte",
-      "sha256": "2095e5ce92c92c260dcdeec93941ee738c295dcee21d839757b9475b7d754053",
+      "sha256": "e9d2f1521d870f957662c68dd2832fa80fb9e2e013bbdf31b581752f3e3c8ead",
       "imports": [
         {
-          "specifier": "../internals/mergeComponentProps.js",
+          "specifier": "svelte",
           "kind": "runtime-or-mixed",
-          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"
+          "resolved": "external:svelte"
         },
         {
           "specifier": "svelte/attachments",
@@ -12393,19 +12413,19 @@
           "resolved": "external:svelte/attachments"
         },
         {
-          "specifier": "svelte",
+          "specifier": "../internals/mergeComponentProps.js",
           "kind": "runtime-or-mixed",
-          "resolved": "external:svelte"
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"
+        },
+        {
+          "specifier": "../internals/use-button/useButton.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/use-button/useButton.svelte.ts"
         },
         {
           "specifier": "./RenderContent.svelte",
           "kind": "runtime-or-mixed",
           "resolved": "packages/base/src/lib/toast/RenderContent.svelte"
-        },
-        {
-          "specifier": "./native-button.js",
-          "kind": "runtime-or-mixed",
-          "resolved": "packages/base/src/lib/toast/native-button.ts"
         },
         {
           "specifier": "./root-context.js",
@@ -12663,39 +12683,13 @@
       ]
     },
     {
-      "source": "packages/base/src/lib/toast/native-button.ts",
-      "sha256": "ecffe7b838835b04422ca0b0c56c292c2983d7e5bf2678be7b47a45cbfa03e7a",
-      "imports": [
-        {
-          "specifier": "../merge-props/index.js",
-          "kind": "runtime-or-mixed",
-          "resolved": "packages/base/src/lib/merge-props/index.ts"
-        }
-      ]
-    },
-    {
       "source": "packages/base/src/lib/toast/Portal.svelte",
-      "sha256": "913317bd991f9c24025ba907ed78462e7b07018db09ee15b8b62256add94fd6e",
+      "sha256": "e2dbf44d48c332dc468d9daefaa42bed7047df22c441ef54ba5b0608bba78b89",
       "imports": [
         {
-          "specifier": "svelte",
+          "specifier": "../utils/FloatingPortalLite.svelte",
           "kind": "runtime-or-mixed",
-          "resolved": "external:svelte"
-        },
-        {
-          "specifier": "../floating-ui/components/PortalHost.svelte",
-          "kind": "runtime-or-mixed",
-          "resolved": "packages/base/src/lib/floating-ui/components/PortalHost.svelte"
-        },
-        {
-          "specifier": "../floating-ui/components/FloatingPortalContext.js",
-          "kind": "runtime-or-mixed",
-          "resolved": "packages/base/src/lib/floating-ui/components/FloatingPortalContext.ts"
-        },
-        {
-          "specifier": "./RenderContent.svelte",
-          "kind": "runtime-or-mixed",
-          "resolved": "packages/base/src/lib/toast/RenderContent.svelte"
+          "resolved": "packages/base/src/lib/utils/FloatingPortalLite.svelte"
         },
         {
           "specifier": "./types.js",
@@ -12898,7 +12892,7 @@
     },
     {
       "source": "packages/base/src/lib/toast/types.ts",
-      "sha256": "47ddcaa8129b485c4f4622331a261d58a6fe3b8fee33ed264d543ee4dda2f594",
+      "sha256": "c19b1af6b515a3899501cc267902c5f030e6c5f9dbd754a59a4e2e839be761c5",
       "imports": [
         {
           "specifier": "svelte",
@@ -12924,6 +12918,11 @@
           "specifier": "../merge-props/index.js",
           "kind": "type",
           "resolved": "packages/base/src/lib/merge-props/index.ts"
+        },
+        {
+          "specifier": "../dialog/types.js",
+          "kind": "import-type-or-dynamic",
+          "resolved": "packages/base/src/lib/dialog/types.ts"
         }
       ]
     },
@@ -13202,8 +13201,13 @@
     },
     {
       "source": "packages/base/src/lib/toolbar/button/ToolbarButton.svelte",
-      "sha256": "1fa7ab2553bf57cbc39035ff9196d5b781262ffe2ba9b86ef7525642ee7d4231",
+      "sha256": "573bd878caef462d0e9be5e2150fb7f911d9c26801a09028cb3da6a0a721b3d2",
       "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte"
+        },
         {
           "specifier": "svelte/attachments",
           "kind": "runtime-or-mixed",
@@ -13725,7 +13729,7 @@
     },
     {
       "source": "packages/base/src/lib/tooltip/Positioner.svelte",
-      "sha256": "c3674095c2b370862b9ae4241a3b57eb6c805d781807e96898d339d732a3a885",
+      "sha256": "03446e0e9ea5938d71a6aeb58d7a46c31a491149d46313407478b2dbba13b2b9",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",

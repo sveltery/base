@@ -1,7 +1,6 @@
 <script lang="ts">
   import { mergeComponentProps } from '../internals/mergeComponentProps.js';
   import { createAttachmentKey } from 'svelte/attachments';
-  import { untrack } from 'svelte';
 
   // Original MenuPositioner context/backdrop/node/list composition (MIT).
   import InternalBackdrop from '../utils/InternalBackdrop.svelte';
@@ -81,10 +80,8 @@
     cutout={root.backdropCutout}
   />
 {/if}
-{#if renderEnabled}
-  {#if renderSnippet}
-    {@render renderSnippet(mergedProps, renderState, props.children)}
-  {:else}
-    <div {...mergedProps}>{@render props.children?.()}</div>
-  {/if}
+{#if renderSnippet}
+  {@render renderSnippet(mergedProps, renderState, props.children)}
+{:else}
+  <div {...mergedProps}>{@render props.children?.()}</div>
 {/if}

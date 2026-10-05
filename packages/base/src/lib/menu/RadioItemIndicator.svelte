@@ -20,7 +20,7 @@
     ...elementProps
   }: MenuRadioItemIndicatorProps = $props();
   const item = useMenuRadioItemContext();
-  const indicatorRef = { current: null as HTMLElement | null };
+  const indicatorRef = $state({ current: null as HTMLElement | null });
   const transition = useTransitionStatus(() => item.checked);
   useOpenChangeComplete({
     batch: true,
@@ -41,9 +41,6 @@
     highlighted: item.highlighted,
     transitionStatus: transition.transitionStatus,
   });
-  const setRef = (node: HTMLElement | null) => {
-    ref = node;
-  };
 
   const hostAttachmentKey = createAttachmentKey();
   function attachHost(host: HTMLElement) {

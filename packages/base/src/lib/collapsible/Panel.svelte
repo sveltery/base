@@ -4,7 +4,7 @@
 
   // Adapted from mui/base-ui v1.8.0 CollapsiblePanel/useCollapsiblePanel,
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
-  import { onDestroy, tick, untrack } from 'svelte';
+  import { onDestroy, untrack } from 'svelte';
   import { resolveClassValue } from '../internals/resolveClassValue.js';
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { getCollapsibleContext } from './context.js';
@@ -98,10 +98,8 @@
   onDestroy(restorePendingTemporaryStyle);
 
   const internal = $derived({
-    // SSR retains the source boolean attribute; the attached client host can
-    // express the browser's native string without React's coercion workaround.
     id,
-    hidden: hidden && hiddenUntilFound && node ? 'until-found' : hidden,
+    hidden: hidden && hiddenUntilFound ? 'until-found' : hidden,
     'data-open': context.open ? '' : undefined,
     'data-closed': context.open ? undefined : '',
     'data-disabled': context.disabled ? '' : undefined,
@@ -306,27 +304,11 @@
     };
   });
 
-  $effect(() => {
-    const panel = node;
-    if (!panel || !hiddenUntilFound || !hidden) return;
-    let canceled = false;
-    // Svelte supports the string directly. The post-commit restoration also
-    // retains the source's forced-until-found behavior over consumer overrides.
-    void tick().then(() => {
-      if (!canceled && node === panel && hiddenUntilFound && hidden)
-        panel.setAttribute('hidden', 'until-found');
-    });
-    return () => {
-      canceled = true;
-    };
-  });
-
-  // The source subscribes on the component effect lifetime, rather than the
-  // changing host ref. Keep that ownership until replacement behavior is proven.
+  // Native listener ownership follows the actual panel and live business callbacks.
   $effect(() => {
     const onOpenChange = context.onOpenChange;
     const setOpen = context.setOpen;
-    const panel = untrack(() => node);
+    const panel = node;
     if (!panel) return;
     function beforeMatch(event: Event) {
       const details = createChangeEventDetails('none', event);

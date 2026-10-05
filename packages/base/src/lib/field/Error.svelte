@@ -105,7 +105,6 @@
         });
     });
   }
-  const renderEnabled = $derived(transition.mounted);
   const mergedProps = $derived({
     ...mergeComponentProps(
       errorState,
@@ -124,10 +123,10 @@
       />{:else}{message[0] ?? ''}{/if}
   {:else}{message ?? ''}{/if}
 {/snippet}
-{#if transition.mounted}{#if renderEnabled}
-    {#if render}
-      {@render render(mergedProps, errorState, errorContent)}
-    {:else}
-      <div {...mergedProps}>{@render errorContent?.()}</div>
-    {/if}
-  {/if}{/if}
+{#if transition.mounted}
+  {#if render}
+    {@render render(mergedProps, errorState, errorContent)}
+  {:else}
+    <div {...mergedProps}>{@render errorContent?.()}</div>
+  {/if}
+{/if}
