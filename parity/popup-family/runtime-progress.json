@@ -2,7 +2,7 @@
   "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "preCodeReadingCommit": "41b708601a8cbc72e74a46e550fc79b99da3d0ed",
   "publicDependencyCorrectionCommit": "70b9962b9d4ecc958a3d14dcfb89a0965b9fd1f3",
-  "status": "Six leased helper families adapted; focused Portal/ClientPoint058 Source/native review CLEAR; remaining helper successor review pending after measured Delay ownership repair.",
+  "status": "Six canonical helper families have independently bounded Source/native/maintainability CLR at058/bd. Family state/Root implementation has started; remaining parts and all family delivery gates pending.",
   "ordinaryDeclarationCredit": 0,
   "runtimeImplementationStarted": true,
   "helperModules": [
@@ -10,7 +10,7 @@
       "source": "packages/react/src/utils/popups/inlineRect.ts",
       "local": "packages/base/src/lib/utils/popups/inlineRect.ts",
       "decision": "Complete Original rect/identity/line selection/platform reset body retained. React event/ref types become native Element currentTarget events and ref objects; onFocus becomes native bubbling onfocusin. Floating UI types use the actual default DOM package. No positioning engine is added.",
-      "wholeBodyReview": "Developer compared complete Original and complete local body; independent Source/native review pending",
+      "wholeBodyReview": "Independent precise helper Source/native/maintainability CLR: Full/Lite/ClientPoint058 receipt or remaining inlineRect/ClosePart/Delay/applybd receipt. No family acceptance.",
       "test": "packages/base/tests/dom/popup-inline-rect.test.ts",
       "testStatus": "17 complete adapted Original inlineRect bodies pass in focused actual Vitest execution at 6ef1418eb720f6a203eb87a22347c2ff3765b1b2; independent whole Source/native review remains pending. No family ordinary declaration credit.",
       "ordinaryDeclarationCredit": 0,
@@ -22,7 +22,7 @@
       "source": "packages/react/src/utils/closePart.tsx",
       "local": "packages/base/src/lib/utils/closePart.svelte.ts",
       "decision": "Complete Source count/register/cleanup/clamp business retained. Native state, stable setup closure, typed getContext and live hasClosePart getter replace React state/context/memo representation.",
-      "wholeBodyReview": "Developer compared complete Original and complete local body; independent Source/native review pending",
+      "wholeBodyReview": "Independent precise helper Source/native/maintainability CLR: Full/Lite/ClientPoint058 receipt or remaining inlineRect/ClosePart/Delay/applybd receipt. No family acceptance.",
       "testStatus": "3 native lifecycle/context/clamp witnesses pass in focused actual Vitest execution at 6ef1418eb720f6a203eb87a22347c2ff3765b1b2; Popover modal-eligibility family witnesses and independent review remain pending. No adjacent Original direct test file.",
       "ordinaryDeclarationCredit": 0,
       "sourceSha256": "0b30f3ff3597173625dd2064339ea2ec1cbfdda60b60d82cd4e542e008f50ba5",
@@ -52,7 +52,7 @@
         }
       ],
       "decision": "Whole Source provider/context/useDelayGroup/resetDelayRef business retained once. Native setup initializes ref objects; typed Svelte context preserves provided/default ownership; one native isInstantPhase state and getter replace React state/memo. Live timeoutMs getter replaces provider identity changes. Source takeover/cancellation/closingId/openRef cleanup and internal timeout0 retained. Canonical getDelay/useTimeout/useIsoLayoutEffect reused unchanged. Native existing lifetime effect captures ownedId and is registered before openRef sync/reset/takeover; pending timer captures its scheduling closingStore, matching measured Source resource ownership without lifecycle engine or policy changes.",
-      "wholeBodyReview": "Developer compared complete Original and complete local bodies; independent Source/native review pending",
+      "wholeBodyReview": "Independent precise helper Source/native/maintainability CLR: Full/Lite/ClientPoint058 receipt or remaining inlineRect/ClosePart/Delay/applybd receipt. No family acceptance.",
       "testStatus": "19 actual4paired Source/native ownership and15 native timing witnesses pass3eb41cc; predecessor red/staged experiments retained. Six Original generic-hover declarations remain explicitly unported/zero credit. Remaining precise successor review pending.",
       "ordinaryDeclarationCredit": 0,
       "syntaxOnly": "Provider and hook compile with native Svelte compiler with zero warnings; no DelayGroup product test executed yet",
@@ -69,7 +69,7 @@
       "local": "packages/base/src/lib/floating-ui/hooks/useClientPoint.svelte.ts",
       "localSha256": "6a1953adb81d1875979353bffc2d43d1e1b73a32b55e681bfac1c433fba829a0",
       "decision": "Complete Source createVirtualElement/open-event/pointer/focus/openCheck/listener cleanup and enabled-state business retained. Native live readers, pointer state and one listener revision signal replace React hooks and the empty-array restart state. Native event keys and getter props match canonical interaction helpers. Cleanup captures the actual owning Source store for its declared store lifetime; it clears positionReference without a duplicate state authority or geometry driver.",
-      "wholeBodyReview": "Developer compared complete Original and complete local bodies; independent Source/native review pending",
+      "wholeBodyReview": "Independent precise helper Source/native/maintainability CLR: Full/Lite/ClientPoint058 receipt or remaining inlineRect/ClosePart/Delay/applybd receipt. No family acceptance.",
       "testStatus": "10 complete Original native-adapted helper cases pass at frozen2c075ab; failed authored fixture run preserved. Independent Source/native acceptance pending; zero family ordinary credit.",
       "ordinaryDeclarationCredit": 0,
       "syntaxOnly": {
@@ -87,7 +87,7 @@
       "local": "packages/base/src/lib/utils/FloatingPortalLite.svelte",
       "localSha256": "c506d0758a012c2789b9da39f17bd34d7bf3f10d67d3861368f998b6b4a12b72",
       "decision": "Whole Original minimal Lite node/content composition uses same approved canonical useFloatingPortalNode/useFloatingPortalContent as Full. No provider or full-focus/tabbable/guard/aria business is added to Lite; inherited child context is preserved.",
-      "wholeBodyReview": "Developer compared complete Original Lite/Node/Full and complete local bodies against narrow approved extraction plan; independent Source/native review pending",
+      "wholeBodyReview": "Independent precise helper Source/native/maintainability CLR: Full/Lite/ClientPoint058 receipt or remaining inlineRect/ClosePart/Delay/applybd receipt. No family acceptance.",
       "testStatus": "20 native Full/Lite cases and2 unchanged paired actual Source/native realm cases pass at444d62b; 11 existing Dialog portal regressions passed at2adb6a7. Both actual predecessor failure/warning logs retained. Independent successor Source/native review pending.",
       "ordinaryDeclarationCredit": 0
     },
@@ -97,7 +97,7 @@
       "local": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
       "localSha256": "3f80c77e00b2b8d73068a48477096f30f174c433d804b790813894f6624f016e",
       "decision": "Complete Source applyPopupOpenChange sequence appended to the one canonical module. Only ReactDOM.flushSync becomes native Svelte flushSync; all existing helper function bodies are byte-identical. Native getAnimations/DOM timing witness and independent Source/native review pending.",
-      "wholeBodyReview": "Developer compared complete Original append and all preexisting local helper bodies; independent Source/native review pending",
+      "wholeBodyReview": "Independent precise helper Source/native/maintainability CLR: Full/Lite/ClientPoint058 receipt or remaining inlineRect/ClosePart/Delay/applybd receipt. No family acceptance.",
       "testStatus": "9 native actual Store/cancel/order/reason/ownership/hover DOM getAnimations witnesses pass at444d62b; independent Source/native review pending.",
       "ordinaryDeclarationCredit": 0
     }
@@ -106,7 +106,8 @@
     "menu": "Verified PUBLIC1dc439d3a36495dbc4fc19f3f85c6e253dcfc0af test-only successor normally DEV merged; canonical runtime body selection exact949, independent whole Source/native review and actual-main acceptance pending",
     "dialog": "PUBLICf0d68ec7df329cb5b39fc5a1116c469bfb63fca5 normally DEV merged; no runtime helper delta during merge; actual-main acceptance pending",
     "toolbar": "Selected canonical ToolbarRootContext inherited from public Menu equals publicNavd115303 body; whole sibling/main acceptance remains pending",
-    "portalExtraction": "Approved shared node/content extraction plus precise measured canonical getWindow observer and raw live context getter repairs, with preserved red logs. Independent exact successor Source/native acceptance pending."
+    "portalExtraction": "Approved shared node/content extraction plus precise measured canonical getWindow observer and raw live context getter repairs, with preserved red logs. Independent exact successor Source/native acceptance pending.",
+    "actualMain": "Normally merged2f306c2 in8951edb; compatibility append histories retained; family gates remain separate."
   },
   "verification": {
     "productTests": "Exact historical receipts: inline17/close3 at6ef1418, Delay15 at070a6e6, ClientPoint10 at2c075ab, portal20/realm2/open-change9 at444d62b and existingDialog11 at2adb6a7. These are focused execution heads, not final combined whole-head acceptance. Family718 variants remain unimplemented/unexecuted with zero family credit. Repaired Delay4paired+15existing pass19 at3eb41cc after all earlier red stages; no ordinary family credit or final whole-head suite.",
@@ -124,5 +125,11 @@
     },
     "scopedStrictTypes": "Portable32-file helper/test scope skipLibCheck:false passes0errors0warnings at3eb41cc; failed private Source SDK declaration imports retained808, test-only real-ABI protocol correction does not relax native/public consumers.",
     "standards": "Scoped shared-helper/test/tool ESLint passes0errors0warnings at3eb41cc; failed initial5errors retained444. Full Standards remains unexecuted."
+  },
+  "componentRuntime": {
+    "checkpoint": "Distinct Source Stores/handles/Roots/interactions and TooltipProvider; no public exports yet",
+    "wholeSourceReview": "pending",
+    "ordinaryDeclarationCredit": 0,
+    "remainingParts": "23 parts plus final native declaration/public integration remain pending"
   }
 }
