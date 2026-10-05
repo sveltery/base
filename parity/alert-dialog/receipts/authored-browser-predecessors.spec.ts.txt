@@ -49,4 +49,3 @@ test('docs keyboard search, navigation and skip link', async ({ page }) => {
   await page.keyboard.press('Escape');
   await expect(page.getByRole('searchbox')).toHaveValue('');
 });
-

@@ -5,7 +5,7 @@
   "result": "2 failed; 2611 passed",
   "ordinaryDeclarationCredit": 0,
   "files": {
-    "authored-browser-predecessors.spec.ts.txt": "94069eff005fdf6578a0187879ba6d1343da8e9760943a41ec5e62b73d9b72e4",
+    "authored-browser-predecessors.spec.ts.txt": "0a4b8cfe64d11f770db287b6148949ddf72b21ebcbb2cd5870335c3bb016a106",
     "63d31d9-broad-failed.log.gz": "e432aa7e8ef918801f4b6d0f8a6a9ac26fa6f555fc18a5f3771810fdc7546562"
   },
   "losslessConnectorJson": {
