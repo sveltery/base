@@ -37,16 +37,39 @@ test('docs keyboard search, navigation and skip link', async ({ page }) => {
   await page.keyboard.press('Control+k');
   await expect(page.getByRole('searchbox')).toBeFocused();
   await page.getByRole('searchbox').fill('Dialog');
-  await expect(page.getByRole('status')).toContainText('1 page found');
-  await page
-    .getByRole('navigation', { name: 'Search results' })
-    .getByRole('link', { name: 'Dialog' })
-    .click();
+  await expect(page.getByRole('status')).toHaveText('2 pages found');
+  const results = page.getByRole('navigation', { name: 'Search results' });
+  await expect(results.getByRole('link')).toHaveText(['Alert Dialog', 'Dialog']);
+  await expect(results.getByRole('link', { name: 'Alert Dialog', exact: true }))
+    .toHaveAttribute('href', '/docs/components/alert-dialog');
+  await expect(results.getByRole('link', { name: 'Dialog', exact: true }))
+    .toHaveAttribute('href', '/docs/components/dialog');
+  await page.keyboard.press('Tab');
+  await expect(results.getByRole('link', { name: 'Alert Dialog', exact: true }))
+    .toBeFocused();
+  await page.keyboard.press('Tab');
+  await expect(results.getByRole('link', { name: 'Dialog', exact: true }))
+    .toBeFocused();
+  await page.keyboard.press('Enter');
   await expect(page).toHaveURL(/\/docs\/components\/dialog$/);
   await expect(
     page
       .getByRole('navigation', { name: 'Documentation' })
-      .getByRole('link', { name: 'Dialog' }),
+      .getByRole('link', { name: 'Dialog', exact: true }),
+  ).toHaveAttribute('aria-current', 'page');
+  await page.keyboard.press('Control+k');
+  await expect(page.getByRole('searchbox')).toHaveValue('');
+  await page.getByRole('searchbox').fill('Dialog');
+  await expect(page.getByRole('status')).toHaveText('2 pages found');
+  await page.keyboard.press('Tab');
+  await expect(results.getByRole('link', { name: 'Alert Dialog', exact: true }))
+    .toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/\/docs\/components\/alert-dialog$/);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Alert Dialog');
+  await expect(
+    page.getByRole('navigation', { name: 'Documentation' })
+      .getByRole('link', { name: 'Alert Dialog', exact: true }),
   ).toHaveAttribute('aria-current', 'page');
   await page.keyboard.press('Control+k');
   await page.getByRole('searchbox').fill('no-page-with-this-name');

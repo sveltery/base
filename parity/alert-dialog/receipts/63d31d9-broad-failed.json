@@ -1,0 +1,15 @@
+{
+  "head": "63d31d9249c47c77410278ed2a25e66766c28085",
+  "workflowRun": 37189862772,
+  "job": 111399660927,
+  "result": "2 failed; 2611 passed",
+  "ordinaryDeclarationCredit": 0,
+  "files": {
+    "authored-browser-predecessors.spec.ts.txt": "94069eff005fdf6578a0187879ba6d1343da8e9760943a41ec5e62b73d9b72e4",
+    "63d31d9-broad-failed.log.gz": "e432aa7e8ef918801f4b6d0f8a6a9ac26fa6f555fc18a5f3771810fdc7546562"
+  },
+  "losslessConnectorJson": {
+    "path": "/workspace/sveltery-pm-evidence/alert-63d31d9-broad-failed-api-raw.json",
+    "sha256": "4a426972c77a00f4056c47674c96e377048f24ac994fde6383f9eebc0b30a530"
+  }
+}

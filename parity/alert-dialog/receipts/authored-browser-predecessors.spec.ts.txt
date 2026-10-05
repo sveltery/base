@@ -1,0 +1,52 @@
+// Exact authored bodies executed at Alert63d31d9; zero ordinary declaration credit.
+test('Svelte exit transition remains accessible, then hides; reopen cancels stale exit', async ({ page }) => {
+  await start(page, '/dialog', '?keep&animate');
+  await page.locator('#trigger').click(); await expect(page.getByRole('dialog')).toBeVisible();
+  await page.waitForFunction(() => JSON.parse(document.querySelector('[data-testid=log]')!.textContent!).some((x: any) => x.channel === 'complete' && x.open));
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('dialog')).toHaveCount(1);
+  await expect(page.getByTestId('popup')).toHaveAttribute('data-ending-style', '');
+  await expect(page.locator('#trigger')).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(page.getByTestId('popup')).toHaveAttribute('data-open', '');
+  await expect(page.getByRole('dialog')).toBeVisible();
+  await page.waitForTimeout(250); // Past stale exit duration; observation is deliberately negative.
+  await expect(page.getByRole('dialog')).toBeVisible();
+  await page.keyboard.press('Escape'); await expect(page.getByRole('dialog')).toHaveCount(0);
+  await expect(page.getByTestId('popup')).toBeHidden();
+  expect((await logs(page)).filter(x => x.channel === 'complete' && x.open === false)).toHaveLength(1);
+});
+
+test('docs keyboard search, navigation and skip link', async ({ page }) => {
+  await page.goto('/docs');
+  await expect(page.locator('.sveltery-docs')).toHaveAttribute(
+    'data-hydrated',
+    'true',
+  );
+  await page.keyboard.press('Tab');
+  await expect(
+    page.getByRole('link', { name: 'Skip to content' }),
+  ).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('#docs-content')).toBeFocused();
+  await page.keyboard.press('Control+k');
+  await expect(page.getByRole('searchbox')).toBeFocused();
+  await page.getByRole('searchbox').fill('Dialog');
+  await expect(page.getByRole('status')).toContainText('1 page found');
+  await page
+    .getByRole('navigation', { name: 'Search results' })
+    .getByRole('link', { name: 'Dialog' })
+    .click();
+  await expect(page).toHaveURL(/\/docs\/components\/dialog$/);
+  await expect(
+    page
+      .getByRole('navigation', { name: 'Documentation' })
+      .getByRole('link', { name: 'Dialog' }),
+  ).toHaveAttribute('aria-current', 'page');
+  await page.keyboard.press('Control+k');
+  await page.getByRole('searchbox').fill('no-page-with-this-name');
+  await expect(page.getByRole('status')).toContainText('0 pages found');
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('searchbox')).toHaveValue('');
+});
+
