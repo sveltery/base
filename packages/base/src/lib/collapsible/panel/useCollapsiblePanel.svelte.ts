@@ -9,6 +9,7 @@ import { useStableCallback } from '../../utils/useStableCallback.js';
 import { warn } from '../../utils/warn.js';
 import { ownerWindow } from '../../utils/owner.js';
 import type { HTMLProps } from '../../internals/types.js';
+import { REASONS } from '../../internals/reasons.js';
 import { createChangeEventDetails } from '../../internals/createBaseUIEventDetails.js';
 import { useOpenChangeComplete } from '../../internals/useOpenChangeComplete.svelte.js';
 import { useAnimationsFinished } from '../../internals/useAnimationsFinished.js';
@@ -308,7 +309,7 @@ export function useCollapsiblePanel(
       }
 
       function handleBeforeMatch(event: Event) {
-        const eventDetails = createChangeEventDetails('none', event);
+        const eventDetails = createChangeEventDetails(REASONS.none, event);
 
         parameters.onOpenChange(true, eventDetails);
 

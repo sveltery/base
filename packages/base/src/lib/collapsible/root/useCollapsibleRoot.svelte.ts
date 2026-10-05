@@ -3,6 +3,7 @@
 import { useControlled } from '../../utils/useControlled.svelte.js';
 import { useStableCallback } from '../../utils/useStableCallback.js';
 import { useBaseUiId } from '../../internals/useBaseUiId.js';
+import { REASONS } from '../../internals/reasons.js';
 import { createChangeEventDetails } from '../../internals/createBaseUIEventDetails.js';
 import { useTransitionStatus } from '../../internals/useTransitionStatus.svelte.js';
 import type { CollapsibleRootChangeEventDetails } from '../types.js';
@@ -30,7 +31,7 @@ export function useCollapsibleRoot(getParameters: () => UseCollapsibleRootParame
 
   const handleTrigger = useStableCallback((event: MouseEvent | KeyboardEvent) => {
     const nextOpen = !open();
-    const eventDetails = createChangeEventDetails('trigger-press', event);
+    const eventDetails = createChangeEventDetails(REASONS.triggerPress, event);
     getParameters().onOpenChange(nextOpen, eventDetails);
     if (eventDetails.isCanceled) return;
     setOpen(nextOpen);

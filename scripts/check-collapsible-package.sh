@@ -30,7 +30,7 @@ export { Collapsible as First } from '@sveltery/base';
 export { Collapsible as Second } from '@sveltery/base/collapsible';
 JS
   cat > "$collapsible_consumer/imports.d.ts" <<'TS'
-export { Collapsible as First, type CollapsibleRootProps, type CollapsibleTriggerProps, type CollapsiblePanelProps } from '@sveltery/base';
+export { Collapsible as First, type CollapsibleRootProps, type CollapsibleTriggerProps, type CollapsiblePanelProps, type CollapsibleTriggerState, type CollapsiblePanelState } from '@sveltery/base';
 export { Collapsible as Second } from '@sveltery/base/collapsible';
 TS
 else
@@ -43,7 +43,7 @@ JSON
 export { Collapsible as First, Collapsible as Second } from './node_modules/@sveltery/base/dist/collapsible/index.js';
 JS
   cat > "$collapsible_consumer/imports.d.ts" <<'TS'
-export { Collapsible as First, Collapsible as Second, type CollapsibleRootProps, type CollapsibleTriggerProps, type CollapsiblePanelProps } from './node_modules/@sveltery/base/dist/collapsible/index.js';
+export { Collapsible as First, Collapsible as Second, type CollapsibleRootProps, type CollapsibleTriggerProps, type CollapsiblePanelProps, type CollapsibleTriggerState, type CollapsiblePanelState } from './node_modules/@sveltery/base/dist/collapsible/index.js';
 TS
 fi
 cat > "$collapsible_consumer/Consumer.svelte" <<'SVELTE'
@@ -86,15 +86,124 @@ exact<Equal<Root.CollapsiblePanelState, Parts.CollapsiblePanelState>>();
 exact<Equal<Root.CollapsibleTransitionStatus, Parts.CollapsibleTransitionStatus>>();
 exact<Equal<Root.CollapsibleRootChangeEventReason, Parts.CollapsibleRootChangeEventReason>>();
 exact<Equal<Root.CollapsibleRootChangeEventDetails, Parts.CollapsibleRootChangeEventDetails>>();
+const style: Root.CollapsiblePanelProps['style'] = state => ({ opacity: state.open ? 1 : 0.5 });
+const event: Root.CollapsibleTriggerProps['onkeydown'] = event => event.preventBaseUIHandler();
+void style; void event;
+// @ts-expect-error open remains boolean.
+const invalidOpen: Parts.CollapsibleRootProps = { open: 'yes' };
+// @ts-expect-error refs bind native hosts, not strings.
+const invalidRef: Parts.CollapsiblePanelProps = { ref: 'node' };
+// @ts-expect-error render is a Svelte snippet, not a host name.
+const invalidRender: Parts.CollapsibleTriggerProps = { render: 'button' };
+// @ts-expect-error style callbacks produce native style values.
+const invalidStyle: Parts.CollapsiblePanelProps = { style: () => false };
+// @ts-expect-error button type follows the native HTML union.
+const invalidType: Parts.CollapsibleTriggerProps = { type: 'navigation' };
+// @ts-expect-error change reasons retain the pinned literal union.
+const invalidReason: Parts.CollapsibleRootChangeEventReason = 'hover';
+void invalidOpen; void invalidRef; void invalidRender; void invalidStyle; void invalidType; void invalidReason;
 TS
 fi
 cat > "$collapsible_consumer/tsconfig.json" <<'JSON'
-{"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"skipLibCheck":true,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts"]}
+{"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"skipLibCheck":false,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts"]}
 JSON
 node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$collapsible_consumer/check.mjs"
 node "$sveltery_repo_root/packages/base/node_modules/svelte-check/bin/svelte-check" --workspace "$collapsible_consumer" --tsconfig ./tsconfig.json
 if [[ "${1:-}" == '--public' ]]; then
-  echo 'Isolated tarball Collapsible public root/subpath SSR and types: PASS'
+  cat > "$collapsible_consumer/DOMConsumer.svelte" <<'SVELTE'
+<script lang="ts">
+  import { First, Second, type CollapsibleTriggerProps, type CollapsiblePanelProps, type CollapsibleTriggerState, type CollapsiblePanelState } from './imports.js';
+  import type { Snippet } from 'svelte';
+  import type { HTMLAttributes } from 'svelte/elements';
+  type TriggerRenderProps = Parameters<NonNullable<CollapsibleTriggerProps['render']>>[0];
+  type PanelRenderProps = Parameters<NonNullable<CollapsiblePanelProps['render']>>[0];
+  let root = $state<HTMLElement | null>(), trigger = $state<HTMLElement | null>(), panel = $state<HTMLElement | null>();
+  let present = $state(true), replaced = $state(false), cancel = $state(true);
+  const calls: string[] = [];
+  const attachments: { host: HTMLElement; attached: boolean }[] = [];
+  function attachHost(host: HTMLElement) { attachments.push({ host, attached: true }); return () => attachments.push({ host, attached: false }); }
+  export function replace() { replaced = true; }
+  export function remove() { present = false; }
+  export function snapshot() { return { root, trigger, panel, calls, attachments }; }
+</script>
+{#snippet triggerHost(props: TriggerRenderProps, _state: CollapsibleTriggerState, children: Snippet | undefined)}<span {...props as HTMLAttributes<HTMLSpanElement>}>{@render children?.()}</span>{/snippet}
+{#snippet panelHost(props: PanelRenderProps, _state: CollapsiblePanelState, children: Snippet | undefined)}
+  {#if replaced}<section {...props as HTMLAttributes<HTMLElement>}>{@render children?.()}</section>
+  {:else}<div {...props as HTMLAttributes<HTMLDivElement>}>{@render children?.()}</div>{/if}
+{/snippet}
+{#if present}
+  <First.Root id="packed-root" bind:ref={root} style={{ opacity: 1 }} onOpenChange={(open, details) => { calls.push(`change:${open}:${trigger?.getAttribute('aria-expanded')}`); if (cancel) { details.cancel(); cancel = false; } }}>
+    <Second.Trigger id="packed-trigger" render={triggerHost} nativeButton={false} bind:ref={trigger} {@attach attachHost}
+      onclick={() => calls.push('consumer')} class={state => ['trigger', { open: state.open }]} style={state => ({ opacity: state.open ? 1 : 0.5 })}>Open</Second.Trigger>
+    <First.Panel id="packed-panel" hiddenUntilFound render={panelHost} bind:ref={panel} {@attach attachHost} style={{ color: 'red' }}>Packed panel content</First.Panel>
+  </First.Root>
+{/if}
+SVELTE
+  node "$sveltery_repo_root/packages/base/node_modules/svelte-check/bin/svelte-check" --workspace "$collapsible_consumer" --tsconfig ./tsconfig.json
+  cat > "$collapsible_consumer/dom-loader.mjs" <<'JS'
+// Installed peer compiler, native client output, development checks and no HMR.
+import { registerHooks, createRequire } from 'node:module';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+const require = createRequire(new URL('./package.json', import.meta.url));
+const { compile, compileModule } = require('svelte/compiler');
+registerHooks({ load(url, context, nextLoad) {
+  if (url.endsWith('.svelte') || url.endsWith('.svelte.js')) {
+    const source = readFileSync(fileURLToPath(url), 'utf8');
+    const options = { filename: fileURLToPath(url), generate: 'client', dev: true, hmr: false };
+    const result = url.endsWith('.svelte') ? compile(source, options) : compileModule(source, options);
+    return { format: 'module', source: result.js.code, shortCircuit: true };
+  }
+  return nextLoad(url, context);
+} });
+JS
+  cat > "$collapsible_consumer/dom-check.mjs" <<'JS'
+import assert from 'node:assert/strict';
+import { createRequire } from 'node:module';
+const tooling = createRequire(process.argv[2]);
+const { JSDOM } = tooling('jsdom');
+const dom = new JSDOM('<!doctype html><html><body><main></main></body></html>', { url: 'http://localhost', pretendToBeVisual: true });
+for (const key of ['window','document','navigator','HTMLElement','HTMLButtonElement','Element','Node','Text','Comment','Event','MouseEvent','KeyboardEvent','MutationObserver','getComputedStyle'])
+  Object.defineProperty(globalThis, key, { configurable: true, value: dom.window[key] });
+globalThis.requestAnimationFrame = dom.window.requestAnimationFrame.bind(dom.window);
+globalThis.cancelAnimationFrame = dom.window.cancelAnimationFrame.bind(dom.window);
+const { mount, flushSync, unmount } = await import('svelte');
+const { default: Consumer } = await import('./DOMConsumer.svelte');
+const target = document.querySelector('main');
+const app = mount(Consumer, { target }); flushSync();
+const initial = app.snapshot();
+assert.equal(initial.root, target.querySelector('#packed-root'));
+assert.equal(initial.trigger, target.querySelector('#packed-trigger'));
+assert.equal(initial.panel, target.querySelector('#packed-panel'));
+assert.equal(initial.trigger.tagName, 'SPAN'); assert.equal(initial.trigger.getAttribute('role'), 'button');
+assert.equal(initial.panel.getAttribute('hidden'), 'until-found'); assert.equal(initial.panel.style.color, 'red');
+assert.equal(initial.trigger.className, 'trigger'); assert.equal(initial.trigger.style.opacity, '0.5');
+initial.trigger.click(); flushSync();
+assert.deepEqual(app.snapshot().calls, ['consumer','change:true:false']);
+assert.equal(initial.trigger.getAttribute('aria-expanded'), 'false');
+initial.trigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true })); flushSync();
+assert.deepEqual(app.snapshot().calls.slice(-2), ['consumer','change:true:false']);
+assert.equal(initial.trigger.getAttribute('aria-expanded'), 'true');
+assert.equal(initial.trigger.className, 'trigger open'); assert.equal(initial.trigger.style.opacity, '1');
+assert.equal(initial.trigger.getAttribute('aria-controls'), 'packed-panel');
+app.replace(); flushSync();
+const next = app.snapshot().panel;
+assert.notEqual(next, initial.panel); assert.equal(next.tagName, 'SECTION');
+assert.equal(initial.panel.isConnected, false); assert.equal(next.isConnected, true);
+assert(app.snapshot().attachments.some(entry => entry.host === initial.panel && !entry.attached));
+assert(app.snapshot().attachments.some(entry => entry.host === next && entry.attached));
+app.remove(); flushSync();
+assert.equal(target.childElementCount, 0);
+assert.equal(app.snapshot().root, null); assert.equal(app.snapshot().trigger, null); assert.equal(app.snapshot().panel, null);
+assert(app.snapshot().attachments.some(entry => entry.host === initial.trigger && !entry.attached));
+assert(app.snapshot().attachments.some(entry => entry.host === next && !entry.attached));
+await unmount(app); dom.window.close();
+console.log('Installed public Collapsible DOM refs/snippets/attachments, native events, cancellation and replacement cleanup: PASS');
+JS
+  node --conditions=browser --import "$collapsible_consumer/dom-loader.mjs" "$collapsible_consumer/dom-check.mjs" "$sveltery_repo_root/packages/base/package.json"
+fi
+if [[ "${1:-}" == '--public' ]]; then
+  echo 'Isolated tarball Collapsible public root/subpath SSR, DOM refs/snippets/attachments and strict positive/negative declarations: PASS'
 else
   echo 'Isolated tarball Collapsible internal entry SSR and types: PASS (public entries await serialized integration)'
 fi

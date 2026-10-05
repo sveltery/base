@@ -1,0 +1,40 @@
+$ vitest run --config vitest.dom.config.ts --maxWorkers=1 tests/dom/collapsible.test.ts tests/dom/collapsible-source-boundary.test.ts
+
+ RUN  v5.0.3 /workspace/collapsible-source-modernization/packages/base
+
+ ❯ tests/dom/collapsible.test.ts (33 tests | 1 failed) 1537ms
+   × supplement: measured variable writes preserve temporary inline alignment until its restore frame 15ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/dom/collapsible.test.ts > supplement: measured variable writes preserve temporary inline alignment until its restore frame
+AssertionError: expected 'center' to be 'initial' // Object.is equality
+
+Expected: "initial"
+Received: "center"
+
+ ❯ tests/dom/collapsible.test.ts:176:40
+    174|   Object.defineProperty(content, 'getAnimations', { configurable: true…
+    175|   trigger.click(); await tick();
+    176|   expect(content.style.justifyContent).toBe('initial'); expect(content…
+       |                                        ^
+    177|   await settle(); expect(content.style.justifyContent).toBe('center');…
+    178| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 35 passed (36)
+   Start at  19:28:23
+   Duration  4.79s (tests 39%, environment 32%, transform 21%, import 7%)
+
+    Isolate  2 workers spawned · ~848ms startup each (spawn + environment, per file)
+             at least ~848ms faster with isolate: false — reuses workers across files instead of one per file
+
+[ELIFECYCLE] Command failed with exit code 1.
+Error: ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL
+
+  × "pnpm recursive run" failed in /workspace/collapsible-source-
+  │ modernization/packages/base
+

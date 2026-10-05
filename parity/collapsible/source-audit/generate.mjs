@@ -1,5 +1,6 @@
 // Audit-only graph/body inventory, immutable Base UI v1.8.0 source; MIT: ../UPSTREAM_LICENSE.
 import { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
 const require = createRequire(resolve('packages/base/package.json'));
 const ts = process.env.COLLAPSIBLE_AUDIT_TYPESCRIPT ? require(process.env.COLLAPSIBLE_AUDIT_TYPESCRIPT) : require('typescript');
 import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync } from 'node:fs';
@@ -122,6 +123,10 @@ function build(base, seed, original, selections = {}) {
   const modules = [...records.values()].sort((a,b)=>a.source.localeCompare(b.source));
   return {roots:seed, moduleCount:modules.length, edgeCount:modules.reduce((n,module)=>n+module.imports.length,0), runtimeModules:modules.filter(module=>module.reachability==='runtime').length, typeModules:modules.filter(module=>module.reachability==='type').length, modules, external:[...new Set(modules.flatMap(module=>module.imports).filter(edge=>edge.resolved.startsWith('external:')).map(edge=>edge.resolved))].sort(), semantics:'Inventory, not manual Source acceptance. Declared import syntax and TypeScript-emitted dependency kinds are separate. TypeScript 5.9.3 transpileModule elision identifies effective type edges in TS/TSX; non-type Svelte imports retain runtime reachability because markup also uses them. Selected public/test barrel exports are expanded by actual imported members; excluded siblings are recorded, not accepted. All reached module bodies, including type-only, require separate manual inspection receipts.'};
 }
+// Audit-only parser reuse. Importing this module must never rewrite the
+// immutable pre-repair checkpoint; its standalone command retains that scope.
+export { build, roots, publicMembers };
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
 const original = build(originalRoot, roots.original, true);
 const native = build(nativeRoot, [...roots.native,'packages/base/src/lib/index.ts'], false, {'packages/base/src/lib/index.ts':publicMembers});
 const originalTests = build(originalRoot, roots.originalTests, true);
@@ -172,3 +177,5 @@ writeFileSync(join(output,'scope.json'),JSON.stringify({
   }])),
 },null,2)+'\n');
 console.log(JSON.stringify(Object.fromEntries(Object.entries({original,native,originalTests,nativeTests,prospectiveHelpers}).map(([name,graph])=>[name,{modules:graph.moduleCount,edges:graph.edgeCount,runtime:graph.runtimeModules,type:graph.typeModules,external:graph.external}]))));
+
+}
