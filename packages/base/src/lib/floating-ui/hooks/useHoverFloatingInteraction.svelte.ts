@@ -124,33 +124,41 @@ export function useHoverFloatingInteraction(getContext: () => FloatingRootContex
         if (!enabled) {
             return undefined;
         }
+        // Source listeners and their pending timers own the values selected when
+        // this effect starts. Stable callbacks above intentionally keep live reads.
+        const effectStore = store;
+        const effectDataRef = dataRef;
+        const effectInstance = instance;
+        const effectCloseDelay = closeDelayProp;
+        const effectNodeId = nodeIdProp;
+        const effectFloatingElement = floatingElement;
         function hasParentChildren() {
             return !!(tree && parentId && getNodeChildren(tree.nodesRef.current, parentId).length > 0);
         }
         function closeWithDelay(event: MouseEvent) {
-            const closeDelay = getDelay(closeDelayProp, 'close', instance.pointerType);
+            const closeDelay = getDelay(effectCloseDelay, 'close', effectInstance.pointerType);
             const close = () => {
-                store.setOpen(false, createChangeEventDetails(REASONS.triggerHover, event));
+                effectStore.setOpen(false, createChangeEventDetails(REASONS.triggerHover, event));
                 tree?.events.emit('floating.closed', event);
             };
             if (closeDelay) {
-                instance.openChangeTimeout.start(closeDelay, close);
+                effectInstance.openChangeTimeout.start(closeDelay, close);
             }
             else {
-                instance.openChangeTimeout.clear();
+                effectInstance.openChangeTimeout.clear();
                 close();
             }
         }
         function handleInteractInside(event: PointerEvent) {
             const target = getTarget(event) as Element | null;
             if (!isInteractiveElement(target)) {
-                instance.interactedInside = false;
+                effectInstance.interactedInside = false;
                 return;
             }
-            instance.interactedInside = target?.closest('[aria-haspopup]') != null;
+            effectInstance.interactedInside = target?.closest('[aria-haspopup]') != null;
         }
         function onFloatingMouseEnter() {
-            instance.openChangeTimeout.clear();
+            effectInstance.openChangeTimeout.clear();
             childClosedTimeout.clear();
             tree?.events.off('floating.closed', onNodeClosed);
             clearPointerEvents();
@@ -160,12 +168,12 @@ export function useHoverFloatingInteraction(getContext: () => FloatingRootContex
                 tree.events.on('floating.closed', onNodeClosed);
                 return;
             }
-            if (isInsideEnabledTrigger(event.relatedTarget, store.context.triggerElements)) {
+            if (isInsideEnabledTrigger(event.relatedTarget, effectStore.context.triggerElements)) {
                 // If the mouse is leaving the reference element to another trigger, don't explicitly close the popup
                 // as it will be moved.
                 return;
             }
-            const currentNodeId = dataRef.current.floatingContext?.nodeId ?? nodeIdProp;
+            const currentNodeId = effectDataRef.current.floatingContext?.nodeId ?? effectNodeId;
             const relatedTarget = event.relatedTarget;
             const isMovingIntoDescendantFloating = tree &&
                 currentNodeId &&
@@ -175,8 +183,8 @@ export function useHoverFloatingInteraction(getContext: () => FloatingRootContex
                 return;
             }
             // If the safePolygon handler is active, let it handle the close logic.
-            if (instance.handler) {
-                instance.handler(event);
+            if (effectInstance.handler) {
+                effectInstance.handler(event);
                 return;
             }
             clearPointerEvents();
@@ -191,11 +199,11 @@ export function useHoverFloatingInteraction(getContext: () => FloatingRootContex
             // Allow the mouseenter event to fire in case child was closed because mouse moved into parent.
             childClosedTimeout.start(0, () => {
                 tree.events.off('floating.closed', onNodeClosed);
-                store.setOpen(false, createChangeEventDetails(REASONS.triggerHover, event));
+                effectStore.setOpen(false, createChangeEventDetails(REASONS.triggerHover, event));
                 tree.events.emit('floating.closed', event);
             });
         }
-        const floating = floatingElement;
+        const floating = effectFloatingElement;
         return mergeCleanups(floating && addEventListener(floating, 'mouseenter', onFloatingMouseEnter), floating && addEventListener(floating, 'mouseleave', onFloatingMouseLeave), floating && addEventListener(floating, 'pointerdown', handleInteractInside, true), () => {
             tree?.events.off('floating.closed', onNodeClosed);
         });
