@@ -9,7 +9,11 @@ const prettier = require('prettier');
 const { parsers: cssParsers } = require('prettier/plugins/postcss');
 const ts = require('typescript');
 const { compile } = require('svelte/compiler');
-const baseline = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
+const baselineOption = process.argv.find((argument) => argument.startsWith('--baseline='));
+const verify = process.argv.includes('--verify');
+const baseline =
+  baselineOption?.slice('--baseline='.length) ??
+  execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
 const files = execFileSync('git', ['ls-files', '-z'], { encoding: 'utf8' })
   .split('\0')
   .filter(Boolean);
@@ -164,19 +168,27 @@ assert.deepEqual(syntax('a || (b || c);'), syntax('(a || b) || c;'));
 assert.notDeepEqual(css('a b { content: "a  b"; }'), css('ab { content: "a b"; }'));
 assert.notDeepEqual(svelte('<p>a  b</p>', 'probe.svelte'), svelte('<p>a c</p>', 'probe.svelte'));
 for (const file of files) {
-  const before = readFileSync(file);
-  const committed = execFileSync('git', ['show', `${baseline}:${file}`], {
+  const observed = readFileSync(file);
+  const before = execFileSync('git', ['show', `${baseline}:${file}`], {
     maxBuffer: 16 * 1024 * 1024,
   });
-  assert.deepEqual(before, committed, `${file}: preimage must equal the recorded baseline commit`);
+  if (!verify)
+    assert.deepEqual(observed, before, `${file}: preimage must equal the recorded baseline commit`);
   const info = await prettier.getFileInfo(file, { ignorePath: '.prettierignore' });
   if (info.ignored || !info.inferredParser) {
+    assert.deepEqual(observed, before, `${file}: excluded historical bytes must remain unchanged`);
     records.push({ file, before: hash(before), after: hash(before), mode: 'excluded-identity' });
     continue;
   }
   const original = before.toString('utf8');
   const options = await prettier.resolveConfig(file);
   const formatted = await prettier.format(original, { ...options, filepath: file });
+  if (verify)
+    assert.equal(
+      observed.toString('utf8'),
+      formatted,
+      `${file}: actual successor must equal the proved formatting candidate`,
+    );
   let mode = 'non-code-formatting-review';
   if (original !== formatted) {
     try {
@@ -215,8 +227,13 @@ if (process.exitCode) process.exit();
 mkdirSync('.checks/format-snapshot', { recursive: true });
 for (const { file, formatted } of candidates) {
   const target = resolve('.checks/format-snapshot', file);
-  mkdirSync(dirname(target), { recursive: true });
-  writeFileSync(target, readFileSync(file));
+  if (!verify) {
+    mkdirSync(dirname(target), { recursive: true });
+    writeFileSync(
+      target,
+      execFileSync('git', ['show', `${baseline}:${file}`], { maxBuffer: 16 * 1024 * 1024 }),
+    );
+  }
   if (process.argv.includes('--write')) writeFileSync(file, formatted);
 }
 writeFileSync(
