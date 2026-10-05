@@ -25,7 +25,7 @@ export class SvelteStore<State extends object, Context, Selectors extends Record
     return this.select(key, ...args);
   }
   useSyncedValue<Key extends keyof State>(key: Key, getValue: () => State[Key]) {
-    $effect(() => { const value = getValue(); untrack(() => this.set(key, value)); });
+    $effect(() => { const value = getValue(); untrack(() => { if (this.state[key] !== value) this.set(key, value); }); });
   }
   useSyncedValues<const Key extends keyof State>(getValues: () => Pick<State, Key>) {
     let keys: string[] | undefined;
@@ -42,7 +42,7 @@ export class SvelteStore<State extends object, Context, Selectors extends Record
     });
   }
   useSyncedValueWithCleanup<Key extends KeysAllowingUndefined<State>>(key: Key, getValue: () => State[Key]) {
-    $effect(() => { const value = getValue(); untrack(() => this.set(key, value)); return () => { this.set(key, undefined as State[Key]); }; });
+    $effect(() => { const value = getValue(); untrack(() => { if (this.state[key] !== value) this.set(key, value); }); return () => { this.set(key, undefined as State[Key]); }; });
   }
   useControlledProp<Key extends keyof State>(key: Key, getControlled: () => State[Key] | undefined) {
     const initiallyControlled = untrack(() => getControlled() !== undefined);

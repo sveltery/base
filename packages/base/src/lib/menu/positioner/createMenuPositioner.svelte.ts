@@ -23,6 +23,7 @@ export function createMenuPositioner(getProps: () => MenuPositionerProps, store:
     const { anchor: anchorProp, positionMethod: positionMethodProp = 'absolute', class: className, render, side, align: alignProp, sideOffset: sideOffsetProp = 0, alignOffset: alignOffsetProp = 0, collisionBoundary = 'clipping-ancestors', collisionPadding = 5, arrowPadding = 5, sticky = false, disableAnchorTracking = false, collisionAvoidance: collisionAvoidanceProp = DROPDOWN_COLLISION_AVOIDANCE, style, children, ref, ...elementProps } = $derived(getProps());
     // Host render/ref fields are consumed by the native component, excluded from forwarded props.
     untrack(() => { void [render, className, style, children, ref]; });
+    const setPositionerElement = store.useStateSetter('positionerElement');
     const keepMounted = useMenuPortalContext();
     const contextMenuContext = useContextMenuRootContext(true);
     const parent = $derived(store.useState('parent'));
@@ -215,7 +216,7 @@ export function createMenuPositioner(getProps: () => MenuPositionerProps, store:
         styles: positioner.positionerStyles,
         transitionStatus,
         props: elementProps,
-        refs: [getRef, store.useStateSetter('positionerElement')],
+        refs: [getRef, setPositionerElement],
         hidden: !mounted,
         inert: !open,
     }));
