@@ -1,6 +1,6 @@
 # NavigationMenu
 
-Status: **source preparation only; implementation and acceptance pending**. This feature has zero ordinary assertion credit. There is no NavigationMenu runtime code or PR at this checkpoint.
+Status: **complete public composition in implementation draft; final acceptance pending**. This feature has zero unchanged ordinary assertion credit. [The implementation checkpoint](IMPLEMENTATION.md), [actual used graph](actual-native-graph.json), [body correspondence](implementation-correspondence.md) and [separate assertion ledger](implementation-assertion-ledger.json) describe current work. The Phase 1 preparation below is historical evidence at `6e1ccd1`.
 
 Read the complete [pre-code Source plan](source-plan.md), [module/function correspondence](source-correspondence.json), [exact public API](public-api.json), [immutable Original graph](source-graph.json), [named-member selection](selected-source.json), [Original assertion inventory](original-assertions.json), and [canonical reuse/lease plan](canonical-reuse-plan.json). The inherited complete-body records are exact module-specific provenance, not whole Menu/Toolbar/Dialog acceptance. MIT archive and limits are recorded alongside them.
 

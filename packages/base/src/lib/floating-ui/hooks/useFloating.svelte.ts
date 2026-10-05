@@ -8,11 +8,28 @@ import { useFloatingTree } from '../components/FloatingTree.svelte.js';
 import type { FloatingRootStore } from '../components/FloatingRootStore.svelte.js';
 import type { FloatingTreeStore } from '../components/FloatingTreeStore.js';
 import type { PositionedFloatingContext, ReferenceType } from '../types.js';
+import { useFloatingRootContext, type UseFloatingRootContextOptions } from './useFloatingRootContext.svelte.js';
 
-export interface BaseUIFloatingOptions extends NativeFloatingOptions {
+export interface BaseUIFloatingOptions extends Omit<NativeFloatingOptions, 'elements'> {
+  elements?: UseFloatingRootContextOptions['elements'];
   rootContext: FloatingRootStore;
   nodeId?: string | undefined;
   externalTree?: FloatingTreeStore | undefined;
+}
+
+export interface UseFloatingOptions extends Omit<NativeFloatingOptions, 'elements'>, UseFloatingRootContextOptions {
+  rootContext?: FloatingRootStore | undefined;
+  nodeId?: string | undefined;
+  externalTree?: FloatingTreeStore | undefined;
+}
+
+/** Original public path always initializes its own root, then selects the live external root. */
+export function useFloating(getOptions: () => UseFloatingOptions, floatingId: string) {
+  const internalStore = useFloatingRootContext(getOptions, floatingId);
+  return useFloatingWithStore(() => {
+    const options = getOptions();
+    return { ...options, rootContext: options.rootContext || internalStore };
+  });
 }
 
 /** Original private path requires the root store; no unconsumed public hook API is invented. */

@@ -1,0 +1,33 @@
+// Original Base UI 1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
+import { CommonPopupDataAttributes } from '../../utils/popupStateMapping.js';
+
+/**
+ * Present when the popup is open.
+ */
+export const open = CommonPopupDataAttributes.open;
+/**
+ * Present when the popup is closed.
+ */
+export const closed = CommonPopupDataAttributes.closed;
+/**
+ * Present when the popup begins animating in.
+ */
+export const startingStyle = CommonPopupDataAttributes.startingStyle;
+/**
+ * Present when the popup is animating out.
+ */
+export const endingStyle = CommonPopupDataAttributes.endingStyle;
+/**
+ * Present when the anchor is hidden.
+ */
+export const anchorHidden = CommonPopupDataAttributes.anchorHidden;
+/**
+ * Indicates which side the popup is positioned relative to the trigger.
+ * @type {'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'}
+ */
+export const side = CommonPopupDataAttributes.side;
+/**
+ * Indicates how the popup is aligned relative to the specified side.
+ * @type {'start' | 'center' | 'end'}
+ */
+export const align = CommonPopupDataAttributes.align;

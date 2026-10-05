@@ -11,6 +11,13 @@ import type { AnchorPositioningOptions, Reference, Align } from './types.js';
 
 /** Source anchor orchestration; popup root interaction stores remain a separate dependency. */
 export function useAnchorPositioning(readOptions: () => AnchorPositioningOptions) {
+  return useAnchorPositioningWithHook(readOptions);
+}
+
+type FloatingHook = (getOptions: () => Parameters<typeof useBaseUIFloating>[0] extends () => infer Options ? Options : never) => ReturnType<typeof useBaseUIFloating>;
+
+/** Source hook-selection boundary; NavigationMenu supplies its public live-root path. */
+export function useAnchorPositioningWithHook(readOptions: () => AnchorPositioningOptions, useFloatingHook?: FloatingHook) {
   const direction = useDirection();
   const options = $derived({ ...readOptions(), direction: direction() });
   let arrow = $state.raw<HTMLElement | null>(null);
@@ -32,7 +39,9 @@ export function useAnchorPositioning(readOptions: () => AnchorPositioningOptions
     };
   };
   const rootContext = untrack(() => options.floatingRootContext);
-  const position = rootContext
+  const position = useFloatingHook
+    ? useFloatingHook(() => ({ ...getFloatingOptions(), rootContext: options.floatingRootContext!, nodeId: options.nodeId, externalTree: options.externalTree }))
+    : rootContext
     ? useBaseUIFloating(() => ({ ...getFloatingOptions(), rootContext, nodeId: options.nodeId, externalTree: options.externalTree }))
     : useFloating(getFloatingOptions);
 
