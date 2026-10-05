@@ -64,9 +64,20 @@ for (const selected of record.originalFunctions ?? []) {
     ts.forEachChild(node, findSource);
   }
   function findReference(node) {
-    if (ts.isFunctionDeclaration(node) && node.name?.text === (selected.wrapper ?? selected.name)) {
-      if (!selected.wrapper) referenceFunction = node.getText(ast);
-      else referenceFunction = node.body?.statements.find(statement => ts.isFunctionDeclaration(statement) && statement.name?.text === selected.name)?.getText(ast);
+    if (!selected.wrapper && ts.isFunctionDeclaration(node) && node.name?.text === selected.name) {
+      referenceFunction = node.getText(ast);
+    } else if (selected.wrapper && ts.isVariableDeclaration(node) && node.name.getText(ast) === selected.wrapper) {
+      // A Source describe callback owns its App type once. Require module-level
+      // initialization, rather than allowing a component render to recreate it.
+      const statement = node.parent?.parent;
+      const call = node.initializer;
+      const factory = call && ts.isCallExpression(call) && !call.arguments.length && ts.isParenthesizedExpression(call.expression) ? call.expression.expression : undefined;
+      if (!statement || !ts.isVariableStatement(statement) || !ts.isSourceFile(statement.parent) || !(node.parent.flags & ts.NodeFlags.Const) || !factory || !ts.isArrowFunction(factory) || factory.parameters.length || !ts.isBlock(factory.body)) throw new Error(`App fixture must retain Source describe-owned scope ${selected.wrapper}`);
+      const statements = factory.body.statements;
+      const declaration = statements[0];
+      const returned = statements[1];
+      if (statements.length !== 2 || !ts.isFunctionDeclaration(declaration) || declaration.name?.text !== selected.name || !ts.isReturnStatement(returned) || returned.expression?.getText(ast) !== selected.name) throw new Error(`Unexpected App fixture scope ${selected.wrapper}`);
+      referenceFunction = declaration.getText(ast);
     }
     ts.forEachChild(node, findReference);
   }

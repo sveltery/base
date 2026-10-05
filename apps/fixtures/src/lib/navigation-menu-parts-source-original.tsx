@@ -309,7 +309,9 @@ export function NavigationMenuPartsOriginal({scenario}:{scenario:string}) {
  }
 }
 
-function ListRemoval({showFirst}:{showFirst:boolean}) {
+// Original describe callbacks construct these App types once. Keep that scope
+// while retaining each complete immutable function body below.
+const ListRemoval = (() => {
 function App({ showFirst }: { showFirst: boolean }) {
       return (
         <NavigationMenu.Root>
@@ -329,10 +331,10 @@ function App({ showFirst }: { showFirst: boolean }) {
         </NavigationMenu.Root>
       );
     }
-return <App showFirst={showFirst}/>;
-}
+return App;
+})();
 
-function TriggerEnable() {
+const TriggerEnable = (() => {
 function App() {
       const [disabled, setDisabled] = React.useState(true);
       return (
@@ -352,8 +354,8 @@ function App() {
         </div>
       );
     }
-return <App/>;
-}
+return App;
+})();
 
 function TestActiveItemDropsTrigger({
   registerNavigate,

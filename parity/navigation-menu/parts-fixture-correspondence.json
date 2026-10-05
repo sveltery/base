@@ -110,7 +110,7 @@
   "ordinaryCredit": 0,
   "status": "Complete Original render expressions unchanged; native API counterparts and secured execution/review pending",
   "reference": "apps/fixtures/src/lib/navigation-menu-parts-source-original.tsx",
-  "referenceSha256": "f5b0004f5aaf1f33db18867bb9e2bab88e600543680a12a7fe271ec4e468d321",
+  "referenceSha256": "6f34c8fdaf876f8c025aa83dbcda47d8e65ab842d779e2e31597f8146aa70e47",
   "native": "apps/fixtures/src/lib/NavigationMenuPartsSourceFixture.svelte",
   "nativeSha256": "537031b2cd22a9c3be1373febed872f103205c335bf9954cc2da2f71de800c7e",
   "originalFunctions": [

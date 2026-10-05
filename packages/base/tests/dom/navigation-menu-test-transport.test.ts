@@ -54,3 +54,25 @@ it('owns user-event document preparation and restores focus, clipboard and liste
   expect(Object.getOwnPropertyDescriptor(navigator, 'clipboard')).toEqual(clipboard);
   expect(Object.getOwnPropertySymbols(document)).toEqual(documentSymbols);
 });
+
+it('retains the Original describe-owned App identity when removing an earlier item', async () => {
+  const { React, renderer, referenceTransport } = await import('../../../../apps/fixtures/src/lib/navigation-menu-reference-renderer.js');
+  const { NavigationMenuPartsOriginal } = await import('../../../../apps/fixtures/src/lib/navigation-menu-parts-source-original.js');
+  const container = document.createElement('section'); document.body.append(container);
+  const view = renderer.render(React.createElement(NavigationMenuPartsOriginal, { scenario: 'list-removal' }), { container, reactStrictMode: true });
+  const transport = createNavigationMenuTestTransport();
+  transport.ready(referenceTransport, () => { view.unmount(); renderer.cleanup(); });
+  cleanup.push(transport.dispose);
+  const first = container.querySelector('[data-testid="first"]') as HTMLElement;
+  const middle = container.querySelector('[data-testid="middle"]') as HTMLElement;
+  const last = container.querySelector('[data-testid="last"]') as HTMLElement;
+  await transport.mutate(() => first.focus());
+  await transport.fire(first, 'keydown', { key: 'ArrowRight' });
+  await transport.fire(middle, 'keydown', { key: 'ArrowRight' });
+  expect(document.activeElement).toBe(last);
+  await transport.mutate(() => (window as typeof window & { navigationMenuParts: { removeFirst(): void } }).navigationMenuParts.removeFirst());
+  expect(container.querySelector('[data-testid="last"]')).toBe(last);
+  expect(document.activeElement).toBe(last);
+  await transport.fire(last, 'keydown', { key: 'ArrowLeft' });
+  expect(document.activeElement).toBe(middle);
+});

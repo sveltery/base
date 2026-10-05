@@ -49,8 +49,12 @@ for (const reference of [false, true]) test.describe(`${reference ? 'Original Re
     await visit(page, reference, 'controlled-owner');
     await page.evaluate(async () => { const state = window as unknown as State; for (const [id, x] of [['trigger-1', 0], ['trigger-2', 120]] as const) state.navigationMenuMocks.mockBoundingClientRect(document.querySelector(`[data-testid="${id}"]`)!, { x, y: 0, width: 80, height: 32 }); });
     await fire(node(page, 'trigger-2'), 'click'); await page.evaluate(async () => { const state = window as unknown as State; await state.navigationMenuTestTransport.mutate(() => state.navigationMenuSource.setValue('item-2')); }); await expect(node(page, 'popup-2')).toHaveAttribute('data-activation-direction', 'right');
-    await page.evaluate(async () => { const state = window as unknown as State; state.navigationMenuAnimations = state.navigationMenuMocks.mockAnimations(document.querySelector('[data-testid="popup-2"]') as HTMLElement); state.navigationMenuAnimations.start(); await state.navigationMenuTestTransport.mutate(() => state.navigationMenuSource.setValue(null)); });
-    await expect(node(page, 'popup-2')).toHaveAttribute('data-ending-style'); await expect(node(page, 'popup-2')).not.toHaveAttribute('data-activation-direction'); await finish(page);
+    // Original retains exitingContent itself: its parent may unmount while this
+    // Content's mocked animation is still running. Assert the same object.
+    const exitingContent = await node(page, 'popup-2').elementHandle();
+    if (!exitingContent) throw new Error('Original exitingContent is missing');
+    await exitingContent.evaluate(async element => { const state = window as unknown as State; state.navigationMenuAnimations = state.navigationMenuMocks.mockAnimations(element as HTMLElement); state.navigationMenuAnimations.start(); await state.navigationMenuTestTransport.mutate(() => state.navigationMenuSource.setValue(null)); });
+    expect(await exitingContent.evaluate(element => element.hasAttribute('data-ending-style'))).toBe(true); expect(await exitingContent.evaluate(element => element.hasAttribute('data-activation-direction'))).toBe(false); await finish(page); await exitingContent.dispose();
   });
   test('R:2042 manual action immediately unmounts in-flight close', async ({ page }) => {
     await visit(page, reference, 'manual');
