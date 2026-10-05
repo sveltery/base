@@ -184,7 +184,7 @@
   const renderState = $derived({});
   const renderSnippet = $derived(render ? renderForm : undefined);
   const hostAttachmentKey = createAttachmentKey();
-  function attachHost(host: HTMLElement) {
+  function attachHost(host: HTMLFormElement) {
     return untrack(() => {
       ref = host;
       elementRef.current = host;

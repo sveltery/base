@@ -26,14 +26,14 @@
 
   const hostAttachmentKey = createAttachmentKey();
   function attachHost(host: HTMLElement) {
+    const hostOwner = vertical ? root.thumbYRef : root.thumbXRef;
     return untrack(() => {
       ref = host;
-      const hostOwner1 = vertical ? root.thumbYRef : root.thumbXRef;
-      hostOwner1.current = host;
+      hostOwner.current = host;
       return () =>
         untrack(() => {
           if (ref === host) ref = null;
-          if (hostOwner1.current === host) hostOwner1.current = null;
+          if (hostOwner.current === host) hostOwner.current = null;
         });
     });
   }

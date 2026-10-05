@@ -178,6 +178,6 @@
   {#if render}
     {@render render(mergedProps, partState, children)}
   {:else}
-    <img {...mergedProps} />
+    <img alt="" {...mergedProps} />
   {/if}
 {/if}

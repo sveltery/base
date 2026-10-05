@@ -212,7 +212,7 @@
   });
 
   const hostAttachmentKey = createAttachmentKey();
-  function attachHost(host: HTMLElement) {
+  function attachHost(host: NativeValidationControl) {
     return untrack(() => {
       ref = host;
       controlRef.current = host;

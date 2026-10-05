@@ -438,7 +438,7 @@
     },
     {
       "source": "packages/base/src/lib/avatar/Image.svelte",
-      "sha256": "6b26134b41b8daf6d48f1782f1526bf8637b05f3c27b06d2ca5f2dd1e3e63d3c",
+      "sha256": "ee6d23837661efa039845223c8cb29892b5643f3c0ccacada6569ef934a37477",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -4778,7 +4778,7 @@
     },
     {
       "source": "packages/base/src/lib/form/Form.svelte",
-      "sha256": "d786ccc04523b080a366e82647d4bad33bd321f8697a3c12e8a0789be53dd58f",
+      "sha256": "6ea97983246d7a45158ec23677fb9fe6e8e534d8d666e7ec8525aee8825f1cff",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -11235,7 +11235,7 @@
     },
     {
       "source": "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte",
-      "sha256": "e9e3a6c26f4a5156bfbd305efadbe5c98eeccb5ea13e43cb37aae800a79769b2",
+      "sha256": "75921c20ee45e1748dd2a92010f7052829795e395fb3c65639b34b04fb47b9a6",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -11752,7 +11752,7 @@
     },
     {
       "source": "packages/base/src/lib/scroll-area/scrollbar/ScrollAreaScrollbar.svelte",
-      "sha256": "ccf190259c569285d38a7dc31391cfe6a1a757ccf16f14c379042d372c8b3799",
+      "sha256": "ea50ba71cd3bccb2d641eeadc9af3260a03f99c2918ca0ceeb30165ee593e95f",
       "imports": [
         {
           "specifier": "../../internals/mergeComponentProps.js",
@@ -11844,7 +11844,7 @@
     },
     {
       "source": "packages/base/src/lib/scroll-area/thumb/ScrollAreaThumb.svelte",
-      "sha256": "e381d4b9b92a9b76108211dcbd9ec179c841271ccdb41fda0d4380b4a859fb95",
+      "sha256": "0e4b014e41eaa1385ff1f105936fb4e6808a557468390cd736a2d97d55b4ee77",
       "imports": [
         {
           "specifier": "../../internals/mergeComponentProps.js",
@@ -11906,18 +11906,8 @@
     },
     {
       "source": "packages/base/src/lib/scroll-area/viewport/ScrollAreaViewport.svelte",
-      "sha256": "9fc8fe79cff1ca2611cf6a7a30a48068961d55b9005f67a4da7e222eadf1fcee",
+      "sha256": "607a7e9b8b109f603c97a60b62880db2f7faaf1d56824acd5cc2cd68ffcecf44",
       "imports": [
-        {
-          "specifier": "../../internals/mergeComponentProps.js",
-          "kind": "runtime-or-mixed",
-          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"
-        },
-        {
-          "specifier": "svelte/attachments",
-          "kind": "runtime-or-mixed",
-          "resolved": "external:svelte/attachments"
-        },
         {
           "specifier": "@sveltery/utils/platform",
           "kind": "runtime-or-mixed",
@@ -11927,6 +11917,16 @@
           "specifier": "./ScrollAreaViewportCssVars.js",
           "kind": "runtime-or-mixed",
           "resolved": "packages/base/src/lib/scroll-area/viewport/ScrollAreaViewportCssVars.ts"
+        },
+        {
+          "specifier": "../../internals/mergeComponentProps.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte/attachments"
         },
         {
           "specifier": "svelte",
@@ -13992,7 +13992,7 @@
     },
     {
       "source": "packages/base/src/lib/tooltip/Trigger.svelte",
-      "sha256": "3e2bc23174e2ca2ca52aa214348b89a7f144a9bb4a8b55d0de243fc4475508ed",
+      "sha256": "b793c3e6de4b8ce7e78a5acd478c21f0cf1df640e039b763f819e1c71d04067e",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",

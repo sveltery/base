@@ -318,5 +318,5 @@
 {#if render}
   {@render render(mergedProps, state, children)}
 {:else}
-  <button {...mergedProps}>{@render children?.()}</button>
+  <button type="button" {...mergedProps}>{@render children?.()}</button>
 {/if}
