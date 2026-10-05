@@ -2780,7 +2780,7 @@
         "packages/utils/src/lib/PreviousValue.svelte.ts"
       ],
       "localHashes": {
-        "packages/utils/src/lib/PreviousValue.svelte.ts": "dd2568c59abea39decf4e350c2855b11a26c8b384a766706a9e755706367ee9c"
+        "packages/utils/src/lib/PreviousValue.svelte.ts": "bbbb29cc921915446913f248a23c7ae09000eaf7fe69986ed5ada572acfbb856"
       },
       "correspondence": "PreviousValue<T> class retains current/previous pair and Object.is comparison; native .value getter.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."

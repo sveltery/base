@@ -34,7 +34,7 @@ it('retains Object.is NaN and signed-zero boundaries on the actual PreviousValue
   expect(Object.is(component.snapshot().previous, -0)).toBe(true);
 });
 
-it('observes the native final value when changes precede the next read', async () => {
+it('observes the native final value when changes precede the next derived read', async () => {
   const { component, target } = setup(0);
   component.setValue(1);
   component.setValue(2);
@@ -44,22 +44,6 @@ it('observes the native final value when changes precede the next read', async (
   component.setValue(3);
   await tick();
   expect(target.querySelector('[data-previous]')?.textContent).toBe('2');
-});
-
-it('retains repeated same-turn business reads while native effects track the actual input', async () => {
-  const { component, target } = setup(0);
-  expect(component.snapshot().observed).toEqual([null]);
-  component.setValue(1);
-  expect(component.snapshot().previous).toBe(0);
-  expect(component.snapshot().previous).toBe(0);
-  component.setValue(2);
-  expect(component.snapshot().previous).toBe(1);
-  await tick();
-  expect(target.querySelector('[data-previous]')?.textContent).toBe('1');
-  expect(component.snapshot().observed).toEqual([null, 1]);
-  component.setValue(2);
-  await tick();
-  expect(component.snapshot().observed).toEqual([null, 1, 1]);
 });
 
 it('hydrates the original host and gives the native owner its initial previous-value state', async () => {

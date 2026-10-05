@@ -20,6 +20,15 @@ const input = JSON.parse(
   ),
 );
 const hash = (text) => createHash('sha256').update(text).digest('hex');
+const semanticPolicyPath = resolve(root, 'parity/native-framework/native-policy.json');
+const semanticSources = new Map(
+  existsSync(semanticPolicyPath)
+    ? JSON.parse(readFileSync(semanticPolicyPath, 'utf8')).semanticSources.map((record) => [
+        record.path,
+        record,
+      ])
+    : [],
+);
 const flags =
   ts.NodeFlags.Let |
   ts.NodeFlags.Const |
@@ -108,6 +117,15 @@ for (const record of input.files) {
     mismatches.push(record.path);
   }
   record.actualSuccessorSha256 = hash(after);
+  const semanticSource = semanticSources.get(record.path);
+  if (semanticSource) {
+    assert.equal(record.actualSuccessorSha256, semanticSource.currentSha256);
+    assert.equal(
+      hash(readFileSync(resolve(root, semanticSource.predecessorArchive))),
+      semanticSource.predecessorSha256,
+    );
+    record.semanticSuccessor = semanticSource;
+  }
   record.scriptStructuralAstEqual = equal;
   if (!equal)
     record.structuralDifferences = describeDifferences(original, current, original, current);
@@ -131,7 +149,7 @@ for (const record of input.files) {
   }
 }
 input.method =
-  'Exact immutable native predecessor bodies formatted to a deterministic fixed point; actual successor hashes bind inherited ESLint-comment placement. Full structural script AST retains grouping, declaration/optional-chain flags, operators, literal/raw templates, types and modifiers. Svelte syntax parses before/after. Compiled client/server markup/CSS semantics remain pending the coordinated heavy lane.';
+  'Exact immutable native predecessor bodies were formatted to a deterministic fixed point; actual successor hashes bind inherited ESLint-comment placement and separately recorded native semantic successors. Semantic successors receive no formatter equality credit. Full structural script AST retains grouping, declaration/optional-chain flags, operators, literal/raw templates, types and modifiers. Svelte syntax parses before/after. Initial compiled client/server formatting semantics are a separate checkpoint comparison.';
 input.mode =
   'Source/parser/formatter evidence only; no execution, compiled-output or acceptance credit';
 input.parserVersions = { TypeScript: ts.version, Svelte: compiler.VERSION };
@@ -139,7 +157,7 @@ input.effects = effects;
 input.controlledOwners = controlled;
 input.scriptAstMismatches = mismatches;
 input.structuralDifferenceDisposition =
-  'Explicit formatter-produced grouping changes are retained above without normalization or equality credit. Independent Source/maintainability disposition and actual compiled client/server formatting proof remain pending.';
+  'Explicit formatter-produced grouping changes and separately annotated native semantic successors are retained above without normalization or equality credit. Independent Source/maintainability disposition and actual compiled client/server formatting proof remain pending.';
 input.proofToolSha256 = hash(readFileSync(new URL(import.meta.url)));
 assert.equal(controlled, 11);
 assert.equal(effects, 150);

@@ -85,8 +85,7 @@ for (const reference of [false, true])
       expect(target.childElementCount).toBe(0);
     });
 
-// Preserve the Original policy body; native rearm policy has separate measured witnesses.
-for (const reference of [true])
+for (const reference of [true, false])
   for (const initialBatch of [false, true])
     it(`${reference ? 'React reference' : 'Svelte'}: changing batch ${initialBatch} to ${!initialBatch} retains the pending invocation's policy`, async () => {
       const target = document.createElement('section');

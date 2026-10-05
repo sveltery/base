@@ -1,13 +1,15 @@
+// Bounded leased animation-pair regression from accepted Dialog f0d68ec7 (MIT).
+// Base UI v1.8.0 pin 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; zero Avatar ordinary credit.
 // Actual pinned completion body comparisons; synthetic animation timing earns no browser credit.
 import { afterEach, expect, it, vi } from 'vitest';
 import {
   flushAnimationCompletionReference as flushReact,
   mountAnimationCompletionReference,
   mountDynamicAnimationCompletionReference,
-} from '../../../../apps/fixtures/src/lib/animation-completion-reference.js';
+} from '../../../../apps/fixtures/src/lib/avatar-completion-reference.js';
 import { flushSync as flushSvelte, mount, tick, unmount } from 'svelte';
-import Fixture from './AnimationCompletionOrderFixture.svelte';
-import DynamicFixture from './AnimationCompletionDynamicFixture.svelte';
+import Fixture from './AvatarCompletionOrderFixture.svelte';
+import DynamicFixture from './AvatarCompletionDynamicFixture.svelte';
 
 const cleanup: (() => void | Promise<void>)[] = [];
 afterEach(async () => {
@@ -85,8 +87,7 @@ for (const reference of [false, true])
       expect(target.childElementCount).toBe(0);
     });
 
-// Preserve the Original policy body; native rearm policy has separate measured witnesses.
-for (const reference of [true])
+for (const reference of [true, false])
   for (const initialBatch of [false, true])
     it(`${reference ? 'React reference' : 'Svelte'}: changing batch ${initialBatch} to ${!initialBatch} retains the pending invocation's policy`, async () => {
       const target = document.createElement('section');

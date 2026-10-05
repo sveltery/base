@@ -7,16 +7,12 @@
   // A new container invalidates the getter even across Svelte's primitive zero equality.
   let current = $state.raw({ value: untrack(() => initial) });
   const previous = new PreviousValue(() => current.value);
-  const observed: (number | null)[] = [];
-  $effect(() => {
-    observed.push(previous.value);
-  });
 
   export function setValue(next: number) {
     current = { value: next };
   }
   export function snapshot() {
-    return { current: current.value, previous: previous.value, observed: [...observed] };
+    return { current: current.value, previous: previous.value };
   }
 </script>
 

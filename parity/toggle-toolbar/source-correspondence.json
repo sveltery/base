@@ -10153,7 +10153,7 @@
       "localHashes": {
         "packages/utils/src/lib/useMergedRefs.ts": "f9c910b06b0f3c56f8b5775b15b4a9e36260f23a42a7822eb8401480a0e438ac"
       },
-      "nativeReplacement": "Direct setup initialization for symbols, registries, retained values and class instances; no React ref sentinel wrapper.",
+      "nativeReplacement": "MergedRefs<I> class owns retained storage; merge/mergeN retain Source identity comparison, ref fan-out and cleanup algorithms.",
       "nativeReplacementCredit": 0
     },
     {

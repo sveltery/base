@@ -1043,23 +1043,8 @@
       "predecessorSha256": "dd2568c59abea39decf4e350c2855b11a26c8b384a766706a9e755706367ee9c",
       "formattedSha256": "dd2568c59abea39decf4e350c2855b11a26c8b384a766706a9e755706367ee9c",
       "changed": false,
-      "actualSuccessorSha256": "bbbb29cc921915446913f248a23c7ae09000eaf7fe69986ed5ada572acfbb856",
-      "scriptStructuralAstEqual": false,
-      "semanticSuccessor": {
-        "path": "packages/utils/src/lib/PreviousValue.svelte.ts",
-        "predecessorArchive": "parity/native-framework/historical/native-policy-9d29f409/packages/utils/src/lib/PreviousValue.svelte.ts",
-        "predecessorSha256": "dd2568c59abea39decf4e350c2855b11a26c8b384a766706a9e755706367ee9c",
-        "currentSha256": "bbbb29cc921915446913f248a23c7ae09000eaf7fe69986ed5ada572acfbb856",
-        "decision": "Remove scalar derived caching. The ordinary tracked getter reads the actual input and retains the complete Object.is/current/previous business without output boxing or lifecycle.",
-        "source": "packages/utils/src/usePreviousValue.ts"
-      },
-      "structuralDifferences": [
-        {
-          "path": "source.ClassDeclaration[1]",
-          "before": "export class PreviousValue<T> {\n  #getValue: () => T;\n  #current: T;\n  #previous: T | null = null;\n  #value = $derived.by(() => {\n    const value = this.#getValue();\n    if (!Object.is(value, this.#current)) {\n      this.#previous = this.#current;\n      this.#current = value;\n    }\n    return this.#previous;\n  });\n\n  constructor(getValue: () => T) {\n    this.#getValue = getValue;\n    this.#current = untrack(getValue);\n  }\n\n  get value(): T | null {\n    return this.#value;\n  }\n}",
-          "after": "export class PreviousValue<T> {\n  #getValue: () => T;\n  #current: T;\n  #previous: T | null = null;\n\n  constructor(getValue: () => T) {\n    this.#getValue = getValue;\n    this.#current = untrack(getValue);\n  }\n\n  get value(): T | null {\n    const value = this.#getValue();\n    if (!Object.is(value, this.#current)) {\n      this.#previous = this.#current;\n      this.#current = value;\n    }\n    return this.#previous;\n  }\n}"
-        }
-      ]
+      "actualSuccessorSha256": "dd2568c59abea39decf4e350c2855b11a26c8b384a766706a9e755706367ee9c",
+      "scriptStructuralAstEqual": true
     },
     {
       "path": "packages/utils/src/lib/empty.ts",
@@ -1135,7 +1120,7 @@
       "svelteParseValid": true
     }
   ],
-  "method": "Exact immutable native predecessor bodies were formatted to a deterministic fixed point; actual successor hashes bind inherited ESLint-comment placement and separately recorded native semantic successors. Semantic successors receive no formatter equality credit. Full structural script AST retains grouping, declaration/optional-chain flags, operators, literal/raw templates, types and modifiers. Svelte syntax parses before/after. Initial compiled client/server formatting semantics are a separate checkpoint comparison.",
+  "method": "Exact immutable native predecessor bodies formatted to a deterministic fixed point; actual successor hashes bind inherited ESLint-comment placement. Full structural script AST retains grouping, declaration/optional-chain flags, operators, literal/raw templates, types and modifiers. Svelte syntax parses before/after. Compiled client/server markup/CSS semantics remain pending the coordinated heavy lane.",
   "parserVersions": {
     "TypeScript": "6.0.3",
     "Svelte": "5.57.1"
@@ -1154,9 +1139,8 @@
     "packages/base/src/lib/toggle/Toggle.svelte",
     "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
     "packages/base/src/lib/utils/usePopupViewport.svelte.ts",
-    "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
-    "packages/utils/src/lib/PreviousValue.svelte.ts"
+    "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts"
   ],
-  "proofToolSha256": "06e704b1d1766ef45d7b851384fb575f1274bf4ba1b10bac54630a0de861764c",
-  "structuralDifferenceDisposition": "Explicit formatter-produced grouping changes and separately annotated native semantic successors are retained above without normalization or equality credit. Independent Source/maintainability disposition and actual compiled client/server formatting proof remain pending."
+  "proofToolSha256": "123f595367aaec3876e743e6e403c370364265598475f6633faece67bfb37b57",
+  "structuralDifferenceDisposition": "Explicit formatter-produced grouping changes are retained above without normalization or equality credit. Independent Source/maintainability disposition and actual compiled client/server formatting proof remain pending."
 }
