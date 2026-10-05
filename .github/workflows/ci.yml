@@ -106,6 +106,8 @@ jobs:
         run: pnpm --filter @sveltery/base build
       - name: Install official Chromium and OS dependencies
         run: pnpm exec playwright install --with-deps chromium
+      - name: Public Svelte component browser
+        run: pnpm test:component
       - name: Focused Dialog Source lifecycle pairs
         run: >-
           pnpm exec playwright test --config playwright.source-core.config.ts

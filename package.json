@@ -7,10 +7,18 @@
     "node": ">=24 <25"
   },
   "scripts": {
+    "dev": "pnpm --filter @sveltery/base dev",
     "check": "pnpm -r check",
+    "check:watch": "pnpm --filter @sveltery/base check:watch",
+    "lint": "prettier --check . && eslint .",
+    "format": "prettier --write .",
     "test": "pnpm --filter @sveltery/base test",
-    "build": "pnpm --filter @sveltery/base build && pnpm --filter @sveltery/fixtures build",
-    "package:check": "pnpm --filter @sveltery/base build && bash scripts/check-package.sh",
+    "test:unit": "pnpm --filter @sveltery/base test:unit",
+    "test:component": "pnpm --filter @sveltery/base test:component",
+    "test:dom": "pnpm --filter @sveltery/base test:dom",
+    "test:e2e": "playwright test",
+    "build": "pnpm -r build",
+    "package:check": "bash scripts/check-package.sh",
     "verify": "bash scripts/verify.sh",
     "test:browser": "playwright test"
   },
@@ -18,7 +26,17 @@
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.5",
     "@arethetypeswrong/core": "0.18.5",
+    "@eslint/js": "10.0.1",
     "@playwright/test": "1.63.0",
-    "publint": "0.3.25"
+    "eslint": "10.11.0",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-svelte": "3.23.0",
+    "globals": "17.12.0",
+    "prettier": "3.9.9",
+    "prettier-plugin-svelte": "4.1.1",
+    "publint": "0.3.25",
+    "svelte": "5.57.1",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.0"
   }
 }
