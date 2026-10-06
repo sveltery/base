@@ -6,15 +6,9 @@
     "checkJs": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "skipLibCheck": true,
+    "skipLibCheck": false,
     "moduleResolution": "Bundler"
   },
-  "include": [
-    "src",
-    "test",
-    "*"
-  ],
-  "exclude": [
-    "src/service-worker"
-  ]
+  "include": ["src", "test", "test-dom", "*"],
+  "exclude": ["src/service-worker"]
 }

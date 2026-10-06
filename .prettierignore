@@ -20,3 +20,6 @@ parity/
 
 # Historical bootstrap checkpoint; preserve its original evidence bytes.
 docs/verification.md
+
+# Canonical JSON emitted by the docs Source audit; byte comparison is its check.
+docs/receipts/docs/typescript-source-files.json

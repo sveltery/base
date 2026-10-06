@@ -3,7 +3,7 @@
   import { onMount } from 'svelte';
   import { resolve } from '$app/paths';
   import { docs, groups } from '../../../../fixtures/src/lib/docs/content.js';
-  import { createSearchEngine } from './search/engine.js';
+  import { SearchEngine } from './search/engine.js';
   import type { GroupedResults } from './search/types.js';
   import { loadSearchSitemap } from './search/loader.js';
   import Icons from './Icons.svelte';
@@ -23,9 +23,9 @@
   let error = $state(false);
   let searchId = 0;
   let emptyTimeout: ReturnType<typeof setTimeout>;
-  let engine = $state.raw<ReturnType<typeof createSearchEngine> | undefined>();
+  let engine = $state.raw<SearchEngine | undefined>();
   async function warmup() {
-    engine ??= createSearchEngine({
+    engine ??= new SearchEngine({
       sitemap: loadSearchSitemap,
       tolerance: 0,
       limit: 20,
@@ -93,9 +93,7 @@
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
         event.preventDefault();
         event.stopPropagation();
-        const visible = desktopTrigger.getClientRects().length
-          ? desktopTrigger
-          : mobileTrigger;
+        const visible = desktopTrigger.getClientRects().length ? desktopTrigger : mobileTrigger;
         open(visible !== desktopTrigger);
       }
     }
@@ -122,9 +120,7 @@
   class="SearchTrigger HeaderSearchDesktopTrigger"
   bind:this={desktopTrigger}
   onclick={() => open(false)}
-  >Search<span class="SearchTriggerShortcut"
-    >(<kbd>⌘ / Ctrl</kbd><kbd>k</kbd>)</span
-  ></button
+  >Search<span class="SearchTriggerShortcut">(<kbd>⌘ / Ctrl</kbd><kbd>k</kbd>)</span></button
 >
 <button
   type="button"
@@ -178,17 +174,12 @@
     {:else if error}<p role="status" class="SearchEmptyState">
         Search could not load. Browse the page navigation.
       </p>
-    {:else if !pending && !results.length}<p
-        role="status"
-        class="SearchEmptyState"
-      >
+    {:else if !pending && !results.length}<p role="status" class="SearchEmptyState">
         No results found.
       </p>
     {:else}
       <div aria-busy={pending}>
-        {#if !pending}{#each results as group (group.group)}<section
-              class="SearchGroup"
-            >
+        {#if !pending}{#each results as group (group.group)}<section class="SearchGroup">
               <h2 class="SearchGroupLabel">
                 {normalizeSearchGroup(group.group)}
               </h2>
@@ -199,11 +190,7 @@
                       href={engine?.buildResultUrl(result)}
                       onkeydown={(event) => {
                         if (engine)
-                          handleModifiedEnterNavigation(
-                            event,
-                            result,
-                            engine.buildResultUrl,
-                          );
+                          handleModifiedEnterNavigation(event, result, engine.buildResultUrl);
                       }}
                       onclick={(event) => {
                         if (isUnmodifiedLeftClick(event)) close();

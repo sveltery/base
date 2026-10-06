@@ -30,10 +30,7 @@ export const sitemap: Sitemap = {
             description: doc.description,
             types: typesByPage[doc.slug],
             sections: Object.fromEntries(
-              doc.sections.map((section) => [
-                section.id,
-                { title: section.title },
-              ]),
+              doc.sections.map((section) => [section.id, { title: section.title }]),
             ),
           })),
       },

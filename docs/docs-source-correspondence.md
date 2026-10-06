@@ -5,20 +5,20 @@ Published infrastructure: `@mui/internal-docs-infra@0.12.1-canary.42`.
 The historical first-shell file/hash manifest is `receipts/docs/source-shell-files.json`; full MIT notice
 is retained in `apps/docs/THIRD_PARTY_NOTICES.md`.
 
-| Original selected bodies | Native target and boundary |
-| --- | --- |
-| `app/(docs)/layout.tsx`, `layout.css` | `DocsLayout.svelte`, `layout.css`: identical named container/content/sidebar composition; Kit route metadata replaces Next layout. |
-| Header, SkipNav | `Header.svelte`: native links and Sveltery identity; selected Source dimensions/CSS remain. |
-| SideNav, SideNavItem | `SideNav.svelte`, `SideNavItem.svelte`: current-page nearest-scroll callback, boundary, offset and margin bodies retained; native reactive lifecycle and URL normalization replace React effects. |
-| QuickNav, ScrollArea | `QuickNav.svelte`, `ScrollArea.svelte`: actual accepted library ScrollArea primitives; source wrapper classes/parts retained. |
-| CodeBlock, CopyButton | `CodeBlock.svelte`: DOM-source copying, timeout feedback, Ctrl/Cmd+A selection scope and source Root/Panel/Content composition; clipboard-copy remains actual dependency. |
-| Demo, DemoCodeBlock | `Demo.svelte`, `DemoCodeBlock.svelte`: actual Collapsible primitives, source retained-mounted panel and closed cutoff, before/after collapse viewport preservation; tick replaces React flushSync, native Svelte boundary replaces React ErrorBoundary. |
+| Original selected bodies                                                          | Native target and boundary                                                                                                                                                                                                                                                                             |
+| --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `app/(docs)/layout.tsx`, `layout.css`                                             | `DocsLayout.svelte`, `layout.css`: identical named container/content/sidebar composition; Kit route metadata replaces Next layout.                                                                                                                                                                     |
+| Header, SkipNav                                                                   | `Header.svelte`: native links and Sveltery identity; selected Source dimensions/CSS remain.                                                                                                                                                                                                            |
+| SideNav, SideNavItem                                                              | `SideNav.svelte`, `SideNavItem.svelte`: current-page nearest-scroll callback, boundary, offset and margin bodies retained; native reactive lifecycle and URL normalization replace React effects.                                                                                                      |
+| QuickNav, ScrollArea                                                              | `QuickNav.svelte`, `ScrollArea.svelte`: actual accepted library ScrollArea primitives; source wrapper classes/parts retained.                                                                                                                                                                          |
+| CodeBlock, CopyButton                                                             | `CodeBlock.svelte`: DOM-source copying, timeout feedback, Ctrl/Cmd+A selection scope and source Root/Panel/Content composition; clipboard-copy remains actual dependency.                                                                                                                              |
+| Demo, DemoCodeBlock                                                               | `Demo.svelte`, `DemoCodeBlock.svelte`: actual Collapsible primitives, source retained-mounted panel and closed cutoff, before/after collapse viewport preservation; tick replaces React flushSync, native Svelte boundary replaces React ErrorBoundary.                                                |
 | ReferenceAccordion, Accordion, DescriptionList, TableCode, observeScrollableInner | `ReferenceTable.svelte`, `ReferenceItem.svelte`, `observeScrollableInner.ts`: native details/summary, hash opening, selection/double-mousedown guard, source description wrapper/overscroll gradient and ResizeObserver/RAF lifecycle. Actual local declaration data replaces React useTypes metadata. |
-| Subtitle, ViewSourceLink, MDX headings | `DocsPage.svelte`: native markup and canonical authored IDs/prose; component-only source-directory mapping targets actual Sveltery main directories. No invented Markdown twins. |
-| `useSearch.mjs` schema/flatten/format/index/search/ranking/buildResultUrl | `search/engine.ts`: published pure bodies retained; React hook ownership becomes initialized service. Actual schema, sitemap, result variants, callbacks and Orama options are typed in the maintained implementation. The frozen untyped checkpoint is retained in Git and historical receipts. |
-| useDeferredSearchSitemap | `search/loader.ts`, NativeSearch warmup: lazy cached import, failed promise reset, next activation retries failed engine initialization. |
-| SearchControls/SearchDialog/MobileNav | `NativeSearch.svelte`: source query/loading ownership, pending suppression and IME guard exposed through bounded native dialog/input/list. This is interim; Autocomplete keyboard selection, Drawer gestures, detached handle and Tooltip business remain absent. |
-| docs CSS/token/reset/helper closure | `css`, `components/*.css`, `styles.css`: Original CSS bodies; aliases become relative imports, Tailwind/PostCSS expands Original retained theme/utilities/custom media. Original React-demo scan removed; native adapters explicitly isolated in styles.css. |
+| Subtitle, ViewSourceLink, MDX headings                                            | `DocsPage.svelte`: native markup and canonical authored IDs/prose; component-only source-directory mapping targets actual Sveltery main directories. No invented Markdown twins.                                                                                                                       |
+| `useSearch.mjs` schema/flatten/format/index/search/ranking/buildResultUrl         | `search/engine.ts`: published pure bodies retained; React hook ownership becomes initialized service. Actual schema, sitemap, result variants, callbacks and Orama options are typed in the maintained implementation. The frozen untyped checkpoint is retained in Git and historical receipts.       |
+| useDeferredSearchSitemap                                                          | `search/loader.ts`, NativeSearch warmup: lazy cached import, failed promise reset, next activation retries failed engine initialization.                                                                                                                                                               |
+| SearchControls/SearchDialog/MobileNav                                             | `NativeSearch.svelte`: source query/loading ownership, pending suppression and IME guard exposed through bounded native dialog/input/list. This is interim; Autocomplete keyboard selection, Drawer gestures, detached handle and Tooltip business remain absent.                                      |
+| docs CSS/token/reset/helper closure                                               | `css`, `components/*.css`, `styles.css`: Original CSS bodies; aliases become relative imports, Tailwind/PostCSS expands Original retained theme/utilities/custom media. Original React-demo scan removed; native adapters explicitly isolated in styles.css.                                           |
 
 The first shell does **not** accept SourceFull search widget fidelity, code syntax
 parser/gutters, modifier-Enter navigation, API formatter/type metadata, Markdown
@@ -185,16 +185,16 @@ was not reproduced by the exact checker and is recorded as corrected. These
 checks support this selected source audit; final independent closure review is
 still required.
 
-| Maintained typed owner | Actual types and preserved boundary |
-| --- | --- |
-| `highlight/types.ts` | HAST node/element/root types derive from Starry Night's supplied HAST API; recursive frame fallbacks, line/frame metadata, parser function, grammar singleton and Source frame-kind/truncation unions remain explicit. Starry Night 3.10.0 and its installed `@types/hast` 3.0.5 declare MIT. All these imports erase before runtime. |
-| `parseSource.ts`, `grammarCache.ts` | Typed shared global property, instance creation promise, grammar arrays, registration task/mutex and readiness slice. The facade still has only a dynamic runtime parser import; the engine remains deferred. |
-| `grammarMaps.ts`, `grammarLoaders.ts`, `grammars.ts`, `languageCapabilities.ts` | Unknown map keys return `undefined`; supplied `Grammar` types describe real dynamic/static payloads; Source language capability branches stay unchanged. JSON payload stays absent and unsupported; Svelte grammar and local Vite WASM remain unchanged. |
-| `plainText.ts`, `addLineGutters.ts`, `createFrame.ts`, `isFrameSpan.ts`, `getHastTextContent.ts` | Actual HAST trees, frame/line metadata, class arrays, recursive/shallow text and native parser result APIs. One documented cast acknowledges generic HAST Root can contain a document doctype while this real highlighting/plain-text pipeline emits only element/text children for line spans. |
-| `extendSyntaxTokens.ts` | Every helper parameter/return is typed, including the discriminated string/expression template stack, brace depth, children/target arrays and span mutation. All scanning, enhancement and structural branches remain Source bodies. |
-| `search/engine.ts`, `search/types.ts`, `sitemap.ts`, `searchUtils.ts` | Real sitemap/page/section/API shapes, discriminated page/part/export/section/subsection results, literal Orama schema, supplied `Result`/`Orama`/search options, grouped elapsed/count state, flatten/format/slug callbacks and cache fields. The dummy document still omits `types`; actual declaration metadata still provides it. Source boosts/ranking/grouping/URLs and native lifecycle are unchanged. |
-| `CodeContent.svelte`, `NativeSearch.svelte` | Native snippets/rendering/effect cleanup and dialog/query/timer/focus ownership stay unchanged. Import paths select the typed source; shared real result types replace the earlier partial inline result shape. |
-| `test/highlight.test.ts`, `test/search.test.ts` | Node 24 native type erasure runs actual typed source, actual Starry Night filesystem WASM and actual Orama/QPS. A narrow docs-relative `.js` to `.ts` resolver preserves canonical bundler import spelling. The source WASM URL packaging hook is unchanged; all four tests and their behavior assertions remain, with an additional real frame/fallback existence assertion. |
+| Maintained typed owner                                                                           | Actual types and preserved boundary                                                                                                                                                                                                                                                                                                                                                                          |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `highlight/types.ts`                                                                             | HAST node/element/root types derive from Starry Night's supplied HAST API; recursive frame fallbacks, line/frame metadata, parser function, grammar singleton and Source frame-kind/truncation unions remain explicit. Starry Night 3.10.0 and its installed `@types/hast` 3.0.5 declare MIT. All these imports erase before runtime.                                                                        |
+| `parseSource.ts`, `grammarCache.ts`                                                              | Typed shared global property, instance creation promise, grammar arrays, registration task/mutex and readiness slice. The facade still has only a dynamic runtime parser import; the engine remains deferred.                                                                                                                                                                                                |
+| `grammarMaps.ts`, `grammarLoaders.ts`, `grammars.ts`, `languageCapabilities.ts`                  | Unknown map keys return `undefined`; supplied `Grammar` types describe real dynamic/static payloads; Source language capability branches stay unchanged. JSON payload stays absent and unsupported; Svelte grammar and local Vite WASM remain unchanged.                                                                                                                                                     |
+| `plainText.ts`, `addLineGutters.ts`, `createFrame.ts`, `isFrameSpan.ts`, `getHastTextContent.ts` | Actual HAST trees, frame/line metadata, class arrays, recursive/shallow text and native parser result APIs. One documented cast acknowledges generic HAST Root can contain a document doctype while this real highlighting/plain-text pipeline emits only element/text children for line spans.                                                                                                              |
+| `extendSyntaxTokens.ts`                                                                          | Every helper parameter/return is typed, including the discriminated string/expression template stack, brace depth, children/target arrays and span mutation. All scanning, enhancement and structural branches remain Source bodies.                                                                                                                                                                         |
+| `search/engine.ts`, `search/types.ts`, `sitemap.ts`, `searchUtils.ts`                            | Real sitemap/page/section/API shapes, discriminated page/part/export/section/subsection results, literal Orama schema, supplied `Result`/`Orama`/search options, grouped elapsed/count state, flatten/format/slug callbacks and cache fields. The dummy document still omits `types`; actual declaration metadata still provides it. Source boosts/ranking/grouping/URLs and native lifecycle are unchanged. |
+| `CodeContent.svelte`, `NativeSearch.svelte`                                                      | Native snippets/rendering/effect cleanup and dialog/query/timer/focus ownership stay unchanged. Import paths select the typed source; shared real result types replace the earlier partial inline result shape.                                                                                                                                                                                              |
+| `test/highlight.test.ts`, `test/search.test.ts`                                                  | Node 24 native type erasure runs actual typed source, actual Starry Night filesystem WASM and actual Orama/QPS. A narrow docs-relative `.js` to `.ts` resolver preserves canonical bundler import spelling. The source WASM URL packaging hook is unchanged; all four tests and their behavior assertions remain, with an additional real frame/fallback existence assertion.                                |
 
 There are no maintained `.js`/`.mjs` files in `apps/docs/src`, `apps/docs/test` or
 the docs app configuration. The evidence checker remains portable `.mjs`, like
@@ -239,3 +239,109 @@ availability checks. Both Root and the docs developer found its terminal session
 unavailable, so its cause is undiagnosed. The authorized live development service
 was restored at port5178 (session52036, PID1168484) and returns HTTP200. That
 availability observation is separate from browser interaction acceptance.
+
+## Current native-main integration
+
+The preceding sections are historical checkpoints at their named heads; their
+execution counts and pending dispositions are retained. The current successor
+normally integrates actual main `aa4daff54ec82b96e34e1601648d1b3926ef08cf`.
+No shared library business owner is edited. Current public native snippets,
+CSS-string style types and package tooling replace the retired UseRender API;
+the authored native-rendering page survives and UseRender is removed from the
+current navigation. There are now 18 authored documentation pages.
+
+DemoCodeBlock retains the exact pinned threshold, Root/Viewport/Panel composition,
+keepMounted/hidden=false, two-axis scrollbar branches and Trigger ownership.
+The Original closed branch removes merged overflow through a native Viewport
+render snippet and ordinary `style:overflow`, with supplied attachments spread
+onto the actual div. Closed markup removes overflow; open markup uses the shared
+Viewport's scroll value. This is a native style substitution, not an object-style
+adapter, snapshot/replay engine or new unchanged assertion credit.
+
+Exact pinned Demo.tsx captures the trigger before its layout commit. The predecessor
+native close callback instead reread the bindable ref after tick, allowing native
+same-click teardown to clear it. The successor captures the same host before tick
+and retains the Source before/after measurement, delta and offscreen scroll branch.
+The exact-function synthetic ownership reproduction and actual mounted native
+regression retain their red receipts beside the green successor. The mounted test
+also asserts two measurements of that actual captured host after its Demo unmounts.
+This is a fidelity repair; the tick/lifecycle representation remains native and all
+supplements earn zero unchanged upstream assertion credit.
+
+The [current import/hash graph](receipts/docs/current-source-closure.json) records
+actual local source owners, runtime/type-only edges and external boundaries,
+including the used canonical Dialog, ScrollArea, Collapsible, Floating and Utils
+owners outside this PR's diff. Historical module counts and retired renderer paths
+are not current closure counts. The published parser/helper authority remains the
+exact `@mui/internal-docs-infra@0.12.1-canary.42` archive; 12 typed runtime bodies
+remain unchanged after type erasure; the engine matches one precise, whole-file
+expected class-ownership transform of the frozen Source-derived body.
+Formatter-only changes are required by main's standards. The predecessor manifest
+is archived; the current checker updates actual hashes without changing Original
+source hashes or algorithm comparison. Its emitted canonical JSON is checked by
+the generator, rather than reformatted by Prettier.
+
+The dedicated HTTP browser witness now also checks server-rendered Demo host reuse
+through hydration, actual installed-export Dialog interaction and the closed/open
+native overflow branch. Browser installation in this host failed with a truncated
+official Chromium archive. No sandbox was disabled; local browser gates remain
+unexecuted and require secured hosted evidence. Static/type/DOM checks do not grant
+browser acceptance. Final source review, consumers and hosted exact-head CI remain
+separate gates; their actual disposition belongs in the final PR handoff.
+
+SourceFull Autocomplete selection, Drawer gestures, Tooltip/detached handle, full
+API formatter, code emphasis/focus/variants, JSON grammar and exact licensed visual
+fidelity remain incomplete. No deployment, publishing, release or project Page edit
+is part of this successor.
+
+SearchEngine is now the actual reusable class owner required by current repository
+native guidance. Instance fields own the existing index/defaultResults/results and
+ready promise; bound search/buildResultUrl callbacks retain the original complete
+option, creation, dummy document, flattening, insertion, ranking, grouping and URL
+bodies. NativeSearch constructs this owner lazily and preserves failed-owner retry,
+query identity, pending suppression and native timer/teardown cancellation. No React
+state/lifecycle model or duplicate algorithm was added. The full previous source,
+callers, checker and 13/13 manifest are preserved in
+[search-class-predecessor.json](receipts/docs/search-class-predecessor.json).
+The maintained audit verifies the exact frozen engine hash before applying an
+explicit, occurrence-counted class substitution, then compares complete erased
+ASTs. It never generally ignores class, initialization, fields or method bodies.
+Separate constructor/default-state/ranking mutation probes are rejected; this
+structural evidence earns zero unchanged upstream assertion credit for the native
+owner substitution and does not replace independent review or runtime gates.
+
+The lead's strict declaration gate exposed inherited skipLibCheck bypasses in the
+docs app, Collapsible installed consumer and private useClick installed diagnostic.
+Those scoped configurations now explicitly check declarations; meaningful native
+negative type assertions remain enabled. New strict diagnostics are preserved
+rather than waived. Actual graph reach includes useButton through Dialog.Trigger
+and Close, and useTransitionStatus through Dialog.Popup/popups; these canonical
+owners remain separate dependencies. The graph does not reach useFieldValidation
+or Field, and this PR does not duplicate that owner's bodies.
+
+Current main still represents the reached reusable useButton/useTransitionStatus
+owners as stateful factories. The separately assigned canonical Button/Transition
+owner must close that representation dependency; this docs PR does not duplicate
+their bodies. Scoped docs fidelity clearance does not imply entire-closure native
+maintainability acceptance while that dependency remains outstanding.
+
+The historical sitemap red log remains at its original
+[source-sitemap-gap-reproduction.log](receipts/docs/source-sitemap-gap-reproduction.log)
+path with all 7,844 bytes unchanged. Its
+[additive gzip copy](receipts/docs/source-sitemap-gap-reproduction.log.gz) decompresses
+to identical bytes; [hashes and immutable Git blob provenance](receipts/docs/source-sitemap-gap-retained-bytes.json)
+verify both. An exact-path `whitespace=-blank-at-eol` attribute preserves the
+historical line 3 terminal spaces; all other whitespace checks remain enabled.
+This receipt disposition changes no Source, runtime, CI or parity claim.
+Hosted docs install and launch now share explicit PLAYWRIGHT_BROWSERS_PATH under
+runner.temp, independent of toolchain XDG_CACHE_HOME; the official browser, sandbox,
+one worker and zero retries are retained. This harness correction grants zero
+executed browser assertions until the final-head hosted run reports them.
+
+The actual import graph also reaches `internals/nativeProps.ts`. The lead's
+measured public `style:''` transport defect is owned solely by PR73: bare Svelte
+spread retains the empty style attribute, while the current helper drops it.
+This is a reached acceptance dependency, not a docs per-part workaround. The
+docs candidate leaves the helper untouched and must integrate accepted main
+normally before final entire-closure review and CI. No React empty-style
+emulation or native-default acceptance is inferred from the candidate checks.

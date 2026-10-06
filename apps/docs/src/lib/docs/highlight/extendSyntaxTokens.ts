@@ -1,12 +1,7 @@
 // Published @mui/internal-docs-infra 0.12.1-canary.42 pipeline; MIT, copyright 2019 Material-UI SAS.
 import { getShallowTextContent } from './getHastTextContent.js';
 import { getLanguageCapabilitiesFromScope } from './languageCapabilities.js';
-import type {
-  HastRoot,
-  HastNode,
-  HastElement,
-  HastElementContent,
-} from './types.js';
+import type { HastRoot, HastNode, HastElement, HastElementContent } from './types.js';
 
 /**
  * Classes that can represent CSS attribute selector names inside `[...]`.
@@ -93,11 +88,7 @@ function addClass(element: HastElement, cls: string): void {
 /**
  * Replaces one CSS class with another in an element's className array.
  */
-function replaceClass(
-  element: HastElement,
-  oldCls: string,
-  newCls: string,
-): void {
+function replaceClass(element: HastElement, oldCls: string, newCls: string): void {
   const className = element.properties?.className;
   if (Array.isArray(className)) {
     const idx = className.indexOf(oldCls);
@@ -122,11 +113,7 @@ function replaceClass(
  * TS family only (`isTs`):
  * - Built-in type keywords (`string`, `number`, etc.) → `di-bt`
  */
-function enhanceConstantSpan(
-  element: HastElement,
-  isJs: boolean,
-  isTs: boolean,
-): void {
+function enhanceConstantSpan(element: HastElement, isJs: boolean, isTs: boolean): void {
   const text = getShallowTextContent(element);
   if (!text) {
     return;
@@ -211,20 +198,14 @@ function isSymbolicPunctuation(text: string): boolean {
  * `:` not part of `::`. The leading-context check avoids tagging ternary/label
  * patterns; the trailing check avoids `::` (TypeScript namespace, pseudo-elements).
  */
-function splitObjectKeys(
-  value: string,
-  inJsx: boolean,
-): HastElementContent[] | null {
+function splitObjectKeys(value: string, inJsx: boolean): HastElementContent[] | null {
   const nodes: HastElementContent[] = [];
   let lastEnd = 0;
   let i = 0;
   while (i < value.length) {
     const code = value.charCodeAt(i);
     const isIdentStart =
-      (code >= 65 && code <= 90) ||
-      (code >= 97 && code <= 122) ||
-      code === 95 ||
-      code === 36;
+      (code >= 65 && code <= 90) || (code >= 97 && code <= 122) || code === 95 || code === 36;
     if (!isIdentStart) {
       i += 1;
       continue;
@@ -687,10 +668,7 @@ function enhanceChildren(
       // below, which only fires in attribute context (htmlInsideTag) — the two paths don't conflict.
       // Children expressions (e.g. `<Comp>{children}</Comp>`) are excluded by the htmlInsideTag check.
       if (isJs) {
-        const split = splitObjectKeys(
-          value,
-          isJsx && jsxExpressionDepth > 0 && htmlInsideTag,
-        );
+        const split = splitObjectKeys(value, isJsx && jsxExpressionDepth > 0 && htmlInsideTag);
         if (split) {
           children.splice(index, 1, ...split);
           index += split.length - 1;
@@ -744,8 +722,7 @@ function enhanceChildren(
           }
           children.splice(index, 1, ...newNodes);
           index += newNodes.length - 1;
-          hasSpanSinceLastText =
-            newNodes[newNodes.length - 1].type === 'element';
+          hasSpanSinceLastText = newNodes[newNodes.length - 1].type === 'element';
         }
       }
       continue;
@@ -765,8 +742,7 @@ function enhanceChildren(
     // backtick. Handled here, before the generic recursion, so the expression
     // tokens are enhanced inside their regions and the outer `pl-s` is skipped.
     if (isJs && child.tagName === 'span' && getFirstClass(child) === 'pl-s') {
-      const opensRun =
-        templateRun === null && isBacktickDelimiter(child.children[0]);
+      const opensRun = templateRun === null && isBacktickDelimiter(child.children[0]);
       if (templateRun !== null || opensRun) {
         templateRun = restructureTemplateLine(
           child,
@@ -783,14 +759,7 @@ function enhanceChildren(
         // each region; nested regions are reached by the recursion.
         for (const region of child.children) {
           if (region.type === 'element' && getFirstClass(region) === 'di-te') {
-            enhanceChildren(
-              region.children,
-              isCss,
-              isHtmlJsx,
-              isJs,
-              isTs,
-              isJsx,
-            );
+            enhanceChildren(region.children, isCss, isHtmlJsx, isJs, isTs, isJsx);
           }
         }
         hasSpanSinceLastText = true;
@@ -869,11 +838,7 @@ function enhanceChildren(
     // ── CSS-specific enhancements ──
     if (isCss) {
       // CSS attribute selector name: span preceded by text ending with [
-      if (
-        firstClass &&
-        CSS_ATTR_SELECTOR_CLASSES.has(firstClass) &&
-        index > 0
-      ) {
+      if (firstClass && CSS_ATTR_SELECTOR_CLASSES.has(firstClass) && index > 0) {
         const prev = children[index - 1];
         if (prev.type === 'text' && prev.value.endsWith('[')) {
           addClass(child, 'di-da');
@@ -894,11 +859,7 @@ function enhanceChildren(
       }
 
       // Attribute equals: pl-k span containing =
-      if (
-        firstClass === 'pl-k' &&
-        getShallowTextContent(child) === '=' &&
-        hadPrecedingSpan
-      ) {
+      if (firstClass === 'pl-k' && getShallowTextContent(child) === '=' && hadPrecedingSpan) {
         addClass(child, 'di-ae');
         const nextChild = children[index + 1];
         if (

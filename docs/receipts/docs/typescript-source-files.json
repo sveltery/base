@@ -5,6 +5,9 @@
   "node": "v24.19.0",
   "method": "TypeScript transpileModule ESNext erasure; normalize import .mjs to .js, parenthesized expressions and shorthand assignments; compare runtime AST node kinds, literal/identifier text, template raw spelling, const/let/var flags, unary operators and ordered child structures",
   "runtimeModules": 13,
+  "unchangedRuntimeModules": 12,
+  "exactOwnershipTransformModules": 1,
+  "limitations": "Structural AST evidence only; engine ownership substitution earns zero unchanged upstream assertion credit. Existing type-erasure normalization and recorded AST sensitivity limits remain; no class/field/body normalization is added. Historical 13/13 proof and source bodies are archived in search-class-predecessor.json.",
   "maintainedHighlightFiles": [
     "addLineGutters.ts",
     "createFrame.ts",
@@ -27,8 +30,9 @@
       "original": "pipeline/parseSource/addLineGutters.mjs",
       "originalSha256": "7ccc85db82551548e00362548d8f33a10630aa43a274da1eddaf068ef85ac4f0",
       "baselineSha256": "3e78e9d770ea785a28879edc956b8bfd74d8b6d42ac894ddda909d8ad4ff6e15",
-      "targetSha256": "53287cf1a89978928dda62c5315498b0afdaa3eeef7310a8fdc319a4bc757ed8",
+      "targetSha256": "ceb6ec7a2b78040ae9e63018fbabde9cdd4d1a6b902084c3e38eae0404504545",
       "normalizedRuntimeSha256": "7840c1b62ab2bce8322dcb123be395595cfb96d745e71011df997a228cfa964d",
+      "normalizedBaselineRuntimeSha256": "7840c1b62ab2bce8322dcb123be395595cfb96d745e71011df997a228cfa964d",
       "normalizedRuntimeMatchesBaseline": true,
       "imports": {
         "runtime": [
@@ -46,8 +50,9 @@
       "original": "pipeline/parseSource/createFrame.mjs",
       "originalSha256": "5a66313cc53da8ea996b92c4ae1f9b3b8effc9458b58838129c6cc9598c3b5be",
       "baselineSha256": "3812dadacf0ed9f9620716e5ca38d2b98cbe87db631a797a52e621261137ea29",
-      "targetSha256": "ed5c6272b32dd445c7d2b3b966c249853f9664bfe2072a7a87aaf62c195a8264",
+      "targetSha256": "edc4e8ea23d761e8c17cf98b71fae5b51981684fb41889c4d3c492613283b81d",
       "normalizedRuntimeSha256": "c2b22732a2a89ab684a28fc6ef7c43828e33512af029c2b77ac71b195193ecd5",
+      "normalizedBaselineRuntimeSha256": "c2b22732a2a89ab684a28fc6ef7c43828e33512af029c2b77ac71b195193ecd5",
       "normalizedRuntimeMatchesBaseline": true,
       "imports": {
         "runtime": [],
@@ -62,8 +67,9 @@
       "original": "pipeline/parseSource/extendSyntaxTokens.mjs",
       "originalSha256": "ef88d23559515e7f2695a444455d00132d4f71af75ccd47a740f22cd57782372",
       "baselineSha256": "03cbfe2446f374d44d8e3d9fe1ae59b397bbc15d6ce571471fb2cab92e838882",
-      "targetSha256": "63036c801f368aff46dc7cc2d9c3a06ace73104b492555e605ce1048e5b42d65",
+      "targetSha256": "806a9c15b084d989acbedaafbcd025b37fcb474280c48c590fe0af0acb5b1679",
       "normalizedRuntimeSha256": "e9643656709111abaf99c66dbe3516b6ef5630a2431d16678841721e090a7352",
+      "normalizedBaselineRuntimeSha256": "e9643656709111abaf99c66dbe3516b6ef5630a2431d16678841721e090a7352",
       "normalizedRuntimeMatchesBaseline": true,
       "imports": {
         "runtime": [
@@ -83,6 +89,7 @@
       "baselineSha256": "22c12dfe729deb27c9884540f1eb2302ad3cd12a98cef1bb09d7ad912b87dbd9",
       "targetSha256": "8dafc0d4886acef0ffeebfdf5b748923e2d032ed1ffeb8881616fa774a2f1b8a",
       "normalizedRuntimeSha256": "f1cee05d8fe6d70eb829130c05e75258282e3cc910100e7b2bf711abaa4aa55a",
+      "normalizedBaselineRuntimeSha256": "f1cee05d8fe6d70eb829130c05e75258282e3cc910100e7b2bf711abaa4aa55a",
       "normalizedRuntimeMatchesBaseline": true,
       "imports": {
         "runtime": [],
@@ -99,6 +106,7 @@
       "baselineSha256": "7aa9dadecfff484fb193391a1c743d101d11a8e0e54bd3769d715faf175cf82f",
       "targetSha256": "89d60df698150c8e88b7f28f1ea91c775758fa49cb80218291e03cd5dfa96429",
       "normalizedRuntimeSha256": "5ce8340110e0cca3b55bafd60cb4c8538c2abb3d0da9bbf896ee2952cf46763c",
+      "normalizedBaselineRuntimeSha256": "5ce8340110e0cca3b55bafd60cb4c8538c2abb3d0da9bbf896ee2952cf46763c",
       "normalizedRuntimeMatchesBaseline": true,
       "imports": {
         "runtime": [
@@ -116,8 +124,9 @@
       "original": "pipeline/parseSource/grammarLoaders.mjs",
       "originalSha256": "c7ed2cda7a9ae95cd3a02a074018f2ab1644aad60b86ba3923b75a2216b6a8bf",
       "baselineSha256": "56f8a0831b7648007c4ed75e5bbeaccd5c2da07f681e1e6960eea56639c926d9",
-      "targetSha256": "87cd07948092a7d41d41097e6add3feb248e4712b5291bfe6a48f9b1a812e84b",
+      "targetSha256": "77960a72863d8289ec1949c6a9148785bc79934ae985f095ecd3e28961dee227",
       "normalizedRuntimeSha256": "c2e734fc6e0352386e8102bf2b69784817aa9494ec1af6e582d82e59e6acedcc",
+      "normalizedBaselineRuntimeSha256": "c2e734fc6e0352386e8102bf2b69784817aa9494ec1af6e582d82e59e6acedcc",
       "normalizedRuntimeMatchesBaseline": true,
       "imports": {
         "runtime": [
@@ -143,8 +152,9 @@
       "original": "pipeline/parseSource/grammarMaps.mjs",
       "originalSha256": "760efbccb6c87f64b0cf05f347c90b14657681f1cdb5784f86fbeea2addffeb1",
       "baselineSha256": "dffc2154a0a68865d469e2785b474bd076ddfebdefb3777353ee45aa29c43bbe",
-      "targetSha256": "24b8b8db3eb3cbda9e7889bdd37936a70dee4adad1b9843365aa34a85ffd7053",
+      "targetSha256": "a809afe4ab4bba8ba3fa3d38c421aa41399e25f491493c1feedc5c4e0f3fb91e",
       "normalizedRuntimeSha256": "18c204bfb3163ac0364583d85acc3d7b1beecc36d08b63835d7d5827ea46c23f",
+      "normalizedBaselineRuntimeSha256": "18c204bfb3163ac0364583d85acc3d7b1beecc36d08b63835d7d5827ea46c23f",
       "normalizedRuntimeMatchesBaseline": true,
       "imports": {
         "runtime": [],
@@ -159,6 +169,7 @@
       "baselineSha256": "d215ccc1993213e6b0292f7939d46ed9515a916d254d25608ed3ea3783a90d1e",
       "targetSha256": "7c80579e96a5b8666edf289a416a63830b0638fdced537b77d79e994606b5827",
       "normalizedRuntimeSha256": "f0362d49b256a828d3a8c2b30415afba8d16faae8de7f2f6f5590646987853b5",
+      "normalizedBaselineRuntimeSha256": "f0362d49b256a828d3a8c2b30415afba8d16faae8de7f2f6f5590646987853b5",
       "normalizedRuntimeMatchesBaseline": true,
       "imports": {
         "runtime": [
@@ -186,6 +197,7 @@
       "baselineSha256": "02b8a3481cc2ac6082923ffd57699eaf09f570469368763aa0f131f6bfe1ef0a",
       "targetSha256": "7620290e90920796cd45cc32e84f84fe428ac906da4628c325d2c18dd5f9e48b",
       "normalizedRuntimeSha256": "7b12efb54bfc63c4757072cd24a32f67fb5be2d0148652b4449ee1edce1afe8a",
+      "normalizedBaselineRuntimeSha256": "7b12efb54bfc63c4757072cd24a32f67fb5be2d0148652b4449ee1edce1afe8a",
       "normalizedRuntimeMatchesBaseline": true,
       "imports": {
         "runtime": [],
@@ -200,8 +212,9 @@
       "original": "pipeline/parseSource/languageCapabilities.mjs",
       "originalSha256": "87a47bc0fac36e8835e3c5df0a1c9b0e9b6465afd4f1edd6f837fc93199b972c",
       "baselineSha256": "72342e8494c498cdd47cc67feddcab45362960182ee41fde5cfd42f2c09a68d0",
-      "targetSha256": "b3274dbe7e03d9c63f22414a003a93d1d55e1af92eff79ee48beff36d530e7ed",
+      "targetSha256": "80321f211220eac6147052658f9855f50325fc1bfadc0daaa169a0477651a595",
       "normalizedRuntimeSha256": "978f7425cb71f6aa9a53ff1e2c0d28c30a7ca67d7600f557a144042dddfd8d59",
+      "normalizedBaselineRuntimeSha256": "978f7425cb71f6aa9a53ff1e2c0d28c30a7ca67d7600f557a144042dddfd8d59",
       "normalizedRuntimeMatchesBaseline": true,
       "imports": {
         "runtime": [],
@@ -214,8 +227,9 @@
       "original": "pipeline/parseSource/parseSource.mjs",
       "originalSha256": "0dca83e7058428ae752afae2abd33077a9d8af9ca02759f1991ad009f9c2cb54",
       "baselineSha256": "ea60441b0169dfd24635d5c1d1a889cb2430bed1601e2429a9e8fb5060412cc7",
-      "targetSha256": "c544535528ae105a53c2498569ce3b5e0a4be2e5df5e7e0f76b12b18a5d7f48f",
+      "targetSha256": "b385363e2ecc9557ff3eef94fc6647ed07e1c24d5aa2db9a11bd9dd711982495",
       "normalizedRuntimeSha256": "9d6066e60e78ee067266713a60f1031847228bf9798aea83be5954c33e026d77",
+      "normalizedBaselineRuntimeSha256": "9d6066e60e78ee067266713a60f1031847228bf9798aea83be5954c33e026d77",
       "normalizedRuntimeMatchesBaseline": true,
       "imports": {
         "runtime": [
@@ -241,8 +255,9 @@
       "original": "parseSource/parseSource.mjs createPlainTextRoot extracted unchanged",
       "originalSha256": "0dca83e7058428ae752afae2abd33077a9d8af9ca02759f1991ad009f9c2cb54",
       "baselineSha256": "69e5563af99497c04edd0f00c8815490e6cc9935bc05d93aa5888b2f08f99106",
-      "targetSha256": "ba46c39c6c74a662b9f7745b106bfdfc602120cb134f0ec3c848134b73ac51f2",
+      "targetSha256": "7f0259975e9f45ed8999478d72bc3a9c6f3cf1fa968e5f81e5d9fc04da6bd7b5",
       "normalizedRuntimeSha256": "113a4126d7b2861faa3a9c302dfc5cd8d40d5b31c061d6b46a31c39feb62cbc3",
+      "normalizedBaselineRuntimeSha256": "113a4126d7b2861faa3a9c302dfc5cd8d40d5b31c061d6b46a31c39feb62cbc3",
       "normalizedRuntimeMatchesBaseline": true,
       "imports": {
         "runtime": [
@@ -259,9 +274,13 @@
       "original": "useSearch/useSearch.mjs",
       "originalSha256": "342a13b974150122216ed5c85ccdfe86bdc7bda5eaf10774473886eadf4dd84d",
       "baselineSha256": "aeb992e4e8c791abf9632d56c6d890627602d16c20007c6300555178bdb62d21",
-      "targetSha256": "686ce280a51bfcb2896ef07d061586154a096df86de0ead0eb54d7eb87823d63",
-      "normalizedRuntimeSha256": "04dc21927ebca8aac1a799a60f78569475361746d8f559ab2bbf667070be01f3",
-      "normalizedRuntimeMatchesBaseline": true,
+      "targetSha256": "c8ea005d48b4a5b26bb84ff6d3801c794ece995c955e7ba782957af7dfa5d516",
+      "normalizedRuntimeSha256": "dd4ca283ee6ec1373645a7d0d75f2edb1f92da41de866d3dbe2e3bcf226d733f",
+      "normalizedBaselineRuntimeSha256": "04dc21927ebca8aac1a799a60f78569475361746d8f559ab2bbf667070be01f3",
+      "normalizedRuntimeMatchesBaseline": false,
+      "ownershipTransform": "exact frozen createSearchEngine closure to SearchEngine constructor with instance index/defaultResults/results/ready/search/buildResultUrl; direct assignments replace local setter transport; isReady getter remains live",
+      "expectedOwnershipRuntimeSha256": "dd4ca283ee6ec1373645a7d0d75f2edb1f92da41de866d3dbe2e3bcf226d733f",
+      "normalizedRuntimeMatchesExpectedOwnershipTransform": true,
       "imports": {
         "runtime": [
           "@orama/orama",
@@ -279,7 +298,7 @@
   "sourceClosure": [
     {
       "target": "apps/docs/src/lib/docs/highlight/types.ts",
-      "targetSha256": "348de5d238f34642acdbee574d04a842df176b0ebcd73b5f9fbe385481b5540b",
+      "targetSha256": "9b7e0339bc5f8b0679cc37f22e45a443aca776b259c40385a6ed3efc46b0bfc6",
       "imports": {
         "runtime": [],
         "typeOnly": [
@@ -289,7 +308,7 @@
     },
     {
       "target": "apps/docs/src/lib/docs/search/types.ts",
-      "targetSha256": "f4fa5d6fa835b01851489f147e38b59c89f55a24e57bfcfb5aad333d0110d887",
+      "targetSha256": "af528935a8690e60a2d0d539d77048a33248ebbb21939b718bff6d2705a2d45f",
       "imports": {
         "runtime": [],
         "typeOnly": [
@@ -300,7 +319,7 @@
     },
     {
       "target": "apps/docs/src/lib/docs/search/sitemap.ts",
-      "targetSha256": "d4b136017e1b02688fc4f2455723ca7dd08820401981407f905289b34927afe6",
+      "targetSha256": "3b8432a19b2e22bfea34245aa3eacbde40e7930b6a30bd31ef00602fda126d7f",
       "imports": {
         "runtime": [
           "../../../../../fixtures/src/lib/docs/content.js",
@@ -314,7 +333,7 @@
     },
     {
       "target": "apps/docs/src/lib/docs/search/searchUtils.ts",
-      "targetSha256": "ab749283bb6808c3e4183f61c1990f16b79418fcbede36aaaa88afaed5528d33",
+      "targetSha256": "b853f04814c4fb665ed27b5839080c68de5a28d29a8e4979401933cea14f93f1",
       "imports": {
         "runtime": [],
         "typeOnly": [
@@ -325,7 +344,7 @@
     },
     {
       "target": "apps/docs/src/lib/docs/search/loader.ts",
-      "targetSha256": "e8cbbb7546ea061d2f3f383b678b1e73cd40f81f38cb0f0b91da43d29797a380",
+      "targetSha256": "d568f9815df9a64b44ecb83c3eccae8c1c2a98ea0d6a0a8aba363616494ae295",
       "imports": {
         "runtime": [
           "./sitemap.js"
@@ -335,7 +354,7 @@
     },
     {
       "target": "apps/docs/src/lib/docs/CodeContent.svelte",
-      "targetSha256": "1264d5c65c69bf036aad34691415afea2168b5a1118553bdc3ed78042787b50a",
+      "targetSha256": "415ed46718781855522871c0955ba6a545a688cf9e6c9064956cfbea528e1d75",
       "imports": {
         "runtime": [
           "./highlight/plainText.js",
@@ -350,7 +369,7 @@
     },
     {
       "target": "apps/docs/src/lib/docs/NativeSearch.svelte",
-      "targetSha256": "9666656432105ec6644596b2838a88003194539790d8d2f7d70cc3f1ea1f9ce9",
+      "targetSha256": "4c70d35b4c809f17ceba1f4e4f03009bf0d87b7515ad3c5d19690bddd3ae91d3",
       "imports": {
         "runtime": [
           "svelte",
@@ -368,7 +387,7 @@
     },
     {
       "target": "apps/docs/test/highlight.test.ts",
-      "targetSha256": "cbabcd99b348008fb3ef529dc8b09fb90f050ca6dc109db9544940250600325c",
+      "targetSha256": "d395beeef827a6e276e0066704647368205392e850a18b81593ffad6b8d18425",
       "imports": {
         "runtime": [
           "node:module",
@@ -386,7 +405,7 @@
     },
     {
       "target": "apps/docs/test/search.test.ts",
-      "targetSha256": "cbf9bc900ada597c50aca7857185094a8934e2ea94731f8a68bc53a5e2c2521d",
+      "targetSha256": "bb2365adbf1e8fa11ff11187dd25e391be6948bc351c60f321d680b79d944f9e",
       "imports": {
         "runtime": [
           "node:module",

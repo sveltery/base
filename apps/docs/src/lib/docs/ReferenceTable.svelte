@@ -19,9 +19,7 @@
   class="AccordionRoot ReferenceAccordionRoot"
   style={'--rows:' + props.length}
 >
-  <span id={captionId} class="bui-sr-only" aria-hidden="true"
-    >{name} props table</span
-  >
+  <span id={captionId} class="bui-sr-only" aria-hidden="true">{name} props table</span>
   <div class="AccordionHeaderRow ReferenceHeaderRow" aria-hidden="true">
     <div class="AccordionHeaderCell">
       <span class="AccordionHeaderCellInner">Prop</span>
@@ -34,11 +32,7 @@
   {#each props as prop (prop.name)}
     <ReferenceItem
       id={name.replace('.', '') + '-' + prop.name}
-      label={'Prop: ' +
-        prop.name +
-        (prop.optional ? '' : ', required') +
-        ', type: ' +
-        prop.type}
+      label={'Prop: ' + prop.name + (prop.optional ? '' : ', required') + ', type: ' + prop.type}
     >
       {#snippet trigger()}
         <span
@@ -47,9 +41,7 @@
           style="--scrollable-gradient-color:var(--color-content)"
           ><span class="AccordionScrollableInner"
             ><code class="Code TableCode"
-              >{prop.name}{#if !prop.optional}<sup class="ReferenceRequired"
-                  >*</sup
-                >{/if}</code
+              >{prop.name}{#if !prop.optional}<sup class="ReferenceRequired">*</sup>{/if}</code
             ></span
           ></span
         >
@@ -68,8 +60,7 @@
             height="10"
             viewBox="0 0 10 10"
             fill="none"
-            aria-hidden="true"
-            ><path d="M1 3.5L5 7.5L9 3.5" stroke="currentColor" /></svg
+            aria-hidden="true"><path d="M1 3.5L5 7.5L9 3.5" stroke="currentColor" /></svg
           ></span
         >
       {/snippet}
@@ -88,11 +79,7 @@
           </dt>
           <dd class="DescriptionListDetails">
             <div class="DescriptionListInner">
-              <CodeBlock
-                code={prop.type}
-                language="typescript"
-                title={prop.name + ' type'}
-              />
+              <CodeBlock code={prop.type} language="typescript" title={prop.name + ' type'} />
             </div>
           </dd>
         </div>

@@ -1,0 +1,18 @@
+{
+  "status": "Losslessly retained historical red native sitemap/QPS reproduction; no changed source or new parity/pass credit.",
+  "historicalPath": "docs/receipts/docs/source-sitemap-gap-reproduction.log",
+  "retainedPath": "docs/receipts/docs/source-sitemap-gap-reproduction.log",
+  "originalBytes": 7844,
+  "originalSha256": "5750ebedb2a287336493b99db8e68cae1b53102f588bc5b251f04afeb4655f2b",
+  "compressedBytes": 2486,
+  "compressedSha256": "86189f6499a679706133f0ecd7e6218367c5d20c7c77216186dc1b36fcbbcb3c",
+  "encoding": "gzip; deterministic mtime=0; no filename header",
+  "verification": "Raw retained file equals historical Git blob and original full-byte SHA-256; additive gzip copy decompresses to the same bytes, including terminal spaces and blank lines.",
+  "historicalCommit": "0c9dc3372fc137c227050f1e37728d9e4f179e4b",
+  "historicalLastPathCommit": "fa04143274f8d9f881fbbd5b09272a2b0099d93a",
+  "historicalGitBlob": "f1f7f60f8c7c25b0d0253bcd05052cfaa85d0f25",
+  "historicalSource": "https://github.com/sveltery/base/blob/fa04143274f8d9f881fbbd5b09272a2b0099d93a/docs/receipts/docs/source-sitemap-gap-reproduction.log",
+  "historicalGitBlobSha256MatchesRetainedOriginal": true,
+  "compressedCopyPath": "docs/receipts/docs/source-sitemap-gap-reproduction.log.gz",
+  "retentionDisposition": "Exact raw historical output restored in place; gzip retained only as an additive copy. Narrow exact-path blank-at-eol attribute preserves observed line3 terminal spaces without weakening other whitespace checks."
+}

@@ -527,3 +527,48 @@ Viewport render snippet and `style:overflow`; native markup owns that CSS proper
 without an object-style adapter or style custody. This is a framework substitution,
 with zero divergent unchanged Original assertion credit. Historical source and red
 receipts remain unchanged; new execution and final review are recorded separately.
+
+The exact-pin Demo close callback ownership repair captures its actual trigger
+before native `tick`, matching Source capture before flushSync. A mounted same-click
+teardown regression preserves the predecessor rejection and the repaired two measurements of the same host. This restores Source ownership; native timing and supplements
+earn no unchanged upstream credit. Current native-main integration leaves 18
+authored pages and retains the native rendering guide while retiring UseRender.
+
+SearchEngine expresses the former useSearch reusable owner as a native class with
+actual index/defaultResults/results fields and a ready promise. Its complete
+Source-derived schema/flattening/indexing/QPS/ranking/grouping/URL bodies remain;
+NativeSearch owns native UI state, lazy construction/retry, request identity and
+teardown cancellation. Historical 13/13 proof is archived and the successor proves
+12 unchanged modules plus one exact expected class ownership transform. This native
+representation follows current guidance, grants zero divergent unchanged assertion
+credit and changes no shared business bug. Final closure review and execution remain
+required.
+
+DOC01 successor gate clarification: installed declarations require explicit
+skipLibCheck:false, real Base/Utils tarballs, native negative type assertions,
+SSR/hydration and secured browser observations. Scoped docs/Collapsible/useClick
+configuration bypasses are removed; new diagnostics remain gate failures until
+resolved or explicitly recorded as canonical dependencies. Current docs runtime
+reaches canonical useButton/useTransitionStatus, but not useFieldValidation/Field.
+No canonical business body is duplicated or independently repaired here.
+
+Current main still represents the reached reusable useButton/useTransitionStatus
+owners as stateful factories. The separately assigned canonical Button/Transition
+owner must close that representation dependency; this docs PR does not duplicate
+their bodies. Scoped docs fidelity clearance does not imply entire-closure native
+maintainability acceptance while that dependency remains outstanding.
+
+The actual import graph also reaches `internals/nativeProps.ts`. The lead's
+measured public `style:''` transport defect is owned solely by PR73: bare Svelte
+spread retains the empty style attribute, while the current helper drops it.
+This is a reached acceptance dependency, not a docs per-part workaround. The
+docs candidate leaves the helper untouched and must integrate accepted main
+normally before final entire-closure review and CI. No React empty-style
+emulation or native-default acceptance is inferred from the candidate checks.
+
+The historical docs sitemap failure remains at its original raw receipt path with
+all bytes unchanged, beside an additive lossless gzip copy. The exact-path
+`whitespace=-blank-at-eol` attribute preserves only its recorded terminal spaces;
+other whitespace checks remain enabled. [Original-byte hashes and Git provenance](receipts/docs/source-sitemap-gap-retained-bytes.json)
+retain the red evidence. This receipt disposition changes no Source, runtime, CI
+or parity claim.

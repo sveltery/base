@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Dialog } from '@sveltery/base';
+  import { Dialog } from '@sveltery/base/dialog';
 </script>
 
 <Dialog.Root>

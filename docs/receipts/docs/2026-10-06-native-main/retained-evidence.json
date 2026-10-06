@@ -1,0 +1,73 @@
+{
+  "status": "historical execution observations; no final-head acceptance inferred",
+  "immutableBaseUiPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "integratedMain": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+  "files": [
+    {
+      "source": "docs-lifetime/red.json",
+      "archive": "docs-lifetime--red.json.gz",
+      "sha256": "7ad2302f5ec33bd3d91389e14bf6aef27df93e1adf857a0d07589ace0f8c7a39",
+      "bytes": 2444
+    },
+    {
+      "source": "docs-lifetime/reproduce.mjs",
+      "archive": "docs-lifetime--reproduce.mjs.gz",
+      "sha256": "c7f397ecc5e84bf81f1443500da40d394ff7a753cb2bb267d4c93d0e0e58f1e4",
+      "bytes": 2872
+    },
+    {
+      "source": "docs-lifetime/ownership-test-before-text-assertion.ts",
+      "archive": "docs-lifetime--ownership-test-before-text-assertion.ts.gz",
+      "sha256": "555b5b46356065e77c659c255d32d25b111e3e32637f6d845dd5f39f41860150",
+      "bytes": 1421
+    },
+    {
+      "source": "docs-lifetime/mounted-red.log",
+      "archive": "docs-lifetime--mounted-red.log.gz",
+      "sha256": "b723840216efb3f71e7148dfb61703ebf3c8828a2b5f0b90a964a05cc3d76890",
+      "bytes": 2836
+    },
+    {
+      "source": "docs-lifetime/mounted-green.log",
+      "archive": "docs-lifetime--mounted-green.log.gz",
+      "sha256": "f5d261d24bfec1b4cb58025cb411ee45632591c1c703f496d55a7cb6eb1172a5",
+      "bytes": 663
+    },
+    {
+      "source": "typescript-source-files-before-format.json",
+      "archive": "typescript-source-files-before-format.json.gz",
+      "sha256": "dd3fba0d372c3ab487818c216b861578d427d38de06a58ee75f83a84b6cf2de7",
+      "bytes": 15862
+    },
+    {
+      "source": "standards.log",
+      "archive": "standards.log.gz",
+      "sha256": "cec31c4ec5bdaf4a5aef4d17dfc754d2f157486a75cc9c7f573723d6366cbcb6",
+      "bytes": 154
+    },
+    {
+      "source": "verify.log",
+      "archive": "verify.log.gz",
+      "sha256": "4bf7200ea2545e4a31f6b6bb0b272f3643243a9264daa3512202d3dd77d3f1d1",
+      "bytes": 54199
+    },
+    {
+      "source": "toolchain-absolute-node.log",
+      "archive": "toolchain-absolute-node.log.gz",
+      "sha256": "c1b58157e5b5a93ec5e8465495368aa319da318f0175cc7bbb421549fc8e6740",
+      "bytes": 553
+    },
+    {
+      "source": "verification-stages.log",
+      "archive": "verification-stages.log.gz",
+      "sha256": "27b1342d74e956e9c079f9b669cf51a75ddaf69a008b43bbe28506c7004f8b48",
+      "bytes": 42133
+    },
+    {
+      "source": "chromium-install.log",
+      "archive": "chromium-install.log.gz",
+      "sha256": "0bc39caf32c71aa0524bf25e99af2b8b23b9b4c83747d47f8b3dea6079a1a917",
+      "bytes": 5705
+    }
+  ]
+}

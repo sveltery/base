@@ -38,8 +38,7 @@ export type HastElement = Omit<Element, 'children' | 'data' | 'properties'> & {
 };
 export type HastElementContent =
   Exclude<Element['children'][number], { type: 'element' }> | HastElement;
-export type HastNode =
-  Exclude<Root['children'][number], { type: 'element' }> | HastElement;
+export type HastNode = Exclude<Root['children'][number], { type: 'element' }> | HastElement;
 export type HastRoot = Omit<Root, 'children' | 'data'> & {
   children: HastNode[];
   data?: NonNullable<Root['data']> & {
@@ -47,8 +46,4 @@ export type HastRoot = Omit<Root, 'children' | 'data'> & {
     frameSize?: number;
   };
 };
-export type ParseSource = (
-  source: string,
-  fileName?: string,
-  language?: string,
-) => HastRoot;
+export type ParseSource = (source: string, fileName?: string, language?: string) => HastRoot;

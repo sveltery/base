@@ -24,17 +24,13 @@
     'remote-form': 'remote-forms',
   };
   const sourceDirectory = $derived(
-    doc.slug.startsWith('components/')
-      ? sourceDirectories[doc.slug.slice(11)]
-      : undefined,
+    doc.slug.startsWith('components/') ? sourceDirectories[doc.slug.slice(11)] : undefined,
   );
   function href(link: string) {
     if (!link.startsWith('/docs')) return link;
     const [path, fragment] = link.split('#');
     return (
-      (path === '/docs'
-        ? resolve('/docs')
-        : resolve('/docs/[...slug]', { slug: path.slice(6) })) +
+      (path === '/docs' ? resolve('/docs') : resolve('/docs/[...slug]', { slug: path.slice(6) })) +
       (fragment ? '#' + fragment : '')
     );
   }
@@ -52,15 +48,13 @@
   {#if sourceDirectory}<div class="SubtitleLinks">
       <a
         class="SubtitleLink"
-        href={'https://github.com/sveltery/base/tree/main/packages/base/src/lib/' +
-          sourceDirectory}
+        href={'https://github.com/sveltery/base/tree/main/packages/base/src/lib/' + sourceDirectory}
         ><span class="SubtitleLinkText">View source ↗</span></a
       >
     </div>{/if}
 </div>
-{#if doc.slug === 'components/dialog'}<Demo
-    code={exampleSource}
-    title="DialogExample.svelte"><DialogExample /></Demo
+{#if doc.slug === 'components/dialog'}<Demo code={exampleSource} title="DialogExample.svelte"
+    ><DialogExample /></Demo
   >{/if}
 {#each doc.sections as section (section.id)}
   <section>
@@ -86,11 +80,7 @@
       <details class="AccordionItem">
         <summary class="AccordionTrigger"
           >Shared types: ElementProps, focus, state, and events</summary
-        ><CodeBlock
-          code={api.types}
-          language="typescript"
-          title="Shared Dialog types"
-        />
+        ><CodeBlock code={api.types} language="typescript" title="Shared Dialog types" />
       </details>
     {/if}
     {#if doc.slug === 'components/accordion' && section.id === 'api-reference'}
@@ -103,9 +93,7 @@
           title={part.name + ' Accordion props signature'}
         />{/each}
       <details class="AccordionItem">
-        <summary class="AccordionTrigger"
-          >Accordion state, value and event types</summary
-        ><CodeBlock
+        <summary class="AccordionTrigger">Accordion state, value and event types</summary><CodeBlock
           code={accordionApi.types}
           language="typescript"
           title="Accordion declarations"
@@ -114,9 +102,7 @@
     {/if}
     {#if doc.slug === 'about' && section.id === 'licenses'}<p class="MdP">
         <a href={asset('fonts/OFL.txt')}>Paper Mono OFL notice</a> ·
-        <a href={asset('THIRD_PARTY_NOTICES.txt')}
-          >Documentation source notices</a
-        >
+        <a href={asset('THIRD_PARTY_NOTICES.txt')}>Documentation source notices</a>
       </p>{/if}
     {#if section.links}<div>
         {#each section.links as link (link.href)}<p class="MdP">

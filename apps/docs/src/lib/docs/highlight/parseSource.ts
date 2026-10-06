@@ -72,10 +72,7 @@ export const parseSource: ParseSource = (source, fileName, language) => {
     // Fall back to plain text; the block re-highlights on the next render once
     // the grammar is registered (a one-tick unstyled paint at worst).
     if (DEBUG) {
-      console.error(
-        `[docs-infra] grammar for scope "${grammarScope}" not registered`,
-        error,
-      );
+      console.error(`[docs-infra] grammar for scope "${grammarScope}" not registered`, error);
     }
     return createPlainTextRoot(source);
   }
@@ -183,9 +180,7 @@ export async function registerAllGrammars(): Promise<void> {
   const { grammars } = await import('./grammars.js');
   const instance = await createIfNeeded(grammars);
   const registered = new Set(instance.scopes());
-  const missing = grammars.filter(
-    (grammar) => !registered.has(grammar.scopeName),
-  );
+  const missing = grammars.filter((grammar) => !registered.has(grammar.scopeName));
   if (missing.length > 0) {
     await instance.register(missing);
   }
@@ -204,9 +199,7 @@ export async function registerAllGrammars(): Promise<void> {
  *
  * @returns A Promise that resolves to the initialized `parseSource` function
  */
-export const createParseSource = async (
-  initialScopes?: string[],
-): Promise<ParseSource> => {
+export const createParseSource = async (initialScopes?: string[]): Promise<ParseSource> => {
   if (initialScopes === undefined) {
     await enqueue(registerAllGrammars);
   } else if (initialScopes.length === 0) {

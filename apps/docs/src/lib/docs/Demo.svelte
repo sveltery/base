@@ -11,9 +11,10 @@
     title = 'Example.svelte',
   }: { children?: Snippet; code: string; title?: string } = $props();
   let expanded = $state(false);
-  let buttonVisualEl = $state<HTMLElement | null>(null);
+  let collapsibleTriggerRef = $state<HTMLElement | null>(null);
   async function openChange(nextOpen: boolean) {
-    if (!nextOpen && buttonVisualEl) {
+    if (!nextOpen && collapsibleTriggerRef) {
+      const buttonVisualEl = collapsibleTriggerRef;
       const rectTopBeforeClose = buttonVisualEl.getBoundingClientRect().top;
       expanded = nextOpen;
       await tick();
@@ -32,26 +33,15 @@
 
 <div class="DemoRoot">
   <div class="DemoPlayground">
-    <div
-      role="figure"
-      aria-label="Component demo"
-      data-demo="svelte"
-      class="DemoPlaygroundInner"
-    >
+    <div role="figure" aria-label="Component demo" data-demo="svelte" class="DemoPlaygroundInner">
       <svelte:boundary>
         {@render children?.()}{#snippet failed(_error, reset)}<p>
-            Example could not render. <button type="button" onclick={reset}
-              >Try again</button
-            >
+            Example could not render. <button type="button" onclick={reset}>Try again</button>
           </p>{/snippet}
       </svelte:boundary>
     </div>
   </div>
-  <Collapsible.Root
-    class="DemoCollapsibleRoot"
-    open={expanded}
-    onOpenChange={openChange}
-  >
+  <Collapsible.Root class="DemoCollapsibleRoot" open={expanded} onOpenChange={openChange}>
     <div role="figure" aria-label="Component demo code">
       <div class="DemoToolbar">
         <ScrollArea.Root class="DemoToolbarScrollAreaRoot"
@@ -64,11 +54,7 @@
           ></ScrollArea.Root
         >
       </div>
-      <DemoCodeBlock
-        {code}
-        collapsibleOpen={expanded}
-        bind:collapsibleTriggerRef={buttonVisualEl}
-      />
+      <DemoCodeBlock {code} collapsibleOpen={expanded} bind:collapsibleTriggerRef />
     </div>
   </Collapsible.Root>
 </div>

@@ -57,14 +57,8 @@
   >
 {/snippet}
 {#if selectedFileLines < collapsibleLinesThreshold}
-  <ScrollArea.Root
-    class="DemoCodeBlockRoot"
-    tabindex={-1}
-    onkeydown={selectAll}
-  >
-    <ScrollArea.Viewport class="ScrollAreaViewport"
-      >{@render source()}</ScrollArea.Viewport
-    >
+  <ScrollArea.Root class="DemoCodeBlockRoot" tabindex={-1} onkeydown={selectAll}>
+    <ScrollArea.Viewport class="ScrollAreaViewport">{@render source()}</ScrollArea.Viewport>
     <ScrollArea.Corner /><ScrollArea.Scrollbar class="ScrollAreaScrollbar"
       ><ScrollArea.Thumb class="ScrollAreaThumb" /></ScrollArea.Scrollbar
     ><ScrollArea.Scrollbar orientation="horizontal" class="ScrollAreaScrollbar"
@@ -83,36 +77,29 @@
         {#snippet render(props, _state, children)}
           <ScrollArea.Viewport
             {...props}
+            {children}
             class="ScrollAreaViewport DemoCodeBlockViewport"
             aria-hidden={!collapsibleOpen}
             data-closed={collapsibleOpen ? undefined : ''}
             {...!collapsibleOpen && { tabindex: undefined }}
           >
             {#snippet render(viewportProps, _viewportState, viewportChildren)}
-              <div
-                {...viewportProps}
-                style:overflow={collapsibleOpen ? 'scroll' : undefined}
-              >{@render viewportChildren?.()}</div>
+              <div {...viewportProps} style:overflow={collapsibleOpen ? 'scroll' : undefined}
+                >{@render viewportChildren?.()}</div
+              >
             {/snippet}
           </ScrollArea.Viewport>
         {/snippet}
         {@render source()}
       </Collapsible.Panel>
-      {#if collapsibleOpen}<ScrollArea.Corner /><ScrollArea.Scrollbar
-          class="ScrollAreaScrollbar"
+      {#if collapsibleOpen}<ScrollArea.Corner /><ScrollArea.Scrollbar class="ScrollAreaScrollbar"
           ><ScrollArea.Thumb class="ScrollAreaThumb" /></ScrollArea.Scrollbar
-        ><ScrollArea.Scrollbar
-          orientation="horizontal"
-          class="ScrollAreaScrollbar"
+        ><ScrollArea.Scrollbar orientation="horizontal" class="ScrollAreaScrollbar"
           ><ScrollArea.Thumb class="ScrollAreaThumb" /></ScrollArea.Scrollbar
         >{/if}
       {@render copyButton()}
-      <Collapsible.Trigger
-        class="DemoCollapseButton"
-        data-sticky={collapsibleOpen ? '' : undefined}
-        ><span
-          bind:this={collapsibleTriggerRef}
-          class="DemoCollapseButtonVisual"
+      <Collapsible.Trigger class="DemoCollapseButton" data-sticky={collapsibleOpen ? '' : undefined}
+        ><span bind:this={collapsibleTriggerRef} class="DemoCollapseButtonVisual"
           >{collapsibleOpen ? 'Hide code' : 'Show code'}</span
         ></Collapsible.Trigger
       >

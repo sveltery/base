@@ -1,13 +1,7 @@
 // Native types for the selected @mui/internal-docs-infra 0.12.1-canary.42
 // useSearch/createSitemap declarations; MIT, copyright 2019 Material-UI SAS.
 // Authored native pages have real titles; no Next/React metadata is imported.
-import type {
-  ElapsedTime,
-  Orama,
-  Result,
-  SearchParams,
-  SearchParamsFullText,
-} from '@orama/orama';
+import type { ElapsedTime, Orama, Result, SearchParams, SearchParamsFullText } from '@orama/orama';
 import type { SearchSchema } from './engine.js';
 
 export interface SitemapSection {
@@ -29,8 +23,7 @@ export interface SitemapPage {
   parts?: Record<string, SitemapPart>;
   exports?: Record<string, SitemapPart>;
   types?: string[];
-  audience?:
-    'private' | 'introductory' | 'intermediate' | 'advanced' | 'business';
+  audience?: 'private' | 'introductory' | 'intermediate' | 'advanced' | 'business';
 }
 export interface SitemapSectionData {
   title: string;

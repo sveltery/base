@@ -20,3 +20,6 @@ parity/use-click/prior-callback-review/old-18-baseline-completed.log whitespace=
 parity/use-click/prior-callback-review/old-20-meaningful-red.log whitespace=-blank-at-eof,-blank-at-eol
 # Preserve the later exact fixture runtime/type-failure captures as historical evidence.
 parity/use-click/fixture-type-repair/*.log whitespace=-blank-at-eof,-blank-at-eol
+
+# Preserve the exact historical docs sitemap failure capture; all other checks remain.
+docs/receipts/docs/source-sitemap-gap-reproduction.log whitespace=-blank-at-eol

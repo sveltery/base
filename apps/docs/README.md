@@ -23,6 +23,7 @@ This prerequisite also runs for a direct Vite/Playwright start and static build.
 ```sh
 pnpm --filter @sveltery/docs check
 pnpm --filter @sveltery/docs test
+pnpm --filter @sveltery/docs test:dom
 pnpm build:docs
 ```
 
@@ -48,8 +49,10 @@ OFL; Die Grotesk is excluded, so typography and visual fidelity are not exact.
 Maintained documentation runtime helpers and tests are TypeScript. Node 24 runs
 the actual helper test sources with native type erasure; their narrow resolver
 adapts canonical `.js` import spelling and Vite's WASM asset URL for Node. The
-portable evidence checker compares all 13 helpers after erasure with the frozen
-JavaScript checkpoint without replacing the parser or search engine:
+portable evidence checker compares 12 unchanged helpers after erasure with the
+frozen JavaScript checkpoint and the engine with one precise class-ownership
+transform. The prior 13/13 evidence is archived; no parser or ranking algorithm is
+replaced:
 
 ```sh
 node docs/receipts/docs/typescript-source-check.mjs
@@ -59,3 +62,29 @@ node docs/receipts/docs/typescript-source-check.mjs
 standalone app browser checks. Secured hosted `.github/workflows/docs.yml` preserves
 JSON results, logs, traces and screenshots. It leaves component browser discovery
 unchanged.
+
+The native lifetime regression reproduces Demo teardown during the closing click.
+The dedicated browser gate also checks HTTP SSR host reuse through hydration, the
+actual installed-export Dialog preview and native collapsed overflow. All are
+supplements with no unchanged upstream assertion credit.
+
+Installed consumers are separate from the workspace HTTP app. These commands
+reuse actual Base/Utils tarballs, check all installed declarations with
+`skipLibCheck:false`, retain negative type assertions, then verify SSR/hydration
+and secured Chromium behavior:
+
+```sh
+bash scripts/check-docs-package.sh
+export PLAYWRIGHT_BROWSERS_PATH="$PWD/.checks/docs-playwright"
+pnpm exec playwright install chromium
+bash scripts/check-docs-browser-package.sh
+pnpm exec playwright test --config playwright.docs.config.ts
+```
+
+Use the same explicit browser path for installation and both launchers. CI sets
+that path at job scope and retains the official browser, sandbox, one worker
+and zero retries. Local archive/download/resource failures are incomplete gates.
+The docs development typings use the existing Node 24 pin; declarations are not
+skipped. Current closure acceptance also waits for the separately owned
+Button/Transition representation and PR73 nativeProps empty-style transport work.
+No shared helper is copied or patched in the docs app.

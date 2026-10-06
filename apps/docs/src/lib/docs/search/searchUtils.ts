@@ -16,11 +16,7 @@ export function handleModifiedEnterNavigation(
   buildResultUrl: (result: SearchResult) => string,
 ) {
   if (event.isComposing || event.keyCode === 229) return false;
-  if (
-    event.key !== 'Enter' ||
-    (!event.metaKey && !event.ctrlKey && !event.altKey)
-  )
-    return false;
+  if (event.key !== 'Enter' || (!event.metaKey && !event.ctrlKey && !event.altKey)) return false;
   if (!result) return false;
   event.preventDefault();
   event.stopPropagation();

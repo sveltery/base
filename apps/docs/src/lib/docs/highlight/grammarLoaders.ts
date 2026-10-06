@@ -14,27 +14,16 @@ import type { Grammar } from '@wooorm/starry-night';
 
 // source.json stays deliberately unsupported: its exact ISC notice has not
 // been obtained. Mapped JSON falls back to readable plain text in parseSource.
-export const grammarLoaders: Readonly<
-  Record<string, (() => Promise<Grammar>) | undefined>
-> = {
-  'source.svelte': () =>
-    import('@wooorm/starry-night/source.svelte').then((mod) => mod.default),
-  'source.js': () =>
-    import('@wooorm/starry-night/source.js').then((mod) => mod.default),
-  'source.ts': () =>
-    import('@wooorm/starry-night/source.ts').then((mod) => mod.default),
-  'source.tsx': () =>
-    import('@wooorm/starry-night/source.tsx').then((mod) => mod.default),
-  'text.md': () =>
-    import('@wooorm/starry-night/text.md').then((mod) => mod.default),
-  'source.mdx': () =>
-    import('@wooorm/starry-night/source.mdx').then((mod) => mod.default),
+export const grammarLoaders: Readonly<Record<string, (() => Promise<Grammar>) | undefined>> = {
+  'source.svelte': () => import('@wooorm/starry-night/source.svelte').then((mod) => mod.default),
+  'source.js': () => import('@wooorm/starry-night/source.js').then((mod) => mod.default),
+  'source.ts': () => import('@wooorm/starry-night/source.ts').then((mod) => mod.default),
+  'source.tsx': () => import('@wooorm/starry-night/source.tsx').then((mod) => mod.default),
+  'text.md': () => import('@wooorm/starry-night/text.md').then((mod) => mod.default),
+  'source.mdx': () => import('@wooorm/starry-night/source.mdx').then((mod) => mod.default),
   'text.html.basic': () =>
     import('@wooorm/starry-night/text.html.basic').then((mod) => mod.default),
-  'source.css': () =>
-    import('@wooorm/starry-night/source.css').then((mod) => mod.default),
-  'source.shell': () =>
-    import('@wooorm/starry-night/source.shell').then((mod) => mod.default),
-  'source.yaml': () =>
-    import('@wooorm/starry-night/source.yaml').then((mod) => mod.default),
+  'source.css': () => import('@wooorm/starry-night/source.css').then((mod) => mod.default),
+  'source.shell': () => import('@wooorm/starry-night/source.shell').then((mod) => mod.default),
+  'source.yaml': () => import('@wooorm/starry-night/source.yaml').then((mod) => mod.default),
 };

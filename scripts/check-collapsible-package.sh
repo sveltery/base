@@ -88,10 +88,17 @@ exact<Equal<Root.CollapsiblePanelState, Parts.CollapsiblePanelState>>();
 exact<Equal<Root.CollapsibleTransitionStatus, Parts.CollapsibleTransitionStatus>>();
 exact<Equal<Root.CollapsibleRootChangeEventReason, Parts.CollapsibleRootChangeEventReason>>();
 exact<Equal<Root.CollapsibleRootChangeEventDetails, Parts.CollapsibleRootChangeEventDetails>>();
+// @ts-expect-error Native open state is boolean.
+const invalidRoot: Parts.CollapsibleRootProps = { open: 'yes' };
+// @ts-expect-error A native ref is an actual host, not a React callback ref.
+const invalidTrigger: Parts.CollapsibleTriggerProps = { ref: () => {} };
+// @ts-expect-error Native replacement rendering is a snippet.
+const invalidPanel: Parts.CollapsiblePanelProps = { render: 'section' };
+void [invalidRoot, invalidTrigger, invalidPanel];
 TS
 fi
 cat > "$collapsible_consumer/tsconfig.json" <<'JSON'
-{"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"skipLibCheck":true,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts"]}
+{"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"skipLibCheck":false,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts"]}
 JSON
 node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$collapsible_consumer/check.mjs"
 node "$sveltery_repo_root/packages/base/node_modules/svelte-check/bin/svelte-check" --workspace "$collapsible_consumer" --tsconfig ./tsconfig.json

@@ -15,9 +15,7 @@ registerHooks({
     if (
       specifier.startsWith('.') &&
       specifier.endsWith('.js') &&
-      context.parentURL?.startsWith(
-        new URL('../src/lib/docs/', import.meta.url).href,
-      )
+      context.parentURL?.startsWith(new URL('../src/lib/docs/', import.meta.url).href)
     )
       return nextResolve(specifier.slice(0, -3) + '.ts', context);
     return nextResolve(specifier, context);
@@ -25,17 +23,12 @@ registerHooks({
 });
 const { createParseSource, parseSource, resetStarryNight } =
   await import('../src/lib/docs/highlight/parseSource.ts');
-const { getHastTextContent } =
-  await import('../src/lib/docs/highlight/getHastTextContent.ts');
-const { resolveGrammarScope } =
-  await import('../src/lib/docs/highlight/grammarMaps.ts');
-const { areGrammarsRegistered } =
-  await import('../src/lib/docs/highlight/grammarCache.ts');
+const { getHastTextContent } = await import('../src/lib/docs/highlight/getHastTextContent.ts');
+const { resolveGrammarScope } = await import('../src/lib/docs/highlight/grammarMaps.ts');
+const { areGrammarsRegistered } = await import('../src/lib/docs/highlight/grammarCache.ts');
 function classes(node: HastRoot | HastNode): string[] {
   return [
-    ...(node.type === 'element'
-      ? (node.properties?.className ?? []).map(String)
-      : []),
+    ...(node.type === 'element' ? (node.properties?.className ?? []).map(String) : []),
     ...('children' in node ? node.children.flatMap(classes) : []),
   ];
 }
@@ -48,16 +41,10 @@ test('shared parser serializes concurrent grammar registration including real Sv
   assert.equal(parsers[1], parsers[2]);
   assert.equal(resolveGrammarScope('Demo.svelte'), 'source.svelte');
   assert.equal(
-    areGrammarsRegistered([
-      'source.svelte',
-      'source.ts',
-      'source.js',
-      'source.css',
-    ]),
+    areGrammarsRegistered(['source.svelte', 'source.ts', 'source.js', 'source.css']),
     true,
   );
-  const source =
-    '<script lang="ts">let value: number = 1;</script>\n<button>{value}</button>\n';
+  const source = '<script lang="ts">let value: number = 1;</script>\n<button>{value}</button>\n';
   const tree = parseSource(source, 'Demo.svelte');
   assert.equal(getHastTextContent(tree), source);
   assert.equal(tree.data?.totalLines, 2);
@@ -85,9 +72,7 @@ test('extended token classes and unsupported scopes preserve exact readable sour
   );
 });
 test('multi-frame gutters preserve terminal newline and frame fallback text', async () => {
-  const source =
-    Array.from({ length: 121 }, (_, index) => 'line ' + index).join('\n') +
-    '\n';
+  const source = Array.from({ length: 121 }, (_, index) => 'line ' + index).join('\n') + '\n';
   const tree = parseSource(source, 'plain.unknown');
   assert.equal(tree.data?.totalLines, 121);
   assert.equal(tree.data?.frameSize, 120);

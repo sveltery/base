@@ -14,17 +14,12 @@
           <li class="QuickNavItem">
             <a class="QuickNavLink" href="#main-content">(Top)</a>
           </li>
-          {#each doc?.sections ?? [] as section (section.id)}<li
-              class="QuickNavItem"
-            >
-              <a class="QuickNavLink" href={'#' + section.id}>{section.title}</a
-              >
+          {#each doc?.sections ?? [] as section (section.id)}<li class="QuickNavItem">
+              <a class="QuickNavLink" href={'#' + section.id}>{section.title}</a>
             </li>{/each}
         </ul>
       </ScrollArea.Viewport><ScrollArea.Scrollbar class="QuickNavScrollbar"
-        ><ScrollArea.Thumb
-          class="QuickNavScrollbarThumb"
-        /></ScrollArea.Scrollbar
+        ><ScrollArea.Thumb class="QuickNavScrollbarThumb" /></ScrollArea.Scrollbar
       ></ScrollArea.Root
     >
   </div>

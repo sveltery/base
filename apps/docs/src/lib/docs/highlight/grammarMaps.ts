@@ -25,9 +25,7 @@ export const extensionMap: Readonly<Record<string, string | undefined>> = {
  * Maps simplified language names back to grammar scope names.
  * Used when `language` prop is provided instead of fileName.
  */
-export const languageToGrammarMap: Readonly<
-  Record<string, string | undefined>
-> = {
+export const languageToGrammarMap: Readonly<Record<string, string | undefined>> = {
   svelte: 'source.svelte',
   js: 'source.js',
   javascript: 'source.js',
@@ -68,10 +66,7 @@ export function getGrammarFromLanguage(language: string): string | undefined {
  * @param language - Optional explicit language override (e.g., 'tsx', 'css')
  * @returns The grammar scope, or undefined for unsupported / unknown inputs
  */
-export function resolveGrammarScope(
-  fileName?: string,
-  language?: string,
-): string | undefined {
+export function resolveGrammarScope(fileName?: string, language?: string): string | undefined {
   if (language) {
     const scope = getGrammarFromLanguage(language);
     if (scope) {
@@ -93,7 +88,5 @@ export function resolveGrammarScope(
  * downstream (it has no loader) rather than throwing.
  */
 export function normalizeToScopes(entries: string[]): string[] {
-  return [
-    ...new Set(entries.map((entry) => getGrammarFromLanguage(entry) ?? entry)),
-  ];
+  return [...new Set(entries.map((entry) => getGrammarFromLanguage(entry) ?? entry))];
 }

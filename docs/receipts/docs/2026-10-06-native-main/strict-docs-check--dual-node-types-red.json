@@ -1,0 +1,20 @@
+{
+  "status": "Historical strict docs app skipLibCheck=false failure before direct Node24 declaration pin; repaired execution pending.",
+  "sourcePath": ".checks/stages/strict-docs-check.log",
+  "retainedPath": "docs/receipts/docs/2026-10-06-native-main/strict-docs-check--dual-node-types-red.log.gz",
+  "originalBytes": 52443,
+  "originalSha256": "f666fa6eb21d2045b8a974f8f18201ad39e640b3bca6bf9f3c043c7dc5407dca",
+  "compressedBytes": 5497,
+  "compressedSha256": "4b272b5bafe2410be83b3a41f688d302e6ac3831bd9d16c5daa8eedca9b3d430",
+  "encoding": "deterministic gzip mtime=0; full original bytes verified after decompression",
+  "head": "0c9dc3372fc137c227050f1e37728d9e4f179e4b",
+  "diagnostics": {
+    "errors": 142,
+    "warnings": 0,
+    "files": 51,
+    "allDiagnosticOwnerPaths": "@types/node declarations only",
+    "observedVersions": ["24.19.1", "26.6.3"],
+    "nonNodeDiagnosticOwners": 0
+  },
+  "repair": "apps/docs devDependency @types/node exactly24.19.1 aligns existing Node24 policy and Base/Utils direct declaration versions; no runtime dependency, suppression or skipLibCheck weakening; lock/install and repaired strict execution pending root serialized gate"
+}

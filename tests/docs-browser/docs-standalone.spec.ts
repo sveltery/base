@@ -8,24 +8,65 @@ test('standalone navigation, source code copy/selection and reference hashes', a
   await page.setViewportSize({ width: 1440, height: 1000 });
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
-  await page.goto('/docs/components/dialog/');
+  await page.addInitScript(() => {
+    const observer = new MutationObserver(() => {
+      const demo = document.querySelector('.DemoRoot');
+      const trigger = demo?.querySelector('.example-button');
+      if (demo && trigger) {
+        const observed = window as Window & { docsSsrDemo?: Element; docsSsrTrigger?: Element };
+        observed.docsSsrDemo = demo;
+        observed.docsSsrTrigger = trigger;
+        observer.disconnect();
+      }
+    });
+    observer.observe(document, { childList: true, subtree: true });
+  });
+  const response = await page.goto('/docs/components/dialog/');
+  expect(response?.status()).toBe(200);
+  expect(await response!.text()).toContain('DemoRoot');
+  await page.getByRole('button', { name: 'Explore a dialog', exact: true }).click();
+  await expect(page.getByRole('dialog', { name: 'A little room to focus' })).toBeVisible();
+  await expect
+    .poll(() =>
+      page.evaluate(
+        () =>
+          (window as Window & { docsSsrDemo?: Element }).docsSsrDemo ===
+            document.querySelector('.DemoRoot') &&
+          (window as Window & { docsSsrTrigger?: Element }).docsSsrTrigger ===
+            document.querySelector('.DemoRoot .example-button'),
+      ),
+    )
+    .toBe(true);
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('dialog', { name: 'A little room to focus' })).not.toBeVisible();
+  expect(
+    await page
+      .locator('.DemoCodeBlockViewport')
+      .evaluate((el) => (el as HTMLElement).style.overflow),
+  ).toBe('');
   const active = page.locator('.SideNavLink[aria-current="page"]');
   await expect(active).toHaveText('Dialog');
   await expect(page.locator('.QuickNavRoot')).toBeVisible();
   await page.getByRole('button', { name: 'Show code', exact: true }).click();
-  await expect(
-    page.getByRole('button', { name: 'Hide code', exact: true }),
-  ).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Hide code', exact: true })).toBeVisible();
+  expect(
+    await page
+      .locator('.DemoCodeBlockViewport')
+      .evaluate((el) => (el as HTMLElement).style.overflow),
+  ).toBe('scroll');
   const example = page.locator('.DemoSourceBrowser');
   const source = await example.textContent();
+  expect(source).toContain("import { Dialog } from '@sveltery/base/dialog';");
+  expect(source).toContain('Explore a dialog');
   await page.locator('.DemoCodeBlockCopyButton').click();
-  await expect
-    .poll(() => page.evaluate(() => navigator.clipboard.readText()))
-    .toBe(source);
+  await expect.poll(() => page.evaluate(() => navigator.clipboard.readText())).toBe(source);
   await page.getByRole('button', { name: 'Hide code', exact: true }).click();
-  await expect(
-    page.getByRole('button', { name: 'Show code', exact: true }),
-  ).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Show code', exact: true })).toBeVisible();
+  expect(
+    await page
+      .locator('.DemoCodeBlockViewport')
+      .evaluate((el) => (el as HTMLElement).style.overflow),
+  ).toBe('');
   const viewport = page.locator('.CodeBlockViewport').first();
   await viewport.focus();
   await page.keyboard.press('Control+a');
@@ -35,14 +76,10 @@ test('standalone navigation, source code copy/selection and reference hashes', a
   const reference = page.locator('.ReferenceTrigger').first();
   const id = await reference.getAttribute('id');
   await page.goto('/docs/components/dialog/#' + id);
-  await expect(
-    page.locator('.ReferenceTrigger').first().locator('..'),
-  ).toHaveAttribute('open', '');
+  await expect(page.locator('.ReferenceTrigger').first().locator('..')).toHaveAttribute('open', '');
   await page.locator('.SideNavLink', { hasText: /^Button$/ }).click();
   await expect(page).toHaveURL(/\/docs\/components\/button\/?$/);
-  await expect(page.locator('.SideNavLink[aria-current="page"]')).toHaveText(
-    'Button',
-  );
+  await expect(page.locator('.SideNavLink[aria-current="page"]')).toHaveText('Button');
   await page.screenshot({
     path: testInfo.outputPath('desktop-button.png'),
     fullPage: true,
@@ -50,9 +87,7 @@ test('standalone navigation, source code copy/selection and reference hashes', a
   expect(errors).toEqual([]);
 });
 
-test('cold search suppresses defaults while pending, native focus and IME', async ({
-  page,
-}) => {
+test('cold search suppresses defaults while pending, native focus and IME', async ({ page }) => {
   let release!: () => void;
   const gate = new Promise<void>((resolve) => {
     release = resolve;
@@ -65,20 +100,14 @@ test('cold search suppresses defaults while pending, native focus and IME', asyn
   await page.getByRole('button', { name: /^Search/ }).click();
   const dialog = page.getByRole('dialog', { name: 'Search documentation' });
   await expect(dialog).toBeVisible();
-  expect(
-    await dialog.evaluate((element) =>
-      element.contains(document.activeElement),
-    ),
-  ).toBe(true);
+  expect(await dialog.evaluate((element) => element.contains(document.activeElement))).toBe(true);
   const input = dialog.getByRole('textbox', { name: 'Search', exact: true });
   await input.fill('button');
   await expect(dialog.locator('[aria-busy="true"]')).toBeVisible();
   await expect(dialog.locator('.SearchOptionItem')).toHaveCount(0);
   release();
   await expect(dialog.locator('.SearchOptionItem').first()).toBeVisible();
-  await expect(dialog.locator('.SearchOptionItem').first()).toContainText(
-    'Button',
-  );
+  await expect(dialog.locator('.SearchOptionItem').first()).toContainText('Button');
   const link = dialog.locator('.SearchOptionItem').first();
   await link.focus();
   const popupPromise = page.waitForEvent('popup');
@@ -119,9 +148,7 @@ test('cold search suppresses defaults while pending, native focus and IME', asyn
   await expect(dialog).not.toBeVisible();
 });
 
-test('mobile navigation stays within viewport and uses real routes', async ({
-  page,
-}, testInfo) => {
+test('mobile navigation stays within viewport and uses real routes', async ({ page }, testInfo) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/docs/components/dialog/');
   const sideNav = page.locator('.SideNavRoot');
@@ -133,25 +160,17 @@ test('mobile navigation stays within viewport and uses real routes', async ({
   await page.getByRole('button', { name: 'Navigation', exact: true }).click();
   const dialog = page.getByRole('dialog', { name: 'Docs navigation' });
   await expect(dialog).toBeVisible();
-  await dialog
-    .getByRole('textbox', { name: 'Search', exact: true })
-    .fill('avatar');
-  await expect(dialog.locator('.SearchOptionItem').first()).toContainText(
-    'Avatar',
-  );
+  await dialog.getByRole('textbox', { name: 'Search', exact: true }).fill('avatar');
+  await expect(dialog.locator('.SearchOptionItem').first()).toContainText('Avatar');
   await page.keyboard.press('Escape');
   await expect(dialog).toBeVisible();
-  await expect(
-    dialog.getByRole('textbox', { name: 'Search', exact: true }),
-  ).toHaveValue('');
+  await expect(dialog.getByRole('textbox', { name: 'Search', exact: true })).toHaveValue('');
   await dialog.getByRole('link', { name: 'Avatar', exact: true }).click();
   await expect(page).toHaveURL(/\/docs\/components\/avatar\/?$/);
   await expect(dialog).not.toBeVisible();
-  expect(
-    await page.evaluate(
-      () => document.documentElement.scrollWidth <= window.innerWidth,
-    ),
-  ).toBe(true);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
+    true,
+  );
   await page.screenshot({
     path: testInfo.outputPath('mobile-avatar.png'),
     fullPage: true,

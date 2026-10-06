@@ -15,9 +15,7 @@
           <ul class="SideNavList">
             {#each docs.filter((doc) => doc.group === group) as doc (doc.slug)}
               <SideNavItem
-                href={doc.slug
-                  ? resolve('/docs/[...slug]', { slug: doc.slug })
-                  : resolve('/docs')}
+                href={doc.slug ? resolve('/docs/[...slug]', { slug: doc.slug }) : resolve('/docs')}
                 >{doc.slug ? doc.title : 'Introduction'}</SideNavItem
               >
             {/each}
@@ -27,9 +25,7 @@
       <hr class="SideNavSeparator" />
       <div class="SideNavSection">
         <ul class="SideNavList">
-          <SideNavItem href="https://github.com/sveltery/base" external
-            >GitHub ↗</SideNavItem
-          >
+          <SideNavItem href="https://github.com/sveltery/base" external>GitHub ↗</SideNavItem>
         </ul>
       </div>
     </ScrollArea.Viewport>

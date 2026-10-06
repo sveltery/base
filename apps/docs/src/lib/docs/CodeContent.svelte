@@ -7,11 +7,8 @@ compression/transform/editor branches remain outside this bounded renderer. -->
   import { resolveGrammarScope } from './highlight/grammarMaps.js';
   import { ensureGrammars } from './highlight/grammarCache.js';
   import type { HastRoot, HastNode } from './highlight/types.js';
-  let {
-    code,
-    fileName,
-    language,
-  }: { code: string; fileName?: string; language?: string } = $props();
+  let { code, fileName, language }: { code: string; fileName?: string; language?: string } =
+    $props();
   let highlighted = $state.raw<{
     source: string;
     fileName?: string;
@@ -37,8 +34,7 @@ compression/transform/editor branches remain outside this bounded renderer. -->
         await ensureGrammars([scope]);
         const { parseSource } = await import('./highlight/parseSource.js');
         const tree = parseSource(source, name, lang);
-        if (!cancelled)
-          highlighted = { source, fileName: name, language: lang, tree };
+        if (!cancelled) highlighted = { source, fileName: name, language: lang, tree };
       } catch {
         // Source convention: chunk/grammar failure leaves the readable fallback.
       }

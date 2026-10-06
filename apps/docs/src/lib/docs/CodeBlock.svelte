@@ -24,8 +24,7 @@
   let copyTimeout = $state<ReturnType<typeof setTimeout> | undefined>();
   async function copyCode() {
     const root = document.getElementById(codeId);
-    const value =
-      root?.querySelector('pre code')?.textContent ?? root?.textContent;
+    const value = root?.querySelector('pre code')?.textContent ?? root?.textContent;
     if (value) {
       await copy(value);
       const newTimeout = setTimeout(() => {
@@ -60,8 +59,7 @@
       data-layout="icon"
       aria-label="Copy code"
       onclick={copyCode}
-      ><span class="CodeBlockCopyIcon"
-        ><Icons name={copyTimeout ? 'check' : 'copy'} /></span
+      ><span class="CodeBlockCopyIcon"><Icons name={copyTimeout ? 'check' : 'copy'} /></span
       ></button
     >
   </div>
@@ -74,9 +72,9 @@
       id={codeId}
       tabindex={-1}
     >
-      <pre class={['CodeBlockPreInline', !inline && 'CodeBlockPre']}><code
-          ><CodeContent {code} fileName={fileName ?? title} {language} /></code
-        ></pre>
+      <pre class={['CodeBlockPreInline', !inline && 'CodeBlockPre']}
+        ><code><CodeContent {code} fileName={fileName ?? title} {language} /></code></pre
+      >
     </ScrollArea>
   </div>
 </div>

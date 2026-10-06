@@ -19,13 +19,48 @@
 
 /* Native dialog top-layer/default focus substitute; no Drawer gestures or Autocomplete selection implied. */
 @layer components {
-  .DocsNativeDialog { margin: 0; border: 1px solid var(--color-border); padding: 0; color: var(--gray-t2); background: var(--color-popup); }
-  .DocsNativeDialog:not([open]) { display: none; }
-  .DocsNativeDialog::backdrop { background: rgb(0 0 0 / 20%); }
-  .DocsNativeDialogClose { display: flex; justify-content: flex-end; padding: .5rem; }
-  .DocsNativeResults { overflow-y: auto; max-height: min(60dvh, 32rem); padding: .5rem; }
-  .DocsNativeMobile { position: fixed; inset: auto 0 0; width: 100%; max-width: 100%; border-radius: var(--radius-36) var(--radius-36) 0 0; }
-  .DocsWordmark { font: 700 var(--font-size-21)/1 var(--font-sans); letter-spacing: -.04em; }
-  .DocsCredits { margin-top: 4rem; padding-top: 1rem; border-top: 1px solid var(--color-border); font-size: var(--font-size-13); color: var(--gray-t1); }
-  .DocsCredits a { text-decoration: underline; }
+  .DocsNativeDialog {
+    margin: 0;
+    border: 1px solid var(--color-border);
+    padding: 0;
+    color: var(--gray-t2);
+    background: var(--color-popup);
+  }
+  .DocsNativeDialog:not([open]) {
+    display: none;
+  }
+  .DocsNativeDialog::backdrop {
+    background: rgb(0 0 0 / 20%);
+  }
+  .DocsNativeDialogClose {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.5rem;
+  }
+  .DocsNativeResults {
+    overflow-y: auto;
+    max-height: min(60dvh, 32rem);
+    padding: 0.5rem;
+  }
+  .DocsNativeMobile {
+    position: fixed;
+    inset: auto 0 0;
+    width: 100%;
+    max-width: 100%;
+    border-radius: var(--radius-36) var(--radius-36) 0 0;
+  }
+  .DocsWordmark {
+    font: 700 var(--font-size-21)/1 var(--font-sans);
+    letter-spacing: -0.04em;
+  }
+  .DocsCredits {
+    margin-top: 4rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+    font-size: var(--font-size-13);
+    color: var(--gray-t1);
+  }
+  .DocsCredits a {
+    text-decoration: underline;
+  }
 }

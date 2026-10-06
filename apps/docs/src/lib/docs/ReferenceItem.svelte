@@ -7,8 +7,7 @@
     label,
     trigger,
     children,
-  }: { id: string; label: string; trigger?: Snippet; children?: Snippet } =
-    $props();
+  }: { id: string; label: string; trigger?: Snippet; children?: Snippet } = $props();
   let detailsRef: HTMLDetailsElement;
   let open = $state(false);
   onMount(() => {

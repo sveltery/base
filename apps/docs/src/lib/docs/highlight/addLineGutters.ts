@@ -3,12 +3,7 @@
 
 import { createFrame } from './createFrame.js';
 import { hasClassName, isFrameSpan } from './isFrameSpan.js';
-import type {
-  HastRoot,
-  HastNode,
-  HastElement,
-  HastElementContent,
-} from './types.js';
+import type { HastRoot, HastNode, HastElement, HastElementContent } from './types.js';
 
 /**
  * Counts the number of lines in a HAST tree without mutating it.
@@ -48,11 +43,7 @@ export function countLines(tree: HastRoot): number {
   }
   return lineNumber;
 }
-export function starryNightGutter(
-  tree: HastRoot,
-  sourceLines?: string[],
-  frameSize = 120,
-): void {
+export function starryNightGutter(tree: HastRoot, sourceLines?: string[], frameSize = 120): void {
   const replacement: HastNode[] = [];
   const search = /\r?\n|\r/g;
   let index = -1;
@@ -163,11 +154,7 @@ export function starryNightGutter(
     const lastIndex = replacement.length - 1;
     for (let frameIndex = 0; frameIndex < replacement.length; frameIndex += 1) {
       const frame = replacement[frameIndex];
-      if (
-        frame.type === 'element' &&
-        frame.tagName === 'span' &&
-        isFrameSpan(frame)
-      ) {
+      if (frame.type === 'element' && frame.tagName === 'span' && isFrameSpan(frame)) {
         // Extract line range from child .line elements
         const lineChildren = frame.children.filter(
           (c): c is HastElement =>
@@ -177,9 +164,7 @@ export function starryNightGutter(
         );
         if (lineChildren.length > 0) {
           const startLine = Number(lineChildren[0].properties.dataLn) - 1;
-          const endLine = Number(
-            lineChildren[lineChildren.length - 1].properties.dataLn,
-          );
+          const endLine = Number(lineChildren[lineChildren.length - 1].properties.dataLn);
           const joined = sourceLines.slice(startLine, endLine).join('\n');
           // Non-final frames are always followed by more content, so their text
           // ends with the line separator. The final frame's text ends with a
@@ -191,10 +176,7 @@ export function starryNightGutter(
           // height as the highlighted render (no hydration jump) AND makes the
           // root fallback dictionary an exact match for the raw source text.
           const sourceEndsWithNewline = sourceLines.length > lineNumber;
-          const text =
-            frameIndex < lastIndex || sourceEndsWithNewline
-              ? `${joined}\n`
-              : joined;
+          const text = frameIndex < lastIndex || sourceEndsWithNewline ? `${joined}\n` : joined;
           // Cast to `ElementData` because `hast-util-from-parse5` augments
           // it with a required `position` field (upstream bug — should be
           // optional). We're not running through that parser here, so the

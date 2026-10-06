@@ -93,7 +93,7 @@ void [Button, mergeProps, select];
 import { useClick as PublicUseClick } from '@sveltery/base';
 void PublicUseClick;
 TS
-node packages/base/node_modules/typescript/bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler "$consumer_dir/types.ts"
+node packages/base/node_modules/typescript/bin/tsc --noEmit --strict --skipLibCheck false --target ES2022 --module ESNext --moduleResolution Bundler "$consumer_dir/types.ts"
 cat > "$consumer_dir/consumer.test.ts" <<'TS'
 import { expect, it } from 'vitest';
 import { mount, tick, unmount } from 'svelte';

@@ -24,9 +24,7 @@ const BASE_CAPABILITIES: LanguageCapabilities = {
  * no separate `source.jsx` scope. MDX is treated as JS+TS+JSX because it
  * embeds TypeScript JSX.
  */
-export function getLanguageCapabilitiesFromScope(
-  grammarScope: string,
-): LanguageCapabilities {
+export function getLanguageCapabilitiesFromScope(grammarScope: string): LanguageCapabilities {
   switch (grammarScope) {
     case 'source.js':
       return {

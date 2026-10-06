@@ -1,0 +1,85 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "supplementaryAssertionCredit": 0,
+  "status": "Observed wrong supplemental jsdom expectation; strict types and SSR passed before hydration failed. Repaired execution and secured installed browser remain pending.",
+  "failure": {
+    "actual": null,
+    "expected": "-1",
+    "stage": "retained real installed consumer hydration after opening controlled nested Panel\u2192Viewport sample"
+  },
+  "trace": "Pinned ScrollAreaViewport props compute tabIndex hidden-x-and-y ? -1 : 0, then useRenderElement merges [props, elementProps]. Native canonical Viewport preserves that internal branch and mergeComponentProps merges [internalProps, elementProps] before each part\u2019s intrinsic/snippet rendering. Actual docs forwards Panel props into Viewport, forwards children, applies closed lowercase tabindex:undefined and renders the merged native props directly. A source internal default is not the final DOM attribute through this composition. Executed jsdom observed absent tabindex after open; do not infer -1 from zero geometry. Retain measured absence in this supplement; no native runtime change, React attribute emulation or browser geometry claim.",
+  "files": [
+    {
+      "path": ".checks/stages/strict-docs-consumer.log",
+      "sha256": "90674dda1fb2777623ee7ec7ee48906d6d6d58ca7bc3651da087ab17e59745ad",
+      "bytes": 17485,
+      "archive": "strict-consumer-hydration-tabindex-predecessor-2026-10-06-0.gz",
+      "archiveSha256": "08fd35e9112ab020658e2f058e74abc068f30c8eca64d7d97718e521ea0a7354",
+      "archiveBytes": 2831
+    },
+    {
+      "path": "scripts/check-docs-package.sh",
+      "sha256": "0a1f5189dae6d843ad3ca5c313e369acd49f59cda4292c368827ab0997046100",
+      "bytes": 12929,
+      "archive": "strict-consumer-hydration-tabindex-predecessor-2026-10-06-1.gz",
+      "archiveSha256": "71d6d0babfb4eaa748ae554e783396b13650cc0b808c2b8b0d684ba164336b3e",
+      "archiveBytes": 4169
+    },
+    {
+      "path": ".checks/docs-package/tmp/sveltery-docs-consumer.20rTh0/dom.mjs",
+      "sha256": "e38c1bb704564375655c74a6d8891df45a0bf04b7e664112731151f9be798d69",
+      "bytes": 3342,
+      "archive": "strict-consumer-hydration-tabindex-predecessor-2026-10-06-2.gz",
+      "archiveSha256": "019303192ad72501ec1c58f232f61d919ad5675695803a675d9be526bf3443c5",
+      "archiveBytes": 1203
+    },
+    {
+      "path": ".checks/docs-package/tmp/sveltery-docs-consumer.20rTh0/Consumer.svelte",
+      "sha256": "31a955fad065c25896c4079d7e60d2b0edb8d3bc3e1729a3adb11c371a96f742",
+      "bytes": 1583,
+      "archive": "strict-consumer-hydration-tabindex-predecessor-2026-10-06-3.gz",
+      "archiveSha256": "3a3c94d0c60c141f4b7476377ca6d0e4ce4611341ed04fc1d184f37686761166",
+      "archiveBytes": 627
+    },
+    {
+      "path": "packages/base/src/lib/scroll-area/viewport/ScrollAreaViewport.svelte",
+      "sha256": "683dde25325e0c67c391d05484838267955764632bd096544ab9825aca1f28c2",
+      "bytes": 16298,
+      "archive": "strict-consumer-hydration-tabindex-predecessor-2026-10-06-4.gz",
+      "archiveSha256": "9c21f48a0ffef423a3a599b09502d5b64399e7cadd42153a73a0c389f1ffadb3",
+      "archiveBytes": 4946
+    },
+    {
+      "path": "parity/scroll-area/upstream/packages/react/src/scroll-area/viewport/ScrollAreaViewport.tsx",
+      "sha256": "2de647b48d3863d681fb319b62528df01068a1342ea5986100302492323c7932",
+      "bytes": 17542,
+      "archive": "strict-consumer-hydration-tabindex-predecessor-2026-10-06-5.gz",
+      "archiveSha256": "d00786a75cc73459803050b2a97992bea8f746cdd45548c2e67c5494d1c57736",
+      "archiveBytes": 5320
+    },
+    {
+      "path": "apps/docs/src/lib/docs/DemoCodeBlock.svelte",
+      "sha256": "6e649d96655535c9bf91233ea5981908457b8a39e907f99aecc2ad2af72ef5c0",
+      "bytes": 4122,
+      "archive": "strict-consumer-hydration-tabindex-predecessor-2026-10-06-6.gz",
+      "archiveSha256": "175fc1715c3c6570e128d2b79cf16034ec98277bc8145af352909aa8bebeb986",
+      "archiveBytes": 1386
+    },
+    {
+      "path": "packages/base/src/lib/internals/mergeComponentProps.ts",
+      "sha256": "803da5cb2c52515e1e68e16b66b61060c31ca03d183bb09d928b601bbb70cab7",
+      "bytes": 1842,
+      "archive": "strict-consumer-hydration-tabindex-predecessor-2026-10-06-7.gz",
+      "archiveSha256": "dda347beba35c946c8248f687da6ab07346a8712a173900d7cec1290eec15ec8",
+      "archiveBytes": 745
+    },
+    {
+      "path": "packages/base/src/lib/merge-props/mergeProps.ts",
+      "sha256": "b2c30a6df68fe9744f250f0d0b8e21d89de133146724efd6eed7cea0fce0f8b9",
+      "bytes": 10590,
+      "archive": "strict-consumer-hydration-tabindex-predecessor-2026-10-06-8.gz",
+      "archiveSha256": "4c8bdcc86941ef3260c9a17cf0ba3f834396afeb803cec3f47980cbb3d87732c",
+      "archiveBytes": 3163
+    }
+  ]
+}

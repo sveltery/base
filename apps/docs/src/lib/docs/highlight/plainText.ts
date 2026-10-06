@@ -16,6 +16,5 @@ function createPlainTextRoot(source: string): HastRoot {
   return root;
 }
 
-export const parsePlainText: ParseSource = (source) =>
-  createPlainTextRoot(source);
+export const parsePlainText: ParseSource = (source) => createPlainTextRoot(source);
 export { createPlainTextRoot };

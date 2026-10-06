@@ -25,9 +25,7 @@
     if (ref && active) {
       const scrollMargin = (SCROLL_MARGIN * rem) / 16;
       const headerHeight = (HEADER_HEIGHT_DESKTOP * rem) / 16;
-      const viewport = document.querySelector<HTMLElement>(
-        '[data-side-nav-viewport]',
-      );
+      const viewport = document.querySelector<HTMLElement>('[data-side-nav-viewport]');
       if (!viewport) return;
       scrollIntoView(ref, {
         block: 'nearest',
@@ -36,10 +34,7 @@
         behavior: (actions) =>
           actions.forEach(({ top }) => {
             const dir = viewport.scrollTop > top ? -1 : 1;
-            const offset = Math.max(
-              0,
-              headerHeight - Math.max(0, window.scrollY),
-            );
+            const offset = Math.max(0, headerHeight - Math.max(0, window.scrollY));
             viewport.scrollTop = top + offset + scrollMargin * dir;
           }),
       });
@@ -54,8 +49,7 @@
     {href}
     aria-current={active ? 'page' : undefined}
     data-active={active || undefined}
-    onclick={active
-      ? () => window.scrollTo({ top: 0, behavior: 'smooth' })
-      : undefined}>{@render children?.()}</a
+    onclick={active ? () => window.scrollTo({ top: 0, behavior: 'smooth' }) : undefined}
+    >{@render children?.()}</a
   >
 </li>

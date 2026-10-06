@@ -1,0 +1,353 @@
+{
+  "status": "candidate diagnostic observations; no final-head acceptance",
+  "baseUiPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "integratedMain": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+  "node": "24.19.0",
+  "pnpm": "12.6.0",
+  "localHeavyWorkers": 1,
+  "maximumHeapMiB": 2048,
+  "completed": [
+    "script regressions:81 initial passes +5 unchanged absolute-Node passes; initial5environment failures preserved",
+    "Utils9 + Base226 server tests",
+    "Utils8 + Base1796 DOM tests",
+    "fixture typecheck0errors0warnings and staticbuild",
+    "runtime React/Kit boundary",
+    "maintained dual tarball package consumers; strict scoped Collapsible/useClick declarations and negatives",
+    "docs4parser/query regressions and1mounted lifetime regression",
+    "docs static18page build",
+    "strict docs declaration check0errors0warnings after direct Node24 typings pin;142 predecessor diagnostics preserved",
+    "strict isolated docs installed declarations0errors0warnings;SSR;native jsdomhydration including SSRhostreuse",
+    "18 actualHTTP routes/sectionIDs and source/servednotices/font/OFL byte equality",
+    "full Prettier check and split full-scope ESLint; affected finalscopedlint",
+    "typed body audit12unchanged +1exact class transform;250localmodulegraph725edges0unresolved"
+  ],
+  "incomplete": [
+    "aggregate standards process killed137; identical scopes completed sequentially",
+    "verify script5toolchain process.execPath failures; unchanged targeted5passedabsoluteNode; carried allremainingstagescompleted",
+    "initial fixture check1024MiB OOM134; samecheckpassed2048MiB",
+    "official Chromium archive truncated; HTTP3 + installed1declaredbrowsertests failbefore assertions dueabsentofficialexecutable;0securedbrowserassertionscredited",
+    "entireclosure acceptance waitsPR73nativeProps empty-style transport and separate Button/Transitionrepresentationowners",
+    "accepted main integration/fresh stable pushedhead independentclosure review/finalhostedCI pending"
+  ],
+  "supplementaryUnchangedAssertionCredit": 0,
+  "files": [
+    {
+      "source": "stages/dependency-doc-format.log",
+      "archive": "stages--dependency-doc-format.log.gz",
+      "originalSha256": "6210bdf9f2820aad548cb904ae7d1a516847a774905305fb147b0257d197b518",
+      "bytes": 100,
+      "archiveSha256": "820ceadaaac827044b7af84d98d6269c85dfdd7275416ecab9ef0a8a7dea55a1"
+    },
+    {
+      "source": "stages/docs-build.log",
+      "archive": "stages--docs-build.log.gz",
+      "originalSha256": "a9741ccca167b11c67f248be8f4fe31bf03f9eb87ff701952ab737a1ba3258a6",
+      "bytes": 8946,
+      "archiveSha256": "239632fe46acc47cde4b636facafd93a57028f4373d39fcdcb585cec56dea326"
+    },
+    {
+      "source": "stages/docs-dom.log",
+      "archive": "stages--docs-dom.log.gz",
+      "originalSha256": "637641010370e7360f64510d7f44ac67d10442bc37592e64d6da7313dde3b5dc",
+      "bytes": 664,
+      "archiveSha256": "22416a5b1c6c3267e5ab0cbd1c51d25407c6e5b642b05bca75939be965fa7dfd"
+    },
+    {
+      "source": "stages/docs-format-repair.log",
+      "archive": "stages--docs-format-repair.log.gz",
+      "originalSha256": "a05a2bf6562207d3024748544080c5138424524623d357be80bc6d98897a2eae",
+      "bytes": 76,
+      "archiveSha256": "44de6a1a97ccf071fc9278a4a8b6c8b7ab3f03dda4a66a410c008ecc0a0f9c74"
+    },
+    {
+      "source": "stages/docs-tests.log",
+      "archive": "stages--docs-tests.log.gz",
+      "originalSha256": "34291d7aad7c904dcd118409e5f275491fd97ddcb154cd21658971467c133852",
+      "bytes": 527,
+      "archiveSha256": "860a2d784c388031b3e38aa298897375c53f2647da04a6f65f81d79b80648653"
+    },
+    {
+      "source": "stages/dom-tests.log",
+      "archive": "stages--dom-tests.log.gz",
+      "originalSha256": "bc52eef9d94dd7f382564c8185557a723b77ce437a753d1ad92c77fdbd279190",
+      "bytes": 2755,
+      "archiveSha256": "446d817345d673aefa88b85f6e3c3c0347c053c59a35abc7126f9117b5c92b3e"
+    },
+    {
+      "source": "stages/final-format-closed.log",
+      "archive": "stages--final-format-closed.log.gz",
+      "originalSha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20",
+      "bytes": 66,
+      "archiveSha256": "710c63d8d40d5688a62c3b08053dd1971c4e4ee87b2297f3f20c2540d22cd94e"
+    },
+    {
+      "source": "stages/final-format-repaired.log",
+      "archive": "stages--final-format-repaired.log.gz",
+      "originalSha256": "18093526f620cbb87959710416520012fbcfda222834f6bbde9d474546c725a0",
+      "bytes": 200,
+      "archiveSha256": "7b55675fcce9d14da4f8856f6787e0bc87bf193860eab0cd394e1d96a4d044f7"
+    },
+    {
+      "source": "stages/final-format.log",
+      "archive": "stages--final-format.log.gz",
+      "originalSha256": "4a05b01084a61d4e3910d6a39fe6b7541de959000a8f63fe62edb6a6573a2d12",
+      "bytes": 178,
+      "archiveSha256": "72d5f13687ebc5012aba771e45026947087591733272c6fe16fad25635bdb6d6"
+    },
+    {
+      "source": "stages/final-scoped-lint.log",
+      "archive": "stages--final-scoped-lint.log.gz",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "archiveSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "source": "stages/fixture-build.log",
+      "archive": "stages--fixture-build.log.gz",
+      "originalSha256": "7f3986f8c468cd9b595174fff46bf01159a3061f7dd0fec0694f33981cd9028b",
+      "bytes": 350222,
+      "archiveSha256": "814e6741729ee94b810b61916102374ebb66778c1e51e30ce0282728f08bf198"
+    },
+    {
+      "source": "stages/fixture-check.log",
+      "archive": "stages--fixture-check.log.gz",
+      "originalSha256": "44bed7ca53c574773b95c2dd55aa2bcf04a72819295c52a7037edf8315f29cf1",
+      "bytes": 232,
+      "archiveSha256": "1096d35e99609892a50f6474b860e82339c5ca8d6c5414d41f19ad4c191d4a24"
+    },
+    {
+      "source": "stages/http-docs-secured-browser.log",
+      "archive": "stages--http-docs-secured-browser.log.gz",
+      "originalSha256": "8e9ddd47057c3d71bc82e69fce242586d058a511d2b981f07dd9644d0ae877ec",
+      "bytes": 25013,
+      "archiveSha256": "78cb7750122b0a21d0b2dd7de46d61f411781911ee5765862ffdc65c2a67e27b"
+    },
+    {
+      "source": "stages/http-routes-assets-owned-server.log",
+      "archive": "stages--http-routes-assets-owned-server.log.gz",
+      "originalSha256": "afcda608f9147b3e4ba8e83b3a2263d9259f5e3ce2832295076d44e5a572a302",
+      "bytes": 88,
+      "archiveSha256": "965be177ea4e776c177856f039d042e819ab411f720dd2247190600e8db37017"
+    },
+    {
+      "source": "stages/http-routes-assets.log",
+      "archive": "stages--http-routes-assets.log.gz",
+      "originalSha256": "7d0ca07a34d6c23329656496caac0997e16ef369ebcac0700977258d15836519",
+      "bytes": 360,
+      "archiveSha256": "7a6b1e0e28af61c6eb488ed7465399f442b6f4a11d66f30e30b15fc5bb5b7764"
+    },
+    {
+      "source": "stages/installed-secured-browser-entry-repaired.log",
+      "archive": "stages--installed-secured-browser-entry-repaired.log.gz",
+      "originalSha256": "e0a2fa00999d47447fa2f4d8816ed34cdfdd6b1e122606b3db22c8c9d041a022",
+      "bytes": 3238,
+      "archiveSha256": "a5fffb7b832d7af37651e2587d886ca9eee580a3353c2f1e366f1c6416c6b0f6"
+    },
+    {
+      "source": "stages/installed-secured-browser.log",
+      "archive": "stages--installed-secured-browser.log.gz",
+      "originalSha256": "a8ebb818c98077acbb56c63d25871ac19506ba60789959630bbf52fe541ea200",
+      "bytes": 2496,
+      "archiveSha256": "e6cfef5cde16f26a037668d9db2cd0ef120760fa147adbbca97a3b65ba3078c2"
+    },
+    {
+      "source": "stages/node24-install.log",
+      "archive": "stages--node24-install.log.gz",
+      "originalSha256": "9eb51bcf0e81961abbb764d1e3de0a61e1abdba2f941605e0bfb7d6c274117ce",
+      "bytes": 266,
+      "archiveSha256": "79e8163ed75e5a98ace443b91863fd3234b624cb448de44d830ffabc5f78951b"
+    },
+    {
+      "source": "stages/node24-lock.log",
+      "archive": "stages--node24-lock.log.gz",
+      "originalSha256": "b5394a5c8e71e99be5a8213c27e3f05a6e9d94cb57e804a007c258e0b06f93c7",
+      "bytes": 263,
+      "archiveSha256": "52f603cf0ec4d1b838abb67115f9819efa5e5e0510293a74b53a6eefb24ef91b"
+    },
+    {
+      "source": "stages/package-consumers.log",
+      "archive": "stages--package-consumers.log.gz",
+      "originalSha256": "4b9d4eb2547d3edbc65b7a40b49b1fb236eb76e00fd605db3338891f22ca26c5",
+      "bytes": 6828,
+      "archiveSha256": "c5966cf6370fdbb2c2baa9316aa1ca006f5eb3d3627e945fd7ebdeb7a2882bca"
+    },
+    {
+      "source": "stages/receipt-format.log",
+      "archive": "stages--receipt-format.log.gz",
+      "originalSha256": "5b390d34b3fd47ace273f963d5dae9bead47032dec67b29beba2d67b5193414f",
+      "bytes": 91,
+      "archiveSha256": "bd7438d3b3e06fa22802d594b381eea2457425e8d5a437657f8885a84f0c73f5"
+    },
+    {
+      "source": "stages/runtime-boundary.log",
+      "archive": "stages--runtime-boundary.log.gz",
+      "originalSha256": "7eb14a3a2cac9fe7d677ef3a7519f5045bb935af2549e71f9ddf392ebb65a36d",
+      "bytes": 61,
+      "archiveSha256": "e4b850e7b6f96f57ff98b7644a3de5a259674185c74fe8bb3f6975340e97b5b2"
+    },
+    {
+      "source": "stages/runtime-tests.log",
+      "archive": "stages--runtime-tests.log.gz",
+      "originalSha256": "ad366c858f62571673563089b160c441490a9e37d316c1ef76b9a10819aa58f6",
+      "bytes": 1252,
+      "archiveSha256": "b551f72c526a91db8345b90c839575a1d2483d03afd4d327973b36cf2d7b58d5"
+    },
+    {
+      "source": "stages/strict-docs-check-node24.log",
+      "archive": "stages--strict-docs-check-node24.log.gz",
+      "originalSha256": "089889ff3b4623c183e8b4f60f820f6338833b32a3432c292f4ed80de4835784",
+      "bytes": 228,
+      "archiveSha256": "794416f3491b227b7c0ecad1ac45a5e73d625624980e581fde1c58ca4cfa01ce"
+    },
+    {
+      "source": "stages/strict-docs-check.log",
+      "archive": "stages--strict-docs-check.log.gz",
+      "originalSha256": "f666fa6eb21d2045b8a974f8f18201ad39e640b3bca6bf9f3c043c7dc5407dca",
+      "bytes": 52443,
+      "archiveSha256": "4b272b5bafe2410be83b3a41f688d302e6ac3831bd9d16c5daa8eedca9b3d430"
+    },
+    {
+      "source": "stages/strict-docs-consumer.log",
+      "archive": "stages--strict-docs-consumer.log.gz",
+      "originalSha256": "90674dda1fb2777623ee7ec7ee48906d6d6d58ca7bc3651da087ab17e59745ad",
+      "bytes": 17485,
+      "archiveSha256": "08fd35e9112ab020658e2f058e74abc068f30c8eca64d7d97718e521ea0a7354"
+    },
+    {
+      "source": "stages/strict-docs-hydration-repaired.log",
+      "archive": "stages--strict-docs-hydration-repaired.log.gz",
+      "originalSha256": "0bd341a3ad3df6efdfc655cbdfbb1be24398acf9963046d9ad581025c465d621",
+      "bytes": 145,
+      "archiveSha256": "a7bfc2fdb5e3286b3153a485f640ae251e6848cbdece408832b2017a8d8bc112"
+    },
+    {
+      "source": "stages/use-click-consumers.log",
+      "archive": "stages--use-click-consumers.log.gz",
+      "originalSha256": "b991f3d141ca3690400b36ecb83edc6444defa03ba2e207e37ac5b0dcf537bab",
+      "bytes": 851,
+      "archiveSha256": "fa34d4e522d68a10577e3888a711fe343b9f2cbecd72b4004204e9db293179a0"
+    },
+    {
+      "source": "standards-split/apps-docs.log",
+      "archive": "standards-split--apps-docs.log.gz",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "archiveSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "source": "standards-split/apps-fixtures.log",
+      "archive": "standards-split--apps-fixtures.log.gz",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "archiveSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "source": "standards-split/docs-tools.log",
+      "archive": "standards-split--docs-tools.log.gz",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "archiveSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "source": "standards-split/packages-base.log",
+      "archive": "standards-split--packages-base.log.gz",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "archiveSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "source": "standards-split/packages-utils.log",
+      "archive": "standards-split--packages-utils.log.gz",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "archiveSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "source": "standards-split/root.log",
+      "archive": "standards-split--root.log.gz",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "archiveSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "source": "standards-split/scripts.log",
+      "archive": "standards-split--scripts.log.gz",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "archiveSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "source": "standards-split/tests.log",
+      "archive": "standards-split--tests.log.gz",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "archiveSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "source": "stages/statuses",
+      "archive": "stages--statuses.gz",
+      "originalSha256": "990d666d51da3472a270bd8b694124156f50aa0e36fd7d735e9347356c399ef6",
+      "bytes": 441,
+      "archiveSha256": "64bec6193a61c3af7f518732014cc973150952da37fd7d493b089b7f299944da"
+    },
+    {
+      "source": "http/results.json",
+      "archive": "http--results.json.gz",
+      "originalSha256": "555a37dc6e5aa687509801f5ce4c8626b9c91bff1ecbc773ba31fc8a9a8e7a3e",
+      "bytes": 4236,
+      "archiveSha256": "a6e2c5e15d6923f1836a4689244b5f69bb99dc32de5c26ad7afe551a9b605559"
+    },
+    {
+      "source": "http/check.mjs",
+      "archive": "http--check.mjs.gz",
+      "originalSha256": "7a8141444fd448c2239c9c766ac11cef6cb0cb73efe3627207b38397d0ca6096",
+      "bytes": 1862,
+      "archiveSha256": "1e5175d2ad0e1be1accead13b05521990cd108e05bf5b83e97a32a3017fef2c0"
+    },
+    {
+      "source": "http/run.mjs",
+      "archive": "http--run.mjs.gz",
+      "originalSha256": "a976a3bcac3f7153c2f605b58df48121f30c3ea6f0240d5439bc9447d3773b0a",
+      "bytes": 866,
+      "archiveSha256": "759f8e6d854dd21ee7df1fe2af0e930b319e17ac729157a832148cdf2cb7b22c"
+    },
+    {
+      "source": "http/server.log",
+      "archive": "http--server.log.gz",
+      "originalSha256": "5df278c164e60a29d422fa3c55256a0d29a30ed9ce56851a96894c5efc4b9aee",
+      "bytes": 741,
+      "archiveSha256": "57e4db801df6a894afa5697fac61f21b3ff7a29aa1b45c7e4c1ff7158e50181a"
+    },
+    {
+      "source": "docs-package/installed-artifacts.json",
+      "archive": "docs-package--installed-artifacts.json.gz",
+      "originalSha256": "a89eab0c49de0eff70e6e9f13f7a743526c766dd392af4f7cd704921be35f104",
+      "bytes": 16697,
+      "archiveSha256": "0a6913ea0d821a3a17ed74db3bb8c64931ac00d91a63f67377c5422f796e9e6a"
+    },
+    {
+      "source": "stages/closeout-format-check.log",
+      "archive": "stages--closeout-format-check.log.gz",
+      "originalSha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20",
+      "bytes": 66,
+      "archiveSha256": "710c63d8d40d5688a62c3b08053dd1971c4e4ee87b2297f3f20c2540d22cd94e"
+    },
+    {
+      "source": "stages/closeout-body-audit.log",
+      "archive": "stages--closeout-body-audit.log.gz",
+      "originalSha256": "75de75872f34830172047e18c80083998187ee48f98e7a4a977ca90a1b285e1a",
+      "bytes": 129,
+      "archiveSha256": "c04a1f93cc79ac0c9ae57466e0ba80ec6744cbb8cdebafe23939cc0373b77b3c"
+    },
+    {
+      "source": "stages/closeout-closure-audit.log",
+      "archive": "stages--closeout-closure-audit.log.gz",
+      "originalSha256": "dc74d629005109247bd3dba0123159d9773965905adf8221d321500669c2df6a",
+      "bytes": 67,
+      "archiveSha256": "a8bd8ac90f8b1b59e5997a8ea96199aca62e4a9e618ae8a1276b210f34720ad8"
+    }
+  ],
+  "warnings": [
+    "Workspace Base source check retained 6 existing Svelte fixture warnings in 3 files; docs and fixture application checks0warnings."
+  ]
+}

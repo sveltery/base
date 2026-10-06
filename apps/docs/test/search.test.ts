@@ -10,17 +10,15 @@ registerHooks({
     if (
       specifier.startsWith('.') &&
       specifier.endsWith('.js') &&
-      context.parentURL?.startsWith(
-        new URL('../src/lib/docs/', import.meta.url).href,
-      )
+      context.parentURL?.startsWith(new URL('../src/lib/docs/', import.meta.url).href)
     )
       return nextResolve(specifier.slice(0, -3) + '.ts', context);
     return nextResolve(specifier, context);
   },
 });
-const { createSearchEngine } = await import('../src/lib/docs/search/engine.ts');
+const { SearchEngine } = await import('../src/lib/docs/search/engine.ts');
 test('actual native declaration metadata supports nonempty Source QPS queries', async () => {
-  const engine = createSearchEngine({
+  const engine = new SearchEngine({
     sitemap: () => import('../src/lib/docs/search/sitemap.ts'),
     tolerance: 0,
     includeCategoryInGroup: true,

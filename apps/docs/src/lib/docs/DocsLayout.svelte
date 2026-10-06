@@ -10,9 +10,7 @@
   import './styles.css';
   let { children } = $props();
   const current = $derived(
-    docs.find(
-      (doc) => doc.slug === (page.params.slug ?? '').replace(/\/$/, ''),
-    ),
+    docs.find((doc) => doc.slug === (page.params.slug ?? '').replace(/\/$/, '')),
   );
 </script>
 
@@ -29,14 +27,11 @@
               <footer class="DocsCredits">
                 <p>Experimental · unpublished. Independent & unofficial.</p>
                 <p>
-                  Documentation interface adapted from <a
-                    href="https://base-ui.com/">Base UI</a
-                  >; original project also inspired by
+                  Documentation interface adapted from <a href="https://base-ui.com/">Base UI</a>;
+                  original project also inspired by
                   <a href="https://ui.shadcn.com/docs">shadcn/ui</a>.
                 </p>
-                <a href={resolve('/docs/[...slug]', { slug: 'about' })}
-                  >Credits & licenses</a
-                >
+                <a href={resolve('/docs/[...slug]', { slug: 'about' })}>Credits & licenses</a>
               </footer>
             </div>
           </div>

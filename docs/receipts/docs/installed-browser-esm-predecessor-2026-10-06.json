@@ -1,0 +1,64 @@
+{
+  "status": "Actual installed secured-browser harness fails before test assertions: generated ESM config imports named defineConfig from official package CommonJS require entry. Exact failure retained; repaired browser acceptance pending.",
+  "supplementaryAssertionCredit": 0,
+  "failure": "Named export defineConfig not found in official @playwright/test/index.js CommonJS entry",
+  "repair": "Resolve exact pinned official @playwright/test package.json and follow exports[.].import to index.mjs for generated config and test; retain official browser and all gates.",
+  "files": [
+    {
+      "path": ".checks/stages/installed-secured-browser.log",
+      "sha256": "a8ebb818c98077acbb56c63d25871ac19506ba60789959630bbf52fe541ea200",
+      "bytes": 2496,
+      "archive": "installed-browser-esm-predecessor-2026-10-06-0.gz",
+      "archiveSha256": "e6cfef5cde16f26a037668d9db2cd0ef120760fa147adbbca97a3b65ba3078c2",
+      "archiveBytes": 744
+    },
+    {
+      "path": "scripts/check-docs-browser-package.sh",
+      "sha256": "976d30dfefa783975fff81e04bb99484b75a2f5b26738b8a00de7a3852e30cca",
+      "bytes": 6348,
+      "archive": "installed-browser-esm-predecessor-2026-10-06-1.gz",
+      "archiveSha256": "5d70cd80447ce01b0659314013b15058652f9e68df9de4b715dd3b114bce6ebb",
+      "archiveBytes": 2228
+    },
+    {
+      "path": ".checks/docs-package/tmp/sveltery-docs-consumer.20rTh0/playwright.config.mjs",
+      "sha256": "45937fbd2ad7787123ac02fb8ca3d2f64995c21461f8c19bef5b14942debb455",
+      "bytes": 1054,
+      "archive": "installed-browser-esm-predecessor-2026-10-06-2.gz",
+      "archiveSha256": "73808353800106f7389a6775e3435430ef5ac540975bb53ef343660ee36da795",
+      "archiveBytes": 550
+    },
+    {
+      "path": ".checks/docs-package/tmp/sveltery-docs-consumer.20rTh0/docs-installed.spec.mjs",
+      "sha256": "ec657084dd7a356aff58efee58bc28fad7e2a4e48e639f52073758ec559ecf3c",
+      "bytes": 2452,
+      "archive": "installed-browser-esm-predecessor-2026-10-06-3.gz",
+      "archiveSha256": "907e2dc6659c09c92419025e8acca48693d263e30a315d0a14236471f28d5bf1",
+      "archiveBytes": 815
+    },
+    {
+      "path": ".checks/docs-package/tmp/sveltery-docs-consumer.20rTh0/vite.config.mjs",
+      "sha256": "16b42226b50bba97051b8de935258fd5293e5ba4c107e1968c6dd447c4b3d154",
+      "bytes": 501,
+      "archive": "installed-browser-esm-predecessor-2026-10-06-4.gz",
+      "archiveSha256": "266fbfb5bda2aa38b332917ebddb8e3a7b67bceefd872b1b151459234a01abf8",
+      "archiveBytes": 335
+    },
+    {
+      "path": ".checks/docs-package/tmp/sveltery-docs-consumer.20rTh0/browser-entry.js",
+      "sha256": "27153d4728c6eb2d9f116a814364624de6c433e50f0f1b353ca34a21cce90f50",
+      "bytes": 424,
+      "archive": "installed-browser-esm-predecessor-2026-10-06-5.gz",
+      "archiveSha256": "8b1a9376b5b2814294fa816ffd944682ff4c2b909cbdfb29449f10ce3cbd97f0",
+      "archiveBytes": 218
+    },
+    {
+      "path": "node_modules/@playwright/test/package.json",
+      "sha256": "5587f932b8979b6889654b60e3c28aeb7ca0abbac00eec8c176c939a16149536",
+      "bytes": 754,
+      "archive": "installed-browser-esm-predecessor-2026-10-06-6.gz",
+      "archiveSha256": "5244818cdf946a176dfd531a4113a6574d31b9481870b622db92c25bde08773e",
+      "archiveBytes": 364
+    }
+  ]
+}

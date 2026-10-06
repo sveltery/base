@@ -12,12 +12,7 @@ import { execFileSync } from 'node:child_process';
 execFileSync(
   process.execPath,
   [
-    fileURLToPath(
-      new URL(
-        '../fixtures/node_modules/@sveltejs/kit/svelte-kit.js',
-        import.meta.url,
-      ),
-    ),
+    fileURLToPath(new URL('../fixtures/node_modules/@sveltejs/kit/svelte-kit.js', import.meta.url)),
     'sync',
   ],
   {

@@ -1,10 +1,5 @@
 // Published @mui/internal-docs-infra 0.12.1-canary.42 pipeline; MIT, copyright 2019 Material-UI SAS.
-import type {
-  HastElement,
-  HastElementContent,
-  FrameType,
-  FrameTruncated,
-} from './types.js';
+import type { HastElement, HastElementContent, FrameType, FrameTruncated } from './types.js';
 /**
  * Creates a HAST frame element (`span.frame`) with the given children and optional metadata.
  *
